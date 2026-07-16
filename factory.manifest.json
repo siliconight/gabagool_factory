@@ -1,0 +1,55 @@
+{
+  "schema": "gabagool.factory.manifest.v1",
+  "factory_version": "1.0.0",
+  "description": "The certified lockstep set: these tool versions were verified TOGETHER (walkabout + headless fixture gates + LF fast suite, 2026-07-15). Tools stay standalone repos with their own semver; this manifest pins the combination. Check with: level-factory verify-manifest --factory <this dir>.",
+  "tools": {
+    "deli_counter": {
+      "version": "0.75.0",
+      "tag": "v0.75.0",
+      "repo": "siliconight/deli_counter"
+    },
+    "dispatch": {
+      "version": "0.3.0",
+      "tag": "v0.3.0",
+      "repo": "siliconight/dispatch"
+    },
+    "laser_tag": {
+      "version": "unpinned",
+      "path": "lasertag",
+      "repo": "siliconight/lasertag",
+      "note": "no VERSION source yet - reports UNKNOWN by design"
+    },
+    "level_factory": {
+      "version": "0.9.0",
+      "tag": "v0.9.0",
+      "repo": "siliconight/level-factory"
+    },
+    "lot": {
+      "version": "0.18.0",
+      "tag": "v0.18.0",
+      "repo": "siliconight/lot"
+    },
+    "lux": {
+      "version": "0.15.2",
+      "tag": "v0.15.2",
+      "repo": "siliconight/lux"
+    },
+    "patina": {
+      "version": "0.18.0",
+      "tag": "v0.18.0",
+      "repo": "siliconight/patina",
+      "note": "repo VERSION file is currently EMPTY - write 'Patina 0.18.0' into it or this reports UNKNOWN"
+    },
+    "pixelcoat": {
+      "version": "0.9.0",
+      "tag": "v0.9.0",
+      "repo": "siliconight/pixelcoat",
+      "note": "version lives in pixelcoat/version.py - add a root VERSION file or this reports UNKNOWN"
+    },
+    "zoo": {
+      "version": "0.30.1",
+      "tag": "v0.30.1",
+      "repo": "siliconight/zoo"
+    }
+  }
+}
