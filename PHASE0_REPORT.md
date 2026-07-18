@@ -1,3 +1,27 @@
+# Phase 0 — CLOSED (2026-07-18)
+
+**The engine leg is green.** All four Godot gates now PASS on the user's
+hardware (Godot 4.7 stable, Windows), closing Production Package §19 Phase 0
+in full:
+
+| Engine gate | Result | Evidence |
+|---|---|---|
+| Godot import / round-trip engine leg | **PASS** | `deli_counter/build/pvp_station_ref.godot_import.json` |
+| Navmesh gate (bake + stair + markers) | **PASS** (207 polys, stair connected, 2/2 markers) | `deli_counter/build/pvp_station_ref.navgate.json` |
+| Runtime walktest (reference pvp site) | **PASS** — 15/15 path proofs (2 classified vertical/ladder), 4 players 8/8 targets (~326 m each), 12/12 bots | `_runs/ref_pvp_proj/ref_pvp_site_navqa.walktest.json` |
+| Multiplayer smoke (4 players) | **PASS** — 3/3 clients connected, moved 5.4–24.3 m, clean teardown | `_runs/ref_pvp_proj/ref_pvp_site.mp_smoke.json` |
+
+The 24-round shakedown produced one **shipped-defect discovery** (every
+single-story cut_slabs stair discharged into a walk-off void — fixed in the
+generator, `deli_counter` 0.79.0), the **agent contract** (single source of
+truth for character metrics and derived clearances, `AGENT_CONTRACT.md`),
+and a hardened QA harness whose failure modes are now documented in the two
+repos' changelogs. Certified set: **factory 1.1.0** (deli_counter 0.79.0,
+lot 0.19.0, pipeline 0.1.1). Reference registry records stamped `pass` on
+all engine-gate fields; registries coherent.
+
+---
+
 # Phase 0 — Validation Foundation: Delivery Report
 
 **Date:** 2026-07-17 · **Scope:** Production Package §19 Phase 0, sandbox-runnable items (0.1–0.9, 0.11). Engine-leg items (0.10) are specified and stubbed but require a Godot 4 binary — see "What still needs your machine."

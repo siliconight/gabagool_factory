@@ -1,5 +1,26 @@
 # Engine Gates — the Godot leg of Phase 0
 
+## The handoff boundary (read this before extending any gate)
+
+This stack builds **levels for someone else's game**. The consumer takes the
+mission-shell handoff — GLB + `.gameplay.json` + markers + evidence reports,
+orchestrated end-to-end by
+[`level_factory`](https://github.com/siliconight/level_factory) — into their
+own Godot project, and THEY are the authority on the network and gameplay
+layer: replication, tick model, player controllers, weapons, AI. Our gates
+certify the ASSET, never the game:
+
+- `nav_qa_director.gd` is a disposable QA harness bot proving the baked
+  navmesh and the collision agree. It is not a player controller and must
+  never grow into one — step-up, repath, and reseat exist so the harness
+  can't false-fail a good level, not to ship movement mechanics.
+- `mp_smoke.gd` is replication-free BY CONTRACT, not by omission: it proves a
+  shell survives N peers loading it and physically moving through it at the
+  target player count. Authority models, interpolation, netcode design —
+  downstream's problem, downstream's freedom.
+- If a future gate seems to need gameplay logic, that's the signal it
+  belongs in the consumer's test suite, not here.
+
 The four gates the sandbox could not run (no Godot there). All target
 **Godot 4.7 stable**, all run headless, all write machine-readable reports
 whose results map onto the registry gate fields. Point the runners at your
