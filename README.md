@@ -1,6 +1,6 @@
 # gabagool_factory
 
-The Siliconight tool factory: nine standalone tools that build DELCO_DANGEROUS
+The Siliconight tool factory: nine standalone tools that build DD
 missions, plus the coordination layer that versions them as a SET.
 
 ## Two-layer versioning
