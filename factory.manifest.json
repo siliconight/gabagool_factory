@@ -1,18 +1,18 @@
 {
   "schema": "gabagool.factory.manifest.v1",
-  "factory_version": "1.2.0",
-  "description": "The certified lockstep set: these tool versions are verified TOGETHER (walkabout + headless fixture gates + LF fast suite + the Phase 0 engine leg on Godot 4.7 stable/Windows: import gate, nav gate, runtime walktest, 4-player multiplayer smoke). Tools stay standalone repos with their own semver; this manifest pins the combination. Check with: level-factory verify-manifest --factory <this dir>. -- 1.2.0 (2026-07-19): zoo 0.30.2 -> 0.34.0 (floor/ceiling surface species + 6 tiling material kinds) and pixelcoat 0.9.0 -> 0.10.0 (DELCO signage packs). Verified this cycle: zoo unit suite green (203 passed / 2 skipped); factory-wide bpy-in-pytest audit (only zoo/bpylayer imports bpy at module level; deli_counter + patina already guard theirs); zoo walkabout green (real Blender build at v0.34.0, 147 fixtures, LuxEmit marker contract present); pixelcoat DELCO signage packs built green at 0.10.0; LF real-tool smoke passes for the two changed tools (zoo, pixelcoat). See known_issues for three real-tool smokes that remain red in UNCHANGED adapters -- none implicate the zoo/pixelcoat bumps.",
+  "factory_version": "1.3.0",
+  "description": "The certified lockstep set: these tool versions are verified TOGETHER (walkabout + headless fixture gates + LF fast suite + the Phase 0 engine leg on Godot 4.7 stable/Windows: import gate, nav gate, runtime walktest, 4-player multiplayer smoke). Tools stay standalone repos with their own semver; this manifest pins the combination. Check with: level-factory verify-manifest --factory <this dir>. -- 1.3.0 (2026-07-19): the art/material pass lands. pixelcoat 0.10.0 -> 0.11.0 (procedural material library: voronoi_cells + wave primitives, aggregate/emissive/transparency grammars, ~23 tiling grammars + 6 textured glass + 3 opaque glass_facade, theme-library CLI + street/delco/casino/stadium/bank profiles); zoo 0.34.0 -> 0.35.0 (glass_facade kind, pack transparency import -> BSDF alpha/blend, themed glazing routing kit->build->arch); deli_counter 0.79.0 -> 0.80.0 (facade windows tag glazing=facade so hollow-shell building fronts wear opaque glass -- RESOLVES the 1.2.0 deli_counter drift known-issue); level_factory 0.10.5 -> 0.11.1 (pixelcoat stage builds the themed skins library the Zoo kit resolves from via --skins/--theme; 0.11.1 realigns the fast-suite pixelcoat stub with the new theme-library command). Verified this cycle on hardware: theme-library builds + correct (kind,theme) resolution (street/casino library_report); real Blender kit build skinned glass<-glass_circles on window geometry (13 modules, 0 failed); imported window GLB pane reads see-through in Blender 5.1 (transparency chain end-to-end); LF scheduler _publish_stable preserves <kind>_<theme>/ subdirs into the stable out/ the Zoo stage resolves from. Formal promotion gates (walkabout + LF fast/real-tool smoke) per CERTIFY.md.",
   "known_issues": [
-    "test_real_dispatch: dispatch example mission expects deli_counter/shell.gameplay.json which is not built on disk. Root cause: deli_counter repo is at git v0.80.0-1-dirty (38 uncommitted files) while VERSION/manifest pin 0.79.0 -- reconcile that drift and regenerate the export. Not a zoo/pixelcoat regression.",
+    "test_real_dispatch: the bundled dispatch example (dispatch/examples/gas_station_robbery_001) expects a prebuilt deli_counter/shell.gameplay.json on disk which is not present. The 1.2.0 root cause (deli_counter drift) is RESOLVED -- the repo is now committed + tagged at 0.80.0 -- but the bundled example artifact still needs regenerating (run the deli_counter export, or update dispatch.mission.json). dispatch unchanged this cycle; not a regression.",
     "test_real_lasertag_runner_and_invocation: staged Godot project lacks .godot/global_script_class_cache.cfg. Seed it by opening the lasertag project in Godot 4.7 once. lasertag unchanged this cycle.",
     "test_real_lux_addon_and_driver_invocation: same Godot class-cache-not-seeded issue for lux. Seed by opening the lux project in Godot 4.7 once. lux unchanged this cycle."
   ],
   "tools": {
     "deli_counter": {
-      "version": "0.79.0",
-      "tag": "v0.79.0",
+      "version": "0.80.0",
+      "tag": "v0.80.0",
       "repo": "siliconight/deli_counter",
-      "note": "installed repo is drifted to git v0.80.0-1-dirty; VERSION file + this pin remain 0.79.0. Reconcile before the next factory cut."
+      "note": "0.79.0 -> 0.80.0 this cycle: facade windows tag glazing=facade. Resolves the 1.2.0 v0.80.0-1-dirty drift note -- installed repo is now committed + tagged at 0.80.0."
     },
     "dispatch": {
       "version": "0.3.0",
@@ -26,9 +26,10 @@
       "note": "no VERSION source yet - reports UNKNOWN by design"
     },
     "level_factory": {
-      "version": "0.10.5",
-      "tag": "v0.10.5",
-      "repo": "siliconight/level-factory"
+      "version": "0.11.1",
+      "tag": "v0.11.1",
+      "repo": "siliconight/level-factory",
+      "note": "0.11.0 wired the pixelcoat theme-library stage; 0.11.1 realigned the fast-suite pixelcoat stub with it (fast suite green)."
     },
     "lot": {
       "version": "0.19.0",
@@ -52,14 +53,14 @@
       "note": "production registrar; reference records carry PASS engine gates as of factory 1.1.0"
     },
     "pixelcoat": {
-      "version": "0.10.0",
-      "tag": "v0.10.0",
+      "version": "0.11.0",
+      "tag": "v0.11.0",
       "repo": "siliconight/pixelcoat",
-      "note": "root VERSION file now present ('Pixelcoat 0.10.0')"
+      "note": "root VERSION file present ('Pixelcoat 0.11.0')"
     },
     "zoo": {
-      "version": "0.34.0",
-      "tag": "v0.34.0",
+      "version": "0.35.0",
+      "tag": "v0.35.0",
       "repo": "siliconight/zoo"
     }
   }
