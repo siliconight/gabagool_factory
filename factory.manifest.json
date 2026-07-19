@@ -1,12 +1,18 @@
 {
   "schema": "gabagool.factory.manifest.v1",
-  "factory_version": "1.1.0",
-  "description": "The certified lockstep set: these tool versions were verified TOGETHER (walkabout + headless fixture gates + LF fast suite, 2026-07-15; PLUS the Phase 0 engine leg on Godot 4.7 stable/Windows, 2026-07-18: import gate, nav gate, runtime walktest, 4-player multiplayer smoke -- all PASS on the reference pvp site). Tools stay standalone repos with their own semver; this manifest pins the combination. Check with: level-factory verify-manifest --factory <this dir>.",
+  "factory_version": "1.2.0",
+  "description": "The certified lockstep set: these tool versions are verified TOGETHER (walkabout + headless fixture gates + LF fast suite + the Phase 0 engine leg on Godot 4.7 stable/Windows: import gate, nav gate, runtime walktest, 4-player multiplayer smoke). Tools stay standalone repos with their own semver; this manifest pins the combination. Check with: level-factory verify-manifest --factory <this dir>. -- 1.2.0 (2026-07-19): zoo 0.30.2 -> 0.34.0 (floor/ceiling surface species + 6 tiling material kinds) and pixelcoat 0.9.0 -> 0.10.0 (DELCO signage packs). Verified this cycle: zoo unit suite green (203 passed / 2 skipped); factory-wide bpy-in-pytest audit (only zoo/bpylayer imports bpy at module level; deli_counter + patina already guard theirs); zoo walkabout green (real Blender build at v0.34.0, 147 fixtures, LuxEmit marker contract present); pixelcoat DELCO signage packs built green at 0.10.0; LF real-tool smoke passes for the two changed tools (zoo, pixelcoat). See known_issues for three real-tool smokes that remain red in UNCHANGED adapters -- none implicate the zoo/pixelcoat bumps.",
+  "known_issues": [
+    "test_real_dispatch: dispatch example mission expects deli_counter/shell.gameplay.json which is not built on disk. Root cause: deli_counter repo is at git v0.80.0-1-dirty (38 uncommitted files) while VERSION/manifest pin 0.79.0 -- reconcile that drift and regenerate the export. Not a zoo/pixelcoat regression.",
+    "test_real_lasertag_runner_and_invocation: staged Godot project lacks .godot/global_script_class_cache.cfg. Seed it by opening the lasertag project in Godot 4.7 once. lasertag unchanged this cycle.",
+    "test_real_lux_addon_and_driver_invocation: same Godot class-cache-not-seeded issue for lux. Seed by opening the lux project in Godot 4.7 once. lux unchanged this cycle."
+  ],
   "tools": {
     "deli_counter": {
       "version": "0.79.0",
       "tag": "v0.79.0",
-      "repo": "siliconight/deli_counter"
+      "repo": "siliconight/deli_counter",
+      "note": "installed repo is drifted to git v0.80.0-1-dirty; VERSION file + this pin remain 0.79.0. Reconcile before the next factory cut."
     },
     "dispatch": {
       "version": "0.3.0",
@@ -37,8 +43,7 @@
     "patina": {
       "version": "0.18.0",
       "tag": "v0.18.0",
-      "repo": "siliconight/patina",
-      "note": "repo VERSION file is currently EMPTY - write 'Patina 0.18.0' into it or this reports UNKNOWN"
+      "repo": "siliconight/patina"
     },
     "pipeline": {
       "version": "0.1.1",
@@ -47,14 +52,14 @@
       "note": "production registrar; reference records carry PASS engine gates as of factory 1.1.0"
     },
     "pixelcoat": {
-      "version": "0.9.0",
-      "tag": "v0.9.0",
+      "version": "0.10.0",
+      "tag": "v0.10.0",
       "repo": "siliconight/pixelcoat",
-      "note": "version lives in pixelcoat/version.py - add a root VERSION file or this reports UNKNOWN"
+      "note": "root VERSION file now present ('Pixelcoat 0.10.0')"
     },
     "zoo": {
-      "version": "0.30.2",
-      "tag": "v0.30.2",
+      "version": "0.34.0",
+      "tag": "v0.34.0",
       "repo": "siliconight/zoo"
     }
   }
