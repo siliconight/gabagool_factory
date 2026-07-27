@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://site_lux.tscn" id="1_lvl"]
+[ext_resource type="PackedScene" path="res://player_walk.tscn" id="2_ply"]
+
+[node name="Walk" type="Node3D"]
+
+[node name="Level" parent="." instance=ExtResource("1_lvl")]
+
+[node name="Player" parent="." instance=ExtResource("2_ply")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.0, 0.6, -9.0)

@@ -3,6 +3,19 @@
 The Siliconight tool factory: nine standalone tools that build DD
 missions, plus the coordination layer that versions them as a SET.
 
+## Start here
+
+**[`PIPELINE_MAP.md`](PIPELINE_MAP.md)** — what each repo does, the job DAG,
+where artifacts land, the contracts, and the traps. Read it before changing
+anything in a tool repo. It opens with the two rules everything else follows
+from: the deliverable is a level shell that must work standalone in somebody
+else's Godot project with none of these tools present, and these tools are not
+the authority on gameplay or networking.
+
+**[`PIPELINE_ROADMAP.md`](PIPELINE_ROADMAP.md)** — the current state of the
+active investigation: what is fixed, what is known-broken, and what to do next.
+The map is the standing shape; the roadmap is where the work is right now.
+
 ## Two-layer versioning
 
 **Layer 1 - each tool** is a standalone git repo with its own semver, VERSION

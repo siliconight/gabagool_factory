@@ -1,0 +1,12 @@
+; Level Factory WALK PREVIEW -- DEV ONLY, not a deliverable.
+; Wraps the drop-in content scene (site_lux.tscn) and adds a first-person player so
+; you can walk the level and make refinements. Never exported.
+config_version=5
+
+[application]
+config/features=PackedStringArray("4.7")
+config/name="category5_baie_dore_001 (rebuilt, Blue Hour) (walk preview)"
+run/main_scene="res://walk.tscn"
+
+[rendering]
+renderer/rendering_method="gl_compatibility"
