@@ -380,6 +380,35 @@ incomplete rather than wrong: `pinches()` measures cover against `rects`, and
 slabs, courtyards, paths and ladder volumes from `_outdoor_nodes` are invisible
 to it. See item 1.
 
+### Four commits that did not say what was in them
+
+Not a pipeline defect, but the same shape as the ones above and it cost a
+session's trust in its own history, so it is recorded here rather than in a
+commit message nobody will read twice.
+
+`commit_session.ps1` staged with `git add -A`. Four repos got a commit whose
+message described a README banner and whose contents did not. `dispatch` took 28
+files and ~2015 insertions of Level Factory smoke-test output — `mission.tscn`,
+GLBs, PNGs, `HANDOFF.md` — build artifacts of this pipeline committed into a
+tool repo. `deli_counter` took `stairwell.py` (+193) and a new
+`test_stair_containment.py` (+165); `pixelcoat` took a new
+`profiles/themes/rockay.json`; `patina` took its `VERSION`. Those three were
+real, wanted work that predated the session and simply had nowhere else to go.
+
+Fixed two different ways, because they were two different problems. The
+artifacts went back to untracked and `_lf_smoke_out/` went into `.gitignore`
+(`undo_smoke_out.ps1`). The source work was split — each repo's one commit
+became the README banner plus a second commit that describes the change
+(`split_swept_commits.ps1`, resumable, refuses to rewrite anything already
+pushed). Arithmetic closes on all three: 372 = 357 + 15, 29 = 17 + 12,
+13 = 1 + 12.
+
+The root cause is fixed in `commit_session.ps1`: it stages tracked
+modifications with `git add -u`, takes new files only when a caller names them
+in `-include`, and prints what it deliberately left untracked. A commit that
+does not say what is in it is worse than no commit, and the expensive part here
+was not the sweep — it was that the sweep was silent.
+
 ## What to do next
 
 **1. Cover is exonerated — the trap is somewhere else.** Closed 2026-07-27.
@@ -526,12 +555,26 @@ adapter's pre-flight owns "there is no scene here" — but that assumes the two
 run at the same moment. When they do not, the scene half of the advisory
 silently vanishes. Make "I could not read the scene" say so.
 
-**7. The certified set has drifted.** Four of seven pins no longer match disk:
-deli_counter 0.83.0 → 0.88.0, level_factory 0.10.5 → 0.13.4, lot 0.23.0 →
-0.24.0, zoo 0.31.0 → 0.32.0 — and today moved several of them further. Nothing
-running is the combination `factory.manifest.json` certifies.
-`level-factory verify-manifest` reports it in one command. The manifest's note
-claiming patina's VERSION file is empty is also stale — it reads 0.18.0.
+**7. The certified set has drifted.** Closed 2026-07-27 as **factory 1.6.0**.
+
+Five pins were stale — deli_counter 0.83.0 → 0.88.0, level_factory 0.10.5 →
+0.13.4, lot 0.23.0 → 0.24.0, pixelcoat 0.9.0 → 0.11.0, zoo 0.31.0 → 0.32.0 —
+so nothing running was the combination `factory.manifest.json` certified.
+`verify-manifest` now reports nine OK and laser_tag UNKNOWN, which is the
+designed answer for a tool with no VERSION source. The stale notes on patina
+(claiming its VERSION file is empty; it reads 0.18.0) and pixelcoat are gone.
+
+Two things the new manifest says that the old one did not. laser_tag carries a
+note explaining what *does* pin it — the Level Factory adapter hashes
+`addons/laser_tag_tool` into `fingerprint_inputs`, so an addon edit invalidates
+the cache even though no version string moves — because "UNKNOWN" on its own
+reads as unprotected. And the description states what this set was **not**
+verified by: walktest is not a DAG job yet, so playable-shell reachability is
+still checked out of band. A certification that only lists what passed invites
+the reader to assume the rest.
+
+Re-certify with `recertify.ps1`, or by hand after any tool version moves.
+Drift is the manifest working; drift left standing is the manifest lying.
 
 ### Not to be worked on
 
