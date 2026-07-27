@@ -144,8 +144,8 @@ changes. Five tests in `tests/unit/test_staging_scene_provenance.py`.
 
 ### Where the suites stand
 
-Lot 257 passed. Level Factory 445 passed, 11 skipped, 0 failures — **456
-collected**.
+Lot suite green. Level Factory 471 passed, 11 skipped, 0 failures —
+**482 collected**.
 
 State the collected total, not just the passing count. The line once read
 "433 passed, 0 failures, 11 skipped", which reads as 444 collected but meant 433
@@ -448,41 +448,70 @@ fails anyone stuck over four seconds, and involves no enemies at all. On seed
 5219 it would say in one run whether the route is pathable, instead of leaving
 it inferred from nineteen timeouts.
 
-Traced 2026-07-27. **Four edits, all located; none of them made yet.**
+**Closed 2026-07-27** as Lot 0.25.0 + Level Factory 0.15.0. All four edits made,
+plus two the trace had not seen.
 
-* `packages/pipeline/planner.py` — a `_STAGE_WALKTEST` job per candidate,
-  `adapter_id="walktest"`, `depends_on=[lot_jid]`,
-  `resource_class="godot_headless"`, expected output
-  `site_navqa.walktest.json`. (Lot's stem in this pipeline is `site`, and
-  `walktest.py` writes `<scene_stem>.walktest.json` beside the scene.)
-* `adapters/walktest/__init__.py` — new, shaped like the Laser Tag adapter:
-  stage a throwaway project with `stage_godot_project`, then run
-  `python <lot_repo>/walktest.py <project> site_navqa.tscn`. Staging only needs
-  the scene and its work-dir siblings — `walktest.py` syncs the `heist_nav_qa`
-  addon into the project itself, from the Lot checkout, so the director is
-  always the version shipped with that Lot.
-* `packages/adapters/registry.py` — one line in `build_default_registry`.
-* `apps/cli/commands/__init__.py` — this is the job-spec builder, dispatching
-  on `job.adapter_id` (~line 223 onward). Two changes: the `elif job.adapter_id
-  == "lot"` branch (~232) sets `"walkable": True` and must also set
-  `"navqa": True`, or the navqa scene is never emitted — the Lot adapter has
-  supported the flag all along and **nothing has ever set it**; and a new
-  `elif job.adapter_id == "walktest"` branch beside the `laser_tag` one
-  (~243), which is the closest working template.
+**The open question is settled: `PlannedCommand.environment` DOES reach the
+child.** `jobs/runner.run_command` builds `full_env = dict(os.environ)` and then
+`.update(env)`, so the mapping is merged over the parent environment rather than
+replacing it. The adapter passes `{"LOT_GODOT": <configured binary>}` and the
+stage works on a machine where Godot is not on PATH. No `--godot` argument was
+needed. (It does mean an absolute binary path lands in the fingerprint's
+`declared_environment` — the same way Laser Tag's Godot path already lands in
+`normalized_arguments` — so the cache is machine-specific, which is arguably
+what it should be.)
 
-**Open question before starting:** `walktest.py` finds Godot through
-`$LOT_GODOT` / `$DC_GODOT` / PATH, and it is not established that
-`PlannedCommand` can pass environment through to a child. If it cannot, either
-the runner needs an explicit `--godot` argument or the adapter needs another way
-to hand the binary over. Settle that first; it decides whether the stage works
-on a machine where Godot is not on PATH, which is the machine this runs on.
+**What the trace had not seen: `walktest.py` reports a check it never ran as a
+pass.** With no Godot 4 binary it prints SKIP and returns 0, writing no report.
+That is right for a hand-run — a developer without Godot should not have their
+build fail — and catastrophic for a pipeline stage. It is item 5 exactly,
+offered back through a runner flag, two days after item 5 was removed from the
+scheduler. The adapter passes `--require`, which turns the skip into a failure;
+no report is written and the output contract fails the job for the honest
+reason. Verified by running it both ways with PATH stripped.
 
-Worth doing `nav_gate.py` in the same pass — it answers the adjacent question
-(does the navmesh bake across stairs) and feeds the same family of registry
-fields. `ENGINE_GATES.md` describes both, plus `godot_gate.py` and
-`mp_smoke.py`, as a manual reference run whose registry fields
-(`runtime_walktest`, `godot_import`, `multiplayer_smoke_test`) are set by hand.
-These are the asset gates. They belong in the planner.
+**Second thing the trace had not seen:** the report lands beside the scene, in
+the throwaway project, not in the job's `work_dir`. Lot 0.25.0 adds
+`--report-dir` (five lines and a copy that returns None when there is nothing to
+copy, so a report that was never written cannot be papered over).
+
+The findings **warn rather than block**, behind `WALKTEST_ENFORCED = False`.
+They are built to block — reachability and closure are what this stack certifies
+about the asset, unlike a firefight grade, so a site whose objective cannot be
+reached is broken output rather than a design note — but the existing library
+has never been checked this way and promoting on day one would fail missions
+wholesale before anyone has looked at one. Same rollout as
+`deli_counter.stairwell.CONTAINMENT_ENFORCED`. **A green run does not yet mean a
+navigable candidate**; it means nothing has been promoted yet. Flipping the flag
+is its own pass, and wants a walktest of the existing library first.
+
+Adding a mandatory stage to the graybox base blocked every end-to-end and
+service test at once — correctly, since the fixture pipeline had no nav QA
+runner and a stage that cannot run must not pass. A stub `walktest.py` joins
+`tests/fixtures/repos/lot/`. It deliberately does not reproduce the real
+runner's skip path: the adapter always passes `--require`, and the skip is
+covered in Lot's own tests.
+
+Codes: `WALKTEST_LEG_UNPATHABLE`, `WALKTEST_WALKER_STUCK` (carries the
+coordinates the director records for a walker that ran out the clock),
+`WALKTEST_NAVMESH_EMPTY`, `WALKTEST_NO_SPAWNS`,
+`WALKTEST_FAILED_WITHOUT_DETAIL` (a report that says `ok=false` and itemises
+nothing reads as a pass to anything counting findings), and
+`WALKTEST_REPORT_UNREADABLE`. Seven runner tests in Lot, seventeen adapter tests
+and two planner tests in Level Factory.
+
+**Still open, and the reason to keep this item in mind:** `nav_gate.py` was
+worth doing in the same pass and was not. See below.
+
+`nav_gate.py` answers the adjacent question — does the navmesh bake across
+stairs — and feeds the same family of registry fields. `ENGINE_GATES.md`
+describes it, plus `godot_gate.py` and `mp_smoke.py`, as a manual reference run
+whose registry fields (`runtime_walktest`, `godot_import`,
+`multiplayer_smoke_test`) are set by hand. These are the asset gates and they
+belong in the planner, the same way `walktest_navqa` now does. The walktest
+adapter is the working template for all three: stage a throwaway project, run
+the tool with the flag that refuses to skip, declare the report as the expected
+output, and gate the findings behind a rollout flag until the library is clean.
 
 **3. Lot places enemies twice, and nothing checks the two agree.** `lot.py:1337`
 (the reporter) calls `site_spawns.place_enemies(site_spec, walk_pos)`;

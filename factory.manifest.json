@@ -1,7 +1,7 @@
 {
   "schema": "gabagool.factory.manifest.v1",
-  "factory_version": "1.8.0",
-  "description": "The certified lockstep set: these tool versions were verified TOGETHER. Re-certified 2026-07-27 after the guardrail relocation, the scheduler resume fix, and laser_tag becoming identifiable (0.8.0) -- the navigability guardrails that Laser Tag was being asked to enforce now live in the tools that BUILD the geometry (Lot derives cover clearance and lane pinch from the Deli Counter agent contract; Laser Tag findings are evidence, not gates). Evidence for this set: Lot 259 passed; Level Factory 445 passed / 11 skipped / 456 collected; a full category5_baie_dore_001 --art run green end to end. Inherits the Phase 4 library certification (100 configs / 36 families / 20 missions / 8 heroes; 25/25 building gates and 8/8 missions first-pass green, 2026-07-21). NOT covered by this set: walktest is not yet a DAG job, so playable-shell reachability is still verified out of band; portfolio approval still awaits the visual-score art leg.",
+  "factory_version": "1.9.0",
+  "description": "The certified lockstep set: these tool versions were verified TOGETHER. Re-certified 2026-07-27 after the guardrail relocation, the scheduler resume fix, and laser_tag becoming identifiable (0.8.0) -- the navigability guardrails that Laser Tag was being asked to enforce now live in the tools that BUILD the geometry (Lot derives cover clearance and lane pinch from the Deli Counter agent contract; Laser Tag findings are evidence, not gates). Evidence for this set: both suites green (Lot; Level Factory 471 passed / 11 skipped / 482 collected) and a full category5_baie_dore_001 --art run green end to end. Inherits the Phase 4 library certification (100 configs / 36 families / 20 missions / 8 heroes; 25/25 building gates and 8/8 missions first-pass green, 2026-07-21). walktest is now a DAG job (walktest_navqa, one per candidate), so reachability is proved inside the pipeline rather than out of band -- but its findings WARN rather than block until WALKTEST_ENFORCED is flipped, so a green run does not yet mean every candidate is navigable. NOT covered by this set: portfolio approval still awaits the visual-score art leg, and the existing library has never been walktested.",
   "tools": {
     "deli_counter": {
       "version": "0.88.0",
@@ -22,16 +22,16 @@
       "note": "pinned from 0.8.0 onward. It reported UNKNOWN until then not because the addon had no version -- plugin.cfg always declared one -- but because the repo had no root VERSION file, which is the only place verify-manifest looks. The two are mirrors and the lasertag lint job fails if they disagree. Cache invalidation still rests on content, not on this line: the Level Factory adapter hashes addons/laser_tag_tool into fingerprint_inputs, so an addon edited without a bump still invalidates."
     },
     "level_factory": {
-      "version": "0.14.1",
-      "tag": "v0.14.1",
+      "version": "0.15.0",
+      "tag": "v0.15.0",
       "repo": "siliconight/level-factory",
-      "note": "0.14.0 removed the scheduler's resume pre-skip: a re-run now dispatches every job and replays findings from the content cache instead of trusting a recorded status. Re-runs stay cheap; they no longer report a grade nothing looked at. 0.14.1 grounds laser_tag at 0.8.0 now that it publishes a version."
+      "note": "0.14.0 removed the scheduler's resume pre-skip: a re-run now dispatches every job and replays findings from the content cache instead of trusting a recorded status. Re-runs stay cheap; they no longer report a grade nothing looked at. 0.14.1 grounds laser_tag at 0.8.0 now that it publishes a version. 0.15.0 adds the walktest_navqa stage: navigability is now proved by walking rather than inferred from a firefight."
     },
     "lot": {
-      "version": "0.24.0",
-      "tag": "v0.24.0",
+      "version": "0.25.0",
+      "tag": "v0.25.0",
       "repo": "siliconight/lot",
-      "note": "cover clearance and lane pinch are derived from the Deli Counter agent contract, not hardcoded; changing agent_radius_m or cell_size_m there moves these guardrails"
+      "note": "cover clearance and lane pinch are derived from the Deli Counter agent contract, not hardcoded; changing agent_radius_m or cell_size_m there moves these guardrails 0.25.0 adds walktest.py --report-dir so Level Factory can run the nav QA against a staged project and collect the report."
     },
     "lux": {
       "version": "0.15.4",
