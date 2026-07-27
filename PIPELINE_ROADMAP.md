@@ -144,7 +144,7 @@ changes. Five tests in `tests/unit/test_staging_scene_provenance.py`.
 
 ### Where the suites stand
 
-Lot 257 passed. Level Factory 439 passed, 11 skipped, 0 failures — **450
+Lot 257 passed. Level Factory 445 passed, 11 skipped, 0 failures — **456
 collected**.
 
 State the collected total, not just the passing count. The line once read
@@ -508,46 +508,62 @@ while every artifact on disk kept its previous timestamp and the reports in
 those directories contain six findings each, including a FAIL on `TRAVERSAL`.
 `index.sqlite` advanced; nothing else did.
 
-Narrowed 2026-07-27, and the obvious explanation is wrong. **The cache-hit path
-already replays findings** — `Scheduler._attempt_job` materialises the cached
-outputs, calls `_normalize`, fails the job on any blocking issue, and returns
-the issues on the outcome. So a cache hit is not silent, and "the findings were
-dropped because it came from cache" is not the answer.
+**Closed 2026-07-27 as Level Factory 0.14.0.** It was a third path, and the two
+obvious ones were correctly eliminated first. The cache-hit path *does* replay
+findings — `_attempt_job` materialises the cached outputs, calls `_normalize`
+and returns the issues on the outcome. The execute path *does* carry them, and
+both call `_publish_stable`. Neither was the answer.
 
-**Also eliminated, same pass:** the *execute* path does not drop findings
-either. `_attempt_job` computes `issues = self._normalize(...)`, uses them for
-the blocking check, publishes, and returns `JobOutcome(job=job, issues=issues,
-artifacts=artifacts)` — findings are carried on the outcome in both the
-succeeded and the cache-hit return. And both paths call `_publish_stable`, so
-"outputs were never published" is not it either.
+The answer was the **resume pre-skip**, which runs before either path is
+reached. `Scheduler.run` opened by reading each job's status out of the index
+and, for any it found already succeeded, marking it complete without
+dispatching it:
 
-So the loss is not in the scheduler's outcome plumbing. The CLI computes its
-line from `aggregate(summary.all_issues)`, and prints
-`tag = "cache" if o.cache_hit else o.job.status.lower()` — which is how we know
-those `succeeded` lines were genuine executions rather than cache hits wearing
-a different label.
+```python
+if not force:
+    for jid, job in jobs_by_id.items():
+        existing = self.index.get_job(jid)
+        if existing and states.job_succeeded(existing.status):
+            completed.add(jid)
+            summary.outcomes.append(JobOutcome(
+                job=existing,
+                cache_hit=existing.status == states.SKIPPED_CACHE_HIT))
+```
 
-That leaves the aggregation itself, or something particular to that run's job
-set. Threads:
+That `JobOutcome` takes the default `issues=[]`. A pre-skipped job never reaches
+`_attempt_job`, so `_normalize` never runs and its findings are never replayed.
+And `cache_hit` is set only for a recorded `SKIPPED_CACHE_HIT`, so a job an
+earlier run had EXECUTED came back `cache_hit=False` and the CLI printed
+`succeeded` — which is exactly why the stage lines in that run read `succeeded`
+rather than `cache` while nothing was written. The observation that looked like
+evidence against the cache was evidence for a path nobody had looked at.
 
-* The stage lines in that run read `succeeded`, not `cache`. A cache hit sets
-  `states.SKIPPED_CACHE_HIT`, which the CLI renders as `cache` — so those jobs
-  took the *execute* path, reported success, and still wrote nothing. Either
-  the command ran and its outputs were never published, or `succeeded` is being
-  printed for a state that did not execute.
-* How `summary.all_issues` is assembled from the per-job outcomes — that is
-  the one link in the chain not yet read, and the only place left where issues
-  present on every outcome can total zero.
-* `work_dir` is `jobs/<job_id>/<attempt>/out` and `_publish_stable` HARD LINKS
-  into `jobs/<job_id>/out`, so the stable copy and the attempt copy share an
-  inode. Worth knowing before reasoning from timestamps again: those two paths
-  cannot disagree, and a run that appears to leave `out/` untouched has not
-  written its attempt dir either.
+Two things made it a lost record rather than a wrong number, and both are still
+open — see the carried list. `index.sqlite` has no findings table at all (jobs,
+artifacts, missions, meta, nothing else), so a finding exists only in the run
+that produced it. And `cmd_run` then wrote the empty `summary.all_issues` over
+`.level_factory/validation/<mission>.json` and stamped the mission `built`.
 
-Start from the run that reproduces it rather than from the code: the
-fingerprint receipt (`fingerprint.last.json`, written on every evaluation
-including cache hits) records the digest and every input hash at decision time,
-which is enough to tell a cache hit from an execution after the fact.
+**The fix is to delete the pre-skip, not to patch it.** The content cache
+already does this work and does it honestly: keyed on the build fingerprint
+rather than a recorded status, so it cannot be fooled by an upstream that moved
+underneath a stale success — the failure mode the old comment there described
+and accepted. Resume stays cheap because an unchanged stage still cache-hits
+without re-running its tool. `--force` existed only to opt out of the pre-skip,
+which means the honest behaviour was opt-in; it is now the only behaviour and
+the flag's help says so.
+
+**The test asserted the defect, and was green the whole time.**
+`test_force_reruns_already_succeeded_job` asserted `"a" not in executed` and had
+passed since the pre-skip was written. The behaviour was specified, and the
+specification said a re-run may report a grade it never looked at. That is the
+same shape as the `avg_time_to_first_contact` gate above: a measurement
+faithfully implemented against the wrong quantity. A green suite confirms the
+code matches the intent; it cannot tell you the intent was wrong. Rewritten as
+`test_a_recorded_success_is_still_dispatched` (same graph, `force` both ways,
+results asserted identical), plus six in
+`tests/unit/test_resume_replays_findings.py`. Level Factory now reads
+**445 passed, 11 skipped, 456 collected**.
 
 **6. The tactical advisory reads a scene that may not exist yet.**
 `tactical.advise_scene` treats a missing scene as silence by design — the
@@ -586,6 +602,15 @@ opening timing. Laser Tag findings of that shape are information for a human at
 candidate selection, not work items.
 
 ### Smaller, carried
+
+**Findings have nowhere to live but the run that found them.** `index.sqlite`
+has tables for jobs, artifacts, missions and meta, and none for findings, so
+nothing can answer "what did the last run say?" without re-running it. And
+`cmd_run` writes `.level_factory/validation/<mission>.json` unconditionally, so
+a run that evaluates nothing still overwrites what the last run found — it
+should write only when the run actually evaluated something. Neither caused item
+5; together they turned it from a wrong number into a destroyed record, which is
+why it survived long enough to need an investigation.
 
 `LT_MetricsCollector.record_event` zeroes `position` for `PlayerStuck` and
 `LineOfSightGained` via its trailing `_log_event(event_name, null,
