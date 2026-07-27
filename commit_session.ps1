@@ -1,14 +1,40 @@
 # Commit the 2026-07-27 pipeline-integrity work, one repo at a time.
 # Review each `git status` before it commits; nothing is pushed.
+#
+# Staging rule: this script stages tracked modifications only, plus the new
+# files a caller names. `git add -A` was used here once and swept four repos'
+# untracked work into README commits -- dispatch got 28 files of Level Factory
+# smoke-test output, and deli_counter, pixelcoat and patina each got real source
+# work committed under a message that described a README banner. A commit that
+# does not say what is in it is worse than no commit, so new files are opt-in.
 $root = "C:\Projects\gabagool_studios\gabagool_factory"
 
-function Commit-Repo($path, $message) {
+function Commit-Repo {
+  param(
+    [string]$path,
+    [string]$message,
+    [string[]]$include = @()    # new (untracked) files this commit intends
+  )
   Push-Location $path
   Write-Host "`n=== $path ===" -ForegroundColor Cyan
   git status --short
   if (-not (git status --porcelain)) { Write-Host "  (nothing to commit)"; Pop-Location; return }
-  git add -A
+
+  git add -u                                  # tracked modifications and deletions
+  foreach ($f in $include) { git add -- $f }  # named new files, nothing else
+
+  # Anything still untracked was NOT part of this commit. Say so out loud
+  # rather than letting it ride along or vanish unnoticed.
+  $left = git ls-files --others --exclude-standard
+  if ($left) {
+    Write-Host "  left untracked (not in this commit):" -ForegroundColor Yellow
+    $left | ForEach-Object { Write-Host "    $_" -ForegroundColor DarkGray }
+  }
+
+  git diff --cached --quiet
+  if ($LASTEXITCODE -eq 0) { Write-Host "  (nothing staged)"; Pop-Location; return }
   git commit -m $message | Out-Host
+  git show --stat --oneline HEAD | Select-Object -First 8
   Pop-Location
 }
 
@@ -65,7 +91,7 @@ Measure on the physics clock; publish per-side openings
   abandoning its route for cover it cannot reach.
 "@
 
-Commit-Repo $root @"
+Commit-Repo $root -include @("PIPELINE_MAP.md") -message @"
 Add PIPELINE_MAP.md: the authority boundary and the standalone contract
 
 The deliverable is a level shell that must work in someone else's Godot
@@ -88,6 +114,8 @@ guardrails upstream.
 }
 
 Write-Host "`n=== manifest lockstep ===" -ForegroundColor Cyan
-Push-Location "$root\level_factory"
+# verify-manifest resolves tool paths relative to the factory root, so the
+# factory root is the cwd it has to run from -- not level_factory.
+Push-Location $root
 python -m level_factory verify-manifest --factory $root
 Pop-Location
