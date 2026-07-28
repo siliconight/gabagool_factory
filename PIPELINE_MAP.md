@@ -309,6 +309,83 @@ it belongs in the consumer's test suite.
 (Blender, Godot, and each repo path); version/contract requirements live in
 `tools.lock.json`. Godot is pinned at 4.7, Python at >= 3.11.
 
+## Adding a check, a gate, or an instrument
+
+Read this before writing one. Nearly every defect this stack has produced has
+had the same shape, and it is not carelessness — it is that the shape is
+invisible in the moment.
+
+**A cheap observable stands in for an expensive truth, and nothing records that
+a substitution was made.** The substitution is invisible precisely because it is
+the obvious way to get the number.
+
+The roll call, all of them real and all of them cost a day or more between them:
+mtime standing in for provenance (`cater.needs_build`); a version string
+standing in for "did the code change" (the Laser Tag addon, which published
+none); a recorded job status standing in for "the outputs are current" (the
+scheduler's resume pre-skip, which reported grades it never looked at); the
+both-sides `avg_time_to_first_contact` standing in for "when did the enemy open
+fire"; a *firefight* standing in for navigability, for the entire life of the
+pipeline; `nav_gate`'s runtime GLTF load standing in for the imported scene the
+runtime actually loads; and — while hunting exactly this pattern — a
+nearest-*vertex* search standing in for `map_get_closest_point`.
+
+Four questions before you write the check:
+
+1. **What expensive truth is this standing in for?** Write the sentence. If it
+   is hard to write, the check does not know what it is for.
+2. **How does the proxy differ from the truth, and when?** Timestamps differ
+   from content inside one clock tick. A version differs from the code whenever
+   nobody bumped it. Nearest vertex differs from nearest point whenever polygons
+   are large. Name the divergence *before* running, not after.
+3. **What does the report record about how it was measured** — not just the
+   verdict? See below.
+4. **What second mechanism would disagree with this, and does a disagreement
+   produce a finding?** See below.
+
+### An instrument states what it measured, not only what it concluded
+
+`nav_gate` printed `1 shell(s) passed`. It was true, and it was a pass over a
+runtime-loaded glb where every `-colonly` node is still a MeshInstance3D — which
+is not the geometry any shipped scene contains. Had the line read *"passed:
+polygon-graph path between nav_endpoints, on a navmesh baked from
+MESH_INSTANCES over a runtime-loaded glb"*, the mismatch would have been visible
+on the first read instead of in the fifth hour.
+
+The pattern already exists here twice, and both times it turned an investigation
+into a one-command check: `fingerprint.last.json` records the digest and every
+input hash *at decision time*, and `staging.notes.json` records which file was
+staged and its hash. Generalise it. A check emits its evidence, a finding
+carries how it was measured, and a certification says what it was **not**
+verified by — which is why `factory.manifest.json`'s description now carries its
+own exclusions.
+
+### A report holds measurements; the code holds the cause
+
+`path stops 32.71 m short (disjoint islands)` is a measurement welded to a
+theory, and the theory was consumed as evidence for a day. `path ended 32.71 m
+from target snap` is a fact. The classification belongs in the finding `code`,
+never in the prose. If a `detail` string contains a *because*, it is doing two
+jobs and the second one is not checkable.
+
+### Two instruments, and disagreement is itself a finding
+
+Cover was exonerated on 2026-07-27 only because Lot reported zero pinches while
+Laser Tag counted 835 stuck events, and a human happened to look. `site_spawns`
+already states the principle — *the two agreeing costs microseconds, and the two
+disagreeing is the only class of defect the search cannot report on itself* —
+but it is applied inside one module rather than across tools.
+
+For any claim this stack certifies, there should be a second measurement by a
+different mechanism, and their divergence should be emitted automatically. A
+`nav_gate` pass alongside a `walktest` failure is the same signal as the cover
+case and nothing reports it yet.
+
+**And when two instruments do disagree, the first question is "are they
+measuring the same thing?" — not "which one is wrong?"** Hours went into the
+second question (bake parameters, source-geometry modes, agent dimensions) when
+the first was answerable in ten minutes from `nav_gate.gd`'s own comment.
+
 ## Traps worth knowing before they cost you a day
 
 *Invocation.* `python -m level_factory` from the wrong directory fails as
@@ -329,10 +406,12 @@ apart can carry the *same* stamp. `cater.needs_build` compares spec against glb
 with a strict `>`, which means a spec edited inside the same tick as the build
 finishing is judged fresh and never rebuilt. Prefer a content hash.
 
-*Version constants disagree, deliberately.* Lot reports 0.24.0 / 0.17.2 / 0.18.0
-/ 0.32.0 across `VERSION`, `lot.py`, `version.py` and CHANGELOG, and Level
-Factory 0.13.4 vs 0.13.19. Fingerprints depend on these, so they are left alone.
-Do not "fix" them casually.
+*Version constants disagree, deliberately.* Lot reports 0.26.0 / 0.17.2 /
+0.18.0 / 0.34.0 across `VERSION`, `lot.py`, `version.py` and CHANGELOG.
+Fingerprints read `VERSION`, so reconciling the set is a cache-invalidating
+change that wants its own pass. Do not "fix" them casually. Level Factory's
+resolved itself when 0.14.0 landed above its CHANGELOG's 0.13.19; all three
+sources agree there now.
 
 *Provenance sidecars recurse.* Every artifact accumulates
 `x.provenance.json.provenance.json...` nested about eleven deep in every job
