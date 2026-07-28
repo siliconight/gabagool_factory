@@ -866,31 +866,95 @@ props *should* be mountable (a bar top, a low crate) and the right answer is a
 ramp or a step, not a mask. Deli Counter owns that decision — it is the repo that
 knows which prop is cover and which is scenery.
 
-**13. One vault in four still reports off the main network, and a bigger radius
-is the wrong fix.** `seed_5320` is the one candidate of four that fails:
-`proxy_7` (the b1 vault) reaches 0 of 16, sits alone in a cluster of 1, and
-`behind_barrier` is 0 — the second-pass search found no *connected* standing room
-within `STAND_SEARCH_M` (6.0 m) of the loot. The other three seeds resolve the
-same anchor at ~3.5 m.
+**13. RETRACTED — seed 5320's vault was never broken; its walktest never ran.**
+This item said one candidate of four reported a vault anchor off the main
+network, and proposed measuring the geometry before touching the search bound.
+The measurement was worth making and the item was wrong, in the most instructive
+way available: there was nothing wrong with seed 5320.
 
-Two readings fit and they are not distinguishable from the report: either that
-vault's breach door is simply further than 6 m from where the loot sits, or that
-vault genuinely did not connect. Raising the bound would make both pass and would
-tell us which one we had. That is the substitution this file exists to refuse —
-the number would go green and the question would stay open.
+Rasterising both seeds' basements offline — cell size from the bake, blocked
+wherever a collider occupies the agent's headroom, eroded by the agent radius,
+flood-filled from the stair discharge — gives *identical* numbers: 1191.8 m²
+walkable, 594.2 m² (49.9%) reachable from the stair, nearest standing room 3.74 m
+from the loot on the sealed side, nearest **connected** standing room 3.75 m on
+the stair side. Well inside the 6 m bound. There was no geometric difference
+between the seed that failed and the three that passed.
 
-What would answer it is the geometry: read `shell.glb` for seed 5320's b1, find
-`int_-1_4`'s opening, and measure from the loot marker to the floor on the
-approach side. If it is 9 m, the bound is wrong and should be justified by
-something real — the room's own diagonal, say, which Lot knows and could emit.
-If there is no floor on the approach side, the room is broken and that is a Deli
-Counter finding. Do not touch `STAND_SEARCH_M` before that measurement exists.
+What was different is that seed 5320's `walktest_navqa` **had not run**. Its
+`fingerprint.last.json` was 7.7 hours older than the other three, and its `out/`
+still held a report from the previous director. The verdict on screen was that
+stale file being read as the current answer — by the printer I wrote, and by me.
 
-Related, and cheap: `STAND_SEARCH_M = 6.0` is a number I chose, not a ratified
-one. Every other dimension in this stack comes from `agent_contract.json`. If the
-bound survives item 13, it belongs there with the rest.
+The chain, and every link is worth keeping:
 
-### Not to be worked on
+* `LT_ROUTE_NEVER_COMPLETED` blocked seed 5320. That is Laser Tag reporting a
+  navigability fact from a firefight — on a report showing 835 player-stuck
+  events, six team wipes and a 180 s clock.
+* The scheduler fail-fasts on the first blocked job, so `walktest_navqa` for that
+  candidate never dispatched. **The coarse instrument silenced the precise one.**
+* `RunSummary.outcomes` holds only jobs that ran, so nothing enumerated the
+  casualties, and the summary line `jobs: 24 (cache reuse: 22)` read as a
+  complete account of the run.
+* A job's stable `out/` keeps the previous run's artifacts, so "never ran" and
+  "ran and passed" are indistinguishable to anything reading the artifact.
+
+Fixed in Level Factory 0.20.0: the route finding stops blocking and names the
+walktest as the authority; `RunSummary.never_dispatched` is populated and
+printed. All five candidates now walk — 0 of 31 legs failing on every one — and
+seed 5421 had never been walktested at all.
+
+The one carried note: `STAND_SEARCH_M = 6.0` is still a number I chose rather
+than a ratified one, and every other dimension in this stack comes from
+`agent_contract.json`. It belongs there with the rest.
+
+**The lesson, which is the reason this stays in the file rather than being
+deleted.** I wrote a roadmap item, a manifest exclusion and a commit message
+about a defect that did not exist, on the strength of an artifact I never checked
+the age of — while in the middle of an investigation whose entire subject was
+proxies mistaken for the things they stand for. The instrument that produced the
+wrong reading was one I had built that morning. Check that the measurement in
+front of you was taken by the run in front of you.
+
+**14. Seed 5017 has a collision trap the path query cannot see.** The first real
+find the walktest has produced on its own, and the first thing PASS 2 has ever
+caught that PASS 1 could not:
+
+```
+proof failures: 0
+walker player_0: stuck@target_8 at (20.5, 0.9, -2.7) reached 8/16
+walker player_1: stuck@target_8 at (20.5, 0.9, -2.7) reached 8/16
+walker player_2: stuck@target_8 at (20.5, 0.9, -2.7) reached 8/16
+walker player_3: stuck@target_8 at (20.5, 0.9, -2.7) reached 8/16
+```
+
+Every path proof passes: the polygon graph says there is a route to `proxy_8`.
+Four independent capsules under real physics then stop at the *same coordinate*
+on the same leg. That is not noise — it is deterministic, and it is exactly the
+class the walker pass exists for. Something at (20.5, 0.9, -2.7) is walkable on
+the navmesh and not traversable by a body: a lip above `max_step_up`, a doorway
+narrower than the capsule after collision margin, or geometry the bake smoothed
+over that the collider does not.
+
+Start by finding what is at that point in seed 5017's site — the same offline
+column read that settled the anchors will do it — and compare the navmesh
+polygon there against the collider. If it is a doorway, `min_door_width` in
+`agent_contract.json` is the number it should have been checked against and Deli
+Counter owns it.
+
+**15. Fail-fast is mission-wide, but the failures are candidate-scoped, and that
+is what makes enforcement unsafe today.** The whole point of generating five
+candidates is to pick among them. But the scheduler stops the entire DAG at the
+first blocked job, so one bad candidate does not get eliminated — it halts the
+run, and every job after it never dispatches. That is how a Laser Tag finding on
+seed 5320 stopped seed 5320's own walktest, and it is why `WALKTEST_ENFORCED`
+should not be flipped yet: seed 5017 would block, and the four candidates that
+pass would be collateral.
+
+A candidate-scoped failure should eliminate the candidate, record why, and let
+the rest of the DAG finish; only a mission-level job failing should stop the run.
+`RunSummary.never_dispatched` (0.20.0) makes the current behaviour visible, which
+is the minimum; it does not make it right. Until this exists, enforcement turns
+one flawed candidate into a dead mission.
 
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
