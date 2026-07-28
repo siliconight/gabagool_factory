@@ -327,8 +327,20 @@ scheduler's resume pre-skip, which reported grades it never looked at); the
 both-sides `avg_time_to_first_contact` standing in for "when did the enemy open
 fire"; a *firefight* standing in for navigability, for the entire life of the
 pipeline; `nav_gate`'s runtime GLTF load standing in for the imported scene the
-runtime actually loads; and — while hunting exactly this pattern — a
+runtime actually loads; a *marker* position standing in for a *standing*
+position, so the nav QA demanded a walkable route onto a cashier counter and
+into the middle of a vault block; and — while hunting exactly this pattern — a
 nearest-*vertex* search standing in for `map_get_closest_point`.
+
+There is a second-order version of it, and it is worse because the instrument
+looks new. **A metric built out of a permissive predicate measures the
+predicate.** The anchor-connectivity census was written specifically to catch
+anchors that go nowhere, and it reported zero on a run where sixteen of
+twenty-one could not be walked to — because it reused `_prove_path`'s
+vertical-access concession, which counts a 2.9 m drop as arrival. Union-find then
+glued every island to the floor through one-way edges. When a new check reuses an
+existing predicate for consistency, ask what that predicate forgives, and whether
+this check can afford the same forgiveness.
 
 Four questions before you write the check:
 
@@ -337,7 +349,8 @@ Four questions before you write the check:
 2. **How does the proxy differ from the truth, and when?** Timestamps differ
    from content inside one clock tick. A version differs from the code whenever
    nobody bumped it. Nearest vertex differs from nearest point whenever polygons
-   are large. Name the divergence *before* running, not after.
+   are large. A marker differs from a standing position whenever the marker is on
+   furniture. Name the divergence *before* running, not after.
 3. **What does the report record about how it was measured** — not just the
    verdict? See below.
 4. **What second mechanism would disagree with this, and does a disagreement

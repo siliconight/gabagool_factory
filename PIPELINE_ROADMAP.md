@@ -477,11 +477,102 @@ snaps to. Distance-to-mesh passes at 0.7 m while the anchor stands on a scrap
 that goes nowhere, and those two failures are indistinguishable in the report.
 See item 8.
 
-**Still open, and the next thing to look at.** Of 1827 polygons, ~1675 are the
-outdoor ground; sixteen floor-slab colliders across four buildings and four
-storeys account for most of the remaining ~150. The building interiors are
-barely producing walkable navmesh, which is why there are scraps to land on at
-all. Item 11.
+### The scraps were the furniture — resolved 2026-07-28
+
+The reading above was right about *where* the anchors were and wrong about *what*
+they were standing on, and the difference is the whole fix. Four more
+measurements, the first two in Godot and the last two offline against the shipped
+glb and the walktest report together:
+
+* **The stairs connect in the shipped scene.** `stair_probe.gd` runs
+  `nav_gate.py`'s own test against `site_navqa.tscn`'s baked region rather than a
+  private bake: all four building instances report `PATH lower->upper`, 14.6 m
+  over 20 points, with navmesh 0.07 m from the mid-flight point. Item 10's method
+  is still wrong; its pass transferred here. The storeys are joined and the
+  geometry is not the defect.
+* **Reachability is not symmetric, and the census hid it.** Only five of
+  twenty-one anchors reached anything: `home` and one per building, all four
+  snapping onto `slab_0`, a building's own ground floor. The other sixteen showed
+  `reaches: 1`. They still landed in "one cluster of 21, 0 stranded" because
+  `_reaches` counted a 2.9 m *drop* as connectivity in both directions, so
+  union-find glued every island to the floor. A drop is not a two-way edge.
+* **Every failing anchor snapped +0.3 m above a piece of furniture.** Parsing
+  `shell.glb` and the four instance transforms in `site.tscn` and looking up the
+  column under each anchor: `cage_counter` top 1.1 → snap 1.4; `count_table` 4.9
+  → 5.2; `vault_block` −2.6 → −2.3. The floor slabs are at exactly −4.0 / 0.0 /
+  4.0 / 8.0, where the room records say they are. Nothing had drifted.
+* **The markers are ON the props, and the floor beneath them is inside a solid
+  box.** `OBJECTIVE_CAGE` carries z 0.9 because it is on the cashier counter.
+  `LOOT_VAULT_CASH` carries z −2.8 at the centre of an 8 × 6 m vault block. There
+  is no navmesh directly under either, so the nearest surface in any direction is
+  the prop's own top — a 1.0 m ledge nothing can climb to.
+
+**A marker is where a thing IS. An anchor is where a body has to stand to use
+it.** Those are different points, and the pipeline had never distinguished them.
+Both earlier attempts at this were the same mistake in different directions: one
+added a metre to markers that already carried body height, the other trusted the
+marker height itself.
+
+Fixed as Lot 0.28.0 (CHANGELOG 0.36.0) and Level Factory 0.18.0. `_navqa_anchors`
+resolves every marker through `rooms[building/room].center[2]` — the storey's
+floor elevation, read rather than derived from `story × 4` — and merges the
+markers that coincide once dropped (the vault objective and the vault loot are
+one XY, 0.2 m apart in Z; that pair is why the reachability census under-reported
+for a day). The director then searches the anchor's own storey plane outward in
+rings for the first place a body fits, so the vault loot resolves to the floor at
+the vault's edge. The band is asymmetric on purpose: a body height DOWN, one
+max_climb plus a voxel UP. Down is where the floor is when a marker carries body
+height; up is how a counter top came to stand in for a floor.
+
+Three things that used to be conflated are now separate findings.
+`WALKTEST_ANCHOR_NO_FLOOR` means the anchor's storey produced no navmesh at all —
+a room that did not bake, which is geometry. `WALKTEST_ANCHOR_ISOLATED` means it
+stands somewhere real that connects to nothing — which is placement.
+`WALKTEST_MARKER_BURIED` (minor, never blocking) means the route is fine and the
+marker is inside the furniture. The old `SNAP_MAX` proximity test failed the
+vault loot at 3 m and called it an off-mesh anchor, which blamed the navmesh for
+where a marker was put.
+
+### The vault is sealed on purpose — the last of it, 2026-07-28
+
+With the anchors on their floors, failures fell from nine legs of thirty-nine to
+one or two of thirty-one, and every remaining one was a vault. The basement
+geometry, read straight out of `shell.glb`:
+
+* `int_-1_4` is a full-height wall running the whole 32 m at building-local
+  x 0. Its one opening is filled by `int_-1_4_open0_BREACHPANEL` (y −3.85 to
+  −1.65) with its lintel above; the gap under the panel is **0.15 m**. The spec
+  agrees — `kind: "breach"`, `breach_class: "reinforceable"`,
+  `material: "concrete"`, tag `vault_breach`. The vault is entered by blowing it.
+* The stair discharges at x −18 to −14, entirely on the far side. The vault half
+  has no walkable entrance at all, correctly.
+* `LOOT_VAULT_CASH` sits at the centre of `vault_block`, an 8 × 6 m mass that
+  **straddles that wall**. Nearest standing room is ~3.5 m past a block corner,
+  and the two sides are within centimetres of each other in distance from the
+  marker — so which side the ring search picked was a tie-break on identical
+  geometry. That is why it was one or two vaults per seed and not all four.
+
+So the mission spine was going to fail on the vault forever, on every seed of
+every mission, and `WALKTEST_ENFORCED` could never have been flipped.
+
+Lot 0.29.0 runs the census twice: an anchor that comes out off the main network
+is re-searched for the nearest standing room that can walk to a main-network
+anchor **and back**, bounded by the same 6 m. For a sealed room that is the floor
+outside its door, derived from the navmesh rather than guessed from a wall normal
+Lot does not have for interior walls. It is the one place the walktest passes
+over a substitution, so the anchor carries `unreachable_stand_m`, the director
+prints it, and `WALKTEST_ANCHOR_BEHIND_BARRIER` reports it.
+
+**Result:** three of four candidates `ok: true`, 0 of 31 legs failing, 0
+stranded, 0 without standing room. The first walktest pass this pipeline has ever
+produced. Item 13 is the fourth.
+
+**Item 11 is smaller than it looked, and item 12 is what is left of it.** The
+interiors do bake — `slab_0` carries navmesh, the stairwells connect, and
+`crew_home` inside b2 reaches the street. What inflates the island count is that
+props bake as walkable surfaces: `gaming_tables` is a 12 × 6 m box whose top is
+72 m² of navmesh a metre off the floor that nothing can reach. Sixty-one islands,
+91.7% of polygons in one piece, and the rest is furniture.
 
 ## What to do next
 
@@ -711,16 +802,31 @@ navmesh. Twenty anchors is 400 queries; it costs nothing next to a 230 s walker
 run. Emit it in the report as an `anchors` array, and the walktest adapter turns
 it into `WALKTEST_ANCHOR_ISOLATED`, distinct from `WALKTEST_LEG_UNPATHABLE`.
 
-**9. Lot emits nav-QA anchors nothing checks.** `_navqa_anchors` collects marker
-positions and `_pv3_array(..., lift=1.0)` raises them a metre, and no read-back
-ever asks whether the result stands on anything. This is the same defect as the
-cover placement fixed on 2026-07-27 — the search reporting where it DECIDED to
-put something rather than where it PUT it — and `site_cover.pinches()` is the
-template for the fix. `crew_home` comes from `_walk_positions` and lands
-correctly; the other twenty do not, which is itself a clue about which path is
-right. Lot owns this: it knows the ground tiles (`_ground_tiles`), the footprint
-holes (`ground_holes`) and each building's storey elevations, so "is this anchor
-over anything?" is answerable offline with no Godot at all.
+Closed 2026-07-28, in two versions, and the second one is the lesson. Lot 0.26.0
+built the census and it reported **0 stranded on a run where sixteen of
+twenty-one anchors could not be walked to** — because `_reaches` carried
+`_prove_path`'s vertical-access concession, which counts a 2.9 m drop as arrival,
+so union-find glued every furniture island to the floor through one-way edges.
+The new instrument had inherited the old instrument's excuse. Lot 0.28.0
+clusters on strict reachability only; legs keep the concession, because a ladder
+is real access and the proof says which kind it found. **A connectivity metric
+built out of a permissive predicate measures the predicate.**
+
+**9. Lot emits nav-QA anchors nothing checks.** Closed 2026-07-28 as Lot 0.28.0
++ Level Factory 0.18.0 — see *The scraps were the furniture* above. Anchors are
+resolved to their room's floor before they are emitted, coincident anchors are
+merged and counted, an unroomed marker is named on stdout rather than guessed at
+silently, and the director reports which of three different things went wrong
+instead of one code for all of them.
+
+What did **not** get built, and is the honest gap left: Lot still cannot answer
+"is this anchor over anything?" offline. It knows the ground tiles
+(`_ground_tiles`), the footprint holes (`ground_holes`) and now the storey
+elevations, but nothing checks the props, and the props are what the anchors were
+landing on. The check that caught this was Godot's, after the fact. If that
+offline read-back is ever built, `site_cover.pinches()` is the template — the
+same defect shape as the cover placement fixed on 2026-07-27, a search reporting
+where it DECIDED to put something rather than where it PUT it.
 
 **10. `nav_gate.py` certifies geometry that never ships.** It loads the glb at
 runtime through `GLTFDocument`, so the importer never runs and every
@@ -731,13 +837,58 @@ It should bake what the runtime loads — instance the imported scene, or parse
 `PARSED_GEOMETRY_BOTH` the way the navqa scene does — or it will keep answering
 a question nobody asked.
 
-**11. The building interiors barely bake.** Of 1827 polygons, ~1675 are the
-outdoor ground; sixteen floor-slab colliders across four buildings and four
-storeys account for most of the remaining ~150. Whatever is happening there, an
-interior that produces two-polygon scraps instead of floors is why every anchor
-inside a building had nothing to snap to. Unknown cause; start by baking a
-single imported shell in isolation and comparing against the same shell loaded
-the way `nav_gate` loads it.
+**11. The building interiors barely bake.** Retracted 2026-07-28. They bake.
+`slab_0` carries navmesh in all four buildings, the stairwells connect all three
+storeys, and `crew_home` standing inside b2 reaches the street. The polygon
+arithmetic that produced this item was right and the conclusion was wrong: the
+interiors are small because a 44 × 32 m floor eroded by a 0.4 m agent is a few
+large polygons, not because they failed to bake. What is actually in the
+remainder is item 12.
+
+**12. Props bake as walkable navmesh, and nothing can reach them.**
+`gaming_tables` is a 12 × 6 m box whose top is 72 m² of navmesh a metre off the
+floor; `cage_counter`, `count_table`, `bar_cover` and `vault_block` all do the
+same at 1.1, 4.9, 1.2 and −2.6. A 1.0 m ledge is above `agent_max_climb` (0.5,
+floored to 0.45 by the bake), so every one of them is an island by construction.
+That is sixty-one islands in a navmesh that is 91.7% one piece, and it is why an
+anchor placed at marker height had somewhere wrong to land at all.
+
+Dead polygons are not harmless: they are what a nearest-navmesh query finds
+first, and any future code that asks "where is the navmesh near X" will hit them
+the same way. The mechanism is `NavigationMesh.geometry_collision_mask` — put
+prop colliders on their own physics layer in Deli Counter and mask them out of
+the bake in Lot's navqa and site scenes. That is a cross-repo change with a
+collision-layer contract in the middle of it, so it wants its own pass and its
+own entry in `agent_contract.json` rather than two magic numbers.
+
+The alternative reading, which should be settled before building either: some
+props *should* be mountable (a bar top, a low crate) and the right answer is a
+ramp or a step, not a mask. Deli Counter owns that decision — it is the repo that
+knows which prop is cover and which is scenery.
+
+**13. One vault in four still reports off the main network, and a bigger radius
+is the wrong fix.** `seed_5320` is the one candidate of four that fails:
+`proxy_7` (the b1 vault) reaches 0 of 16, sits alone in a cluster of 1, and
+`behind_barrier` is 0 — the second-pass search found no *connected* standing room
+within `STAND_SEARCH_M` (6.0 m) of the loot. The other three seeds resolve the
+same anchor at ~3.5 m.
+
+Two readings fit and they are not distinguishable from the report: either that
+vault's breach door is simply further than 6 m from where the loot sits, or that
+vault genuinely did not connect. Raising the bound would make both pass and would
+tell us which one we had. That is the substitution this file exists to refuse —
+the number would go green and the question would stay open.
+
+What would answer it is the geometry: read `shell.glb` for seed 5320's b1, find
+`int_-1_4`'s opening, and measure from the loot marker to the floor on the
+approach side. If it is 9 m, the bound is wrong and should be justified by
+something real — the room's own diagonal, say, which Lot knows and could emit.
+If there is no floor on the approach side, the room is broken and that is a Deli
+Counter finding. Do not touch `STAND_SEARCH_M` before that measurement exists.
+
+Related, and cheap: `STAND_SEARCH_M = 6.0` is a number I chose, not a ratified
+one. Every other dimension in this stack comes from `agent_contract.json`. If the
+bound survives item 13, it belongs there with the rest.
 
 ### Not to be worked on
 
