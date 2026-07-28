@@ -941,21 +941,29 @@ polygon there against the collider. If it is a doorway, `min_door_width` in
 `agent_contract.json` is the number it should have been checked against and Deli
 Counter owns it.
 
-**15. Fail-fast is mission-wide, but the failures are candidate-scoped, and that
-is what makes enforcement unsafe today.** The whole point of generating five
-candidates is to pick among them. But the scheduler stops the entire DAG at the
-first blocked job, so one bad candidate does not get eliminated — it halts the
-run, and every job after it never dispatches. That is how a Laser Tag finding on
-seed 5320 stopped seed 5320's own walktest, and it is why `WALKTEST_ENFORCED`
-should not be flipped yet: seed 5017 would block, and the four candidates that
-pass would be collateral.
+**15. Fail-fast is mission-wide, but the failures are candidate-scoped.**
+Closed 2026-07-28 as Level Factory 0.22.0.
 
-A candidate-scoped failure should eliminate the candidate, record why, and let
-the rest of the DAG finish; only a mission-level job failing should stop the run.
-`RunSummary.never_dispatched` (0.20.0) makes the current behaviour visible, which
-is the minimum; it does not make it right. Until this exists, enforcement turns
-one flawed candidate into a dead mission.
+`Job.candidate_id` had existed all along; the scheduler was not reading it. A
+job that fails now eliminates its CANDIDATE and lets the other four finish, and
+only a mission-level job — one with no `candidate_id` — still stops the run.
+Dependents needed no handling at all: `ready` is only appended when a dependency
+SUCCEEDS, so anything downstream of a failure already never became ready. What
+was missing was saying so. `RunSummary.not_run_reason` gives every un-dispatched
+job its sentence, because the bare list reads as five things going wrong on a
+run where four candidates built cleanly and one was correctly dropped.
 
+Seven tests cover it, including the two edges that matter. A mission-level
+failure still fails fast — the concession is narrow, and nothing downstream of
+one can be salvaged by carrying on. And all five candidates failing is *not* a
+blocked run: it is a mission with nothing to select from, which is candidate
+selection's decision to announce rather than something the scheduler should
+disguise as a crash.
+
+This was the precondition for `WALKTEST_ENFORCED`. Flipping it before this would
+have turned one flawed candidate into a dead mission.
+
+### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
 threat response; the enemy firing at t = 0.0 despite a 0.25-0.5 s reaction
