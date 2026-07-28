@@ -409,6 +409,80 @@ in `-include`, and prints what it deliberately left untracked. A commit that
 does not say what is in it is worse than no commit, and the expensive part here
 was not the sweep — it was that the sweep was silent.
 
+### The anchors land on scraps
+
+The first honest walktest, 2026-07-28. All four seeds came back `ok: false` with
+the same seven legs failing in each, every one reading
+
+    path stops 32.71 m short (disjoint islands)
+
+Six measurements, each eliminating the previous hypothesis:
+
+* **`nav_gate.py` passes the same building.** 356 polygons,
+  `stair_0: ok (path lower<->upper)`. The stair geometry is sound.
+* **But the gate proves it against geometry that never ships.** It loads the glb
+  through `GLTFDocument` at RUNTIME, so no importer runs, every `-colonly` /
+  `-convcolonly` node is still a MeshInstance3D, and it bakes with
+  `PARSED_GEOMETRY_MESH_INSTANCES`. The assembled site instances the IMPORTED
+  glb, where those same nodes are colliders with no visual mesh. That is a real
+  defect in the gate, independent of everything below — see item 10.
+* **Source geometry is not the variable.** Re-baking the same staged site three
+  ways: mesh instances 40992 verts / 1809 polys, static colliders 54048 / 1822,
+  both 95040 / 1827 — and 40992 + 54048 = 95040 exactly, so convex hulls parse
+  fine and the stair ramps are in the bake. All three fail the identical nine
+  legs.
+* **No agent parameter is the variable either.** Six bakes over identical parsed
+  geometry, varying one thing each: climb 0.6 (which floors cleanly, unlike the
+  ratified 0.5 → 0.45), agent height 1.0, cell height 0.05, cell size 0.10.
+  Island count stays at 61; lowering agent height makes it *worse* (70).
+* **The navmesh is not fragmented.** Island sizes:
+  `[1675, 10, 10, 10, 10, 2, 2, 2, ...]`. **91.7% of all polygons are in one
+  connected island** — one large connected surface plus about sixty
+  two-polygon scraps.
+* **The anchors sit beside the scraps.** Snapping every declared anchor onto the
+  baked mesh puts `crew_home` on the 1675-polygon island and lands proxy after
+  proxy next to islands of 2. `crew_home` comes from `_walk_positions`; the
+  other twenty come from `_navqa_anchors` + `_pv3_array(..., lift=1.0)`.
+
+**The reading that fits every measurement:** an anchor snaps onto a two-polygon
+scrap, and a path from a scrap to the main island genuinely does not exist, so
+`map_get_path` returns a partial path and the director reports "disjoint
+islands" — which is *correct*. The navmesh is not fragmented in general; the
+endpoints are on the fragments. It also explains the one result that never fit:
+the walkers reach 20/20 targets over ~770 m using twelve ladder/drop
+transitions, because a physical capsule falls onto whatever surface exists and
+walks on, while a path query is stuck wherever it snapped.
+
+**Two corrections, both mine, both stated because a confident wrong reading is
+what this file exists to prevent.**
+
+I measured the site ground at 71.1% coverage of its bounding box — 5,492 m²
+with nothing to stand on — and called it a tiling failure. It is not: four
+building footprints at 44 × 32 m are 5,632 m², and `site_ground.py` documents
+the policy that Lot cuts an inset hole under every building that demonstrably
+floors itself. The holes are deliberate. The measurement was right and the
+conclusion was wrong.
+
+And I called "disjoint islands" a misleading inference, on the strength of a
+probe that snapped anchors by **nearest vertex** while the engine uses
+`map_get_closest_point`, which finds the closest point ON a polygon. A point
+half a metre above the middle of a large polygon is metres from its nearest
+vertex, so my snap distances are upper bounds and the "off-mesh" flags they
+produced are not trustworthy. The director's own `SNAP_MAX` check uses the right
+API and did **not** fire, which means every anchor is within the ratified 2.0 m.
+The island membership is the part of that probe worth keeping.
+
+**What is genuinely missing:** nothing checks the SIZE of the island an anchor
+snaps to. Distance-to-mesh passes at 0.7 m while the anchor stands on a scrap
+that goes nowhere, and those two failures are indistinguishable in the report.
+See item 8.
+
+**Still open, and the next thing to look at.** Of 1827 polygons, ~1675 are the
+outdoor ground; sixteen floor-slab colliders across four buildings and four
+storeys account for most of the remaining ~150. The building interiors are
+barely producing walkable navmesh, which is why there are scraps to land on at
+all. Item 11.
+
 ## What to do next
 
 **1. Cover is exonerated — the trap is somewhere else.** Closed 2026-07-27.
@@ -620,6 +694,50 @@ the reader to assume the rest.
 
 Re-certify with `recertify.ps1`, or by hand after any tool version moves.
 Drift is the manifest working; drift left standing is the manifest lying.
+
+**8. Nothing checks the SIZE of the island an anchor snaps to.** The
+highest-leverage item in this file, because it is the gap that cost the day.
+`_prove_path` already refuses an anchor further than `SNAP_MAX` (2.0 m, from
+`agent_contract.json` `qa.snap_max_m`) — and that check passed on every anchor
+in every failing run, because distance to mesh was never the problem. An anchor
+0.7 m from a two-polygon scrap is *on* the navmesh and goes nowhere, and the
+report cannot tell that apart from a genuinely blocked route.
+
+The measurement to add uses only the engine's own API, no vertex heuristics:
+after snapping all anchors, run `map_get_path` between every pair and record how
+many other anchors each one can reach. An anchor that reaches zero is stranded,
+and a leg failing from a stranded start should say so instead of describing the
+navmesh. Twenty anchors is 400 queries; it costs nothing next to a 230 s walker
+run. Emit it in the report as an `anchors` array, and the walktest adapter turns
+it into `WALKTEST_ANCHOR_ISOLATED`, distinct from `WALKTEST_LEG_UNPATHABLE`.
+
+**9. Lot emits nav-QA anchors nothing checks.** `_navqa_anchors` collects marker
+positions and `_pv3_array(..., lift=1.0)` raises them a metre, and no read-back
+ever asks whether the result stands on anything. This is the same defect as the
+cover placement fixed on 2026-07-27 — the search reporting where it DECIDED to
+put something rather than where it PUT it — and `site_cover.pinches()` is the
+template for the fix. `crew_home` comes from `_walk_positions` and lands
+correctly; the other twenty do not, which is itself a clue about which path is
+right. Lot owns this: it knows the ground tiles (`_ground_tiles`), the footprint
+holes (`ground_holes`) and each building's storey elevations, so "is this anchor
+over anything?" is answerable offline with no Godot at all.
+
+**10. `nav_gate.py` certifies geometry that never ships.** It loads the glb at
+runtime through `GLTFDocument`, so the importer never runs and every
+`-colonly` / `-convcolonly` node is still a MeshInstance3D; it then bakes with
+`PARSED_GEOMETRY_MESH_INSTANCES`. The shipped scene instances the imported glb,
+where those nodes are colliders. The gate's pass is real and does not transfer.
+It should bake what the runtime loads — instance the imported scene, or parse
+`PARSED_GEOMETRY_BOTH` the way the navqa scene does — or it will keep answering
+a question nobody asked.
+
+**11. The building interiors barely bake.** Of 1827 polygons, ~1675 are the
+outdoor ground; sixteen floor-slab colliders across four buildings and four
+storeys account for most of the remaining ~150. Whatever is happening there, an
+interior that produces two-polygon scraps instead of floors is why every anchor
+inside a building had nothing to snap to. Unknown cause; start by baking a
+single imported shell in isolation and comparing against the same shell loaded
+the way `nav_gate` loads it.
 
 ### Not to be worked on
 
