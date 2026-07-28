@@ -1,7 +1,7 @@
 {
   "schema": "gabagool.factory.manifest.v1",
-  "factory_version": "1.10.0",
-  "description": "The certified lockstep set: these tool versions were verified TOGETHER. Re-certified 2026-07-27 after the guardrail relocation, the scheduler resume fix, and laser_tag becoming identifiable (0.8.0) -- the navigability guardrails that Laser Tag was being asked to enforce now live in the tools that BUILD the geometry (Lot derives cover clearance and lane pinch from the Deli Counter agent contract; Laser Tag findings are evidence, not gates). Evidence for this set: both suites green (Lot; Level Factory 475 passed / 11 skipped / 486 collected) and a full category5_baie_dore_001 --art run green end to end. Inherits the Phase 4 library certification (100 configs / 36 families / 20 missions / 8 heroes; 25/25 building gates and 8/8 missions first-pass green, 2026-07-21). walktest is now a DAG job (walktest_navqa, one per candidate), so reachability is proved inside the pipeline rather than out of band -- but its findings WARN rather than block until WALKTEST_ENFORCED is flipped, so a green run does not yet mean every candidate is navigable. NOT covered by this set: portfolio approval still awaits the visual-score art leg, and the existing library has never been walktested. The first honest walktest (2026-07-28) failed all four seeds: anchors snap onto two-polygon navmesh fragments while 91.7% of the site is one connected island. See PIPELINE_ROADMAP.md items 8-11 -- the cause of the fragments is still unknown.",
+  "factory_version": "1.11.0",
+  "description": "The certified lockstep set: these tool versions were verified TOGETHER. Re-certified 2026-07-27 after the guardrail relocation, the scheduler resume fix, and laser_tag becoming identifiable (0.8.0) -- the navigability guardrails that Laser Tag was being asked to enforce now live in the tools that BUILD the geometry (Lot derives cover clearance and lane pinch from the Deli Counter agent contract; Laser Tag findings are evidence, not gates). Evidence for this set: both suites green (Lot; Level Factory 477 passed / 11 skipped / 488 collected) and a full category5_baie_dore_001 --art run green end to end. Inherits the Phase 4 library certification (100 configs / 36 families / 20 missions / 8 heroes; 25/25 building gates and 8/8 missions first-pass green, 2026-07-21). walktest is now a DAG job (walktest_navqa, one per candidate), so reachability is proved inside the pipeline rather than out of band -- but its findings WARN rather than block until WALKTEST_ENFORCED is flipped, so a green run does not yet mean every candidate is navigable. NOT covered by this set: portfolio approval still awaits the visual-score art leg, and the existing library has never been walktested. The first honest walktest (2026-07-28) failed all four seeds: anchors were emitted ~1.9 m above their own floor and snapped sideways onto furniture. Lot 0.27.0 fixes both halves; the navmesh itself was never the problem. The first run that means anything has not been made yet.",
   "tools": {
     "deli_counter": {
       "version": "0.88.0",
@@ -22,16 +22,16 @@
       "note": "pinned from 0.8.0 onward. It reported UNKNOWN until then not because the addon had no version -- plugin.cfg always declared one -- but because the repo had no root VERSION file, which is the only place verify-manifest looks. The two are mirrors and the lasertag lint job fails if they disagree. Cache invalidation still rests on content, not on this line: the Level Factory adapter hashes addons/laser_tag_tool into fingerprint_inputs, so an addon edited without a bump still invalidates."
     },
     "level_factory": {
-      "version": "0.16.0",
-      "tag": "v0.16.0",
+      "version": "0.17.0",
+      "tag": "v0.17.0",
       "repo": "siliconight/level-factory",
       "note": "0.14.0 removed the scheduler's resume pre-skip: a re-run now dispatches every job and replays findings from the content cache instead of trusting a recorded status. Re-runs stay cheap; they no longer report a grade nothing looked at. 0.14.1 grounds laser_tag at 0.8.0 now that it publishes a version. 0.15.0 adds the walktest_navqa stage: navigability is now proved by walking rather than inferred from a firefight. 0.16.0 reports WALKTEST_ANCHOR_ISOLATED, so a stranded anchor stops arriving disguised as N unpathable legs."
     },
     "lot": {
-      "version": "0.26.0",
-      "tag": "v0.26.0",
+      "version": "0.27.0",
+      "tag": "v0.27.0",
       "repo": "siliconight/lot",
-      "note": "cover clearance and lane pinch are derived from the Deli Counter agent contract, not hardcoded; changing agent_radius_m or cell_size_m there moves these guardrails 0.25.0 adds walktest.py --report-dir so Level Factory can run the nav QA against a staged project and collect the report. 0.26.0 measures anchor CONNECTIVITY, not just distance to mesh: an anchor on a navmesh scrap passes every proximity check and can never appear in a route."
+      "note": "cover clearance and lane pinch are derived from the Deli Counter agent contract, not hardcoded; changing agent_radius_m or cell_size_m there moves these guardrails 0.25.0 adds walktest.py --report-dir so Level Factory can run the nav QA against a staged project and collect the report. 0.26.0 measures anchor CONNECTIVITY, not just distance to mesh: an anchor on a navmesh scrap passes every proximity check and can never appear in a route. 0.27.0 stops lifting anchors that already carry body height and snaps them DOWNWARD, because a body stands on the surface beneath it, not the nearest one in any direction."
     },
     "lux": {
       "version": "0.15.4",
