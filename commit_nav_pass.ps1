@@ -5,7 +5,11 @@
 #
 # Commit messages are plain per CLAUDE.md -- no co-authorship trailers, no
 # generated-by footers, no assistant references.
-param([switch]$Commit, [string]$Branch = "nav-walker-pass")
+# -Branch is OPT-IN. Every repo in this workspace commits straight to main --
+# it is the only branch that exists in any of them, and the version tags sit on
+# it. Branching by default would put work where no other commit in the history
+# lives. Pass -Branch <name> if a change genuinely wants isolating.
+param([switch]$Commit, [string]$Branch = "")
 
 $root = "C:\Projects\gabagool_studios\gabagool_factory"
 
@@ -135,21 +139,25 @@ foreach ($r in $repos) {
   Write-Host "=========== $($r.Label) ===========" -ForegroundColor Cyan
   Push-Location $r.Path
   $branch = (git rev-parse --abbrev-ref HEAD).Trim()
-  $onDefault = $branch -in @("main", "master")
-  if ($onDefault) {
-    Write-Host "  branch: $branch  <- DEFAULT BRANCH" -ForegroundColor Yellow
-  } else {
-    Write-Host "  branch: $branch"
-  }
+  Write-Host "  branch: $branch"
   $status = git status --short
   if (-not $status) { Write-Host "  clean, nothing to commit"; Pop-Location; continue }
   $status | ForEach-Object { Write-Host "  $_" }
 
   if ($Commit) {
-    if ($onDefault) {
-      Write-Host "  branching to $Branch before committing to $branch"
-      git checkout -b $Branch 2>$null
-      if ($LASTEXITCODE -ne 0) { git checkout $Branch }
+    if ($Branch) {
+      # No 2>$null. Swallowing git's stderr here is how a "branching to ..."
+      # line got printed while the checkout silently failed and the commit
+      # landed on main anyway.
+      Write-Host "  branching to $Branch"
+      git checkout -b $Branch
+      if ($LASTEXITCODE -ne 0) {
+        git checkout $Branch
+        if ($LASTEXITCODE -ne 0) {
+          Write-Host "  could not switch to $Branch -- NOT committing" -ForegroundColor Red
+          Pop-Location; continue
+        }
+      }
     }
     # keep the scratch out of history rather than out of the working tree
     $gi = Join-Path $r.Path ".gitignore"

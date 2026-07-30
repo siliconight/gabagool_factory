@@ -47,6 +47,17 @@ appears mid-session:
 `patch_*.py` scripts must keep asserting their targets and refusing to write on a
 miss. That guard is the backstop, not the plan.
 
+**When the bridge poisons one path, reconstruct rather than stop.** The staleness
+is per-path, not global: `lot.py` served 68,904 bytes against a reported 85,287
+while `lot.py.pre_accessor` staged clean at 83,419 in the same call, and
+`agent_contract.json` served 1,811 against 4,981 while `_bridge/ac_0729b.json`
+was correct. Every `patch_*.py` in the root records the exact before-and-after
+text it applied, so the live file can be rebuilt from the nearest clean backup
+plus the patches that followed it — and the rebuild is *verifiable*, because a
+byte count that lands exactly on the device's figure is not a coincidence at four
+significant figures. Both files above reconstructed to delta zero. Do that before
+declaring a file unreadable; ask only when no clean ancestor exists.
+
 ## Where fixes land
 
 Fixes land in the tool repos — `lot`, `level_factory`, `deli_counter`, and their
@@ -80,6 +91,13 @@ body centre. Each produced a confident, wrong answer.
 - A capsule resting exactly on a surface registers as an overlap in
   `intersect_shape` — there is no epsilon. Use a ray when the question is "what
   is the floor here"; use a shape when the question is "does a body fit".
+- **A margin allowed per axis is a box, not a radius.** Adding `margin` to each
+  side of a separating-axis test inflates a polygon along its own axes, which
+  over-reports near a corner by up to `sqrt(2) * margin`. `site_steps._point_in`
+  did exactly that and reported two sidewalk sections as blocking a route whose
+  exact clearance to them was 3.43 m against a 3.00 m half-width. Keep the
+  projection test as a cheap reject — it is a superset, so it cannot produce a
+  false negative — and decide with a real point-to-edge distance.
 
 ## A null result is not a refutation until the dial is confirmed (hard rule)
 
@@ -136,3 +154,36 @@ different models of the same act. The navmesh routes a body over any riser up to
 and a wall in play — Lot's 0.16 kerb and the 0.492 riser measured at the foot of
 walkup_siege's staircase both sit in that band. Before adding geometry with a
 vertical rise, check which side of it the rise falls on.
+
+## Attribute every item in a gate's output before patching it
+
+`LOT_STEP_BLOCKS_A_ROUTE` reported 7 transitions on one site and read like one
+defect with one number wrong. It was three: 4 were the kerb cut being the width
+of the path rather than of the crossing, 2 were the gate over-reporting at a
+polygon corner, and 1 was a slab thickness 17 mm over the walk limit. Fixing only
+the obvious one would have left 3 findings after a 58-minute sweep and looked like
+the fix had not worked.
+
+Splitting the count first cost ten minutes and saved two sweeps. So: before
+writing a patch against a gate's output, account for every item in it, and check
+each fix against the count it is supposed to remove. Isolating them is cheap —
+running the patched checker against the *old* scene showed 7 → 5, confirming the
+instrument fix alone owned exactly 2, before any geometry moved.
+
+Where a fix cannot be isolated, say which items it is *assumed* to cover, so the
+residue after the next run is diagnostic rather than a surprise.
+
+## An unused parameter is an unfinished thought
+
+`_kerb_crossings` has accepted the kerb band's depth since it was written and
+never read it. Whoever wrote that signature knew the depth mattered to the answer
+and stopped before using it — and the crossing width was wrong by up to 5.99 m as
+a direct result. Grep for parameters nothing reads; each one is somebody's
+abandoned intent, and it is usually the missing term in the formula immediately
+below it.
+
+The same applies to a knob with no effect (see the null-result rule above) and to
+a code path that cannot fire: `python site_steps.py <scene>` never passes
+`site_spec`, so `on_route` is always empty and the only major finding it has is
+unreachable from the CLI. A check that cannot fail is indistinguishable from one
+that passed.
