@@ -36,6 +36,16 @@ import subprocess
 import sys
 import time
 
+# check_freshness owns the stamp format so there is ONE definition of what a
+# build is built from. Importing it here rather than restating the hash rule is
+# the point: two copies of "which files count as the builder" would drift, and a
+# drifted second copy is the recurring defect of this toolchain.
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+try:
+    import check_freshness as _fresh
+except ImportError:
+    _fresh = None
+
 ROOT = pathlib.Path(__file__).resolve().parent
 SITES = ROOT / "lot" / "specs"
 DC = ROOT / "deli_counter"
@@ -90,7 +100,17 @@ def main() -> int:
         (have if spec.exists() else missing)[stem] = (spec, paths)
 
     print(f"  {len(found)} distinct building(s) across "
-          f"{sum(len(v) for v in found.values())} site slot(s)\n")
+          f"{sum(len(v) for v in found.values())} site slot(s)")
+    if _fresh is None:
+        print("  NO STAMPS WILL BE WRITTEN -- check_freshness.py is not "
+              "importable, so\n  nothing will be able to verify these exports "
+              "afterwards.")
+        bhash, bcount = None, 0
+    else:
+        bhash, bcount = _fresh.builder_hash()
+        print(f"  builder: {bcount} deli_counter source file(s), combined "
+              f"{bhash[:16]}")
+    print()
     for stem, (spec, paths) in have.items():
         ages = {p: time.strftime("%Y-%m-%d %H:%M",
                                  time.localtime(p.stat().st_mtime))
@@ -115,7 +135,7 @@ def main() -> int:
         return 1
     print(f"\n  blender: {blender}\n")
 
-    built = failed = copied = 0
+    built = failed = copied = stamped = 0
     for stem, (spec, paths) in have.items():
         first = paths[0]
         before = first.stat().st_size
@@ -140,9 +160,22 @@ def main() -> int:
                 if side.suffix == ".glb":
                     continue
                 shutil.copy2(side, dup.parent / side.name)
+        # Stamp what this was built FROM, now, while it is true. Written per
+        # path rather than copied with the other sidecars: the bytes are
+        # identical so a copy would be correct here, and depending on that is
+        # how a stamp that no longer describes its .glb survives a refactor.
+        if bhash is not None:
+            for p in paths:
+                _fresh.write_stamp(p, spec, bhash, bcount)
+            stamped += len(paths)
 
-    print(f"\n  built {built}, copied {copied}, failed {failed}, "
-          f"no-spec {len(missing)}")
+    print(f"\n  built {built}, copied {copied}, stamped {stamped}, "
+          f"failed {failed}, no-spec {len(missing)}")
+    if bhash is not None:
+        print(f"  verify any time with: python check_freshness.py")
+    if missing:
+        print(f"  the {len(missing)} building(s) with no spec stay UNSTAMPED and "
+              f"cannot be verified")
     if failed:
         print("  a failed building keeps its old geometry -- do NOT read the "
               "sweep as clean")

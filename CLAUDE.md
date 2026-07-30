@@ -58,6 +58,21 @@ byte count that lands exactly on the device's figure is not a coincidence at fou
 significant figures. Both files above reconstructed to delta zero. Do that before
 declaring a file unreadable; ask only when no clean ancestor exists.
 
+**Compare bytes, not characters, or the check fails for the wrong reason.** These
+files are CRLF and Python reads text with universal newlines, so `len(text)` is
+short by exactly one byte per line — `lot.py.pre_accessor` read as 81,669
+characters against 83,419 bytes on disk, a 1,750-byte gap that is precisely its
+1,750 CRLFs. Read the ancestor with `read_bytes()` and normalise deliberately, or
+restore the endings before measuring:
+
+    len(text.replace("\n", "\r\n").encode("utf-8"))     # restore, then count
+    len(text.encode("utf-8")) + text.count("\n")          # equivalent
+
+Git's `autocrlf` means a file's on-disk endings can also change under you between
+sessions without its content changing at all, so a byte count is evidence about
+one working tree at one moment. When it disagrees by roughly the line count,
+suspect the endings before suspecting the bridge.
+
 ## Where fixes land
 
 Fixes land in the tool repos — `lot`, `level_factory`, `deli_counter`, and their
