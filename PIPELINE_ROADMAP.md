@@ -963,6 +963,66 @@ disguise as a crash.
 This was the precondition for `WALKTEST_ENFORCED`. Flipping it before this would
 have turned one flawed candidate into a dead mission.
 
+**16. The navmesh contains routes the collision geometry blocks.** The library
+sweep's whole remainder, and the biggest open question in this file.
+
+Twenty registered mission sites re-walked with the fixed Lot on 2026-07-28.
+Seventeen come back clean. **Zero stranded anchors, zero rooms that failed to
+bake, zero barrier resolutions outside the casino, every mission spine walkable
+on every site** — the anchor work generalises. Three fail, and all three fail
+identically: every path proof passing, all four walkers stopped on one
+coordinate, at a stair.
+
+What the walker reports, once Lot 0.39.0 stopped the serializer eating it:
+
+```
+walker bot_1 STUCK at (35.8, -2.3, -14.9) 0.75 m from waypoint 2/18
+  on_floor=true on_wall=true; touching: stair0ramp_-1
+  STEP_FAIL: lifted clear but nothing to step onto ahead
+  contact normal (0.0, 0.0, 1.0)
+```
+
+The normal is **horizontal**. And the ramp, measured out of the glb with full
+node transforms rather than untransformed bounds:
+
+```
+slab_col_-1   y [-3.50, -3.20]     the basement floor, top at -3.20
+stair0ramp    y [-3.20,  0.20]     foot exactly on that floor, rises 3.40 m
+              x [-8.08, -3.92]     4.16 m run -- the flight climbs along x
+              z [ 3.20,  4.80]     1.60 m wide
+              side faces 3.40 m tall
+```
+
+39.2 degrees. The bake accepts 55, the walker's `floor_max_angle` is 56, and its
+foot meets the slab exactly — there is no step to mount and no slope to fail.
+The walker is walking into the **side** of the staircase, 3.4 m of wall, on a
+path `map_get_path` produced. Three sites, one shape.
+
+So this is not a walker defect and not a layout defect. **The bake and the
+colliders disagree about the same staircase**, which puts it in the same family
+as item 10 (`nav_gate` baking geometry that never ships) and item 12 (props
+baking as walkable). It is the most serious of the three, because this one hands
+out routes.
+
+The measurement that closes it, and the probe is written
+(`navmesh_solid_probe.gd`): take every baked polygon near the stuck point, stand
+the walker's own capsule on it, and ask the physics server whether that capsule
+is inside anything. A polygon a body cannot occupy should not have baked. If the
+offenders name `stair0ramp_*`, the question moves to
+`geometry_parsed_geometry_type = 2` — the scene parses mesh instances AND static
+colliders, so the visual stair steps and the `-convcolonly` hull beside them both
+feed the voxeliser, and those two are not the same shape.
+
+If every polygon there comes back CLEAR, this reading is wrong and the route is
+blocked by something the capsule query cannot see, which would be worth knowing
+before anything is changed.
+
+**Do not "fix" this by loosening the walker.** Lot 0.40.0 already made two
+genuine walker improvements while chasing this — gravity applies only when
+airborne, and the step probe tries three heights instead of one — and neither
+moved the result, which is exactly how it should have gone. The walker is now
+right and the route it was given is wrong.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
