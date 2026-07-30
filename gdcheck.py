@@ -87,13 +87,50 @@ def main(argv) -> int:
     if not argv:
         print(__doc__.strip().splitlines()[-1].strip())
         return 2
+    # Is the parser usable AT ALL? Asked once, before any file, because
+    # "the parser is missing" and "this file is bad" are different answers and
+    # inferring the first from a failed parse of the second gets it wrong. The
+    # earlier version keyed on "No module named" appearing in stderr, which a
+    # parser broken any other way does not say -- and it then reported the
+    # breakage as a defect in the file being checked.
+    parser_ok = False
+    parser_why = ""
+    try:
+        probe = subprocess.run(
+            [sys.executable, "-c", "import gdtoolkit.parser"],
+            capture_output=True, text=True)
+        parser_ok = probe.returncode == 0
+        if not parser_ok:
+            tail = (probe.stderr or "").strip().splitlines()
+            parser_why = tail[-1] if tail else "import failed"
+    except OSError as e:
+        parser_why = f"{type(e).__name__}: {e}"
+    if not parser_ok:
+        print("THE GDSCRIPT GRAMMAR CHECK IS NOT RUNNING.")
+        print(f"  {parser_why}")
+        print(f"  install it with: {sys.executable} -m pip install gdtoolkit")
+        print("  The hand-written trap checks below still run, but a file that "
+              "passes\n  only those has not been parsed. Do not read it as "
+              "clean.\n")
+
     bad = 0
     for path in argv:
         problems = []
-        r = subprocess.run(["gdparse", path], capture_output=True, text=True)
-        if r.returncode != 0:
-            tail = (r.stderr or r.stdout or "").strip().splitlines()
-            problems.append((0, "gdparse: " + (tail[-1] if tail else "rejected")))
+        # Invoke the MODULE, not the `gdparse` console script. pip installs that
+        # shim into a Scripts directory it warns may not be on PATH, and on a
+        # clean install it was not -- so this raised FileNotFoundError with
+        # gdtoolkit correctly installed, and the traceback made whatever ran
+        # gdcheck look like the thing that was broken. Going through
+        # sys.executable also guarantees the parser comes from the same
+        # interpreter as this script rather than whichever one PATH finds first.
+        if parser_ok:
+            r = subprocess.run(
+                [sys.executable, "-m", "gdtoolkit.parser", path],
+                capture_output=True, text=True)
+            if r.returncode != 0:
+                tail = (r.stderr or r.stdout or "").strip().splitlines()
+                problems.append((0, "gdparse: "
+                                 + (tail[-1] if tail else "rejected")))
         problems += lint(path)
         if problems:
             bad += 1
@@ -101,9 +138,16 @@ def main(argv) -> int:
             for n, why in sorted(problems):
                 where = f"  line {n}: " if n else "  "
                 print(where + why)
-        else:
+        elif parser_ok:
             print(f"{path}: parses, and none of the three known traps")
-    return 1 if bad else 0
+        else:
+            print(f"{path}: none of the three known traps -- NOT PARSED")
+    # 1 = checked and found problems. 2 = could not fully check. Distinct,
+    # because a checker that could not run must not report what a clean file
+    # reports.
+    if bad:
+        return 1
+    return 0 if parser_ok else 2
 
 
 if __name__ == "__main__":
