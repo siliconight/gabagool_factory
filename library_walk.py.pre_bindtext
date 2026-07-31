@@ -409,8 +409,8 @@ def main() -> int:
     print()
     if _blocking:
         print(f"{len(_blocking)} MAJOR gate finding(s) on "
-              f"{len({n for n, _c, _m in _blocking})} site(s). Each one makes "
-              f"its site `blocked` above,\nwhatever the walkers reported:")
+              f"{len({n for n, _c, _m in _blocking})} site(s). These do NOT "
+              f"affect the verdict above yet:")
         for name, code, msg in _blocking:
             print(f"  {name:<22} {code}")
             print(f"  {'':<22}   {msg[:150]}")

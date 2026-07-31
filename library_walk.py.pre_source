@@ -177,60 +177,49 @@ def summarise(d):
     )
 
 
-#: Severities the emitters actually use. Not a classification -- only an ordering,
-#: so the report can rank and the verdict can eventually threshold. A severity not
-#: listed here is surfaced as-is rather than assumed harmless.
-SEVERITY_RANK = {"major": 3, "moderate": 2, "minor": 1, "info": 0}
-
-#: What BLOCKS. `major` only, and that is a deliberate calibration rather than a
-#: default: at moderate-and-above the same sweep listed ~35 findings across
-#: nineteen of twenty sites, because LOT_GROUND_EXTENDED and LOT_ROUTE_EXPOSED are
-#: moderate on almost every site. Both are correct as designer advice --
-#: site_extent.py:359 rates the first moderate precisely because the geometry was
-#: fixed while the SPEC stays wrong -- and neither means the level is broken.
-#:
-#: Severity here answers "how much should a designer care". Whether a build should
-#: fail is a different axis, and no threshold on the first can stand in for the
-#: second. At `major` the same run produced exactly ONE finding in twenty sites,
-#: and every major code is "this level does not work": an objective nothing can
-#: path to, an objective on furniture, an unplaceable spawn, a spawn with no
-#: cover, a building you walk through.
-#:
-#: A gate that fails nineteen of twenty sites gets switched off by the first
-#: person trying to ship, and is then worse than no gate.
-BLOCKING_RANK = 3
+#: Severity per gate code. Explicit, because the printed `[lot]` line does not
+#: carry it. A code missing from here is reported as `unclassified` and counted on
+#: its own -- a new gate must not be able to arrive as harmless by being unknown.
+GATE_SEVERITY = {
+    "LOT_STEP_BLOCKS_A_ROUTE": "major",
+    "LOT_STEP_TOO_TALL_TO_WALK": "major",
+    "LOT_SURFACE_STACK_IMPOSSIBLE": "major",
+    "LOT_DESTINATION_ABOVE_FLOOR": "major",
+    "LOT_STEP_NEEDS_ASSIST": "minor",
+    "LOT_KERB_CROSSED_SHALLOW": "minor",
+    "LOT_GROUND_EXTENDED": "minor",
+    "LOT_GROUND_OFF_CENTRE": "minor",
+    "LOT_ENEMY_SPAWN_PUSHED": "minor",
+    "LOT_ENEMY_SPAWN_CLOSE": "minor",
+    "LOT_COVER_PLACED": "info",
+    "LOT_ROUTE_COVER_PLACED": "info",
+    "LOT_ROUTE_EXPOSED": "minor",
+}
 
 
-def gate_findings(proj, stem):
-    """Every finding the build recorded, from the contract it already writes.
+def gate_findings(build_output):
+    """[(code, severity, message)] from the build's forwarded [lot] lines.
 
-    lot.py puts tactical_report into `merged` and serialises it to
-    <site>.site.gameplay.json, so each finding is on disk with the severity the
-    code that raised it assigned. Reading that field is the whole job.
-
-    This replaced a parser over the build's stdout plus a hardcoded severity
-    table. That table's first contact with a real sweep produced 8 unclassified
-    codes and, worse, did not contain `moderate` -- a level site_cover.py uses --
-    so any guess at those codes was wrong in both directions. A second opinion
-    about a value the source already holds is drift with a schedule.
-
-    Returns [(code, severity, message)]; [] when the contract is unreadable, which
-    the caller reports as unchecked rather than clean.
+    STOPGAP. assemble() returns these as dicts already; this re-derives them from
+    printed text because library_walk only receives stdout. Phase 2 writes a
+    findings sidecar and this function goes away -- see GUARDRAILS_PLAN.md. Do not
+    build on it.
     """
-    path = os.path.join(proj, f"{stem}.site.gameplay.json")
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            gp = json.load(f)
-    except (OSError, ValueError):
-        return None                        # distinct from "no findings"
-    found = ((gp.get("tactical") or {}).get("findings")) or []
     out = []
-    for f_ in found:
-        if not isinstance(f_, dict):
+    for line in (build_output or "").splitlines():
+        line = line.strip()
+        if not line.startswith("[lot]"):
             continue
-        out.append((str(f_.get("code") or "UNCODED"),
-                    str(f_.get("severity") or "unspecified"),
-                    str(f_.get("message") or "")))
+        body = line[len("[lot]"):].strip()
+        code, _sep, msg = body.partition(":")
+        code = code.strip()
+        # A gate code is UPPER_SNAKE. Without that shape, prose like
+        # "[lot]   mode: pvp_heist (gates passed)" parses as a code called
+        # `mode` and lands in the unclassified list -- an instrument inventing
+        # findings, which is worse than one missing them.
+        if not code or " " in code or not code.isupper() or "_" not in code:
+            continue                       # a note, not a coded finding
+        out.append((code, GATE_SEVERITY.get(code, "unclassified"), msg.strip()))
     return out
 
 
@@ -295,6 +284,7 @@ def main() -> int:
                 ok="ASSEMBLE FAILED", anchors=0, stranded=0, no_floor=0,
                 barrier=0, legs=0, failed=0, stuck=0, note=tail)))
             continue
+        gates = gate_findings(out)
         for line in out.splitlines():
             if line.startswith("[lot]"):
                 print("  " + line)
@@ -324,10 +314,7 @@ def main() -> int:
                     print("  " + line.strip())
         s = summarise(read(proj, stem))
         s["rc"] = rc
-        # Read AFTER the build, from the contract the build wrote. None means the
-        # contract could not be read at all, which is not the same as a clean
-        # site and is reported separately below.
-        s["gates"] = gate_findings(proj, stem)
+        s["gates"] = gates
         results.append((name, mid, was, s))
         print(f"  -> ok={s['ok']}  legs {s['legs'] - s['failed']}/{s['legs']}  "
               f"stranded={s['stranded']}  no_floor={s['no_floor']}  "
@@ -340,106 +327,52 @@ def main() -> int:
     print("-" * 112)
     regressions, clean = [], []
     for name, mid, was, s in results:
+        now = "pass" if s["ok"] is True else str(s["ok"])
         legs = f"{s['legs'] - s['failed']}/{s['legs']}"
-        _g = s.get("gates")
-        _major = ("?" if _g is None else
-                  sum(1 for _c, _sev, _m in _g
-                      if SEVERITY_RANK.get(_sev, BLOCKING_RANK) >= BLOCKING_RANK))
-        # The walkers finishing is necessary and not sufficient. `now` carries
-        # the walktest's own verdicts -- TIMEOUT, NO REPORT, ASSEMBLE FAILED --
-        # and those all mean the measurement did not complete. `blocked` means it
-        # DID complete and the level is broken anyway, which is a different fact
-        # and the reason the gates column was worth adding. A `?` means the
-        # contract could not be read: neither clean nor blocked, and not passed,
-        # because a check that did not run must not report what a clean run
-        # reports.
-        _walked = s["ok"] is True
-        if not _walked:
-            now = str(s["ok"])
-        elif _major == "?":
-            now = "unchecked"
-        elif _major:
-            now = "blocked"
-        else:
-            now = "pass"
+        _g = s.get("gates") or []
+        _major = sum(1 for _c, _sev, _m in _g if _sev in ("major",
+                                                          "unclassified"))
         print(f"{name:<22} {was:<12} {now:<14} {s['anchors']:>7} "
               f"{s['stranded']:>6} {s['no_floor']:>7} {s['barrier']:>7} "
               f"{legs:>9} {s['stuck']:>5} {(_major or ''):>7}")
-        (clean if now == "pass" else regressions).append(name)
+        (clean if s["ok"] is True else regressions).append(name)
     print("-" * 104)
     print(f"{len(clean)} of {len(results)} come back ok; "
           f"{time.time() - t_all:.0f}s total")
-    _blocked_sites = [n for n, _m, _w, s in results
-                      if s["ok"] is True and s.get("gates")
-                      and any(SEVERITY_RANK.get(sev, BLOCKING_RANK)
-                              >= BLOCKING_RANK for _c, sev, _m2 in s["gates"])]
-    if _blocked_sites:
-        print(f"{len(_blocked_sites)} walked clean and are BLOCKED by a gate: "
-              f"{', '.join(_blocked_sites)}")
-        print("  The walkers finished. The level is broken anyway -- see the "
-              "major list below.")
 
     # What the gates found, REPORTING ONLY -- no verdict above depends on it yet.
     # This is the list to read before making them binding: every site here either
     # has a real defect or a gate that is wrong about it, and which one has to be
     # established per site. See GUARDRAILS_PLAN.md, phase 1.
-    _blocking, _advice, _unclassified, _minor = [], [], [], 0
+    _blocking, _unclassified, _minor = [], [], 0
     for name, _mid, _was, s in results:
-        _g = s.get("gates")
-        if _g is None:
-            # The contract could not be read. Not clean -- unchecked.
-            _unclassified.append((name, "CONTRACT UNREADABLE",
-                                  "no <site>.site.gameplay.json to read "
-                                  "findings from"))
-            continue
-        for code, sev, msg in _g:
-            rank = SEVERITY_RANK.get(sev)
-            if rank is None:
-                _unclassified.append((name, code, f"severity {sev!r}: {msg}"))
-            elif rank >= BLOCKING_RANK:
+        for code, sev, msg in (s.get("gates") or []):
+            if sev == "major":
                 _blocking.append((name, code, msg))
-            elif rank == 2:
-                # Advice, not a blocker. Listed on its own rather than hidden:
-                # a finding nobody sees is a finding nobody fixes, and folding
-                # these into the minor count would trade one wrong threshold for
-                # a quieter one.
-                _advice.append((name, code, msg))
+            elif sev == "unclassified":
+                _unclassified.append((name, code, msg))
             else:
                 _minor += 1
     print()
     if _blocking:
         print(f"{len(_blocking)} MAJOR gate finding(s) on "
-              f"{len({n for n, _c, _m in _blocking})} site(s). Each one makes "
-              f"its site `blocked` above,\nwhatever the walkers reported:")
+              f"{len({n for n, _c, _m in _blocking})} site(s). These do NOT "
+              f"affect the verdict above yet:")
         for name, code, msg in _blocking:
             print(f"  {name:<22} {code}")
             print(f"  {'':<22}   {msg[:150]}")
     else:
         print("No major gate findings.")
-    if _advice:
-        _sites = len({n for n, _c, _m in _advice})
-        print(f"\n{len(_advice)} moderate finding(s) on {_sites} site(s) -- "
-              f"designer advice, NOT blockers.\nThe level works; the spec or the "
-              f"tactical layout wants attention:")
-        _by_code = {}
-        for name, code, _m in _advice:
-            _by_code.setdefault(code, []).append(name)
-        for code, names in sorted(_by_code.items()):
-            _shown = ", ".join(sorted(names)[:6])
-            _more = f" +{len(names) - 6} more" if len(names) > 6 else ""
-            print(f"  {code:<32}{len(names):>3} site(s): {_shown}{_more}")
     if _unclassified:
-        print(f"\n{len(_unclassified)} finding(s) this script could not rank, "
-              f"or sites whose contract\ncould not be read. Neither is clean, "
-              f"and neither may pass for it:")
+        print(f"\n{len(_unclassified)} finding(s) with a code this script does "
+              f"not know. Classify them in\nGATE_SEVERITY before the verdict "
+              f"starts depending on it -- an unknown code\nmust not pass for a "
+              f"harmless one:")
         for name, code, msg in _unclassified:
             print(f"  {name:<22} {code}")
-    print(f"\n{_minor} minor/info finding(s) not listed. Severity comes from "
-          f"the emitter that\nraised each finding, not from this script. Only "
-          f"`major` counts in the gates\ncolumn and only `major` will block "
-          f"when the verdict starts depending on it;\nmoderate is grouped above "
-          f"as advice, minor and info are counted here, and `?`\nmeans the "
-          f"contract could not be read at all.")
+    print(f"\n{_minor} minor/info finding(s) not listed. A site with no gate "
+          f"column entry\nhad no major finding; a site whose build failed had no "
+          f"gates to report at all.")
     if regressions:
         # These are the ones that carried a `pass` stamp and do not earn one
         # from an instrument that measures what the stamp claimed.
@@ -447,9 +380,6 @@ def main() -> int:
         print("Read _runs/<site>_proj/<site>_navqa.walktest.json for the detail: "
               "`anchors` says which are stranded or behind a barrier, "
               "`path_proofs` says which leg, `walkers` says what a body hit.")
-    # Non-zero when anything did not come back clean, INCLUDING a site the
-    # walkers completed that a gate blocks. Before this, a blocked site exited 0
-    # and every wrapper read that as success.
     return 0 if not regressions else 1
 
 

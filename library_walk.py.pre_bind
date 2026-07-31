@@ -340,44 +340,19 @@ def main() -> int:
     print("-" * 112)
     regressions, clean = [], []
     for name, mid, was, s in results:
+        now = "pass" if s["ok"] is True else str(s["ok"])
         legs = f"{s['legs'] - s['failed']}/{s['legs']}"
         _g = s.get("gates")
         _major = ("?" if _g is None else
                   sum(1 for _c, _sev, _m in _g
                       if SEVERITY_RANK.get(_sev, BLOCKING_RANK) >= BLOCKING_RANK))
-        # The walkers finishing is necessary and not sufficient. `now` carries
-        # the walktest's own verdicts -- TIMEOUT, NO REPORT, ASSEMBLE FAILED --
-        # and those all mean the measurement did not complete. `blocked` means it
-        # DID complete and the level is broken anyway, which is a different fact
-        # and the reason the gates column was worth adding. A `?` means the
-        # contract could not be read: neither clean nor blocked, and not passed,
-        # because a check that did not run must not report what a clean run
-        # reports.
-        _walked = s["ok"] is True
-        if not _walked:
-            now = str(s["ok"])
-        elif _major == "?":
-            now = "unchecked"
-        elif _major:
-            now = "blocked"
-        else:
-            now = "pass"
         print(f"{name:<22} {was:<12} {now:<14} {s['anchors']:>7} "
               f"{s['stranded']:>6} {s['no_floor']:>7} {s['barrier']:>7} "
               f"{legs:>9} {s['stuck']:>5} {(_major or ''):>7}")
-        (clean if now == "pass" else regressions).append(name)
+        (clean if s["ok"] is True else regressions).append(name)
     print("-" * 104)
     print(f"{len(clean)} of {len(results)} come back ok; "
           f"{time.time() - t_all:.0f}s total")
-    _blocked_sites = [n for n, _m, _w, s in results
-                      if s["ok"] is True and s.get("gates")
-                      and any(SEVERITY_RANK.get(sev, BLOCKING_RANK)
-                              >= BLOCKING_RANK for _c, sev, _m2 in s["gates"])]
-    if _blocked_sites:
-        print(f"{len(_blocked_sites)} walked clean and are BLOCKED by a gate: "
-              f"{', '.join(_blocked_sites)}")
-        print("  The walkers finished. The level is broken anyway -- see the "
-              "major list below.")
 
     # What the gates found, REPORTING ONLY -- no verdict above depends on it yet.
     # This is the list to read before making them binding: every site here either
@@ -409,8 +384,8 @@ def main() -> int:
     print()
     if _blocking:
         print(f"{len(_blocking)} MAJOR gate finding(s) on "
-              f"{len({n for n, _c, _m in _blocking})} site(s). Each one makes "
-              f"its site `blocked` above,\nwhatever the walkers reported:")
+              f"{len({n for n, _c, _m in _blocking})} site(s). These do NOT "
+              f"affect the verdict above yet:")
         for name, code, msg in _blocking:
             print(f"  {name:<22} {code}")
             print(f"  {'':<22}   {msg[:150]}")
@@ -447,9 +422,6 @@ def main() -> int:
         print("Read _runs/<site>_proj/<site>_navqa.walktest.json for the detail: "
               "`anchors` says which are stranded or behind a barrier, "
               "`path_proofs` says which leg, `walkers` says what a body hit.")
-    # Non-zero when anything did not come back clean, INCLUDING a site the
-    # walkers completed that a gate blocks. Before this, a blocked site exited 0
-    # and every wrapper read that as success.
     return 0 if not regressions else 1
 
 
