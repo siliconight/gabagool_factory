@@ -33,3 +33,8 @@ _scratch_archive/
 # build output and editor backups -- regenerable, not history
 *.pre_invoke
 *.pre_step
+
+# editor backups from patch_*.py -- copies of tracked files, not history.
+# A RULE, not a list: each patch invents its own suffix, so any enumeration
+# of them falls behind the next patch that gets written.
+*.pre_*
