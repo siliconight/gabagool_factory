@@ -170,35 +170,6 @@ and a wall in play — Lot's 0.16 kerb and the 0.492 riser measured at the foot 
 walkup_siege's staircase both sit in that band. Before adding geometry with a
 vertical rise, check which side of it the rise falls on.
 
-**The same tension exists for SLOPE, and cost a whole evening before it was
-named.** `nav_bake.agent_max_slope_deg` is 55; `CharacterBody3D.floor_max_angle`
-is 45, is what a body actually stands on, was never set by any controller here,
-and was recorded in no contract — so the mismatch had nothing to disagree with.
-Measured off shipped geometry: 20 of 38 buildings emit stair ramps at 45.0–51.3°,
-18 below 45°, none above 55°. The QA walkers follow the navmesh and climb them; a
-person slides back down.
-
-Why a building's stairs are steep is worth knowing, because it makes the failure
-look intermittent when it is not. Pitch is `atan(story_height / st.run)`
-(`deli_counter.py:1261`), and `st.run` is pinned near 3 m however tall the storey
-is — so pitch is a pure function of storey height. `walkup_siege`'s buildings are
-35.8–40.4° and walk fine; `ballpark_block`'s are 45.0–50.0° and do not. "The
-stairs used to work" was true and not a regression: a tall-storey building had
-simply never been walked.
-
-Two corollaries:
-
-- The smooth collision ramp replaced per-step colliders because "a flush incline
-  at the flight's pitch lets any controller walk straight up with no step logic".
-  That holds only for pitch ≤ `floor_max_angle`. Per-step colliders were climbed
-  by step-up at *any* pitch, so the change quietly made pitch load-bearing and
-  nothing checked that the geometry satisfied it.
-- **Step-up cannot rescue a slope and must not try.** On a continuous incline the
-  forward probe always finds a surface `probe_distance * tan(pitch)` higher, so
-  the lift height comes from the probe rather than from the geometry: the body is
-  thrown into the air, dropped, and thrown again. Gate step-up on the *top
-  surface* being walkable, not merely on the obstruction being steep.
-
 ## Attribute every item in a gate's output before patching it
 
 `LOT_STEP_BLOCKS_A_ROUTE` reported 7 transitions on one site and read like one
