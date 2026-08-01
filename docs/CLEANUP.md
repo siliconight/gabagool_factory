@@ -26,10 +26,10 @@ Usage:
 
 ```powershell
 # AUDIT — report every artifact and its size, grouped by tool. Deletes nothing.
-powershell -ExecutionPolicy Bypass -File factory_clean.ps1
+powershell -ExecutionPolicy Bypass -File scripts\factory_clean.ps1
 
 # CLEAR — delete exactly what the audit listed.
-powershell -ExecutionPolicy Bypass -File factory_clean.ps1 -Apply
+powershell -ExecutionPolicy Bypass -File scripts\factory_clean.ps1 -Apply
 ```
 
 Run the audit anytime; run `-Apply` when the numbers justify it. It's idempotent

@@ -197,11 +197,11 @@ against and at what settings, because it will be wrong when those move.
 
 ## GDScript — check it before it leaves the machine that wrote it
 
-`gdcheck.py` at the factory root runs `gdparse` plus the traps a grammar cannot
-see. Run it on every `.gd` before pushing to a machine that will load it:
+`tools/gdcheck.py` runs `gdparse` plus the traps a grammar cannot see. Run it on
+every `.gd` before pushing to a machine that will load it:
 
     pip install gdtoolkit
-    python gdcheck.py navmesh_solid_probe.gd
+    python tools\gdcheck.py tools\navmesh_solid_probe.gd
 
 The three that have each cost a full round-trip:
 
