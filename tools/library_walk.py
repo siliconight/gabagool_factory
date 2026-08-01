@@ -38,7 +38,13 @@ import subprocess
 import sys
 import time
 
-HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from factory_paths import factory_root                        # noqa: E402
+
+#: HERE meant "the directory this file is in", which was the factory root only
+#: because nothing had moved. It means the factory now. str, not Path, because
+#: everything below joins with os.path.join.
+HERE = str(factory_root())
 #: Where Godot lives. walktest.py reads LOT_GODOT/DC_GODOT and then PATH; this
 #: script inherits whatever shell it was started from, and a shell without
 #: LOT_GODOT set is how the first run of this "completed" twenty sites in zero

@@ -42,9 +42,15 @@ import hashlib
 import json
 import os
 import pathlib
+import sys
 import time
 
-ROOT = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from factory_paths import factory_root                        # noqa: E402
+
+#: The tree being checked, found by walking up to factory.manifest.json rather
+#: than assuming this file sits in it.
+ROOT = factory_root()
 SITES = ROOT / "lot" / "specs"
 DC = ROOT / "deli_counter"
 DC_SPECS = DC / "specs"

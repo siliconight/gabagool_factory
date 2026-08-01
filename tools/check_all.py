@@ -48,7 +48,17 @@ import pathlib
 import subprocess
 import sys
 
-ROOT = pathlib.Path(__file__).resolve().parent
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_DIR))
+from factory_paths import factory_root                        # noqa: E402
+
+#: TWO QUESTIONS, not one. SCRIPT_DIR finds the sibling checkers this script
+#: shells out to; ROOT is the tree those checkers are pointed at. They were the
+#: same directory while everything sat at the factory root, and stop being the
+#: same the moment anything moves -- at which point gd_files() would scan the
+#: tools directory, find a handful of .gd files instead of 104, and still print
+#: `clean`.
+ROOT = factory_root()
 
 #: (key, script, args, what a non-zero exit means). Order is cheapest first so a
 #: broken tree fails fast.
@@ -64,7 +74,7 @@ CHECKS = [
 ]
 
 NOT_RUN = [
-    ("walk sweep", "python library_walk.py --timeout 1800",
+    ("walk sweep", "python tools\\library_walk.py --timeout 1800",
      "needs Godot; about an hour for 20 sites"),
     ("pack loads", "python lot\\package.py <spec> --walkable --check <godot>",
      "needs a built pack and Godot"),
@@ -131,9 +141,12 @@ def batched(base, files):
 
 def run(key, script, args):
     """(state, exit_code, first_meaningful_line). state is ok / found / cannot."""
-    path = ROOT / script
+    # SIBLING, not subject. ROOT is the tree being checked; the checkers live
+    # beside this file. Identical answers until something moved.
+    path = SCRIPT_DIR / script
     if not path.exists():
-        return "cannot", None, f"{script} is not at the factory root"
+        return "cannot", None, (f"{script} is not beside check_all.py "
+                                f"(looked in {SCRIPT_DIR})")
     base = [sys.executable, str(path)]
     plain = [a for a in args if a != "@gd"]
     if "@gd" in args:
@@ -202,7 +215,7 @@ def main() -> int:
             print(f"\n=========== {key} ===========")
             # Batched here too. This path had the same unbounded argv and would
             # have failed the same way, quietly, since its result was discarded.
-            _base = [sys.executable, str(ROOT / script)]
+            _base = [sys.executable, str(SCRIPT_DIR / script)]
             _groups = batched(_base, gd_files()) if argv == ["@gd"] else [[]]
             for _g in _groups:
                 subprocess.run(_base + _g, cwd=str(ROOT))

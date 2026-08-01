@@ -40,13 +40,17 @@ import time
 # build is built from. Importing it here rather than restating the hash rule is
 # the point: two copies of "which files count as the builder" would drift, and a
 # drifted second copy is the recurring defect of this toolchain.
-sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+SCRIPT_DIR = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(SCRIPT_DIR))
 try:
     import check_freshness as _fresh
 except ImportError:
     _fresh = None
+from factory_paths import factory_root                        # noqa: E402
 
-ROOT = pathlib.Path(__file__).resolve().parent
+#: SCRIPT_DIR above finds check_freshness beside this file; ROOT is the tree
+#: being rebuilt. Same distinction check_all.py now makes, same reason.
+ROOT = factory_root()
 SITES = ROOT / "lot" / "specs"
 DC = ROOT / "deli_counter"
 DC_SPECS = DC / "specs"

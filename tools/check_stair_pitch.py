@@ -44,8 +44,12 @@ import math
 import os
 import pathlib
 import struct
+import sys
 
-ROOT = pathlib.Path(__file__).resolve().parent
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from factory_paths import factory_root                        # noqa: E402
+
+ROOT = factory_root()
 SITES = ROOT / "lot" / "specs"
 CONTRACT = ROOT / "deli_counter" / "agent_contract.json"
 

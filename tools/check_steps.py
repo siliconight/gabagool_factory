@@ -23,7 +23,11 @@ import json
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from factory_paths import factory_root                        # noqa: E402
+
+#: str, not Path -- everything below joins with os.path.join.
+ROOT = str(factory_root())
 LOT = os.path.join(ROOT, "lot")
 RUNS = os.path.join(ROOT, "_runs")
 SPECS = os.path.join(LOT, "specs")
