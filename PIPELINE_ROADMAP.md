@@ -1233,6 +1233,43 @@ an argument against it, but it does mean the drift should be closed first, so
 the re-certification has a clean baseline rather than absorbing four unrelated
 version jumps at the same time.
 
+**22. Outdoor props have no swap contract, so cover stays boxes forever.** The
+art path's missing wire, and the reason a lit site still reads as a blockout.
+
+Lot places cover as primitive 1 m boxes -- `LOT_COVER_PLACED: 22 piece(s) of 2 m
+cover were placed to break sightlines` -- and nothing downstream is invited to
+replace them. That is not a Zoo limitation. Zoo already owns "structural kit
+modules built to Deli Counter's slot dims, dressing props, and light fixtures",
+and it already does exactly this swap one scale down:
+
+    Deli Counter    greyboxes a building, emits <name>.slots.json -- "every
+                    wall / doorway / window / breach slot with a transform, fit
+                    dims, and a role"
+    Zoo             builds modules to those dims; "the resolver swaps them in
+                    for the grey boxes -- missing modules keep the box, so the
+                    art pass stays progressive"
+
+**Lot has no equivalent.** There is no `<site>.slots.json`, so Zoo's props and
+Pixelcoat's skins have nothing to resolve against outdoors. The machinery exists
+at both ends and the manifest between them does not.
+
+WHY THIS IS NOT JUST "EMIT A LIST OF POSITIONS". A car is not a 1 m cube. Cover
+was placed to occlude a measured sightline -- Laser Tag opens fire at 45 m and
+`LOT_SIGHTLINE_OPEN` reports what is still exposed after placement. Swap in
+geometry with a different footprint and the thing the placement was solving has
+silently changed, with no gate able to see it. Which is precisely what Zoo's
+`fit_*` validation is for: "modules whose dimensions exactly fit the requesting
+slot". So outdoor cover wants the same treatment as a wall slot -- transform,
+fit dims, and a role (`vehicle`, `dumpster`, `crate`, `planter`) -- with the box
+kept whenever nothing fits, so the art pass stays progressive here too.
+
+The same contract would carry the rest of the outdoor vocabulary: blockers are
+already "facade shell" capable, and roads, kerbs and courtyards are surfaces
+Pixelcoat could skin if anything told it their extents and material roles.
+
+Do not start this before the drift in item 21 is closed. It adds a contract
+between two tools that are both currently uncertified.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
@@ -1242,6 +1279,37 @@ opening timing. Laser Tag findings of that shape are information for a human at
 candidate selection, not work items.
 
 ### Smaller, carried
+
+**`MIGRATIONS.md` indexes one run rather than a directory.** `tidy_migrations.ps1`
+builds the table from the files *that invocation* moved, so when `tidy_tools.ps1`
+filed five scripts into `migrations/2026-08/` and a later `tidy_migrations` run
+moved two more, the index was rewritten to list two and the five vanished from
+it. The directory holds seven. Generate the table by walking
+`migrations/<bucket>/` and it is correct no matter which script filed something,
+and self-healing when one skips the index entirely. Same shape as everything
+else in this file: an enumeration of one run standing in for a description of a
+set.
+
+**`archive_scratch.ps1` is superseded and its list has rotted.** It enumerates 23
+filenames, three of which -- `lf_patch.ps1`, `guardrail_regate.ps1`,
+`reconcile_version.ps1` -- it would have archived as one-shots. It was right
+about all three, and only its `git ls-files` tracked-check stopped it. Those
+three are now in `migrations/2026-08/` where they belong.
+`tidy_migrations.ps1` does the same job by rule. Retiring one of the two is a
+decision rather than a tidy, so both are still there.
+
+**`ps1.gdshader` exists twice**, at `patina/godot/addon/patina/ps1.gdshader` and
+`patina/godot/shaders/ps1.gdshader`, identical 2,688 bytes. The addon README
+says the copy inside the addon is the one that travels. Two copies of a shader
+is the same drift risk as two copies of a rule, and item 20 may retire both
+anyway.
+
+**`cater.py` writes a `project.godot` with no main scene.** `package.py
+--walkable` sets `run/main_scene` and says so; cater writes "minimal
+project.godot" without one, so F5 in a cater-built project fails with "no main
+scene defined" and only F6 on the open scene works. Two writers of the same file
+disagreeing about what a complete one contains. One line in cater.
+
 
 **Findings have nowhere to live but the run that found them.** `index.sqlite`
 has tables for jobs, artifacts, missions and meta, and none for findings, so
