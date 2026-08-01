@@ -20,8 +20,6 @@ somebody fixes something.
 
 | script | bytes | last written | what it did |
 | --- | ---: | --- | --- |
-| `patch_check_all_scope.py` | 12019 | 2026-07-31 19:09 | check_all's gdscript row never ran. Two defects, and they are not the same one. |
-| `patch_claude_md_goal.py` | 6881 | 2026-07-31 22:05 | CLAUDE.md gains the thing it never stated: what the factory is FOR. |
-| `patch_gdcheck_tokens.py` | 9918 | 2026-07-31 22:09 | gdcheck flagged four files and was wrong on all four. Two defects, one cause. |
-| `patch_roadmap_goal.py` | 8161 | 2026-07-31 21:15 | Items 17 and 18: the pipeline has never been run cold, and nothing measures feel. |
+| `patch_flat_surfaces.py` | 11564 | 2026-08-01 09:21 | The kerb goes under the step ceiling, and the whole slab stack lies flat. |
+| `patch_roadmap_addons.py` | 11327 | 2026-08-01 10:32 | Items 19, 20 and 21: the Godot halves, the Patina/Lux boundary, the drift. |
 
