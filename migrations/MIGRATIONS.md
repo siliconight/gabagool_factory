@@ -20,6 +20,5 @@ somebody fixes something.
 
 | script | bytes | last written | what it did |
 | --- | ---: | --- | --- |
-| `patch_flat_surfaces.py` | 11564 | 2026-08-01 09:21 | The kerb goes under the step ceiling, and the whole slab stack lies flat. |
-| `patch_roadmap_addons.py` | 11327 | 2026-08-01 10:32 | Items 19, 20 and 21: the Godot halves, the Patina/Lux boundary, the drift. |
+| `patch_roadmap_props.py` | 7194 | 2026-08-01 11:31 | Item 22: outdoor props have no swap contract. Plus four carried smalls. |
 
