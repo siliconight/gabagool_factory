@@ -1270,6 +1270,141 @@ Pixelcoat could skin if anything told it their extents and material roles.
 Do not start this before the drift in item 21 is closed. It adds a contract
 between two tools that are both currently uncertified.
 
+**23. A Node-typed export written by a tool is discarded in silence, and the
+whole library carries it.** Closed for Lux on 2026-08-01; the general form is
+open.
+
+Godot resolves an exported Node property from a `.tscn` only when that node's
+`[node ...]` header lists the property in a `node_paths` field. The text loader
+builds its set of node-path properties from that field alone. A property written
+as a bare `sun_light = NodePath("../Sun")` is therefore assigned literally — a
+NodePath into a `DirectionalLight3D`-typed slot — and GDScript rejects the type
+and drops it with **no error, no warning, and no trace at load**.
+
+`tools/lux_inject.py` wrote exactly that, so Sun Link had never once taken
+effect. Measured on 4.7.stable with one field the only difference: two visible
+DirectionalLight3D against one, and the adopted sun reading the preset's 1.500
+instead of Lot's untouched 1.000. The two suns sat **one degree apart** in
+elevation, which is why the result read as shadow acne rather than as an obvious
+second light — and why four commits of geometry work were spent on it first.
+
+The sweep is the part to keep. Across all 242 `.tscn` on disk:
+
+    LuxRoot scenes                33   (9 product + 24 addon copies)
+    declaring node_paths           0
+    not declaring node_paths      33
+
+The string does not appear anywhere in the tree.
+
+**But it only bites one of the two paths, and the first draft of this item got
+that wrong.** A LuxRoot reaches a scene either through `tools/lux_inject.py`,
+which writes the node as TEXT, or through Level Factory's `lux_apply` job, whose
+`run_lux_apply.gd` builds it IN-ENGINE and saves with `PackedScene.pack()` +
+`ResourceSaver.save()`. The engine's own saver emits `node_paths` for a
+Node-typed export automatically, so path 2 could never have had this defect --
+and in any case has no sun to link to: the composed presentation scene comes
+from `deli_counter/themed_tscn.py`, whose entire node vocabulary is a root
+`Node3D`, a `GreyboxBase` instance and one instance per slot. No
+`DirectionalLight3D`, no `WorldEnvironment`, no `Sun`. So "every dressed project
+has been double-lit" is true of the `cater`/`lux_dress` path and false of the
+Level Factory path.
+
+Which leaves the open question this item did not start with: **the two paths
+ship different lighting and nobody has compared them.** Path 1 ships Lot's `Sun`
+driven by Lux. Path 2 ships a bare scripted `LuxRoot` with `active_preset` and
+none of Lux's runtime children -- at runtime `Engine.is_editor_hint()` is false,
+so Lux sets no owner and `PackedScene.pack()` drops them -- relying on
+`apply_on_ready` to re-manufacture the look wherever it loads. That is a
+defensible design and it is not the same picture as path 1's, which is enough to
+want it measured rather than assumed.
+
+**The fix does not reach the existing library.** `lux_inject` returns early on
+`if SCRIPT_RES in src`, so re-running it prints "already has a LuxRoot" and
+changes nothing; those scenes need restoring from their `.pre_lux` backups and
+re-injecting. And the general defect is not Lux's: any tool in this repo that
+writes a Node-typed export into a scene has the same hole, and nothing checks
+for it. A `node_paths` assertion belongs next to
+`PRESENTATION_UNRESOLVED_REF` — it is the same class of guarantee, a reference
+that looks written and is not.
+
+**24. Lux gives runtime scaffolding an `owner`, which is what bakes it into a
+saved scene.** The mechanism behind the editor accumulation, confirmed
+2026-08-01. The multiplication is not.
+
+Driving Godot's headless editor at a dressed project and reading the edited
+scene tree: of the six children Lux parents onto itself, exactly three carry
+`owner = edited_scene_root` — `LuxWorldEnvironment`, `LuxSun`, and the post-FX
+`CanvasLayer` — and exactly those three are the ones present in
+`_runs/lux_0801b`'s editor-saved scene. The three ownerless module Nodes
+(`LuxEnvironment`, `LuxLighting`, `LuxPostFX`) are absent from it. Owner is the
+whole difference between runtime scaffolding and a saveable member of the scene,
+and one Ctrl+S is all it takes.
+
+The addon assigns it in nine places: `lux_environment.gd:42`,
+`lux_lighting.gd:30`, `lux_post_fx.gd:57,58,59,84,85`,
+`lux_fixture_spawner.gd:51,77`, `lux_light_loader.gd:43,57,188`. Runtime modules
+should be ownerless; the editor tooling that legitimately wants a saveable node
+should say so at the call site rather than every `ensure_*` doing it by default.
+
+What this does NOT establish, and the reason the item stays open: a single clean
+headless editor load produces **one** LuxSun and **one** CanvasLayer, not the
+four lights and three stacks observed by hand. The multiplication needs whatever
+else that session did — script reloads are the obvious candidate — and has not
+been isolated. `patch_lux_rebuild.py`'s clearing loop was aimed at this and did
+not stop it; it is defensible hygiene and it is not the fix.
+
+Found alongside it: **in the editor, Lux creates a second WorldEnvironment**
+beside the level's own, while at runtime it correctly adopts the existing one.
+`ensure_world_environment`'s reuse path fails specifically under
+`Engine.is_editor_hint()`.
+
+**25. A project `cater` has SERVED does not run until the editor imports it.**
+
+Running the walk scene on a generated project Godot has never opened gives 59
+parse errors: `lux_root.gd` and `lux_preset.gd` fail to load outright because
+`class_name` resolution needs the editor's scan, and all four buildings report
+`Node './deli' was modified from inside an instance, but it has vanished`
+because the `.glb` files were never imported. It does not self-heal — a second
+run is byte-identical. One `--import` pass fixes it completely: 0 errors.
+
+This is ordinary Godot behaviour and harmless for a human, who opens the project
+before pressing F6. It is a silent trap for anything automated, and `cater`
+closes with `SERVED -> open <scene> in Godot, F6` without mentioning it. Any
+pipeline stage that runs a generated project must import first;
+`tools/godot_probe.py` does, and that is the only reason the light census
+measures a populated scene instead of an empty one.
+
+**26. Something finally looks at the picture.** A partial answer to item 18, and
+deliberately a small one.
+
+`tools/look_shots.py` renders a generated level from cameras derived from its
+own mission spine — eye-level shots standing on the scene's exported
+`spawn_pos` / `objective_pos` / `extraction_pos` at the height of the Player's
+own `Camera3D`, facing the next leg, plus an overview framed from the site AABB
+against the camera FOV — and reports a Rec.709 luminance histogram per frame.
+Nothing in it is a coordinate somebody liked, so a bigger site frames correctly
+without re-tuning.
+
+It does not close item 18 and should not be described as doing so. A histogram
+cannot tell you a level reads as machine-generated; the kerb zig-zags and the
+paths across carriageways are still invisible to it. What it removes from the
+human's plate is the crudest failure — a frame crushed against white — which
+until now nothing in the pipeline could see, because nothing in the pipeline had
+ever looked at an image.
+
+Its first honest result was a retraction, which is the reason to trust the
+second one. A hand-run at 1280x720 through hand-placed cameras reported Lot's
+own WorldEnvironment blowing 28.6% of the overview to pure white. Re-measured
+through the tool's derived cameras at 1600x900, the same project clips 0.00% at
+255; the real effect is 18.62% of pixels within three codes of white against
+1.13% with Lux, and mean luminance 108.6 against 147.0. Two framings of one
+scene are two instruments.
+
+Not yet gated on anything, and it should not be until somebody decides what
+number a level has to beat. It also needs a display — `--headless` disables
+rendering — so on a machine without one it runs under llvmpipe, which is an
+instrument you may A/B against itself and may not quote beside a Forward+ figure.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
