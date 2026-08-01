@@ -4,7 +4,9 @@ Four round-trips on this probe were spent on things Godot rejects at load, each
 costing a full turn to discover. Three distinct classes, and no single tool
 catches all three:
 
-  1. implicit adjacent-string concatenation   -- a syntax error; gdparse sees it
+  1. implicit adjacent-string concatenation   -- gdparse ACCEPTS it, measured
+                                                 across four files, so nothing
+                                                 else is going to catch this
   2. `%` binding tighter than `+`             -- parses fine, formats the wrong
                                                  fragment at runtime
   3. `:=` inferring from an untyped parameter -- Godot rejects it at load as a
@@ -22,6 +24,43 @@ was split across two lines.
 import re
 import subprocess
 import sys
+
+
+def _code(ln: str) -> str:
+    """`ln` with any trailing comment removed, respecting string literals.
+
+    A `#` inside a string is not a comment. This file used to split on `#`
+    first, which truncated
+
+        return Color.html(cosmetic.get("color", "#ffffff"))
+
+    to `return Color.html(cosmetic.get("` and then reported two unbalanced
+    brackets on code that is perfectly balanced. Three of the four files this
+    checker has ever flagged were that one line of it.
+
+    Known gap: triple-quoted strings are not tracked. No file in the repo has
+    one; if that changes, this is where it breaks.
+    """
+    out, i, quote = [], 0, None
+    while i < len(ln):
+        c = ln[i]
+        if quote:
+            if c == "\\":
+                out.append(ln[i:i + 2])
+                i += 2
+                continue
+            out.append(c)
+            if c == quote:
+                quote = None
+            i += 1
+        elif c == "#":
+            break
+        else:
+            if c in "\"'":
+                quote = c
+            out.append(c)
+            i += 1
+    return "".join(out)
 
 
 def lint(path: str) -> list:
@@ -56,11 +95,24 @@ def lint(path: str) -> list:
         return cur
 
     prev = None
+    depth = 0
     for n, ln in enumerate(lines, 1):
-        s = ln.strip()
-        if not s or s.startswith("#"):
+        # Comments removed by scanner, not by split -- see _code. Every check
+        # below reads code only, so a `#` in a string no longer truncates a
+        # line and a comment mentioning `+ "x" %` no longer raises a finding.
+        s = _code(ln).strip()
+        if not s:
             continue
-        if prev and prev.endswith('"') and s.startswith('"'):
+        # Bracket depth as this line STARTS. A string can only be continuing an
+        # expression if the expression is still open, so this is the whole
+        # difference between real implicit concatenation and a line that merely
+        # begins with a quote -- a match arm, a dict key, a bare string
+        # statement. All three are legal and all three used to be flagged.
+        open_before = depth
+        masked = re.sub(r'"(\\.|[^"\\])*"', '""', s)
+        depth += (masked.count("(") + masked.count("[")
+                  - masked.count(")") - masked.count("]"))
+        if prev and prev.endswith('"') and s.startswith('"') and open_before > 0:
             out.append((n, "a string literal continues on the next line with "
                            "no `+` -- GDScript has no implicit concatenation"))
         if re.search(r'\+\s*"[^"]*"\s*%(?!\w)', s):
@@ -72,12 +124,6 @@ def lint(path: str) -> list:
                            f"parameter -- Godot rejects this at load"))
         prev = s
 
-    depth = 0
-    for ln in lines:
-        if ln.strip().startswith("#"):
-            continue
-        code = re.sub(r'"(\\.|[^"\\])*"', '""', ln.split("#")[0])
-        depth += code.count("(") + code.count("[") - code.count(")") - code.count("]")
     if depth:
         out.append((0, f"unbalanced brackets across the file, net {depth:+d}"))
     return out

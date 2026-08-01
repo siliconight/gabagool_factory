@@ -24,8 +24,11 @@ WHAT IT RUNS, and what each one owns:
                                       and builder that made it, by content hash
     stairs       check_stair_pitch.py flights pitched past what a body stands on,
                                       read off each building's .glb
-    gdscript     gdcheck.py           every .gd in the tree: grammar plus the
-                                      three traps a grammar cannot see
+    gdscript     gdcheck.py           every .gd this repo owns: grammar plus
+                                      the three traps a grammar cannot see.
+                                      rockay-ws is skipped -- it is evidence
+                                      rather than source, and it holds 342 of
+                                      the tree's 446 .gd files
 
 WHAT IT DOES NOT RUN, stated out loud rather than left to be assumed:
 
@@ -70,17 +73,60 @@ NOT_RUN = [
 ]
 
 
+#: Skipped, for two DIFFERENT reasons, kept apart because they would want
+#: different answers if either changed:
+#:
+#:   generated  _bridge, __pycache__, _scratch_archive, dist, _runs, .godot.
+#:              Build output and staging copies. A finding here points at a
+#:              copy, and the next reader patches a file that is not the file.
+#:   evidence   rockay-ws. A mission workspace -- CLAUDE.md says read it, do
+#:              not edit it. It holds 342 of the tree's 446 .gd files, so
+#:              including it spent three quarters of this check raising
+#:              findings nobody is permitted to act on.
+#:
+#: Anyone adding an entry has to say which of the two they are claiming.
+SKIP_GENERATED = ("_bridge", "__pycache__", "_scratch_archive",
+                  os.sep + "dist" + os.sep, os.sep + "_runs" + os.sep, ".godot")
+SKIP_EVIDENCE = (os.sep + "rockay-ws" + os.sep,)
+
+#: Windows refuses a command line over 32767 characters, and CreateProcess then
+#: raises WinError 206 -- "the filename or extension is too long". Measured at
+#: 70,029 characters across 446 files, so the gdscript check never launched at
+#: all and printed NOT CHECKED beside three checks that had run. The budget is
+#: derived from the ceiling rather than chosen as a file count, because a count
+#: that is right today goes wrong the next time paths lengthen or a repo joins.
+ARGV_CEILING = 32767
+ARGV_BUDGET = ARGV_CEILING - 768   # room for the interpreter path and quoting
+
+
 def gd_files():
-    """Every .gd in the tree, minus scratch and editor backups."""
+    """Every .gd this repo owns -- see SKIP_GENERATED and SKIP_EVIDENCE."""
     out = []
     for p in ROOT.rglob("*.gd"):
         s = str(p)
-        if any(part in s for part in ("_bridge", "__pycache__", "_scratch_archive",
-                                      os.sep + "dist" + os.sep,
-                                      os.sep + "_runs" + os.sep, ".godot")):
+        if any(part in s for part in SKIP_GENERATED + SKIP_EVIDENCE):
             continue
         out.append(str(p))
     return sorted(out)
+
+
+def batched(base, files):
+    """`files` split so no single command line approaches ARGV_CEILING.
+
+    Returns a list of file-lists to append to `base`, never empty, so a caller
+    can loop over it unconditionally.
+    """
+    room = ARGV_BUDGET - sum(len(x) + 1 for x in base)
+    groups, cur, used = [], [], 0
+    for f in files:
+        if cur and used + len(f) + 1 > room:
+            groups.append(cur)
+            cur, used = [], 0
+        cur.append(f)
+        used += len(f) + 1
+    if cur:
+        groups.append(cur)
+    return groups or [[]]
 
 
 def run(key, script, args):
@@ -88,27 +134,41 @@ def run(key, script, args):
     path = ROOT / script
     if not path.exists():
         return "cannot", None, f"{script} is not at the factory root"
-    argv = [sys.executable, str(path)]
-    for a in args:
-        if a == "@gd":
-            files = gd_files()
-            if not files:
-                return "cannot", None, "no .gd files found to check"
-            argv += files
-        else:
-            argv.append(a)
-    try:
-        r = subprocess.run(argv, capture_output=True, text=True, cwd=str(ROOT))
-    except OSError as e:
-        return "cannot", None, f"{type(e).__name__}: {e}"
-    out = (r.stdout or "") + (r.stderr or "")
-    tail = [l.strip() for l in out.splitlines() if l.strip()]
-    if r.returncode == 0:
-        state = "ok"
-    elif r.returncode == 2:
-        state = "cannot"
+    base = [sys.executable, str(path)]
+    plain = [a for a in args if a != "@gd"]
+    if "@gd" in args:
+        files = gd_files()
+        if not files:
+            return "cannot", None, "no .gd files found to check"
+        groups = batched(base + plain, files)
     else:
-        state = "found"
+        groups = [[]]
+
+    outs, codes = [], []
+    for g in groups:
+        try:
+            r = subprocess.run(base + plain + g, capture_output=True,
+                               text=True, cwd=str(ROOT))
+        except OSError as e:
+            return "cannot", None, f"{type(e).__name__}: {e}"
+        outs.append((r.stdout or "") + (r.stderr or ""))
+        codes.append(r.returncode)
+    out = "".join(outs)
+    tail = [l.strip() for l in out.splitlines() if l.strip()]
+    # Worst wins. A batch that could not check makes the whole row "could not
+    # check"; a batch with findings makes it "found"; and a clean batch never
+    # upgrades a dirty one. Reading only the last exit code would let a clean
+    # final batch report success over an earlier failure, which is precisely
+    # the substitution this runner exists to stop at the top level.
+    if 2 in codes:
+        state, code = "cannot", 2
+    elif any(c != 0 for c in codes):
+        state, code = "found", next(c for c in codes if c != 0)
+    else:
+        state, code = "ok", 0
+    if len(groups) > 1:
+        tail.append(f"checked in {len(groups)} batches "
+                    f"({sum(len(g) for g in groups)} files)")
     # the most useful line to surface: the summary if there is one, else the last
     summary = ""
     for l in reversed(tail):
@@ -117,7 +177,7 @@ def run(key, script, args):
                                         "parses")):
             summary = l
             break
-    return state, r.returncode, (summary or (tail[-1] if tail else ""))
+    return state, code, (summary or (tail[-1] if tail else ""))
 
 
 def main() -> int:
@@ -140,9 +200,12 @@ def main() -> int:
         results.append((key, state, code, line, means))
         if args.verbose:
             print(f"\n=========== {key} ===========")
-            r = subprocess.run([sys.executable, str(ROOT / script)]
-                               + ([] if argv != ["@gd"] else gd_files()),
-                               cwd=str(ROOT))
+            # Batched here too. This path had the same unbounded argv and would
+            # have failed the same way, quietly, since its result was discarded.
+            _base = [sys.executable, str(ROOT / script)]
+            _groups = batched(_base, gd_files()) if argv == ["@gd"] else [[]]
+            for _g in _groups:
+                subprocess.run(_base + _g, cwd=str(ROOT))
 
     width = max(len(k) for k, *_ in results) + 2
     print(f"  {'check':<{width}}{'result':<10}{'exit':>5}   detail")
