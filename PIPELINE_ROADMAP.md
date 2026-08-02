@@ -2544,6 +2544,108 @@ UV question in item 31. The intrusion limit is a small, checkable addition to a
 gate that already exists. And none of it moves before item 29 ships a themed
 SITE rather than a themed building, because a kit with no corners is easier to
 judge on four buildings than on one.
+**36. Walking it. Zoo's inserts are exact; the layer with no slot is the one
+breaking the level.** 2026-08-02, a human walked the themed site and found nine
+things in twenty minutes that four instruments had not.
+
+The walk needed a project that did not exist. Lot writes the themed site with
+the composed building referenced by an ABSOLUTE path -- `res://C:/Projects/...`
+-- which Godot cannot load, and the portable export strips the walk scene by
+contract, so it ships no player. `tools/walk_themed.py` assembles a throwaway
+project from the pieces: the composed building as `building.tscn` with its
+`art/` and `site_base.glb`, the themed site with that reference made local,
+Lot's walk scene as the entry, and `addons/lot` for the player. It is scratch
+and rebuilds from one command, which after item 33 is the only kind of copy
+worth making.
+
+**What the art pass gets RIGHT, measured two independent ways.** Deli Counter's
+own placement gate reads `checked 318, matched 318, mismatched 0, ok true`. And
+`tools/insert_overhang.py`, written for this and comparing every instanced
+module's glTF AABB against its slot's declared `fit.dims`, finds **no module off
+its slot in any axis** -- not oversize, not tipped. The suspicion that inserts
+were dodging the shape contract is refuted. Zoo's structural modules honour
+their slots exactly, and nothing in the composed building reaches above the roof
+at y = 8.00.
+
+**What breaks the level is `Dressing`, and it is unpoliced by construction.**
+Identified by the one test no instrument here replaces: hiding the `Dressing`
+node in the editor made the offending geometry disappear.
+
+    Dressing   y -6.84 .. 6.84      declared envelope floor  y -4.00
+    Fixtures   y -0.30 .. 0.30
+    -- both ANSWER NO DECLARED SLOT
+
+Three faults, one cause:
+
+* **Rods standing floor-to-ceiling in open interior space**, with no collision.
+  The no-collision part is CORRECT -- the art pass never creates collision --
+  and it is what makes them worse: they read as obstacles, and a player walks
+  through them.
+* **Props below the floor**, tops emerging through it. `Dressing` reaches 2.85 m
+  under the basement floor.
+* Neither is checked by anything. The placement gate scores the 318 modules that
+  answer slots; `Dressing` answers none, so it is not among them. The
+  circulation gate checks props against ladder volumes, doorway apertures and
+  stair footprints -- not open floor, and not the floor plane itself.
+
+This is item 35's prediction arriving with numbers: the layers with no slot to
+answer to are the ones that go wrong, and `allowed_inward_intrusion_m` is the
+field that would have caught the rods. `insert_overhang.py` explicitly refuses
+to guess at inward intrusion because a bounding box cannot answer it -- and a
+person walking the level answered it in thirty seconds.
+
+**Two faults with other causes, both already measured elsewhere.**
+
+* **Windows shade as moiré.** The window modules ship `glass_wavy_normal.png`
+  and `glass_wavy_roughness.png`; item 31 measured zero TEXCOORD channels across
+  103 files and 12091 primitives. A normal map on geometry with no UVs samples
+  garbage. Same root as the LightmapGI blocker -- one cause, not two. Note that
+  flat albedo surfaces (the wood wall) shade fine, which is the same finding
+  seen from the other side.
+* **Doorways stacked in one column, and a wall crossing a window.**
+  `compose.summary.json` from this build reads `zfight_check: ok false`, 8
+  buried pairs, each 0.061 m2, at planes 3.696 and 7.696 -- the two storey
+  ceilings, exterior segment against interior. `run_presentation_compose.py`
+  returns 3 when that gate fails, and the compose job reported `cache` on this
+  run. **A red gate is being served from cache as a green one**, which is the
+  staleness class of item 33 in a new place and should be treated as the more
+  serious of the two findings.
+
+**RETRACTED: the `-1` group is the BASEMENT, not a sentinel.** Items 33 and 34
+record "93 nodes under a `-1` sentinel building index" as evidence that the
+composer failed to resolve which building modules belong to, and item 34 calls
+it a separate defect worth its own item. It is not a defect at all. Grouped by
+index and measured:
+
+    -1    93 nodes   y -4.00 .. -0.30
+     0   112 nodes   y  0.00 ..  3.70
+     1   113 nodes   y  4.00 ..  7.70
+
+Three storeys on one footprint. `COORDINATE_CONTRACT.md`, ratified, says it in
+as many words: "floor 0 = ground = Z 0; basement = story -1". The token is the
+STOREY, not the building. Nothing should be spent chasing it.
+
+**And a correction to the instrument, because it made a weak claim sound
+strong.** `insert_overhang.py` first ranked only modules BIGGER than their slot.
+A wall tipped onto a horizontal axis is the same box in a different orientation
+-- shorter than its slot, never larger -- so "no module is bigger than its slot"
+was true and would have missed exactly the fault it was pointed at. It now
+compares absolute deviation and reports height mismatch separately, since yaw is
+granted by the slot and rotation about a horizontal axis is not. The clean
+result above is from the corrected version.
+
+Three frame errors were made writing that tool in one hour -- Z-up dims against
+Y-up boxes, the ground plate mistaken for the shell, and yaw counted as size --
+and each printed confident, plausible, wrong numbers. All three announced
+themselves the same way: **equal and opposite values on two axes.** That pattern
+in this tool's output means the tool is wrong, not the art.
+
+**Ordering this implies.** The z-fight gate being bypassed by cache is first: it
+is a gate that already knows the answer and is not being heard. The `Dressing`
+placement is second and needs a rule before it needs a fix -- an intrusion limit
+in the slot manifest, and a gate that reads it. The UV question is third and is
+item 31's. Zoo's structural library needs nothing on this evidence, which is
+worth saying plainly after a day spent suspecting it.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
