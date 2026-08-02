@@ -1725,6 +1725,34 @@ matters because a preset that assumes SDFGI produces flat lighting under
 Compatibility with no error at all -- the same silent-drop shape as the Sun Link
 bug, one layer up.
 
+*Answered 2026-08-02.* `look_shots` on the portable export reports
+`"rendering_method": "gl_compatibility"`, `"adapter_api": "3.3.0 NVIDIA 610.74"`,
+`"adapter": "NVIDIA GeForce RTX 2060"`, engine `4.7-stable`. Both fields agree,
+so this is not a driver falling back: the project asked for Compatibility and
+got it, on a card that runs Forward+ without complaint.
+
+And it is not the consumer's choice. `packages/exporting/export.py`,
+`_write_project_godot`, writes `renderer/rendering_method="gl_compatibility"` as
+a literal. Every portable-godot export carries it. The old export on disk and
+the current one both read the same way.
+
+So the ordering in (a) was right and the owner was wrong. The renderer *is* the
+whole question for real-time GI, and Level Factory answers it, in one line, in a
+file in this repo. Under `gl_compatibility`:
+
+- SDFGI and VoxelGI are unavailable -- Forward+ only.
+- Therefore emissive lights nothing (item 32).
+- Therefore LightmapGI is the only GI that could run, and (b) shows the geometry
+  carries no UV channel at all.
+
+**Every form of global illumination is foreclosed by the export profile, before
+any question about the geometry or about Lux.** That is a decision to make
+deliberately, not a constraint to design around: it was presumably taken for
+reach, and nothing in the repo records the trade. Whoever changes it should
+change it knowing that Forward+ turns three of the four techniques back on and
+costs whatever it costs on the target hardware -- which is measurable, by
+re-running this same tool with `--rendering-driver` and diffing the histograms.
+
 *(b) The UV2 question is a fact about files already on disk.* LightmapGI is the
 one option that would survive a Compatibility consumer, and it is gated entirely
 on whether the Deli Counter GLBs carry a second UV set. That is inspectable now,
@@ -1894,6 +1922,143 @@ The order this implies is not the order the model reads in:
    but readable" becomes a number instead of a look.
 3. Only then decide GI -- because GI is what would make the emissive layer mean
    anything, and that decision is a bet on the consumer's renderer (item 31).
+
+**33. The export does not contain the level, and the closure judge said so on
+its first run.** Measured 2026-08-02 by looking at the pictures.
+
+`look_shots` reads the spine out of `gameplay_anchors.json` and stands the
+camera at spawn, objective and extraction. The exposure figures came back
+healthy -- mean 77.9 / 80.8 / 87.2, p95 96-98, no clipping, centre tracking
+frame -- and every one of them is a well-exposed photograph of an empty site.
+
+    overview     a ground plate with a light kerb, floating in sky. No buildings.
+    spawn        standing on a pale ground plane; a low perimeter wall band with
+                 gaps runs across the horizon. No buildings.
+    objective     fragments: a few wall segments, one ladder, and a slab floating
+                 in mid-air over a washed-out ground. No enclosure, no interior.
+
+So the whole lighting investigation in items 30-32 was carried out against a
+package with no buildings in it. Nothing measured there is wrong, and none of it
+is about a level.
+
+**RETRACTED, kept above the thing that replaced it.** Earlier the same day, this
+file was going to record that `export_closure_scan.json`'s ten entries --
+`lux.applied.tscn: unresolved res://site_base.glb` and nine
+`res://art/zoo/*.glb` -- were false positives, on the grounds that every one of
+those files is present in the export directory with an `.import` sidecar beside
+it. That inference is wrong. Presence on disk is not resolvability, and the
+render is the arbiter: the scene references those meshes, the scan says the
+references do not resolve, and the picture shows the meshes are not there. The
+judge was right on its first outing and was overruled from a directory listing
+by someone who had not looked at the frame.
+
+Two things follow, and the ordering matters more than either.
+
+**The priority inverts.** An export that does not carry the level outranks every
+question about how the level is lit. Items 31 and 32 stay open and stay true --
+`gl_compatibility` still forecloses GI, emissive still lights nothing without
+it, the meshes still carry no UV channel -- but none of them is the reason the
+package looks like this, and none of them should be worked before this is.
+
+**`CLOSURE_ENFORCED` should flip once this is fixed.** The flag was set to False
+because the existing library had never been read against the judge and a gate
+that fails on its first run teaches people to bypass it. Its first run found a
+real defect that four instruments and a directory listing missed. That is the
+argument for enforcing it, and the argument should be made after the ten
+references resolve, not instead of fixing them.
+
+And a note on method, because it is the whole lesson of the day. Four
+instruments agreed the package was fine: pytest at 496 passed, the exposure
+histogram, the light census, the UV census. All four were measuring true things
+about an empty plate. The first look at a rendered frame settled it in one
+glance. `look_shots` exists because "nothing in the pipeline had ever looked at
+a picture" -- and for most of this session its numbers were read while its PNGs
+went unopened.
+
+*The mechanism, measured the same day.* Counted rather than argued, and it
+refutes the guess in the paragraph above that the missing geometry was a
+packaging problem.
+
+    presentation_compose/out/presentation/site.tscn   353 nodes, 25 ext_resource
+    lux_apply/out/lux.applied.tscn                    243 nodes, 12 ext_resource
+
+`lux_apply` loses 110 nodes and 13 module references. `lux.applied.tscn` does
+NOT instance `site.tscn` -- it is a flattened scene naming `res://site_base.glb`
+and the `art/zoo` modules directly -- so the `site.tscn` skip added to
+`export.py` this session is NOT the cause, and that hypothesis is dead.
+
+Building index is the second token of every module node name. In `site.tscn`:
+
+    building 1    113 nodes
+    building 0    112 nodes
+    building -1    93 nodes
+    building 14     1 node
+
+And every one of the 110 nodes `lux_apply` drops belongs to building 0 or 1:
+
+    int_0_0_seg  23    ext_0_S_seg  20    ext_0_S_open  3    Dressing  1
+    int_1_2_seg  23    ext_1_S_seg  20    ext_1_S_open  2    Fixtures  1
+    int_1_3_seg   8    int_0_1_seg   4    int_0_0_open  2
+    int_1_2_open  2    int_0_1_open  1    int_1_3_open  1
+
+**The two real buildings are dropped in their entirety and the 93 nodes filed
+under the -1 sentinel all survive.** What ships is the sentinel geometry and the
+greybox base, which is exactly what the frames show: a ground plate, one wall
+run, one roof slab in mid-air.
+
+The shape of the loss names its own mechanism. `PackedScene.pack()` keeps only
+nodes with an `owner`, and Lux sets `owner` under `Engine.is_editor_hint()` --
+`lux_apply` runs headless. Whatever built the -1 nodes owned them; whatever built
+buildings 0 and 1 did not. This is the third appearance of the same failure
+family in one file: the Sun Link NodePath dropped for want of `node_paths`, the
+light loader never called because it is not a module, and now the level itself
+dropped for want of `owner`. Each is silent, each leaves a file that looks
+correct, and none of them errors.
+
+Two consequences beyond the obvious one.
+
+**Item 30 gets a measured cause.** `Dressing` and `Fixtures` are among the
+dropped containers. That is why nothing downstream of `lux_apply` carries
+fixture hardware, and it is a better answer than item 30's guess that
+`zoo_fixtures_build` was not reaching the composer. The fixtures reach the
+composer; Lux drops them.
+
+**`ext_-1_*` is a separate defect and should not be folded in.** 93 nodes under a
+sentinel building index means the composer failed to resolve which building
+those modules belong to, and it is worth knowing whether their transforms are
+also sentinel -- the floating roof suggests so. Fixing the `owner` drop would
+ship the two real buildings AND this junk. Both need doing; only one of them is
+why the site is empty.
+
+*Unresolved, and named so it is not quietly dropped.* `export_closure_scan.json`
+reports 10 unresolved references to files that are demonstrably present in the
+export directory, and `scan_closure` runs at step 3.6, AFTER the art copy at
+step 2.5, building its `present` set by `rglob` at scan time. Those two facts
+cannot both be right. Re-running `scan_closure` against the export as it stands
+settles it in one command, and until that is done neither "the judge is buggy"
+nor "the judge is correct" should be quoted -- including the retraction above,
+which was written from the render and not from the scanner.
+
+*Settled.* `scan_closure` re-run against the export exactly as it stands:
+`missing 0 ok True`. The judge is correct and the package's references resolve.
+
+So the `export_closure_scan.json` sitting in the export directory, with its ten
+issues and `"ok": false`, is a STALE ARTIFACT from an earlier run -- not a false
+positive and not a live failure. Three readings of the same file in one day,
+and the third is the only one that checked which run wrote it.
+
+That is the method error this file already documents at the top: comparing
+artifacts that are only ever "the ones currently on disk" says nothing when they
+came from different runs. The export directory demonstrably holds mixed vintages
+-- `project.godot` there now carries Godot's editor header and a `main_scene`
+that disagrees with `export_profile.json`, so the editor has rewritten it in
+place since the export ran. **Treat the export directory as evidence only for
+the run that just produced it, and re-run the producer rather than reading its
+leftovers.** The three retractions above cost more time than the re-run would
+have.
+
+None of this touches the finding: `lux_apply` still drops 110 nodes and both
+real buildings, and that happens upstream of the export.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of

@@ -18,6 +18,19 @@ extends Node
 const MARK_BEGIN := "<<<LOOK_SHOTS_JSON"
 const MARK_END := "LOOK_SHOTS_JSON>>>"
 
+## The dispatch handoff's anchor list, shipped at the root of every portable
+## export. It carries the mission spine as data when the entry scene carries it
+## as nothing.
+const ANCHORS_PATH := "res://gameplay_anchors.json"
+
+## anchor_type -> the spine key the scene exports would have used, so both
+## sources produce identically-shaped shots and a reader can compare runs.
+const ANCHOR_KEYS := {
+	"player_start": "spawn_pos",
+	"objective": "objective_pos",
+	"extraction": "extraction_pos",
+}
+
 ## Rec.709 luma weights, the coefficients the sRGB primaries are defined with.
 const LUMA_R := 0.2126
 const LUMA_G := 0.7152
@@ -27,6 +40,7 @@ var _out_dir: String = ""
 var _shots: Array = []
 var _hidden_layers: Array = []
 var _centre_frac: float = 0.0
+var _notes: Array = []
 
 
 func _ready() -> void:
@@ -94,6 +108,7 @@ func _ready() -> void:
 		"adapter_vendor": RenderingServer.get_video_adapter_vendor(),
 		"viewport": [get_viewport().size.x, get_viewport().size.y],
 		"hidden_canvas_layers": _hidden_layers,
+		"notes": _notes,
 		"shots": _shots,
 	})
 
@@ -166,45 +181,38 @@ func _derive_cameras(scene: Node) -> Array:
 		if v is Vector3:
 			spine.append({"key": key, "pos": v})
 
-	# A Level Factory presentation scene carries no mission spine -- the exports
+	# A Level Factory presentation scene carries no mission spine: the exports
 	# above live on Lot's walk-scene root, and the portable shell's entry is a
-	# bare Node3D. Without a fallback this tool degrades to one distant overview,
-	# which on a preset with fog is a picture of the fog. So when there is no
-	# spine, stand inside the site instead: at the AABB centre, at eye height,
-	# looking along each horizontal axis. Still derived -- the position and the
-	# aim both come from the geometry -- and it is the view a player has.
-	if spine.is_empty() and aabb.size.length() > 0.0:
-		# aabb.position.y is the LOWEST visible geometry in the whole site, and
-		# on a Lot site that is a sunk ground plate or a basement slab -- the
-		# first version of this stood the camera in a basement and reported the
-		# dark it found there as the level's exposure. Stand on whatever a body
-		# would stand on instead: cast down through the physics world at the
-		# centre and take the first hit. Falls back to the AABB floor, and says
-		# which one it used, because a fallback that reads like a measurement is
-		# how the basement shot got believed the first time.
-		var floor_y: float = _surface_y(aabb)
-		var grounded: bool = not is_nan(floor_y)
-		if not grounded:
-			floor_y = aabb.position.y
-		var eye := Vector3(aabb.get_center().x, floor_y + eye_h,
-			aabb.get_center().z)
-		var stance: String = "collision surface under the AABB centre" \
-			if grounded else "AABB floor (no collider under the centre)"
-		var reach: float = maxf(aabb.size.x, aabb.size.z) * 0.5
-		var headings := {
-			"inside_north": Vector3(0.0, 0.0, -1.0),
-			"inside_east": Vector3(1.0, 0.0, 0.0),
-			"inside_south": Vector3(0.0, 0.0, 1.0),
-			"inside_west": Vector3(-1.0, 0.0, 0.0),
-		}
-		for label in headings:
-			out.append({
-				"name": String(label),
-				"eye": eye,
-				"target": eye + (headings[label] as Vector3) * reach,
-				"derivation": "no mission spine on this scene; %s at eye height %.2f m, facing %s" % [
-					stance, eye_h, String(label)],
-			})
+	# bare Node3D. The spine is still IN the package, as data -- the dispatch
+	# handoff writes gameplay_anchors.json to the export root with a
+	# player_start, an objective and an extraction point. Read those.
+	var spine_source := "scene exports"
+	if spine.is_empty():
+		spine = _anchor_spine()
+		if not spine.is_empty():
+			spine_source = ANCHORS_PATH
+
+	# THREE REFUTED FALLBACKS, kept above the thing that replaced them, because
+	# each produced a clean-looking histogram of somewhere no player stands and
+	# the third was only caught by printing the y.
+	#
+	#   aabb.position.y + eye_h     -- lowest visible geometry in the whole
+	#                                  site: a sunk ground plate. In a basement.
+	#   first hit casting down      -- highest surface in the column: the ROOF.
+	#                                  Reported eye y=9.60 on a site whose
+	#                                  ground is y=0, and read as daylight.
+	#   lowest hit in the column    -- the UNDERSIDE of the ground plate.
+	#                                  Reported eye y=-2.40 against a floor at
+	#                                  y=-4.00, and read as a dark interior.
+	#
+	# The pattern is the finding: the geometry does not say where a player
+	# stands, and every attempt to infer it invented a plausible number. So no
+	# fourth guess. With no spine and no anchors this returns the overview alone
+	# and says why, because one honest shot beats four confident wrong ones.
+	if spine.is_empty():
+		_notes.append(
+			("no mission spine on the scene and no usable anchors in %s; "
+			+ "eye-level shots omitted rather than guessed") % ANCHORS_PATH)
 		return out
 	for i in range(spine.size()):
 		var here: Dictionary = spine[i]
@@ -216,27 +224,60 @@ func _derive_cameras(scene: Node) -> Array:
 			"name": label,
 			"eye": eye,
 			"target": target,
-			"derivation": "scene export %s at eye height %.2f m, facing the next leg" % [
-				String(here["key"]), eye_h],
+			"derivation": "%s: %s at eye height %.2f m, facing the next leg" % [
+				spine_source, String(here["key"]), eye_h],
 		})
 	return out
 
 
-## The y of the first collider under the AABB centre, or NAN if nothing is
-## there. Cast from above the site's top down to below its bottom, so a site of
-## any height is covered without a magic ray length.
-func _surface_y(aabb: AABB) -> float:
-	var world: World3D = get_viewport().find_world_3d()
-	if world == null:
-		return NAN
-	var c: Vector3 = aabb.get_center()
-	var from := Vector3(c.x, aabb.end.y + 1.0, c.z)
-	var to := Vector3(c.x, aabb.position.y - 1.0, c.z)
-	var q := PhysicsRayQueryParameters3D.create(from, to)
-	var hit: Dictionary = world.direct_space_state.intersect_ray(q)
-	if hit.is_empty():
-		return NAN
-	return (hit["position"] as Vector3).y
+## The mission spine out of the dispatch handoff's anchor list.
+##
+## Positions only -- the anchors carry `pos` and `rot_y_deg`, and the shots aim
+## at the next leg rather than at a stored heading, so the two sources frame the
+## same way. First anchor of each type wins: a mission has one start and one
+## extraction, and where it has several objectives the first is the one the
+## beat graph opens on.
+##
+## Returns [] on anything unreadable -- absent file, bad JSON, no `anchors`, no
+## recognised type. Callers treat that as "no spine", never as "spine at the
+## origin", because a silent Vector3.ZERO is a camera in the ground.
+func _anchor_spine() -> Array:
+	if not FileAccess.file_exists(ANCHORS_PATH):
+		return []
+	var parsed: Variant = JSON.parse_string(
+		FileAccess.get_file_as_string(ANCHORS_PATH))
+	if typeof(parsed) != TYPE_DICTIONARY:
+		_notes.append("%s did not parse as JSON" % ANCHORS_PATH)
+		return []
+	var doc: Dictionary = parsed
+	if typeof(doc.get("anchors")) != TYPE_ARRAY:
+		_notes.append("%s has no 'anchors' array" % ANCHORS_PATH)
+		return []
+	var found := {}
+	for entry in doc["anchors"]:
+		if typeof(entry) != TYPE_DICTIONARY:
+			continue
+		var a: Dictionary = entry
+		var key: String = String(ANCHOR_KEYS.get(String(a.get("anchor_type", "")), ""))
+		if key == "" or found.has(key):
+			continue
+		if typeof(a.get("transform")) != TYPE_DICTIONARY:
+			continue
+		var xform: Dictionary = a.get("transform")
+		if typeof(xform.get("pos")) != TYPE_ARRAY:
+			continue
+		var pos: Array = xform.get("pos")
+		if pos.size() < 3:
+			continue
+		found[key] = {"key": key, "pos": Vector3(
+			float(pos[0]), float(pos[1]), float(pos[2]))}
+	var spine := []
+	# Fixed order, not dictionary order, so shot names and the leg each camera
+	# faces are the same on every run and two runs can be diffed line by line.
+	for key in ["spawn_pos", "objective_pos", "extraction_pos"]:
+		if found.has(key):
+			spine.append(found[key])
+	return spine
 
 
 ## The union of every VisualInstance3D's AABB in world space.
