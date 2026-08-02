@@ -2158,6 +2158,100 @@ quoted twice today before being broken again.
 Nothing further should be concluded from these directories. Re-run compose and
 lux_apply as one pass, and take the counts from that.
 
+*RETRACTED IN FULL, on a clean run. `lux_apply` loses nothing.*
+
+    presentation_compose   353 nodes  25 refs   2026-08-02 09:33:03
+    lux_apply              354 nodes  27 refs   2026-08-02 09:49:41
+    presentation_compose -> lux_apply: +1 nodes, 0 reference(s) lost, 2 gained
+
+The +1 node is the LuxRoot the driver adds; the +2 references are the preset
+and `lux_root.gd`. Nothing is dropped. Every paragraph above that attributes
+missing geometry to `lux_apply` -- the 110 nodes, the 13 references, "both real
+buildings are dropped in their entirety", the `owner` mechanism, and the
+`.import` sidecar mechanism that replaced it -- describes a comparison between a
+2026-08-02 compose output and a 2026-07-25 lux output. Two runs, eight days
+apart. There was no drop.
+
+What is still true is smaller and duller: **the export photographed at the top of
+this item was built from stale job outputs.** The empty frames are real; they are
+a picture of a package assembled from a lux scene produced eight days before the
+compose scene it was supposed to follow. The site is not empty because a stage
+eats it. It is empty because the exporter shipped last week's.
+
+The sidecar observation survives as an observation and dies as a cause:
+`presentation_compose` really does write 15 of its 25 references without an
+`.import`, on a fresh run -- and `lux_apply` resolved all 27 anyway. The staging
+import pass evidently generates what it needs. So "modules without sidecars get
+dropped" was a correlation across two runs, and it is not a mechanism.
+
+**This is the sixth refutation in one item, and the only one that matters,
+because it was self-inflicted by the exact failure the guard in
+`tools/stage_census.py` exists to prevent.** The tool printed REFUSED. The
+refusal was overridden with `--allow-mixed`, the marked lines were read anyway,
+and the result was committed as ESTABLISHED -- by the same hand that had written
+the refusal into the tool an hour earlier, in a file that already carried the
+rule twice. A guard nobody obeys is a comment.
+
+Two things worth keeping from the wreckage, both real:
+
+- `--force` does not re-run the whole graph. `zoo_kit_build` and
+  `dispatch_handoff` stayed at 2026-07-24 through a `run ... --art --gameplay
+  --force`. That is what let an eight-day-old `lux.applied.tscn` reach an
+  export made today, and it is the actual defect behind the empty site.
+- `stage_census`'s 600 s default span is too tight for a real run: compose and
+  lux_apply sat 998 s apart in one honest pass, with the nav walk between them.
+  The guard should compare per-PAIR rather than across the whole set, so a
+  fresh pair reads as fresh even when a cached stage upstream is a week old.
+
+*Confirmed, from one run, end to end.* Re-exported from the 2026-08-02 outputs
+and photographed through the tool's own derived cameras:
+
+    lux_apply         354 nodes  27 refs   09:49:41
+    dispatch_handoff  179 nodes   2 refs   09:49:42   (bakes to lot.glb/shell.glb)
+    export            354 nodes  27 refs   09:57:20   +0s
+
+The export carries the full lux scene -- 354 and 27, against the 243 and 12 the
+stale package shipped. **The empty site was staleness and nothing else.** The
+frames now show textured walls, doorways, a corridor and an interior. There is a
+level in the package.
+
+`dispatch_handoff` reducing 354 nodes to 179 with 2 references is it baking the
+assembled site down to `lot.glb` and `shell.glb`; the export follows the lux
+path, not the dispatch path, so that reduction is a parallel branch and not a
+loss. Named here only so the next reader does not re-chase it.
+
+And the interior statistic earned its place on its first honest run:
+
+    name         eye_y   mean   centre   p95   centre p95
+    overview     21.97   76.0     77.0   187          195
+    spawn         1.60   76.2     71.3    94           96
+    objective     2.50   54.3     30.9    87           87
+    extraction    1.60   86.0     86.3    97           98
+
+Three shots have the centre within a few points of the frame. The objective has
+**centre 30.9 against a frame mean of 54.3** -- the camera is looking into an
+interior, and the frame mean alone reads as unremarkable. That is exactly the
+gap item 32 predicted from item 30's 72-against-20, measured this time at a
+place a player stands, in a package built from one run.
+
+So the standing state, with the day's five dead hypotheses behind it:
+
+    REAL     job invalidation. `--force` left zoo_kit_build and
+             dispatch_handoff at 2026-07-24 through a full run, which is how an
+             eight-day-old lux.applied.tscn reached an export made today. This
+             is the defect that produced every empty frame.
+    REAL     interiors are unlit, now with a number from a real interior:
+             30.9 centre against 54.3 frame at the objective.
+    REAL     gl_compatibility forecloses SDFGI and VoxelGI (item 31), so
+             Pixelcoat's emissive layer cannot light those interiors, and the
+             library carries no UV channel for LightmapGI either.
+    OPEN     the site reads sparse -- a large plate, a perimeter, and thin
+             pieces scattered across it. Whether that is the ext_-1 sentinel
+             index placing modules badly, or simply what a two-building site
+             looks like, is not established and should not be guessed at.
+    NOT A    lux_apply, presentation_compose, the closure judge, node
+    DEFECT   ownership, and import sidecars. All five were refuted.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
