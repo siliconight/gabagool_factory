@@ -2947,6 +2947,35 @@ and it is the same hand-maintained duplication that produced the defect.
    never read today. It would have answered "why did `lot_assemble` hit the
    cache" in one file instead of the four steps it took.
 
+*Measurement 1, answered.* An artifact provenance record, read from
+`lot_assemble`'s output:
+
+    "created_at": "2026-08-02T18:55:42.288193+00:00",
+    "inputs": [],
+    "produced_by": { "job_id": ..., "repository_commit": ..., "tool_version": ... }
+
+**`created_at` is a wall-clock timestamp**, so every `*.provenance.json` differs
+on every run by construction. They MUST be excluded from any upstream hashing --
+including them would invalidate every downstream job on every run and convert
+the cache into a full rebuild, which is the failure mode this item exists to
+avoid. The exclusion is `*.provenance.json`, stated here so it is a decision on
+the record rather than a filter someone adds quietly.
+
+Everything else in that record is stable and worth keeping: `repository_commit`
+and `tool_version` are already folded into the fingerprint separately, and
+`logical_name` is what an upstream hash would key on.
+
+*And a third instance of the pattern, in the same file.* The provenance record
+carries `"inputs": []`. Empty -- like `upstream_artifact_hashes`, and for the
+same reason: the field is declared and nothing populates it. **An artifact that
+records what produced it and not what it was produced FROM cannot answer "is
+this stale", which is the question both of today's defects turned on.** Two
+fields, one absence, and populating either would have surfaced the problem.
+
+That makes four in one day: the light loader, Zoo's LuxEmit markers,
+`upstream_artifact_hashes`, and `provenance.inputs`. The grep for "declared but
+never written" is looking like the highest-yield hour available.
+
 **And the pattern underneath, which outranks the fingerprint story.** Three
 times in one day the design was right and the wiring was absent:
 
