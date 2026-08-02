@@ -2989,6 +2989,68 @@ review question for this toolchain is not "is this designed correctly" -- it
 generally is -- it is **"is this called?"** A grep for the writer of every
 declared input, and for the caller of every public entry point, would be a short
 afternoon and would probably find more.
+**40. The "is this called?" sweep, run.** `tools/never_wired.py` across nine
+repos, 2026-08-02. It reports questions, not defects -- a key can legitimately
+be written by another repo or by hand-authored JSON, and this triage is the
+human half.
+
+**Noise, named so nobody re-triages it.** Roughly four fifths of the output is
+correct by design and falls into four groups:
+
+* **Environment variables** -- `BLENDER`, `DC_GODOT`, `DC_THEME`,
+  `ANTHROPIC_API_KEY`, `LF_TOOLS_DIR`, `DISPLAY`. Read from `os.environ`,
+  written outside Python.
+* **External schema keys** -- glTF (`translation`, `bufferView`, `accessors`,
+  `POSITION`, `TEXCOORD_0/1`, `componentType`) and Blender node sockets
+  (`Color`, `Roughness`, `Base Color`, `Factor`, `BSDF`, `Surface`). Read from
+  data this toolchain does not author.
+* **Cross-repo manifest fields** -- `matched`, `checked`, `dangling_refs`,
+  `conflicts`, `path_proofs`, `sim_seconds`, `walkers`. Written by one tool,
+  read by another; the boundary the scanner cannot see across.
+* **Test fixture data** -- `bank/attacker_spawn`, `a.glb`, `expected_code`.
+
+**Three leads that are not noise.**
+
+*(a) Laser Tag finding codes that appear only in tests.* `LT_MAP_TRAVERSAL` (4
+reads), `LT_MAP_MISSING_PLAYER_SPAWN` (3), `LT_MAP_ENEMY_STUCK` (1),
+`LT_MAP_NAVIGATION_MISSING` (1) -- **every read is inside
+`tests/unit/test_lasertag_readiness.py`**, and nothing in Level Factory writes
+any of them. Either Laser Tag emits them (it is not Python, so the scanner
+cannot see it) or the tests assert on codes nothing produces, in which case they
+pass by never firing. **That is the exact shape of the PVP sightline gate in
+item 38** -- a fixture built to be caught, passing. This is the one to check
+first, and it is one grep in the Laser Tag repo.
+
+*(b) Dispatch importers naming files that may not exist.* `dispatch/importers/`
+reads `lux.lighting.json` and `lux.volumes.json`. Lux's adapter declares its
+outputs as `lux.applied.tscn`, `lux.quality.json` and `lux.validation.json` --
+neither of the two names Dispatch is looking for. Also `shell.patina.glb`,
+`shell.collision.json`, `lot.nav_hints.json`, `shell.nav_hints.json`. If those
+importers silently no-op on absent files, the Dispatch handoff has been running
+on a subset of its intended inputs and reporting success -- the same failure
+class as everything else found today.
+
+*(c) Substantial functions with no caller.* Worth a look rather than a verdict:
+
+    deli_counter  export_glb              deli_counter.py:2363
+    dispatch      build_authority_map     authority.py:66
+    dispatch      authority_for           authority.py:56
+    level_factory advise_spawn_placement  validation/spawn_placement.py:395
+    level_factory unfinished_jobs         project_store/index.py:150
+    patina        register_theme_family   slots.py:231
+    patina        slot_tint_floor         slots.py:236
+    deli_counter  climb_height            ladder.py:184
+
+`export_glb` in the building emitter and `build_authority_map` in Dispatch are
+the two that read like load-bearing pieces rather than helpers.
+
+**And the tool flagged its own visitors on the first run** -- `visit_Call`,
+`visit_Dict`, `visit_Subscript` -- because `ast.NodeVisitor` dispatches by name.
+Fixed by an explicit exclusion list covering that, Blender's operator protocol
+(`execute`, `draw`, `register`, `unregister`, `poll`) and pytest hooks. The list
+is in the source rather than hidden, because an exclusion nobody can see is how
+a scan quietly stops covering things -- which is the defect this whole item is
+about, committed by the instrument that looks for it.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
