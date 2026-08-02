@@ -2803,6 +2803,56 @@ down a street, or a block of different premises -- and this item does not make
 it. What it establishes is that the monotony is chosen in `_write_site_spec`,
 not imposed by Deli Counter, and that a diversity check at the building layer
 would have said so without anyone walking the level.
+**38. Light anchors hung below the slab, and four Deli Counter tests that were
+already red.** 2026-08-02.
+
+**The fix.** `lights.py` derived a ceiling row's height as
+`floor + story_height - 0.1`. That expression's second term is the storey TOP --
+the next floor's floor -- so the fixture landed 0.10 m below the slab's TOP face
+and therefore 0.20 m INSIDE a 0.30 m slab. Item 36 measured the consequence: 28
+of 28 fluorescents buried, invisible from either room, lighting a void.
+
+The rule was already written down and this was its third consumer.
+`Building._cap_thick` returns the thickness of the slab capping a storey and
+says why it exists: *"One rule, one place, because both wall emitters need it
+and two copies drift."* The wall emitters subtract it (`wh = H -
+self._cap_thick(s, top)`). The light manifest did not.
+
+`derive_light_anchors` and `build_light_manifest` now take `cap_thick`, a float
+or a callable of the storey index, and `write_light_manifest` passes the
+builder's own `_cap_thick`. **It is required, with no default** -- a default of
+zero would silently reproduce the defect it exists to fix, and this kit does not
+ship guards that pass by omission. Three tests added: the fixture must end below
+the slab's underside, `cap_thick` may vary by storey (a top storey is capped by
+a roof, which need not match a floor), and omitting it raises.
+
+Expected after a rebuild: fluorescent anchors at 3.60 / 7.60 / −0.40 in place of
+3.90 / 7.90 / −0.10.
+
+**Every building in `deli_counter/build/` is stale from the moment this lands.**
+103 GLBs whose light manifests carry the old heights. That is not a defect, it
+is the cost, and it should be stated in the commit rather than discovered later.
+
+**Four tests were already failing before this change**, verified by stashing it
+and re-running -- same four, same messages:
+
+    test_nav_gate.py::test_run_gate_parses_result_and_exit_code
+    test_nav_gate.py::test_run_gate_failure_verdict
+        OSError [WinError 193] "%1 is not a valid Win32 application" --
+        environmental, a stub executable the harness cannot exec.
+
+    test_pvp_heist.py::test_opposing_spawn_sightline_fails
+        asserts PVP-SPAWN-LOS in the errors; gets an empty set.
+    test_failing_fixtures.py::test_fixture_fails_for_documented_reason
+        [fx_pvp_spawn_los.json] -- "PASSED but must fail (opposing spawns share
+        a direct clear sightline)".
+
+**The PVP pair is one defect seen from both ends: the spawn-sightline check has
+stopped firing.** A fixture built to be caught is passing, and the check that
+should catch it reports nothing. Same class as the z-fight gate being served
+from cache in item 36 -- a gate that knows the answer and is not heard -- and
+worth the same priority. Not fixed here, and not this session's doing; recorded
+so the next reader does not file it as flaky.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
