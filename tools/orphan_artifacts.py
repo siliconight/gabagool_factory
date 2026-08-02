@@ -24,8 +24,10 @@ both directions:
   A. ON DISK, MENTIONED NOWHERE (or in only one repo). Something produced it.
      If only the producing repo names it, nothing downstream consumes it.
 
-  B. NAMED IN SOURCE, ABSENT FROM DISK. Something expects it. If no build ever
-     produced one, the importer is reading a file that is never written -- the
+  B. NAMED IN SOURCE, ABSENT FROM DISK -- absent from the workspace AND from
+     every repo scanned. Something expects it. If no build ever produced one
+     and no repo ships one, the importer is reading a file that is never
+     written -- the
      shape of the dispatch importers naming `lux.lighting.json`,
      `lux.volumes.json` and `*.nav_hints.json`. Markdown and test files are
      excluded from this half: a CHANGELOG naming a file from three releases
@@ -202,9 +204,19 @@ def main(argv=None):
     print("=" * 74)
     print("B. NAMED IN SOURCE, ABSENT FROM DISK -- who writes this?")
     print("=" * 74)
+    # "Absent from disk" has to mean absent EVERYWHERE this run looked, not
+    # just absent from the workspace. A first pass compared source literals
+    # against built artifacts only, so every schema and spec that lives inside
+    # a repo read as missing -- `level.schema.json`, which sits at
+    # deli_counter/schema/, came back as the loudest line in the report at 157
+    # mentions. The top hit being noise is how a lead generator teaches you to
+    # stop reading it.
     have = set()
     for paths in disk.values():
         have.update(os.path.basename(p) for p in paths)
+    for repo in rp:
+        for path in walk(repo, _ART_EXT):
+            have.add(os.path.basename(path))
     missing = []
     for name, sites in literals.items():
         if "*" in name or "?" in name:
