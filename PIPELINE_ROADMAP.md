@@ -1405,6 +1405,119 @@ number a level has to beat. It also needs a display — `--headless` disables
 rendering — so on a machine without one it runs under llvmpipe, which is an
 instrument you may A/B against itself and may not quote beside a Forward+ figure.
 
+**27. The portable export ships a scene without its geometry, and every gate in
+the chain passes it.** Found 2026-08-01 by pointing `tools/look_shots.py` at a
+freshly exported package. Half fixed; the half that matters is open.
+
+`export --mode portable-godot` on `category5_baie_dore_001`, run minutes before
+this was written, produced a package whose presentation scene declares twelve
+`ext_resource` entries. **Ten of them are not in the package:**
+
+    MISSING  site_base.glb
+    MISSING  art/zoo/roof_rockay_01_w4400.glb
+    MISSING  art/zoo/wall_rockay_01_w200.glb        (x160 instances)
+    MISSING  art/zoo/wall_rockay_01_w35.glb         (x124)
+    MISSING  art/zoo/wallEnd_rockay_01.glb          (x29)
+    MISSING  art/zoo/doorway_rockay_01_w120.glb
+    MISSING  art/zoo/doorway_rockay_01_w320.glb
+    MISSING  art/zoo/breach_rockay_01_w150.glb
+    MISSING  art/zoo/breach_rockay_01_w140.glb
+    MISSING  art/zoo/window_rockay_01_w160.glb
+    OK       runtime/lux/runtime/lux_root.gd
+    OK       runtime/lux/presets/blue_hour.tres
+
+**211 of the scene's 243 nodes instance one of those ten.** The package does
+ship two `.glb` files -- `assets/lot.glb` and `assets/shell.glb` -- and the
+scene references neither. There are zero mesh sub-resources. What a consumer
+opens is a correctly-lit empty world: Blue Hour applied properly (sun at +4.0
+degrees elevation, ACES, glow, fog), and nothing for it to fall on. Photographed
+from the AABB centre at eye height in all four cardinal directions: four
+near-identical histograms, mean 69, no geometry in any of them.
+
+**Why nothing caught it, and this is the transferable part.** `closure.py`'s
+`scan_closure` is correct -- run against that package by hand it returns
+`ok: false, missing_resource_count: 10` and names all ten. It was reachable from
+exactly one call site, `portability.py:68`, inside `run_portability_test` -- a
+separate command, off the path that produces the deliverable. Same shape as the
+traversal gate found the same evening: the guard exists, works, and is not on
+the road.
+
+Worse, the export wrote a file **named** `export_closure.json` that reported
+`"unresolved": []`. That file is `localize_export`'s report -- the FIXER's log.
+`localize.py`'s own docstring says it: *"scan_closure (closure.py) is the judge;
+this module is the fixer."* The fixer's `unresolved` fills only when a repair was
+ATTEMPTED and failed. A scene referencing a `.glb` that was never copied in is
+not something the fixer tries to repair, so it leaves no trace. One name
+answering two different questions is how an empty package read as verified --
+including to the author of this entry, for about an hour.
+
+**Landed:** `export_mission` now calls `scan_closure` and writes the verdict to
+`export_closure_scan.json`, deliberately named apart from the fixer's log. It
+warns rather than blocks, behind `CLOSURE_ENFORCED = False`, for the same reason
+`WALKTEST_ENFORCED` does: the current export is broken by a *different* defect,
+and failing on day one would block every export on something this change did not
+cause. The export now prints ten `EXPORT_CLOSURE_BROKEN` lines and drops a report
+saying `"ok": false`. Level Factory's suite still exits 0.
+
+**Open, and it is the one that makes levels contain art:** the Zoo modules are
+never copied. `export_mission` copies `base_dir` and `presentation_dir`; the
+presentation dir is the `lux_apply` job's `out/`, and the `art/zoo/*.glb` live in
+the **zoo_kit_build** job's output at `res://art/zoo/` in the staged project.
+Neither copy brings them. The art pass runs, Zoo fills the slots, Pixelcoat
+skins them, Lux lights it -- and the export drops all of it. Fix the copy, then
+flipping `CLOSURE_ENFORCED` is a two-character change and the gate becomes real.
+
+**28. The VRAM question is about zoo's GLB embedding, not about pixelcoat.**
+Raised as "we do resource/VRAM sharing for deli counter, can pixelcoat do it
+too"; the premise does not survive reading, and the direction of the error is
+the useful part.
+
+**Deli Counter does MESH sharing, not texture sharing.** `deli_counter.py:76`
+caches Blender mesh datablocks keyed by role+dims, so the glTF carries one mesh
+and N nodes. Measured on the rockay building: **333 module instances against 14
+distinct PackedScene GLBs**, 23.8x reuse, carried by `wall_rockay_01_w200` (160)
+and `wall_rockay_01_w35` (124). The phrase "one texture in memory" is quoted from
+DC's own README where it is a *rider* on mesh sharing, not a mechanism. DC
+authors no visual materials at all -- zero hits for `ShaderMaterial`,
+`surface_override_material` or any material cache in the repo, and the README
+says plainly *"Deli Counter doesn't bake visual materials -- you texture in your
+engine."*
+
+**The material sharing already ships, in zoo.** `zoo/zoo_keeper/bpylayer/materials.py:63`
+caches one `M_Skin_<kind>_<theme>` per (kind, theme) and returns the existing
+datablock on a hit; `_load_image` uses `check_existing=True`. Resolution is
+kind-level by design (`core/skins.py`): every Zoo mesh already carries
+world-meter cube-projected UVs, so one pack skins every metal part of every
+species at uniform density.
+
+**Nothing structurally blocks it.** Checked every candidate for a per-surface
+parameter that would force distinct materials: tile density lives in **mesh
+UVs**, wear in the `COLOR_0` attribute, tiling metres and opacity are per-pack
+constants, interpolation is hardcoded, palette is baked into the albedo PNG. No
+per-instance uniform is needed because nothing needs to vary per instance. Sign
+faces are the one deliberate exception and should stay distinct -- three
+storefronts want three signs.
+
+**The actual gap:** `zoo/zoo_keeper/bpylayer/export.py:23` uses
+`export_format="GLB"`, and GLB embeds textures as binary chunks. Blender's
+material cache dedups *within* one export, but zoo emits one GLB per
+(type, width), so each of those 14 module files carries its own copy of the same
+pack. The 333 to 14 win is entirely geometric; the texture side is 14x, not 1x.
+Deduplicating it means external texture references at the zoo export boundary or
+a Godot-side post-import remap.
+
+Two pieces of machinery for this already exist and have **zero consumers
+anywhere in the factory**: pixelcoat's `integrations/godot/addons/pixelcoat_importer/pack_importer.gd`
+writes one shared `_material.tres` per pack, and `pixelcoat/core/atlas.py` (v0.8)
+packs N packs into one atlas per map. Grepping the tree for `pixelcoat-atlas`,
+`_atlas.json` or `build_atlas` outside the pixelcoat repo returns nothing; zoo's
+`skins.load_pack` reads `*.pack.json` only and cannot consume an atlas. Pixelcoat
+0.11.0's docs mention VRAM, draw calls, memory and texture sharing exactly zero
+times.
+
+So: not a pixelcoat feature request. A zoo export change, with pixelcoat's
+already-built importer and atlas as the machinery to point it at.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
