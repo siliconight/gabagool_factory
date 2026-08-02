@@ -2887,6 +2887,79 @@ re-run look identical from downstream -- which is why `tools/stage_census.py`
 prints mtimes and refuses cross-run comparisons. Any stage that reads a file it
 does not hash belongs on that list; the audit has not been done for the other
 adapters, and should be.
+**39. Cache correctness: the mechanism is designed and never wired, and the
+pattern behind that is the finding.** Written 2026-08-02 after two stale-cache
+defects in one day. Nothing here is implemented; the measurements it asks for
+come first.
+
+**RETRACTED: `--force` is not broken.** Items 33 and 38 record that "`--force`
+did not re-run the whole graph" as though it were a defect. It is a deliberate
+no-op, and `scheduler.py` says so:
+
+    # `force` is kept in the signature because `cmd_run` passes it. The
+    # behaviour it used to select is now the only behaviour.
+
+The surrounding comment explains the decision: the content cache is keyed on the
+build fingerprint rather than on a recorded status, so a cache hit is an honest
+statement about inputs and there is nothing to bypass. That is the right call.
+It also means **there is no escape hatch** -- when the cache is wrong, a person
+cannot force past it, only delete it. Everything below follows from that: the
+cache does not need an override, it needs to be correct.
+
+**The mechanism exists and has never been connected.** `BuildFingerprint`
+carries a field for precisely this problem:
+
+    upstream_artifact_hashes=list(job_spec.get("upstream_hashes", [])),
+
+`upstream_hashes` occurs **once in the whole repository** -- that read. Nothing
+writes it. The list is always empty, on every job, in every run.
+
+**What to do: populate it from the DAG, in the scheduler.** `depends_on` is the
+truth about what feeds what, and the scheduler already hashes a job's artifacts
+when it publishes to the cache. Folding an upstream job's artifact hashes into
+its dependents' fingerprints makes invalidation STRUCTURAL: any upstream output
+change invalidates downstream regardless of whether that adapter remembered to
+hash the right file. Both of today's defects die at once, and so do the ones
+nobody has hit yet.
+
+`fingerprint_inputs` would then only need to cover inputs from OUTSIDE the DAG
+-- the site spec Level Factory writes, tool configuration, seeds. Today every
+adapter re-states the dependency graph by hand, which is a second copy of
+knowledge the planner already holds; this codebase has a name for what happens
+then, in `_cap_thick`'s own docstring: *"two copies drift."*
+
+**What NOT to do: audit the adapters one at a time.** It fixes the instances
+found and not the class, it goes stale the first time someone adds a file read,
+and it is the same hand-maintained duplication that produced the defect.
+
+**Two measurements first, because this could kill the cache outright.**
+
+1. *Are job outputs deterministic run to run?* The output directories are full
+   of `*.provenance.json`. If those carry timestamps, then every upstream hash
+   changes on every run, nothing ever caches, and every build becomes a full
+   rebuild -- turning a correctness fix into a performance catastrophe. The
+   answer is a diff of two runs' outputs, not a guess. Whatever must be excluded
+   should be excluded by a STATED list; a silent exclusion is how a fingerprint
+   goes blind in the first place.
+2. *What does the receipt already say?* `_attempt_job` writes
+   `fingerprint.last.json` on every evaluation INCLUDING cache hits, with a
+   comment about diagnosing a cache hit that should not have happened. It was
+   never read today. It would have answered "why did `lot_assemble` hit the
+   cache" in one file instead of the four steps it took.
+
+**And the pattern underneath, which outranks the fingerprint story.** Three
+times in one day the design was right and the wiring was absent:
+
+    the light loader          designed, documented, never called (item 30)
+    Zoo's LuxEmit markers     baked correctly, nothing reads them (item 36)
+    upstream_artifact_hashes  a field in the fingerprint, never populated
+
+None of these is a design error. Each is a correct piece that no code path
+reaches, and each read as a *missing feature* until someone measured. The useful
+review question for this toolchain is not "is this designed correctly" -- it
+generally is -- it is **"is this called?"** A grep for the writer of every
+declared input, and for the caller of every public entry point, would be a short
+afternoon and would probably find more.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or

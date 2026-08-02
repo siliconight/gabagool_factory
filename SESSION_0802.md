@@ -129,10 +129,19 @@ a glance, and the tool that takes those frames had been in the repo all day.**
 
 ## Pick up here
 
+Light anchors are DONE (roadmap 38): Deli Counter hangs ceiling rows below the
+slab's underside, and the Lot adapter's fingerprint now watches the manifests
+beside the GLBs — without the second fix the first was invisible, because the
+geometry was byte-identical and Lot cached over it. Site now reads
+3.60 / 7.60 / −0.40.
+
 In order:
 
-1. **Light anchor heights** (roadmap 36). One reference plane, all 28
-   fluorescents, and it unblocks item 30.
+1. **Cache correctness** (roadmap 39). `upstream_artifact_hashes` is a field in
+   the fingerprint that nothing has ever written. Populating it from the DAG
+   makes invalidation structural and retires the whole class. Two measurements
+   first: are job outputs deterministic run to run, and what does the existing
+   `fingerprint.last.json` receipt already say.
 2. **The cached red gate** (roadmap 36). A gate that knows the answer and is not
    heard is worse than no gate.
 3. **A rule for `Dressing`** before a fix: `allowed_inward_intrusion_m` in the
