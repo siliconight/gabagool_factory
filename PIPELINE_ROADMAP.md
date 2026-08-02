@@ -2640,12 +2640,169 @@ and each printed confident, plausible, wrong numbers. All three announced
 themselves the same way: **equal and opposite values on two axes.** That pattern
 in this tool's output means the tool is wrong, not the art.
 
+**And the fixtures are inside the floor slabs -- all of them.** Spotted by eye
+while walking (a lit panel visible only from between storeys), then measured
+from `site.site.lights.json`, 75 anchors:
+
+    z        type                          storey geometry
+     -0.10   fluorescent x 4               ground floor slab spans -0.30 .. 0.00
+      1.50   window x 8
+      2.45   wall_pack x 8
+      2.55   sign x 4
+      2.85   wall_pack x 4
+      3.90   fluorescent x 12              storey-1 slab spans  3.70 .. 4.00
+      5.60   window x 16
+      6.00   streetlight x 7
+      7.90   fluorescent x 12              roof slab spans      7.70 .. 8.00
+
+**28 of 28 fluorescents sit inside a floor slab.** The pattern is identical at
+every level: the anchor is exactly 0.10 m below the floor ABOVE it, while the
+ceiling of the room below is 0.30 m lower -- so the light is buried 0.20 m up
+inside a 0.30 m slab, invisible from either room and lighting a void. One wrong
+reference plane, applied uniformly: the fixture is measured from the slab above
+instead of from the ceiling below.
+
+Nothing else in the manifest has this shape. Windows at 1.50 and 5.60,
+wall packs at 2.45 and 2.85, signs at 2.55, streetlights at 6.00 -- all sit in
+open space at plausible heights. It is the ceiling-mounted type alone, and it is
+every one of them.
+
+**This reorders item 30.** That item says the light loader is never called and
+treats wiring it as the fix. Wiring it now would spawn all 28 interior lights
+INSIDE solid slabs: the interiors would stay exactly as dark as they are, the
+census would report 28 lights present, and the fix would read as having failed
+for some other reason. The anchor heights have to be corrected first, or the two
+defects will mask each other -- which is the same trap as measuring an export
+built from last week's job.
+
+It also gives item 32's interior figures a second cause. The objective shot
+reads centre 30.9 against a frame mean of 54.3; `gl_compatibility` forecloses
+GI, no loader spawns the anchored lights, AND the anchors are in the wrong place
+by 0.20 m. Three independent reasons the rooms are dark, and only the third is
+cheap to fix.
+
+**What `Dressing` actually contains, and it names every unexplained thing in
+this file.** `tools/glb_nodes.py` on the baked layer -- 2255 nodes:
+
+    count  family              y_min    y_max      building spans -4.00 .. 8.00
+     1389  Cover_panel_field   -4.37    12.07
+      299  Cover_gutter_run    -0.38    12.61
+      299  Cover_pilaster      -2.15     5.85
+       64  Cover_edge_strip     7.70     9.00
+       64  Cover_base_course   -4.30    -4.00
+       64  Cover_curb          -4.30    -4.30
+       60  Cover_conduit_run    4.78     5.68
+       16  Cover_frame          1.10     5.60
+
+    below y = -4.00 (the basement floor): 114 nodes
+
+* **The rods are `Cover_pilaster`** -- 299 of them. A pilaster is a shallow
+  column against a wall; standing free in open floor is what makes them read as
+  obstacles, and they are collision-less by contract, so a player walks through.
+* **The parapet stubs are `Cover_edge_strip`**, 7.70..9.00 -- one metre above a
+  roof that stops at 8.00.
+* **The slabs above the roofline are `Cover_panel_field` and
+  `Cover_gutter_run`**, reaching 12.07 and 12.61 on an 8 m building. Gutters
+  4.6 m above the roof they drain.
+* **114 nodes sit under the basement floor** -- curbs and base courses at -4.30,
+  panel fields at -4.37.
+
+So the layer spans -4.37 .. 12.61 around a building of -4.00 .. 8.00. It
+overshoots at both ends, and the overshoot upward is the larger by a factor of
+twelve.
+
+**A limit in `insert_overhang.py`, found by this.** It reported `Dressing` at
+y -6.84..6.84, which disagrees with the node translations above. The cause is
+its AABB: it hulls each mesh's POSITION `min`/`max` and applies only the
+top-level node transform, never composing the per-node transforms INSIDE the
+GLB. For a scene of instanced modules that is right -- each module is its own
+file at its own node. For a baked layer, where 2255 props live in one file with
+their own transforms, it measures the wrong thing and understates the extent.
+The 2.85 m figure quoted above is therefore a floor, not the number: the real
+overshoot is 4.61 m above the roof. Fix the AABB or restrict the tool to
+instanced modules and say so; do not quote its numbers for baked layers.
+
+**And a correction to item 30: the LuxEmit markers DO exist.** That item records
+"855 nodes, zero beginning `LuxEmit`, zero nodes with any `extras`" and
+concludes `LuxFixtureSpawner` has nothing to find. That reading was taken on the
+SHELL glb. The fixtures layer, read here:
+
+    count  family                        y_min   y_max
+       34  FluorescentFixture_Diffuser   -0.05    7.95
+       34  FluorescentFixture_Housing    -0.05    7.95
+       34  LuxEmit_fluorescent           -0.10    7.90
+        3  WallPack_Lens / Body / Arm     2.56    2.96
+        3  LuxEmit_wall_pack              2.45    2.85
+        1  SignBox_Face / Cabinet / Arms  2.55    2.55
+        1  LuxEmit_sign                   2.55    2.55
+
+**38 `LuxEmit_*` markers, baked by Zoo exactly as the spawner's contract
+describes.** Item 30's conclusion that the marker path is dead is wrong; what is
+true is that nothing calls the spawner, and that the markers are in the fixtures
+layer rather than the shell. Zoo has held up its end.
+
+This also confirms the buried lights from the geometry side rather than the
+manifest: the fluorescent HOUSING sits at 7.95 and its emitter at 7.90, inside a
+floor slab spanning 7.70..8.00. The hardware is in the slab, not just the anchor.
+
 **Ordering this implies.** The z-fight gate being bypassed by cache is first: it
 is a gate that already knows the answer and is not being heard. The `Dressing`
 placement is second and needs a rule before it needs a fix -- an intrusion limit
 in the slot manifest, and a gate that reads it. The UV question is third and is
 item 31's. Zoo's structural library needs nothing on this evidence, which is
 worth saying plainly after a day spent suspecting it.
+**37. Every building on the site is the same building.** Noticed while walking
+-- "very similar stair/ladder placement... a lack of variety" -- and the
+measurement is stronger than the observation: they are not similar, they are
+identical, rotated.
+
+    _write_site_spec:  glb = str(_latest_output(deli_out, "shell.glb"))
+                       buildings = [{"id": f"b{i}", **source, ...
+                                     "at": p["at"], "rot": p["rot"]} ...]
+
+One shell, N placements. Only `at` and `rot` differ. The assembled themed site
+agrees from the other end: **1 `ext_resource`, 4 instances**. Stairs and ladders
+land in the same relative place in every building because there is one building.
+
+**And this is not Deli Counter's limit.** `deli_counter/build/` holds **41
+distinct archetypes across 103 GLBs** -- airport_terminal, apartment_walkup,
+arena, auto_shop, bank_branch, bank_tower, brewery, casino, clinic,
+construction_site, country_club, courthouse, credit_union, deli, depot,
+freight_terminal, funeral_home, gas_station, landmark_hall, large_warehouse,
+mansion, marina, market_hall, museum, parking_garage, pawn_shop, pharmacy,
+rail_station, self_storage, stadium, strip_club, strip_retail, supermarket,
+train_yard, warehouse, and more. The generator has variety to spare. The site
+spec asks for one thing four times.
+
+The DAG says the same: one `deli_generate` job per candidate, so a mission
+produces one building and the site repeats it. Nothing is broken here -- it does
+exactly what it was written to do -- and it is the single biggest reason a
+generated level reads as generated.
+
+**The same lesson is already in this codebase one level up.** `cmd_run` carries
+a candidate-diversity check with the comment: *"A mission generates N candidates
+so a human can choose between them; that only means something if the N are
+different. Nothing had ever compared two, so five copies passed validation five
+times."* That is this defect, at the candidate layer, already found and fixed
+once. The building layer never got the same treatment.
+
+Two shapes a fix could take, and they cost very differently:
+
+* **N `deli_generate` jobs**, one per building, seeded apart. Real variety --
+  different rooms, different stair and ladder placement, different slot counts
+  -- at N times the generate and compose cost, and N themed buildings to
+  compose rather than one. It also ends the convenience item 29 relies on, that
+  there is a single themed scene to instance.
+* **Select N from the existing library.** The 103 GLBs are already built. This
+  is a selection problem rather than a generation one, and it costs almost
+  nothing at build time -- but each building would need its own slots manifest
+  and its own themed compose, so the compose stage still multiplies.
+
+Which to take is a decision about what a mission IS -- one archetype repeated
+down a street, or a block of different premises -- and this item does not make
+it. What it establishes is that the monotony is chosen in `_write_site_spec`,
+not imposed by Deli Counter, and that a diversity check at the building layer
+would have said so without anyone walking the level.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
