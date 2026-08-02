@@ -38,3 +38,8 @@ _scratch_archive/
 # A RULE, not a list: each patch invents its own suffix, so any enumeration
 # of them falls behind the next patch that gets written.
 *.pre_*
+
+# look_shots output -- regenerated per run, and stale copies are exactly the
+# evidence problem item 33 is about.
+shots_*/
+shots_*.json
