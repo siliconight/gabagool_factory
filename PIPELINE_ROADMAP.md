@@ -1633,6 +1633,55 @@ design decision this item does not make. What it establishes is that wiring it
 is part of the same fix, and that item 19's estimate should not be quoted at one
 line.
 
+*Measured 2026-08-02, before any patch. The paragraph above is left as written;
+this corrects it.* "Wire the loader into `_build_modules`" was not a fix that
+could have worked, and there are four reasons the anchors light nothing rather
+than one. Each is sufficient by itself.
+
+**(i) Neither spawner is a module, so `_build_modules` could never have held
+one.** `LuxLightLoader` and `LuxFixtureSpawner` are both `class_name ... extends
+RefCounted` with only static methods. They are not Node3Ds and cannot be
+children of LuxRoot. Their own headers name their callers: the loader says
+"Editor-time tool -- driven by the Lux dock's 'Bake Lights' section"; the
+spawner says "Editor: the Lux dock's 'Spawn From Fixtures' button. Runtime:
+`LuxFixtureSpawner.spawn(level_root)` once after the level loads." The design
+already names the runtime call. Nothing makes it. The pipeline runs headless and
+there is no dock, so on the build path both entry points are unreachable.
+
+**(ii) The fixture-marker path has no markers.** `LuxFixtureSpawner` finds lamps
+by the `LuxEmit` name prefix and reads placement out of glTF extras. Read
+straight from the glTF JSON of the shipped assets: `shell.glb` and `lot.glb`
+carry **855 nodes each, zero beginning `LuxEmit`, and zero nodes with any
+`extras` at all**; `cr_deli.glb` carries 913 nodes with the same zeroes. So
+calling `spawn()` at runtime today returns count 0 and its own message -- "Import
+a Zoo v0.30+ fixtures GLB first". `zoo_fixtures_build` is a job in the DAG; its
+hardware is not reaching the composed assets. That is a separate gap from this
+item and should not be folded into it.
+
+**(iii) The rig classes are not in the package.** The current export's
+`runtime/lux/runtime/` ships six files -- `lux_root`, `lux_environment`,
+`lux_lighting`, `lux_post_fx`, `lux_emissive_binder`, `lux_runtime_api`.
+`lux_light_loader.gd`, `lux_fixture_spawner.gd` and the whole `rigs/` directory
+are absent, while `resources/lux_light_rig.gd` -- the resource the rigs consume
+-- does ship. So even a correct call would fail to resolve `LuxFluorescentRig`.
+The addon subset in `addon_sources` was chosen for a scene that had no lights in
+it, and it is self-consistent with that scene.
+
+**(iv) Item 19's packer line** -- `<site>.site.lights.json` missing from the pack
+-- is real and is the least of the four.
+
+Which fix, then. The manifest bake is the only live path: the anchors exist, the
+markers do not. `LuxLightLoader.bake()` sets `owner` on the container, on each
+rig and recursively on the rigs' children (`_reown`), which is exactly what
+`PackedScene.pack()` needs -- so a bake run at BUILD time produces lights as
+scene content, and the shipped level does not read the manifest at runtime at
+all. `tools/godot_probe.py` already mirrors a project and drives Godot headless
+against it, which is the same machinery a bake step needs. Note the rig NODES
+pack alongside their built lights, so (iii) still has to be fixed either way:
+ship the rig scripts, or flatten the bake to plain Light3Ds before saving. That
+is a decision this item does not make, and it should be made by looking at what
+the standalone contract costs in each case rather than by preference.
+
 **31. Lighting: what the engine requires of the geometry, and what Lux can
 decide alone.** Sources brought on 2026-08-02, read and reduced to what bears
 on this pipeline.

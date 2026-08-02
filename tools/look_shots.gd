@@ -26,6 +26,7 @@ const LUMA_B := 0.0722
 var _out_dir: String = ""
 var _shots: Array = []
 var _hidden_layers: Array = []
+var _centre_frac: float = 0.0
 
 
 func _ready() -> void:
@@ -36,6 +37,14 @@ func _ready() -> void:
 		"look_shots/frames_per_shot", 6))
 	var hide_hud: bool = bool(ProjectSettings.get_setting(
 		"look_shots/hide_non_lux_canvas", true))
+	# Linear fraction of the frame that counts as "what the shot is aimed at".
+	# 1/3 by width and height, so a ninth of the pixels. This number is a
+	# CHOICE, not a derivation -- nothing in the scene says how wide attention
+	# is -- so every shot reports the fraction and the pixel rect it produced,
+	# and the whole-frame figures stay beside it. A reader who disagrees with
+	# the third can set look_shots/centre_fraction and get a labelled answer.
+	_centre_frac = clampf(float(ProjectSettings.get_setting(
+		"look_shots/centre_fraction", 1.0 / 3.0)), 0.05, 1.0)
 
 	for _i in range(settle):
 		await get_tree().process_frame
@@ -156,6 +165,47 @@ func _derive_cameras(scene: Node) -> Array:
 		var v: Variant = scene.get(StringName(key))
 		if v is Vector3:
 			spine.append({"key": key, "pos": v})
+
+	# A Level Factory presentation scene carries no mission spine -- the exports
+	# above live on Lot's walk-scene root, and the portable shell's entry is a
+	# bare Node3D. Without a fallback this tool degrades to one distant overview,
+	# which on a preset with fog is a picture of the fog. So when there is no
+	# spine, stand inside the site instead: at the AABB centre, at eye height,
+	# looking along each horizontal axis. Still derived -- the position and the
+	# aim both come from the geometry -- and it is the view a player has.
+	if spine.is_empty() and aabb.size.length() > 0.0:
+		# aabb.position.y is the LOWEST visible geometry in the whole site, and
+		# on a Lot site that is a sunk ground plate or a basement slab -- the
+		# first version of this stood the camera in a basement and reported the
+		# dark it found there as the level's exposure. Stand on whatever a body
+		# would stand on instead: cast down through the physics world at the
+		# centre and take the first hit. Falls back to the AABB floor, and says
+		# which one it used, because a fallback that reads like a measurement is
+		# how the basement shot got believed the first time.
+		var floor_y: float = _surface_y(aabb)
+		var grounded: bool = not is_nan(floor_y)
+		if not grounded:
+			floor_y = aabb.position.y
+		var eye := Vector3(aabb.get_center().x, floor_y + eye_h,
+			aabb.get_center().z)
+		var stance: String = "collision surface under the AABB centre" \
+			if grounded else "AABB floor (no collider under the centre)"
+		var reach: float = maxf(aabb.size.x, aabb.size.z) * 0.5
+		var headings := {
+			"inside_north": Vector3(0.0, 0.0, -1.0),
+			"inside_east": Vector3(1.0, 0.0, 0.0),
+			"inside_south": Vector3(0.0, 0.0, 1.0),
+			"inside_west": Vector3(-1.0, 0.0, 0.0),
+		}
+		for label in headings:
+			out.append({
+				"name": String(label),
+				"eye": eye,
+				"target": eye + (headings[label] as Vector3) * reach,
+				"derivation": "no mission spine on this scene; %s at eye height %.2f m, facing %s" % [
+					stance, eye_h, String(label)],
+			})
+		return out
 	for i in range(spine.size()):
 		var here: Dictionary = spine[i]
 		var next: Dictionary = spine[(i + 1) % spine.size()] if spine.size() > 1 else here
@@ -170,6 +220,23 @@ func _derive_cameras(scene: Node) -> Array:
 				String(here["key"]), eye_h],
 		})
 	return out
+
+
+## The y of the first collider under the AABB centre, or NAN if nothing is
+## there. Cast from above the site's top down to below its bottom, so a site of
+## any height is covered without a magic ray length.
+func _surface_y(aabb: AABB) -> float:
+	var world: World3D = get_viewport().find_world_3d()
+	if world == null:
+		return NAN
+	var c: Vector3 = aabb.get_center()
+	var from := Vector3(c.x, aabb.end.y + 1.0, c.z)
+	var to := Vector3(c.x, aabb.position.y - 1.0, c.z)
+	var q := PhysicsRayQueryParameters3D.create(from, to)
+	var hit: Dictionary = world.direct_space_state.intersect_ray(q)
+	if hit.is_empty():
+		return NAN
+	return (hit["position"] as Vector3).y
 
 
 ## The union of every VisualInstance3D's AABB in world space.
@@ -207,6 +274,20 @@ func _capture(shot_name: String, spec: Dictionary) -> Dictionary:
 	var path: String = _out_dir.path_join(shot_name + ".png")
 	var err: int = img.save_png(path)
 	var stats: Dictionary = _exposure(img)
+	# The same statistics over the middle of the frame. A whole-frame mean
+	# cannot separate a readable level from one whose interior sits in a hole:
+	# the themed-site export read 72 outside and 20 inside, and the site average
+	# showed neither. Reported ALONGSIDE the frame figures, never instead of
+	# them -- two regions disagreeing is the finding.
+	var w: int = img.get_width()
+	var h: int = img.get_height()
+	var cw: int = maxi(1, int(float(w) * _centre_frac))
+	var ch: int = maxi(1, int(float(h) * _centre_frac))
+	var rect := Rect2i((w - cw) / 2, (h - ch) / 2, cw, ch)
+	stats["centre"] = _exposure(img.get_region(rect))
+	stats["centre_fraction"] = _centre_frac
+	stats["centre_rect"] = [rect.position.x, rect.position.y,
+		rect.size.x, rect.size.y]
 	stats["name"] = shot_name
 	stats["png"] = path
 	stats["png_error"] = err
