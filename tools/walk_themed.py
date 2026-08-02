@@ -89,12 +89,26 @@ def copy_into(src_dir, dst_dir, skip_names=(), skip_dirs=(".godot", "addons")):
             shutil.copy2(os.path.join(dirpath, f), os.path.join(target, f))
 
 
+def default_out(mission_id):
+    """`<factory-root>/_runs/walk_<mission>` -- the repo's scratch convention.
+
+    `_runs/` is gitignored and already holds every throwaway project in this
+    workspace (`lux_0801`, `themed_site_probe`, `portable_*_walk`). Deriving it
+    from this file's own location rather than the cwd means the command works
+    from any directory, and keeps assembled projects out of both the user's
+    Projects folder and the mission workspace.
+    """
+    root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(root, "_runs", "walk_%s" % mission_id)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("lf_dir", help="the workspace's .level_factory directory")
     ap.add_argument("mission_id")
     ap.add_argument("--out", default=None,
-                    help="where to assemble (default <lf_dir>/walk/<mission>)")
+                    help="where to assemble (default <factory>/_runs/"
+                         "walk_<mission>; must be outside the workspace)")
     ap.add_argument("--lot-repo", default=None,
                     help="Lot checkout, for addons/lot (default: read "
                          "tools.local.json beside the workspace)")
@@ -122,7 +136,24 @@ def main(argv=None):
         sys.stderr.write("no composed building found; run presentation_compose.\n")
         return 2
 
-    out = args.out or os.path.join(args.lf_dir, "walk", args.mission_id)
+    out = args.out or default_out(args.mission_id)
+    # The promise in this module's docstring -- "deliberately not written
+    # anywhere the pipeline reads" -- needs teeth, because the first default
+    # broke it. It put the scratch project at `<lf_dir>/walk/<mission>`, INSIDE
+    # the workspace, and the pipeline duly stamped provenance records onto it:
+    # site.tscn.provenance.json, project.godot.provenance.json, even
+    # site_main.tscn.provenance.json for a file that was never there. Scratch
+    # inside the workspace also shows up in every instrument that scans it --
+    # `orphan_artifacts.py` reported .themed.tscn / .fit.tscn / .m90.tscn /
+    # .p90.tscn as produced-and-unread, and they were this directory.
+    real_out = os.path.abspath(out)
+    if os.path.abspath(args.lf_dir) + os.sep in real_out + os.sep:
+        sys.stderr.write(
+            "refusing to assemble inside the workspace (%s).\n"
+            "This is throwaway scratch; the pipeline treats anything under\n"
+            ".level_factory as job output and stamps provenance on it. Pass\n"
+            "--out somewhere outside, e.g. _runs\\walk_<mission>.\n" % out)
+        return 2
     lot_repo = args.lot_repo
     if not lot_repo:
         local = os.path.join(os.path.dirname(args.lf_dir.rstrip("\\/")),
