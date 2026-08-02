@@ -1518,6 +1518,334 @@ times.
 So: not a pixelcoat feature request. A zoo export change, with pixelcoat's
 already-built importer and atlas as the machinery to point it at.
 
+**29. The art path themes one building; the site is never themed, and the site
+spec has no roads in it.** Proven by hand 2026-08-01. The design works, nothing
+is wired, and the second half of this item was found by looking at a picture.
+
+`presentation_compose` is described in `PIPELINE_MAP.md` as what makes `--art`
+mean "themed level rather than grey level with a lighting pass". It composes one
+BUILDING -- DC's `portable_building.build_package` under `--building-id site`,
+named that only so the Lux stage can resolve it without knowing the building_id
+at plan time. `lux_apply` then lights that building. Nothing themes the site,
+and the exported package contains one building and no ground.
+
+**The mechanism to fix it already exists in Lot and needed no code.** `lot.py`'s
+`_building_source` prefers a `scene` key (a .tscn) over `glb`, and its docstring
+says why: *"Deli Counter's primary output is the .tscn; the baked .glb is the
+self-contained special case. Both are instanced the same way (a PackedScene
+ExtResource), so this is the only place the distinction lives."* Proven by
+running it: copy the compose output into a project, rename its `site.tscn` to
+`themed_building.tscn` so Lot does not overwrite its own input, add
+`"scene": "themed_building.tscn"` to each building in the candidate's site spec,
+run `lot.py --walkable`:
+
+    [lot] building 'b0' has both scene and glb; using scene (themed_building.tscn)
+    [lot] assembled 'site_themed.json': 4 buildings, 100 markers, 28 rooms
+    [lot]   -> site.tscn
+    [lot]   -> site_walk.tscn  (spawn (-29, 0, 0) -> objective (-101.5, 16, 0)
+                                -> extraction (39, -28, 0))
+    [lot] site lights -> site.site.lights.json (72 anchors)
+
+Four themed buildings, a mission spine, and a light manifest. Zero code changes
+in either tool.
+
+**Then the picture showed what the log did not say plainly: there are no roads.**
+Lot had already reported it --
+
+    [lot] WARNING: isolated buildings: b0, b2, b3
+    [lot]   objective approaches: 0
+
+-- and the reason is not Lot. Compare what cater's hand-authored specs carried
+against what `_write_site_spec` generates:
+
+    cater's coldrun_pawn_job.json      LF's _write_site_spec
+      name, ground, buildings            name, ground, buildings
+      paths      [garage->deli, ...]     --
+      courtyards [{at, size_x, size_y}]  --
+      cover      [{at}, {at, size}]      --
+      perimeter  {height: 3}             --
+      spawn/objective/extraction         spawn/objective/extraction
+
+**Level Factory has never asked Lot for a road network.** No `paths`, no
+`courtyards`, no `perimeter`. The site graph therefore has no edges, every
+building is its own island, and there are zero approaches to the objective --
+not a failure, an omission. Cover is the exception and gets placed anyway
+(`LOT_COVER_PLACED: 11`), because Lot derives that from sightlines rather than
+from the spec. This is the concrete answer to "we made sites with cater as a
+starting point": the placement half was carried across and the connectivity half
+was not.
+
+**The limitation the probe found, and the reason to fix it before shipping this:**
+
+    LOT_DESTINATION_COLLISION_UNREAD: 4 geometry source(s) could not be read for
+    collision ... b0: themed_building.tscn: declares collision shapes in the
+    scene text, which this reader does not model
+
+Lot models collision in a `.glb` and cannot read it out of a `.tscn`. So with
+scene-backed buildings every spatial check it runs -- nav-hook seating,
+destination resolution, cover placement against footprints -- works from a
+partial picture, and Lot says so with its own finding code rather than guessing.
+That is the tool behaving correctly and it is still a hole: the themed path
+currently degrades the checks that make a site walkable.
+
+The work, in the order it should happen:
+
+1. Teach Lot's collision reader to parse scene-declared shapes, or have the
+   composer emit a collision sidecar Lot can read. Until then a themed site is
+   assembled against an incomplete model of itself.
+2. `_write_site_spec` emits `scene` alongside `glb` (Lot prefers `scene`), plus
+   `paths`, `courtyards` and `perimeter`. One function, one dict.
+3. Repoint `lux_apply` at the assembled themed SITE rather than the composed
+   building, so one LuxRoot lights the whole level. Note that lighting the
+   building and then instancing it N times would give N LuxRoots -- the thing
+   Lot instances must be the un-lit themed scene.
+4. Export ships the site. Item 27 fixed the assets; the entry scene still
+   instances only the presentation building.
+
+**30. Nothing instantiates the light loader, so shipping the anchors would not
+have lit anything.** Corrects item 19, which is right about the packer and wrong
+about the consequence.
+
+Item 19 says the pack ships lamp housings without lights because
+`lot/package.py` omits `<site>.site.lights.json`, and calls the fix "one line in
+the packer". Measured on the themed-site probe, where that manifest IS present
+and `tools/lux_inject.py` confirms it at inject time -- *"site.site.lights.json
+is present, so lux_light_loader has anchors to spawn from"* -- the census reads:
+
+    OmniLight3D  0 (0 visible)     SpotLight3D  0 (0 visible)
+    LuxRoot 1
+      Lux   sun_light=Sun
+        children: LuxEnvironment, LuxLighting, LuxPostFX, @CanvasLayer@2
+
+Seventy-two anchors on disk, zero lights in the tree, and no loader among
+LuxRoot's children. `_build_modules` instantiates `LuxEnvironment`,
+`LuxLighting` and `LuxPostFX` and never touches `LuxLightLoader` or
+`LuxFixtureSpawner`. The manifest is read by nothing.
+
+So the packer line is necessary and not sufficient, and doing it alone would
+produce a package that carries a file no code opens -- which reads as fixed. The
+visible consequence is measurable: on the single-building export, interiors sit
+at mean luminance 20 against 72 outside, a 52-point gap that is entirely the
+absence of fixture rigs at a 4 degree sun.
+
+Whether the loader belongs in `_build_modules` or behind an explicit call is a
+design decision this item does not make. What it establishes is that wiring it
+is part of the same fix, and that item 19's estimate should not be quoted at one
+line.
+
+**31. Lighting: what the engine requires of the geometry, and what Lux can
+decide alone.** Sources brought on 2026-08-02, read and reduced to what bears
+on this pipeline.
+
+The finding that ranks the rest: **every global-illumination technique Godot 4
+offers except ReflectionProbe is a contract between three parties, and Lux is
+only one of them.** The Environment setting is Lux's. The `gi_mode` on each
+`GeometryInstance3D` and the UV2 channel are Deli Counter's and Zoo's. The
+renderer is the *consumer's* -- and under the standalone contract we do not
+control it.
+
+From the engine documentation (`godot-docs`, `tutorials/3d/global_illumination/`):
+
+- **SDFGI** -- "Only supported when using the Forward+ renderer, not the Mobile
+  or Compatibility renderers." Semi-real-time; supports dynamic lights but *not*
+  dynamic occluders or dynamic emissive surfaces. Meshes need `gi_mode = Static`.
+  Needs about 25 frames to converge. Explicitly called viable for procedurally
+  generated levels.
+- **VoxelGI** -- Forward+ only as well; mid cost, better reflections, and "light
+  leaks if surfaces are too thin".
+- **LightmapGI** -- runs on all renderers, is the *fastest* at runtime, and is
+  the only one the docs call not viable for procedurally generated levels. It
+  requires a UV2 channel per mesh, a bake step with RenderingDevice, and
+  reserves the material's UV2 slot permanently. Default texel size `0.2`, max
+  bounces `3`, at most 8 LightmapGI nodes rendered at once.
+- **ReflectionProbe** -- all renderers, no geometry contract, poor indirect
+  light. The only technique that asks nothing of the mesh.
+
+Three things follow that this pipeline can act on, in the order they can be
+measured.
+
+*(a) The renderer question is already half-instrumented and wholly unanswered.*
+`tools/look_shots.gd` reports `rendering_method` and `adapter_api` separately
+and says why: the setting is what the project asks for, the API version is what
+the process bound. Neither has been read against a GI expectation. Whether any
+Lux preset sets `sdfgi_enabled` at all has not been checked -- `light_census`
+counts light nodes and does not look at the Environment, so the census cannot
+answer it today. Add the Environment's GI fields to the census; that is one
+block in `light_census.gd` and it turns this paragraph into a reading. It
+matters because a preset that assumes SDFGI produces flat lighting under
+Compatibility with no error at all -- the same silent-drop shape as the Sun Link
+bug, one layer up.
+
+*(b) The UV2 question is a fact about files already on disk.* LightmapGI is the
+one option that would survive a Compatibility consumer, and it is gated entirely
+on whether the Deli Counter GLBs carry a second UV set. That is inspectable now,
+without Godot: read the `TEXCOORD_1` accessors of a built `shell.glb`. If they
+are absent, LightmapGI is not "a decision we have not made" -- it is unavailable
+until DC's exporter emits them, and the import-side answer that the docs give
+(**Meshes > Light Baking** set to Static Lightmaps) does not apply, because the
+pipeline imports headlessly and the shipped package is not re-imported by us.
+**This is the next lighting instrument to write, and it is cheaper than every
+other item here.**
+
+*Measured 2026-08-02, by `tools/glb_uv_census.py` -- written for this question
+and run before it shipped.* Eight files: six Deli Counter shells out of
+`deli_counter/build/`, and both assets of the portable export. 1157 primitives.
+Every one of them carries `POSITION` and `NORMAL` and **nothing else** -- no
+`TEXCOORD_0`, no `TEXCOORD_1`, no `COLOR_0`, zero materials, zero textures, zero
+images, generator `Khronos glTF Blender I/O v5.1.19`. The paragraph above
+predicted a missing UV2; the reading is stronger than that and changes the shape
+of the answer rather than confirming it.
+
+Run across the whole Deli Counter library the same day: **103 files, 12091
+primitives, zero TEXCOORD_1 and zero TEXCOORD_0**, every file reading
+`NORMAL,POSITION`. The eight-file figure above was a sample and is left in
+place; this is the library.
+
+Three consequences, and one of them is good news:
+
+- **LightmapGI cannot bake this geometry as it stands**, and the gap is not one
+  channel but both.
+- **SDFGI and VoxelGI need nothing from these files.** Their requirement is
+  `gi_mode = Static` on the instance, and the export's own `shell.glb.import` --
+  written by Godot with its defaults, read here rather than assumed -- carries
+  `meshes/light_baking=1`, which is that mode. So the real-time techniques are
+  already satisfied on the geometry side and gated *only* on the consumer
+  running Forward+. That inverts the ordering of (a) and (b): the renderer
+  question is the whole question for real-time GI, and the UV question belongs
+  to the baked path alone.
+- **The baked path has a cheaper lever than "Deli Counter must export UV2".**
+  The same `.import` file shows `meshes/light_baking=1` beside
+  `meshes/lightmap_texel_size=0.2`, and the importer only reads the texel size
+  when light baking is `2` -- the value its own option-visibility check names as
+  Static Lightmaps. At `2`, Godot generates the second UV set itself, on import,
+  from geometry that has none. No Blender change and no Deli Counter change: a
+  value in a file. **What is not established** is whether the packer can ship
+  that `.import` and have a consumer's Godot honour it instead of regenerating
+  it with defaults, and whether the unwrapper succeeds across 183 separate mesh
+  resources per shell. Both are readings, not arguments -- set the value, open
+  the project, see whether a UV2 appears. Do not quote the one-line fix until
+  that run has happened.
+
+One thing the same census settles in passing: zero materials and zero textures
+in every file means all colour is assigned downstream, in Godot, and none of it
+rides in the glb. `meshes/ensure_tangents=true` is therefore generating tangents
+for meshes with no UVs to derive them from -- inert today, and worth a look the
+first time anything normal-maps.
+
+*(c) "Not viable for procedurally generated levels" is about runtime, and LF's
+levels are frozen at build.* The doc's objection is that you cannot bake what
+does not exist yet. LF generates, then freezes, then ships -- so the objection
+lands on the *pipeline shape*, not on the levels: baking would need a new job
+driving Godot with a RenderingDevice, after `presentation_compose` and before
+`dispatch_handoff`. `tools/godot_probe.py` already mirrors a project and runs
+Godot headless against it, which is most of that job's body. Cost, not
+impossibility. Do not quote LightmapGI as ruled out.
+
+Two couplings to items already open:
+
+- **To item 26 (Pixelcoat VRAM).** Lightmaps are additional textures per level,
+  on top of whatever atlas Pixelcoat shares -- the docs warn that baking "may
+  require significant VRAM" and that oversized textures risk crashes, with a
+  16384 ceiling. If the VRAM answer for Pixelcoat is "one texture in memory",
+  lightmaps are a second budget, not a line in the first.
+- **To the site geometry.** "Light leaks if surfaces are too thin" is a claim
+  about wall thickness against cell size, and the perimeter added to
+  `_write_site_spec` this session states a height (3 m) and no thickness. If
+  VoxelGI or SDFGI is ever chosen, that thickness stops being cosmetic. The
+  docs' own mitigation is `Y Scale` at 75% or 50%, "without impacting
+  performance" -- a number to test, not to adopt.
+
+And the part that is craft rather than engine, from the three artist-facing
+sources. Two claims are worth carrying because they are checkable against what
+Lux already does, and one is worth leaving out:
+
+- *Establish global and key lights first*, and *push a small number of lights as
+  far as you can* (80.lv). A Lux preset is already a small named set rather than
+  a pile, so this is a rule the design happens to satisfy; it is worth writing
+  down so that the fixture loader from item 30 does not quietly turn a preset
+  into an accumulation.
+- *"Gameplay always comes first"* -- high-contrast lighting must not create
+  unreadable shadow areas (80.lv). This is the one that names a gap in our own
+  instruments. `look_shots.gd` reports a whole-frame Rec.709 histogram and states
+  outright that it cannot tell "washed out" from "correctly bright for noon". A
+  whole-frame mean also cannot tell a readable level from one where the objective
+  sits in a hole: item 30 measured interiors at mean 20 against 72 outside, and
+  that 52-point gap is invisible in a site average. **The derived statistic is
+  local contrast at the mission spine**, which the tool can already compute
+  because it already stands the camera at `spawn_pos` / `objective_pos` /
+  `extraction_pos`. Take the histogram of the centre region as well as the frame,
+  and report both. An extension of an existing instrument, not a new one.
+- The colour-mood guidance -- cool for loneliness, warm for safety, red for
+  danger (300mind) -- is a claim about audiences, not about this renderer, and
+  nothing here can measure it. It stays out of the tools and belongs to whoever
+  authors a preset.
+
+Finally, an A/B this pipeline can run and has not. `look_shots.py` mirrors the
+project before it injects, so it can render the same derived cameras twice with
+`Environment.sdfgi_enabled` flipped between runs and diff the histograms. That
+is the only way any claim in this item becomes a number rather than a citation --
+and it is the honest test, because a GI difference that does not move the
+histogram at the spine is a GI difference the player does not get.
+
+Sources read for this item: the Godot GI tutorials (`introduction_to_global_illumination`,
+`using_sdfgi`, `using_lightmap_gi`); 80.lv, "Working on Lighting for Video Games";
+300mind, "Lighting in Game Design"; Godot forum thread 99831, "Realistic lighting
+in interior" -- which adds that VoxelGI wants "closed and somewhat small levels"
+at 200-400 m and that reflection probes combined with VoxelGI are redundant and
+conflicting.
+
+**32. Two lighting systems, and none of the interior one is switched on.**
+The working model, as stated on 2026-08-02: there is the global illumination of
+the sun above, and there is the interior light inside the buildings Deli Counter
+makes -- Zoo supplies the fixture assets and their anchors, Lux spawns the
+lights out of them, Pixelcoat supplies the emissive layer, and the result should
+read as intimate and muted: enough to see by, not enough to blind.
+
+The split is right, and the engine splits the same way. The step that needs
+correcting is the emissive one.
+
+**Emissive is not a light source.** Godot's own words for StandardMaterial3D:
+emission "is added to the resulting final image and is not affected by other
+lighting in the scene", and it "does not include light surrounding geometry
+unless VoxelGI or SDFGI are used". A Pixelcoat emissive layer therefore glows
+and lights nothing -- on every renderer -- unless one of the two Forward+-only
+real-time techniques is running, or a lightmap baked it, which item 31 shows
+this geometry cannot do today. Under Compatibility the emissive layer is
+decoration. That is the same failure class as the Sun Link bug and as item 30's
+loader: something present, apparently configured, doing nothing, with no error.
+
+Which puts the load back on the fixtures, and item 30 measured those: 72 anchors
+on disk, zero OmniLight3D, zero SpotLight3D, no loader among LuxRoot's children,
+interiors at mean luminance 20 against 72 outside. **So of the three interior
+mechanisms in the model -- anchored lights, emissive, and GI -- exactly none is
+currently delivering any light.** The 52-point gap is not a tuning problem.
+Nothing is switched on.
+
+A hard limit to design against before the loader lands. On the Compatibility
+renderer "up to 8 OmniLights + 8 SpotLights can be rendered per mesh resource";
+Mobile carries the same per-mesh cap plus 256 of each per camera view. Seventy-two
+anchors in one building is well past that in aggregate but not necessarily per
+mesh -- the shells measure 183 mesh resources apiece, so the fixtures may
+distribute under the cap. That is something the census can measure once lights
+exist: count the lights whose range overlaps each mesh resource's AABB. Until
+then the figure is a ceiling to know about, not a violation to claim.
+
+The tuning target is already a statistic. "Not blinded" is `clipped_pct` and
+`near_clipped_pct`; "can still see" is `p05` and `crushed_pct`; `look_shots.gd`
+reports all four. What is missing is that they are whole-frame figures, and an
+interior is a small part of an exterior-dominated frame -- which is the same
+defect item 31 names, and the same fix. One extension serves both, which is a
+reason to do it once and early.
+
+The order this implies is not the order the model reads in:
+
+1. Wire the loader (item 30). Nothing downstream in the interior chain can be
+   evaluated while the count of interior lights is zero.
+2. Extend `look_shots` to report a centre region alongside the frame, so "muted
+   but readable" becomes a number instead of a look.
+3. Only then decide GI -- because GI is what would make the emissive layer mean
+   anything, and that decision is a bet on the consumer's renderer (item 31).
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
