@@ -1661,6 +1661,67 @@ walkable base, so a themed site should read the SAME solids as the greybox one.
 check is that the walk test still reaches 16/16 from the themed site, not that
 the scene looks right.
 
+*Landed and photographed, 2026-08-02.* `themed_site_assemble` is in the DAG
+between `presentation_compose` and `lux_apply`, and the export carries a site.
+
+    scene                overview eye_y   implied extent
+    Lot greybox                  122.39           ~150 m
+    themed export, before         21.97            ~27 m
+    themed export, after         115.68           ~142 m
+
+The frames agree with the number: four buildings in a row on the plate, the
+same shape Lot's greybox has, and the objective shot stands in front of a
+two-storey facade with a lit doorway instead of one wall run. The ~8 m the
+themed site is short of the greybox is the AABB reading themed geometry rather
+than greybox blocks and is not, on this evidence, a defect.
+
+Node counts read low and correctly: `themed_site_assemble` 119 nodes / 1
+ext_resource, `lux_apply` 120 / 3. The site INSTANCES the composed building
+rather than inlining it, so the building's 353 modules sit behind a single
+reference, and Lux's delta is +1 node (the LuxRoot) and +2 references (the
+preset and `lux_root.gd`) -- the same delta it had before.
+
+Three things had to change together and each is worth naming:
+
+- **The spec file's DIRECTORY varies, not its name.** The Lot adapter derives
+  expected outputs from the spec file's stem while Lot names outputs from
+  `spec["name"]`. `site_themed.json` made the adapter wait for
+  `site_themed.tscn`, Lot wrote `site.tscn`, the job failed on a missing output
+  and took `lux_apply` with it. Two naming authorities over one file, and only
+  one of them had been asked.
+- **The export stopped deleting `site.tscn`.** That skip was added earlier the
+  same day and was correct while Lux inlined its geometry. Once the site
+  instanced the building instead, `lux.applied.tscn` carried `res://site.tscn`
+  as a reference and the skip broke the package. The closure judge caught it on
+  the first export -- `EXPORT_CLOSURE_BROKEN: unresolved res://site.tscn` -- and
+  named the exact file.
+- **The entry scene instances ONE of the two.** `write_entry_scene` instanced
+  `site.tscn` AND `presentation/lux.applied.tscn` as peers, which is what the
+  skip had been suppressing. They are not peers: the presentation scene is the
+  level, `site.tscn` is what it is built from. The presentation scene wins when
+  it exists; `site.tscn` is the entry only for a graybox export with no
+  presentation pass, and a control test now covers that case.
+
+`navqa` is deliberately off for the themed site: re-baking nav from themed
+geometry would judge navigation against what the collision contract calls a
+visual substitution, and a disagreement there is a contract violation rather
+than a nav finding.
+
+**Still open, and now measurable on a real site.** The centre statistic finally
+separates inside from outside on the same run:
+
+    overview     frame 73.1   centre 100.7
+    spawn        frame 58.7   centre  93.4
+    objective    frame 69.1   centre  44.9
+    extraction   frame 85.2   centre  57.6
+
+Objective and extraction read DARKER at the centre than in the frame; spawn and
+overview read brighter. That is interiors against sky, and the interior figures
+are the ones items 30-32 are about: no anchored lights exist, emissive cannot
+light anything under `gl_compatibility`, and the geometry has no UV channel for
+a lightmap. Nothing about the themed site changes that; it just gives the
+question a level to be asked about.
+
 **30. Nothing instantiates the light loader, so shipping the anchors would not
 have lit anything.** Corrects item 19, which is right about the packer and wrong
 about the consequence.
@@ -2362,6 +2423,127 @@ times, on an upper floor with no route down at that slot, in a site whose
 walkers use ladders successfully elsewhere. Worth naming as its own item when
 someone picks it up; it is not a placement accident.
 
+**35. The graybox/art relationship: it is a SWAP, and most of the recommended
+shape is already the contract. What is missing is the library.** Guidance
+brought 2026-08-02, reconciled against what this pipeline measurably does
+rather than filed as received advice.
+
+**The verb first, because it changes the reading.** Nothing replaces a greybox
+mesh. `deli_counter/docs/ASSET_SWAP_CONTRACT.md` names five things a slot and a
+zoo entry must agree on -- identity, dimensions, pivot, openings, collision --
+and states the consequence: *"If all five hold, swap is a name lookup + a
+transform copy. If any fails, the piece stretches, floats, clips, or ghosts."*
+The greybox keeps collision; Zoo substitutes the visual at the same transform.
+"Replace" implies the greybox stops existing, and it does not: that is the
+whole reason a themed building can still be walked.
+
+**What the guidance recommends and this pipeline already does.** Read from the
+artifacts, not from intent:
+
+- *Three layers with separate authority.* DC's themed scene carries
+  `Functional/GameplayAnchors/...`, `Ladders`, `Dressing` and `Fixtures` as
+  distinct subtrees. The split exists in the node names.
+- *Semantic slots, not geometry analysis.* DC writes `<name>.slots.json`
+  directly and compose consumes it with `--slots`. Measured on
+  `gas_station_a03`: 68 slots, roles `wall 54, doorway 7, breach 3, window 3,
+  roof 1`, `size_mod` `full 50 / end 18`, facing `N/S/E/W/X/Y/up`, `module_size
+  2.0`, `module_library "art/zoo"`. Nothing reverse-engineers intent from
+  triangles.
+- *A fixed pivot convention.* All 68 slots declare `pivot: "center"`. One
+  convention, stated per slot.
+- *Openings declared, not inferred.* 13 of 68 carry an `openings` list.
+- *Collision ownership per slot.* `fit.collision` reads `convex` on 67 and
+  `trimesh` on the roof.
+- *Non-destructive, with a manifest.* `portable_resource_manifest.json` plus a
+  compose summary recording `placement_check`, `closure`, `zfight_check` and
+  `circulation_check`. The placement gate's own line -- "N/M modules sit on the
+  greybox collision" -- is the acceptance check the guidance asks for.
+- *The pipeline order.* The recommended flow (DC -> traversal validation ->
+  human lock -> Zoo -> materials/wear -> lighting -> regression -> package) is
+  the planner's DAG, near enough edge for edge.
+
+So the guidance's central rule -- the graybox says where the game is, the art
+says what it looks like -- is not a change of direction. It is a restatement of
+the contract this repo already wrote down.
+
+**The one place the guidance and the pipeline genuinely part company, and it
+explains a lot.** The slot manifest's `coverage` field reads
+`wall/generated`, `doorway/generated`, `window/generated`, `breach/generated`.
+Every module is GENERATED. The guidance is about a *controlled library of
+handcrafted, beveled modules*; this pipeline procedurally makes its swap pieces
+instead. That single fact accounts for findings recorded elsewhere in this file:
+
+- Item 31 measured 103 GLBs and 12091 primitives carrying **POSITION and NORMAL
+  only** -- no UV channel, no materials, no textures. Generated geometry with no
+  authoring pass has nothing to carry them.
+- So the guidance's material sections -- trim sheets, texel density targets,
+  shared material families, decals, vertex-colour wear -- are not "not done
+  yet". They are **inapplicable to geometry with no texture coordinates**, and
+  every one of them is blocked behind the same UV question LightmapGI is.
+- The bevel guidance likewise. World-space bevel widths, silhouette versus
+  lighting versus surface-detail bevels, hardened normals: all of it presumes an
+  authored mesh. Nothing in the current chain has a place to put it.
+
+**What the library is missing, measured against the guidance's own list.** The
+`art/zoo` directory holds `wall_rockay_01..04`, `wallEnd_rockay_01..04`,
+`doorway_rockay_01..04` at several widths, `window_rockay_01/02`,
+`breach_rockay_01` and `roof_rockay_01`. Against the recommended wall family
+that is: straight walls yes, endcaps yes, opening frames yes, damaged/breach
+variants yes. **Absent entirely: interior corners, exterior corners, columns,
+beams, stair flights, stair landings, parapets, thickness transitions, and
+every seam-management piece** -- baseboards, crown trim, pilasters, fascias.
+The guidance's observation that modular environments fail at their boundaries
+rather than in the middle of a module is the relevant one: this library is all
+middles.
+
+That is consistent with the frames in item 34. The themed export photographed
+as a plate with thin pieces scattered on it and one corridor -- walls without
+corners do not close a room.
+
+**Fields the guidance would add to the slot record, and whether they are worth
+adding.** The slot already carries identity, role, size variant, style,
+transform, pivot, openings and a collision mode. It does NOT carry:
+
+- `allowed_outward_overhang_m` / `allowed_inward_intrusion_m`. Worth adding,
+  and the more valuable of the two is the intrusion limit -- it is the number
+  the placement gate would need to enforce "art may wrap the shell but must not
+  eat playable space". Today the gate checks that modules SIT ON the greybox
+  collision; whether it checks intrusion is not established and should be read
+  before anyone claims it does.
+- `connection_edges`. Only meaningful once corner and transition pieces exist.
+- `material_family`. Blocked behind the UV finding; premature.
+- `variant_seed` per slot. The pipeline seeds per candidate, not per slot, so
+  this would buy per-piece variation the library cannot yet supply.
+
+**Two implementable gates the guidance names that this pipeline does not have:**
+
+- *An import-time rejection of unauthorised collision.* Godot can build
+  collision from imported meshes by name suffix, and a post-import script can
+  refuse any the manifest did not grant. Today nothing checks; the contract is
+  honoured because the exporter happens not to emit collision, which is a
+  property of the current exporter rather than a guarantee.
+- *A composed-section tier.* The guidance separates authoring module / composed
+  section / runtime chunk. This pipeline has the first and the last and nothing
+  between: `site.tscn` measured 353 nodes with ~20 module instances per
+  building run, all individual. Occlusion is a related gap -- large simple
+  walls make good occluders and nothing in the chain emits any.
+
+**A documentation finding, recorded because it will mislead the next reader.**
+`ASSET_SWAP_CONTRACT.md` opens with *"Status (as of 0.35.0): design spec -- NOT
+yet implemented."* That is stale. DC emits the slot manifest, compose consumes
+it, and modules are demonstrably instanced at slot transforms -- measured today.
+The doc describes an editor-driven swap ("in the Godot editor you compose the
+building scene"); what shipped is headless and driven by
+`run_presentation_compose.py`. Someone should reconcile the status line and the
+workflow section with what runs, or the next person will build the thing twice.
+
+**The order this implies**, given everything else in this file: the library gap
+(corners, transitions, seam pieces) is the one that would visibly improve levels
+and needs no upstream change. The material and bevel work is downstream of the
+UV question in item 31. The intrusion limit is a small, checkable addition to a
+gate that already exists. And none of it moves before item 29 ships a themed
+SITE rather than a themed building, because a kit with no corners is easier to
+judge on four buildings than on one.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
