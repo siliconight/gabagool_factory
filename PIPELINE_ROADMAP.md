@@ -1602,6 +1602,65 @@ The work, in the order it should happen:
 4. Export ships the site. Item 27 fixed the assets; the entry scene still
    instances only the presentation building.
 
+*Step 1 done, and steps 2-4 re-scoped from measurement, 2026-08-02.*
+
+**Step 1 is in.** `lot/site_collision.py` now models scene-declared colliders:
+BoxShape3D exactly, sphere/capsule/cylinder by conservative bound, everything
+else still `unread`. The distinction that makes it safe is the body above the
+shape -- `Area3D` is not a wall. Deli Counter bakes a ladder's climb volume as
+an `Area3D` with a `CollisionShape3D` inside, and in the themed scene measured
+today that was the ONLY `CollisionShape3D` in the file: the reader was blinding
+itself over the single node that must NOT be solid, because filling it would
+turn the one route up into a blockage. Six tests added, 329 pass in Lot.
+
+**Steps 2-4 are smaller than this item assumed, and the blocker is elsewhere.**
+Lot needs no further work. `_building_source` already prefers `scene` over
+`glb` and says why -- "Deli Counter's primary output is the .tscn; the baked
+.glb is the self-contained special case. Both are instanced the same way" --
+and `read_site` already resolves `b.get("scene") or b.get("glb")`. **Lot can
+assemble a site out of themed building scenes today.**
+
+What is missing is a job that asks it to. The DAG runs
+`lot_assemble` -> candidate selection -> zoo/patina -> `presentation_compose`
+-> `lux_apply`, so at the moment the site spec is written the themed building
+does not exist yet. And `presentation_compose` composes ONE BUILDING and names
+its output `site.tscn` -- the driver says so outright: "`--building-id site`
+gives the scene a stable name so the Lux stage can resolve `<out>/site.tscn`".
+Everything downstream reads a file called `site.tscn` and reasonably takes it
+for the site. The planner's own comment records the moment this was cemented:
+"Lux apply over the COMPOSED themed presentation scene (not the greybox site)
+-- this is the wiring that was missing."
+
+Measured consequence, item 34: Lot's greybox spans ~150 m and holds four
+buildings; the themed export spans ~27 m and holds one.
+
+So the remaining work is one new DAG node, not a rewrite:
+
+    lot_assemble ... -> presentation_compose -> [themed_site_assemble] -> lux_apply
+
+`themed_site_assemble` re-runs Lot with the SAME placement spec the greybox
+used, with every building's `scene` set to the composed themed building. It is
+cheap because there is only one themed building to make: `_write_site_spec`
+already points every building at the same `shell.glb`, so the themed site is
+that one composed scene instanced N times at the placements Lot already chose.
+`lux_apply` then lights the site instead of a building, and the export follows
+Lux as it already does.
+
+Two alternatives, rejected and recorded so they are not re-proposed:
+
+- *Move compose before `lot_assemble`.* Structurally blocked: compose depends
+  on candidate selection, which depends on Lot's output.
+- *Have compose emit the site itself.* It would duplicate Lot's placement,
+  perimeter and path logic in Deli Counter's composer, which is the one thing
+  the adapter boundary exists to prevent.
+
+The thing to watch when it lands is the collision contract. The greybox site is
+authoritative for collision; the themed scene keeps DC's greybox floors as its
+walkable base, so a themed site should read the SAME solids as the greybox one.
+`tools/stage_census.py` will show the node and reference counts; the honest
+check is that the walk test still reaches 16/16 from the themed site, not that
+the scene looks right.
+
 **30. Nothing instantiates the light loader, so shipping the anchors would not
 have lit anything.** Corrects item 19, which is right about the packer and wrong
 about the consequence.
@@ -2251,6 +2310,57 @@ So the standing state, with the day's five dead hypotheses behind it:
              looks like, is not established and should not be guessed at.
     NOT A    lux_apply, presentation_compose, the closure judge, node
     DEFECT   ownership, and import sidecars. All five were refuted.
+
+**34. The greybox is a site; the themed export is a fragment of one.** Measured
+2026-08-02, one run, one tool, the same three places in both scenes.
+
+`look_shots` against Lot's `site_walk.tscn` from seed 5320, and against the
+portable export built from the same run:
+
+    scene         overview eye_y   implied extent   spawn   objective   extraction
+    Lot greybox           122.39          ~150 m   105.8       126.9        107.4
+    themed export          21.97           ~27 m    76.2        54.3         86.0
+
+The extent falls out of the tool's own framing -- `dist = (extent/2) /
+tan(37.5 deg) * 1.25` -- so the two overview heights are a measurement of site
+size, not a camera preference. The walk test's own proxies span x from -118 to
++92, about 210 m, which agrees with the greybox and not with the export.
+
+The frames say it plainly. **Lot's greybox is four buildings in a row on a long
+ground plate**, distinct in size, legible as a block. The themed export is a
+short run of walls and one corridor, on a plate with thin pieces scattered over
+it. `site.tscn` carries building indices 0 and 1 and a `-1` sentinel; the
+greybox carries four. Something between Lot and the export is delivering part of
+the site, and this item does not say what -- it says the two ends disagree and
+by how much.
+
+What theming DOES preserve is the room. Both objective shots stand in an
+enclosed space with doorways and a ceiling; the greybox reads at mean 126.9 with
+the centre at 128.2, the themed at 54.3 with the centre at **30.9**. The shape
+survives the art pass and the light does not: the themed interior is the one
+place in either scene where the centre and the frame disagree, and it disagrees
+by 23 points. That is items 30 and 32 confirmed at a place a player stands, and
+it is the first interior measurement all day taken from a real interior.
+
+Exposure across the two is NOT comparable and should not be quoted as a
+regression: the greybox runs the stock WorldEnvironment and the export runs
+Lux's grade. `look_shots.gd` says so in its own header -- two framings of one
+scene are two instruments. The comparison that holds is structural: extent,
+building count, and whether the centre of a frame disagrees with the frame.
+
+And the walk test, same run, seed 5320, which is the other half of "is this
+playable":
+
+    player_0..3   16/16 targets reached, 816-821 m travelled, 4 vertical legs by ladder
+    path proofs   27 ok, 4 fail        stranded 4, behind a barrier 3, no standing room 0
+
+All four walkers reach everything. The four failures share one signature to two
+decimals: the path stops **7.79 m short**, ends at **y = 4.3**, and the target
+stands at **y = 0.2**. The isolated endpoints are proxies 1, 5, 9 and 13 of 16
+-- **the same slot in each of four buildings**. One defect replicated four
+times, on an upper floor with no route down at that slot, in a site whose
+walkers use ladders successfully elsewhere. Worth naming as its own item when
+someone picks it up; it is not a placement accident.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
