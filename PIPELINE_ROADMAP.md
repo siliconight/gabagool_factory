@@ -2853,6 +2853,40 @@ should catch it reports nothing. Same class as the z-fight gate being served
 from cache in item 36 -- a gate that knows the answer and is not heard -- and
 worth the same priority. Not fixed here, and not this session's doing; recorded
 so the next reader does not file it as flaky.
+
+*Landed, and the fix needed a second one to become visible.* The anchor change
+alone produced no change in the site: Deli Counter emitted -0.40 / 3.60 / 7.60
+while `site.site.lights.json` still read -0.10 / 3.90 / 7.90.
+
+**The Lot adapter's fingerprint hashed the building GLBs and not the manifests
+beside them.** The light fix moved no geometry -- every `shell.glb` came out
+byte-identical, which is correct and is the point -- so the fingerprint did not
+move, `lot_assemble` reported `cache`, and the site kept last run's anchors. Lot
+merges each building's `<stem>.lights.json` into `site.site.lights.json`: its
+output depended on a file its fingerprint did not watch.
+
+`fingerprint_inputs` now reads the SITE SPEC and folds in every file it names --
+each building's `scene`/`glb`/`gameplay`, plus the `<stem>.lights.json` and
+`<stem>.gameplay.json` siblings the spec never mentions. Reading the spec rather
+than the caller's `building_glbs` list is deliberate: the spec is what Lot
+consumes, so a building added there cannot be missed by someone forgetting to
+extend a parallel argument, and a test asserts exactly that case.
+
+After: `lot_assemble` succeeded on all five seeds, `deli_generate` correctly read
+`cache` (its own output was unchanged), and the site reads 3.60 / 7.60 / -0.40.
+
+**This is the second stage in one day whose inputs were wider than what it
+hashed**, and the pair is worth naming as a pattern rather than two incidents:
+
+    --force did not re-run the whole graph        (roadmap 33)
+    a fingerprint blind to a file the stage merges (here)
+
+Both produce one symptom: **a green run that ships last week's answer.** Neither
+is detectable from the job's own output, because a cache hit and a correct
+re-run look identical from downstream -- which is why `tools/stage_census.py`
+prints mtimes and refuses cross-run comparisons. Any stage that reads a file it
+does not hash belongs on that list; the audit has not been done for the other
+adapters, and should be.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
