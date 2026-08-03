@@ -59,6 +59,15 @@ config/features=PackedStringArray("4.7")
 
 [debug]
 gdscript/warnings/inference_on_variant=1
+
+; MUST match the shipped export's project.godot, which sets
+; gl_compatibility. Without this Godot defaults to forward_plus, and the walk
+; renders under a different renderer than the deliverable: different lighting,
+; different materials, and any shot taken here is not comparable with one taken
+; from the export. Found when shot_diff refused a pair whose renderer had
+; silently changed from gl_compatibility to forward_plus between runs.
+[rendering]
+renderer/rendering_method="gl_compatibility"
 """
 
 

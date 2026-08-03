@@ -74,14 +74,61 @@ def comparable(a, b):
     return (not diffs), diffs
 
 
+def same_subject(a, b):
+    """(verdict, note) -- did these photograph the SAME THING?
+
+    The instrument check above catches a changed camera. It cannot catch a
+    changed SUBJECT, and the first real comparison run by this tool comprised a
+    Lux-lit export against an unlit walk project: every statistic moved, every
+    pixel changed, and the result was a photograph of two different levels
+    reported as a difference in one. `project` is recorded from look_shots
+    v-next; runs predating it say nothing, and unknown must not read as same.
+    """
+    pa, pb = a.get("project"), b.get("project")
+    if pa is None or pb is None:
+        return "unknown", ("one or both runs predate subject recording -- "
+                           "cannot verify these photographed the same project")
+    if os.path.normcase(os.path.abspath(pa)) != os.path.normcase(os.path.abspath(pb)):
+        return "differs", "%s\n   vs %s" % (pa, pb)
+    return "same", pa
+
+
 def _stat(shot, key, centre=False):
     src = shot.get("centre", {}) if centre else shot
     v = src.get(key)
     return float(v) if isinstance(v, (int, float)) else None
 
 
-def pixel_delta(before_png, after_png):
-    """(changed_fraction, max_channel_delta) or (None, reason)."""
+def resolve_png(json_path, recorded):
+    """Where the PNG IS, not where it was made.
+
+    `shots_*.json` records an absolute path. Copy the pair aside as a baseline
+    -- which is exactly what keeping a "before" requires -- and that path still
+    points at the LIVE directory, so --images diffs each picture against
+    itself and reports 0.00% with total confidence. The first real run of this
+    tool did precisely that. A JSON travels with its own directory; the
+    recorded path is provenance, not a location.
+    """
+    if not recorded:
+        return None
+    base = os.path.basename(str(recorded).replace("\\", "/"))
+    d = os.path.dirname(os.path.abspath(json_path))
+    stem = os.path.splitext(os.path.basename(json_path))[0]
+    for cand in (os.path.join(d, stem, base), os.path.join(d, base), recorded):
+        if os.path.exists(cand):
+            return cand
+    return recorded
+
+
+def pixel_delta(before_png, after_png, threshold=8):
+    """(fraction changed by more than ``threshold``, max delta), or (None, why).
+
+    THRESHOLDED, because counting any nonzero delta reported 100.00% on all
+    four shots the first time this ran: a global exposure shift moves every
+    pixel by at least one code, and a metric that saturates on every real
+    change measures nothing. 8/255 is roughly where a flat-surface difference
+    stops being invisible.
+    """
     try:
         from PIL import Image
     except ImportError:
@@ -89,22 +136,29 @@ def pixel_delta(before_png, after_png):
     for p in (before_png, after_png):
         if not p or not os.path.exists(p):
             return None, "missing %s" % (os.path.basename(p or "?"))
+    if os.path.abspath(before_png) == os.path.abspath(after_png):
+        return None, "SAME FILE -- the baseline PNGs were not copied aside"
     a = Image.open(before_png).convert("RGB")
     b = Image.open(after_png).convert("RGB")
     if a.size != b.size:
         return None, "size %s vs %s" % (a.size, b.size)
-    ap, bp = a.getdata(), b.getdata()
-    changed = 0
-    worst = 0
-    n = 0
-    for pa, pb in zip(ap, bp):
-        n += 1
-        d = max(abs(pa[0] - pb[0]), abs(pa[1] - pb[1]), abs(pa[2] - pb[2]))
-        if d:
-            changed += 1
-            if d > worst:
-                worst = d
-    return (changed / n if n else 0.0), worst
+    ab, bb = a.tobytes(), b.tobytes()
+    try:
+        import numpy as np
+    except ImportError:
+        changed = worst = 0
+        for i in range(0, len(ab), 3):
+            d = max(abs(ab[i] - bb[i]), abs(ab[i + 1] - bb[i + 1]),
+                    abs(ab[i + 2] - bb[i + 2]))
+            if d > threshold:
+                changed += 1
+                worst = max(worst, d)
+        n = len(ab) // 3
+        return (changed / n if n else 0.0), worst
+    aa = np.frombuffer(ab, np.uint8).reshape(-1, 3).astype(np.int16)
+    bv = np.frombuffer(bb, np.uint8).reshape(-1, 3).astype(np.int16)
+    d = np.abs(aa - bv).max(axis=1)
+    return (float((d > threshold).mean()), int(d.max()))
 
 
 def regressions(before, after):
@@ -130,6 +184,10 @@ def main(argv=None):
                     help="also diff the PNGs (catches geometry; slower)")
     ap.add_argument("--gate", action="store_true",
                     help="exit nonzero on a regression or an incomparable pair")
+    ap.add_argument("--threshold", type=int, default=8,
+                    help="per-channel delta a pixel must exceed to count as "
+                         "changed (default 8; 0 counts any difference and "
+                         "saturates on any exposure shift)")
     ap.add_argument("--allow-mixed", action="store_true",
                     help="compare across differing render provenance anyway")
     args = ap.parse_args(argv)
@@ -150,6 +208,19 @@ def main(argv=None):
         if not args.allow_mixed:
             return 2 if args.gate else 0
         print("--allow-mixed: comparing anyway; every number below is suspect")
+
+    verdict, note = same_subject(before, after)
+    if verdict == "differs":
+        print("SUBJECT DIFFERS -- these photographed two different projects:")
+        print("   " + note)
+        print("Every number below is a difference between LEVELS, not a "
+              "difference in one level.")
+        if not args.allow_mixed:
+            return 2 if args.gate else 0
+    elif verdict == "unknown":
+        print("subject: UNKNOWN -- " + note)
+    else:
+        print("subject: " + note)
 
     bs = {s.get("name"): s for s in before.get("shots", [])}
     as_ = {s.get("name"): s for s in after.get("shots", [])}
@@ -181,7 +252,9 @@ def main(argv=None):
         line = "%-14s %s" % (row[0], " ".join(row[1:]))
         moved = any(f.strip() not in ("+0.00", "n/a") for f in row[1:])
         if args.images:
-            frac, worst = pixel_delta(b.get("png"), a.get("png"))
+            frac, worst = pixel_delta(resolve_png(args.before, b.get("png")),
+                                      resolve_png(args.after, a.get("png")),
+                                      args.threshold)
             if frac is None:
                 line += " %10s %7s" % ("--", str(worst)[:7])
             else:
