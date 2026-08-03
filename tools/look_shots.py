@@ -149,12 +149,8 @@ def main(argv=None):
         description="render a generated level from derived cameras and report "
                     "the exposure of each frame")
     ap.add_argument("project", help="the Godot project folder to photograph")
-    ap.add_argument("--out", default="shots_look",
-                    help="directory for the PNGs (default: %(default)s). The "
-                         "prefix is not cosmetic: the factory .gitignore "
-                         "already carries `shots_*/` for screenshot passes, so "
-                         "the default output is ignored without anyone editing "
-                         "a rule")
+    ap.add_argument("--out", default="shots",
+                    help="directory for the PNGs (default: %(default)s)")
     ap.add_argument("--scene", default=None,
                     help="scene to run; default is the single *_walk.tscn")
     ap.add_argument("--godot", default=None,
@@ -186,6 +182,13 @@ def main(argv=None):
         print("[look_shots] NOT MEASURED: " + str(e))
         return 1
 
+    # The run records the INSTRUMENT (adapter, driver, viewport) and recorded
+    # nothing about the SUBJECT, so two runs of DIFFERENT PROJECTS compared
+    # cleanly and silently: a Lux-lit export against an unlit walk project,
+    # reported as "every shot moved". A photograph without its subject is not
+    # evidence.
+    r["project"] = os.path.abspath(a.project)
+    r["scene"] = a.scene or ""
     if a.json:
         print(json.dumps(r, indent=2))
     else:
