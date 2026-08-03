@@ -69,6 +69,19 @@ gdscript/warnings/inference_on_variant=1
 [rendering]
 renderer/rendering_method="gl_compatibility"
 
+; LIGHT LIMITS. The Compatibility renderer draws only the nearest N lights and
+; silently drops the rest, so a level with 140 spawned fixtures has most of them
+; switch off at a distance and pop back on as you walk in -- which reads as a
+; draw-distance bug and is really a budget. Godot's defaults are 32 renderable
+; and 8 per object; both are below what a fixture-lit level needs.
+;
+; These cost fill rate, so they are a preview setting, not a recommendation for
+; the shipped project -- the export ships gl_compatibility too and has the same
+; ceiling, which is a separate decision about how many fixtures a level should
+; carry, not one this scratch project should make on anyone's behalf.
+limits/opengl/max_renderable_lights=256
+limits/opengl/max_lights_per_object=16
+
 ; Lux is an EDITOR plugin as well as a runtime script. Without this its @tool
 ; side never registers, so the editor viewport shows the level unlit and you
 ; have to tick a box in Project Settings before the thing you came to look at
