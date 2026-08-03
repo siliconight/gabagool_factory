@@ -123,8 +123,54 @@ _LUX_NODE = """
 script = ExtResource("lux_root")
 """
 
+#: Written into the scratch project and attached to the walk scene. The walk
+#: is assembled from themed_site_assemble's scene, NOT from lux.applied.tscn,
+#: so it does not inherit run_lux_apply's fixture spawn -- measured on
+#: category5_baie_dore_001: lux.quality.json said 152 fixture lights and
+#: light_census on the preview said OmniLight3D 0.
+_SPAWN_GD_NAME = "walk_fixtures.gd"
+_SPAWN_GD = 'extends Node\n## Spawn Zoo\'s marked fixture lights in the scratch walk project.\n##\n## The shipped level gets these from `run_lux_apply.gd`, which calls\n## LuxFixtureSpawner and packs the result into lux.applied.tscn. The walk\n## project is assembled from themed_site_assemble\'s scene instead, with its\n## own grafted LuxRoot, so it does not inherit that spawn -- measured with\n## tools/light_census.py: lux.quality.json reported 152 fixture lights while\n## the preview ran OmniLight3D 0. A preview that is lit differently from the\n## level is worse than no preview, because it gets believed.\n\n\nfunc _ready() -> void:\n\tvar script_res: GDScript = load("res://addons/lux/runtime/lux_fixture_spawner.gd")\n\tif script_res == null:\n\t\tpush_warning("walk_fixtures: lux fixture spawner missing")\n\t\treturn\n\tvar root: Node = get_parent()\n\tif root == null:\n\t\treturn\n\t# WAIT A FRAME BEFORE SPAWNING. _ready runs while the parent is still\n\t# setting up its children, and Godot refuses add_child() on a node in that\n\t# state ("parent node is busy setting up children"). LuxFixtureSpawner does\n\t# not check the return, so it parents every rig into a container that never\n\t# entered the tree and reports "Spawned 152 fixture light(s)" -- measured:\n\t# containers=0 in the same breath as 152 successes.\n\tawait get_tree().process_frame\n\tvar res: Dictionary = script_res.spawn(root)\n\tprint("[walk_fixtures] %s" % String(res.get("msg", "")))\n\t# A spawn that reports 152 successes and leaves nothing in the tree is\n\t# either parenting somewhere that is not the running scene, or having its\n\t# container freed inside the same frame. Those need different fixes, and\n\t# one report at one instant cannot tell them apart -- so take the reading\n\t# twice, immediately and after the frame settles.\n\t_report("immediately", root)\n\tawait get_tree().process_frame\n\tawait get_tree().process_frame\n\t_report("two frames later", root)\n\n\nfunc _report(when: String, root: Node) -> void:\n\tvar kids: Array = []\n\tfor c in root.get_children():\n\t\tkids.append("%s(%s)" % [c.name, c.get_class()])\n\tvar omni: Array = root.find_children("*", "OmniLight3D", true, false)\n\tvar cons: Array = root.find_children("LuxFixtureLights", "", true, false)\n\tprint("[walk_fixtures] %s: root=%s(%s) in_tree=%s omni=%d containers=%d"\n\t\t% [when, root.name, root.get_class(), root.is_inside_tree(), omni.size(), cons.size()])\n\tprint("[walk_fixtures] %s: root children = %s" % [when, ", ".join(kids)])\n\tfor c in cons:\n\t\tprint("[walk_fixtures] %s: container %s rigs=%d"\n\t\t\t% [when, root.get_path_to(c), c.get_child_count()])\n\t\tif c.get_child_count() > 0:\n\t\t\tvar f: Node = c.get_child(0)\n\t\t\tvar fk: Array = []\n\t\t\tfor k in f.get_children():\n\t\t\t\tfk.append("%s(%s)" % [k.name, k.get_class()])\n\t\t\tprint("[walk_fixtures] %s: first rig %s(%s) kids = %s"\n\t\t\t\t% [when, f.name, f.get_class(), ", ".join(fk)])\n'
 
-def graft_lux(tscn_text, drop_walk_lighting=True):
+_SPAWN_NODE = """
+[node name="WalkFixtures" type="Node" parent="."]
+script = ExtResource("walk_fixtures")
+"""
+
+#: The preset line, when the mission's own lighting choice is known.
+_LUX_PRESET_NODE = '''active_preset = ExtResource("lux_preset")
+'''
+
+_ACTIVE_PRESET = re.compile(r'active_preset\s*=\s*ExtResource\("([^"]+)"\)')
+
+
+def applied_preset(applied_tscn):
+    """The preset resource path ``lux_apply`` actually chose, or None.
+
+    WHY THIS IS READ RATHER THAN DEFAULTED. ``graft_lux`` removes Lot's sun
+    and environment and installs a bare LuxRoot, so before this the preview
+    was lit by whatever the Lux script defaults to. Measured on
+    ``category5_baie_dore_001``: ``lux.applied.tscn`` loads
+    ``res://addons/lux/presets/blue_hour.tres`` and sets ``active_preset`` to
+    it, and ``lux.quality.json`` says ``"preset": "Blue Hour"`` -- while the
+    walk project's LuxRoot carried no ``active_preset`` line at all. Every
+    walkthrough was therefore judging lighting the shipped level does not use,
+    which is worse than walking unlit: unlit looks broken and gets fixed,
+    wrong-but-plausible gets believed.
+    """
+    if not applied_tscn or not os.path.exists(applied_tscn):
+        return None
+    with open(applied_tscn, "r", encoding="utf-8", errors="replace") as fh:
+        text = fh.read()
+    m = _ACTIVE_PRESET.search(text)
+    if not m:
+        return None
+    ext = re.search(r'\[ext_resource[^\]]*path="([^"]+)"[^\]]*id="%s"\]'
+                    % re.escape(m.group(1)), text)
+    return ext.group(1) if ext else None
+
+
+def graft_lux(tscn_text, drop_walk_lighting=True, preset=None,
+              spawn_fixtures=True):
     """Add a LuxRoot to a walk scene, and take Lot's own lighting out.
 
     WHY THE SECOND HALF. Lot's walk scene ships a `WorldEnvironment` and a
@@ -152,6 +198,18 @@ def graft_lux(tscn_text, drop_walk_lighting=True):
     ext = ('[ext_resource type="Script" '
            'path="res://%s/runtime/lux_root.gd" id="lux_root"]\n'
            % _LUX_DEST.replace(os.sep, "/"))
+    node = _LUX_NODE
+    extra = 1
+    if preset:
+        ext += ('[ext_resource type="Resource" path="%s" id="lux_preset"]\n'
+                % preset)
+        node = node.rstrip("\n") + "\n" + _LUX_PRESET_NODE
+        extra += 1
+    if spawn_fixtures:
+        ext += ('[ext_resource type="Script" path="res://%s" '
+                'id="walk_fixtures"]\n' % _SPAWN_GD_NAME)
+        node = node.rstrip("\n") + "\n" + _SPAWN_NODE
+        extra += 1
     marker = "\n\n[sub_resource"
     at = out.find(marker)
     if at < 0:
@@ -161,8 +219,8 @@ def graft_lux(tscn_text, drop_walk_lighting=True):
     m = re.search(r"load_steps=(\d+)", out)
     if m:
         out = out.replace("load_steps=%s" % m.group(1),
-                          "load_steps=%d" % (int(m.group(1)) + 1), 1)
-    return out.rstrip("\n") + "\n" + _LUX_NODE
+                          "load_steps=%d" % (int(m.group(1)) + extra), 1)
+    return out.rstrip("\n") + "\n" + node
 
 
 def clear_out(out):
@@ -224,6 +282,13 @@ def main(argv=None):
                          "tools.local.json beside the workspace)")
     ap.add_argument("--godot", default=None,
                     help="Godot executable, to run an import pass at the end")
+    ap.add_argument("--no-fixture-lights", action="store_true",
+                    help="assemble WITHOUT spawning Zoo's fixture lights. The "
+                         "B side of an A/B: emissive lenses glow under the "
+                         "WorldEnvironment's glow pass whether or not any "
+                         "light is cast, so the eye cannot separate a working "
+                         "fixture from a decorative one. Two builds and a "
+                         "pixel diff can.")
     args = ap.parse_args(argv)
 
     jobs = os.path.join(args.lf_dir, "jobs")
@@ -330,11 +395,26 @@ def main(argv=None):
     with open(walk, "r", encoding="utf-8") as fh:
         walk_text = fh.read()
     lux_note = "no --lux-repo: walking WITHOUT Lux (not what ships)"
+    preset = applied_preset(newest(os.path.join(
+        jobs, f"{args.mission_id}.lux_apply"), "lux.applied.tscn"))
     if lux_src and os.path.isdir(lux_src):
         shutil.copytree(lux_src, os.path.join(out, _LUX_DEST))
-        walk_text = graft_lux(walk_text, drop_walk_lighting=not args.keep_walk_lighting)
+        walk_text = graft_lux(walk_text,
+                              drop_walk_lighting=not args.keep_walk_lighting,
+                              preset=preset,
+                              spawn_fixtures=not args.no_fixture_lights)
+        if not args.no_fixture_lights:
+            with open(os.path.join(out, _SPAWN_GD_NAME), "w",
+                      encoding="utf-8") as fh:
+                fh.write(_SPAWN_GD)
         lux_note = os.path.abspath(lux_src) + (
             "" if args.keep_walk_lighting else "  (Lot's own sun/env removed)")
+        if args.no_fixture_lights:
+            lux_note += "\n             fixtures : NOT SPAWNED (--no-fixture-lights)"
+        lux_note += "\n             preset   : " + (
+            preset if preset else
+            "NONE FOUND -- walking on Lux's DEFAULT, not this mission's "
+            "choice; run lux_apply or the preview lights the wrong level")
     else:
         sys.stderr.write("[walk_themed] " + lux_note + "\n")
     with open(os.path.join(out, "site_walk.tscn"), "w", encoding="utf-8") as fh:
