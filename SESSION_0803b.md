@@ -95,35 +95,73 @@ unlit for another reason, and it is the next thing to look at. And
 in Lux, because every consumer of that count inherits the lie. It cost six
 rounds here precisely because the number looked authoritative.
 
-## What the walk turned up (in the order found, not fixed)
+## What the walk turned up
 
-1. **Fixture lights emitted nothing** — FIXED, above. The whole artificial-light
-   layer of a night level was missing; one directional at 0.9 energy, 4° above
-   the horizon was the entire budget. This is why it "looked really dark". Note
-   that every visual judgement below was made under that, so re-look before
-   acting on them.
-2. **Wall packs sit low over doors and some float in the air.** The mount
-   arithmetic is fine (the fluorescents prove it) so it is wall-pack-specific:
-   `rot_y`, the arm's reach to a wall plane that may not be there, or
-   `_WALL_PACK_RISE` (0.25 m, and the emissive lens sits at the fixture's bottom
-   so its bloom washes over the door head). Wants the fixture equivalent of
-   `openings.py`: a gate reporting clearance above the head and distance from the
-   arm to the wall.
-3. **Pilasters standing free in walkable interior space.** This is the interior
-   keep-out rule that WAS measured and rejected — it flagged 1034 of 2098 orders
-   because `gameplay.json` room bounds include the wall plane. The rule was
-   thrown out because the test was wrong. Inset the room box by wall depth
-   (`lane_reach` already does this arithmetic) and re-run.
-4. **The tile grid is still visible.** Not texture — geometry. Each `panel_field`
-   is 0.03 m proud with a 0.03 m gap, so every panel has four 3 cm edge faces,
-   and under a sky-dominant ambient the up-facing ones draw a bright grid across
-   1315 panels. `paneling.py` names the levers itself: proud depth and coverage.
-5. **An interior partition crosses a window mid-span.** DC layout vs facade
-   openings, nothing checking the two against each other. Also a firing-line
-   problem, not only an ugly one.
-6. **Window shapes read as unconventional.** Undiagnosed. Hypothesis only:
-   adjacent window slots with different opening rects butting into one irregular
-   outline.
+1. **Fixture lights emitted nothing** — FIXED. The whole artificial-light layer
+   of a night level was missing; one directional at 0.9 energy, 4 deg above the
+   horizon was the entire budget. Every visual judgement below was made under
+   that.
+2. **Wall packs sit low over doors and some float in the air.** NOT a rule
+   violation: `dressing_in_nav --prefix WallPack_` reports 36 fixture meshes,
+   0 in walkable space. A looks problem, so it drops down the queue rather than
+   off it. `_WALL_PACK_RISE` is 0.25 m and the emissive lens sits at the
+   fixture's bottom, so its bloom washes over the door head.
+3. **Pilasters standing in walkable interior space** — FIXED, and the cause was
+   not where the rule was looking. `paneling.wall_slots` selected exterior walls
+   with "facing or an ext_ prefix", and DC sets `facing` on interior partitions
+   too: 299 wall slots, all 299 with `facing`, 74 of them `int_`. The filter
+   admitted the whole building. Excluding `int_` took orders from 1778 to 1331
+   and room intrusions from 56 to 0. Gutters were affected as well, since
+   `roofline_slots` filters from the same list.
+4. **The tile grid** — proud 0.03 -> 0.012 (Zoo) and joint 0.03 -> 0.01
+   (Patina). A 3x3 cm groove around every cell becomes a ~1x1 cm line. The grid
+   is not gone; articulation has seams. Cell size was NOT the lever: halving it
+   triples the count, and doubling it was offered and not taken.
+5. **An interior partition crosses a window mid-span.** Untouched. DC layout vs
+   facade openings, nothing checking the two against each other.
+6. **Window shapes read as unconventional.** Untouched, undiagnosed.
+7. **Floors and ceilings want Pixelcoat packs** (new). Zoo has `floor.py` and
+   `ceiling.py` and `make_material` already resolves a pack per material kind,
+   so the missing piece is the packs -- wood / carpet / tile for floors,
+   something separate for ceilings -- plus the kinds being declared in the
+   genome. The first additive item on the list rather than a defect.
+
+## THE WALKABLE-SPACE RULE, finally measured
+
+"No dressing in walkable space or firing lines" could not be enforced where it
+was breaking, and the reason is structural. Patina reads ONE building's
+manifests, so `keep_out_boxes` sees a door lane and `room_boxes` sees a room
+interior and neither can see the gap between two buildings. A pilaster 5 cm
+proud is legal on its own facade and becomes an obstruction the moment Lot
+places a neighbour 1.2 m away. `room_boxes` reporting 0 means the rooms are
+clean, not that the rule holds.
+
+`tools/dressing_in_nav.py` puts the gate where the fact lives: after
+`lot_assemble`, against the baked navmesh, which IS the answer to "where can a
+body go". Result: **5868 covers, 0 in walkable space; 36 fixture meshes, 0.**
+
+It corrected itself twice, and both corrections are in the file:
+
+* It grew each cover's box by the agent radius. The navmesh bake already insets
+  by that radius -- a nav sample is where the body ALREADY fits -- so this
+  applied it twice: 990+ false positives, each reporting exactly 2 samples,
+  which is the two nearest polygon vertices sitting on the boundary.
+* It accepted a bake that parsed MESH_INSTANCES, which carves walkable surface
+  AROUND the dressing. No cover can overlap nav under that bake, so the zero
+  could not have come out any other way. The bake is now forced to
+  STATIC_COLLIDERS -- covers carry no collision by contract, the DC greybox
+  does -- and the report names what was parsed, so a circular zero is reported
+  as circular rather than as a pass.
+
+Two findings from the same run, unrelated to dressing:
+
+* **Lot's walk scene ships an UNBAKED NavigationMesh** -- one region, zero
+  polygons. Anything that navigates in a preview built this way has no surface.
+  Worth checking whether `walktest` bakes its own.
+* Parsing mesh instances gave 4145 polygons against 2120 from colliders alone.
+  Roughly half the walkable surface in that bake was agents standing on visual
+  geometry, dressing included. Any stage baking with default parsing inherits
+  that.
 
 ## Also open
 
@@ -135,6 +173,15 @@ rounds here precisely because the number looked authoritative.
   that project is meaningless — several today were.
 * `gather_facts` never runs on the dressing path, which is why nothing caught the
   flat wear. `build_dressing` writes its own index and never calls it.
+* `lux_apply` cache-hit after the dressing rebuild, so the shipped
+  `lux.applied.tscn` is one art pass behind. Same blindness `27a5db9` fixed for
+  `lot`: it takes the composed scene by path, and lot rewrote byte-identical
+  .tscn text. Second edge of the same hole.
+* `LuxFixtureSpawner.spawn()` returns a count of rigs it ATTEMPTED to add, not
+  rigs in the scene. That belongs upstream in Lux; every consumer inherits the
+  number, and it cost six rounds here because it looked authoritative.
+* `openings.room_boxes` is measured and UNWIRED. Nothing calls it, and on this
+  building nothing needs to. It stays that way until something does.
 
 ## Mistakes worth not repeating
 
