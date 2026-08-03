@@ -68,6 +68,14 @@ gdscript/warnings/inference_on_variant=1
 ; silently changed from gl_compatibility to forward_plus between runs.
 [rendering]
 renderer/rendering_method="gl_compatibility"
+
+; Lux is an EDITOR plugin as well as a runtime script. Without this its @tool
+; side never registers, so the editor viewport shows the level unlit and you
+; have to tick a box in Project Settings before the thing you came to look at
+; appears. A scratch project that needs a manual step before it is correct is
+; a scratch project that will be looked at wrong.
+[editor_plugins]
+enabled=PackedStringArray("res://addons/lux/plugin.cfg")
 """
 
 
@@ -98,6 +106,92 @@ def copy_into(src_dir, dst_dir, skip_names=(), skip_dirs=(".godot", "addons")):
             shutil.copy2(os.path.join(dirpath, f), os.path.join(target, f))
 
 
+#: Lux's NATIVE layout, not the export's.
+#:
+#: The export puts Lux at `runtime/lux/` and its localize step REWRITES the
+#: `res://addons/lux/...` paths baked into the addon to match. Copying to
+#: `runtime/lux` without that rewrite reproduces the layout and not the
+#: relocation, and Godot then reports a wall of `Cannot open file
+#: 'res://addons/lux/presets/*.tres'` plus a cascade ending in
+#: `lux_root.gd:202 - Nonexistent function 'new'`. A scratch project has no
+#: reason to relocate anything: left where the addon expects to be, every
+#: internal path resolves with no rewriting at all.
+_LUX_DEST = os.path.join("addons", "lux")
+
+_LUX_NODE = """
+[node name="LuxRoot" type="Node3D" parent="."]
+script = ExtResource("lux_root")
+"""
+
+
+def graft_lux(tscn_text, drop_walk_lighting=True):
+    """Add a LuxRoot to a walk scene, and take Lot's own lighting out.
+
+    WHY THE SECOND HALF. Lot's walk scene ships a `WorldEnvironment` and a
+    `Sun`, and Lux supplies both itself -- the shipped `lux.applied.tscn` has
+    a LuxRoot and no environment or light of its own. Leaving Lot's in place
+    lights the level twice, and that is not hypothetical: `look_shots.py`
+    already recorded the difference on this project.
+
+        no Lux        mean 108.6   p95 254   near-clip 18.62%
+        Lux, 2 suns   mean 151.7   p95 248   near-clip  3.17%
+        Lux, 1 sun    mean 147.0   p95 222   near-clip  1.13%
+
+    Two suns is measurably worse than one and was already known. Returns the
+    rewritten text; raises nothing, because a walk scene without a
+    WorldEnvironment to remove is fine.
+    """
+    out = tscn_text
+    if drop_walk_lighting:
+        for name in ("WorldEnvironment", "Sun"):
+            start = out.find('[node name="%s"' % name)
+            if start < 0:
+                continue
+            nxt = out.find("\n[node ", start + 1)
+            out = out[:start] + (out[nxt + 1:] if nxt >= 0 else "")
+    ext = ('[ext_resource type="Script" '
+           'path="res://%s/runtime/lux_root.gd" id="lux_root"]\n'
+           % _LUX_DEST.replace(os.sep, "/"))
+    marker = "\n\n[sub_resource"
+    at = out.find(marker)
+    if at < 0:
+        at = out.find("\n\n[node ")
+    out = out[:at] + "\n" + ext + out[at:] if at >= 0 else ext + out
+    # load_steps is a preallocation hint; leaving it short makes Godot warn.
+    m = re.search(r"load_steps=(\d+)", out)
+    if m:
+        out = out.replace("load_steps=%s" % m.group(1),
+                          "load_steps=%d" % (int(m.group(1)) + 1), 1)
+    return out.rstrip("\n") + "\n" + _LUX_NODE
+
+
+def clear_out(out):
+    """Empty the scratch project, keeping Godot's `.godot` cache. Returns the
+    paths that could not be removed.
+
+    A plain `shutil.rmtree` dies with `WinError 32` and a traceback whose top
+    frame is `shutil`, which names the mechanism and not the cause: Godot holds
+    files under `.godot` for as long as the editor has the project open, and
+    rebuilding a walk project you are currently walking is the normal thing to
+    want to do. That cache is regenerated on import and is not part of what
+    this assembles, so it is left alone; anything ELSE still locked is a real
+    obstacle and is reported by name.
+    """
+    stuck = []
+    for entry in os.listdir(out):
+        if entry == ".godot":
+            continue
+        path = os.path.join(out, entry)
+        try:
+            if os.path.isdir(path) and not os.path.islink(path):
+                shutil.rmtree(path)
+            else:
+                os.remove(path)
+        except OSError:
+            stuck.append(path)
+    return stuck
+
+
 def default_out(mission_id):
     """`<factory-root>/_runs/walk_<mission>` -- the repo's scratch convention.
 
@@ -118,6 +212,13 @@ def main(argv=None):
     ap.add_argument("--out", default=None,
                     help="where to assemble (default <factory>/_runs/"
                          "walk_<mission>; must be outside the workspace)")
+    ap.add_argument("--lux-repo", default=None,
+                    help="Lux checkout; its addons/lux becomes runtime/lux so "
+                         "the walk is lit like the export (default: a sibling "
+                         "'lux' next to this tools/ directory)")
+    ap.add_argument("--keep-walk-lighting", action="store_true",
+                    help="keep Lot's WorldEnvironment and Sun alongside Lux "
+                         "(two suns; measurably worse -- see graft_lux)")
     ap.add_argument("--lot-repo", default=None,
                     help="Lot checkout, for addons/lot (default: read "
                          "tools.local.json beside the workspace)")
@@ -177,6 +278,10 @@ def main(argv=None):
                     pass
                 if lot_repo:
                     break
+    lux_repo = args.lux_repo or os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "lux")
+    lux_src = os.path.join(str(lux_repo), "addons", "lux")
+
     addons_src = os.path.join(str(lot_repo), "godot", "addons", "lot") \
         if lot_repo else None
     if not addons_src or not os.path.isdir(addons_src):
@@ -188,8 +293,18 @@ def main(argv=None):
         return 2
 
     if os.path.isdir(out):
-        shutil.rmtree(out)
-    os.makedirs(out)
+        stuck = clear_out(out)
+        if stuck:
+            sys.stderr.write(
+                "cannot rebuild %s -- these are locked by another process:\n"
+                % out)
+            for f in stuck[:8]:
+                sys.stderr.write("   " + f + "\n")
+            sys.stderr.write(
+                "Godot holds a project's files while it has it open. Close the "
+                "editor\nand run this again, or pass --out somewhere else.\n")
+            return 2
+    os.makedirs(out, exist_ok=True)
 
     # 1. The composed building and everything it names at ITS project root.
     copy_into(os.path.dirname(building), out,
@@ -208,8 +323,22 @@ def main(argv=None):
     with open(os.path.join(out, "site.tscn"), "w", encoding="utf-8") as fh:
         fh.write(text)
 
-    # 3. The walk scene and Lot's addon.
-    shutil.copy2(walk, os.path.join(out, "site_walk.tscn"))
+    # 3. The walk scene, Lot's addon, and Lux -- because a walk lit by
+    #    nothing is not a review of the level. The scratch project shipped
+    #    with no Lux at all until now, so every walkthrough was judging
+    #    untextured, unlit geometry against a level that ships lit.
+    with open(walk, "r", encoding="utf-8") as fh:
+        walk_text = fh.read()
+    lux_note = "no --lux-repo: walking WITHOUT Lux (not what ships)"
+    if lux_src and os.path.isdir(lux_src):
+        shutil.copytree(lux_src, os.path.join(out, _LUX_DEST))
+        walk_text = graft_lux(walk_text, drop_walk_lighting=not args.keep_walk_lighting)
+        lux_note = os.path.abspath(lux_src) + (
+            "" if args.keep_walk_lighting else "  (Lot's own sun/env removed)")
+    else:
+        sys.stderr.write("[walk_themed] " + lux_note + "\n")
+    with open(os.path.join(out, "site_walk.tscn"), "w", encoding="utf-8") as fh:
+        fh.write(walk_text)
     for extra in ("site.site.gameplay.json", "site.site.lights.json"):
         src = os.path.join(os.path.dirname(walk), extra)
         if os.path.exists(src):
@@ -243,6 +372,7 @@ def main(argv=None):
           % (site, len(hits)))
     print("  walk     : %s" % walk)
     print("  addons   : %s" % addons_src)
+    print("  lux      : %s" % lux_note)
     if imported is not None:
         print("  import   : exit %d" % imported)
     print()
