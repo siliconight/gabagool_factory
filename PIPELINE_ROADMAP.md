@@ -3051,6 +3051,69 @@ Fixed by an explicit exclusion list covering that, Blender's operator protocol
 is in the source rather than hidden, because an exclusion nobody can see is how
 a scan quietly stops covering things -- which is the defect this whole item is
 about, committed by the instrument that looks for it.
+**41. The dressing layer is STRUCTURAL ART routed through the decoration
+channel, and that is why nothing checks it.** Raised 2026-08-02 after a second
+walkthrough: "there is still dressing all over in a way that doesn't look good."
+
+**Read the family names.** `tools/glb_nodes.py` on the baked layer, 2255 nodes:
+
+    1389  Cover_panel_field    -4.37    12.07
+     299  Cover_gutter_run     -0.38    12.61
+     299  Cover_pilaster       -2.15     5.85
+      64  Cover_edge_strip      7.70     9.00
+      64  Cover_base_course    -4.30    -4.00
+      64  Cover_curb           -4.30    -4.30
+      60  Cover_conduit_run     4.78     5.68
+      16  Cover_frame           1.10     5.60
+
+Panel fields, pilasters, gutters, base courses, curbs, edge strips, frames.
+**None of that is decoration.** In the taxonomy this project adopted (item 35)
+it is layer 2, structural art -- the material that wraps the shell and therefore
+must FIT it. It is being emitted through the layer-3 props channel, which is
+exactly why it has no slot, no placement gate, no collision authority and no
+intrusion limit. Nothing enforces fit on geometry whose entire job is to fit.
+
+That reframes the problem from tuning to ROUTING. A pilaster attaches to a wall
+line; a gutter runs along a roof edge; a base course sits on a floor. Those are
+slot relationships, and Deli Counter already emits slots carrying dimensions,
+pivots and transforms. Free-placing them and hoping is what puts rods in the
+middle of rooms.
+
+**Two numbers say the placer has reference-plane errors, not taste problems.**
+
+*(a) A 0.30 m offset below the floor.* `Cover_base_course` runs -4.30..-4.00 and
+`Cover_curb` sits at -4.30, against a basement floor at **-4.00**. A curb belongs
+ON the floor. The magnitude is the slab thickness, and the shape is identical to
+the light-anchor defect in item 38: a placer measuring from the wrong plane.
+
+*(b) Roughly one extra storey of height.* `Cover_gutter_run` reaches **12.61**
+and `Cover_panel_field` **12.07** on a building that stops at **8.00**. The
+building is three storeys of 4 m spanning -4.00..8.00; 12 is what three storeys
+measure if you stack them from 0 and forget the basement starts below it. Worth
+testing directly rather than assuming -- but a gutter 4.6 m above the roof it
+drains is not a near miss.
+
+*Not everything above the roof is wrong.* `Cover_edge_strip` at 7.70..9.00 is
+probably CORRECT: a parapet standing a metre above the roof slab is
+architecture. Which is precisely why this needs a stated tolerance rather than
+"anything above the roofline is a defect" -- a gate written from the frames
+would have condemned the one family that is behaving.
+
+**1389 panel fields is the wrong mechanism, not a wrong number.** Panel fields
+on a wall are what a MATERIAL does -- a trim sheet, a tiling texture. Emitting
+them as 1389 meshes is the "do not fragment excessively" failure from item 35,
+and moving them to a material is blocked behind the UV question in item 31.
+That makes three things now waiting on UVs: window shading, lightmaps, and this.
+
+**And whatever stays free-placed needs a contract.** `allowed_inward_intrusion_m`
+in the slot manifest and a gate that reads it. Today there is literally nothing
+for the dressing to violate, which is why every gate passes on a level with rods
+standing through the floor.
+
+**Order.** The two reference-plane leads first: they are cheap, probably one
+expression each, and the light-anchor fix is the template. Then the intrusion
+contract. The reclassification and the material question are real work and want
+a decision before code.
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
