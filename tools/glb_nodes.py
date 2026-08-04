@@ -29,6 +29,14 @@ one root and the two are the same.
 `--below Y` lists every node whose translation is under Y, which is the "props
 under the floor" question asked directly.
 
+`--flat` lists every mesh node whose bounding box is DEGENERATE on one axis --
+a plane rather than a solid. This is the "what is that white square I can only
+see from one side?" question asked directly, and the reasoning is that a plane
+answers it by construction: every box this pipeline builds is closed, so a
+single-sided surface that vanishes when you walk around it cannot be a box. It
+also flags OVERSIZE nodes, because the same accessor read is already done and a
+mesh larger than the building it sits in is the other shape this bug takes.
+
 WHAT A NONZERO EXIT MEANS. The file could not be read. It never reports an empty
 node list as "nothing in there".
 """
@@ -75,11 +83,61 @@ def family(name):
     return re.sub(r"[_-]?\d+$", "", stem) or "(unnamed)"
 
 
+def node_boxes(doc):
+    """[(name, (lo, hi))] per MESH node, in the node's own parent space.
+
+    From the accessors' own ``min``/``max``, which the exporter is required to
+    write for POSITION, so this needs no buffer decode and no mesh library.
+    Node translation is added; rotation and scale are not composed -- a baked
+    layer parents its parts as siblings with translation only, and a wrong
+    answer under an unexpected hierarchy is better caught by the caller seeing
+    an implausible number than by this pretending to a full transform stack.
+    """
+    acc = doc.get("accessors", [])
+    meshes = doc.get("meshes", [])
+    out = []
+    for n in doc.get("nodes", []):
+        mi = n.get("mesh")
+        if mi is None or mi >= len(meshes):
+            continue
+        t = n.get("translation") or [0.0, 0.0, 0.0]
+        lo = [float("inf")] * 3
+        hi = [float("-inf")] * 3
+        seen = False
+        for prim in meshes[mi].get("primitives", []):
+            ai = (prim.get("attributes") or {}).get("POSITION")
+            if ai is None or ai >= len(acc):
+                continue
+            a = acc[ai]
+            if not a.get("min") or not a.get("max"):
+                continue
+            seen = True
+            for i in range(3):
+                lo[i] = min(lo[i], float(a["min"][i]) + float(t[i]))
+                hi[i] = max(hi[i], float(a["max"][i]) + float(t[i]))
+        if seen:
+            out.append((n.get("name") or "(unnamed)", (tuple(lo), tuple(hi))))
+    return out
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("glb")
     ap.add_argument("--below", type=float, default=None,
                     help="list nodes whose translation Y is under this (Y-up)")
+    ap.add_argument("--flat", action="store_true",
+                    help="list mesh nodes whose bbox is degenerate on one axis "
+                         "(a plane, not a solid) or larger than --max-span. A "
+                         "plane is the shape that is visible from one side and "
+                         "gone from the other; no box this pipeline builds can "
+                         "do that.")
+    ap.add_argument("--flat-eps", type=float, default=0.002, metavar="M",
+                    help="an axis span at or under this reads as degenerate "
+                         "(default 0.002 -- thinner than any authored cover, "
+                         "which bottoms out at 0.012)")
+    ap.add_argument("--max-span", type=float, default=60.0, metavar="M",
+                    help="report a mesh whose bbox exceeds this on any axis "
+                         "(default 60, comfortably past a 44 x 32 m building)")
     ap.add_argument("--top", type=int, default=25)
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
@@ -115,16 +173,21 @@ def main(argv=None):
 
     print("%s: %d nodes, %d with an explicit translation"
           % (os.path.basename(args.glb), len(nodes), placed))
-    print("(glTF space -- Y-UP, so up is the second component)")
-    print()
-    print("%6s  %-34s %9s %9s" % ("count", "family", "y_min", "y_max"))
-    for f, c in fams.most_common(args.top):
-        if zs.get(f):
-            print("%6d  %-34s %9.2f %9.2f" % (c, f[:34], min(zs[f]), max(zs[f])))
-        else:
-            print("%6d  %-34s %9s %9s" % (c, f[:34], "-", "-"))
-    if len(fams) > args.top:
-        print("  ... %d more famil(ies)" % (len(fams) - args.top))
+    # --flat is a targeted question and is usually asked of every GLB in a
+    # project at once, so it does not also dump the census -- 474 families
+    # per file buries the two lines you came for.
+    if not args.flat:
+        print("(glTF space -- Y-UP, so up is the second component)")
+        print()
+        print("%6s  %-34s %9s %9s" % ("count", "family", "y_min", "y_max"))
+        for f, c in fams.most_common(args.top):
+            if zs.get(f):
+                print("%6d  %-34s %9.2f %9.2f"
+                      % (c, f[:34], min(zs[f]), max(zs[f])))
+            else:
+                print("%6d  %-34s %9s %9s" % (c, f[:34], "-", "-"))
+        if len(fams) > args.top:
+            print("  ... %d more famil(ies)" % (len(fams) - args.top))
 
     if args.below is not None:
         under = [(n.get("name", "?"), float(n["translation"][1]))
@@ -135,6 +198,33 @@ def main(argv=None):
         print("BELOW y = %.2f: %d node(s)" % (args.below, len(under)))
         for name, z in sorted(under, key=lambda p: p[1])[:args.top]:
             print("   %8.2f  %s" % (z, name))
+
+    if args.flat:
+        boxes = node_boxes(doc)
+        flat, big = [], []
+        for name, (lo, hi) in boxes:
+            span = [hi[i] - lo[i] for i in range(3)]
+            thin = [i for i in range(3) if span[i] <= args.flat_eps]
+            # a plane is thin on ONE axis and real on the others; thin on two
+            # is an edge and on three a point, and neither draws a white square
+            if len(thin) == 1 and max(span) > args.flat_eps * 10:
+                flat.append((name, span, thin[0]))
+            if max(span) > args.max_span:
+                big.append((name, span))
+        print()
+        print("mesh nodes measured: %d" % len(boxes))
+        print("DEGENERATE (a plane, single-sided by construction): %d"
+              % len(flat))
+        for name, span, ax in sorted(flat, key=lambda r: -max(r[1]))[:args.top]:
+            print("   %-38s %7.2f x %7.2f x %7.2f   flat on %s"
+                  % (name[:38], span[0], span[1], span[2], "XYZ"[ax]))
+        if not flat:
+            print("   every mesh node is a solid. Whatever you saw is not in")
+            print("   this file -- try the site, or the dressing layer.")
+        print("OVERSIZE (any axis over %.1f m): %d" % (args.max_span, len(big)))
+        for name, span in sorted(big, key=lambda r: -max(r[1]))[:args.top]:
+            print("   %-38s %7.2f x %7.2f x %7.2f"
+                  % (name[:38], span[0], span[1], span[2]))
     return 0
 
 
