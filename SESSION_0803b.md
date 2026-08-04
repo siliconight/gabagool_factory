@@ -258,3 +258,64 @@ before it goes back:
   FileNotFoundError, `test_nav_gate` OSError, `test_pvp_heist`. Confirmed
   unrelated to today's work by stashing and re-running: 10 failed / 380 passed
   either way.
+
+## Floors and ceilings: DONE
+
+Second attempt landed. Walked and confirmed: carpet on the gaming floor, an
+acoustic grid over the public rooms, stairwells open from both sides, no
+overhangs.
+
+Six pieces across three repos:
+
+* `zoo/core/arch.py` -- `plate_parts`/`plate_voids`, a horizontal counterpart
+  to `slab_parts`. Not a reuse: `slab_parts` cuts x/z (a doorway in a standing
+  wall), a floor cuts x/y. Guillotine grid, merged along x, voids inset 2 cm so
+  the outer bbox still equals the authored dims.
+* `zoo/recipes/_arch.py` -- plate path for floor/ceiling, and NO collision
+  boxes for them. That was what blocked the stairs: the slot declared
+  `collision: "none"` and nothing respected it.
+* `zoo/core/kit.py` + `deli_counter/themed_tscn.py` -- the naming law gains
+  `_d<cm>` and `_v<hash>` for plates. Width alone had stopped identifying a
+  module TWICE: 44x24 and 44x16 both planned as `_w4400`, then two 22x16 rooms
+  with different stairwells both planned as `_w2200_d1600`. Wall names
+  untouched. Dims are in the key only when the fit is EXACT -- a wallEnd is one
+  unit box scaled per slot, and keying it on slot dims split one module into
+  two identical ones (`test_plan_collapses_to_distinct_modules` caught that and
+  was right).
+* `deli_counter/floors.py` -- per-room floor and ceiling skins, material by
+  room role, holes read from `spec.slab_holes` and re-centred, duplicates
+  dropped.
+* `deli_counter/deli_counter.py` -- the call sits beside `_slab_holes_cut`,
+  NOT in `_slabs`. The holes are appended during the build by `_stairs`,
+  `_ladders`, `_ramps` and `_vertical_links`, all after `_slabs`; reading the
+  list there saw only the one hatch the spec was authored with, and every
+  stairwell stayed capped -- walkable but not see-through.
+
+Zoo 233 passing, DC unchanged at its 10 pre-existing failures. Final kit: 14
+plates, 14 distinct.
+
+## UNRESOLVED -- the backing check in tools/dressing_in_nav.py
+
+`--backing` reports 1807 of 5868 covers with no collider within 0.75 m, in a
+scene carrying 2767 CollisionShape3D (1092 Wall, 116 WallEnd, plus greybox
+ext_col/int_col). I do not believe it, and it has been wrong three times:
+
+1. It grew the cover box by the agent radius -- double-counting what the
+   navmesh bake already insets. 990+ false positives, each with exactly 2
+   samples: the two nearest polygon vertices on the boundary.
+2. It accepted a bake parsing MESH_INSTANCES, which carves walkable surface
+   AROUND the dressing and makes a zero circular. Forced to STATIC_COLLIDERS.
+3. It fired along WORLD axes, which on a yawed building runs parallel to the
+   wall. Changed to the cover's own basis -- and the count moved by ONE, so
+   that theory was wrong too.
+
+Known false positive in the remainder: 248 of 256 flagged are `edge_strip` in
+one evenly-spaced row at y=9.0, x -76..-107. That is a roofline, and an edge
+strip caps a roof edge half-overhanging by design, so a ray from its centre may
+legitimately find nothing.
+
+NEXT STEP IS NOT ANOTHER PROBE. Open `_runs/walk_floors` and look at
+`Cover_edge_strip_001` at [-103.206, 9.0, 22.0]. If there is a roof edge right
+there, the check is lying and should be deleted rather than left in the tree.
+The probe is UNCOMMITTED for that reason.
+
