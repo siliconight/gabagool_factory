@@ -194,3 +194,67 @@ Two findings from the same run, unrelated to dressing:
   against it.
 * Sent a static `grep` for light nodes when Lux builds its lighting at runtime.
   Zero was guaranteed either way.
+
+## Floors and ceilings: wired end to end, then withdrawn
+
+The vocabulary and the art were ready and nothing asked. Zoo has
+`recipes/floor.py` and `recipes/ceiling.py`; its genome declares
+concrete/tile/carpet/wood/dirt for floors and
+concrete/plaster/ceiling_tile/drywall/metal for ceilings; Pixelcoat builds
+`wood_`, `carpet_`, `tile_`, `plaster_`, `ceiling_tile_`, `drywall_` packs.
+Deli Counter emitted `roof 1, wall 299, doorway 10, breach 3, window 6` -- no
+floor, no ceiling, ever. `_slabs` gave each slab a MESH role and only the roof
+became a SWAP SLOT.
+
+`deli_counter/floors.py` (new, pure, 12 tests, mirroring `roofs.py`) emits
+per-room floor and ceiling skins: two per room, because one slab is two
+surfaces and slotting it once forces a wood floor to imply a wood ceiling.
+Material follows room role -- a gaming floor is carpeted, a concourse tiled,
+back-of-house concrete -- with a room's own material overriding and unknown
+roles falling back to the spec default.
+
+It worked end to end: slots `floor 7, ceiling 7`, kit modules `floor 6,
+ceiling 6` claiming those slot types, red carpet and an acoustic ceiling grid
+in the walk. Then two defects, BOTH DOWNSTREAM of the slot data, which was
+exactly right (`floor_gaming_floor` 44.0x24.0 at z 0.01, `floor_vault`
+44.0x32.0 at -3.99):
+
+* **Skins cap the holes.** DC's slabs are trimesh precisely because
+  stairwells, ramps and hatches boolean-cut them; `_slabs` says a convex hull
+  "fills any hole straight back in, capping the opening with invisible
+  collision (you see the gap but can't pass)". A rectangular ceiling skin does
+  the same thing: ceiling visible above the stairs, stairs and ladder
+  impassable.
+* **Zoo keys kit modules by WIDTH only.** `floor_rockay_01_w4400` was emitted
+  twice -- once for a 44x24 room, once for a 44x16 one. Right for a wall,
+  where width varies and height is the storey; wrong for a slab where both
+  axes vary. One name wins, both rooms resolve to it, and the shorter room
+  gets a slab 8 m too deep. That is the overhang. `dims` is null in the kit
+  index, so nothing downstream could have seen it.
+
+The two-line call was reverted; `floors.py` and its tests stay. Three things
+before it goes back:
+
+1. Split each room's skin around the hole rects DC already computes.
+2. Key slab-like modules on both axes, and record `dims` in the kit index.
+3. Verify Zoo's kit path honours `collision: "none"` -- the skins declare it,
+   which is not the same as Zoo respecting it, and that was never checked.
+
+## Still open from the last walk
+
+* **Wall seams still read as tiles.** proud 0.03 -> 0.012 and joint 0.03 ->
+  0.01 did not settle it. The geometry lever is spent; what is left is
+  COVERAGE -- panel fewer walls, or retire `panel_field` and let pilasters,
+  base course and gutters carry the articulation.
+* **The albedo repeats at about a metre.** Visible mottling across every
+  panel. Texture authoring, Pixelcoat, not geometry -- a different repo from
+  the seams it is easily confused with.
+* **Wall packs still read as floating in doorways.** NOT a rule violation:
+  `dressing_in_nav --prefix WallPack_` measures 36 meshes, 0 in walkable
+  space. `_WALL_PACK_RISE` is 0.25 m with the emissive lens at the fixture's
+  bottom, and the arm reaches 0.15 m back to a wall plane that may not be
+  there in a doorway reveal.
+* **DC's own suite has 10 pre-existing failures** -- `test_audit_specs`
+  FileNotFoundError, `test_nav_gate` OSError, `test_pvp_heist`. Confirmed
+  unrelated to today's work by stashing and re-running: 10 failed / 380 passed
+  either way.
