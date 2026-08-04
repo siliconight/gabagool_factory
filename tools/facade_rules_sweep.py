@@ -122,6 +122,13 @@ def _crossings_inside(segs, x, y):
     soup of segments and stitching them into a ring would invent an ordering
     the manifest does not state. Parity needs no ordering.
     """
+    # NUDGED OFF THE VERTEX. Adjacent wall slots share an endpoint exactly, so
+    # a ray cast at that precise y hits a vertex and the crossing is counted
+    # once or twice depending on which way each slot happens to run. Measured:
+    # two pilasters at x -22.18 -- outside the west wall at -22, correctly
+    # placed -- reported as inside because their y equalled a doorway jamb's.
+    # An irrational offset lands on no authored coordinate.
+    y = y + 1.7320508e-4
     n = 0
     for x0, y0, x1, y1 in segs:
         if (y0 > y) == (y1 > y):
@@ -132,18 +139,48 @@ def _crossings_inside(segs, x, y):
     return n % 2 == 1
 
 
-def fill_ratio(rects):
-    """Floor area over bbox area: how much of its own bounding box a building
-    actually occupies. A rectangle is ~1.0; an L or a courtyard is well under,
-    and that is exactly where the centroid rule is at risk. A HINT, not a
-    verdict -- overlapping room rects can push it past 1.0."""
-    if not rects:
+def outline_fill(ring, n: int = 48):
+    """How much of its own bounding box the wall OUTLINE encloses, 0..1.
+
+    A rectangle is ~1.0; an L is ~0.6; a courtyard or a U is lower still. That
+    number is the whole reason this sweep exists: `outward_sign` takes the
+    outward face as the one facing away from the bbox midpoint, which is exact
+    for a CONVEX footprint and can invert at the inner corner of an L. A
+    rectangle cannot exercise that limit however hard it is looked at.
+
+    Sampled on a grid rather than computed from a polygon, because the walls
+    arrive as an unordered soup of segments and stitching them into a ring
+    would invent an ordering the manifest does not state. 48x48 resolves a
+    notch a couple of metres across on a forty-metre building, which is the
+    scale at which this stops being a rectangle.
+
+    THE FLOOR PLATES WERE THE FIRST ATTEMPT AND MEASURED NOTHING: none of the
+    109 shipped manifests carry floor slots, so the ratio was `n/a` on every
+    row while the summary line still read "non-rectangular: 0". The outline is
+    the thing every manifest actually has.
+    """
+    if not ring or len(ring) < 3:
         return None
-    area = sum((x1 - x0) * (y1 - y0) for x0, y0, x1, y1 in rects)
-    bx0 = min(r[0] for r in rects); by0 = min(r[1] for r in rects)
-    bx1 = max(r[2] for r in rects); by1 = max(r[3] for r in rects)
-    box = (bx1 - bx0) * (by1 - by0)
-    return (area / box) if box > 0 else None
+    xs = [c for seg in ring for c in (seg[0], seg[2])]
+    ys = [c for seg in ring for c in (seg[1], seg[3])]
+    x0, x1, y0, y1 = min(xs), max(xs), min(ys), max(ys)
+    if x1 - x0 <= 0 or y1 - y0 <= 0:
+        return None
+    hit = 0
+    for i in range(n):
+        px = x0 + (x1 - x0) * (i + 0.5) / n
+        for j in range(n):
+            py = y0 + (y1 - y0) * (j + 0.5) / n
+            if _crossings_inside(ring, px, py):
+                hit += 1
+    return hit / float(n * n)
+
+
+def widest_ring(segs):
+    """The storey outline with the most segments -- the building's main plan."""
+    if not segs:
+        return None
+    return max(segs.values(), key=len)
 
 
 def sweep_one(path, mods, seed=1999):
@@ -166,6 +203,7 @@ def sweep_one(path, mods, seed=1999):
     by_id = man.by_id()
     segs = wall_segments(man, S)
     inside = untestable = 0
+    offenders = []
     for o in orders:
         story = by_id[o["slot_id"]].story
         ring = segs.get(story)
@@ -174,6 +212,9 @@ def sweep_one(path, mods, seed=1999):
             continue
         if _crossings_inside(ring, o["pos"][0], o["pos"][1]):
             inside += 1
+            if len(offenders) < 6:
+                offenders.append((o["slot_id"], o["cover"],
+                                  [round(v, 2) for v in o["pos"]]))
     # Floor plates, when the manifest has them, are Deli Counter's own account
     # of the interior and a second opinion on the same question.
     floor_hits = sum(1 for o in orders
@@ -193,7 +234,8 @@ def sweep_one(path, mods, seed=1999):
         "name": os.path.basename(path).replace(".slots.json", ""),
         "slots": len(man.slots), "walls": len(walls),
         "world_oriented": world, "canonical": len(walls) - world,
-        "floors": len(rects), "fill": fill_ratio(rects),
+        "floors": len(rects), "fill": outline_fill(widest_ring(segs)),
+        "offenders": offenders,
         "orders": len(orders), "inside": inside,
         "untestable": untestable, "floor_hits": floor_hits,
         "square_walls": square,
@@ -264,6 +306,16 @@ def main(argv=None):
     for r in sorted(odd, key=lambda r: r["fill"])[:12]:
         print("     %-28s fill %.2f  inside %d"
               % (r["name"][:28], r["fill"], r["inside"]))
+    bad = [r for r in rows if r["offenders"]]
+    if bad:
+        print("")
+        print("  WHERE THE COVERS LANDED INSIDE -- name them, so a parity")
+        print("  artefact at a wall line cannot pass as a placement bug:")
+        for r in sorted(bad, key=lambda r: -r["inside"])[:8]:
+            print("     %s  (fill %.2f)"
+                  % (r["name"], r["fill"] if r["fill"] is not None else -1))
+            for sid, cover, pos in r["offenders"]:
+                print("        %-22s %-12s %s" % (sid[:22], cover, pos))
     if broke:
         print("")
         print("  DID NOT PARSE: %d" % len(broke))
