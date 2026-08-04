@@ -138,6 +138,13 @@ def main(argv=None):
     ap.add_argument("--max-span", type=float, default=60.0, metavar="M",
                     help="report a mesh whose bbox exceeds this on any axis "
                          "(default 60, comfortably past a 44 x 32 m building)")
+    ap.add_argument("--alpha", action="store_true",
+                    help="list every material that is not OPAQUE, and the mesh "
+                         "nodes using it. The OTHER way a surface appears from "
+                         "one angle and not another: a blended surface is "
+                         "depth-sorted per object, so it pops in and out as the "
+                         "camera moves. Geometry that is provably solid and "
+                         "still behaves like a plane is this, not that.")
     ap.add_argument("--top", type=int, default=25)
     ap.add_argument("--json", action="store_true")
     args = ap.parse_args(argv)
@@ -176,7 +183,7 @@ def main(argv=None):
     # --flat is a targeted question and is usually asked of every GLB in a
     # project at once, so it does not also dump the census -- 474 families
     # per file buries the two lines you came for.
-    if not args.flat:
+    if not args.flat and not args.alpha:
         print("(glTF space -- Y-UP, so up is the second component)")
         print()
         print("%6s  %-34s %9s %9s" % ("count", "family", "y_min", "y_max"))
@@ -225,6 +232,40 @@ def main(argv=None):
         for name, span in sorted(big, key=lambda r: -max(r[1]))[:args.top]:
             print("   %-38s %7.2f x %7.2f x %7.2f"
                   % (name[:38], span[0], span[1], span[2]))
+
+    if args.alpha:
+        mats = doc.get("materials", [])
+        meshes = doc.get("meshes", [])
+        blended = {}
+        for i, m in enumerate(mats):
+            mode = m.get("alphaMode", "OPAQUE")
+            pbr = m.get("pbrMetallicRoughness") or {}
+            a = (pbr.get("baseColorFactor") or [1, 1, 1, 1])[3]
+            if mode != "OPAQUE" or float(a) < 1.0:
+                blended[i] = (m.get("name") or "(unnamed)", mode, float(a),
+                              bool(m.get("doubleSided")))
+        users = collections.defaultdict(list)
+        for n in doc.get("nodes", []):
+            mi = n.get("mesh")
+            if mi is None or mi >= len(meshes):
+                continue
+            for prim in meshes[mi].get("primitives", []):
+                if prim.get("material") in blended:
+                    users[prim["material"]].append(n.get("name") or "(unnamed)")
+        print()
+        print("materials: %d,  not OPAQUE: %d" % (len(mats), len(blended)))
+        for i, (nm, mode, a, two) in sorted(blended.items(),
+                                            key=lambda kv: -len(users[kv[0]])):
+            who = users[i]
+            print("   %-30s %-6s alpha %.2f  %s  used by %d node(s)"
+                  % (nm[:30], mode, a,
+                     "doubleSided" if two else "single-sided", len(who)))
+            for w in sorted(set(who))[:args.top]:
+                print("        %s" % w)
+        if not blended:
+            print("   every material is OPAQUE at full alpha. A surface that")
+            print("   still comes and goes is neither geometry nor blending --")
+            print("   look at what the engine adds at runtime.")
     return 0
 
 
