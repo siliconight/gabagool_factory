@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="1010" viewBox="0 0 1340 1010" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <style>
+      .m { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    </style>
+  </defs>
+
+  <rect width="1340" height="1010" fill="#fbfbf9"/>
+
+  <!-- ================= title ================= -->
+  <text x="48" y="60" font-size="29" font-weight="700" fill="#1a1a1a">The deliverable half</text>
+  <text x="48" y="92" font-size="16" fill="#6e6e68">What happens after the last job. The job DAG covers everything left of this and stops at <tspan class="m" font-size="14.5" fill="#3a3a36">lux_apply</tspan>.</text>
+  <line x1="48" y1="118" x2="1292" y2="118" stroke="#e2e2dc" stroke-width="1.5"/>
+
+  <!-- ================= band 1 ================= -->
+  <text x="48" y="152" font-size="12.5" font-weight="700" fill="#9a9a94" letter-spacing="1.4">THREE SEPARATE res:// ROOTS ARRIVE</text>
+
+  <rect x="48" y="168" width="396" height="150" rx="10" fill="#ffffff" stroke="#1a6fd4" stroke-width="2"/>
+  <text x="72" y="200" font-size="18" font-weight="700" fill="#1a1a1a">Lot</text>
+  <text x="124" y="200" font-size="13.5" fill="#8a8a84">the site, once</text>
+  <text x="72" y="232" class="m" font-size="13.5" fill="#3a3a36">site.tscn</text>
+  <text x="72" y="254" class="m" font-size="13.5" fill="#3a3a36">buildings/*.glb</text>
+  <text x="72" y="276" class="m" font-size="13.5" fill="#3a3a36">site_base.glb</text>
+  <text x="72" y="302" font-size="13" font-style="italic" fill="#1a6fd4">writes relative paths, no res:// at all</text>
+
+  <rect x="472" y="168" width="396" height="150" rx="10" fill="#ffffff" stroke="#e8531f" stroke-width="2"/>
+  <text x="496" y="200" font-size="18" font-weight="700" fill="#1a1a1a">Deli Counter</text>
+  <text x="642" y="200" font-size="13.5" fill="#8a8a84">one per building</text>
+  <text x="496" y="232" class="m" font-size="13.5" fill="#3a3a36">site.tscn</text>
+  <text x="496" y="254" class="m" font-size="13.5" fill="#3a3a36">site_base.glb</text>
+  <text x="496" y="276" class="m" font-size="13.5" fill="#3a3a36">art/{zoo,fixtures,dressing}/</text>
+  <text x="496" y="302" font-size="13" font-style="italic" fill="#e8531f">staged as its OWN res:// root</text>
+
+  <rect x="896" y="168" width="396" height="150" rx="10" fill="#ffffff" stroke="#12a374" stroke-width="2"/>
+  <text x="920" y="200" font-size="18" font-weight="700" fill="#1a1a1a">Lux</text>
+  <text x="972" y="200" font-size="13.5" fill="#8a8a84">presentation, once</text>
+  <text x="920" y="232" class="m" font-size="13.5" fill="#3a3a36">lux.applied.tscn</text>
+  <text x="920" y="254" class="m" font-size="13.5" fill="#3a3a36">  -&gt; res://lot/&lt;id&gt;/site.tscn x5</text>
+  <text x="920" y="276" class="m" font-size="13.5" fill="#3a3a36">  -&gt; res://addons/lux/*</text>
+  <text x="920" y="302" font-size="13" font-style="italic" fill="#12a374">renders nothing without the checkout</text>
+
+  <!-- ================= hazard ================= -->
+  <rect x="48" y="340" width="1244" height="88" rx="10" fill="#fdf6ec" stroke="#e0a75a" stroke-width="1.8"/>
+  <text x="76" y="370" font-size="15.5" font-weight="700" fill="#8a5a12"><tspan class="m" font-size="15">res://x</tspan> is <tspan class="m" font-size="15">&lt;project root&gt;/x</tspan> exactly. No search path, no walking up, no resolving by suffix.</text>
+  <text x="76" y="392" font-size="14.5" fill="#8a6a30">A package staged as its own root does not survive being copied under another.</text>
+  <text x="76" y="414" font-size="14.5" fill="#8a6a30">Measured on lot_demo_001: 137 references, 132 silently dropped, 5 resolving to the wrong file.</text>
+
+  <!-- ================= band 2 ================= -->
+  <text x="48" y="464" font-size="12.5" font-weight="700" fill="#9a9a94" letter-spacing="1.4">export_mission  ·  packages/exporting/</text>
+
+  <rect x="48" y="480" width="1244" height="306" rx="10" fill="#ffffff" stroke="#dcdcd4" stroke-width="1.8"/>
+
+  <circle cx="88" cy="518" r="13" fill="#ececea"/>
+  <text x="88" y="523" font-size="13" font-weight="700" fill="#5c5c56" text-anchor="middle">1</text>
+  <text x="114" y="516" font-size="16" font-weight="700" fill="#1a1a1a">Copy the trees</text>
+  <text x="114" y="538" font-size="14" fill="#5c5c56">graybox base, presentation, and the composed root.</text>
+  <text x="114" y="558" font-size="14" fill="#5c5c56"><tspan class="m" font-size="13">skip_rel</tspan> excludes by relative path, never by basename: six files here are called <tspan class="m" font-size="13">site.tscn</tspan>.</text>
+
+  <circle cx="88" cy="596" r="13" fill="#ececea"/>
+  <text x="88" y="601" font-size="13" font-weight="700" fill="#5c5c56" text-anchor="middle">2</text>
+  <text x="114" y="594" font-size="16" font-weight="700" fill="#1a1a1a">localize_export</text>
+  <text x="270" y="594" font-size="13.5" fill="#8a8a84">the FIXER</text>
+  <g font-size="13.5" fill="#3a3a36">
+    <text x="130" y="620">· reroot subpackages: the deepest ancestor resolving more refs than the export root wins</text>
+    <text x="130" y="642">· absolute paths bundled into <tspan class="m" font-size="13">assets/</tspan>, addon scripts localized into <tspan class="m" font-size="13">runtime/&lt;tool&gt;/</tspan></text>
+    <text x="130" y="664">· walk scenes and QA harnesses stripped (<tspan class="m" font-size="13">site_navqa.tscn</tspan>, <tspan class="m" font-size="13">lot_navqa_setup.gd</tspan>, <tspan class="m" font-size="13">mp_smoke*</tspan>)</text>
+  </g>
+
+  <circle cx="88" cy="700" r="13" fill="#ececea"/>
+  <text x="88" y="705" font-size="13" font-weight="700" fill="#5c5c56" text-anchor="middle">3</text>
+  <text x="114" y="698" font-size="16" font-weight="700" fill="#1a1a1a">write_entry_scene</text>
+  <text x="114" y="720" font-size="14" fill="#5c5c56">synthesizes <tspan class="m" font-size="13">mission.tscn</tspan>. Instances ONE scene, never both: presentation if it exists, else <tspan class="m" font-size="13">site.tscn</tspan>.</text>
+
+  <circle cx="88" cy="748" r="13" fill="#12a374"/>
+  <text x="88" y="753" font-size="13" font-weight="700" fill="#ffffff" text-anchor="middle">4</text>
+  <text x="114" y="746" font-size="16" font-weight="700" fill="#1a1a1a">scan_closure</text>
+  <text x="244" y="746" font-size="13.5" fill="#8a8a84">the JUDGE</text>
+  <text x="114" y="768" font-size="14" fill="#5c5c56">missing · misrooted · relative · absolute · external · plugins · autoloads</text>
+
+  <rect x="830" y="498" width="442" height="132" rx="8" fill="#f6f9f7" stroke="#c9e3d7" stroke-width="1.5"/>
+  <text x="852" y="524" font-size="13.5" font-weight="700" fill="#0d7a58">Two files, named apart on purpose</text>
+  <text x="852" y="550" class="m" font-size="12.5" fill="#4a6a5e">export_closure.json</text>
+  <text x="852" y="570" font-size="12.5" fill="#4a6a5e">the fixer's log</text>
+  <text x="852" y="594" class="m" font-size="12.5" fill="#4a6a5e">export_closure_scan.json</text>
+  <text x="852" y="614" font-size="12.5" fill="#4a6a5e">the verdict. The fixer only logs repairs it ATTEMPTED</text>
+
+  <!-- ================= band 3 ================= -->
+  <text x="48" y="822" font-size="12.5" font-weight="700" fill="#9a9a94" letter-spacing="1.4">WHAT SHIPS</text>
+
+  <rect x="48" y="838" width="1244" height="118" rx="10" fill="#ffffff" stroke="#dcdcd4" stroke-width="1.8"/>
+  <text x="76" y="868" class="m" font-size="14" fill="#1a1a1a">mission.tscn -&gt; presentation/lux.applied.tscn -&gt; lot/&lt;id&gt;/site.tscn -&gt; lot/&lt;id&gt;/art/zoo/*.glb</text>
+  <text x="76" y="890" font-size="13.5" fill="#8a8a84">every hop resolving from the package root, which is the only thing that makes it somebody else's to open</text>
+
+  <g font-size="13" fill="#3a3a36">
+    <rect x="76" y="908" width="118" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="135" y="927" text-anchor="middle">no addons</text>
+    <rect x="206" y="908" width="132" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="272" y="927" text-anchor="middle">no autoloads</text>
+    <rect x="350" y="908" width="170" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="435" y="927" text-anchor="middle">no absolute paths</text>
+    <rect x="532" y="908" width="176" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="620" y="927" text-anchor="middle">no QA harnesses</text>
+    <rect x="720" y="908" width="196" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="818" y="927" text-anchor="middle">opens in stock Godot 4.7</text>
+  </g>
+
+  <text x="1268" y="927" class="m" font-size="12.5" fill="#b0703a" text-anchor="end">CLOSURE_ENFORCED = False</text>
+
+  <!-- ================= footer ================= -->
+  <text x="48" y="988" font-size="12.5" fill="#a8a8a2">Hand-drawn, so it drifts. The stage table in PIPELINE_MAP.md is derived from the planner instead: <tspan class="m" font-size="12">python factory_map.py --check</tspan></text>
+</svg>

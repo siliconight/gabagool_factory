@@ -576,6 +576,76 @@ props bake as walkable surfaces: `gaming_tables` is a 12 × 6 m box whose top is
 
 ## What to do next
 
+Status convention: one line directly above an item, carrying the evidence.
+
+    *STATUS: CLOSED 2026-08-12 -- 127 lights in the shipped presentation scene*
+
+    **30. Nothing instantiates the light loader ...**
+
+Vocabulary is `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`,
+`ANALYSIS`. The last one is not a hedge: items 31 and 32 are reductions of
+engine documentation, nothing closes them, and counting them as open defects
+makes this file lie about its own size.
+
+The table below is DERIVED from those lines by `roadmap_status.py`, not typed.
+`roadmap_status.py --check` exits 1 when it drifts and `--write` regenerates
+it, the way `factory_map.py` maintains the stage table in `PIPELINE_MAP.md`.
+An item with no status line is reported as resting on a sentence --
+`roadmap_status.py --unclassified` lists them, and that list is the remaining
+work of adopting this.
+
+<!-- BEGIN GENERATED: roadmap_status.py -- do not edit by hand -->
+
+| # | status | item | evidence |
+|---|---|---|---|
+| 1 | **CLOSED** *(inferred)* | Cover is exonerated — the trap is somewhere else | Closed 2026-07-27 |
+| 2 | **CLOSED** *(inferred)* | `walktest.py` into the DAG | Closed 2026-07-27** as Lot 0 |
+| 3 | **OPEN** | Lot places enemies twice, and nothing checks the two agree | 2026-08-12 -- both call sites re-confirmed while threading `solids` through `place_enemies |
+| 4 | **OPEN** *(inferred)* | Lot emits absolute `res://` paths at source | — |
+| 5 | **CLOSED** *(inferred)* | A run that evaluated nothing reported a clean pass | Closed 2026-07-27 as Level Factory 0 |
+| 6 | **OPEN** *(inferred)* | The tactical advisory reads a scene that may not exist yet | — |
+| 7 | **CLOSED** *(inferred)* | The certified set has drifted | Closed 2026-07-27 as **factory 1 |
+| 8 | **OPEN** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-12 -- unchanged; this file's own "highest-leverage item", ~400 map_get_path querie |
+| 9 | **CLOSED** *(inferred)* | Lot emits nav-QA anchors nothing checks | Closed 2026-07-28 as Lot 0 |
+| 10 | **OPEN** | `nav_gate.py` certifies geometry that never ships | 2026-08-12 -- unchanged |
+| 11 | **RETRACTED** *(inferred)* | The building interiors barely bake | Retracted 2026-07-28 |
+| 12 | **OPEN** | Props bake as walkable navmesh, and nothing can reach them | 2026-08-12 -- candidate cause of the 1,179 player_stuck_events in SESSION_0811 |
+| 13 | **RETRACTED** *(inferred)* | RETRACTED — seed 5320's vault was never broken; its walktest never ran | RETRACTED — seed 5320's vault was never broken; its walktest never ran |
+| 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
+| 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
+| 16 | **OPEN** | The navmesh contains routes the collision geometry blocks | 2026-08-12 -- unchanged; this file's own "biggest open question" |
+| 17 | **OPEN** *(inferred)* | The pipeline has never been run cold, so nobody knows what it costs to | — |
+| 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
+| 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
+| 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
+| 21 | **OPEN** *(inferred)* | Four of eight tools have drifted from what Level Factory certified | — |
+| 22 | **OPEN** *(inferred)* | Outdoor props have no swap contract, so cover stays boxes forever | — |
+| 23 | **CLOSED** *(inferred)* | A Node-typed export written by a tool is discarded in silence, and the | Closed for Lux on 2026-08-01; the general form is |
+| 24 | **OPEN** *(inferred)* | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | — |
+| 25 | **OPEN** *(inferred)* | A project `cater` has SERVED does not run until the editor imports it | — |
+| 26 | **OPEN** *(inferred)* | Something finally looks at the picture | — |
+| 27 | **CLOSED** | The portable export ships a scene without its geometry, and every gate | 2026-08-12 -- 36 resources, closure ok, portability PASS. SESSION_0812 |
+| 28 | **OPEN** *(inferred)* | The VRAM question is about zoo's GLB embedding, not about pixelcoat | — |
+| 29 | **CLOSED** | The art path themes one building; the site is never themed, and the si | 2026-08-12 -- the export carries five archetypes plus site_base.glb, not one building |
+| 30 | **CLOSED** | Nothing instantiates the light loader, so shipping the anchors would n | 2026-08-12 -- 116 OmniLight3D + 11 SpotLight3D under LuxFixtureLights in the shipped scene |
+| 31 | **ANALYSIS** | Lighting: what the engine requires of the geometry, and what Lux can d | engine constraints, not a defect. Note project.godot writes gl_compatibility |
+| 32 | **ANALYSIS** | Two lighting systems, and none of the interior one is switched on | a working model plus an engine fact; the interior lights do now spawn (item 30) |
+| 33 | **CLOSED** | The export does not contain the level, and the closure judge said so o | 2026-08-12 -- 21 unresolved -> 0, 132 misrooted -> 0, engine parser_error_count 0 |
+| 34 | **CLOSED** | The greybox is a site; the themed export is a fragment of one | 2026-08-12 -- themed_site_assemble; the export is the whole site, five buildings |
+| 35 | **OPEN** *(inferred)* | The graybox/art relationship: it is a SWAP, and most of the recommende | — |
+| 36 | **NARROWED** | Walking it. Zoo's inserts are exact; the layer with no slot is the one | 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings  |
+| 37 | **OPEN** *(inferred)* | Every building on the site is the same building | — |
+| 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
+| 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
+| 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
+| 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
+
+**41 items: 22 open, 13 closed, 3 retracted, 1 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+
+A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
+
+<!-- END GENERATED -->
+
 **1. Cover is exonerated — the trap is somewhere else.** Closed 2026-07-27.
 
 `site_cover.pinches()` originally measured placed cover against `rects`
@@ -677,6 +747,8 @@ belong in the planner, the same way `walktest_navqa` now does. The walktest
 adapter is the working template for all three: stage a throwaway project, run
 the tool with the flag that refuses to skip, declare the report as the expected
 output, and gate the findings behind a rollout flag until the library is clean.
+
+*STATUS: OPEN 2026-08-12 -- both call sites re-confirmed while threading `solids` through `place_enemies`*
 
 **3. Lot places enemies twice, and nothing checks the two agree.** `lot.py:1337`
 (the reporter) calls `site_spawns.place_enemies(site_spec, walk_pos)`;
@@ -786,6 +858,8 @@ the reader to assume the rest.
 Re-certify with `recertify.ps1`, or by hand after any tool version moves.
 Drift is the manifest working; drift left standing is the manifest lying.
 
+*STATUS: OPEN 2026-08-12 -- unchanged; this file's own "highest-leverage item", ~400 map_get_path queries*
+
 **8. Nothing checks the SIZE of the island an anchor snaps to.** The
 highest-leverage item in this file, because it is the gap that cost the day.
 `_prove_path` already refuses an anchor further than `SNAP_MAX` (2.0 m, from
@@ -828,6 +902,8 @@ offline read-back is ever built, `site_cover.pinches()` is the template — the
 same defect shape as the cover placement fixed on 2026-07-27, a search reporting
 where it DECIDED to put something rather than where it PUT it.
 
+*STATUS: OPEN 2026-08-12 -- unchanged*
+
 **10. `nav_gate.py` certifies geometry that never ships.** It loads the glb at
 runtime through `GLTFDocument`, so the importer never runs and every
 `-colonly` / `-convcolonly` node is still a MeshInstance3D; it then bakes with
@@ -844,6 +920,8 @@ arithmetic that produced this item was right and the conclusion was wrong: the
 interiors are small because a 44 × 32 m floor eroded by a 0.4 m agent is a few
 large polygons, not because they failed to bake. What is actually in the
 remainder is item 12.
+
+*STATUS: OPEN 2026-08-12 -- candidate cause of the 1,179 player_stuck_events in SESSION_0811*
 
 **12. Props bake as walkable navmesh, and nothing can reach them.**
 `gaming_tables` is a 12 × 6 m box whose top is 72 m² of navmesh a metre off the
@@ -915,6 +993,8 @@ proxies mistaken for the things they stand for. The instrument that produced the
 wrong reading was one I had built that morning. Check that the measurement in
 front of you was taken by the run in front of you.
 
+*STATUS: OPEN 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls*
+
 **14. Seed 5017 has a collision trap the path query cannot see.** The first real
 find the walktest has produced on its own, and the first thing PASS 2 has ever
 caught that PASS 1 could not:
@@ -962,6 +1042,8 @@ disguise as a crash.
 
 This was the precondition for `WALKTEST_ENFORCED`. Flipping it before this would
 have turned one flawed candidate into a dead mission.
+
+*STATUS: OPEN 2026-08-12 -- unchanged; this file's own "biggest open question"*
 
 **16. The navmesh contains routes the collision geometry blocks.** The library
 sweep's whole remainder, and the biggest open question in this file.
@@ -1405,6 +1487,8 @@ number a level has to beat. It also needs a display — `--headless` disables
 rendering — so on a machine without one it runs under llvmpipe, which is an
 instrument you may A/B against itself and may not quote beside a Forward+ figure.
 
+*STATUS: CLOSED 2026-08-12 -- 36 resources, closure ok, portability PASS. SESSION_0812*
+
 **27. The portable export ships a scene without its geometry, and every gate in
 the chain passes it.** Found 2026-08-01 by pointing `tools/look_shots.py` at a
 freshly exported package. Half fixed; the half that matters is open.
@@ -1517,6 +1601,8 @@ times.
 
 So: not a pixelcoat feature request. A zoo export change, with pixelcoat's
 already-built importer and atlas as the machinery to point it at.
+
+*STATUS: CLOSED 2026-08-12 -- the export carries five archetypes plus site_base.glb, not one building*
 
 **29. The art path themes one building; the site is never themed, and the site
 spec has no roads in it.** Proven by hand 2026-08-01. The design works, nothing
@@ -1722,6 +1808,8 @@ light anything under `gl_compatibility`, and the geometry has no UV channel for
 a lightmap. Nothing about the themed site changes that; it just gives the
 question a level to be asked about.
 
+*STATUS: CLOSED 2026-08-12 -- 116 OmniLight3D + 11 SpotLight3D under LuxFixtureLights in the shipped scene*
+
 **30. Nothing instantiates the light loader, so shipping the anchors would not
 have lit anything.** Corrects item 19, which is right about the packer and wrong
 about the consequence.
@@ -1801,6 +1889,8 @@ pack alongside their built lights, so (iii) still has to be fixed either way:
 ship the rig scripts, or flatten the bake to plain Light3Ds before saving. That
 is a decision this item does not make, and it should be made by looking at what
 the standalone contract costs in each case rather than by preference.
+
+*STATUS: ANALYSIS -- engine constraints, not a defect. Note project.godot writes gl_compatibility*
 
 **31. Lighting: what the engine requires of the geometry, and what Lux can
 decide alone.** Sources brought on 2026-08-02, read and reduced to what bears
@@ -1991,6 +2081,8 @@ in interior" -- which adds that VoxelGI wants "closed and somewhat small levels"
 at 200-400 m and that reflection probes combined with VoxelGI are redundant and
 conflicting.
 
+*STATUS: ANALYSIS -- a working model plus an engine fact; the interior lights do now spawn (item 30)*
+
 **32. Two lighting systems, and none of the interior one is switched on.**
 The working model, as stated on 2026-08-02: there is the global illumination of
 the sun above, and there is the interior light inside the buildings Deli Counter
@@ -2042,6 +2134,8 @@ The order this implies is not the order the model reads in:
    but readable" becomes a number instead of a look.
 3. Only then decide GI -- because GI is what would make the emissive layer mean
    anything, and that decision is a bet on the consumer's renderer (item 31).
+
+*STATUS: CLOSED 2026-08-12 -- 21 unresolved -> 0, 132 misrooted -> 0, engine parser_error_count 0*
 
 **33. The export does not contain the level, and the closure judge said so on
 its first run.** Measured 2026-08-02 by looking at the pictures.
@@ -2372,6 +2466,8 @@ So the standing state, with the day's five dead hypotheses behind it:
     NOT A    lux_apply, presentation_compose, the closure judge, node
     DEFECT   ownership, and import sidecars. All five were refuted.
 
+*STATUS: CLOSED 2026-08-12 -- themed_site_assemble; the export is the whole site, five buildings*
+
 **34. The greybox is a site; the themed export is a fragment of one.** Measured
 2026-08-02, one run, one tool, the same three places in both scenes.
 
@@ -2544,6 +2640,9 @@ UV question in item 31. The intrusion limit is a small, checkable addition to a
 gate that already exists. And none of it moves before item 29 ships a themed
 SITE rather than a themed building, because a kit with no corners is easier to
 judge on four buildings than on one.
+
+*STATUS: NARROWED 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings stand*
+
 **36. Walking it. Zoo's inserts are exact; the layer with no slot is the one
 breaking the level.** 2026-08-02, a human walked the themed site and found nine
 things in twenty minutes that four instruments had not.
@@ -2803,6 +2902,9 @@ down a street, or a block of different premises -- and this item does not make
 it. What it establishes is that the monotony is chosen in `_write_site_spec`,
 not imposed by Deli Counter, and that a diversity check at the building layer
 would have said so without anyone walking the level.
+
+*STATUS: CLOSED 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest*
+
 **38. Light anchors hung below the slab, and four Deli Counter tests that were
 already red.** 2026-08-02.
 
@@ -3051,6 +3153,9 @@ Fixed by an explicit exclusion list covering that, Blender's operator protocol
 is in the source rather than hidden, because an exclusion nobody can see is how
 a scan quietly stops covering things -- which is the defect this whole item is
 about, committed by the instrument that looks for it.
+
+*STATUS: OPEN 2026-08-12 -- unchanged, and the one on this list a viewer notices*
+
 **41. The dressing layer is STRUCTURAL ART routed through the decoration
 channel, and that is why nothing checks it.** Raised 2026-08-02 after a second
 walkthrough: "there is still dressing all over in a way that doesn't look good."

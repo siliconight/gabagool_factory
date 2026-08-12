@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PackedScene" path="res://site.tscn" id="1_building"]
+
+[sub_resource type="GDScript" id="entry"]
+script/source = "extends Node3D
+# Portable entry. Self-contained (no addons): instances the building, and under
+# the clean-project portability check prints the marker and quits.
+
+func _ready() -> void:
+	add_child(preload('res://site.tscn').instantiate())
+	print('scene instantiated ok')
+	if '--lf-portability-check' in OS.get_cmdline_user_args():
+		get_tree().quit()
+"
+
+[node name="Main" type="Node3D"]
+script = SubResource("entry")
+
+[node name="Building" parent="." instance=ExtResource("1_building")]

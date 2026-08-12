@@ -1,0 +1,31 @@
+{
+  "archetype": "mixed_block",
+  "building_count": 5,
+  "candidate_count": 3,
+  "display_name": "Rockay Lot (demo)",
+  "extraction_relationship": "storm_shifted_extraction",
+  "landmark": "rockay_demo_block",
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "mission_id": "rockay_lot_demo_001",
+  "notes": "DEMO MISSION for roadmap item 41 -- a lot of DIFFERENT buildings. `lot_library` points at Deli Counter's build directory (103 complete archetypes across 41 families), so `_write_site_spec` selects five distinct families per candidate instead of placing one generated shell five times. Greybox only: the themed path still composes a single scene for the whole site, so a varied THEMED lot waits on roadmap 41 step 4 (one compose job per archetype). This mission exists so the varied-lot work can be run and recorded WITHOUT touching category5_baie_dore_001, which carries a week of evaluation and whose functional lock must not move. Keep them separate: the hero mission is the one that has been judged, this one is the one that is being demonstrated.",
+  "objective_hypotheses": [
+    "blend_through_evacuation",
+    "breach_casino_floor",
+    "reach_the_cage",
+    "override_storm_shutters",
+    "crack_baie_dore_vault",
+    "haul_through_surge",
+    "extract_by_airboat"
+  ],
+  "route_shape": "descend_then_surface",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "street_row",
+  "target_minutes": [
+    12,
+    20
+  ],
+  "theme": "rockay",
+  "time_of_day": "night",
+  "verticality": "high",
+  "weather": "hurricane"
+}

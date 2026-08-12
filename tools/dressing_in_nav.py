@@ -71,8 +71,8 @@ def default_scene(project_dir):
 
 
 def probe(project_dir, scene=None, godot=None, settle=5, agent_radius=0.0,
-          step_clear=0.15, body_height=1.8, prefix="Cover_", timeout=900,
-          verbose=False):
+          step_clear=0.15, body_height=1.8, prefix="Cover_", backing=0.0,
+          timeout=900, verbose=False):
     scene = scene or default_scene(project_dir)
     payload, _out, _mirror = run_probe(
         project_dir=project_dir,
@@ -84,7 +84,7 @@ def probe(project_dir, scene=None, godot=None, settle=5, agent_radius=0.0,
         settings={"dressing_nav": {
             "settle_frames": settle, "agent_radius": agent_radius,
             "step_clear": step_clear, "body_height": body_height,
-            "prefix": prefix}},
+            "prefix": prefix, "backing_reach": backing}},
         headless=True, timeout=timeout, verbose=verbose)
     return payload
 
@@ -135,6 +135,31 @@ def report(r, list_n=15):
     print("  %-18s %8d %10d %7.1f%%"
           % ("TOTAL", r["covers"], r["flagged"],
              100.0 * r["flagged"] / r["covers"] if r["covers"] else 0.0))
+    cols = r.get("colliders") or {}
+    if cols:
+        print("")
+        total = sum(cols.values())
+        print("  CollisionShape3D in the scene: %d, by owner" % total)
+        for k, v in sorted(cols.items(), key=lambda kv: -kv[1])[:12]:
+            print("    %-34s %d" % (k, v))
+        walls = sum(v for k, v in cols.items()
+                    if k.lower().startswith(("wall", "doorway", "window",
+                                             "breach")))
+        if not walls:
+            print("    NO WALL COLLIDERS. A cover cannot have anything to hit,")
+            print("    so 'mounted to nothing' below measures this probe's")
+            print("    blind spot, not the level.")
+    if r.get("backing_reach"):
+        n = r.get("floating_total", 0)
+        print("")
+        print("  MOUNTED TO NOTHING (no collider within %.2f m on any axis): %d"
+              % (r["backing_reach"], n))
+        for o in r.get("floating", [])[:list_n]:
+            print("    %-22s at %s" % (o["name"], o["pos"]))
+        if n > len(r.get("floating", [])):
+            print("    ... and %d more" % (n - len(r.get("floating", []))))
+        if not n:
+            print("    every cover has geometry behind it")
     print("")
     if not r["flagged"]:
         if circular:
@@ -178,6 +203,14 @@ def main(argv=None):
                     help="below this above the floor is a step, not an "
                          "obstruction (default 0.15)")
     ap.add_argument("--body-height", type=float, default=1.8)
+    ap.add_argument("--backing", type=float, default=0.0, metavar="M",
+                    help="also report covers with NO collider within M metres "
+                         "on any axis -- geometry mounted to nothing. This is "
+                         "the question the navmesh test cannot answer: the "
+                         "mesh is inset by the agent radius, so a pilaster "
+                         "flat on a wall and a rod standing free in a gap BOTH "
+                         "contain no walkable sample. 0.75 is a sensible reach "
+                         "(covers stand 0.05-0.10 m proud).")
     ap.add_argument("--prefix", default="Cover_",
                     help="node-name prefix of the geometry to test; "
                          "'WallPack_' checks the light fixtures instead")
@@ -190,7 +223,8 @@ def main(argv=None):
         r = probe(args.project, scene=args.scene, godot=args.godot,
                   settle=args.settle, agent_radius=args.agent_radius,
                   step_clear=args.step_clear, body_height=args.body_height,
-                  prefix=args.prefix, timeout=args.timeout,
+                  prefix=args.prefix, backing=args.backing,
+                  timeout=args.timeout,
                   verbose=args.verbose)
     except ProbeFailed as exc:
         sys.stderr.write("[dressing_in_nav] NOT MEASURED: %s\n" % exc)

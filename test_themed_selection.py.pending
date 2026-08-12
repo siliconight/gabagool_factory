@@ -1,0 +1,313 @@
+"""A THEMED lot draws only from shells that can carry a theme -- and refuses.
+
+Step 3b-adjacent to docs/PER_BUILDING_ART.md: the fan-out is worth nothing if
+the buildings it fans out over have no slots to fill or markers nothing can
+reach. This is the SELECTION half.
+
+Two load-bearing tests, and they pull in opposite directions:
+
+  * `test_greybox_selection_is_byte_identical` -- the greybox draw must not
+    move. `pick_lot` draws from whatever `index` calls complete, and changing
+    that pool re-selects every lot that has already been built and evaluated.
+    That is why `.lights.json` was kept out of `REQUIRED`, and the same
+    constraint binds here. If this one fails the change is not landable.
+
+  * `test_the_real_library_fit_set` -- run over the REAL 138-shell build dir,
+    the fit set is a specific, small, named list. A predicate that is merely
+    plausible passes a synthetic fixture; only the real manifests can say
+    whether the rule selects six buildings or sixty.
+
+Pure: a temp directory, JSON, and arithmetic. No Blender, no Godot.
+"""
+from __future__ import annotations
+
+import json
+import sys
+from pathlib import Path
+
+import pytest
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from packages.pipeline import building_library as bl  # noqa: E402
+
+#: The real Deli Counter build dir, beside the level_factory checkout. The
+#: fit-set test is the falsifier for this whole change and it needs the real
+#: manifests; it skips rather than passing vacuously when they are not there.
+REAL_BUILD = Path(__file__).resolve().parents[3] / "deli_counter" / "build"
+real_library = pytest.mark.skipif(
+    not (REAL_BUILD / "final_stand.slots.json").is_file(),
+    reason="the real deli_counter/build is not beside this checkout")
+
+
+def _shell(root: Path, aid: str, *, coverage=None, checked=None,
+           reachable=None, navgate: bool = True) -> None:
+    """One archetype in a build dir, with the two manifests fitness reads.
+
+    `coverage=None` means an EMPTY coverage map -- the measured-bad shape
+    (`final_stand`: 9 slots, `coverage: {}`, and wall holes in the level).
+    `navgate=False` drops the reachability manifest entirely.
+    """
+    root.mkdir(parents=True, exist_ok=True)
+    (root / f"{aid}.glb").write_bytes(b"")
+    (root / f"{aid}.gameplay.json").write_text("{}", encoding="utf-8")
+    (root / f"{aid}.slots.json").write_text(json.dumps(
+        {"building_id": aid, "coverage": coverage or {}}), encoding="utf-8")
+    if navgate:
+        (root / f"{aid}.navgate.json").write_text(json.dumps(
+            {"glb": f"{aid}.glb", "markers": {
+                "checked": 0 if checked is None else checked,
+                "reachable": 0 if reachable is None else reachable,
+                "unreachable": []}}), encoding="utf-8")
+
+
+COVER = {"wall/generated": 118, "doorway/generated": 6}
+
+
+def _mixed(root: Path) -> Path:
+    """Eight families: four fit, four unfit for four different reasons."""
+    for i in range(4):
+        _shell(root, f"good{i}_a01", coverage=COVER, checked=3, reachable=3)
+    _shell(root, "hollow_a01", coverage=None, checked=3, reachable=3)
+    _shell(root, "unjudged_a01", coverage=COVER, checked=0, reachable=0)
+    _shell(root, "stranded_a01", coverage=COVER, checked=4, reachable=2)
+    _shell(root, "unasked_a01", coverage=COVER, navgate=False)
+    return root
+
+
+# ---------------------------------------------------------------------------
+# the pool must not move
+# ---------------------------------------------------------------------------
+def test_navgate_is_not_in_required():
+    """Reachability is READ, never a condition of being indexed.
+
+    A fourth suffix in REQUIRED would drop the 3 shells with no navgate
+    manifest out of `complete` and reshuffle every draw that has already been
+    graded. Same constraint, same answer, as `.lights.json` in step 2.
+    """
+    assert ".navgate.json" not in bl.REQUIRED
+    assert bl.REQUIRED == (".glb", ".gameplay.json", ".slots.json")
+
+
+def test_index_reports_the_navgate_path(tmp_path):
+    """`index` carries the manifest, so fitness needs no second walk."""
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    assert by_id["good0_a01"]["navgate"].endswith("good0_a01.navgate.json")
+    assert by_id["unasked_a01"]["navgate"] == ""
+
+
+def test_greybox_selection_is_byte_identical(tmp_path):
+    """THE constraint. `lot_for` unthemed draws from the whole pool.
+
+    Checked across a spread of seeds, because one seed can agree by luck.
+    """
+    root = _mixed(tmp_path)
+    complete, _ = bl.index(root)
+    for seed in (1, 5017, 5118, 5219, 5320, 5421, 99991):
+        lot, _ = bl.lot_for(str(root), 5, f"m.candidate.seed_{seed}")
+        assert ([e["id"] for e in lot]
+                == [e["id"] for e in bl.pick_lot(complete, seed, 5)]), seed
+
+
+# ---------------------------------------------------------------------------
+# what the two manifests say
+# ---------------------------------------------------------------------------
+def test_slot_coverage_reads_the_manifest(tmp_path):
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    assert bl.slot_coverage(by_id["good0_a01"]) == COVER
+    assert bl.slot_coverage(by_id["hollow_a01"]) == {}
+
+
+def test_marker_reach_reads_the_manifest(tmp_path):
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    assert bl.marker_reach(by_id["good0_a01"]) == (3, 3)
+    assert bl.marker_reach(by_id["stranded_a01"]) == (4, 2)
+    assert bl.marker_reach(by_id["unjudged_a01"]) == (0, 0)
+    assert bl.marker_reach(by_id["unasked_a01"]) is None
+
+
+# ---------------------------------------------------------------------------
+# the predicate
+# ---------------------------------------------------------------------------
+def test_empty_coverage_is_unfit(tmp_path):
+    """Measured 2026-08-08 by walking both buildings: `pharmacy_a02` (137
+    slots, coverage over 4 kinds) is solid and `final_stand` (9 slots, empty
+    coverage) has holes in its walls. The rule is keyed on EMPTY because that
+    is what was measured; no threshold is invented between 0 and 128.
+    """
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    assert not bl.themed_fitness(by_id["hollow_a01"])["fit"]
+    assert bl.themed_fitness(by_id["good0_a01"])["fit"]
+
+
+def test_unjudged_is_not_passing(tmp_path):
+    """`markers.checked == 0` is a question nobody asked, not an answer.
+
+    17 of the indexed library are in this state. A predicate reading
+    `reachable == checked` alone passes every one of them.
+    """
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    verdict = bl.themed_fitness(by_id["unjudged_a01"])
+    assert not verdict["fit"]
+    assert any("unjudged" in r for r in verdict["reasons"]), verdict
+
+
+def test_partly_reachable_is_unfit(tmp_path):
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    verdict = bl.themed_fitness(by_id["stranded_a01"])
+    assert not verdict["fit"]
+    assert any("2 of 4" in r for r in verdict["reasons"]), verdict
+
+
+def test_no_navgate_manifest_is_unfit(tmp_path):
+    """Absent is not clean. The 3 shells with no navgate stay indexed and
+    stay out of a themed lot."""
+    complete, _ = bl.index(_mixed(tmp_path))
+    by_id = {e["id"]: e for e in complete}
+    assert not bl.themed_fitness(by_id["unasked_a01"])["fit"]
+
+
+def test_themed_report_splits_the_library(tmp_path):
+    fit, unfit = bl.themed_report(bl.index(_mixed(tmp_path))[0])
+    assert sorted(e["id"] for e in fit) == [f"good{i}_a01" for i in range(4)]
+    assert sorted(e["id"] for e in unfit) == [
+        "hollow_a01", "stranded_a01", "unasked_a01", "unjudged_a01"]
+
+
+# ---------------------------------------------------------------------------
+# selection, and the refusal
+# ---------------------------------------------------------------------------
+def test_themed_lot_draws_only_from_fit_shells(tmp_path):
+    root = _mixed(tmp_path)
+    for seed in (1, 5017, 5118, 5219, 99991):
+        lot, _ = bl.lot_for(str(root), 4, f"m.candidate.seed_{seed}",
+                            themed=True)
+        assert len(lot) == 4
+        assert {e["id"] for e in lot} == {f"good{i}_a01" for i in range(4)}
+
+
+def test_themed_lot_refuses_rather_than_shortening(tmp_path):
+    """A five-building brief over four fit families is a DIFFERENT brief.
+
+    The trap list in docs/PER_BUILDING_ART.md names this exact failure: an
+    archetype dropping silently out of a themed lot is how a five-building
+    brief becomes a four-building site with every stage reporting success.
+    """
+    root = _mixed(tmp_path)
+    with pytest.raises(bl.ThemedShellsUnavailable) as excinfo:
+        bl.lot_for(str(root), 5, "m.candidate.seed_5118", themed=True)
+    msg = str(excinfo.value)
+    assert "4" in msg and "5" in msg          # what there is, what was asked
+    assert "coverage" in msg and "unjudged" in msg   # WHY each one is short
+
+
+def test_greybox_is_not_refused_by_a_library_that_cannot_be_themed(tmp_path):
+    """The refusal is on the themed path only. A greybox lot over an unfit
+    library is exactly the level it was before this change."""
+    root = tmp_path / "grim"
+    for i in range(6):
+        _shell(root, f"grim{i}_a01", coverage=None, checked=0, reachable=0)
+    lot, _ = bl.lot_for(str(root), 5, "m.candidate.seed_5118")
+    assert len(lot) == 5
+
+
+def test_themed_lot_keys_on_the_candidate_seed(tmp_path):
+    """Still one lot per candidate, not one lot shuffled."""
+    root = tmp_path / "wide"
+    for i in range(9):
+        _shell(root, f"w{i}_a01", coverage=COVER, checked=2, reachable=2)
+    a, _ = bl.lot_for(str(root), 4, "m.candidate.seed_5017", themed=True)
+    b, _ = bl.lot_for(str(root), 4, "m.candidate.seed_5118", themed=True)
+    assert [e["id"] for e in a] != [e["id"] for e in b]
+
+
+# ---------------------------------------------------------------------------
+# the falsifier: the real 138-shell library
+# ---------------------------------------------------------------------------
+#: Measured 2026-08-08 over the real build dir. 136 slot manifests, 13 with
+#: empty coverage; 135 navgate manifests, 107 with unreachable markers, 17
+#: UNJUDGED, 11 with everything reachable. Intersected against the pool
+#: `index` actually offers, seven shells survive reachability and six survive
+#: both rules.
+#:
+#: `survival_demo` is the seventh all-reachable, non-hollow shell and is NOT
+#: here: it ships no `.slots.json` at all, so `REQUIRED` drops it one step
+#: before fitness is asked. Counting it as "not in the empty-coverage list"
+#: reads a missing manifest as a good one.
+REAL_FIT = [
+    "bank_branch_a04",
+    "cr_garage",
+    "freight_terminal_a03",
+    "gas_station_a02",
+    "parking_garage",
+    "pvp_station_ref",
+]
+
+
+@real_library
+def test_the_real_library_fit_set():
+    """THE falsifier. If this list moves, the rule changed, not the library."""
+    complete, _ = bl.index(REAL_BUILD)
+    fit, unfit = bl.themed_report(complete)
+    assert sorted(e["id"] for e in fit) == REAL_FIT
+    assert len(fit) + len(unfit) == len(complete)
+
+
+@real_library
+def test_the_real_library_fit_families():
+    """Six shells across six DISTINCT families -- so a six-building themed
+    brief is the largest the library can currently answer without repeating
+    an archetype."""
+    complete, _ = bl.index(REAL_BUILD)
+    fit, _ = bl.themed_report(complete)
+    assert sorted({e["family"] for e in fit}) == [
+        "bank_branch", "cr_garage", "freight_terminal", "gas_station",
+        "parking_garage", "pvp_station_ref"]
+
+
+@real_library
+def test_the_real_library_greybox_draw_is_unchanged():
+    """Golden ids captured from the REAL library BEFORE this patch.
+
+    Seed 5118 is `lot_demo_001`'s first candidate and its lot is the one
+    tabulated in docs/PER_BUILDING_ART.md -- final_stand, supermarket_a01,
+    pharmacy_a02, depot_a01, lf_lot_demo_001_5017. Four of those five are
+    unfit for a THEMED lot. If the filter leaks into the greybox path, this
+    is where it shows.
+    """
+    golden = {
+        5017: ["rowhouse_raid", "stadium_a01", "office", "supermarket_a03",
+               "gs_auto_shop"],
+        5118: ["final_stand", "supermarket_a01", "pharmacy_a02", "depot_a01",
+               "lf_lot_demo_001_5017"],
+        5219: ["pawn_shop_a01", "apartment_walkup_a01", "pvp_station_ref",
+               "night_auto", "office"],
+        5320: ["pvp_station_ref", "bank_job", "rail_station_a03",
+               "brewery_a02", "supermarket_a01"],
+        5421: ["depot_a02", "cbp_town_finale_midbalanced_schemafixed",
+               "self_storage_a01", "harbor_score", "bank_tower_a02"],
+    }
+    for seed, ids in golden.items():
+        lot, _ = bl.lot_for(str(REAL_BUILD), 5, f"m.candidate.seed_{seed}")
+        assert [e["id"] for e in lot] == ids, seed
+
+
+@real_library
+def test_the_real_library_refuses_a_seven_building_themed_lot():
+    """Six fit families is the ceiling, and the refusal says so by name."""
+    with pytest.raises(bl.ThemedShellsUnavailable) as excinfo:
+        bl.lot_for(str(REAL_BUILD), 7, "m.candidate.seed_5118", themed=True)
+    assert "6" in str(excinfo.value) and "7" in str(excinfo.value)
+
+
+@real_library
+def test_the_real_library_answers_a_six_building_themed_lot():
+    lot, _ = bl.lot_for(str(REAL_BUILD), 6, "m.candidate.seed_5118",
+                        themed=True)
+    assert sorted(e["id"] for e in lot) == REAL_FIT

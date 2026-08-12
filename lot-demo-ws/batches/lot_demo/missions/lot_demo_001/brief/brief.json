@@ -1,0 +1,28 @@
+{
+  "archetype": "bank",
+  "building_count": 5,
+  "candidate_count": 3,
+  "display_name": "Lot demo",
+  "extraction_relationship": "street_exit",
+  "landmark": "demo_block",
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "mission_id": "lot_demo_001",
+  "notes": "DEMO MISSION for roadmap item 41 -- a lot of DIFFERENT buildings. `lot_library` points at Deli Counter's build directory (103 complete archetypes across 41 families), so `_write_site_spec` selects five distinct FAMILIES per candidate instead of placing one generated shell five times, which is roadmap item 37. GREYBOX ONLY: run without --art. The themed path composes one scene per archetype (roadmap 41 step 4) and the planner does not yet fan out for it, so --art here would place five different buildings and dress them all as one. This workspace is FRESH on purpose. rockay-ws carries an evaluated mission and a functional lock, and the standing rule is that a mission workspace is read, not edited. Building the demo from an empty directory also proves the tools rather than proving the state somebody left behind. ARCHETYPE: was 'mixed_block', which is not a DC preset -- the adapter's silent fallback resolved it to 'bank' and this mission has been building banks since it was written. The fallback now raises (LF 0332d2f), so the brief says what it has always actually produced. If the demo genuinely wants a mixed-use block, DC has no such preset and that is a content gap, not a rename. SITE SHAPE: was 'street_row' -- the historical line, and the only layout site_variation could produce. Measured 2026-08-09 with probe_sightlines: longest open lane 271 / 351 / 309 m across the three candidates, every one at 0 degrees, five to six times the 45 m at which Laser Tag's crew opens fire. 'L' folds the row about one corner (x span 216 -> 100 m) and is honoured by layout_offsets; 'courtyard' is the other shape, more compact again at 100 x 70. Changing this moves functional_signature(), so the functional lock invalidates and the lot re-places -- once, deliberately. ENCOUNTER: crew_size 4, added 2026-08-10. Every LF mission until now was graded against Laser Tag's stock default_laser_tag_scenario.tres -- one crew member, 5 health, against six enemies with 2 each. Measured over 50 runs on seed 5118 (25 before the collider patch, 25 after): the crew must land twelve hits to clear the map, lands six to nine, and wipes 25 of 25. route_completed requires surviving the route, so traversal's 25 of 100 points were unreachable by any arrangement of geometry and the 45/100 was mostly a fact about the scenario. enemy_count stays 6: Lot's place_enemies writes six hooks regardless, so lowering it here would spawn a subset over an even spread and make the spread uneven. A crew was the thing the brief was missing, not fewer guards. CREW_HEALTH 6, added 2026-08-11, as an EXPERIMENT with a stated hypothesis rather than a tuning preference. With crew_size 4 and health 5 the crew kills 3.64 of 6 guards per run (was 0.24 solo) and wipes twice in 25 runs instead of 25 -- but route_completion_rate is still 0.0 across every evaluation ever run, because LT_BotPlayerController only advances its route in the else of 'can I see an enemy' and six guards on a 260 m plate mean one is always visible. The hypothesis is that clearing the last two guards clears the sightline, the bot walks, and traversal's 25 points -- the largest category and the only one never observed to move -- responds for the first time. If route_completed is still false at 6 health, traversal is unreachable by encounter tuning and the next question is the bot's halt-on-sight behaviour, not the numbers.",
+  "objective_hypotheses": [
+    "cross_the_block",
+    "reach_the_far_building"
+  ],
+  "route_shape": "along_the_street",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "L",
+  "target_minutes": [
+    12,
+    20
+  ],
+  "theme": "rockay",
+  "time_of_day": "night",
+  "verticality": "medium",
+  "weather": "clear",
+  "crew_size": 4,
+  "crew_health": 6
+}

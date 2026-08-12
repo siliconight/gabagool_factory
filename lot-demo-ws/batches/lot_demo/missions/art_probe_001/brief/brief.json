@@ -1,0 +1,25 @@
+{
+  "archetype": "bank",
+  "building_count": 1,
+  "candidate_count": 1,
+  "display_name": "Art probe",
+  "extraction_relationship": "street_exit",
+  "landmark": "art_probe",
+  "mission_id": "art_probe_001",
+  "notes": "ART PROBE, not a playable mission. Purpose: make the 2026-08-05 art pass visible in a frame -- wall.json styles.rockay relief reveal 0 (walls collapse to one plain Panel), theme-library pack sizes derived from meters_per_tile at 128 px/m, seven retuned material palettes, brick_buff_civic, and patina.gameplay's second keep-out. NO lot_library, DELIBERATELY, and this was measured rather than assumed. The planner gates the whole Art layer on that key's PRESENCE: `plan art_probe_001 --art` and `plan lot_demo_001 --art` both reported output=graybox+art and both produced DAGs containing zero art jobs, while category5_baie_dore_001 -- whose brief differs from this one in exactly one key, lot_library -- plans the full Zoo/Pixelcoat/Patina/Lux layer. That gate is roadmap 41 step 4 (planner fan-out for per-archetype compose), still open. An earlier draft of this brief kept lot_library on the theory that building_count 1 leaves nothing to fan out; true of the scene composition, irrelevant to a gate that tests the key. Restore lot_library only once step 4 lands. ARCHETYPE: was 'mixed_block' -- not a DC preset. It resolved silently to 'bank', which is what every frame of this probe has actually shown. Named honestly now.",
+  "objective_hypotheses": [
+    "cross_the_block",
+    "reach_the_far_building"
+  ],
+  "route_shape": "along_the_street",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "street_row",
+  "target_minutes": [
+    6,
+    10
+  ],
+  "theme": "rockay",
+  "time_of_day": "night",
+  "verticality": "medium",
+  "weather": "clear"
+}

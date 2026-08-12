@@ -1,0 +1,7995 @@
+{
+  "categories": {
+    "combat_pacing": 5,
+    "cover": 20,
+    "npc_pathing": 10,
+    "sightlines": 10,
+    "traversal": 0
+  },
+  "coop": {
+    "avg_player_spacing_meters": 0.0,
+    "body_block_events": 0,
+    "connected_players": 1,
+    "doorway_congestion_events": 0,
+    "enabled": false,
+    "team_wipe_count": 25
+  },
+  "events": [
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_06",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.04,
+        0.32,
+        70.51
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 1.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.07,
+        2.01,
+        70.85
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.91,
+        1.3,
+        70.85
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 3.2
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.9,
+        2.27,
+        70.85
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.45,
+        1.31,
+        70.85
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 4.47
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_06"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.3,
+        0.87,
+        70.74
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79721665382385,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79721665382385,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00180375226773322,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_01",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "LT_Enemy_04",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_04",
+      "time": 15.07
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -34.71,
+        0.92,
+        64.96
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_03",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_03",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_03",
+      "time": 17.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -29.29,
+        0.0,
+        63.4
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 17.33
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 18.53
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": null,
+      "time": 18.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 2,
+      "source": "LT_Enemy_03",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@12",
+        "target": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@12",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.28,
+        0.42,
+        70.71
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@12",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -55.15,
+        1.95,
+        70.85
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 2.27
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@12"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@12",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.29,
+        0.23,
+        70.91
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 3.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.06,
+        65.26
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "@CharacterBody3D@11",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@11",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00180375226773322,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@13",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@13",
+      "time": 15.07
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@9",
+        "target": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@9",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@9",
+      "time": 17.2
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.31,
+        65.01
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -27.42,
+        0.0,
+        63.59
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 18.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@9",
+      "time": 18.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg19",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.0,
+        1.98,
+        64.98
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 19.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@9",
+      "time": 19.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -37.1,
+        0.0,
+        64.23
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 20.27
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@10",
+        "target": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@10",
+      "time": 20.8
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -37.61,
+        0.5,
+        57.62
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 21.0
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 21.0
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": null,
+      "time": 21.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 3,
+      "source": "@CharacterBody3D@9",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightLost",
+      "metadata": {
+        "source": "@CharacterBody3D@10",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "@CharacterBody3D@10",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_04",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.5,
+        1.93,
+        70.85
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 1.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.92,
+        0.93,
+        70.85
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.77,
+        1.48,
+        70.85
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 3.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.94,
+        0.0,
+        71.02
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 4.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.13,
+        71.23
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.31,
+        0.91,
+        70.79
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 5.67
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_04"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.09,
+        0.25,
+        70.55
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.51,
+        0.0,
+        66.04
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00180375226773322,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_03",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_03",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_05",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -29.21,
+        0.0,
+        63.12
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.07,
+        0.0,
+        65.08
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 15.87
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -34.66,
+        0.8,
+        64.88
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_02",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_02",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 17.27
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": null,
+      "time": 17.27
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 4,
+      "source": "LT_Enemy_02",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@21",
+        "target": "@CharacterBody3D@15"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@21",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -38.98,
+        0.0,
+        71.05
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@21",
+      "time": 1.67
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.1,
+        0.83,
+        70.52
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@21",
+      "time": 2.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.42,
+        1.32,
+        70.85
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -34.42,
+        0.0,
+        71.32
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@21",
+      "time": 4.2
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.23,
+        0.9,
+        70.85
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.57,
+        0.0,
+        71.01
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@21",
+      "time": 5.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.92,
+        1.31,
+        70.85
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.05,
+        2.3,
+        70.85
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@15"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 4,
+      "source": "@CharacterBody3D@15",
+      "time": 6.73
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 4,
+      "source": null,
+      "time": 6.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 5,
+      "source": "@CharacterBody3D@21",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_03",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.44,
+        0.87,
+        70.85
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 1.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.88,
+        2.08,
+        70.85
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.36,
+        71.84
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 3.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.17,
+        0.89,
+        70.57
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -38.77,
+        0.0,
+        70.83
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.22,
+        1.62,
+        70.85
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 5.73
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_03"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_03",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        0.93,
+        70.87
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_01",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_06",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -20.05,
+        0.0,
+        62.25
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -34.02,
+        0.0,
+        65.52
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 15.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -36.08,
+        0.0,
+        64.32
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_04",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Enemy_04",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": "LT_Player_01",
+      "time": 17.07
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 5,
+      "source": null,
+      "time": 17.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 6,
+      "source": "LT_Enemy_04",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@27",
+        "target": "@CharacterBody3D@22"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@27",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.11,
+        71.02
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@27",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.25,
+        71.77
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.29,
+        1.56,
+        70.86
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@27",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_sill",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.59,
+        1.42,
+        70.85
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@27",
+      "time": 4.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.66,
+        2.31,
+        70.85
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.82,
+        2.17,
+        70.85
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@27",
+      "time": 5.6
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.31,
+        1.11,
+        70.85
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -30.96,
+        0.0,
+        70.86
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@22"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 6,
+      "source": "@CharacterBody3D@22",
+      "time": 6.87
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 6,
+      "source": null,
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 7,
+      "source": "@CharacterBody3D@27",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_05",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 7,
+      "source": "LT_Enemy_05",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.14,
+        71.48
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 7,
+      "source": "LT_Enemy_05",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.03,
+        1.02,
+        70.85
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.69,
+        72.54
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 7,
+      "source": "LT_Enemy_05",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.77,
+        1.68,
+        70.85
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 7,
+      "source": "LT_Enemy_05",
+      "time": 4.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.45,
+        2.16,
+        70.85
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -32.93,
+        0.0,
+        70.72
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 7,
+      "source": "LT_Enemy_05",
+      "time": 5.6
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.36,
+        1.73,
+        70.85
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.31,
+        1.08,
+        70.85
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 7,
+      "source": "LT_Player_01",
+      "time": 6.87
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 7,
+      "source": null,
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 8,
+      "source": "LT_Enemy_05",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@31",
+        "target": "@CharacterBody3D@29"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@31",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.51,
+        71.54
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@31",
+      "time": 1.67
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -44.34,
+        0.0,
+        70.12
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@31",
+      "time": 2.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.71,
+        0.92,
+        70.85
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -43.95,
+        0.0,
+        70.44
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@31",
+      "time": 4.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.24,
+        1.55,
+        70.69
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -38.27,
+        0.0,
+        70.82
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@31",
+      "time": 5.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.57,
+        1.25,
+        70.85
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.43,
+        0.76,
+        70.85
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@29"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 8,
+      "source": "@CharacterBody3D@29",
+      "time": 6.73
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 8,
+      "source": null,
+      "time": 6.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 9,
+      "source": "@CharacterBody3D@31",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_01",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_01",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.29,
+        1.51,
+        70.75
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_01",
+      "time": 1.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.26,
+        0.52,
+        70.85
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.06,
+        71.55
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_01",
+      "time": 3.13
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.31,
+        0.64,
+        70.77
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -29.0,
+        0.0,
+        65.57
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_03",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_03",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "LT_Enemy_04",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_04",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -30.02,
+        0.0,
+        63.96
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.38,
+        66.11
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 15.87
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_05",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_05",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_05",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.93,
+        65.95
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.25,
+        65.49
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 18.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 9,
+      "source": "LT_Enemy_05",
+      "time": 18.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.26,
+        65.1
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 18.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.17,
+        65.8
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 19.53
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": "LT_Player_01",
+      "time": 19.67
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 9,
+      "source": null,
+      "time": 19.67
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 10,
+      "source": "LT_Enemy_05",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@41",
+        "target": "@CharacterBody3D@36"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@41",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.33,
+        2.28,
+        70.85
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@41",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.43,
+        2.06,
+        70.85
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.25,
+        1.45,
+        70.85
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@41",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.13,
+        0.0,
+        70.74
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@41",
+      "time": 4.27
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.23,
+        0.57,
+        70.63
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 4.47
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@41"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@41",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        1.31,
+        70.81
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 5.2
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@36"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@36"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.37,
+        65.18
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "@CharacterBody3D@37",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@37",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00198217667639256,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@40",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@40",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.26,
+        65.58
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 15.13
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -31.55,
+        0.62,
+        64.42
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 15.87
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@38",
+        "target": "@CharacterBody3D@36"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@38",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@38",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.39,
+        65.18
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 17.33
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@36"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": "@CharacterBody3D@36",
+      "time": 18.4
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 10,
+      "source": null,
+      "time": 18.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 11,
+      "source": "@CharacterBody3D@38",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_02",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_02",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.01,
+        1.76,
+        70.73
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_02",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.96,
+        1.76,
+        70.85
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -46.26,
+        0.0,
+        70.41
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_02",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.24,
+        0.93,
+        70.85
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_02",
+      "time": 4.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.24,
+        1.31,
+        70.85
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_02"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_02",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        1.29,
+        70.83
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_03",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_03",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_05",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.44,
+        66.25
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -11.74,
+        0.0,
+        61.49
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_06",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_06",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 11,
+      "source": "LT_Enemy_06",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -37.42,
+        0.0,
+        64.83
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -18.41,
+        0.0,
+        61.39
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 18.07
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": "LT_Player_01",
+      "time": 18.4
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 11,
+      "source": null,
+      "time": 18.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 12,
+      "source": "LT_Enemy_06",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@47",
+        "target": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@47",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.81,
+        2.28,
+        70.85
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@47",
+      "time": 1.73
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.26,
+        0.22,
+        70.75
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 2.27
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@47"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@47",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        1.08,
+        70.83
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 3.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.42,
+        66.29
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "@CharacterBody3D@44",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@44",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@46",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@46",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.47,
+        65.49
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.21,
+        66.2
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 15.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.06,
+        0.0,
+        63.87
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@48",
+        "target": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@48",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@48",
+      "time": 17.13
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@48",
+      "time": 18.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.47,
+        65.89
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 18.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.75,
+        65.02
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 19.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@48",
+      "time": 19.67
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@49",
+        "target": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@49",
+      "time": 20.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@43"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": "@CharacterBody3D@43",
+      "time": 20.93
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 12,
+      "source": null,
+      "time": 20.93
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 13,
+      "source": "@CharacterBody3D@48",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightLost",
+      "metadata": {
+        "source": "@CharacterBody3D@49",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "@CharacterBody3D@49",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_02",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_02",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.31,
+        0.46,
+        70.79
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_02",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.49,
+        71.16
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_02"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_02",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.3,
+        0.35,
+        70.76
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.91,
+        66.25
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_01",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5097427368164,
+          -0.00137257017195225,
+          71.5695953369141
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_06",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.33,
+        65.35
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.3,
+        66.07
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_03",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_03",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_03",
+      "time": 17.2
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.47,
+        65.2
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -29.81,
+        0.0,
+        63.54
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 18.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_03",
+      "time": 18.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -35.67,
+        0.22,
+        65.47
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 18.8
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_03"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_03",
+      "time": 19.53
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -35.61,
+        0.23,
+        65.52
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 19.53
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.97,
+        0.0,
+        54.97
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 20.27
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_04",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_04",
+      "time": 20.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.62,
+        2.78,
+        68.87
+      ],
+      "run_id": 13,
+      "source": "LT_Enemy_04",
+      "time": 21.2
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.55,
+        0.0,
+        57.11
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 21.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -37.78,
+        0.0,
+        57.84
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 22.47
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": "LT_Player_01",
+      "time": 22.47
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 13,
+      "source": null,
+      "time": 22.47
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.62,
+        2.78,
+        68.87
+      ],
+      "run_id": 14,
+      "source": "LT_Enemy_04",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@53",
+        "target": "@CharacterBody3D@50"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.39,
+        0.0,
+        71.44
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 1.87
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.31,
+        0.6,
+        70.78
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.18,
+        71.19
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 3.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -55.37,
+        2.16,
+        70.85
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 4.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.45,
+        1.51,
+        70.85
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.39,
+        2.09,
+        70.85
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 5.67
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@53"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@53",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.03,
+        1.34,
+        70.5
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 5.93
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@50"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@50"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.11,
+        65.41
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@55",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@55",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "@CharacterBody3D@56",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@56",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -31.46,
+        0.0,
+        64.12
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -37.26,
+        0.0,
+        64.45
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 15.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.61,
+        65.3
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@51",
+        "target": "@CharacterBody3D@50"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@51",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@50"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": "@CharacterBody3D@50",
+      "time": 17.13
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 14,
+      "source": null,
+      "time": 17.13
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 15,
+      "source": "@CharacterBody3D@51",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_01",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_01",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.12,
+        0.51,
+        70.53
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_01",
+      "time": 1.73
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.13,
+        1.67,
+        70.68
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "LT_Enemy_03",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_03",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_05",
+      "time": 15.07
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -28.85,
+        1.2,
+        64.27
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg19",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.0,
+        1.36,
+        64.98
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_06",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_06",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_06",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -32.01,
+        0.0,
+        66.02
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -38.61,
+        0.0,
+        66.33
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 18.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_06",
+      "time": 18.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.42,
+        65.65
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 18.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -13.27,
+        0.0,
+        60.72
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 19.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_06",
+      "time": 19.67
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.68,
+        65.49
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 20.27
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_04",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Enemy_04",
+      "time": 20.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": "LT_Player_01",
+      "time": 20.93
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 15,
+      "source": null,
+      "time": 20.93
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 16,
+      "source": "LT_Enemy_06",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@59",
+        "target": "@CharacterBody3D@57"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@59",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.49,
+        2.23,
+        70.85
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@59",
+      "time": 1.73
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.05,
+        0.13,
+        70.62
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.64,
+        0.65,
+        70.85
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@59",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.44,
+        1.98,
+        70.85
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@59",
+      "time": 4.27
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@59"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@59",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.29,
+        0.25,
+        70.83
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 4.47
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@57"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@57"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@61",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@61",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "@CharacterBody3D@63",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@63",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.48,
+        66.01
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 15.13
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -31.73,
+        1.56,
+        65.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 15.87
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -24.97,
+        0.0,
+        63.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@58",
+        "target": "@CharacterBody3D@57"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@58",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@58",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.91,
+        65.15
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.1,
+        66.01
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 18.07
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@57"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": "@CharacterBody3D@57",
+      "time": 18.4
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 16,
+      "source": null,
+      "time": 18.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 17,
+      "source": "@CharacterBody3D@58",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_02",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.86,
+        1.71,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -55.23,
+        2.0,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.32,
+        1.38,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.16,
+        1.95,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 4.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.09,
+        1.67,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.18,
+        0.72,
+        70.58
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 5.53
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.87,
+        0.95,
+        70.85
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_02"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_02",
+      "time": 6.67
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.2,
+        1.66,
+        70.77
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.48,
+        65.76
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_05",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183784845285118,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_06",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -14.65,
+        0.0,
+        61.89
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.71,
+        65.0
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_01",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Enemy_01",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": "LT_Player_01",
+      "time": 17.27
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 17,
+      "source": null,
+      "time": 17.27
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 18,
+      "source": "LT_Enemy_01",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@68",
+        "target": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@68",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.14,
+        1.25,
+        70.55
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@68",
+      "time": 1.8
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@68"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@68",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.26,
+        1.18,
+        70.66
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 2.27
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "@CharacterBody3D@65",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@65",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@67",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@67",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.17,
+        66.18
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 15.13
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -34.73,
+        1.11,
+        65.23
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@69",
+        "target": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@69",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@69",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -25.22,
+        0.0,
+        63.48
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.48,
+        65.46
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 18.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@69",
+      "time": 18.4
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -27.29,
+        0.0,
+        63.39
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 18.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -20.59,
+        0.0,
+        62.86
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 19.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@69",
+      "time": 19.67
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.13,
+        65.85
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 20.27
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@66",
+        "target": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@66",
+      "time": 20.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@64"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": "@CharacterBody3D@64",
+      "time": 20.93
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 18,
+      "source": null,
+      "time": 20.93
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 19,
+      "source": "@CharacterBody3D@69",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_06",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 19,
+      "source": "LT_Enemy_06",
+      "time": 1.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.12,
+        0.32,
+        70.54
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 19,
+      "source": "LT_Enemy_06",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_sill",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.69,
+        1.63,
+        70.85
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -43.93,
+        0.0,
+        70.52
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 19,
+      "source": "LT_Enemy_06",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.03,
+        0.61,
+        70.85
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 19,
+      "source": "LT_Enemy_06",
+      "time": 4.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -40.36,
+        0.0,
+        70.41
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -43.07,
+        0.0,
+        70.74
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 19,
+      "source": "LT_Enemy_06",
+      "time": 5.6
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.32,
+        1.6,
+        70.85
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.56,
+        1.79,
+        70.85
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 19,
+      "source": "LT_Player_01",
+      "time": 6.87
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 19,
+      "source": null,
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 20,
+      "source": "LT_Enemy_06",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@73",
+        "target": "@CharacterBody3D@71"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@73",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.23,
+        0.38,
+        70.85
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@73",
+      "time": 1.8
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.07,
+        1.0,
+        70.51
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.63,
+        1.27,
+        70.85
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@73",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.33,
+        1.76,
+        70.85
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@73",
+      "time": 4.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -49.76,
+        0.32,
+        70.85
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -46.23,
+        0.0,
+        70.62
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@73",
+      "time": 5.6
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.98,
+        0.64,
+        70.85
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -42.03,
+        0.0,
+        70.65
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@71"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 20,
+      "source": "@CharacterBody3D@71",
+      "time": 6.87
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 20,
+      "source": null,
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 21,
+      "source": "@CharacterBody3D@73",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_01",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.55,
+        0.0,
+        70.76
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 1.67
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.03,
+        2.17,
+        70.85
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 2.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.77,
+        0.88,
+        70.85
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -37.69,
+        0.0,
+        70.46
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 4.2
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.23,
+        0.42,
+        70.62
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.27,
+        2.13,
+        70.85
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 5.47
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_01",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.28,
+        1.46,
+        70.72
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_02",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_02",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_05",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.8,
+        65.98
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.48,
+        0.0,
+        63.99
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 15.87
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_06",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Enemy_06",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": "LT_Player_01",
+      "time": 17.07
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 21,
+      "source": null,
+      "time": 17.07
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 22,
+      "source": "LT_Enemy_06",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@80",
+        "target": "@CharacterBody3D@78"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@80",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -54.07,
+        1.88,
+        70.85
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@80",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.03,
+        1.9,
+        70.85
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 2.27
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        0.35,
+        70.87
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@80",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_7",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.39,
+        0.0,
+        71.87
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@80",
+      "time": 4.33
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@80"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@80",
+      "time": 4.47
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.3,
+        1.53,
+        70.91
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 4.47
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@78"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "@CharacterBody3D@78"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -35.06,
+        0.0,
+        65.16
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "@CharacterBody3D@81",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@81",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "@CharacterBody3D@82",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@82",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -17.18,
+        0.0,
+        61.13
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 15.87
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -34.66,
+        0.72,
+        65.35
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@79",
+        "target": "@CharacterBody3D@78"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@79",
+      "time": 16.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@79",
+      "time": 17.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        1.92,
+        65.84
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 17.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -38.21,
+        0.0,
+        64.66
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 18.07
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@78"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": "@CharacterBody3D@78",
+      "time": 18.4
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 22,
+      "source": null,
+      "time": 18.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.78,
+        68.96
+      ],
+      "run_id": 23,
+      "source": "@CharacterBody3D@79",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_03",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 23,
+      "source": "LT_Enemy_03",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.49,
+        1.04,
+        70.85
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 23,
+      "source": "LT_Enemy_03",
+      "time": 1.8
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.6,
+        1.0,
+        70.85
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_pane",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -55.1,
+        1.97,
+        70.85
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 23,
+      "source": "LT_Enemy_03",
+      "time": 3.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -42.74,
+        0.0,
+        70.33
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 23,
+      "source": "LT_Enemy_03",
+      "time": 4.33
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.2,
+        0.77,
+        70.59
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -51.8,
+        0.86,
+        70.85
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 23,
+      "source": "LT_Enemy_03",
+      "time": 5.6
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.37,
+        71.08
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -46.89,
+        0.0,
+        70.52
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 23,
+      "source": "LT_Player_01",
+      "time": 6.87
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 23,
+      "source": null,
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 24,
+      "source": "LT_Enemy_03",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@90",
+        "target": "@CharacterBody3D@85"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@90",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -50.19,
+        1.98,
+        70.85
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@90",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -39.1,
+        0.0,
+        71.05
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -31.52,
+        0.0,
+        70.96
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@90",
+      "time": 3.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.24,
+        2.01,
+        70.85
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@90",
+      "time": 4.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg3",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.05,
+        71.39
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg1",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -52.5,
+        1.93,
+        70.85
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@90",
+      "time": 5.53
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -53.61,
+        1.95,
+        70.85
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.19,
+        0.15,
+        70.73
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 6.67
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@85"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 24,
+      "source": "@CharacterBody3D@85",
+      "time": 6.8
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 24,
+      "source": null,
+      "time": 6.8
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 25,
+      "source": "@CharacterBody3D@90",
+      "time": 0.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_02",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 1.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -46.52,
+        0.0,
+        70.3
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 1.53
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 1.73
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -45.54,
+        0.0,
+        70.52
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 2.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -33.97,
+        0.0,
+        71.27
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 3.0
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.11,
+        1.0,
+        70.53
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 3.73
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 4.27
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_S_open0_sill",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -55.48,
+        1.27,
+        70.85
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 4.47
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg2",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        0.2,
+        70.95
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 5.2
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        -69.6,
+        2.77,
+        69.03
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 5.53
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_02"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_02",
+      "time": 5.93
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        -48.32,
+        0.42,
+        70.84
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 5.93
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          -70.0,
+          1.79753196239471,
+          69.0
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "ext_col_0_E_seg0",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -28.15,
+        2.71,
+        65.15
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 14.4
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -17.7060127258301,
+          -0.00183782749809325,
+          64.7816619873047
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_01",
+      "time": 15.07
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          -47.5099678039551,
+          -0.001512061804533,
+          71.5693206787109
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_06",
+      "time": 15.07
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_10",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -31.62,
+        0.0,
+        66.12
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 15.13
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_13",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        -23.77,
+        0.0,
+        62.81
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 16.6
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_05",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Enemy_05",
+      "time": 16.8
+    },
+    {
+      "event": "PlayerKilled",
+      "metadata": {
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": "LT_Player_01",
+      "time": 17.27
+    },
+    {
+      "event": "TeamWipe",
+      "metadata": {},
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 25,
+      "source": null,
+      "time": 17.27
+    }
+  ],
+  "findings": [
+    {
+      "message": "Bot rarely completed the route (0% of runs).",
+      "severity": "FAIL",
+      "type": "TRAVERSAL"
+    },
+    {
+      "message": "Player got stuck 34 time(s).",
+      "severity": "WARN",
+      "type": "PLAYER_STUCK"
+    },
+    {
+      "message": "Enemies got stuck 34 time(s) across 25 run(s).",
+      "severity": "WARN",
+      "type": "ENEMY_STUCK"
+    },
+    {
+      "message": "37% of walkable positions are visible to 3+ enemy spawns. Worst at (-6.0, 0.4, 20.0), visible to 4.",
+      "position": [
+        -6.0,
+        0.4,
+        20.0
+      ],
+      "severity": "WARN",
+      "type": "OVEREXPOSED_ZONE"
+    },
+    {
+      "message": "World collision blocked 47% of shots.",
+      "severity": "PASS",
+      "type": "COVER_BLOCKING"
+    },
+    {
+      "message": "The crew came under fire almost instantly (0.1s) — spawns may be too close.",
+      "severity": "WARN",
+      "type": "INSTANT_CONTACT"
+    }
+  ],
+  "grade": "FAIL",
+  "map": "level.tscn",
+  "overall_score": 45,
+  "runs": 25,
+  "scenario": "default_laser_tag_scenario.tres",
+  "seed": 5118,
+  "sightlines": {
+    "avg_exposure": 1.82260292898591,
+    "blind_count": 819,
+    "blind_fraction": 0.226305609284333,
+    "long_sightline_count": 3023,
+    "long_sightline_fraction": 0.835313622547665,
+    "overexposed_count": 1352,
+    "overexposed_fraction": 0.373583862945565,
+    "overexposed_threshold": 3,
+    "sample_spacing": 2.0,
+    "short_sightline_count": 0,
+    "total_samples": 3619,
+    "worst_overexposed": [
+      {
+        "position": [
+          -6.0,
+          0.4,
+          20.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          18.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          16.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          14.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          12.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          10.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          8.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -6.0,
+          0.4,
+          6.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          6.0,
+          0.4,
+          16.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          18.0,
+          0.4,
+          6.0
+        ],
+        "visible_to": 4
+      }
+    ]
+  },
+  "summary": {
+    "avg_enemy_deaths_per_run": 0.72,
+    "avg_engagement_distance": 25.13,
+    "avg_player_survival_seconds": 15.03,
+    "avg_time_to_first_contact": 0.06,
+    "avg_time_to_first_enemy_shot": 0.08,
+    "avg_time_to_first_player_shot": 1.53,
+    "enemy_deaths": 18,
+    "enemy_stuck_events": 34,
+    "first_contact_max": 1.53,
+    "first_contact_min": 0.0,
+    "first_contact_stddev": 0.3,
+    "first_enemy_shot_max": 1.93,
+    "first_enemy_shot_min": 0.0,
+    "first_enemy_shot_stddev": 0.38,
+    "player_deaths": 25,
+    "player_stuck_events": 34,
+    "route_completion_rate": 0.0,
+    "runs": 25,
+    "shots_blocked": 183,
+    "shots_blocked_by_collision_percent": 0.47,
+    "shots_fired": 387,
+    "shots_hit": 175,
+    "shots_missed": 29,
+    "survival_max": 22.47,
+    "survival_min": 6.73,
+    "survival_stddev": 5.8,
+    "team_wipe_count": 25,
+    "timeout_count": 0
+  }
+}

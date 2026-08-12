@@ -1,0 +1,3205 @@
+{
+  "categories": {
+    "combat_pacing": 15,
+    "cover": 12,
+    "npc_pathing": 10,
+    "sightlines": 10,
+    "traversal": 0
+  },
+  "coop": {
+    "avg_player_spacing_meters": 0.0,
+    "body_block_events": 0,
+    "connected_players": 1,
+    "doorway_congestion_events": 0,
+    "enabled": false,
+    "team_wipe_count": 0
+  },
+  "events": [
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_05",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_05",
+      "time": 5.33
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.66,
+        0.94,
+        10.36
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 5.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        66.99,
+        2.74,
+        0.4
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_05",
+      "time": 5.53
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_05"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_05",
+      "time": 6.13
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.36,
+        0.99,
+        10.13
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 6.13
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.7236022949219,
+          -0.00106579856947064,
+          11.0800371170044
+        ],
+        "source": "LT_Enemy_04",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_04",
+      "time": 15.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 16.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 20.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.0153427124023,
+          -0.00150069571100175,
+          11.4588670730591
+        ],
+        "source": "LT_Enemy_02",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_02",
+      "time": 21.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 24.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          64.2867584228516,
+          -0.00114900001790375,
+          11.7911729812622
+        ],
+        "source": "LT_Enemy_03",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_03",
+      "time": 27.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 28.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 32.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          63.558780670166,
+          -0.0011696987785399,
+          12.1234149932861
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_06",
+      "time": 33.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 36.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          62.8302230834961,
+          -0.00125243922229856,
+          12.455587387085
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Enemy_01",
+      "time": 39.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 40.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 44.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 48.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 52.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 56.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 60.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 64.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 68.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 72.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 76.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 80.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 84.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 88.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 92.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 96.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 100.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 104.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 108.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 112.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 116.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 120.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 124.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 128.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 132.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 136.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 140.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 144.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 148.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 152.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 156.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 160.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 164.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 168.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 172.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 176.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79721665382385,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 1,
+      "source": "LT_Player_01",
+      "time": 180.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "@CharacterBody3D@10",
+        "target": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@10",
+      "time": 5.33
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.17,
+        1.08,
+        10.15
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 5.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        66.99,
+        2.74,
+        0.4
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@10",
+      "time": 5.67
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "@CharacterBody3D@10"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@10",
+      "time": 6.13
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.51,
+        1.52,
+        10.21
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 6.13
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.7236022949219,
+          -0.00106579856947064,
+          11.0800371170044
+        ],
+        "source": "@CharacterBody3D@12",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@12",
+      "time": 15.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 16.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 20.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.0153427124023,
+          -0.00150069571100175,
+          11.4588670730591
+        ],
+        "source": "@CharacterBody3D@11",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@11",
+      "time": 21.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 24.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          64.2867584228516,
+          -0.00114900001790375,
+          11.7911729812622
+        ],
+        "source": "@CharacterBody3D@9",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@9",
+      "time": 27.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 28.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 32.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          63.558780670166,
+          -0.0011696987785399,
+          12.1234149932861
+        ],
+        "source": "@CharacterBody3D@14",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@14",
+      "time": 33.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 36.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          62.8302230834961,
+          -0.00125243922229856,
+          12.455587387085
+        ],
+        "source": "@CharacterBody3D@13",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@13",
+      "time": 39.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 40.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 44.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 48.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 52.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 56.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 60.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 64.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 68.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 72.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 76.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 80.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 84.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 88.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 92.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 96.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 100.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 104.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 108.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 112.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 116.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 120.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 124.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 128.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 132.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 136.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 140.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 144.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 148.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 152.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 156.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 160.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 164.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 168.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 172.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 176.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "@CharacterBody3D@8"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 2,
+      "source": "@CharacterBody3D@8",
+      "time": 180.0
+    },
+    {
+      "event": "LineOfSightGained",
+      "metadata": {
+        "source": "LT_Enemy_03",
+        "target": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_03",
+      "time": 5.33
+    },
+    {
+      "event": "ShotBlocked",
+      "metadata": {
+        "collider": "Ground_8",
+        "hit_type": "WORLD_BLOCKED"
+      },
+      "position": [
+        66.73,
+        0.0,
+        13.52
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 5.4
+    },
+    {
+      "event": "ShotHitPlayer",
+      "metadata": {},
+      "position": [
+        66.99,
+        2.74,
+        0.4
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_03",
+      "time": 5.67
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.69,
+        1.42,
+        10.42
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 6.13
+    },
+    {
+      "event": "EnemyKilled",
+      "metadata": {
+        "source": "LT_Enemy_03"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_03",
+      "time": 6.87
+    },
+    {
+      "event": "ShotHitEnemy",
+      "metadata": {},
+      "position": [
+        66.38,
+        1.53,
+        10.15
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 6.87
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 8.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 12.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.7236022949219,
+          -0.00106579856947064,
+          11.0800371170044
+        ],
+        "source": "LT_Enemy_02",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_02",
+      "time": 15.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 16.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 20.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          65.0153427124023,
+          -0.00150069571100175,
+          11.4588670730591
+        ],
+        "source": "LT_Enemy_01",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_01",
+      "time": 21.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 24.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          64.2867584228516,
+          -0.00114900001790375,
+          11.7911729812622
+        ],
+        "source": "LT_Enemy_04",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_04",
+      "time": 27.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 28.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 32.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          63.558780670166,
+          -0.0011696987785399,
+          12.1234149932861
+        ],
+        "source": "LT_Enemy_05",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_05",
+      "time": 33.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 36.0
+    },
+    {
+      "event": "EnemyStuck",
+      "metadata": {
+        "position": [
+          62.8302230834961,
+          -0.00125243922229856,
+          12.455587387085
+        ],
+        "source": "LT_Enemy_06",
+        "stuck_count": 1
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Enemy_06",
+      "time": 39.07
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 40.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 44.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 48.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 52.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 56.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 60.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 64.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 68.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 72.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 76.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 80.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 84.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 88.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 92.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 96.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 100.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 104.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 108.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 112.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 116.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 120.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 124.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 128.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 132.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 136.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 140.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 144.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 148.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 152.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 156.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 160.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 164.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 168.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 172.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 176.0
+    },
+    {
+      "event": "PlayerStuck",
+      "metadata": {
+        "position": [
+          67.0,
+          1.79753196239471,
+          0.000000000000000489859005731863
+        ],
+        "source": "LT_Player_01"
+      },
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "run_id": 3,
+      "source": "LT_Player_01",
+      "time": 180.0
+    }
+  ],
+  "findings": [
+    {
+      "message": "Bot rarely completed the route (0% of runs).",
+      "severity": "FAIL",
+      "type": "TRAVERSAL"
+    },
+    {
+      "message": "Player got stuck 132 time(s).",
+      "severity": "WARN",
+      "type": "PLAYER_STUCK"
+    },
+    {
+      "message": "Enemies got stuck 15 time(s) across 3 run(s).",
+      "severity": "WARN",
+      "type": "ENEMY_STUCK"
+    },
+    {
+      "message": "48% of walkable positions are visible to 3+ enemy spawns. Worst at (14.0, 4.9, 31.8), visible to 5.",
+      "position": [
+        14.0,
+        4.9,
+        31.8
+      ],
+      "severity": "WARN",
+      "type": "OVEREXPOSED_ZONE"
+    },
+    {
+      "message": "Only 10% of shots were blocked by collision — cover may be sparse.",
+      "severity": "WARN",
+      "type": "LOW_COVER"
+    },
+    {
+      "message": "The crew came under fire at 5.6s on average — inside the target window.",
+      "severity": "PASS",
+      "type": "CONTACT_TIMING"
+    }
+  ],
+  "grade": "FAIL",
+  "map": "level.tscn",
+  "overall_score": 47,
+  "runs": 3,
+  "scenario": "default_laser_tag_scenario.tres",
+  "seed": 5017,
+  "sightlines": {
+    "avg_exposure": 2.37630662020906,
+    "blind_count": 105,
+    "blind_fraction": 0.0609756097560976,
+    "long_sightline_count": 1672,
+    "long_sightline_fraction": 0.970963995354239,
+    "overexposed_count": 841,
+    "overexposed_fraction": 0.488385598141696,
+    "overexposed_threshold": 3,
+    "sample_spacing": 2.0,
+    "short_sightline_count": 0,
+    "total_samples": 1722,
+    "worst_overexposed": [
+      {
+        "position": [
+          14.0,
+          4.9,
+          31.8
+        ],
+        "visible_to": 5
+      },
+      {
+        "position": [
+          -8.0,
+          4.9,
+          31.8
+        ],
+        "visible_to": 5
+      },
+      {
+        "position": [
+          -12.0,
+          4.9,
+          31.8
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -60.0,
+          0.4,
+          34.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -12.0,
+          0.4,
+          35.8
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -60.0,
+          0.4,
+          32.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -44.0,
+          0.4,
+          32.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -44.0,
+          0.4,
+          34.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -74.0,
+          0.4,
+          30.0
+        ],
+        "visible_to": 4
+      },
+      {
+        "position": [
+          -74.0,
+          0.4,
+          32.0
+        ],
+        "visible_to": 4
+      }
+    ]
+  },
+  "summary": {
+    "avg_enemy_deaths_per_run": 1.0,
+    "avg_engagement_distance": 10.26,
+    "avg_player_survival_seconds": 180.07,
+    "avg_time_to_first_contact": 5.4,
+    "avg_time_to_first_enemy_shot": 5.62,
+    "avg_time_to_first_player_shot": 5.4,
+    "enemy_deaths": 3,
+    "enemy_stuck_events": 15,
+    "first_contact_max": 5.4,
+    "first_contact_min": 5.4,
+    "first_contact_stddev": 0.0,
+    "first_enemy_shot_max": 5.67,
+    "first_enemy_shot_min": 5.53,
+    "first_enemy_shot_stddev": 0.06,
+    "player_deaths": 0,
+    "player_stuck_events": 132,
+    "route_completion_rate": 0.0,
+    "runs": 3,
+    "shots_blocked": 1,
+    "shots_blocked_by_collision_percent": 0.1,
+    "shots_fired": 10,
+    "shots_hit": 9,
+    "shots_missed": 0,
+    "survival_max": 180.07,
+    "survival_min": 180.07,
+    "survival_stddev": 0.0,
+    "team_wipe_count": 0,
+    "timeout_count": 3
+  }
+}

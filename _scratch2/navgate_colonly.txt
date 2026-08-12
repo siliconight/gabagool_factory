@@ -1,0 +1,751 @@
+nav-gate: using C:\Godot\4.7\Godot_v4.7-stable_win64_console.exe (DC_GODOT (explicit, unprobed))
+
+== airport_terminal_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 176
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== airport_terminal_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 221
+  stair at02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair at02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== airport_terminal_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 236
+  stair at03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== apartment_walkup_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 206
+  stair aw01_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair aw01_stair_up: no_path (endpoints on disjoint islands (lower on 1, upper on 2))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.4m)
+
+== apartment_walkup_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 118
+  stair aw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== apartment_walkup_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 95
+  stair aw03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== arena_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 237
+  stair ar01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ar01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== arena_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 174
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== arena_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 220
+  stair ar03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== auto_shop_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 161
+  stair gs_auto_shop_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== auto_shop_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 161
+  stair night_auto_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.4m)
+
+== bank_branch_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 284
+  stair a02_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair a02_stair_e: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== bank_branch_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 371
+  stair a03_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_svc: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== bank_branch_a04.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 279
+  stair a03_stair_bw: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_be: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_main: ok (path lower<->upper (undirected polygon graph))
+  markers: 2/2 reachable from spawn
+
+== bank_tower_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 225
+  stair bt01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair bt01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== bank_tower_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 218
+  stair bt02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== bank_tower_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 165
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== brewery_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 234
+  stair br01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== brewery_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 236
+  stair br02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair br02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== brewery_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 126
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== casino_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 211
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== casino_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 253
+  stair ca02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ca02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== casino_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 232
+  stair ca03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== clinic_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 82
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== clinic_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 132
+  stair cl02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== construction_site_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 171
+  stair cs01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== construction_site_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 114
+  stair cs02_stair_n: no_path (endpoints on disjoint islands (lower on 2, upper on 1))
+  stair cs02_stair_s: no_path (endpoints on disjoint islands (lower on 2, upper on 1))
+  markers: 0/2 reachable from spawn
+    unreachable: objective_A (snap 0.1m)
+    unreachable: extraction_YARD (snap 2.6m)
+
+== construction_site_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 168
+  stair cs03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== country_club_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 132
+  stair cc01_stair_n: no_path (endpoints on disjoint islands (lower on 2, upper on 1))
+  stair cc01_stair_s: no_path (endpoints on disjoint islands (lower on 2, upper on 1))
+  markers: 0/2 reachable from spawn
+    unreachable: objective_A (snap 0.1m)
+    unreachable: extraction_DRIVE (snap 2.6m)
+
+== country_club_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 130
+  stair cc02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.6m)
+
+== courthouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 210
+  stair ch01_stair_b1: ok (path lower<->upper (undirected polygon graph))
+  stair ch01_stair_b2: ok (path lower<->upper (undirected polygon graph))
+  stair ch01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+
+== courthouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 144
+  stair ch02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.5m)
+
+== courthouse_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 108
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+
+== cr_deli.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 540
+  stair cr_deli_stair_0: no_path (endpoints on disjoint islands (lower on 2, upper on 3))
+  markers: 3/9 reachable from spawn
+    unreachable: extraction_VAN (snap 3.6m)
+    unreachable: objective_REGISTER (snap 0.5m)
+    unreachable: objective_SERVER (snap 1.4m)
+    unreachable: objective_SAFE (snap 2.6m)
+    unreachable: loot_VAULT_CASH (snap 2.4m)
+    unreachable: patrol_point_P04 (snap 1.0m)
+
+== cr_garage.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 464
+  stair cr_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 3/3 reachable from spawn
+
+== cr_gas.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 294
+  markers: 0/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+    unreachable: extraction_FORECOURT (snap 1.2m)
+
+== cr_pawn.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 177
+  stair cr_pawn_stair_0: ok (path lower<->upper (undirected polygon graph))
+
+== credit_union_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 134
+  stair cu01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair cu01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== credit_union_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 139
+  stair cu02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== credit_union_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 141
+  stair cu03_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair cu03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.1m)
+
+== deli_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 522
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== deli_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 526
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 2/3 reachable from spawn
+    unreachable: objective_A (snap 0.5m)
+
+== deli_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 521
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/3 reachable from spawn
+    unreachable: objective_A (snap 0.3m)
+    unreachable: extraction_STREET (snap 2.6m)
+
+== depot_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 132
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+
+== depot_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 161
+  stair dp02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair dp02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== freight_terminal_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 168
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== freight_terminal_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 158
+  stair ft02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== freight_terminal_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 141
+  stair ft03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ft03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 2/2 reachable from spawn
+
+== funeral_home_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 171
+  stair fh01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair fh01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== funeral_home_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 112
+  stair fh02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== funeral_home_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 137
+  stair fh03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair fh03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== gas_station_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 294
+  markers: 1/2 reachable from spawn
+    unreachable: objective_A (snap 0.3m)
+
+== gas_station_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 409
+  markers: 2/2 reachable from spawn
+
+== gas_station_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 120
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== gas_street.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 294
+  markers: 0/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+    unreachable: extraction_FORECOURT (snap 1.2m)
+
+== landmark_hall_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 134
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== landmark_hall_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 215
+  stair lh02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== landmark_hall_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 226
+  stair lh03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair lh03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== large_warehouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 155
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.5m)
+
+== large_warehouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 158
+  stair lw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+
+== large_warehouse_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 341
+  stair lw03_stair_bw: ok (path lower<->upper (undirected polygon graph))
+  stair lw03_stair_bn: ok (path lower<->upper (undirected polygon graph))
+  stair lw03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+== mansion_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 165
+  stair mn01_stair_dn: no_path (endpoints on disjoint islands (lower on 1, upper on 2))
+  stair mn01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 0/2 reachable from spawn
+    unreachable: objective_A (snap 0.1m)
+    unreachable: extraction_DRIVE (snap 2.6m)
+
+== mansion_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 116
+  stair mn02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.6m)
+
+== mansion_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 214
+  stair mn03_stair_dn: no_path (endpoints on disjoint islands (lower on 1, upper on 2))
+  stair mn03_stair_dn2: no_path (endpoints on disjoint islands (lower on 1, upper on 2))
+  stair mn03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 0/2 reachable from spawn
+    unreachable: objective_A (snap 0.1m)
+    unreachable: extraction_DRIVE (snap 2.6m)
+
+== marina_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 191
+  stair ma01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ma01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER (snap 2.3m)
+
+== marina_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 127
+  stair ma02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER_END (snap 2.5m)
+
+== marina_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 125
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER (snap 2.6m)
+
+== market_hall_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 236
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== market_hall_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 267
+  stair mh02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair mh02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== market_hall_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 243
+  stair mh03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== museum_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 230
+  stair mu01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair mu01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STEPS (snap 2.6m)
+
+== museum_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 140
+  stair mu02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair mu02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STEPS (snap 2.6m)
+
+== museum_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 132
+  stair mu03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+
+== parking_garage_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 462
+  stair parking_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== parking_garage_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 512
+  stair parking_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.5m)
+
+== pawn_shop_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 155
+  stair pw01_stair_0: no_path (endpoints on disjoint islands (lower on 0, upper on 1))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.8m)
+
+== pawn_shop_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 100
+  stair pw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== pharmacy_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 82
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== pharmacy_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 141
+  stair ph02_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair ph02_stair_e: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== pvp_station_ref.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 250
+  stair 07_police_station_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 2/2 reachable from spawn
+
+== rail_station_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 251
+  stair rs01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair rs01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== rail_station_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 161
+  stair rs02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair rs02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== rail_station_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 183
+  stair rs03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== self_storage_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 195
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+
+== self_storage_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 118
+  stair ss02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+
+== self_storage_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 138
+  stair ss03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ss03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+
+== stadium_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 243
+  stair st01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair st01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== stadium_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 166
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== stadium_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 263
+  stair st03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair st03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== stadium_a04.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 237
+  stair st04_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== strip_club_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 88
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.6m)
+
+== strip_club_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 139
+  stair sc02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair sc02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_ALLEY_END (snap 2.6m)
+
+== strip_club_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 134
+  stair sc03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.6m)
+
+== strip_retail_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 367
+  stair sr01_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair sr01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: objective_A (snap 0.2m)
+
+== strip_retail_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 92
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+
+== supermarket_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 184
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 3.1m)
+
+== supermarket_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 131
+  stair sm02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== supermarket_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 223
+  stair sm03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair sm03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+
+== train_yard_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 158
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== train_yard_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 253
+  stair ty02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ty02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== train_yard_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 210
+  stair ty03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+
+== warehouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 143
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+
+== warehouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 209
+  stair wa02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+
+nav-gate: 7/103 shell(s) FAILED traversal

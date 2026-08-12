@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="770" viewBox="0 0 1340 770" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#b8b8b2"/>
+    </marker>
+    <marker id="ard" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#c9c9c3"/>
+    </marker>
+  </defs>
+
+  <rect width="1340" height="770" fill="#fbfbf9"/>
+
+  <!-- title -->
+  <text x="48" y="62" font-size="30" font-weight="700" fill="#1a1a1a">Procedural level generation</text>
+  <text x="48" y="94" font-size="16.5" fill="#6e6e68">Not AI. Same seed in, same level out. Every choice traces to a rule you can open and change.</text>
+  <text x="1292" y="94" font-size="14" fill="#9a9a94" text-anchor="end">Seeded: candidates you compare, not one output.</text>
+  <line x1="48" y1="122" x2="1292" y2="122" stroke="#e2e2dc" stroke-width="1.5"/>
+
+  <text x="48" y="158" font-size="12.5" font-weight="700" fill="#9a9a94" letter-spacing="1.4">YOU ASK FOR</text>
+  <text x="328" y="158" font-size="12.5" font-weight="700" fill="#9a9a94" letter-spacing="1.4">YOU CHOOSE HOW FAR IT GOES</text>
+
+  <!-- ============ BRIEF ============ -->
+  <rect x="48" y="180" width="220" height="150" rx="10" fill="#ffffff" stroke="#a9a9a2" stroke-width="1.8" stroke-dasharray="6 5"/>
+  <text x="72" y="216" font-size="20" font-weight="700" fill="#3a3a36">Brief</text>
+  <text x="72" y="248" font-size="14.5" fill="#6e6e68">Location type</text>
+  <text x="72" y="272" font-size="14.5" fill="#6e6e68">Crew size</text>
+  <text x="72" y="296" font-size="14.5" fill="#6e6e68">Opposition</text>
+
+  <line x1="276" y1="255" x2="318" y2="255" stroke="#b8b8b2" stroke-width="2.2" marker-end="url(#ar)"/>
+
+  <!-- ============ GREYBOX ============ -->
+  <rect x="328" y="180" width="280" height="150" rx="10" fill="#ffffff" stroke="#1a6fd4" stroke-width="2.2"/>
+  <circle cx="352" cy="209" r="5.5" fill="#1a6fd4"/>
+  <text x="368" y="215" font-size="21" font-weight="700" fill="#1a1a1a">Greybox</text>
+  <text x="352" y="250" font-size="14.5" fill="#5c5c56">Massing, roads, routes,</text>
+  <text x="352" y="273" font-size="14.5" fill="#5c5c56">cover, spawns</text>
+  <text x="352" y="306" font-size="13" font-weight="600" fill="#1a6fd4">Walkable</text>
+
+  <line x1="616" y1="255" x2="658" y2="255" stroke="#b8b8b2" stroke-width="2.2" marker-end="url(#ar)"/>
+
+  <!-- ============ ART PASS ============ -->
+  <rect x="668" y="180" width="280" height="150" rx="10" fill="#ffffff" stroke="#e8531f" stroke-width="2.2"/>
+  <circle cx="692" cy="209" r="5.5" fill="#e8531f"/>
+  <text x="708" y="215" font-size="21" font-weight="700" fill="#1a1a1a">Art pass</text>
+  <text x="692" y="250" font-size="14.5" fill="#5c5c56">Themed buildings from</text>
+  <text x="692" y="273" font-size="14.5" fill="#5c5c56">our kit, fixtures, dressing</text>
+  <text x="692" y="306" font-size="13" font-weight="600" fill="#e8531f">Looks like a place</text>
+
+  <line x1="956" y1="255" x2="998" y2="255" stroke="#b8b8b2" stroke-width="2.2" marker-end="url(#ar)"/>
+
+  <!-- ============ LIGHTING ============ -->
+  <rect x="1008" y="180" width="284" height="150" rx="10" fill="#ffffff" stroke="#12a374" stroke-width="2.2"/>
+  <circle cx="1032" cy="209" r="5.5" fill="#12a374"/>
+  <text x="1048" y="215" font-size="21" font-weight="700" fill="#1a1a1a">Lighting pass</text>
+  <text x="1032" y="250" font-size="14.5" fill="#5c5c56">Preset mood, time of day,</text>
+  <text x="1032" y="273" font-size="14.5" fill="#5c5c56">full presentation</text>
+  <text x="1032" y="306" font-size="13" font-weight="600" fill="#12a374">Ready to show</text>
+
+  <!-- ============ stop-here chips ============ -->
+  <line x1="468" y1="336" x2="468" y2="384" stroke="#c9c9c3" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#ard)"/>
+  <line x1="808" y1="336" x2="808" y2="384" stroke="#c9c9c3" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#ard)"/>
+  <line x1="1150" y1="336" x2="1150" y2="384" stroke="#c9c9c3" stroke-width="1.8" stroke-dasharray="4 4" marker-end="url(#ard)"/>
+
+  <rect x="328" y="390" width="280" height="50" rx="8" fill="#f2f6fc" stroke="#c5d9f2" stroke-width="1.5"/>
+  <text x="468" y="421" font-size="14.5" font-weight="600" fill="#1a6fd4" text-anchor="middle">Ships as-is</text>
+
+  <rect x="668" y="390" width="280" height="50" rx="8" fill="#fdf2ed" stroke="#f6c9b5" stroke-width="1.5"/>
+  <text x="808" y="421" font-size="14.5" font-weight="600" fill="#e8531f" text-anchor="middle">Ships as-is</text>
+
+  <rect x="1008" y="390" width="284" height="50" rx="8" fill="#eefaf5" stroke="#b6e5d3" stroke-width="1.5"/>
+  <text x="1150" y="421" font-size="14.5" font-weight="600" fill="#12a374" text-anchor="middle">Ships as-is</text>
+
+  <text x="48" y="421" font-size="14.5" font-style="italic" fill="#8a8a84">Stop anywhere.</text>
+
+  <!-- ============ no dependencies band ============ -->
+  <rect x="48" y="486" width="1244" height="84" rx="10" fill="#ffffff" stroke="#dcdcd4" stroke-width="1.8"/>
+  <text x="76" y="520" font-size="17.5" font-weight="700" fill="#1a1a1a">Whatever you stop at is a plain Godot folder.</text>
+  <text x="76" y="548" font-size="15" fill="#5c5c56">Stock engine. No plugins, no autoloads, nothing of ours installed. Drag it into your project and it runs.</text>
+
+  <!-- ============ critic band ============ -->
+  <rect x="48" y="596" width="1244" height="120" rx="10" fill="#ffffff" stroke="#dcdcd4" stroke-width="1.8"/>
+  <text x="76" y="632" font-size="17.5" font-weight="700" fill="#1a1a1a">And it grades itself.</text>
+  <text x="76" y="658" font-size="15" fill="#5c5c56">A bot walks the finished level and reports back. The generator has a critic.</text>
+
+  <g font-size="14" fill="#3a3a36">
+    <rect x="76" y="676" width="190" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="171" y="695" text-anchor="middle">Can you get everywhere</text>
+    <rect x="280" y="676" width="130" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="345" y="695" text-anchor="middle">Is there cover</text>
+    <rect x="424" y="676" width="168" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="508" y="695" text-anchor="middle">Are sightlines fair</text>
+    <rect x="606" y="676" width="184" height="28" rx="14" fill="#f4f4ef"/>
+    <text x="698" y="695" text-anchor="middle">Time to first contact</text>
+  </g>
+
+  <text x="48" y="752" font-size="13" fill="#a8a8a2">Human: the kit, the presets, the rules, the brief.   Machine: placement, assembly, theming, lighting, playtest.</text>
+</svg>

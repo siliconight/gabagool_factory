@@ -1,0 +1,419 @@
+[gd_scene load_steps=13 format=3]
+
+[ext_resource type="PackedScene" path="res://site_base.glb" id="0_greybox_base"]
+[ext_resource type="PackedScene" path="res://art/zoo/wall_rockay_01_w200.glb" id="1_wall_rockay_01_w200"]
+[ext_resource type="PackedScene" path="res://art/zoo/wall_rockay_01_w30.glb" id="2_wall_rockay_01_w30"]
+[ext_resource type="PackedScene" path="res://art/zoo/wallEnd_rockay_01.glb" id="3_wallEnd_rockay_01"]
+[ext_resource type="PackedScene" path="res://art/zoo/breach_rockay_01_w140_ob6fc1c.glb" id="4_breach_rockay_01_w140_ob6fc1c"]
+[ext_resource type="PackedScene" path="res://art/zoo/wall_rockay_03_w200.glb" id="5_wall_rockay_03_w200"]
+[ext_resource type="PackedScene" path="res://art/zoo/wallEnd_rockay_03.glb" id="6_wallEnd_rockay_03"]
+[ext_resource type="PackedScene" path="res://art/zoo/doorway_rockay_03_w180_o0ddf9a.glb" id="7_doorway_rockay_03_w180_o0ddf9a"]
+[ext_resource type="PackedScene" path="res://art/zoo/wall_rockay_02_w200.glb" id="8_wall_rockay_02_w200"]
+[ext_resource type="PackedScene" path="res://art/zoo/wallEnd_rockay_02.glb" id="9_wallEnd_rockay_02"]
+
+[ext_resource type="PackedScene" path="res://art/dressing/lf_lot_demo_001_5118_dressing.glb" id="L_Dressing"]
+
+[ext_resource type="PackedScene" path="res://art/fixtures/lf_lot_demo_001_5118_fixtures.glb" id="L_Fixtures"]
+
+[node name="site" type="Node3D"]
+
+[node name="GreyboxBase" parent="." instance=ExtResource("0_greybox_base")]
+
+[node name="ext_-1_N_seg0" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg1" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -10.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg2" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -8.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg3" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -6.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg4" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -4.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg5" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -2.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg6" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg7" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 2.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg8" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 4.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg9" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 6.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg10" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 8.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg11" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 10.0, -1.854, -10.0)
+
+[node name="ext_-1_N_seg12" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 12.0, -1.854, -10.0)
+
+[node name="ext_-1_S_seg0" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg1" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -10.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg2" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -8.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg3" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -6.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg4" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -4.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg5" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -2.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg6" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg7" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 2.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg8" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 4.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg9" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 6.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg10" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 8.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg11" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 10.0, -1.854, 10.0)
+
+[node name="ext_-1_S_seg12" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 12.0, -1.854, 10.0)
+
+[node name="ext_-1_E_seg0" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, 9.0)
+
+[node name="ext_-1_E_seg1" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, 7.0)
+
+[node name="ext_-1_E_seg2" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, 5.0)
+
+[node name="ext_-1_E_seg3" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, 3.0)
+
+[node name="ext_-1_E_seg4" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, 1.0)
+
+[node name="ext_-1_E_seg5" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, -1.0)
+
+[node name="ext_-1_E_seg6" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, -3.0)
+
+[node name="ext_-1_E_seg7" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, -5.0)
+
+[node name="ext_-1_E_seg8" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, -7.0)
+
+[node name="ext_-1_E_seg9" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, -1.854, -9.0)
+
+[node name="ext_-1_W_seg0" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, 9.0)
+
+[node name="ext_-1_W_seg1" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, 7.0)
+
+[node name="ext_-1_W_seg2" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, 5.0)
+
+[node name="ext_-1_W_seg3" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, 3.0)
+
+[node name="ext_-1_W_seg4" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, 1.0)
+
+[node name="ext_-1_W_seg5" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, -1.0)
+
+[node name="ext_-1_W_seg6" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, -3.0)
+
+[node name="ext_-1_W_seg7" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, -5.0)
+
+[node name="ext_-1_W_seg8" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, -7.0)
+
+[node name="ext_-1_W_seg9" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, -1.854, -9.0)
+
+[node name="ext_0_N_seg0" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, 1.546, -10.0)
+
+[node name="ext_0_N_seg1" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -10.0, 1.546, -10.0)
+
+[node name="ext_0_N_seg2" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(1.8, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, -8.1, 1.546, -10.0)
+
+[node name="ext_0_N_open0" parent="." instance=ExtResource("4_breach_rockay_01_w140_ob6fc1c")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -6.5, 1.546, -10.0)
+
+[node name="ext_0_N_seg3" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -4.8, 1.546, -10.0)
+
+[node name="ext_0_N_seg4" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -2.8, 1.546, -10.0)
+
+[node name="ext_0_N_seg5" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.8, 1.546, -10.0)
+
+[node name="ext_0_N_seg6" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.2, 1.546, -10.0)
+
+[node name="ext_0_N_seg7" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 3.2, 1.546, -10.0)
+
+[node name="ext_0_N_seg8" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(1.675, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 5.0375, 1.546, -10.0)
+
+[node name="ext_0_N_seg9" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 8.125, 1.546, -10.0)
+
+[node name="ext_0_N_seg10" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 10.125, 1.546, -10.0)
+
+[node name="ext_0_N_seg11" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(1.875, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 12.0625, 1.546, -10.0)
+
+[node name="ext_0_S_seg0" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, 1.546, 10.0)
+
+[node name="ext_0_S_seg1" parent="." instance=ExtResource("6_wallEnd_rockay_03")]
+transform = Transform3D(1.1, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, -10.45, 1.546, 10.0)
+
+[node name="ext_0_S_seg2" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -7.1, 1.546, 10.0)
+
+[node name="ext_0_S_seg3" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -5.1, 1.546, 10.0)
+
+[node name="ext_0_S_seg4" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -3.1, 1.546, 10.0)
+
+[node name="ext_0_S_seg5" parent="." instance=ExtResource("6_wallEnd_rockay_03")]
+transform = Transform3D(1.2, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, -1.5, 1.546, 10.0)
+
+[node name="ext_0_S_open1" parent="." instance=ExtResource("7_doorway_rockay_03_w180_o0ddf9a")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 1.546, 10.0)
+
+[node name="ext_0_S_seg6" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg7" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 3.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg8" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 5.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg9" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 7.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg10" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 9.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg11" parent="." instance=ExtResource("5_wall_rockay_03_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 11.9, 1.546, 10.0)
+
+[node name="ext_0_S_seg12" parent="." instance=ExtResource("6_wallEnd_rockay_03")]
+transform = Transform3D(0.1, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 12.95, 1.546, 10.0)
+
+[node name="ext_0_E_seg0" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, 9.0)
+
+[node name="ext_0_E_seg1" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, 7.0)
+
+[node name="ext_0_E_seg2" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, 5.0)
+
+[node name="ext_0_E_seg3" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, 3.0)
+
+[node name="ext_0_E_seg4" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, 1.0)
+
+[node name="ext_0_E_seg5" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, -1.0)
+
+[node name="ext_0_E_seg6" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, -3.0)
+
+[node name="ext_0_E_seg7" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, -5.0)
+
+[node name="ext_0_E_seg8" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, -7.0)
+
+[node name="ext_0_E_seg9" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 13.0, 1.546, -9.0)
+
+[node name="ext_0_W_seg0" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, 9.0)
+
+[node name="ext_0_W_seg1" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, 7.0)
+
+[node name="ext_0_W_seg2" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(0.3, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 1.375, -13.0, 1.546, 5.3125)
+
+[node name="ext_0_W_seg3" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, 2.375)
+
+[node name="ext_0_W_seg4" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, 0.375)
+
+[node name="ext_0_W_seg5" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, -1.625)
+
+[node name="ext_0_W_seg6" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, -3.625)
+
+[node name="ext_0_W_seg7" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(0.3, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 1.775, -13.0, 1.546, -5.5125)
+
+[node name="ext_0_W_seg8" parent="." instance=ExtResource("2_wall_rockay_01_w30")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -13.0, 1.546, -8.6)
+
+[node name="ext_0_W_seg9" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(0.3, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.4, -13.0, 1.546, -9.8)
+
+[node name="int_0_0_seg0" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, 1.546, -3.0)
+
+[node name="int_0_0_seg1" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -10.0, 1.546, -3.0)
+
+[node name="int_0_0_seg2" parent="." instance=ExtResource("9_wallEnd_rockay_02")]
+transform = Transform3D(0.375, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, -8.8125, 1.546, -3.0)
+
+[node name="int_0_0_seg3" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -6.375, 1.546, -3.0)
+
+[node name="int_0_0_seg4" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -4.375, 1.546, -3.0)
+
+[node name="int_0_0_seg5" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -2.375, 1.546, -3.0)
+
+[node name="int_0_0_seg6" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -0.375, 1.546, -3.0)
+
+[node name="int_0_0_seg7" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 1.625, 1.546, -3.0)
+
+[node name="int_0_0_seg8" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 3.625, 1.546, -3.0)
+
+[node name="int_0_0_seg9" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 5.625, 1.546, -3.0)
+
+[node name="int_0_0_seg10" parent="." instance=ExtResource("9_wallEnd_rockay_02")]
+transform = Transform3D(0.75, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 7.0, 1.546, -3.0)
+
+[node name="int_0_0_seg11" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 9.625, 1.546, -3.0)
+
+[node name="int_0_0_seg12" parent="." instance=ExtResource("8_wall_rockay_02_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 11.625, 1.546, -3.0)
+
+[node name="int_0_0_seg13" parent="." instance=ExtResource("9_wallEnd_rockay_02")]
+transform = Transform3D(0.375, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 12.8125, 1.546, -3.0)
+
+[node name="int_-1_1_seg0" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -12.0, -1.854, -0.0)
+
+[node name="int_-1_1_seg1" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(1.3, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, -10.35, -1.854, -0.0)
+
+[node name="int_-1_1_open0" parent="." instance=ExtResource("4_breach_rockay_01_w140_ob6fc1c")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -9.0, -1.854, -0.0)
+
+[node name="int_-1_1_seg2" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -7.3, -1.854, -0.0)
+
+[node name="int_-1_1_seg3" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -5.3, -1.854, -0.0)
+
+[node name="int_-1_1_seg4" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -3.3, -1.854, -0.0)
+
+[node name="int_-1_1_seg5" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, -1.3, -1.854, -0.0)
+
+[node name="int_-1_1_seg6" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.7, -1.854, -0.0)
+
+[node name="int_-1_1_seg7" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 2.7, -1.854, -0.0)
+
+[node name="int_-1_1_seg8" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 4.7, -1.854, -0.0)
+
+[node name="int_-1_1_seg9" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(0.175, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 5.7875, -1.854, -0.0)
+
+[node name="int_-1_1_seg10" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 8.125, -1.854, -0.0)
+
+[node name="int_-1_1_seg11" parent="." instance=ExtResource("1_wall_rockay_01_w200")]
+transform = Transform3D(1.0, 0.0, -0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 1.0, 10.125, -1.854, -0.0)
+
+[node name="int_-1_1_seg12" parent="." instance=ExtResource("3_wallEnd_rockay_01")]
+transform = Transform3D(1.875, 0.0, -0.0, 0.0, 3.1, 0.0, 0.0, 0.0, 0.3, 12.0625, -1.854, -0.0)
+
+
+[node name="Markers" type="Node3D" parent="."]
+
+[node name="ATTACKER_SPAWN_FRONT" type="Node3D" parent="Markers" groups=["attacker_spawn", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0, 0, 12.0)
+metadata/marker_type = "attacker_spawn"
+
+[node name="ATTACKER_SPAWN_REAR" type="Node3D" parent="Markers" groups=["attacker_spawn", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.0, 0, -12.0)
+metadata/marker_type = "attacker_spawn"
+
+[node name="DEFENDER_SPAWN" type="Node3D" parent="Markers" groups=["defender_spawn", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.0, -3.1, 5.0)
+metadata/marker_type = "defender_spawn"
+
+[node name="OBJECTIVE_A" type="Node3D" parent="Markers" groups=["objective", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.0, -3.1, -5.0)
+metadata/marker_type = "objective"
+
+[node name="EXTRACTION_STREET" type="Node3D" parent="Markers" groups=["extraction", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.0, 0, 12.0)
+metadata/marker_type = "extraction"
+
+[node name="COVER_HIGH" type="Node3D" parent="Markers" groups=["cover_high", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.0, 0, 6.0)
+metadata/marker_type = "cover_high"
+
+[node name="CAMERA_SOCKET_01" type="Node3D" parent="Markers" groups=["camera_socket", "dc_marker"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0, 2.8, 8.0)
+metadata/marker_type = "camera_socket"
+
+
+[node name="Dressing" parent="." instance=ExtResource("L_Dressing")]
+
+[node name="Fixtures" parent="." instance=ExtResource("L_Fixtures")]

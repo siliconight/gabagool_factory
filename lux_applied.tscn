@@ -1,0 +1,3650 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://lot/rail_station_a02/site.tscn" id="1_64joj"]
+[ext_resource type="PackedScene" path="res://lot/supermarket_a01/site.tscn" id="2_7f4th"]
+[ext_resource type="PackedScene" path="res://lot/construction_site_a03/site.tscn" id="3_qv2vr"]
+[ext_resource type="PackedScene" path="res://lot/bank_branch_a04/site.tscn" id="4_7ue75"]
+[ext_resource type="PackedScene" path="res://lot/funeral_home_a03/site.tscn" id="5_xjg0e"]
+[ext_resource type="Script" path="res://addons/lux/runtime/lux_root.gd" id="6_veja0"]
+[ext_resource type="Resource" path="res://addons/lux/presets/blue_hour.tres" id="7_wv85n"]
+[ext_resource type="Script" path="res://addons/lux/runtime/rigs/lux_fluorescent_rig.gd" id="8_juqqk"]
+[ext_resource type="Script" path="res://addons/lux/resources/lux_light_rig.gd" id="9_uu0ig"]
+[ext_resource type="Script" path="res://addons/lux/runtime/rigs/lux_area_light_rig.gd" id="10_r7iha"]
+[ext_resource type="Script" path="res://addons/lux/runtime/rigs/lux_streetlight_rig.gd" id="11_jpsun"]
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground"]
+size = Vector3(193, 0.498, 13.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground"]
+size = Vector3(193, 0.498, 13.95)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_1"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_1"]
+size = Vector3(18.95, 0.498, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_1"]
+size = Vector3(18.95, 0.498, 2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_2"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_2"]
+size = Vector3(134.95, 0.498, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_2"]
+size = Vector3(134.95, 0.498, 2)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_3"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_3"]
+size = Vector3(18.95, 0.498, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_3"]
+size = Vector3(18.95, 0.498, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_4"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_4"]
+size = Vector3(21.9, 0.498, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_4"]
+size = Vector3(21.9, 0.498, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_5"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_5"]
+size = Vector3(69.95, 0.498, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_5"]
+size = Vector3(69.95, 0.498, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_6"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_6"]
+size = Vector3(18.95, 0.498, 22.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_6"]
+size = Vector3(18.95, 0.498, 22.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_7"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_7"]
+size = Vector3(21.9, 0.498, 22.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_7"]
+size = Vector3(21.9, 0.498, 22.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_8"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_8"]
+size = Vector3(9.9, 0.498, 22.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_8"]
+size = Vector3(9.9, 0.498, 22.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_9"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_9"]
+size = Vector3(16.95, 0.498, 22.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_9"]
+size = Vector3(16.95, 0.498, 22.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_10"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_10"]
+size = Vector3(79.95, 0.498, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_10"]
+size = Vector3(79.95, 0.498, 7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_11"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_11"]
+size = Vector3(9.9, 0.498, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_11"]
+size = Vector3(9.9, 0.498, 7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_12"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_12"]
+size = Vector3(16.95, 0.498, 7)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_12"]
+size = Vector3(16.95, 0.498, 7)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_13"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_13"]
+size = Vector3(79.95, 0.498, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_13"]
+size = Vector3(79.95, 0.498, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_14"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_14"]
+size = Vector3(69.95, 0.498, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_14"]
+size = Vector3(69.95, 0.498, 1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_15"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_15"]
+size = Vector3(193, 0.498, 34.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_15"]
+size = Vector3(193, 0.498, 34.9)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_16"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_16"]
+size = Vector3(140.95, 0.498, 29.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_16"]
+size = Vector3(140.95, 0.498, 29.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_17"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_17"]
+size = Vector3(12.95, 0.498, 29.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_17"]
+size = Vector3(12.95, 0.498, 29.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_18"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_18"]
+size = Vector3(193, 0.498, 44.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_18"]
+size = Vector3(193, 0.498, 44.9)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_19"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_19"]
+size = Vector3(151.95, 0.498, 33.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_19"]
+size = Vector3(151.95, 0.498, 33.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_20"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_20"]
+size = Vector3(17.95, 0.498, 33.1)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_20"]
+size = Vector3(17.95, 0.498, 33.1)
+
+[sub_resource type="StandardMaterial3D" id="Mat_Ground_21"]
+albedo_color = Color(0.3, 0.32, 0.34, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_Ground_21"]
+size = Vector3(193, 0.498, 19.95)
+
+[sub_resource type="BoxShape3D" id="BoxShape_Ground_21"]
+size = Vector3(193, 0.498, 19.95)
+
+[sub_resource type="StandardMaterial3D" id="Mat_path_0"]
+albedo_color = Color(0.53, 0.47, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_path_0"]
+size = Vector3(63.1981, 0.014, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_path_0"]
+size = Vector3(63.1981, 0.014, 8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_path_1"]
+albedo_color = Color(0.53, 0.47, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_path_1"]
+size = Vector3(53, 0.014, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_path_1"]
+size = Vector3(53, 0.014, 8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_path_2"]
+albedo_color = Color(0.53, 0.47, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_path_2"]
+size = Vector3(65.2763, 0.014, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_path_2"]
+size = Vector3(65.2763, 0.014, 8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_path_3"]
+albedo_color = Color(0.53, 0.47, 0.4, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_path_3"]
+size = Vector3(76.0592, 0.014, 8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_path_3"]
+size = Vector3(76.0592, 0.014, 8)
+
+[sub_resource type="StandardMaterial3D" id="Mat_perim_N"]
+albedo_color = Color(0.87, 0.88, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_perim_N"]
+size = Vector3(193, 3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_perim_N"]
+size = Vector3(193, 3, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_perim_S"]
+albedo_color = Color(0.87, 0.88, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_perim_S"]
+size = Vector3(193, 3, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_perim_S"]
+size = Vector3(193, 3, 0.3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_perim_E"]
+albedo_color = Color(0.87, 0.88, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_perim_E"]
+size = Vector3(0.3, 3, 209)
+
+[sub_resource type="BoxShape3D" id="BoxShape_perim_E"]
+size = Vector3(0.3, 3, 209)
+
+[sub_resource type="StandardMaterial3D" id="Mat_perim_W"]
+albedo_color = Color(0.87, 0.88, 0.9, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_perim_W"]
+size = Vector3(0.3, 3, 209)
+
+[sub_resource type="BoxShape3D" id="BoxShape_perim_W"]
+size = Vector3(0.3, 3, 209)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_0"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_0"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_0"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_1"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_1"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_1"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_2"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_2"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_2"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_3"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_3"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_3"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_4"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_4"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_4"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_5"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_5"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_5"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_6"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_6"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_6"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_7"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_7"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_7"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_8"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_8"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_8"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_9"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_9"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_9"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="StandardMaterial3D" id="Mat_cover_10"]
+albedo_color = Color(0.18, 0.55, 0.22, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_cover_10"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape_cover_10"]
+size = Vector3(3, 2, 3)
+
+[sub_resource type="Resource" id="Resource_8brld"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_bkkbj"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_q5w8w"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_4uke7"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_aktjc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_yfhof"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_c23m5"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_aamxb"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_37gjr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_5711m"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_bweq2"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_3pspg"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_8ohlo"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ap0ur"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_0tvci"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_of38i"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_4owlm"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_r2235"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ybgem"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_a3qgw"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_u810r"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Window (baked)"
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+energy = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_74eqe"]
+shading_mode = 0
+albedo_color = Color(1, 0.99651015, 0.9805565, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_kjmkp"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="Resource" id="Resource_vnnu2"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_f7wdw"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_66f72"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_iqse8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_2fb7s"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_6cmy8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_cmsxf"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_xqniy"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_6viad"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_4imhc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_oxs7c"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ejrqe"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_4vdfs"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_qonnm"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_7qpp6"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_er3ls"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Window (baked)"
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+energy = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wrqh1"]
+shading_mode = 0
+albedo_color = Color(1, 0.99651015, 0.9805565, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3equ0"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="Resource" id="Resource_4s1in"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_gxkqr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_uuiwy"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_wu3ud"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_6mwmu"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_3b2g2"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_mvjvc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_l1xai"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_0wgpy"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_0kau8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_pry24"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_jpeqb"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_lby1s"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_kp3yr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_1nrcm"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ocbyr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_bb4fp"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_exiu5"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_3bs63"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_hi0dl"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_160nx"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_msxq6"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_mp37w"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_dtg65"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_vvtw8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_086bt"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_maicf"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_qbwdp"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Window (baked)"
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+energy = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjhd2"]
+shading_mode = 0
+albedo_color = Color(1, 0.99651015, 0.9805565, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_6ywm5"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="Resource" id="Resource_ve7tc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_0sm3e"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_lgj4k"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_xi2k0"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_d6j5u"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_c41ke"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_huc47"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_dplw6"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_5gi7j"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_panni"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_phc1w"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ikn1s"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_5tqh3"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_1llc1"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_cron6"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_k66lr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_s0x7j"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_qcqqc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_8tta7"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_6uhia"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_yw2tc"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_g8ske"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_s3ltl"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_rgk63"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_tcm2k"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_n3hkr"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_aff5c"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ycs4b"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_n3uw7"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_ftt5x"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_fx50x"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_qicax"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_eny7m"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_iq8og"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_xpsgv"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_bq6ki"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_0kl4d"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Window (baked)"
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+energy = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uww5l"]
+shading_mode = 0
+albedo_color = Color(1, 0.99651015, 0.9805565, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_mw2gf"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="Resource" id="Resource_t6pnh"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_s1tac"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_a7p7o"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_44oo8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_o3q64"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_trlt4"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_06kxt"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_5ic61"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_kr1wd"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_j6hl8"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_uuq6t"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_bap4k"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_h7xat"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_qqwrx"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_1taq5"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_sqqg6"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_fey7w"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_y8tfy"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_kfdce"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_kx25i"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_iqy1q"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_tqjfx"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Fluorescent (baked)"
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+energy = 1.0
+light_range = 8.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+flicker_amount = 0.12
+flicker_speed = 9.0
+
+[sub_resource type="Resource" id="Resource_phsno"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Window (baked)"
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+energy = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5xeb"]
+shading_mode = 0
+albedo_color = Color(1, 0.99651015, 0.9805565, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_a1llj"]
+size = Vector2(1.4, 1.4)
+
+[sub_resource type="Resource" id="Resource_tpfxo"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[sub_resource type="Resource" id="Resource_0deav"]
+script = ExtResource("9_uu0ig")
+rig_name = &"Wall Pack (baked)"
+light_color = Color(1, 0.694903, 0.431048, 1)
+energy = 2.5
+light_range = 7.0
+count = 1
+spacing = 0.0
+mount_height = 0.0
+
+[node name="Site" type="Node3D" unique_id=815484485]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=476721988]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251, 97.525)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground" unique_id=537294618]
+material_override = SubResource("Mat_Ground")
+mesh = SubResource("BoxMesh_Ground")
+
+[node name="col" type="CollisionShape3D" parent="Ground" unique_id=1059852408]
+shape = SubResource("BoxShape_Ground")
+
+[node name="Ground_1" type="StaticBody3D" parent="." unique_id=479963261]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.025, -0.251, 89.55)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_1" unique_id=1281406878]
+material_override = SubResource("Mat_Ground_1")
+mesh = SubResource("BoxMesh_Ground_1")
+
+[node name="col" type="CollisionShape3D" parent="Ground_1" unique_id=144685024]
+shape = SubResource("BoxShape_Ground_1")
+
+[node name="Ground_2" type="StaticBody3D" parent="." unique_id=2043576128]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.025, -0.251, 89.55)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_2" unique_id=1380827063]
+material_override = SubResource("Mat_Ground_2")
+mesh = SubResource("BoxMesh_Ground_2")
+
+[node name="col" type="CollisionShape3D" parent="Ground_2" unique_id=1498877904]
+shape = SubResource("BoxShape_Ground_2")
+
+[node name="Ground_3" type="StaticBody3D" parent="." unique_id=858022091]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.025, -0.251, 88.05)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_3" unique_id=605245641]
+material_override = SubResource("Mat_Ground_3")
+mesh = SubResource("BoxMesh_Ground_3")
+
+[node name="col" type="CollisionShape3D" parent="Ground_3" unique_id=478271702]
+shape = SubResource("BoxShape_Ground_3")
+
+[node name="Ground_4" type="StaticBody3D" parent="." unique_id=232564928]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, -0.251, 88.05)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_4" unique_id=2131058149]
+material_override = SubResource("Mat_Ground_4")
+mesh = SubResource("BoxMesh_Ground_4")
+
+[node name="col" type="CollisionShape3D" parent="Ground_4" unique_id=1402786259]
+shape = SubResource("BoxShape_Ground_4")
+
+[node name="Ground_5" type="StaticBody3D" parent="." unique_id=553048094]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.525, -0.251, 88.05)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_5" unique_id=1417617537]
+material_override = SubResource("Mat_Ground_5")
+mesh = SubResource("BoxMesh_Ground_5")
+
+[node name="col" type="CollisionShape3D" parent="Ground_5" unique_id=1787684401]
+shape = SubResource("BoxShape_Ground_5")
+
+[node name="Ground_6" type="StaticBody3D" parent="." unique_id=1072409525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.025, -0.251, 76.5)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_6" unique_id=1635025600]
+material_override = SubResource("Mat_Ground_6")
+mesh = SubResource("BoxMesh_Ground_6")
+
+[node name="col" type="CollisionShape3D" parent="Ground_6" unique_id=206470758]
+shape = SubResource("BoxShape_Ground_6")
+
+[node name="Ground_7" type="StaticBody3D" parent="." unique_id=346301397]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.5, -0.251, 76.5)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_7" unique_id=110075687]
+material_override = SubResource("Mat_Ground_7")
+mesh = SubResource("BoxMesh_Ground_7")
+
+[node name="col" type="CollisionShape3D" parent="Ground_7" unique_id=1116272677]
+shape = SubResource("BoxShape_Ground_7")
+
+[node name="Ground_8" type="StaticBody3D" parent="." unique_id=702605634]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, -0.251, 76.5)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_8" unique_id=691048811]
+material_override = SubResource("Mat_Ground_8")
+mesh = SubResource("BoxMesh_Ground_8")
+
+[node name="col" type="CollisionShape3D" parent="Ground_8" unique_id=924161519]
+shape = SubResource("BoxShape_Ground_8")
+
+[node name="Ground_9" type="StaticBody3D" parent="." unique_id=773159456]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.025, -0.251, 76.5)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_9" unique_id=388287131]
+material_override = SubResource("Mat_Ground_9")
+mesh = SubResource("BoxMesh_Ground_9")
+
+[node name="col" type="CollisionShape3D" parent="Ground_9" unique_id=1755636117]
+shape = SubResource("BoxShape_Ground_9")
+
+[node name="Ground_10" type="StaticBody3D" parent="." unique_id=651722283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.525, -0.251, 61.95)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_10" unique_id=2135161279]
+material_override = SubResource("Mat_Ground_10")
+mesh = SubResource("BoxMesh_Ground_10")
+
+[node name="col" type="CollisionShape3D" parent="Ground_10" unique_id=1192375705]
+shape = SubResource("BoxShape_Ground_10")
+
+[node name="Ground_11" type="StaticBody3D" parent="." unique_id=1685528306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, -0.251, 61.95)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_11" unique_id=1277391245]
+material_override = SubResource("Mat_Ground_11")
+mesh = SubResource("BoxMesh_Ground_11")
+
+[node name="col" type="CollisionShape3D" parent="Ground_11" unique_id=267717647]
+shape = SubResource("BoxShape_Ground_11")
+
+[node name="Ground_12" type="StaticBody3D" parent="." unique_id=764879671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 88.025, -0.251, 61.95)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_12" unique_id=1750749851]
+material_override = SubResource("Mat_Ground_12")
+mesh = SubResource("BoxMesh_Ground_12")
+
+[node name="col" type="CollisionShape3D" parent="Ground_12" unique_id=568201639]
+shape = SubResource("BoxShape_Ground_12")
+
+[node name="Ground_13" type="StaticBody3D" parent="." unique_id=1695190548]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -56.525, -0.251, 57.95)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_13" unique_id=2132852165]
+material_override = SubResource("Mat_Ground_13")
+mesh = SubResource("BoxMesh_Ground_13")
+
+[node name="col" type="CollisionShape3D" parent="Ground_13" unique_id=1538365329]
+shape = SubResource("BoxShape_Ground_13")
+
+[node name="Ground_14" type="StaticBody3D" parent="." unique_id=660060032]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.525, -0.251, 57.95)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_14" unique_id=221628099]
+material_override = SubResource("Mat_Ground_14")
+mesh = SubResource("BoxMesh_Ground_14")
+
+[node name="col" type="CollisionShape3D" parent="Ground_14" unique_id=1342193258]
+shape = SubResource("BoxShape_Ground_14")
+
+[node name="Ground_15" type="StaticBody3D" parent="." unique_id=1248432946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251, 40)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_15" unique_id=51726961]
+material_override = SubResource("Mat_Ground_15")
+mesh = SubResource("BoxMesh_Ground_15")
+
+[node name="col" type="CollisionShape3D" parent="Ground_15" unique_id=247884785]
+shape = SubResource("BoxShape_Ground_15")
+
+[node name="Ground_16" type="StaticBody3D" parent="." unique_id=654123140]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.025, -0.251, 8)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_16" unique_id=183598636]
+material_override = SubResource("Mat_Ground_16")
+mesh = SubResource("BoxMesh_Ground_16")
+
+[node name="col" type="CollisionShape3D" parent="Ground_16" unique_id=1985578391]
+shape = SubResource("BoxShape_Ground_16")
+
+[node name="Ground_17" type="StaticBody3D" parent="." unique_id=1245197564]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 90.025, -0.251, 8)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_17" unique_id=258584239]
+material_override = SubResource("Mat_Ground_17")
+mesh = SubResource("BoxMesh_Ground_17")
+
+[node name="col" type="CollisionShape3D" parent="Ground_17" unique_id=1508835282]
+shape = SubResource("BoxShape_Ground_17")
+
+[node name="Ground_18" type="StaticBody3D" parent="." unique_id=1255027715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251, -29)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_18" unique_id=197934958]
+material_override = SubResource("Mat_Ground_18")
+mesh = SubResource("BoxMesh_Ground_18")
+
+[node name="col" type="CollisionShape3D" parent="Ground_18" unique_id=1035233999]
+shape = SubResource("BoxShape_Ground_18")
+
+[node name="Ground_19" type="StaticBody3D" parent="." unique_id=984641829]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.525, -0.251, -68)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_19" unique_id=1021479921]
+material_override = SubResource("Mat_Ground_19")
+mesh = SubResource("BoxMesh_Ground_19")
+
+[node name="col" type="CollisionShape3D" parent="Ground_19" unique_id=1904095229]
+shape = SubResource("BoxShape_Ground_19")
+
+[node name="Ground_20" type="StaticBody3D" parent="." unique_id=623633535]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 87.525, -0.251, -68)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_20" unique_id=1195891283]
+material_override = SubResource("Mat_Ground_20")
+mesh = SubResource("BoxMesh_Ground_20")
+
+[node name="col" type="CollisionShape3D" parent="Ground_20" unique_id=1694169336]
+shape = SubResource("BoxShape_Ground_20")
+
+[node name="Ground_21" type="StaticBody3D" parent="." unique_id=855940599]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.251, -94.525)
+
+[node name="mesh" type="MeshInstance3D" parent="Ground_21" unique_id=148083]
+material_override = SubResource("Mat_Ground_21")
+mesh = SubResource("BoxMesh_Ground_21")
+
+[node name="col" type="CollisionShape3D" parent="Ground_21" unique_id=1879055373]
+shape = SubResource("BoxShape_Ground_21")
+
+[node name="path_0" type="StaticBody3D" parent="." unique_id=1560060731]
+transform = Transform3D(0.996865, 0, -0.0791163, 0, 1, 0, 0.0791163, 0, 0.996865, -26.5, 0.005, 75.5)
+
+[node name="mesh" type="MeshInstance3D" parent="path_0" unique_id=1131333794]
+material_override = SubResource("Mat_path_0")
+mesh = SubResource("BoxMesh_path_0")
+
+[node name="col" type="CollisionShape3D" parent="path_0" unique_id=681857408]
+shape = SubResource("BoxShape_path_0")
+
+[node name="path_1" type="StaticBody3D" parent="." unique_id=2128671841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.5, 0.005, 73)
+
+[node name="mesh" type="MeshInstance3D" parent="path_1" unique_id=130025569]
+material_override = SubResource("Mat_path_1")
+mesh = SubResource("BoxMesh_path_1")
+
+[node name="col" type="CollisionShape3D" parent="path_1" unique_id=172729100]
+shape = SubResource("BoxShape_path_1")
+
+[node name="path_2" type="StaticBody3D" parent="." unique_id=1135792119]
+transform = Transform3D(0.0919169, 0, -0.995767, 0, 1, 0, 0.995767, 0, 0.0919169, 61, 0.005, 40.5)
+
+[node name="mesh" type="MeshInstance3D" parent="path_2" unique_id=1538602257]
+material_override = SubResource("Mat_path_2")
+mesh = SubResource("BoxMesh_path_2")
+
+[node name="col" type="CollisionShape3D" parent="path_2" unique_id=614202973]
+shape = SubResource("BoxShape_path_2")
+
+[node name="path_3" type="StaticBody3D" parent="." unique_id=1598032119]
+transform = Transform3D(0.039443, 0, -0.999222, 0, 1, 0, 0.999222, 0, 0.039443, 65.5, 0.005, -30)
+
+[node name="mesh" type="MeshInstance3D" parent="path_3" unique_id=549044764]
+material_override = SubResource("Mat_path_3")
+mesh = SubResource("BoxMesh_path_3")
+
+[node name="col" type="CollisionShape3D" parent="path_3" unique_id=761912592]
+shape = SubResource("BoxShape_path_3")
+
+[node name="perim_N" type="StaticBody3D" parent="." unique_id=1900034901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -104.5)
+
+[node name="mesh" type="MeshInstance3D" parent="perim_N" unique_id=1492067600]
+material_override = SubResource("Mat_perim_N")
+mesh = SubResource("BoxMesh_perim_N")
+
+[node name="col" type="CollisionShape3D" parent="perim_N" unique_id=997036959]
+shape = SubResource("BoxShape_perim_N")
+
+[node name="perim_S" type="StaticBody3D" parent="." unique_id=1230036737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 104.5)
+
+[node name="mesh" type="MeshInstance3D" parent="perim_S" unique_id=1904928727]
+material_override = SubResource("Mat_perim_S")
+mesh = SubResource("BoxMesh_perim_S")
+
+[node name="col" type="CollisionShape3D" parent="perim_S" unique_id=7357540]
+shape = SubResource("BoxShape_perim_S")
+
+[node name="perim_E" type="StaticBody3D" parent="." unique_id=2109486878]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 96.5, 1.5, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="perim_E" unique_id=105722474]
+material_override = SubResource("Mat_perim_E")
+mesh = SubResource("BoxMesh_perim_E")
+
+[node name="col" type="CollisionShape3D" parent="perim_E" unique_id=122776357]
+shape = SubResource("BoxShape_perim_E")
+
+[node name="perim_W" type="StaticBody3D" parent="." unique_id=883557085]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -96.5, 1.5, 0)
+
+[node name="mesh" type="MeshInstance3D" parent="perim_W" unique_id=1111984424]
+material_override = SubResource("Mat_perim_W")
+mesh = SubResource("BoxMesh_perim_W")
+
+[node name="col" type="CollisionShape3D" parent="perim_W" unique_id=1076763583]
+shape = SubResource("BoxShape_perim_W")
+
+[node name="cover_0" type="StaticBody3D" parent="." unique_id=701190476]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 1, 49.35)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_0" unique_id=1869869665]
+material_override = SubResource("Mat_cover_0")
+mesh = SubResource("BoxMesh_cover_0")
+
+[node name="col" type="CollisionShape3D" parent="cover_0" unique_id=2118485028]
+shape = SubResource("BoxShape_cover_0")
+
+[node name="cover_1" type="StaticBody3D" parent="." unique_id=899992250]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.352, 1, 56.787)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_1" unique_id=2028342732]
+material_override = SubResource("Mat_cover_1")
+mesh = SubResource("BoxMesh_cover_1")
+
+[node name="col" type="CollisionShape3D" parent="cover_1" unique_id=1332232954]
+shape = SubResource("BoxShape_cover_1")
+
+[node name="cover_2" type="StaticBody3D" parent="." unique_id=1883799715]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.686, 1, 71.804)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_2" unique_id=630069397]
+material_override = SubResource("Mat_cover_2")
+mesh = SubResource("BoxMesh_cover_2")
+
+[node name="col" type="CollisionShape3D" parent="cover_2" unique_id=13916356]
+shape = SubResource("BoxShape_cover_2")
+
+[node name="cover_3" type="StaticBody3D" parent="." unique_id=635616722]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.848, 1, 40.483)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_3" unique_id=147510406]
+material_override = SubResource("Mat_cover_3")
+mesh = SubResource("BoxMesh_cover_3")
+
+[node name="col" type="CollisionShape3D" parent="cover_3" unique_id=1316330383]
+shape = SubResource("BoxShape_cover_3")
+
+[node name="cover_4" type="StaticBody3D" parent="." unique_id=701928208]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 31.263, 1, 60.697)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_4" unique_id=677390683]
+material_override = SubResource("Mat_cover_4")
+mesh = SubResource("BoxMesh_cover_4")
+
+[node name="col" type="CollisionShape3D" parent="cover_4" unique_id=153253113]
+shape = SubResource("BoxShape_cover_4")
+
+[node name="cover_5" type="StaticBody3D" parent="." unique_id=1459675070]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.527, 1, 76)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_5" unique_id=22267072]
+material_override = SubResource("Mat_cover_5")
+mesh = SubResource("BoxMesh_cover_5")
+
+[node name="col" type="CollisionShape3D" parent="cover_5" unique_id=1044260594]
+shape = SubResource("BoxShape_cover_5")
+
+[node name="cover_6" type="StaticBody3D" parent="." unique_id=1186482791]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.292, 1, 53.852)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_6" unique_id=869448041]
+material_override = SubResource("Mat_cover_6")
+mesh = SubResource("BoxMesh_cover_6")
+
+[node name="col" type="CollisionShape3D" parent="cover_6" unique_id=1140398912]
+shape = SubResource("BoxShape_cover_6")
+
+[node name="cover_7" type="StaticBody3D" parent="." unique_id=208358251]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.152, 1, 77.66)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_7" unique_id=1119183823]
+material_override = SubResource("Mat_cover_7")
+mesh = SubResource("BoxMesh_cover_7")
+
+[node name="col" type="CollisionShape3D" parent="cover_7" unique_id=1591013559]
+shape = SubResource("BoxShape_cover_7")
+
+[node name="cover_8" type="StaticBody3D" parent="." unique_id=818159451]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.394, 1, 31.974)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_8" unique_id=1082393459]
+material_override = SubResource("Mat_cover_8")
+mesh = SubResource("BoxMesh_cover_8")
+
+[node name="col" type="CollisionShape3D" parent="cover_8" unique_id=795293651]
+shape = SubResource("BoxShape_cover_8")
+
+[node name="cover_9" type="StaticBody3D" parent="." unique_id=930009160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 52.335, 1, 47.298)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_9" unique_id=1688725939]
+material_override = SubResource("Mat_cover_9")
+mesh = SubResource("BoxMesh_cover_9")
+
+[node name="col" type="CollisionShape3D" parent="cover_9" unique_id=595319828]
+shape = SubResource("BoxShape_cover_9")
+
+[node name="cover_10" type="StaticBody3D" parent="." unique_id=179657288]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.829, 1, 69.528)
+
+[node name="mesh" type="MeshInstance3D" parent="cover_10" unique_id=1203998883]
+material_override = SubResource("Mat_cover_10")
+mesh = SubResource("BoxMesh_cover_10")
+
+[node name="col" type="CollisionShape3D" parent="cover_10" unique_id=498323722]
+shape = SubResource("BoxShape_cover_10")
+
+[node name="b0" type="Node3D" parent="." unique_id=1048762695 instance=ExtResource("1_64joj")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -58, 0, 78)
+
+[node name="b1" type="Node3D" parent="." unique_id=1785517733 instance=ExtResource("2_7f4th")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 5, 0, 73)
+
+[node name="b2" type="Node3D" parent="." unique_id=435100764 instance=ExtResource("3_qv2vr")]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 58, 0, 73)
+
+[node name="b3" type="Node3D" parent="." unique_id=869070564 instance=ExtResource("4_7ue75")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 0, 8)
+
+[node name="b4" type="Node3D" parent="." unique_id=102349479 instance=ExtResource("5_xjg0e")]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 67, 0, -68)
+
+[node name="LuxRoot" type="Node3D" parent="." unique_id=466251535]
+script = ExtResource("6_veja0")
+active_preset = ExtResource("7_wv85n")
+
+[node name="LuxFixtureLights" type="Node3D" parent="." unique_id=1471014993]
+
+[node name="Spawned_fluorescent" type="Node3D" parent="LuxFixtureLights" unique_id=736364373]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -42, 4.6, 74)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_8brld")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent" unique_id=2117598205]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_001" type="Node3D" parent="LuxFixtureLights" unique_id=959714780]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -50, 4.6, 74)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_bkkbj")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_001" unique_id=2070735910]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_002" type="Node3D" parent="LuxFixtureLights" unique_id=320615076]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -58, 4.6, 74)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_q5w8w")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_002" unique_id=1675000711]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_003" type="Node3D" parent="LuxFixtureLights" unique_id=1765249040]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -66, 4.6, 74)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_4uke7")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_003" unique_id=1431679146]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_004" type="Node3D" parent="LuxFixtureLights" unique_id=1607115096]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -74, 4.6, 74)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_aktjc")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_004" unique_id=636917902]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_005" type="Node3D" parent="LuxFixtureLights" unique_id=912736311]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -42, 4.6, 87)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_yfhof")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_005" unique_id=1102260034]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_006" type="Node3D" parent="LuxFixtureLights" unique_id=522070352]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -50, 4.6, 87)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_c23m5")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_006" unique_id=1602755157]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_007" type="Node3D" parent="LuxFixtureLights" unique_id=1757373055]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -58, 4.6, 87)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_aamxb")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_007" unique_id=1678906403]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_008" type="Node3D" parent="LuxFixtureLights" unique_id=494480314]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -66, 4.6, 87)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_37gjr")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_008" unique_id=178817156]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_009" type="Node3D" parent="LuxFixtureLights" unique_id=355718489]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -74, 4.6, 87)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_5711m")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_009" unique_id=1728144274]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_010" type="Node3D" parent="LuxFixtureLights" unique_id=889080043]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -47, -0.4, 67.6)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_bweq2")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_010" unique_id=353694857]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_011" type="Node3D" parent="LuxFixtureLights" unique_id=1622009128]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -47, -0.4, 72.8)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_3pspg")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_011" unique_id=1835795387]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_012" type="Node3D" parent="LuxFixtureLights" unique_id=1908984536]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -47, -0.4, 78)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_8ohlo")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_012" unique_id=1653457668]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_013" type="Node3D" parent="LuxFixtureLights" unique_id=1726134850]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -47, -0.4, 83.2)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ap0ur")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_013" unique_id=1728045520]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_014" type="Node3D" parent="LuxFixtureLights" unique_id=1769433758]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -47, -0.4, 88.4)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_0tvci")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_014" unique_id=1074868952]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_015" type="Node3D" parent="LuxFixtureLights" unique_id=143070459]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -67, -0.4, 67.6)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_of38i")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_015" unique_id=1999107394]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_016" type="Node3D" parent="LuxFixtureLights" unique_id=402588578]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -67, -0.4, 72.8)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_4owlm")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_016" unique_id=198073848]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_017" type="Node3D" parent="LuxFixtureLights" unique_id=1952852585]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -67, -0.4, 78)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_r2235")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_017" unique_id=1449540839]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_018" type="Node3D" parent="LuxFixtureLights" unique_id=678206908]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -67, -0.4, 83.2)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ybgem")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_018" unique_id=1231872486]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_019" type="Node3D" parent="LuxFixtureLights" unique_id=837376693]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -67, -0.4, 88.4)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_a3qgw")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_019" unique_id=1165836088]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_sign" type="Node3D" parent="LuxFixtureLights" unique_id=2084690159]
+transform = Transform3D(-3.5762787e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -3.5762787e-07, -58, 2.55, 64.8)
+script = ExtResource("10_r7iha")
+rig = SubResource("Resource_u810r")
+panel_size = Vector2(1.4, 1.4)
+
+[node name="AreaPanel_Omni" type="OmniLight3D" parent="LuxFixtureLights/Spawned_sign" unique_id=1513902325]
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+light_energy = 3.0
+omni_range = 5.6
+
+[node name="AreaPanel_Surface" type="MeshInstance3D" parent="LuxFixtureLights/Spawned_sign" unique_id=336195455]
+material_override = SubResource("StandardMaterial3D_74eqe")
+mesh = SubResource("QuadMesh_kjmkp")
+
+[node name="Spawned_wall_pack" type="Node3D" parent="LuxFixtureLights" unique_id=2068255385]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -78.15, 2.45, 84.5)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_vnnu2")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/Spawned_wall_pack" unique_id=1815695394]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="Spawned_wall_pack_001" type="Node3D" parent="LuxFixtureLights" unique_id=1589380302]
+transform = Transform3D(1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, 1, -37.85, 2.45, 71.5)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_f7wdw")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/Spawned_wall_pack_001" unique_id=300461467]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@4" type="Node3D" parent="LuxFixtureLights" unique_id=378222553]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 22.6, 4.1, 69)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_66f72")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@4" unique_id=168532602]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@5" type="Node3D" parent="LuxFixtureLights" unique_id=720596029]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 13.8, 4.1, 69)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_iqse8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@5" unique_id=201041628]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@6" type="Node3D" parent="LuxFixtureLights" unique_id=810196676]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 5, 4.1, 69)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_2fb7s")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@6" unique_id=508367216]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@7" type="Node3D" parent="LuxFixtureLights" unique_id=1884805309]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -3.8000002, 4.1, 69)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_6cmy8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@7" unique_id=859924170]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@8" type="Node3D" parent="LuxFixtureLights" unique_id=1150198177]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -12.6, 4.1, 69)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_cmsxf")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@8" unique_id=557934488]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@9" type="Node3D" parent="LuxFixtureLights" unique_id=771435260]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 25.333, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_xqniy")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@9" unique_id=1118052427]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@10" type="Node3D" parent="LuxFixtureLights" unique_id=172430519]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 22, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_6viad")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@10" unique_id=1148802464]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@11" type="Node3D" parent="LuxFixtureLights" unique_id=492606745]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 18.667, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_4imhc")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@11" unique_id=23350973]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@12" type="Node3D" parent="LuxFixtureLights" unique_id=910290604]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 13.6, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_oxs7c")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@12" unique_id=1874507698]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@13" type="Node3D" parent="LuxFixtureLights" unique_id=1881497270]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 6.8, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ejrqe")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@13" unique_id=1276981407]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@14" type="Node3D" parent="LuxFixtureLights" unique_id=303680166]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 0, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_4vdfs")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@14" unique_id=817089895]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@15" type="Node3D" parent="LuxFixtureLights" unique_id=481778912]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -6.8, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_qonnm")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@15" unique_id=1040970466]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@16" type="Node3D" parent="LuxFixtureLights" unique_id=242573493]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, -13.6, 4.1, 85)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_7qpp6")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@16" unique_id=2074690057]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@17" type="Node3D" parent="LuxFixtureLights" unique_id=906890779]
+transform = Transform3D(-3.5762787e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -3.5762787e-07, 16, 2.55, 56.8)
+script = ExtResource("10_r7iha")
+rig = SubResource("Resource_er3ls")
+panel_size = Vector2(1.4, 1.4)
+
+[node name="AreaPanel_Omni" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@17" unique_id=323431674]
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+light_energy = 3.0
+omni_range = 5.6
+
+[node name="AreaPanel_Surface" type="MeshInstance3D" parent="LuxFixtureLights/@Node3D@17" unique_id=531694357]
+material_override = SubResource("StandardMaterial3D_wrqh1")
+mesh = SubResource("QuadMesh_3equ0")
+
+[node name="@Node3D@18" type="Node3D" parent="LuxFixtureLights" unique_id=1635807194]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 16, 3.25, 89.15)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_4s1in")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@18" unique_id=85448794]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@19" type="Node3D" parent="LuxFixtureLights" unique_id=1091353631]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, -8.2, 2.45, 89.15)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_gxkqr")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@19" unique_id=2399158]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="Spawned_wall_pack_002" type="Node3D" parent="LuxFixtureLights" unique_id=84911059]
+transform = Transform3D(-3.5762787e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -3.5762787e-07, -6, 2.45, 56.85)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_uuiwy")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/Spawned_wall_pack_002" unique_id=1863800129]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@20" type="Node3D" parent="LuxFixtureLights" unique_id=1917289863]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 75.6, 3.2, 65.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_wu3ud")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@20" unique_id=505795145]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@21" type="Node3D" parent="LuxFixtureLights" unique_id=1443855759]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 66.8, 3.2, 65.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_6mwmu")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@21" unique_id=1745248803]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@22" type="Node3D" parent="LuxFixtureLights" unique_id=1499907185]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 58, 3.2, 65.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_3b2g2")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@22" unique_id=1517737868]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@23" type="Node3D" parent="LuxFixtureLights" unique_id=348679259]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 49.2, 3.2, 65.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_mvjvc")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@23" unique_id=1844580009]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@24" type="Node3D" parent="LuxFixtureLights" unique_id=1150105758]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 40.4, 3.2, 65.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_l1xai")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@24" unique_id=1542817003]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@25" type="Node3D" parent="LuxFixtureLights" unique_id=1295124299]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 75.6, 3.2, 80.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_0wgpy")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@25" unique_id=417143358]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@26" type="Node3D" parent="LuxFixtureLights" unique_id=966823822]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 66.8, 3.2, 80.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_0kau8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@26" unique_id=1902613447]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@27" type="Node3D" parent="LuxFixtureLights" unique_id=1561653612]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 58, 3.2, 80.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_pry24")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@27" unique_id=531061334]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@28" type="Node3D" parent="LuxFixtureLights" unique_id=847636389]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 49.2, 3.2, 80.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_jpeqb")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@28" unique_id=960999343]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@29" type="Node3D" parent="LuxFixtureLights" unique_id=1050037499]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 40.4, 3.2, 80.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_lby1s")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@29" unique_id=1673334009]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@30" type="Node3D" parent="LuxFixtureLights" unique_id=362419735]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 75.6, 6.8, 66.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_kp3yr")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@30" unique_id=1536421928]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@31" type="Node3D" parent="LuxFixtureLights" unique_id=197621895]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 66.8, 6.8, 66.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_1nrcm")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@31" unique_id=1877435103]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@32" type="Node3D" parent="LuxFixtureLights" unique_id=1505189043]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 58, 6.8, 66.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ocbyr")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@32" unique_id=642503019]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@33" type="Node3D" parent="LuxFixtureLights" unique_id=365628388]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 49.2, 6.8, 66.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_bb4fp")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@33" unique_id=1488470265]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@34" type="Node3D" parent="LuxFixtureLights" unique_id=1701802594]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 40.4, 6.8, 66.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_exiu5")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@34" unique_id=1683970507]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@35" type="Node3D" parent="LuxFixtureLights" unique_id=159374248]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 76.8, 6.8, 81.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_3bs63")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@35" unique_id=1179672931]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@36" type="Node3D" parent="LuxFixtureLights" unique_id=779738627]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 70.4, 6.8, 81.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_hi0dl")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@36" unique_id=2084370428]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@37" type="Node3D" parent="LuxFixtureLights" unique_id=321416090]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 64, 6.8, 81.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_160nx")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@37" unique_id=974623010]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@38" type="Node3D" parent="LuxFixtureLights" unique_id=2139616275]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 57.6, 6.8, 81.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_msxq6")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@38" unique_id=2024401134]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@39" type="Node3D" parent="LuxFixtureLights" unique_id=1401819989]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 51.2, 6.8, 81.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_mp37w")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@39" unique_id=519907130]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_020" type="Node3D" parent="LuxFixtureLights" unique_id=168622642]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 42, 6.8, 76.625)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_dtg65")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_020" unique_id=19730612]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_021" type="Node3D" parent="LuxFixtureLights" unique_id=1187833359]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 42, 6.8, 79.875)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_vvtw8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_021" unique_id=847377773]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_022" type="Node3D" parent="LuxFixtureLights" unique_id=1565777171]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 42, 6.8, 83.125)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_086bt")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_022" unique_id=355511647]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_023" type="Node3D" parent="LuxFixtureLights" unique_id=1298266819]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 42, 6.8, 86.375)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_maicf")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_023" unique_id=2126856209]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@40" type="Node3D" parent="LuxFixtureLights" unique_id=1387787926]
+transform = Transform3D(-3.5762787e-07, 0, 0.99999994, 0, 1, 0, -0.99999994, 0, -3.5762787e-07, 66.8, 2.55, 57.8)
+script = ExtResource("10_r7iha")
+rig = SubResource("Resource_qbwdp")
+panel_size = Vector2(1.4, 1.4)
+
+[node name="AreaPanel_Omni" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@40" unique_id=118058520]
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+light_energy = 3.0
+omni_range = 5.6
+
+[node name="AreaPanel_Surface" type="MeshInstance3D" parent="LuxFixtureLights/@Node3D@40" unique_id=2106637797]
+material_override = SubResource("StandardMaterial3D_yjhd2")
+mesh = SubResource("QuadMesh_6ywm5")
+
+[node name="@Node3D@41" type="Node3D" parent="LuxFixtureLights" unique_id=901761162]
+transform = Transform3D(-3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, -3.5762787e-07, 42.6, 2.45, 88.15)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_ve7tc")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@41" unique_id=1347112502]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@42" type="Node3D" parent="LuxFixtureLights" unique_id=201265891]
+transform = Transform3D(-1, 0, 1.22465e-16, 0, 1, 0, -1.22465e-16, 0, -1, 35.85, 3.25, 73)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_0sm3e")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@42" unique_id=274117884]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@43" type="Node3D" parent="LuxFixtureLights" unique_id=922967189]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 3.8, 14)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_lgj4k")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@43" unique_id=759955341]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@44" type="Node3D" parent="LuxFixtureLights" unique_id=1760608509]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 3.8, 14)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_xi2k0")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@44" unique_id=1021671127]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@45" type="Node3D" parent="LuxFixtureLights" unique_id=1654455135]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 3.8, 14)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_d6j5u")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@45" unique_id=1643736339]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@46" type="Node3D" parent="LuxFixtureLights" unique_id=1966612511]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 3.8, 14)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_c41ke")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@46" unique_id=70543686]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@47" type="Node3D" parent="LuxFixtureLights" unique_id=327192557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 3.8, 14)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_huc47")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@47" unique_id=1137038566]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@48" type="Node3D" parent="LuxFixtureLights" unique_id=42772946]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 46.6, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_dplw6")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@48" unique_id=2120947516]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@49" type="Node3D" parent="LuxFixtureLights" unique_id=211710372]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 57, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_5gi7j")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@49" unique_id=1285287572]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@50" type="Node3D" parent="LuxFixtureLights" unique_id=586533188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 62.2, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_panni")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@50" unique_id=490542104]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@51" type="Node3D" parent="LuxFixtureLights" unique_id=172529293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 67.4, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_phc1w")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@51" unique_id=1537161143]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@52" type="Node3D" parent="LuxFixtureLights" unique_id=1997788506]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 71.4, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ikn1s")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@52" unique_id=1555081054]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@53" type="Node3D" parent="LuxFixtureLights" unique_id=290242276]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 74.2, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_5tqh3")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@53" unique_id=328048805]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@54" type="Node3D" parent="LuxFixtureLights" unique_id=714734750]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_1llc1")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@54" unique_id=989438351]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@55" type="Node3D" parent="LuxFixtureLights" unique_id=1110930699]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 79.8, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_cron6")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@55" unique_id=2105490507]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@56" type="Node3D" parent="LuxFixtureLights" unique_id=1197589512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 82.6, 3.8, -1)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_k66lr")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@56" unique_id=1595684764]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@57" type="Node3D" parent="LuxFixtureLights" unique_id=1029272868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 8, 15.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_s0x7j")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@57" unique_id=1413051476]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@58" type="Node3D" parent="LuxFixtureLights" unique_id=3334231]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 8, 15.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_qcqqc")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@58" unique_id=341395972]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@59" type="Node3D" parent="LuxFixtureLights" unique_id=1140901686]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 8, 15.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_8tta7")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@59" unique_id=1607997433]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@60" type="Node3D" parent="LuxFixtureLights" unique_id=82662986]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 8, 15.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_6uhia")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@60" unique_id=635599817]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@61" type="Node3D" parent="LuxFixtureLights" unique_id=481734132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 8, 15.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_yw2tc")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@61" unique_id=594013168]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@62" type="Node3D" parent="LuxFixtureLights" unique_id=1233724182]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, 8, 0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_g8ske")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@62" unique_id=830780199]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@63" type="Node3D" parent="LuxFixtureLights" unique_id=613589374]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 8, 0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_s3ltl")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@63" unique_id=965008348]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@64" type="Node3D" parent="LuxFixtureLights" unique_id=1039226901]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, 8, 0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_rgk63")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@64" unique_id=843715480]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@65" type="Node3D" parent="LuxFixtureLights" unique_id=1566089030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, 8, 0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_tcm2k")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@65" unique_id=1607392923]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@66" type="Node3D" parent="LuxFixtureLights" unique_id=1616844985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, 8, 0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_n3hkr")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@66" unique_id=431656567]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_024" type="Node3D" parent="LuxFixtureLights" unique_id=786839921]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, -0.4, 14.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_aff5c")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_024" unique_id=951309560]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_025" type="Node3D" parent="LuxFixtureLights" unique_id=62624447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, -0.4, 14.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ycs4b")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_025" unique_id=1405968618]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_026" type="Node3D" parent="LuxFixtureLights" unique_id=249487498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, -0.4, 14.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_n3uw7")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_026" unique_id=1013786257]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_027" type="Node3D" parent="LuxFixtureLights" unique_id=868451263]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, -0.4, 14.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_ftt5x")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_027" unique_id=1915272688]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_028" type="Node3D" parent="LuxFixtureLights" unique_id=780510323]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, -0.4, 14.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_fx50x")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_028" unique_id=513295848]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_029" type="Node3D" parent="LuxFixtureLights" unique_id=465653210]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 48, -0.4, -0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_qicax")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_029" unique_id=1918141928]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_030" type="Node3D" parent="LuxFixtureLights" unique_id=1641931547]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56, -0.4, -0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_eny7m")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_030" unique_id=1456787445]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_031" type="Node3D" parent="LuxFixtureLights" unique_id=1965887038]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64, -0.4, -0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_iq8og")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_031" unique_id=1923236702]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_032" type="Node3D" parent="LuxFixtureLights" unique_id=2085216719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 72, -0.4, -0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_xpsgv")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_032" unique_id=1589901735]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="Spawned_fluorescent_033" type="Node3D" parent="LuxFixtureLights" unique_id=1508391990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 80, -0.4, -0.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_bq6ki")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/Spawned_fluorescent_033" unique_id=1720753261]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@67" type="Node3D" parent="LuxFixtureLights" unique_id=751881570]
+transform = Transform3D(3.5762787e-07, 0, -0.99999994, 0, 1, 0, 0.99999994, 0, 3.5762787e-07, 64, 2.55, 23.2)
+script = ExtResource("10_r7iha")
+rig = SubResource("Resource_0kl4d")
+panel_size = Vector2(1.4, 1.4)
+
+[node name="AreaPanel_Omni" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@67" unique_id=293481054]
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+light_energy = 3.0
+omni_range = 5.6
+
+[node name="AreaPanel_Surface" type="MeshInstance3D" parent="LuxFixtureLights/@Node3D@67" unique_id=1476180341]
+material_override = SubResource("StandardMaterial3D_uww5l")
+mesh = SubResource("QuadMesh_mw2gf")
+
+[node name="@Node3D@68" type="Node3D" parent="LuxFixtureLights" unique_id=1888958536]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 84.15, 2.45, 0.5)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_t6pnh")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@68" unique_id=1679087823]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@69" type="Node3D" parent="LuxFixtureLights" unique_id=418218397]
+transform = Transform3D(-1, 0, 1.509958e-07, 0, 1, 0, -1.509958e-07, 0, -1, 43.85, 2.45, 14)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_s1tac")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@69" unique_id=1477655045]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@70" type="Node3D" parent="LuxFixtureLights" unique_id=705113042]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 72, 3, -54.4)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_a7p7o")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@70" unique_id=1575905343]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@71" type="Node3D" parent="LuxFixtureLights" unique_id=1235271888]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 72, 3, -61.2)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_44oo8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@71" unique_id=648859604]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@72" type="Node3D" parent="LuxFixtureLights" unique_id=1289105356]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 72, 3, -68)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_o3q64")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@72" unique_id=1938093981]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@73" type="Node3D" parent="LuxFixtureLights" unique_id=1339405979]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 72, 3, -74.8)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_trlt4")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@73" unique_id=1170905794]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@74" type="Node3D" parent="LuxFixtureLights" unique_id=1850872101]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 72, 3, -81.6)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_06kxt")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@74" unique_id=1013620655]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@75" type="Node3D" parent="LuxFixtureLights" unique_id=108779160]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 60, 3, -54.4)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_5ic61")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@75" unique_id=492120033]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@76" type="Node3D" parent="LuxFixtureLights" unique_id=1050377431]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 60, 3, -61.2)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_kr1wd")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@76" unique_id=2078654049]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@77" type="Node3D" parent="LuxFixtureLights" unique_id=1988734610]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 60, 3, -68)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_j6hl8")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@77" unique_id=113296429]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@78" type="Node3D" parent="LuxFixtureLights" unique_id=1112698909]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 60, 3, -74.8)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_uuq6t")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@78" unique_id=1884365377]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@79" type="Node3D" parent="LuxFixtureLights" unique_id=2120241122]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 60, 3, -81.6)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_bap4k")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@79" unique_id=890833229]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@80" type="Node3D" parent="LuxFixtureLights" unique_id=1310686964]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 76.6, -0.4, -60.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_h7xat")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@80" unique_id=709242541]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@81" type="Node3D" parent="LuxFixtureLights" unique_id=152802144]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 71.8, -0.4, -60.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_qqwrx")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@81" unique_id=1637964186]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@82" type="Node3D" parent="LuxFixtureLights" unique_id=2035252000]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 67, -0.4, -60.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_1taq5")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@82" unique_id=891082371]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@83" type="Node3D" parent="LuxFixtureLights" unique_id=1477855265]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 62.2, -0.4, -60.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_sqqg6")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@83" unique_id=809326222]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@84" type="Node3D" parent="LuxFixtureLights" unique_id=793437650]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 57.4, -0.4, -60.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_fey7w")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@84" unique_id=84335506]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@85" type="Node3D" parent="LuxFixtureLights" unique_id=2032491274]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 76.6, -0.4, -77.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_y8tfy")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@85" unique_id=1834517226]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@86" type="Node3D" parent="LuxFixtureLights" unique_id=214841152]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 71.8, -0.4, -77.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_kfdce")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@86" unique_id=1101186152]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@87" type="Node3D" parent="LuxFixtureLights" unique_id=773713071]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 67, -0.4, -77.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_kx25i")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@87" unique_id=851896637]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@88" type="Node3D" parent="LuxFixtureLights" unique_id=838362269]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 62.2, -0.4, -77.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_iqy1q")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@88" unique_id=1835235502]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@89" type="Node3D" parent="LuxFixtureLights" unique_id=615727579]
+transform = Transform3D(-0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, -0.99999994, 57.4, -0.4, -77.5)
+script = ExtResource("8_juqqk")
+rig = SubResource("Resource_tqjfx")
+
+[node name="Fluoro_0" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@89" unique_id=128846603]
+light_color = Color(0.965, 0.8739275, 0.64569217, 1)
+light_energy = 0.97970855
+omni_range = 8.0
+
+[node name="@Node3D@90" type="Node3D" parent="LuxFixtureLights" unique_id=2032933939]
+transform = Transform3D(0.99999994, 0, 3.5762787e-07, 0, 1, 0, -3.5762787e-07, 0, 0.99999994, 79.2, 2.55, -68)
+script = ExtResource("10_r7iha")
+rig = SubResource("Resource_phsno")
+panel_size = Vector2(1.4, 1.4)
+
+[node name="AreaPanel_Omni" type="OmniLight3D" parent="LuxFixtureLights/@Node3D@90" unique_id=1114371740]
+light_color = Color(1, 0.99651015, 0.9805565, 1)
+light_energy = 3.0
+omni_range = 5.6
+
+[node name="AreaPanel_Surface" type="MeshInstance3D" parent="LuxFixtureLights/@Node3D@90" unique_id=1939525527]
+material_override = SubResource("StandardMaterial3D_o5xeb")
+mesh = SubResource("QuadMesh_a1llj")
+
+[node name="@Node3D@91" type="Node3D" parent="LuxFixtureLights" unique_id=358738743]
+transform = Transform3D(6.12323e-17, 0, 1, 0, 1, 0, -1, 0, 6.12323e-17, 67, 3.25, -85.15)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_tpfxo")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@91" unique_id=1371858143]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
+
+[node name="@Node3D@92" type="Node3D" parent="LuxFixtureLights" unique_id=273885988]
+transform = Transform3D(-1.509958e-07, 0, -1, 0, 1, 0, 1, 0, -1.509958e-07, 71.8, 2.45, -50.85)
+script = ExtResource("11_jpsun")
+rig = SubResource("Resource_0deav")
+
+[node name="Street_0" type="SpotLight3D" parent="LuxFixtureLights/@Node3D@92" unique_id=1483911566]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(1, 0.694903, 0.431048, 1)
+light_energy = 2.5
+spot_range = 7.0
+spot_angle = 55.0
+spot_angle_attenuation = 1.2
