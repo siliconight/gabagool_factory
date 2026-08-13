@@ -3,8 +3,80 @@
 It was never a slab. **Deli Counter cut the hole correctly; the art pass laid a
 solid roof over it.**
 
-Built and **held**, same as item 7. `patch_dc_roof_voids.py` is unapplied.
-The pure half is proved here; the builder half needs your Blender rebuild.
+*STATUS: NARROWED 2026-08-12 -- code fixed and applied; the ARCHETYPE LIBRARY
+still carries pre-fix roof slots and is what Zoo dresses*
+
+**The code half landed. `patch_dc_roof_voids.py` is APPLIED** -- `roofs.py`,
+`test_roofs.py`, and all three `deli_counter.py` hunks. Its own `--check`
+reports `DRIFTED` on `deli_counter.py`, which is a false alarm: that patch
+guards on a whole-file SHA and the file has since grown 7,535 bytes from
+unrelated work. Per-anchor occurrence counts would have tolerated it. The line
+that used to sit here said the patch was unapplied, and on 2026-08-12 that
+sentence was read as evidence about the code and produced a wrong call.
+
+**The builder half was the LIBRARY, not Blender -- and it is now rebuilt.**
+The artefact the pipeline consumes was three days older than the fix:
+
+```
+deli_counter/build/*.slots.json   2026-08-05 21:16   <- what Zoo dresses
+patch_dc_roof_voids.py            2026-08-08 19:45   <- the fix
+deli_counter.py                   2026-08-10 01:11   <- source, patched
+```
+
+`deli_generate` cache-hits and the library is not rebuilt per run, so corrected
+code sat three days from the artefact it corrected. `build_freshness.py`
+reported **all 138 shells stale**, having been written for exactly this on
+2026-08-05 and never once run.
+
+**Rebuilt 2026-08-12** (`python build.py --all`, 138 shells). The roof slots
+now carry the holes:
+
+```
+bank_tower_a03  fit.voids = [{x0  15.45, y0 7.30, x1  16.55, y1  8.60},
+                             {x0  15.25, y0 6.75, x1  16.75, y1  8.25}]
+warehouse_a01   fit.voids = [{x0 -16.55, y0 8.90, x1 -15.45, y1 10.20},
+                             {x0 -16.75, y0 9.25, x1 -15.25, y1 10.75}]
+```
+
+Two rectangles each -- a **1.10 m** ladder aperture and a 1.50 m stair one. The
+ladder width is `ladder_geom.through_hole`'s, the same figure this document
+measured in `slab_col_2-colonly` at `x=15.45 / x=16.55`, and the same shape the
+NEW ORDER simulation above predicted. `build_freshness.py --list` now reports
+"138 shell(s) newer than deli_counter.py -- up to date".
+
+*(CORRECTION. The version of this block written earlier on 2026-08-12 said the
+roof slot had "no `voids` key at all", read from the slot's TOP level. `voids`
+lives inside `fit`, beside `openings` and `collision` -- where `roofs._slot`
+puts it and where `floors._slot` always has. That sentence was measured at the
+wrong nesting depth. The conclusion did not rest on it: it rested on the three
+mtimes above and on `build_freshness.py` independently reporting 138 stale
+shells, and the rebuild produced the predicted rectangles. Recorded because a
+document that reports a measurement has to report the one that was taken.)*
+
+**And the prediction held on new ground.** The 2026-08-09 diagnosis was
+`bank_branch_a04`. The 2026-08-12 walk ran a different candidate (`seed_5219`)
+with a different set -- `arena_a02`, `auto_shop_a01`, `bank_tower_a03`,
+`strip_club_a03`, `warehouse_a01` -- and failed identically, at four heights:
+
+```
+walk bot [FAIL] Ladder_ladder_0: climb, top_exit
+  no opening at all at rel_y 5.20 / 3.30 / 4.70 / 3.90
+  -- the slab is solid over the ladder
+```
+
+**Step 5's last inch is no longer inference.** That section records the Zoo
+`.glb` refusing to stage twice and says `godot --headless` with the overlay
+settles it in one command. The 2026-08-12 walk is that command: the overlay
+reads `bldg roof_footprint zoo`, `look Roof 2.98 m y 3.90`, against a predicted
+`blocker_rel_y` of **3.9**. Inference confirmed by direct observation.
+
+*(Those four `[FAIL]` lines are also the first output the self-check has
+produced since 2026-08-10. `patch_lf_walk_the_export.py` left the bots
+resolving `res://site.tscn`, which stopped being copied into the preview when
+it began wrapping the export, so both died on load while the run kept printing
+a sentence about the level not passing its own check. Fixed by
+`patch_lf_walk_bot_scene.py`. The instrument found this on its first working
+run.)*
 
 ---
 
