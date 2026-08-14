@@ -720,8 +720,9 @@ work of adopting this.
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
+| 42 | **OPEN** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- raised. `.level_factory/exports/` holds `lot_demo_001.portable-godot/`, `lot |
 
-**41 items: 18 open, 15 closed, 3 retracted, 3 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**42 items: 19 open, 15 closed, 3 retracted, 3 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3300,6 +3301,65 @@ standing through the floor.
 expression each, and the light-anchor fix is the template. Then the intrusion
 contract. The reclassification and the material question are real work and want
 a decision before code.
+*STATUS: OPEN 2026-08-14 -- raised. `.level_factory/exports/` holds `lot_demo_001.portable-godot/`, `lot_demo_001.pure-shell/` and `lot_demo_001.zip`; no name carries a factory version, a tool set or a date, and `assets/` ships `lot.glb` and `shell.glb` at 242,168 bytes with the same mtime*
+
+**42. A level leaves the factory with a name that does not say what it is.**
+Item 27 closed whether the export WORKS: 36 resources, closure ok, portability
+PASS in a clean Godot project. This is the other question — whether the thing
+can still be identified once it is on somebody else's disk.
+
+Today, `.level_factory/exports/`:
+
+```
+lot_demo_001.portable-godot/                  the drop-in folder
+lot_demo_001.portable-godot.portability.json
+lot_demo_001.pure-shell/                      a different profile, same shape
+lot_demo_001.zip                              18.6 MB, profile unstated
+```
+
+**Nothing in those names carries a version or a date.** Not the factory
+version that built it, not the tool versions that went into it, not when it
+ran. Two exports from two different weeks are indistinguishable on disk. Send
+someone `lot_demo_001.zip` twice and they cannot tell which is newer without
+unpacking it and knowing that `build.lock.json` is the file to open.
+
+The information is not missing — it is unplaced. `build.lock.json` carries
+`created_at`, `spec_sha256` and per-file hashes; `export_profile.json` names
+the profile; `factory.manifest.json` pins the certified set. None of it
+reaches the name, which is the only part a recipient sees first. That is the
+same defect this file spent 2026-08-14 finding everywhere else: a record that
+exists somewhere nobody reads.
+
+**And it is named after one tool of ten.** The folder is `lot_*`, the
+per-building subtree is `lot/<building>/`, and `assets/` holds `lot.glb`
+alongside `shell.glb` — 242,168 bytes each, identical mtime, the same asset
+under two names, one of them a tool's. A level is the output of the whole
+DAG: Deli Counter shells, Zoo kits, Pixelcoat materials, Patina wear, Lux
+light, Dispatch packaging, Lot assembly. Naming the result for the assembler
+tells a recipient the wrong thing about what they have, and tells the next
+maintainer the wrong thing about who owns it.
+
+**What the name has to carry**, stated as properties rather than a format,
+because the format is a decision:
+
+* **Identity** — the mission, so it is obvious what level this is.
+* **Provenance** — the factory version, so the pinned tool set is recoverable
+  from `factory.manifest.json` at that tag.
+* **Time** — when the run happened, sortable, so two exports order themselves
+  in a directory listing without being opened.
+* **Profile** — `portable-godot` vs `pure-shell`, on the zip as well as the
+  folder, because the zip is what gets sent.
+* **Origin** — that this came out of a Level Factory at all, rather than out
+  of `lot`.
+
+**What is already right and should not be broken.** The contents are
+correct and portability is proven; this is a naming and manifest change, not
+a repackaging. `HANDOFF.md` (437 bytes today) is the natural place for the
+same facts in prose, since it is the first file a recipient opens. Whatever
+scheme is chosen wants to be written once in Dispatch or Level Factory and
+read everywhere else, rather than composed by each caller — otherwise the
+next `make_package.ps1` will name it a fourth way.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
