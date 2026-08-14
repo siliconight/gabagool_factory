@@ -1,7 +1,10 @@
 # gabagool_factory
 
-The Siliconight tool factory: nine standalone tools that build DD
-missions, plus the coordination layer that versions them as a SET.
+The Siliconight tool factory: the standalone tools pinned in
+`factory.manifest.json` that build DD missions, plus the coordination layer
+that versions them as a SET. The manifest is the authority on which tools are
+in the certified set -- deliberately not a number typed here, because a count
+maintained by hand is a count that goes stale.
 
 ## Start here
 
@@ -33,7 +36,10 @@ changes, tag `factory-vX.Y.Z`.
 
 The checking code lives in Level Factory (code stays in tools):
 
-    level-factory verify-manifest --factory C:\Projects\gabagool_studios\gabagool_factory
+    level-factory verify-manifest --factory .
+
+(run from the factory root; `.` is the checkout you are standing in, whoever
+you are and wherever you cloned it)
 
 OK = installed VERSION matches the pin. DRIFT = same major, re-certify the
 set and bump the manifest. INCOMPATIBLE = major bump, adapters likely broken.

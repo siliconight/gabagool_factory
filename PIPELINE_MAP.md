@@ -151,25 +151,43 @@ as `seed_base + i * 101`, so the same brief always plans the same candidates —
 
 ## The DAG
 
-Defined in `packages/pipeline/planner.py::plan_mission`. Graybox runs per
-candidate; everything below the gate runs once, on the selected candidate only.
+Defined in `packages/pipeline/planner.py::plan_mission`, and the table below
+is DERIVED FROM IT by `factory_map.py` rather than typed -- run
+`python factory_map.py --check` to prove the doc still matches the planner,
+and `--write` to regenerate it after a planner change.
 
-| Stage | Adapter | Resource | Depends on | Expected outputs |
-|---|---|---|---|---|
-| `deli_generate` | deli_counter | blender | — | `shell.glb`, `shell.gameplay.json`, `shell.slots.json`, `shell.manifest.json`, `shell.lights.json` |
-| `lot_assemble` | lot | python_cpu | deli | `site.tscn`, `site_walk.tscn`, `site.site.gameplay.json`, `site.site.lights.json` |
-| `laser_tag_evaluate` | laser_tag | godot_headless | lot | `lasertag.report.json`, `lasertag.report.csv` |
-| *candidate selected + functional shell locked* | | | | |
-| `pixelcoat_build` | pixelcoat | python_cpu | lot | `<kind>_<theme>/` skin library (dynamic; adapter validates) |
-| `zoo_kit_build` | zoo | blender | lot, pixelcoat | named by `building_id` at exec; adapter validates |
-| `patina_apply` | patina | python_cpu | lot | `shell.patina.glb`, `shell.patina.json`, `shell.patina.gameplay.json` |
-| `patina_dressing` | patina | python_cpu | patina_apply | the above plus `shell.patina.dressing.json` |
-| `zoo_dressing_build` | zoo | blender | patina_dressing, zoo_kit | named by `building_id` at exec |
-| `zoo_fixtures_build` | zoo | blender | deli (selected) | named by `scope_id` at exec |
-| `presentation_compose` | presentation | python_cpu | deli, zoo_kit, zoo_dressing, zoo_fixtures | `presentation/site.tscn` |
-| `lux_apply` | lux | godot_headless | presentation_compose | `lux.applied.tscn`, `lux.quality.json`, `lux.validation.json` |
-| `lux_fixture_gate` | lux | godot_headless | zoo_fixtures | `fixture_gate.report.json` |
-| `dispatch_handoff` | dispatch | python_cpu | lux (with Art) or lot (without) | `mission.tscn`, `mission_manifest.json`, `gameplay_anchors.json`, `runtime_ownership_requirements.json`, `proposed_beat_graph.json`, `navigation_hints.json`, `build.lock.json`, `HANDOFF.md` |
+Read the **Scope** column. Graybox stages run per candidate, but "everything
+below the gate runs once" is NOT true and has not been since the kit fan-out:
+six stages below the gate run once per BUILDING. Every art defect found
+between 2026-08-06 and 2026-08-09 was a stage computing at a coarser scope
+than the thing it described.
+
+<!-- BEGIN GENERATED: factory_map.py -- do not edit by hand -->
+
+| Stage | Adapter | Resource | Scope | Depends on | Expected outputs |
+|---|---|---|---|---|---|
+| `deli_generate` | deli_counter | blender | candidate | — | `shell.glb`, `shell.gameplay.json`, `shell.slots.json`, `shell.manifest.json`, `shell.lights.json` |
+| `lot_assemble` | lot | python_cpu | candidate | `deli_generate` | `site.tscn`, `site_walk.tscn`, `site.site.gameplay.json`, `site.site.lights.json` |
+| `laser_tag_evaluate` | laser_tag | godot_headless | candidate | `lot_assemble` | `lasertag.report.json`, `lasertag.report.csv` |
+| `walktest_navqa` | walktest | godot_headless | candidate | `lot_assemble` | `site_navqa.walktest.json` |
+| *candidate selected + functional shell locked* | | | | | |
+| `zoo_fixtures_build` | zoo | blender | archetype | `deli_generate` | *named at exec; the adapter validates* |
+| `patina_apply` | patina | python_cpu | archetype | `lot_assemble` | `<archetype>.patina.glb`, `<archetype>.patina.json`, `<archetype>.patina.gameplay.json` |
+| `pixelcoat_build` | pixelcoat | python_cpu | mission | `lot_assemble` | *named at exec; the adapter validates* |
+| `lux_fixture_gate` | lux | godot_headless | archetype | `zoo_fixtures_build` | `fixture_gate.report.json` |
+| `patina_dressing` | patina | python_cpu | archetype | `patina_apply` | `<archetype>.patina.glb`, `<archetype>.patina.json`, `<archetype>.patina.gameplay.json`, `<archetype>.patina.dressing.json` |
+| `zoo_kit_build` | zoo | blender | archetype | `lot_assemble`, `pixelcoat_build` | *named at exec; the adapter validates* |
+| `zoo_dressing_build` | zoo | blender | archetype | `patina_dressing`, `zoo_kit_build` | *named at exec; the adapter validates* |
+| `presentation_compose` | presentation | python_cpu | mission | `deli_generate`, `zoo_kit_build`, `zoo_dressing_build`, `zoo_fixtures_build` | `presentation/site.tscn` |
+| `themed_site_assemble` | lot | python_cpu | mission | `presentation_compose` | `site.tscn` |
+| `lux_apply` | lux | godot_headless | mission | `themed_site_assemble` | `lux.applied.tscn`, `lux.quality.json`, `lux.validation.json` |
+| `dispatch_handoff` | dispatch | python_cpu | mission | `lux_apply` | `mission.tscn`, `mission_manifest.json`, `gameplay_anchors.json`, `runtime_ownership_requirements.json`, `proposed_beat_graph.json`, `navigation_hints.json`, `build.lock.json`, `HANDOFF.md` |
+
+**15 stages: 4 per candidate, 6 per archetype, 5 once per mission.** An `--art` run plans `4N + 6M + 4` jobs for N candidates and M placed buildings; `--gameplay` adds `dispatch_handoff`.
+
+SCOPE IS THE COLUMN TO READ. Every art defect found between 2026-08-06 and 2026-08-09 was a stage computing at a coarser scope than the thing it described: dressing and fixtures planned per mission and attached to five buildings, then the kit doing the same with `exact`-fit modules cut to one building's slots.
+
+<!-- END GENERATED -->
 
 Two edges are easy to miss. `presentation_compose` is what makes `--art` mean
 "themed level" rather than "grey level with a lighting pass" — it fits themed
