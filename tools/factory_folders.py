@@ -272,7 +272,19 @@ def human(n: float) -> str:
 
 
 def plan(root: Path):
-    blob = code_blob(root, exclude={"factory_folders.py"})
+    # THE HOUSEKEEPING PAIR IS EXCLUDED FROM ITS OWN SCAN. This script and
+    # `factory_untrack.py` both name these folders in constants -- SWEEP_DIRS,
+    # TWIN_DIRS, MAP -- because the folders are their SUBJECT, not a path they
+    # read content out of. Scanning them made the two scripts block each
+    # other: `factory_untrack.py` decides what git holds in `_bridge_fresh/`,
+    # and got reported as a reason `_bridge_fresh/` could not move.
+    #
+    # Same argument as `patches/` above, and this is the third time this shape
+    # has appeared -- a patch quoting the source it edits, this file listing
+    # its own destinations, that file listing the folders it sweeps. A tool
+    # naming its own subject is not a dependency on it.
+    blob = code_blob(root, exclude={"factory_folders.py",
+                                    "factory_untrack.py"})
     tracked = tracked_dirs(root)
     known = {src for src, _ in MAP} | set(REGENERATED)
 

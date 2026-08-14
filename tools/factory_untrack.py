@@ -376,8 +376,19 @@ def main(argv: list[str]) -> int:
                   f"{(r.stderr.strip() if r else 'git unavailable')}")
             return 1
     print(f"  untracked  {len(paths)} file(s) -- still on disk")
-    print("\n  Now `python tools\\factory_folders.py` can file those folders "
-          "under _scratch/.")
+    print()
+    print("  DO NOT RUN `git add -A` YET. Untracking a file that is not")
+    print("  ignored does not stick: these folders sit at the root, nothing")
+    print("  in .gitignore covers them, and the next `git add -A` puts all")
+    print(f"  {len(paths)} straight back. That already happened once -- the")
+    print("  commit read '2 files changed' and every one of them returned.")
+    print()
+    print("  They become ignored by MOVING, because `_scratch/` is what the")
+    print("  ignore rule covers. So, in this order:")
+    print()
+    print("      python tools\\factory_folders.py --apply")
+    print("      git add -A")
+    print("      git status --short        <- expect deletions, not additions")
     return 0
 
 
