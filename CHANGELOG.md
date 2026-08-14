@@ -3,6 +3,119 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.19.0] - 2026-08-14
+
+level_factory 0.26.0 -> 0.27.0. The other nine tools are unchanged from
+factory-v1.18.0: deli_counter 0.89.0, dispatch 0.3.1, laser_tag 0.8.0, lot
+0.41.0, lux 0.16.0, patina 0.19.0, pipeline 0.6.0, pixelcoat 0.12.0, zoo
+0.36.0.
+
+Stage 1 of `docs/EXPORT_NAMING.md` is closed. All three names it specifies
+now exist:
+
+    exports/LF_lot_demo_001.portable-godot/       the build dir      (0.26.0)
+    LF_lot_demo_001/                              inside the archive (0.27.0)
+    LF_lot_demo_001_s5219_<utc>_f1.19.0_portable-godot.zip            (0.27.0)
+
+THIS PIN IS NOW SHIPPED, NOT JUST RECORDED
+
+0.27.0 writes `LF_MANIFEST.json` into every package, and its `tools` block is
+the certified set read out of `factory.manifest.json`. The pin therefore
+travels inside every export. Before this bump, an export built from 0.27.0
+code wrote `"level_factory": "0.26.0"` there -- correct, because 0.27.0 was
+not certified yet, and confusing to anyone who did not know why. After it,
+exports self-describe.
+
+WHAT WAS RUN
+
+    export lot_demo_001 --mode portable-godot --format zip
+      -> LF_lot_demo_001_s5219_20260814T211037Z_f1.18.0_portable-godot.zip
+    portability-test lot_demo_001 --mode portable-godot
+      -> PASS, engine_check passed, 0 parser errors, 0 shader errors,
+         scene_instantiated true, 0 missing resources, resource_count 35
+    level_factory unit suite: 579 passed, 1 skipped
+
+AND THE ARCHIVE WAS OPENED AND ITS MANIFEST READ, which is the only reason
+0.27.0 is correct. Its selftest passed 40 of 40 against a package whose
+manifest said `"candidate": "...seed_XXXX"` and `"tools": {"lot": "0.4.0"}`
+-- the adapter version, where lot is 0.41.0. Both checks asserted that the
+plumbing carried what it was handed. It did. What it was handed was wrong.
+A check that follows the data instead of reading the artifact will pass on a
+deliverable that is false, and this one did.
+
+WHAT WAS NOT RUN
+
+No mission re-run and no re-grade; the 40 / 55 / 60 grades in the manifest
+description are still 1.16.0's, and it is not rewritten. No walk sweep, no
+pack load check. `pure-shell` has still not been re-exported since 0.26.0
+renamed the build directory.
+
+`pytest tests` still aborts during collection on
+`tests/test_presentation_fingerprint.py`, which imports a `_COMPOSER_SOURCES`
+that no longer exists in `adapters.presentation`. Confirmed against an
+unpatched checkout, so it predates this work -- but it means the four test
+modules outside `tests/unit` have not run in some time, and nothing said so.
+
+OPEN, AND THE FIRST IS THE SERIOUS ONE
+
+The `candidate_selected` marker for `lot_demo_001` holds the literal template
+`lot_demo_001.candidate.seed_XXXX`; `cmd_approve` writes `--candidate`
+verbatim and nothing validates it. `_selected_lot_out` derives a job path
+from it, so `graybox_dir` points at a directory that does not exist and
+exports have been succeeding on the Dispatch handoff alone. The same function
+feeds the post-art functional-regression check a `site.site.gameplay.json`
+that is not there.
+
+AND THAT GATE HAS NOW BEEN MEASURED, WHICH FOUND SOMETHING LARGER
+
+`tools/probe_selection_drift.py` compares the lock's three protected
+signatures computed three ways: as the gate resolves them today, from the
+REAL site file, and from no site file at all. All three ways agree, on all
+three signatures. The site file changes nothing. Repairing the marker
+would not have changed a single hash.
+
+The cause is a vocabulary mismatch, not a path. `_merged_gameplay` reads
+eleven keys; `site.site.gameplay.json` publishes twenty top-level keys and
+none of the eleven -- buildings, collision, cover_plan, encounters,
+enterability, ground, ground_extent, loot, markers, objectives, openings,
+pacing, rooms, site, site_markers, surface_roles, surfaces, tactical,
+vertical_links, zones. Lot and Deli name the same concepts differently and
+the extraction is written in Deli's vocabulary. Four of the eleven get
+backfilled from Deli by `setdefault`, which is what hid this: the
+signature is never empty, so it never looked broken.
+
+It is worse than the site being unguarded. `anchors` is absent from BOTH
+files, so `anchor_registry_hash` -- the one whose drift message reads
+"gameplay-anchor registry changed after art pass" -- has been hashing an
+empty list. `route`, `route_graph` and `nav_hints` are absent from both,
+so `route_graph_hash` is the hash of two empty dicts. `collision_hulls`
+and `doorways` are absent from both. What remains protected is Deli's
+`stair_systems`, a list of 2.
+
+This does not touch the grades, which come from the walk and scoring
+stages. It does mean every "no functional drift after the art pass"
+result this factory has recorded -- including the one inside
+factory-v1.16.0's evidence -- was a weaker claim than it read as. The
+description is still not rewritten, for the reason 1.17.0 gave; a reader
+of it should know what that phrase covered.
+
+Mapping Lot's vocabulary onto the signatures is a contract question
+between two tools, and the obvious-looking pairs (`collision` ->
+`collision_hulls`, `openings` -> `doorways`, `vertical_links` -> ladders
+and stairs, `markers`/`site_markers` -> anchors) have not been opened and
+checked. A guessed mapping would give a lock that hashes real data and
+still protects the wrong thing, which is harder to notice than one that
+hashes nothing. Not attempted here.
+
+0.27.0 stopped the bad value reaching the shipped manifest and made
+the disagreement print on every export. It did not change which directory a
+job resolves from, and should not have.
+
+`pyproject.toml` still says 0.22.0 against a VERSION of 0.27.0, still
+invisible to `verify-manifest`. 57 buildings stale in `check_all` freshness.
+`cbp`, `night_pawn` and `primos_pizza` still fail nav_gate. `laser_tag` still
+has no CHANGELOG.
+
 ## [factory-v1.18.0] - 2026-08-14
 
 level_factory 0.25.0 -> 0.26.0. The other nine tools are unchanged from
