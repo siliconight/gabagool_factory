@@ -3,6 +3,77 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.20.0] - 2026-08-14
+
+level_factory 0.27.0 -> 0.28.0. The other nine tools are unchanged from
+factory-v1.19.0.
+
+1.19.0 recorded that every functional lock this factory has written protects
+nothing, and named the cause: Lot and Deli publish different vocabularies and
+`_merged_gameplay` is written in Deli's. 0.28.0 is NOT that fix -- mapping
+them is a contract question between two tool repos. It is the reason nobody
+noticed for months.
+
+WHAT CHANGED
+
+`compute_lock` now measures what it protects on every call and stores it in
+the lock as `coverage`, including `site_publishes_unread` -- the site's own
+keys that nothing here reads, which is the vocabulary gap written beside the
+hashes. `verify_no_drift` measures the same thing from the files it is
+handed. `cmd_export` warns when the post-art check passes against a lock that
+guards no site data.
+
+`cmd_approve` now refuses a `--candidate` that cannot name a real candidate,
+and refuses it BEFORE recording the approval, which it did not: `store.record`
+ran first, so a rejected candidate would still have left an approved gate
+behind it.
+
+`LOCK_COVERAGE_ENFORCED` is False, for the reason `CLOSURE_ENFORCED` was:
+every lock here is vacuous today and enforcing would refuse the gate for
+every mission. The measurement always runs; the flag only decides whether it
+stops anything.
+
+WHAT WAS RUN
+
+    export lot_demo_001 --mode portable-godot
+      -> [export] WARNING the functional lock for lot_demo_001 protects no
+         site data -- every signature it checks is filled from the Deli side
+    unit suite: 579 passed, 1 skipped
+
+THE WARNING TOOK THREE ATTEMPTS, AND THAT IS THE ENTRY
+
+0.28.0's selftest passed 27 of 27 and the export printed nothing. The guard
+read `lock.coverage`, which only exists on locks written by 0.28.0 or later --
+empty on every lock that exists. The selftest had asserted that behaviour as
+a virtue.
+
+The correction still did not fire. `vacuous` means all three signatures are
+empty, and Deli's two `stair_systems` keep one alive, so a lock guarding no
+site data reads as partly healthy. The predicate that describes every lock
+here is `guards_no_site`. Found by simulating against the real key shape
+after the first correction was written.
+
+That is three releases running: 0.27.0's manifest shipped adapter versions
+under `tools`; its correction shipped a NameError; 0.28.0 shipped a guard
+that could not fire. Every selftest was green and every check was true. Each
+checked the mechanism instead of the outcome. What caught all three was
+opening the artifact and running the command.
+
+WHAT WAS NOT RUN
+
+No mission re-run, no re-grade, no walk sweep, no pack load check, and no
+portability run -- 0.28.0 does not change package contents. `pytest tests`
+still aborts in collection on `_COMPOSER_SOURCES`. `pure-shell` still has not
+been re-exported since 0.26.0. The description is not rewritten.
+
+OPEN
+
+The vocabulary mapping. The `seed_XXXX` marker on disk, which 0.28.0 refuses
+to create again but does not rewrite. `_selected_lot_out` still resolving
+jobs from it. `pyproject.toml` at 0.22.0. 57 stale buildings. `cbp`,
+`night_pawn` and `primos_pizza` failing nav_gate. `laser_tag` without a
+CHANGELOG.
+
 ## [factory-v1.19.0] - 2026-08-14
 
 level_factory 0.26.0 -> 0.27.0. The other nine tools are unchanged from
