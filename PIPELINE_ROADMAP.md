@@ -720,9 +720,9 @@ work of adopting this.
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
-| 42 | **OPEN** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- raised. `.level_factory/exports/` holds `lot_demo_001.portable-godot/`, `lot |
+| 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- scheme accepted, nothing produces it yet. `docs/EXPORT_NAMING.md`: archive ` |
 
-**42 items: 19 open, 15 closed, 3 retracted, 3 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**42 items: 18 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3301,7 +3301,7 @@ standing through the floor.
 expression each, and the light-anchor fix is the template. Then the intrusion
 contract. The reclassification and the material question are real work and want
 a decision before code.
-*STATUS: OPEN 2026-08-14 -- raised. `.level_factory/exports/` holds `lot_demo_001.portable-godot/`, `lot_demo_001.pure-shell/` and `lot_demo_001.zip`; no name carries a factory version, a tool set or a date, and `assets/` ships `lot.glb` and `shell.glb` at 242,168 bytes with the same mtime*
+*STATUS: NARROWED 2026-08-14 -- scheme accepted, nothing produces it yet. `docs/EXPORT_NAMING.md`: archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`, folder `LF_<mission>/` stable so `res://` paths survive an update, provenance in `LF_MANIFEST.json`. Remaining work is one naming function in `packages/core/ids.py` and the callers that stop composing their own*
 
 **42. A level leaves the factory with a name that does not say what it is.**
 Item 27 closed whether the export WORKS: 36 resources, closure ok, portability
