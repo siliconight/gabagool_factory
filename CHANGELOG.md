@@ -3,6 +3,91 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.22.0] - 2026-08-14
+
+level_factory 0.31.0 -> 0.32.0. The other nine tools are unchanged from
+factory-v1.21.0.
+
+A GUARD THAT WAS NEVER BUILT, AND NINE FAILURES BEHIND ONE IMPORT
+
+`pytest level_factory/tests` had been aborting during collection on an
+ImportError for `_COMPOSER_SOURCES`. That looked like a stale import against
+a renamed symbol. Neither `_COMPOSER_SOURCES` nor `_composer_fingerprint`
+existed anywhere in the repository, and `fingerprint_inputs` had no
+`composer` key. The test was not stale -- it described a guard nobody built,
+and because collection aborted, nothing said so.
+
+The guard is for a failure measured 2026-08-05: `strip_greybox_base` was
+fixed in Deli Counter, DC's suite went green, `run --art --force` reported
+its stages SUCCEEDED, this job reported `cache`, and the composed
+`site_base.glb` came back byte-identical with the invisible wall still in it.
+The presentation job EXECUTES DC's code rather than only reading its data, so
+its output can change while every input hash stays identical.
+
+0.32.0 implements it. Sources are measured, not guessed: the import closure
+of `portable_building` in DC 0.89.0 is itself plus `themed_tscn.py`.
+`circulation.py` is declared and absent from 0.89.0 -- an absent declared
+source is skipped, never faked, because a placeholder hash is identical
+across every DC version that lacks the file.
+
+ONE BROKEN IMPORT TOOK A DIRECTORY DARK
+
+Collection aborts before any test in the directory runs, so
+`tests/integration` and `tests/service` had both been silent. With the import
+fixed, nine tests fail and all nine trace to one cause: `run --target
+presentation` plans no art stages. Roadmap item 43.
+
+Whether those nine are pre-existing or were exposed by the new `composer`
+fingerprint key -- which turns former cache hits into real runs -- is NOT
+established. The comparison is one revert and two runs and it has not been
+done. The item records that rather than assuming either.
+
+ROADMAP 43, 44, 45
+
+43 is the CLI spelling above. 44 is Semantic Proxy Replacement: art variants
+standing in for graybox blocks with the block's collision still
+authoritative, a shape-to-category-to-variants abstraction, and Pixelcoat
+skinning the families Zoo owns. 45 is Surface Dressing: collisionless
+instanced detail for relief and parallax, placed from a deterministic
+manifest, post-lock.
+
+Both name the same thing as their acceptance test, and it is worth repeating
+here: the functional lock. Until factory-v1.21.0 that lock hashed two Deli
+stair systems and would have passed an art pass that bulldozed the site. It
+now protects 1,171 records. The lock work and these items were built in the
+wrong order and it came out right.
+
+Item 42's status was corrected -- it still read "nothing produces it yet"
+after stage 1 shipped and a real package was built and verified.
+
+WHAT WAS RUN
+
+    level_factory unit suite     579 passed, 1 skipped
+    pytest level_factory/tests   COLLECTS; 9 failed, rest passed
+    roadmap_status.py --check    index matches its items
+
+WHAT WAS NOT RUN
+
+No mission re-run, no re-grade, no walk sweep, no pack load check, no
+portability run. `pure-shell` has not been re-exported since 0.26.0. The
+description is not rewritten.
+
+A COST, STATED IN ADVANCE
+
+`composer` is a new fingerprint key, so the next `--art` run recomposes every
+mission once. Correct for a guard whose premise is that a stale compose is
+invisible, and the last time it happens for this reason.
+
+OPEN
+
+The nine failures and item 43. The 25 Deli collision nodes absent from the
+assembled site, a question for `lot`. `openings` undecidable from the two
+files. `vertical_links` possibly needing a `kind` split. Enforcement narrower
+than the problem until a second and third mission are measured.
+`pyproject.toml` at 0.22.0 against VERSION 0.32.0. 57 stale buildings.
+`cbp`, `night_pawn`, `primos_pizza` failing nav_gate. `laser_tag` without a
+CHANGELOG.
+
 ## [factory-v1.21.0] - 2026-08-14
 
 level_factory 0.28.0 -> 0.31.0. The other nine tools are unchanged from

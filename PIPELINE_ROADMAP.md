@@ -720,9 +720,12 @@ work of adopting this.
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
-| 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- scheme accepted and corrected; nothing produces it yet. `docs/EXPORT_NAMING. |
+| 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
+| 43 | **OPEN** | A whole CLI spelling stopped working and nothing noticed | 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection |
+| 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
+| 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 
-**42 items: 18 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**45 items: 21 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3301,7 +3304,7 @@ standing through the floor.
 expression each, and the light-anchor fix is the template. Then the intrusion
 contract. The reclassification and the material question are real work and want
 a decision before code.
-*STATUS: NARROWED 2026-08-14 -- scheme accepted and corrected; nothing produces it yet. `docs/EXPORT_NAMING.md`: THREE names -- build dir `LF_<mission>.<profile>/` (two profiles coexist in the workspace), folder inside the archive `LF_<mission>/` (stable, so `res://` paths survive an update), archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`. The grammar is composed in four places today -- export.py:232, commands 2057/2248/2260 -- and export.py:441's `with_suffix` is why the zip has no profile. Remaining work is `packages/core/ids.py` plus those four callers*
+*STATUS: NARROWED 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build dir), 0.27.0 (archive name, stable interior folder, LF_MANIFEST.json), factory-v1.19.0. `LF_lot_demo_001_s5219_20260814T211037Z_f1.18.0_portable-godot.zip`, 213 entries all under `LF_lot_demo_001/`, manifest read back and correct. REMAINING: the interior renames -- `lot/<building>/` -> `sites/<building>/` and dropping `assets/lot.glb` -- which move `res://` paths inside the package and want their own portability run. Original note follows. `docs/EXPORT_NAMING.md`: THREE names -- build dir `LF_<mission>.<profile>/` (two profiles coexist in the workspace), folder inside the archive `LF_<mission>/` (stable, so `res://` paths survive an update), archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`. The grammar is composed in four places today -- export.py:232, commands 2057/2248/2260 -- and export.py:441's `with_suffix` is why the zip has no profile. Remaining work is `packages/core/ids.py` plus those four callers*
 
 **42. A level leaves the factory with a name that does not say what it is.**
 Item 27 closed whether the export WORKS: 36 resources, closure ok, portability
@@ -3359,6 +3362,184 @@ same facts in prose, since it is the first file a recipient opens. Whatever
 scheme is chosen wants to be written once in Dispatch or Level Factory and
 read everywhere else, rather than composed by each caller — otherwise the
 next `make_package.ps1` will name it a fourth way.
+
+*STATUS: OPEN 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection since an unknown date; nine tests across tests/service and tests/integration fail and all nine trace to this*
+
+**43. A whole CLI spelling stopped working and nothing noticed.**
+`run --target presentation` plans no art stages. The run reports
+`deli_generate ... cache`, `lot_assemble ... cache`, `Structural checks
+passed`, exits 0, and stops. No `lux_apply`, no `dispatch_handoff`, no
+presentation compose.
+
+Nine tests say so, in nine different ways:
+
+```
+missing stage lux_apply                       test_presentation_export
+no presentation previews for m1               test_advanced_review
+m1.dispatch_handoff/out/mission.tscn missing  test_batch_production
+presentation_status 'pending' != 'ready'      test_facade
+job_console("m1.lux_apply") is None           test_facade
+node_detail state 'PLANNED' != 'SUCCEEDED'    test_facade
+```
+
+`_resolve_layers` treats `--target` as the legacy path -- "explicit
+`--art`/`--gameplay` win; otherwise fall back to the legacy `--target`
+mapping." The first place to look is `packages/pipeline/planner.py`'s
+`layers_for_target`: it either still knows the word `presentation` or it does
+not, and it is one function.
+
+**The interesting part is not the mapping.** It is that a documented CLI
+spelling could stop planning anything at all, and the only things still
+exercising it were tests that had not run since
+`tests/test_presentation_fingerprint.py` began failing at import. Collection
+aborts before any test in the directory executes, so one broken import took
+`tests/integration` and `tests/service` dark together. level_factory 0.32.0
+fixed the import; these nine are what was behind it.
+
+Whether they are pre-existing or were exposed by 0.32.0's new `composer`
+fingerprint key -- which turns former cache hits into real runs -- is
+answered by reverting 0.32.0 and running the two directories again. Do that
+before assuming either.
+
+*STATUS: OPEN 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPass Substitutes`; nothing built. The gate it needs was built today and works*
+
+**44. The green boxes could be cars, and the collision would not change.**
+A graybox block is a semantic placeholder: it says what belongs here, not
+what it looks like. Its transform already defines position, rotation, scale
+and gameplay footprint. Replace the placeholder with an art asset, keep the
+block's collision as the authority, and a validated level becomes a
+believable one without reopening traversal.
+
+```
+Graybox Block -> Identify Object Type -> Select Art Asset
+              -> Fit / Orient -> Retain Proxy Collision
+              -> Add Non-Collision Detail
+```
+
+**The abstraction that makes a small library go far** is shape to category
+to variants, not block to model:
+
+```
+BOX_MEDIUM_CITY     -> ATM / vending machine / utility cabinet / news rack
+BOX_LARGE_CITY      -> dumpster / generator / HVAC / pallet stack
+BOX_VEHICLE         -> sedan / taxi / police car / abandoned car
+BOX_LONG_CITY       -> bench / planter / barrier / bike rack
+CYLINDER_SMALL_CITY -> bollard / hydrant / parking meter / trash can
+```
+
+Roughly twenty "universal" proxies -- car, van, dumpster, ATM, vending
+machine, utility cabinet, concrete planter, bench, mailbox, news box, trash
+can, pallet stack, crate stack, construction barrier, shipping container,
+HVAC unit, generator, vendor kiosk, bus shelter, trash pile -- cover most
+city graybox. Zoo owns those families, their pivots, bounds, tags and
+variation sets. Pixelcoat skins them, which is where the visual variety
+multiplies again: one mesh family, several material treatments.
+
+**Art is allowed to exceed the collision.** Mirrors, antennas, handles,
+signs, cables, bumpers may protrude and carry no collision of their own.
+That is the whole point -- dimensionality without changing navigation.
+
+**Reversible, always.** A designer must be able to reveal the proxy. The
+relationship between gameplay object and visual representation stays
+explicit rather than being consumed by the substitution.
+
+WHAT THIS NEEDS FIRST, AND IT IS NOT CODE
+
+**Something must name the category, and today nothing does.** Lot's
+`markers` carry a `type` (`attacker_spawn`, `cover`), and Deli's carry ids
+like `COVER_LOW_AUTO_DESK_MANAGER_OFFICE_0` -- but a *prop block* with a
+`BOX_MEDIUM_CITY` tag does not exist in either vocabulary. Deli Counter
+emits the block; something has to say what it stands for. That is a contract
+question between DC and Zoo and it comes before any substitution code.
+
+**The gate this needs already exists, as of today.** The functional lock now
+protects `openings`, `surfaces`, `ground` and the anchor registry, refuses to
+be written empty, and reports drift on a real comparison -- level_factory
+0.29.0 through 0.31.0, factory-v1.21.0. A proxy replacement that quietly
+changed collision would move `collision_fingerprint`, and until this morning
+that hash could not have noticed. Run the substitution after the functional
+shell lock and the lock is the acceptance test.
+
+**Rejection is a feature.** An asset that cannot fit the gameplay volume
+within the allowed scale and yaw limits is refused, not squeezed. Item 41 is
+the same boundary from the other side -- structural art routed through the
+decoration path -- and both want `allowed_inward_intrusion_m` in the slot
+manifest with something that reads it.
+
+*STATUS: OPEN 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is the same boundary approached from the other side*
+
+**45. Large playable surfaces are visually flat, and the fix is not more
+grass.** Surface Dressing is collisionless instanced detail placed across
+gameplay surfaces for relief, silhouette breakup, parallax and contact --
+without adding gameplay relief. The problem it solves is that a clean
+graybox reads as a diagram.
+
+**The stack is layered responsibility, not one increasingly complicated
+mesh:**
+
+```
+0  Gameplay geometry   floors, walls, stairs, cover      COLLISION AUTHORITY
+1  Macro environment   buildings, cliffs, machinery      silhouette and space
+2  Mid dressing        pipes, cables, crates, boards     "somebody authored this"
+3  Surface dressing    grass, rubble, litter, roots      relief; collisionless
+4  Surface detail      decals, cracks, grime             no geometry at all
+5  Atmosphere          fog, dust, particles, shafts      depth through air
+```
+
+**Core rule: gameplay complexity and visual complexity scale
+independently.** A level keeps simple collision and renders a dense
+presentation layer.
+
+WHERE IT LIVES IN THIS TOOLCHAIN
+
+Post-lock, and every tool already has the right job for it. Deli Counter
+exposes safe surfaces and semantic zones and is not modified by decorative
+placement. Zoo owns the dressing asset families with `collision_policy:
+none`. Pixelcoat breaks flatness in material before geometry is added --
+texture noise and mesh noise must not compete at the same frequency. Patina
+is the natural home for placement logic: clusters, seam dressing,
+environmental cause, density, negative space. Lux makes relief produce
+readable contact shadows without paying for shadow on every pebble. Dispatch
+keeps it under a presentation branch that can be culled or disabled whole.
+Level Factory gates it and can fail a build.
+
+**The manifest is the deliverable, not the scene.** `surface_zone_id`,
+`asset_set`, `placement_mode` (scatter / seam / cluster / anchor / spline /
+authored), `density`, `scale_range`, `yaw_range`, `height_band`,
+`collision_policy`, `shadow_policy`, `exclusion_tags`, `seed`,
+`quality_tier`. Deterministic from a seed, or it is not reproducible and
+does not belong in this pipeline.
+
+**Placement rules that are art direction, not code**, and which the manifest
+has to be able to express: cluster rather than scatter evenly, because
+uniform spacing reads as procedural noise; anchor detail to causes -- growth
+at cracks and moisture, rubble at damage, trash against walls and traffic
+edges; dress intersections first, because wall-to-floor and prop-to-ground
+seams are where modular construction shows; use two to four height bands
+(2-10 cm micro, 10-30 cm cover, 30-70 cm medium, selective 70-150 cm).
+
+**The test, and it is a good one:** hide the dressing layer and the level
+should still play correctly. Show it and the same level should feel
+materially richer. If a dressed level *plays* differently, the presentation
+layer is too intrusive -- and Laser Tag is the instrument that says so,
+against its own pre-art baseline.
+
+DEFINITION OF DONE, AND ONE LINE OF IT IS NEWLY CHECKABLE
+
+Collision unchanged from the locked version. Navigation regression passes.
+Objective anchors, doors, interactables and cover language stay readable. No
+decorative asset makes a believable but false traversal promise. No visible
+uniform scatter from primary views. Density reducible or disableable without
+affecting gameplay. Runtime budgets pass in Godot on worst-case views, not
+empty scenes. The package remains deterministic from the manifest.
+
+"Collision unchanged from the locked version" was not a checkable statement
+before today. The functional lock hashed two Deli stair systems and would
+have reported no drift no matter what a dressing pass did to the site. As of
+level_factory 0.31.0 it protects 1,171 records including every collision node
+name and every opening, so a dressing pass that touches collision now moves a
+hash. This item and items 29 through 31 of that work were built in the wrong
+order and it happened to work out.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
