@@ -57,7 +57,26 @@ import argparse
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent
+def _factory_root() -> Path:
+    """The directory holding `factory.manifest.json`, found by walking up.
+
+    Was `Path(__file__).resolve().parent`, which required this file to sit AT
+    the factory root and kept eleven scripts pinned there. Walking up means it
+    works from `tools/`, `patches/` or anywhere else, and still returns the
+    root when it IS the root -- the first candidate tested is its own
+    directory.
+
+    The manifest is the marker because it is the one file that defines this
+    place and exists in no tool repo. `.git` would match every tool repo.
+    """
+    here = Path(__file__).resolve()
+    for base in (here.parent, *here.parents):
+        if (base / "factory.manifest.json").is_file():
+            return base
+    return here.parent
+
+
+ROOT = _factory_root()
 sys.path.insert(0, str(ROOT / "level_factory"))
 
 DEFAULT_LIBRARY = ROOT / "deli_counter" / "build"
