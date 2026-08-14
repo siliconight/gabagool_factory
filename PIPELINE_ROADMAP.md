@@ -605,7 +605,7 @@ work of adopting this.
 | 5 | **CLOSED** *(inferred)* | A run that evaluated nothing reported a clean pass | Closed 2026-07-27 as Level Factory 0 |
 | 6 | **OPEN** *(inferred)* | The tactical advisory reads a scene that may not exist yet | — |
 | 7 | **CLOSED** *(inferred)* | The certified set has drifted | Closed 2026-07-27 as **factory 1 |
-| 8 | **OPEN** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-12 -- unchanged; this file's own "highest-leverage item", ~400 map_get_path querie |
+| 8 | **CLOSED** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-14 -- shipped as Lot 0.28.0 + Level Factory 0.18.0; the seed_5219 report carries a |
 | 9 | **CLOSED** *(inferred)* | Lot emits nav-QA anchors nothing checks | Closed 2026-07-28 as Lot 0 |
 | 10 | **OPEN** | `nav_gate.py` certifies geometry that never ships | 2026-08-12 -- unchanged |
 | 11 | **RETRACTED** *(inferred)* | The building interiors barely bake | Retracted 2026-07-28 |
@@ -640,7 +640,7 @@ work of adopting this.
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
 
-**41 items: 22 open, 13 closed, 3 retracted, 1 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**41 items: 21 open, 14 closed, 3 retracted, 1 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -858,7 +858,7 @@ the reader to assume the rest.
 Re-certify with `recertify.ps1`, or by hand after any tool version moves.
 Drift is the manifest working; drift left standing is the manifest lying.
 
-*STATUS: OPEN 2026-08-12 -- unchanged; this file's own "highest-leverage item", ~400 map_get_path queries*
+*STATUS: CLOSED 2026-08-14 -- shipped as Lot 0.28.0 + Level Factory 0.18.0; the seed_5219 report carries anchors[22], reaches 21 on every one, one cluster of 22, 0 stranded, 0 without standing room. The status line said OPEN while this item's own body said closed on 2026-07-28*
 
 **8. Nothing checks the SIZE of the island an anchor snaps to.** The
 highest-leverage item in this file, because it is the gap that cost the day.
