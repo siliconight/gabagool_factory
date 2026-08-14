@@ -720,7 +720,7 @@ work of adopting this.
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
-| 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- scheme accepted, nothing produces it yet. `docs/EXPORT_NAMING.md`: archive ` |
+| 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- scheme accepted and corrected; nothing produces it yet. `docs/EXPORT_NAMING. |
 
 **42 items: 18 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -3301,7 +3301,7 @@ standing through the floor.
 expression each, and the light-anchor fix is the template. Then the intrusion
 contract. The reclassification and the material question are real work and want
 a decision before code.
-*STATUS: NARROWED 2026-08-14 -- scheme accepted, nothing produces it yet. `docs/EXPORT_NAMING.md`: archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`, folder `LF_<mission>/` stable so `res://` paths survive an update, provenance in `LF_MANIFEST.json`. Remaining work is one naming function in `packages/core/ids.py` and the callers that stop composing their own*
+*STATUS: NARROWED 2026-08-14 -- scheme accepted and corrected; nothing produces it yet. `docs/EXPORT_NAMING.md`: THREE names -- build dir `LF_<mission>.<profile>/` (two profiles coexist in the workspace), folder inside the archive `LF_<mission>/` (stable, so `res://` paths survive an update), archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`. The grammar is composed in four places today -- export.py:232, commands 2057/2248/2260 -- and export.py:441's `with_suffix` is why the zip has no profile. Remaining work is `packages/core/ids.py` plus those four callers*
 
 **42. A level leaves the factory with a name that does not say what it is.**
 Item 27 closed whether the export WORKS: 36 resources, closure ok, portability
