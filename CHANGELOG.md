@@ -3,6 +3,89 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.18.0] - 2026-08-14
+
+level_factory 0.25.0 -> 0.26.0. The other nine tools are unchanged from
+factory-v1.17.0: deli_counter 0.89.0, dispatch 0.3.1, laser_tag 0.8.0, lot
+0.41.0, lux 0.16.0, patina 0.19.0, pipeline 0.6.0, pixelcoat 0.12.0, zoo
+0.36.0.
+
+NOT A BOOKKEEPING RELEASE, WHICH IS THE DISTINCTION 1.17.0 DREW
+
+1.17.0 pinned code that was already running, under names that had gone
+stale, and said plainly that nothing new was verified for it. This is the
+other kind: new code, a behaviour change a recipient of a package can see,
+and a run that earned it.
+
+WHAT CHANGED
+
+An export's directory name was composed in five places -- twice in
+`packages/exporting/export.py`, three times in `apps/cli/commands`. One of
+those five hardcoded `portable-godot` four lines after the block above it had
+set the mode, so it was correct only for as long as the default never moved.
+`ids.export_build_dir_name` is now the only definition, and it lives beside
+`candidate_id` and `job_id` because those already own the rule that an id
+which becomes a directory is refused rather than sanitised.
+
+`lot_demo_001.portable-godot/` is now `LF_lot_demo_001.portable-godot/`.
+
+THE ARCHIVE STOPS LOSING ITS PROFILE
+
+`with_suffix(".zip")` reads `.portable-godot` as a file extension and
+REPLACES it, which is the entire reason the archive was `lot_demo_001.zip`
+with no profile in the name -- and why both profiles would have written to
+the same archive. Nobody decided to drop it; a path helper ate it. Appending
+instead of substituting gives `LF_lot_demo_001.portable-godot.zip`.
+
+WHAT WAS RUN
+
+    export lot_demo_001 --mode portable-godot
+      -> .level_factory\exports\LF_lot_demo_001.portable-godot
+    portability-test lot_demo_001 --mode portable-godot
+      -> PASS. engine_check passed, parser_error_count 0,
+         shader_error_count 0, scene_instantiated true,
+         missing_resource_count 0, absolute_path_count 0,
+         external_reference_count 0, resource_count 35, godot 4.7
+    export ... --format zip
+      -> LF_lot_demo_001.portable-godot.zip
+
+The portability pass was re-earned, not assumed. The export directory moved,
+and a package that loads in a clean Godot 4.7 project is exactly the claim a
+directory rename could break.
+
+WHAT WAS NOT RUN
+
+No mission re-run and no re-grade: the 40 / 55 / 60 grades in the manifest
+description are still 1.16.0's. No walk sweep, no pack load check, no unit
+suites. `pure-shell` has not been re-exported since the rename.
+
+The manifest description is not rewritten. One portability pass is evidence
+for one claim, not a re-certification of the set.
+
+STAGE 1 OF THREE
+
+`docs/EXPORT_NAMING.md` specifies three names; this lands the build
+directory. The full archive name needs the seed, the build time and the
+factory version plumbed into `export_mission`, and `LF_MANIFEST.json` comes
+with them. The interior renames (`lot/<building>/` -> `sites/<building>/`,
+dropping `assets/lot.glb`) move `res://` paths and want their own
+portability run.
+
+A FOURTH VERSION NUMBER, WHICH THE CHECK CANNOT SEE
+
+`level_factory/pyproject.toml` says `version = "0.22.0"` while VERSION and
+the CHANGELOG both say 0.26.0. `verify-manifest` reports level_factory OK
+because `installed_factory_versions` reads only the VERSION file. The check
+is not wrong about what it measured -- it is silent about a source it never
+looks at. This was noticed while working out how to invoke the CLI, not by
+any check, which is the argument for recording it. Open.
+
+KNOWN FAILING, UNCHANGED
+
+57 buildings stale in `check_all` freshness. `cbp`, `night_pawn` and
+`primos_pizza` still fail nav_gate; none are in the `lot_demo_001` draw.
+`laser_tag` still has no CHANGELOG.
+
 ## [factory-v1.17.0] - 2026-08-14
 
 A bookkeeping release. Four of the five tools shipped no new code; they
