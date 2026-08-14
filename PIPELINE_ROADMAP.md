@@ -724,8 +724,9 @@ work of adopting this.
 | 43 | **OPEN** | A whole CLI spelling stopped working and nothing noticed | 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection |
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
+| 46 | **OPEN** | The destructible declaration, not the destructible system | 2026-08-14 -- specified by `Replicated_Destructible_Proxy_Breakable_Glass`; the declaratio |
 
-**45 items: 21 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**46 items: 22 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3540,6 +3541,94 @@ level_factory 0.31.0 it protects 1,171 records including every collision node
 name and every opening, so a dressing pass that touches collision now moves a
 hash. This item and items 29 through 31 of that work were built in the wrong
 order and it happened to work out.
+
+*STATUS: OPEN 2026-08-14 -- specified by `Replicated_Destructible_Proxy_Breakable_Glass`; the declaration vocabulary already exists in Deli Counter's openings and is null on all 76. BLOCKED on one question: a destructible has two collision states and the functional lock protects one*
+
+**46. The destructible declaration, not the destructible system.**
+A window needs a very small server-authoritative representation -- an id and
+`INTACT`/`BROKEN`, with collision on or off. Everything expensive is local:
+mesh swap, authored fracture pattern, shards, particles, short-lived debris
+physics that nobody replicates.
+
+The source document draws this pipeline's boundary better than the boundary
+statement does:
+
+> The shards are not the glass. The state is the glass.
+
+**What stays downstream, and it is most of the networking.** Server validates
+the hit. Server owns and replicates persistent state. Late joiners get "this
+pane is already broken" and never the original impact event. The transient
+`BreakGlass(id, impact, direction, seed)` is the runtime's to send. Every one
+of those is named in `HANDOFF_LANGUAGE` already -- "the production game
+runtime remains authoritative for mission progression, gameplay behavior,
+enemy AI, replication, persistence, late joining, reconnection, and online
+correctness."
+
+**What the factory owns is everything that has to exist before any of that
+can run:**
+
+- **The declaration.** A stable id per destructible, its state set, and a
+  named collision representation per state. Shell metadata, the same shape as
+  a gameplay anchor. Dispatch already ships "runtime integration
+  requirements"; this is one more requirement, not an implementation.
+- **Both collision states as authored geometry.** The intact collider and
+  whatever remains once it is broken. The runtime toggles; it does not
+  author.
+- **The fracture library.** `BreakPattern_01..06` is a Zoo asset family with
+  `collision_policy: none`, and the broken-frame mesh is another. Pixelcoat
+  skins them. Same machinery as item 44.
+- **The presentation tiers.** Mesh-swap / authored fracture / rich shards is
+  `quality_tier`, which item 45's dressing manifest already proposes.
+- **The packaging split.** Dispatch puts the declaration on the gameplay side
+  and every shard under the presentation branch, where it can be culled
+  whole.
+
+THE VOCABULARY IS HALF-BUILT AND NOBODY HAS NOTICED
+
+Deli Counter already emits this on all 76 openings of `lot_demo_001`:
+
+```json
+{"kind": "door", "breach_class": null, "material": null,
+ "reinforceable": false, "vaultable": false, "wall": "ext_0_N",
+ "width": 1.8, "height": 2.2, "sill": 0.0, "story": 0}
+```
+
+`breach_class` is a breakability classification that exists, is emitted on
+every opening, and is read by nothing. `material` is null too -- and material
+is what decides whether a thing shatters, splinters or dents. This is
+considerably cheaper than it looks, because the first pass is populating
+fields that are already in the contract rather than adding any.
+
+**And the gate is already in place.** Since level_factory 0.29.0 the
+functional lock hashes `openings` WHOLE, `breach_class` and `reinforceable`
+included. The moment those are populated, changing one is drift on a real
+comparison. Nothing needs building for that.
+
+BLOCKING QUESTION, AND IT COMES BEFORE CODE
+
+**Two collision states, one hash.** If `BROKEN` disables or replaces a
+collider, an object has two collision representations and the lock protects
+exactly one. Which one is the locked shell -- intact, or the worst case, or
+both as a set? `docs/FUNCTIONAL_LOCK.md` has no answer today, and the answer
+belongs in that document before a destructible enters a locked shell rather
+than after. A shell whose collision is conditional is a different kind of
+object from the one that document was written about.
+
+DO NOT BAKE THE SEED
+
+`pattern = hash(glass_id + break_seed) % pattern_count`. `break_seed` is a
+per-break runtime value. The factory ships the pattern library and the
+selection RULE; if it ships a chosen pattern, every window in every session
+breaks the same way. Everything else in this pipeline is
+deterministic-from-a-seed and that instinct will pull the wrong way exactly
+once, here.
+
+GENERALISE IT, PER THE SOURCE
+
+Window, door, fence, light, crate, monitor. Each keeps a simple authoritative
+state and collision representation; the art layer makes the transition look
+complicated. Build it as a Replicated Destructible Proxy declaration rather
+than a glass feature, or the second destructible re-opens the contract.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
