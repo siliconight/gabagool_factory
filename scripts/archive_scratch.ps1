@@ -15,7 +15,7 @@ param([switch]$Apply)
 $ErrorActionPreference = "Continue"
 $PSNativeCommandUseErrorActionPreference = $false
 $root = "C:\Projects\gabagool_studios\gabagool_factory"
-$dest = Join-Path $root ("_scratch_archive\" + (Get-Date -Format yyyyMMdd_HHmmss))
+$dest = Join-Path $root ("_scratch\archive\" + (Get-Date -Format yyyyMMdd_HHmmss))
 
 $files = @(
   # this pass

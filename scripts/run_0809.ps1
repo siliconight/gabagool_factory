@@ -14,7 +14,7 @@
 
 #region 0 -- environment  (a fresh PowerShell opens in System32)
 $FACTORY = "C:\Projects\gabagool_studios\gabagool_factory"
-$WS      = "$FACTORY\lot-demo-ws"
+$WS      = "$FACTORY\workspaces\lot-demo-ws"
 $LF      = "$FACTORY\level_factory\apps\cli\main.py"
 $PREVIEW = "$WS\.level_factory\preview\lot_demo_001_walk"
 $LOTDIR  = "$PREVIEW\lot"

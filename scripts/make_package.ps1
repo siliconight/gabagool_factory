@@ -24,7 +24,7 @@
 param(
     [string]$Candidate = "",
     [string]$Mission   = "lot_demo_001",
-    [string]$Workspace = "lot-demo-ws"
+    [string]$Workspace = "workspaces\lot-demo-ws"
 )
 
 $ErrorActionPreference = "Stop"

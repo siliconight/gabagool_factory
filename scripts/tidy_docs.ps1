@@ -11,7 +11,7 @@
 #
 # WHAT MOVES
 #   root *.md   -> docs\        every markdown except the keepers below
-#   *.pre_*     -> _scratch_archive\pre_patch\   editor backups, already
+#   *.pre_*     -> _scratch\archive\pre_patch\   editor backups, already
 #                                                gitignored and redundant with
 #                                                git history
 #
@@ -39,7 +39,7 @@ $PSNativeCommandUseErrorActionPreference = $false
 
 $root    = "C:\Projects\gabagool_studios\gabagool_factory"
 $docsDir = Join-Path $root "docs"
-$bakDir  = Join-Path $root "_scratch_archive\pre_patch"
+$bakDir  = Join-Path $root "_scratch\archive\pre_patch"
 
 # Documents that stay at the root, each with the reason it earns the spot.
 $keep = [ordered]@{
@@ -115,7 +115,7 @@ else {
     $t = if (Tracked $b.Name) { " TRACKED -- will not move" } else { "" }
     Write-Host ("  {0,-34} {1,7} bytes{2}" -f $b.Name, $b.Length, $t)
   }
-  Write-Host ("  {0} file(s), {1:N0} bytes -> _scratch_archive\pre_patch\" -f $baks.Count, $tot)
+  Write-Host ("  {0} file(s), {1:N0} bytes -> _scratch\archive\pre_patch\" -f $baks.Count, $tot)
   Write-Host "  They are copies of files git already has. Kept, not deleted." -ForegroundColor DarkGray
 }
 
@@ -156,7 +156,7 @@ move documents into docs/ and editor backups out of the root
 
 The root held seventeen markdown files, fourteen .pre_* backups and the six
 things you actually run, with nothing distinguishing them. Documents now live in
-docs/; backups move to _scratch_archive/pre_patch/, which is gitignored, and are
+docs/; backups move to _scratch/archive/pre_patch/, which is gitignored, and are
 kept rather than deleted because git already has their content and they cost
 nothing to keep.
 
