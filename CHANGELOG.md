@@ -3,6 +3,99 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.21.0] - 2026-08-14
+
+level_factory 0.28.0 -> 0.31.0. The other nine tools are unchanged from
+factory-v1.20.0.
+
+1.20.0 shipped a functional lock that could say it was guarding nothing.
+This set ships one that guards something and refuses to be written when it
+does not.
+
+THE DEFECT, RESTATED ONCE
+
+`_merged_gameplay` read ten key names. `site.site.gameplay.json` publishes
+twenty top-level keys and none of the ten. Four of the ten were backfilled
+from the Deli side, so the signature was never empty and never looked
+broken. The entire protected set was two Deli stair systems, under three
+signatures that all reported healthy.
+
+    0.29.0  the mapping: surfaces node names, ground sources, openings,
+            vertical_links, markers. route_graph_hash retired -- nothing in
+            the factory publishes a route graph. Schema v0.2, with a
+            mismatch reported as needs-recompute, not drift.
+    0.30.0  two rules for a shared key instead of one. Thirteen Deli
+            anchors -- two spawns, eleven cover points -- had been discarded
+            by a rule that assumed Lot restates what Deli says.
+    0.31.0  counts in the coverage report, and the gate on.
+
+THE EVIDENCE
+
+`lot_demo_001`, recomputed under v0.2:
+
+    counts       markers 55, openings 76, surfaces 1029,
+                 vertical_links 4, ground 5, stair_systems 2
+    site_counts  markers 42, openings 76, surfaces 1029,
+                 vertical_links 4, ground 5, stair_systems 0
+
+55 against 42 is the thirteen. 2 against 0 is the Deli backfill, and it is
+all the lock held before 0.29.0. It now carries 1,171 records.
+
+WHAT WAS RUN
+
+    export lot_demo_001 --mode portable-godot     -- silent, no lock warning
+    approve lot_demo_001 functional_shell_locked  -- accepted with the gate on
+    unit suite: 579 passed, 1 skipped
+    tools/probe_selection_drift.py                -- exit 0, signatures match
+
+WHAT WAS NOT RUN
+
+No mission re-run, no re-grade, no walk sweep, no pack load check, no
+portability run -- these releases touch the lock and the CLI, not package
+contents. `pytest tests` still aborts in collection on `_COMPOSER_SOURCES`.
+`pure-shell` has not been re-exported since 0.26.0. The description is not
+rewritten.
+
+FOUR DEFECTS THE WORK ITSELF PRODUCED, AND WHAT CAUGHT THEM
+
+0.29.0 blocked every export on a schema bump -- through `passed=False`, not
+through `drift`, after the doc argued against exactly that in those words.
+Caught by running the export.
+
+0.28.0's guard could not fire: it read a `coverage` field that only exists
+on locks written by 0.28.0 or later, which is none of them. Caught by running
+the export; its selftest had asserted the broken behaviour as a virtue.
+
+Turning the gate on made the unit suite fail, correctly: `_anchor_registry`
+falls back to Deli's `anchors` and 0.29.0 left `anchors` out of
+`PROTECTED_KEYS`, so coverage called the registry unguarded while it was
+hashing that list. Caught by pytest.
+
+`cmd_approve` recorded the approval before attempting the lock, so a refusal
+would have left an approved gate with no lock behind it -- the same ordering
+bug 0.28.0 fixed four lines higher, in the same function.
+
+Every selftest was green for each of these. What caught them was running the
+command, opening the artifact, and the unit suite. That is the durable
+finding of this set, and it is worth more than the mapping.
+
+OPEN
+
+25 of Deli's 238 collision nodes -- story -1 and window sub-parts -- are in
+the shell and not in the assembled site. A question for `lot`: deliberate
+drop or loss between stages, and the lock cannot say which. `openings`
+matched 0 of 19 on a whole-record comparison against transformed
+coordinates, undecidable. Whether `vertical_links` needs splitting by `kind`
+is unanswered.
+
+Enforcement refuses a vacuous lock, not `guards_no_site` -- one mission has
+been measured, and widening before a second and third would fail missions
+nobody has looked at.
+
+`pyproject.toml` at 0.22.0 against VERSION 0.31.0. 57 stale buildings.
+`cbp`, `night_pawn`, `primos_pizza` failing nav_gate. `laser_tag` without a
+CHANGELOG.
+
 ## [factory-v1.20.0] - 2026-08-14
 
 level_factory 0.27.0 -> 0.28.0. The other nine tools are unchanged from

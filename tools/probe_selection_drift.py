@@ -64,17 +64,34 @@ def _load_lock_module(root: Path):
             importlib.import_module("packages.core.hashing"))
 
 
+def signature_names(lock_mod) -> tuple:
+    """The signature fields, FROM THE MODULE. Never a second copy.
+
+    The first version of this probe hardcoded three names including
+    `route_graph_hash`, and called `lock._route_graph` directly. 0.29.0
+    retired both and this crashed with AttributeError -- a duplicated list
+    that drifted from its source, which is the defect this probe exists to
+    find. It now asks.
+    """
+    return tuple(sorted(lock_mod.PROTECTED_KEYS))
+
+
 def signatures(lock_mod, hashing, site: Path, deli: Path | None):
-    """The three protected signatures, via the gate's own extraction."""
-    gp = lock_mod._merged_gameplay(site, deli)
-    return (
-        hashing.hash_json(lock_mod._collision_signature(gp)),
-        hashing.hash_json(lock_mod._anchor_registry(gp)),
-        hashing.hash_json(lock_mod._route_graph(gp)),
-    )
+    """The protected signatures for these two files, via compute_lock.
+
+    Through the real entry point rather than the private helpers, so this
+    cannot drift from what a real lock would contain, and so retiring or
+    adding a signature needs no edit here.
+    """
+    import contextlib
+    import io
+    with contextlib.redirect_stderr(io.StringIO()):
+        lk = lock_mod.compute_lock(
+            mission_id="_probe", candidate_id="_probe.candidate.seed_0",
+            seed=0, site_gameplay_path=site, deli_gameplay_path=deli)
+    return tuple(getattr(lk, n) for n in signature_names(lock_mod))
 
 
-_NAMES = ("collision_fingerprint", "anchor_registry_hash", "route_graph_hash")
 
 
 def _row(label: str, value) -> None:
@@ -106,6 +123,10 @@ def probe(ws: Path, mission: str) -> int:
     _row("lock seed", lock.get("seed"))
     agree = marker == lock.get("candidate_id")
     _row("they agree", agree)
+    _row("lock schema", lock.get("schema"))
+    _row("  current", getattr(lock_mod, "SCHEMA", "(pre-0.29.0)"))
+    if lock.get("schema") != getattr(lock_mod, "SCHEMA", None):
+        _row("  ", "STALE -- recompute with approve --gate functional_shell_locked")
     print()
 
     def out_dirs(cand: str | None):
@@ -152,15 +173,8 @@ def probe(ws: Path, mission: str) -> int:
         return d if isinstance(d, dict) else {}
 
     site_d, deli_d = _keys(lock_site), _keys(deli_as_run)
-    READS = {
-        "_collision_signature": ("stair_systems", "ladders", "platforms",
-                                 "fire_escapes", "collision_hulls",
-                                 "doorways"),
-        "_anchor_registry": ("anchors",),
-        "_route_graph": ("route", "route_graph", "nav_hints"),
-    }
-    BACKFILLED = {"stair_systems", "ladders", "platforms", "fire_escapes",
-                  "anchors"}
+    READS = {k: tuple(v) for k, v in lock_mod.PROTECTED_KEYS.items()}
+    BACKFILLED = set(lock_mod.BACKFILLED_FROM_DELI)
 
     def _shape(d: dict, k: str) -> str:
         if k not in d:
@@ -188,7 +202,8 @@ def probe(ws: Path, mission: str) -> int:
         print(f"    ... and {len(unread) - 24} more")
     print()
 
-    stored = tuple(lock.get(n) for n in _NAMES)
+    names = signature_names(lock_mod)
+    stored = tuple(lock.get(n) for n in names)
     missing = Path(str(lock_site) + ".does-not-exist")
 
     as_run = signatures(lock_mod, hashing, marker_site or missing, deli_as_run)
@@ -196,7 +211,7 @@ def probe(ws: Path, mission: str) -> int:
     without_site = signatures(lock_mod, hashing, missing, deli_as_run)
 
     print("SIGNATURES  (stored / as the gate runs today / with the real site)")
-    for i, n in enumerate(_NAMES):
+    for i, n in enumerate(names):
         print(f"  {n}")
         _row("    stored in the lock", str(stored[i])[:24])
         _row("    as run today", str(as_run[i])[:24])
@@ -235,6 +250,7 @@ def probe(ws: Path, mission: str) -> int:
 
 
 def selftest() -> int:
+    import json
     import tempfile
     bad = 0
 
@@ -249,44 +265,50 @@ def selftest() -> int:
         return 1
     lock_mod, hashing = _load_lock_module(root)
 
+    names = signature_names(lock_mod)
+    check("the signature names come from the module, not a copy here",
+          names == tuple(sorted(lock_mod.PROTECTED_KEYS)))
+    check("and every one is a real field on a lock",
+          all(hasattr(lock_mod.FunctionalLock(
+              mission_id="m", candidate_id="c", seed=0), n) for n in names))
+
     with tempfile.TemporaryDirectory() as td:
         tmp = Path(td)
-        deli = tmp / "shell.gameplay.json"
-        deli.write_text(json.dumps({
-            "stair_systems": [{"id": "s1"}], "ladders": [], "platforms": [],
-            "fire_escapes": [], "anchors": [{"id": "a1", "type": "spawn"}],
-        }), encoding="utf-8")
 
-        # A site that adds only keys _merged_gameplay does NOT backfill.
-        site_matters = tmp / "site_matters.json"
-        site_matters.write_text(json.dumps({
-            "collision_hulls": [{"id": "h1"}], "doorways": [{"id": "d1"}],
-        }), encoding="utf-8")
+        def w(name, data):
+            p = tmp / name
+            p.write_text(json.dumps(data), encoding="utf-8")
+            return p
 
-        # A site that adds only keys Deli already supplies.
-        site_inert = tmp / "site_inert.json"
-        site_inert.write_text(json.dumps({"ladders": []}), encoding="utf-8")
-
+        deli = w("deli.json", {"stair_systems": [{"id": "s1"}]})
+        # A site in Lot's vocabulary that the CURRENT extraction reads.
+        site_real = w("site_real.json", {
+            "surfaces": [{"node": "b0/col0", "material": {"id": "glass"}}],
+            "ground": {"b0": {"source": "a.glb"}}})
+        # A site publishing only keys nothing reads.
+        site_inert = w("site_inert.json", {"buildings": [1], "zones": [2]})
         gone = tmp / "not-here.json"
 
-        a = signatures(lock_mod, hashing, site_matters, deli)
+        a = signatures(lock_mod, hashing, site_real, deli)
         b = signatures(lock_mod, hashing, gone, deli)
-        check("a site carrying collision_hulls/doorways changes the signatures",
-              a != b)
+        check("a site the extraction reads changes the signatures", a != b)
 
         c = signatures(lock_mod, hashing, site_inert, deli)
-        check("a site carrying only keys Deli backfills does not",
-              c == b)
+        check("a site publishing only unread keys does not", c == b)
         check("which is exactly the case this probe exists to detect",
               c == b and a != b)
 
-        d = signatures(lock_mod, hashing, gone, None)
-        check("and with no deli either, the signatures are the empty ones",
-              d == signatures(lock_mod, hashing, gone, gone))
+        # Materials churn must not move them -- 0.29.0's promise.
+        arted = w("arted.json", {
+            "surfaces": [{"node": "b0/col0", "material": {"id": "rust"}}],
+            "ground": {"b0": {"source": "a.glb"}}})
+        check("rewriting a material does not move the signatures",
+              signatures(lock_mod, hashing, arted, deli) == a)
 
     print()
-    print("  the measurement distinguishes a real guard from a vacuous one"
-          if not bad else f"  {bad} FAILURE(S)")
+    print("  the probe asks the code what it protects, and can tell "
+          "a real guard from a vacuous one" if not bad
+          else f"  {bad} FAILURE(S)")
     return 1 if bad else 0
 
 
