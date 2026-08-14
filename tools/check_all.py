@@ -86,7 +86,13 @@ NOT_RUN = [
 #: Skipped, for two DIFFERENT reasons, kept apart because they would want
 #: different answers if either changed:
 #:
-#:   generated  _bridge, __pycache__, _scratch_archive, dist, _runs, .godot.
+#:   generated  _scratch, __pycache__, dist, _runs, .godot. The
+#:              `_scratch` entry replaced _bridge and _scratch_archive
+#:              when those moved under it -- anything below that folder
+#:              is scratch by construction, so the list cannot fall
+#:              behind. `_runs` keeps its own entry because it has NOT
+#:              moved: tools/factory_tidy.py still files measurements
+#:              and dead sidecars into it by that name.
 #:              Build output and staging copies. A finding here points at a
 #:              copy, and the next reader patches a file that is not the file.
 #:   evidence   rockay-ws. A mission workspace -- CLAUDE.md says read it, do
@@ -95,8 +101,9 @@ NOT_RUN = [
 #:              findings nobody is permitted to act on.
 #:
 #: Anyone adding an entry has to say which of the two they are claiming.
-SKIP_GENERATED = ("_bridge", "__pycache__", "_scratch_archive",
-                  os.sep + "dist" + os.sep, os.sep + "_runs" + os.sep, ".godot")
+SKIP_GENERATED = ("__pycache__", "_scratch" + os.sep,
+                  os.sep + "dist" + os.sep, os.sep + "_runs" + os.sep,
+                  ".godot")
 SKIP_EVIDENCE = (os.sep + "rockay-ws" + os.sep,)
 
 #: Windows refuses a command line over 32767 characters, and CreateProcess then

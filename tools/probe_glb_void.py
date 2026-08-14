@@ -232,7 +232,8 @@ def _selftest(site_base: Path) -> int:
 def main(argv: list[str]) -> int:
     if "--selftest" in argv:
         rest = [a for a in argv if a != "--selftest"]
-        default = Path("lot-demo-ws/.level_factory/preview/lot_demo_001_walk/"
+        default = Path("workspaces/lot-demo-ws/.level_factory/preview/"
+                       "lot_demo_001_walk/"
                        "lot/bank_branch_a04/site_base.glb")
         return _selftest(Path(rest[0]) if rest else default)
 

@@ -67,7 +67,7 @@ _PROTOCOL = {
 }
 
 _SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", "node_modules",
-              "build", "dist", ".godot", "_bridge", "_scratch_archive"}
+              "build", "dist", ".godot", "_scratch"}
 
 
 def py_files(root):

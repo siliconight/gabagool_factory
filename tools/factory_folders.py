@@ -69,14 +69,36 @@ SCRATCH = "_scratch"
 MAP: list[tuple[str, str]] = [
     ("_bridge",           f"{SCRATCH}/bridge"),
     ("_bridge_fresh",     f"{SCRATCH}/bridge_fresh"),
-    ("_runs",             f"{SCRATCH}/runs"),
     ("_scratch_archive",  f"{SCRATCH}/archive"),
     ("_scratch_walkable", f"{SCRATCH}/walkable"),
     ("_scratch2",         f"{SCRATCH}/scratch2"),
     ("_send",             f"{SCRATCH}/send"),
+    ("shots_centre",      f"{SCRATCH}/shots/centre"),
+    ("shots_fresh",       f"{SCRATCH}/shots/fresh"),
+    ("shots_greybox",     f"{SCRATCH}/shots/greybox"),
+    ("shots_site",        f"{SCRATCH}/shots/site"),
+    ("shots_spine",       f"{SCRATCH}/shots/spine"),
     ("lot-demo-ws",       "workspaces/lot-demo-ws"),
     ("rockay-ws",         "workspaces/rockay-ws"),
 ]
+
+#: `_runs/` IS DELIBERATELY NOT IN THE MAP.
+#:
+#: Listing every namer instead of the first is what settled this: `_runs` came
+#: back named by NINE files -- check_all.py, check_steps.py, factory_tidy.py
+#: and six more. Reported one at a time it would have looked like three small
+#: fixes in a row; reported together it is a nine-file patch across .py and
+#: .ps1, and every one of those is a chance to break a check that passes today.
+#:
+#: And it buys a rename. The point of `_scratch/` is to replace eight folders
+#: nobody can tell apart with one that explains itself. `_runs/` was never in
+#: that category: it is already gitignored, already on factory_clean.ps1's
+#: sweep list, already the documented destination in factory_tidy.py's rules,
+#: and its name already says what is in it. Moving it would spend nine edits
+#: to make the root look tidier without making it clearer.
+#:
+#: So the root ends as: the ten repos, the named folders, `_runs/` and
+#: `_scratch/`. Two underscore folders, each of which earns its name.
 
 #: NOT scratch that moved. Python and pytest recreate these anywhere, in every
 #: tool repo, the moment anything runs -- moving one just relocates the place
@@ -85,11 +107,31 @@ MAP: list[tuple[str, str]] = [
 #: for; never moved.
 REGENERATED = ("__pycache__", ".pytest_cache")
 
-#: Folders that are the destination shape. Never touched, never reported.
+#: Folders that are the destination shape, plus the two that stay put:
+#: `_runs/` for the reason argued above, and `migrations/` because it is
+#: source rather than output. Never touched, never reported.
 KEEP_DIRS = {"docs", "patches", "tools", "scripts", "workspaces", SCRATCH,
+             "_runs", "migrations",
              ".git", ".github", ".vscode"}
 
-_CODE_DIRS = (".", "tools", "patches", "scripts")
+#: `patches/` IS NOT SCANNED, AND THAT IS THE POINT OF A PATCH SCRIPT.
+#:
+#: `patch_scratch_skips.py` carries `"_bridge"`, `"_scratch_archive"` and
+#: `"rockay-ws"` inside its OLD/NEW anchor strings, because its job is to
+#: quote the exact source text it replaces. Scanning it made it blame itself:
+#: the script written to unblock these folders became the last thing blocking
+#: them, permanently, since a patch stays on disk as the record of an edit
+#: long after the edit landed.
+#:
+#: That is the general shape, not a special case. A patch script names paths
+#: as DATA TO EDIT, and after it has run those strings describe the file's
+#: past rather than any path something reads today. The live dependency lives
+#: in the file that was patched, and that file IS scanned.
+#:
+#: THE LIMIT, STATED: a patch that hardcodes an output path of its own -- one
+#: that writes into `_scratch/` rather than editing a file that does -- is
+#: invisible here. None does today.
+_CODE_DIRS = (".", "tools", "scripts")
 _CODE_SUFFIX = (".py", ".ps1")
 
 
@@ -145,20 +187,44 @@ def _rx(folder: str):
 
 
 #: Folders a script still names AFTER the mention was read and judged safe.
-#: An entry here is a claim someone checked, so it carries the reason. This is
-#: not a silencer: the folder is still reported, just not blocked.
-REVIEWED: dict[str, str] = {
-    "lot-demo-ws":
-        "compare_candidates.py DEFAULT_WS was moved to workspaces/lot-demo-ws "
-        "by patch_scratch_skips.py",
-    "rockay-ws":
-        "check_all.py SKIP_EVIDENCE is os.sep-wrapped, so it goes on matching "
-        "workspaces/rockay-ws unchanged",
+#: Keyed folder -> (the ONE file that was read, why it is fine).
+#:
+#: NARROW ON PURPOSE. The first version keyed on the folder alone and returned
+#: early, which excused every script at once -- so a second file naming
+#: `lot-demo-ws` would have passed silently, and the whole value of this check
+#: is that it does not depend on my memory of which files mention what. The
+#: dry run proved that risk is real rather than theoretical: it surfaced
+#: `tools/orphan_artifacts.py` skipping `_bridge`, a list I had never read.
+#: Excusing one named file leaves every other file still able to refuse.
+#: A TUPLE OF FILES, NOT ONE. Two files name `lot-demo-ws` and both are fine
+#: for the same reason, so forcing a single name would mean choosing which
+#: true statement to record. Every file still has to be listed by name.
+REVIEWED: dict[str, tuple[tuple[str, ...], str]] = {
+    # Four files, all repointed in one patch. They keep matching afterwards
+    # because `workspaces\lot-demo-ws` still CONTAINS the folder name -- the
+    # check cannot tell an old path from a new one, only that the name is used
+    # as a path, which is exactly what it should refuse on before the move and
+    # exactly what has to be excused after.
+    "lot-demo-ws": (
+        ("tools/compare_candidates.py", "tools/probe_glb_void.py",
+         "scripts/make_package.ps1", "scripts/run_0809.ps1"),
+        "all four were repointed at workspaces/lot-demo-ws by "
+        "patch_scratch_skips.py"),
+    "rockay-ws": (
+        ("tools/check_all.py",),
+        "SKIP_EVIDENCE is os.sep-wrapped, so it goes on matching "
+        "workspaces/rockay-ws unchanged"),
 }
 
 
-def names_it(folder: str, blob) -> str | None:
-    """The first script that uses this folder as a PATH, or None.
+def names_it(folder: str, blob) -> list[str]:
+    """EVERY script that uses this folder as a PATH.
+
+    IT RETURNS ALL OF THEM, NOT THE FIRST. Reporting one namer per run turns
+    this into a queue: fix `compare_candidates.py`, re-run, discover
+    `probe_glb_void.py`, fix that, re-run. Each round costs a full pass and
+    hides how much work is actually left. Listing every namer at once makes
+    the dry run a work order instead of a doorbell.
 
     THE BARE-SUBSTRING VERSION REFUSED ELEVEN OF ELEVEN. Two separate bugs,
     both of which this fixes, and one correct result underneath them:
@@ -180,13 +246,10 @@ def names_it(folder: str, blob) -> str | None:
     into a single `_scratch` and updates `compare_candidates.py`'s workspace
     default; run it first and these stop being mentioned at all.
     """
-    if folder in REVIEWED:
-        return None
+    excused = set(REVIEWED.get(folder, ((), ""))[0])
     rx = _rx(folder)
-    for rel, text in blob:
-        if rx.search(text):
-            return rel
-    return None
+    return [rel for rel, text in blob
+            if rel not in excused and rx.search(text)]
 
 
 def du(path: Path) -> int:
@@ -225,9 +288,12 @@ def plan(root: Path):
         if (root / dest).exists():
             refused.append((src, dest, f"{dest} already exists"))
             continue
-        writer = names_it(src, blob)
-        if writer:
-            refused.append((src, dest, f"{writer} names it -- patch that first"))
+        namers = names_it(src, blob)
+        if namers:
+            shown = ", ".join(namers[:3])
+            more = f" (+{len(namers) - 3} more)" if len(namers) > 3 else ""
+            refused.append((src, dest,
+                            f"named by {shown}{more} -- patch those first"))
             continue
         if src in tracked and dest.startswith(SCRATCH + "/"):
             refused.append((src, dest, "git tracks it; that is content, not "
@@ -280,10 +346,12 @@ def main(argv: list[str]) -> int:
             print(f"    {d + '/':<20} {human(du(root / d)):>9}  "
                   f"comes back the moment anything runs")
     if REVIEWED:
-        print("\n  REVIEWED -- named by a script, checked, moving anyway:")
-        for k, why in REVIEWED.items():
+        print("\n  REVIEWED -- these named files were read and excused; any "
+              "OTHER file still refuses:")
+        for k, (who, why) in REVIEWED.items():
             if any(s == k for s, _d, *_ in moves):
-                print(f"    {k + '/':<20} {why}")
+                print(f"    {k + '/':<20} {', '.join(who)}\n"
+                      f"    {'':<20} {why}")
     if unlisted:
         print(f"\n  NOT IN THE MAP -- left alone ({len(unlisted)}):")
         for n in unlisted:
@@ -342,14 +410,14 @@ def selftest() -> int:
         (root / ".gitignore").write_text(
             "_scratch/\n_bridge/\n_runs/\n_send/\n", encoding="utf-8")
 
-        for d in ("_bridge", "_runs", "_send", "lot-demo-ws", "mystery_dir"):
+        for d in ("_bridge", "_scratch_archive", "_send", "lot-demo-ws", "mystery_dir"):
             (root / d).mkdir()
             (root / d / "f.txt").write_text("x" * 10, encoding="utf-8")
         # a tool repo: must never be reported
         (root / "lux" / ".git").mkdir(parents=True)
         # a script that names _runs: that folder must be refused and blamed
         (root / "tools" / "factory_tidy.py").write_text(
-            'DEST = "_runs/measurements"\n', encoding="utf-8")
+            'DEST = "_scratch_archive/old"\n', encoding="utf-8")
         # The two shapes that made the bare-substring version refuse 11 of 11.
         (root / "_bridge_fresh").mkdir(exist_ok=True)
         (root / "_scratch2").mkdir(exist_ok=True)
@@ -389,9 +457,32 @@ def selftest() -> int:
               "tools/decoys.py" in rf.get("_bridge_fresh", ""))
         check("__pycache__ is never in the move plan",
               "__pycache__" not in mv and "__pycache__" not in rf)
-        check("_runs/ is refused", "_runs" in rf)
-        check("  and factory_tidy.py is blamed",
-              "tools/factory_tidy.py" in rf.get("_runs", ""))
+        # REVIEWED excuses ONE file, not the folder. A second file naming the
+        # same folder must still refuse.
+        (root / "tools" / "second_namer.py").write_text(
+            'WS = "lot-demo-ws/site"\n', encoding="utf-8")
+        blob2 = code_blob(root, exclude={"factory_folders.py"})
+        check("REVIEWED excuses only the file that was read",
+              names_it("lot-demo-ws", blob2) == ["tools/second_namer.py"])
+        (root / "tools" / "second_namer.py").unlink()
+        # A patch script quotes the text it edits; scanning it made the
+        # unblocker the blocker. patches/ is excluded, so this is invisible.
+        (root / "patches").mkdir(exist_ok=True)
+        (root / "patches" / "patch_x.py").write_text(
+            'OLD = \'_SKIP_DIRS = {"_scratch2", "_bridge"}\'\n',
+            encoding="utf-8")
+        check("a patch script quoting the name does not blame the folder",
+              names_it("_scratch2",
+                       code_blob(root, exclude={"factory_folders.py"})) == [])
+        # `_runs` is no longer in the map at all -- see the note beside MAP.
+        # It must not appear anywhere: not moved, not refused, not reported as
+        # unclassified. `_scratch_archive` now stands in as the folder a
+        # script names and therefore blocks.
+        check("_runs/ is out of the map entirely",
+              "_runs" not in mv and "_runs" not in rf
+              and "_runs" not in unlisted)
+        check("a script naming a mapped folder still blocks it",
+              "tools/factory_tidy.py" in rf.get("_scratch_archive", ""))
         check("a tool repo is never reported",
               "lux" not in mv and "lux" not in rf and "lux" not in unlisted)
         check("an unmapped folder is reported, not moved",

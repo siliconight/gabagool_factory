@@ -50,7 +50,7 @@ import json
 import sys
 from pathlib import Path
 
-DEFAULT_WS = "lot-demo-ws"
+DEFAULT_WS = "workspaces/lot-demo-ws"
 DEFAULT_MISSION = "lot_demo_001"
 
 #: Laser Tag's five categories, split the way `patch_lf_score_split.py` split

@@ -85,7 +85,7 @@ _ART_EXT = {".json", ".glb", ".gltf", ".png", ".tscn", ".jpg", ".exr", ".obj",
             ".csv"}
 
 _SKIP_DIRS = {".git", "__pycache__", ".pytest_cache", "node_modules",
-              ".godot", ".import", "_scratch_archive", "_bridge", "venv",
+              ".godot", ".import", "_scratch", "venv",
               ".venv", "site-packages", "dist", "build"}
 
 _SRC_EXT = {".py", ".gd", ".tscn", ".tres", ".cfg", ".json", ".md", ".toml"}
