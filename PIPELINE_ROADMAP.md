@@ -724,9 +724,9 @@ work of adopting this.
 | 43 | **OPEN** | A whole CLI spelling stopped working and nothing noticed | 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection |
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
-| 46 | **OPEN** | The destructible declaration, not the destructible system | 2026-08-14 -- specified by `Replicated_Destructible_Proxy_Breakable_Glass`; the declaratio |
+| 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
 
-**46 items: 22 open, 15 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**46 items: 21 open, 15 closed, 3 retracted, 5 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3542,93 +3542,104 @@ name and every opening, so a dressing pass that touches collision now moves a
 hash. This item and items 29 through 31 of that work were built in the wrong
 order and it happened to work out.
 
-*STATUS: OPEN 2026-08-14 -- specified by `Replicated_Destructible_Proxy_Breakable_Glass`; the declaration vocabulary already exists in Deli Counter's openings and is null on all 76. BLOCKED on one question: a destructible has two collision states and the functional lock protects one*
+*STATUS: NARROWED 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is finished and dropped. `deli_counter/interactives.py` + `docs/INTERACTIVES.md` emit 9 replicable state machines per building. `site.site.gameplay.json` has no `interactives` key. The shipped package contains zero files mentioning "interactive". The work is a boundary, not a design*
 
-**46. The destructible declaration, not the destructible system.**
-A window needs a very small server-authoritative representation -- an id and
-`INTACT`/`BROKEN`, with collision on or off. Everything expensive is local:
-mesh swap, authored fracture pattern, shards, particles, short-lived debris
-physics that nobody replicates.
+**46. Forty-five state machines a run, reaching nobody.**
+The question this started from -- can a destructible system live in tools that
+deliberately do not overstep into authoritative gameplay, netcode or backend
+-- was answered before it was asked. `deli_counter/docs/INTERACTIVES.md`:
 
-The source document draws this pipeline's boundary better than the boundary
-statement does:
+> **The contract describes STATE, never SYNCHRONIZATION.** It says *what* is
+> interactive, *what discrete states* it can be in, and *what named
+> transitions* move between them. It says **nothing** about who is
+> authoritative, how state replicates, tick rate, or interpolation.
+>
+> Deli Counter must never emit a field that tells the netcode *how* to
+> replicate.
 
-> The shards are not the glass. The state is the glass.
+That is the boundary, written down and implemented. `Replicated Destructible
+Proxy` describes a system whose declaration layer this factory already
+builds.
 
-**What stays downstream, and it is most of the networking.** Server validates
-the hit. Server owns and replicates persistent state. Late joiners get "this
-pane is already broken" and never the original impact event. The transient
-`BreakGlass(id, impact, direction, seed)` is the runtime's to send. Every one
-of those is named in `HANDOFF_LANGUAGE` already -- "the production game
-runtime remains authoritative for mission progression, gameplay behavior,
-enemy AI, replication, persistence, late joining, reconnection, and online
-correctness."
+WHAT DELI COUNTER ALREADY EMITS
 
-**What the factory owns is everything that has to exist before any of that
-can run:**
-
-- **The declaration.** A stable id per destructible, its state set, and a
-  named collision representation per state. Shell metadata, the same shape as
-  a gameplay anchor. Dispatch already ships "runtime integration
-  requirements"; this is one more requirement, not an implementation.
-- **Both collision states as authored geometry.** The intact collider and
-  whatever remains once it is broken. The runtime toggles; it does not
-  author.
-- **The fracture library.** `BreakPattern_01..06` is a Zoo asset family with
-  `collision_policy: none`, and the broken-frame mesh is another. Pixelcoat
-  skins them. Same machinery as item 44.
-- **The presentation tiers.** Mesh-swap / authored fracture / rich shards is
-  `quality_tier`, which item 45's dressing manifest already proposes.
-- **The packaging split.** Dispatch puts the declaration on the gameplay side
-  and every shard under the presentation branch, where it can be culled
-  whole.
-
-THE VOCABULARY IS HALF-BUILT AND NOBODY HAS NOTICED
-
-Deli Counter already emits this on all 76 openings of `lot_demo_001`:
+Every interactive fixture is `(stable_id, states[], default, transitions[])`
+-- the entire networked surface -- and the doc's own table shows it mapping
+onto snapshot, event/RPC, lockstep and rollback without committing to any:
 
 ```json
-{"kind": "door", "breach_class": null, "material": null,
- "reinforceable": false, "vaultable": false, "wall": "ext_0_N",
- "width": 1.8, "height": 2.2, "sill": 0.0, "story": 0}
+{ "id": "primos_pizza:if:2cf6a380", "kind": "breach_wall",
+  "slot_ref": "ext_0_N_open1",
+  "states": ["intact", "breached"], "default": "intact",
+  "transitions": [{"event": "breach", "from": "intact", "to": "breached"}],
+  "reversible": false, "source": "inferred" }
 ```
 
-`breach_class` is a breakability classification that exists, is emitted on
-every opening, and is read by nothing. `material` is null too -- and material
-is what decides whether a thing shatters, splinters or dents. This is
-considerably cheaper than it looks, because the first pass is populating
-fields that are already in the contract rather than adding any.
+Inference covers the cases without any authoring: `door`/`garage` ->
+`[closed, open]`, `breach` -> `[intact, breached]`, `vault` -> `[locked,
+unlocked, open, breached]`, `teller` -> `[intact, shattered]`, `safe_deposit`
+-> `[intact, drilled]`. A `window` opts in with `breakable: true` and becomes
+`[intact, broken]` -- which is the breakable-glass case from the source
+document, already built.
 
-**And the gate is already in place.** Since level_factory 0.29.0 the
-functional lock hashes `openings` WHOLE, `breach_class` and `reinforceable`
-included. The moment those are populated, changing one is drift on a real
-comparison. Nothing needs building for that.
+**Ids are derived from place, never from an array index** --
+`sha1(building, wall, story, kind, round(pos, 4))` -- because openings are
+re-sorted by position during the geometry pass and an index would renumber.
+Moving an opening changes its id, which is correct: it is a new place.
 
-BLOCKING QUESTION, AND IT COMES BEFORE CODE
+**And the two-collision-states question already has an answer at this layer.**
+`<building>.slots.json` carries `collision_per_state: {"intact": true,
+"breached": false}` beside `state_geometry: {"intact": "wall", "breached":
+"breach"}`. DC says which states collide. What it does not say is which of
+them the FUNCTIONAL LOCK protects, and that question is still open (below).
 
-**Two collision states, one hash.** If `BROKEN` disables or replaces a
-collider, an object has two collision representations and the lock protects
-exactly one. Which one is the locked shell -- intact, or the worst case, or
-both as a set? `docs/FUNCTIONAL_LOCK.md` has no answer today, and the answer
-belongs in that document before a destructible enters a locked shell rather
-than after. A shell whose collision is conditional is a different kind of
-object from the one that document was written about.
+THE MEASUREMENT
 
-DO NOT BAKE THE SEED
+```
+deli_generate  shell.gameplay.json       "interactives": 9    per building
+lot_assemble   site.site.gameplay.json   no `interactives` key
+the package    LF_lot_demo_001_*.zip     0 files mention "interactive"
+```
 
-`pattern = hash(glass_id + break_seed) % pattern_count`. `break_seed` is a
-per-break runtime value. The factory ships the pattern library and the
-selection RULE; if it ships a chosen pattern, every window in every session
-breaks the same way. Everything else in this pipeline is
-deterministic-from-a-seed and that instinct will pull the wrong way exactly
-once, here.
+The package's only gameplay file is `gameplay_anchors.json`, carrying
+`anchors, dispatch_version, mission_id, schema`. `INTERACTIVES.md` says the
+game reads the `interactives` array to replicate state. It never arrives.
 
-GENERALISE IT, PER THE SOURCE
+**Same shape as the thirteen dropped markers**, and found the same way: Lot
+assembles from Deli's shells and carries forward what it restates, and
+`interactives` is not in that set. This one is worse because there is no
+partial overlap to argue about -- the key is simply absent.
 
-Window, door, fence, light, crate, monitor. Each keeps a simple authoritative
-state and collision representation; the art layer makes the transition look
-complicated. Build it as a Replicated Destructible Proxy declaration rather
-than a glass feature, or the second destructible re-opens the contract.
+THE WORK
+
+1. **Lot carries `interactives` into the assembled site**, namespaced per
+   building the way markers are. Ids are already globally unique
+   (`<building>:if:<hash>`), so this is a concatenation, not a merge.
+2. **Dispatch ships them** beside `gameplay_anchors.json` -- gameplay side of
+   the packaging split, not presentation. They ARE the netcode's input.
+3. **The lock protects them.** `interactives` becomes a protected key, so an
+   art pass that changes which fixtures exist or what states they have is
+   drift. Every mechanism for this exists as of level_factory 0.31.0; it is
+   one entry in `PROTECTED_KEYS` once the key is present.
+4. **Then, and only then, `breach_class` and `material`.** Both are still
+   null on all 76 openings and read by nothing. They are real gaps -- material
+   is what decides whether a thing shatters, splinters or dents -- but
+   populating them before the pipe is connected is decorating a disconnected
+   pipe.
+
+STILL OPEN, AND IT BLOCKS STEP 3
+
+**Two collision states, one hash.** `collision_per_state` says a breached
+wall does not collide. The functional lock hashes one collision fingerprint.
+Which state is the locked shell -- default, worst case, or every state as a
+set? `docs/FUNCTIONAL_LOCK.md` has no answer, and a shell whose collision is
+conditional is a different kind of object from the one that document
+describes. Answer it there before `interactives` enters the protected set.
+
+**And `INTERACTIVES.md` says its twin lives in the zoo repo** -- "the same
+file lives in the **zoo** repo -- keep them in sync." Nothing checks that they
+are. Two copies of a contract with no comparison between them is the shape of
+every other defect in this file.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
