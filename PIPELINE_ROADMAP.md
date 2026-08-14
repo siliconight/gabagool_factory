@@ -574,9 +574,9 @@ props bake as walkable surfaces: `gaming_tables` is a 12 × 6 m box whose top is
 72 m² of navmesh a metre off the floor that nothing can reach. Sixty-one islands,
 91.7% of polygons in one piece, and the rest is furniture.
 
-### One bake, three items — 2026-08-14
+### One bake, two items — and the third was already fixed — 2026-08-14
 
-Items 10, 12 and 16 are three readings of one setting.
+Items 10 and 12 are two readings of one setting. Item 16 looked like a third and was not; that correction is below, and it is the most useful thing in this section.
 
 `lot.py` writes `geometry_parsed_geometry_type = 2` into every walk scene it
 emits (lines 1430 and 1643, and the value is in the shipped `.tscn` files).
@@ -591,14 +591,23 @@ the scene*, unfiltered.
 
 That one sentence produces all three symptoms:
 
-* **The stairs (item 16).** They ship `-convcolonly`. A convex hull over a
-  staircase is a solid wedge, and its outer face measures 39.2° — under the
-  55° the bake accepts. So it voxelises into walkable surface lying over
-  geometry a body cannot occupy. `navmesh_solid_probe.gd` swept the walker's
-  own capsule at the height the walker actually stands and found
-  `stair0ramp_-1` obstructing **39 of 41 samples across 0.73 m, the first at
-  the walker's own position**. That measurement was taken, recorded in the
-  probe's docstring, and never reached this file — which is its own finding.
+* **The stairs (item 16) — NOT this, and the correction is the point.**
+  This section first claimed them: the stairs ship `-convcolonly`, a convex
+  hull over a staircase is a solid wedge at 39.2°, under the 55° the bake
+  accepts, so it must bake walkable over solid — and `navmesh_solid_probe.gd`
+  had swept the walker's capsule through `stair0ramp_-1` at 39 of 41 samples.
+  It was wrong. The library sweep the same day walked **20 sites in 3,481 s
+  with 0 stuck walkers and 0 barrier resolutions**, including all three sites
+  that defined item 16. `lot`'s own CHANGELOG had said why since 2026-08-02:
+  **0.40.0, "the walker could not climb a legal stair"** — gravity applied
+  every frame regardless of `is_on_floor()`, pinning the capsule into the
+  ramp-floor junction, and a step-up probe that was a single 0.5 m lift with
+  no fallback. Its words: *a ramp that is legal by every number in
+  agent_contract.json, and a physical capsule that cannot climb it. That is
+  this tool, not the site.* The probe was sweeping from the walker's own
+  pinned position, so it measured the consequence of the locomotion bug and
+  read as a bake defect to someone arriving in search of one. Item 16 is
+  closed.
 * **The props (item 12).** `cage_counter`, `vault_block`, `gaming_tables`
   are static colliders in the same unmasked bake. Their tops bake walkable by
   construction, exactly as the item describes. The item was right about the
@@ -608,11 +617,19 @@ That one sentence produces all three symptoms:
   type 2. Two bakes, two shapes, and a pass that cannot transfer because it is
   not measuring the same solid.
 
-**The decisive test, which has NOT been run.** Rebake one failing site's navqa
-scene with `geometry_parsed_geometry_type = 1` and re-run its walktest. If the
-walkers get through the stair, the convex hull is confirmed as the source. If
-they still stop, this reading is wrong and the blockage is something the
-capsule sweep cannot see — the same fork item 16 already set out.
+**The test that settled it was the sweep, not a rebake.**
+`library_walk.py` on 2026-08-14: 20 sites, 3,481 s, **19 pass and 1 blocked**,
+with `stranded`, `no_floor`, `barrier` and `stuck` all zero on every row. The
+one blocked site is `ref_pvp`, and its walkers finished — 15/15 legs, 0 stuck.
+Its finding is `LOT_DESTINATION_ABOVE_FLOOR`: an objective marker 3.60 m above
+the site ground plane, too tall to read as furniture, so Lot left it where the
+marker put it. That is item 9's residual gap — *Lot still cannot answer "is
+this anchor over anything?" offline* — not a navmesh defect.
+
+So for items 10 and 12 there is still no measurement, only the reading above.
+The rebake at `geometry_parsed_geometry_type = 1` would still say whether the
+unmasked colliders change the baked surface; what it can no longer be expected
+to change is stuck walkers, because there are none.
 
 **Type 1 is the diagnostic, not the fix.** Dropping static colliders loses
 real geometry: a wall that ships as `-colonly` with no visual mesh vanishes
@@ -622,11 +639,21 @@ their own physics layer in Deli Counter, masked out of the bake in Lot — and
 it stays a cross-repo change wanting an `agent_contract.json` entry rather
 than two magic numbers.
 
-**What is asserted here and what is not.** Asserted, by reading: type 2 is
-written, no mask exists, the hulls are convex, and the probe swept a body
-through solid. Inferred, and not yet measured: that the convex hull is what
-produced that particular walkable polygon. That is why all three items move to
-NARROWED and none to CLOSED.
+**What is asserted here and what is not.** Asserted, by reading: `lot.py`
+writes type 2, `geometry_collision_mask` exists nowhere, and `nav_gate.gd`
+bakes type 1 against scenes that ship at type 2. Inferred, and still not
+measured: that the unmasked colliders are what put walkable polygons on prop
+tops. So items 10 and 12 are NARROWED, not CLOSED.
+
+**And the lesson this section is now mostly about.** Its first version joined
+item 16 to these two on a hypothesis that `lot` 0.40.0 had already refuted and
+fixed, in a CHANGELOG entry nobody was reading — because `lot`'s VERSION said
+0.33.0 while its CHANGELOG documented through 0.41.0. The version drift
+repaired earlier that same day had been hiding the answer to this file's
+self-declared biggest open question. An instrument that measures a consequence
+looks exactly like an instrument that measures a cause, and the only defence is
+the record: the answer was written down, dated 2026-08-02, in the repo that
+fixed it.
 
 ## What to do next
 
@@ -667,7 +694,7 @@ work of adopting this.
 | 13 | **RETRACTED** *(inferred)* | RETRACTED — seed 5320's vault was never broken; its walktest never ran | RETRACTED — seed 5320's vault was never broken; its walktest never ran |
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
-| 16 | **NARROWED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- this item's own condition is met. `navmesh_solid_probe.gd` swept the walker' |
+| 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
 | 17 | **OPEN** *(inferred)* | The pipeline has never been run cold, so nobody knows what it costs to | — |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
@@ -694,7 +721,7 @@ work of adopting this.
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
 
-**41 items: 18 open, 14 closed, 3 retracted, 4 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**41 items: 18 open, 15 closed, 3 retracted, 3 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -956,7 +983,7 @@ offline read-back is ever built, `site_cover.pinches()` is the template — the
 same defect shape as the cover placement fixed on 2026-07-27, a search reporting
 where it DECIDED to put something rather than where it PUT it.
 
-*STATUS: NARROWED 2026-08-14 -- quantified. `nav_gate.gd` bakes PARSED_GEOMETRY_MESH_INSTANCES; `lot.py:1430,1643` write `geometry_parsed_geometry_type = 2` for the scenes that ship. The two bakes voxelise different shapes, which is why the pass does not transfer. Same root as 12 and 16 -- see *One bake, three items* above*
+*STATUS: NARROWED 2026-08-14 -- quantified. `nav_gate.gd` bakes PARSED_GEOMETRY_MESH_INSTANCES; `lot.py:1430,1643` write `geometry_parsed_geometry_type = 2` for the scenes that ship. The two bakes voxelise different shapes, which is why the pass does not transfer. Shares a root with 12 -- see *One bake, two items* above*
 
 **10. `nav_gate.py` certifies geometry that never ships.** It loads the glb at
 runtime through `GLTFDocument`, so the importer never runs and every
@@ -975,7 +1002,7 @@ interiors are small because a 44 × 32 m floor eroded by a 0.4 m agent is a few
 large polygons, not because they failed to bake. What is actually in the
 remainder is item 12.
 
-*STATUS: NARROWED 2026-08-14 -- the mechanism this item named is not misconfigured, it is ABSENT: `geometry_collision_mask` has no occurrence anywhere in lot, level_factory or zoo, and the bake is type 2, so every prop collider feeds it unmasked. Still the candidate cause of the 1,179 player_stuck_events in SESSION_0811*
+*STATUS: NARROWED 2026-08-14 -- the mechanism this item named is not misconfigured, it is ABSENT: `geometry_collision_mask` has no occurrence anywhere in lot, level_factory or zoo, and the bake is type 2, so every prop collider feeds it unmasked. Still the candidate cause of the 1,179 player_stuck_events in SESSION_0811. NOTE: the 2026-08-14 sweep walked 20 sites with 0 stuck walkers, so whatever these dead polygons cost, it is not stopping walkers today*
 
 **12. Props bake as walkable navmesh, and nothing can reach them.**
 `gaming_tables` is a 12 × 6 m box whose top is 72 m² of navmesh a metre off the
@@ -1097,7 +1124,7 @@ disguise as a crash.
 This was the precondition for `WALKTEST_ENFORCED`. Flipping it before this would
 have turned one flawed candidate into a dead mission.
 
-*STATUS: NARROWED 2026-08-14 -- this item's own condition is met. `navmesh_solid_probe.gd` swept the walker's body and found `stair0ramp_-1` obstructing 39 of 41 samples, so the offenders DO name stair0ramp_*, and the bake is `geometry_parsed_geometry_type = 2` with no collision mask. Decisive test named in *One bake, three items* above; not yet run*
+*STATUS: CLOSED 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (gravity applied off-floor; single-lift step probe), and the library sweep on 2026-08-14 walked 20 sites in 3,481 s with 0 stuck walkers and 0 barrier resolutions -- including all three sites that defined this item. The earlier same-day narrowing to a convex-hull bake was wrong; see *One bake, two items* above*
 
 **16. The navmesh contains routes the collision geometry blocks.** The library
 sweep's whole remainder, and the biggest open question in this file.
