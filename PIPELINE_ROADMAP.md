@@ -721,13 +721,14 @@ work of adopting this.
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
-| 43 | **OPEN** | A whole CLI spelling stopped working and nothing noticed | 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection |
+| 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
-| 47 | **OPEN** | A recipient with their own lighting has to take ours or take graybox | 2026-08-14 -- raised, not worked. The seam is already half-cut in three places: `_PRESENTA |
+| 47 | **NARROWED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first co |
+| 48 | **OPEN** | The same job and the same seed draw a different building on the art pa | 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidat |
 
-**47 items: 22 open, 15 closed, 3 retracted, 5 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**48 items: 21 open, 16 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3365,9 +3366,29 @@ scheme is chosen wants to be written once in Dispatch or Level Factory and
 read everywhere else, rather than composed by each caller — otherwise the
 next `make_package.ps1` will name it a fourth way.
 
-*STATUS: OPEN 2026-08-14 -- found by `pytest level_factory/tests`, which had been aborting in collection since an unknown date; nine tests across tests/service and tests/integration fail and all nine trace to this*
+*STATUS: CLOSED 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `presentation_compose` failed on a missing `*_dressing.glb`: the test-fixture Zoo stub's `--dress` branch wrote its index and no geometry, while its own `--fixtures` branch twenty lines above had always written both. NOT a 0.32.0 regression -- the guard appears twice in `adapters/presentation/__init__.py.pre_032` and twice in the current file, unchanged, predating 0.32.0 by ~9 days. Fixed in level_factory 0.33.0; tests/service + tests/integration 28 passed, 0 failed*
 
 **43. A whole CLI spelling stopped working and nothing noticed.**
+
+> **CORRECTED 2026-08-15, and the paragraph below is kept because being
+> wrong this way is the finding.** The art stages planned and ran. The
+> run printed `pixelcoat_build succeeded`, `zoo_kit_build succeeded`,
+> `patina_dressing succeeded`, `zoo_dressing_build succeeded`, then
+> `presentation_compose failed` -- and `themed_site_assemble`,
+> `lux_apply` and `dispatch_handoff` never ran behind it. The nine
+> symptoms listed below are ONE failure and eight downstream absences.
+>
+> The list read as nine independent facts because it was assembled from
+> test names without opening the run. `diagnostics
+> <mission>.presentation_compose` named the cause in one command:
+> `input_validation_error -- no '*_dressing.glb' ... the job that bakes
+> it reported success without publishing one`.
+>
+> The test could not have told anyone either: it asserted `stage in
+> r.stdout`, and the line `bank_block_001.presentation_compose  failed`
+> CONTAINS `presentation_compose`. Six of its eight stage checks passed
+> on the run that broke.
+
 `run --target presentation` plans no art stages. The run reports
 `deli_generate ... cache`, `lot_assemble ... cache`, `Structural checks
 passed`, exits 0, and stops. No `lux_apply`, no `dispatch_handoff`, no
@@ -3642,9 +3663,28 @@ file lives in the **zoo** repo -- keep them in sync." Nothing checks that they
 are. Two copies of a contract with no comparison between them is the shape of
 every other defect in this file.
 
-*STATUS: OPEN 2026-08-14 -- raised, not worked. The seam is already half-cut in three places: `_PRESENTATION_FILES` names Lux's two outputs by hand, `pure-shell` drops them, and `lux_strategy` is already a choice. What is missing is a third strategy value and a split of LAYER_ART*
+*STATUS: NARROWED 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first cold package is blocked by item 48. `LAYER_LIGHT` (0.35.0) splits Lux's apply pass out of the art layer, keeping `zoo_fixtures_build` and `lux_fixture_gate` in it; `MODE_ART_UNLIT` (0.36.0) subtracts Lux's result at EXPORT time so one build ships two archives; 0.37.0 ships `themed_site_assemble`'s site.tscn, which reached no package at all and without which an unlit one opened to nothing. Measured on lot_demo_001: unlit entry 571 B instancing NOTHING -> 688 B instancing `res://site.tscn`; 33 Lux files dropped and nothing else; shared interior folder. 3b RAN 2026-08-15 on `unlit_probe_001` through Blender and headless Godot and answered both of its questions: `lux_apply` never ran, `lux_fixture_gate` did, `dispatch_handoff <- themed_site_assemble`. Export was then blocked -- IDENTICALLY in `art-unlit` and `portable-godot`, which acquits `--unlit` -- by a functional regression that is item 48, not this item. The layer split is proven; a package built end-to-end from a cold run is not, and cannot be until 48 is*
 
 **47. A recipient with their own lighting has to take ours or take graybox.**
+
+> **SHIPPED 2026-08-15 (stages 1-3a).** `--art` still means art + light
+> and `--target presentation` still plans the full stack; `--unlit`
+> subtracts. Only Lux's APPLY pass moved -- `zoo_fixtures_build` bakes
+> the physical hardware and `lux_fixture_gate` machine-checks it, and
+> both stay in the art layer, so an unlit package ships validated
+> fixtures and their `LuxEmit` markers as a contract another lighting
+> system can read.
+>
+> **The prediction below was right and incomplete.** The seam WAS
+> half-cut where the item said. What it did not predict is that there
+> was a hole behind it: `themed_site_assemble` writes a 31,872 byte
+> `site.tscn` that reached NO package, and the lit export only worked
+> because Lux's output stood in for the assembly. Cutting Lux out left
+> 180 files, 28.6 MB of geometry, and an entry that instanced nothing --
+> which `export_closure_scan.json` reported as `ok: true,
+> resource_count: 6`, because closure walks FROM the entry and an entry
+> referencing nothing is trivially closed.
+
 The goal, stated plainly: a Level Factory package that had a FULL art pass,
 where including Lux is a choice. Another team may have their own lighting
 system and still want the kits, the materials and the wear.
@@ -3712,6 +3752,128 @@ before this was written.
 `CLOSURE_ENFORCED`'s comment is the precedent: a mode nobody has scanned gets
 scanned before it gets enforced, and the first run that scans it is expected
 to find something.
+
+*STATUS: OPEN 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidate.seed_5017` succeeded twice in `_runs/3b/run.log` (lines 31 and 51) and drew a different building each time: graybox `cr_garage` (17 openings, 178 colliders, 12 markers), art `landmark_hall_a03` (13 openings, 176 colliders, 7 markers), with `shell.glb` byte-identical across both fingerprints. Everything that graded the mission graded the first draw. The functional lock caught it and refused the export -- this item is the redraw, not the lock*
+
+**48. The same job and the same seed draw a different building on the art
+pass, and everything that graded the mission graded the other one.**
+`unlit_probe_001` was a fresh workspace built for roadmap 47 stage 3b: one
+mission, one candidate, seed 5017, run once from empty. In it,
+`unlit_probe_001.lot_assemble.candidate.seed_5017` -- one job id, one
+candidate, one seed -- ran twice and produced two different sites.
+
+```
+_runs/3b/run.log:31   under `batch create`
+_runs/3b/run.log:51   under `run --art --unlit --gameplay`
+```
+
+The two draws, from the adapter fingerprints and the two site specs:
+
+```
+                          building           openings  colliders  markers
+graybox  22:01:21Z        cr_garage                17        178       12
+art      21:49:26Z        landmark_hall_a03        13        176        7
+```
+
+(Those two timestamps are the fingerprints that survive on disk. The FIRST
+graybox assemble, the one under `batch create`, has been overwritten by the
+third -- `fingerprint.last.json` keeps only the last. Its building is known
+from the lock and the graders it fed, which measured `cr_garage`.)
+
+`shell.glb` hashes `a929d7d2...` in BOTH fingerprints. The lot is the same
+lot. The building standing in it is not.
+
+**The pipeline says so itself, in a line written to reassure:**
+
+```
+[site] graded lot (art run): 98 of 123 shell(s) can carry a theme
+       -- the graded draw and the shipped draw come from the same pool
+```
+
+Same pool, different filter. A seeded draw over 98 candidates does not land
+on the same element as a seeded draw over 123, and the sentence that says
+"the same pool" carries both numbers -- the reassurance and the evidence
+against it are the same string.
+
+**Everything that graded the mission graded the first draw.**
+`walktest_navqa`, `laser_tag_evaluate`, the structural checks (14 findings)
+and the functional lock all completed under `batch create`, before the art
+run re-drew. Their verdicts describe `cr_garage`. The package would have
+shipped `landmark_hall_a03`.
+
+**The lock caught it, and that is the good news.** Export refused, in both
+modes:
+
+```
+export blocked by functional regression:
+  - collision_fingerprint changed after art pass
+  - gameplay-anchor registry changed after art pass
+```
+
+That is the functional lock doing precisely the job it was built for, on its
+first mission that ever put it to the test. Nothing else in the pipeline is
+positioned to notice: the graders never see the second site, and the export
+closure scan checks that files resolve, not that they are the ones that were
+graded. **Any fix that makes this export succeed by relaxing the lock is the
+wrong fix.**
+
+**And a third `lot_assemble`, graybox, at 22:01:21Z drew `cr_garage` again**
+-- so the unthemed draw is stable across invocations and the themed one is
+the departure. That rules out plain seed nondeterminism.
+
+THE SECOND HALF: NOTHING CAN JOIN A GRADE TO A SITE
+
+Even where the draw does not move, no artifact can prove the graded scene is
+the assembled one, because the two sides record disjoint identifiers:
+
+```
+lot_assemble         building_hashes + site_spec_hash   no scene hash
+walktest_navqa       scene_hash                          no building hashes
+laser_tag_evaluate   scene_hash                          no building hashes
+```
+
+There is no key in common, so "did the graders grade what shipped?" is not a
+question this system can be asked -- it is inferred from job ordering. On
+`lot_demo_001` the inference happens to hold, and only by 19 seconds:
+`lot_assemble` at `2026-08-13T23:20:57`, walktest at `23:21:16.383`, Laser
+Tag at `23:21:16.984`. The two graders' own `scene_hash` values differ from
+each other (`b3bd2815...`, `abf3edf5...`), so they do not agree on a subject
+identifier either.
+
+**`lot_demo_001`'s lock has never guarded an art pass.** It was approved
+`2026-08-14T22:56`, 23h36m after that assemble, so it records a post-art
+state and there is nothing left for it to disagree with. It exports cleanly
+for that reason and not because its draw is stable. Item 47's stages 1-3a
+were all measured on that mission, which is why none of them saw this.
+
+QUESTIONS BEFORE CODE
+
+1. **May the draw narrow after a candidate is approved at all?**
+   `candidate_selected` is a HUMAN approval. As it stands, the art pass
+   re-runs the draw behind that approval and can hand back a different
+   building. The cheapest correct answer may be that the themed re-draw is
+   simply not allowed to change the building -- theme the one that was
+   approved, or fail.
+2. **Or constrain the graybox draw to the 98 from the start?** Then the
+   graded and shipped buildings are the same object by construction. It
+   costs 25 shells of variety and buys the entire question.
+3. **Is `lot_assemble` one job or two?** One job id producing two different
+   sites in one workspace is exactly what makes this invisible in a job
+   listing, in `index.sqlite`, and in the run log -- both lines say
+   "succeeded".
+4. **What does a fingerprint have to carry for the question to be
+   askable?** The minimum is a shared key: the assemble emitting the scene
+   hash it wrote, or the graders emitting the building set they loaded.
+   Either one turns the joinability gap into a query.
+
+RELATED, AND NOT THE SAME
+
+Item 43 was "a whole CLI spelling stopped working and nothing noticed." Item
+5 was "a run that evaluated nothing reported a clean pass." Both are the same
+family as the second half of this item -- a check that cannot see what it
+claims to cover -- but the first half is not that. The first half is a
+producer that gives two answers to one question, and it was caught, by the
+one guard built to catch it.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
