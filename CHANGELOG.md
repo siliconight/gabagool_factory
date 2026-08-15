@@ -3,6 +3,79 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.23.0] - 2026-08-15
+
+level_factory 0.32.0 -> 0.34.0. The other nine tools are unchanged from
+factory-v1.22.0.
+
+TWO TOOL RELEASES IN ONE FACTORY VERSION. 0.33.0 was tagged and never
+pinned; the suite it repaired was still being measured when it landed. The
+certified combination skips a version it never certified, and this says
+which.
+
+ITEM 43 IS ANSWERED, AND THE ANSWER IS NO
+
+factory-v1.22.0 recorded nine failing tests and refused to say whether
+0.32.0 caused them: "the comparison is one revert and two runs, and it has
+not been run." It has been run.
+
+The nine were ONE failure with eight downstream absences.
+`presentation_compose` failed on a missing `*_dressing.glb`, so
+`themed_site_assemble`, `lux_apply` and `dispatch_handoff` never ran -- which
+is why the facade reported PLANNED nodes, the dashboard stayed `pending`, no
+`mission.tscn` appeared and `review` said "no presentation previews".
+
+The cause was the test fixture, not the product. The stub Zoo's `--dress`
+branch wrote its index and no geometry, while its own `--fixtures` branch
+twenty lines above had always written both -- which is exactly why
+`lux_fixture_gate` succeeded in the run this broke. Real Zoo's `--dress`
+publishes geometry.
+
+NOT A 0.32.0 REGRESSION. `dressing_glb", "_dressing.glb"` appears twice in
+`adapters/presentation/__init__.py.pre_032` and twice in the current file,
+unchanged. The guard predates 0.32.0 by about nine days. 0.32.0 repaired
+collection and turned the lights on in a room that had been dark since
+2026-08-06.
+
+THREE CHECKS THAT COULD NOT SEE WHAT THEY COVERED
+
+`zoo_dressing_build` declared only its index as an expected output, so a bake
+that published no geometry reported SUCCEEDED and the failure surfaced two
+stages downstream as somebody else's input error. It declares the `.glb` now
+and fails as itself.
+
+The integration test asserted `stage in stdout` against a run that prints a
+status word per job, so the line `bank_block_001.presentation_compose
+failed` satisfied the assertion for `presentation_compose`. Six of its eight
+checks would pass on a run where every stage failed; the only two that caught
+anything did so by never appearing at all. It reads the status word now and
+accepts `succeeded` or `cache`.
+
+`cmd_export` answered "did the ART layer run?" with `lux_dir.exists()`. A
+mission whose Pixelcoat/Zoo/Patina pass succeeded and whose Lux stage failed
+exported an LF_MANIFEST.json declaring no art layer, on a package full of
+art, and nothing reads that field so nothing objected. It is a named
+function with a test now, and the test asserts the old rule's output as a
+floor over all eight combinations -- this may report more layers than before,
+never fewer.
+
+That last one was wrong before roadmap 47 and becomes structural under it,
+where art-without-light is the normal case rather than a failure. It landed
+alone, against a suite measured green, ahead of the change that makes it
+urgent.
+
+MEASURED
+
+level_factory `tests/service` + `tests/integration`: 28 passed, 0 failed.
+The first green reading on those two directories since collection broke. The
+presentation chain runs end to end -- locked shell, art pass, Lux, Dispatch,
+export, portability -- for the first time since roughly 2026-08-06.
+
+NOT PINNED HERE
+
+`pyproject.toml` had said 0.22.0 against a VERSION of 0.33.0 and is corrected
+in 0.34.0. Nothing in the manifest reads it, and no gate here would have
+caught eleven releases of drift.
 ## [factory-v1.22.0] - 2026-08-14
 
 level_factory 0.31.0 -> 0.32.0. The other nine tools are unchanged from
