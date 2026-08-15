@@ -3,6 +3,86 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.24.0] - 2026-08-15
+
+level_factory 0.34.0 -> 0.37.0. The other nine tools are unchanged from
+factory-v1.23.0.
+
+WHAT THE SET NOW DOES
+
+Roadmap item 47. `LAYER_LIGHT` splits Lux's apply pass out of the art layer,
+`MODE_ART_UNLIT` drops Lux's result at export time so one build ships two
+comparable archives, and the assembled themed site now reaches the package at
+all -- which is what an unlit one has to open.
+
+Only the apply pass moved. `zoo_fixtures_build` bakes the physical light
+hardware and `lux_fixture_gate` machine-checks it, and both stay in the art
+layer: a floating light or a dark fixture is broken GEOMETRY whoever lights
+it. An unlit package therefore ships validated fixtures and their `LuxEmit`
+markers, which another lighting system can read as a contract.
+
+`--art` still means art + light, and `--target presentation` still plans the
+full stack. Nothing anyone types today produces a different package than it
+did at 1.23.0.
+
+THREE PACKAGES THAT OPENED TO NOTHING, AND PASSED
+
+The first real art-unlit export of lot_demo_001 held 180 files and 28.6 MB of
+themed geometry with an entry that instanced nothing:
+
+    export_closure_scan.json: {"ok": true, "resource_count": 6,
+                               "missing_resource_count": 0}
+
+Closure walks FROM the entry, so an entry that references nothing is
+trivially closed -- the emptier the package, the more certainly it passed.
+The portability test would have agreed too, because the entry prints its
+marker whether or not it added a child.
+
+`themed_site_assemble` writes a 31,872 byte `site.tscn` that reached no
+package; the lit export got away with it because Lux's output stands in for
+the assembly. `write_entry_scene` now refuses to write an entry that
+instances nothing, and it knows nothing about modes, so a mode nobody has
+written yet cannot ship hollow either.
+
+That guard then found pure-shell hollow since this mission grew a
+`dispatch_handoff`: `base_dir` chose the handoff OR the graybox, where a
+layer goes ON a base. Two exports of lot_demo_001 measure it -- 2026-08-10,
+before the handoff existed, carried a 25,378 byte site.tscn and a 688 byte
+entry; today's carried neither. And two closure fixtures turned out to have
+described empty packages since the day they were written.
+
+MEASURED
+
+    tests/unit                  659 passed
+    tests/service+integration    28 passed
+    tests/real_tools              9 passed, 1 skipped
+    lot_demo_001, all three modes exported and compared file by file:
+      the unlit entry went from 571 bytes instancing nothing to 688 bytes
+      instancing res://site.tscn; the unlit package drops Lux's outputs and
+      its entire runtime -- 33 files -- and nothing else; both packages share
+      an interior folder name so a recipient can swap one for the other
+      without every res:// path moving.
+
+NOT MEASURED
+
+No mission has been RUN with `--art --unlit` through Blender and Godot. The
+art-unlit packages here were built by exporting a mission that RAN Lux and
+subtracting -- the case the A/B needs, not the case a collaborator producing
+their own unlit level would hit. Roadmap 47 stage 3b.
+
+The skipped real-tool test is the Dispatch adapter, skipped for missing
+example build inputs including `build/lux/lux.profile.json`. It is the only
+test that exercises Dispatch consuming Lux's output, which is the
+relationship 0.35.0's `dispatch_dep` conditional rewired. Skipped for want of
+fixture data, not by this work, and named here rather than counted as green.
+
+A PROCESS FAILURE, RECORDED IN THE CERTIFICATION
+
+0.34.0 through 0.37.0 each reported "still green" against 28 tests.
+`tests/unit` is 659 and none of them ran it; `test_fanout.py` was red from
+0.35.0 onward and told nobody. A subset described as the suite is the same
+instrument failure this set is about, one level up. Every level_factory
+selftest now runs `tests/unit` whole.
 ## [factory-v1.23.0] - 2026-08-15
 
 level_factory 0.32.0 -> 0.34.0. The other nine tools are unchanged from
