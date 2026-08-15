@@ -3753,7 +3753,7 @@ before this was written.
 scanned before it gets enforced, and the first run that scans it is expected
 to find something.
 
-*STATUS: OPEN 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidate.seed_5017` succeeded twice in `_runs/3b/run.log` (lines 31 and 51) and drew a different building each time: graybox `cr_garage` (17 openings, 178 colliders, 12 markers), art `landmark_hall_a03` (13 openings, 176 colliders, 7 markers), with `shell.glb` byte-identical across both fingerprints. Everything that graded the mission graded the first draw. The functional lock caught it and refused the export -- this item is the redraw, not the lock*
+*STATUS: OPEN 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidate.seed_5017` succeeded twice in `_runs/3b/run.log` (lines 31 and 51) and drew a different building each time: graybox `cr_garage` (17 openings, 178 colliders, 12 markers), art `landmark_hall_a03` (13 openings, 176 colliders, 7 markers), with `shell.glb` byte-identical across both fingerprints. Everything that graded the mission graded the first draw. The functional lock caught it and refused the export -- this item is the redraw, not the lock. MECHANISM LOCATED: `commands/__init__.py:238` computes `_art_run` from THIS INVOCATION'S planned graph, and `:942` narrows the greybox pool on it -- so `batch create` draws from 123 and the art run draws from 98, and `pick_lot` is handed a different list for the same seed. Evidence preserved in `docs/findings/ITEM48_THE_DRAW_MOVED.md` because `_runs/` is gitignored*
 
 **48. The same job and the same seed draw a different building on the art
 pass, and everything that graded the mission graded the other one.**
@@ -3820,6 +3820,63 @@ wrong fix.**
 **And a third `lot_assemble`, graybox, at 22:01:21Z drew `cr_garage` again**
 -- so the unthemed draw is stable across invocations and the themed one is
 the departure. That rules out plain seed nondeterminism.
+
+WHERE IT IS, EXACTLY
+
+```python
+# commands/__init__.py:238 -- DOES THIS RUN HAVE AN ART LAYER?
+_art_run = any(j.stage_id == "themed_site_assemble"
+               for j in plan.graph.jobs())
+
+# commands/__init__.py:942, in _write_site_spec -- which pool GREYBOX draws from
+if themed_map or art_run:
+    complete = building_library.require_themed_shells(complete, count)
+lot = building_library.pick_lot(complete, seed, count)
+```
+
+`_art_run` is read off **the graph planned by this invocation**. It is not a
+property of the mission, the brief, or the candidate:
+
+```
+batch create                    plans no themed_site_assemble   123 -> cr_garage
+run --art --unlit --gameplay    plans one                        98 -> landmark_hall_a03
+```
+
+**And this was a deliberate change, made for a good reason, that moved the
+defect instead of closing it.** The comment above line 942 records that the
+narrowing was extended to the greybox branch because
+`probe_pool_divergence.py` had measured, on `lot_demo_001`, that 14 of 15
+building slots already carried an archetype other than the one Laser Tag
+graded, and 13 graded archetypes never shipped at all. The stated goal --
+"grade the pool that ships" -- is right.
+
+It made the greybox pass and the themed pass agree WITHIN one invocation. It
+could not make them agree ACROSS invocations, because `batch create` plans no
+art layer, and `batch create` is where the graders, the structural checks and
+the functional lock all run. The divergence moved from inside a run to
+between the run that grades and the run that ships, where the lock is the
+only thing standing.
+
+`building_library.lot_for()` is NOT this path -- it returns `[], []` below
+`building_count < 2` and this brief asked for one building -- but its own
+comment carries the same warning from the other side: *"a narrower pool
+re-selects every lot already built and graded."* Two selectors, one hazard,
+written down twice, and neither writing-down was a check.
+
+**So question 2 below is no longer "should we?" but "keyed on what?"** The
+narrowing wants to depend on something true of the MISSION for its whole
+life. `lot_library` on the brief is the obvious candidate: it is already what
+gates the art layer, it is set before `batch create` runs, and a mission
+without it never reaches this branch at all, so existing single-shell
+missions stay byte-for-byte. That is a one-line change and it is deliberately
+NOT made yet, because it re-selects buildings for every mission carrying
+`lot_library` and question 1 outranks it.
+
+**The evidence is preserved.** `.gitignore:20` ignores `_runs/`, and
+`fingerprint.last.json` has already overwritten the first graybox assemble.
+`docs/findings/ITEM48_THE_DRAW_MOVED.md` carries the run log, both site
+specs' counts, all five fingerprints verbatim, and a sha256 for every file
+quoted -- so this item survives the workspace being deleted.
 
 THE SECOND HALF: NOTHING CAN JOIN A GRADE TO A SITE
 
