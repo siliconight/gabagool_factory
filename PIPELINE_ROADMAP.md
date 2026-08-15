@@ -725,8 +725,9 @@ work of adopting this.
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
+| 47 | **OPEN** | A recipient with their own lighting has to take ours or take graybox | 2026-08-14 -- raised, not worked. The seam is already half-cut in three places: `_PRESENTA |
 
-**46 items: 21 open, 15 closed, 3 retracted, 5 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**47 items: 22 open, 15 closed, 3 retracted, 5 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3640,6 +3641,77 @@ describes. Answer it there before `interactives` enters the protected set.
 file lives in the **zoo** repo -- keep them in sync." Nothing checks that they
 are. Two copies of a contract with no comparison between them is the shape of
 every other defect in this file.
+
+*STATUS: OPEN 2026-08-14 -- raised, not worked. The seam is already half-cut in three places: `_PRESENTATION_FILES` names Lux's two outputs by hand, `pure-shell` drops them, and `lux_strategy` is already a choice. What is missing is a third strategy value and a split of LAYER_ART*
+
+**47. A recipient with their own lighting has to take ours or take graybox.**
+The goal, stated plainly: a Level Factory package that had a FULL art pass,
+where including Lux is a choice. Another team may have their own lighting
+system and still want the kits, the materials and the wear.
+
+Today there are two useful answers and neither is that one:
+
+```
+portable-godot   everything, Lux included
+pure-shell       functional geometry + collision only -- the whole art pass
+                 goes with it
+```
+
+**The seam is already named, by hand, in `export.py`:**
+
+```python
+# Files that carry presentation only (dropped in pure-shell mode).
+_PRESENTATION_FILES = {"lux.applied.tscn", "lux.quality.json"}
+```
+
+Those two files are Lux's output and nothing else's. Somebody has already
+written down where lighting ends -- it is just wired to a mode that also
+throws away Zoo, Pixelcoat and Patina.
+
+**The bundling is one level up.** `--art` is described in the CLI as "add the
+Art layer (Zoo/Pixelcoat/Patina/Lux)" -- one layer, four tools. Three of them
+do SURFACE work a recipient keeps. The fourth does lighting they replace.
+Splitting that is most of the item.
+
+**And `lux_strategy` is already a choice with the wrong options.**
+`localized` copies the minimal Lux runtime into the package; `baked` writes
+presentation to vertex/lightmap data so no Lux runtime is needed. Neither
+serves a studio with its own lighting: baked light data is still OUR lighting
+decisions welded into their level. The missing value is a third one -- ship
+the art, ship no light.
+
+FOUR QUESTIONS, AND THEY WANT ANSWERS BEFORE CODE
+
+1. **Absent or ignorable?** Does "no Lux" mean the lightmaps are not in the
+   package, or present and safely ignored? Absent is smaller and honest;
+   ignorable lets a recipient A/B ours against theirs. They are different
+   products.
+2. **Do the light ANCHORS ship anyway?** Lot derives where lights were
+   intended to go. A team bringing its own lighting still probably wants that
+   -- it is level design intent, not a lighting solution. Item 38 is about
+   those anchors hanging below the slab, so they are real data with a known
+   history.
+3. **What is the entry scene?** `write_entry_scene` makes a graybox export's
+   entry `site.tscn` and a lit export's entry the presentation scene. An
+   art-pass-without-Lux package has a composed root and no
+   `lux.applied.tscn`. Nothing decides that case today.
+4. **A fourth layer, a sub-flag on `--art`, or a third export mode?** All
+   three work. A mode is the cheapest to package and the most visible in the
+   name; a layer is the most honest about what actually ran. Decide before
+   building, because the answer changes what `--force` re-runs.
+
+WHAT IS ALREADY PAID FOR
+
+A third profile costs nothing in naming. `export_build_dir_name` and the
+archive grammar both carry the profile (level_factory 0.26.0 and 0.27.0), so
+`LF_<mission>.art-unlit/` coexists with the other two in one workspace by
+construction, and the archive says which one it is. That was not true a day
+before this was written.
+
+**But the closure scan and the portability test have never seen this mode.**
+`CLOSURE_ENFORCED`'s comment is the precedent: a mode nobody has scanned gets
+scanned before it gets enforced, and the first run that scans it is expected
+to find something.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
