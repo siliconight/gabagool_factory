@@ -728,9 +728,9 @@ work of adopting this.
 | 47 | **NARROWED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first co |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
-| 50 | **OPEN** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` i |
+| 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 
-**50 items: 21 open, 18 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**50 items: 20 open, 19 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -4055,7 +4055,7 @@ so it earned its keep twice. The second was killed by reading
 which is now the rule for this item: a mechanism claim here cites a verified
 read or it does not go in.
 
-*STATUS: OPEN 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` is 16,246 bytes; the file beside it is 688. Written by Dispatch at `...388494` and overwritten by LF at `...389514`, one second later, with no rewrite of the manifest. It also lists 14 files where the package holds 56 -- no `site.tscn`, no `site_base.glb`, none of the 30 `art/` GLBs*
+*STATUS: CLOSED 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was not one stale manifest but TWO manifests: Dispatch's `resource_manifest.json` (`dispatch.resource_manifest.v0.2`, 17 entries, recording `mission.tscn` at 16,246 bytes beside a 688-byte file, written at `...388494` and overwritten by LF at `...389514`) and LF's own `portable_resource_manifest.json` (`level_factory.portable_manifest.v0.1`, 58 resources with sha256 and size each, including `lot/shell/site.tscn` and all 31 art/zoo GLBs, written at export time and CORRECT). The stale one had the better name, so it is the one a recipient opens. FIX: `resource_manifest.json` joins the `skip` set the handoff copy already uses -- dropped rather than regenerated, following the composed-root copy twelve lines below which already skips `portable_resource_manifest.json` because the composer writes one and LF writes its own. If a recipient contract ever needs that name, REGENERATE it there rather than un-skip it; the problem was never the file, it was the file being stale. CONFIRMED by re-export: no `resource_manifest.json` in the package, `portable_resource_manifest.json` 10,651 -> 10,485 B (one fewer file to describe), and the closure scan byte-for-byte unchanged -- `ok: true`, `issues: []`, `resource_count: 3`, every counter identical. `_METADATA_FILES` meant the scan never read either manifest for references, so nothing was depending on it*
 
 **50. The package ships a resource manifest that describes a different
 package.**
