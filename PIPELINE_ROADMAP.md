@@ -726,9 +726,11 @@ work of adopting this.
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
 | 47 | **NARROWED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first co |
-| 48 | **OPEN** | The same job and the same seed draw a different building on the art pa | 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidat |
+| 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
+| 49 | **OPEN** | The composed scene the site points at is never staged, and 54 of 56 sh | 2026-08-16 -- MEASURED on unlit_probe_001 after item 48 was fixed. 56 files ship, 7,158,51 |
+| 50 | **OPEN** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` i |
 
-**48 items: 21 open, 16 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**50 items: 22 open, 17 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3753,7 +3755,7 @@ before this was written.
 scanned before it gets enforced, and the first run that scans it is expected
 to find something.
 
-*STATUS: OPEN 2026-08-15 -- MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidate.seed_5017` succeeded twice in `_runs/3b/run.log` (lines 31 and 51) and drew a different building each time: graybox `cr_garage` (17 openings, 178 colliders, 12 markers), art `landmark_hall_a03` (13 openings, 176 colliders, 7 markers), with `shell.glb` byte-identical across both fingerprints. Everything that graded the mission graded the first draw. The functional lock caught it and refused the export -- this item is the redraw, not the lock. MECHANISM LOCATED: `commands/__init__.py:238` computes `_art_run` from THIS INVOCATION'S planned graph, and `:942` narrows the greybox pool on it -- so `batch create` draws from 123 and the art run draws from 98, and `pick_lot` is handed a different list for the same seed. Evidence preserved in `docs/findings/ITEM48_THE_DRAW_MOVED.md` because `_runs/` is gitignored*
+*STATUS: CLOSED 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the narrowing on the brief instead of on the invocation's planned graph; `art_run` is gone from the signature, the call site and the module. Re-running `tools/run_3b_unlit.ps1` from empty, through Blender and headless Godot: `lot_assemble`, `walktest_navqa` and `laser_tag_evaluate` all report `cache` on the art pass -- the art run produced a byte-identical site spec, so the assemble did not re-execute and neither did the graders. The graded site IS the shipped site, established by the fingerprint cache rather than by anyone comparing two files. `[site] graded lot: 98 of 123 ... keyed on the brief` now prints identically in both invocations, and the functional lock does not fire. Suite 823 passed / 11 skipped / 0 failed. Question 1 -- whether the draw may move behind `candidate_selected` at all -- is NOT answered by this and is carried into item 49's neighbourhood. ORIGINALLY MEASURED on unlit_probe_001, one workspace, one seed. `lot_assemble.candidate.seed_5017` succeeded twice in `_runs/3b/run.log` (lines 31 and 51) and drew a different building each time: graybox `cr_garage` (17 openings, 178 colliders, 12 markers), art `landmark_hall_a03` (13 openings, 176 colliders, 7 markers), with `shell.glb` byte-identical across both fingerprints. Everything that graded the mission graded the first draw. The functional lock caught it and refused the export -- this item is the redraw, not the lock. MECHANISM LOCATED: `commands/__init__.py:238` computes `_art_run` from THIS INVOCATION'S planned graph, and `:942` narrows the greybox pool on it -- so `batch create` draws from 123 and the art run draws from 98, and `pick_lot` is handed a different list for the same seed. Evidence preserved in `docs/findings/ITEM48_THE_DRAW_MOVED.md` because `_runs/` is gitignored*
 
 **48. The same job and the same seed draw a different building on the art
 pass, and everything that graded the mission graded the other one.**
@@ -3932,6 +3934,108 @@ claims to cover -- but the first half is not that. The first half is a
 producer that gives two answers to one question, and it was caught, by the
 one guard built to catch it.
 
+*STATUS: OPEN 2026-08-16 -- MEASURED on unlit_probe_001 after item 48 was fixed. 56 files ship, 7,158,515 bytes; the entry scene reaches TWO of them. `site.tscn`'s only `ext_resource` is `lot/shell/site.tscn`, which is not in the package, so the 30 Zoo GLBs, the dressing and the fixtures are all orphaned. IDENTICAL in `portable-godot` and `art-unlit`, which acquits `--unlit`. Found by the export closure scan on its first run against a varied lot -- exactly what item 47 said would happen*
+
+**49. The composed scene the site points at is never staged, and 54 of 56
+shipped files are unreachable from the entry.**
+`unlit_probe_001` exported for the first time on 2026-08-16, item 48's fix
+having removed the functional-lock refusal that had been stopping it earlier.
+Both modes then failed the same way:
+
+```
+EXPORT_CLOSURE_BROKEN: 0 unresolved res:// reference(s), 0 misrooted,
+                       1 unresolved relative, 0 absolute path(s)
+  site.tscn: relative ext_resource resolves to nothing: lot/shell/site.tscn (from ./)
+  resource_count: 2
+```
+
+`site.tscn` carries exactly one `ext_resource`:
+
+```
+[ext_resource type="PackedScene" path="lot/shell/site.tscn" id="b1"]
+```
+
+There is no `lot/` directory in the package at all. The walk is
+`mission.tscn` -> `site.tscn` -> nothing, two resources deep, in a 56-file
+7.2 MB package.
+
+**`_write_site_spec` promises that path and something else has to keep it.**
+
+```python
+def _source(entry):
+    aid = str(entry["id"])
+    scene = (themed_map or {}).get(entry["id"])
+    if scene:
+        staged_packages[aid] = str(Path(scene).parent)
+        return {"scene": f"lot/{aid}/site.tscn"}
+    staged_glbs[aid] = str(entry["glb"])
+    return {"glb": f"buildings/{aid}.glb"}
+```
+
+The spec names `lot/<aid>/site.tscn` and records the source directory in
+`staged_packages`. The composed scene's whole DIRECTORY is the unit -- its
+own comment says so, because `site.tscn` is useless without the
+`site_base.glb` and `art/` beside it. Whoever consumes `staged_packages` is
+where this ends, and it is one export away from being known.
+
+**BEFORE ANY OF THAT, THE ARCHETYPE IS CALLED `shell`.** Not
+`landmark_hall_a03`, not `cr_garage` -- `shell`. And in
+`resource_manifest.json`:
+
+```
+assets/lot.glb    sha256:a929d7d2...  242,176 bytes
+assets/shell.glb  sha256:a929d7d2...  242,176 bytes
+```
+
+The same file twice, and that hash is the `shell.glb` the fingerprints
+record. So the lot's one building is the mission's OWN SHELL, drawn back out
+of `deli_counter/build` as though it were a source archetype. That directory
+is both the source and the sink -- the site builder already prints eleven
+entries it excluded for exactly this reason, and `shell` was not among them.
+Whether the narrower 98-shell pool now reaches the pipeline's own output is
+the FIRST question here, because if it does, the missing `lot/shell/`
+directory is a symptom and staging it would ship the wrong thing correctly.
+
+**Two failures are possible and they want different fixes.** Either the
+staging step never ran for this lot, or it ran and the export dropped what it
+staged. The export's mode logic is the obvious suspect and is exonerated by
+the A/B: `portable-godot` and `art-unlit` produce byte-identical packages
+here -- 56 files, 7,158,515 bytes, zero files differing -- because Lux never
+ran on this mission and there was nothing to subtract. Whatever drops the
+directory drops it in both.
+
+*STATUS: OPEN 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` is 16,246 bytes; the file beside it is 688. Written by Dispatch at `...388494` and overwritten by LF at `...389514`, one second later, with no rewrite of the manifest. It also lists 14 files where the package holds 56 -- no `site.tscn`, no `site_base.glb`, none of the 30 `art/` GLBs*
+
+**50. The package ships a resource manifest that describes a different
+package.**
+`dispatch.resource_manifest.v0.2`, in the export root, next to the files it
+is wrong about:
+
+```
+resource_manifest.json:  mission.tscn   16,246 bytes  sha256:35165b8d...
+on disk:                 mission.tscn      688 bytes
+```
+
+The mtimes say what happened without needing anybody's memory:
+`resource_manifest.json` was written at `...388494` and `mission.tscn` at
+`...389514`. Dispatch wrote a manifest describing ITS entry scene; Level
+Factory then replaced the entry scene with its own 688-byte portable one and
+left the manifest alone. A consumer verifying the package against its own
+manifest fails on the first file.
+
+**And it is not only stale, it is short.** The manifest lists 14 files. The
+package holds 56. `site.tscn`, `site_base.glb` and all 30 `art/` GLBs are
+absent from it -- which means a recipient checking "did I receive everything"
+against this file would conclude yes while holding a package whose art is
+undescribed.
+
+This is the same boundary as the discarded 65,493-byte Dispatch
+`mission.tscn` already on the smaller list: two tools write the same
+artifact, the second wins, and the first tool's account of the package
+survives it. The manifest is either Dispatch's to own and LF must not
+overwrite what it describes, or it is a package-level artifact and belongs
+downstream of every writer. It is currently neither.
+
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
 combat and none of them make the levels better: the crew bot's target memory or
@@ -3941,6 +4045,16 @@ opening timing. Laser Tag findings of that shape are information for a human at
 candidate selection, not work items.
 
 ### Smaller, carried
+
+**`probe_unlit_ab.py`'s manifest section reads nothing and reports `ok` for
+it.** Run against the 3b packages it printed `profile=None layers=None
+package_dir=None archive=None` for both, then `ok the unlit manifest does not
+claim the light layer` -- a pass derived from a file it never opened. It looks
+for `LF_MANIFEST.json`, which only an ARCHIVE export writes; a `--format
+folder` export has no such file. Three of its four LOOK lines come from the
+same absence. This is the defect the probe was written to find, in the probe,
+and its manifest output should not be read until it either locates the folder
+export's manifest or says out loud that it found none.
 
 **`MIGRATIONS.md` indexes one run rather than a directory.** `tidy_migrations.ps1`
 builds the table from the files *that invocation* moved, so when `tidy_tools.ps1`
