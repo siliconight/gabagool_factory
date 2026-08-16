@@ -1,0 +1,25 @@
+{
+  "archetype": "bank",
+  "building_count": 1,
+  "candidate_count": 1,
+  "display_name": "Unlit probe",
+  "extraction_relationship": "street_exit",
+  "landmark": "unlit_probe",
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "mission_id": "unlit_probe_001",
+  "notes": "Roadmap 47 stage 3b. Purpose: run a mission with --art --unlit through the real tools so that lux_apply NEVER runs, then export art-unlit and portability-test it. Everything before this proved export-time subtraction from a mission that HAD run Lux. One building, one candidate: the point is the layer set, not the scale.",
+  "objective_hypotheses": [
+    "cross_the_block"
+  ],
+  "route_shape": "along_the_street",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "street_row",
+  "target_minutes": [
+    6,
+    10
+  ],
+  "theme": "rockay",
+  "time_of_day": "night",
+  "verticality": "medium",
+  "weather": "clear"
+}

@@ -56,3 +56,18 @@ shots/
 _scratch/
 
 _scratch/
+
+# Captured command output from debugging sessions -- regenerable, not history.
+# These are the ones that had already accumulated at the root; new captures
+# belong in _scratch/, which is ignored above. Enumerated rather than ruled
+# because a blanket root rule would silently swallow a file somebody meant to
+# track, and this repo's whole job is coordination data.
+compose_diag.txt
+compose_fail.txt
+compose_findings.json
+lux_gap.txt
+real_tools.txt
+suite.txt
+unit_fail.txt
+unlit_ab.txt
+unlit_ab2.txt

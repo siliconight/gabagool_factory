@@ -729,9 +729,9 @@ work of adopting this.
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
-| 51 | **OPEN** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- MEASURED. `lot` 0.41.0, clean tree (`git status --short` and `git stash list |
+| 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 
-**51 items: 21 open, 19 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**51 items: 20 open, 20 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -4088,7 +4088,7 @@ survives it. The manifest is either Dispatch's to own and LF must not
 overwrite what it describes, or it is a package-level artifact and belongs
 downstream of every writer. It is currently neither.
 
-*STATUS: OPEN 2026-08-16 -- MEASURED. `lot` 0.41.0, clean tree (`git status --short` and `git stash list` both empty), so these predate tonight's level_factory work and are not caused by it: 328 passed, 8 FAILED in 4.26s. THREE defects, not eight: six tests are one arity bug at `site_spawns.py:470`, one is a cover assertion, one is a plan-versus-scene position disagreement of 18.5 m that is wearing a tolerance assertion's clothes*
+*STATUS: CLOSED 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item proposed were refuted by measurement; the third was correct as written. Defect ONE (six stale callers) is FIXED and re-measured: `patch_lot_stale_spawn_callers.py` gives the four geometry assertions a one-point path at six call sites and derives the two read-backs' window from the route with `crew_reaction_path`, the way `place_enemies` does at `site_spawns.py:803` -- a read-back on `[spawn]` would ask an easier question than the search and pass exactly the maps the search had been too generous about. The predicate was NOT touched; its refusal to default `crew_path` worked as designed and only the follow-through was missing. Suite 328 passed / 8 failed -> 334 passed / 2 failed. Defect THREE's MECHANISM IS REFUTED and rewritten below: it is not 48's family and the scene is not losing the plan. `_lasertag_hook_nodes` seats the hooks and clears the crew spawn before planning, and the test planned from the RAW route -- on BAIE_DORE, whose crew spawn is the dead centre of a 44 x 44 shell, `clear_crew_spawn` moves it 23.5 m and takes all six enemies with it. Planned from the same `pos` the scene was written from, 0 of 18 coordinate pairs fail at abs_tol=1e-3. Defect TWO is MEASURED AND FIXED, and it was neither of the two things this item offered. TWO FAULTS STACKED. First, `assemble` never cleared the crew spawn, so cover was planned for a crew standing INSIDE building `b0` at (-70.0, 30.0) while the scene shipped the cleared spawn at (-60.5, 30.0); from inside a shell almost every sightline reads as already broken, which is why `plan_cover` claimed `open_lines=0` over a map with a clear 51.9 m lane. `patch_lot_cover_ships_spawn.py`. That also settles the 52.8-versus-51.945 instrument disagreement: two different enemy sets, both numbered from zero, one placed from each spawn. Second, with the inputs corrected the planner became honest (`open_lines` 0 -> 1) and showed the real fault: the 12-piece opening budget is spent longest-first over ALL marker pairs, and none of the twelve touched a line the crew stands on -- six broke enemy-to-enemy sightlines, which describe nothing about who opens fire on the crew. Serving the crew's lines first, same budget, stable sort so longest-first survives inside each group: 3 of 12 pieces now touch the crew, all seven of its lines close, `open_lines` 0. `patch_lot_cover_crew_first.py`. `test_site_cover.py` was NOT modified -- it asserted the right contract throughout. STILL OPEN, deliberately: `assemble` and `write_walk_scene` derive the mission points twice and this only makes the two agree; enemy-to-enemy pairs still consume budget after the crew is served (excluding them outright measured 7 opening pieces and 18 total, also with 0 open lines); and cover planning is still coupled to `place_enemies`, which is awkward given enemy placement belongs to the gameplay layer and not to this pipeline*
 
 **51. `lot`'s own suite has been red through every certification this month,
 and one of the three defects is a level that is not the level that was
@@ -4133,6 +4133,78 @@ passing the wrong thing, or the signature may have gained a parameter without
 its callers. Six tests agreeing on the same call shape is weak evidence for
 the caller, and the function's own docstring is the thing to read first.
 
+**TWO: the cover was planned for a crew standing somewhere else, and then
+for the wrong lines. -- MEASURED AND FIXED 2026-08-16.**
+
+Two faults, one behind the other. Neither is "the search" or "the check".
+
+**FAULT ONE: cover planned for a crew the scene does not ship.** `assemble`
+seated the mission points and never cleared the crew spawn, so it planned from
+(-70.0, 30.0) -- the dead centre of `b0`, footprint x -78.0 .. -62.0 --
+while `write_walk_scene` cleared it to (-60.5, 30.0) and shipped that. From
+inside a shell the building occludes almost everything, so `plan_cover`
+reported `open_lines=0`: it believed it had covered a map it had never
+correctly measured. One statement in `assemble` fixes it; the shipped spawn
+does not move, because `write_walk_scene` already cleared it and seat+clear is
+idempotent (measured: 0.000000 m on a second application).
+
+This also disposes of the 52.8-versus-51.945 disagreement recorded above. Two
+`place_enemies` calls fire inside one `assemble` -- `lot.py:1874` for the cover
+plan and `lot.py:1257` for the scene -- and before the fix they returned
+different six-enemy sets, both numbered from zero. There was no instrument
+error. There were two different `Enemy_5`s.
+
+**FAULT TWO: the opening budget never reached the crew.** With the inputs
+corrected the planner became honest -- `open_lines` 0 -> 1 -- and the real
+defect showed. `open_sightlines` returns every marker pair over the opening
+range, longest first, and `plan_cover` takes twelve. On this site those twelve
+were:
+
+```
+Cover_0  Extraction -> Objective     Cover_6   Enemy_0 -> Extraction
+Cover_1  Enemy_5 -> Objective        Cover_7   Enemy_4 -> Objective
+Cover_2  Enemy_2 -> Enemy_5   <--    Cover_8   Enemy_0 -> Enemy_5   <--
+Cover_3  Enemy_3 -> Enemy_5   <--    Cover_9   Enemy_5 -> Extraction
+Cover_4  Enemy_0 -> Objective        Cover_10  Enemy_4 -> Enemy_5   <--
+Cover_5  Enemy_1 -> Enemy_5   <--    Cover_11  Enemy_0 -> Enemy_3   <--
+```
+
+ZERO of the twelve involve `LT_PlayerSpawn`. Six break enemy-to-enemy
+sightlines -- cover so one enemy cannot see another, which says nothing about
+who opens fire on the crew, since they are the same team. The crew had seven
+open lines (130.5, 115.9, 106.4, 77.3, 67.8, 53.9, 51.9 m) and got none, and
+`unbreakable` was 0 throughout, so a placeable spot existed the whole time.
+
+Serving the crew's lines first fixes it on the SAME budget. The longest-first
+heuristic is kept inside each group by sorting stably on one boolean:
+
+```
+                    opening pieces  touching crew  total  open_lines  test
+longest first                   12              0     23           1  FAILS
+crew lines first                12              3     23           0  PASSES
+```
+
+Three pieces close all seven crew lines -- "the worst line's fix usually
+shortens three others" working, finally pointed at the lines that matter.
+
+`test_site_cover.py` was NOT modified. It asserted the right contract from the
+start, and the instruction in this item not to loosen or skip it was correct.
+
+WHAT IS STILL OPEN, DELIBERATELY
+
+- `assemble` and `write_walk_scene` still derive the mission points twice,
+  independently. Fault one is fixed by making the two agree, not by making
+  there be one.
+- Enemy-to-enemy pairs still consume budget once the crew is served. Excluding
+  them outright measured 7 opening pieces and 18 total, also with 0 open
+  lines -- fewer pieces for the same result, but it is a separate decision
+  about what `open_sightlines` should return at all.
+- Cover planning still derives its priorities from `place_enemies`, which is
+  awkward if enemy placement is leaving this pipeline for the gameplay layer.
+
+The reading this replaces, kept because a retracted finding is cheaper to keep
+than to rediscover:
+
 **TWO: the cover assertion.**
 
 ```
@@ -4146,6 +4218,68 @@ candidate on the way in and still writes a map that opens with a shot -- the
 check the search cannot perform on itself. It is currently failing, which
 means either the search or the check is wrong, and both readings are worth
 the same until somebody measures.
+
+**THREE: the scene DOES carry the position the planner chose. The TEST was
+holding a different plan. -- MECHANISM CORRECTED 2026-08-16, measured.**
+
+`_lasertag_hook_nodes` does not plan against the positions it is handed. It
+seats the nav hooks onto floor, clears the crew spawn off the wall it is
+standing against, and spreads the enemies along the route THOSE TWO STEPS
+produce (`lot.py:1242-1253`). The test planned from the raw dict instead:
+
+```python
+planned = site_spawns.place_enemies(BAIE_DORE, route()).positions
+```
+
+On `BAIE_DORE` the crew spawn (51.0, -5.0) is the dead centre of `b1`, a
+44 x 44 shell at (51, -5). `clear_crew_spawn` moves it to (51.0, 18.5) --
+23.5 m -- and `seat_destinations` drops the objective from z 0.9 to 0.0. The
+route's first point moves, so every enemy spread along it moves too. All six
+disagree, not only the pair the assertion reached first:
+
+```
+ i    planned x (test)   product x (scene)
+ 0           19.242160           37.734968     <- the assertion's pair
+ 1           64.683855           36.919915
+ 2           69.055220           48.119216
+ 3           73.426585           65.310451
+ 4           88.003898           82.593142
+ 5          107.547001           99.869736
+```
+
+`37.73496811511527` through `_v3`'s `{:g}` is `37.735`, the number in the
+traceback. Recomputed from the same `pos` the scene was written from, **0 of
+18 coordinate pairs fail at `abs_tol=1e-3`**. Nothing else was behind it.
+
+So this is defect ONE's family, not 48's: a stale caller reproducing the
+tool's pipeline with inputs the tool does not use. The ordering hypothesis
+below is refuted directly -- reordering can only produce numbers that are IN
+the planned set, and 37.735 is not any planned coordinate on any axis.
+
+WHY IT DRIFTED, AND WHAT WAS DONE ABOUT IT. Because `_lasertag_hook_nodes`
+returned only the scene body, the one question worth asking of it -- are the
+positions in the scene the positions that were planned -- could be asked ONLY
+by re-running its derivation by hand. The test's copy of that sequence went
+stale, and a third preprocessing step would have desynced it again. The
+derivation now lives in `_lasertag_hook_plan`, which returns the resolved
+positions, route and enemies; `_lasertag_hook_nodes` calls it and writes the
+same body (asserted byte-identical, not assumed). The test asks the tool which
+plan it used. `patch_lot_hook_plan.py`.
+
+Noted while reading and NOT a defect: `lot.py:1409-1414` seats and clears
+`pos` and then hands it to `_lasertag_hook_nodes`, which does both again.
+Measured idempotent on this site with `solids=None` -- the crew spawn moves
+0.000000 m on the second application. Untested on sites with a collision
+reading.
+
+WHAT THE ORIGINAL READING GOT RIGHT. Both of its warnings were correct and are
+why this stayed findable: widening the bound or skipping the test would have
+buried a genuine input mismatch. What it got wrong was the mechanism, by
+comparing two artefacts without first establishing they came from the same
+build -- the failure `CLAUDE.md` rule 1 names. It is kept below in full,
+because a retracted finding is cheaper to keep than to rediscover.
+
+REFUTED 2026-08-16 -- the reading the block above replaces:
 
 **THREE, AND THE ONE THAT MATTERS MOST: the scene does not carry the position
 the planner chose.**

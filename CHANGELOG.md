@@ -3,6 +3,50 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.26.0] - 2026-08-16
+
+lot 0.41.0 -> 0.42.0, level_factory 0.39.0 -> 0.40.0. The other eight tools
+are unchanged from factory-v1.24.0.
+
+LEVEL_FACTORY 0.40.0 WAS ALREADY SHIPPED AND WAS NOT IN THE SET
+
+This is the more important half. `v0.40.0` was tagged and pushed on
+2026-08-16, and the roadmap records item 50 as CLOSED on it -- one resource
+manifest per package instead of two, the stale one dropped. But
+factory-v1.25.0 was cut before it landed and pinned 0.39.0, and its changelog
+entry says "level_factory 0.37.0 -> 0.39.0". Nothing bumped the set
+afterwards, so for the life of 1.25.0 the certified set omitted a fix the
+roadmap called closed. Found by reading the manifest rather than the handoff,
+which asserted 0.40.0 was in.
+
+The lesson is the same one the roadmap keeps relearning: a tool version and a
+set version are two different claims, and closing an item against the first
+says nothing about the second.
+
+WHAT LOT 0.42.0 CHANGES
+
+The cover in a shipped level is now planned for the crew spawn the scene
+carries. It was not: `assemble` never cleared the crew spawn, so cover was
+planned from inside a building while the walk scene shipped the cleared spawn
+metres away. From in there almost every sightline reads as already broken, so
+the planner reported zero open lines over a map that opened with a clear
+51.9 m lane.
+
+And the opening cover budget now reaches the crew. Twelve pieces were spent
+longest-first across every marker pair, and on the test site none of the
+twelve touched a line the crew stands on while six broke enemy-to-enemy
+sightlines. Serving the crew's lines first, on the same budget, closes all
+seven of them with three pieces.
+
+`lot`'s suite went 328 passed / 8 failed -> 336 passed / 0 failed. Roadmap
+item 51 is closed; two of the three mechanisms it proposed were refuted by
+measurement.
+
+Every cover measurement behind this was taken on a two-building yard fixture.
+`lot_demo_001` still has not been re-exported since 0.39.0 -- now doubly
+worth doing, because the five-building shape is untested against both the
+0.40.0 export path and the new cover ordering.
+
 ## [factory-v1.25.0] - 2026-08-16
 
 level_factory 0.37.0 -> 0.39.0. The other nine tools are unchanged from
