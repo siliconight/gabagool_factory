@@ -4097,21 +4097,35 @@ candidate selection, not work items.
 
 ### Smaller, carried
 
-**The export closure scan may not read the scenes it counts.** After roadmap
-49 closed, `lot/shell/site.tscn` in the shipped package carries 34
-`res://lot/shell/...` references -- `site_base.glb` and 31 art GLBs -- and the
-scan reports `resource_count: 3`, `relative_reference_count: 1`,
-`absolute_path_count: 0` and `missing_resource_count: 0`. Those 34 appear in
-none of its numbers. Either it resolved them and does not count them, or it
-never read them and the zero is a pass over files it did not check. The
-precedent points the wrong way: 0.37.0 recorded `resource_count: 6` for a
-180-file five-building package, which is the count of SCENES in the chain and
-nothing else. Not settled by the obvious test -- renaming a GLB inside the
-export directory and re-exporting proves nothing, because `export_mission`
-does `shutil.rmtree(export_dir)` and rebuilds from source before scanning, so
-the file is back before the scan runs. It wants the scan run against a
-mutated COPY of a finished package. If the blind spot is real, the guard that
-caught item 49 cannot see one level below where it looked.
+**The export closure scan reads what it counts -- asked, and answered.**
+Raised on 2026-08-16 because `lot/shell/site.tscn` carries 34
+`res://lot/shell/...` references while the scan reported `resource_count: 3`
+and `missing_resource_count: 0`, and those 34 appeared in none of its
+numbers. Read out of `closure.py` (12,146 B, sha256 1467E73D...): the scan
+does NOT walk a reference graph from the entry. It globs every file whose
+suffix is in `_SCANNED_SUFFIXES`, reads each one's text, and checks every
+`res://` it finds against `present` -- a set built from `rglob("*")` over the
+whole package, GLBs included. So `lot/shell/site.tscn` was opened and all 34
+were checked. `resource_count` is a count of scene and script FILES present,
+not of resources reached; 3 is `mission.tscn`, `site.tscn` and
+`lot/shell/site.tscn`. `ok: true` does mean the art resolves.
+
+Recorded rather than deleted for two reasons. The obvious test does NOT work
+-- renaming a GLB inside the export directory and re-exporting proves
+nothing, because `export_mission` does `shutil.rmtree(export_dir)` and
+rebuilds from source before scanning, so the file is back before anybody
+looks; that was tried on 2026-08-16 and the rename-back failed because the
+rebuild had already replaced it. And the scan has been wrong about precisely
+this before: its own comment records `any(pr.endswith(rel) for pr in
+present)` certifying lot_demo_001 at `ok: true, 0 missing` while five
+building scenes each dangled 33 references, "floors and a staircase in an
+empty sky". That is roadmap 49's defect one layer up, which is why
+`misrooted_resource_count` is a separate counter and why it reading 0 is
+worth as much as the missing count reading 0.
+
+factory-v1.25.0's description says this was UNMEASURED. It was, at the moment
+that set was certified. It is measured now, and the next certification can
+say so; a pushed tag does not get rewritten to look better than it was.
 
 **`probe_unlit_ab.py`'s manifest section reads nothing and reports `ok` for
 it.** Run against the 3b packages it printed `profile=None layers=None
