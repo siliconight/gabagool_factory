@@ -727,10 +727,10 @@ work of adopting this.
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
 | 47 | **NARROWED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first co |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
-| 49 | **OPEN** | The composed scene the site points at is never staged, and 54 of 56 sh | 2026-08-16 -- MEASURED on unlit_probe_001 after item 48 was fixed. 56 files ship, 7,158,51 |
+| 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
 | 50 | **OPEN** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` i |
 
-**50 items: 22 open, 17 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**50 items: 21 open, 18 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3934,13 +3934,13 @@ claims to cover -- but the first half is not that. The first half is a
 producer that gives two answers to one question, and it was caught, by the
 one guard built to catch it.
 
-*STATUS: OPEN 2026-08-16 -- MEASURED on unlit_probe_001 after item 48 was fixed. 56 files ship, 7,158,515 bytes; the entry scene reaches TWO of them. `site.tscn`'s only `ext_resource` is `lot/shell/site.tscn`, which is not in the package, so the 30 Zoo GLBs, the dressing and the fixtures are all orphaned. IDENTICAL in `portable-godot` and `art-unlit`, which acquits `--unlit`. Found by the export closure scan on its first run against a varied lot -- exactly what item 47 said would happen*
+*STATUS: CLOSED 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building_dir` reads the assembly scene and returns `lot/<id>` when it names exactly one such package AND the composed root has no `lot/` of its own; the composed root is copied THERE instead of to the package root, and the composer's own `site.tscn` stops being skipped because under `lot/<id>/` it IS the building. A varied lot hits neither condition and is untouched. Re-exported from the cached 3b workspace: BEFORE `ok: false`, `site.tscn: relative ext_resource resolves to nothing: lot/shell/site.tscn`, entry reaching 2 of 56 files; AFTER `ok: true`, `issues: []`, `unresolved_relative_count: 0`, in BOTH `portable-godot` and `art-unlit`, with `lot/shell/site.tscn` 48,004 B and its 31 GLBs beside it and NO duplicate copy at the root. The export also reached artifacts it had never written before -- `project.godot`, `LF_MANIFEST.json`, `export_profile.json`, `output_layers.json`, `portable_resource_manifest.json` -- because it had never got past the closure gate on this mission. tests/unit green. CAUSE, from a hash-verified read (`export.py` 31,675 B, sha256 5303E3D0...): `export_mission` step 2.5, added in 0.37.0, copied the assembly scene over the package root and nothing else from that job, so on a SINGLE-SHELL mission a self-sufficient inlined scene was replaced by one naming `lot/<id>/`. 0.37.0 was measured on five-building lot_demo_001, which is why nothing caught it. `--unlit` acquitted: both modes failed and both now pass*
 
-**49. The composed scene the site points at is never staged, and 54 of 56
-shipped files are unreachable from the entry.**
+**49. Step 2.5 replaces a self-contained root scene with one that names a
+directory the export never carries -- on single-shell missions only.**
 `unlit_probe_001` exported for the first time on 2026-08-16, item 48's fix
-having removed the functional-lock refusal that had been stopping it earlier.
-Both modes then failed the same way:
+having removed the functional-lock refusal that had been stopping it. Both
+modes then failed the same way:
 
 ```
 EXPORT_CLOSURE_BROKEN: 0 unresolved res:// reference(s), 0 misrooted,
@@ -3949,60 +3949,111 @@ EXPORT_CLOSURE_BROKEN: 0 unresolved res:// reference(s), 0 misrooted,
   resource_count: 2
 ```
 
-`site.tscn` carries exactly one `ext_resource`:
+THE CHAIN, EVERY LINK VERIFIED
 
-```
-[ext_resource type="PackedScene" path="lot/shell/site.tscn" id="b1"]
-```
-
-There is no `lot/` directory in the package at all. The walk is
-`mission.tscn` -> `site.tscn` -> nothing, two resources deep, in a 56-file
-7.2 MB package.
-
-**`_write_site_spec` promises that path and something else has to keep it.**
+`_write_site_spec`'s single-shell branch names the path and records the
+source. `"shell"` is a hardcoded literal on that branch, NOT a library id:
 
 ```python
-def _source(entry):
-    aid = str(entry["id"])
-    scene = (themed_map or {}).get(entry["id"])
-    if scene:
-        staged_packages[aid] = str(Path(scene).parent)
-        return {"scene": f"lot/{aid}/site.tscn"}
-    staged_glbs[aid] = str(entry["glb"])
-    return {"glb": f"buildings/{aid}.glb"}
+if themed_scene and not themed_map:
+    staged_packages["shell"] = str(Path(themed_scene).parent)
+    source = {"scene": "lot/shell/site.tscn"}
 ```
 
-The spec names `lot/<aid>/site.tscn` and records the source directory in
-`staged_packages`. The composed scene's whole DIRECTORY is the unit -- its
-own comment says so, because `site.tscn` is useless without the
-`site_base.glb` and `art/` beside it. Whoever consumes `staged_packages` is
-where this ends, and it is one export away from being known.
-
-**BEFORE ANY OF THAT, THE ARCHETYPE IS CALLED `shell`.** Not
-`landmark_hall_a03`, not `cr_garage` -- `shell`. And in
-`resource_manifest.json`:
+That goes to `packages.json`, the Lot adapter plans a staging command against
+`staging_manifest_path`, and `packages/staging/site_packages.py` delivers.
+It arrived -- this is on disk:
 
 ```
-assets/lot.glb    sha256:a929d7d2...  242,176 bytes
-assets/shell.glb  sha256:a929d7d2...  242,176 bytes
+themed_site_assemble/out/site.tscn                    5,567   the assembly
+themed_site_assemble/out/lot/shell/site.tscn         47,460   the building
+themed_site_assemble/out/lot/shell/site_base.glb    255,352
+themed_site_assemble/out/lot/shell/art/zoo/*.glb     30 files
 ```
 
-The same file twice, and that hash is the `shell.glb` the fingerprints
-record. So the lot's one building is the mission's OWN SHELL, drawn back out
-of `deli_counter/build` as though it were a source archetype. That directory
-is both the source and the sink -- the site builder already prints eleven
-entries it excluded for exactly this reason, and `shell` was not among them.
-Whether the narrower 98-shell pool now reaches the pipeline's own output is
-the FIRST question here, because if it does, the missing `lot/shell/`
-directory is a symptom and staging it would ship the wrong thing correctly.
+Then `export_mission` takes exactly one file out of that directory:
 
-**Two failures are possible and they want different fixes.** Either the
-staging step never ran for this lot, or it ran and the export dropped what it
-staged. The export's mode logic is the obvious suspect and is exonerated by
-the A/B: `portable-godot` and `art-unlit` produce byte-identical packages
-here -- 56 files, 7,158,515 bytes, zero files differing -- because Lux never
-ran on this mission and there was nothing to subtract. Whatever drops the
-directory drops it in both.
+```python
+# 2.5 THE ASSEMBLY SCENE
+if profile.mode != MODE_PURE_SHELL and themed_site_dir:
+    themed_scene = Path(themed_site_dir) / "site.tscn"
+    if themed_scene.is_file():
+        shutil.copy2(str(themed_scene), str(export_dir / "site.tscn"))
+```
+
+One file. Not the `lot/` tree beside it that the file references.
+
+WHY ONLY SINGLE-SHELL MISSIONS
+
+Step 2 copies `composed_root` to the export ROOT. What is in a composed root
+depends on how many buildings the mission has, and `export.py`'s own comment
+states both shapes:
+
+```
+A single-shell compose INLINES its geometry and its presentation scene DOES
+name `res://site.tscn`. A themed multi-building site instances five packages
+and names `res://lot/<archetype>/site.tscn` instead -- measured on
+lot_demo_001: five such refs, no `res://site.tscn`.
+```
+
+So a varied lot's composed root already contains `lot/<archetype>/`, and
+`_copy_tree` carries it; the assembly's references resolve and always have.
+A single-shell composed root contains `site.tscn`, `site_base.glb` and `art/`
+at its TOP LEVEL -- which is why those files appear at the package root with
+mtimes matching `lot/shell/`'s copies. They are not that directory flattened.
+They are the same composer output, copied twice from one source by two
+different steps, and `copy2` preserves mtimes.
+
+**0.37.0 introduced it, and 0.37.0 was right about the problem it fixed.**
+Before step 2.5 the single-shell root `site.tscn` was the composer's inlined
+building, which resolved against the `site_base.glb` and `art/` beside it and
+closed. Step 2.5 exists because on lot_demo_001 the assembly scene reached no
+package at all and an unlit export opened to nothing. It fixed that, on a
+five-building mission, where the assembly's references were already present.
+On a one-building mission the same copy replaces a scene that resolves with a
+scene that cannot.
+
+**THE FIX, AND IT IS A CHOICE.** Step 2.5 must carry what it names -- copy
+`themed_site_dir`'s `lot/` subtree alongside the scene -- or the single-shell
+spec must stop routing through `lot/shell/` and reference the root directly,
+or step 2.5 must not fire when the composed root is the inlined single-shell
+shape. The first is the smallest and keeps one rule for both mission shapes.
+The last restores the pre-0.37.0 behaviour and re-opens what 0.37.0 closed.
+Doing none of them is the current behaviour, and it ships.
+
+**And nothing tests the one-building themed export.** Every measurement in
+roadmap 47's stages 1-3a was taken on lot_demo_001, five buildings; 3b used
+one building precisely because the point was the layer set rather than the
+scale. That choice is what surfaced this, and a fixture at each shape is what
+would have caught it before an export did.
+
+WHAT THIS ITEM SAID FIRST, AND SECOND, AND WHY BOTH WERE WRONG
+
+**First:** that the archetype was called `shell` because the lot was drawing
+this pipeline's own output back out of `deli_counter/build` as a source.
+`tools/probe_lot_own_output.py` was written to test it and refuted it: on the
+real library `shell`, `site`, `site_base` and `lot` are not in it at all, and
+`source_exclusion` catches the eleven it claims to (two facades, nine `lf_`
+ids) with nothing slipping past. The `shell` in `lot/shell/` is a literal on a
+code branch. The evidence that suggested otherwise -- `assets/lot.glb` and
+`assets/shell.glb` shipping at one sha256, `a929d7d2...`, 242,176 bytes each
+-- is real and is roadmap 42's outstanding `assets/lot.glb` work, not this.
+
+**Second:** that the export FLATTENED `lot/shell/` to the root, and that a
+basename collision between `lot/shell/site.tscn` and the site's own
+`site.tscn` ate the building. That was inferred from matching mtimes and it
+is wrong: nothing flattens that directory, and the matching mtimes are two
+`copy2` calls from one source. The collision is real but it is not a
+collision -- step 2.5 overwrites deliberately, and `export.py`'s comment says
+so in as many words.
+
+Both were written from evidence and ahead of the code. The same probe that
+killed the first one also reproduced item 48's divergence from the library
+alone -- seed 5017, wide pool `cr_garage`, themed pool `landmark_hall_a03` --
+so it earned its keep twice. The second was killed by reading
+`export_mission` out of a file stamped with its own byte count and sha256,
+which is now the rule for this item: a mechanism claim here cites a verified
+read or it does not go in.
 
 *STATUS: OPEN 2026-08-16 -- MEASURED on the same package. `resource_manifest.json` says `mission.tscn` is 16,246 bytes; the file beside it is 688. Written by Dispatch at `...388494` and overwritten by LF at `...389514`, one second later, with no rewrite of the manifest. It also lists 14 files where the package holds 56 -- no `site.tscn`, no `site_base.glb`, none of the 30 `art/` GLBs*
 
@@ -4045,6 +4096,22 @@ opening timing. Laser Tag findings of that shape are information for a human at
 candidate selection, not work items.
 
 ### Smaller, carried
+
+**The export closure scan may not read the scenes it counts.** After roadmap
+49 closed, `lot/shell/site.tscn` in the shipped package carries 34
+`res://lot/shell/...` references -- `site_base.glb` and 31 art GLBs -- and the
+scan reports `resource_count: 3`, `relative_reference_count: 1`,
+`absolute_path_count: 0` and `missing_resource_count: 0`. Those 34 appear in
+none of its numbers. Either it resolved them and does not count them, or it
+never read them and the zero is a pass over files it did not check. The
+precedent points the wrong way: 0.37.0 recorded `resource_count: 6` for a
+180-file five-building package, which is the count of SCENES in the chain and
+nothing else. Not settled by the obvious test -- renaming a GLB inside the
+export directory and re-exporting proves nothing, because `export_mission`
+does `shutil.rmtree(export_dir)` and rebuilds from source before scanning, so
+the file is back before the scan runs. It wants the scan run against a
+mutated COPY of a finished package. If the blind spot is real, the guard that
+caught item 49 cannot see one level below where it looked.
 
 **`probe_unlit_ab.py`'s manifest section reads nothing and reports `ok` for
 it.** Run against the 3b packages it printed `profile=None layers=None
