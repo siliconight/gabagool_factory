@@ -1,0 +1,32 @@
+# Line endings are LF in the repository AND in the working copy.
+#
+# Before this file existed, `core.autocrlf = input` stored every blob as LF
+# and never converted back on checkout, so the working copy kept whatever a
+# Windows editor had written. Measured on 2026-08-16: PIPELINE_ROADMAP.md was
+# 4,525 CRLF and 0 lone LF on this disk and LF in the repository, and
+# .gitignore was mixed -- 32 CRLF and 26 LF when the drift was found, 47 and
+# 26 by the time this file was written. CLAUDE.md was CRLF too and nobody had
+# noticed; it lost 379 bytes, one per line, when the working copy was
+# renormalised.
+#
+# Every patch script keys its `_eol()` off the file it is editing, so the
+# machinery coped. What did not was the DOCUMENTED rule --
+# `docs/sessions/SESSION_0816_HANDOFF.md:157`, "PIPELINE_ROADMAP.md is CRLF;
+# everything under level_factory\ is LF" -- which was true of one working copy
+# by accident of history and false of the repository. A fresh clone would have
+# turned that into a wave of patch selftests failing on correct files.
+# CLAUDE.md itself was already right, and had warned that "Git's `autocrlf`
+# means a file's on-disk endings can also change under you between sessions
+# without its content changing at all".
+#
+# `text=auto` keeps git's own binary sniffing; `eol=lf` makes checkout write
+# what commit already stored.
+* text=auto eol=lf
+
+# Declared binary rather than sniffed. `text=auto` gets these right in
+# practice, but a misdetected .glb is a corrupted building mesh and the cost
+# of being explicit is three lines.
+*.glb binary
+*.png binary
+*.jpg binary
+*.zip binary
