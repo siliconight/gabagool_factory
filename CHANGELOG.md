@@ -3,6 +3,50 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.25.0] - 2026-08-16
+
+level_factory 0.37.0 -> 0.39.0. The other nine tools are unchanged from
+factory-v1.24.0.
+
+WHAT THE SET NOW DOES THAT IT DID NOT
+
+It produces a package that opens. On a single-shell mission it never has --
+`export_mission` step 2.5 has been overwriting the root `site.tscn` with the
+assembly scene since 0.37.0, and the assembly names `lot/<id>/site.tscn`, a
+directory the export did not carry. Both `portable-godot` and `art-unlit`
+shipped 56 files whose entry reached two of them. Roadmap 49, fixed in
+0.39.0.
+
+And the buildings a mission places no longer depend on which command is
+running. `_art_run` was read off the invocation's planned graph, so `batch
+create` drew from 123 shells and `run --art` drew from 98 -- same job id,
+same seed, two different buildings, with every grader and the functional lock
+measuring the first and the package shipping the second. Roadmap 48, fixed in
+0.38.0. The lock caught it, which is the only reason anybody found out.
+
+WHAT WAS RUN
+
+unlit_probe_001, cold from an empty workspace, Blender 5.1.1 and headless
+Godot 4.7. `lot_assemble`, `walktest_navqa` and `laser_tag_evaluate` all
+report `cache` on the art pass -- the graded site IS the shipped site, by
+fingerprint. Export closure `ok: true` in both modes. LF suite 823/11/0.
+
+WHAT WAS NOT RUN
+
+lot's suite is RED and predates this set: 328 passed, 8 failed, six of them
+one arity defect in `opening_engagement_is_fair`. The walk sweep, the pack
+load check, deli_counter's suite and the real_tools suite were not run.
+lot_demo_001 has not been re-exported since 0.39.0 -- the five-building shape
+is the one 0.39.0 deliberately leaves untouched, and nothing has re-measured
+it.
+
+WHAT IS KNOWN OPEN
+
+Roadmap 50: the package ships a `resource_manifest.json` describing a
+different package. And the closure scan's `missing_resource_count: 0` sits
+beside a scene carrying 34 `res://` references the scan's numbers never
+mention -- unmeasured, and recorded as a question rather than a finding.
+
 ## [factory-v1.24.0] - 2026-08-15
 
 level_factory 0.34.0 -> 0.37.0. The other nine tools are unchanged from
