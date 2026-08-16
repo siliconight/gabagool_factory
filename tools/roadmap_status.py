@@ -206,7 +206,22 @@ def main(argv: list[str]) -> int:
     current = text[text.index(BEGIN): text.index(END) + len(END)]
 
     if "--write" in argv:
-        DOC.write_text(text.replace(current, block), encoding="utf-8")
+        # `newline=""` or this rewrites every line ending in the document.
+        # `read_text` above opens with universal newlines, so the file arrives
+        # as `\n` whatever it was on disk; `write_text` with the default
+        # `newline=None` translates those back out to `os.linesep`, which is
+        # `\r\n` on Windows. Measured 2026-08-16: the roadmap went from
+        # 0 CRLF / 4,525 LF to 4,525 CRLF in a single `--write`, 277,331 bytes
+        # on disk against 272,802 in the repository -- and `git status` stayed
+        # SILENT, because git compares through the `text=auto eol=lf` clean
+        # filter and saw no change. The conventions require `--write` after
+        # every roadmap edit, so this fired on all of them.
+        #
+        # This writes LF rather than restoring what the file had, because
+        # `read_text` has already discarded that by the time we get here, and
+        # LF is canonical repo-wide since `.gitattributes` (f2713e9).
+        DOC.write_text(text.replace(current, block), encoding="utf-8",
+                       newline="")
         print(f"  rewrote the generated block in {DOC.name}")
         return 0
 
