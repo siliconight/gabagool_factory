@@ -729,8 +729,9 @@ work of adopting this.
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
+| 51 | **OPEN** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- MEASURED. `lot` 0.41.0, clean tree (`git status --short` and `git stash list |
 
-**50 items: 20 open, 19 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**51 items: 21 open, 19 closed, 3 retracted, 6 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -4086,6 +4087,100 @@ artifact, the second wins, and the first tool's account of the package
 survives it. The manifest is either Dispatch's to own and LF must not
 overwrite what it describes, or it is a package-level artifact and belongs
 downstream of every writer. It is currently neither.
+
+*STATUS: OPEN 2026-08-16 -- MEASURED. `lot` 0.41.0, clean tree (`git status --short` and `git stash list` both empty), so these predate tonight's level_factory work and are not caused by it: 328 passed, 8 FAILED in 4.26s. THREE defects, not eight: six tests are one arity bug at `site_spawns.py:470`, one is a cover assertion, one is a plan-versus-scene position disagreement of 18.5 m that is wearing a tolerance assertion's clothes*
+
+**51. `lot`'s own suite has been red through every certification this month,
+and one of the three defects is a level that is not the level that was
+planned.**
+Run on 2026-08-16 against a clean checkout of `lot` 0.41.0, so none of this
+is fallout from level_factory 0.38.0-0.40.0:
+
+```
+8 failed, 328 passed in 4.26s
+```
+
+**ONE: the arity bug, six tests.** `tests/test_site_spawns.py:345` calls the
+predicate with three positional arguments:
+
+```python
+assert site_spawns.opening_engagement_is_fair(
+    point[:2], spawn, occluders), (...)
+```
+
+and `site_spawns.py:470` iterates the second one:
+
+```python
+if all(math.dist(candidate, p) >= reach for p in crew_path):
+```
+
+`spawn` is `SEED_5320_ROUTE["spawn"][:2]`, a single 2-tuple. Bound to
+`crew_path` it iterates to floats, and `math.dist(candidate, 37.7)` raises
+`TypeError: 'float' object is not iterable`. A spawn POINT is arriving where
+a crew PATH is wanted. Six red lines, one fix:
+
+```
+test_an_enemy_down_an_open_street_inside_sight_range_is_not_fair
+test_the_same_enemy_behind_a_building_is_fair
+test_and_so_is_one_further_off_than_either_side_can_open_fire
+test_the_sight_range_itself_is_not_a_standoff
+test_no_enemy_can_shoot_the_crew_before_it_has_moved
+test_the_written_positions_are_read_back_and_not_taken_on_trust
+```
+
+Which of the two sides is wrong is NOT established here. The caller may be
+passing the wrong thing, or the signature may have gained a parameter without
+its callers. Six tests agreeing on the same call shape is weak evidence for
+the caller, and the function's own docstring is the thing to read first.
+
+**TWO: the cover assertion.**
+
+```
+test_site_cover.py::test_the_cover_that_was_planned_is_in_the_scene_that_gets_shipped
+AssertionError: Enemy_5 still sees the crew spawn down 51.9 m of open ground
+               in the scene that shipped
+```
+
+That test exists because a search whose model of cover is wrong passes every
+candidate on the way in and still writes a map that opens with a shot -- the
+check the search cannot perform on itself. It is currently failing, which
+means either the search or the check is wrong, and both readings are worth
+the same until somebody measures.
+
+**THREE, AND THE ONE THAT MATTERS MOST: the scene does not carry the position
+the planner chose.**
+
+```
+test_site_spawns.py:461  test_the_walk_scene_carries_the_placed_positions
+    for got, want in zip((gx, gy, gz), (sx, sz + 1.0, -sy)):
+        assert math.isclose(got, want, abs_tol=1e-3), (got, want)
+AssertionError: (37.735, 19.242160304653307)
+```
+
+**This is not a tolerance failure and must not be filed as one.** 37.735
+against 19.242 is 18.5 m apart; no `abs_tol` closes that. The test's comment
+is about surviving two roundings in the same direction, which is what makes
+the assertion LOOK like a precision check and is exactly how this would get
+written off. The pairing is an axis remap -- site `(x, y, z)` to Godot
+`(x, z + lift, -y)` -- and the first pair, `gx` against `sx`, is the one that
+fails. An ordering difference, or a remap applied twice, produces a gap of
+that size; a rounding never does.
+
+Its docstring states the stake: *"The scene is the artifact Laser Tag reads;
+the plan is only useful if it is what got written."* It asserts
+`len(written) == len(planned) == 6` and both sides pass that, so six enemies
+were written and six were planned -- they are just not in the same places.
+
+**THAT IS ROADMAP 48's FAMILY, ONE TOOL DOWN.** 48 was the graded site not
+being the shipped site. This is the planned SPAWN not being the shipped
+spawn, inside the tool that does the placing, caught by a test written for
+precisely that and red long enough that four certifications have shipped over
+it. `factory-v1.25.0` records the 8 failures but not this reading of them.
+
+WHAT NOT TO DO
+
+Do not fix the tolerance. Do not skip the test. The assertion is correct and
+the number it prints is the finding.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
