@@ -158,6 +158,26 @@ refuses.
 `Path.read_text()` normalises newlines, so a check written with `read_text`
 reports a CRLF file as LF.
 
+> **SUPERSEDED 2026-08-16 -- the second sentence only.** The rule itself is
+> right and is why none of this cost anything: every patch reads its target's
+> endings at runtime, so the machinery adapted without a line of change. But
+> naming a file's ending as a CONSTANT was wrong even when written.
+> `core.autocrlf = input` was storing every blob as LF and never converting
+> back on checkout, so `PIPELINE_ROADMAP.md` was 4,525 CRLF on that one disk
+> and LF in the repository, `.gitignore` was 32 CRLF and 26 LF at the same
+> time, and `CLAUDE.md` was CRLF without anyone noticing -- it lost 379 bytes,
+> one per line, when the working copy was brought into line. A fresh clone
+> would have produced LF files and failed every selftest asserting CRLF, on
+> files that were correct.
+>
+> `.gitattributes` now sets `* text=auto eol=lf` (commit f2713e9) and the
+> working copy has been renormalised, so **LF is canonical in both.** Note
+> that `.pre_*` sidecars are gitignored and are byte copies of whatever their
+> source was, so older ones are still CRLF and are supposed to be.
+>
+> Do not replace this with "the roadmap is LF". That would repeat the mistake
+> with a different constant. Read the file.
+
 **Selftests must be able to fail.** Recurring mistakes tonight, all caught:
 - `A and B or C` — `and` binds tighter, so a loose `C` swallows the test.
   Write strict conjunctions.
