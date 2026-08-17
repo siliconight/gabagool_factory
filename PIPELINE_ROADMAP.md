@@ -687,7 +687,7 @@ work of adopting this.
 | 6 | **OPEN** *(inferred)* | The tactical advisory reads a scene that may not exist yet | — |
 | 7 | **CLOSED** *(inferred)* | The certified set has drifted | Closed 2026-07-27 as **factory 1 |
 | 8 | **CLOSED** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-14 -- shipped as Lot 0.28.0 + Level Factory 0.18.0; the seed_5219 report carries a |
-| 9 | **CLOSED** *(inferred)* | Lot emits nav-QA anchors nothing checks | Closed 2026-07-28 as Lot 0 |
+| 9 | **NARROWED** | Lot emits nav-QA anchors nothing checks | 2026-08-16 -- the residual this item names for itself, "Lot still cannot answer 'is this a |
 | 10 | **NARROWED** | `nav_gate.py` certifies geometry that never ships | 2026-08-14 -- quantified. `nav_gate.gd` bakes PARSED_GEOMETRY_MESH_INSTANCES; `lot.py:1430 |
 | 11 | **RETRACTED** *(inferred)* | The building interiors barely bake | Retracted 2026-07-28 |
 | 12 | **NARROWED** | Props bake as walkable navmesh, and nothing can reach them | 2026-08-14 -- the mechanism this item named is not misconfigured, it is ABSENT: `geometry_ |
@@ -730,8 +730,9 @@ work of adopting this.
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
+| 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 
-**51 items: 19 open, 20 closed, 3 retracted, 7 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**52 items: 19 open, 20 closed, 3 retracted, 8 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -976,6 +977,8 @@ The new instrument had inherited the old instrument's excuse. Lot 0.28.0
 clusters on strict reachability only; legs keep the concession, because a ladder
 is real access and the proof says which kind it found. **A connectivity metric
 built out of a permissive predicate measures the predicate.**
+
+*STATUS: NARROWED 2026-08-16 -- the residual this item names for itself, "Lot still cannot answer 'is this anchor over anything?' offline", now has TWO measured instances and they agree. `ref_pvp` on 2026-08-14: an objective marker 3.60 m above the site ground plane, `library_walk.py` the blocked site of 20, walkers finishing 15 of 15 legs with 0 stuck. `lot_demo_001` candidate seed_5219 on 2026-08-16 under lot 0.42.0: the same finding at 6.00 m, `walktest_navqa` PASS with every bot `targets_reached 1/1`. Both are `LOT_DESTINATION_ABOVE_FLOOR`, both have clean walkers, and NEITHER is a navmesh defect -- Lot leaves the marker where it was put because it cannot read what is under it offline, and Laser Tag then cannot path to it and reports TRAVERSAL at 0%. The gap is unchanged and unbuilt; what is new is that it now has a second instance and a second site, so it is a class rather than one odd map. `site_cover.pinches()` remains the template this item names. See item 52*
 
 **9. Lot emits nav-QA anchors nothing checks.** Closed 2026-07-28 as Lot 0.28.0
 + Level Factory 0.18.0 — see *The scraps were the furniture* above. Anchors are
@@ -4315,6 +4318,93 @@ WHAT NOT TO DO
 
 Do not fix the tolerance. Do not skip the test. The assertion is correct and
 the number it prints is the finding.
+
+
+*STATUS: CLOSED 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than cache-hit, because `tool_version` is folded into the build fingerprint and the cached receipt said `Lot 0.33.0` -- so every earlier number for this mission came from nine minor versions back. Cover verified at five buildings with a real collision reading: `LOT_SIGHTLINE_OPEN` on NONE of three candidates, `unbreakable 0`, `pinches 0`. One change was tried and REJECTED on measurement, and the reason is the useful part of this item*
+
+**52. `lot_demo_001` re-measured, and the route exposure it reports is the
+design working rather than failing.**
+Re-run 2026-08-16 under level_factory 0.40.0 and lot 0.42.0, the first numbers
+on this mission since Lot 0.33.0. Its cached assemble receipt
+(`fingerprint.last.json`) read `evaluated_utc 2026-08-13T23:20:57`,
+`tool_version "Lot 0.33.0"` -- so the 45/100 and `route_completion_rate: 0.0`
+this roadmap carries were produced nine minor versions back. The new artifacts
+are stamped: `tool_version "Lot 0.42.0"`, `repository_commit df848df`.
+
+`lot_assemble`, `walktest_navqa` and `laser_tag_evaluate` all EXECUTED on all
+three candidates. That confirms item 39's claim that `tool_version` is folded
+into the fingerprint, on a real mission -- a tool upgrade does invalidate a
+workspace.
+
+**WHAT THE COVER WORK DID AT FIVE BUILDINGS.** Item 51's fixes had only ever
+been measured on `test_site_cover`'s two-building yard with no collision
+reading. On the real mission, with 959 colliders and 1,029 surfaces:
+
+```
+LOT_SIGHTLINE_OPEN   fired on NONE of the three candidates
+seed_5219 cover_plan  placed 16 (5 opening + 11 route)
+                      route_open 14   unbreakable 0   pinches 0
+```
+
+The opening pass closed every marker sightline with FIVE of its twelve pieces.
+Crew-first ordering holds at scale.
+
+**AND LASER TAG ASKS FOR ENEMY-TO-ENEMY COVER BY NAME.** Item 51's entry left
+"exclude enemy-to-enemy pairs from the opening budget" standing as a live
+alternative, on the reasoning that such a line says nothing about who shoots
+the crew. It is not an alternative. `LT_OPEN_SIGHTLINE` reports those lines
+with coordinates and a remedy -- *"Enemy_2 and Enemy_5 see each other across
+108.1 m of open ground, past the 45 m at which Laser Tag opens fire; fix: cover
+near (19.0, 36.3) would break it"* -- three of them on seed_5219 alone.
+Excluding those pairs would delete cover the grader requests. Retired.
+
+**THE CHANGE THAT WAS TRIED AND REJECTED.** `route_open: 14` reads like a
+defect. The opening pass had left SEVEN of its twelve unspent while the route
+pass exhausted all eleven of its own, so the obvious move is to carry the
+leftover down. It was written, and it worked on a constructed case -- route
+pieces 4 -> 10, route_open 14 -> 2, opening untouched, pinches 0.
+
+It is wrong, and `tests/test_lot.py::test_route_budget_scales_with_the_route_
+and_is_reported_when_short` says so: it asserts the route budget is exactly
+`ceil(route_length / ROUTE_METRES_PER_PIECE)`, and the carry made it 4 where
+the test wants 1. **The test is right.** Its docstring -- *"A flat twelve is
+generous on a 40 m approach and nothing on a 250 m one"* -- is arguing that the
+allowance must be a scaled CAP, and `plan_cover`'s own comment says what the
+cap is for: *"a producer that placed one per line would litter the street with
+crates."* Carrying up to twelve flat pieces onto a deliberately scaled cap
+pushes the route pass toward one-piece-per-open-line, which is the behaviour
+the cap exists to prevent. The mitigation offered for it -- that extra pieces
+only land on genuinely exposed lines -- is not a mitigation, it IS the failure
+mode.
+
+So the 14 is not a cover-budget defect. The route runs ~270 m past SIX enemies
+each with a 45 m envelope; the exposed-stretch count is a function of enemy
+density against route length. The cap stops Lot answering an enemy-density
+problem by filling the street, and `LOT_ROUTE_EXPOSED` reports the remainder
+honestly, which is exactly what the second half of that test demands.
+
+WHAT NOT TO DO
+
+Do not raise the route budget to make `route_open` smaller. Do not carry the
+opening's leftover. Both were tried on 2026-08-16 and the suite refused them
+for a stated reason. If route exposure is to come down, the lever is enemy
+placement -- which is leaving this pipeline for the gameplay layer -- or a
+different notion of what the route pass is for, not more pieces.
+
+**WHAT IS ADVISORY HERE AND WHAT IS NOT.** Lot makes the level; Laser Tag
+grades it. Its numbers are recorded because they are evidence, not because they
+are gates: seed_5017 FAIL 40 over 25 runs with 4% traversal, seed_5118 0% and
+the route never completed, seed_5219 16%, overexposure 45-69%, player-stuck
+861 / 3,663 / 718. `LT_ROUTE_NEVER_COMPLETED` names its own instrument --
+*"walktest_navqa walks the same spine on the baked navmesh with no combat in
+it, and says which leg failed. Read that first."* It was read: **PASS**, every
+bot `targets_reached 1/1` on all four legs. The map is walkable. Laser Tag's
+own text attributes the failure to the crew halting on contact, which is
+downstream's model of combat and out of scope under this file's boundary.
+
+The one Lot-side finding in that set is `LT_DESTINATION_ABOVE_FLOOR` on
+seed_5219 -- an objective marker 6.00 m above the ground plane -- and that is
+item 9's residual gap, second instance. Not new, and not a navmesh defect.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
