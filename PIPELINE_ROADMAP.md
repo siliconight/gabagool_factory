@@ -4320,7 +4320,7 @@ Do not fix the tolerance. Do not skip the test. The assertion is correct and
 the number it prints is the finding.
 
 
-*STATUS: CLOSED 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than cache-hit, because `tool_version` is folded into the build fingerprint and the cached receipt said `Lot 0.33.0` -- so every earlier number for this mission came from nine minor versions back. Cover verified at five buildings with a real collision reading: `LOT_SIGHTLINE_OPEN` on NONE of three candidates, `unbreakable 0`, `pinches 0`. One change was tried and REJECTED on measurement, and the reason is the useful part of this item*
+*STATUS: CLOSED 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than cache-hit, because `tool_version` is folded into the build fingerprint and the cached receipt said `Lot 0.33.0` -- so every earlier number for this mission came from nine minor versions back. Cover verified at five buildings with a real collision reading: `LOT_SIGHTLINE_OPEN` on NONE of three candidates, `unbreakable 0`, `pinches 0`. One change was tried and REJECTED on measurement, and the reason is the useful part of this item Its retirement of the enemy-enemy exclusion is REVERSED 2026-08-17 on precedence, not on evidence -- see the reversal below*
 
 **52. `lot_demo_001` re-measured, and the route exposure it reports is the
 design working rather than failing.**
@@ -4357,6 +4357,74 @@ with coordinates and a remedy -- *"Enemy_2 and Enemy_5 see each other across
 108.1 m of open ground, past the 45 m at which Laser Tag opens fire; fix: cover
 near (19.0, 36.3) would break it"* -- three of them on seed_5219 alone.
 Excluding those pairs would delete cover the grader requests. Retired.
+
+**REVERSED 2026-08-17. LOT OUTRANKS THE GRADER.** The retirement above is
+withdrawn. It rested on `LT_OPEN_SIGHTLINE` naming those lines with a
+remedy -- that is, on the grader's request being authoritative. It is not.
+Laser Tag is advisory, Lot builds the level, and enemy placement is leaving
+Lot for the gameplay layer, so a request phrased in `Enemy_*` markers
+cannot bind Lot's budget.
+
+**WHAT WAS MEASURED FIRST.** The shipped export carried 16 pieces, each
+recording the pair it was placed for:
+
+```
+11  route@N -> Enemy_M            the route pass
+ 3  Enemy_M -> LT_ObjectivePoint
+ 2  Enemy_M -> Enemy_N
+ 0  anything touching LT_PlayerSpawn
+```
+
+15 of 16 pieces are placed against an `Enemy_*` point. `open_sightlines` is
+all-pairs, so K enemies contribute C(K,2) lines. The enemy markers are
+functioning as a six-sample approximation of "somewhere a shooter could
+stand" -- which is why removing them does not merely trim the budget, it
+removes most of the planner's question.
+
+**SEED-MATCHED, BOTH DIRECTIONS, SAME THREE CANDIDATES.** Reverted, re-run,
+read per seed, re-applied, re-read -- and the second patched read reproduced
+the first exactly, with every stage cache-hitting, so the numbers are not a
+rebuild artefact:
+
+```
+seed   reverted (placed, route_open)   patched     what moved
+5017   (9, 3)   one enemy-enemy        (8, 3)      waste removed, no cost
+5118   (9, 0)   one enemy-enemy        (9, 0)      freed slot went to the
+                                                   ROUTE: enemy-route 4 -> 5
+5219   (16, 14) two enemy-enemy        (14, 15)    one route stretch left open
+```
+
+**THE COST IS REAL AND IS NOT ARGUED AWAY.** On seed_5219 `route_open` goes
+14 -> 15. One of the two enemy-enemy crates was incidentally blocking a
+route line, and the route pass did not replace it because its own density
+cap (`ROUTE_METRES_PER_PIECE`) was already met -- the same cap that made
+the spare-budget change above wrong. Mission findings went 51 -> 50 across
+the three candidates.
+
+**WHAT WAS NOT DONE, STATED PLAINLY.** Which finding disappeared was not
+isolated, and `LT_OPEN_SIGHTLINE` was NOT counted patched-versus-reverted
+per seed. Item 52's claim that excluding these pairs deletes cover the
+grader asks for is therefore UNREFUTED on its own terms. It is overruled
+because Lot outranks Laser Tag, not because it was shown to be wrong. If
+that ordering is ever revisited, this is the measurement to take first.
+
+**METHOD FAILURE WORTH RECORDING.** The exclusion was re-derived from
+scratch and shipped before this item was read. The roadmap had already
+analysed it, with the grader's coordinates, and retired it -- and this item
+also already carried `seed_5219 placed 16 ... route_open 14`, the exact
+"before" numbers that were re-measured with a full pipeline run. Same
+failure as item 3. The measurement got done; the search did not.
+
+**SHIPPED** in lot 0.44.0, `site_cover.py`, inside `plan_cover`'s nested
+`outstanding()`. Deliberately NOT in `open_sightlines`, which is byte-
+identical and still returns every pair, so Laser Tag and
+`level_factory/packages/validation/` see exactly what they saw.
+
+**WHAT ACTUALLY DECOUPLES LOT.** Re-pose the question on standable ground:
+cover the stretches of the crew's route visible from anywhere a shooter
+could legally stand within `OPENING_RANGE`, rather than from six sampled
+enemy points. That removes `Enemy_*` from `cover_points` altogether. Not
+attempted.
 
 **THE CHANGE THAT WAS TRIED AND REJECTED.** `route_open: 14` reads like a
 defect. The opening pass had left SEVEN of its twelve unspent while the route

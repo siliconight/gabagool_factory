@@ -3,6 +3,33 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.28.0] - 2026-08-17
+
+lot 0.43.0 -> 0.44.0. The other nine tools are unchanged from factory-v1.27.0.
+
+WHAT LOT 0.44.0 CHANGES
+
+Lot's opening cover budget no longer buys cover for enemy-to-enemy sightlines.
+`open_sightlines` is all-pairs, so K enemy markers contribute C(K,2) lines that
+say nothing about who shoots the crew. The exclusion sits at the point of
+spend, inside `plan_cover`, leaving `open_sightlines` byte-identical for Laser
+Tag and the validation package.
+
+THIS REVERSES ROADMAP 52, ON PRECEDENCE AND NOT ON EVIDENCE
+
+Item 52 retired this change a day earlier, because `LT_OPEN_SIGHTLINE` asks
+for that cover by name. Nothing here refutes it. Lot outranks Laser Tag, and
+enemy placement is leaving Lot, so the request cannot bind the budget. The
+item now carries the reversal, the measurement, and what was not measured.
+
+MEASURED
+
+Seed-matched across all three `lot_demo_001` candidates: 5017 (9,3) -> (8,3),
+5118 (9,0) -> (9,0) with the freed slot going to the route, and 5219 (16,14) ->
+(14,15). The one regression -- a stretch of the crew's route left open on
+seed_5219 -- is recorded rather than argued away. Mission findings 51 -> 50.
+`lot`'s suite 336 passed / 0 failed.
+
 ## [factory-v1.27.0] - 2026-08-16
 
 lot 0.42.0 -> 0.43.0. The other nine tools are unchanged from factory-v1.26.0.
