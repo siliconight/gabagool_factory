@@ -3,6 +3,36 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.27.0] - 2026-08-16
+
+lot 0.42.0 -> 0.43.0. The other nine tools are unchanged from factory-v1.26.0.
+
+WHY A SET VERSION FOR A BYTE-IDENTICAL ARTIFACT
+
+Because a tool version and a set version are two different claims, and this
+project learned that the expensive way earlier today. level_factory 0.40.0 was
+tagged, pushed, and recorded in the roadmap as closing item 50 while
+`factory.manifest.json` still pinned 0.39.0 -- so for the life of
+factory-v1.25.0 the certified set omitted a fix the roadmap called closed.
+Nobody noticed because nothing compares the two.
+
+lot 0.43.0 emits the same bytes as 0.42.0 on every scene measured. It still
+gets a set version, because the alternative is lot's HEAD sitting ahead of its
+tag and ahead of the manifest, which is precisely the state that hid 0.40.0.
+
+WHAT LOT 0.43.0 CHANGES
+
+The enemies are placed once. `place_enemies` ran twice inside one `assemble` --
+once for the site report, once for the scene writer -- and the two were kept in
+agreement by hand. Roadmap 3 had described this since before this month and had
+been re-confirmed on 2026-08-12. The result of the first placement is now
+threaded down to the writer, so there is no second call to disagree.
+
+Verified against the artifact rather than a fixture: all three `lot_demo_001`
+navqa scenes byte-identical to the pre-threading run, cover plan unchanged,
+`laser_tag_evaluate` correctly cache-hitting. `lot`'s suite 336 passed / 0
+failed.
+
 ## [factory-v1.26.0] - 2026-08-16
 
 lot 0.41.0 -> 0.42.0, level_factory 0.39.0 -> 0.40.0. The other eight tools
