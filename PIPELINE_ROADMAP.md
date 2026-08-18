@@ -4424,7 +4424,86 @@ identical and still returns every pair, so Laser Tag and
 cover the stretches of the crew's route visible from anywhere a shooter
 could legally stand within `OPENING_RANGE`, rather than from six sampled
 enemy points. That removes `Enemy_*` from `cover_points` altogether. Not
-attempted.
+attempted as code. SCOPED AND MEASURED 2026-08-17 -- see directly below.
+
+**MEASURED 2026-08-17. THE OBVIOUS METRIC IS REFUTED.** The re-posing above
+was scoped and probed read-only against all three `lot_demo_001` candidates.
+No code shipped.
+
+**THE SAMPLER IS FREE.** Lot already knows where a body can stand --
+`site_spawns.outdoors` is two point-in-rect tests -- and sweeping the route
+band at 5 m x 5 m yields 353-713 standable posts in 0.00 s. Cost was never
+the obstacle.
+
+**BOOLEAN EXPOSURE SATURATES**, so "count exposed route samples instead of
+pairs" is dead on arrival:
+
+```
+seed   posts pairs_e pairs_p exposed_e exposed_p samples budget
+5017    371      27    1381         9         9       9      7
+5118    353      25    1014         8         8       8      6
+5219    713      51    3902        16        16      16     11
+```
+
+Every route sample is ALREADY exposed under the six enemy points -- 9/9, 8/8,
+16/16 -- so the posts add nothing and the number is pinned at maximum. Pairs
+fail in the other direction: 3902 against a route budget of 11.
+
+**ARC EXPOSURE DISCRIMINATES.** Bin each sample's threat bearings into 72
+slices of 5 degrees and measure what fraction of the full 360 holds a shooter
+with a clear line:
+
+```
+seed  mean_enemies  mean_posts  at_full_360   spread (posts)
+5017      4.0%        68.2%        0 / 9        43% .. 93%
+5118      4.2%        65.8%        0 / 8        44% .. 90%
+5219      4.3%        79.7%        0 / 16       51% .. 99%
+```
+
+`mean_enemies ~ 4%` is the number this item was missing. **Six enemy points
+occupy about three of seventy-two bearings.** Lot has been planning cover
+against a 4% sample of the directions a shooter could come from, which is the
+quantitative form of "15 of 16 pieces are placed against an `Enemy_*` point".
+
+**TODAY'S PLACEMENT IS NEAR-RANDOM AGAINST ARC.** Scoring the pieces Lot
+actually placed, against a greedy arc-maximising placement on the same
+budget:
+
+```
+seed  budget  placed  before   after today     after greedy    greedy cost
+5017     7       8     68.2%   57.4%  (-10.8)  34.1%  (-34.1)     3.0 s
+5118     6       9     65.8%   55.4%  (-10.4)  41.0%  (-24.8)     1.6 s
+5219    11      14     79.7%   69.8%  ( -9.9)  46.4%  (-33.2)    31.1 s
+```
+
+Today's placement reduces arc by ~10% on EVERY seed regardless of geometry.
+That flatness is what optimising a 4% sample looks like. Greedy reaches
+2.4x-3.4x the reduction using FEWER pieces every time -- 7 against 8, 6
+against 9, 11 against 14.
+
+**WHAT THIS DOES NOT ESTABLISH.** The greedy figure is an UPPER BOUND from a
+capped 250-candidate set with no separation or legality constraints beyond
+`_piece_rect`; a real planner lands below it. Greedy scoring cost 31.1 s on
+seed_5219 against `assemble`'s own 0.18 s, so restricting candidates to the
+neighbourhood of high-exposure samples is MANDATORY rather than an
+optimisation. The opening pass has not been analysed under arc at all --
+only the route pass. Nothing was tried on any mission but `lot_demo_001`.
+
+**METHOD NOTE.** The first sweep measured Lot's DECLARED-footprint fallback
+without noticing. `package._find_asset` looks for a `.glb` next to the site
+spec and then in `<dc>/build/<name>`; the spec names `buildings/<stem>.glb`,
+the library stores `<stem>.glb` at `build/` root, and the pipeline's temp dir
+had been cleaned of its staged copies -- so neither path resolved and
+`assemble` degraded in silence. The probe now stages the geometry itself and
+REFUSES to report numbers if `LOT_OCCLUDERS_DECLARED` fired. With staging it
+reproduces the recorded run exactly: `LOT_COVER_PLACED 14`,
+`LOT_ROUTE_COVER_PLACED 11 of 14`, `LOT_ROUTE_EXPOSED 15` against the
+artifact's `placed 14` / `route_open 15`. Saturation was present in both
+readings, so the refutation did not depend on the faulty one. Luck, not
+method.
+
+Probe: `_scratch/probe_standable_sweep.py` -- read-only, stages its own
+geometry, about 35 s for all three seeds.
 
 **THE CHANGE THAT WAS TRIED AND REJECTED.** `route_open: 14` reads like a
 defect. The opening pass had left SEVEN of its twelve unspent while the route
