@@ -731,7 +731,7 @@ work of adopting this.
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
-| 53 | **OPEN** | Two Lux checks find nothing and carry on, and the filename literals ar | 2026-08-17 -- RE-SCOPED. The first draft led with a grep count -- `lux.applied.tscn` and i |
+| 53 | **OPEN** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-17 -- CORRECTED, second re-scope. The previous one ranked `walk_preview`'s `has_lu |
 
 **53 items: 20 open, 22 closed, 3 retracted, 6 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -4585,10 +4585,10 @@ The one Lot-side finding in that set is `LT_DESTINATION_ABOVE_FLOOR` on
 seed_5219 -- an objective marker 6.00 m above the ground plane -- and that is
 item 9's residual gap, second instance. Not new, and not a navmesh defect.
 
-*STATUS: OPEN 2026-08-17 -- RE-SCOPED. The first draft led with a grep count -- `lux.applied.tscn` and its two siblings as string literals in 8 modules, 27 sites -- and that is the SYMPTOM, not the cost. A shared constant does not decouple anything: a Lux rename still breaks Level Factory, in one file instead of eight, and that name has been stable across 0.15.x-0.16.0. What costs something TODAY is two checks that find nothing and proceed: `walk_preview`'s `has_lux` reads False and silently renders unlit whatever the reason the file is absent, and `_preset_for`'s display-name mapping is a silent no-op on a wrong name, PROVEN ON HARDWARE per its own comment -- while `lux.quality.json` already echoes the applied preset back and nothing compares them. Ranked accordingly; the constant is third. The `--unlit` interface question is DECIDED: leave it*
+*STATUS: OPEN 2026-08-17 -- CORRECTED, second re-scope. The previous one ranked `walk_preview`'s `has_lux` first as a check that finds nothing and carries on. IT IS NOT ONE: it has a documented two-way detection, it does not render unlit but substitutes a preview RIG, and it reports which it used -- `lighting: "lux (content-owned)" | "preview rig"` in its return value. Withdrawn, with what it actually does, at `walk_preview.py:308-314,376` (18,781 B, sha256 3400109C...). That leaves ONE ranked defect: `_preset_for` is a silent no-op on a wrong Lux preset display name, PROVEN ON HARDWARE per its own comment, and `lux.quality.json` already echoes the applied preset back while nothing compares them. The 27 filename literals across 8 modules stay third and stay tidiness. `--unlit` interface: DECIDED, leave it*
 
-**53. Two Lux checks find nothing and carry on, and the filename literals
-are the symptom rather than the cost.**
+**53. One Lux check is a silent no-op, and the filename literals are
+tidiness with one real consequence.**
 Item 47 asked for a fourth layer so that Lux could change without touching
 level building. In the DAG it worked: `lux_apply` is simply not planned when
 `LAYER_LIGHT` is absent, and `dispatch_dep` rewires around the hole. The
@@ -4637,46 +4637,29 @@ makes `blend_to_preset` a silent no-op, proven on hardware in the Lux visual
 pass. A rename in Lux's preset library does not break this. It stops it
 working.
 
-**WHAT ACTUALLY COSTS SOMETHING, IN ORDER.**
+**WHAT ACTUALLY COSTS SOMETHING.**
 
-**FIRST -- `walk_preview` renders unlit and says nothing.**
-
-```
-walk_preview.py:249  has_lux = (dest / "presentation" / "lux.applied.tscn").is_file()
-```
-
-False is not an answer, and this treats it as one. The file is absent when
-Lux was renamed, yes -- but also when `lux_apply` failed, when the mode
-dropped it, when the export did not carry it, or when somebody ran the
-preview on an unlit package. All five render a preview that is lit
-differently from the level, and the file's own words on why that matters are
-already written down four bullets above the relevant note in
-`WALKABLE_SITE.md`: *"a preview that is lit differently from the level is
-worse than no preview, because it gets believed."* One file. No speculation.
-The filename is incidental to it.
-
-**SECOND -- `_preset_for` is a silent no-op on a wrong name, and the
-check is free.**
+**THE ONE WITH MEASURED HARM -- `_preset_for` is a silent no-op, and the
+check that closes it is free.**
 
 It maps `time_of_day` onto Lux preset DISPLAY names -- "Blue Hour", "Delco
 Summer Afternoon", "Gas Station Fluorescent" -- and its own comment records
 that a wrong name makes `blend_to_preset` do nothing, proven on hardware in
-the Lux visual pass. Unlike everything else in this item, that has already
-cost something.
+the Lux visual pass. Nothing else in this item has already cost something.
 
-It is also nearly closed already, because the artifact answers it. Level
-Factory asks for a preset; `lux.quality.json` reports the one applied:
+It is also nearly closed, because the artifact answers it. Level Factory asks
+for a preset; Lux reports the one it applied:
 
 ```
-requested   _preset_for(model)         ->  "Blue Hour"
-applied     lux.quality.json["preset"] ->  "Blue Hour"     (lot_demo_001, 2026-08-17)
+requested   _preset_for(model)          ->  "Blue Hour"
+applied     lux.quality.json["preset"]  ->  "Blue Hour"     (lot_demo_001, 2026-08-17)
 ```
 
-Nothing compares those two strings. A comparison turns a silent no-op into a
-finding, needs no new data, and would have been exercised by the re-export
-recorded below.
+Nothing compares those two strings. A comparison needs no new data, turns a
+silent no-op into a finding, and would have been exercised by every lit
+export this pipeline has produced.
 
-**THIRD -- the filename literals, and they are genuinely third.**
+**AND THE FILENAME LITERALS -- third, tidiness, with one real consequence.**
 
 ```
 9  packages/exporting/export.py        2  packages/pipeline/planner.py
@@ -4692,12 +4675,51 @@ subset that matters -- `closure.py`'s `_METADATA_FILES` names the two JSONs,
 `export.py`'s `_PRESENTATION_FILES` names the scene and one JSON,
 `planner.py`'s `expected_outputs` names all three.
 
-**Worth tidying, and honest about what tidying buys.** A shared constant does
-not decouple: a Lux rename still edits Level Factory, in one place rather
-than eight. That is a real improvement to a failure that has not happened --
-the name has been stable across 0.15.x to 0.16.0 -- bought with an eight-file
-change across four packages. Do it when something else already has those
-files open. Not as a project.
+A shared constant does not decouple: a Lux rename still edits Level Factory,
+in one place rather than eight, against a name stable across 0.15.x to
+0.16.0. THE ONE REAL CONSEQUENCE, stated correctly: a rename would send
+`walk_preview` to its fallback, and if that missed too the preview would
+report `"lighting": "preview rig"` for a package that DOES carry Lux. Wrong,
+but reported -- it lands in the return value and in `walk.source.json`'s
+sibling fields, so it is findable rather than invisible. Worth tidying when
+something else already has those files open. Not as a project.
+
+WITHDRAWN: `walk_preview` DOES NOT SILENTLY RENDER UNLIT
+
+The previous re-scope ranked it first, on the strength of a grep line
+(`walk_preview.py:249  has_lux = ...`) read without opening the function.
+Read (18,781 B, sha256 3400109C...):
+
+```python
+308:  has_lux = (dest / "presentation" / "lux.applied.tscn").is_file()
+309:  if not has_lux:
+311:      has_lux = "addons/lux" in (dest / level).read_text(encoding="utf-8")
+314:  if has_lux:      # instance the level as-is; Lux owns the lighting
+325:  else:            # build a preview RIG -- DirectionalLight3D, shadows, bias
+376:  lighting = "lux (content-owned)" if has_lux else "preview rig"
+393:  return {..., "lighting": lighting, ...}
+```
+
+Two-way detection with a documented fallback; no unlit render, a substituted
+rig; and the choice is REPORTED in the return value. That is the opposite of
+a check that finds nothing and proceeds. Its own comment records this being
+fixed once already, for the failure it was just accused of: `localize_export`
+strips `addons/lux` by contract, so an earlier version found nothing, added
+the dev rig ON TOP of Lux's WorldEnvironment and washed out the applied look.
+It now asks what `write_entry_scene` keys on, so the two cannot disagree.
+
+The 152-fixture-lights-against-`OmniLight3D 0` incident is not this line
+either. That is `walk_fixtures.gd` and the walk project not inheriting
+`lux.applied.tscn` -- a different mechanism in a different place, attached
+here by mistake.
+
+THE LINE NUMBER HAD MOVED, 249 to 308, WHICH WAS THE TELL. A note citing a
+line that no longer says what the note says is a note about a file that has
+changed. This is the third mechanism in this item's neighbourhood published
+ahead of the read, and the second inside a section arguing for reading first
+-- so it is recorded here rather than quietly corrected, on the same rule
+item 49 adopted: a mechanism claim cites a verified read or it does not go
+in.
 
 WHERE THE CONSTANT WOULD GO, MEASURED
 
