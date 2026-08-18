@@ -1,11 +1,11 @@
-# Re-posing Lot's cover planner on standable ground -- v3
+# Re-posing Lot's cover planner on standable ground -- v4
 
-Working design for roadmap 52's named remedy. Supersedes v1 and v2.
+Working design for roadmap 52's named remedy. Supersedes v1, v2 and v3.
 **No code has been written.** Everything below is measured on all three
 `lot_demo_001` candidates under measured collision.
 
-Probe: `_scratch/probe_standable_sweep.py` -- read-only, stages its own
-geometry, ~35 s for all three seeds.
+Probe: `tools/probe_standable_sweep.py` -- read-only, stages its own
+geometry, ~2 s for all three seeds.
 
 ---
 
@@ -81,7 +81,7 @@ exactly today's. No existing caller or test changes.
 |---|---|---|
 | 1 | posts find >= the exposure six enemies find | HELD, but vacuously -- both saturate |
 | 2 | today's placement is near-random against arc | **HELD STRONGLY** (see below) |
-| 3 | scoring cost stays under ~1 s per candidate | **FAILED -- 31.1 s on seed_5219** |
+| 3 | scoring cost stays under ~1 s per candidate | FAILED at 31.1 s, then **FIXED -- 0.2 s** |
 | 4 | old and new metrics rank seeds differently | not yet tested |
 
 Prediction 2, the kill switch:
@@ -100,17 +100,40 @@ That flatness is what optimising a 4% sample looks like. Greedy reaches
 The greedy figure is an UPPER BOUND: capped 250-candidate set, no separation
 or legality constraints beyond `_piece_rect`. A real planner lands below it.
 
-## 6. Prediction 3 failed, so performance comes first
+## 6. Prediction 3 was fixed, and the bound improved
 
-31.1 s of scoring against `assemble`'s own 0.18 s is not shippable. Candidate
-restriction is now a PREREQUISITE, not a mitigation: restrict candidate
-positions to the neighbourhood of high-exposure samples rather than lowering
-the sweep density, and re-measure both cost AND whether the 2.4x-3.4x
-advantage survives a realistic candidate set.
+31.1 s of scoring against `assemble`'s own 0.18 s was not shippable, so
+candidate restriction was promoted from mitigation to prerequisite. Three
+changes did it:
 
-If the advantage collapses once candidates are restricted to legal,
-well-separated positions near the route, this design is not worth building
-and that should be said plainly rather than tuned around.
+* a bounding-box reject before the real segment test
+* per-candidate TOUCHED KEYS -- a candidate scores against the ~50 bearing
+  bins it can affect rather than all ~900
+* a candidate band restricted to `CANDIDATE_REACH = 12 m` of the route
+
+`COVER_SEPARATION` (6 m) is also now enforced between chosen pieces, which
+the first bound ignored.
+
+```
+seed  budget  today     greedy WIDE          greedy NEAR (12 m, 6 m sep)  kept
+5017     7    -10.8%    -34.1%  (233 cand)   -40.3%  ( 99 cand)           118%
+5118     6    -10.4%    -24.8%  (227 cand)   -38.2%  ( 79 cand)           154%
+5219    11     -9.9%    -33.2%  (236 cand)   -51.0%  (242 cand)           153%
+```
+
+**31.1 s -> 0.2 s worst case, and the restricted band BEATS the unrestricted
+one on every seed.** A `COVER_SIZE` piece at distance d subtends about
+`2*atan(COVER_SIZE/2/d)` -- 33 degrees at 5 m, 11 at 15 m, 4 at 45 m -- so
+sampling the whole post set evenly diluted the near candidates that carry the
+arc. Restricting concentrated the budget where the geometry says it belongs.
+
+So today's placement reduces arc by ~10% while a restricted, separated,
+realistic greedy reaches 38-51%: **3.7x-5.2x**, not the 2.4x-3.4x the
+unconstrained bound suggested. The design was expected to get worse under
+realistic constraints and got better instead.
+
+It remains an UPPER BOUND: candidates are standable posts rather than
+verified legal piece positions, and nothing checks them against `_usable`.
 
 ## 7. Metric transition
 
@@ -132,8 +155,12 @@ made more than once.
 
 ## 9. Order of work
 
-1. **candidate restriction** -- fix prediction 3, re-measure cost and confirm
-   the advantage survives. If it does not, stop here.
+1. ~~candidate restriction -- fix prediction 3~~ **DONE**: 0.2 s, and the
+   advantage grew to 3.7x-5.2x
 2. arc exposure behind `threats=`, prefix parameterised, both metrics emitted
 3. suite, seed-matched re-measure, roadmap item, release
 4. only then: the opening pass
+
+Step 2 is the next code change. It touches `site_cover.py` and `lot.py` and
+will change the cover output of every level, so it wants its own session and
+its own release.

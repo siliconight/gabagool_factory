@@ -4502,8 +4502,39 @@ artifact's `placed 14` / `route_open 15`. Saturation was present in both
 readings, so the refutation did not depend on the faulty one. Luck, not
 method.
 
-Probe: `_scratch/probe_standable_sweep.py` -- read-only, stages its own
-geometry, about 35 s for all three seeds.
+
+**PREDICTION 3 FIXED, AND THE BOUND GOT BETTER.** The 31.1 s was scoring
+every bearing key against every candidate. Three changes: a bounding-box
+reject before the real segment test; per-candidate TOUCHED KEYS, so a
+candidate scores against the ~50 bins it can affect rather than all ~900; and
+a candidate band restricted to 12 m of the route. `COVER_SEPARATION` (6 m) is
+now enforced between chosen pieces, which the first bound ignored.
+
+```
+seed  budget  today     greedy WIDE          greedy NEAR (12 m, 6 m sep)  kept
+5017     7    -10.8%    -34.1%  (233 cand)   -40.3%  ( 99 cand)           118%
+5118     6    -10.4%    -24.8%  (227 cand)   -38.2%  ( 79 cand)           154%
+5219    11     -9.9%    -33.2%  (236 cand)   -51.0%  (242 cand)           153%
+```
+
+**31.1 s -> 0.2 s worst case, and the RESTRICTED band beats the unrestricted
+one on every seed.** A `COVER_SIZE` piece at distance d subtends about
+2*atan(COVER_SIZE/2/d) -- 33 degrees at 5 m, 11 at 15 m, 4 at 45 m -- so
+sampling the whole post set evenly diluted the near candidates that carry the
+arc. Restricting concentrated the budget where the geometry says it belongs.
+
+Today's placement reduces arc by ~10% on every seed. A restricted, separated,
+realistic greedy reaches 38-51%. That is **3.7x-5.2x**, not the 2.4x-3.4x an
+unconstrained bound suggested. The bound became more honest AND better, which
+is the opposite of what was expected when candidate restriction was written
+down as a risk.
+
+STILL AN UPPER BOUND. Candidates are standable posts, not verified legal
+piece positions, and nothing checks them against `_usable`. A real planner
+lands below this.
+
+Probe: `tools/probe_standable_sweep.py` -- read-only, stages its own
+geometry, about 2 s for all three seeds.
 
 **THE CHANGE THAT WAS TRIED AND REJECTED.** `route_open: 14` reads like a
 defect. The opening pass had left SEVEN of its twelve unspent while the route
