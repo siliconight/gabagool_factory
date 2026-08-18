@@ -733,8 +733,9 @@ work of adopting this.
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 | 54 | **OPEN** *(inferred)* | One mesh spans a whole room, and two light caps are paying for it | — |
+| 55 | **OPEN** *(inferred)* | The level ships sign fixtures with no sign art, and three of four cann | — |
 
-**54 items: 19 open, 22 closed, 3 retracted, 8 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**55 items: 20 open, 22 closed, 3 retracted, 8 narrowed, 2 analysis.** 26 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -5219,6 +5220,80 @@ the same way -- re-run the per-mesh light census and show zero meshes over the
 engine default of 8. At that point `packages/core/godot_project.py` stops
 writing the per-object cap because no package needs it, and the constant
 `PER_OBJECT_CEILING = 40` and its comment go with it.
+
+*STATUS: OPEN 2026-08-18 -- MEASURED. Four `AreaPanel_Surface` nodes ship in
+`lot_demo_001`, each a 1.4 x 1.4 m single-sided `QuadMesh` at y 2.5 under
+`LuxFixtureLights`, spawned by `LuxFixtureSpawner` as the emitter face of an
+area-light rig. The LIGHT works. The SURFACE is blank, so it reads in-level as
+a white card -- photographed 2.9 m from a doorway on `arena_a03`. One of the
+four rigs is named `Spawned_sign`, which is what the fixture type is; the other
+three are `@Node3D@27`, `@Node3D@71`, `@Node3D@99` -- engine-generated names,
+so nothing downstream can select them. NOT CLAIMED HERE: whether a blank
+emitter is a defect or simply unfinished content. That is an art decision and
+this item does not make it*
+
+**55. The level ships sign fixtures with no sign art, and three of four cannot
+be addressed.**
+Raised 2026-08-18 from a walk of `LF_lot_demo_001.portable-godot`: a white
+rectangle beside a doorway, circled in a screenshot, which no automated check
+had ever mentioned.
+
+**WHAT IT IS.** Four nodes, in the whole five-building lot:
+
+```
+@Node3D@27/AreaPanel_Surface     world (  -1.4, 2.5,  80.2)
+@Node3D@71/AreaPanel_Surface     world (  40.8, 2.5, -17.0)   <- the one photographed
+@Node3D@99/AreaPanel_Surface     world (  73.2, 2.5, -84.2)
+Spawned_sign/AreaPanel_Surface   world ( -75.2, 2.5,  63.6)
+```
+
+Each is a `QuadMesh`, `size = Vector2(1.4, 1.4)`, carrying a material. They are
+the emitter faces of Lux area-light rigs: Zoo exports a `LuxEmit_*` marker,
+`LuxFixtureSpawner` builds the rig, and the rig includes a visible panel
+because a real luminaire has one. The light is correct. Nothing ever puts
+artwork on the panel, so it renders as a blank 1.4 m card at head height. The
+walker's own word for it was "signs", before any evidence existed -- and the
+fixture type agrees.
+
+**WHY EVERY FILE-LEVEL INSTRUMENT MISSED IT, AND WAS RIGHT TO.** The panel is
+created at RUNTIME by the spawner and packed into `lux.applied.tscn`. It is in
+no GLB and is not authored in any `site.tscn`. Five explanations were published
+and refuted in order, each by a measurement:
+
+```
+broken glass material      refuted: nearest window is 7.41 m away, one storey up
+a degenerate plane         refuted: `glb_nodes --flat`, 150 GLBs, 0 degenerate
+the doorway module         refuted: it holds 4 nodes -- 2 jambs, a header, a collider
+untextured jambs/header    refuted: `glb_materials`, all 3 visible prims textured
+a rendered collision mesh  refuted: 0 visible surfaces with no material, 2093
+                                    StaticBody3D -- `-colonly` converts correctly
+```
+
+The instrument that found it was reading `lux.applied.tscn`'s own node list --
+the only place the thing exists. `glb_nodes.py`'s docstring already framed this
+exact question ("what is that white square I can only see from one side?") and
+its `--flat` answer said so: "Whatever you saw is not in this file -- try the
+site." A `QuadMesh` is single-sided, which is why that phrasing fits.
+
+**THE NAMING GAP, WHICH IS THE PART THAT COSTS SOMETHING LATER.** Three of the
+four rigs are `@Node3D@<n>` -- names the engine generated because the spawner
+did not set one. Only `Spawned_sign` is addressable. Anything that later wants
+to find these panels, gate them, texture them or count them has nothing stable
+to select on, and the numbers shift every time the spawn order does.
+
+**WHAT THIS ITEM DOES NOT DECIDE.** Whether a blank emitter panel is a defect.
+An unlit sign face awaiting artwork is a perfectly normal state for content
+that is not finished, and this pipeline's job is to place the fixture, not to
+draw the sign. What is NOT normal is that nothing anywhere says these panels
+exist, so a level ships with four blank white cards at eye height and every
+gate reports clean.
+
+**WHAT WOULD CLOSE THIS.** Either artwork on the panel, or a stated decision
+that the emitter face is invisible by default and Zoo's marker carries the
+sign texture when there is one -- plus, in both cases, a name from the spawner
+so the four are addressable, and a count in the validation output so a level
+with unfinished sign faces says so instead of being found by somebody walking
+past one.
 
 ## Commands
 
