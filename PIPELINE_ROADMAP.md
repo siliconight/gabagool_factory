@@ -719,7 +719,7 @@ work of adopting this.
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
-| 41 | **OPEN** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-12 -- unchanged, and the one on this list a viewer notices |
+| 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
@@ -733,7 +733,7 @@ work of adopting this.
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 
-**53 items: 19 open, 22 closed, 3 retracted, 7 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**53 items: 18 open, 22 closed, 3 retracted, 8 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3249,7 +3249,7 @@ is in the source rather than hidden, because an exclusion nobody can see is how
 a scan quietly stops covering things -- which is the defect this whole item is
 about, committed by the instrument that looks for it.
 
-*STATUS: OPEN 2026-08-12 -- unchanged, and the one on this list a viewer notices*
+*STATUS: NARROWED 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured on FIVE buildings out of the certified portable-godot package (`tools/glb_nodes.py --json`, each `art/dressing/*.glb` against its own `site_base.glb`). The 0.30 m below-floor offset: GONE -- curb and base course sit at exactly 0.00 on all five and `--below 0` returns zero nodes on all five, including `pvp_station_ref`, which does have a basement at -3.75. The extra-storey height: GONE -- every gutter is BELOW its building's top (-0.88, -0.88, -0.23, -0.98, -0.23 m). The 1389 `Cover_panel_field`: the family DOES NOT EXIST, nor do `Cover_pilaster` or `Cover_frame`; five families and 231-260 nodes per building, against 2255. The offsets are now quantised by roof TYPE -- parapet buildings +0.50 edge / -0.88..-0.98 gutter, slab buildings +0.15 / -0.23 -- which is a rule, not drift. WHAT SURVIVES: the routing. Dressing is still on the props channel with no slot, no placement gate, no collision authority and no intrusion limit, and `allowed_inward_intrusion_m` still appears in exactly one file in this repo -- this one, four times, all proposing it, zero occurrences in code or manifest. The item's stated ORDER is corrected below: the two reference-plane leads are not cheap fixes, they are not defects*
 
 **41. The dressing layer is STRUCTURAL ART routed through the decoration
 channel, and that is why nothing checks it.** Raised 2026-08-02 after a second
@@ -3314,6 +3314,69 @@ standing through the floor.
 expression each, and the light-anchor fix is the template. Then the intrusion
 contract. The reclassification and the material question are real work and want
 a decision before code.
+
+RE-MEASURED 2026-08-18 -- THE TWO REFERENCE-PLANE LEADS ARE NOT DEFECTS
+
+Everything above this line was measured on 2026-08-12 against ONE baked layer.
+Re-run on the five buildings of the certified `LF_lot_demo_001.portable-godot`
+package, `tools/glb_nodes.py --json` on each `art/dressing/*.glb` against that
+building's own `site_base.glb`:
+
+```
+                      shell y            gutter   vs top      edge strip   vs top
+arena_a03            -0.15 .. 12.50       11.62    -0.88    13.00..13.00    +0.50
+large_warehouse_a01  -0.15 ..  6.50        5.62    -0.88     7.00.. 7.00    +0.50
+mansion_a02          -0.15 ..  7.45        7.22    -0.23     5.90.. 7.60    +0.15
+pvp_station_ref      -3.75 ..  7.80        6.82    -0.98     6.90.. 8.30    +0.50
+strip_club_a03       -0.15 ..  7.05        6.82    -0.23     5.58.. 7.20    +0.15
+
+Cover_curb          0.00 .. 0.00   on all five      --below 0: 0 node(s), all five
+Cover_base_course   0.00 .. 0.00   on all five
+```
+
+**(a) is gone.** The curb and base course sit at EXACTLY 0.00, no spread, and
+nothing in the dressing layer is below grade -- on `pvp_station_ref` least of
+all, which genuinely has a basement at -3.75 and would show it.
+
+**(b) is gone, and inverted.** Not one gutter is above its building; every one
+is 0.23 to 0.98 m below the top. The claim was 4.6 m above.
+
+**(c) is gone.** `Cover_panel_field` -- 1389 nodes, the largest family and the
+entire basis of the "wrong mechanism, not a wrong number" argument -- does not
+exist in any of the five. Neither does `Cover_pilaster` or `Cover_frame`. Five
+families survive, 231-260 nodes per building against 2255.
+
+**And the offsets are a rule.** The three buildings whose shells carry literal
+`parapet_N/S/E/W` families at the shell max -- arena, large_warehouse,
+pvp_station -- place the edge strip +0.50 above it and the gutter -0.88..-0.98
+below. The two that top out in `slab` with no parapet -- mansion, strip_club --
+use +0.15 and -0.23. Two roof types, two constants each, repeated exactly. An
+edge strip half a metre above a parapet is a coping, which is the reading this
+item already offered for `Cover_edge_strip` and warned about acting against:
+"a gate written from the frames would have condemned the one family that is
+behaving."
+
+WHAT THIS DOES NOT TOUCH
+
+The ROUTING argument, which is the item's actual thesis and is unaffected by
+any of the above. Dressing is still structural art on the layer-3 props
+channel: no slot, no placement gate, no collision authority, no intrusion
+limit. `allowed_inward_intrusion_m` occurs in exactly one file in this
+repository -- this one, four times, every one of them proposing it. There are
+zero occurrences in code or in any manifest. Nothing has been built.
+
+So the ORDER above is wrong and this replaces it. There are no cheap
+reference-plane fixes to take first, because there is nothing there to fix.
+What is left is the part the item itself called "real work that wants a
+decision before code": the intrusion contract, the reclassification, and the
+panel-field material question -- and that last one is now moot on this
+evidence, because the panel fields are gone.
+
+ONE THING NOT RE-MEASURED. This is the geometry, read from the node table. It
+is NOT the walkthrough that raised the item -- "there is still dressing all
+over in a way that doesn't look good" -- and a placer that is arithmetically
+correct can still look wrong. The numbers say the two published defects are
+not there. They do not say the level looks right.
 *STATUS: NARROWED 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build dir), 0.27.0 (archive name, stable interior folder, LF_MANIFEST.json), factory-v1.19.0. `LF_lot_demo_001_s5219_20260814T211037Z_f1.18.0_portable-godot.zip`, 213 entries all under `LF_lot_demo_001/`, manifest read back and correct. REMAINING: the interior renames -- `lot/<building>/` -> `sites/<building>/` and dropping `assets/lot.glb` -- which move `res://` paths inside the package and want their own portability run. Original note follows. `docs/EXPORT_NAMING.md`: THREE names -- build dir `LF_<mission>.<profile>/` (two profiles coexist in the workspace), folder inside the archive `LF_<mission>/` (stable, so `res://` paths survive an update), archive `LF_<mission>_s<seed>_<utc>_f<factory>_<profile>.zip`. The grammar is composed in four places today -- export.py:232, commands 2057/2248/2260 -- and export.py:441's `with_suffix` is why the zip has no profile. Remaining work is `packages/core/ids.py` plus those four callers*
 
 **42. A level leaves the factory with a name that does not say what it is.**
