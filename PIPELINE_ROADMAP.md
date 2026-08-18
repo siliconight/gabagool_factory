@@ -731,7 +731,7 @@ work of adopting this.
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
-| 53 | **OPEN** | Lux is decoupled in the graph and coupled by filename in eight modules | 2026-08-16 -- MEASURED. Item 47 separated Lux in the DAG and did not separate it at the fi |
+| 53 | **OPEN** | Two Lux checks find nothing and carry on, and the filename literals ar | 2026-08-17 -- RE-SCOPED. The first draft led with a grep count -- `lux.applied.tscn` and i |
 
 **53 items: 20 open, 22 closed, 3 retracted, 6 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -4585,10 +4585,10 @@ The one Lot-side finding in that set is `LT_DESTINATION_ABOVE_FLOOR` on
 seed_5219 -- an objective marker 6.00 m above the ground plane -- and that is
 item 9's residual gap, second instance. Not new, and not a navmesh defect.
 
-*STATUS: OPEN 2026-08-16 -- MEASURED. Item 47 separated Lux in the DAG and did not separate it at the file level: `lux.applied.tscn`, `lux.quality.json` and `lux.validation.json` are string literals in EIGHT modules across four packages, 27 matching lines. They do not fail alike -- the planner would fail loudly on a missing expected output while `walk_preview`'s `has_lux` would read False and silently render unlit. `_preset_for` additionally hardcodes Lux's preset DISPLAY names, where a wrong name is a documented silent no-op. Also carries the undecided interface: the fourth layer is expressed by subtraction and there is no positive `--light`*
+*STATUS: OPEN 2026-08-17 -- RE-SCOPED. The first draft led with a grep count -- `lux.applied.tscn` and its two siblings as string literals in 8 modules, 27 sites -- and that is the SYMPTOM, not the cost. A shared constant does not decouple anything: a Lux rename still breaks Level Factory, in one file instead of eight, and that name has been stable across 0.15.x-0.16.0. What costs something TODAY is two checks that find nothing and proceed: `walk_preview`'s `has_lux` reads False and silently renders unlit whatever the reason the file is absent, and `_preset_for`'s display-name mapping is a silent no-op on a wrong name, PROVEN ON HARDWARE per its own comment -- while `lux.quality.json` already echoes the applied preset back and nothing compares them. Ranked accordingly; the constant is third. The `--unlit` interface question is DECIDED: leave it*
 
-**53. Lux is decoupled in the graph and coupled by filename in eight
-modules.**
+**53. Two Lux checks find nothing and carry on, and the filename literals
+are the symptom rather than the cost.**
 Item 47 asked for a fourth layer so that Lux could change without touching
 level building. In the DAG it worked: `lux_apply` is simply not planned when
 `LAYER_LIGHT` is absent, and `dispatch_dep` rewires around the hole. The
@@ -4637,31 +4637,95 @@ makes `blend_to_preset` a silent no-op, proven on hardware in the Lux visual
 pass. A rename in Lux's preset library does not break this. It stops it
 working.
 
-**THE FIX IS ONE CONSTANT LUX OWNS AND EIGHT READERS IMPORT.** Where it lives
-is the decision: `adapters/lux/__init__.py` is Level Factory's boundary onto
-Lux and already names all three, so it is the obvious home; the honest home
-is Lux itself, exported and consumed, which makes a Lux rename a Lux release
-rather than a Level Factory bug hunt. Both are defensible and they cost
-differently.
+**WHAT ACTUALLY COSTS SOMETHING, IN ORDER.**
 
-THE INTERFACE QUESTION, STILL UNDECIDED
+**FIRST -- `walk_preview` renders unlit and says nothing.**
 
-`--art` means art AND light. `--unlit` subtracts light. There is no positive
-`--light`. So the planner has a fourth layer and the CLI expresses it by
-negation, with the coupled thing as the easy path and the decoupled one
-needing a second flag.
+```
+walk_preview.py:249  has_lux = (dest / "presentation" / "lux.applied.tscn").is_file()
+```
 
-The stated reason for the split was granularity -- that changing Lux should
-not require touching level building. Under that reason the interface that
-says so is `--art` = art, `--light` = light (implying art), and `--unlit`
-disappears because it has nothing left to subtract. That is a breaking CLI
-change and every existing brief, script and doc that says `--art` today means
-art+light, including `tools/run_3b_unlit.ps1`.
+False is not an answer, and this treats it as one. The file is absent when
+Lux was renamed, yes -- but also when `lux_apply` failed, when the mode
+dropped it, when the export did not carry it, or when somebody ran the
+preview on an unlit package. All five render a preview that is lit
+differently from the level, and the file's own words on why that matters are
+already written down four bullets above the relevant note in
+`WALKABLE_SITE.md`: *"a preview that is lit differently from the level is
+worse than no preview, because it gets believed."* One file. No speculation.
+The filename is incidental to it.
 
-NOT A DEFECT, AND DELIBERATELY NOT FILED AS ONE. Nothing is broken. This is a
-decision that gets more expensive the longer anything builds on the current
-spelling, which is the only reason it is written down rather than left in a
-conversation.
+**SECOND -- `_preset_for` is a silent no-op on a wrong name, and the
+check is free.**
+
+It maps `time_of_day` onto Lux preset DISPLAY names -- "Blue Hour", "Delco
+Summer Afternoon", "Gas Station Fluorescent" -- and its own comment records
+that a wrong name makes `blend_to_preset` do nothing, proven on hardware in
+the Lux visual pass. Unlike everything else in this item, that has already
+cost something.
+
+It is also nearly closed already, because the artifact answers it. Level
+Factory asks for a preset; `lux.quality.json` reports the one applied:
+
+```
+requested   _preset_for(model)         ->  "Blue Hour"
+applied     lux.quality.json["preset"] ->  "Blue Hour"     (lot_demo_001, 2026-08-17)
+```
+
+Nothing compares those two strings. A comparison turns a silent no-op into a
+finding, needs no new data, and would have been exercised by the re-export
+recorded below.
+
+**THIRD -- the filename literals, and they are genuinely third.**
+
+```
+9  packages/exporting/export.py        2  packages/pipeline/planner.py
+4  adapters/lux/__init__.py            2  packages/preview/walk_preview.py
+4  packages/exporting/localize.py      2  packages/service/facade.py
+3  apps/cli/commands/__init__.py       1  packages/exporting/closure.py
+```
+
+27 matching lines, 8 modules, 4 packages, for `lux.applied.tscn`,
+`lux.quality.json` and `lux.validation.json`. (Includes comment mentions; a
+code-only pass returns the same eight modules.) No two readers agree on the
+subset that matters -- `closure.py`'s `_METADATA_FILES` names the two JSONs,
+`export.py`'s `_PRESENTATION_FILES` names the scene and one JSON,
+`planner.py`'s `expected_outputs` names all three.
+
+**Worth tidying, and honest about what tidying buys.** A shared constant does
+not decouple: a Lux rename still edits Level Factory, in one place rather
+than eight. That is a real improvement to a failure that has not happened --
+the name has been stable across 0.15.x to 0.16.0 -- bought with an eight-file
+change across four packages. Do it when something else already has those
+files open. Not as a project.
+
+WHERE THE CONSTANT WOULD GO, MEASURED
+
+Decided 2026-08-17: the Lux adapter, as the name a reader goes to. But the
+import graph does not allow the literal version of that.
+`adapters/ -> packages/` is pervasive (every adapter imports
+`packages.adapters.sdk` and `packages.core.hashing`), while
+`packages/ -> adapters/` happens in exactly ONE file --
+`packages/adapters/registry.py:13-22`, which imports all ten adapters and is
+a registry by design. A generic package importing one specific tool adapter
+would invert that, and `adapters/lux/__init__.py` imports `packages.*` at
+module level, so it risks a real cycle rather than only an ugly edge.
+
+The shape that survives: define in `packages/adapters/sdk.py` -- the shared
+surface every adapter already imports -- and RE-EXPORT from
+`adapters/lux/__init__.py`, so `adapters.lux.LUX_APPLIED_SCENE` still
+resolves and the adapter stays the name. Moving the definition into Lux
+itself later is then a one-file change, because the eight readers already go
+through one symbol.
+
+THE INTERFACE QUESTION: DECIDED, LEAVE IT
+
+`--art` means art AND light; `--unlit` subtracts. There is no positive
+`--light`, and there will not be one. Decided 2026-08-17. The spelling is
+cosmetic next to the two checks above, a positive `--light` is a breaking CLI
+change touching every brief, script and doc that says `--art` today
+(including `tools/run_3b_unlit.ps1`), and the planner's fourth layer is real
+whatever the flag calls it. Recorded as decided so it stops being reopened.
 
 CHASED AND CLOSED: "A VARIED LOT IS CURRENTLY UNLIT"
 
