@@ -732,8 +732,9 @@ work of adopting this.
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
+| 54 | **OPEN** *(inferred)* | One mesh spans a whole room, and two light caps are paying for it | — |
 
-**53 items: 18 open, 22 closed, 3 retracted, 8 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**54 items: 19 open, 22 closed, 3 retracted, 8 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -5105,6 +5106,119 @@ eleven deep, reached seventeen and killed a run, now filtered at the scheduler);
 `<glb>.spec.sha256` stamp); the non-portable absolute `ext_resource` (still
 emitted, but promoted to item 4 rather than carried, because it violates the
 standalone contract rather than being untidy).
+
+*STATUS: OPEN 2026-08-18 -- MEASURED AND MITIGATED, NOT FIXED. Raised from a
+walk, not from a grep. The subject of this item -- a floor or roof plate 34-52 m
+across being ONE mesh -- is untouched. What shipped is two engine caps that pay
+for it: level_factory 0.43.3 writes `max_renderable_lights` = the package's own
+light count and `max_lights_per_object` = min(count, 40), both derived, neither
+round. THE PER-OBJECT ONE COSTS: it sizes the shader light loop for every
+object. Measured on lot_demo_001: 111 of 920 meshes exceed the engine's
+per-mesh default of 8, 39 exceed 16, one exceeds 32 -- and every single
+offender is a building-wide roof or floor/ceiling plate. Room-sized meshes
+would sit inside the engine defaults and need no caps at all. Also open and
+NOT measured: a first-load frame hitch, smaller after 0.43.2 dropped a cap but
+still present*
+
+**54. One mesh spans a whole room, and two light caps are paying for it.**
+Raised 2026-08-18, walking `LF_lot_demo_001.portable-godot` with 136 fixture
+lights in it. Three symptoms arrived in sequence and only the third named the
+cause: lights blinking as the camera moved, then areas that stayed dark
+permanently, then -- standing still -- a hard brightness step across a floor
+where two slabs met.
+
+**TWO LIMITS, AND THEY FAIL DIFFERENTLY.** GL Compatibility carries both, and
+conflating them cost two releases:
+
+```
+rendering/limits/opengl/max_renderable_lights   default  32   a GLOBAL budget
+rendering/limits/opengl/max_lights_per_object   default   8   a PER-MESH budget
+```
+
+Above the global cap lights are not drawn AT ALL, which is why areas stayed
+dark permanently rather than flickering -- 136 lights against a budget of 32.
+Above the per-mesh cap a single mesh drops lights, which on a building-sized
+slab shows up standing still, as a seam.
+
+**THE MEASUREMENT.** Counting lights whose range reaches each mesh's bounding
+box, across all five buildings of the shipped package:
+
+```
+building              meshes   >8   >16  >32  worst  worst mesh
+mansion_a02              163   26    11    0     26  roof_footprint
+pvp_station_ref          240   49    15    1     36  roof_footprint
+large_warehouse_a01      117    3     1    0     17  roof_footprint
+arena_a03                227   10     3    0     26  roof_footprint
+strip_club_a03           173   23     9    0     25  roof_footprint
+---------------------------------------------------------------
+across all five          920  111    39    1
+```
+
+Every offender is a roof or floor/ceiling plate 34-52 m across. Wall segments
+sit at 6 or below. `arena_a03`'s roof is `roof_rockay_04_w5200_d3200` -- 52 m
+by 32 m, one mesh, one light budget, competing with `wall_rockay_04_w200` at
+2 m for the same slots. When the big one loses, a whole room goes dark at once.
+
+Caveat on those numbers, stated because they will be quoted: extents come from
+the `_w`/`_d` in the module filenames, height is assumed at +/-3 m, and
+per-module rotation is ignored. They are indicative. The one that is not
+indicative is the single mesh over 32, because it matched the reported symptom
+exactly -- "still blink a bit, or just turn off in certain rooms" at a cap of
+32, with exactly one mesh above it.
+
+**WHAT WAS RUN ON HARDWARE**, in the walk preview, each a separate walk of the
+same route:
+
+```
+per-object   global    result
+        8        32    heavy blinking
+       64        32    still blinks, areas stay dark
+        8       256    clean, and the load-in hitch is SMALLER
+       64       256    clean
+       40       256    clean            <- shipped
+```
+
+The global cap is what stopped the blinking and the dead areas. The per-object
+cap is what stopped the seam, which only appears when the camera is still and
+was therefore missed entirely by the runs above it.
+
+**TWO MECHANISMS WERE PUBLISHED WRONG BEFORE THE THIRD WAS ISOLATED.** 0.43.0
+wrote the per-object cap and named it as the cause of the blinking; it was not,
+and the engine said so when finally asked directly (`max_renderable_lights
+exists=true value=32`). 0.43.2 then REMOVED the per-object cap, having tested
+only for blinking -- and reintroduced the seam. 0.43.3 tested the two symptoms
+separately and shipped both caps, each derived from the package rather than
+picked to make something stop.
+
+**WHAT IS ACTUALLY WRONG, AND IT IS NOT A SETTING.**
+
+A single mesh spanning a whole room is the reason either cap is needed. Split
+those plates to room-sized pieces and every one of the 111 offenders drops
+inside the engine's own default of 8; the per-object cap becomes unnecessary
+and its shader cost goes with it. Frustum culling improves for free, because a
+52 x 32 m mesh is either fully in frame or fully drawn anyway.
+
+**AND THIS IS ITEM 35's QUESTION FROM THE OTHER SIDE.** Item 41 measured 1389
+`Cover_panel_field` nodes and called excessive fragmentation the defect. This
+item measures meshes too LARGE to light correctly. Both are the same missing
+decision -- what size should a mesh be -- approached from opposite ends, and
+neither can be settled by a rule that only says "fewer" or "more".
+
+**THE LOAD-IN HITCH -- OPEN, AND A HYPOTHESIS ONLY.** A frame hitch on first
+load was reported from the walk, and it got smaller when 0.43.2 dropped the
+per-object cap from 64 to the engine default. That is consistent with shader
+variant compilation on first draw -- the per-object light count sizes the
+shader's light loop, so more variants to compile -- but NOTHING HAS MEASURED
+IT. No frame timing was captured, no variant count, no before-and-after on the
+same route. It is recorded here as an observation with a plausible cause, and
+it should not be quoted as a finding until somebody times it. It matters
+because this layer has to stay cheap while the game grows into it.
+
+**WHAT WOULD CLOSE THIS.** Room-sized floor, ceiling and roof meshes, measured
+the same way -- re-run the per-mesh light census and show zero meshes over the
+engine default of 8. At that point `packages/core/godot_project.py` stops
+writing the per-object cap because no package needs it, and the constant
+`PER_OBJECT_CEILING = 40` and its comment go with it.
 
 ## Commands
 
