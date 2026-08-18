@@ -731,9 +731,9 @@ work of adopting this.
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
-| 53 | **OPEN** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-17 -- CORRECTED, second re-scope. The previous one ranked `walk_preview`'s `has_lu |
+| 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 
-**53 items: 20 open, 22 closed, 3 retracted, 6 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**53 items: 19 open, 22 closed, 3 retracted, 7 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -4585,7 +4585,7 @@ The one Lot-side finding in that set is `LT_DESTINATION_ABOVE_FLOOR` on
 seed_5219 -- an objective marker 6.00 m above the ground plane -- and that is
 item 9's residual gap, second instance. Not new, and not a navmesh defect.
 
-*STATUS: OPEN 2026-08-17 -- CORRECTED, second re-scope. The previous one ranked `walk_preview`'s `has_lux` first as a check that finds nothing and carries on. IT IS NOT ONE: it has a documented two-way detection, it does not render unlit but substitutes a preview RIG, and it reports which it used -- `lighting: "lux (content-owned)" | "preview rig"` in its return value. Withdrawn, with what it actually does, at `walk_preview.py:308-314,376` (18,781 B, sha256 3400109C...). That leaves ONE ranked defect: `_preset_for` is a silent no-op on a wrong Lux preset display name, PROVEN ON HARDWARE per its own comment, and `lux.quality.json` already echoes the applied preset back while nothing compares them. The 27 filename literals across 8 modules stay third and stay tidiness. `--unlit` interface: DECIDED, leave it*
+*STATUS: NARROWED 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. It said `lux.quality.json` "already echoes the applied preset back" and ranked first a comparison against `_preset_for(model)`. It echoes the REQUEST: `run_lux_apply.gd` writes `{"preset": preset_name, ...}`, the `--preset` argument straight back out, so the proposed check compared a string with itself -- inside an item whose subject is checks that cannot fail. Fourth mechanism published from a grep this session; corrected in place below rather than rewritten. level_factory 0.41.0 reads `LuxRoot.get_current_preset()` instead (`lux_root.gd:641`, `_current`, assigned only by `_apply_immediate` from the library resource), reports it as `preset_applied`, and raises LUX_PRESET_NOT_APPLIED when the two disagree -- no Python touched, the finding rides the existing `lux.validation.json` channel. NOT YET RUN ON HARDWARE. What remains open is the third-ranked item only: 27 filename literals across 8 modules, tidiness*
 
 **53. One Lux check is a silent no-op, and the filename literals are
 tidiness with one real consequence.**
@@ -4647,17 +4647,72 @@ Summer Afternoon", "Gas Station Fluorescent" -- and its own comment records
 that a wrong name makes `blend_to_preset` do nothing, proven on hardware in
 the Lux visual pass. Nothing else in this item has already cost something.
 
-It is also nearly closed, because the artifact answers it. Level Factory asks
-for a preset; Lux reports the one it applied:
+IT WAS NOT NEARLY CLOSED BY THE ARTIFACT, AND THIS ITEM SAID IT WAS.
+
+The claim was read off a filename and a field name rather than off the
+driver. `assets/godot/run_lux_apply.gd` (6,902 B, sha256 0CC60D6D..., line
+128):
+
+```
+var quality := {"preset": preset_name, "applied": applied_ok, ...}
+```
+
+`preset_name` IS the `--preset` argument. That field is the request written
+straight back out. Comparing it against `_preset_for(model)` compares a
+string with itself -- a check that cannot fail, proposed inside an item whose
+subject is checks that cannot fail. Both sides of the table this item
+published were the same string, and its agreement meant nothing:
 
 ```
 requested   _preset_for(model)          ->  "Blue Hour"
-applied     lux.quality.json["preset"]  ->  "Blue Hour"     (lot_demo_001, 2026-08-17)
+"applied"   lux.quality.json["preset"]  ->  "Blue Hour"   <- the SAME string
 ```
 
-Nothing compares those two strings. A comparison needs no new data, turns a
-silent no-op into a finding, and would have been exercised by every lit
-export this pipeline has produced.
+**WHAT LUX ACTUALLY OFFERS, AND WHAT SHIPPED.**
+
+`LuxRoot.get_current_preset()` returns `_current` -- `lux_root.gd:641`
+(25,638 B, sha256 529f70e7...) -- and `_current` is assigned in exactly one
+place, `_apply_immediate`, from the LIBRARY resource. It cannot be the
+argument arriving back round.
+
+Reading it also covers a failure the driver's existing library-dictionary
+check cannot see. `apply_preset` returns early when `_initialized` is false,
+assigning `active_preset` and applying nothing:
+
+```
+func apply_preset(preset: LuxPreset, blend_time: float = 0.0) -> void:
+    if preset == null:
+        return
+    if not _initialized:
+        active_preset = preset      # and applies NOTHING
+        return
+```
+
+The name is in the library, so `preset_known` is true, so no issue is raised,
+and the level ships with no look. The dictionary says the preset exists; only
+LuxRoot says it arrived.
+
+level_factory 0.41.0:
+
+```
+lux.quality.json     "preset"          the REQUEST, meaning unchanged
+                     "preset_applied"  NEW -- get_current_preset()
+lux.validation.json  LUX_PRESET_NOT_APPLIED (moderate) when they disagree
+```
+
+No Python changed. The driver already writes findings to
+`lux.validation.json` and the Lux adapter's `normalize_validation` already
+passes arbitrary codes through, so the new finding reaches the findings
+channel without the adapter being touched. Same release, same file, same
+shape of defect: `ResourceSaver.save(...)`'s return was discarded and
+`applied_ok` tracked only `pack()`, so a save that failed reported
+`applied: true` for a scene that was never written.
+
+NOT YET RUN ON HARDWARE. No Godot process has produced a `preset_applied`
+field yet. `tests/unit/test_lux_preset_readback.py` is a source-shape test
+and says so in its own docstring -- it pins the one regression that would
+restore the tautology without changing an output key, and it proves nothing
+about the driver running. The next lit run is the evidence.
 
 **AND THE FILENAME LITERALS -- third, tidiness, with one real consequence.**
 
