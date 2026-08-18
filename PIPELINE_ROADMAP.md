@@ -725,14 +725,15 @@ work of adopting this.
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
-| 47 | **NARROWED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first co |
+| 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
 | 50 | **CLOSED** | The package ships a resource manifest that describes a different packa | 2026-08-16 -- FIXED as level_factory 0.40.0 and confirmed on the package. The finding was  |
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
+| 53 | **OPEN** | Lux is decoupled in the graph and coupled by filename in eight modules | 2026-08-16 -- MEASURED. Item 47 separated Lux in the DAG and did not separate it at the fi |
 
-**52 items: 19 open, 21 closed, 3 retracted, 7 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**53 items: 20 open, 22 closed, 3 retracted, 6 narrowed, 2 analysis.** 24 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3669,7 +3670,7 @@ file lives in the **zoo** repo -- keep them in sync." Nothing checks that they
 are. Two copies of a contract with no comparison between them is the shape of
 every other defect in this file.
 
-*STATUS: NARROWED 2026-08-15 -- stages 1 through 3b have all RUN; the layer split is proven and the first cold package is blocked by item 48. `LAYER_LIGHT` (0.35.0) splits Lux's apply pass out of the art layer, keeping `zoo_fixtures_build` and `lux_fixture_gate` in it; `MODE_ART_UNLIT` (0.36.0) subtracts Lux's result at EXPORT time so one build ships two archives; 0.37.0 ships `themed_site_assemble`'s site.tscn, which reached no package at all and without which an unlit one opened to nothing. Measured on lot_demo_001: unlit entry 571 B instancing NOTHING -> 688 B instancing `res://site.tscn`; 33 Lux files dropped and nothing else; shared interior folder. 3b RAN 2026-08-15 on `unlit_probe_001` through Blender and headless Godot and answered both of its questions: `lux_apply` never ran, `lux_fixture_gate` did, `dispatch_handoff <- themed_site_assemble`. Export was then blocked -- IDENTICALLY in `art-unlit` and `portable-godot`, which acquits `--unlit` -- by a functional regression that is item 48, not this item. The layer split is proven; a package built end-to-end from a cold run is not, and cannot be until 48 is*
+*STATUS: CLOSED 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes landed: `LAYER_LIGHT` (0.35.0) is a real fourth layer with `_LAYER_REQUIRES = {LAYER_LIGHT: LAYER_ART}` so it cannot be asked for without art, and ONLY Lux's apply pass moved -- `zoo_fixtures_build` and `lux_fixture_gate` stayed in `LAYER_ART`, so an unlit package still ships validated light FIXTURES and drops only the render solution; `MODE_ART_UNLIT` (0.36.0) is the export mode; `--unlit` is the flag on `run`, `plan` and `batch run`. `dispatch_dep = lux_jid if LAYER_LIGHT in layers else themed_jid` rewires the graph around the hole rather than special-casing it. PROVEN COLD on `unlit_probe_001` through Blender 5.1.1 and headless Godot 4.7: `lux_apply` never ran, `lux_fixture_gate` did, `dispatch_handoff <- themed_site_assemble`, and after items 48 and 49 closed the export came back `ok: true`, `issues: []`, `unresolved_relative_count: 0` in BOTH `portable-godot` and `art-unlit`. The A/B is the answer to question 1 stated by an artifact: on a mission where Lux NEVER RAN the two packages are byte-identical -- 56 files, 7,158,515 bytes, zero files differing -- because there is nothing to subtract. FOUR QUESTIONS ANSWERED: absent, not ignorable (33 Lux files dropped on lot_demo_001 and nothing else); the light anchors DO ship, because the fixture bake and its gate stayed in the art layer; the entry scene is `site.tscn`, shipped by 0.37.0; and the fourth-layer / sub-flag / third-mode question was answered ALL THREE rather than one. WHAT IS NOT DONE, and is now item 53: the decoupling this item exists to serve is real in the DAG and absent at the FILE level -- Lux's output names are string literals in 8 modules -- and the CLI expresses the fourth layer by SUBTRACTION (`--art` means art AND light, `--unlit` removes it; there is no positive `--light`), which is an interface decision nobody has made*
 
 **47. A recipient with their own lighting has to take ours or take graybox.**
 
@@ -4583,6 +4584,191 @@ downstream's model of combat and out of scope under this file's boundary.
 The one Lot-side finding in that set is `LT_DESTINATION_ABOVE_FLOOR` on
 seed_5219 -- an objective marker 6.00 m above the ground plane -- and that is
 item 9's residual gap, second instance. Not new, and not a navmesh defect.
+
+*STATUS: OPEN 2026-08-16 -- MEASURED. Item 47 separated Lux in the DAG and did not separate it at the file level: `lux.applied.tscn`, `lux.quality.json` and `lux.validation.json` are string literals in EIGHT modules across four packages, 27 matching lines. They do not fail alike -- the planner would fail loudly on a missing expected output while `walk_preview`'s `has_lux` would read False and silently render unlit. `_preset_for` additionally hardcodes Lux's preset DISPLAY names, where a wrong name is a documented silent no-op. Also carries the undecided interface: the fourth layer is expressed by subtraction and there is no positive `--light`*
+
+**53. Lux is decoupled in the graph and coupled by filename in eight
+modules.**
+Item 47 asked for a fourth layer so that Lux could change without touching
+level building. In the DAG it worked: `lux_apply` is simply not planned when
+`LAYER_LIGHT` is absent, and `dispatch_dep` rewires around the hole. The
+fixture bake and its gate stayed in `LAYER_ART`, so the level-design data is
+on the level side of the seam and only the render solution is on Lux's.
+
+**What survives the seam is the filenames.** Measured 2026-08-16 over
+`level_factory\`, excluding `.pre_*`, `__pycache__` and `tests\`:
+
+```
+9  packages/exporting/export.py
+4  adapters/lux/__init__.py
+4  packages/exporting/localize.py
+3  apps/cli/commands/__init__.py
+2  packages/pipeline/planner.py
+2  packages/preview/walk_preview.py
+2  packages/service/facade.py
+1  packages/exporting/closure.py
+```
+
+27 matching lines, 8 modules, 4 packages. (That count includes comment
+mentions; a code-only pass over the same tree returns the same eight
+modules.) The names are `lux.applied.tscn`, `lux.quality.json` and
+`lux.validation.json`, and no two readers even agree on which subset matters
+-- `closure.py`'s `_METADATA_FILES` names the two JSONs, `export.py`'s
+`_PRESENTATION_FILES` names the scene and one JSON, `planner.py`'s
+`expected_outputs` names all three.
+
+**THEY DO NOT FAIL ALIKE, WHICH IS THE PART THAT MATTERS.** Rename a Lux
+output tomorrow and:
+
+```
+planner.py           expected_outputs misses -> the JOB fails, loudly
+walk_preview.py:249  has_lux = (dest/"presentation"/"lux.applied.tscn").is_file()
+                     -> reads False, and the preview renders UNLIT in silence
+```
+
+A guard that fails loudly and a check that reads False are not the same
+event, and the second is the one this file keeps finding.
+
+**AND THE PRESETS ARE COUPLED BY DISPLAY NAME.** `_preset_for` maps
+`time_of_day` onto Lux preset names as strings -- "Blue Hour", "Delco Summer
+Afternoon", "Gas Station Fluorescent" -- and its own comment records why that
+is dangerous: Lux registers presets under DISPLAY names, and a wrong name
+makes `blend_to_preset` a silent no-op, proven on hardware in the Lux visual
+pass. A rename in Lux's preset library does not break this. It stops it
+working.
+
+**THE FIX IS ONE CONSTANT LUX OWNS AND EIGHT READERS IMPORT.** Where it lives
+is the decision: `adapters/lux/__init__.py` is Level Factory's boundary onto
+Lux and already names all three, so it is the obvious home; the honest home
+is Lux itself, exported and consumed, which makes a Lux rename a Lux release
+rather than a Level Factory bug hunt. Both are defensible and they cost
+differently.
+
+THE INTERFACE QUESTION, STILL UNDECIDED
+
+`--art` means art AND light. `--unlit` subtracts light. There is no positive
+`--light`. So the planner has a fourth layer and the CLI expresses it by
+negation, with the coupled thing as the easy path and the decoupled one
+needing a second flag.
+
+The stated reason for the split was granularity -- that changing Lux should
+not require touching level building. Under that reason the interface that
+says so is `--art` = art, `--light` = light (implying art), and `--unlit`
+disappears because it has nothing left to subtract. That is a breaking CLI
+change and every existing brief, script and doc that says `--art` today means
+art+light, including `tools/run_3b_unlit.ps1`.
+
+NOT A DEFECT, AND DELIBERATELY NOT FILED AS ONE. Nothing is broken. This is a
+decision that gets more expensive the longer anything builds on the current
+spelling, which is the only reason it is written down rather than left in a
+conversation.
+
+CHASED AND CLOSED: "A VARIED LOT IS CURRENTLY UNLIT"
+
+`level_factory/docs/extracted/site.md:1137-1145` carries, as a known
+consequence, that a varied lot never gets lit at all:
+
+> "**A varied lot is currently UNLIT** regardless: `lux_apply` lights
+> `presentation/site.tscn`, the mission shell, which a varied lot does not
+> place."  -- `WALKABLE_SITE.md:124-126`
+
+If current that would enlarge this item considerably -- it would mean `--art`
+on a multi-building mission has been shipping unlit packages by accident
+rather than by flag. It is NOT current. From
+`apps/cli/commands/__init__.py` (126,865 B, sha256 20188C0F...), lines
+637-653:
+
+```python
+themed_job  = _dep(job, "themed_site_assemble")
+compose_job = _dep(job, "presentation_compose")
+if themed_job:
+    # The themed SITE: Lot's assembly of the composed building at
+    # the candidate's own placements. Lighting the composed building
+    # instead put one LuxRoot over one building and called it a
+    # level (roadmap 29/34).
+    composed_scene = _latest_output(jobs_dir / themed_job, "site.tscn")
+elif compose_job:
+    composed_scene = _latest_output(jobs_dir / compose_job,
+                                    "presentation/site.tscn")
+```
+
+`lux_apply` lights the ASSEMBLED SITE whenever `themed_site_assemble` is
+planned, which is whenever the art layer runs; `presentation/site.tscn` is
+the `elif`. And the adapter hardcodes nothing -- `adapters/lux/__init__.py:53`
+reads `job_spec["composed_scene"]` and refuses without it -- so the scene
+targeting was never Lux's to get wrong, which is worth knowing for this
+item's own question about where the seam belongs.
+
+**BOTH SOURCES THAT SECTION RESTS ON ARE STALE.** `WALKABLE_SITE.md:124-126`
+predates `themed_site_assemble`, and its own "Related open work" lists the
+`--render` split as the thing that would "light the varied lot". The other,
+`VARIED_THEMED_LOT.md:8-11` -- "`run <mission> --art` -> ONE building repeated
+N times" -- predates one-compose-per-archetype, which
+`tests/test_presentation_lot.py` now pins with `len(cmds) == 1 + len(lot)`.
+`WALKABLE_SITE.md` has been marked superseded in place rather than edited
+away. `site.md` is generated into `docs/extracted/` and is left alone; it was
+honest about itself -- "the known consequence is documented rather than
+measured" -- and that caveat is the only reason this was catchable instead of
+believed.
+
+MEASURED, AND ONLY HALF ANSWERED
+
+Re-exported 2026-08-17 from the cached `lot-demo-ws`, both modes, no Blender
+or Godot needed. All three predictions held. `lot/` holds FIVE subdirectories
+-- item 49's fix correctly declined to touch the varied shape, which is the
+condition `_assembly_building_dir` was written to fail. `resource_manifest.json`
+is gone (0.40.0). Closure `ok: true`, 0 missing, 0 misrooted, 0 unresolved
+relative, in `portable-godot`, `art-unlit` and `pure-shell` alike:
+
+```
+LF_lot_demo_001.portable-godot   resource_count 36   lot/ 5
+LF_lot_demo_001.art-unlit        resource_count  7   lot/ 5
+LF_lot_demo_001.pure-shell       resource_count  2   lot/ 0
+```
+
+The 29 between the first two is the localized Lux runtime -- `resource_count`
+counts only `.tscn/.tres/.gd/.gdshader`, so it is the scripted part of the
+"33 Lux files dropped and nothing else" measured for 0.36.0. The lit varied
+package ships Lux's runtime; the unlit one does not.
+
+**AND THE VARIED LOT IS LIT.** The claim above is not merely superseded by a
+code branch, it is contradicted by the artifact:
+
+```
+presentation/lux.applied.tscn   141,265 B
+presentation/lux.quality.json   {"applied": true,
+                                 "fixture_lights": 136,
+                                 "fixture_msg": "Spawned 136 fixture light(s)
+                                                 from 136 marker(s)",
+                                 "preset": "Blue Hour"}
+```
+
+`lux_apply` ran on the five-building assembly, spawned 136 lights from 136
+markers and applied the preset. Incidentally that exercises this item's own
+`_preset_for` coupling and it HELD: the brief says `time_of_day: night`,
+`_preset_for` returns `"Blue Hour"`, Lux reports `"Blue Hour"`. Fragile by
+construction, not broken today.
+
+WHAT IS STILL NOT ANSWERED, AND IT IS NOW ONE STEP
+
+Lux's own output says it: `"note": "previews need a render context"`. 136 is
+what was SPAWNED in a headless run. It is not a count of what RENDERS, and
+those are the two numbers `WALKABLE_SITE.md:115-120` already recorded
+disagreeing -- `lux.quality.json` at 152 fixture lights while the preview ran
+`OmniLight3D 0`, with the note *"a preview that is lit differently from the
+level is worse than no preview, because it gets believed."*
+
+So `lux_apply` demonstrably reaches the assembly's markers. Whether those
+lights survive to a frame needs the `portable-godot` folder opened in a clean
+Godot project WITH a render context, and nothing substitutes for that -- not
+another export, not a bigger scan. It is the one remaining step and it is
+manual.
+
+ONE CAVEAT ON THE NUMBER. `lux.quality.json` is stamped 2026-08-15 and copied
+through unchanged; `lux.applied.tscn` is stamped today because `localize`
+rewrote its `res://` paths on export. 136 is therefore a CACHED figure from
+the last real `lux_apply`, correct for unchanged inputs and not a fresh
+measurement.
 
 ### Not to be worked on
 Under the boundary at the top of this file, these are downstream's model of
