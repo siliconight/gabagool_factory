@@ -88,6 +88,82 @@ a body walks through. Its own note is worth keeping in front of us —
 was to move articulation INTO the authored depth (`arch.relief_parts`). The
 equivalent here is the height band.
 
+## 3b. THE READABILITY RULE — coverage, not transparency
+
+The height rule in §3 answers *may this be intangible where it stands*. It does
+not answer *may it be here at all, this densely* — a 4 cm pebble passes the
+height gate everywhere and a thousand of them still ruin a stair tread. That is
+a second, orthogonal axis and it needs its own constraint.
+
+**The principle:**
+
+> Surface Dressing should partially occlude gameplay surfaces, not visually
+> replace them.
+
+Stated as a hierarchy:
+
+1. **Hard surface remains the visual truth.** Floors, stairs, walls, cover
+   edges, ledges and doorways must still clearly communicate their shape.
+2. **Dressing interrupts the surface; it does not erase it.** Enough exposed
+   hard surface must remain that a player can mentally reconstruct the
+   geometry.
+3. **Transparency is a fallback and a material property — not the readability
+   system.**
+
+A concrete stair with weeds, good and bad:
+
+```
+GOOD                          BAD
+████████████████              ^^^^^^^^^^^^^^^^
+██  ˄ ˄   ˄  ███              ^^^^^^^^^^^^^^^^
+████████████████              ^^^^^^^^^^^^^^^^
+██ ˄    ˄     ███             ^^^^^^^^^^^^^^^^
+████████████████              ^^^^^^^^^^^^^^^^
+stair profile unmistakable    grass at 40% alpha is still a noisy layer
+                              the player must decipher the surface through
+```
+
+### Surface visibility budget
+
+Per zone, the fraction of gameplay-defining surface that must stay legible from
+normal viewing angles. An artistic constraint first; a measured one once there
+is something to measure.
+
+```
+exposure_class        surface_visibility   density reading
+gameplay_path         0.80 – 1.00          sidewalk centre      low
+play_space            0.60 – 0.80          sidewalk edge        medium
+environmental_edge    0.30 – 0.60          wall seam            high
+decorative            unrestricted         abandoned corner     very_high
+```
+
+Coverage is controlled by **density and placement**, which is the first lever.
+
+### Transparency classes
+
+```
+OPAQUE           rocks, rubble, boards, trash, roots, debris
+ALPHA CUTOUT     grass, weeds, leaves, ferns, foliage cards
+TRANSLUCENT      RARE — smoke, cobwebs, thin dust, atmospheric dressing
+```
+
+Alpha cutout beats blending for the same reason it looks better: crisp
+solid-pixel / empty-pixel boundaries keep the depth and surface relationships
+that a 60%-transparent polygon washes out. It is also the cheaper answer —
+blended transparency across thousands of scattered instances is where overdraw,
+sort-order artifacts and weak depth cues come from.
+
+**The technique order, and it is deliberate:** control readability through
+**coverage first**, **alpha cutouts second**, and **true transparency only when
+the material physically calls for it**.
+
+The first Zoo dressing kit is therefore opaque end to end — pebble, rubble
+fragment, weed tuft, litter scrap — so density and coverage can be tuned
+without overdraw or sort order as confounds. `weed_tuft` builds solid tapered
+blades rather than cutout cards for that reason and that reason only; a
+cutout variant is the intended next step for denser foliage, not a rejected
+option.
+
 ## 4. Where dressing may not go
 
 Exclusions are keyed to what the gameplay layer **already declares**, not to a
@@ -146,6 +222,8 @@ in_traversed_space AND height_m > unassisted_step_max_m AND collision_policy == 
 | false traversal promise | the expression in §5 | no — this contract adds it |
 | navigation regression | walktest_navqa against the locked shell | yes |
 | play equivalence | Laser Tag vs its pre-art baseline | yes, baseline exists |
+| surface visibility | measured exposure below the zone's budget | no — art constraint first |
+| transparency discipline | translucent used where cutout or opaque would do | no |
 | budgets | instance count, draw calls, VRAM, worst-case views | no |
 | determinism | same seed, same manifest, byte-identical | partial — seed exists in `patina-dressing/1` |
 
