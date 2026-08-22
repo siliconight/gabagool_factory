@@ -3,6 +3,13 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.34.1] - 2026-08-22
+
+One pin: dispatch 0.4.1 -> 0.4.2, no code change. verify-manifest's staleness
+check caught 0.4.1's VERSION predating the utf-8 test hardening it certified
+("VERSION is older than the code it names") and asked for a bump; this is
+that bump. Everything else unchanged from factory-v1.34.0.
+
 ## [factory-v1.34.0] - 2026-08-22
 
 Six tools move: zoo 0.47.0 -> 0.48.0, deli_counter 0.91.0 -> 0.94.0,
