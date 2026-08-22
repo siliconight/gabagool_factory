@@ -724,7 +724,7 @@ work of adopting this.
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
 | 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPa |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
-| 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is fini |
+| 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED. Steps 1-3 shipped and proven end-to-end on cr_deli's  |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
 | 49 | **CLOSED** | Step 2.5 replaces a self-contained root scene with one that names a di | 2026-08-16 -- FIXED as level_factory 0.39.0 and proven on the package. `_assembly_building |
@@ -3636,7 +3636,7 @@ name and every opening, so a dressing pass that touches collision now moves a
 hash. This item and items 29 through 31 of that work were built in the wrong
 order and it happened to work out.
 
-*STATUS: NARROWED 2026-08-14 -- MEASURED, and the scope inverted. The declaration is not missing; it is finished and dropped. `deli_counter/interactives.py` + `docs/INTERACTIVES.md` emit 9 replicable state machines per building. `site.site.gameplay.json` has no `interactives` key. The shipped package contains zero files mentioning "interactive". The work is a boundary, not a design*
+*STATUS: NARROWED 2026-08-22 -- THE PIPE IS CONNECTED. Steps 1-3 shipped and proven end-to-end on cr_deli's real gameplay.json: Lot 0.48.0 carries `interactives` into the site (ids VERBATIM -- they are the network handle; transforms world-placed exactly like markers), level_factory 0.48.0 passes them through dispatch staging untouched, and Dispatch 0.4.0 ships `interactives.json` beside `gameplay_anchors.json` -- 23/23 machines, ids and transitions byte-identical at every hop, plus a `Handoff/Interactives` scene node and `interactive_count` in the manifest. The question this item said to answer FIRST is answered in `docs/FUNCTIONAL_LOCK.md` ("two collision states, one hash": the locked shell is the DEFAULT state -- the level at rest, the only state offline artifacts realize and gates measure; the per-state truth is protected as DATA by the new `interactive_registry_hash`, keyed on `id` because interactive ids are globally unique by construction, schema v0.2 -> v0.3), and `interactives` sits in PROTECTED_KEYS with deli backfill for pre-carry site files. REMAINS, exactly as step 4 wrote it: `breach_class` and `material` are still null and read by nothing -- populate them now that the pipe exists -- and the INTERACTIVES.md twin-file sync check is still unbuilt (re-measured 2026-08-22: the two copies HAVE drifted).*
 
 **46. Forty-five state machines a run, reaching nobody.**
 The question this started from -- can a destructible system live in tools that

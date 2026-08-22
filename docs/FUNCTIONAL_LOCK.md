@@ -165,6 +165,48 @@ decidable from these two files.
 geometry that exists in the shell and not in the assembled site is
 either a deliberate drop nobody wrote down, or loss between two stages.
 
+## Interactive fixtures: two collision states, one hash
+
+*Added 2026-08-22, answering the question roadmap item 46 parked here: a
+breached wall's `collision_per_state` says it stops colliding -- so which
+state is the locked shell: default, worst case, or every state as a set?*
+
+**The locked shell is the DEFAULT state.** The collision fingerprint hashes
+the level AT REST -- the geometry Deli Counter builds, the state every gate
+measures (nav-gate, walktest, the map grader all evaluate default-state
+geometry), the state the composed scene renders visible. Non-default states
+exist in the package as a declaration plus parked hidden art
+(`<slot_id>_<state>`, `visible = false`), never as live offline collision.
+Hashing a "worst case" or a per-state set would protect collision no
+artifact realizes and no gate verifies -- the same reasoning that keeps
+Deli's 25 unplaced collision nodes out of `surfaces`: the lock must not
+protect what the package does not contain.
+
+**The per-state truth is protected as DATA, not as geometry:**
+`interactive_registry_hash`, a third signature over the `interactives`
+declaration whole -- id, kind, states, default, transitions,
+`state_geometry`, `collision_per_state`, transform. Every field is
+functional; none is a presentation stage's to write. An art pass that drops
+a fixture, adds a state, rewires a transition, or flips whether a broken
+window still blocks moves this hash without moving a vertex -- exactly the
+change "two collision states, one hash" was worried would slip through.
+
+**Identity is `id`, and that is the OPPOSITE call from anchors --
+deliberately.** Anchor ids are building-scoped (`"FRONT"` everywhere), so
+anchors key on the namespaced name. Interactive ids are globally unique by
+construction (`<building>:if:<hash>`, position-derived -- INTERACTIVES.md,
+"Stable ids") and are the network handle every client, snapshot and saved
+game references. The registry hashes the handle the shipped package
+actually uses; renaming it here would protect a name nothing ships.
+
+`interactives` is site-authoritative -- Lot concatenates every building's
+declarations, ids verbatim -- and joins `BACKFILLED_FROM_DELI`: a site file
+written before Lot carried the key falls back to the building's own
+declaration rather than hashing an empty list that reads as coverage.
+
+Schema: v0.2 -> v0.3. Same rule as the last bump -- a v0.2 lock reports as
+**needing recompute**, never as drift.
+
 ## What this deliberately does NOT protect
 
 - **Materials, lighting, dressing.** The art pass owns them.
