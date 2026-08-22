@@ -3,6 +3,28 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.34.0] - 2026-08-22
+
+Six tools move: zoo 0.47.0 -> 0.48.0, deli_counter 0.91.0 -> 0.94.0,
+lot 0.47.0 -> 0.48.0, level_factory 0.47.0 -> 0.48.0, dispatch 0.3.1 -> 0.4.0,
+laser_tag 0.8.0 -> 0.9.0. lux, patina, pixelcoat, pipeline unchanged.
+
+One feature arc end to end: interactive fixtures. DC emits and composes both
+states of every interactive (hidden `_<state>` siblings, id metadata), zoo
+builds the broken-state art (glass_shard, window_broken), lot carries the
+state machines into the site verbatim, level_factory stages them through and
+locks the declaration (interactive_registry_hash, lock schema v0.3,
+docs/FUNCTIONAL_LOCK.md answers "two collision states, one hash"), dispatch
+ships interactives.json beside the anchors, and laser_tag 0.9.0 proves the
+runtime pattern with the replicated destructible proxy -- plus three latent
+harness bugs found and fixed by the first human playtest. Chain proof:
+cr_deli's 23 machines reach the handoff package byte-identical.
+
+Still open, named in the manifest description: breach_class/material
+population (roadmap 46 step 4), the INTERACTIVES.md twin drift, no in-engine
+state flip of a composed site, and 3/135 catalog shells with untraversable
+stairs.
+
 ## [factory-v1.28.0] - 2026-08-17
 
 lot 0.43.0 -> 0.44.0. The other nine tools are unchanged from factory-v1.27.0.
