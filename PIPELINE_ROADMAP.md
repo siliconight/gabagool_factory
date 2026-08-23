@@ -5125,9 +5125,37 @@ set instead of z-fighting it. The closing instrument exists now too:
 `tools/mesh_light_census.py` + `.gd` walk the RUNNING tree and count, per
 visible mesh, the visible omni/spot lights whose range reaches its world
 AABB -- built because the 111-over-8 numbers below come from module FILENAMES
-and can open this item but not close it. REMAINS: rebuild the module library
-and recompose, run the census, show zero meshes over the engine default of 8,
-then delete `PER_OBJECT_CEILING = 40` from `packages/core/godot_project.py`.
+and can open this item but not close it. THE BEFORE NUMBER IS NOW MEASURED
+(2026-08-23, `walk.tscn` on the shipped lot_demo_001 preview, engine
+4.7-stable, 272 positional lights visible): 3,016 visible meshes, 804 over 8,
+201 over 16, 51 over 32, worst 72 on `b1/GreyboxBase/slab_0` -- the estimate
+was off by a factor of seven because it measured files, not the tree. TWO
+FINDINGS THE ESTIMATE COULD NOT SEE. (1) Lot's ground routes are offenders
+too: `path_0/mesh` at 65 x 8 m sees 58 lights, `path_1` 52, `path_3` 44 --
+the tile law has to reach lot's path meshes or zero-over-8 is unreachable.
+(2) The census counted 272 visible positional lights in a project whose
+`max_renderable_lights` is 136: `count_package_lights` globs .tscn TEXT, so
+a light rig instanced N times counts once and a runtime-spawned fixture
+light counts zero -- the global cap is sitting at HALF the real light
+population, which is the areas-stay-dark defect that cap exists to prevent,
+live today and hidden. That needs its own item; it is not this one's to fix.
+SINCE THEN, the census earned its keep three more times: lot 0.49.0 tiled
+the paths/ground/roads it caught (58 lights on one 65 m path mesh); its
+light forensics flushed lux 0.17.0 (every fixture light existed TWICE --
+bake-saved and runtime-rebuilt, 272 visible against 136 authored, all
+within 10 cm of a twin) and priced the flat range: 8.0 claimed budget slots
+through walls (walked at the engine default as a hard brightness grid),
+the 4.5 trim left tall halls with lit ceilings over PITCH-BLACK floors
+(attenuation reaches zero at the range; energy cannot light what range
+does not reach). So DC 0.97.0 stamps each ceiling anchor's DROP to its own
+floor and lux 0.19.0 derives range = clamp(drop + 1.5, 4.5, 8.0). Census
+after tiling + dedup + trim: worst 23, zero over 32, 308 over 8 and
+falling with the derived ranges. REMAINS: rebuild the shell library
+(lights.json now carries drop), recompose, census reads zero over the
+engine default of 8, the walk at default 8 shows no set-boundary grid,
+then delete `PER_OBJECT_CEILING = 40` from
+`packages/core/godot_project.py` (the deletion and its test updates are
+drafted and held).
 The first-load frame hitch stays open and unmeasured. Prior state
 (2026-08-18): MEASURED AND MITIGATED, NOT FIXED -- two derived engine caps
 paying for the plates; 111 of 920 meshes over 8, 39 over 16, one over 32,
@@ -5306,6 +5334,130 @@ sign texture when there is one -- plus, in both cases, a name from the spawner
 so the four are addressable, and a count in the validation output so a level
 with unfinished sign faces says so instead of being found by somebody walking
 past one.
+
+*STATUS: OPEN 2026-08-23 -- MEASURED at discovery, unworked. Found by item
+54's closing instrument on its first honest run and recorded here the same
+day, because "the roadmap already knew" (item 39's epitaph) is only true of
+findings that get written down*
+
+**56. The global light budget is derived from scene text, and the running
+level has twice as many lights as the number it was given.**
+Raised 2026-08-23 by `tools/mesh_light_census.py` on `lot_demo_001`'s walk
+preview: the census counted **272 visible positional lights** in a running
+tree whose `project.godot` says `max_renderable_lights=136`. GL Compatibility
+does not degrade above that cap -- lights past it are simply not drawn -- so
+roughly half this package's lights are culled somewhere every frame, with
+which half winning decided by the camera. That is the areas-stay-dark /
+blinking defect 0.43.x measured and fixed, alive again underneath the fix,
+and invisible to every file-level instrument for the same reason twice over.
+
+**WHY THE NUMBER IS WRONG.** `packages/core/godot_project.py::
+count_package_lights` globs every `.tscn` under the package and counts
+`type="OmniLight3D|SpotLight3D|DirectionalLight3D"` DECLARATIONS in the text.
+Two mechanisms make the running tree bigger than the text: a light rig scene
+instanced N times contributes N runtime lights and ONE declaration, and
+`LuxFixtureSpawner` builds its area-light rigs at RUNTIME from `LuxEmit_*`
+markers, contributing lights that exist in no `.tscn` at all (item 55
+documents the same spawner's panels evading every file instrument). The
+docstring's claim -- "a package cannot render more lights than it contains"
+-- is true of the package and false of the tree, and the cap is written
+against the package.
+
+**WHAT WOULD CLOSE THIS.** Derive the global cap from the RUNNING tree's
+light population (the census payload already measures exactly this number),
+or make it instance- and spawner-aware at derivation time -- and either way,
+a gate that compares the shipped cap against a runtime count so the two can
+never drift silently again. Not folded into item 54, whose subject is meshes
+over the PER-OBJECT budget; this is the GLOBAL budget lying about the
+population, and its fix lives in level_factory + lux, not in the geometry.
+NOTE 2026-08-23: lux 0.17.0 removed the x2 itself (every fixture light
+existed twice -- bake-saved AND runtime-rebuilt), so the running tree now
+matches the written cap on lot_demo_001. The DERIVATION is still text-based
+and still counts an instanced rig once and a spawned light zero times; this
+item stays open for the class, with its live instance dead.
+
+*STATUS: OPEN 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23
+walks of the tiled, deduped, trimmed lot_demo_001, where the remaining
+reads-as-tiles feeling was no longer any single defect but the absence of a
+grammar. Item 58 below is the first Critical-class instance filed under it*
+
+**57. Asset boundaries are implementation details; architectural boundaries
+are what the player should see.**
+Raised 2026-08-23. The walk that followed item 54's tiling read as more
+cohesive under the light caps and STILL read as modular in places, and the
+reasons sort cleanly under one principle: a modular seam should either
+disappear, or become an intentional architectural feature. The house already
+runs much of this playbook -- `relief_parts` puts a pier at every 2 m wall
+module boundary (seams AS architecture, carved inward because the 546-cover
+fiasco banned proud-of-the-wall masks); openings can never be bisected
+because a window IS a module; floor/ceiling materials break at room
+boundaries; the shot bot's 1 mm-flip jitter metric is a close-range seam
+instrument; and item 54's plate tiles are engineered invisible (coplanar,
+flat identical normals, UVs position-projected in module space so the
+pattern flows across tile cuts). What it does NOT have, measured against
+that principle:
+
+- **Between-module texture continuity.** `cube_project_uv` projects in
+  module-local space and every instance of `wall_rockay_01_w200` is the same
+  GLB, so a facade samples the identical texture patch every 2 m --
+  `[ABCABC][ABCABC]`, the classic giveaway, with per-part wear jitter baked
+  into the shared GLB so the WEAR repeats too. The piers give each boundary
+  a cover story; the repetition inside each bay is what still reads. The fix
+  direction (per-instance `uv_offset` exists in the signature already, or
+  building-space projection) trades directly against the kit economy of one
+  module instanced N times -- that trade is this item's core decision, and
+  it is item 41/35's "what size should a mesh be" wearing a texture.
+- **Weathering in building space.** Zoo wear is per-part and rides the
+  shared GLB; real grime responds to the building (runoff, ground splash),
+  not to asset bounds. Patina reads `surface_roles` and is the right layer;
+  how far its wear actually crosses module boundaries is UNGROUNDED -- read
+  before claiming.
+- **An edge vocabulary and a resolver.** Slots declare dims/material/style
+  but not what their EDGES mean (CONTINUOUS_BRICK vs BAY_BOUNDARY), so
+  nothing can warn "these two modules meet mid-surface with no transition"
+  or insert a separator from a pool (column, trim, downpipe, material
+  band). `wallEnd` is a scaled end-cap, not a corner family
+  (Corner_90_Inside / Outside / material-specific) -- see item 58 for what
+  that costs today.
+- **A mid-distance instrument.** The 1 mm-flip gate sees cracks; nothing
+  measures "reads as tiles from 40 m" (silhouette fragmentation, bay-rhythm
+  periodicity, per-module color blocking). Buildable on the godot_probe
+  pattern: fixed-distance station shots plus a repetition metric.
+
+**WHAT WOULD CLOSE THIS.** Not one patch: an adopted grammar. Each shipped
+piece counts -- edge metadata in the slots contract, a corner module family,
+one demonstrated continuity mechanism (building-space UV or per-instance
+offset) with its cost measured against the instancing economy, weathering
+moved to building space, and the mid-distance instrument -- with the walk as
+the judge each time.
+
+*STATUS: OPEN 2026-08-23 -- SIGHTED ON HARDWARE, NOT YET LOCATED IN DATA.
+Filed with the screenshot's own coordinates; the overlay named the module
+but not the building (its `bldg` line resolves the nearest instanced
+ancestor, which for a themed module is the module itself -- an
+instrumentation gap worth fixing while in there)*
+
+**58. A facade corner is open to the sky, and light walks straight through
+the building envelope.**
+Raised 2026-08-23, walking lot_demo_001: at walk position (-63.4, 1.6, 86.4)
+the vertical joint where a themed exterior wall run meets the facade return
+(module `ext_0_N_seg9`, a zoo-library wall module) stands visibly OPEN -- a
+gap wide enough that sky/backlight shines through the corner from outside,
+photographed with the crosshair on `Wall` at 21.63 m. Item 57's taxonomy
+calls this Critical: a gap between pieces exposes modular construction
+instantly, and this one also breaches the envelope (sightline and light leak
+through a wall the gameplay layer treats as solid -- tactical cover reads
+wrong at exactly the corner a player would hug). NOT YET DIAGNOSED, candidate
+mechanisms in likely order: the corner junction is nobody's job (`wallEnd`
+fills straight-run remainders; no corner module family owns the turn); a
+themed module narrower than its greybox slot after the name-boundary strip
+removed the greybox that used to fill the joint; or seg-boundary rounding
+between adjacent wall slots. **WHAT WOULD CLOSE THIS:** locate the joint in
+the composed scene, measure the gap against the slots on both sides, give
+corners an owner (module family or corner-aware wallEnd), and add the gate
+item 57 asks for -- an envelope-continuity check over adjacent exterior wall
+slots' themed extents, so an open corner fails a build instead of waiting
+for a walker with a screenshot.
 
 ## Commands
 
