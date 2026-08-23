@@ -5110,18 +5110,28 @@ eleven deep, reached seventeen and killed a run, now filtered at the scheduler);
 emitted, but promoted to item 4 rather than carried, because it violates the
 standalone contract rather than being untidy).
 
-*STATUS: OPEN 2026-08-18 -- MEASURED AND MITIGATED, NOT FIXED. Raised from a
-walk, not from a grep. The subject of this item -- a floor or roof plate 34-52 m
-across being ONE mesh -- is untouched. What shipped is two engine caps that pay
-for it: level_factory 0.43.3 writes `max_renderable_lights` = the package's own
-light count and `max_lights_per_object` = min(count, 40), both derived, neither
-round. THE PER-OBJECT ONE COSTS: it sizes the shader light loop for every
-object. Measured on lot_demo_001: 111 of 920 meshes exceed the engine's
-per-mesh default of 8, 39 exceed 16, one exceeds 32 -- and every single
-offender is a building-wide roof or floor/ceiling plate. Room-sized meshes
-would sit inside the engine defaults and need no caps at all. Also open and
-NOT measured: a first-load frame hitch, smaller after 0.43.2 dropped a cap but
-still present*
+*STATUS: OPEN 2026-08-23 -- SPLIT IMPLEMENTED, AWAITING THE CLOSING CENSUS.
+Both sources of room-spanning meshes now tile to light-budget size. Zoo 0.49.0
+cuts every plate VISUAL into <=8 m tiles (`core/arch.tile_parts`, wired in
+`build_slab`; collision still built from the UNTILED plate -- proven on a
+52 x 32 m roof with the bank-branch ladder void: 43 tiles, largest edge
+7.429 m, the same 4 collision boxes as before, ladder column open). Deli
+Counter 0.96.0 tiles the full-footprint `slab_<n>` visuals the stripped base
+keeps (pvp_station_ref, 34 x 26 m x 4 storeys: 80 tiles at 6.8 x 6.5 m, four
+trimesh collision slabs byte-unchanged), teaches `_slab_holes_cut` to cut
+EVERY intersecting tile instead of the first name match, and switches
+`roof_covered_nodes` to containment so a themed roof strips the whole tile
+set instead of z-fighting it. The closing instrument exists now too:
+`tools/mesh_light_census.py` + `.gd` walk the RUNNING tree and count, per
+visible mesh, the visible omni/spot lights whose range reaches its world
+AABB -- built because the 111-over-8 numbers below come from module FILENAMES
+and can open this item but not close it. REMAINS: rebuild the module library
+and recompose, run the census, show zero meshes over the engine default of 8,
+then delete `PER_OBJECT_CEILING = 40` from `packages/core/godot_project.py`.
+The first-load frame hitch stays open and unmeasured. Prior state
+(2026-08-18): MEASURED AND MITIGATED, NOT FIXED -- two derived engine caps
+paying for the plates; 111 of 920 meshes over 8, 39 over 16, one over 32,
+every offender a building-wide roof or floor/ceiling plate*
 
 **54. One mesh spans a whole room, and two light caps are paying for it.**
 Raised 2026-08-18, walking `LF_lot_demo_001.portable-godot` with 136 fixture
