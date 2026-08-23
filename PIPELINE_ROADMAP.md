@@ -5459,6 +5459,85 @@ item 57 asks for -- an envelope-continuity check over adjacent exterior wall
 slots' themed extents, so an open corner fails a build instead of waiting
 for a walker with a screenshot.
 
+*STATUS: OPEN 2026-08-23 -- SIGHTED ON HARDWARE, RULE DESIGNED, UNBUILT.
+Queued as the first Deli Counter change after item 54's rebuild proves the
+current light batch -- a floorplan rule changes geometry, and a rebuild
+already carrying four light variables does not want a fifth of a different
+kind*
+
+**59. One door, two corridors: a partition ends inside the aperture and
+splits the egress.**
+Raised 2026-08-23, walking lot_demo_001: at (22.1, 1.6, 70.3) in the `zoo`
+building, an opening under `int_0_0_seg17` has a partition's `WallEnd`
+standing in the middle of its aperture -- one doorway divided into two
+squeeze-past channels by a wall edge-on to the door. Item 57's semantic rule
+names it exactly: a seam (here, a wall termination) must not cut through
+something the eye reads as ONE object, and a door is the strongest such
+object in a heist game -- egress is gameplay vocabulary, and "which half of
+the door do I take" is not a question a building should ask. THE RULE FOR
+DELI COUNTER: no partition may terminate inside an opening's aperture span
+(plus a leaf-clearance margin, ~0.3 m each side) on the wall it meets --
+detection is geometric (partition endpoint's coordinate on the host wall
+inside [opening_center - w/2 - margin, opening_center + w/2 + margin]), and
+it covers exterior walls and partition-hosted openings alike, since this
+sighting is a partition T-ing into an interior wall's doorway.
+**WHAT WOULD CLOSE THIS:** the check in `layout_lint.py` (warning first, so
+it cannot red an in-flight certification; error once the library is clean),
+the AVOIDANCE in the floorplan/generator path (nudge the opening along its
+wall or terminate the partition one bay short -- never silently delete
+either), and a regenerated library with zero warnings.
+
+*STATUS: OPEN 2026-08-23 -- SIGHTED, LEVERS PRICED, DECISION NOT TAKEN.
+Partially mitigated in the same day's lux work: drop-derived ranges (0.19.0)
+shrink how far a lamp reaches through anything*
+
+**60. Light walks through walls: a fixture in the next room lights this
+one's ceiling.**
+Raised 2026-08-23, walking lot_demo_001: at (0.8, 1.6, 74.3) in
+`pvp_station_ref`, the ceiling above a partition carries the glow of the
+NEXT room's fluorescent -- `shadows_enabled` is false on every rig the
+loader builds, and an unshadowed light illuminates everything in range with
+walls never consulted. The same fact drives item 54's budget accounting
+(binding ignores occlusion) and this, its visible half. THE LEVERS, priced:
+(a) `shadow_enabled` on interior fixture rigs -- correct and expensive; GL
+Compatibility pays per shadowed light and a 136-light package cannot afford
+all of them, so this wants the `LuxQualityProfile` gate (highest tier
+shadows everything, lower tiers shadow pendants/objective rooms only, floor
+tier none); (b) drop-derived ranges already shipped -- a range that stops at
+the room's own scale stops most cross-room reach for free; (c) per-room
+`light_cull_mask` layers -- surgical but kills LEGITIMATE spill through
+doorways, and Godot's 20 render layers cannot number every room on a site.
+**WHAT WOULD CLOSE THIS:** a decision recorded here, then the quality-tier
+shadow policy in the loader/rigs, then a walk that shows walls stopping
+light where doors let it through.
+
+*STATUS: OPEN 2026-08-23 -- SPECIFIED. TDD authored and committed at
+`lux/docs/film_emulsion_tdd.md`; nothing built*
+
+**61. Optional color-preserving film emulsion for Lux.**
+Raised 2026-08-23 by TDD (50 sections; `lux/docs/film_emulsion_tdd.md` is
+authoritative -- this entry is the index card). PURPOSE: present Lux's
+continuous lighting color photographically -- suppress RGB-channel breakup,
+per-channel speckle, posterization -- with grain that stays RELATED to the
+underlying color (luminance-driven density, exposure-dependent, chromatic
+variation restrained) instead of digital per-channel noise. CORE PRINCIPLE:
+preserve color precision first, apply photographic response, THEN any
+artistic reduction -- never quantize and try to win the look back.
+ARCHITECTURE CONSTRAINTS: lives INSIDE the existing Lux post shader (a new
+mandatory full-screen pass is prohibited), packed grain texture, shader
+variants, zero cost when disabled ("the scene must render normally without
+it" -- disabled performance is itself an acceptance test). ENABLEMENT is a
+three-key AND: preset (`film_emulsion_enabled`) x quality profile
+(`allow_film_emulsion`) x LuxRoot runtime switch, existing presets
+unchanged. Natural and Retro modes; V2 may add a film LUT. ACCEPTANCE is
+spelled out as tests: color continuity, lighting fidelity, rainbow-speckle,
+hue preservation, exposure response, banding, temporal stability, and a
+performance matrix with VRAM/RAM/CPU/GPU/bandwidth budgets.
+**WHAT WOULD CLOSE THIS:** the TDD's own acceptance battery, green, on
+hardware, with the walk as the final judge -- and item 57's texture-rhythm
+observations re-walked under it, since film response may change how the
+modular repetition reads.
+
 ## Commands
 
 Tests, both repos. Note the asymmetry: Level Factory's `pyproject.toml` already
