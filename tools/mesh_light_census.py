@@ -31,6 +31,7 @@ here may still render clean, and the fix for that is to look, not to trust.
 """
 import argparse
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -43,12 +44,27 @@ MARK_END = "MESH_LIGHT_CENSUS_JSON>>>"
 
 
 def default_scene(project_dir):
-    """The single *_walk.tscn, the way lux_inject.py picks one."""
+    """The project's own run/main_scene, else the single *_walk.tscn.
+
+    The main scene comes FIRST because the *_walk.tscn rule (lux_inject.py's)
+    picked `player_walk.tscn` in an LF walk preview on 2026-08-23 -- the
+    player CAPSULE, no site instanced -- and the census measured an honest,
+    useless zero (0 meshes, 0 lights, in a project whose caps advertise 136).
+    The scene the project runs is the scene the human walks; that is the one
+    whose lighting anybody cares about.
+    """
+    pg = os.path.join(project_dir, "project.godot")
+    if os.path.isfile(pg):
+        with open(pg, encoding="utf-8", errors="replace") as f:
+            m = re.search(r'run/main_scene="res://([^"]+)"', f.read())
+        if m and os.path.isfile(os.path.join(project_dir, m.group(1))):
+            return m.group(1)
     walks = sorted(f for f in os.listdir(project_dir)
                    if f.endswith("_walk.tscn"))
     if len(walks) != 1:
         raise ProbeFailed(
-            "expected exactly one *_walk.tscn in " + project_dir + ", found " +
+            "no run/main_scene in project.godot, and expected exactly one "
+            "*_walk.tscn in " + project_dir + ", found " +
             str(len(walks)) + ": " + str(walks) + ". Pass --scene.")
     return walks[0]
 
@@ -147,6 +163,20 @@ def main(argv=None):
     else:
         print("[mesh_light_census] " + os.path.abspath(a.project))
         report(c)
+
+    if "error" not in c and int(c.get("meshes", 0)) == 0:
+        # An empty tree is not a measurement of the level. This happened on
+        # the tool's first hardware run: the old default picked
+        # player_walk.tscn and censused the player capsule. Zero meshes can
+        # never arm the gate below -- "0 over 8" from an empty frame is
+        # exactly the skip-reported-as-pass this toolchain refuses.
+        print("")
+        print("[mesh_light_census] EMPTY TREE: 0 visible meshes at frame "
+              + str(c.get("settle_frames")) + ". A site project does not "
+              "have an empty frame five -- the scene measured is probably "
+              "not the scene that instances the level. Pass --scene.")
+        if a.max_per_mesh is not None:
+            return 1
 
     if a.max_per_mesh is not None and "error" not in c:
         if int(c["worst"]) > a.max_per_mesh:
