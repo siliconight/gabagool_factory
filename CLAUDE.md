@@ -231,6 +231,13 @@ than editing one field.
 Lot's `VERSION` file and `CHANGELOG.md` use different numbering **deliberately**
 (see `PIPELINE_MAP.md`). Do not reconcile them casually.
 
+The content-facing half of this rule lives in `USING_THE_FACTORY.md` at the
+root: the routing table for which repo owns which domain, and the gap
+protocol — when a design asks for something no tool makes yet, the owning
+tool grows the capability (a Pixelcoat skin, a Zoo species, a Lux tuning
+row) and nothing is hand-authored downstream. Send anyone improvising in a
+workspace there first.
+
 ## Instruments — report a measurement, not a cause (hard rule)
 
 The recurring defect in this toolchain is a cheap observable standing in for an

@@ -19,6 +19,13 @@ the authority on gameplay or networking.
 active investigation: what is fixed, what is known-broken, and what to do next.
 The map is the standing shape; the roadmap is where the work is right now.
 
+**[`USING_THE_FACTORY.md`](USING_THE_FACTORY.md)** — the operator's charter:
+making content WITH the tools (the map is the machine, the roadmap is the
+work, this is the driving), the routing table of which repo owns which
+domain, and the gap protocol for the day a design asks for something the
+catalog cannot make yet — the owning tool grows the capability; nothing is
+hand-authored downstream.
+
 ## Two-layer versioning
 
 **Layer 1 - each tool** is a standalone git repo with its own semver, VERSION

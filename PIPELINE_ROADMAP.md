@@ -5538,6 +5538,36 @@ hardware, with the walk as the final judge -- and item 57's texture-rhythm
 observations re-walked under it, since film response may change how the
 modular repetition reads.
 
+*STATUS: OPEN 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM.
+`USING_THE_FACTORY.md` states the protocol and names today's honest
+coverage; nothing emits the tag yet*
+
+**62. The capability-gap signal: a tool that cannot make what was asked
+says so, uniformly, and names the owner.**
+Raised 2026-08-24 while writing `USING_THE_FACTORY.md` (the operator's
+charter, new at the root). The factory's answer to "the catalog cannot
+make this" is the gap protocol: the OWNING tool grows a new capability --
+a Pixelcoat skin pack, a Zoo species, a Deli Counter anchor rule, a Lux
+tuning row -- rather than anyone hand-authoring a one-off downstream. The
+protocol only fires if gaps are VISIBLE, and today they are visible
+unevenly. Good: `LuxFixtureSpawner.spawn` returns every skipped marker
+with a reason; `build_freshness.py` refuses to grade a stale library.
+Bad, both paid for this week: Zoo's fixture pass dropped the new `pendant`
+anchors without a word (no `FIXTURES` row -> no marker -> no light; the
+gap surfaced as dark basements in an instrument count, not as a line in
+the build log -- zoo 0.50.0 added the species, which fills the gap and
+leaves the silence), and the spawner's name-parse fallback carried the
+whole marker contract from the day it was written until a probe of the
+running tree found the payload dead (lux 0.22.0). A gap that surfaces in
+a walk instead of a build log costs a human playtest to find.
+**WHAT WOULD CLOSE THIS:** one convention, implemented in every tool that
+consumes a request it might not satisfy: on an unsatisfiable ask, emit a
+`CAPABILITY_GAP` line naming (1) what was asked, (2) the nearest
+capability that exists, (3) the repo that owns growing the real one -- on
+stdout and in the tool's report artifact where one exists; Level Factory
+surfacing gap counts in run summaries; and one test per tool proving an
+unknown ask produces the tag rather than silence.
+
 ## Commands
 
 Tests, both repos. Note the asymmetry: Level Factory's `pyproject.toml` already
