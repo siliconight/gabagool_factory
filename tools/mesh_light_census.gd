@@ -41,17 +41,27 @@ func _ready() -> void:
 		return
 
 	# The positional lights that can claim a slot in a mesh's budget.
+	# `warm` (red channel over blue) rides along because it is the cheapest
+	# honest TYPE tag this tree offers: the pendant is deliberately the
+	# fluorescent rig in an incandescent costume, so paths and lamp names
+	# ("Fluoro_N") cannot tell them apart -- census #7's b1 verdict hinged
+	# on exactly that ambiguity. Color temperature can: every warm source
+	# here is a pendant / sodium / halogen, every cool one a tube or window.
 	var lights: Array = []
 	for n in scene.find_children("*", "OmniLight3D", true, false):
 		var l: OmniLight3D = n
 		if l.is_visible_in_tree():
 			lights.append({"pos": l.global_transform.origin,
-							"range": l.omni_range, "kind": "omni"})
+							"range": l.omni_range, "kind": "omni",
+							"warm": l.light_color.r > l.light_color.b,
+							"path": String(scene.get_path_to(l))})
 	for n in scene.find_children("*", "SpotLight3D", true, false):
 		var l: SpotLight3D = n
 		if l.is_visible_in_tree():
 			lights.append({"pos": l.global_transform.origin,
-							"range": l.spot_range, "kind": "spot"})
+							"range": l.spot_range, "kind": "spot",
+							"warm": l.light_color.r > l.light_color.b,
+							"path": String(scene.get_path_to(l))})
 	var directional := 0
 	for n in scene.find_children("*", "DirectionalLight3D", true, false):
 		if (n as Light3D).is_visible_in_tree():
@@ -77,17 +87,37 @@ func _ready() -> void:
 			worst_count = count
 			worst_path = String(scene.get_path_to(mi))
 		if count > 8:
+			# Second pass, offenders only: WHO binds, and by what MARGIN
+			# (range minus distance-to-AABB). Census #6 forced this: 14
+			# plates at 9-10 with the geometry exonerated left range trims
+			# as the only knob, and a trim is a guess unless the census
+			# says how much range each claimant would have to lose. Sorted
+			# slimmest first, so the (count - 8)th margin IS the trim that
+			# frees the mesh.
+			var binders: Array = []
+			for l in lights:
+				var dist := _dist_to_aabb(l["pos"], aabb)
+				if dist <= float(l["range"]):
+					binders.append({
+						"path": l["path"],
+						"range": snappedf(float(l["range"]), 0.01),
+						"margin": snappedf(float(l["range"]) - dist, 0.01),
+						"warm": bool(l["warm"]),
+					})
+			binders.sort_custom(func(a, b): return a["margin"] < b["margin"])
 			over.append({
 				"path": String(scene.get_path_to(mi)),
 				"lights": count,
 				"size": [snappedf(aabb.size.x, 0.01),
 							snappedf(aabb.size.y, 0.01),
 							snappedf(aabb.size.z, 0.01)],
+				"binders": binders,
 			})
 
 	over.sort_custom(func(a, b): return a["lights"] > b["lights"])
 	var truncated := over.size() > WORST_ROWS
 	_emit({
+		"light_population": _light_population(lights),
 		"scene": String(scene.name),
 		"settle_frames": frames,
 		"engine": String(Engine.get_version_info().get("string", "")),
@@ -107,10 +137,71 @@ func _ready() -> void:
 	})
 
 
+## Forensics on the LIGHTS themselves, added after the first AFTER census:
+## every offender was a budget-sized tile, so the residue is the light
+## population, not the meshes. Three questions this answers without another
+## rebuild: what RANGES the lights carry (range decides how many tiles each
+## light claims a slot on), whether lights are DUPLICATED in place (272
+## visible against an authored 136 is exactly x2 -- the sun-link bug's shape:
+## the file says one, the running level has two), and WHERE they live in the
+## tree (a baked copy and a runtime-spawned copy group under different
+## parents, so the grouping names the mechanism).
+func _light_population(lights: Array) -> Dictionary:
+	var ranges: Array = []
+	for l in lights:
+		ranges.append(float(l["range"]))
+	ranges.sort()
+	var hist := {}
+	for r in ranges:
+		var bucket := str(int(floor(r)))
+		hist[bucket] = int(hist.get(bucket, 0)) + 1
+
+	# In-place duplicates: two lights within 10 cm of each other. O(n^2) is
+	# fine at a few hundred lights; a real dedup would not be measured here.
+	var twin := 0
+	var pairs: Array = []
+	for i in range(lights.size()):
+		var has_twin := false
+		for j in range(lights.size()):
+			if i == j:
+				continue
+			var d: Vector3 = lights[i]["pos"] - lights[j]["pos"]
+			if d.length() < 0.1:
+				has_twin = true
+				if i < j and pairs.size() < 12:
+					pairs.append([lights[i]["path"], lights[j]["path"]])
+		if has_twin:
+			twin += 1
+
+	# Group by the first two path segments, so baked-vs-spawned reads off.
+	var groups := {}
+	for l in lights:
+		var parts: PackedStringArray = String(l["path"]).split("/")
+		var key := parts[0] if parts.size() == 1 else parts[0] + "/" + parts[1]
+		groups[key] = int(groups.get(key, 0)) + 1
+
+	var mid := ranges.size() / 2
+	return {
+		"range_min": ranges[0] if ranges.size() > 0 else 0.0,
+		"range_median": ranges[mid] if ranges.size() > 0 else 0.0,
+		"range_max": ranges[ranges.size() - 1] if ranges.size() > 0 else 0.0,
+		"range_histogram": hist,
+		"lights_with_twin": twin,
+		"twin_pairs": pairs,
+		"groups": groups,
+	}
+
+
 ## Closest-point test: does the sphere at `pos` with `radius` touch `aabb`?
 ## This is the same containment question the engine's light culling answers
 ## when it assigns lights to an instance.
 func _sphere_touches_aabb(pos: Vector3, radius: float, aabb: AABB) -> bool:
+	var d := _dist_to_aabb(pos, aabb)
+	return d <= radius
+
+
+## Distance from `pos` to the closest point of `aabb` (0.0 inside it).
+func _dist_to_aabb(pos: Vector3, aabb: AABB) -> float:
 	var lo: Vector3 = aabb.position
 	var hi: Vector3 = aabb.position + aabb.size
 	var d := 0.0
@@ -120,7 +211,7 @@ func _sphere_touches_aabb(pos: Vector3, radius: float, aabb: AABB) -> bool:
 			d += (lo[i] - v) * (lo[i] - v)
 		elif v > hi[i]:
 			d += (v - hi[i]) * (v - hi[i])
-	return d <= radius * radius
+	return sqrt(d)
 
 
 func _emit(report: Dictionary) -> void:

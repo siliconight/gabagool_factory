@@ -121,11 +121,63 @@ def report(c):
     if rows:
         print("")
         print("  meshes over the engine default of 8:")
+        # Per offender: how many claimants it must SHED to fit 8 slots, and
+        # the margin (range minus distance) of each sheddable claimant --
+        # binders arrive sorted slimmest-margin first, so row k-1 is the
+        # exact range trim that frees the mesh. Added after census #6
+        # measured 14 plates at 9-10 with the geometry exonerated: from
+        # here on a range trim is sized by measurement, not guessed.
+        trims = []
         for row in rows:
             size = "x".join("%.1f" % v for v in row["size"])
             print("    %3d  %-14s %s" % (row["lights"], size, row["path"]))
+            binders = row.get("binders") or []
+            shed = int(row["lights"]) - 8
+            if binders and 0 < shed <= len(binders):
+                need = float(binders[shed - 1]["margin"])
+                trims.append(need)
+                # w = warm (pendant / sodium / halogen), c = cool (tube /
+                # window). The tag exists because pendant and fluorescent
+                # share a rig, a lamp name, and often a range -- the trim
+                # DECISION differs by type, so the census must say which.
+                slim = ", ".join("%.2f%s" % (float(b["margin"]),
+                                             "w" if b.get("warm") else "c")
+                                 for b in binders[:shed])
+                print("         shed %d -> trim > %.2f m"
+                      "   (slimmest margins: %s)" % (shed, need, slim))
+        if trims:
+            print("    every row above clears if every light's range came "
+                  "down %.2f m" % max(trims))
+        head = rows[0].get("binders") or []
+        if head:
+            print("")
+            print("  the worst mesh's claimants (margin = range - distance):")
+            for b in head:
+                tail = "/".join(str(b["path"]).split("/")[-3:])
+                print("    margin %5.2f  range %4.1f  %s  %s"
+                      % (float(b["margin"]), float(b["range"]),
+                         "warm" if b.get("warm") else "cool", tail))
         if c.get("over_rows_truncated"):
             print("    ... list truncated; the histogram above is complete")
+
+    pop = c.get("light_population")
+    if pop:
+        print("")
+        print("  light population (the other half of every count above):")
+        print("    range            min %.2f m   median %.2f m   max %.2f m"
+              % (pop["range_min"], pop["range_median"], pop["range_max"]))
+        hist = pop.get("range_histogram", {})
+        line = "   ".join("%sm:%s" % (k, hist[k])
+                          for k in sorted(hist, key=lambda s: int(s)))
+        print("    ranges (1m bins) " + line)
+        print("    lights within 10 cm of another light: "
+              + str(pop["lights_with_twin"]))
+        for a, b in pop.get("twin_pairs", []):
+            print("      " + a + "  ~  " + b)
+        groups = pop.get("groups", {})
+        print("    by tree location:")
+        for k in sorted(groups, key=lambda g: -groups[g]):
+            print("      %4d  %s" % (groups[k], k))
 
 
 def main(argv=None):
@@ -179,12 +231,22 @@ def main(argv=None):
             return 1
 
     if a.max_per_mesh is not None and "error" not in c:
+        # With a declared limit the run is a GATE, and a gate announces its
+        # verdict in both directions -- a pass you have to infer from the
+        # absence of a failure line is how a skip gets read as a pass.
         if int(c["worst"]) > a.max_per_mesh:
+            over = _bucket(c.get("histogram", {}), a.max_per_mesh + 1)
             print("")
-            print("[mesh_light_census] MESH_LIGHTS_OVER_LIMIT: worst mesh "
-                  "sees " + str(c["worst"]) + " positional lights against a "
-                  "declared limit of " + str(a.max_per_mesh) + ".")
+            print("[mesh_light_census] FAIL MESH_LIGHTS_OVER_LIMIT: "
+                  + str(over) + " mesh(es) over the declared limit of "
+                  + str(a.max_per_mesh) + "; worst sees " + str(c["worst"])
+                  + " (" + str(c["worst_path"]) + "). Exit 2.")
             return 2
+        print("")
+        print("[mesh_light_census] PASS: no mesh sees more than "
+              + str(a.max_per_mesh) + " positional lights (worst "
+              + str(c["worst"]) + ", " + str(c["meshes"])
+              + " meshes measured). Exit 0.")
     return 0
 
 

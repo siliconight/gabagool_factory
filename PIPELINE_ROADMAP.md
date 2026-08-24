@@ -5110,7 +5110,42 @@ eleven deep, reached seventeen and killed a run, now filtered at the scheduler);
 emitted, but promoted to item 4 rather than carried, because it violates the
 standalone contract rather than being untidy).
 
-*STATUS: OPEN 2026-08-23 -- SPLIT IMPLEMENTED, AWAITING THE CLOSING CENSUS.
+*STATUS: CLOSED 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The
+closing run (census #8, `walk.tscn` on the recomposed lot_demo_001 preview,
+engine 4.7-stable): 5,055 visible meshes, ZERO over the engine default of 8,
+worst exactly 8 (`b1/GreyboxBase/slab_1_t2_5`), 128 positional lights, zero
+twins, ranges 3.6-6.35 m. The human A/B walk at per-object 8 vs 40 saw no
+difference -- no brightness steps at tile boundaries, no thin lines, floors
+lit ("no more of that weird lines"). Getting the last 14 meshes under budget
+took the census growing MARGIN FORENSICS (per offender: each claimant's
+range minus its distance to the mesh, sorted slimmest first, so a range trim
+is priced by measurement instead of guessed -- plus a warm/cool color tag,
+because the pendant is deliberately the fluorescent rig in a costume and
+paths cannot tell them apart) and two lux releases the forensics priced:
+0.23.0 (fluorescent range drop+1.0, clamp 4.0..7.5, the first census with
+the drop chain alive end to end) and 0.24.0 (drop+0.75, shedding the b0
+claimants that bound with 0.17 m to spare). The drop chain itself was dead
+until a probe read the RUNNING tree: Godot imports glTF node extras as ONE
+metadata entry named `extras` holding the whole dictionary, so
+`get_meta("lux_drop")` returned null in every build since zoo 0.30 and the
+name-parse fallback masked it -- lux 0.22.0 (`marker_payload`) opened the
+box. En route the same instrument caught and killed: every fixture light
+existing TWICE (lux 0.17.0 rig-sweep dedup), the eleven-bulb chandelier row
+a 275 m^2 suite got from area/25 alone (DC 0.99.1 pendant guardrails), and
+plate-bevel V-grooves masquerading as budget seams (zoo 0.50.0 unbeveled
+plates). Deleted in level_factory 0.49.0: `PER_OBJECT_CEILING`,
+`per_object_cap()`, and the per-object block in `rendering_block`; the
+absence is pinned by `test_no_package_writes_a_per_object_cap` exactly as
+hard as the value used to be. Two observations recorded, not resolved:
+between the 02:27 and 11:10 builds of the same mission the visible mesh
+count moved 4,679 -> 5,055 and b1's slab tile names shifted (a `t2_5`
+appeared where #7 read `t2_3`/`t3_3`) -- the #7 preview is overwritten, so
+attribution is inference (the standing greybox-vs-themed shell difference is
+the suspect); if a future census flips tile names again with no tool change,
+that is assembly nondeterminism and earns its own item. The global cap's
+declaration-vs-running-tree gap stays item 56; the first-load hitch stays
+open below. Prior state (2026-08-23): OPEN -- SPLIT IMPLEMENTED, AWAITING
+THE CLOSING CENSUS.
 Both sources of room-spanning meshes now tile to light-budget size. Zoo 0.49.0
 cuts every plate VISUAL into <=8 m tiles (`core/arch.tile_parts`, wired in
 `build_slab`; collision still built from the UNTILED plate -- proven on a
@@ -5489,7 +5524,22 @@ either), and a regenerated library with zero warnings.
 
 *STATUS: OPEN 2026-08-23 -- SIGHTED, LEVERS PRICED, DECISION NOT TAKEN.
 Partially mitigated in the same day's lux work: drop-derived ranges (0.19.0)
-shrink how far a lamp reaches through anything*
+shrink how far a lamp reaches through anything. SECOND SIGHTING 2026-08-24,
+and it names the worst class: walking the census-#8 build, arena_a03's
+interior ceiling at (47.0, 1.6, -13.2) carries a broad wash from the SIGN
+outside the S doorway -- an area rig at energy 3.0 mounted ON the envelope,
+so its range sphere is always half inside the building it hangs from.
+Collision cannot block light in GL Compatibility; only a shadow map can,
+which re-prices lever (a): signs are FEW (lot_demo_001 ships four, item 55)
+where interior fixtures run ~128, so `shadow_enabled` on the sign/window
+area rigs ALONE is the affordable first tier of the quality-profile
+decision -- the tall-pole test to run before ever shadowing interiors.
+Doorway spill stays legitimate light; the wash arriving THROUGH the wall
+above a closed envelope is the defect. The wash pattern also answers the
+seam question asked at the sighting: a geometric reveal between wall and
+roof would read as a crack-line of light at the joint, and this is a broad
+sphere-shaped pool -- the light is not finding a gap, it is ignoring the
+wall entirely*
 
 **60. Light walks through walls: a fixture in the next room lights this
 one's ceiling.**
