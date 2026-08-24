@@ -5136,13 +5136,23 @@ plate-bevel V-grooves masquerading as budget seams (zoo 0.50.0 unbeveled
 plates). Deleted in level_factory 0.49.0: `PER_OBJECT_CEILING`,
 `per_object_cap()`, and the per-object block in `rendering_block`; the
 absence is pinned by `test_no_package_writes_a_per_object_cap` exactly as
-hard as the value used to be. Two observations recorded, not resolved:
-between the 02:27 and 11:10 builds of the same mission the visible mesh
-count moved 4,679 -> 5,055 and b1's slab tile names shifted (a `t2_5`
-appeared where #7 read `t2_3`/`t3_3`) -- the #7 preview is overwritten, so
-attribution is inference (the standing greybox-vs-themed shell difference is
-the suspect); if a future census flips tile names again with no tool change,
-that is assembly nondeterminism and earns its own item. The global cap's
+hard as the value used to be. Two observations were recorded here as
+unresolved -- mesh count 4,679 -> 5,055 between the 02:27 and 11:10 builds,
+and b1's slab tile names shifting (a `t2_5` where #7 read `t2_3`/`t3_3`) --
+and the first attribution written (greybox-vs-themed standing shells) was
+WRONG. RESOLVED 2026-08-24, found in the repo after the closure was drafted:
+Deli Counter 0.100.0 shipped between the two builds -- `SLAB_TILE` 8.0 ->
+5.0 sized from THIS kit's lamp density, and parapet visuals routed through
+`slab_tiles` (the one greybox visual that had escaped the tile law) -- so
+the deltas are finer tiling, and the GEOMETRY, not the 0.24.0 range trim
+alone, is what cleared b1's tiles and the 52 m parapet. The census verdict
+stands either way; the credit line changes. Provenance settled by git the
+same day: the 0.100.0 work sat UNCOMMITTED on top of v0.99.1 -- authored by
+a second, since-closed session working the same tree (seven files written
+inside two seconds, no patch script, census-#7-informed changelog) -- and
+was adopted into history as v0.100.0 with the DC suite as the gate. The
+process lesson (one writer per repo at a time; commit before handing a repo
+across sessions) is now a rail in USING_THE_FACTORY.md. The global cap's
 declaration-vs-running-tree gap stays item 56; the first-load hitch stays
 open below. Prior state (2026-08-23): OPEN -- SPLIT IMPLEMENTED, AWAITING
 THE CLOSING CENSUS.

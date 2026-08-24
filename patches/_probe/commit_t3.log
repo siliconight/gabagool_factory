@@ -1,0 +1,101 @@
+
+===== pixelcoat =====
+staging 18 file(s)
+    CHANGELOG.md
+    VERSION
+    pixelcoat/version.py
+    profiles/materials/carbon_neutral.json
+    profiles/materials/laminate_neutral.json
+    profiles/materials/paper_neutral.json
+    profiles/materials/pebble_gravel.json
+    profiles/materials/tar_neutral.json
+    profiles/materials/vegetation_neutral.json
+    profiles/themes/bank.json
+    profiles/themes/casino.json
+    profiles/themes/delco.json
+    profiles/themes/rockay.json
+    profiles/themes/rockay_civic.json
+    profiles/themes/rockay_retail.json
+    profiles/themes/rockay_service.json
+    profiles/themes/stadium.json
+    profiles/themes/street.json
+[main 7bedbb1] pixelcoat 0.15.0 -> 0.16.0: five grammars for unmapped kinds, gravel retag, ten kinds wired into all nine themes
+ 18 files changed, 346 insertions(+), 12 deletions(-)
+ create mode 100644 profiles/materials/carbon_neutral.json
+ create mode 100644 profiles/materials/laminate_neutral.json
+ create mode 100644 profiles/materials/paper_neutral.json
+ create mode 100644 profiles/materials/tar_neutral.json
+ create mode 100644 profiles/materials/vegetation_neutral.json
+TAGGED v0.16.0
+7bedbb1 pixelcoat 0.15.0 -> 0.16.0: five grammars for unmapped kinds, gravel retag, ten kinds wired into all nine themes
+
+===== zoo =====
+staging 3 file(s)
+    CHANGELOG.md
+    VERSION
+    tests/test_recipe_reads_its_genome.py
+[main 782d860] zoo 0.46.0 -> 0.47.0: a test that fails when a recipe ignores its genome
+ 3 files changed, 123 insertions(+), 1 deletion(-)
+ create mode 100644 tests/test_recipe_reads_its_genome.py
+TAGGED v0.47.0
+782d860 zoo 0.46.0 -> 0.47.0: a test that fails when a recipe ignores its genome
+
+===== . =====
+warning: in the working copy of 'patches/body_call_probe.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/close_t3.ps1', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/commit_t3.ps1', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/fix_t3_exec.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/fix_t3_selftest.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/genome_shadow_probe.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/grammar_vocab.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/grammar_vocab2.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/kind_map_probe.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/literal_sites.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/patch_kinds10.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/patch_mpt_clamp.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/schema_dump.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/stamp_check.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/theme_gate_probe.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/zoo_pack_probe.py', CRLF will be replaced by LF the next time Git touches it
+staging 18 file(s)
+    patches/body_call_probe.py
+    patches/close_t3.ps1
+    patches/commit_loud.ps1
+    patches/commit_t3.ps1
+    patches/fix_t3_exec.py
+    patches/fix_t3_selftest.py
+    patches/genome_shadow_probe.py
+    patches/grammar_vocab.py
+    patches/grammar_vocab2.py
+    patches/kind_map_probe.py
+    patches/literal_sites.py
+    patches/patch_kinds10.py
+    patches/patch_mpt_clamp.py
+    patches/patch_thread3_close.py
+    patches/schema_dump.py
+    patches/stamp_check.py
+    patches/theme_gate_probe.py
+    patches/zoo_pack_probe.py
+[main f432936] thread 3: probes and patches for the ten unmapped material kinds
+ 18 files changed, 3076 insertions(+)
+ create mode 100644 patches/body_call_probe.py
+ create mode 100644 patches/close_t3.ps1
+ create mode 100644 patches/commit_loud.ps1
+ create mode 100644 patches/commit_t3.ps1
+ create mode 100644 patches/fix_t3_exec.py
+ create mode 100644 patches/fix_t3_selftest.py
+ create mode 100644 patches/genome_shadow_probe.py
+ create mode 100644 patches/grammar_vocab.py
+ create mode 100644 patches/grammar_vocab2.py
+ create mode 100644 patches/kind_map_probe.py
+ create mode 100644 patches/literal_sites.py
+ create mode 100644 patches/patch_kinds10.py
+ create mode 100644 patches/patch_mpt_clamp.py
+ create mode 100644 patches/patch_thread3_close.py
+ create mode 100644 patches/schema_dump.py
+ create mode 100644 patches/stamp_check.py
+ create mode 100644 patches/theme_gate_probe.py
+ create mode 100644 patches/zoo_pack_probe.py
+f432936 thread 3: probes and patches for the ten unmapped material kinds
+
+COMMITS DONE.

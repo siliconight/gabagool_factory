@@ -121,3 +121,12 @@ The safety rules a content session actually touches; the full law lives in
   prove "good" (roadmap item 18). A pass with no walk is half a pass.
 - **When an instrument and your eyes disagree, one of them is wrong.**
   Establish which before building anything on either.
+- **One writer per repo at a time.** Sessions running in parallel split the
+  factory by REPO, and a repo changes hands only at a commit. Learned
+  2026-08-24: a second session shipped a correct, well-reasoned Deli
+  Counter release into the working tree and closed without committing --
+  the changes were live in the next build while `git log` still said the
+  old version, and the census deltas they caused were mis-attributed for
+  half a day before `git status` named the mystery colleague. An
+  uncommitted change with no session attached to it reads as nobody's
+  work, however good it is.

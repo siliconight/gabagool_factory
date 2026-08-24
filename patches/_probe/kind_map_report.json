@@ -1,0 +1,1487 @@
+{
+  "root": "C:\\Projects\\gabagool_studios\\gabagool_factory",
+  "counts": {
+    "genomes": 53,
+    "material_profiles": 55,
+    "profiles_with_kind": 55,
+    "theme_profiles": 9,
+    "packs_authoritative": 68,
+    "packs_elsewhere": 95
+  },
+  "themes_with_profile": [
+    "bank",
+    "casino",
+    "delco",
+    "rockay",
+    "rockay_civic",
+    "rockay_retail",
+    "rockay_service",
+    "stadium",
+    "street"
+  ],
+  "themes_built": [
+    "rockay",
+    "rockay_civic",
+    "rockay_retail",
+    "rockay_service",
+    "street"
+  ],
+  "themes_never_built": [
+    "bank",
+    "casino",
+    "delco",
+    "stadium"
+  ],
+  "species_keys": {
+    "species": 53,
+    "version": 53,
+    "license": 53,
+    "dimensions": 53,
+    "parts": 53,
+    "params": 53,
+    "materials": 53,
+    "styles": 53,
+    "budgets": 53,
+    "attachments": 53,
+    "keywords": 53,
+    "connectors": 25,
+    "collision": 40,
+    "match_priority": 17,
+    "prompt_rules": 7,
+    "transparency": 4,
+    "glass_color": 2
+  },
+  "materials_block_keys": {
+    "default": 53,
+    "options": 53
+  },
+  "profiles": [
+    {
+      "file": "pixelcoat/profiles/materials/asphalt_street.json",
+      "id": "asphalt_street",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/brick_buff_civic.json",
+      "id": "brick_buff_civic",
+      "kind": "brick",
+      "theme": "buff_civic",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/brick_delco.json",
+      "id": "brick_delco",
+      "kind": "brick",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/brick_glazed_green.json",
+      "id": "brick_glazed_green",
+      "kind": "brick",
+      "theme": "glazed_green",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/brick_painted_white.json",
+      "id": "brick_painted_white",
+      "kind": "brick",
+      "theme": "painted_white",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/canvas_delco.json",
+      "id": "canvas_delco",
+      "kind": "canvas",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/carpet_delco.json",
+      "id": "carpet_delco",
+      "kind": "carpet",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/ceiling_tile_delco.json",
+      "id": "ceiling_tile_delco",
+      "kind": "ceiling_tile",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/cinderblock_delco.json",
+      "id": "cinderblock_delco",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/cobblestone.json",
+      "id": "cobblestone",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/concrete_boardform_stadium.json",
+      "id": "concrete_boardform_stadium",
+      "kind": "concrete",
+      "theme": "boardform_stadium",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/concrete_delco.json",
+      "id": "concrete_delco",
+      "kind": "concrete",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/concrete_interior_delco.json",
+      "id": "concrete_interior_delco",
+      "kind": "concrete",
+      "theme": "interior_delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/concrete_polished_casino.json",
+      "id": "concrete_polished_casino",
+      "kind": "concrete",
+      "theme": "polished_casino",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/concrete_sidewalk_street.json",
+      "id": "concrete_sidewalk_street",
+      "kind": "concrete",
+      "theme": "sidewalk_street",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/corrugated_metal_delco.json",
+      "id": "corrugated_metal_delco",
+      "kind": "metal",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/dirt_delco.json",
+      "id": "dirt_delco",
+      "kind": "dirt",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/drywall_delco.json",
+      "id": "drywall_delco",
+      "kind": "drywall",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/flagstone.json",
+      "id": "flagstone",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_blobby.json",
+      "id": "glass_blobby",
+      "kind": "glass",
+      "theme": "blobby",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_circles.json",
+      "id": "glass_circles",
+      "kind": "glass",
+      "theme": "circles",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_cracked_cells.json",
+      "id": "glass_cracked_cells",
+      "kind": "glass",
+      "theme": "cracked_cells",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_delco.json",
+      "id": "glass_delco",
+      "kind": "glass",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_facade_bronze.json",
+      "id": "glass_facade_bronze",
+      "kind": "glass_facade",
+      "theme": "bronze",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_facade_mirror_blue.json",
+      "id": "glass_facade_mirror_blue",
+      "kind": "glass_facade",
+      "theme": "mirror_blue",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_facade_spandrel_green.json",
+      "id": "glass_facade_spandrel_green",
+      "kind": "glass_facade",
+      "theme": "spandrel_green",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_frosted.json",
+      "id": "glass_frosted",
+      "kind": "glass",
+      "theme": "frosted",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_reeded_cathedral.json",
+      "id": "glass_reeded_cathedral",
+      "kind": "glass",
+      "theme": "reeded_cathedral",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/glass_wavy.json",
+      "id": "glass_wavy",
+      "kind": "glass",
+      "theme": "wavy",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/granite_speckle.json",
+      "id": "granite_speckle",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/hardwood_plank.json",
+      "id": "hardwood_plank",
+      "kind": "wood",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/leather_delco.json",
+      "id": "leather_delco",
+      "kind": "leather",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/marble_bank_floor.json",
+      "id": "marble_bank_floor",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_bare_neutral.json",
+      "id": "metal_bare_neutral",
+      "kind": "metal_bare",
+      "theme": "neutral",
+      "tintable": true
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_brass_casino.json",
+      "id": "metal_brass_casino",
+      "kind": "metal",
+      "theme": "brass_casino",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_chrome_casino.json",
+      "id": "metal_chrome_casino",
+      "kind": "metal",
+      "theme": "chrome_casino",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_galvanized_stadium.json",
+      "id": "metal_galvanized_stadium",
+      "kind": "metal",
+      "theme": "galvanized_stadium",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_painted_neutral.json",
+      "id": "metal_painted_neutral",
+      "kind": "metal_painted",
+      "theme": "neutral",
+      "tintable": true
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_painted_stadium.json",
+      "id": "metal_painted_stadium",
+      "kind": "metal",
+      "theme": "painted_stadium",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_painted_trafficsignal.json",
+      "id": "metal_painted_trafficsignal",
+      "kind": "metal",
+      "theme": "painted_trafficsignal",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/metal_rusted_street.json",
+      "id": "metal_rusted_street",
+      "kind": "metal",
+      "theme": "rusted_street",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/painted_metal_industrial.json",
+      "id": "painted_metal_industrial",
+      "kind": "metal",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/pebble_gravel.json",
+      "id": "pebble_gravel",
+      "kind": "dirt",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/plaster_delco.json",
+      "id": "plaster_delco",
+      "kind": "plaster",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/plastic_delco.json",
+      "id": "plastic_delco",
+      "kind": "plastic",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/plastic_neutral.json",
+      "id": "plastic_neutral",
+      "kind": "plastic",
+      "theme": "neutral",
+      "tintable": true
+    },
+    {
+      "file": "pixelcoat/profiles/materials/plywood_sheathing.json",
+      "id": "plywood_sheathing",
+      "kind": "wood",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/rubber_delco.json",
+      "id": "rubber_delco",
+      "kind": "rubber",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/stucco_warm.json",
+      "id": "stucco_warm",
+      "kind": "plaster",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/subway_tile_white.json",
+      "id": "subway_tile_white",
+      "kind": "tile",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/terrazzo.json",
+      "id": "terrazzo",
+      "kind": "tile",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/tile_delco.json",
+      "id": "tile_delco",
+      "kind": "tile",
+      "theme": "delco",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/travertine_warm.json",
+      "id": "travertine_warm",
+      "kind": "concrete",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/vct_floor_beige.json",
+      "id": "vct_floor_beige",
+      "kind": "tile",
+      "theme": "?",
+      "tintable": false
+    },
+    {
+      "file": "pixelcoat/profiles/materials/wood_delco.json",
+      "id": "wood_delco",
+      "kind": "wood",
+      "theme": "delco",
+      "tintable": false
+    }
+  ],
+  "genome_names": [
+    "atm",
+    "boots",
+    "breach",
+    "briefcase",
+    "cash_stack",
+    "ceiling",
+    "chair",
+    "cheesesteak",
+    "condiment_bottle",
+    "counter",
+    "crt_tv",
+    "desk",
+    "doorway",
+    "dress_cover",
+    "drop_safe",
+    "exhaust_fan",
+    "filing_cabinet",
+    "flat_top_grill",
+    "floor",
+    "fluorescent_fixture",
+    "french_fries",
+    "gold_bar",
+    "helmet",
+    "hvac_unit",
+    "ladder",
+    "litter_scrap",
+    "pebble",
+    "prop",
+    "queue_stanchion",
+    "roof",
+    "rubble_frag",
+    "safe_deposit_boxes",
+    "satellite_dish",
+    "security_camera",
+    "shelving",
+    "sign_box",
+    "simple_car",
+    "skylight",
+    "soda_cup",
+    "stair_rail",
+    "streetlight",
+    "table",
+    "teller_line",
+    "vault_door",
+    "vending_machine",
+    "vent_stack",
+    "wall",
+    "wallCorner",
+    "wallEnd",
+    "wall_pack",
+    "water_tank",
+    "weed_tuft",
+    "window"
+  ],
+  "rows": [
+    {
+      "kind": "brick",
+      "genomes": 1,
+      "profiles": 4,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.9,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "rubble_frag"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "buff_civic",
+        "delco",
+        "glazed_green",
+        "painted_white"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "canvas",
+      "genomes": 1,
+      "profiles": 1,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.9,
+      "metallic": null,
+      "verdict": "PROFILE NEVER BUILT",
+      "genome_names": [
+        "boots"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": []
+    },
+    {
+      "kind": "carbon",
+      "genomes": 1,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.3,
+      "metallic": 0.3,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "helmet"
+      ],
+      "default_for": [],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "carpet",
+      "genomes": 1,
+      "profiles": 1,
+      "packs": 3,
+      "known": true,
+      "roughness": 0.98,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "floor"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail"
+      ]
+    },
+    {
+      "kind": "ceiling_tile",
+      "genomes": 1,
+      "profiles": 1,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.92,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "ceiling"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "concrete",
+      "genomes": 15,
+      "profiles": 12,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.92,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "breach",
+        "ceiling",
+        "doorway",
+        "dress_cover",
+        "floor",
+        "pebble",
+        "prop",
+        "roof",
+        "rubble_frag",
+        "teller_line",
+        "vault_door",
+        "wall",
+        "wallCorner",
+        "wallEnd",
+        "window"
+      ],
+      "default_for": [
+        "breach",
+        "ceiling",
+        "doorway",
+        "dress_cover",
+        "floor",
+        "prop",
+        "roof",
+        "wall",
+        "wallCorner",
+        "wallEnd",
+        "window"
+      ],
+      "profile_themes": [
+        "?",
+        "boardform_stadium",
+        "delco",
+        "interior_delco",
+        "polished_casino",
+        "sidewalk_street"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "dirt",
+      "genomes": 3,
+      "profiles": 2,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.97,
+      "metallic": null,
+      "verdict": "PROFILE NEVER BUILT",
+      "genome_names": [
+        "floor",
+        "pebble",
+        "rubble_frag"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "?",
+        "delco"
+      ],
+      "pack_themes": []
+    },
+    {
+      "kind": "drywall",
+      "genomes": 1,
+      "profiles": 1,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.9,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "ceiling"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "glass",
+      "genomes": 1,
+      "profiles": 7,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.05,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "simple_car"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "blobby",
+        "circles",
+        "cracked_cells",
+        "delco",
+        "frosted",
+        "reeded_cathedral",
+        "wavy"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "glass_facade",
+      "genomes": 0,
+      "profiles": 3,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.08,
+      "metallic": null,
+      "verdict": "DEAD -- profile exists, no genome refers to it",
+      "genome_names": [],
+      "default_for": [],
+      "profile_themes": [
+        "bronze",
+        "mirror_blue",
+        "spandrel_green"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "gravel",
+      "genomes": 2,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.95,
+      "metallic": null,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "pebble",
+        "rubble_frag"
+      ],
+      "default_for": [
+        "pebble",
+        "rubble_frag"
+      ],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "laminate",
+      "genomes": 6,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.55,
+      "metallic": null,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "counter",
+        "desk",
+        "filing_cabinet",
+        "safe_deposit_boxes",
+        "table",
+        "teller_line"
+      ],
+      "default_for": [
+        "desk"
+      ],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "leather",
+      "genomes": 3,
+      "profiles": 1,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.7,
+      "metallic": null,
+      "verdict": "PROFILE NEVER BUILT",
+      "genome_names": [
+        "boots",
+        "briefcase",
+        "chair"
+      ],
+      "default_for": [
+        "boots",
+        "briefcase"
+      ],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": []
+    },
+    {
+      "kind": "metal",
+      "genomes": 30,
+      "profiles": 8,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.35,
+      "metallic": 0.85,
+      "verdict": "REACHABLE",
+      "genome_names": [
+        "breach",
+        "briefcase",
+        "ceiling",
+        "counter",
+        "crt_tv",
+        "desk",
+        "doorway",
+        "dress_cover",
+        "drop_safe",
+        "exhaust_fan",
+        "fluorescent_fixture",
+        "hvac_unit",
+        "ladder",
+        "prop",
+        "roof",
+        "safe_deposit_boxes",
+        "satellite_dish",
+        "security_camera",
+        "sign_box",
+        "skylight",
+        "stair_rail",
+        "streetlight",
+        "table",
+        "teller_line",
+        "vent_stack",
+        "wall",
+        "wallCorner",
+        "wallEnd",
+        "wall_pack",
+        "window"
+      ],
+      "default_for": [
+        "drop_safe",
+        "exhaust_fan",
+        "fluorescent_fixture",
+        "hvac_unit",
+        "ladder",
+        "safe_deposit_boxes",
+        "satellite_dish",
+        "sign_box",
+        "skylight",
+        "stair_rail",
+        "streetlight",
+        "teller_line",
+        "vent_stack",
+        "wall_pack"
+      ],
+      "profile_themes": [
+        "?",
+        "brass_casino",
+        "chrome_casino",
+        "galvanized_stadium",
+        "painted_stadium",
+        "painted_trafficsignal",
+        "rusted_street"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "metal_bare",
+      "genomes": 5,
+      "profiles": 1,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.28,
+      "metallic": 0.9,
+      "verdict": "REACHABLE",
+      "genome_names": [
+        "flat_top_grill",
+        "gold_bar",
+        "shelving",
+        "vault_door",
+        "water_tank"
+      ],
+      "default_for": [
+        "flat_top_grill",
+        "gold_bar",
+        "shelving",
+        "vault_door",
+        "water_tank"
+      ],
+      "profile_themes": [
+        "neutral"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "metal_painted",
+      "genomes": 7,
+      "profiles": 1,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.45,
+      "metallic": 0.0,
+      "verdict": "REACHABLE",
+      "genome_names": [
+        "atm",
+        "chair",
+        "filing_cabinet",
+        "helmet",
+        "queue_stanchion",
+        "simple_car",
+        "vending_machine"
+      ],
+      "default_for": [
+        "atm",
+        "filing_cabinet",
+        "queue_stanchion",
+        "simple_car",
+        "vending_machine"
+      ],
+      "profile_themes": [
+        "neutral"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "paper",
+      "genomes": 5,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.8,
+      "metallic": null,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "cash_stack",
+        "cheesesteak",
+        "french_fries",
+        "litter_scrap",
+        "soda_cup"
+      ],
+      "default_for": [
+        "cash_stack",
+        "cheesesteak",
+        "french_fries",
+        "litter_scrap",
+        "soda_cup"
+      ],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "plaster",
+      "genomes": 10,
+      "profiles": 2,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.88,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "breach",
+        "ceiling",
+        "doorway",
+        "dress_cover",
+        "prop",
+        "roof",
+        "wall",
+        "wallCorner",
+        "wallEnd",
+        "window"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "?",
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "plastic",
+      "genomes": 17,
+      "profiles": 2,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.45,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "atm",
+        "briefcase",
+        "chair",
+        "condiment_bottle",
+        "crt_tv",
+        "exhaust_fan",
+        "fluorescent_fixture",
+        "helmet",
+        "hvac_unit",
+        "litter_scrap",
+        "satellite_dish",
+        "security_camera",
+        "simple_car",
+        "soda_cup",
+        "vending_machine",
+        "vent_stack",
+        "water_tank"
+      ],
+      "default_for": [
+        "condiment_bottle",
+        "crt_tv",
+        "helmet",
+        "security_camera"
+      ],
+      "profile_themes": [
+        "delco",
+        "neutral"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "rubber",
+      "genomes": 1,
+      "profiles": 1,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.85,
+      "metallic": null,
+      "verdict": "PROFILE NEVER BUILT",
+      "genome_names": [
+        "boots"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "delco"
+      ],
+      "pack_themes": []
+    },
+    {
+      "kind": "tar",
+      "genomes": 1,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.9,
+      "metallic": null,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "roof"
+      ],
+      "default_for": [],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "tile",
+      "genomes": 1,
+      "profiles": 4,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.35,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "floor"
+      ],
+      "default_for": [],
+      "profile_themes": [
+        "?",
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    },
+    {
+      "kind": "vegetation",
+      "genomes": 1,
+      "profiles": 0,
+      "packs": 0,
+      "known": true,
+      "roughness": 0.85,
+      "metallic": null,
+      "verdict": "NO PROFILE",
+      "genome_names": [
+        "weed_tuft"
+      ],
+      "default_for": [
+        "weed_tuft"
+      ],
+      "profile_themes": [],
+      "pack_themes": []
+    },
+    {
+      "kind": "wood",
+      "genomes": 10,
+      "profiles": 3,
+      "packs": 5,
+      "known": true,
+      "roughness": 0.65,
+      "metallic": null,
+      "verdict": "REACHABLE (default r/m)",
+      "genome_names": [
+        "chair",
+        "counter",
+        "crt_tv",
+        "desk",
+        "filing_cabinet",
+        "floor",
+        "prop",
+        "shelving",
+        "stair_rail",
+        "table"
+      ],
+      "default_for": [
+        "chair",
+        "counter",
+        "table"
+      ],
+      "profile_themes": [
+        "?",
+        "delco"
+      ],
+      "pack_themes": [
+        "rockay",
+        "rockay_civic",
+        "rockay_retail",
+        "rockay_service",
+        "street"
+      ]
+    }
+  ],
+  "recipe_literals": [
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 58,
+      "value": "M_ATM_screen"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 58,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 60,
+      "value": "M_ATM_trim"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 60,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 62,
+      "value": "M_ATM_sign"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 62,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/boots.py",
+      "line": 53,
+      "value": "M_Boots_sole_rubber"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/boots.py",
+      "line": 53,
+      "value": "rubber"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/briefcase.py",
+      "line": 50,
+      "value": "M_Case_metal"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/briefcase.py",
+      "line": 50,
+      "value": "metal"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cash_stack.py",
+      "line": 36,
+      "value": "M_Cash_band"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cash_stack.py",
+      "line": 36,
+      "value": "paper"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 104,
+      "value": "M_Steak_bun"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 104,
+      "value": "paper"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 105,
+      "value": "M_Steak_crust"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 105,
+      "value": "paper"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 107,
+      "value": "M_Steak_meat"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 107,
+      "value": "leather"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 109,
+      "value": "M_Steak_cheese"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 109,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 111,
+      "value": "M_Steak_seed"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 111,
+      "value": "paper"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/condiment_bottle.py",
+      "line": 45,
+      "value": "M_Bottle_cap"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/condiment_bottle.py",
+      "line": 45,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 57,
+      "value": "M_CRT_screen"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 57,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 59,
+      "value": "M_CRT_knob"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 59,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 60,
+      "value": "M_DropSafe_trim"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 60,
+      "value": "metal"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 62,
+      "value": "M_DropSafe_slot"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 62,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 86,
+      "value": "M_Grill_steel"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 87,
+      "value": "M_Grill_cooktop"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 89,
+      "value": "M_Grill_trim"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/french_fries.py",
+      "line": 44,
+      "value": "M_Fries_boat"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/french_fries.py",
+      "line": 44,
+      "value": "paper"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 54,
+      "value": "M_SecurityCamera_lens"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 54,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 56,
+      "value": "M_SecurityCamera_led"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 56,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 143,
+      "value": "M_Car_trim_rubber"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 143,
+      "value": "rubber"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 145,
+      "value": "M_Car_glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 145,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/skylight.py",
+      "line": 36,
+      "value": "M_Skylight_glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/skylight.py",
+      "line": 36,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 55,
+      "value": "M_Cup_lid"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 55,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 57,
+      "value": "M_Cup_straw"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 57,
+      "value": "plastic"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/teller_line.py",
+      "line": 77,
+      "value": "M_TellerLine_glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/teller_line.py",
+      "line": 77,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/vault_door.py",
+      "line": 82,
+      "value": "M_VaultDoor_hub"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 53,
+      "value": "M_Vending_glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 53,
+      "value": "glass"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 55,
+      "value": "M_Vending_trim"
+    },
+    {
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 55,
+      "value": "plastic"
+    }
+  ],
+  "errors": []
+}

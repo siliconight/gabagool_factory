@@ -1,0 +1,767 @@
+{
+  "genomes": 53,
+  "recipes": 54,
+  "only_recipe": [
+    "_arch"
+  ],
+  "only_genome": [],
+  "inert": [
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "make_calls": 5
+    }
+  ],
+  "shadow": [
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 60,
+      "literal": "plastic",
+      "source": "dark = materials.make_material(\"M_ATM_trim\", _darker(plan[\"color\"], 0.45),",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 62,
+      "literal": "plastic",
+      "source": "sign_mat = materials.make_material(\"M_ATM_sign\", [0.85, 0.80, 0.35],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "boots",
+      "file": "zoo/zoo_keeper/recipes/boots.py",
+      "line": 53,
+      "literal": "rubber",
+      "source": "sole_mat = materials.make_material(",
+      "options": [
+        "canvas",
+        "leather",
+        "rubber"
+      ],
+      "default": "leather",
+      "reads_material": true
+    },
+    {
+      "species": "briefcase",
+      "file": "zoo/zoo_keeper/recipes/briefcase.py",
+      "line": 50,
+      "literal": "metal",
+      "source": "metal = materials.make_material(\"M_Case_metal\",",
+      "options": [
+        "leather",
+        "metal",
+        "plastic"
+      ],
+      "default": "leather",
+      "reads_material": true
+    },
+    {
+      "species": "cash_stack",
+      "file": "zoo/zoo_keeper/recipes/cash_stack.py",
+      "line": 36,
+      "literal": "paper",
+      "source": "band = materials.make_material(\"M_Cash_band\", [0.86, 0.80, 0.62], \"paper\")",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 104,
+      "literal": "paper",
+      "source": "bun_mat = materials.make_material(\"M_Steak_bun\", plan[\"color\"], \"paper\")",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 105,
+      "literal": "paper",
+      "source": "crust_mat = materials.make_material(",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 111,
+      "literal": "paper",
+      "source": "seed_mat = materials.make_material(\"M_Steak_seed\", [0.93, 0.88, 0.72],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "condiment_bottle",
+      "file": "zoo/zoo_keeper/recipes/condiment_bottle.py",
+      "line": 45,
+      "literal": "plastic",
+      "source": "cap_mat = materials.make_material(\"M_Bottle_cap\", [0.90, 0.90, 0.92],",
+      "options": [
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "crt_tv",
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 59,
+      "literal": "plastic",
+      "source": "knob_mat = materials.make_material(",
+      "options": [
+        "metal",
+        "plastic",
+        "wood"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "drop_safe",
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 60,
+      "literal": "metal",
+      "source": "trim = materials.make_material(\"M_DropSafe_trim\",",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "french_fries",
+      "file": "zoo/zoo_keeper/recipes/french_fries.py",
+      "line": 44,
+      "literal": "paper",
+      "source": "boat_mat = materials.make_material(\"M_Fries_boat\", [0.85, 0.30, 0.24],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "security_camera",
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 56,
+      "literal": "plastic",
+      "source": "led_mat = materials.make_material(\"M_SecurityCamera_led\",",
+      "options": [
+        "metal",
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "simple_car",
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 145,
+      "literal": "glass",
+      "source": "glass = materials.make_material(",
+      "options": [
+        "glass",
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "soda_cup",
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 55,
+      "literal": "plastic",
+      "source": "lid_mat = materials.make_material(\"M_Cup_lid\", [0.90, 0.90, 0.92],",
+      "options": [
+        "paper",
+        "plastic"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "soda_cup",
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 57,
+      "literal": "plastic",
+      "source": "straw_mat = materials.make_material(\"M_Cup_straw\", [0.85, 0.85, 0.88],",
+      "options": [
+        "paper",
+        "plastic"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "vending_machine",
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 55,
+      "literal": "plastic",
+      "source": "dark = materials.make_material(\"M_Vending_trim\",",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    }
+  ],
+  "secondary": [
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 58,
+      "literal": "M_ATM_screen",
+      "source": "screen_mat = materials.make_material(\"M_ATM_screen\", [0.03, 0.05, 0.08],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 58,
+      "literal": "glass",
+      "source": "screen_mat = materials.make_material(\"M_ATM_screen\", [0.03, 0.05, 0.08],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 60,
+      "literal": "M_ATM_trim",
+      "source": "dark = materials.make_material(\"M_ATM_trim\", _darker(plan[\"color\"], 0.45),",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "atm",
+      "file": "zoo/zoo_keeper/recipes/atm.py",
+      "line": 62,
+      "literal": "M_ATM_sign",
+      "source": "sign_mat = materials.make_material(\"M_ATM_sign\", [0.85, 0.80, 0.35],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "boots",
+      "file": "zoo/zoo_keeper/recipes/boots.py",
+      "line": 53,
+      "literal": "M_Boots_sole_rubber",
+      "source": "sole_mat = materials.make_material(",
+      "options": [
+        "canvas",
+        "leather",
+        "rubber"
+      ],
+      "default": "leather",
+      "reads_material": true
+    },
+    {
+      "species": "briefcase",
+      "file": "zoo/zoo_keeper/recipes/briefcase.py",
+      "line": 50,
+      "literal": "M_Case_metal",
+      "source": "metal = materials.make_material(\"M_Case_metal\",",
+      "options": [
+        "leather",
+        "metal",
+        "plastic"
+      ],
+      "default": "leather",
+      "reads_material": true
+    },
+    {
+      "species": "cash_stack",
+      "file": "zoo/zoo_keeper/recipes/cash_stack.py",
+      "line": 36,
+      "literal": "M_Cash_band",
+      "source": "band = materials.make_material(\"M_Cash_band\", [0.86, 0.80, 0.62], \"paper\")",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 104,
+      "literal": "M_Steak_bun",
+      "source": "bun_mat = materials.make_material(\"M_Steak_bun\", plan[\"color\"], \"paper\")",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 105,
+      "literal": "M_Steak_crust",
+      "source": "crust_mat = materials.make_material(",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 107,
+      "literal": "M_Steak_meat",
+      "source": "meat_mat = materials.make_material(\"M_Steak_meat\", [0.32, 0.19, 0.11],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 107,
+      "literal": "leather",
+      "source": "meat_mat = materials.make_material(\"M_Steak_meat\", [0.32, 0.19, 0.11],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 109,
+      "literal": "M_Steak_cheese",
+      "source": "cheese_mat = materials.make_material(\"M_Steak_cheese\", [0.90, 0.86, 0.64],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 109,
+      "literal": "plastic",
+      "source": "cheese_mat = materials.make_material(\"M_Steak_cheese\", [0.90, 0.86, 0.64],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "cheesesteak",
+      "file": "zoo/zoo_keeper/recipes/cheesesteak.py",
+      "line": 111,
+      "literal": "M_Steak_seed",
+      "source": "seed_mat = materials.make_material(\"M_Steak_seed\", [0.93, 0.88, 0.72],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": false
+    },
+    {
+      "species": "condiment_bottle",
+      "file": "zoo/zoo_keeper/recipes/condiment_bottle.py",
+      "line": 45,
+      "literal": "M_Bottle_cap",
+      "source": "cap_mat = materials.make_material(\"M_Bottle_cap\", [0.90, 0.90, 0.92],",
+      "options": [
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "crt_tv",
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 57,
+      "literal": "M_CRT_screen",
+      "source": "screen_mat = materials.make_material(",
+      "options": [
+        "metal",
+        "plastic",
+        "wood"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "crt_tv",
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 57,
+      "literal": "glass",
+      "source": "screen_mat = materials.make_material(",
+      "options": [
+        "metal",
+        "plastic",
+        "wood"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "crt_tv",
+      "file": "zoo/zoo_keeper/recipes/crt_tv.py",
+      "line": 59,
+      "literal": "M_CRT_knob",
+      "source": "knob_mat = materials.make_material(",
+      "options": [
+        "metal",
+        "plastic",
+        "wood"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "drop_safe",
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 60,
+      "literal": "M_DropSafe_trim",
+      "source": "trim = materials.make_material(\"M_DropSafe_trim\",",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "drop_safe",
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 62,
+      "literal": "M_DropSafe_slot",
+      "source": "black = materials.make_material(\"M_DropSafe_slot\", [0.02, 0.02, 0.02],",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "drop_safe",
+      "file": "zoo/zoo_keeper/recipes/drop_safe.py",
+      "line": 62,
+      "literal": "plastic",
+      "source": "black = materials.make_material(\"M_DropSafe_slot\", [0.02, 0.02, 0.02],",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "flat_top_grill",
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 86,
+      "literal": "M_Grill_steel",
+      "source": "steel = materials.make_material(\"M_Grill_steel\", plan[\"color\"], kind)",
+      "options": [
+        "metal_bare"
+      ],
+      "default": "metal_bare",
+      "reads_material": true
+    },
+    {
+      "species": "flat_top_grill",
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 87,
+      "literal": "M_Grill_cooktop",
+      "source": "top = materials.make_material(\"M_Grill_cooktop\",",
+      "options": [
+        "metal_bare"
+      ],
+      "default": "metal_bare",
+      "reads_material": true
+    },
+    {
+      "species": "flat_top_grill",
+      "file": "zoo/zoo_keeper/recipes/flat_top_grill.py",
+      "line": 89,
+      "literal": "M_Grill_trim",
+      "source": "dark = materials.make_material(\"M_Grill_trim\",",
+      "options": [
+        "metal_bare"
+      ],
+      "default": "metal_bare",
+      "reads_material": true
+    },
+    {
+      "species": "french_fries",
+      "file": "zoo/zoo_keeper/recipes/french_fries.py",
+      "line": 44,
+      "literal": "M_Fries_boat",
+      "source": "boat_mat = materials.make_material(\"M_Fries_boat\", [0.85, 0.30, 0.24],",
+      "options": [
+        "paper"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "security_camera",
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 54,
+      "literal": "M_SecurityCamera_lens",
+      "source": "lens_mat = materials.make_material(\"M_SecurityCamera_lens\",",
+      "options": [
+        "metal",
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "security_camera",
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 54,
+      "literal": "glass",
+      "source": "lens_mat = materials.make_material(\"M_SecurityCamera_lens\",",
+      "options": [
+        "metal",
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "security_camera",
+      "file": "zoo/zoo_keeper/recipes/security_camera.py",
+      "line": 56,
+      "literal": "M_SecurityCamera_led",
+      "source": "led_mat = materials.make_material(\"M_SecurityCamera_led\",",
+      "options": [
+        "metal",
+        "plastic"
+      ],
+      "default": "plastic",
+      "reads_material": true
+    },
+    {
+      "species": "simple_car",
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 143,
+      "literal": "M_Car_trim_rubber",
+      "source": "dark = materials.make_material(",
+      "options": [
+        "glass",
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "simple_car",
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 143,
+      "literal": "rubber",
+      "source": "dark = materials.make_material(",
+      "options": [
+        "glass",
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "simple_car",
+      "file": "zoo/zoo_keeper/recipes/simple_car.py",
+      "line": 145,
+      "literal": "M_Car_glass",
+      "source": "glass = materials.make_material(",
+      "options": [
+        "glass",
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "skylight",
+      "file": "zoo/zoo_keeper/recipes/skylight.py",
+      "line": 36,
+      "literal": "M_Skylight_glass",
+      "source": "glass_mat = materials.make_material(",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "skylight",
+      "file": "zoo/zoo_keeper/recipes/skylight.py",
+      "line": 36,
+      "literal": "glass",
+      "source": "glass_mat = materials.make_material(",
+      "options": [
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "soda_cup",
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 55,
+      "literal": "M_Cup_lid",
+      "source": "lid_mat = materials.make_material(\"M_Cup_lid\", [0.90, 0.90, 0.92],",
+      "options": [
+        "paper",
+        "plastic"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "soda_cup",
+      "file": "zoo/zoo_keeper/recipes/soda_cup.py",
+      "line": 57,
+      "literal": "M_Cup_straw",
+      "source": "straw_mat = materials.make_material(\"M_Cup_straw\", [0.85, 0.85, 0.88],",
+      "options": [
+        "paper",
+        "plastic"
+      ],
+      "default": "paper",
+      "reads_material": true
+    },
+    {
+      "species": "teller_line",
+      "file": "zoo/zoo_keeper/recipes/teller_line.py",
+      "line": 77,
+      "literal": "M_TellerLine_glass",
+      "source": "glass_mat = materials.make_material(",
+      "options": [
+        "concrete",
+        "laminate",
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "teller_line",
+      "file": "zoo/zoo_keeper/recipes/teller_line.py",
+      "line": 77,
+      "literal": "glass",
+      "source": "glass_mat = materials.make_material(",
+      "options": [
+        "concrete",
+        "laminate",
+        "metal"
+      ],
+      "default": "metal",
+      "reads_material": true
+    },
+    {
+      "species": "vault_door",
+      "file": "zoo/zoo_keeper/recipes/vault_door.py",
+      "line": 82,
+      "literal": "M_VaultDoor_hub",
+      "source": "hub_mat = materials.make_material(",
+      "options": [
+        "concrete",
+        "metal_bare"
+      ],
+      "default": "metal_bare",
+      "reads_material": true
+    },
+    {
+      "species": "vending_machine",
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 53,
+      "literal": "M_Vending_glass",
+      "source": "glass_mat = materials.make_material(\"M_Vending_glass\", [0.05, 0.07, 0.06],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "vending_machine",
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 53,
+      "literal": "glass",
+      "source": "glass_mat = materials.make_material(\"M_Vending_glass\", [0.05, 0.07, 0.06],",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    },
+    {
+      "species": "vending_machine",
+      "file": "zoo/zoo_keeper/recipes/vending_machine.py",
+      "line": 55,
+      "literal": "M_Vending_trim",
+      "source": "dark = materials.make_material(\"M_Vending_trim\",",
+      "options": [
+        "metal_painted",
+        "plastic"
+      ],
+      "default": "metal_painted",
+      "reads_material": true
+    }
+  ],
+  "errors": []
+}

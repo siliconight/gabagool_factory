@@ -1,0 +1,493 @@
+
+===== apply =====
+PRE-FLIGHT
+
+  FYI -- lines in zoo/CHANGELOG.md mentioning 53 (the 0.45.0 claim
+         that all 53 genomes round-trip; it is 49 of 53):
+        13  - Measured, not assumed: 53 recipe modules, 79 `make_material` calls. Exactly
+        97  `ensure_ascii=False` all 53 genomes round-trip and every edit here is
+       103  object, one metal), and keeps the all-53 sweep of the options invariant.
+       134  - `tests/test_material_options_closed.py`. It asserts, for ALL 53 genomes and
+       585  exceeded it. Swept across all 53 species: 48 `tris_lod0`, 5 `tris_max`
+
+NOTHING TO DO -- already applied
+
+===== selftest =====
+SELFTEST OK -- pixelcoat 0.16.0 (version.py and VERSION agree), zoo 0.47.0,
+               the analyser finds exactly the inert set ['cheesesteak'], which is
+               exactly the exempted set, and it is non-empty -- so the
+               test would still catch a flat_top_grill-shaped defect
+
+===== rebuild =====
+
+== BEFORE
+
+  LIBRARY                KIND           PROFILE SAYS                 ON DISK
+  ----------------------------------------------------------------------------------------
+  skins_rockay           brick          brick_glazed_green           brick_glazed_green 
+  skins_rockay           canvas         canvas_delco                 canvas_delco 
+  skins_rockay           carbon         carbon_neutral               carbon_neutral 
+  skins_rockay           carpet         carpet_delco                 carpet_delco 
+  skins_rockay           ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay           concrete       concrete_polished_casino     concrete_polished_casino 
+  skins_rockay           dirt           dirt_delco                   dirt_delco 
+  skins_rockay           drywall        drywall_delco                drywall_delco 
+  skins_rockay           glass          glass_wavy                   glass_wavy 
+  skins_rockay           glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay           gravel         pebble_gravel                pebble_gravel 
+  skins_rockay           laminate       laminate_neutral             laminate_neutral 
+  skins_rockay           leather        leather_delco                leather_delco 
+  skins_rockay           metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay           metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay           metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay           paper          paper_neutral                paper_neutral 
+  skins_rockay           plaster        stucco_warm                  stucco_warm 
+  skins_rockay           plastic        plastic_neutral              plastic_neutral 
+  skins_rockay           rubber         rubber_delco                 rubber_delco 
+  skins_rockay           tar            tar_neutral                  tar_neutral 
+  skins_rockay           tile           terrazzo                     terrazzo 
+  skins_rockay           vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay           wood           hardwood_plank               hardwood_plank 
+  skins_rockay_civic     brick          brick_buff_civic             brick_buff_civic 
+  skins_rockay_civic     canvas         canvas_delco                 canvas_delco 
+  skins_rockay_civic     carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_civic     carpet         carpet_delco                 carpet_delco 
+  skins_rockay_civic     ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_civic     concrete       granite_speckle              granite_speckle 
+  skins_rockay_civic     dirt           dirt_delco                   dirt_delco 
+  skins_rockay_civic     drywall        drywall_delco                drywall_delco 
+  skins_rockay_civic     glass          glass_reeded_cathedral       glass_reeded_cathedral 
+  skins_rockay_civic     glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_civic     gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_civic     laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_civic     leather        leather_delco                leather_delco 
+  skins_rockay_civic     metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay_civic     metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_civic     metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_civic     paper          paper_neutral                paper_neutral 
+  skins_rockay_civic     plaster        stucco_warm                  stucco_warm 
+  skins_rockay_civic     plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_civic     rubber         rubber_delco                 rubber_delco 
+  skins_rockay_civic     tar            tar_neutral                  tar_neutral 
+  skins_rockay_civic     tile           terrazzo                     terrazzo 
+  skins_rockay_civic     vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_civic     wood           hardwood_plank               hardwood_plank 
+  skins_rockay_retail    brick          brick_painted_white          brick_painted_white 
+  skins_rockay_retail    canvas         canvas_delco                 canvas_delco 
+  skins_rockay_retail    carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_retail    carpet         carpet_delco                 carpet_delco 
+  skins_rockay_retail    ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_retail    concrete       concrete_sidewalk_street     concrete_sidewalk_street 
+  skins_rockay_retail    dirt           dirt_delco                   dirt_delco 
+  skins_rockay_retail    drywall        drywall_delco                drywall_delco 
+  skins_rockay_retail    glass          glass_circles                glass_circles 
+  skins_rockay_retail    glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_retail    gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_retail    laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_retail    leather        leather_delco                leather_delco 
+  skins_rockay_retail    metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay_retail    metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_retail    metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_retail    paper          paper_neutral                paper_neutral 
+  skins_rockay_retail    plaster        stucco_warm                  stucco_warm 
+  skins_rockay_retail    plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_retail    rubber         rubber_delco                 rubber_delco 
+  skins_rockay_retail    tar            tar_neutral                  tar_neutral 
+  skins_rockay_retail    tile           vct_floor_beige              vct_floor_beige 
+  skins_rockay_retail    vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_retail    wood           hardwood_plank               hardwood_plank 
+  skins_rockay_service   brick          brick_delco                  brick_delco 
+  skins_rockay_service   canvas         canvas_delco                 canvas_delco 
+  skins_rockay_service   carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_service   ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_service   concrete       cinderblock_delco            cinderblock_delco 
+  skins_rockay_service   dirt           dirt_delco                   dirt_delco 
+  skins_rockay_service   drywall        drywall_delco                drywall_delco 
+  skins_rockay_service   glass          glass_frosted                glass_frosted 
+  skins_rockay_service   glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_service   gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_service   laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_service   leather        leather_delco                leather_delco 
+  skins_rockay_service   metal          corrugated_metal_delco       corrugated_metal_delco 
+  skins_rockay_service   metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_service   metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_service   paper          paper_neutral                paper_neutral 
+  skins_rockay_service   plaster        plaster_delco                plaster_delco 
+  skins_rockay_service   plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_service   rubber         rubber_delco                 rubber_delco 
+  skins_rockay_service   tar            tar_neutral                  tar_neutral 
+  skins_rockay_service   tile           tile_delco                   tile_delco 
+  skins_rockay_service   vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_service   wood           plywood_sheathing            plywood_sheathing 
+  skins_street           brick          brick_delco                  brick_delco 
+  skins_street           canvas         canvas_delco                 canvas_delco 
+  skins_street           carbon         carbon_neutral               carbon_neutral 
+  skins_street           ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_street           concrete       cinderblock_delco            cinderblock_delco 
+  skins_street           dirt           dirt_delco                   dirt_delco 
+  skins_street           drywall        drywall_delco                drywall_delco 
+  skins_street           glass          glass_circles                glass_circles 
+  skins_street           glass_facade   glass_facade_bronze          glass_facade_bronze 
+  skins_street           gravel         pebble_gravel                pebble_gravel 
+  skins_street           laminate       laminate_neutral             laminate_neutral 
+  skins_street           leather        leather_delco                leather_delco 
+  skins_street           metal          metal_rusted_street          metal_rusted_street 
+  skins_street           metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_street           metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_street           paper          paper_neutral                paper_neutral 
+  skins_street           plaster        stucco_warm                  stucco_warm 
+  skins_street           plastic        plastic_neutral              plastic_neutral 
+  skins_street           rubber         rubber_delco                 rubber_delco 
+  skins_street           tar            tar_neutral                  tar_neutral 
+  skins_street           tile           subway_tile_white            subway_tile_white 
+  skins_street           vegetation     vegetation_neutral           vegetation_neutral 
+  skins_street           wood           hardwood_plank               hardwood_plank 
+
+  KIND COVERAGE  (60 material profiles, 9 themes)
+  KIND           PROFILES  THEMED   
+  ------------------------------------------------------------
+  laminate       1         9        
+  wood           3         9        
+  metal          8         9        
+  plastic        2         9        
+  leather        1         9        
+  rubber         1         9        
+  canvas         1         9        
+  carbon         1         9        
+  glass          7         9        
+  glass_facade   3         9        
+  paper          1         9        
+  concrete       12        9        
+  plaster        2         9        
+  brick          4         9        
+  tile           4         9        
+  drywall        1         9        
+  ceiling_tile   1         9        
+  carpet         1         7        
+  dirt           1         9        
+  tar            1         9        
+  gravel         1         9        
+  vegetation     1         9        
+
+MISMATCHES=0
+
+== REBUILD (delete, then build -- see header for why delete)
+  rm  C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay
+pixelcoat: theme 'rockay' -> 24 packs in C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay  [128 px/m]
+  brick          -> brick_rockay/  256px / 2.00m = 128 px/m
+  canvas         -> canvas_rockay/  128px / 1.00m = 128 px/m
+  carbon         -> carbon_rockay/  128px / 1.00m = 128 px/m
+  carpet         -> carpet_rockay/  256px / 2.00m = 128 px/m
+  ceiling_tile   -> ceiling_tile_rockay/  256px / 2.00m = 128 px/m
+  concrete       -> concrete_rockay/  512px / 3.00m = 171 px/m
+  dirt           -> dirt_rockay/  512px / 3.00m = 171 px/m
+  drywall        -> drywall_rockay/  512px / 3.00m = 171 px/m
+  glass          -> glass_rockay/  128px / 1.00m = 128 px/m
+  glass_facade   -> glass_facade_rockay/  256px / 2.00m = 128 px/m
+  gravel         -> gravel_rockay/  256px / 1.50m = 171 px/m
+  laminate       -> laminate_rockay/  128px / 1.20m = 107 px/m
+  leather        -> leather_rockay/  128px / 1.20m = 107 px/m
+  metal          -> metal_rockay/  256px / 1.50m = 171 px/m
+  metal_bare     -> metal_bare_rockay/  128px / 1.00m = 128 px/m
+  metal_painted  -> metal_painted_rockay/  128px / 1.20m = 107 px/m
+  paper          -> paper_rockay/  128px / 1.00m = 128 px/m
+  plaster        -> plaster_rockay/  256px / 2.00m = 128 px/m
+  plastic        -> plastic_rockay/  256px / 1.50m = 171 px/m
+  rubber         -> rubber_rockay/  128px / 1.00m = 128 px/m
+  tar            -> tar_rockay/  256px / 2.00m = 128 px/m
+  tile           -> tile_rockay/  256px / 2.00m = 128 px/m
+  vegetation     -> vegetation_rockay/  128px / 1.00m = 128 px/m
+  wood           -> wood_rockay/  256px / 2.00m = 128 px/m
+  rm  C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_civic
+pixelcoat: theme 'rockay_civic' -> 24 packs in C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_civic  [128 px/m]
+  brick          -> brick_rockay_civic/  256px / 2.00m = 128 px/m
+  canvas         -> canvas_rockay_civic/  128px / 1.00m = 128 px/m
+  carbon         -> carbon_rockay_civic/  128px / 1.00m = 128 px/m
+  carpet         -> carpet_rockay_civic/  256px / 2.00m = 128 px/m
+  ceiling_tile   -> ceiling_tile_rockay_civic/  256px / 2.00m = 128 px/m
+  concrete       -> concrete_rockay_civic/  256px / 2.00m = 128 px/m
+  dirt           -> dirt_rockay_civic/  512px / 3.00m = 171 px/m
+  drywall        -> drywall_rockay_civic/  512px / 3.00m = 171 px/m
+  glass          -> glass_rockay_civic/  128px / 1.00m = 128 px/m
+  glass_facade   -> glass_facade_rockay_civic/  256px / 2.00m = 128 px/m
+  gravel         -> gravel_rockay_civic/  256px / 1.50m = 171 px/m
+  laminate       -> laminate_rockay_civic/  128px / 1.20m = 107 px/m
+  leather        -> leather_rockay_civic/  128px / 1.20m = 107 px/m
+  metal          -> metal_rockay_civic/  256px / 1.50m = 171 px/m
+  metal_bare     -> metal_bare_rockay_civic/  128px / 1.00m = 128 px/m
+  metal_painted  -> metal_painted_rockay_civic/  128px / 1.20m = 107 px/m
+  paper          -> paper_rockay_civic/  128px / 1.00m = 128 px/m
+  plaster        -> plaster_rockay_civic/  256px / 2.00m = 128 px/m
+  plastic        -> plastic_rockay_civic/  256px / 1.50m = 171 px/m
+  rubber         -> rubber_rockay_civic/  128px / 1.00m = 128 px/m
+  tar            -> tar_rockay_civic/  256px / 2.00m = 128 px/m
+  tile           -> tile_rockay_civic/  256px / 2.00m = 128 px/m
+  vegetation     -> vegetation_rockay_civic/  128px / 1.00m = 128 px/m
+  wood           -> wood_rockay_civic/  256px / 2.00m = 128 px/m
+  rm  C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_retail
+pixelcoat: theme 'rockay_retail' -> 24 packs in C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_retail  [128 px/m]
+  brick          -> brick_rockay_retail/  256px / 2.00m = 128 px/m
+  canvas         -> canvas_rockay_retail/  128px / 1.00m = 128 px/m
+  carbon         -> carbon_rockay_retail/  128px / 1.00m = 128 px/m
+  carpet         -> carpet_rockay_retail/  256px / 2.00m = 128 px/m
+  ceiling_tile   -> ceiling_tile_rockay_retail/  256px / 2.00m = 128 px/m
+  concrete       -> concrete_rockay_retail/  256px / 2.50m = 102 px/m
+  dirt           -> dirt_rockay_retail/  512px / 3.00m = 171 px/m
+  drywall        -> drywall_rockay_retail/  512px / 3.00m = 171 px/m
+  glass          -> glass_rockay_retail/  128px / 1.00m = 128 px/m
+  glass_facade   -> glass_facade_rockay_retail/  256px / 2.00m = 128 px/m
+  gravel         -> gravel_rockay_retail/  256px / 1.50m = 171 px/m
+  laminate       -> laminate_rockay_retail/  128px / 1.20m = 107 px/m
+  leather        -> leather_rockay_retail/  128px / 1.20m = 107 px/m
+  metal          -> metal_rockay_retail/  256px / 1.50m = 171 px/m
+  metal_bare     -> metal_bare_rockay_retail/  128px / 1.00m = 128 px/m
+  metal_painted  -> metal_painted_rockay_retail/  128px / 1.20m = 107 px/m
+  paper          -> paper_rockay_retail/  128px / 1.00m = 128 px/m
+  plaster        -> plaster_rockay_retail/  256px / 2.00m = 128 px/m
+  plastic        -> plastic_rockay_retail/  256px / 1.50m = 171 px/m
+  rubber         -> rubber_rockay_retail/  128px / 1.00m = 128 px/m
+  tar            -> tar_rockay_retail/  256px / 2.00m = 128 px/m
+  tile           -> tile_rockay_retail/  128px / 1.00m = 128 px/m
+  vegetation     -> vegetation_rockay_retail/  128px / 1.00m = 128 px/m
+  wood           -> wood_rockay_retail/  256px / 2.00m = 128 px/m
+  rm  C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_service
+pixelcoat: theme 'rockay_service' -> 23 packs in C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_rockay_service  [128 px/m]
+  brick          -> brick_rockay_service/  256px / 2.00m = 128 px/m
+  canvas         -> canvas_rockay_service/  128px / 1.00m = 128 px/m
+  carbon         -> carbon_rockay_service/  128px / 1.00m = 128 px/m
+  ceiling_tile   -> ceiling_tile_rockay_service/  256px / 2.00m = 128 px/m
+  concrete       -> concrete_rockay_service/  256px / 2.00m = 128 px/m
+  dirt           -> dirt_rockay_service/  512px / 3.00m = 171 px/m
+  drywall        -> drywall_rockay_service/  512px / 3.00m = 171 px/m
+  glass          -> glass_rockay_service/  128px / 1.00m = 128 px/m
+  glass_facade   -> glass_facade_rockay_service/  256px / 2.00m = 128 px/m
+  gravel         -> gravel_rockay_service/  256px / 1.50m = 171 px/m
+  laminate       -> laminate_rockay_service/  128px / 1.20m = 107 px/m
+  leather        -> leather_rockay_service/  128px / 1.20m = 107 px/m
+  metal          -> metal_rockay_service/  256px / 2.00m = 128 px/m
+  metal_bare     -> metal_bare_rockay_service/  128px / 1.00m = 128 px/m
+  metal_painted  -> metal_painted_rockay_service/  128px / 1.20m = 107 px/m
+  paper          -> paper_rockay_service/  128px / 1.00m = 128 px/m
+  plaster        -> plaster_rockay_service/  256px / 2.50m = 102 px/m
+  plastic        -> plastic_rockay_service/  256px / 1.50m = 171 px/m
+  rubber         -> rubber_rockay_service/  128px / 1.00m = 128 px/m
+  tar            -> tar_rockay_service/  256px / 2.00m = 128 px/m
+  tile           -> tile_rockay_service/  128px / 1.00m = 128 px/m
+  vegetation     -> vegetation_rockay_service/  128px / 1.00m = 128 px/m
+  wood           -> wood_rockay_service/  256px / 2.00m = 128 px/m
+  rm  C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_street
+pixelcoat: theme 'street' -> 23 packs in C:\Projects\gabagool_studios\gabagool_factory\pixelcoat\build\skins_street  [128 px/m]
+  brick          -> brick_street/  256px / 2.00m = 128 px/m
+  canvas         -> canvas_street/  128px / 1.00m = 128 px/m
+  carbon         -> carbon_street/  128px / 1.00m = 128 px/m
+  ceiling_tile   -> ceiling_tile_street/  256px / 2.00m = 128 px/m
+  concrete       -> concrete_street/  256px / 2.00m = 128 px/m
+  dirt           -> dirt_street/  512px / 3.00m = 171 px/m
+  drywall        -> drywall_street/  512px / 3.00m = 171 px/m
+  glass          -> glass_street/  128px / 1.00m = 128 px/m
+  glass_facade   -> glass_facade_street/  256px / 2.00m = 128 px/m
+  gravel         -> gravel_street/  256px / 1.50m = 171 px/m
+  laminate       -> laminate_street/  128px / 1.20m = 107 px/m
+  leather        -> leather_street/  128px / 1.20m = 107 px/m
+  metal          -> metal_street/  256px / 1.50m = 171 px/m
+  metal_bare     -> metal_bare_street/  128px / 1.00m = 128 px/m
+  metal_painted  -> metal_painted_street/  128px / 1.20m = 107 px/m
+  paper          -> paper_street/  128px / 1.00m = 128 px/m
+  plaster        -> plaster_street/  256px / 2.00m = 128 px/m
+  plastic        -> plastic_street/  256px / 1.50m = 171 px/m
+  rubber         -> rubber_street/  128px / 1.00m = 128 px/m
+  tar            -> tar_street/  256px / 2.00m = 128 px/m
+  tile           -> tile_street/  128px / 1.00m = 128 px/m
+  vegetation     -> vegetation_street/  128px / 1.00m = 128 px/m
+  wood           -> wood_street/  256px / 2.00m = 128 px/m
+
+== AFTER
+
+  LIBRARY                KIND           PROFILE SAYS                 ON DISK
+  ----------------------------------------------------------------------------------------
+  skins_rockay           brick          brick_glazed_green           brick_glazed_green 
+  skins_rockay           canvas         canvas_delco                 canvas_delco 
+  skins_rockay           carbon         carbon_neutral               carbon_neutral 
+  skins_rockay           carpet         carpet_delco                 carpet_delco 
+  skins_rockay           ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay           concrete       concrete_polished_casino     concrete_polished_casino 
+  skins_rockay           dirt           dirt_delco                   dirt_delco 
+  skins_rockay           drywall        drywall_delco                drywall_delco 
+  skins_rockay           glass          glass_wavy                   glass_wavy 
+  skins_rockay           glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay           gravel         pebble_gravel                pebble_gravel 
+  skins_rockay           laminate       laminate_neutral             laminate_neutral 
+  skins_rockay           leather        leather_delco                leather_delco 
+  skins_rockay           metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay           metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay           metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay           paper          paper_neutral                paper_neutral 
+  skins_rockay           plaster        stucco_warm                  stucco_warm 
+  skins_rockay           plastic        plastic_neutral              plastic_neutral 
+  skins_rockay           rubber         rubber_delco                 rubber_delco 
+  skins_rockay           tar            tar_neutral                  tar_neutral 
+  skins_rockay           tile           terrazzo                     terrazzo 
+  skins_rockay           vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay           wood           hardwood_plank               hardwood_plank 
+  skins_rockay_civic     brick          brick_buff_civic             brick_buff_civic 
+  skins_rockay_civic     canvas         canvas_delco                 canvas_delco 
+  skins_rockay_civic     carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_civic     carpet         carpet_delco                 carpet_delco 
+  skins_rockay_civic     ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_civic     concrete       granite_speckle              granite_speckle 
+  skins_rockay_civic     dirt           dirt_delco                   dirt_delco 
+  skins_rockay_civic     drywall        drywall_delco                drywall_delco 
+  skins_rockay_civic     glass          glass_reeded_cathedral       glass_reeded_cathedral 
+  skins_rockay_civic     glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_civic     gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_civic     laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_civic     leather        leather_delco                leather_delco 
+  skins_rockay_civic     metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay_civic     metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_civic     metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_civic     paper          paper_neutral                paper_neutral 
+  skins_rockay_civic     plaster        stucco_warm                  stucco_warm 
+  skins_rockay_civic     plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_civic     rubber         rubber_delco                 rubber_delco 
+  skins_rockay_civic     tar            tar_neutral                  tar_neutral 
+  skins_rockay_civic     tile           terrazzo                     terrazzo 
+  skins_rockay_civic     vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_civic     wood           hardwood_plank               hardwood_plank 
+  skins_rockay_retail    brick          brick_painted_white          brick_painted_white 
+  skins_rockay_retail    canvas         canvas_delco                 canvas_delco 
+  skins_rockay_retail    carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_retail    carpet         carpet_delco                 carpet_delco 
+  skins_rockay_retail    ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_retail    concrete       concrete_sidewalk_street     concrete_sidewalk_street 
+  skins_rockay_retail    dirt           dirt_delco                   dirt_delco 
+  skins_rockay_retail    drywall        drywall_delco                drywall_delco 
+  skins_rockay_retail    glass          glass_circles                glass_circles 
+  skins_rockay_retail    glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_retail    gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_retail    laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_retail    leather        leather_delco                leather_delco 
+  skins_rockay_retail    metal          metal_galvanized_stadium     metal_galvanized_stadium 
+  skins_rockay_retail    metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_retail    metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_retail    paper          paper_neutral                paper_neutral 
+  skins_rockay_retail    plaster        stucco_warm                  stucco_warm 
+  skins_rockay_retail    plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_retail    rubber         rubber_delco                 rubber_delco 
+  skins_rockay_retail    tar            tar_neutral                  tar_neutral 
+  skins_rockay_retail    tile           vct_floor_beige              vct_floor_beige 
+  skins_rockay_retail    vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_retail    wood           hardwood_plank               hardwood_plank 
+  skins_rockay_service   brick          brick_delco                  brick_delco 
+  skins_rockay_service   canvas         canvas_delco                 canvas_delco 
+  skins_rockay_service   carbon         carbon_neutral               carbon_neutral 
+  skins_rockay_service   ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_rockay_service   concrete       cinderblock_delco            cinderblock_delco 
+  skins_rockay_service   dirt           dirt_delco                   dirt_delco 
+  skins_rockay_service   drywall        drywall_delco                drywall_delco 
+  skins_rockay_service   glass          glass_frosted                glass_frosted 
+  skins_rockay_service   glass_facade   glass_facade_mirror_blue     glass_facade_mirror_blue 
+  skins_rockay_service   gravel         pebble_gravel                pebble_gravel 
+  skins_rockay_service   laminate       laminate_neutral             laminate_neutral 
+  skins_rockay_service   leather        leather_delco                leather_delco 
+  skins_rockay_service   metal          corrugated_metal_delco       corrugated_metal_delco 
+  skins_rockay_service   metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_rockay_service   metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_rockay_service   paper          paper_neutral                paper_neutral 
+  skins_rockay_service   plaster        plaster_delco                plaster_delco 
+  skins_rockay_service   plastic        plastic_neutral              plastic_neutral 
+  skins_rockay_service   rubber         rubber_delco                 rubber_delco 
+  skins_rockay_service   tar            tar_neutral                  tar_neutral 
+  skins_rockay_service   tile           tile_delco                   tile_delco 
+  skins_rockay_service   vegetation     vegetation_neutral           vegetation_neutral 
+  skins_rockay_service   wood           plywood_sheathing            plywood_sheathing 
+  skins_street           brick          brick_delco                  brick_delco 
+  skins_street           canvas         canvas_delco                 canvas_delco 
+  skins_street           carbon         carbon_neutral               carbon_neutral 
+  skins_street           ceiling_tile   ceiling_tile_delco           ceiling_tile_delco 
+  skins_street           concrete       cinderblock_delco            cinderblock_delco 
+  skins_street           dirt           dirt_delco                   dirt_delco 
+  skins_street           drywall        drywall_delco                drywall_delco 
+  skins_street           glass          glass_circles                glass_circles 
+  skins_street           glass_facade   glass_facade_bronze          glass_facade_bronze 
+  skins_street           gravel         pebble_gravel                pebble_gravel 
+  skins_street           laminate       laminate_neutral             laminate_neutral 
+  skins_street           leather        leather_delco                leather_delco 
+  skins_street           metal          metal_rusted_street          metal_rusted_street 
+  skins_street           metal_bare     metal_bare_neutral           metal_bare_neutral 
+  skins_street           metal_painted  metal_painted_neutral        metal_painted_neutral 
+  skins_street           paper          paper_neutral                paper_neutral 
+  skins_street           plaster        stucco_warm                  stucco_warm 
+  skins_street           plastic        plastic_neutral              plastic_neutral 
+  skins_street           rubber         rubber_delco                 rubber_delco 
+  skins_street           tar            tar_neutral                  tar_neutral 
+  skins_street           tile           subway_tile_white            subway_tile_white 
+  skins_street           vegetation     vegetation_neutral           vegetation_neutral 
+  skins_street           wood           hardwood_plank               hardwood_plank 
+
+  KIND COVERAGE  (60 material profiles, 9 themes)
+  KIND           PROFILES  THEMED   
+  ------------------------------------------------------------
+  laminate       1         9        
+  wood           3         9        
+  metal          8         9        
+  plastic        2         9        
+  leather        1         9        
+  rubber         1         9        
+  canvas         1         9        
+  carbon         1         9        
+  glass          7         9        
+  glass_facade   3         9        
+  paper          1         9        
+  concrete       12        9        
+  plaster        2         9        
+  brick          4         9        
+  tile           4         9        
+  drywall        1         9        
+  ceiling_tile   1         9        
+  carpet         1         7        
+  dirt           1         9        
+  tar            1         9        
+  gravel         1         9        
+  vegetation     1         9        
+
+MISMATCHES=0
+
+Libraries are under pixelcoat\build\. Point Zoo at one with:
+  --skins pixelcoat\build\skins_rockay --theme rockay
+
+===== stamp check =====
+packs read: 118
+  tool_version 0.16.0     118 pack(s)
+distinct material_kind values: 24
+  brick, canvas, carbon, carpet, ceiling_tile, concrete, dirt, drywall, glass, glass_facade, gravel, laminate, leather, metal, metal_bare, metal_painted, paper, plaster, plastic, rubber, tar, tile, vegetation, wood
+ALL 118 PACKS STAMPED 0.16.0
+
+===== zoo suite =====
+........................................................................ [ 12%]
+........................................................................ [ 25%]
+........................................................................ [ 38%]
+........................................................................ [ 51%]
+........................................................................ [ 64%]
+...........................................................s..s......s.. [ 77%]
+...s........s.s................s.s...s.................................. [ 90%]
+....................ss.................................                  [100%]
+548 passed, 11 skipped in 1.19s
+
+===== pixelcoat suite =====
+........................................................................ [ 33%]
+........................................................................ [ 66%]
+.......................................................................  [100%]
+215 passed in 29.43s
+
+===== SUMMARY =====
+
+[32;1mStep           [0m[32;1m Exit[0m
+[32;1m----           [0m [32;1m----[0m
+apply              0
+selftest           0
+rebuild            0
+stamp check        0
+zoo suite          0
+pixelcoat suite    0
+
+ALL STEPS GREEN.

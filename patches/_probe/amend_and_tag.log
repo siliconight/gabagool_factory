@@ -1,0 +1,55 @@
+===== zoo: amend and move v0.47.0 =====
+  current HEAD 782d860
+[main 60b1a46] zoo 0.46.0 -> 0.47.0: a test that fails when a recipe ignores its genome
+ Date: Fri Aug 21 11:53:29 2026 -0400
+ 3 files changed, 130 insertions(+), 1 deletion(-)
+ create mode 100644 tests/test_recipe_reads_its_genome.py
+  amended  782d860 -> 60b1a46
+Updated tag 'v0.47.0' (was a2ca716)
+  VERIFIED: the correction is now inside v0.47.0
+60b1a46 zoo 0.46.0 -> 0.47.0: a test that fails when a recipe ignores its genome
+
+===== manifest selftest (it resolves tags, which just moved) =====
+tool             pinned     tag        tag?     VERSION file
+--------------------------------------------------------------------------
+deli_counter     0.91.0     v0.91.0    ok       Deli Counter 0.91.0
+dispatch         0.3.1      v0.3.1     ok       0.3.1
+laser_tag        0.8.0      v0.8.0     no repo  
+level_factory    0.47.0     v0.47.0    ok       0.47.0
+lot              0.47.0     v0.47.0    ok       Lot 0.47.0
+lux              0.16.0     v0.16.0    ok       Lux 0.16.0
+patina           0.21.0     v0.21.0    ok       Patina 0.21.0
+pipeline         0.6.0      v0.6.0     ok       Pipeline 0.6.0
+pixelcoat        0.16.0     v0.16.0    ok       Pixelcoat 0.16.0
+zoo              0.47.0     v0.47.0    ok       Zoo 0.47.0
+
+SELFTEST OK -- factory 1.33.0, every pin's tag resolved against its own
+               repo (not just the VERSION file, which is the check
+               verify-manifest does not do), every unresolvable pin is
+               named in the description, and the resolver was shown to
+               return False for a tag that cannot exist
+
+===== factory-v1.33.0 =====
+warning: in the working copy of 'patches/fix_changelog_53.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/manifest_shape.py', CRLF will be replaced by LF the next time Git touches it
+warning: in the working copy of 'patches/patch_manifest_133.py', CRLF will be replaced by LF the next time Git touches it
+staging:
+    factory.manifest.json
+    patches/fix_changelog_53.py
+    patches/manifest_shape.py
+    patches/patch_manifest_133.py
+[main e95fb3b] factory 1.33.0 -- pin pixelcoat 0.16.0 and zoo 0.47.0
+ 4 files changed, 323 insertions(+), 8 deletions(-)
+ create mode 100644 patches/fix_changelog_53.py
+ create mode 100644 patches/manifest_shape.py
+ create mode 100644 patches/patch_manifest_133.py
+
+TAGGED factory-v1.33.0
+e95fb3b factory 1.33.0 -- pin pixelcoat 0.16.0 and zoo 0.47.0
+ factory.manifest.json         |  16 +--
+ patches/fix_changelog_53.py   |  35 ++++++
+ patches/manifest_shape.py     |  25 +++++
+ patches/patch_manifest_133.py | 255 ++++++++++++++++++++++++++++++++++++++++++
+ 4 files changed, 323 insertions(+), 8 deletions(-)
+
+DONE.
