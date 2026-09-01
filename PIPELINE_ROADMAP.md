@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **OPEN** *(inferred)* | The pipeline has never been run cold, so nobody knows what it costs to | — |
+| 17 | **OPEN** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-08-28 -- MEASURED TWICE, AND RUN 1'S HEADLINE IS CORRECTED HERE RATHER THAN QUIETLY E |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -732,12 +732,53 @@ work of adopting this.
 | 51 | **CLOSED** | `lot`'s own suite has been red through every certification this month, | 2026-08-16 -- ALL THREE FIXED AND RE-MEASURED. TWO of the three mechanisms this item propo |
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
-| 54 | **OPEN** *(inferred)* | One mesh spans a whole room, and two light caps are paying for it | — |
-| 55 | **OPEN** *(inferred)* | The level ships sign fixtures with no sign art, and three of four cann | — |
+| 54 | **CLOSED** | One mesh spans a whole room, and two light caps are paying for it | 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The closing run (census #8, `walk.tscn |
+| 55 | **OPEN** | The level ships sign fixtures with no sign art, and three of four cann | 2026-08-18 -- MEASURED. Four `AreaPanel_Surface` nodes ship in `lot_demo_001`, each a 1.4  |
+| 56 | **OPEN** | The global light budget is derived from scene text, and the running le | 2026-08-23 -- MEASURED at discovery, unworked. Found by item 54's closing instrument on it |
+| 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
+| 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
+| 59 | **OPEN** | One door, two corridors: a partition ends inside the aperture and spli | 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE AND THE FOUNDING SIGHTING REMAIN |
+| 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
+| 61 | **OPEN** | Optional color-preserving film emulsion for Lux | 2026-08-23 -- SPECIFIED. TDD authored and committed at `lux/docs/film_emulsion_tdd.md`; no |
+| 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
+| 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
+| 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
+| 65 | **OPEN** | The site copies go stale silently, and the detector that would say so  | 2026-08-25 -- MEASURED AT 24 DAYS AND ~20 RELEASES, AND CLEARED THE SAME DAY. The propagat |
+| 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
+| 67 | **OPEN** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a CHANGELOG entry before it  |
+| 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
+| 69 | **OPEN** | Deli Counter's seed never varies, so every candidate is the same build | 2026-08-28 -- MEASURED ON TWO BRIEFS NOW, AND THE SECOND ONE RULES OUT THE TIDIEST WRONG E |
+| 70 | **CLOSED** | `cold_run.py` counts the pipeline's own writes into a tool repo as int | 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC RUNS. `cold_run.py` now ATTRIB |
+| 71 | **CLOSED** | The fixture co-location gate measures bracket-to-bulb and calls it a f | 2026-08-28 -- RETRACTED AS FILED, REFRAMED, FIXED IN LUX 0.26.0, AND PROVEN TWICE: ONCE SY |
+| 72 | **CLOSED** | Nothing checks that a brief's theme resolves until the art pass is alr | 2026-08-29 -- CHECKED IN FOUR PLACES, AND THE ONE THAT SAVES THE TIME IS `run` REFUSING BE |
+| 73 | **OPEN** | Two identical consecutive runs cached nothing and disagreed about what | 2026-08-29 -- PROMOTED. FILED AS TWO RUNS DISAGREEING ABOUT FINDINGS; `cold_7003` SHOWED T |
+| 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A NEW INSTRUMENT, NO FIX ATTEM |
+| 75 | **CLOSED** | Delco's facade relief was drawing the module grid it exists to break u | 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING THE MODULE GRID BY TWO SEPARAT |
+| 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
+| 77 | **OPEN** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-08-29 -- COST ONE AMBIGUOUS COUNT ON `cold_7003`, AND THE AMBIGUITY IS UNRESOLVABLE F |
+| 78 | **NARROWED** | Nothing measures how a level LOOKS -- only what it is made of | 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH WAS FALSE AND WAS WRITTEN WITH |
+| 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-08-29 -- THE FRAME ITEMS 74 THROUGH 76 ARE SYMPTOMS OF. NAMED FROM A WALKTHROUGH CRIT |
+| 80 | **OPEN** | Deli Counter's one-mesh-in-VRAM discipline is not carried any further  | 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS; THE STEP AFTER IT IS WRITTEN |
+| 81 | **NARROWED** | Zoo's wear noise runs at the mesh's vertex density, and a wall module  | 2026-08-29 -- THE MECHANISM IS REAL IN THE FILE AND INERT IN THE ENGINE. REMOVING THE WEAR |
+| 82 | **ANALYSIS** | Every tool's contract is about a piece. No contract is about the whole | 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF THIS ONE FACT, AND IT EXPLAINS W |
+| 83 | **NARROWED** | The renderer lights the wall per piece, so light draws the module grid | 2026-08-29 -- REFUTED AS THE CAUSE OF THE EXTERIOR BANDING, BY ABLATION, WITHIN THE HOUR I |
+| 84 | **OPEN** | Zoo computes per-vertex wear, exports it correctly, and the engine doe | 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION RATHER THAN A FLAG. 1,896 KI |
+| 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
+| 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
+| 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE PIPELINE. `tools/detach_textures |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-08-29 -- THE LANE IS CHOSEN AND CONFIRMED BY EYE, AND IT IS NOT ONE OF THE TWO THAT A |
+| 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
+| 90 | **OPEN** | `look_shots` was never measured against itself, so its own repeatabili | 2026-08-29 -- THE RULER WAS NEVER CALIBRATED. TWO SHOTS OF AN UNCHANGED PROJECT DIFFER BY  |
+| 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
+| 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-08-31 -- THE PREMISE IS INVERTED, AND THE MECHANISM IS NOW READ RATHER THAN ASSUMED.  |
+| 93 | **OPEN** | Editing a driver script does not invalidate its job's cache | 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT, SO THE PIPELINE SERVES THE  |
+| 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
+| 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
+| 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 
-**55 items: 19 open, 23 closed, 3 retracted, 8 narrowed, 2 analysis.** 25 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**96 items: 42 open, 33 closed, 3 retracted, 15 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
-A status is one line above the item: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
+A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
 <!-- END GENERATED -->
 
@@ -1201,6 +1242,39 @@ genuine walker improvements while chasing this — gravity applies only when
 airborne, and the step probe tries three heights instead of one — and neither
 moved the result, which is exactly how it should have gone. The walker is now
 right and the route it was given is wrong.
+
+*STATUS: OPEN 2026-08-28 -- MEASURED TWICE, AND RUN 1'S HEADLINE IS CORRECTED
+HERE RATHER THAN QUIETLY EDITED. `cold_7001` (rockay brief, `seed_base 7001`,
+new geometry / familiar vocabulary): **0 interventions, 1 retry**, exported a
+portable-godot package. `cold_7002` (`bank_block_001`, `seed_base 7002`, new
+vocabulary -- different archetype, site shape, building count and theme):
+**1 intervention, 1 retry, 4 observations, BLOCKED with no package**. THE
+CORRECTION: run 1 was reported as reaching "a gated package with nobody's
+hands in it". The zero stands; the word GATED does not. cold_7001 carried the
+same two `LUX_FIXTURE_COLOCATION` blockers on its selected candidate and only
+printed `Structural checks passed` because 0.49.0 discounted them -- item 68,
+fixed the same day. Under 0.50.0 that identical run reads `Blocked:
+unresolved blocking issues (blockers open: 2)`, which is exactly what
+cold_7002 reads. So what both runs actually show is narrower and more useful:
+**Deli Counter, Lot, Laser Tag and walktest run clean on specs they have never
+seen, and neither run has produced a package that passes its own gate.** Run
+2's single intervention was `delco_1997` -> `delco` in the brief and batch,
+after `pixelcoat_build` exited 1 on a theme profile that does not exist; it
+resolved completely, and every art stage then succeeded. Run 2 also confirmed
+item 69 on a second brief (DC seed 1999 here, 1989 on rockay) and produced
+items 71, 72 and 73. The instrument needed no hand-classifying this time --
+item 70's attribution reported 4 pipeline writes with reasons and 0
+unattributed, against run 1 where the same set produced a wrong headline of 1.
+WHAT CHANGED SINCE, and it is NOT a cold-run result: item 71 -- the fixture
+gate that blocked both runs -- was fixed in Lux 0.26.0 the same day, and
+`cold_7002`'s workspace then ran to `blockers open: 0` and exported. That
+happened AFTER `--end`, on a tool that had been patched, so it changes
+neither run's number and no package here was produced cold. What it does
+change is the standing advice: a third run was pointless while every cold
+run ended on the same blocker, and is now worth doing. Item 69 (DC's stuck
+seed) and 73 (two identical runs disagreeing) are the next things a run 3
+would be measured against. Evidence: `docs/findings/COLD_RUN_7001.md` and
+`COLD_RUN_7002.md`, journals and diffs under `_runs/cold/`.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -5476,11 +5550,137 @@ offset) with its cost measured against the instancing economy, weathering
 moved to building space, and the mid-distance instrument -- with the walk as
 the judge each time.
 
-*STATUS: OPEN 2026-08-23 -- SIGHTED ON HARDWARE, NOT YET LOCATED IN DATA.
-Filed with the screenshot's own coordinates; the overlay named the module
-but not the building (its `bldg` line resolves the nearest instanced
-ancestor, which for a themed module is the module itself -- an
-instrumentation gap worth fixing while in there)*
+*STATUS: NARROWED 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli
+Counter 0.102.0 insets each exterior run to the perpendicular wall's inner
+face and seats a `wallEnd` unit post at each corner, N/S owning the turn;
+0.102.1 fixed the one regression that shipped with it. Rebuilt through
+Blender 5.1.1 across the whole library and re-measured by the gate:
+**ENV_CORNER_OPEN 988 -> 0 over 124 buildings**, with ENV_RUN_GAP 1 (the
+pre-existing `auto_shop_a02` sliver, whose whole span is under the threshold
+and so has no module to absorb into), ENV_PLACEMENT_DRIFT 0,
+ENV_SHAPE_UNRECOGNISED 0 -- every figure landing on the number predicted
+before the rebuild. Cost in the kit: ZERO new modules. The post is
+`size_mod="end"`, so `slot_typename` returns `wallEnd`, the one species DC
+scales, and Zoo's `exact = typ != "wallEnd"` gives it unit treatment with no
+change in that repo and no new stem; an exact-fit corner would have been 18
+modules per theme per style. THE GATE CAUGHT THE REGRESSION ITS OWN CHANGE
+INTRODUCED, which is the argument for having built it first: the corner
+change alone took ENV_RUN_GAP 1 -> 2, one new 0.050 m hole beside a window in
+`strip_retail_a01`. Instrumenting the builder (`patch_dc_span_probe.py`,
+applied and reverted byte-for-byte) found `_wall_span` computing a span's
+remainder TWICE by two algebraically identical expressions that are not
+identical in floating point -- `L - n*M` read 0.05000000000000071, too big to
+absorb, while `b - x` read 0.04999999999999982, too small to emit, so the
+5 cm was neither absorbed nor emitted. A threshold asked of two spellings of
+one number has a blind window either side of it. 0.102.1 computes it once.
+Worth recording that this mechanism was hypothesised, REFUTED against a
+reconstruction from the manifest, and then confirmed on the builder's own
+floats: the reconstruction assumed the span began after the previous module
+(a=0.15) when it begins at the run's inset edge (a=-9.85) across six modules,
+and the manifest's 4-decimal rounding could not have settled it either way.
+THE GATE IS WIRED AND ENV_CORNER_OPEN HAS GRADUATED, same day and by item
+59's rule -- a code goes WARN -> FAIL when the shipped library reads ZERO for
+it, never before, because a gate switched on over a red library is one
+everyone learns to pass with a flag. `envelope_continuity.py` now carries a
+`SEVERITY` table with the measured count beside every entry, and is
+registered in `tools/check_all.py` as the `envelope` check, second in the
+order because it is pure JSON and cheap. It honours that runner's three-state
+contract: 0 checked-and-clean, 1 checked-and-found, 2 COULD NOT CHECK. FAIL
+today: `ENV_CORNER_OPEN` (0), `ENV_PLACEMENT_DRIFT` (0),
+`ENV_SHAPE_UNRECOGNISED` (0). WARN until they reach zero: `ENV_RUN_GAP` (1,
+auto_shop_a02) and `ENV_DIMS_FRAME_CANONICAL` (349, item 63); `--strict`
+promotes every WARN to FAIL and is how the cost of the next graduation gets
+priced before anyone commits to it. One distinction the wiring forced and
+that is worth keeping: a manifest with NO exterior walls is not a refusal.
+Thirteen of the 137 carry 1-5 slots and no `wall` field -- mission and site
+stubs, not buildings -- and folding them into "could not check" would have
+left the runner permanently amber, which is an amber nobody reads. They are
+listed and skipped; only a manifest this cannot MEASURE (unknown version,
+unknown frame, malformed slot) returns 2. All three states verified end to
+end through `check_all.py`: clean library exit 0, a library with open corners
+exit 1, a missing build directory exit 2. FULL GATE GREEN 2026-08-25 after the sites were rebuilt: gdscript, envelope,
+freshness, stairs and steps all clean -- `stairs` and `steps` being the two
+worth watching, since they were green against sites twenty DC versions old
+and stayed green reading geometry that jumped all twenty at once. The
+staleness that surfaced on the way is item 65. WHAT REMAINS: the FOUNDING
+SIGHTING is
+still not tied to this defect (the overlay's 21.63 m ray lands on
+`ext_0_N_seg8`'s span, ~19 m from the nearest corner) and should be tied or
+explicitly retired rather than left implying it was. Certification is also
+owed: DC moved 0.101.2 -> 0.102.1 and no `factory-v` entry has been cut.
+PRIOR STATUS, kept because the measurement in it is what the fix was built
+on: LOCATED IN DATA, AND IT IS THE WHOLE LIBRARY.
+Measured read-only against the census-#8 `lot_demo_001` walk preview and,
+independently, against Deli Counter's own `build/<id>.slots.json`; then swept
+over all 137 slot manifests by the gate this item asked for
+(`tools/envelope_continuity.py`, new). Every exterior run terminates EXACTLY
+on the perpendicular wall's centreline -- 0.000 m past it, no exceptions --
+leaving a re-entrant notch of half the wall thickness on each side, full
+storey height, at every outside corner, open on two faces and open to the sky.
+LIBRARY CENSUS: 124 buildings read, ZERO with no finding, 988 open corners.
+The notch tracks the thickness exactly and nothing else -- 0.150 m on the 0.30
+walls (812 corners), 0.175 on the 0.35 walls (152), 0.125 on the 0.25 walls
+(24) -- which is the same rule stated three times and rules out any reading
+where the number is a tolerance or a rounding. The gate also read the composed
+scenes for the five `lot_demo_001` buildings and found ZERO placement drift
+against their slots, so the scene realizes the request exactly and the corner
+is missing from the request. The ROOFS use the
+same convention (`roof_rockay_01_w3400_d2400` spans centreline to centreline,
+`roof_rockay_04_w5200_d3200` likewise), so the outer 0.15 m of the whole wall
+ring is uncapped -- independent corroboration from a different species.
+CANDIDATE ONE CONFIRMED: the corner is nobody's job, `wallEnd` is a
+straight-run remainder filler and nothing in the vocabulary turns. TWO AND
+THREE REFUTED: runs are contiguous to 1e-6 and land on exact integers
+(+/-17.000, +/-26.000, +/-18.000), so nothing was stripped by the name-boundary
+strip; and rounding does not produce one value forty times. AUTHORED UPSTREAM,
+not introduced at assembly -- the SLOT SPEC already stops at the centreline,
+so Zoo and Lot are acquitted and the corner is missing from the REQUEST, which
+makes this item 62's gap protocol (a Deli Counter slot role plus a Zoo
+`Corner_90_Outside`/`Inside` species -- item 57's corner family) rather than a
+patch. NOT CLAIMED, deliberately: the notch is an L-shaped pocket whose INNER
+quadrant both runs cover, so this is a visible corner slot and a sky/backlight
+leak but NOT a through-breach -- the item's sightline and tactical-cover
+consequence is UNSUPPORTED by the plan geometry and should be restated or
+dropped; and the FOUNDING SIGHTING IS STILL NOT TIED to it, because the
+overlay's 21.63 m ray from (-63.4, 1.6, 86.4) lands on `ext_0_N_seg8`'s span,
+~19 m from the nearest corner, while `seg9` sits at 23.2-24.1 m -- the
+overlay's two numbers do not agree with each other. The instrumentation gap
+this item flagged is QUANTIFIED: `ext_0_N_seg9` EXISTS IN ALL FIVE BUILDINGS,
+and only mansion_a02's is within reach of the walk position (24.08 m; the next
+is 74.78 m) -- print the building. THE RULER FAILED TWICE BEFORE IT WORKED,
+and that is the binding constraint on the gate this item asks for: `_w<cm>` is
+the module's X EXTENT, which is the run width on an N/S run and the THICKNESS
+on an E/W run (`wall_rockay_01_w30` is 0.30 m thick and 2.00 m long, and no
+filename records the 2.00), and `fit.dims` is [x, y, z] rather than [width,
+thickness, height]. Reading either BY ROLE prints a comb of 1.700 m
+(= 2.000 - 0.300) gaps on every E/W run and nothing on N/S; the first pass
+reported 222 gaps and every one was that number or half of it. An
+envelope-continuity gate MUST resolve dims by AXIS from the run's orientation,
+or read the GLB bounds through `module_extents.py`'s tested reader -- a gate
+that parses stems would pass the corner and fail 222 sound joints, the exact
+inversion. UNRESOLVED and not quoted as a finding: 30 residual slot-side gaps,
+all at E/W openings, far likelier the ruler a third time than the wall. GLB
+BOUNDS WERE NEVER READ -- thickness 0.300 comes from the slot spec's
+`fit.dims`, authoritative for what was ASKED but not for what was BUILT.
+THE GATE IS BUILT AND UNBLOCKED: `tools/envelope_continuity.py` reports
+`ENV_CORNER_OPEN`, `ENV_RUN_GAP`, `ENV_DIMS_AXIS_SWAP` and
+`ENV_PLACEMENT_DRIFT` off the slot manifest alone -- so it fires before any
+geometry exists -- pins `slot_manifest_version` and `space` and REFUSES an
+unrecognised shape rather than counting it clean, and carries a `--selftest`
+that fails on a name-parsing ruler. It is NOT wired into any job yet, and it
+is deliberately not blocking: 124 of 124 buildings fail it today, so it
+graduates the way item 59's L18 did, once the library is clean. TWO OTHER
+THINGS THE SWEEP FOUND, both filed rather than folded in: exactly ONE real run
+gap in the whole library (`auto_shop_a02`, storey 0 N, 0.050 m between
+`ext_0_N_open0` and `ext_0_N_seg3` -- one authoring step, and the only one),
+and 349 slots whose `fit.dims` is in a different frame from their
+neighbours -- filed as item 63, and REFRAMED the same day: neither frame is
+wrong, nothing declares which is in use, and that is a PRECONDITION of the
+corner fix rather than a tidy-up beside it. REMAINS: give
+corners an owner, wire the gate, graduate it, and tie or retire the founding
+sighting. Full evidence in
+`docs/findings/ITEM58_THE_CORNER_IS_NOBODYS_JOB.md`, because
+`.level_factory/preview/` is gitignored*
 
 **58. A facade corner is open to the sky, and light walks straight through
 the building envelope.**
@@ -5504,11 +5704,128 @@ item 57 asks for -- an envelope-continuity check over adjacent exterior wall
 slots' themed extents, so an open corner fails a build instead of waiting
 for a walker with a screenshot.
 
-*STATUS: OPEN 2026-08-23 -- SIGHTED ON HARDWARE, RULE DESIGNED, UNBUILT.
-Queued as the first Deli Counter change after item 54's rebuild proves the
-current light batch -- a floorplan rule changes geometry, and a rebuild
-already carrying four light variables does not want a fifth of a different
-kind*
+**OWNERSHIP DECIDED 2026-08-24: DELI COUNTER OWNS THE CORNER.** The reasoning
+is the routing table's own, stated plainly -- a corner is part of a BUILDING,
+so it is a slot, and slots are Deli Counter's. Zoo may author a better-looking
+corner afterwards, into the slot DC declares; what DC must own is the
+COLLISION piece and the modular economy it sits in. The consequence, if a
+corner ever turns out NOT to be part of a building, is that the routing itself
+needs rethinking -- not that this slot moves.
+
+**TIER ONE COSTS NO NEW GEOMETRY, and the mechanism is already in the file.**
+`_record_wall_slot` says it: a `wallEnd` "is authored as a UNIT box and the
+size rides as a per-slot scale: one module fits every remainder", verified
+in-engine as unit box x `fit.dims` reproducing the baked shell 1:1. A corner
+post is that same unit box at scale `[t, t, storey_h]`. So the collision-
+correct first tier adds ZERO new GLBs to any kit -- it is more instances of a
+species every kit already carries, which is the whole VRAM argument: one mesh,
+N instances, not N meshes. Four per storey, 988 across the library.
+
+**THE GEOMETRY.** Every run currently terminates ON the perpendicular wall's
+centreline. Pull each run end back by half the wall thickness -- to the
+perpendicular wall's INNER face -- and seat a `t x t` post at the intersection
+of the two centrelines. No overlap, envelope closed, footprint unchanged at
+`+/- (half_span + t/2)`. The pull-back needs no new logic: the `wallEnd`
+remainder already absorbs an arbitrary end width, so only the span
+computation moves.
+
+**TIER ONE IS A `wallEnd`, AND THE NAMING QUESTION IS ANSWERED BY THE UNIT
+RULE.** `kit.py`'s `exact = typ != "wallEnd"` is one hardcoded string: anything
+NOT literally named `wallEnd` is exact-fit, one module per distinct size.
+Priced against the library, an exact-fit corner is **18 modules per theme per
+style** (18 distinct thickness x storey-height pairs) against **one** unit
+module scaled per slot -- and mansion_a02 alone uses styles 01/02/03, so that
+multiplies twice. Worse than the count: a corner slot must carry a non-unit
+scale `[t, t, h]`, and an exact-fit module scaled by its slot is
+`module_extents.py`'s wallEnd mis-measurement running in reverse. So the post
+is emitted as an ordinary `role: "wall", size_mod: "end"` slot at the corner
+position, both naming laws unchanged, and the corner-ness rides on the
+`slot_id` (`ext_<storey>_<NW|NE|SW|SE>_corner`) -- the handle everything here
+is already addressed by. NOTE the option this rejects was mis-stated when it
+was framed: "a wallEnd with a corner `size_mod`" does NOT work, because
+`slot_typename` returns `wallEnd` only when `size_mod == "end"` exactly and a
+`"corner"` size_mod falls through to `"wall"`, which is the exact-fit path.
+
+**TIER TWO IS ZOO'S, AND ZOO ALREADY BUILT IT -- see item 64.**
+`wallCorner` is a complete recipe plus a full genome entry, rockay included,
+dated 2026-07-14, and nothing has ever asked for one. So tier two is not
+"grow a species", it is "arm three things and ask", and all three are
+measured in item 64: the genome's 2.0-4.5 m height range excludes 252 of the
+988 corners, the stem carries width only so `wallCorner_rockay_01_w30` would
+have to be 14 distinct solids, and the gap report that would have said so is
+never armed. Also gated on item 63 for the same reason as before: a square
+post is frame- and rotation-invariant, an L with a front and a back is not.
+
+**AND THE L CANNOT BE A UNIT MODULE, which is why the tiers split where they
+do.** Scaling an L's leg length scales its thickness with it; a `t x t` post
+is a cube and a scaled cube is still a cube. The geometry itself is what makes
+tier one cheap and tier two structurally exact-fit.
+
+**THE INSIDE CORNER: MEASURED, ZERO INSTANCES.** 247 storeys across the
+library, every one carrying exactly the runs N/S/E/W, and zero exterior runs
+with more than one perpendicular offset -- every building is a rectangle in
+plan. So it is not designed for, and `envelope_continuity.py` already refuses
+a storey whose run set is not the four rather than measuring it wrong.
+
+*STATUS: OPEN 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE
+AND THE FOUNDING SIGHTING REMAIN. DC 0.101.1 slid all 33 offending
+openings clear (28 specs, keep-side minimal motion by default; recorded
+exceptions: two garage_bays crossed to the garage they name, five
+dead-center collisions direction-picked from room roles, and the parking
+family's vehicle_in adjudicated a DEFECT -- the wall it hit separates the
+attendant booth, the OBJECTIVE room, from the deck). Verified per spec at
+edit time (full lint before/after, zero L18, no other finding gained or
+lost) and on the rebuilt library: `layout_lint --all` reads 0 FAIL, 93
+WARN, no L18 line in it. SAME DAY, the built-output half: `tools/door_split_probe.py` + `.gd`
+walk the RUNNING composed scene deriving each aperture from its
+Doorway_Jamb_L/R pair (the probe's own first run matched any *Doorway*
+mesh and reported 102 walls sitting FLUSH against jambs -- correct
+construction read as defects; the lesson is in its docstring). VERDICT on
+lot_demo_001: 45 apertures, ZERO walls inside any of them -- the founding
+sighting was fixed en route by the week's rebuilds, and its class has an
+instrument now. The probe's four findings were all `AreaPanel_Surface`
+sign quads hanging in exterior doorway spans: item 55's blank cards,
+three of four still engine-named, not walls. On that zero plus the clean
+library, L18 GRADUATED WARN -> FAIL (DC 0.101.2) -- a doorway-splitting
+spec now fails its build instead of waiting for a walker. REMAINS, the
+last third: the floorplan GENERATOR learns avoidance (nudge the opening
+or end the partition a bay short), for which the FAIL gate is the
+backstop, not the fix. Earlier same day: LINT SHIPPED (WARN), AVOIDANCE
+PENDING THE COUNT. `layout_lint.py` L18 (DC 0.101.0): no partition may terminate
+inside a doorway's aperture span plus a 0.3 m leaf margin on the wall it
+meets -- exterior and interior hosts alike, endpoints judged through
+`clamp_partition_span` so the lint and built geometry cannot disagree, a
+wall CROSSING the aperture line deliberately exempt. Eleven tests pin the
+geometry and the exemptions. Numbered L18 because the changelog assigns
+L17 to the stair-volume-narrowing lint, which is ABSENT from today's
+layout_lint.py -- that discrepancy is its own open question (a documented
+FAIL gate that does not run is silent coverage loss, item 62's disease).
+MEASURED 2026-08-24 (`layout_lint.py --all`, 129 specs): 33 L18 findings
+across 28 specs -- the LARGEST single rule in the library (L9 cover-boxes
+24, L16 marker rooms 20, L6 objective-touches-entry 19). Every finding is
+an EXTERIOR host on story 0, and they cluster: (1) the person-door class,
+14 findings, unambiguous -- `front_entry_east` x5 with IDENTICAL numbers
+(cr_gas, gas_station, gas_station_a01, gas_street, gs_corner_station: one
+cloned ancestor), `alley_entry` x4 (the deli family, same story),
+`breach` x2, `west_entry`, `rear_service`, `alley_door`; (2) the wide-bay
+class, 19 findings (vehicle_in x5m x4, loading_bay x4, docks and gates)
+-- SIX of which land 0.00-0.20 m from the aperture CENTER: a spine
+partition at coordinate zero running into a dock door also centered at
+zero, the symmetric-layout collision. Two findings sit within 0.10 m of
+passing (freight dock_n1 2.50 vs 2.55, marina gear_dock 2.00 vs 2.10).
+TWO QUESTIONS BEFORE SURGERY: whether a wall ending mid-`vehicle_in` on
+the parking family is a defect or an intentional in/out lane divider (one
+render decides); and why the FOUNDING sighting is absent -- zero
+interior-host findings library-wide means the zoo doorway split is either
+slot-EMITTED by the builder (invisible to a spec lint, needing a
+built-output check instead) or lives in a layout not in specs/.
+Clone-dedup puts the real fix count near 20; every fix changes geometry,
+so they batch into ONE shell rebuild. WHAT REMAINS: the two
+adjudications, the ~20 spec fixes (nudge the opening or stop the
+partition a bay short), generator avoidance for the same rule, and
+graduation WARN -> FAIL once the library lints clean. Prior state
+(2026-08-23): SIGHTED, RULE DESIGNED, UNBUILT -- queued behind item 54's
+rebuild*
 
 **59. One door, two corridors: a partition ends inside the aperture and
 splits the egress.**
@@ -5532,7 +5849,16 @@ the AVOIDANCE in the floorplan/generator path (nudge the opening along its
 wall or terminate the partition one bay short -- never silently delete
 either), and a regenerated library with zero warnings.
 
-*STATUS: OPEN 2026-08-23 -- SIGHTED, LEVERS PRICED, DECISION NOT TAKEN.
+*STATUS: OPEN 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL
+POLICY STILL UNDECIDED. Lux 0.25.0 turns on `shadows_enabled` for the
+sign/window area rigs -- the only shadowed lights in the package, four
+rigs against ~128 interior fixtures; the plumbing existed end to end
+(LuxLightRig carried the field, LuxAreaLightRig applies it on both render
+paths) and nothing had ever set it. Verification is the walk at
+arena_a03's interior (47.0, 1.6, -13.2): the through-wall wash gone, the
+doorway spill kept. Interiors stay unshadowed pending the quality-profile
+decision this item owns. Prior state (2026-08-23): SIGHTED, LEVERS
+PRICED, DECISION NOT TAKEN.
 Partially mitigated in the same day's lux work: drop-derived ranges (0.19.0)
 shrink how far a lamp reaches through anything. SECOND SIGHTING 2026-08-24,
 and it names the worst class: walking the census-#8 build, arena_a03's
@@ -5598,9 +5924,21 @@ hardware, with the walk as the final judge -- and item 57's texture-rhythm
 observations re-walked under it, since film response may change how the
 modular repetition reads.
 
-*STATUS: OPEN 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM.
-`USING_THE_FACTORY.md` states the protocol and names today's honest
-coverage; nothing emits the tag yet*
+*STATUS: OPEN 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE
+ONE PLACE THAT ALREADY BUILT THE REPORT NEVER ARMS IT. `USING_THE_FACTORY.md`
+states the protocol and names today's honest coverage; nothing emits the tag
+yet. MEASURED 2026-08-24: `kit.plan_kit` takes `known_species` and documents
+it -- "any planned module whose backing species is unknown lands in
+`missing_modules` (the production gap report the Production Package
+requires) instead of crashing at build time" -- and its ONLY caller,
+`zoo/tools/zoo_cli.py:370`, is `plan_kit(manifest, theme=args.theme,
+style=args.style)`. The argument is never passed, so `missing_modules` is
+always empty and an unknown species is planned, never built, and silently
+kept as a greybox box by Deli Counter's progressive resolver. Level
+Factory's zoo adapter shells out to that CLI and does not mention it either.
+This is the machinery already existing and unarmed rather than missing --
+one argument, in the place the protocol most needs it, and it is what item
+64's corner recipe went 41 days without anyone noticing*
 
 **62. The capability-gap signal: a tool that cannot make what was asked
 says so, uniformly, and names the owner.**
@@ -5627,6 +5965,2138 @@ capability that exists, (3) the repo that owns growing the real one -- on
 stdout and in the tool's report artifact where one exists; Level Factory
 surfacing gap counts in run summaries; and one test per tool proving an
 unknown ask produces the tag rather than silence.
+
+*STATUS: OPEN 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE
+FIRST READING IS KEPT BELOW BECAUSE IT WAS WRONG IN AN INSTRUCTIVE WAY. Filed
+at 349 findings as "openings are transposed", a defect report about a
+CONVENTION; reading `zoo_keeper/core/kit.py` and then the composed scenes
+refuted it. Both frames produce correct geometry, `rot_y` is honoured for 8 of
+698 exterior modules, and the real defect is that nothing in a slot says which
+frame it is in*
+
+**63. Two coordinate frames share one `fit.dims` field, and nothing in a slot
+says which one it is in.**
+Raised 2026-08-24 by `tools/envelope_continuity.py` while it was being written
+against `deli_counter/build`. `fit.dims` is `[x, y, z]` -- but in WHICH frame
+is decided by the slot's role and stated nowhere.
+
+**MEASURED, and the split is exact.** Of 281 E/W exterior slots across the
+five `lot_demo_001` buildings, 266 carry dims in BUILDING space and 15 carry
+them CANONICAL-X; library-wide the canonical-X count is **349 across 124
+manifests**. Every one of them is an `_open` slot. No wall segment anywhere is
+canonical-X.
+
+**BOTH ARE CORRECT, AND THAT IS THE FINDING.** The two writers in
+`deli_counter.py` disagree on purpose and each is right for its own consumer.
+`_record_wall_slot` passes the box size straight through, already in building
+space, and its module is placed UNROTATED. `_record_opening_slot` writes
+`[width, wall_thick, height]` -- role-ordered, canonical-X -- which is the
+frame `_slot_orient`'s own docstring names: "brings a canonically-authored
+module (along X) onto this wall". Zoo's `plan_kit` documents the field as
+`[w, d, h]` and reads it positionally, so the OPENINGS are the ones obeying
+the published contract and the segments are the ones departing from it.
+
+**`rot_y` IS THE KNOB THAT MAKES IT WORK AND IT IS ALMOST ENTIRELY INERT.**
+Measured over 698 exterior modules in the same five buildings, slot `rot_y`
+against the basis actually written into the composed scene:
+
+    facing  kind   slot rot_y   scene rot   count   honoured
+    E       open           90          90       8   yes
+    N       open            0           0       9   yes
+    N       seg             0           0     194   yes
+    E       seg            90           0     133   no
+    S       open          180           0      20   no
+    S       seg           180           0     194   no
+    W       open          270          90       7   no
+    W       seg           270           0     133   no
+
+Eight modules in seven hundred are placed at the angle their slot asks for.
+Every other combination still lands correctly -- an S run travels along X like
+an N run, so canonical-X is already right there, and a symmetric doorway
+flipped 180 degrees is the same solid -- which is exactly why nobody has
+noticed. This is CLAUDE.md's own named defect: a knob with no effect is itself
+a defect, because the next person to turn it will be disbelieved by the
+geometry. Anyone who starts honouring `rot_y` uniformly rotates 133 E-wall
+segments by 90 degrees and turns each of those walls into a comb.
+
+**WHAT IS NOT CLAIMED.** That any shipped artefact is wrong. Item 58's gate
+reads ZERO placement drift against these same slots. The cost is paid by the
+NEXT reader: the envelope gate's first pass trusted the field positionally and
+printed a comb of phantom gaps, and its second pass had to recover the frame
+by asking which axis carried the run's thickness.
+
+**WHAT IT COSTS THE CORNER WORK, EXACTLY.** A corner slot is a NEW slot and
+whoever writes it must pick a frame with nothing in the file to tell them
+which. Item 58's TIER ONE escapes by luck: a square post is `[t, t, h]`, the
+same triple in both frames and the same solid at any `rot_y`, so the
+ambiguity cannot bite it. TIER TWO does not escape -- the moment Zoo authors
+a corner with a front and a back, the frame and the rotation both become
+load-bearing, and there is nothing to read them off. So this gates the
+authored corner, not the collision one.
+
+**WHAT WOULD CLOSE THIS.** Declare the frame per slot -- a `dims_frame`
+field, `"building"` or `"canonical_x"`, written by both writers and READ by
+every consumer -- or unify on one and re-derive the other's callers. Either
+way `rot_y` gets the same treatment: honoured everywhere or removed, not left
+right eight times in seven hundred. Plus the test that fails today: for every
+exterior run, each slot's declared frame agrees with the extent the run
+actually needs.
+
+REFUTED 2026-08-24, kept because a retracted finding is cheaper to keep than
+to rediscover -- the reading this replaces:
+
+    "A slot's fit.dims is transposed on every E/W opening, so the field that
+    states a module's size disagrees with its own neighbours... every
+    transposed slot is an _open slot on an E or W wall... WHAT WOULD CLOSE
+    THIS: either the writer emits fit.dims in the declared space for openings
+    as it already does for segments..."
+
+That reading had the measurement right and the owner backwards. It was
+produced by comparing openings against their neighbouring segments and
+declaring the minority wrong, without asking what either frame was FOR --
+the same shape as this file's recurring defect, a cheap observable standing
+in for an expensive truth. Reading `kit.py`'s `[w, d, h]` contract and then
+the composed scene's node bases cost about ten minutes and reversed the
+conclusion.
+
+
+*STATUS: OPEN 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three
+concrete preconditions measured against the shipped library, none of them
+large; the species and its recipe need no authoring at all*
+
+**64. Zoo built the corner module forty-one days ago and nothing has ever
+asked for one.**
+Found 2026-08-24 while deciding who should own item 58's corner.
+`zoo_keeper/recipes/wallCorner.py` and
+`zoo_keeper/genome/species/wallCorner.json` are both complete and both dated
+2026-07-14. The recipe's own docstring is written against exactly the defect
+item 58 measured: *"L-shaped corner module joining two wall runs... Pivot at
+the OUTSIDE corner, ground level -- the corner drops onto the meeting point
+of two DC wall runs with no offset math."* It emits `Corner_LegA` /
+`Corner_LegB` with the shared column removed so the legs cannot z-fight, and
+it returns collision boxes. The genome entry carries all five themes
+including `rockay`, `collision: true`, a 300-triangle budget,
+`params.thickness` defaulting to 0.3, and the keywords "wall corner",
+"corner", "corner wall". Recipes auto-discover by filename, so
+`recipes.get("wallCorner")` resolves today.
+
+**NOTHING REQUESTS IT.** `deli_counter._slot_typename` never returns
+`wallCorner`; neither does `kit.slot_typename`. The only other occurrence in
+the whole tree is `SESSION_0821.md` listing it among the architecture species
+that must stay theme-owned. So the capability was grown and the REQUEST was
+never made -- item 62's protocol failing from the other end, and precisely
+what item 40's "is this called?" sweep exists to surface.
+
+**THREE PRECONDITIONS, EACH MEASURED AGAINST THE SHIPPED LIBRARY.**
+
+1. **The declared height range excludes a quarter of the corners.** The
+   genome says `height` 2.0-4.5 m. **252 of 988 corners** sit on taller
+   storeys: 4.7 m (144), 5.2 (44), 5.7 (44), 6.2 (12), 5.1 (8).
+2. **The filename would collide, and not hypothetically.**
+   `kit.py`'s `exact = typ != "wallEnd"` makes `wallCorner` exact-fit, and it
+   is in neither `PLATE_ROLES` nor `VOLUME_ROLES` -- so the stem carries
+   WIDTH only, no depth and no height. Keyed on thickness alone,
+   `wallCorner_<theme>_<style>_w30` would have to be **14 distinct solids**
+   (fourteen storey heights at 0.30 m) and `_w35` three. One file wins. This
+   is the collision `kit.py` documents three separate times and calls "the
+   third time this exact collision has been paid for" -- `_d` for plate
+   depth, `_v` for stairwell voids, `opening_tag` for apertures. The fix is
+   the same one those got: put `wallCorner` where depth and height reach the
+   stem.
+3. **The gap report is never armed** -- item 62, measured there.
+
+**WHY THE L CANNOT SIMPLY BE THE TIER-ONE PIECE.** Scaling an L's leg length
+scales its thickness with it, so `wallCorner` is structurally exact-fit and
+cannot ride the unit-box scale that makes a `t x t` post one module for the
+whole library. That is the geometric reason item 58 ships a cube first and
+this second, and not an ordering preference.
+
+**WHAT WOULD CLOSE THIS.** The three above, then Deli Counter promoting its
+corner slots from `wallEnd` to `wallCorner` -- one function in each repo,
+paid once, when there is art to justify 18 modules per theme and style. Item
+57 gets its corner vocabulary out of it, which is the actual prize.
+
+
+*STATUS: OPEN 2026-08-25 -- MEASURED AT 24 DAYS AND ~20 RELEASES, AND CLEARED
+THE SAME DAY. The propagation is still manual and still in no job, which is
+the item; the backlog it accumulated is gone*
+
+**65. The site copies go stale silently, and the detector that would say so
+is in no job.**
+Found 2026-08-25 while closing out roadmap 58. Deli Counter builds
+`deli_counter/build/<id>.glb`; the geometry a SITE walks is a separate copy
+under `lot/specs/<site>/buildings/`, and `tools/rebuild_buildings.py` is the
+only thing that propagates one to the other. Its own docstring says so --
+"a fix in `deli_counter.py` reaches a site only after that .glb is rebuilt
+through Blender, and nothing else in the toolchain does it" -- and nothing
+runs it.
+
+**MEASURED.** Every site slot was stamped **2026-08-01**. Deli Counter was
+at 0.102.1 and had passed through roughly TWENTY minor versions since --
+0.84 through 0.102, including 0.96.0, whose whole subject was tiling
+room-spanning slab visuals into light-budget-sized meshes (roadmap 54), plus
+interactive state twins, ladder solidity, material-driven skin styles and
+prop stem depth. `check_freshness.py` reported **57 distinct buildings across
+62 site slots** stale. The rebuild bears the scale out: every file grew,
+typically 1.5x to 2.5x -- `large_warehouse_a03` 293,860 -> 750,340 bytes,
+`arena_a03` 208,720 -> 535,812 -- which is twenty releases arriving at once,
+not any one change. `built 57, copied 5, stamped 62, failed 0, no-spec 0`.
+
+**THE COST, and it is the part that matters.** Every measurement taken on a
+SITE in that window was taken on geometry up to twenty Deli Counter versions
+old -- walks, nav-gate readings, Laser Tag runs. That is this file's own
+first rule, "name what produced an artefact before concluding anything from
+it", failing for three weeks in the one place nobody was looking. Any
+site-derived number from 2026-08-01 to 2026-08-25 should be re-read with that
+caveat or re-measured.
+
+**THE GUARD EXISTED AND WAS NEVER RUN.** `check_freshness.py` detects exactly
+this, by content hash, and is registered in `tools/check_all.py`. It was
+correct the whole time. `check_all.py`'s own docstring names the disease --
+"that is how a guardrail stops being respected: not by failing, but by nobody
+running it" -- and this is that sentence, measured at 24 days.
+
+**WHAT WOULD CLOSE THIS.** Not "remember to run it". Either the propagation
+becomes a job in the DAG so a DC version bump reaches the sites the way it
+reaches the library, or the graders REFUSE a stale site instead of grading
+it. The precedent for the second is already in the house and named in item
+62 as a thing done right: `build_freshness.py` refuses to grade a stale
+library. A walk, a nav-gate or a Laser Tag run against a site whose stamp
+predates the builder should stop, not produce a number.
+
+
+*STATUS: OPEN 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG
+AND IS KEPT BELOW. The suite is green and shallower than the sentence that
+recommends it*
+
+**66. `verify-manifest` prescribes a remedy that under-proves what it
+certifies.**
+Found 2026-08-25 while sizing a re-cert. `level-factory verify-manifest`
+reports DRIFT on five of ten tools and ends every one of those lines with the
+same instruction: *"re-run the real-tool smoke and re-certify"*. That names
+ONE suite. `docs/CERTIFY.md` requires three more legs -- the zoo walkabout
+(real Blender), the engine leg (`nav_gate` / `godot_gate` / `roundtrip` /
+`walktest` / `mp_smoke`, needs Godot), and the lux visual leg -- and says of
+the real-tool smoke only that it is "what makes 'certified together' true
+rather than asserted".
+
+**WHAT THE SMOKE ACTUALLY PROVES.** Measured: `tests/real_tools` is 10 tests
+in **4.95 seconds**. It runs the genuine CLIs -- a real `dispatch build` end
+to end against real Lot output and LF's own staging, real patina, pixelcoat,
+zoo plan, lasertag runner, lux driver -- and asserts real artifacts and no
+blockers. That is adapter-and-contract depth, and it is worth having. What it
+does NOT do, by construction, is build geometry: five seconds cannot launch
+Blender, and `test_real_dispatch_handoff_from_lf_staged_inputs` says so in
+its own docstring -- *"DC build needs Blender; use a realistic DC-schema
+gameplay fixture."* The substitution is deliberate and correct for a smoke.
+It is not a re-certification.
+
+**SO THE RISK IS A GREEN RUN THAT MEANS LESS THAN THE SENTENCE SUGGESTS.**
+Somebody follows the tool's advice, the smoke passes in five seconds, and the
+set gets stamped on evidence that never touched the geometry the drifted
+tools produce. On 2026-08-25 the drift was deli_counter +8 minor and lux +9 --
+exactly the two whose output is geometry and light.
+
+**SECOND, SMALLER.** Six of the ten real-tool tests are guarded by
+`pytest.skip` on a missing fixture, and the suite surfaces no coverage count.
+On this run one skipped -- the bundled dispatch example, whose `inputs` point
+at pre-built tool outputs the dispatch repo does not ship. That skip is
+deliberate, documented in the test, and its subject IS covered by the sibling
+above; it is named here only because a suite where six tests can go quiet
+without the total changing is one where a real absence would read the same
+as this benign one.
+
+**WHAT WOULD CLOSE THIS.** Make the remedy line say what the remedy is --
+point at `CERTIFY.md`'s legs rather than one suite -- and have the smoke
+print what it ran and what it skipped, so "green" carries its own coverage.
+Neither is a code-path change; both are a check saying what it checked.
+
+RETRACTED 2026-08-25, same hour, kept because the retraction is the useful
+part: this was first written as "the only test with real cross-tool depth
+skipped, so the suite certifies nothing". That was wrong. The end-to-end
+LF -> dispatch bridge is `test_real_dispatch_handoff_from_lf_staged_inputs`,
+it ran, and it asserts a real `dispatch build` with no blockers. The claim
+was made from a skip message without reading the test beside it -- this
+file's own first rule, reached for a third time in one session.
+
+*STATUS: OPEN 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a
+CHANGELOG entry before it fails*
+
+**67. `promote_factory.ps1` is a frozen one-off wearing a reusable name.**
+Found 2026-08-25. `scripts/promote_factory.ps1` sits beside the tidy scripts
+and is what a reader reaches for to promote a certified set. It cannot do
+that. It is hard-wired to **1.3.0**, dated 2026-07-19: the factory CHANGELOG
+entry is a literal heredoc naming pixelcoat 0.11.0 and zoo 0.35.0, it looks
+for `factory.manifest.v1.3.0-candidate.json`, and it throws if the promoted
+manifest's `factory_version` is not the string `"1.3.0"`.
+
+Run today it would **prepend a two-month-old entry to `CHANGELOG.md` and
+then fail** -- the write happens in step 1, the version assertion in step 3.
+The damage is a corrupted changelog, and it lands before anything tells you
+the script was wrong.
+
+The live procedure is `docs/CERTIFY.md` Step 5, which is manual and correct.
+This script is a transcript of one promotion that was left where a tool
+belongs.
+
+**WHAT WOULD CLOSE THIS.** Either parameterise it (`-Version`, entry text
+from a file, candidate path derived) or move it to `_archive/` and let
+CERTIFY.md be the only answer. Not both, and not left as it is: a script
+named for a repeatable operation that destroys a file on its way to failing
+is worse than no script.
+
+*STATUS: CLOSED 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE
+RUN THAT FOUND IT. `aggregate` takes `selected_candidate` and never moves the
+selection's own blockers to `blocking_eliminated`; `cmd_run` passes it from
+the same `.selected` marker the approval gate writes. Opt-in with a `None`
+default, so `cmd_validate` and every other caller are untouched. The
+acceptance test was the same command on the same cached workspace before and
+after, and only the reporting moved. 0.49.0: "2 blocker(s) belong to
+eliminated candidate(s) and do not block the mission / Structural checks
+passed (blockers open: 0, total findings: 119)". 0.50.0: "THE SELECTED
+CANDIDATE WAS ELIMINATED: category5_baie_dore_001.candidate.seed_7001 / its
+blockers still count, and this mission has no viable selection until another
+candidate is approved / Blocked: unresolved blocking issues (blockers open:
+2, total findings: 119)". **119 BOTH TIMES** -- findings are partitioned,
+never dropped, and the count that did not move is the evidence that nothing
+was invented to make the gate fire. Three checks stood behind it before the
+run: the patch's own selftest against the installed module; eight cases in
+`tests/unit/test_selected_candidate_blockers.py` that ALL fail against
+0.49.0; and the 2026-08-12 patch's OWN selftest still passing unchanged, so
+the fix this one overshot is not loosened. WHAT IS NOT CLOSED BY THIS: the
+two `LUX_FIXTURE_COLOCATION` blockers are real and still open (0.25 m lamp
+offsets on seed_7001) -- the gate now reports them, nobody has fixed them --
+and this item's two secondary observations stand, that `lux_fixture_gate` was
+marked `blocked` while `lux_apply` ran after it anyway, and that the gate
+process exits 0 while printing `colocation_errors=2`. Neither is the
+accounting defect this item names, and neither should be silently inherited
+by whoever reads the closure.*
+
+**68. A blocker on the candidate a human SELECTED is discounted because the
+pipeline eliminated that candidate.** Found 2026-08-27 during `cold_7001`.
+The run reported `Structural checks passed (blockers open: 0, total findings:
+119)` on a mission whose selected candidate carried two unresolved blockers.
+
+The chain, each link read off disk rather than reasoned about:
+
+    .level_factory/approvals/category5_baie_dore_001.selected
+        category5_baie_dore_001.candidate.seed_7001
+
+    validation/category5_baie_dore_001.json -- 2 issues, severity "blocker",
+    blocking: true, both candidate_id ...candidate.seed_7001
+        LUX_FIXTURE_COLOCATION  20 marker(s) with no lamp within 0.10 m
+        LUX_FIXTURE_COLOCATION  20 lamp(s) more than 0.10 m from any marker
+
+    console
+        1 candidate(s) eliminated (the rest carried on): ...seed_7001
+        2 blocker(s) belong to eliminated candidate(s) and do not block the mission
+        Structural checks passed  (blockers open: 0, total findings: 119)
+
+The mechanism is `packages/validation/model.py:121`, in `aggregate`:
+
+    elif issue.blocking:
+        if issue.candidate_id in eliminated_candidates:
+            blocking_eliminated.append(issue.issue_id)
+        else:
+            blocking_open.append(issue.issue_id)
+
+**The predicate never consults `.selected`.** The docstring's reasoning is
+right as far as it goes -- "the mission is not blocked by a candidate it
+stopped building. N candidates exist so that some can be bad" -- and it is
+correct for a candidate nobody chose. It has no clause for the one candidate
+whose blockers are the only ones that can matter. So the discount fires
+hardest exactly where it should not fire at all.
+
+It is also the overshoot of a fix this same docstring records: the 2026-08-12
+`lot_demo_001` case where an eliminated candidate wrongly blocked the mission
+and "the run that continued reported as the run that halted". That was fixed
+by discounting eliminated candidates. This is that fix going one step too far
+in the other direction, and it is the more dangerous direction -- the earlier
+bug made a good run look broken, this one makes a broken run look good.
+
+**Two smaller things from the same episode, same theme -- the block did not
+block.** `lux_fixture_gate` was marked `blocked` and `lux_apply` ran after it
+and succeeded. And the gate process itself exited **0** while printing
+`[fixture_gate] markers=37 spawned=37 colocation_errors=2`; the blockers were
+manufactured downstream from its report, not from its exit code.
+
+The underlying lamp defect is minor -- 0.25 m offsets. That is not the point.
+A thing labelled `blocker` reached `blockers open: 0` and printed `passed`.
+
+**WHAT WOULD CLOSE THIS.** `aggregate` needs the selected candidate, and a
+blocker belonging to it stays in `blocking_open` whatever the scheduler did
+with it. If a selected candidate is eliminated, that is itself the finding to
+surface -- the mission has no viable selection -- not a reason to stop
+counting. Whatever the remedy, the acceptance test is this run: `cold_7001`
+must not print `passed`.
+
+*STATUS: OPEN 2026-08-28 -- MEASURED ON TWO BRIEFS NOW, AND THE SECOND ONE
+RULES OUT THE TIDIEST WRONG EXPLANATION. `cold_7002` built
+`lf_bank_block_001_7002` with `seed=1999` against `seed=1989` for the rockay
+brief, so the stuck seed is NOT a single hardcoded constant -- it varies by
+brief and still never carries the candidate seed. Where it is lost between
+LF's spec dict and the file DC reads remains unlocated, and this item still
+does not guess at it.*
+
+**69. Deli Counter's seed never varies, so every candidate is the same
+building.** Found 2026-08-27 during `cold_7001`. `candidate_count: 5` produced
+five site layouts of one identical building set.
+
+Every spec Level Factory handed Deli Counter carried the same seed:
+
+    deli_counter/specs/lf_category5_baie_dore_001_7001.json   "seed": 1989
+    deli_counter/specs/lf_category5_baie_dore_001_7405.json   "seed": 1989
+
+Those two files differ in **exactly three lines**, all of them name strings
+(`..._7001_stair_0` against `..._7405_stair_0`). Every geometric field is
+identical, all five `shell.glb` are 625,404 bytes, and DC's own log confirms
+it built `seed=1989` for the candidate named 7001. `1989` appears in the
+batch, the brief and this file exactly nowhere.
+
+Level Factory computes the candidate seed correctly and passes it --
+`apps/cli/commands/__init__.py:282` is
+`"seed": int(job.candidate_id.rsplit("_", 1)[-1])` -- and Lot, two lines
+later at :287, receives it and uses it. **Where the seed is lost between that
+dict and the file DC reads has not been located**, and this item does not
+guess at it. The seed does reach the FILENAME, which narrows it.
+
+The consequence is not that candidates are identical -- they are not. Lot
+varies the layout, and the five differ measurably: Laser Tag scored 65 / 50 /
+50 / 55 / 50, nav-qa passed 7001 and 7203 and failed the other three, and the
+site spines ran 973 m to 1106 m. What is missing is building variety.
+`candidate_count` is meant to buy shapes to choose between; it currently buys
+arrangements of one shape.
+
+**LF's own diversity check passes on this.** It printed `candidates: 5 built,
+all distinct` -- true, and it compares assembled sites, so five byte-identical
+building sets sail straight through it. A check can be honest and shallow at
+the same time.
+
+**WHAT WOULD CLOSE THIS.** Find the drop, thread the candidate seed to DC,
+and re-run `cold_7001` -- five distinct `shell.glb` sizes is the acceptance
+test. Then give `candidate_diversity.py` something to say about buildings, so
+the check that reported `all distinct` here would not do so again.
+
+*STATUS: CLOSED 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC
+RUNS. `cold_run.py` now ATTRIBUTES rather than subtracts: a changed file is
+matched against a `GENERATED` table of narrow patterns, each carrying the
+reason it is there, and the report prints that reason beside every attributed
+file so the claim is audited on every read instead of trusted once. Anything
+unclaimed is counted, which is the safe direction. The table is deliberately
+`deli_counter/specs/lf_*.json` and `CATALOG.md` rather than the directory --
+the rest of `deli_counter/specs/` ships with the repo, and hand-editing one
+of those until the output works is the failure mode roadmap 17 is named
+after. `--observe` is the third journal kind, reported as its own figure and
+counted toward nothing. The verdict now follows `max(noted, unattributed)`
+instead of treating any hash hit as an intervention. Proven end to end on
+three synthetic runs rather than by reading the code: (A) a run writing only
+generated specs reports INTERVENTIONS 0 and exits 0, with the retry and the
+observation on their own lines; (B) a silent edit to `deli_counter.py`
+alongside a generated spec is still caught -- 1 attributed, 1 unattributed,
+DISAGREEMENT printed, exit 1; (C) a SHIPPED spec hand-edited in that same
+directory is still caught, which is the case a directory-wide skip would have
+blinded. The selftest pins `cold_7001`'s six real paths verbatim from its own
+`diff.json`, and pins six paths `GENERATED` must never excuse. `diff.json`
+now carries `attributed` (with reasons) and `unattributed`. Runbook updated.
+WHAT THIS DOES NOT DO: it does not make the table right, only auditable. If
+another tool starts writing into a repo mid-run, the count goes UP until
+somebody adds a line and says why -- which is the correct way round.*
+
+**70. `cold_run.py` counts the pipeline's own writes into a tool repo as
+interventions.** Found 2026-08-27 by running it. `--end` on `cold_7001`
+printed `INTERVENTIONS: 1` for a run in which nobody edited anything.
+
+All six hash-detected files were written by the pipeline:
+
+    changed  deli_counter/specs/CATALOG.md
+    added    deli_counter/specs/lf_category5_baie_dore_001_{7001,7102,7203,7304,7405}.json
+
+Level Factory writes its per-candidate DC specs into `deli_counter/specs/`
+-- a repo `cold_run.py` hashes -- and DC regenerates `CATALOG.md` as a side
+effect. The tool does not hide this: it prints every touched file and says
+"read diff.json before quoting a number", and classifying them took a minute.
+But the headline figure was wrong, and a headline figure that needs a human
+to correct it is the thing this instrument exists to avoid.
+
+**The obvious fix is wrong.** Adding `specs` to `SKIP_DIRS` would blind the
+detector to hand-editing a spec until the output works, which is the exact
+failure mode item 17 is named after. The distinction needed is not WHERE a
+file sits but WHO wrote it, and a hash cannot see that.
+
+**A second gap, found the same way.** There is no way to record an
+observation. A journal correction had to be filed with `--note` and landed in
+the intervention column, inflating the count by one more. `--note`, `--retry`
+and nothing else is one category short.
+
+**WHAT WOULD CLOSE THIS.** Two changes, both small. Record the set of paths
+the pipeline wrote during the run -- LF already knows them -- and subtract
+that set from the diff before counting, leaving anything unaccounted-for as a
+genuine intervention. And add a third journal kind (`--observe`) that reports
+separately and counts toward nothing. Until both land, `cold_run.py`'s
+printed total is a starting point for a human, not a result.
+
+*STATUS: CLOSED 2026-08-28 -- RETRACTED AS FILED, REFRAMED, FIXED IN LUX
+0.26.0, AND PROVEN TWICE: ONCE SYNTHETICALLY AND ONCE ON THE LEVEL THAT FOUND
+IT. What was filed as "Lux spawns every fixture lamp 0.25 m off its marker"
+was the ruler, not the geometry. `lux_light_loader.gd` sets
+`r.mount_height = -0.25` in the `"fluorescent"` branch alone -- pendant,
+streetlight and wall_pack are all 0.0 -- and Lux **0.20.0 shipped that
+deliberately** off the 2026-08-23 walk ("Real tubes hang; ours do now"),
+because a lamp flush on the ceiling plane streaks at glancing angles and
+scorches a ring. The spawner puts the RIG ROOT on the marker, the rig hangs
+its bulb below, and `check_fixture_colocation` compared marker to `Light3D`
+against a flat 0.10 m tolerance -- measuring bracket-to-bulb and calling a
+decision a defect. THE FIX (`patches/patch_lux_colocation_anchor.py`): a
+light's anchor is its rig root when it was spawned into `LuxFixtureLights`
+and the light itself otherwise, so both halves measure rig roots while
+manifest-baked lamps still satisfy a marker. A per-type tolerance was
+rejected as worse -- it would need updating whenever a mount height is tuned,
+which is the coupling that caused this. PROOF 1, `lux/tools/colocation_selftest.gd`
+(needs `--import` first; the class cache is why its first run died in a wall
+of "Could not find type LuxRoot"): case 0 MEASURED the drop rather than
+assuming it -- rig root 0.0 from its marker, bulb 0.25 below -- which matters
+because a fix that stops the check complaining is indistinguishable from one
+that stops it working; then a hung fixture passes, a rig moved 5 m fails with
+BOTH findings and recovers, an unspawned scene reports dark hardware, and a
+baked lamp counts. PROOF 2, `cold_7002` re-run: `lux_fixture_gate` blocked ->
+succeeded, and `blockers open: 2, total findings: 55` -> `blockers open: 0,
+total findings: 53`. **55 - 2 = 53**: exactly the two blockers left and
+nothing else drifted, which a loosened tolerance would not have managed. The
+mission then exported. NOTE THE MUTUAL CONCEALMENT: this gate had been wrong
+since Lux 0.20.0 and nothing saw it, because item 68 was discounting its
+blockers as belonging to an eliminated candidate. A silent gate and a lying
+aggregator cancel out and the run reports clean.*
+
+**71. The fixture co-location gate measures bracket-to-bulb and calls it a
+floating light.** Filed 2026-08-27 as "Lux spawns every fixture lamp 0.25 m off
+its marker", retracted 2026-08-28 on reading the producer. The retraction is
+kept because it is the more useful half.
+
+WHAT WAS FILED, and it was wrong: `cold_7001` and `cold_7002` both blocked on
+a matched pair of `LUX_FIXTURE_COLOCATION` errors with the same worst distance
+to the centimetre --
+
+    cold_7001   markers=37 spawned=37   20 unmatched   worst 0.25 m
+    cold_7002   markers=19 spawned=19   12 unmatched   worst 0.25 m
+
+-- and a constant across two themes, two archetypes, two building counts and
+two Zoo kits was read as a hardcoded displacement bug in the producer. It is a
+hardcoded displacement. It is not a bug.
+
+THE CHAIN, each link read in source:
+
+    lux_light_loader.gd, "fluorescent" branch only
+        r.mount_height = -0.25
+        # A hand's width BELOW the anchor: a lamp sitting on the ceiling
+        # plane spends half its sphere grazing the ceiling -- streaks at
+        # glancing angles and a scorched ring around the fixture (same
+        # walk). Real tubes hang; ours do now too.
+      ... "pendant" 0.0, "streetlight" 0.0, "wall_pack" 0.0
+
+    lux_fixture_spawner.gd
+        rig.global_transform = mk.global_transform      # rig root ON the marker
+
+    lux_fluorescent_rig.gd
+        start := -(r.count - 1) * 0.5 * r.spacing        # count 1 -> start 0
+        lamp.position = Vector3(start + i * r.spacing, r.mount_height, 0.0)
+                                                        # -> (0, -0.25, 0)
+
+    lux_validator.gd, check_fixture_colocation(scene_root, tolerance = 0.1)
+        mp := marker.global_position
+        d  := (mp - light.global_position).length()      # bracket to BULB
+        if d > tolerance: dark += 1
+
+**The offset is art direction somebody walked the level to find.** Removing it
+to satisfy this check would re-introduce the streaking and the scorched ring
+the comment describes. This is the third time this file has been caught
+measuring with the wrong ruler -- the 222 phantom envelope gaps, the
+reconstruction that "refuted" the float bug, and now this -- and the pattern is
+always the same: an artefact disagreed with an expectation and the producer
+was blamed before it was read.
+
+**TWO BUGS WERE HIDING EACH OTHER.** This gate has been wrong for as long as
+fluorescents have hung, and nothing saw it, because item 68 was discounting its
+blockers as belonging to an eliminated candidate. Fixing the accounting on
+2026-08-27 is what made the bad gate visible. A silent gate and a lying
+aggregator cancel out, and the run reports clean.
+
+**WHAT IS ACTUALLY OPEN.** The check blocks every level that contains a
+fluorescent fixture, which is every interior this factory builds. It is the
+one thing standing between item 17 and a cold run that reaches a package
+passing its own gate.
+
+**WHAT WOULD CLOSE THIS.** The contract the gate means to enforce is "a rig
+landed on every marker, and no rig is floating in space unattached to
+hardware". That is a statement about RIG ROOTS, not about bulbs -- where the
+bulb sits inside its own rig is Lux's business and is tuned per type. So
+compare marker positions against the spawned rig nodes rather than against
+their `Light3D` descendants, which keeps the genuine failure (a rig nowhere
+near any marker) catchable while ceasing to punish an intentional mount
+offset. A per-type tolerance would also work and is worse: it would need
+updating every time a rig's mount height is tuned, which is exactly the
+coupling that produced this. Acceptance test: `cold_7002` re-run to a package
+-- that workspace is cached up to the art pass, so it is cheap -- and a
+synthetic rig placed 5 m from any marker must still be caught.
+
+*STATUS: CLOSED 2026-08-29 -- CHECKED IN FOUR PLACES, AND THE ONE THAT SAVES
+THE TIME IS `run` REFUSING BEFORE IT DISPATCHES ANYTHING. Shipped as Level
+Factory 0.51.0. `packages/tools/themes.py` reads what the installed tools
+actually carry -- Pixelcoat's `profiles/themes/*.json`, and the `styles` keys
+across Zoo's species -- and reports Zoo coverage as a FRACTION rather than a
+boolean, because "3 of 48 species carry it" and "48 of 48" are different
+answers. `run` now refuses an art layer whose theme does not resolve, before
+any job is dispatched, and only when an art layer is planned since graybox
+needs no theme. `plan` prints the theme and whether it resolves on EVERY
+plan, because a graybox plan is exactly when a reader is deciding whether to
+add `--art`. `doctor` lists the themes Pixelcoat and Zoo carry -- not a
+verdict on any brief, since doctor does not know which mission you mean, but
+the list that makes `delco_1997` next to `delco` obvious. And the Pixelcoat
+adapter's `validate_configuration` refuses a theme with no profile, naming
+the path and what IS installed, so a run that reaches dispatch anyway fails
+as an input-validation error rather than a bare `exit=1`. THE PATH WAS NEVER
+A MYSTERY: `fingerprint_inputs` has always built exactly
+`profiles/themes/<theme>.json` to hash the profile into the fingerprint. The
+adapter knew where the file goes and never asked whether it was there.
+PROOF: `tests/unit/test_theme_preflight.py`, nine cases covering the
+`cold_7002` theme itself, partial Zoo coverage, an unparseable species being
+skipped rather than guessed at, and an unconfigured repository NOT being
+reported as a no. Eight of those pin a new module's contract and could not
+have failed before it existed; the ninth is the real regression test and does
+fail against 0.50.0. Stated that way rather than as "nine tests, all red
+before", which would have been the flattering version. CLOSED ONE STEP EARLY,
+CORRECTED 2026-08-30: the feature was right and the SUITE WAS RED FOR A DAY --
+970/981 with seven failures, because the stub Pixelcoat repo under
+`tests/fixtures/repos/` carried no `profiles/` directory at all while every
+fixture batch names `theme_family: delco_1997`. The check is correct; the
+fixture install was the thing that could not resolve its own theme. Six of the
+seven were the cascade -- a refused art layer leaves no presentation preview,
+which reads as `pending` where the facade expects `ready` -- and only
+`test_presentation_export_and_portability` named the cause. Fixed by adding
+that profile, shape copied key-for-key from the real
+`pixelcoat/profiles/themes/delco.json` rather than invented. 970 passed, 11
+skipped, 0 failed. THE LESSON IS THE STATUS LINE ITSELF: this item said CLOSED
+while its own test suite disagreed, and nobody was looking at the suite*
+
+**72. Nothing checks that a brief's theme resolves until the art pass is
+already running.** Found 2026-08-28 in `cold_7002`.
+
+The brief said `"theme": "delco_1997"`. Pixelcoat ships
+`profiles/themes/delco.json` and no `delco_1997.json`; Zoo carries a `delco`
+style and no `delco_1997`. The run found this out here:
+
+    $ python3 -m pixelcoat.cli.main theme-library --theme delco_1997 ...
+    pixelcoat: error: no theme profile for 'delco_1997' at
+      ...\pixelcoat\profiles\themes\delco_1997.json
+    (exit=1, duration=2.03s)
+
+**Two seconds to fail, after the entire graybox leg had run.** `doctor` passed.
+`plan` passed and printed a twelve-job DAG without a word about the theme.
+Three candidates went through Deli Counter in Blender, then Lot, Laser Tag and
+walktest -- tens of minutes of real compute -- and then the art pass stopped
+on a file that could have been stat-ed before the first job was dispatched.
+
+The missing profile is a content gap and arguably not a pipeline defect at
+all. **The absence of the check is the defect**, and it is the same species as
+the rest of this file: a precondition discovered only by violating it,
+expensively, late.
+
+**WHAT WOULD CLOSE THIS.** `plan` resolves the theme and says so -- which
+theme each art stage will ask for, and whether it exists -- and `doctor`
+reports the themes the installed Pixelcoat and Zoo actually carry. Neither
+needs a new mechanism; both are a check saying what it checked, before
+spending anything.
+
+*STATUS: OPEN 2026-08-29 -- PROMOTED. FILED AS TWO RUNS DISAGREEING ABOUT
+FINDINGS; `cold_7003` SHOWED THE SAME MECHANISM REFUSING AN EXPORT, WHICH
+MAKES THIS THE ONE THING BETWEEN A GATE-CLEAN ART PASS AND A PACKAGE. THE
+SECOND HALF -- THE SEVEN-FINDING DIFFERENCE -- IS STILL UNEXPLAINED AND ITS
+EVIDENCE IS STILL DESTROYED*
+
+**73. Two identical consecutive runs cached nothing and disagreed about what
+they found.** Found 2026-08-28 in `cold_7002`, before any intervention.
+
+`run bank_block_001` was issued twice in a row with nothing changed between
+them. Neither invocation reused a single cached job -- all twelve re-executed
+both times -- and the findings total moved:
+
+    run 1   Structural checks passed  (blockers open: 0, total findings: 49)
+    run 2   Structural checks passed  (blockers open: 0, total findings: 42)
+
+**Half of it has a mechanism.** The build fingerprint carries the tool repo's
+dirty state:
+
+    "repository_commit": "009048b8c44bfc...+dirty.404bb756aa90cc84"
+
+and Level Factory writes its per-candidate DC specs INTO `deli_counter/specs/`
+(item 70). So the pipeline dirties the repo whose dirty hash it fingerprints,
+and the next run misses the cache it just populated. That is the determinism
+guarantee eating itself, and it is item 70's root cause with far more at stake
+than a miscounted instrument.
+
+**The observation that refutes the tidy version, kept rather than dropped:**
+`cold_7001`'s re-run DID cache-hit Deli Counter and Lot under what look like
+the same conditions. So the mechanism above is not the whole story, and this
+item does not claim it is.
+
+**The seven-finding difference has no explanation at all.** The scheduler
+keeps only attempt `1/`, so run 2 overwrote run 1's reports and the two cannot
+be compared. If Laser Tag is not reproducible at a fixed seed, that is a
+serious finding about every grade this factory has ever recorded; if something
+else drifted it is a different one. Nobody can say which from what is on disk.
+
+**WHAT WOULD CLOSE THIS.** Two separable pieces. Stop the pipeline writing
+into a repo it fingerprints, or exclude generated paths from the dirty hash --
+then two identical runs should be all-cache, which is cheap and falsifiable.
+And keep attempt directories instead of overwriting `1/`, so a run that
+disagrees with its predecessor can be diffed against it rather than guessed
+at. The second is what makes the first checkable.
+
+**PROMOTED 2026-08-29 BY `cold_7003`, WHICH IS THE SAME MECHANISM WITH A
+WORSE CONSEQUENCE.** The art pass was gate-clean and needed no intervention.
+The export was then refused:
+
+    gameplay-anchor registry changed after art pass
+    interactive registry changed after art pass
+
+`collision_fingerprint` did NOT drift -- the shape of the level is unchanged.
+Only the two registries the lock also fingerprints moved. The timeline says
+why, and it is item 70's root cause again:
+
+    12:06:31.899   functional shell lock approved
+    12:06:33.247   deli_generate re-evaluated   (+1.3 s)
+    12:06:38.478   lot_assemble re-evaluated    (+6.6 s)
+
+**The art run cache-missed and re-ran the very jobs the lock had fingerprinted
+1.3 seconds earlier.** The lock is not wrong to refuse; the registries really
+did change. It is fingerprinting a tree the pipeline is still writing to.
+
+The lock was deliberately NOT re-approved. Re-approving clears the block and
+destroys the evidence in the same motion, and the block is correct.
+
+**This moves the item's weight.** As filed it was a determinism curiosity
+worth two runs of confusion. It is now the reason item 17 -- the only item
+that measures what the toolchain is for -- has no yes after three cold runs:
+7001 exported on a gate later found broken, 7002 blocked on a missing theme
+profile, 7003 blocked here. Evidence: `docs/findings/COLD_RUN_7003.md`.
+
+
+*STATUS: OPEN 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A
+NEW INSTRUMENT, NO FIX ATTEMPTED. THE NUMBER IS NOT A ONE-BUILDING COMPLAINT
+AND IT DOES NOT PLATEAU*
+
+**74. Every wall in every building is the same 2.00 m module, and it gets
+worse the longer the facade.** Found 2026-08-29 by walking `bank_block_001`
+seed 7003 and then measuring what had been walked.
+
+`_wall_span` (`deli_counter.py:756`) tiles each solid span into whole modules
+of `_module_size()`, which defaults to 2.0 m, and puts the remainder in a
+`wallEnd`. The shipped art confirms it from the other end: the whole themed
+art directory for that level holds exactly two wall meshes,
+`wall_delco_01_w200` and `wall_delco_01_w30`.
+
+`tools/repetition_census.py` reads either the composed `.tscn` or Deli
+Counter's own `*.slots.json` and reports, per wall run, the longest number of
+IDENTICAL consecutive forms -- a form being a mesh AND the scale it was
+stretched to, because DC scales `wallEnd` per slot and three wallEnds at three
+widths are three things. Floor 1, ceiling the run's own segment count.
+
+Twelve buildings off the shipped library:
+
+    building              insts  stems  forms   reuse   worst  100%-runs
+    large_warehouse_a03     356     13     33   10.79      28      7/15
+    arena_a01               237     10     27    8.78      27      4/10
+    arena_a03               238     16     32    7.44      26      3/11
+    country_club_a01        179     13     23    7.78      20      5/10
+    supermarket_a03         184     11     21    8.76      20      5/10
+    bank_tower_a01          176      5     20    8.80      19      4/10
+    mansion_a03             272     12     29    9.38      19      6/16
+    depot_a01               110      9     23    4.78      13      0/6
+    bank_tower_a03           99      5     23    4.30       9      0/6
+    gas_station_a01          79     12     29    2.72       8      0/6
+    pharmacy_a01             67     12     20    3.35       7      0/6
+    strip_retail_a02         54     12     22    2.45       7      1/6
+
+`worst_run` median 19. `large_warehouse_a03` has SEVEN runs that are 100% a
+single form; `bank_tower_a01` has four, off five distinct stems across 176
+instances. Every run in every building sits at pitch 2.00.
+
+**The building that prompted this scored 14 -- below the median.** The
+complaint was raised on the mildest example available.
+
+**The shape of the table is the finding.** The small buildings score well
+because their runs are too short to repeat, not because they were authored
+better; a 14 m run holds seven modules and cannot hold twenty. Repetition is
+linear in facade length and **there is no floor** -- a 100 m facade is fifty
+identical panels. Any fix that does not scale with run length is a patch on
+today's library rather than a position on the next one.
+
+**THE FRAMING THIS WAS MISSING, from outside the codebase.** Kronenberger
+(beyondextent.com, *Balancing Modularity and Uniqueness in Environment Art*):
+modularity is not one grid, it is LAYERED. Large grid-aligned pieces buy
+speed; smaller nested pieces on a finer grid -- or on no grid at all -- buy
+apparent uniqueness without giving the speed back. Her working example is a
+100-unit base grid dropping to 50 for smaller parts, "two-tier freedom while
+maintaining alignment", and: "Even if the main pieces should be visibly
+modular pieces, it looks always more interesting to break things up on a
+smaller level."
+
+**This factory has exactly ONE layer.** `_module_size()` is a single number,
+2.00 m, and every measurement in the table above is that one number seen from
+a different angle. The answer is not more variety at that layer; it is a
+second one.
+
+With a caveat this repo learned the hard way and an outside article cannot
+know: her small off-grid decorative pieces sit PROUD of the surface, and this
+pipeline already had those -- Patina emitted panel and pilaster orders, Zoo
+built them standing off the face, and 546 of them ended up as non-collision
+geometry in space a body walks through. That is why `arch.relief_parts` carves
+inward instead. A second layer here has to be subtractive, or has to be
+something other than geometry.
+
+**WHAT WOULD CLOSE THIS.** Not a threshold -- where the gate belongs is a
+taste call and the instrument deliberately reports no verdict. Either the
+vocabulary grows with the span (a bay library selected per module rather than
+one `DC_MODULE`, plus the `wallCorner` of item 64) or item 76's per-instance
+work lands and item 78's second ruler is built to see it. Evidence:
+`docs/findings/REPETITION_BASELINE.md`.
+
+*STATUS: CLOSED 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING
+THE MODULE GRID BY TWO SEPARATE MECHANISMS AND BOTH ARE GONE: `bay: 2.4`
+AGAINST A 2.00 m MODULE MADE `round(w/bay)` 1, SO NO WALL IN ANY BUILD EVER
+GOT AN INTERIOR PIER; AND FLUSH FULL-WIDTH END PIERS PUT A DOUBLE-WIDTH STRIP
+AT EVERY SEAM AND NOWHERE ELSE. NOW `bay: 1.0` WITH HALF-WIDTH ENDS, SO A SEAM
+IS GEOMETRICALLY IDENTICAL TO A BAY LINE. MEASURED ON THE NORTH ELEVATION,
+SPECTRAL POWER AT THE 2 m MODULE PITCH FELL 1548 -> 1044 WITH THE VERTEX
+LAYER HELD CONSTANT -- A 33% REDUCTION, NOT THE 5.6x THE CONFOUNDED FIRST
+COMPARISON CLAIMED. TWO REGRESSION TESTS PIN IT AND BOTH FAIL AGAINST THE OLD
+GEOMETRY. `pier` ALSO RAISED 0.02 -> 0.1 IN 0.54.0 BECAUSE 0.02 IS 1.3 PIXELS
+AT THE ELEVATION'S 66.7 px/m AND THE RHYTHM WAS CORRECT AND INVISIBLE. THE
+RESIDUAL IS ITEM 79: ARTICULATION COMPUTED PER MODULE CAN CHANGE THE RHYTHM'S
+FREQUENCY BUT NEVER ITS PHASE*
+
+**75. Delco's facade relief was drawing the module grid it exists to break
+up.** Found 2026-08-29, while looking for why item 74's buildings read as
+moulded plastic rather than merely repetitive.
+
+Delco carried no `relief` block, so it fell through to `arch.RELIEF`'s
+defaults. Run on a real 2.0 x 0.3 x 3.6 module those produce:
+
+    Pier_0   center=(-0.93, 0, 0.165)   size=(0.14, 0.30, 3.03)
+    Pier_1   center=( 0.93, 0, 0.165)   size=(0.14, 0.30, 3.03)
+    Field_0  center=( 0.00, 0, 0.165)   size=(1.72, 0.20, 3.03)
+
+`relief_parts` places its end piers FLUSH with the module edges, which is
+right on its own terms -- one centred on the edge would hang half its width
+into the neighbour and double at every seam. But two flush 0.14 m piers MEET
+at each seam. What the eye gets is a 0.28 m wide, 3.03 m tall, full-depth
+strip standing 0.05 m proud of the field, repeating at exactly the module
+pitch for the length of the building.
+
+`arch.py:387` says the per-style override "is where the VARIATION belongs --
+one rhythm on every wall of every building is the failure mode this replaces."
+Exactly one style block in the whole genome library used the hook: `wall.json`
+`rockay`, setting `reveal: 0.0` -- to turn relief OFF.
+
+**FIXED IN ZOO 0.51.0**, not verified. `delco` now carries `pier` 0.02 and
+`reveal` 0.015; the seam strip goes 0.28 m -> 0.04 m and 0.05 m -> 0.015 m
+proud. Plinth and cap are kept deliberately: they are the same height on every
+module so they run continuous ACROSS seams, and horizontal bands are the cue
+that reads as one building rather than a stack. Nothing structural moves --
+relief is not in `kit.module_stem`, so the resolver sees the same filenames;
+the collider is built from `slab` and not `visual`, so no collision box
+changes; `relief_parts` guarantees the outer bbox stays exactly (w, d, h).
+
+**WHAT WOULD CLOSE THIS.** A rebuilt level, looked at. The numbers above are
+geometry and are settled; whether 0.02 reads as relief or as mush is not, and
+`repetition_census.py` is structurally blind to it (item 78). `{"reveal": 0.0}`
+-- rockay's value -- is the other end of the dial and flattens the wall to a
+single panel, plinth and cornice with it.
+
+*STATUS: OPEN 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE
+FROM A BRIEF. ONE OF THEM IS BLOCKED BY A SINGLE MISSING MODEL FIELD. THE
+WORLD-SPACE ONE IS NO LONGER A CANDIDATE BUT A RESULT: RE-MEASURED AGAINST A
+NULL RUN (ITEM 90) IT CLEARS THE FLOOR ON 7 OF 8 SHOTS, max |delta| 43-217
+AGAINST 7-16, AND IT WAS CONFIRMED BY EYE TO FIX ITEM 88. THE EARLIER
+"13.6-19.0% OF PIXELS" READING SURVIVES ITS OWN AUDIT, THOUGH THE FLOOR IT
+WAS QUOTED AGAINST DID NOT*
+
+**76. Every mechanism this factory has for making two copies of one module
+look different is implemented, and none of them is wired in.** Found
+2026-08-29, surveying what item 74 could be fixed WITH.
+
+1. **Patina's theme is always empty.** `commands/__init__.py:558` reads
+   `getattr(model, "patina_theme", "") or "default"`, and `patina_theme` is
+   not a field on the brief model or on `mission.brief.schema.json`. The
+   comment directly above it says to "pass an explicit patina_theme if the
+   brief sets one" -- no brief can. Every level ever built got `"default"`.
+   Patina ships a `delco_1997_gas_station` builtin, named in that same
+   comment, carrying water stains, paint chips, rust streaks, oil, scuffs and
+   vertical banding. It has never been selected.
+2. **`art_mode` is hardcoded `"vertex-color"`** on both branches
+   (`commands/__init__.py:552, 565`), which short-circuits Patina's entire
+   texture half.
+3. **`--slot-variation` is never passed.** Patina implements it, plus an
+   `instances.json` whose own schema note says it "breaks modular
+   repetition". Nothing in level_factory mentions either.
+4. **Pixelcoat's generation-7 stack is unreachable from a theme.** A theme
+   profile is a 24-entry lookup table and nothing else; `weathering.py`'s edge
+   wear, cavity grime, streaks and rust, and the `variations` maps, live on a
+   `pixelcoat build <recipe>` path the planner never plans.
+
+**RETRACTED IN THE SAME BREATH, so it is not carried forward as a fifth.**
+`cube_project_uv`'s unused `uv_offset` looked like the cheapest fix here and
+is not one. There is ONE `wall_delco_01_w200.glb` and it is instanced, so any
+offset passed at build time shifts every copy together. The docstring that
+made it look right is describing dressing covers, which are built at the
+origin and transformed afterwards. Kit modules are a different situation and
+the conclusion does not carry across.
+
+**WHAT WOULD CLOSE THIS.** Not all four. The question of which LAYER should
+own variation -- kit vocabulary (74), module surface (75), or per-instance
+(here) -- is deliberately NOT settled in this item, because the evidence that
+would settle it is item 75's rebuilt level and nobody has seen it. Writing the
+doctrine first would be writing it from inference, which is how the `uv_offset`
+retraction above happened.
+
+*STATUS: OPEN 2026-08-29 -- COST ONE AMBIGUOUS COUNT ON `cold_7003`, AND THE
+AMBIGUITY IS UNRESOLVABLE FROM WHAT IS ON DISK*
+
+**77. `cold_run.py --begin` cannot tell that a run is starting mid-edit.**
+Found 2026-08-29 while closing `cold_7003`.
+
+`--begin` hashes 2357 source files and proceeds. It has no idea whether those
+files were mid-change. On `cold_7003` a tool file changed six minutes into the
+run and 55 seconds before the first job wrote output:
+
+    11:59:22   --begin, 2357 files hashed
+    12:05:38   level_factory/apps/cli/commands/__init__.py written
+    12:06:33   deli_generate first output
+
+The instrument correctly counted it and correctly flagged the disagreement.
+But an edit made DURING a run to rescue it and an edit that was simply still
+landing when `--begin` fired are indistinguishable afterwards: `before.json`
+stores hashes, not content, and there is no backup sidecar. The likeliest
+account -- the item-72 patch re-application arriving late -- cannot be proven,
+so `cold_7003` carries a 1 that may or may not describe a defect.
+
+**WHAT WOULD CLOSE THIS.** Record each tool repo's dirty state at `--begin`
+and print it, so a later change in a repo that was ALREADY dirty is
+interpretable instead of archaeological. Note the wrinkle that makes this
+non-trivial and worth thinking about rather than just adding: the repos are
+routinely dirty by design, because the pipeline writes its DC specs into
+`deli_counter/specs/` (items 70 and 73). The check is not "refuse if dirty",
+it is "say what was dirty, so the diff can be read".
+
+*STATUS: NARROWED 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH
+WAS FALSE AND WAS WRITTEN WITHOUT LOOKING IN `tools/`. FOUR INSTRUMENTS
+ALREADY DO; NONE HAS EVER BEEN POINTED AT THE KIT PATH, AND ON THAT PATH THE
+THING THEY MEASURE CANNOT EXIST YET*
+
+**78. Nothing measures how a level LOOKS -- only what it is made of.** Found
+2026-08-29, immediately after building `repetition_census.py`.
+
+The census measures the repetition of the FORM VOCABULARY: which mesh, at
+which size, how many, how many in a row. That makes it the right instrument
+for item 74 and the WRONG one for item 76. Per-instance variation changes how
+two copies of one mesh look without changing that they are one mesh, so a run
+of fourteen would still read fourteen after `--slot-variation` landed. A flat
+number would not be that work failing; it would be this ruler not pointed at
+it.
+
+The limitation is written into the tool's own docstring so it is not
+discovered by being surprised. It is filed here because of what it implies:
+**item 76's work cannot currently be gated, only admired.** Every other claim
+in this factory is measured, and the one the buildings are actually judged on
+would not be.
+
+**CORRECTED THE SAME DAY, AND THE CORRECTION IS THE POINT.** This item was
+filed claiming no instrument reads appearance. `tools/` was not opened before
+writing it. Four already do:
+
+  * `vertex_variation.py` -- COLOR_0 per family in a GLB, reporting BETWEEN
+    (spread across instances) and WITHIN (spread inside one mesh) separately,
+    because they fail for different reasons. Built for the dressing path,
+    where it caught 2,098 covers exporting pure white.
+  * `look_shots.py` / `look_shots.gd` -- renders fixed cameras and writes
+    per-shot luminance statistics.
+  * `shot_diff.py` -- compares two shot runs, statistics always and pixels
+    with `--images`, and has a `--gate`. Its own docstring lists this class of
+    defect, including "1374 panels sampling one patch of concrete".
+  * `facade_rules_sweep.py` -- runs the real Patina facade rules over all 109
+    shipped manifests offline, no Blender, no Godot.
+
+**POINTED AT THE KIT FOR THE FIRST TIME, 2026-08-29**, on the module that
+appears 66 times in `bank_block_001`:
+
+    wall_delco_01_w200.glb
+    family          n     mean   BETWEEN sd   WITHIN sd
+    Wall_Field      1   0.7857      0.00000     0.10957
+    Wall_Base       1   0.7929      0.00000     0.11508
+    Wall_Cap        1   0.8245      0.00000     0.10366
+    Wall_Pier       2   0.8011      0.00375     0.10447
+    NO PER-INSTANCE VARIATION (3 families): every copy is the same colour
+
+    lf_bank_block_001_7003_dressing.glb
+    Cover_edge_strip   64   0.8140    0.02060     0.09980
+    ... every family varies both between instances and within one
+
+Two facts in one reading. **WITHIN 0.11 on every wall part is item 81's
+lozenge with a number on it** -- panels sitting at 79% brightness with an 11%
+spread painted across each one. And the dressing path varies between instances
+while the kit path does not, which is item 76 measured rather than argued.
+
+**SO THE REAL GAP IS NARROWER AND WORTH STATING EXACTLY.** For the DRESSING
+path, an instrument exists, works, and has caught real bugs. For the KIT path,
+`vertex_variation` reports zero between-instance variation and will keep
+reporting zero however it is improved, because each stem is ONE mesh instanced
+at scene level -- there is no per-instance channel for it to read (items 76 and
+80). And for composition -- whether a facade reads as authored -- `look_shots`
+says the honest thing in its own docstring: "a histogram cannot tell you a
+level looks generated."
+
+**WHAT WOULD CLOSE THIS.** Two things, neither of them a new instrument from
+scratch. Run `vertex_variation` over the kit as part of the art pass, so the
+zero is reported by the pipeline instead of discovered by a walkthrough. And
+give `look_shots`/`shot_diff` a facade framing -- a straight-on elevation shot
+per face -- so a composition change has a before and after that is not a
+person's memory. Both are wiring, which is the shape of nearly everything in
+items 76 through 82.
+
+*STATUS: OPEN 2026-08-29 -- THE FRAME ITEMS 74 THROUGH 76 ARE SYMPTOMS OF.
+NAMED FROM A WALKTHROUGH CRITIQUE, GROUNDED IN THE EMITTER, AND NOT A TUNING
+PROBLEM: THE OBJECT THAT WOULD CARRY A COMPOSITION DOES NOT EXIST*
+
+**79. Nothing in the pipeline represents a facade, so nothing can compose
+one.** Found 2026-08-29, walking `bank_block_001` seed 7003 after items 74 and
+75 had both been addressed and the building still read wrong.
+
+The critique that produced this, recorded because it is the most exact
+statement of the problem anyone has made and it is not the author's:
+
+> The facade reads less like a building and more like a row of individually
+> generated facade pieces placed beside one another. [...] The repetition sits
+> in an uncanny middle ground: the pieces are too similar to feel
+> intentionally varied, too inconsistent to establish a clean architectural
+> rhythm, and their differences do not appear connected to structure,
+> function, or composition. [...] Fragmented rather than composed. Repeated
+> rather than rhythmic. Varied without apparent reason. Detailed locally but
+> undesigned globally.
+
+**Every bullet of it has a line number.** `_emit_wall_run`
+(`deli_counter.py:893`) is the whole of the facade logic:
+
+    cursor = -full / 2.0 + inset
+    for j, h in enumerate(carve):            # openings, sorted by position
+        k = self._wall_span(..., cursor, h["u"] - h["w"]/2.0, k, material)
+        self._opening_piece(..., h, j, material)
+        cursor = max(cursor, h["u"] + h["w"]/2.0)
+    k = self._wall_span(..., cursor, full/2.0 - inset, k, material)
+
+It receives ONE run -- one face of one storey -- plus the openings already
+placed by `_exterior` as a fraction of that run. It marches left to right,
+fills the gaps with whole 2.00 m modules, and stops.
+
+  * *"the upper and lower rhythms do not align"* -- each storey is a separate
+    run with separately placed openings. The function cannot align them
+    because it never sees another storey.
+  * *"nothing appears to carry weight downward"* -- there is no vertical
+    structure to carry it. The module grid restarts at `-full/2 + inset` on
+    every run independently.
+  * *"variations in width and opening appear arbitrary"* -- they are
+    remainders. `rem = b - (a + n*M)` is arithmetic left over from tiling, and
+    `size_mod="end"` turns it into a scaled `wallEnd`. No width in the
+    building was chosen.
+  * *"corners simply stop the pattern"* -- literally. `corners=True` seats one
+    scaled unit box at each end of the run (item 58).
+  * *"nothing groups the small modules into larger architectural masses"* --
+    the only grouping concept in the emitter is "the span between two
+    openings", and its output is N copies of one module.
+  * *"no clear hierarchy... the entrance is not strong enough to organize the
+    composition"* -- the entrance is an opening in a list, sorted by
+    coordinate. Nothing marks it as primary.
+
+**This is the frame, and 74 through 76 are inside it.** The module vocabulary
+(74), the relief (75) and the per-instance variation (76) are all answers to
+"why do two pieces look the same". The critique is not about two pieces. It is
+that the pieces never had a whole to belong to. Confirmed by elimination in
+the same session: 75's relief was quietened and 74's census did not move, and
+the building still read as a row of boxes, because neither touches this.
+
+**WHAT WOULD CLOSE THIS, and it is a new capability rather than a fix.**
+Something upstream of slot emission that owns ALL storeys of ONE face at once
+and decides, before any module is placed: a bay grid every storey lands on; a
+hierarchy that marks one bay primary; grouping into masses larger than a
+module; and corners as a designed condition rather than a remainder. Deli
+Counter is the right home -- it already owns the floorplan the openings come
+from -- and `_emit_wall_run` becomes the thing that EXECUTES a composition
+rather than the thing that substitutes for one.
+
+**WHAT THIS ITEM MUST NOT BECOME.** A list of architectural rules invented by
+whoever is holding the keyboard. The grammar -- what a delco facade actually
+wants -- is a design decision and does not belong in a roadmap item written by
+the person who could not see the problem until it was pointed out. This item
+owns the MECHANISM: that there is nowhere to put a grammar. Evidence:
+`_runs/walk_wear0`, and the three walkthrough screenshots of 2026-08-29.
+
+*STATUS: OPEN 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS;
+THE STEP AFTER IT IS WRITTEN IN TWO HALVES AND NEITHER IS WIRED. RAISED AS A
+PERFORMANCE CONSTRAINT ON 74 AND 79, AND IT DECIDES THE LAYER QUESTION 76
+DECLINED TO SETTLE. NOW WITH A REASON TO MOVE: WORLD-SPACE UVs ARE MEASURED
+AND CONFIRMED TO FIX BOTH THE PER-MODULE TEXTURE RESTART AND ITEM 88'S
+STRETCH IN ONE MECHANISM, AND THE ONLY THING BETWEEN THAT AND THE SHIPPED
+BUILD IS THAT `--triplanar` LIVES IN `walk_themed.py` AS A RUNTIME FLAG THAT
+PRINTS "NOT what ships". THE UNMEASURED BILL IS FILL RATE: TRIPLANAR SAMPLES
+THREE TIMES PER MAP, SO NINE SAMPLES ACROSS ALBEDO/ROUGHNESS/NORMAL, AND
+NOBODY HAS PUT A FRAME TIME ON IT*
+
+**80. Deli Counter's one-mesh-in-VRAM discipline is not carried any further
+than the export, and the two pieces that would carry it are both dead code.**
+Raised 2026-08-29 as a constraint on how items 74 and 79 may be answered.
+
+**The discipline, which is real and well kept.** `Builder._module_cache`
+(`deli_counter.py:78`): identical modular segments keyed by role+dims, and
+repeated placement assets keyed by asset id, link a SINGLE mesh datablock.
+`_box(..., share_key=...)` (`:251`) bakes the size into the shared mesh and
+leaves object scale at 1 -- deliberately, "so an art pass on the module isn't
+stretched differently per instance". `_instance_module` (`:186`) imports a GLB
+once and links the cached datablocks. `_paint` (`:386`) knows about it: the
+share key is role plus dims, so a shared mesh always has one role and painting
+it once is correct. Result: "the glTF export carries one mesh + N nodes ->
+Godot loads one Mesh resource instanced N times."
+
+**It survives the art pass.** Measured on the composed `bank_block_001`:
+**241 scene-node instances against 36 shared PackedScenes.** One mesh and one
+texture set per stem, exactly as promised, with the themed modules swapped in
+for the greybox ones.
+
+**And it stops there.** 241 nodes is 241 separate instances as far as the
+renderer is concerned. Nothing folds them into GPU instancing, and there is
+therefore no per-instance channel at all -- which is the same absence item 76
+reports from the other end.
+
+**BOTH HALVES OF THE NEXT STEP ARE ALREADY WRITTEN AND NEITHER IS CALLED.**
+
+  * `level_factory/packages/exporting/dressing_scene.py` is a complete
+    MultiMesh exporter. Its docstring: "3,948 instances of four meshes is the
+    case instancing exists for -- as MultiMeshes that is four draw calls". The
+    buffer layout was SETTLED 2026-08-19 and isolated in `multimesh_floats()`.
+    **Grep for `dressing_scene` outside itself returns nothing.** It carries
+    per-instance TRANSFORM only -- no colour, no custom data.
+  * Patina's `--slot-variation` emits `instances.json`, schema
+    `patina-instances/1`, described in its own source as "per-slot instance
+    color/custom_data; keyed by slot_id; feeds MultiMesh per-instance buffers,
+    breaks modular repetition". The level_factory adapter never passes the
+    flag and nothing in `packages/` mentions the file.
+
+One writes the buffer and cannot vary appearance; the other computes the
+variation and has nothing to write it into. They are two halves of one
+feature, built separately, connected to nothing.
+
+**WHY THIS DECIDES THE LAYER QUESTION.** Item 76 declined to say whether
+variation belongs to kit vocabulary, module surface, or per-instance data,
+because the evidence was not in. This is evidence, and it is not aesthetic.
+Growing the vocabulary (item 74's obvious answer -- a bay library, more
+widths) mints a new stem per width per style per theme, and every stem is a
+new mesh AND a new texture set in VRAM: cost linear in variety. Per-instance
+variation is one mesh, one texture set, and a buffer: cost constant in
+variety. The two goals -- fewer draw calls and less visible repetition -- want
+the same change, which is rare enough to be worth acting on.
+
+**THE TENSION, NAMED BEFORE ANYONE SPENDS A WEEK ON IT.** Godot budgets
+positional lights PER INSTANCE, and this factory already knows it: `_arch.py`
+tiles plate visuals into smaller meshes precisely to buy more light budget
+(item 54), and the walk project ships `limits/opengl/max_lights_per_object=16`
+against a level Lux spawns ~150 fixtures into. **A MultiMeshInstance3D is ONE
+instance.** Folding 66 wall placements into one MultiMesh hands all 66 a
+single 16-light budget. So MultiMesh is plainly right for the case
+`dressing_scene.py` was written for -- thousands of small props -- and is NOT
+obviously right for walls in a fixture-lit interior. That has to be measured
+before it is assumed, and `tools/light_census.py` is the instrument that would
+measure it.
+
+**CORRECTED 2026-08-29 BY AN OUTSIDE SOURCE, and the correction matters.**
+The paragraph above says per-instance data is "the only VRAM-bounded way to
+express a composition". That is false, and it was reasoned from this codebase
+alone. Lea Kronenberger, *Balancing Modularity and Uniqueness in Environment
+Art* (beyondextent.com), names two mechanisms that are equally bounded and
+cheaper:
+
+  * **World-space / triplanar projection.** UVs computed from world position
+    rather than from the mesh. "Ignores UV seams, allowing aggressive scaling
+    and rotation without visible stretching" -- and her arcs are "the exact
+    same model, just stretched and rotated differently".
+  * **Shader colour variation tied to world position.** Every instance is at a
+    different world position, so the variation is free: no buffer, no
+    `instances.json`, no MultiMesh, and therefore NO COLLISION WITH THE LIGHT
+    BUDGET, which is the objection that made walls the hard case above.
+
+**AND THE FIRST ONE COLLAPSES ITEM 74 INTO THIS ONE.** Deli Counter already
+has a mesh that fills any width for free -- `wallEnd`, "authored as a UNIT box
+and the size rides as a per-slot scale: one module fits every remainder". It
+is confined to filler for exactly one reason, stated at
+`_record_wall_slot`: "Full-width walls and openings stay exact-fit (scale 1)
+so themed art is never stretched." **World-space UVs delete that reason.** A
+scaled box under a world-projected material does not stretch its texture, so
+the VRAM-free trick stops being usable only for hidden remainders and becomes
+usable for every wall at any width. Item 74 wants width variety; item 80 says
+variety must not be linear in stems; this is the mechanism where both are
+true at once.
+
+**WHAT WOULD CLOSE THIS, reordered by the above.** World-space UVs on the kit
+materials first: no new mesh, no new texture set, no buffer, no light-budget
+question, and it is testable in one art pass with `look_shots` elevations
+either side. MultiMesh second and only for dressing, where the exporter
+already exists and the light budget does not apply -- and measured with
+`light_census.py` before any wall follows it. `instances.json` third: still
+worth having, no longer the cheapest thing available.
+
+*STATUS: NARROWED 2026-08-29 -- THE MECHANISM IS REAL IN THE FILE AND INERT IN
+THE ENGINE. REMOVING THE WEAR ENTIRELY MOVES THE RENDER BY NOTHING ABOVE THE
+INSTRUMENT'S OWN NOISE FLOOR, SO WHATEVER OUTLINES THOSE PANELS IS NOT THIS.
+THE LAYER NOT ARRIVING IS NOW ITEM 84. AND THE THING THAT WAS ACTUALLY
+OUTLINING THEM HAS BEEN FOUND AND FIXED -- IT WAS VERTEX NORMALS, NOT COLOUR;
+SEE ITEM 86, SHIPPED AS ZOO 0.52.0 AND CONFIRMED BY EYE. THIS ITEM'S OWN
+QUESTION -- WHAT WEAR SHOULD DO ON A MESH WITH NO INTERIOR VERTICES -- IS
+UNANSWERED AND IS WHY 84 CANNOT SIMPLY BE SWITCHED ON*
+
+**81. Zoo's wear noise runs at the mesh's vertex density, and a wall module
+has eight vertices.** Found 2026-08-29 from a walkthrough screenshot in which
+every 2 m panel read as a separate soft lozenge, bright in the middle and dark
+at its own edges, fifteen in a row.
+
+`wear_colors` (`bpylayer/geometry.py:493`):
+
+    dark = min(1.0, concave * 1.5 + noise * 0.5) * wear
+
+`concave` is the average edge angle at a vertex. It darkens real interior
+corners and is right. **But a wall module is a box, so no vertex is concave**,
+that term is zero, and only `noise * 0.5 * wear` survives. Delco's wall
+carries `wear: 0.35`. Eight vertices, each handed an independent random
+darkening, then interpolated across the face:
+
+    wear=0.35   corner brightness 0.852 .. 0.955   spread 10.2%
+
+**The docstring calls that term grime, and on a dense mesh it would be.** On a
+four-vertex quad the only spatial frequency available is the panel itself, so
+instead of grime it paints one soft blob per module. The RNG is seeded from
+the filename stem with a hardcoded `0` (`bpylayer/build.py:187`), so every
+instance gets the SAME blob -- the same bright centre, the same dark corners,
+and therefore the same hard discontinuity at every seam. The wrong frequency,
+repeated exactly.
+
+Ruled out in the same pass: `ambient` is not the cause. `_ambient_tint` keys
+on the face normal's up-component, and a vertical wall face has `nz ~ 0`,
+which lands the tint between cool and warm at near-neutral. Only `wear` varies
+across a vertical panel. And it is lighting-sensitive by construction -- a
+vertex colour multiplies the lit result -- which matches the observation that a
+brighter key made it worse rather than better.
+
+**MEASURED 2026-08-29, and the numbers say something stronger than the
+arithmetic did.** `vertex_variation.py` on the module placed 66 times, and the
+same module rebuilt at `wear: 0.0`:
+
+    wear 0.35   Wall_Field mean 0.786   WITHIN sd 0.10957   colour 0.642 .. 0.982
+    wear 0.00   Wall_Field mean 0.983   WITHIN sd 0.01560   colour 0.974 .. 0.991
+
+The residual 0.016 at zero wear is `_ambient_tint` across differently-oriented
+faces, which is what it should be. Everything else is the wear layer: panels
+sitting a fifth darker than unshaded, with a 34-point spread across one 2 m
+face.
+
+**AND WHERE THAT SPREAD LANDS IS THE WHOLE PROBLEM.** Reading the GLB's own
+POSITION and COLOR_0 back:
+
+    Wall_Field: 85 vertices, 100% of them on the panel's outer shell
+                darkest quartile: mean normalised radius 1.000
+
+**A bevelled box has no interior vertices.** Every vertex it owns is on its
+perimeter, so per-vertex shading is structurally incapable of putting grime
+anywhere except the module's own edges and corners. This is not a value that
+is too high. It is a function written for meshes with interiors, applied to
+meshes that have none.
+
+The consequence in one line, and it is the observation that found this: *"in
+real life a flat wall wouldn't have repeating shadows across it even if it was
+made with multiple pieces of stone"* -- **the shading is baked occlusion drawn
+at the module joint, which is the one place on a facade with no occlusion at
+all.** Real ambient occlusion darkens where two walls meet or where a ceiling
+overhangs; this darkens where two coplanar panels abut. It is not merely wrong
+in magnitude, it is wrong in location, and it lands on exactly the seams the
+composition needs to hide.
+
+Confirmed independent of everything else tried the same day: the corner
+shading survives world-space triplanar (it is vertex colour, not UV) and
+survives removing all ~150 fixtures (it is baked, not lit) -- see item 83.
+
+**PROBE RUN AND READ, 2026-08-29, AGAINST A MEASURED NULL.** One art pass,
+one variable, `shot_diff --art-changed` confirming the art digest moved
+(`c0d9e71f7dcc` -> `f36543946260`) and the treatment did not. And, by accident,
+a NULL EXPERIMENT the run before it -- two independent assemblies, launches and
+renders of byte-identical art -- which is what makes the reading meaningful:
+
+    shot          null (identical art)      wear 0.35 -> 0.00
+    elev_E          0.01%   max 15            0.01%   max 14
+    elev_N          0.00%   max 14            0.00%   max 15
+    elev_S          0.00%   max  7            0.00%   max  7
+    elev_W          0.00%   max  7            0.00%   max  7
+    spawn           0.03%   max 16            0.01%   max 15
+    extraction      0.92%   max 16            0.44%   max 16
+
+**Deleting the entire wear layer is indistinguishable from changing nothing.**
+Every shot is at or below the floor of an instrument that reproduces to 0.00%
+on the elevations. The vertex colours are unquestionably in the GLB -- 0.642 to
+0.982, WITHIN sd 0.110, measured above -- and they are not reaching the
+renderer. See item 84.
+
+**SO THE CORNER OUTLINES ARE NOT THIS ITEM.** The observation that opened it
+stands; the attribution does not. Whatever draws a border on every panel is the
+3 mm bevel chamfer catching the sun, or the relief field edge (item 75's
+remaining 1.5 cm reveal), and this item cannot be the cause of something it has
+no measurable effect on. It stays open because the topology finding is real and
+will matter the moment item 84 is fixed -- at which point every module gets its
+own dark border for the first time, visibly.
+
+**EARLIER, AND SUPERSEDED BY THE ABOVE.** `wear` was set to 0.0 for delco walls only, every
+other style and species left as a control, and the level rebuilt. The
+screenshot that came back was read for something else (item 82) and the
+comparison was never made. **The value has been restored to 0.35**, because a
+tool repo should not carry an unvalidated probe, and 0.0 was never a shipping
+proposal -- a wall with no wear reads as plastic.
+
+**WHAT WOULD CLOSE THIS.** Not a value, and not scaling the noise either --
+on a box `concave` is zero at every vertex, so keeping only the honest term
+gives the same result as `wear: 0`, and the wall goes plastic (measured above:
+mean 0.983, spread 0.016). Occlusion has to stop being a property of the
+MODULE and become a property of the SPACE. Two routes, and they are the same
+statement at different layers: put grime in the texture, where Pixelcoat has
+the resolution and world-space projection makes it continuous across joints
+(item 80); or get real occlusion from the scene, which on this renderer means
+the Forward+ question item 83 raises, because Compatibility has no SSAO. Note the honest caveat on judging any of it: `repetition_census.py` is
+blind to this by construction (item 78), so the only current reader is a
+person looking at a render.
+
+*STATUS: ANALYSIS 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF
+THIS ONE FACT, AND IT EXPLAINS WHY A DAY OF INDIVIDUALLY CORRECT LOCAL FIXES
+CHANGED NOTHING A PERSON COULD SEE*
+
+**82. Every tool's contract is about a piece. No contract is about the whole,
+so the composed artifact is nobody's deliverable.** Named 2026-08-29, after
+four separate causes of one visible defect had been found and fixed
+individually without the defect moving.
+
+Ten tools, each with a clean contract, each verifiably meeting it. Deli
+Counter guarantees exact-fit dims, collision truth and gameplay anchors. Zoo
+guarantees one mesh per (type, theme, style, dims). Pixelcoat guarantees a
+deterministic pack per material kind per mission. Patina guarantees vertex
+nuance and a dressing manifest. Lux lights it, Laser Tag grades it, the
+functional lock fingerprints it. **All of that is true at once, and the
+building still reads as a row of boxes.**
+
+Every finding of 2026-08-29 is this same fact wearing a different hat:
+
+  * **81** -- Zoo's wear is correct PER MESH, which is exactly why it draws
+    each piece's own boundary.
+  * **74** -- the module vocabulary is correct PER SLOT, which is exactly why
+    a 30 m facade is fifteen identical answers to fifteen identical questions.
+  * **76, 80** -- the per-instance channel is written in two halves and wired
+    in neither, because nothing downstream has a whole to hand it.
+  * **79** -- there is no facade object, so there is nowhere a composition
+    could live even if one were authored.
+  * **78** -- the one instrument built today measures pieces and is blind to
+    appearance. It bit twice in one afternoon.
+  * **73** -- the same shape outside the art pass entirely: a contract about a
+    part (fingerprint the repo) defeated by the whole (the pipeline writes
+    into it).
+
+**THE PREDICTION THIS MAKES, which is the reason to file it rather than
+admire it.** The next local fix will also not move the result. On 2026-08-29
+the relief was quietened (75), the census did not move a single row, the wear
+was zeroed (81), and a facade composition pass was drafted whose measured
+effect on eleven of twelve shipped buildings was **zero overrides and one new
+stem**. Three correct local changes, no visible change. That is not bad luck;
+it is what an absent level of ownership predicts.
+
+**WHAT FOLLOWS, and it is one programme rather than seven items.**
+
+  1. A NAMED COMPOSITION (79). You cannot compose what the system cannot name.
+     Deli Counter is the home; it already owns the floorplan.
+  2. A PER-INSTANCE CHANNEL from that composition to the render (76 + 80).
+     Both halves exist: `dressing_scene.py` writes MultiMesh buffers and has no
+     importers; Patina's `instances.json` computes per-slot variation and is
+     never requested. It is the only VRAM-bounded way to express a composition
+     (item 80's constraint).
+  3. AN INSTRUMENT THAT READS THE COMPOSED RESULT (78), not the parts.
+     Without it every change is judged by eye at the end of a four-hour run,
+     which is the loop this whole day was.
+
+**WHAT THIS ITEM DOES NOT LICENSE.** Inventing an architectural grammar, and
+building an eleventh tool. The grammar is a design decision and belongs to the
+person who can see the building. The gap this item names is a MECHANISM gap:
+there is nowhere to put a grammar and no way to check one. Recorded plainly
+because it matters: this was seen by the person looking at the render, not by
+the person reading the code, after the code had been read all day. That is
+itself the finding.
+
+*STATUS: NARROWED 2026-08-29 -- REFUTED AS THE CAUSE OF THE EXTERIOR BANDING,
+BY ABLATION, WITHIN THE HOUR IT WAS FILED. THE MECHANISM IS REAL AND STILL
+UNTESTED INDOORS, WHICH IS THE ONLY PLACE ITS LIGHTS ARE*
+
+**83. The renderer lights the wall per piece, so light draws the module grid
+instead of dissolving it.** Observed 2026-08-29, walking the themed level:
+*"in real life a flat wall wouldn't have repeating shadows across it even if
+it was made with multiple pieces of stone"*, and *"light should be adding
+cohesion, not be specific to each piece."*
+
+That inverts what light is for here. A real wall is lit as a SURFACE and the
+joints between its pieces are the one thing light does not care about. In this
+pipeline light is bound PER MESH, every module is its own mesh, and so the
+lighting discontinuity lands exactly on the module boundary -- which makes
+light the loudest thing drawing the grid rather than the thing hiding it.
+
+**THE MECHANISM IS ALREADY DOCUMENTED IN THIS REPO, from the other end.**
+`tools/mesh_light_census.py`: "GL Compatibility budgets positional lights PER
+MESH... A mesh over the budget silently drops lights, which shows up standing
+still as **a hard brightness step where two slabs meet**." Three tools reason
+about the cap independently -- `zoo/core/arch.py:318`,
+`deli_counter/floors.py:177`, `lux_light_loader.gd:111` -- and the walk
+project ships `max_lights_per_object=16` against a level Lux fills with
+fixtures. **CORRECTED 2026-08-29: that count was carried over from another
+level and is wrong for this one.** `walk_fixtures` reports `Spawned 57 fixture
+light(s) from 57 marker(s)` with `omni=51` in the tree -- 57, not ~150, and 51
+of them omni. The mechanism argument does not depend on the exact number, but
+it was quoted three times today and was never measured on this building. (The
+57-vs-51 gap is unexplained and may be benign -- not every rig type need be an
+OmniLight3D -- but nobody has checked.)
+
+**AND THE FACTORY'S RESPONSE TO THE CAP HAS BEEN TO MAKE THE PROBLEM WORSE.**
+Item 54 tiles room-spanning plates into smaller meshes precisely to buy light
+budget. That is correct for the budget and it multiplies boundaries, and every
+boundary is a place two meshes can disagree about light. `_arch.py` already
+caught half of this and fixed the wrong half: it removed the chamfer from
+plate tiles because "where two tiles abut, the two chamfers form a V-groove...
+a thin bright/dark line drawn along every internal tile seam, WORST NEAR A
+FIXTURE." The chamfer was the smaller contributor. The lighting seam it names
+in the same sentence is still there.
+
+**NOT MEASURED YET, and that is the next thing.**
+`python tools\mesh_light_census.py _runs\walk_themed_relief` counts the
+positional lights reaching each visible mesh and compares them to the project
+cap. Discriminator by ablation: `walk_themed.py --no-fixture-lights` builds
+the same level with the ~150 fixtures absent. If the per-panel banding
+survives that, it is baked (item 81's vertex wear); if it goes, it is light
+binding and this item is the cause.
+
+**REFUTED FOR THE EXTERIOR, SAME DAY, BY THE ABLATION THIS ITEM ASKED FOR.**
+`walk_themed.py --no-fixture-lights` built the identical level with all ~150
+fixtures absent. On the north elevation, against the fixtures-on build:
+
+    band mean       193.04  ->  193.03
+    mean |dI/dx|     7.306  ->   7.310
+    strong edges        15  ->      15      (unchanged)
+    whole-frame max pixel delta: 15, with no structure
+
+**Nothing.** The fixtures are interior; the exterior is sun-lit and carries
+about three positional lights, nowhere near the cap of 16. At `spawn` -- eye
+level, looking through the glass into the lobby -- the same ablation moves
+57.66% of pixels with a max delta of 224, so the fixtures matter enormously
+where they are. They are not on the facade.
+
+**AND THE EDGES ARE SHADOWS CAST BY OUR OWN RELIEF.** Classifying each strong
+edge by the shape of the brightness profile across it -- a recess casts a DARK
+LINE with both sides brighter, a surface discontinuity makes a monotonic STEP:
+
+    5 dark lines (recess shadow)   4 steps (2 building ends, 2 window frames)
+
+So the repeating lines survive triplanar, survive removing every fixture, and
+read as recess shadows. They are the `relief` field edge: item 75 took the
+pier from 0.14 m to 0.02 and the reveal from 0.05 to 0.015, and **1.5 cm is
+still enough to draw a line under a directional sun.**
+
+The observation that started this item was *"a flat wall wouldn't have
+repeating shadows across it"*. It is correct, and the wall is not flat -- it
+is corrugated at exactly the module pitch, by us, on purpose. The answer is
+not to change the light. It is `{"reveal": 0.0}`, which `relief_parts`
+collapses to a single flat panel, and which `rockay` already uses.
+
+(Caveat on the classifier: it is ad-hoc, written in one cell, and the edge
+COUNT moves with the row band chosen -- 15 over a wide band, 9 over a tight
+one. The ablation result does not depend on it; the dark-line/step split
+should be re-derived properly before it is quoted as a number.)
+
+**THE TRADEOFF THIS RAISES, which is not mine to take.**
+`max_lights_per_object` lives under `rendering/limits/opengl/` -- it is a
+Compatibility-renderer limit. Forward+ uses clustered lighting and has no
+per-object light cap, so on that renderer this entire class of artefact does
+not exist, and `arch.py`'s reason for tiling plates evaporates with it. Both
+the walk project and the shipped export choose `gl_compatibility` deliberately
+(`walk_themed.py`: "MUST match the shipped export's project.godot"). Changing
+that is a reach-and-performance decision with consequences well beyond a
+facade, and it belongs to whoever owns that choice. It is recorded here
+because "light should add cohesion" has a structural answer and this is it.
+
+*STATUS: OPEN 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION
+RATHER THAN A FLAG. 1,896 KIT SURFACES CARRY COLOR_0 AND 0 OF 19 MATERIALS
+READ IT. THE EXPORT IS FINE; THE IMPORT DROPS IT. NOW WITH A MEASURED
+COUNTER-ARGUMENT: FORCING THE LAYER ON MULTIPLIES THE 2 m MODULE SIGNATURE BY
+3.8x (SPECTRAL POWER AT THE MODULE PITCH, NORTH ELEVATION, 278 OFF -> 1044
+ON, GEOMETRY HELD CONSTANT). THAT IS A LARGER EFFECT THAN THE RELIEF FIX OF
+ITEM 75 AND IT POINTS THE WRONG WAY. THE LAYER IS STILL DEAD WEIGHT AND STILL
+WORTH FIXING, BUT NOT AS BAKED: THE WEAR IS COMPUTED PER MODULE AND SO
+REPEATS PER MODULE BY CONSTRUCTION, WHICH IS ITEM 79'S ROOT CAUSE WEARING A
+THIRD MASK*
+
+**84. Zoo computes per-vertex wear, exports it correctly, and the engine does
+not use it.** Found 2026-08-29 by deleting the layer and finding that nothing
+changed.
+
+The colours are in the file. `vertex_variation.py` on the shipped module:
+
+    wear 0.35   Wall_Field mean 0.786   WITHIN sd 0.10957   colour 0.642 .. 0.982
+    wear 0.00   Wall_Field mean 0.983   WITHIN sd 0.01560   colour 0.974 .. 0.991
+
+A fifth of the wall's albedo, present in COLOR_0, byte-verified. And rendering
+the two builds through the same cameras with one variable moved and a measured
+null to compare against, **every shot sits at or below the noise floor** (item
+81 carries the table). A quarter of an albedo cannot change by that much and
+move nothing.
+
+**THE SAME FAMILY, TWICE ALREADY FIXED, ONE STEP EARLIER EACH TIME.**
+`bpylayer/geometry.py`'s own comment records it: "Measured on a shipped dressing
+GLB: COLOR_0 was 1.0 on every vertex of all 2098 covers... the wear was
+computed, written into a colour layer named 'Wear', and dropped at the export
+boundary because `export_glb` exports `export_vertex_color="ACTIVE"` and
+nothing ever made that layer active." That fixed the EXPORT. Whether anything
+CONSUMES the layer after import was never asked, and the answer appears to be
+no.
+
+**READ BACK OFF THE RUNNING SCENE, 2026-08-29** (`walk_themed.py
+--vertex-colors report`, which grafts a node that inspects the imported
+materials):
+
+    [walk_vertexcolor] kit surfaces:  1896 carry COLOR_0, 0 do not
+    [walk_vertexcolor] kit materials: 0 already use vertex colour as albedo, 19 do not
+
+**Total on both counts.** Every kit surface in the level carries the colour
+array, and not one material is told to use it. The export is not the problem --
+the 2026 dressing fix holds, and 1,896 surfaces prove it. Godot's glTF importer
+does not set `vertex_color_use_as_albedo`, so every per-vertex wear value Zoo
+has ever computed has been discarded at the material boundary.
+
+Note this also took a tool fix to see at all: `godot_probe.run_probe` captures
+Godot's output and `look_shots`'s `--verbose` printed only the command line,
+so a probe whose entire result is a `print` was invisible. Anything
+`walk_fixtures` and `walk_triplanar` have ever printed was going into a void
+as well.
+
+**WHAT WOULD CLOSE THIS.** One check and one flag. `BaseMaterial3D` ignores
+COLOR_0 unless `vertex_color_use_as_albedo` is set, and Godot's glTF importer
+decides that on its own; the check is to read the flag off the imported
+material, which the `walk_triplanar.gd` pattern already does for
+`uv1_triplanar` and could do in five lines. If it is false, the same runtime
+script sets it and the ablation is re-run -- and this time the wall should
+visibly move, which is the whole point.
+
+**AND THE ORDER MATTERS.** Do not "fix" this and item 81 in the same pass.
+Turning the layer on restores a fifth of albedo of per-module border shading to
+every wall in the library, which is item 81's defect arriving for the first
+time. The sequence is: confirm the layer is off, decide what wear SHOULD do on
+a mesh with no interior vertices, then turn it on.
+
+*STATUS: OPEN 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT
+INVESTIGATED. RECORDED BECAUSE THE EXISTING GATE CANNOT SEE IT BY
+CONSTRUCTION*
+
+**85. Fixtures spawn inside walls, and the co-location gate cannot notice.**
+Observed 2026-08-29 walking `bank_block_001`: a hanging light half-buried in
+the wall at a wall/ceiling junction, its glow bleeding through the surface.
+
+**WHY THE GATE MISSES IT, which is the reason this is worth a number.** Lux's
+`check_fixture_colocation` (item 71) asks whether the spawned rig landed on
+its marker -- rig root against anchor, and it now compares them correctly.
+That is a question about the FIXTURE. Nothing anywhere asks whether the
+MARKER is in open space. An anchor placed a few centimetres inside a wall
+passes co-location perfectly, because the lamp is exactly where it was told
+to be.
+
+Same shape as item 82: every contract is about a part. The fixture is checked
+against its anchor, the anchor is checked against nothing, and the space
+between them belongs to no tool.
+
+**WHAT WOULD CLOSE THIS, and it is cheap.** Deli Counter already emits the
+collision boxes and knows every wall's thickness; a fixture anchor inside one
+is a point-in-box test at spec time, before any art is built. Lux would be the
+wrong home -- by the time it spawns, the geometry is already committed and all
+it could do is report. Note also that anchors sit at the wall/ceiling junction
+by design, so the test needs a tolerance rather than a strict containment
+check, and the tolerance is a decision somebody has to make.
+
+**NOT MEASURED.** One screenshot, one fixture. Nobody knows whether this is
+one bad anchor or a systematic offset, and `mesh_light_census.py` walks the
+running tree and could answer it -- every spawned rig against the collision it
+sits in -- without a new instrument.
+
+*STATUS: CLOSED 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS:
+THE PERSON WHO REPORTED IT LOOKED AT THE NEXT BUILD AND SAID IT WAS FIXED.
+MEASURED BEFORE AND AFTER ON THE SHIPPED MESH -- 15 FRONT-FACE VERTICES, ALL
+AT dot 0.8756 WITH THE FACE NORMAL, 28.9 DEGREES OFF FLAT*
+
+**86. A 3 mm chamfer was shading every flat wall as a cushion.** Found
+2026-08-29, after four other investigations had each failed to explain the
+same artefact.
+
+Every panel on the facade carried a pair of diagonal wedges, identical on all
+66 placements. `wall_delco_01_w200.glb` says why:
+
+    front face (y=-1.200)     15 verts
+       distinct normals: 4
+         [-0.342 -0.876 -0.342]  x4
+         [-0.342 -0.876  0.342]  x3
+         [ 0.342 -0.876 -0.342]  x4
+         [ 0.342 -0.876  0.342]  x4
+       dot with the flat face normal: min 0.8756  max 0.8756
+
+Not one vertex on the face carried the face's own normal. Every one pointed at
+its nearest corner, so the panel shaded as a pillow and the quad's
+triangulation drew the diagonal across it.
+
+**THE MECHANISM.** `bevel_edges` cuts a one-segment chamfer that sits about 45
+degrees off each face it touches. `SMOOTH_ANGLE_DEG` was 50. Fifty is greater
+than forty-five, so the chamfer was smoothed INTO the face -- and a box face
+has no interior vertices, so every normal it owns is a corner normal and
+nothing holds the middle flat. On a prop that is the highlight roll-off a
+bevel exists for. On a wall it is ruinous.
+
+**WHY IT TOOK FOUR TRIES.** It survived world-space triplanar (it is normals,
+not UVs), survived `wear: 0.0` (not vertex colour -- item 84), survived
+deleting all 57 fixture lights (band mean 193.04 -> 193.03, item 83), and is
+invisible to `repetition_census.py`, which measures form vocabulary and by
+construction cannot see a shading artefact baked into one shared mesh. Four
+instruments each correctly reported "not me" and the absence was read as
+mystery rather than as evidence.
+
+**SCOPED ON PURPOSE.** `bm_to_object` takes a `smooth_angle` and only
+`recipes/_arch.py` passes 0.0. Cylinders still need the 50-degree default: a
+14-segment water tank at 25.7 degrees per segment reads as a dodecagon
+without it.
+
+*STATUS: NARROWED 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE
+PIPELINE. `tools/detach_textures.py` REWRITES A BUILT KIT'S `images[]` TO
+`uri` REFERENCES: 80 TEXTURE RESOURCES -> 23, ART PAYLOAD 4.65 MB -> 2.28 MB,
+183 PRIMITIVES BIT-IDENTICAL, AND THE RENDER MEASURES INSIDE THE INSTRUMENT'S
+OWN REPEATABILITY (ITEM 90). WHAT REMAINS IS A DECISION -- WHERE THE DETACH
+RUNS -- AND THE SECOND HALF: THE `tex/` FOLDER HAS TO TRAVEL WITH THE ART
+THROUGH ASSEMBLY AND EXPORT, WHICH TODAY IT DOES NOT*
+
+**87. Deli Counter's one-mesh-in-VRAM discipline stops at the texture.**
+Found 2026-08-29, checking an aside about Godot's import cache rather than
+assuming it.
+
+Pixelcoat writes ONE texture per material -- a single 256x256
+`concrete_delco_albedo.png` for the level. Zoo exports each module as a
+self-contained GLB, and a self-contained GLB embeds the image bytes it
+references: `images[]` carries `bufferView`, not `uri`. Two individually
+correct decisions multiply.
+
+    tools\texture_census.py _runs\wG\art
+      35 GLB file(s)
+      23 distinct image payload(s) stored 82 time(s)
+      3.21 MB stored   0.84 MB unique   duplication factor 3.82x
+      concrete_delco_albedo   57129 B  256x256   18 copies
+      drywall_delco_albedo   157082 B  512x512    5 copies
+
+**AND THE ENGINE DOES NOT DEDUPLICATE.** That is the fact that decides whether
+this costs disk or VRAM, so it was observed separately rather than inferred:
+the project's `.godot/imported` cache holds 18 `.ctex` files for
+`concrete_delco_albedo`, 5 for `drywall_delco_albedo`, 4 for each of the
+three `glass_facade_mirror_blue` maps. Every row matches the GLB census
+one-for-one. Godot creates one texture resource per (GLB, texture) pair.
+
+**WHAT IS AND IS NOT CLAIMED.** The duplication is per distinct ASSET, not per
+PLACEMENT -- a 66-placement wall run still loads one Mesh, so item 80's
+discipline is intact and untouched. The 27.6 MB figure the census prints is
+`width*height*4` for base levels only, no mips and no block compression; it
+moves by a large factor with the importer's compression mode and is a
+comparison against itself, not a budget. Nobody has measured a frame-time or
+an allocation. This is a count.
+
+**THE INSTRUMENT EXISTS AND ITS FAILURES ARE IN ITS DOCSTRING.** The import-
+cache grouping was wrong twice before it was right -- keyed on the whole
+filename every file grouped alone and it reported no duplication at all; keyed
+on a trailing `<word>_albedo` it collapsed concrete, drywall and carpet into
+one bucket. It now matches against the texture names read out of the GLBs in
+the same run, which is the standing rule about never writing a checker against
+a guessed schema, arrived at the hard way.
+
+**BEARING ON TRIM SHEETS.** A trim sheet consolidates many textures into one
+larger sheet. Embedded per-GLB, that is a bigger payload duplicated across the
+same 35 files. Sharing has to come first or the atlas makes this worse.
+
+*STATUS: NARROWED 2026-08-29 -- THE LANE IS CHOSEN AND CONFIRMED BY EYE, AND
+IT IS NOT ONE OF THE TWO THAT ADD ASSETS. WORLD-SPACE TRIPLANAR MAKES TEXTURE
+DENSITY INDEPENDENT OF NODE SCALE, SO A SQUASHED UNIT BOX STOPS BEING A
+SQUASHED TEXTURE. WALKED IN `wL` AT THE TWO COORDINATES THE DEFECT WAS
+REPORTED FROM -- THE CORNER AT x -15.8 z 29.0 AND THE INTERIOR JAMB AT
+x -4.6 z 20.5 -- AND THE STRETCHED STRIPS ARE GONE. MEASURED AGAINST A NULL
+(ITEM 90): 7 OF 8 SHOTS CLEAR THEIR OWN FLOOR, max |delta| 43-217 AGAINST
+FLOORS OF 7-16. WHAT REMAINS IS THAT `--triplanar` IS A WALK-PROJECT RUNTIME
+FLAG AND NOT WHAT SHIPS -- SEE 76 AND 80 -- AND THAT IT FORECLOSES TRIM
+SHEETS, WHICH IS A DESIGN DECISION AND NOT A BUG*
+
+**88. Deli Counter stretches a unit box to fill slot remainders, and the skin
+stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
+Pixelcoat application on these bands reads as stretched", which is what it
+looks like and not where it comes from.
+
+**PIXELCOAT AND ZOO ARE BOTH CLEAN.** Every mesh in the wall kit carries the
+same texel density, relief parts included:
+
+    Wall_Base      2.00 x 0.45 x 0.30    uv/m med 1.200
+    Wall_Pier_1    0.02 x 2.73 x 0.30    uv/m med 1.200
+    Wall_Field_0   0.98 x 2.73 x 0.27    uv/m med 1.200
+    Wall_Panel     0.30 x 3.30 x 2.00    uv/m med 1.200
+
+and every material's `KHR_texture_transform` is square -- `concrete_delco` is
+`scale 0.400,0.400`, and no material in the kit has a non-uniform one.
+
+**THE STRETCH IS APPLIED AT PLACEMENT.** `building.tscn` has 238 transformed
+nodes. 46 carry a non-uniform scale, and the mesh is the same one every time:
+
+    wallEnd_delco_01.glb    35        wall_delco_01_w200.glb    66  uniform
+    wallEnd_delco_03.glb     6        wall_delco_01_w30.glb     62  uniform
+    wallEnd_delco_02.glb     5        window/doorway/prop       all uniform
+
+    ext_-1_N_seg14   1.700 3.300 0.300     ext_0_N_seg10    0.150 3.300 0.300
+    int_0_0_seg12    0.300 3.300 0.300     int_-1_2_seg7    0.300 3.300 1.650
+
+`wallEnd` is a UNIT BOX. `wall_delco_01_w200` has its width baked into the
+mesh by Zoo and is placed at scale 1; `wallEnd` is the exception to that and
+is scaled to whatever remainder is left. A 1x1x1 mesh scaled to 0.30 x 3.30
+carries UVs authored for a square, so the stone comes out 11 times taller than
+wide -- and the 0.15 m instances come out 22:1. The visible artefact is the
+thin 0.30 m RETURN face, which is why it reads as a vertical streak at
+building corners and beside openings, where remainders land.
+
+**BOTH SIDES OF THE BUILDING.** 38 exterior, 8 interior. The interior ones sit
+beside doorways in the lobby and vault rooms and are the same 11:1.
+
+**THREE PLACES IT COULD BE FIXED, and the choice is not obvious.** Zoo could
+build `wallEnd` to exact dims the way it already builds walls -- cheapest, and
+it multiplies the asset count against item 87's texture duplication. Deli
+Counter could ask for a sized module instead of scaling a unit box, which is
+the bay-library work in items 74 and 64. Or world-space UVs make density
+independent of node scale entirely (items 76, 80), which would also fix the
+per-module texture restart with one mechanism.
+
+That third option is the tell. This is the same failure as the relief (item
+75), the baked wear (item 84) and the seam restart (item 76): appearance
+derived from the MODULE rather than from the WORLD. Item 79's root cause,
+found for the fourth time in one day, this time wearing a transform.
+
+*STATUS: CLOSED 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT
+CONSEQUENCE OF ITEM 87. `mipmaps/generate=true` ADDED TO THE WALK PROJECT'S
+`[importer_defaults]`; max |delta| PER PIXEL FELL FROM 148 TO 15, WHICH IS THE
+NOISE FLOOR*
+
+**89. Disabling Detect 3D silently disabled mipmaps, and it cost nothing until
+textures left the GLB.** Found 2026-08-29, the first time a walk project was
+built with external textures.
+
+`walk_themed.py` sets `detect_3d/compress_to: 0` so the headless import cannot
+reach the S3TC compressor, which has no rendering device and dies with signal
+11. That is correct and stays. What nobody noticed is that "Detect 3D" is the
+mechanism that turns mipmaps ON as well as compression, so every texture it
+touches imports as a 2D texture with no mip chain:
+
+    _runs/wI/art/tex/concrete_delco_albedo.png.import
+        mipmaps/generate=false
+        detect_3d/compress_to=0
+
+**IT WAS INERT UNTIL 87.** While every texture was EMBEDDED in a GLB, the
+glTF importer built its own for 3D and the project default never applied.
+Detaching them made the setting reachable for the first time, and the same
+scene rendered measurably worse:
+
+    wH embedded vs wI detached        mean 3.32   max |delta| 51 / 54 / 148
+    noise floor (same project twice)  mean 2.12   max |delta|  7 /  7 /  15
+
+Not a missing texture -- an un-mipmapped one, aliasing on every oblique
+surface, which is why it read as "the windows are less transparent": an
+aliasing normal map changes the specular. Reported by eye before the
+instrument was pointed at it.
+
+**THE FIX IS TO ASK BY NAME.** Mipmap generation is CPU-side, so unlike the
+compressor it is safe under `--headless`. The two settings are now coupled in
+the comment block, because the next person to disable a detector needs to know
+what else the detector was doing.
+
+*STATUS: OPEN 2026-08-29 -- THE RULER WAS NEVER CALIBRATED. TWO SHOTS OF AN
+UNCHANGED PROJECT DIFFER BY mean 2.09-2.13 AND 39-42% OF PIXELS, SO EVERY
+`%px changed` FIGURE QUOTED TODAY BELOW ~42% MEANT NOTHING. `max |delta|` IS
+THE STATISTIC THAT SEPARATES*
+
+**90. `look_shots` was never measured against itself, so its own repeatability
+was unknown.** Found 2026-08-29, when a change that moved no geometry produced
+the same difference as one that did.
+
+Shooting `wJ` twice, changing nothing between runs:
+
+    elev_N     mean 2.1185   %px>2 41.977%   max  9
+    elev_W     mean 2.1305   %px>2 41.952%   max  7
+    spawn      mean 2.0852   %px>2 39.223%   max 15
+    objective  mean 2.1283   %px>2 40.894%   max  7
+
+`look_shots` accumulates six frames per shot because TAA and glow need more
+than one, so two launches of the same scene do not converge to the same
+pixels. That is the floor, and it is enormous by the measure everyone reaches
+for first.
+
+**WHAT IT INVALIDATES.** The pier 0.02 -> 0.10 change (item 75) was reported
+here at "36.85% of pixels changed" on the north elevation. Re-measured:
+
+    pier .02 -> .10   elev_N  mean 2.1168  %px 41.916%  max  10   <- NOISE
+                      elev_W  mean 2.1984  %px 41.953%  max 122   <- real
+                      spawn   mean 7.3961  %px 60.028%  max 211   <- real
+
+The conclusion drawn from it -- invisible head-on, visible where light grazes
+-- survives, and the number offered as evidence did not support it. Any
+comparison in this file resting on a sub-42% pixel count needs re-reading,
+including the triplanar A/B of 2026-08-29 (13.6-19.0% of pixels against a
+claimed 0.00-0.01% floor); those figures were reported in session and are not
+recorded here, but the qualitative claims that rest on them are -- items 81,
+84 and 86 each say an artefact "survives triplanar".
+
+**WHAT TO DO ABOUT IT.** `max |delta|` separates cleanly at this scale --
+floor 7-15, an un-mipmapped import 51-148, a real geometry change 122-211 --
+and `shot_diff.py` should report it and refuse a verdict below the floor. The
+floor is a property of the project and the frame count, not a constant, so the
+honest form is a NULL SHOT: shoot twice, subtract, and only then compare.
+
+*STATUS: CLOSED 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM
+PROOF. THE COMPOSED `out/presentation/project.godot` CARRIES
+`scene={"import_script/path": "res://zoo_worldskin.gd"}` AND THE SCRIPT SITS
+BESIDE IT; GODOT IMPORTED IT AND THE BUILDING WAS LOOKED AT. PROVEN AT RUNTIME
+FIRST, CONFIRMED BY EYE, BAKED AT IMPORT, RE-MEASURED AGAINST A NULL, THEN RUN
+THROUGH THE PIPELINE END TO END*
+
+**91. World-space UVs reached the shipped build.** Closed 2026-08-29, the
+pipeline half of items 76, 80 and 88.
+
+`tools/zoo_worldskin.gd` is an `EditorScenePostImport` script that sets
+`uv1_triplanar` / `uv1_world_triplanar` and a MEASURED `uv1_scale` on kit
+module materials. `level_factory/assets/godot/` carries the shipping copy and
+`run_presentation_compose.py` installs it into the composed package, next to
+the `config/features` patch that was already there for the same reason -- DC
+writes the project, LF corrects it.
+
+**WHY AT IMPORT.** glTF cannot express "project from world position", so this
+can only be a material property set after import. The two other places both
+cost something: mutating a shared material in a composed scene does not
+survive being saved, and `surface_material_override` per placement is a
+separate material for each of 218 kit modules -- item 80's discipline undone
+at the material layer for a boolean. At import the material is edited once
+inside the imported scene and every instance shares it.
+
+**WHAT IT FIXED.** Both faces of the same defect: the per-module texture
+restart (76) and `wallEnd`'s 11:1 stretch (88). Confirmed by eye at the two
+coordinates the stretch was reported from, and measured against a null (item
+90) -- 7 of 8 shots cleared their floor, max |delta| 43-217 against 7-16.
+
+**THE RESIDUAL, RECORDED RATHER THAN WAVED AWAY.** Baking at import
+reproduces the runtime proof to within ~50 pixels of a 1.44 Mpx frame. That is
+real, not noise: the null pair differs by 0 pixels above the same threshold
+while this differs by 50-54. The obvious cause was ELIMINATED -- all 218 kit
+placements sit under `ext_`/`int_` slots, so both scripts cover the same set.
+The leading candidate is `uv1_scale` being derived from the mesh at a
+different point in the import pipeline (before vs after LOD generation), which
+both scripts print and nobody has compared.
+
+**UNMEASURED BILL.** Triplanar samples three times per map -- nine across
+albedo/roughness/normal. No frame time exists for it on the 2060 under
+gl_compatibility. And it FORECLOSES TRIM SHEETS on any surface it touches,
+because a trim sheet is an authored UV layout and this throws UVs away. That
+is a design decision, taken, not a bug.
+
+*STATUS: NARROWED 2026-08-31 -- THE PREMISE IS INVERTED, AND THE MECHANISM IS
+NOW READ RATHER THAN ASSUMED. LUX DELETES NOTHING; `graft_lux` DOES, IN THE
+PREVIEW PATH ONLY, AND `tools/lux_inject.py` ALREADY DOES THE SAME JOB
+ADDITIVELY. WHAT REMAINS IS ONE MEASUREMENT NOBODY HAS TAKEN AND ONE SEAM
+NOBODY HAS NAMED, BOTH WRITTEN OUT BELOW*
+
+**92. Lux REPLACES the art pass's lighting instead of adding to it.** Named
+2026-08-29 by the person who owns the design, at the end of the facade work.
+
+**THE SHAPE OF THE PROBLEM.** Lighting is currently subtractive: something
+strips what is there and puts its own in. `walk_themed.py` says so in its own
+output -- `lux : ... (Lot's own sun/env removed)` -- and `graft_lux` drops
+Lot's WorldEnvironment and Sun unless `--keep-walk-lighting` says otherwise.
+`run_lux_apply.gd` rewrites the scene it is handed. So the art pass owns
+light, and Lux owns it back by demolition.
+
+**WHAT ADDITIVE WOULD MEAN.** The art pass stops owning light at all, and Lux
+contributes a layer over a scene that never had a competing one. That is
+cleaner for the same reason the relief was moved from additive covers to
+subtractive carving (item 75's history, in reverse): the current shape works
+by one stage undoing another, and every such pair eventually disagrees.
+
+**WHERE TO START, and this is the whole point of writing it down now.** Read
+before proposing. Three files decide it and none has been read with this
+question in mind:
+
+  * `lot/godot/addons/lot/` -- what lighting does Lot put in a site, and why
+    does the walk harness need its own sun at all;
+  * `lux/` -- `run_lux_apply.gd` (in `level_factory/assets/godot/`) and the
+    preset resources: what does apply DO, replace or overlay;
+  * the `lux_apply` job in `level_factory` -- what it is handed and what it
+    returns, and whether `lux_fixture_gate` assumes either shape.
+
+**WHAT IT TOUCHES.** Lot, Lux and the `lux_apply` job at minimum. Item 83
+(the per-piece lighting ablation) and item 85 (fixtures inside walls) are both
+in this neighbourhood and should be re-read before design, not after.
+
+**THE INSTRUMENT ALREADY EXISTS.** `look_shots` + `shot_diff --null` can hold
+this honest: lighting changes are exactly the kind that move a mean and prove
+nothing, and item 90 is the reason to distrust any pixel count under ~42%
+without a floor. Shoot a null first.
+
+**WHAT THE THREE TOOLS ACTUALLY DO TO LIGHT.** Read 2026-08-31, which is what
+the status line above asked for and all that was done. Grounded on:
+`lot/lot.py` 109,130 -- `tools/walk_themed.py` 55,962 -- `tools/lux_inject.py`
+7,870 -- `level_factory/assets/godot/run_lux_apply.gd` 9,024 --
+`level_factory/adapters/lux/__init__.py` 14,700 --
+`level_factory/packages/pipeline/planner.py` 27,558 --
+`level_factory/apps/cli/main.py` 12,589 -- `apps/cli/commands/__init__.py`
+130,113 -- `lux/addons/lux/runtime/{lux_root,lux_environment,lux_lighting,
+lux_light_loader,lux_fixture_spawner}.gd` -- `lux/addons/lux/editor/
+lux_dock.gd` 15,472. Every staged byte count landed exactly on the figure the
+device reported. `themed_site_assemble/out/site.tscn` and
+`lux_apply/out/lux.applied.tscn` could NOT be read -- the job cache hardlinks
+them and the bridge refuses `nlink > 1` -- so the one claim resting on that
+gap is flagged at the end.
+
+**LUX DELETES NOTHING.** `LuxEnvironment.ensure_world_environment`
+(`lux_environment.gd:27`) ADOPTS an existing WorldEnvironment -- the parent's
+direct children first, then the whole scene tree -- and writes only the grade
+onto it; `_sky_is_provided` skips the sky block entirely when somebody else
+owns it. `LuxLighting.ensure_sun` (`lux_lighting.gd:23`) returns early when
+`sun` is already valid. The only deletion in the addon is
+`LuxRoot._build_modules` (`lux_root.gd:169-175`), which clears its OWN direct
+children of the module types, for @tool idempotency, and whose comment says
+why: one LuxRoot had accumulated three DirectionalLight3D and three CRT post
+stacks across script reloads. The sentence this item was opened on -- "Lux
+owns it back by demolition" -- is not true of Lux.
+
+**THE ART PASS OWNS NO LIGHT TO BE REPLACED.** `planner.py:40-52` is already
+explicit about the split: fixture HARDWARE and its `LuxEmit` markers are
+LAYER_ART, light is LAYER_LIGHT, and "an unlit art package therefore still
+ships validated fixtures and their `LuxEmit` markers, which is a contract
+another lighting system can read." `presentation_compose` emits no lighting.
+So the thing item 92 says is being replaced does not exist.
+
+**LOT PUTS NO LIGHT IN A SITE EITHER.** 109 KB of `lot.py` has exactly two
+lighting emission sites, and both are WRAPPER scenes: `write_walk_scene`
+(~1607-1628) and `write_navqa_scene` (~1804-1819). Each emits a
+ProceduralSky WorldEnvironment (`ambient_light_energy = 0.6`, `tonemap_mode =
+2`) and a `Sun` DirectionalLight3D with `shadow_enabled`, as SIBLINGS of the
+instanced `Site`, with the comment saying it mirrors Deli Counter's
+`level_test.tscn` so the runtime scene does not render unlit. That is HARNESS
+lighting, not an art pass. The content scene carries none -- the same rule
+CLAUDE.md already records for `walk.tscn` versus `site.tscn`.
+
+**THE DEMOLITION IS ONE FUNCTION, IN THE PREVIEW PATH ONLY.** `graft_lux`
+(`tools/walk_themed.py:442`) text-deletes the `WorldEnvironment` and `Sun`
+node blocks out of Lot's walk scene, default on, `--keep-walk-lighting` to
+disable. Nothing in the shipped path deletes anything: `lux_apply` stages a
+throwaway project holding the addon plus the assembled scene, and
+`run_lux_apply.gd` only ADDS a LuxRoot and the fixture rigs.
+
+**THE ADDITIVE SHAPE ALREADY EXISTS, AND THE TWO GRAFTS DISAGREE.** This is
+the finding that decides the item. `tools/lux_inject.py` does the same job as
+`graft_lux` and does it by composition: it keeps Lot's WorldEnvironment ("The
+existing WorldEnvironment stays ... Removing Lot's would be work for no gain")
+and sets `sun_light = NodePath("../Sun")` under the
+`node_paths=PackedStringArray("sun_light")` header the scene loader requires,
+so Lux DRIVES Lot's sun instead of adding one beside it. Its own comment
+records the measurement: 2 directional lights without that field, 1 with it,
+on 4.7.stable. Two tools in this repo answer the same question opposite ways,
+which by CLAUDE.md means one of them is wrong and nothing should be built on
+either until that is settled.
+
+`graft_lux`'s justification argues against the UNLINKED additive shape, not
+against the linked one, and its table has no row for the linked one:
+
+    no Lux          mean 108.6   p95 254   near-clip 18.62%
+    Lux, 2 suns     mean 151.7   p95 248   near-clip  3.17%
+    Lux, 1 sun      mean 147.0   p95 222   near-clip  1.13%   by DELETION
+    Lux, Sun Link      --          --          --             NEVER MEASURED
+
+**THREE THINGS NOBODY HAD WRITTEN DOWN.**
+
+  * ENVIRONMENT ADOPTION IS AUTOMATIC AND SCENE-WIDE; SUN ADOPTION IS NOT.
+    `_resolve_sun_link` (`lux_root.gd:111`) resolves only an explicitly
+    assigned `sun_light` or a SkyMint-SHAPED node -- `_find_skymint`
+    duck-types on a `sun_light` property holding a DirectionalLight3D. A plain
+    `DirectionalLight3D` named `Sun`, which is exactly what Lot emits, is
+    never found. That asymmetry is the entire reason `graft_lux` has to
+    delete: leave both in and you get one environment and two suns.
+  * SUN LINK IS DEFINED IN TWO DIRECTIONS AT ONCE. With `sun_light` set,
+    `LuxLighting.apply` (`lux_lighting.gd:33-50`) WRITES the preset's
+    transform, colour, energy and shadow settings onto the linked light, and
+    `_track_sun_light` (`lux_root.gd:463`) then READS those same values back
+    off it every frame to feed the vertex path. So Sun Link does not preserve
+    Lot's sun angle -- it round-trips Lux's own preset through Lot's node.
+    Harmless while the preset is the intended answer; load-bearing the moment
+    a consumer expects their own sun to survive. The @export doc says "track a
+    live DirectionalLight3D"; the code also overwrites it. Decide which it is
+    before designing on it.
+  * `lights_json` IS AN UNFINISHED THOUGHT, in the sense CLAUDE.md already
+    names. `LuxAdapter.fingerprint_inputs` hashes it
+    (`adapters/lux/__init__.py:100`); `plan_commands` never passes it;
+    `run_lux_apply.gd` accepts only `--scene`, `--preset`, `--out`; and
+    `LuxLightLoader.bake` has exactly one caller in the whole tree,
+    `lux_dock.gd:431`, the editor dock. `site.site.lights.json` is 24,800
+    bytes of merged light anchors on the rockay build that the headless
+    pipeline never reads. It is also the ONE artifact a team bringing its own
+    lighting would want, which is why it belongs in this item and not a
+    separate one.
+
+**WHAT THIS ITEM IS ACTUALLY ABOUT, restated by the person who owns the
+design, 2026-08-31: a Level Factory user chooses whether Lux renders their
+lighting, or they bring their own, or they take the buildings and placement
+and nothing else.** That reframes the work and shrinks it. The choice already
+exists at the PLAN level and says so in its own help text: `--art --unlit`
+("The level is themed and dressed, its light fixtures are baked and gated, and
+no Lux render is applied -- for a team bringing its own"), `export --mode
+art-unlit`, and `_layers_produced` reporting LAYER_LIGHT from `lux_apply`'s
+output rather than from the art pass. What does NOT exist is the same choice
+at the SCENE level, and that is the gap:
+
+  1. The two modes are mutually exclusive BY DEMOLITION rather than by
+     composition. `--keep-walk-lighting` is the only way to keep Lot's rig
+     with Lux present, and it is documented as the bad option because it
+     leaves two suns. There is no "Lux grades the environment and drives the
+     sun the level already has", even though `lux_inject.py` builds exactly
+     that and Lux supports it.
+  2. The no-Lux path ships no typed light contract. It ships `LuxEmit_*`
+     markers inside the GLBs and a `site.site.lights.json` nothing exports.
+     A consumer gets hardware and no anchors.
+  3. Nothing proves the claim. `probe_lux_free.py` proves a package does not
+     REQUIRE Lux. Nothing proves an art-unlit package is LIGHTABLE by someone
+     else -- that the anchors are present, typed, and in the right frame.
+
+**THE SEAM, PROPOSED AND NOT BUILT.** One named choice, three states, no
+deletion in any of them:
+
+    light = lux    Lux owns the look. It adopts the environment the scene
+                   has and drives the sun the scene has (Sun Link), rather
+                   than the scene arriving pre-stripped.
+    light = own    The level keeps its own rig -- Lot's today, the
+                   consumer's tomorrow. No LuxRoot is grafted at all.
+    light = none   No rig, no LuxRoot. Geometry, fixtures, markers and the
+                   anchor manifest, for a consumer who lights from scratch.
+
+`--unlit` already selects between the last two by accident of what it omits;
+it does not distinguish them, and the difference matters to somebody
+integrating. Whether that becomes a third flag value or stays two flags is a
+decision, not a finding, and it should be taken after the measurement below
+rather than before it.
+
+**THE RUNBOOK, and the null goes first.** Item 90 is the reason no pixel count
+under ~42% is believable without a floor, and a lighting change is exactly the
+kind that moves a mean and proves nothing. So, on one mission, one seed,
+nothing else changing:
+
+    1. NULL. Shoot `look_shots` twice against an UNCHANGED project and
+       `shot_diff --null` them. Record the floor. Any A/B difference below it
+       is not a difference.
+    2. A -- DELETION, today's default:
+       `python tools\walk_themed.py --mission <id> --lux-repo <lux>`
+       then `look_shots`.
+    3. B -- SUN LINK, the untested row: same command with
+       `--keep-walk-lighting`, then `python tools\lux_inject.py <project>`
+       on the walk project so the LuxRoot carries
+       `node_paths=PackedStringArray("sun_light")` and
+       `sun_light = NodePath("../Sun")`. Confirm ONE DirectionalLight3D with
+       `tools/light_census.py` -- which counts the RUNNING tree, not the
+       scene file -- BEFORE shooting anything. Two suns here means the
+       node_paths header did not take, and the shot would be measuring the
+       old defect.
+    4. C -- NO LUX, the reference: `walk_themed.py` with no `--lux-repo`.
+    5. `shot_diff` A-B, A-C, B-C against the floor from step 1.
+
+The result to look for is not "which is prettier". It is whether B and A
+differ by more than the null floor. If they do not, the deletion in
+`graft_lux` is buying nothing that composition does not, and it should go.
+If they do, the difference has a cause and the cause is nameable -- start
+with the sun angle, because Sun Link overwrites Lot's and the two rigs do not
+point the same way.
+
+**THE RESIDUAL, recorded rather than waved away.** The claim that the
+`lux_apply` INPUT carries no lighting rests on lot.py's two emission sites
+plus the shipped artifact downstream of it -- `walk_preview_rebuilt/
+walk_preview/site_lux.tscn`, 62,240 bytes, 350 `[node` lines, one `LuxRoot`
+with an `active_preset`, zero WorldEnvironment, zero Light3D. It does NOT
+rest on reading `themed_site_assemble/out/site.tscn`, which the hardlinked
+job cache would not serve. That artifact also shows the deeper fact about
+the shipped level: ITS LIGHT IS NOT IN THE SCENE FILE AT ALL. Every light is
+manufactured at load by an @tool script's `_ready`, because runtime-created
+nodes have a null owner and `PackedScene.pack` drops those. Anyone reasoning
+about "the lighting in the shipped scene" by reading the shipped scene will
+find nothing and conclude wrongly -- which is the same trap CLAUDE.md records
+for `grep -c Light3D site.tscn`, one layer further in.
+
+**WHAT IT TOUCHES, revised.** Lot is NOT in the blast radius after all -- it
+emits harness lighting into wrapper scenes and nothing asks it to change.
+`tools/walk_themed.py` and `tools/lux_inject.py` are, because they disagree.
+`level_factory`'s lux adapter is, for the `lights_json` it hashes and never
+passes. Lux itself is, only for the sun-adoption asymmetry and the two-way
+definition of Sun Link. `lux_fixture_gate` is NOT: it runs in its own staged
+project over a `*_fixtures.glb` and assumes nothing about the site's
+lighting shape -- one of the three questions this item asked, answered no.
+
+*STATUS: OPEN 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT,
+SO THE PIPELINE SERVES THE PREVIOUS BEHAVIOUR OF A SCRIPT THAT WAS JUST
+REWRITTEN AND SAYS `cache` WHILE DOING IT. ONE DRIVER IS ALREADY TRACKED, SO
+THE PATTERN TO COPY EXISTS*
+
+**93. Editing a driver script does not invalidate its job's cache.** Found
+2026-08-30, trying to prove item 91 on a shipped build.
+
+`run_presentation_compose.py` was rewritten to install the worldskin importer
+default. The next full run reported `bank_block_001.presentation_compose
+cache` and shipped the old package. The stage was not stale by any measure the
+scheduler had: its INPUTS -- slots, modules, theme, style -- were identical.
+Only the code that consumes them had changed, and that is not fingerprinted.
+
+**IT IS AN INCONSISTENCY, NOT AN OVERSIGHT OF THE WHOLE IDEA.**
+`tests/unit/test_lux_driver_in_fingerprint.py` exists, so the Lux driver IS
+deliberately part of its job's fingerprint. Presentation's is not. One is
+tracked, one is not, and the untracked one fails by silently serving a stale
+answer -- the worst of the three possible behaviours.
+
+**WHAT THIS COST, and it is the reason it is worth a number.** Two full
+pipeline runs that looked clean and proved nothing, plus a wrong recovery
+suggested from memory rather than from the code:
+
+  * `--force` is `action="store_true"` with help that reads "accepted and
+    ignored: every stage is now always re-evaluated against the cache". It is
+    a no-op that LOOKS like the answer to exactly this problem.
+  * deleting `fingerprint.last.json` does nothing either; the cached answer
+    lives in `.level_factory/index.sqlite` and the sidecar is a receipt.
+  * the working command is `cache forget <job_id>`, which has been in
+    `apps/cli/main.py` the whole time and returns
+    `{"forgotten": true, "note": "the job will re-run on the next pass"}`.
+
+Two of those three were guessed before the CLI was read. Reading it first
+would have cost one look and saved two runs.
+
+**WHAT WOULD CLOSE THIS.** Copy the Lux pattern: put each driver script's
+content hash into its job's fingerprint, so editing a tool invalidates the
+work it produced. The test to mirror already exists and is named after the one
+job that got it right.
+
+**AND A SMALLER ONE ALONGSIDE IT.** `--force` should either do something or be
+removed. A flag whose help text says it is ignored is a flag everyone will
+keep reaching for, because the name promises exactly what they want.
 
 ## Commands
 
@@ -5703,3 +8173,296 @@ $built  = "$ws\jobs\category5_baie_dore_001.lot_assemble.candidate.seed_$seed\ou
 $graded = "$ws\staging\category5_baie_dore_001.laser_tag_evaluate.candidate.seed_$seed\level.tscn"
 Compare-Object (Get-Content $built) (Get-Content $graded)
 ```
+
+*STATUS: CLOSED 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW
+DRIVER STAGED (9,098 BYTES, NOT 5,667). SEARCH ROOT `FixtureGate`, 4 OF 4
+LIT-FACE MATERIALS BOUND -- ONE PER ZOO SPECIES, CHECKED AGAINST THE FIXTURES
+MANIFEST -- AND GLOW ENERGY 10.638 -> 0.0 -> 10.638 ACROSS THE POWERED CUT,
+BESIDE LAMPS 47.063 -> 0.0 -> 47.063. 37/37 MARKERS, NO COLOCATION ERRORS*
+
+**94. Nothing in the pipeline binds fixture emissives, and the gate that
+certifies the power beat cannot see them.** Found 2026-08-31 while separating
+the art layer from the light layer for item 92. Lux 0.26.0.
+
+**THE CONTRACT, and it is a good one.** Zoo's fixture pass bakes the lit faces
+into the fixture GLBs as glTF emissive -- troffer diffusers, streetlight
+lenses, sign faces, wall-pack lenses -- under a naming rule: `M_*` with a
+`_Lens`, `_Diffuser` or `_Face` suffix. `LuxEmissiveBinder.bind` walks a
+scene, stamps each matching material's base emission energy into resource
+meta (idempotent, so a re-import is safe) and registers it with
+`LuxLighting`. From then on `set_fixtures_powered(false)` kills the GLOW
+together with the rig lights, and restoring power brings the stored energy
+back. That is the power-cut heist beat, and it is the correct place for the
+art/light seam: Zoo owns the emissive face because it is hardware; Lux owns
+whether it is lit because that is render.
+
+**WHO CALLS IT.** Every harness Lux ships:
+
+    lux/tools/visual_pass.gd:80                    bind_fixture_emissives
+    lux/tools/walk_harness.gd:119                  bind_fixture_emissives
+    lux/walk/headless/walk_night_strip.gd:113      bind_fixture_emissives
+    lux/walk/headless/visual_night_strip_dressed.gd:85   bind_fixture_emissives
+    lux/addons/lux/editor/lux_dock.gd:443          LuxEmissiveBinder.bind
+
+**WHO DOES NOT.** Both of Level Factory's drivers:
+
+    level_factory/assets/godot/run_lux_apply.gd    -- ships the level
+    level_factory/assets/godot/run_fixture_gate.gd -- certifies the beat
+
+and `walk_themed.py`'s injected `_SPAWN_GD`, which spawns fixture lights into
+the walk preview and binds nothing either. So a level Lux walks in its own
+harness has bound emissives and a level LEVEL FACTORY BUILDS DOES NOT. The
+tool and the pipeline that drives it disagree about what a finished level is.
+
+**WHAT IT COSTS, first half.** `LuxLighting._emissives` is empty in every
+shipped level, so `set_fixtures_powered(false)` kills the rig lights and
+leaves every lens, diffuser and sign face glowing at full energy. The power
+cut takes the light and not the look of the light.
+
+**WHAT IT COSTS, second half, and this is the worse one.**
+`run_fixture_gate.gd` exercises the powered kill/restore by summing
+`_energy(lamps)` over the spawned LIGHTS -- its own comment says
+"visibility-kill" -- before and after `set_fixtures_powered`. It never binds,
+so there is nothing else it could measure. The gate therefore reports
+`powered: {kill: true, restore: true}` on a level whose glow cannot be killed
+at all, and `LUX_FIXTURE_POWER_GATE` is a BLOCKING issue in the Lux adapter.
+A blocking gate that passes on half its subject is the shape CLAUDE.md
+already has a rule about: a number that silently describes four fifths of a
+table is worse than no number, because it looks actionable and is not.
+
+**THE SYMPTOM WAS ALREADY WRITTEN DOWN, in a flag's help text.**
+`walk_themed.py --no-fixture-lights` explains itself by saying fixtures are
+lit by the WorldEnvironment's glow pass "whether or not any light is cast, so
+the eye cannot separate a working fixture from a dead one." That is this
+defect, described from the walkthrough end, by somebody who did not have the
+binder in mind. It is also why a walk cannot be used to check the gate: both
+instruments are blind in the same direction.
+
+**THE FIX IS NOT THE ONE-LINER IT LOOKS LIKE, and that is the reason to write
+this down rather than patch it.** Adding `bind_fixture_emissives()` to
+`run_lux_apply.gd` would bind at APPLY time and then `PackedScene.pack` the
+result -- and neither half of the binding survives packing. The registration
+is runtime state on a LuxRoot instance. The base energy is `set_meta` on a
+material that came from an imported GLB, an EXTERNAL resource the packed
+scene references rather than owns. So the shipped `lux.applied.tscn` would
+carry no more than it does today, and the driver would report a success that
+the level does not contain -- the same silent-loss shape `run_lux_apply.gd`
+already guards against for the preset and for fixture-light ownership, one
+resource layer further out.
+
+Binding has to happen AT LOAD, in the level, every time. The candidate worth
+reading before proposing: `LuxRoot._ready` already calls `_build_modules`,
+`_load_default_library` and then applies the preset when `apply_on_ready` is
+set. Binding there would make every level carrying a LuxRoot bind itself with
+nothing downstream to remember. Whether that is right depends on questions
+nobody has answered -- what it costs on a scene with 218 kit placements, what
+it does under `@tool` in the editor where `_ready` runs on every script
+reload, and whether a consumer who is NOT using Lux for light should still
+get the binding. Read `lux_root.gd:90-105` and `lux_emissive_binder.gd`
+together before deciding.
+
+**HOW TO SEE IT WITHOUT GUESSING.** The gate's own report is the instrument,
+once it is asked the other question: bind first, then sum emission energy
+over the bound materials across the same kill/restore, and record both
+figures. A gate that reports lamp energy and glow energy separately cannot
+pass on half the behaviour. `tools/mesh_light_census.py` and
+`tools/light_census.py` already count the RUNNING tree rather than the scene
+file, which is the only frame in which any of this is visible.
+
+**WHAT WAS REFUTED ON THE WAY, kept because it is cheaper than
+rediscovering.** This item was first stated as "`bind_fixture_emissives` has
+no caller anywhere in the tree." That was wrong, and wrong for an
+instructive reason: the claim was made from a grep over the SUBSET of files
+staged at that moment, and Lux's four harnesses were not among them. Staging
+the rest turned "nobody calls it" into "everybody except the pipeline calls
+it" -- a smaller claim and a better one, because a mechanism four harnesses
+depend on is proven to work and the question becomes why the driver skips it.
+Rule 1 of CLAUDE.md's verification section, in a new costume: name what
+produced the evidence before concluding from it, and a grep's evidence is
+bounded by what was staged.
+
+**WHAT SHIPPED, 2026-09-01.** Lux 0.27.0 and Level Factory 0.52.0, together,
+because neither half is worth anything alone: a bind nobody can measure and a
+measurement of a bind that never happens are the same non-event.
+
+  * `LuxRoot.bind_emissives_on_ready` (default true) binds at load, after
+    `_build_modules` -- which replaces `_lighting` and therefore empties
+    `_emissives`, so binding before it would register into the module about
+    to be discarded.
+  * `bind_fixture_emissives` resolves `owner`, then the parent, then
+    `current_scene`, then `self`, and returns the root it walked. The old
+    order reached `self` FIRST in every headless run, because a `-s` driver
+    has no current scene -- so wiring the call without this would have bound
+    zero materials and reported ok. That is the second defect this item found
+    and it was hiding behind the first.
+  * `run_fixture_gate.gd` binds and measures lamp AND glow energy across ONE
+    kill/restore, and reports a `glow` block. `LUX_FIXTURE_GLOW_GATE` blocks;
+    `LUX_NO_FIXTURE_EMISSIVES` and `LUX_FIXTURE_GLOW_UNMEASURED` report.
+  * `adapters/lux` `adapter_version` 0.5.0 -> 0.6.0, so every existing entry
+    executes once against the wider instrument rather than serving a verdict
+    taken with the narrower one.
+
+**WHAT IS NOT PROVEN, and it is the part that matters.** No Godot was
+available to the session that wrote the patch. Both scripts pass
+`tools/gdcheck.py`, and the three new findings were exercised against
+synthetic reports across all six branches -- including lamps and glow failing
+together, which must report two findings and does. None of that is an engine.
+The first real `lux_fixture_gate` run is the measurement, and a
+`LUX_FIXTURE_GLOW_GATE` on it is this defect being CAUGHT, not a regression.
+Until that run exists, this item is a patch with a test harness attached, and
+the factory manifest's lockstep check will call the tool set drifted until
+both repos are promoted -- pins are re-earned, not typed.
+
+**CLOSED BY A REAL GATE RUN, 2026-09-01.** `category5_baie_dore_001`,
+`--art --unlit`, the whole graybox base re-run underneath it. The staged
+driver was the new one -- 9,098 bytes against the old 5,667 -- so this is the
+widened instrument reporting, not the old one passing again.
+
+    "glow": { "search_root": "FixtureGate",
+              "bound": 4, "materials": 4,
+              "kill": true, "restore": true,
+              "energy_before": 10.6379997730255,
+              "energy_off": 0.0,
+              "energy_restored": 10.6379997730255 }
+    "powered": { "kill": true, "restore": true,
+                 "energy_before": 47.0630792379379,
+                 "energy_off": 0.0,
+                 "energy_restored": 47.0630792379379 }
+    markers 37   spawned 37   spawnable 37   colocation_errors 0
+
+Read in the order the risks sit. `search_root` is `FixtureGate` and not
+`LuxRoot`, so the root resolution fix took -- had it said `LuxRoot`, every
+other number in the block would have been a measurement of an empty node.
+`bound` equals `materials`, so the binder and the gate walk the tree the same
+way and neither is counting a set the other does not touch. And `materials`
+is 4 rather than 0, which is what stops this being a pass for the wrong
+reason: `LUX_NO_FIXTURE_EMISSIVES` is deliberately non-blocking, so a run that
+found nothing would also have reported zero blockers.
+
+**FOUR MATERIALS AGAINST THIRTY-SEVEN FIXTURES IS THE RIGHT ANSWER, and it
+was checked rather than assumed.** `lf_..._fixtures.built.json` (Zoo 0.31.0)
+reports exactly four species -- `fluorescent_fixture` 20, `pendant_fixture`
+13, `wall_pack` 3, `sign_box` 1 -- and a glTF import produces one material
+resource per glTF material, shared by every mesh instance using it. The
+binder dedupes by material object. So four is one lit-face material per
+species, every one of them found; it is not thirty-three fixtures with no lit
+face. The six skipped markers are all `window`, reason "daylight/preset -- no
+hardware", which is the contract.
+
+The glow now dies with the power and comes back at exactly the value the
+binder stamped: 10.6379997730255 out and the same float back, which is what
+restoring from `BASE_META` should look like and is why exact equality is the
+right test at that one site.
+
+**WHAT THIS DOES NOT SAY.** That the lighting is good, or that the shipped
+`lux_apply` path binds -- this run was `--unlit`, so `run_lux_apply.gd` never
+executed. The binding it would use is the same `LuxRoot._ready` path this run
+exercised, but the first LIT build is the run that proves it. Nothing else in
+item 94 is outstanding.
+
+*STATUS: OPEN 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON
+A SITE MANIFEST WHOSE ANCHORS ARE DELI COUNTER 1.1.0. MEASURED ON A BUILD
+MADE THE SAME DAY: ENVELOPE 1.0.0, `drop` PRESENT ON 28 OF 28. NOTHING READS
+THE FIELD TODAY, WHICH IS WHY IT HAS SURVIVED -- THE FIRST CONSUMER TO GATE
+ON IT IS THE ONE THAT PAYS*
+
+**95. The site light manifest declares a version its anchors outgrew.** Found
+2026-09-01, writing `tools/probe_lightable.py` for item 92's handoff question.
+
+Two producers, one envelope field, and only one of them maintains it.
+`deli_counter/lights.py:12` stamps `LIGHT_MANIFEST_VERSION`, currently
+`1.1.0`, on each building's `<name>.lights.json`. `lot.merge_lights`
+(`lot.py`, the site-level merge) builds its own envelope and writes
+`"light_manifest_version": "1.0.0"` as a LITERAL, never reading the version
+of the files it is merging.
+
+The anchors are copied wholesale -- `wa = dict(a)` -- so 1.1.0 content passes
+straight through. Measured on `category5_baie_dore_001` rebuilt 2026-09-01
+10:06, `site.site.lights.json` 25,288 bytes: envelope `1.0.0`, and `drop`
+present on 28 of 28 ceiling-hung anchors. `drop` is a 1.1.0 field. The file
+declares one contract and satisfies a later one.
+
+**WHY IT HAS SURVIVED.** Nothing reads the field. `LuxLightLoader.bake`
+checks for an `anchors` key and nothing else; `probe_lightable.py` is the
+first thing in the tree that looks at the version at all, and it was written
+last week. A version nobody gates on cannot fail, which is exactly the
+condition in which it drifts.
+
+**WHY IT MATTERS ANYWAY, and this is the whole reason it is filed rather than
+patched quietly.** `planner.py` promises the unlit package ships "a contract
+another lighting system can read", and `--art --unlit` is documented as being
+for a team bringing its own lighting. The envelope version is the field that
+exists to make that handoff safe. A consumer that gates on `1.0.0` and gets
+1.1.0 anchors reads the wrong contract, and a consumer that gates on `1.1.0`
+rejects a file that satisfies it. Both failures are ours.
+
+**WHAT ELSE THE MERGE DROPS, unjudged.** The building envelope carries
+`building_id` and `theme`; the site envelope carries neither, and re-keys the
+building onto each anchor instead. That may be deliberate -- a site has many
+buildings and one theme is not obviously the site's -- but nothing says so,
+and a reader cannot tell a decision from an omission. Establish which before
+changing the shape.
+
+**WHERE TO START.** `lot.py` `merge_lights` and `deli_counter/lights.py`
+together, in one sitting. The options are not equivalent and the choice is a
+design decision, not a bug fix: propagate the maximum of the merged building
+versions; version the SITE manifest independently of the building one and say
+so in the envelope; or carry the set of merged versions explicitly so a
+consumer can see what went in. Owner is `lot` -- it writes the file -- and
+`probe_lightable.py` already fails on an unknown version, so it is the gate
+for whatever gets chosen.
+
+*STATUS: OPEN 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN
+THE MANIFEST AND NEVER BECOME LIGHT: THE ONLY CODE THAT TURNS THEM INTO RIGS
+IS `LuxLightLoader.bake`, WHOSE SOLE CALLER IN THE TREE IS A DOCK BUTTON.
+MEASURED ON A REAL BUILD AND ON A REAL GATE RUN. THE MARKER PATH SKIPS THEM
+BY DESIGN AND SAYS SO*
+
+**96. Daylight anchors are specified and never realized, because the manifest
+bake path has no caller outside the editor.** Found 2026-09-01, tracing the
+art/light layer boundary after item 94.
+
+Lux has two ways to turn an anchor into a rig, and they are NOT rivals --
+they share one tuning table. `LuxFixtureSpawner` places rigs at Zoo's
+`LuxEmit_*` markers; `LuxLightLoader.bake` places them from a
+`.lights.json`; and the spawner calls `LuxLightLoader.rig_for_anchor` for
+every rig it makes, so brightness, range and colour come from one place
+whichever path ran. That part is sound and the division is written down:
+Zoo owns WHERE, Lux owns HOW BRIGHT.
+
+The gap is which path the PIPELINE runs. `run_lux_apply.gd`,
+`run_fixture_gate.gd` and `walk_themed.py`'s injected spawn script all call
+the marker path. `LuxLightLoader.bake` has exactly one caller in the whole
+tree: `lux_dock.gd:431`, the editor's "Bake Lights" button.
+
+**AND THE MARKER PATH SKIPS DAYLIGHT ON PURPOSE.**
+`LuxFixtureSpawner.spawn` skips `window` and `sun` -- daylight has no
+hardware, so Zoo bakes no marker for it -- and the spawner's own docstring
+says daylight "stays on the manifest bake path". That sentence is true about
+Lux and false about Level Factory, because Level Factory never runs that
+path.
+
+**MEASURED, both ends.** The 2026-09-01 site manifest carries 24 `window`
+anchors of 75 records. The same day's `lux_fixture_gate` run reports 37
+markers, 37 spawned, and 6 skipped -- every one of them a `window`, reason
+"daylight/preset -- no hardware". So the anchors exist, the rig branch exists
+(`_rig_for` maps `window`/`sign` to `LuxAreaLightRig`, with `size` read from
+the anchor), and nothing in a built level ever constructs one.
+
+**IT IS NOT OBVIOUSLY A BUG, WHICH IS WHY IT IS AN ITEM.** A preset sun plus
+sky ambient may be the intended answer for daylight, in which case 24 window
+anchors are dead weight in a manifest that advertises them to consumers, and
+the fix is to stop deriving them or to mark them advisory. If they ARE meant
+to light, the fix is a pipeline caller for the manifest bake -- and the
+`_rig_for` comment argues these are expensive: area rigs are "THE ONLY
+SHADOWED LIGHTS IN THE PACKAGE", deliberately, per item 60. Twenty-four of
+them is not four. Decide which before wiring anything.
+
+**THE SECOND FACE OF THE SAME FACT.** `LuxAdapter.fingerprint_inputs` hashes
+`lights_json`; `plan_commands` never passes it; `run_lux_apply.gd` accepts
+only `--scene`, `--preset` and `--out`. The manifest is a cache input to a
+job that cannot read it. That is CLAUDE.md's unused parameter -- somebody
+knew the manifest mattered to the answer and stopped before using it -- and
+it is the same unfinished thought as the missing caller, seen from the
+pipeline side. Whichever way item 96 is decided, that hash should stop
+claiming an input the command does not take.
