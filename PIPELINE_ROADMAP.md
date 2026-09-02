@@ -768,7 +768,7 @@ work of adopting this.
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE PIPELINE. `tools/detach_textures |
 | 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-08-29 -- THE LANE IS CHOSEN AND CONFIRMED BY EYE, AND IT IS NOT ONE OF THE TWO THAT A |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
-| 90 | **OPEN** | `look_shots` was never measured against itself, so its own repeatabili | 2026-08-29 -- THE RULER WAS NEVER CALIBRATED. TWO SHOTS OF AN UNCHANGED PROJECT DIFFER BY  |
+| 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
 | 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-08-31 -- THE PREMISE IS INVERTED, AND THE MECHANISM IS NOW READ RATHER THAN ASSUMED.  |
 | 93 | **OPEN** | Editing a driver script does not invalidate its job's cache | 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT, SO THE PIPELINE SERVES THE  |
@@ -777,7 +777,7 @@ work of adopting this.
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 | 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
 
-**97 items: 43 open, 33 closed, 3 retracted, 15 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**97 items: 42 open, 33 closed, 3 retracted, 16 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7730,10 +7730,12 @@ compressor it is safe under `--headless`. The two settings are now coupled in
 the comment block, because the next person to disable a detector needs to know
 what else the detector was doing.
 
-*STATUS: OPEN 2026-08-29 -- THE RULER WAS NEVER CALIBRATED. TWO SHOTS OF AN
-UNCHANGED PROJECT DIFFER BY mean 2.09-2.13 AND 39-42% OF PIXELS, SO EVERY
-`%px changed` FIGURE QUOTED TODAY BELOW ~42% MEANT NOTHING. `max |delta|` IS
-THE STATISTIC THAT SEPARATES*
+*STATUS: NARROWED 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND
+EVERY `%px changed` FIGURE BELOW ~42% STILL MEANS NOTHING. THE AGGREGATE ONE
+IS NOW MEASURED AND ITS FLOOR IS ZERO: EIGHT SHOTS, NOTHING CHANGED, d_mean
+d_p50 d_clip% d_crush% ALL +0.00. SO `shot_diff` WITHOUT `--images` NEEDS NO
+NULL AT THIS FRAME COUNT, AND `max |delta|` REMAINS THE PER-PIXEL STATISTIC
+THAT SEPARATES*
 
 **90. `look_shots` was never measured against itself, so its own repeatability
 was unknown.** Found 2026-08-29, when a change that moved no geometry produced
@@ -7771,6 +7773,47 @@ floor 7-15, an un-mipmapped import 51-148, a real geometry change 122-211 --
 and `shot_diff.py` should report it and refuse a verdict below the floor. The
 floor is a property of the project and the frame count, not a constant, so the
 honest form is a NULL SHOT: shoot twice, subtract, and only then compare.
+
+**THE OTHER HALF OF THE RULER, MEASURED 2026-09-02.** This item's floor is a
+PER-PIXEL one, and it is enormous. The AGGREGATE statistics `shot_diff` prints
+without `--images` have a different floor, and nobody had measured that either.
+Shot on `_runs/ab_del` -- `category5_baie_dore_001`, eight shots, 1600x900,
+six frames each, nothing changed between the two runs:
+
+    shot              d_mean     d_p50   d_clip%  d_crush%
+    elev_E             +0.00     +0.00     +0.00     +0.00
+    elev_N             -0.00     +0.00     +0.00     +0.00
+    elev_S             +0.00     +0.00     +0.00     +0.00
+    elev_W             -0.00     +0.00     +0.00     +0.00
+    extraction         +0.00     +0.00     +0.00     -0.02
+    objective          +0.00     +0.00     +0.00     +0.01
+    overview           +0.00     +0.00     +0.00     +0.00
+    spawn              +0.00     +0.00     +0.00     +0.00
+
+**ZERO, to two decimals, on every shot and every statistic.** The same TAA and
+glow accumulation that moves 40% of the pixels moves the frame MEAN by nothing
+at all, because it is noise about a stable value and averaging is what kills
+it. So the two measures are not two views of one floor -- they are a measure
+that needs a null shot and a measure that does not.
+
+**WHAT THIS DOES AND DOES NOT CHANGE.** It does NOT weaken anything above:
+every `%px changed` figure below ~42% is still meaningless, `max |delta|` is
+still the per-pixel statistic that separates, and the triplanar A/B still
+needs re-reading. What it adds is that `d_mean`, `d_p50` and the clip/crush
+percentages can be compared directly, with no null and no floor, at this frame
+count and resolution. The A/B that produced this null exercised that
+immediately: `elev_S +63.38` and `spawn +15.21` between two lighting builds
+are real numbers rather than noise, and they were trustworthy the moment the
+null came back zero.
+
+**AND THE CAUTION THAT SURVIVES.** A floor is a property of the project, the
+frame count and the resolution -- this item says so and it is still true. Zero
+here is not zero everywhere; it is zero for eight derived cameras on one
+themed site at 1600x900 with six frames. A scene with moving dressing, a
+day/night cycle or a flickering fixture rig would move the mean, and the null
+is what would say so. Shoot it anyway; it is one extra `look_shots` call and
+it now costs a comparison nothing to be sure.
+
 
 *STATUS: CLOSED 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM
 PROOF. THE COMPOSED `out/presentation/project.godot` CARRIES
