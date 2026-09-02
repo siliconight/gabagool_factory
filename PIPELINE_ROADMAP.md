@@ -739,7 +739,7 @@ work of adopting this.
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
 | 59 | **OPEN** | One door, two corridors: a partition ends inside the aperture and spli | 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE AND THE FOUNDING SIGHTING REMAIN |
 | 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
-| 61 | **OPEN** | Optional color-preserving film emulsion for Lux | 2026-08-23 -- SPECIFIED. TDD authored and committed at `lux/docs/film_emulsion_tdd.md`; no |
+| 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-02 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0. SECTION  |
 | 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
 | 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
 | 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
@@ -777,7 +777,7 @@ work of adopting this.
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 | 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
 
-**97 items: 42 open, 33 closed, 3 retracted, 16 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**97 items: 41 open, 33 closed, 3 retracted, 17 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -5898,8 +5898,160 @@ doorways, and Godot's 20 render layers cannot number every room on a site.
 shadow policy in the loader/rigs, then a walk that shows walls stopping
 light where doors let it through.
 
-*STATUS: OPEN 2026-08-23 -- SPECIFIED. TDD authored and committed at
-`lux/docs/film_emulsion_tdd.md`; nothing built*
+*STATUS: NARROWED 2026-09-02 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL
+HARDWARE IN LUX 0.28.0. SECTION 41'S BUDGET IS MET ACROSS SECTION 50'S WHOLE
+RESOLUTION MATRIX. THE TDD'S OWN PREMISE WAS REFUTED ON THE WAY, TWO OF ITS
+SECTIONS CONTRADICT EACH OTHER, AND ONE OF ITS ACCEPTANCE TESTS IS NOT
+REPRODUCIBLE AT 8-BIT OUTPUT. THE hdr_2d DECISION IS TAKEN AND
+WIRED, AND THE FEATURE HAS BEEN SEEN RUNNING. WHAT IS LEFT IS A WALK AND A
+HARDWARE SWEEP.
+Phases 1, 3, 4 and 5-7 landed (phase 2's reordering is folded into the shader
+variant). THE PREMISE, AND A CORRECTION TO THE FIRST READING OF
+IT. The TDD names the problem as "digital-looking noise applied independently
+to RGB channels". The GRAIN does not do that -- it computes ONE scalar and adds
+it to all three channels, scoring `chroma_noise 0.000000` on section 45's own
+metric over 200 000 samples. This item first recorded that as "Lux has never
+had a rainbow-speckle problem", WHICH WAS WRONG: the grain was cleared and the
+finding generalised to the pipeline without measuring the other half of it. THE
+RAINBOW IS THE ORDERED DITHER. It quantizes R, G and B independently, so on a
+coloured surface the channels cross their level boundaries at different screen
+positions, and a channel that dithers alone is pure chroma noise -- exactly
+section 1's "unrelated red, green, or blue pixels". Measured on a flat orange
+patch where nothing else can vary: per-channel quantization scores 1.500 on
+section 45's metric and moves saturation by 0.0797, against the grain's 0.0000.
+Worse, film emulsion as SPECIFIED makes it more visible rather than less, because
+section 16 puts film before the dither and removing the additive grain's luma
+noise unmasks the chroma underneath: on flat coloured patches in the real render
+the ratio goes 0.225 with the legacy grain to 1.687 with film. THE FIX IS THE
+DENSITY MODEL'S OWN IDEA ONE STAGE LATER -- quantize luminance and scale the
+colour by the ratio, one shared decision instead of three, with a
+`dither_luma_scale` to recover the finer banding three interleaved decisions
+give (38 luminance steps at 3x against per-channel's 36, and a finer maximum
+step). Measured on the rendered sample scene over 2183 flat coloured blocks,
+saturation variation falls from 0.04178 as shipped to 0.01509, and the grain
+accounts for very little of that -- the quantization accounts for nearly all of
+it. BOTH PROBES NOW CARRY THE
+CLAIM rather than a scratch script: `film_math_probe.py` asserts both halves --
+that per-channel quantization DOES move saturation (0.027265 worst) so a fix
+that did nothing could not pass, and that a shared decision moves it by nothing
+(3.33e-16) -- and `film_render_probe.py` measures 0.082397 against exactly
+0.000000 on hardware at both precisions. The audit carries the retraction in
+place, at the head of the section that made the wrong call. ALL OF THIS IS
+OPT-IN: the coherence dial exists on the FILM shader only,
+the baseline shader is byte-identical, and an earlier draft that let `grain_mode`
+gate the legacy grain was backed out so that no film property can change a
+scene which never asked for film. THE REAL DEFECT, measured
+on one orange swatch at four exposures at the shipped `grain_strength = 0.03`:
+additive grain leaves hue exactly alone but modulates SATURATION, by +4.2% on a
+bright swatch and **+53.3% in deep shadow**, because an absolute offset is
+proportionally huge on a dark pixel. Film's density model, on the same swatches
+under the same noise, moves saturation by 0.36% worst case. That is a better
+argument for the feature than the TDD makes and it is the one to quote. TWO
+FREE FINDINGS: grain is applied AFTER quantization (line 114 after line 100),
+undoing the level snapping the final clamp's own comment says exists to be
+preserved -- the section 16 ordering violation; and the grain hash multiplies
+`uv` by `time_seed`, which is seconds of playtime, so it is a FREQUENCY scale
+rather than a reseed and grain frequency climbs to 1000x over the first ~16.7
+minutes of play (a `sin()` argument near 91 000, where fp32 is
+hardware-dependent) before snapping back. Both are independent of film emulsion
+and both remain on the baseline path. WHAT BLOCKS SECTION 20, AND IT IS A HUMAN
+DECISION: `project.godot` does not set `rendering/viewport/hdr_2d`, so the
+viewport target is 8-bit and scene colour is already RGB8 before any
+canvas_item pass samples it -- sections 7 and 20 cannot both hold. The only fix
+costs the 2D target RGBA8 -> RGBA16F, about +7.5 MiB at 1080p, against a 0.25
+MiB budget written for the grain asset and never meant to price a format change
+to a buffer that already exists. `tools/film_precision_probe.py` measures it
+(and prices the hdr_2d option) rather than trusting a class reference for a
+different engine version. TWO DELIBERATE DIVERGENCES, both measured and both
+because the TDD contradicts itself: `grain_mode` defaults to Simple, not the
+TDD's Off, because Off would silently strip grain from all nine shipped presets
+while section 12 promises they stay unchanged; and `film_chroma_ratio` defaults
+to 0.10, not 0.12, because 0.12 scores 0.2251 and fails the TDD's own preferred
+bar of 0.20 while 0.10 scores 0.1876 and clears it. Section 47 is also
+internally inconsistent -- its literal "Dark RMS > Midtone > Highlight" is only
+satisfiable by the additive model section 27 forbids -- and the relative reading
+this meets is recorded. COMPILED AND RENDERED 2026-09-02, which
+was the whole of the risk at the time of writing and is now retired.
+`tools/film_render_probe.py` builds a minimal project around the two shaders,
+imports it and draws known patches through both at each `hdr_2d` setting. The
+compile receipt is the IDENTITY case rather than a clean log -- film off, every
+other stage neutral, the pass returns its input exactly (`luma_noise 0.000000`,
+one distinct code, two patches, both precisions), and a shader that failed would
+have been replaced by a fallback that does not reproduce its input. THE MODEL
+AND THE ENGINE AGREE to within 1% wherever the signal exceeds the render
+target's own precision (neutral at strength 0.10: model 0.005112 luma against
+engine 0.005064). SECTION 20 IS NOW MEASURED, not argued from a class reference
+for a different engine version: 8-bit integer as shipped and floating point with
+`rendering/viewport/hdr_2d = true`, on both rasterisers, so the option is one
+line and the setting name is right for 4.7. The exact format differs by driver
+(RGBA8/RGBAF on llvmpipe, RGB8/RGBH on the RTX 2060) and the first write-up of
+this got it wrong, from a hand-written int-to-name table in the probe driver
+that had 11 as RGBH when 11 is RGBAF -- caught only because the NVIDIA run
+returned an id the table did not contain. The probe now names formats from
+`Image.FORMAT_*` inside Godot; the correction is recorded here because a
+measured fact was misreported, even though the conclusion was not affected. AND THE 8-BIT COST IS CONCRETE -- the baseline's grain is
+chroma-free BY CONSTRUCTION, so the chroma it measures is the format's own
+floor, and that floor is 0.001811 at 8 bits against 0.000009 at 16. The entire
+chroma signal at 8-bit output was per-channel rounding. Section 45's ratio
+follows it: 0.3340 at 8 bits, 0.1901 at 16, so the TDD's own preferred bar of
+0.20 is UNREACHABLE at 8 bits by any implementation, and the default grain
+spans three distinct codes there. THE RESULT THE FEATURE EXISTS FOR, rendered at
+default strengths: saturation span 0.15% film against 4.16% baseline on orange,
+and 0.33% against 50.02% in deep shadow. ONE TRAP RECORDED so it is not sprung:
+section 45's metric is not a chroma measurement on a COLOURED patch -- with the
+chroma term switched off entirely it still reads 0.6023 on orange and 0.9894 on
+red, because std(R-G) there is driven by the shared transmission multiplying a
+non-zero R-G. Both probes run that control on every invocation. AND THE STRONGEST ARGUMENT FOR hdr_2d IS ONE NOBODY
+WROTE DOWN: at 8-bit output the acceptance test is NOT REPRODUCIBLE ACROSS
+HARDWARE. Same build, same probe, same patches, llvmpipe against an RTX 2060 --
+with hdr_2d off the two disagree by up to 70% (baseline chroma floor 0.001359
+against 0.000412 on orange); with it on they agree to 0.20% worst case, and that
+is a 32-bit float target against a 16-bit one rather than two runs of the same
+thing. A test whose result moves 70% with the graphics card is measuring the
+card. It also answers a question nobody asked: 16-bit float has the headroom, so
+nothing argues for RGBAF. SECTION 41 IS MEASURED AND MET on an RTX 2060 across
+every resolution in section 50's matrix, using the engine's own per-viewport GPU
+counter over 600 timed frames per configuration after 120 discarded, and three
+configurations per cell (no post pass / baseline / film) so the figure is the
+film shader's ADDED cost and not the pass's total: film adds 0.0240 ms at 720p,
+0.0510 at 1080p, 0.0920 at 1440p and 0.1340 at 4K with hdr_2d on. Against the 2%
+allowance every cell passes; THE WORST IS 4K AT 120 FPS WITH hdr_2d OFF at
+1.79%, which is 12% of budget to spare, and that cell should be read as UNPROVEN
+rather than passed because the measurement is a FLOOR taken on an empty scene
+where nothing competes for bandwidth. AND THE hdr_2d DECISION IS NOW PRICED IN
+TIME: +0.0430 ms on the post pass at 1080p -- 33.6% of the pass but only 0.26%
+of a 60 fps frame -- on top of the +7.5 MiB. Film is also CHEAPER with hdr_2d
+on, at all four resolutions, 4 for 4, by about 10%; the likely reading is that
+the float target makes the pass bandwidth-bound so the extra arithmetic hides
+behind memory traffic, which is a hypothesis from four consistent measurements
+and not a profile. So hdr_2d partially pays for itself on the pass film runs in.
+WHAT REMAINS: section 51's hardware sweep is untouched and one RTX 2060 is
+nobody's minimum spec -- no integrated GPU, no AMD, no Intel, no handheld;
+section 50 also wants VRAM, RAM, bandwidth, power and shader stalls, and only
+frame time is measured; nothing has been rendered on real geometry, so the walk
+this item names as its closing condition has not happened, and neither has item
+57's texture-rhythm re-walk; and item 57's texture-rhythm re-walk is untouched.
+THE hdr_2d DECISION IS TAKEN: `LuxRoot.film_manage_hdr_2d` raises the viewport
+to a floating-point target while film is running and restores whatever was there
+when it stops -- not a project setting, because Lux is an addon and cannot edit
+a consuming game's project.godot, and scoped to film so that with film off in
+every shipped preset it changes nothing. THE FACT IT RESTS ON WAS MEASURED
+FIRST: a 3D scene resolved into the raised target lands on the SAME values, only
+more precisely (0.25098/0.50196/0.74902 at 8 bits against
+0.24915/0.50098/0.74951), NOT on their linearised equivalents
+(0.05088/0.21404/0.52252) -- the post stack keys its contrast pivot, palette
+zones and quantization off 0.5, and had the target gone linear every one of
+those thresholds would have moved and all nine presets would have needed
+retuning. AND IT HAS BEEN SEEN RUNNING, which is the first time anything in this
+item has been looked at rather than measured: `lux/tools/film_demo.gd` drives
+the sample scene with a runtime toggle, and captures three states in one run so
+the two changes can be told apart -- render target alone 0.014127 mean absolute
+difference, grain model alone 0.008058, player-visible total 0.011991. THE
+PRECISION CHANGE MOVES THE IMAGE MORE THAN THE GRAIN MODEL DOES, which is worth
+knowing before anyone credits the whole before/after to the grain. The
+grain-model change is exposure-weighted on real geometry exactly as on synthetic
+patches: relative difference 0.320 in the darkest band falling monotonically
+through 0.104, 0.053, 0.030 and 0.018 to 0.011 in the brightest*
 
 **61. Optional color-preserving film emulsion for Lux.**
 Raised 2026-08-23 by TDD (50 sections; `lux/docs/film_emulsion_tdd.md` is
