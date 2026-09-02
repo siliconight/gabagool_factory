@@ -266,6 +266,28 @@ body centre. Each produced a confident, wrong answer.
   exact clearance to them was 3.43 m against a 3.00 m half-width. Keep the
   projection test as a cheap reject — it is a superset, so it cannot produce a
   false negative — and decide with a real point-to-edge distance.
+- **A threshold asked of two spellings of one number has a blind window either
+  side of it.** `_wall_span` decided whether to ABSORB a tile remainder from
+  `L - n * M` and whether to EMIT it from `b - x`. Those are the same value in
+  algebra and not the same float: one carries the error of `b - a`, the other
+  of `a + n * M`. Measured on `strip_retail_a01 ext_1_N` — 0.05000000000000071
+  against 0.04999999999999982, straddling a 0.05 limit — so the piece was
+  judged too big to absorb AND too small to emit, and 5 cm of exterior wall
+  silently stopped existing beside a window. Derive the quantity once and ask
+  both questions of that one value. The shape hides anywhere a bound is tested
+  twice: a size against a cap here and the cap against a size there, a span
+  checked by its producer and again by its consumer.
+- **A rounded artefact cannot settle a question about floats. Instrument the
+  producer.** The above was hypothesised, then REFUTED against a
+  reconstruction built from `slots.json` — whose coordinates are rounded to
+  four decimals — and the refutation was wrong. The reconstruction had assumed
+  the span began after the previous module at `a = 0.15`; it begins at the
+  run's inset edge, `a = -9.85`, six modules earlier. No amount of care with
+  the manifest could have decided it, because the digits that mattered were
+  not in the manifest. A temporary probe printing `repr()` at the one call
+  site answered it in a single build, and reverted byte-for-byte
+  (`patch_dc_span_probe.py`). When a float question survives one round of
+  reasoning, stop reasoning and print the float.
 
 ## A null result is not a refutation until the dial is confirmed (hard rule)
 
