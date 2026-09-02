@@ -86,6 +86,17 @@ func _ready() -> void:
 
 	for spec in cams:
 		var d: Dictionary = spec
+		# ORTHOGRAPHIC WHEN THE SPEC ASKS. A perspective elevation makes the
+		# far end of a 30 m facade smaller than the near end, so panel widths
+		# are not comparable across one frame; and any change in camera
+		# distance between two runs rescales every measurement in the second.
+		# Both are fatal to a before/after, and both are why an elevation is
+		# drawn orthographically everywhere outside a game engine.
+		if d.has("ortho_size"):
+			cam.projection = Camera3D.PROJECTION_ORTHOGONAL
+			cam.size = float(d["ortho_size"])
+		else:
+			cam.projection = Camera3D.PROJECTION_PERSPECTIVE
 		cam.global_position = d["eye"]
 		var target: Vector3 = d["target"]
 		if not target.is_equal_approx(cam.global_position):
@@ -173,6 +184,77 @@ func _derive_cameras(scene: Node) -> Array:
 			"target": centre,
 			"derivation": "site visual AABB, framed to 75 deg vertical FOV",
 		})
+
+	# ELEVATIONS. One straight-on orthographic shot per compass face, framed on
+	# the exterior wall slots alone. This is the frame a facade is JUDGED in --
+	# roadmap 79 and 82 -- and until now the instrument had no such shot, so
+	# every composition change was compared against somebody's memory of a
+	# perspective screenshot taken from wherever they happened to be standing.
+	#
+	# The camera is outside the building on the face's own axis, aimed at the
+	# facade centre, with NO tilt: a level, square-on view. Distance does not
+	# affect an orthographic frame, so it is set well clear of the geometry
+	# rather than fitted, and `size` does the framing.
+	# EVERY TYPE SPELLED OUT AND NO TERNARY, deliberately. The first version of
+	# this block used `x if c else y` and a nested heterogeneous array literal.
+	# gdtoolkit parsed both; Godot rejected the file at load, the autoload
+	# never instantiated, and the run came up as a playable walk project with
+	# no shots and no error the driver could see -- which is the worst failure
+	# shape available, because it looks like the tool doing something else.
+	var grp: Dictionary = _facade_group(scene)
+	var fa: AABB = AABB()
+	var fa_src: String = ""
+	if grp.is_empty():
+		fa = aabb
+		fa_src = "WHOLE SCENE -- no above-grade ext_* nodes, NOT an elevation"
+	else:
+		fa = grp["aabb"]
+		fa_src = "%d above-grade wall slots of %s" % [int(grp["n"]),
+			String(grp["name"])]
+		if int(grp["of"]) > 1:
+			fa_src += " (1 of %d buildings on this site)" % int(grp["of"])
+	if fa.size.length() > 0.0:
+		var fc: Vector3 = fa.get_center()
+		var vp: Vector2i = get_viewport().size
+		var aspect: float = float(vp.x) / maxf(float(vp.y), 1.0)
+		var face_names: Array = ["N", "S", "E", "W"]
+		var face_normals: Array = [Vector3(0.0, 0.0, -1.0),
+			Vector3(0.0, 0.0, 1.0), Vector3(1.0, 0.0, 0.0),
+			Vector3(-1.0, 0.0, 0.0)]
+		for i in range(face_names.size()):
+			var nrm: Vector3 = face_normals[i]
+			# Width of the facade IN FRAME is the extent across the camera's
+			# own right vector, not a fixed world axis.
+			var wide: float = fa.size.x
+			var deep: float = fa.size.z
+			if absf(nrm.x) > 0.5:
+				wide = fa.size.z
+				deep = fa.size.x
+			# `size` is the VERTICAL extent (Godot keeps height by default), so
+			# fitting the width means dividing it by the aspect. Take whichever
+			# of the two is larger and add a little air; cropping the subject
+			# is the one failure an elevation cannot survive.
+			var vert: float = maxf(fa.size.y, wide / maxf(aspect, 0.001)) * 1.08
+			var back: float = deep * 0.5 + maxf(wide, fa.size.y) + 10.0
+			# SIT THE BUILDING ON THE BOTTOM OF THE FRAME, do not centre it.
+			# A wide facade forces a tall frame on a 16:9 viewport -- 13.5 m to
+			# fit a 4 m storey -- and centring split the surplus evenly, which
+			# put a third of the first usable elevation BELOW GRADE. Those
+			# pixels are not the subject and they would dominate `shot_diff`'s
+			# full-frame statistics on an A/B that changed only the walls.
+			# The frame bottom is pinned just under the building's own base,
+			# so the surplus all goes to sky, which at least is uniform.
+			var floor_y: float = fa.position.y - fa.size.y * 0.05
+			var aim := Vector3(fc.x, floor_y + vert * 0.5, fc.z)
+			var shot_name: String = "elev_" + String(face_names[i])
+			var how: String = fa_src + ", orthographic, %.1f m tall frame"
+			out.append({
+				"name": shot_name,
+				"eye": Vector3(fc.x, aim.y, fc.z) + nrm * back,
+				"target": aim,
+				"ortho_size": vert,
+				"derivation": how % vert,
+			})
 
 	var eye_h: float = _eye_height(scene)
 	var spine := []
@@ -278,6 +360,78 @@ func _anchor_spine() -> Array:
 		if found.has(key):
 			spine.append(found[key])
 	return spine
+
+
+## The exterior wall slots of ONE building, above grade, in world space.
+##
+## Returns {"aabb": AABB, "n": int, "name": String, "of": int} or an empty
+## Dictionary. Two filters, both learned from the first elevation this tool
+## ever rendered:
+##
+##   ONE BUILDING. The union of every `ext_*` node on a composed site is the
+##   whole BLOCK. The first shot framed 137 m to photograph a 30 m facade and
+##   put three buildings in it at 15% of frame width each. Slots are grouped by
+##   their parent -- each building instance is one node -- and the group with
+##   the most slots wins, with the count of groups reported so a reader knows
+##   there were others.
+##
+##   ABOVE GRADE. Deli Counter names a below-grade storey `ext_-1_*`, and the
+##   first shot included it: the ground plane cut the frame in half edge-on and
+##   55% of the image was the underside of the site. An elevation is what a
+##   person standing outside can see.
+##
+## Both filters read the `ext_<storey>_<face>_seg<n>` name Deli Counter emits
+## and `repetition_census.py` already parses. Nothing here is a coordinate or a
+## node path somebody typed.
+func _facade_group(scene: Node) -> Dictionary:
+	var groups: Dictionary = {}
+	for n in scene.find_children("ext_*", "Node3D", true, false):
+		var parts: PackedStringArray = String(n.name).split("_")
+		if parts.size() < 3:
+			continue
+		if String(parts[1]).begins_with("-"):
+			continue
+		var parent: Node = n.get_parent()
+		if parent == null:
+			continue
+		var box: AABB = _node_aabb(n)
+		if box.size.length() <= 0.0:
+			continue
+		var key: int = parent.get_instance_id()
+		if groups.has(key):
+			var g: Dictionary = groups[key]
+			var cur: AABB = g["aabb"]
+			g["aabb"] = cur.merge(box)
+			g["n"] = int(g["n"]) + 1
+			groups[key] = g
+		else:
+			groups[key] = {"aabb": box, "n": 1, "name": String(parent.name)}
+	if groups.is_empty():
+		return {}
+	var best: Dictionary = {}
+	for key in groups:
+		var g: Dictionary = groups[key]
+		if best.is_empty() or int(g["n"]) > int(best["n"]):
+			best = g
+	best["of"] = groups.size()
+	return best
+
+
+## Union of every visible VisualInstance3D at or under `n`, in world space.
+func _node_aabb(n: Node) -> AABB:
+	var out := AABB()
+	var first := true
+	for c in n.find_children("*", "VisualInstance3D", true, false):
+		var vi: VisualInstance3D = c
+		if not vi.is_visible_in_tree():
+			continue
+		var world: AABB = vi.global_transform * vi.get_aabb()
+		if first:
+			out = world
+			first = false
+		else:
+			out = out.merge(world)
+	return out
 
 
 ## The union of every VisualInstance3D's AABB in world space.

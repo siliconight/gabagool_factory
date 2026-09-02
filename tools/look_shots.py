@@ -92,7 +92,7 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
     if rendering_driver:
         extra += ["--rendering-driver", rendering_driver]
 
-    payload, _out, _mirror = run_probe(
+    payload, raw, _mirror = run_probe(
         project_dir=project_dir,
         script_src=PAYLOAD,
         autoload_name="LookShots",
@@ -103,6 +103,27 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
         headless=False,          # rendering is the point; headless has none
         extra_args=extra,
         timeout=timeout, verbose=verbose)
+
+    # SHOW WHAT THE SCENE SAID. `run_probe` captures Godot's output and returns
+    # it, `verbose` printed only the command line, and this function threw the
+    # rest away -- so anything a payload script or a grafted node PRINTED was
+    # invisible, and `-v` looked like it was working. Cost a round trip on the
+    # roadmap-84 probe, whose entire output is a print.
+    #
+    # Everything outside the result fence, verbatim: being selective here would
+    # hide the errors that matter, and a probe that prints an error Godot ate
+    # is the failure this whole file exists to avoid.
+    if verbose and raw:
+        inside = False
+        for line in raw.splitlines():
+            if line.strip() == MARK_BEGIN:
+                inside = True
+                continue
+            if line.strip() == MARK_END:
+                inside = False
+                continue
+            if not inside and line.strip():
+                print("  | " + line.rstrip())
     return payload
 
 
@@ -189,11 +210,46 @@ def main(argv=None):
     # evidence.
     r["project"] = os.path.abspath(a.project)
     r["scene"] = a.scene or ""
+    # THE PATH IS NOT THE SUBJECT. Two directories are MEANT to differ in an
+    # A/B; what must not differ is the art inside them. `walk_themed.py` stamps
+    # `walk_subject.json` with a content hash of the art and the treatment
+    # flags, and carrying it here is what lets `shot_diff` refuse the
+    # comparison that actually matters. Absent for projects assembled by
+    # anything else, and absent reads as unknown rather than as same.
+    sub = os.path.join(a.project, "walk_subject.json")
+    if os.path.isfile(sub):
+        try:
+            with open(sub, encoding="utf-8") as fh:
+                r["subject"] = json.load(fh)
+        except (OSError, ValueError) as exc:
+            r["subject_error"] = str(exc)
+    # THE MANIFEST IS WRITTEN, NOT REDIRECTED. `shot_diff` consumes a JSON
+    # report, and this tool only ever printed one to stdout behind `--json` --
+    # so every comparison depended on somebody remembering `> shots_x.json` at
+    # the moment of shooting, and a set of PNGs whose manifest was forgotten
+    # cannot be diffed later without re-rendering them (which changes the
+    # pixels, roadmap 90). The sibling `<out>.json` is the name already on
+    # disk from earlier runs, so the convention is kept rather than invented.
+    manifest = os.path.abspath(a.out.rstrip("/\\")) + ".json"
+    try:
+        with open(manifest, "w", encoding="utf-8") as fh:
+            json.dump(r, fh, indent=1)
+        r["manifest"] = manifest
+    except OSError as exc:
+        r["manifest_error"] = str(exc)
+        manifest = None
+
     if a.json:
         print(json.dumps(r, indent=2))
     else:
         print("[look_shots] " + os.path.abspath(a.project))
         report(r)
+        if manifest:
+            print()
+            print("  manifest  %s" % manifest)
+            print("            shot_diff reads this; no redirect needed")
+        else:
+            print("  MANIFEST NOT WRITTEN: %s" % r.get("manifest_error"))
     return 0
 
 
