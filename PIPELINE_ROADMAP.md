@@ -770,7 +770,7 @@ work of adopting this.
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
-| 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-08-31 -- THE PREMISE IS INVERTED, AND THE MECHANISM IS NOW READ RATHER THAN ASSUMED.  |
+| 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-09-02 -- MEASURED, AND THE DELETION LOSES. SUN LINK vs DELETION IS overview -0.05 AND |
 | 93 | **OPEN** | Editing a driver script does not invalidate its job's cache | 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT, SO THE PIPELINE SERVES THE  |
 | 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
 | 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
@@ -7860,11 +7860,12 @@ gl_compatibility. And it FORECLOSES TRIM SHEETS on any surface it touches,
 because a trim sheet is an authored UV layout and this throws UVs away. That
 is a design decision, taken, not a bug.
 
-*STATUS: NARROWED 2026-08-31 -- THE PREMISE IS INVERTED, AND THE MECHANISM IS
-NOW READ RATHER THAN ASSUMED. LUX DELETES NOTHING; `graft_lux` DOES, IN THE
-PREVIEW PATH ONLY, AND `tools/lux_inject.py` ALREADY DOES THE SAME JOB
-ADDITIVELY. WHAT REMAINS IS ONE MEASUREMENT NOBODY HAS TAKEN AND ONE SEAM
-NOBODY HAS NAMED, BOTH WRITTEN OUT BELOW*
+*STATUS: NARROWED 2026-09-02 -- MEASURED, AND THE DELETION LOSES. SUN LINK vs
+DELETION IS overview -0.05 AND EVERY OTHER SHOT +/-0.00 AGAINST A FLOOR OF
+ZERO, WHILE THE UNLINKED TWO-SUN BUILD IS elev_S +63.38. THE ROW HAD NEVER
+BEEN SHOT BECAUSE THE TOOLS COULD NOT PRODUCE IT; `walk_themed --sun-link`
+NOW DOES. WHAT REMAINS IS A DEFAULT FLIP SOMEBODY HAS TO OWN, AND THE
+THREE-STATE SEAM*
 
 **92. Lux REPLACES the art pass's lighting instead of adding to it.** Named
 2026-08-29 by the person who owns the design, at the end of the facade work.
@@ -8096,6 +8097,76 @@ passes. Lux itself is, only for the sun-adoption asymmetry and the two-way
 definition of Sun Link. `lux_fixture_gate` is NOT: it runs in its own staged
 project over a `*_fixtures.glb` and assumes nothing about the site's
 lighting shape -- one of the three questions this item asked, answered no.
+
+**THE ROW IS MEASURED, 2026-09-02, AND THE DELETION LOSES.** Three walk builds
+off one `themed_site_assemble` output -- `category5_baie_dore_001`, art digest
+`3c0065a88983` identical across all three -- eight derived cameras, 1600x900,
+six frames each. Aggregate floor established first and it is ZERO on every
+shot and every statistic (see item 90), so no null is carried into the
+comparisons below and none is needed.
+
+    build         Lot's Sun / env   sun_light   vs the deletion build
+    ab_del        removed           --          baseline
+    ab_link       KEPT              not wired   elev_S +63.38  elev_E +27.40
+                                                spawn  +15.21  overview +4.39
+    ab_sunlink    KEPT              WIRED       overview -0.05  elev_W -0.01
+                                                every other shot +/-0.00
+
+**SUN LINK AND DELETION ARE THE SAME PICTURE.** The +63 was never the price of
+keeping Lot's lighting. It was the price of keeping it UNLINKED -- two
+directional lights at different azimuths, which is why the south and east
+elevations moved and the north and west barely did. Wire the link and the
+difference collapses to two hundredths of a code on one shot.
+
+That is not a lucky null, and it has a mechanism: in BOTH configurations the
+scene ends up with one directional light at the preset's orientation and one
+Environment carrying the preset's grade. `LuxEnvironment.ensure_world_environment`
+adopts Lot's WorldEnvironment rather than building a second one, and
+`LuxLighting.apply` writes the preset's transform, colour, energy and shadow
+settings onto whichever sun it holds. Only WHICH NODE OBJECT owns them differs
+between the two builds, and a node's identity is not visible in a photograph.
+
+**THE DIAL WAS CONFIRMED BEFORE THE NULL WAS BELIEVED**, because this file's
+own rule says a null result is evidence about the wiring until proven
+otherwise. `_runs/ab_sunlink/site_walk.tscn` carries
+`node_paths=PackedStringArray("sun_light")` in the LuxRoot header and
+`sun_light = NodePath("../Sun")` under it; `_runs/ab_link/site_walk.tscn`
+carries neither, zero of each. The two scenes differ in exactly the wiring
+under test and the +63/-0.00 split falls on that line.
+
+**WHY IT HAD NEVER BEEN SHOT, which is the part worth keeping.** Not for want
+of trying: THE TOOLS COULD NOT PRODUCE THE ROW. `graft_lux` wrote a LuxRoot
+carrying a script and a preset and nothing else, so `--keep-walk-lighting`
+gave the two-suns build and there was no third option. `lux_inject.py` writes
+the two missing lines and refuses to run on a scene that already has a LuxRoot
+-- which `graft_lux` has just put there. The two tools that disagreed about
+lighting policy could not be combined to test the disagreement. A first
+attempt on 2026-09-02 stacked them anyway and silently re-measured the
+two-suns row: the overview came back +4.39 against the +4.7 this item's own
+table records between two suns and one, which is what gave it away.
+`walk_themed --sun-link` now emits those two lines, and the walk subject
+stamps `sun_link` into its treatment block so `shot_diff` reports the
+experiment instead of calling two different builds identical.
+
+**WHAT REMAINS, and it is now a decision rather than a question.** The
+measurement says the deletion can go: replace it with Sun Link and the picture
+does not move. That is a default flip in `graft_lux` -- `--keep-walk-lighting
+--sun-link` becomes the behaviour and the deletion becomes the opt-out, or
+disappears. It was not done in the session that measured it, deliberately: a
+picture that does not move is not the only reason a team might want Lot's
+environment gone, and whoever owns the walk preview should say so before the
+default changes under them. The three-state seam this item proposed -- `light
+= lux | own | none` -- is unaffected and still unbuilt.
+
+**THE RESIDUE, recorded rather than rounded away.** `overview -0.05` and
+`elev_W -0.01` are small but they are NOT the floor, which is 0.00 exactly.
+Something real differs. The likely cause is that Lux overwrites most of Lot's
+Environment and not all of it -- `apply` writes ambient, tonemap, fog, glow
+and adjustment, and whatever Lot set that Lux never touches survives into the
+adopted environment and not into a freshly built one. That is a hypothesis
+from reading `lux_environment.gd`, not a measurement, and it would be settled
+by diffing the two Environment resources rather than by shooting anything.
+
 
 *STATUS: OPEN 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT,
 SO THE PIPELINE SERVES THE PREVIOUS BEHAVIOUR OF A SCRIPT THAT WAS JUST
