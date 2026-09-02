@@ -1,0 +1,27 @@
+{
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "candidate_count": 3,
+  "display_name": "Bank Block",
+  "extraction_relationship": "crew_start_backtrack",
+  "landmark": "bank_clock",
+  "mission_id": "bank_block_001",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "route_shape": "push_then_backtrack",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "street_block",
+  "target_minutes": [
+    25,
+    35
+  ],
+  "theme": "delco",
+  "time_of_day": "afternoon",
+  "verticality": "medium",
+  "weather": "clear"
+}

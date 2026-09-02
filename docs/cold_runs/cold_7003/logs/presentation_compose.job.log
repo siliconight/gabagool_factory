@@ -1,0 +1,11 @@
+$ python3 C:\Projects\gabagool_studios\gabagool_factory\level_factory\assets\scripts\run_presentation_compose.py --deli-repo C:/Projects/gabagool_studios/gabagool_factory/deli_counter --slots C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.deli_generate.candidate.seed_7003\out\shell.slots.json --modules C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.zoo_kit_build\out --theme delco --style 1 --greybox C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.deli_generate.candidate.seed_7003\out\shell.glb --building-id site --out C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.presentation_compose\1\out\presentation --gameplay C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.deli_generate.candidate.seed_7003\out\shell.gameplay.json --dressing C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.zoo_dressing_build\out\lf_bank_block_001_7003_dressing.glb --fixtures C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.zoo_fixtures_build\out\lf_bank_block_001_7003_fixtures.glb
+(cwd=C:\Projects\gabagool_studios\gabagool_factory\deli_counter)
+
+[compose] ERROR: coplanar surfaces detected -- the package would flicker. See zfight_check in the manifest.
+[compose] site (delco): 236 themed modules, 0 greybox-fallback, 33 module GLBs bundled, 14 markers baked, walkable=True
+[compose] placement gate [OK]: 227/227 modules sit on the greybox collision
+[compose] closure: portable=True (absolute_paths=0, dangling=0)
+[compose] z-fight gate [FAIL]: 15 coplanar pair(s) across 406 solids
+
+
+(exit=3, duration=6.86s, timed_out=False, cancelled=False)

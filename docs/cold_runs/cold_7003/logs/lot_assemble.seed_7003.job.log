@@ -1,0 +1,21 @@
+$ python3 C:\Projects\gabagool_studios\gabagool_factory\lot\lot.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\temp\bank_block_001\candidate_seed_7003\site.json C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.lot_assemble.candidate.seed_7003\1\out --walkable --navqa --portable
+(cwd=C:\Projects\gabagool_studios\gabagool_factory\lot)
+
+[lot] LOT_ENEMY_SPAWN_PUSHED: 3 of 6 enemy spawn(s) fell inside a building footprint on the straight line through the mission route and were moved to the nearest open ground (furthest move 16.5 m). The engagement sequence still runs spawn to objective to extraction, but these enemies stand off the route rather than on it.
+[lot] LOT_ENEMY_SPAWN_STANDOFF: 3 of 6 enemy spawn(s) had the crew spawn in the open within 45 m -- the range the crew's own bot opens fire at, which is ten metres further than the enemy sees -- and were moved further along the mission route until the crew was out of range or behind a building (nearest of those now 27.3 m). The nearest enemy on the map is now Enemy_3 at 21.1 m. Without this the opening engagement starts before the crew can move, which Laser Tag reports as INSTANT_CONTACT and which ends the run in a team wipe inside ten seconds. Distance is the blunt half of the fix; `site_cover` puts something in the ground between them.
+[lot] LOT_ENEMY_SPAWN_CLOSE: the nearest enemy to the crew spawn is Enemy_3 at 21.1 m, inside the 45 m at which the crew's bot opens fire. It is a fair opening because a building stands between the two, and it stays fair only for as long as that building does: a later pass that moves the crew spawn, the enemy or the block starts the map with a shot. Stated so the distance is in the report rather than only in the geometry.
+[lot] LOT_COVER_PLACED: 2 piece(s) of 2 m cover were placed to break sightlines the site left open past the 45 m at which Laser Tag opens fire (longest 49.0 m). Without them the crew and the enemies can shoot each other from their spawns, which stamps first contact at zero and stops the crew's bot walking its route.
+[lot] LOT_ROUTE_COVER_PLACED: 1 of the 2 piece(s) were placed along the crew's route rather than on a marker pair. Marker pairs describe the opening; they say nothing about the ground the crew crosses afterwards, and cover budgeted only against them lands at the objective where the enemies already are.
+[site_audit] site (heist): 0 HIGH / 1 MED / 1 INFO
+  [MED] S_ONE_APPROACH: one route from 'b1' to 'b0' across the site graph: the approach is a single funnel between buildings.
+  [INFO] S_NO_RESPONDERS: no responder_spawn markers: the heist has no escalation pressure layer at site level.
+[lot] site lights -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-7003-ws\.level_factory\jobs\bank_block_001.lot_assemble.candidate.seed_7003\1\out\site.site.lights.json (60 anchors)
+[lot] assembled 'site.json': 3 buildings, 42 markers, 12 rooms, 27 interactives
+[lot]   objective approaches: 1
+[lot]   -> site.site.gameplay.json
+[lot]   -> site.tscn
+[lot]   -> site_walk.tscn  (walkable: spawn (8.0, -12.0, 0) -> objective (-38.0, -6.0, -1.8) -> extraction (57, -10, 0.0))
+[lot]   -> site_navqa.tscn  (nav-QA: 3 player proxies, 27 cover, 3 cop spawns -> needs the heist_nav_qa addon)
+
+
+(exit=0, duration=0.59s, timed_out=False, cancelled=False)
