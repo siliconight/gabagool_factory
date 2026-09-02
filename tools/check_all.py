@@ -22,6 +22,14 @@ WHAT IT RUNS, and what each one owns:
                                       cannot walk up, read off the built .tscn
     freshness    check_freshness.py   geometry that no longer matches the spec
                                       and builder that made it, by content hash
+    envelope     envelope_continuity.py  a corner nobody owns, or a gap between
+                                      wall modules, read off the slot manifests
+                                      Deli Counter emits. FAIL codes are the
+                                      ones the shipped library reads ZERO for
+                                      (roadmap 58 graduated ENV_CORNER_OPEN on
+                                      2026-08-25, 988 -> 0); the rest report
+                                      as WARN until they reach zero too, which
+                                      is the path layout_lint's L18 took
     stairs       check_stair_pitch.py flights pitched past what a body stands on,
                                       read off each building's .glb
     gdscript     gdcheck.py           every .gd this repo owns: grammar plus
@@ -65,6 +73,8 @@ ROOT = factory_root()
 CHECKS = [
     ("gdscript", "gdcheck.py", ["@gd"],
      "a .gd file will not parse, or hits one of the three known traps"),
+    ("envelope", "envelope_continuity.py", ["--dir", "deli_counter/build"],
+     "an exterior corner is open, or a run has a gap in it"),
     ("freshness", "check_freshness.py", [],
      "a building's geometry no longer matches the spec or builder that made it"),
     ("stairs", "check_stair_pitch.py", [],
