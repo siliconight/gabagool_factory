@@ -775,8 +775,9 @@ work of adopting this.
 | 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
 | 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
+| 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
 
-**96 items: 42 open, 33 closed, 3 retracted, 15 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**97 items: 43 open, 33 closed, 3 retracted, 15 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8488,3 +8489,60 @@ knew the manifest mattered to the answer and stopped before using it -- and
 it is the same unfinished thought as the missing caller, seen from the
 pipeline side. Whichever way item 96 is decided, that hash should stop
 claiming an input the command does not take.
+
+*STATUS: OPEN 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY
+HARNESS THAT PROVES THE PIPELINE END TO END. NEEDS A PIXELCOAT SKIN PACK AND
+ZOO SPECIES STYLES, NOT ONE FILE. LF 0.53.0 POINTED THE SMOKE AT `delco` SO
+THE HARNESS STOPS MEASURING THE CATALOGUE; WHETHER `delco_1997` SHOULD EXIST
+IS UNANSWERED*
+
+**97. `delco_1997` is a theme two repos would have to grow, and only the
+smoke ever asked for it.** Named 2026-09-02, after the theme preflight refused
+a smoke run in seconds that used to fail after a full Blender leg.
+
+**WHAT THE PREFLIGHT SAYS, verbatim**, and it is a good example of the
+capability-gap signal `USING_THE_FACTORY.md` asks every tool for -- what was
+asked, what exists, who is short:
+
+    theme: delco_1997 - NO PIXELCOAT PROFILE at ...\themes\delco_1997.json
+      pixelcoat carries: bank, casino, delco, rockay, rockay_civic,
+        rockay_retail, rockay_service, stadium, street
+      zoo: no species carry a 'delco_1997' style (56 scanned) - the kit
+        falls back to flat colour
+    refusing to run an art layer against a theme that does not resolve.
+    Nothing has been dispatched.
+
+**IT IS TWO REPOS, WHICH IS THE POINT OF FILING IT.** A Pixelcoat profile
+alone does not make the theme: Zoo has no species carrying that style across
+56 scanned, so the kit would resolve the skin and still render flat colour.
+Under the gap protocol that is a Pixelcoat skin pack AND a Zoo species-style
+pass, versioned and changelogged in both, and it is a DESIGN decision -- what
+a 1997 Delco looks like as distinct from `delco` -- before it is a build task.
+
+**HOW LONG IT HAS BEEN TRUE.** `smoke_lf.ps1` has requested `delco_1997`
+since it was written. Before Level Factory 0.51.0 the run reached
+`pixelcoat_build` and exited 1 there, after the functional lock had already
+spent real Blender time; the 0.51.0 changelog records exactly that run. The
+preflight moved the failure to stage 9 in seconds. So nothing regressed and
+nothing was ever built -- the harness has simply never completed its
+presentation leg, and the cost of finding that out fell by most of an hour.
+
+**WHAT 0.53.0 DID AND DID NOT DO.** It pointed the smoke at `delco`, a theme
+Pixelcoat carries. Two string edits, no logic. That is a fix to the HARNESS,
+which should test the pipeline rather than the catalogue, and it is not an
+answer to this item. `delco_1997` still does not exist, and this item is
+where that stays visible.
+
+**WHY IT MATTERS BEYOND THE SMOKE.** The smoke is the only thing that
+re-earns certification. While it could not complete, `verify-manifest`
+reported DRIFT on five tools -- deli_counter certified 0.94.0 against 0.102.1
+installed, lux 0.16.0 against 0.27.0, lot 0.48.0 against 0.51.0, zoo 0.48.0
+against 0.54.0, level_factory 0.48.0 against 0.52.0 -- with no route to clear
+any of it. A blocked harness does not announce itself as a blocked
+certification; it just looks like a failing test nobody has got to.
+
+**THE OPEN QUESTION, and it is not a technical one.** Does the design want a
+`delco_1997`? If yes, it is a capability request in Pixelcoat's and Zoo's own
+grammar and belongs to whoever owns the look. If no, the string was always a
+placeholder and this item closes as RETRACTED with the smoke change standing.
+Nobody has been asked.
