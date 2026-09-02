@@ -4,6 +4,7 @@ r"""The roadmap's status index, derived from the roadmap instead of typed.
     python roadmap_status.py --check        # compare to the file, exit 1 on drift
     python roadmap_status.py --write        # rewrite the block in place
     python roadmap_status.py --unclassified # only the items with no explicit status
+    python roadmap_status.py --selftest     # prove the status reader on both dialects
 
 Run from the factory root.
 
@@ -100,6 +101,51 @@ def _title(num: int, first: str, lines: list[str], i: int) -> str:
     return head.split("**", 1)[0].strip().rstrip(".")
 
 
+def _block_above(lines: list[str], i: int) -> str:
+    """The nearest non-blank block above line `i`, joined into one string.
+
+    This used to read `lines[k]` -- the single nearest non-blank line -- and
+    `_STATUS` requires that ONE line to both open with `*STATUS:` and close
+    with `*`. That holds only while a status is written unwrapped, and the
+    early ones are: item 41's is a single 2,400-character line. Every status
+    written from 2026-08-18 on is hard-wrapped, so its last line ends with `*`
+    and does not begin with `*STATUS:`, the match failed, and the item fell
+    through to prose inference in silence.
+
+    MEASURED 2026-08-24 on the roadmap at 5,811 lines: NINE items -- 54 through
+    62, every item added since the convention was adopted -- had an explicit
+    status line that this file could not see. Item 54 carried
+    `CLOSED 2026-08-24` with a census pass behind it and the derived table
+    called it `OPEN *(inferred)*` with no evidence. `--check` reported that as
+    ordinary drift, so the index looked merely stale rather than blind, which
+    is why it went unnoticed for six days.
+
+    A checker that cannot see the field it wants has learned nothing. Joining
+    the block is the whole fix; `--selftest` pins BOTH dialects, and it fails
+    on the version of this file that reads one line.
+    """
+    k = i - 1
+    while k >= 0 and not lines[k].strip():
+        k -= 1
+    if k < 0:
+        return ""
+    j = k
+    while j >= 0 and lines[j].strip():
+        j -= 1
+    block = [ln.strip() for ln in lines[j + 1:k + 1]]
+    # The status STARTS at the line that says so, not at the top of the block.
+    # A plain block join regressed item 42, whose status is one unwrapped line
+    # with NO blank line between it and the paragraph above -- so the join
+    # began "correct can still look wrong..." and matched nothing, turning a
+    # NARROWED with 1,039 characters of evidence into `OPEN *(inferred)*` with
+    # a dash. Caught by reading every changed row of `--check`'s own diff
+    # rather than only the rows the change was aimed at.
+    starts = [n for n, ln in enumerate(block) if ln.startswith("*STATUS:")]
+    if not starts:
+        return " ".join(block)
+    return " ".join(block[starts[-1]:])
+
+
 def parse(text: str) -> list[dict]:
     body_at = text.index("## What to do next")
     lines = text.splitlines()
@@ -120,15 +166,11 @@ def parse(text: str) -> list[dict]:
             continue
         num = int(m.group(1))
         nxt = next((s for s in starts if s > i), len(lines))
-        # An explicit status sits on the nearest non-blank line above.
+        # An explicit status sits in the nearest non-blank BLOCK above.
         status, note, explicit = "OPEN", "", False
-        k = i - 1
-        while k >= 0 and not lines[k].strip():
-            k -= 1
-        if k >= 0:
-            sm = _STATUS.match(lines[k].strip())
-            if sm:
-                status, note, explicit = sm.group(1), sm.group(2).strip(" -–—"), True
+        sm = _STATUS.match(_block_above(lines, i))
+        if sm:
+            status, note, explicit = sm.group(1), sm.group(2).strip(" -–—"), True
         if not explicit:
             chunk = "\n".join(lines[i:min(i + 12, nxt)])
             im = _INFERRED.search(chunk)
@@ -162,14 +204,77 @@ def render(items: list[dict]) -> str:
              f"rather than a status line -- run `roadmap_status.py "
              f"--unclassified` for the list.",
              "",
-             "A status is one line above the item: "
+             "A status is the block directly above the item, wrapped or "
+             "not: "
              "`*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: "
              + ", ".join(f"`{v}`" for v in VOCAB) + ".",
              "", END]
     return "\n".join(rows)
 
 
+_SELFTEST_DOC = """## What to do next
+
+*STATUS: CLOSED 2026-07-27 -- one unwrapped line, the dialect items 1-53 use*
+
+**1. An item whose status fits on one line.**
+Body.
+
+*STATUS: NARROWED 2026-08-24 -- a hard-wrapped block, the dialect every
+status written since 2026-08-18 uses, whose last line ends with the closing
+asterisk and whose first line is the one that says STATUS*
+
+**2. An item whose status is wrapped.**
+Body.
+
+**3. An item with no status at all, closed only in prose.**
+Closed 2026-08-01 by something.
+
+Not a status, just prose that happens to end in an asterisk *
+
+**4. An item preceded by prose rather than a status.**
+Body.
+
+Prose with no blank line before the status that follows it.
+*STATUS: SUPERSEDED 2026-08-14 -- item 42's shape: glued to the paragraph above*
+
+**5. An item whose status is glued to the prose above it.**
+Body.
+"""
+
+
+def selftest() -> int:
+    """Both dialects, plus the two ways a status can be absent.
+
+    Case 2 FAILS on the version of this file that matched `lines[k]`, which is
+    the only property that makes this worth having. Case 5 fails on the FIRST
+    attempt at the fix, which joined the whole block and so lost item 42.
+    Case 4 guards the other direction -- a block above an item that is not a
+    status must not become one just because the join made it longer.
+    """
+    got = {it["num"]: (it["status"], it["explicit"]) for it in parse(_SELFTEST_DOC)}
+    want = {
+        1: ("CLOSED", True),      # unwrapped, explicit
+        2: ("NARROWED", True),    # wrapped, explicit  <- regressed before this
+        3: ("CLOSED", False),     # inferred from prose
+        4: ("OPEN", False),       # prose above is not a status
+        5: ("SUPERSEDED", True),  # glued to prose  <- regressed by the first fix
+    }
+    bad = {n: (got.get(n), want[n]) for n in want if got.get(n) != want[n]}
+    for n, (g, w) in sorted(bad.items()):
+        print(f"  item {n}: got {g}, want {w}")
+    if len(got) != len(want):
+        print(f"  parsed {len(got)} items, expected {len(want)}")
+        return 1
+    if bad:
+        print(f"  selftest FAILED: {len(bad)} of {len(want)} cases")
+        return 1
+    print(f"  selftest ok: {len(want)} cases, both status dialects read")
+    return 0
+
+
 def main(argv: list[str]) -> int:
+    if "--selftest" in argv:
+        return selftest()
     if not DOC.is_file():
         raise SystemExit(f"not found: {DOC}")
     text = DOC.read_text(encoding="utf-8", errors="replace")
