@@ -8354,10 +8354,32 @@ binder stamped: 10.6379997730255 out and the same float back, which is what
 restoring from `BASE_META` should look like and is why exact equality is the
 right test at that one site.
 
-**WHAT THIS DOES NOT SAY.** That the lighting is good, or that the shipped
-`lux_apply` path binds -- this run was `--unlit`, so `run_lux_apply.gd` never
-executed. The binding it would use is the same `LuxRoot._ready` path this run
-exercised, but the first LIT build is the run that proves it. Nothing else in
+**AND ON THE LIT PATH TOO, 2026-09-02.** The paragraph that stood here said
+the shipped `lux_apply` path was still unproven because the gate run had been
+`--unlit`. It is proven now. `run category5_baie_dore_001 --art` on rockay-ws,
+`lux_apply` job log:
+
+    [lux] Bound 4 fixture emissive material(s) (searched Site)
+    [lux] Spawned 148 fixture light(s) from 148 marker(s)
+    [lux] requested 'Blue Hour' applied 'Blue Hour'
+    (exit=0, duration=1.64s)
+
+`searched Site` rather than `LuxRoot`, by a DIFFERENT route than the gate:
+`run_lux_apply.gd` sets `owner` on the line after `add_child`, so `_ready`
+finds a null owner and falls through to the parent, which is the scene root.
+The gate resolves through its own parent, `FixtureGate`. Both land on a node
+that actually contains fixtures, which is the whole point of the chain. Four
+materials again -- one per Zoo species -- now against 148 markers on a full
+site rather than 37 on one building, none skipped, and `lux.validation.json`
+empty.
+
+**THE COST QUESTION IS ANSWERED AND IT WAS NOT A QUESTION.** This item asked
+what the on-ready bind costs on a scene with 218 kit placements. The entire
+driver run -- load, attach LuxRoot, build modules, apply preset, bind, spawn
+148 rigs, pack and save a 276 KB scene -- is 1.64 seconds. The tree walk is
+not measurable against the rest of it.
+
+**WHAT THIS STILL DOES NOT SAY.** That the lighting is GOOD. Nothing else in
 item 94 is outstanding.
 
 *STATUS: OPEN 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON
