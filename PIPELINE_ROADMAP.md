@@ -739,7 +739,7 @@ work of adopting this.
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
 | 59 | **OPEN** | One door, two corridors: a partition ends inside the aperture and spli | 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE AND THE FOUNDING SIGHTING REMAIN |
 | 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
-| 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-02 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0. SECTION  |
+| 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
 | 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
 | 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
 | 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
@@ -5898,13 +5898,164 @@ doorways, and Godot's 20 render layers cannot number every room on a site.
 shadow policy in the loader/rigs, then a walk that shows walls stopping
 light where doors let it through.
 
-*STATUS: NARROWED 2026-09-02 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL
-HARDWARE IN LUX 0.28.0. SECTION 41'S BUDGET IS MET ACROSS SECTION 50'S WHOLE
+*STATUS: NARROWED 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL
+HARDWARE IN LUX 0.28.0, AND AS OF 0.29.0 SECTION 50 IS THREE OF FIVE COLUMNS
+MEASURED, SECTION 51 HAS A HARNESS AND ONE MACHINE IN IT, SECTION 54'S EDGE
+CASE IS CLOSED AND THE HALF-RESOLUTION PASS IS PRICED. WHAT REMAINS IS SIX
+HARDWARE CLASSES AND TWO COLUMNS NO ENGINE COUNTER REPORTS. SECTION 41'S BUDGET IS MET ACROSS SECTION 50'S WHOLE
 RESOLUTION MATRIX. THE TDD'S OWN PREMISE WAS REFUTED ON THE WAY, TWO OF ITS
 SECTIONS CONTRADICT EACH OTHER, AND ONE OF ITS ACCEPTANCE TESTS IS NOT
 REPRODUCIBLE AT 8-BIT OUTPUT. THE hdr_2d DECISION IS TAKEN AND
-WIRED, AND THE FEATURE HAS BEEN SEEN RUNNING. WHAT IS LEFT IS A WALK AND A
-HARDWARE SWEEP.
+WIRED, AND THE FEATURE HAS BEEN WALKED, TUNED BY EYE AND SHIPPED AS ONE
+SWITCH. `LuxRoot.film_mode` / `set_film_mode()` turns the whole treatment on or
+off for a Level Factory export without touching a preset, because the shipped
+presets store no film_* fields at all and inherit the settled defaults. FILM NO
+LONGER TOUCHES THE RENDER TARGET: film_manage_hdr_2d DEFAULTS FALSE, because
+raising it is a TONE change larger than the grain it serves and it moves in
+opposite directions on different rasterisers -- llvmpipe takes a pixel at
+[0,0,0] to [0.0118,0.0118,0.0118] with film still off, an RTX 2060 turns the
+whole frame into its linear form. WITH THE TARGET HELD AT 8 BITS AND FILM THE
+ONLY VARIABLE, hue edges per lit scanline fall 47.9 to 21.6, 45.4 to 22.8, 9.9
+to 5.1 and 17.7 to 11.4: 1.55x to 2.22x, every shot. THAT IS THE HONEST FIGURE
+AND IT SUPERSEDES A 3.6x-5.9x ONE THAT HAD THE RENDER TARGET SWITCHING
+UNDERNEATH IT. AND THE MECHANISM IS NOW DEMONSTRATED RATHER THAN INFERRED: at a
+VISIBLE grain, film with PER-CHANNEL quantization makes the rainbow 1.5x WORSE
+(47.9 to 73.3) before the shared decision takes it 2.2x below the baseline --
+which is exactly the mechanism section 3d named, and it was invisible while the
+grain default was 8x too low to see. FILM DEEPENS THE BLACKS RATHER THAN
+LIFTING THEM: pure black 55.6% to 87.1% of frame, 99.7% of black pixels
+unchanged. THE PERFORMANCE RE-MEASURE IS DONE AND SECTION 41 NOW FAILS: on an RTX 2060 at
+3840x2160 film costs 0.2610 ms, which is 0.78% of a 30 fps frame and 1.57% of a
+60 fps one but 2.35% at 90 fps and 3.13% at 120 fps against a ~2% budget. THE CAUSE IS NOW MEASURED, BY BISECT
+RATHER THAN BY GUESS -- each film term priced by removing it at the failing
+cell. THE SECOND SHADER IS FREE (+0.0069 ms with its whole block branched
+over), so every theory offered about the cost was wrong: not the octave loop,
+not the shader swap, not the resolution lock. The entire +0.2534 ms is the film
+ARITHMETIC -- grain fetch, dihedral tile coordinate, exp2 transmission -- and
+IT CANNOT BE TUNED AWAY: removing both removable terms (resolution lock 0.0041,
+chroma dye 0.0118) saves 6.1% against the 15%-34% needed. THE DENSITY MODEL IS
+THE BUDGET.
+SO THE FEATURE HAS A MEASURED ENVELOPE RATHER THAN A FAILURE. Film costs 0.0450
+ms at 720p, 0.0990 at 1080p, 0.1760 at 1440p and 0.2580 at 4K, against section
+41 budgets of 0.67/0.33/0.22/0.17 ms at 30/60/90/120 fps: INSIDE BUDGET
+EVERYWHERE EXCEPT 4K ABOVE 60 FPS AND 1440p AT 120. That is documented in
+lux/addons/lux/docs/film_emulsion_authoring.md so it is a scoping decision
+rather than something the first 4K120 build discovers. Both figures are FLOORS
+on an empty scene, so 1440p at 90 and 4K at 60 are thin rather than
+comfortable. THE HALF-RESOLUTION PASS IS NOW PRICED AND DELIBERATELY NOT BUILT
+(`lux/tools/film_halfres_probe.py`). NO NEW TIMING HARNESS WAS WRITTEN, ON
+PURPOSE: a half-res pass at 4K renders exactly as many fragments of exactly the
+same shader as a full-res pass at 1080p, and the resolution lock makes the
+per-fragment work identical too, so its cost IS a cell section 50 already
+measured -- building a SubViewport rig to re-measure it would only have added a
+new way to be wrong about a number already in hand. It closes EVERY failing
+cell, leaving 0.1232 / 0.0677 / 0.1217 ms for the upscale blit at 4K@90,
+4K@120 and 1440p@120. WHAT IT COSTS IS THE GRAIN, AND TWO PREDICTIONS WERE
+WRONG BEFORE THE MEASUREMENT STOOD UP: a Nyquist argument on the band edges
+said the fine band would ALIAS at 1440p-half (it does not), and the first probe
+box-downsampled a full-res render -- a fair low-pass -- and reported 0.0%
+aliasing everywhere, which should have been the tell, because a half-res PASS
+point-samples once per half-res fragment and folds rather than attenuates.
+Corrected: 74.3% of grain amplitude retained at 4K and 65.6% at 1440p, aliasing
+0.0% at both, and the FINE BAND -- 68% of the blend, placed near Nyquist on
+purpose so the grain reads as crystals rather than blobs -- falls from 31.5% to
+13.5% of energy at 4K. IT SOFTENS RATHER THAN ALIASES, so half-res is NOT a
+quality setting: it is a SECOND STOCK, the same emulsion coarser, because half
+the pixels is half the pixels. That is a look decision and this item does not
+make it. Aliasing appears only at 1080p (10.2%), so the technique is viable
+exactly where it is needed and breaks where it is not. Worth stating next to
+all of it: 4K at 120 fps is chasing motion clarity and film emulsion is a 24
+fps aesthetic -- half-res makes the cell FIT, it does not make it a thing
+anyone wants.
+THE EARLIER ATTRIBUTION IS RETRACTED. It was attributed to the octave
+loop -- a `for` bounded by a UNIFORM cannot be unrolled -- and a single-octave
+fast path was built on that reasoning and measured: 0.2610 -> 0.2580 ms, THREE
+MICROSECONDS. The fast path is kept because it is free and arithmetically
+identical at the default, but the explanation was a guess and measurement
+rejected it. NOR IS THE REGRESSION ITSELF ESTABLISHED: the comparison is
+0.28.0's 0.1340 ms against today's 0.2540 with NO CONTROL, because 0.28.0's
+`no post` column was never recorded -- a machine that is merely slower today
+produces the same apparent doubling. What is known without any of that is the
+absolute figure and its verdict. Finding the cost needs a BISECT of the shader
+terms, not another hypothesis. And the figure is a FLOOR taken on an empty scene, so a real
+level can only be worse. SECTION 45 AT 8 BITS reads chroma/luma 0.3365 --
+inside the hard 0.40 bar, outside the preferred 0.20 -- where at float it reads
+0.1914; the probe's own noise-floor control attributes most of that to the
+FORMAT rather than the grain, since the chroma-free baseline still measures
+0.000412 there against 0.000091 at float. OPTIONALITY IS RE-PROVEN ON ALL NINE
+SHIPPED PRESETS: none asks for film, none activates it, deleting the shader and
+grain asset moves none further than the build's own nondeterminism, and the two
+with grain_strength 0 are bit-identical. AND THE RAINBOW CLAIM IS NOW EXACT: on
+a flat coloured patch with the grain off, saturation spread from quantization
+alone is 0.082397 per-channel against 0.000000 shared -- not smaller, ZERO,
+because one multiplier applied to three channels leaves hue and saturation
+untouched by construction. SECTION 50'S OTHER COLUMNS ARE NOW THREE OF FIVE, AND POWER IS THE ONE THAT
+CHANGED A DECISION. `film_render_probe.py --perf --power` samples nvidia-smi at
+100 ms and attributes it to each configuration's OWN timed window -- warmup
+excluded, because shader compilation and the clock ramp both move watts and
+neither is the feature; polling around the whole process would have averaged
+import, scene build and five configurations together and published the mean as
+"film", which is how a power column gets written without measuring anything.
+FILM COSTS +7.6 W AT 720p RISING TO +12.1 W AT 4K. On a desktop that is inside
+the noise. A STEAM DECK'S ENTIRE BUDGET IS 15 W, so the handheld class stopped
+being one entry in a coverage list and became the row to fill first -- a
+conclusion no frame-time column could have produced. Power also independently
+supports the hdr_2d reading above: the film delta gets SMALLER with the float
+target on (7.0 vs 10.3 W at 1440p, 8.8 vs 12.1 W at 4K), the same direction the
+frame times went, so two instruments now point at the bandwidth-bound
+hypothesis and it is still a hypothesis. hdr_2d itself costs +35.9% on the
+baseline pass at 4K and ~6-7 W. VRAM READS +0.000M AT EVERY RESOLUTION AND THAT
+IS A FLAW IN THE MEASUREMENT RATHER THAN A FINDING: all five materials
+including the grain texture are built before any timing runs, so the texture is
+resident in the BASELINE row too and the delta cancels. What the row does prove
+is the prediction it was built to test -- flat across all four resolutions, so
+nothing about film's VRAM scales. The absolute comes from the asset and not the
+instrument: one 128x128 RGBA8 texture, 64 KiB, once. RAM +0.006M. BANDWIDTH AND
+SHADER STALLS ARE LEFT EMPTY RATHER THAN ESTIMATED -- no engine counter reports
+either, deriving bandwidth from resolution x format x taps is arithmetic
+dressed as a measurement, and stalls need Nsight, RGP or PIX. A named gap beats
+a fabricated column.
+SECTION 51 IS NOW A FILE RATHER THAN A PLAN. `lux/tools/film_hw_sweep.py`
+appends ONE record for ONE machine to `lux/docs/data/film_hw_sweep.jsonl`. The
+reason this section stayed untouched while everything around it closed is
+structural: a sweep written as a single invocation cannot be started until the
+last card arrives, so it never gets started. Inverted, the sweep IS the file and
+machines can be added months apart by different people. Records are NEVER
+overwritten -- re-measuring appends and the report prints the movement, which is
+most of what a sweep is for -- and sample counts are a constant rather than a
+flag, because two rows measured differently cannot be put next to each other.
+FIRST ROW: RTX 2060, worst cell 0.2590 ms at 4K/hdr_2d true, reproducing the
+0.2580 above across a separate run and a separate harness. SIX OF SEVEN CLASSES
+REMAIN OPEN (AMD discrete, Intel Arc, integrated, handheld, Apple/Metal,
+software) and the report names them -- the same quantity of unmeasured hardware
+as before, stated as a list of machines to find. Read the envelope above as one
+GPU's, not as the feature's.
+SECTION 54'S FILM-MODE EDGE CASE IS CLOSED, AND IT WAS NEVER THE FEATURE.
+RETRACTED: "the film-mode test segfaults llvmpipe at is_film_emulsion_active()",
+a sentence that had been written into the probe's own comments and its report
+text and sent three rounds of debugging at the rasteriser. THE CAUSE WAS THE
+PROBE: the viewport-cleanup test above it frees the LuxRoot BY DESIGN -- it is a
+test OF teardown -- and the film-mode test then called set_film_mode() on a
+freed node. The free landed during an await, so there was no catchable error, an
+unsymbolised C++ backtrace, and a reported line that drifted onto a two-term
+getter that cannot abort anything. A freed Node still answers != null in
+GDScript; only is_instance_valid() tells the truth, and that is what kept it
+invisible. AND THE FIX BROKE THE TEST BELOW IT: reordering put film mode first,
+set_film_mode() moves the film MASTER as well as the mode flag (it has to,
+against section 10's three-key AND), so the cleanup test inherited the master
+off and reported that it never got film running. THAT IS THE SAME DEFECT ONE
+PAIR ALONG -- one test mutating shared state on _lux and the next inheriting it
+-- and the reorder only moved which pair it broke. Fixed from both sides,
+because either alone fixes the symptom and leaves the coupling, and
+master_restored is asserted so the next leak fails where it happens. It was
+caught only because the cleanup test REFUSES TO PASS ITSELF when it did not
+observe what it was measuring; that is luck rather than coverage, and it is the
+argument for tests that report "I measured nothing" instead of a value. GREEN on
+both builds: film present ON->active OFF->inactive, film DELETED ON->inactive
+OFF->inactive, shipped preset unmutated in both, viewport raised and restored on
+both paths.
+WHAT IS LEFT IS SECTION 51'S SIX REMAINING CLASSES, THE TWO COLUMNS THAT NEED
+VENDOR TOOLS, AND A HALF-RES PASS THAT IS PRICED BUT UNBUILT.
 Phases 1, 3, 4 and 5-7 landed (phase 2's reordering is folded into the shader
 variant). THE PREMISE, AND A CORRECTION TO THE FIRST READING OF
 IT. The TDD names the problem as "digital-looking noise applied independently
@@ -5937,7 +6088,20 @@ that did nothing could not pass, and that a shared decision moves it by nothing
 (3.33e-16) -- and `film_render_probe.py` measures 0.082397 against exactly
 0.000000 on hardware at both precisions. The audit carries the retraction in
 place, at the head of the section that made the wrong call. ALL OF THIS IS
-OPT-IN: the coherence dial exists on the FILM shader only,
+OPT-IN -- BUT 0.28.0 GOT ONE PART OF THAT WRONG AND LUX 0.28.1 FIXES IT: a
+`const ... := preload()` of the film assets in LuxPostFX resolved at SCRIPT
+load, so on a project whose `.godot/` predated the grain texture the script
+failed to load, `LuxPostFX.new()` returned null, and there was NO POST STACK AT
+ALL with `Nonexistent function 'apply' in base 'Nil'` every frame. Found by the
+first run of the demo on a machine other than the one that wrote it. THE LESSON
+IS THE FIX: optionality that has not been tested by REMOVING the thing is a
+claim, not a property; it is now tested that way (delete the grain asset, Lux
+renders normally with one warning). AND THE RINGS AROUND A LIGHT POOL ARE WHERE
+THE RAINBOW IS MOST VISIBLE ON REAL GEOMETRY -- counting neighbouring pixels
+whose hue jumps more than 15 degrees along one scanline through the pool, 149 as
+shipped against 4 with the shared decision, and 171 with film grain but
+per-channel quantization: film ON makes the rainbow EASIER to see until the
+quantizer is fixed too. The coherence dial exists on the FILM shader only,
 the baseline shader is byte-identical, and an earlier draft that let `grain_mode`
 gate the legacy grain was backed out so that no film property can change a
 scene which never asked for film. THE REAL DEFECT, measured
@@ -6028,9 +6192,80 @@ and not a profile. So hdr_2d partially pays for itself on the pass film runs in.
 WHAT REMAINS: section 51's hardware sweep is untouched and one RTX 2060 is
 nobody's minimum spec -- no integrated GPU, no AMD, no Intel, no handheld;
 section 50 also wants VRAM, RAM, bandwidth, power and shader stalls, and only
-frame time is measured; nothing has been rendered on real geometry, so the walk
-this item names as its closing condition has not happened, and neither has item
-57's texture-rhythm re-walk; and item 57's texture-rhythm re-walk is untouched.
+frame time is measured; section 51's hardware sweep is untouched and one RTX 2060 is
+nobody's minimum spec -- AND THAT SWEEP IS NOW LOAD-BEARING FOR THIS FEATURE'S
+ATTRIBUTION, NOT ONLY FOR SECTION 41'S BUDGET, BECAUSE TWO RASTERISERS ALREADY
+DISAGREE ABOUT IT.
+THE WALK HAS HAPPENED (2026-09-03) on an RTX 2060 and this item's closing
+condition is met: `lux/tools/film_walk_probe.py` runs film on the staged night
+strip -- three Patina store shells with dressing, the fixtures GLB, 59 light
+rigs baked, 147 fixtures spawned, Gothic Street Night -- four cameras, and FOUR
+states, because three could not answer the question. The film states raise
+use_hdr_2d, so every earlier film-off-versus-film-on reading measured FILM OR
+THE RENDER TARGET AND COULD NOT SAY WHICH; `hdr_only` is film off at the film
+states' target, which splits them. Hue edges per lit scanline fall 32.9 -> 8.7,
+33.5 -> 5.7, 28.8 -> 6.6 and 10.9 -> 3.0: 3.6x to 5.9x, every shot. BOTH HALVES
+CONTRIBUTE. The render target alone is worth 2.02x, 2.94x, 4.11x and 2.06x --
+more than the quantizer on three of four shots -- and the quantizer adds 1.87x,
+2.00x, 1.06x and 1.77x on top. THE GRAIN CONTRIBUTES NOTHING: hdr_only ->
+film_perchannel is film fully on with per-channel quantization and moves 16.3 to
+15.4, 11.4 to 9.6, 7.0 to 8.0, 5.3 to 4.9. That is the one attribution both
+rasterisers agree on. The probe asserts each state rendered in the configuration
+its column claims and aborts otherwise, which earned itself on the first run by
+catching film_shared silently rendering at hdr_2d=false.
+RETRACTED, SAME DAY, BY THE FIRST HARDWARE RUN: an llvmpipe attribution
+published here saying "THE RENDER TARGET IS NOT THE FIX (47.9 -> 42.7, not even
+consistent in sign)". On hardware it is 2.0x to 4.1x. Section 2b already
+recorded that the 8-bit figures do not agree across rasterisers, and `film_off`
+IS the 8-bit column, so every ratio taken against it was exposed to exactly that
+and was published anyway. THE LESSON: a control tells you THAT two causes are
+separable; it does not tell you their sizes on hardware you did not run.
+ALSO RETRACTED: "film emulsion is not a treatment for item 57 and mildly works
+against it on raking facades", with a claimed +12% on the raking shot.
+ITEM 57 IN THE SHIPPED CONFIGURATION: NO EFFECT. Detection rate 68/82/87% film
+off against 66/82/92% film on, three shots with a real module; the fourth has
+none in any state. The earlier hardware reading of a modest loosening was taken
+with the render target switching, and this single-variable one supersedes it.
+THE ORIGINAL HARDWARE RE-WALK, KEPT BECAUSE ITS METRIC LESSON STANDS. Prominence is only
+meaningful where a bump was found; argmax always returns something, so a shot
+with no module reports the search floor and that number then gets compared
+across states as though it meant something. The tool now reports DETECTION RATE
+-- the fraction of lit rows carrying a real interior bump. film_off / hdr_only /
+per-chan / SHARED: 01_strip 31/44/47/47% at the search floor in every column, so
+it has no module and cannot answer this at all; 02_pawn_front 72/78/77/79% at
+pitch 26, unmoved; 03_facade_raking 82/85/71/71% at pitch 50; 04_pool
+25/81/8/3% at pitch 53. THE ANSWER IS A MODEST YES ON THE ONE GENUINE FACADE
+SHOT: 03_facade_raking loses detection 85% -> 71% and prominence 0.1171 ->
+0.1008, about 14% down, which is the original screen-space-grain hypothesis
+surviving weakly. 04_pool's collapse from 81% to 3% is NOT an item-57 result --
+what is periodic in a light pool at pitch 53 is the concentric banding of the
+falloff, not a wall module, so that is the rainbow finding appearing in a second
+statistic: a good consistency check and a bad item-57 datum.
+AND THE OLD REPETITION METRIC IS RETRACTED ENTIRELY. It reported
+max(autocorrelation[8:w/3]) and called it periodicity; autocorrelation of any
+low-pass signal falls monotonically from lag 0, so that maximum is a SMOOTHNESS
+measure wearing a periodicity label, and it ranks backwards -- 0.976 on a
+synthetic signal with no periodicity at all, dropping to 0.916 when a real 40 px
+module is ADDED. Replaced by bump prominence above the autocorrelation's own
+decay envelope, and the tool now proves the metric on signals with known answers
+before it measures anything, because nothing caught the first one having never
+asked it to measure something whose answer was known.
+NEW, UNRESOLVED, AND MORE CONSEQUENTIAL THAN ANYTHING ABOVE: RAISING THE RENDER
+TARGET IS NOT TONALLY NEUTRAL ON REAL HARDWARE. `film_off` and `hdr_only` differ
+only in use_hdr_2d, with film OFF in both, and on 04_pool mean luminance goes
+0.2046 -> 0.1004 -- half -- with 45% of pixels differing by more than 0.15. It is
+not a readback encoding artifact: applying the sRGB transfer function to
+hdr_only does not recover film_off (0.114 raw, 0.086 encoded, and the encoded
+mean overshoots at 0.227 against 0.182). The hdr_2d decision set out further
+down this status rests on a patch-level measurement that the raised target lands on the SAME
+values only more precisely; that may still hold at patch level, but end to end
+through the post stack on hardware it does not. Since film_manage_hdr_2d
+defaults to true, TURNING FILM ON HALVES THE BRIGHTNESS OF THIS SCENE BEFORE ANY
+FILM ARITHMETIC RUNS. Hypothesis, untested: the float target no longer clamps at
+1.0 before post, so the grade's contrast pivot, the palette zones and the
+quantizer all see a different input range. WHAT WOULD CLOSE IT: measure the post
+pass's input range in both targets, and decide whether film_manage_hdr_2d should
+default false or the post stack should normalise.
 THE hdr_2d DECISION IS TAKEN: `LuxRoot.film_manage_hdr_2d` raises the viewport
 to a floating-point target while film is running and restores whatever was there
 when it stops -- not a project setting, because Lux is an addon and cannot edit
