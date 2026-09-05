@@ -733,7 +733,7 @@ work of adopting this.
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 | 54 | **CLOSED** | One mesh spans a whole room, and two light caps are paying for it | 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The closing run (census #8, `walk.tscn |
-| 55 | **OPEN** | The level ships sign fixtures with no sign art, and three of four cann | 2026-08-18 -- MEASURED. Four `AreaPanel_Surface` nodes ship in `lot_demo_001`, each a 1.4  |
+| 55 | **OPEN** | The level ships sign fixtures with no sign art, and three of four cann | 2026-09-05 -- SEEN AGAIN ON A SECOND MISSION AND THE ART DECISION IS NOW MADE: IT IS A BUG |
 | 56 | **OPEN** | The global light budget is derived from scene text, and the running le | 2026-08-23 -- MEASURED at discovery, unworked. Found by item 54's closing instrument on it |
 | 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE PIPELINE. `tools/detach_textures |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-08-29 -- THE LANE IS CHOSEN AND CONFIRMED BY EYE, AND IT IS NOT ONE OF THE TWO THAT A |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- CONFIRMED BY A THIRD PAIR OF EYES ON A THIRD MISSION, AND THE RESIDUAL IS EX |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -780,8 +780,9 @@ work of adopting this.
 | 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
 | 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
+| 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
 
-**101 items: 41 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**102 items: 42 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -5451,6 +5452,7 @@ engine default of 8. At that point `packages/core/godot_project.py` stops
 writing the per-object cap because no package needs it, and the constant
 `PER_OBJECT_CEILING = 40` and its comment go with it.
 
+SUPERSEDED STATUS, kept above the one that replaced it:
 *STATUS: OPEN 2026-08-18 -- MEASURED. Four `AreaPanel_Surface` nodes ship in
 `lot_demo_001`, each a 1.4 x 1.4 m single-sided `QuadMesh` at y 2.5 under
 `LuxFixtureLights`, spawned by `LuxFixtureSpawner` as the emitter face of an
@@ -5461,6 +5463,20 @@ three are `@Node3D@27`, `@Node3D@71`, `@Node3D@99` -- engine-generated names,
 so nothing downstream can select them. NOT CLAIMED HERE: whether a blank
 emitter is a defect or simply unfinished content. That is an art decision and
 this item does not make it*
+
+*STATUS: OPEN 2026-09-05 -- SEEN AGAIN ON A SECOND MISSION AND THE ART
+DECISION IS NOW MADE: IT IS A BUG. Walked in `precinct_yard_001`, circled in a
+screenshot, `look Doorway 3.12 m` against the 2.9 m this item recorded on
+`arena_a03` eighteen days earlier -- the same white card beside the same kind
+of opening, on a different building in a different mission. An `AreaPanelRig`
+node is in the shipped build. THE ONLY THING THIS ITEM WAS WAITING FOR WAS THE
+CALL, which it declined to make itself and which has now been made by the
+person who walked it. STILL TRUE AND STILL UNFIXED: the light works, the
+surface is blank, and three of the four rigs carry engine-generated names
+(`@Node3D@27`, `@Node3D@71`, `@Node3D@99`) so nothing downstream can select
+them -- which is the half that has to be fixed before the art half can be.
+Original text below, including its deferral, kept because the deferral is what
+this update answers.*
 
 **55. The level ships sign fixtures with no sign art, and three of four cannot
 be addressed.**
@@ -8188,6 +8204,7 @@ a guessed schema, arrived at the hard way.
 larger sheet. Embedded per-GLB, that is a bigger payload duplicated across the
 same 35 files. Sharing has to come first or the atlas makes this worse.
 
+SUPERSEDED STATUS, kept above the one that replaced it:
 *STATUS: NARROWED 2026-08-29 -- THE LANE IS CHOSEN AND CONFIRMED BY EYE, AND
 IT IS NOT ONE OF THE TWO THAT ADD ASSETS. WORLD-SPACE TRIPLANAR MAKES TEXTURE
 DENSITY INDEPENDENT OF NODE SCALE, SO A SQUASHED UNIT BOX STOPS BEING A
@@ -8198,6 +8215,20 @@ x -4.6 z 20.5 -- AND THE STRETCHED STRIPS ARE GONE. MEASURED AGAINST A NULL
 FLOORS OF 7-16. WHAT REMAINS IS THAT `--triplanar` IS A WALK-PROJECT RUNTIME
 FLAG AND NOT WHAT SHIPS -- SEE 76 AND 80 -- AND THAT IT FORECLOSES TRIM
 SHEETS, WHICH IS A DESIGN DECISION AND NOT A BUG*
+
+*STATUS: NARROWED 2026-09-05 -- CONFIRMED BY A THIRD PAIR OF EYES ON A THIRD
+MISSION, AND THE RESIDUAL IS EXACTLY THE ONE THIS ITEM ALREADY NAMES. Reported
+from a walk of `precinct_yard_001` as "some areas where the pixelcoat texture
+looks stretched out and not good against the other texture next to it (just
+seems random)" -- almost the words this item was filed with, on a build nobody
+had walked before, with a screenshot circling two stretched bands on
+`ext_0_W_open1`. The DIAGNOSIS is unchanged and the FIX is unchanged and
+proven: world-space triplanar makes texture density independent of node scale.
+WHAT THIS RUN ADDS is that the walk project was assembled WITHOUT
+`--triplanar`, which is the shipping configuration, so what was seen is what a
+recipient sees. `--triplanar` remains a walk-project runtime flag and not what
+ships -- see 76 and 80 -- and every walk assembled without it will keep
+reporting this. Original status below.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
@@ -9457,3 +9488,59 @@ What is NOT acceptable is the current state, where the package asserts a
 binding it does not carry -- the same shape as item 55 (fixtures with no art)
 and the export declaring `godot_version: 4.7` while telling the engine nothing
 (fixed in level_factory 0.55.0).
+
+*STATUS: OPEN 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE
+INTERIORS ARE BARE ENOUGH THAT A ROOM IS A SIGHTLINE RATHER THAN A FIGHT, AND
+THAT IS A LEVEL PROPERTY THIS FACTORY OWNS EVEN THOUGH THE AI THAT WOULD
+EXPLOIT IT IS BUILT ELSEWHERE. DISTINCT FROM 22, 44 AND 45, WHICH ARE ALL
+ABOUT THE OUTDOORS OR ABOUT SURFACES LOOKING FLAT.*
+
+**102. The interiors are bare, so a room is a sightline rather than a fight.**
+Raised 2026-09-05 from the first walk of `precinct_yard_001`, in the reporter's
+own framing: "all of these buildings are relatively bare on the inside when it
+comes to props and collision to make navigation more interesting and not just
+let you snipe and be sniped by the AI enemies that have yet to be created,
+which will happen outside of the level factory toolset."
+
+**WHY IT IS THIS FACTORY'S PROBLEM AND NOT THE CONSUMING GAME'S.** The AI, the
+weapons and the time-to-kill belong to the consuming game and `PIPELINE_MAP.md`
+is explicit about that. What does NOT belong to them is whether the geometry
+gives a body anything to break line of sight on. Cover is collision and
+placement, both of which are built here, and an empty room cannot be fixed by
+better AI -- it can only be fought across.
+
+**WHAT IS ALREADY KNOWN AND WHY THIS IS NOT A DUPLICATE.**
+
+* Item 22 is OUTDOOR props and their swap contract -- "cover stays boxes
+  forever". Outdoors.
+* Item 44 is the outdoor green boxes being replaceable by cars without moving
+  collision. Outdoors, and about the ART of cover rather than its presence.
+* Item 45 is "large playable surfaces are visually flat", which is a LOOK
+  problem on ground planes.
+* Deli Counter's `level_design.seed_cover` DOES place interior cover, and
+  roadmap 69 measured it moving with the seed: 8 of 14 volumes on
+  casino_tower, 8 of 11 on bank, 7 of 13 on warehouse -- and NOTHING on office
+  and parking_garage, where it skips rooms with no `combat_range` or with
+  authored cover.
+
+That last line is the thread this item should be pulled by. The mechanism
+exists and is seeded; what nobody has measured is whether the DENSITY it
+produces is enough to break a room's sightlines, and it has never been asked
+that question because no instrument in this repo asks it.
+
+**WHAT WOULD MOVE IT, and none of this is a fix yet.**
+
+1. **Measure before adding anything.** Cover volumes per interior room, and
+   the longest interior sightline per room, over the shipped library. The
+   ingredients exist -- `site_cover.pinches()`, `probe_sightlines` and the
+   room `bounds` in every `.gameplay.json`. Nobody has run them INSIDE a
+   building; every sightline number in this file is a site-scale measurement
+   across open ground.
+2. **Decide what the target is.** "Enough cover" is not a number yet, and
+   inventing one before measuring is how `ENEMY_SIGHT_RANGE` happened.
+3. **Then, and only then**, either raise `seed_cover`'s budget or give rooms
+   with no `combat_range` a reason to get furniture.
+
+**THE HONEST RISK.** This is the first item raised purely from someone
+looking, with no measurement attached, since item 18 was written about exactly
+that gap. It should not be closed on a screenshot either.
