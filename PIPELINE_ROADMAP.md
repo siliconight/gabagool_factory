@@ -715,7 +715,7 @@ work of adopting this.
 | 34 | **CLOSED** | The greybox is a site; the themed export is a fragment of one | 2026-08-12 -- themed_site_assemble; the export is the whole site, five buildings |
 | 35 | **OPEN** *(inferred)* | The graybox/art relationship: it is a SWAP, and most of the recommende | — |
 | 36 | **NARROWED** | Walking it. Zoo's inserts are exact; the layer with no slot is the one | 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings  |
-| 37 | **OPEN** *(inferred)* | Every building on the site is the same building | — |
+| 37 | **NARROWED** | Every building on the site is the same building | 2026-09-04 -- THE MECHANISM IS BUILT AND ALMOST NOBODY ASKS FOR IT. `lot_library` SELECTS  |
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
@@ -747,7 +747,7 @@ work of adopting this.
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
 | 67 | **OPEN** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a CHANGELOG entry before it  |
 | 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
-| 69 | **OPEN** | Deli Counter's seed never varies, so every candidate is the same build | 2026-08-28 -- MEASURED ON TWO BRIEFS NOW, AND THE SECOND ONE RULES OUT THE TIDIEST WRONG E |
+| 69 | **NARROWED** | Deli Counter's seed never varies, so every candidate is the same build | 2026-09-04 -- FOUND, AND IT WAS NOT LOST. IT WAS NEVER SENT. `new_level.py` HAD NO `--seed |
 | 70 | **CLOSED** | `cold_run.py` counts the pipeline's own writes into a tool repo as int | 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC RUNS. `cold_run.py` now ATTRIB |
 | 71 | **CLOSED** | The fixture co-location gate measures bracket-to-bulb and calls it a f | 2026-08-28 -- RETRACTED AS FILED, REFRAMED, FIXED IN LUX 0.26.0, AND PROVEN TWICE: ONCE SY |
 | 72 | **CLOSED** | Nothing checks that a brief's theme resolves until the art pass is alr | 2026-08-29 -- CHECKED IN FOUR PLACES, AND THE ONE THAT SAVES THE TIME IS `run` REFUSING BE |
@@ -776,8 +776,9 @@ work of adopting this.
 | 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 | 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
+| 98 | **OPEN** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR IT. `check.py` EXITS 1 ON T |
 
-**97 items: 41 open, 33 closed, 3 retracted, 17 narrowed, 3 analysis.** 22 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**98 items: 40 open, 33 closed, 3 retracted, 19 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3024,6 +3025,21 @@ placement is second and needs a rule before it needs a fix -- an intrusion limit
 in the slot manifest, and a gate that reads it. The UV question is third and is
 item 31's. Zoo's structural library needs nothing on this evidence, which is
 worth saying plainly after a day spent suspecting it.
+
+*STATUS: NARROWED 2026-09-04 -- THE MECHANISM IS BUILT AND ALMOST NOBODY ASKS
+FOR IT. `lot_library` SELECTS A LOT OF DISTINCT ARCHETYPES, `_write_site_spec`
+PLACES A MIXED ROW, AND ROADMAP 41 STEP 4 -- THE PER-ARCHETYPE PLANNER FAN-OUT
+THIS ITEM WAS WAITING ON -- HAS LANDED: `plan lot_demo_001 --art` FANS FIVE
+DISTINCT ARCHETYPES (arena_a03, large_warehouse_a01, mansion_a02,
+pvp_station_ref, strip_club_a03) THROUGH zoo_fixtures, patina_apply,
+patina_dressing, zoo_kit, zoo_dressing AND lux_fixture_gate INTO ONE
+presentation_compose. THE RESIDUAL IS NOT CODE, IT IS ADOPTION: OF EIGHT BRIEFS
+ON DISK, TWO DEMOS SET THE KEY AND ALL THREE COLD-RUN BRIEFS DO NOT, SO EVERY
+COLD RUN EVER MEASURED PLACED ONE BUILDING THREE OR FOUR TIMES AND NOTHING SAID
+SO. LF 0.54.0 NOW SAYS SO. NOT PROVEN: THIS IS A PLANNED DAG, NOT A BUILT SITE
+-- NO `.glb` WAS PRODUCED, AND THE VARIED THEMED LOT HAS STILL NEVER BEEN
+BUILT END TO END.*
+
 **37. Every building on the site is the same building.** Noticed while walking
 -- "very similar stair/ladder placement... a lack of variety" -- and the
 measurement is stronger than the observation: they are not similar, they are
@@ -3046,6 +3062,72 @@ mansion, marina, market_hall, museum, parking_garage, pawn_shop, pharmacy,
 rail_station, self_storage, stadium, strip_club, strip_retail, supermarket,
 train_yard, warehouse, and more. The generator has variety to spare. The site
 spec asks for one thing four times.
+
+**RE-MEASURED 2026-09-04, AND MOST OF THIS ITEM IS ALREADY BUILT.** This item
+has carried no status line since it was written, so it has been counted OPEN
+on the strength of its opening sentence while the work it asks for landed
+underneath it. What exists now:
+
+* `packages/pipeline/building_library.py` -- `index`, `pick_lot`, `lot_for`,
+  `require_themed_shells`, `require_art_inputs`, `stale_shells`. It selects a
+  lot of distinct archetypes from a build directory, deterministic on
+  (library, seed, count).
+* `_write_site_spec` places a MIXED row -- `site_variation` takes per-building
+  footprints, and `uncovered` + `overlapping` refuse a row that does not fit.
+* `_lot_for_compose` publishes one themed scene per archetype, and
+  `themed_scene` is EITHER one scene (single-shell) OR a mapping
+  {archetype_id: scene}, so each building is dressed as itself.
+* The planner fans out per archetype. **This is roadmap 41 step 4, which this
+  item and three briefs name as the thing it waits on, and it has landed.**
+
+MEASURED, by planning rather than by reading: `plan lot_demo_001 --art` emits
+`zoo_fixtures_build`, `patina_apply`, `patina_dressing`, `zoo_kit_build`,
+`zoo_dressing_build` and `lux_fixture_gate` jobs for FIVE distinct archetypes
+-- arena_a03, large_warehouse_a01, mansion_a02, pvp_station_ref,
+strip_club_a03 -- converging on one `presentation_compose`, then
+`themed_site_assemble` and `lux_apply`.
+
+**SO THE RESIDUAL IS ADOPTION, NOT CODE, AND IT IS WORSE THAN IT LOOKS.** The
+varied lot is opt-in on `lot_library` and dormant without it, deliberately, so
+that an evaluated mission is not silently re-placed. Every brief on disk,
+audited:
+
+    cold_7001  category5_baie_dore_001   building_count 4   no lot_library
+    cold_7002  bank_block_001            building_count 3   no lot_library
+    cold_7003  bank_block_001            building_count 3   no lot_library
+    rockay     category5_baie_dore_001                      no lot_library
+    lot_demo   art_probe_001                                no lot_library (deliberate)
+    lot_demo   lot_demo_001              building_count 5   SET
+    rockay     rockay_lot_demo_001       building_count 5   SET
+    unlit_3b   unlit_probe_001           building_count 1   SET (inert at 1)
+
+The two that set it are demos of the feature. **All three cold-run briefs --
+the runs that exist to answer item 17 -- do not**, so every intervention count
+this file quotes was measured on a site of one repeated building, and item
+69's five identical shells were compounded by this item placing them four
+times each.
+
+**WHAT SHIPPED FOR IT.** Level Factory 0.54.0 prints, from `_write_site_spec`
+when a brief asks for more than one building and names no library:
+
+    [site] 3 buildings, ONE archetype: this brief sets no `lot_library`, so
+    the same generated shell is placed 3 times (roadmap 37). Point it at a
+    build directory -- e.g. deli_counter/build -- for a lot of different
+    buildings.
+
+That is the item 62 capability-gap shape: what was asked, what will actually
+be built, and the one key that changes it. Two tests in
+`tests/unit/test_lot_library_signal.py` pin both branches -- it fires at
+count > 1 and stays quiet at 1, because a warning on a single-building brief
+trains the reader to scroll past the line that matters.
+
+**WHAT IS STILL UNPROVEN, AND IT IS THE EXPENSIVE HALF.** Everything above is
+a PLANNED DAG and a spec on disk. No `.glb` was built, so the varied themed
+lot -- five different buildings, each dressed as itself, composed into one
+site -- has never been produced end to end. That is a Blender run, and it is
+the same run item 69's acceptance test needs. Doing them together is the
+cheap order: one cold run with `lot_library` set and the candidate seed
+threaded answers both, and answers item 17's third run at the same time.
 
 The DAG says the same: one `deli_generate` job per candidate, so a mission
 produces one building and the site repeats it. Nothing is broken here -- it does
@@ -6718,13 +6800,18 @@ surface -- the mission has no viable selection -- not a reason to stop
 counting. Whatever the remedy, the acceptance test is this run: `cold_7001`
 must not print `passed`.
 
-*STATUS: OPEN 2026-08-28 -- MEASURED ON TWO BRIEFS NOW, AND THE SECOND ONE
-RULES OUT THE TIDIEST WRONG EXPLANATION. `cold_7002` built
-`lf_bank_block_001_7002` with `seed=1999` against `seed=1989` for the rockay
-brief, so the stuck seed is NOT a single hardcoded constant -- it varies by
-brief and still never carries the candidate seed. Where it is lost between
-LF's spec dict and the file DC reads remains unlocated, and this item still
-does not guess at it.*
+*STATUS: NARROWED 2026-09-04 -- FOUND, AND IT WAS NOT LOST. IT WAS NEVER
+SENT. `new_level.py` HAD NO `--seed` AND THE ADAPTER PASSED NONE; THE 1989 IN
+EVERY SPEC IS `casino_tower`'S OWN AUTHORED LITERAL AT `presets.py:1457`,
+WHICH IS WHY `bank` READ 1999 AND THE ITEM COULD RULE OUT "A SINGLE HARDCODED
+CONSTANT" WHILE STILL LOOKING IN THE WRONG PLACE. FLAG BUILT (DC 0.103.0),
+THREADED AND FINGERPRINTED (LF 0.54.0, adapter 0.2.0 -> 0.3.0). MEASURED
+ACROSS SEVEN PRESETS: THE SEED MOVES SEEDED COVER AND ITS MARKERS AND MOVES
+NO STAIRS, NO LADDERS, NO ROOMS AND NO SHELL -- SO CANDIDATES ARE NO LONGER
+THE SAME FILE AND ARE STILL THE SAME BUILDING. THIS ITEM'S OWN ACCEPTANCE
+TEST, FIVE DISTINCT `shell.glb` SIZES ON A RE-RUN `cold_7001`, HAS NOT BEEN
+RUN -- IT NEEDS BLENDER AND A COLD WORKSPACE. THE RESIDUAL IS BUILDING
+VARIETY, AND ITS LEVER IS THE PRESET (ITEM 37), NOT THE SEED.*
 
 **69. Deli Counter's seed never varies, so every candidate is the same
 building.** Found 2026-08-27 during `cold_7001`. `candidate_count: 5` produced
@@ -6764,6 +6851,86 @@ the same time.
 and re-run `cold_7001` -- five distinct `shell.glb` sizes is the acceptance
 test. Then give `candidate_diversity.py` something to say about buildings, so
 the check that reported `all distinct` here would not do so again.
+
+**THE DROP, FOUND 2026-09-04. THERE WAS NO DROP.** The seed was not lost
+between LF's spec dict and the file DC reads, which is where this item kept
+looking. It was never put on the wire. `new_level.py` had no `--seed`
+argument, so `adapters/deli_counter/__init__.py` used the candidate seed for
+the spec FILENAME only -- `_level_name` returns `f"{base}_{seed}"` -- and the
+`"seed"` field in the written spec is whatever the recipe authored.
+`presets.py:1457` pins `"seed": 1989` inside `casino_tower`; `bank` pins
+1999. Fifteen recipes pin one each, mostly years. So the figure varied by
+brief exactly as this item measured, and the correct reading of that evidence
+was not "the drop moves around" but "there is no drop -- you are reading the
+preset's own constant".
+
+**WHY THE ADAPTER DID IT.** Not an oversight; a documented decision resting
+on a claim that is false. Its docstring said *"``new_level`` has NO seed flag
+-- DC is deterministic per preset; candidate variation comes from Lot's site
+assembly downstream"*, and `fingerprint_inputs` excluded the seed on the same
+grounds, commenting *"the seed does NOT affect the building"*. The first
+clause was true and the second was not: `presets.make` injects the seed
+before the seed-consuming passes, `stair_place` rolls its probabilistic
+extras on `spec.seed`, and `level_design.seed_cover` rolls each room's cover
+on `f"{seed}:{room_id}:seed_cover"`. `stair_regression.py` has swept up to
+100 seeds per preset since it was written, injecting at exactly that point.
+The lever existed and had a proof harness; only the CLI could not reach it.
+
+**WHAT SHIPPED.** Deli Counter 0.103.0 adds `--seed` to `new_level.py` and a
+`seed=` parameter to `presets.make`, injected between the recipe and
+`_finish_stairs`, which is the only place it does anything -- a seed written
+into a finished spec changes the number the builder prints and no geometry.
+Level Factory 0.54.0 passes `--seed <candidate seed>` and, necessarily, adds
+the seed to `fingerprint_inputs`. That second half is not tidiness: without
+it five candidates differing only by seed hash identically and cache-hit to
+one build, which is the state being fixed, and the fix would have read as a
+null result.
+
+**MEASURED, AND NARROWER THAN THE FLAG SOUNDS.** Seven presets, two seeds
+each (4001 / 9002), level name held CONSTANT so ids do not move:
+
+    preset            stairs   ladders   volumes   markers
+    casino_tower         0/1       0/1      8/14      8/23
+    bank                 0/2       0/0      8/11      8/14
+    warehouse            0/0       0/0      7/13      7/17
+    hospital             0/2       0/0      8/18      8/22
+    pawn_shop            0/1       0/2       2/6       4/9
+    office               0/1       0/2      0/10      0/12
+    parking_garage       0/1       0/0      0/25      0/12
+
+The seed moves seeded cover volumes and the markers derived from them. It
+moves NO stairs and NO ladders on any preset tested, and on `office` and
+`parking_garage` it moves nothing at all -- `seed_cover` skips rooms with no
+`combat_range` and rooms that already carry authored cover. Shell, rooms and
+partitions compare byte-identical across seeds on every preset.
+
+**A REFUTATION OF THIS SECTION'S OWN FIRST READING, KEPT.** The first pass
+reported `stairs(2/2 differ)` on bank and `ladders(2/2 differ)` on office and
+was about to be written up as stair variety. It was the instrument: a stair's
+`id` embeds the level name, and the probe had varied the name along with the
+seed, so every stair "differed" by its own label. Re-run with the name pinned,
+every stair and ladder is identical. This is the third time in this file a
+probe has reported its own inputs back as a finding.
+
+**WHAT IS PROVEN AND WHAT IS NOT.** Proven: the flag exists and works
+(`presets.make(seed=)` injection point verified by generating specs at 1989
+and 7405 off `casino_tower` -- the override at the authored value is a no-op,
+which is the control); the adapter emits `--seed 7405` and fingerprints two
+candidate seeds distinctly; DC's suite is 583 passed / 2 skipped,
+`stair_regression.py --quick` is 48 variants / 0 failures, and Level Factory's
+full suite exits 0. NOT proven: no `.glb` was built, because that needs
+Blender. This item's stated acceptance test -- five distinct `shell.glb` sizes
+from a re-run `cold_7001` -- is exactly the right test and has not been run.
+Until it is, "candidates now differ" is a claim about specs, not about
+buildings.
+
+**WHAT REMAINS, AND IT IS THE HALF THIS ITEM NAMED.** "What is missing is
+building variety" still stands: five candidates now carry different cover and
+the same shell, rooms, stairs and ladders. The seed cannot fix that, because
+the shell is not a function of it. The lever is the PRESET -- item 37, one
+shell placed N times, against 41 archetypes Deli Counter already builds --
+and `candidate_diversity.py` still compares assembled sites, so it would
+report `all distinct` on five identical buildings again tomorrow.
 
 *STATUS: CLOSED 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC
 RUNS. `cold_run.py` now ATTRIBUTES rather than subtracts: a changed file is
@@ -9047,3 +9214,73 @@ certification; it just looks like a failing test nobody has got to.
 grammar and belongs to whoever owns the look. If no, the string was always a
 placeholder and this item closes as RETRACTED with the smoke change standing.
 Nobody has been asked.
+
+*STATUS: OPEN 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR
+IT. `check.py` EXITS 1 ON THREE SHELLS WHOSE STAIR ENDPOINTS BAKE ONTO
+DISJOINT NAVMESH ISLANDS, AND HAS DONE SINCE BEFORE 2026-08-24. THE HOOK
+THEREFORE REFUSES EVERY COMMIT, WHICH IS A CANDIDATE EXPLANATION -- NOT A
+PROVEN ONE -- FOR WHY FOUR RELEASES SAT UNCOMMITTED IN THE WORKING TREE.
+SECOND CAUSE, SEPARATE AND RECURRING: `build_freshness` GATES ON TEN `lf_`
+SHELLS THAT ARE LEVEL FACTORY'S OWN COMPOSED OUTPUT, TRACKED IN DELI
+COUNTER'S REPO, SO AN LF RUN CAN RED DC'S COMMIT GATE.*
+
+**98. Deli Counter cannot commit through its own pre-commit hook.** Found
+2026-09-05 while committing the four releases item 69's work sat on top of.
+
+**THE GATE IS RED AND HAS BEEN FOR AT LEAST TWELVE DAYS.**
+`.git/hooks/pre-commit` runs `check.py`, which ORs every leg's exit code
+together. `nav_gate.py --all` reports `3/136 shell(s) FAILED traversal`:
+
+    night_pawn                              stair_0 no_path (islands 0 / 1)
+    primos_pizza                            stair_0 no_path (islands 1 / 3)
+    cbp_town_finale_midbalanced_schemafixed stair_0, stair_1 no_path
+
+All three are stair endpoints baking onto DISJOINT navmesh islands, which is
+a geometry-or-bake question, not a spec question -- none of the three specs
+was touched by 0.101.1's surgery, and the 0.103.0 change that surfaced this
+is geometry-neutral by construction (`presets.make` reads `seed` only under
+`if seed is not None`, `build.py` never passes it, and `gas_station` rebuilt
+byte-identical .glb / .slots.json / .gameplay.json across the change).
+
+**WHAT THIS MAY EXPLAIN, OFFERED AS A HYPOTHESIS AND NOT AS A FINDING.**
+Deli Counter HEAD stopped at 0.101.0 on 2026-08-24 while the working tree
+reached 0.102.1, and `USING_THE_FACTORY.md`'s one-writer-per-repo rail was
+written the same day about that exact divergence. A gate that refuses every
+commit is a plausible reason four good releases stayed uncommitted -- and it
+is only plausible. Nobody has been asked, and the alternative (a session that
+simply closed) is recorded in the rail itself.
+
+**THE SECOND CAUSE IS STRUCTURAL AND WILL RECUR.** `build_freshness.py`
+returns 1 when any `build/*.glb` is older than the newest file in
+`GEOMETRY_SOURCES`, and `check.py` folds that into its exit code -- correctly:
+a stale shell does not make the nav gate answer weakly, it makes it answer
+wrongly with confidence. But ten of the shells it grades are `lf_*`, Level
+Factory's own composed output, written into Deli Counter's `build/` and
+TRACKED there (`git ls-files build | grep lf_` -> 10 manifests). So:
+
+* editing any geometry source fossilises them along with the real library,
+  and clearing the gate means rebuilding Level Factory's transients from
+  Level Factory's transient specs, inside Deli Counter's repo;
+* `building_library.index` already excludes them as `non_source` with a
+  written reason, so the library ITSELF does not offer them to a lot -- only
+  the freshness gate cannot tell them apart.
+
+This is the same boundary roadmap 70 measured from the other side, where
+`cold_run.py` counted the pipeline's own writes into a tool repo as human
+interventions. One repo is both source and sink, and the two tools disagree
+about which files are evidence.
+
+**WHAT WAS DONE, AND WHAT WAS NOT.** The five commits of 2026-09-05 were
+made with `--no-verify` and the attribution written into every message, which
+is the one use `USING_THE_FACTORY.md` sanctions -- "only for a failure already
+attributed to something pre-existing and written down". Every other leg of
+`check.py` passes: specs, audit, layout lint, stair regression (48 variants, 0
+failures), build freshness (139 shells up to date after the rebuild) and
+catalog freshness. Nothing was done about the three shells.
+
+**WHAT WOULD CLOSE THIS.** Either fix the three stair bakes, or decide the
+three are dead demo content and retire them -- but decide, rather than leaving
+a red gate that every future commit has to be waved past, because a gate
+everyone bypasses is a gate that is not there. The `lf_` half wants the
+freshness check to know what `building_library.index` already knows: an id
+beginning `lf_` is not this library's to grade.
