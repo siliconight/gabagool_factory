@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 4. Identical to cold_7003's brief in every field except `lot_library`, which is the point: no cold run has ever set it, so every interventions-per-level figure this repo quotes was measured on a site of one building repeated (roadmap 37). With it set, `_write_site_spec` draws 3 DISTINCT archetypes from Deli Counter's build directory and the planner fans the art layer out per archetype (roadmap 41 step 4). SEED BASE 8001 -> 8001 / 8102 / 8203, none previously drawn. WHAT THIS RUN TESTS FOR THE FIRST TIME: deli_counter 0.103.1 (roadmap 73 -- the catalogue no longer dirties the fingerprint mid-run, which refused cold_7003's export), level_factory 0.54.0 (the candidate seed reaches Deli Counter, roadmap 69) and 0.55.0 (the portable export declares config/features), and a varied THEMED lot end to end, which has never been built. LIMITATION TO STATE WHEN QUOTING THE NUMBER: the vocabulary is not cold. This brief's archetype, theme and site shape were all seen by cold runs 2 and 3. What is cold is the geometry, the seeds, and the varied lot."
+}

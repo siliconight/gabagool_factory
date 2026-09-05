@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **OPEN** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-08-28 -- MEASURED TWICE, AND RUN 1'S HEADLINE IS CORRECTED HERE RATHER THAN QUIETLY E |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-05 -- ANSWERED ONCE, WITH A YES, AND THE ITEM ITSELF SAYS ONCE IS NOT ENOUGH. `col |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -715,7 +715,7 @@ work of adopting this.
 | 34 | **CLOSED** | The greybox is a site; the themed export is a fragment of one | 2026-08-12 -- themed_site_assemble; the export is the whole site, five buildings |
 | 35 | **OPEN** *(inferred)* | The graybox/art relationship: it is a SWAP, and most of the recommende | — |
 | 36 | **NARROWED** | Walking it. Zoo's inserts are exact; the layer with no slot is the one | 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings  |
-| 37 | **NARROWED** | Every building on the site is the same building | 2026-09-04 -- THE MECHANISM IS BUILT AND ALMOST NOBODY ASKS FOR IT. `lot_library` SELECTS  |
+| 37 | **CLOSED** | Every building on the site is the same building | 2026-09-05 -- BUILT, THEMED, AND SHIPPED IN A PACKAGE. The mechanism was already there and |
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
 | 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
@@ -747,11 +747,11 @@ work of adopting this.
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
 | 67 | **OPEN** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a CHANGELOG entry before it  |
 | 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
-| 69 | **NARROWED** | Deli Counter's seed never varies, so every candidate is the same build | 2026-09-04 -- FOUND, AND IT WAS NOT LOST. IT WAS NEVER SENT. `new_level.py` HAD NO `--seed |
+| 69 | **CLOSED** | Deli Counter's seed never varies, so every candidate is the same build | 2026-09-05 -- THIS ITEM'S OWN ACCEPTANCE TEST, MET ON A REAL RUN. It asked for distinct `s |
 | 70 | **CLOSED** | `cold_run.py` counts the pipeline's own writes into a tool repo as int | 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC RUNS. `cold_run.py` now ATTRIB |
 | 71 | **CLOSED** | The fixture co-location gate measures bracket-to-bulb and calls it a f | 2026-08-28 -- RETRACTED AS FILED, REFRAMED, FIXED IN LUX 0.26.0, AND PROVEN TWICE: ONCE SY |
 | 72 | **CLOSED** | Nothing checks that a brief's theme resolves until the art pass is alr | 2026-08-29 -- CHECKED IN FOUR PLACES, AND THE ONE THAT SAVES THE TIME IS `run` REFUSING BE |
-| 73 | **OPEN** | Two identical consecutive runs cached nothing and disagreed about what | 2026-08-29 -- PROMOTED. FILED AS TWO RUNS DISAGREEING ABOUT FINDINGS; `cold_7003` SHOWED T |
+| 73 | **CLOSED** | Two identical consecutive runs cached nothing and disagreed about what | 2026-09-05 -- MECHANISM FOUND, FIXED, AND PROVEN UNDER THE CONDITIONS THAT BROKE COLD RUN  |
 | 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A NEW INSTRUMENT, NO FIX ATTEM |
 | 75 | **CLOSED** | Delco's facade relief was drawing the module grid it exists to break u | 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING THE MODULE GRID BY TWO SEPARAT |
 | 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
@@ -778,7 +778,7 @@ work of adopting this.
 | 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
 | 98 | **OPEN** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR IT. `check.py` EXITS 1 ON T |
 
-**98 items: 40 open, 33 closed, 3 retracted, 19 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**98 items: 38 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1245,38 +1245,23 @@ airborne, and the step probe tries three heights instead of one — and neither
 moved the result, which is exactly how it should have gone. The walker is now
 right and the route it was given is wrong.
 
-*STATUS: OPEN 2026-08-28 -- MEASURED TWICE, AND RUN 1'S HEADLINE IS CORRECTED
-HERE RATHER THAN QUIETLY EDITED. `cold_7001` (rockay brief, `seed_base 7001`,
-new geometry / familiar vocabulary): **0 interventions, 1 retry**, exported a
-portable-godot package. `cold_7002` (`bank_block_001`, `seed_base 7002`, new
-vocabulary -- different archetype, site shape, building count and theme):
-**1 intervention, 1 retry, 4 observations, BLOCKED with no package**. THE
-CORRECTION: run 1 was reported as reaching "a gated package with nobody's
-hands in it". The zero stands; the word GATED does not. cold_7001 carried the
-same two `LUX_FIXTURE_COLOCATION` blockers on its selected candidate and only
-printed `Structural checks passed` because 0.49.0 discounted them -- item 68,
-fixed the same day. Under 0.50.0 that identical run reads `Blocked:
-unresolved blocking issues (blockers open: 2)`, which is exactly what
-cold_7002 reads. So what both runs actually show is narrower and more useful:
-**Deli Counter, Lot, Laser Tag and walktest run clean on specs they have never
-seen, and neither run has produced a package that passes its own gate.** Run
-2's single intervention was `delco_1997` -> `delco` in the brief and batch,
-after `pixelcoat_build` exited 1 on a theme profile that does not exist; it
-resolved completely, and every art stage then succeeded. Run 2 also confirmed
-item 69 on a second brief (DC seed 1999 here, 1989 on rockay) and produced
-items 71, 72 and 73. The instrument needed no hand-classifying this time --
-item 70's attribution reported 4 pipeline writes with reasons and 0
-unattributed, against run 1 where the same set produced a wrong headline of 1.
-WHAT CHANGED SINCE, and it is NOT a cold-run result: item 71 -- the fixture
-gate that blocked both runs -- was fixed in Lux 0.26.0 the same day, and
-`cold_7002`'s workspace then ran to `blockers open: 0` and exported. That
-happened AFTER `--end`, on a tool that had been patched, so it changes
-neither run's number and no package here was produced cold. What it does
-change is the standing advice: a third run was pointless while every cold
-run ended on the same blocker, and is now worth doing. Item 69 (DC's stuck
-seed) and 73 (two identical runs disagreeing) are the next things a run 3
-would be measured against. Evidence: `docs/findings/COLD_RUN_7001.md` and
-`COLD_RUN_7002.md`, journals and diffs under `_runs/cold/`.*
+*STATUS: NARROWED 2026-09-05 -- ANSWERED ONCE, WITH A YES, AND THE ITEM
+ITSELF SAYS ONCE IS NOT ENOUGH. `cold_8001` (bank_block_001, seed_base 8001,
+and the FIRST cold run ever to set `lot_library`): **0 interventions, 0
+retries, 0 unattributed file changes, and a gated portable package**, in 18
+min 28 s. Three files changed on disk, all three the DC specs Level Factory is
+expected to write, all three attributed by item 70's table. The three earlier
+runs each failed to produce a package -- 7001 on a gate later found broken
+(71), 7002 on a theme that did not exist (72), 7003 refused at export (73) --
+and all three of those causes are now closed. WHAT IT DOES NOT ESTABLISH, and
+the item is explicit about it: "Repeat on several specs before believing
+either result." This is ONE spec whose vocabulary the tools have seen;
+archetype, theme, site shape and route shape were all seen by runs 2 and 3.
+What was cold is the geometry, the seeds and the varied lot. Nobody has walked
+it either -- gate-clean and opening is "works", not "good" (item 18), and
+`LT_MAP_TRAVERSAL` is still 0% on all three candidates. THE NUMBER IS ZERO AND
+IT IS ONE DATA POINT. Evidence: `docs/findings/COLD_RUN_8001.md`, journal and
+diffs under `_runs/cold/cold_8001/`.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -3026,19 +3011,22 @@ in the slot manifest, and a gate that reads it. The UV question is third and is
 item 31's. Zoo's structural library needs nothing on this evidence, which is
 worth saying plainly after a day spent suspecting it.
 
-*STATUS: NARROWED 2026-09-04 -- THE MECHANISM IS BUILT AND ALMOST NOBODY ASKS
-FOR IT. `lot_library` SELECTS A LOT OF DISTINCT ARCHETYPES, `_write_site_spec`
-PLACES A MIXED ROW, AND ROADMAP 41 STEP 4 -- THE PER-ARCHETYPE PLANNER FAN-OUT
-THIS ITEM WAS WAITING ON -- HAS LANDED: `plan lot_demo_001 --art` FANS FIVE
-DISTINCT ARCHETYPES (arena_a03, large_warehouse_a01, mansion_a02,
-pvp_station_ref, strip_club_a03) THROUGH zoo_fixtures, patina_apply,
-patina_dressing, zoo_kit, zoo_dressing AND lux_fixture_gate INTO ONE
-presentation_compose. THE RESIDUAL IS NOT CODE, IT IS ADOPTION: OF EIGHT BRIEFS
-ON DISK, TWO DEMOS SET THE KEY AND ALL THREE COLD-RUN BRIEFS DO NOT, SO EVERY
-COLD RUN EVER MEASURED PLACED ONE BUILDING THREE OR FOUR TIMES AND NOTHING SAID
-SO. LF 0.54.0 NOW SAYS SO. NOT PROVEN: THIS IS A PLANNED DAG, NOT A BUILT SITE
--- NO `.glb` WAS PRODUCED, AND THE VARIED THEMED LOT HAS STILL NEVER BEEN
-BUILT END TO END.*
+*STATUS: CLOSED 2026-09-05 -- BUILT, THEMED, AND SHIPPED IN A PACKAGE. The
+mechanism was already there and nothing had ever asked it for a whole level.
+`cold_8001` set `lot_library` and each candidate drew three DISTINCT
+archetypes -- seed_8001 deli_a01 / freight_terminal_a03 / brewery_a01,
+seed_8102 depot_a01 / stadium_a02 / train_yard_a03, seed_8203
+freight_terminal_a03 / construction_site_a01 / pawn_shop_a02 -- different
+within each site AND between candidates. The art layer fanned out per
+archetype through zoo_fixtures, patina_apply, patina_dressing, zoo_kit,
+zoo_dressing and lux_fixture_gate, and `presentation_compose`,
+`themed_site_assemble`, `lux_apply` and `dispatch_handoff` all succeeded. THE
+PORTABLE PACKAGE CARRIES THREE PER-BUILDING DIRECTORIES (`depot_a01`,
+`stadium_a02`, `train_yard_a03`) with its 33 interactives distributed 9/11/13
+across them. Against this item's founding measurement -- "1 `ext_resource`, 4
+instances" -- that is closed. RESIDUAL, and it belongs to item 79 not here:
+articulation is still module-periodic by construction, because `relief_parts`
+never learns where a module sits in the run.*
 
 **37. Every building on the site is the same building.** Noticed while walking
 -- "very similar stair/ladder placement... a lack of variety" -- and the
@@ -6800,18 +6788,19 @@ surface -- the mission has no viable selection -- not a reason to stop
 counting. Whatever the remedy, the acceptance test is this run: `cold_7001`
 must not print `passed`.
 
-*STATUS: NARROWED 2026-09-04 -- FOUND, AND IT WAS NOT LOST. IT WAS NEVER
-SENT. `new_level.py` HAD NO `--seed` AND THE ADAPTER PASSED NONE; THE 1989 IN
-EVERY SPEC IS `casino_tower`'S OWN AUTHORED LITERAL AT `presets.py:1457`,
-WHICH IS WHY `bank` READ 1999 AND THE ITEM COULD RULE OUT "A SINGLE HARDCODED
-CONSTANT" WHILE STILL LOOKING IN THE WRONG PLACE. FLAG BUILT (DC 0.103.0),
-THREADED AND FINGERPRINTED (LF 0.54.0, adapter 0.2.0 -> 0.3.0). MEASURED
-ACROSS SEVEN PRESETS: THE SEED MOVES SEEDED COVER AND ITS MARKERS AND MOVES
-NO STAIRS, NO LADDERS, NO ROOMS AND NO SHELL -- SO CANDIDATES ARE NO LONGER
-THE SAME FILE AND ARE STILL THE SAME BUILDING. THIS ITEM'S OWN ACCEPTANCE
-TEST, FIVE DISTINCT `shell.glb` SIZES ON A RE-RUN `cold_7001`, HAS NOT BEEN
-RUN -- IT NEEDS BLENDER AND A COLD WORKSPACE. THE RESIDUAL IS BUILDING
-VARIETY, AND ITS LEVER IS THE PRESET (ITEM 37), NOT THE SEED.*
+*STATUS: CLOSED 2026-09-05 -- THIS ITEM'S OWN ACCEPTANCE TEST, MET ON A REAL
+RUN. It asked for distinct `shell.glb` sizes from a re-run cold workspace.
+`cold_8001` wrote `lf_bank_block_001_8001.json` seed 8001,
+`lf_bank_block_001_8102.json` seed 8102 and `lf_bank_block_001_8203.json` seed
+8203 -- the CANDIDATE seeds, where before the fix all three would have read
+1999, `bank`'s own authored preset literal -- and produced three distinct
+shells: 410748, 410712 and 410752 bytes. The drop was never a drop: the seed
+was never sent, because `new_level.py` had no way to take one. Built as Deli
+Counter 0.103.1's `--seed` (0.103.0), threaded and fingerprinted in Level
+Factory 0.54.0. WHAT REMAINS TRUE AND IS NOT THIS ITEM'S: the seed moves
+seeded cover and its markers and moves no stairs, ladders, rooms or shell, so
+BUILDING variety came from item 37's varied lot on this run, not from the
+seed. Both landed together and the run cannot separate their contributions.*
 
 **69. Deli Counter's seed never varies, so every candidate is the same
 building.** Found 2026-08-27 during `cold_7001`. `candidate_count: 5` produced
@@ -7161,11 +7150,24 @@ reports the themes the installed Pixelcoat and Zoo actually carry. Neither
 needs a new mechanism; both are a check saying what it checked, before
 spending anything.
 
-*STATUS: OPEN 2026-08-29 -- PROMOTED. FILED AS TWO RUNS DISAGREEING ABOUT
-FINDINGS; `cold_7003` SHOWED THE SAME MECHANISM REFUSING AN EXPORT, WHICH
-MAKES THIS THE ONE THING BETWEEN A GATE-CLEAN ART PASS AND A PACKAGE. THE
-SECOND HALF -- THE SEVEN-FINDING DIFFERENCE -- IS STILL UNEXPLAINED AND ITS
-EVIDENCE IS STILL DESTROYED*
+*STATUS: CLOSED 2026-09-05 -- MECHANISM FOUND, FIXED, AND PROVEN UNDER THE
+CONDITIONS THAT BROKE COLD RUN 3. NOT the stated cause. LF's DC specs are
+gitignored and none is tracked, and `_read_git_commit` excludes untracked
+files ON PURPOSE so pipeline writes cannot bust the cache. `specs/CATALOG.md`
+is TRACKED, `new_level.py` refreshed it on every spec write, and it indexed
+the `lf_*` transients -- so the one tracked file the pipeline touches went
+straight into the fingerprint. MEASURED: one `new_level.py --preset bank`
+moved the revision from `099a9cd` to `099a9cd+dirty.cbd2f89b2b4fe547` with
+CATALOG.md the only dirty tracked file. Fixed in Deli Counter 0.103.1 --
+`catalog.py` skips `lf_*`, the same ids `building_library.index` already
+refuses -- after which the same write leaves the revision byte-identical.
+PROVEN ON `cold_8001`: DC and Lot revisions identical at the functional lock
+and again after the art pass, no `+dirty` at either point; `deli_generate` and
+`lot_assemble` CACHE-HIT where cold_7003 re-ran them 1.3 s and 6.6 s after the
+lock; and the export exited 0. CATALOG.md does not appear in that run's
+changed-file list at all. THE SECOND HALF IS NOT CLOSED BY THIS AND IS NOT
+CARRIED HERE: the unexplained seven-finding difference between two identical
+runs had its evidence destroyed and cannot be reopened from this run.*
 
 **73. Two identical consecutive runs cached nothing and disagreed about what
 they found.** Found 2026-08-28 in `cold_7002`, before any intervention.
