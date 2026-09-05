@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-05 -- ANSWERED ONCE, WITH A YES, AND THE ITEM ITSELF SAYS ONCE IS NOT ENOUGH. `col |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-05 -- TWO CONSECUTIVE RUNS AT ZERO, BOTH SHIPPING A GATED PACKAGE, AND THE ITEM ST |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -777,8 +777,10 @@ work of adopting this.
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 | 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
 | 98 | **OPEN** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR IT. `check.py` EXITS 1 ON T |
+| 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
+| 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
 
-**98 items: 38 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**100 items: 40 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1245,23 +1247,20 @@ airborne, and the step probe tries three heights instead of one — and neither
 moved the result, which is exactly how it should have gone. The walker is now
 right and the route it was given is wrong.
 
-*STATUS: NARROWED 2026-09-05 -- ANSWERED ONCE, WITH A YES, AND THE ITEM
-ITSELF SAYS ONCE IS NOT ENOUGH. `cold_8001` (bank_block_001, seed_base 8001,
-and the FIRST cold run ever to set `lot_library`): **0 interventions, 0
-retries, 0 unattributed file changes, and a gated portable package**, in 18
-min 28 s. Three files changed on disk, all three the DC specs Level Factory is
-expected to write, all three attributed by item 70's table. The three earlier
-runs each failed to produce a package -- 7001 on a gate later found broken
-(71), 7002 on a theme that did not exist (72), 7003 refused at export (73) --
-and all three of those causes are now closed. WHAT IT DOES NOT ESTABLISH, and
-the item is explicit about it: "Repeat on several specs before believing
-either result." This is ONE spec whose vocabulary the tools have seen;
-archetype, theme, site shape and route shape were all seen by runs 2 and 3.
-What was cold is the geometry, the seeds and the varied lot. Nobody has walked
-it either -- gate-clean and opening is "works", not "good" (item 18), and
-`LT_MAP_TRAVERSAL` is still 0% on all three candidates. THE NUMBER IS ZERO AND
-IT IS ONE DATA POINT. Evidence: `docs/findings/COLD_RUN_8001.md`, journal and
-diffs under `_runs/cold/cold_8001/`.*
+*STATUS: NARROWED 2026-09-05 -- TWO CONSECUTIVE RUNS AT ZERO, BOTH SHIPPING A
+GATED PACKAGE, AND THE ITEM STILL ASKS FOR MORE. `cold_8001` (bank_block_001,
+varied lot, seen vocabulary) and `cold_9001` (precinct_yard_001, an archetype
+no brief had requested and the one site shape never built): **0 interventions,
+0 retries, 0 unattributed file changes each**, three pipeline-attributed spec
+writes each, and a portable package each. The three earlier runs each failed
+to produce one -- 7001 on a gate later found broken (71), 7002 on a theme that
+did not exist (72), 7003 refused at export (73) -- and all three causes are
+closed. WHAT IS STILL NOT MEASURED: an unseen THEME, which is not the same as
+an unseen brief and is currently impossible -- item 99. Nobody has walked
+either package, so both are "works" and neither is "good" (item 18), and
+`LT_MAP_TRAVERSAL` is 0% on all six candidates as on every evaluation ever
+run. Two is not "several". Evidence: `docs/findings/COLD_RUN_8001.md` and
+`COLD_RUN_9001.md`, journals under `_runs/cold/`.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -9286,3 +9285,86 @@ a red gate that every future commit has to be waved past, because a gate
 everyone bypasses is a gate that is not there. The `lf_` half wants the
 freshness check to know what `building_library.index` already knows: an id
 beginning `lf_` is not this library's to grade.
+
+*STATUS: OPEN 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES,
+FOUR ZOO STYLES WITH REAL SPECIES COVERAGE, AND AN INTERSECTION OF TWO. EVERY
+BRIEF EVER WRITTEN USES ONE OF THOSE TWO, WHICH IS NOT HABIT -- IT IS THE ONLY
+THING THAT BUILDS. THIS IS THE GENERAL FORM OF ITEM 97 AND A HARDER CEILING ON
+LEVEL DIVERSITY THAN 37 OR 69 WERE.*
+
+**99. A theme has to exist in two repos, and only two do.** Found 2026-09-05
+while designing cold run 5 around vocabulary the tools had never been asked
+for. The archetype and the site shape had unused values to draw on. The theme
+did not.
+
+    theme               pixelcoat profile    zoo species carrying it
+    rockay                     yes                  56 / 56
+    delco                      yes                  39 / 56
+    center_city                NO                   54 / 56
+    industrial_flats           NO                   54 / 56
+    bank                       yes                   0
+    casino                     yes                   0
+    stadium                    yes                   0
+    street                     yes                   0
+    rockay_civic               yes                   0
+    rockay_retail              yes                   0
+    rockay_service             yes                   0
+
+**BOTH HALVES ARE REAL AND THEY FAIL DIFFERENTLY.** A Pixelcoat profile with
+no Zoo species resolves the skin and the kit still renders flat colour -- the
+`delco_1997` failure of item 97, except these seven pass the theme preflight
+because a profile DOES exist, so they fail later and more quietly. A Zoo style
+with no Pixelcoat profile is refused at preflight, which is the better
+failure. `center_city` and `industrial_flats` are Zoo's two best-covered
+styles after `rockay` and neither can be asked for.
+
+**WHY IT MATTERS MORE THAN IT LOOKS.** Items 37 and 69 were about variety
+WITHIN a level -- different buildings, different candidates. This is variety
+BETWEEN levels, and it is capped at two looks no matter how many buildings,
+seeds or archetypes the rest of the pipeline learns to vary. A brief asking
+for anything else gets flat colour or a refusal.
+
+**WHAT WOULD CLOSE THIS.** Not a fix, a decision and then content: either
+Pixelcoat grows profiles for `center_city` and `industrial_flats` (cheapest --
+the Zoo coverage is already there at 54/56), or Zoo grows species styles for
+the seven profiles that have none, or the two repos agree a shared theme
+vocabulary and `doctor` reports the intersection rather than each side's list.
+Today `doctor` prints both lists and leaves the reader to intersect them by
+eye, which is how this went unnoticed.
+
+*STATUS: OPEN 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's
+PRE-CHECK. TWO BRIEFS ON DISK ASK FOR A SHAPE THEY HAVE NEVER RECEIVED, AND
+NOTHING SAYS SO. THE ARCHETYPE PATH WAS FIXED FOR EXACTLY THIS CLASS OF BUG
+AND RAISES; THE SHAPE PATH STILL GUESSES.*
+
+**100. `site_shape` silently falls back to a row.** Found 2026-09-05, choosing
+a site shape for cold run 5 that had never been built.
+
+`site_variation.SHAPES` is `("row", "L", "courtyard")` and `_SHAPE_ALIASES`
+maps a brief's spelling onto one of them, with `.get(spelling, "row")` as the
+last word. The comment defends it -- "refusing a spelling would stop a build
+over a label" -- and the cost is that a spelling nobody added is indistinguishable
+from a spelling that means row:
+
+    site_shape courtyard     -> courtyard
+    site_shape street_block  -> row          <-- not in the table
+    site_shape boardwalk_crescent -> row     <-- not in the table
+
+`bank_block_001` asks for `street_block`. `category5_baie_dore_001` asks for
+`boardwalk_crescent`. **Neither has ever been laid out as anything but a row**,
+through every evaluation either mission has had. `courtyard` had never been
+built by anything until cold run 5 asked for it by its exact alias.
+
+**THE PRECEDENT IS IN THE NEXT FILE ALONG.** `_preset_for` used to end in
+`return "bank"` and every lot-demo mission silently built banks; it now raises,
+and its docstring says why: "a wrong-but-plausible building is the worst
+failure this adapter can produce -- the pipeline succeeds, every gate passes,
+and the deliverable is the wrong archetype." A wrong-but-plausible SITE is the
+same failure one level up.
+
+**WHAT WOULD CLOSE THIS.** Not necessarily raising -- the comment's objection
+to stopping a build over a label is fair. Saying so is enough: a brief whose
+`site_shape` is not a known alias should print what it asked for, what it got,
+and the aliases that exist, in the voice `USING_THE_FACTORY.md` asks every tool
+for. Then add `street_block` and `boardwalk_crescent` to the table, or change
+the two briefs, deliberately and once.

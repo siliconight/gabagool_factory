@@ -1,0 +1,29 @@
+{
+  "archetype": "police_station",
+  "building_count": 4,
+  "candidate_count": 3,
+  "display_name": "Precinct Yard",
+  "extraction_relationship": "crew_start_opposite",
+  "landmark": "precinct_mast",
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "mission_id": "precinct_yard_001",
+  "notes": "COLD RUN 5 -- UNSEEN VOCABULARY, and exactly which part is unseen is stated here because the answer is narrower than the phrase. NEW: `archetype: police_station` is a real Deli Counter preset that no brief has ever requested (every brief on disk used bank, urban_bank, casino_tower or the non-existent mixed_block). `site_shape: courtyard` is one of three shapes site_variation supports and the ONLY one never built -- every site ever laid out has been `row` or `L`. Note that `street_block` and `boardwalk_crescent`, which two existing briefs ask for, are NOT in `_SHAPE_ALIASES` and silently resolve to `row`, so those briefs have never got the shape they name. building_count 4 because a courtyard walks three sides and needs at least four shells to be one. NOT NEW, and it cannot be: `theme: delco`. Pixelcoat carries nine profiles and Zoo carries four styles with real species coverage, and the intersection is exactly two -- delco and rockay. center_city and industrial_flats have 54 of 56 species and no Pixelcoat profile; casino, stadium, street and bank have profiles and zero species. A genuinely new theme is not buildable today, which is the general form of roadmap 97. Holding the theme at delco also matches cold_8001, so the only variables moving are the archetype and the site shape. SEED BASE 9001 -> 9001 / 9102 / 9203, none previously drawn. PREDICTION, recorded before the run so it can be wrong: the courtyard closes to a smaller plate than a row of four, and Laser Tag's opening findings change because sightlines across a courtyard are shorter than along a street.",
+  "objective_hypotheses": [
+    "breach_the_yard",
+    "reach_evidence_lockup",
+    "force_the_lockup",
+    "carry_evidence",
+    "exit_through_the_mouth"
+  ],
+  "route_shape": "ring_then_breach",
+  "schema": "level_factory.mission_brief.v0.1",
+  "site_shape": "courtyard",
+  "target_minutes": [
+    25,
+    35
+  ],
+  "theme": "delco",
+  "time_of_day": "afternoon",
+  "verticality": "medium",
+  "weather": "clear"
+}
