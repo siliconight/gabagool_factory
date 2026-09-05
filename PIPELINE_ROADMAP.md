@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- RUN AT KIT SCALE AND IT DOES NOT YET REPRODUCE THE FLAG. The `_subresources` |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- THE ROUTE REPRODUCES THE FLAG, AND THE RESIDUAL IS AN INTERACTION WITH 87 RA |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -8299,6 +8299,28 @@ different import path. AND THE STANDING WARNING: all four elevations agreed
 within 0.11 through every one of these errors. `walk_triplanar.gd` says why --
 "the elevation A/B could not see it because at that distance nothing is
 sharp". Only the eye-level shot has ever caught any of this.*
+
+*STATUS: NARROWED 2026-09-05 -- THE ROUTE REPRODUCES THE FLAG, AND THE
+RESIDUAL IS AN INTERACTION WITH 87 RATHER THAN A FAULT IN EITHER. Three
+variants shot through the same cameras against the flag route: (a) `.tres`
+overrides on EMBEDDED-source textures -- the ones Godot's own importer
+extracts -- match the flag on all eight shots, spawn -0.04, worst 0.34; (b)
+`detach_textures` alone with no overrides is visually NEUTRAL, worst delta
+0.05, which confirms item 87's own claim on a varied lot; (c) the two TOGETHER
+read spawn +5.10. So neither half causes it and the combination does. THIS
+CORRECTS WHAT THIS ITEM SAID THIS MORNING: detaching is NOT the precondition
+for shipping the override. Godot extracts embedded textures to loose PNGs at
+import, so a `.tres` has a path to reference either way, and the override
+works today WITHOUT 87. Detaching remains worth having for size (-63% art
+payload) but it is a separate change that currently conflicts with this one.
+WHAT SHIPS THE FIX, and it is now a size decision rather than an unknown:
+`.tres` overrides on extracted textures, at `embedded_image_handling=1`, which
+costs the +63% measured in level_factory 0.56.0's changelog. WHAT REMAINS: why
+the combination differs -- both texture sets are the same 17 images at 256x256,
+so the suspect is that a detached GLB has Godot importing the same file twice,
+once as the scene's own `uri` dependency and once as the material's
+`ext_resource`. Untested. AND THE STANDING WARNING: every elevation agreed
+within 0.11 through all of this; only the eye-level shot ever moved.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
