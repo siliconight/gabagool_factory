@@ -765,8 +765,8 @@ work of adopting this.
 | 84 | **OPEN** | Zoo computes per-vertex wear, exports it correctly, and the engine doe | 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION RATHER THAN A FLAG. 1,896 KI |
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
-| 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE PIPELINE. `tools/detach_textures |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- CONFIRMED BY A THIRD PAIR OF EYES ON A THIRD MISSION, AND THE RESIDUAL IS EX |
+| 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- THE BLOCKER THIS ITEM RESTS ON IS TRUE OF THE GLB AND NOT OF THE PACKAGE, AN |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -8152,6 +8152,7 @@ mystery rather than as evidence.
 14-segment water tank at 25.7 degrees per segment reads as a dodecagon
 without it.
 
+SUPERSEDED STATUS, kept above the one that replaced it:
 *STATUS: NARROWED 2026-08-29 -- MECHANISM PROVEN END TO END, NOT YET IN THE
 PIPELINE. `tools/detach_textures.py` REWRITES A BUILT KIT'S `images[]` TO
 `uri` REFERENCES: 80 TEXTURE RESOURCES -> 23, ART PAYLOAD 4.65 MB -> 2.28 MB,
@@ -8159,6 +8160,22 @@ PIPELINE. `tools/detach_textures.py` REWRITES A BUILT KIT'S `images[]` TO
 OWN REPEATABILITY (ITEM 90). WHAT REMAINS IS A DECISION -- WHERE THE DETACH
 RUNS -- AND THE SECOND HALF: THE `tex/` FOLDER HAS TO TRAVEL WITH THE ART
 THROUGH ASSEMBLY AND EXPORT, WHICH TODAY IT DOES NOT*
+
+*STATUS: NARROWED 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON
+TO EXIST BEYOND SIZE: DETACHING IS WHAT MAKES ITEM 88 SHIPPABLE. A .tres
+material cannot reference a texture that lives inside a GLB, so the external
+`tex/` folder this item produces is the precondition for shipping a material
+override at all -- the two items are one change. RE-MEASURED ON A VARIED LOT,
+WHERE THE DUPLICATION IS WORSE THAN THE 3.82x THIS ITEM RECORDED: across the
+whole `LF_precinct_yard_001` package, 244 embedded texture payloads resolve to
+SEVENTEEN distinct images by sha256 -- 14x over, 9.4 MB carrying 0.65 MB of
+information, one texture appearing 49 times. `detach_textures.py` run on one
+building's kit: 27 GLBs rewritten, 14 distinct payloads, 2.97 MB -> 1.23 MB
+(-59%), and the rewritten GLB loads with its albedo resolving from `tex/` at
+256x256. WHERE THE DETACH RUNS IS ALSO ANSWERED -- level_factory 0.56.0 made
+the export run an import pass, so the export is the natural place and no new
+stage is needed. STILL OPEN AND UNCHANGED: the `tex/` folder travelling
+through ASSEMBLY, which is this item's own residual and was not tested.*
 
 **87. Deli Counter's one-mesh-in-VRAM discipline stops at the texture.**
 Found 2026-08-29, checking an aside about Godot's import cache rather than
@@ -8229,6 +8246,30 @@ WHAT THIS RUN ADDS is that the walk project was assembled WITHOUT
 recipient sees. `--triplanar` remains a walk-project runtime flag and not what
 ships -- see 76 and 80 -- and every walk assembled without it will keep
 reporting this. Original status below.*
+
+*STATUS: NARROWED 2026-09-05 -- THE BLOCKER THIS ITEM RESTS ON IS
+TRUE OF THE GLB AND NOT OF THE PACKAGE, AND THE ROUTE IS PROVEN. The objection
+was "`--triplanar` is a walk-project runtime flag and not what ships", because
+`walk_triplanar.gd` says glTF "carries UV sets and nothing else -- there is no
+way to express 'project from world position' in a .glb". That remains exactly
+true and it does not settle the question, because the PACKAGE can carry a
+material the GLB cannot: Godot's scene importer takes a per-material override
+in the `.import` sidecar's `_subresources`, and level_factory 0.56.0 started
+shipping those sidecars this morning for an unrelated reason. MEASURED on
+`wall_delco_01_w200.glb` from the shipped package with the override wired to
+`res://tri_mat.tres` -- BEFORE tri=false world=false scale=(0.4,0.4,1.0)
+albedo=YES 256x256; AFTER tri=true world=true scale=(0.4,0.4,0.4) albedo=YES
+256x256. World-space triplanar AND the Pixelcoat texture, with no runtime
+script, no addon and no autoload, which is what the portable contract
+requires. The verified run used a DETACHED GLB (item 87) because a .tres
+cannot reference a texture embedded in a GLB, and that is why these two items
+are ONE CHANGE. WHAT IS STILL NOT PROVEN, and none of it is small: the route
+was verified by reading material PROPERTIES back and not by rendering, so no
+`look_shots` comparison exists for it -- unlike the flag route, which cleared
+its own floor on 7 of 8 shots (item 90); it was one GLB in a hand-built
+project, not a Lot-assembled site through compose and export; and the
+trim-sheet objection is untouched, because world-space projection still
+forecloses an atlas, which is an art-direction decision and not a bug.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
