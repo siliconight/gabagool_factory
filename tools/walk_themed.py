@@ -324,14 +324,60 @@ def newest(root, name):
     return best
 
 
+def composed_site(compose_root):
+    """The compose job's OWN site.tscn, never an archetype's copy of one.
+
+    A varied lot publishes one scene per archetype under
+    `presentation/lot/<id>/site.tscn`, and compose writes those AFTER the root:
+    measured on cold_9001, root 10:06:31 against courthouse_a01 10:07:10. So
+    `newest()` picks an archetype every time a lot is varied, and the walk
+    project would be assembled around one building out of four -- with the
+    site's own references to the other three pointing at nothing.
+
+    The root is identified by STRUCTURE, not by clock: an archetype copy sits
+    under a `lot/` parent and the root does not. Falling back to mtime among
+    the remaining candidates keeps the single-shell behaviour identical.
+    """
+    best = None
+    for dirpath, _dirs, files in os.walk(compose_root):
+        if "site.tscn" not in files:
+            continue
+        if os.path.basename(os.path.dirname(dirpath)) == "lot":
+            continue
+        p = os.path.join(dirpath, "site.tscn")
+        if best is None or os.path.getmtime(p) > os.path.getmtime(best):
+            best = p
+    return best
+
+
 def copy_into(src_dir, dst_dir, skip_names=(), skip_dirs=(".godot", "addons")):
+    """Copy a tree. `skip_names` applies at the SOURCE ROOT ONLY.
+
+    It used to match a basename anywhere in the tree, which is the trap
+    CLAUDE.md records against `_copy_tree`: "it matches basenames anywhere in
+    the tree, so it also excluded all five `lot/<archetype>/site.tscn` and the
+    export came back with every building unresolved". That was fixed in the
+    export path and not here, and nothing noticed because until a VARIED LOT
+    there was never a second `site.tscn` in the tree.
+
+    Measured on cold_9001: the caller skips `site.tscn`, `project.godot` and
+    `site_main.tscn` to keep the root's copies out, and so silently dropped
+    `lot/{self_storage_a02,auto_shop_a01,museum_a02,courthouse_a01}/site.tscn`
+    -- every building on the site. The assembler's own missing-reference check
+    caught it and refused, which is the only reason this was a refusal rather
+    than a walk through an empty world.
+
+    Root-only is what the single caller meant; nothing asks for the old
+    behaviour.
+    """
     for dirpath, dirs, files in os.walk(src_dir):
         dirs[:] = [d for d in dirs if d not in skip_dirs]
         rel = os.path.relpath(dirpath, src_dir)
         target = dst_dir if rel == "." else os.path.join(dst_dir, rel)
+        at_root = rel == "."
         os.makedirs(target, exist_ok=True)
         for f in files:
-            if f in skip_names:
+            if at_root and f in skip_names:
                 continue
             shutil.copy2(os.path.join(dirpath, f), os.path.join(target, f))
 
@@ -657,7 +703,7 @@ def main(argv=None):
 
     site = newest(themed, "site.tscn")
     walk = newest(themed, "site_walk.tscn")
-    building = newest(compose, "site.tscn")
+    building = composed_site(compose)
     if not site or not walk:
         sys.stderr.write("themed site is missing site.tscn or site_walk.tscn; "
                          "the job did not produce a walkable site.\n")
@@ -732,23 +778,41 @@ def main(argv=None):
             return 2
     os.makedirs(out, exist_ok=True)
 
-    # 1. The composed building and everything it names at ITS project root.
-    copy_into(os.path.dirname(building), out,
-              skip_names={"project.godot", "site.tscn", "site_main.tscn",
-                          "HANDOFF.md", "compose.summary.json",
-                          "portable_resource_manifest.json"})
-    shutil.copy2(building, os.path.join(out, "building.tscn"))
+    # 1 + 2. A VARIED LOT HAS NO SINGLE BUILDING, so the whole single-shell
+    #    dance below does not apply to it. `themed_site_assemble` publishes a
+    #    self-contained tree -- `site.tscn` naming `lot/<archetype>/site.tscn`,
+    #    and each archetype dir carrying its own `art/` and `site_base.glb` --
+    #    with no absolute reference anywhere in it. Measured on cold_9001: the
+    #    themed root names exactly four paths, all of them `lot/<id>/site.tscn`.
+    #
+    #    So the rewrite had nothing to fire on, and this tool reported "a
+    #    REWRITE that did not fire" -- correctly, and for a reason that was not
+    #    a Lot spelling change. Roadmap 37 landed and the walk tool had never
+    #    been taught what a site made of different buildings looks like.
+    varied = os.path.isdir(os.path.join(os.path.dirname(site), "lot"))
+    hits, pkg_hits = [], 0
+    if varied:
+        copy_into(os.path.dirname(site), out,
+                  skip_names={"project.godot", "site.tscn", "site_walk.tscn"})
+        shutil.copy2(site, os.path.join(out, "site.tscn"))
+    else:
+        # The composed building and everything it names at ITS project root.
+        copy_into(os.path.dirname(building), out,
+                  skip_names={"project.godot", "site.tscn", "site_main.tscn",
+                              "HANDOFF.md", "compose.summary.json",
+                              "portable_resource_manifest.json"})
+        shutil.copy2(building, os.path.join(out, "building.tscn"))
 
-    # 2. The themed site, with the absolute reference made local. Lot writes
-    #    `res://<absolute path>` in non-portable mode; the file it names is the
-    #    building copied above, and nothing else in the scene is absolute.
-    with open(site, encoding="utf-8") as fh:
-        text = fh.read()
-    hits = _ABS_REF.findall(text)
-    text = _ABS_REF.sub('path="res://building.tscn"', text)
-    text, pkg_hits = _PKG_REF.subn('path="res://building.tscn"', text)
-    with open(os.path.join(out, "site.tscn"), "w", encoding="utf-8") as fh:
-        fh.write(text)
+        # The themed site, with the absolute reference made local. Lot writes
+        # `res://<absolute path>` in non-portable mode; the file it names is
+        # the building copied above, and nothing else in the scene is absolute.
+        with open(site, encoding="utf-8") as fh:
+            text = fh.read()
+        hits = _ABS_REF.findall(text)
+        text = _ABS_REF.sub('path="res://building.tscn"', text)
+        text, pkg_hits = _PKG_REF.subn('path="res://building.tscn"', text)
+        with open(os.path.join(out, "site.tscn"), "w", encoding="utf-8") as fh:
+            fh.write(text)
 
     # 3. The walk scene, Lot's addon, and Lux -- because a walk lit by
     #    nothing is not a review of the level. The scratch project shipped
