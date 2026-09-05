@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- THE BLOCKER THIS ITEM RESTS ON IS TRUE OF THE GLB AND NOT OF THE PACKAGE, AN |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- RUN AT KIT SCALE AND IT DOES NOT YET REPRODUCE THE FLAG. The `_subresources` |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -8270,6 +8270,35 @@ its own floor on 7 of 8 shots (item 90); it was one GLB in a hand-built
 project, not a Lot-assembled site through compose and export; and the
 trim-sheet objection is untouched, because world-space projection still
 forecloses an atlas, which is an art-direction decision and not a bug.*
+
+*STATUS: NARROWED 2026-09-05 -- RUN AT KIT SCALE AND IT DOES NOT YET
+REPRODUCE THE FLAG. The `_subresources` route is proven as a MECHANISM and is
+not yet proven as a REPLACEMENT, and the gap is one shot. Kit scale: 4
+buildings detached (art payload 11.46 MB -> 4.20 MB, -63%), 11 materials
+authored, 51 GLBs wired, 45 skipped as non-kit, ZERO import errors, and
+`look_shots` run against both the flag route and the shipping baseline. Seven
+of eight shots agree with the flag within 0.34 luma and `objective` agrees to
+0.00 -- but SPAWN READS +5.10 AND WILL NOT COME DOWN. FOUR HYPOTHESES TRIED
+AND ELIMINATED, recorded so nobody spends them again: (1) the generated
+material dropped `baseColorFactor` and `alphaMode`, so every window rendered
+OPAQUE against the import's 0.34 / ALPHA_DEPTH_PRE_PASS -- a REAL defect,
+found by look_shots, fixed, and it did not move spawn; (2)
+`KHR_texture_transform.scale` is NOT the triplanar density -- 0.4 for
+concrete against the 1.2 the flag measures; (3) deriving that density offline
+from raw glTF is UNSOLVED -- three attempts returned 1.947, 2.856 and 60.0
+against a flag that measures a consistent 1.2 on the IMPORTED mesh, so the
+comparison had to borrow 1.2 rather than derive it; (4) scoping by directory
+swept in 19 ceilings, 18 floors, 4 roofs and 4 props that the flag's
+`ext_*`/`int_*` node-name test skips -- fixed, 96 wired -> 51, and spawn did
+not move. WHAT THE FRAMES SHOW, which is where the next attempt should start:
+the difference is TEXTURE DENSITY on the wall, not lighting -- the flag's
+brown wall reads smooth and dark, the .tres one finer and lighter. The
+untested suspect is that the flag runs on EMBEDDED-texture GLBs while this
+route runs on DETACHED ones (item 87), so the textures arrive through a
+different import path. AND THE STANDING WARNING: all four elevations agreed
+within 0.11 through every one of these errors. `walk_triplanar.gd` says why --
+"the elevation A/B could not see it because at that distance nothing is
+sharp". Only the eye-level shot has ever caught any of this.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
