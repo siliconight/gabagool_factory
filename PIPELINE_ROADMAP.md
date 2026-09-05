@@ -779,8 +779,9 @@ work of adopting this.
 | 98 | **OPEN** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR IT. `check.py` EXITS 1 ON T |
 | 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
 | 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
+| 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
 
-**100 items: 40 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**101 items: 41 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9368,3 +9369,91 @@ to stopping a build over a label is fair. Saying so is enough: a brief whose
 and the aliases that exist, in the voice `USING_THE_FACTORY.md` asks every tool
 for. Then add `street_block` and `boardwalk_crescent` to the table, or change
 the two briefs, deliberately and once.
+
+*STATUS: OPEN 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT
+DELIBERATELY REPLACES DISPATCH'S `mission.tscn` WITH ITS OWN PORTABLE ENTRY,
+WHICH IS CORRECT, AND TWO DISPATCH FILES STILL SHIP NODE PATHS INTO THE TREE
+THAT WAS REPLACED. ZERO OF THOSE NODE NAMES EXIST IN ANY SCENE IN THE PACKAGE.
+THIS IS ITEM 50'S STALENESS ON THE SIBLING FILES OF THE SAME PRODUCER, AND IT
+LANDS ON THE ONE INTERFACE THE CONSUMING GAME READS FIRST.*
+
+**101. The handoff hands the server addresses that resolve to nothing.** Found
+2026-09-05 reading `LF_precinct_yard_001.portable-godot` to answer "what parts
+of the pipeline are in this package".
+
+**THE OVERWRITE IS NOT THE DEFECT.** `export.py` says so in a comment written
+for roadmap 50: the export copies Dispatch's handoff directory in, "overwrites
+`mission.tscn` with its own portable entry", and writes
+`portable_resource_manifest.json`. That is right. LF's entry is 708 bytes, has
+no addons and no autoloads, and instantiates
+`res://presentation/lux.applied.tscn`; Dispatch's is 28,963 bytes and 83 nodes
+carrying the structured tree
+
+    MissionRoot
+    |- Functional
+    |  |- Geometry (LotSite, Shell)
+    |  |- Collision
+    |  |- GameplayAnchors (PlayerStarts, Objectives, ExtractionPoints,
+    |  |                   Interactables, Triggers, AISpawnZones)
+    |  \- NavigationHints
+    \- Presentation
+
+Two producers, one filename, and the portable one has to win -- a package that
+requires an addon is not portable.
+
+**WHAT IS THE DEFECT.** Item 50 found Dispatch's `resource_manifest.json`
+describing a package that no longer existed, and DROPPED it: "two answers to
+one question". The same reasoning was never applied to its siblings. Measured
+on this package:
+
+    file                                  Functional/ paths   Presentation/
+    runtime_ownership_requirements.json           8                 5
+    gameplay_anchors.json                         9                 0
+    mission_manifest.json                         0                 0
+    navigation_hints.json                         0                 0
+    proposed_beat_graph.json                      0                 0
+    interactives.json                             0                 0
+
+And in every `.tscn` the package ships:
+
+    Functional 0   Presentation 0   GameplayAnchors 0   Objectives 0
+    Interactables 0   PlayerStarts 0   ExtractionPoints 0
+    AISpawnZones 0   NavigationHints 0
+
+So `"node": "Functional/GameplayAnchors/CoverPoints/deli_counter:AUTO_EVIDENCE_RACK"`
+names nothing. Every cover point, objective, extraction point and AI spawn zone
+is addressed into a tree the export removed.
+
+**WHY IT MATTERS MORE THAN A STALE MANIFEST.** These two files are the
+handshake to the layer this factory deliberately does not own. `PIPELINE_MAP.md`
+is explicit that replication, authority and gameplay belong to the consuming
+game, and `runtime_ownership_requirements.json` exists to tell that layer what
+it must own -- `authoritative_owner: server`, `replication_required: true`,
+`late_join_state_required: true`, per anchor. It is the first file an
+integrating team opens, and its addresses are dead on arrival. The DATA
+survives: every anchor still carries its position, so this is recoverable
+rather than lost. What is broken is the binding.
+
+**THE PATTERN THAT SURVIVED, and it is the clue to the fix.**
+`interactives.json` is unaffected, because it addresses by stable `id`
+(`courthouse_a01:if:...`) and never by node path -- the ids Deli Counter
+derives from PLACE rather than from position in a tree. A contract keyed on
+identity survived a re-parent that a contract keyed on tree position did not.
+
+**WHAT WOULD CLOSE THIS -- three shapes, and this item does not choose.**
+
+1. **Make the addresses true.** LF's portable entry instantiates the content
+   under the same root names Dispatch declares, so `Functional/...` resolves.
+   Most work, and it keeps a structured tree that a server-authoritative game
+   genuinely wants.
+2. **Rewrite the paths at export.** The export already rewrites `res://` refs;
+   rewriting `node` fields to what it actually shipped is the same class of
+   fix, and cheaper.
+3. **Drop the node fields and keep identity.** Follow `interactives.json`:
+   position plus stable id, no tree address. Smallest, and it gives up the
+   convenience of a path.
+
+What is NOT acceptable is the current state, where the package asserts a
+binding it does not carry -- the same shape as item 55 (fixtures with no art)
+and the export declaring `godot_version: 4.7` while telling the engine nothing
+(fixed in level_factory 0.55.0).
