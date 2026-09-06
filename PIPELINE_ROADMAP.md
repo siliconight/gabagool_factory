@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- THE PERCEPTUAL QUESTION IS SETTLED AND IT GOES THE OTHER WAY FROM THE PER-PI |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- THIS ITEM HAS A GATE AT LAST, AND THE FIX IS CONFIRMED BY EYE. `tools/texel_ |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -781,9 +781,9 @@ work of adopting this.
 | 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
-| 103 | **OPEN** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- MEASURED ON A BENCH AND BUILT FOR REAL, AWAITING THE EYE THAT DECIDES IT. TH |
+| 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 
-**103 items: 43 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**103 items: 42 open, 37 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8393,6 +8393,33 @@ for. See 103, which found a lever that removes seams outright rather than
 projecting around them, and which composes with this item rather than
 competing with it.*
 
+*STATUS: NARROWED 2026-09-06 -- THIS ITEM HAS A GATE AT LAST, AND THE FIX IS
+CONFIRMED BY EYE. `tools/texel_density.gd` measures the quantity the defect is
+actually about instead of photographing it. Without world projection a node
+scaled onto a slot remainder divides its density by that scale, so world
+density is `uv1_scale / node_scale`; with it, node scale drops out and world
+density IS `uv1_scale`. That is a property of the SCENE -- no reference build,
+no cameras, nothing to compare against. MEASURED on `precinct_yard_001`, 3554
+kit surfaces: shipping reads metal 66.0x mismatch and 58.0x stretch WITHIN one
+surface, concrete 47.0x, drywall 12.5x, glass already clean at 1.0x; with
+world triplanar every skin reads 1.200 at 1.0x. METAL IS WORSE THAN CONCRETE,
+which no render comparison had ever shown. CONFIRMED BY THE REPORTER on a
+side-by-side of the same build with and without projection -- "looks fixed" --
+after they had circled the fillers unprompted in a walk and asked whether the
+Pixelcoat change had regressed something. IT HAD NOT, and proving that is what
+produced the instrument: node scales are byte-identical between the two builds
+(132 of 875 kit instances scaled, same values), the fillers use the same skins
+as their neighbouring walls, and the mismatch ratio is `1 / node_scale`, which
+the tile period cancels out of. So a skin's `meters_per_tile` can never fix a
+filler and world projection is the only thing that can -- 103 and this item
+are complementary and each now has a measured job. WHAT IS STILL OPEN IS
+UNCHANGED AND IS THE WHOLE ITEM: the `--triplanar` walk flag is a dev-only
+runtime script and is not what ships. The shipping route is the
+`.tres`/`_subresources` override, which is perceptually equivalent to the flag
+(see the status below) and still carries an unexplained 24.18% per-pixel
+residual that no longer blocks anything. Ship the route, then measure it with
+this instrument rather than with a camera.*
+
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
 Pixelcoat application on these bands reads as stretched", which is what it
@@ -9712,6 +9739,20 @@ that gap. It should not be closed on a screenshot either.
 THE EYE THAT DECIDES IT. THE MECHANISM IS ARITHMETIC AND THE PARTIAL FIX IS
 ONE FIELD IN A PIXELCOAT PROFILE. DISTINCT FROM 88, WHICH PROJECTS AROUND THE
 SEAM; THIS REMOVES IT WHERE THE NUMBERS DIVIDE.*
+
+*STATUS: CLOSED 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good".
+Shipped as Pixelcoat 0.18.0, `concrete_delco` `meters_per_tile` 2.5 -> 2.0.
+The verdict covers the density change too, which was the open art question --
+the concrete reads about 25% finer on roughly two thirds of a delco level and
+that was accepted on sight. `delco` is the only theme resolving `concrete` to
+this grammar, and 2.0 is the library's median across 60 grammars, so this
+moved an outlier onto the norm. WHAT THIS ITEM DOES NOT COVER, now measured
+rather than assumed: the same arithmetic still applies to `metal_delco` at
+1.5 m and `drywall_delco` at 3.0 m, which divide none of the module widths
+either and are the obvious next candidates -- each its own art call, so
+neither was changed here. AND IT NEVER COVERED STRETCHED FILLERS, which the
+walk that approved this immediately surfaced: see 88, where the new
+instrument now ranks metal WORSE than concrete.*
 
 **103. The module seam is a tile-period mismatch, and the skin owns half of
 it.** Raised 2026-09-06 from the observation that one skin carries the visible
