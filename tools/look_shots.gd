@@ -257,6 +257,22 @@ func _derive_cameras(scene: Node) -> Array:
 			})
 
 	var eye_h: float = _eye_height(scene)
+
+	# INTERIORS. Off unless the driver asks, because it changes the shot list
+	# and every existing comparison is keyed on shot name.
+	#
+	# WHY THIS EXISTS. Nothing in this toolchain photographs an interior. The
+	# eight standing shots are an overview, four orthographic elevations and
+	# three points on the mission spine, and not one of them stands in a room
+	# facing a wall -- so an interior material change is invisible to the
+	# instrument. Measured on `precinct_yard_001`: three drywall grammars whose
+	# textures differ by 39%, 85% and 87% of their own pixels moved the eight
+	# frames by at most 0.06%. That is not a small effect, it is an unobserved
+	# one, and it blocked an art decision.
+	var want_int: int = int(ProjectSettings.get_setting("look_shots/interiors", 0))
+	if want_int > 0:
+		out.append_array(_interior_stations(scene, eye_h, want_int))
+
 	var spine := []
 	for key in ["spawn_pos", "objective_pos", "extraction_pos"]:
 		var v: Variant = scene.get(StringName(key))
@@ -454,6 +470,181 @@ func _visual_aabb(scene: Node) -> AABB:
 ## Eye height from the Player's Camera3D when the scene has one, else the
 ## agent-contract standing eye of 1.6 m. Reported either way, so a reader knows
 ## which they got.
+## Eye-level stations inside rooms, facing an interior wall.
+##
+## THE FLOOR COMES FROM THE WALL, NOT FROM A GUESS. The block above records
+## three refuted ways of inferring where a player stands -- site AABB bottom,
+## first downward hit, lowest hit in the column -- each of which produced a
+## plausible number for somewhere nobody stands. This does not cast anything.
+## An `int_*` slot is a wall Deli Counter placed in a room, and the bottom of
+## its own mesh IS that room's floor, measured rather than inferred. Eye height
+## is then the same `_eye_height` the spine shots use.
+##
+## THE CAMERA STANDS ON THE INSIDE. A wall is thin on one horizontal axis, so
+## its normal is that axis; the sign is chosen toward the centroid of every
+## interior slot in the same building, which is the side with a room on it.
+##
+## DISTANCE IS DERIVED, like the overview's: back off far enough that the
+## wall's own height fills the vertical FOV, then clamp so the camera cannot
+## reverse through the far wall.
+##
+## ASSUMES AXIS-ALIGNED WALL SLOTS, which is what Deli Counter emits -- the
+## `ext_<storey>_<face>` / `int_<storey>_<n>` naming is compass-aligned. A
+## rotated slot would get a normal off its true face; the name in the report
+## makes that visible rather than silent.
+## The skin a wall slot wears, for grouping and for naming the shot.
+##
+## `resource_name` is what every other tool here reads a material by --
+## `texel_density.gd` groups on it and `walk_triplanar.gd` prints it -- so the
+## names line up across instruments. Falls back to the node name rather than to
+## a guess, which keeps a slot with no readable material visible in the report
+## instead of silently merged into another group.
+func _slot_skin(node3d: Node3D) -> String:
+	for m in node3d.find_children("*", "MeshInstance3D", true, false):
+		var mi: MeshInstance3D = m
+		if mi.mesh == null:
+			continue
+		for s in range(mi.mesh.get_surface_count()):
+			var mat: Material = mi.get_active_material(s)
+			if mat == null:
+				continue
+			var nm: String = String(mat.resource_name)
+			if nm != "":
+				return nm.replace("M_Skin_", "")
+	return "unknown_" + String(node3d.name)
+
+
+func _interior_stations(scene: Node, eye_h: float, want: int) -> Array:
+	var walls: Array = []
+	var sum: Vector3 = Vector3.ZERO
+	for n in scene.find_children("int_*", "Node3D", true, false):
+		var node3d: Node3D = n
+		var box: AABB = AABB()
+		var have: bool = false
+		for m in node3d.find_children("*", "MeshInstance3D", true, false):
+			var mi: MeshInstance3D = m
+			if mi.mesh == null:
+				continue
+			var wb: AABB = mi.global_transform * mi.mesh.get_aabb()
+			if have:
+				box = box.merge(wb)
+			else:
+				box = wb
+				have = true
+		if not have:
+			continue
+		# A wall, not a sill or a trim piece. Below head height it cannot be
+		# the thing an interior shot is about.
+		if box.size.y < 1.6:
+			continue
+		walls.append({
+			"name": String(node3d.name),
+			"box": box,
+			"skin": _slot_skin(node3d),
+		})
+		sum += box.get_center()
+	if walls.is_empty():
+		_notes.append("no int_* wall slots with mesh in this scene; "
+			+ "interior stations omitted")
+		return []
+	var centroid: Vector3 = sum / float(walls.size())
+
+	# ONE STATION PER MATERIAL, largest wall of each, and THAT is the point.
+	#
+	# The first version sorted every interior wall by area and took the top N.
+	# Measured on `precinct_yard_001`: of 193 `int_*` slots, 106 carry
+	# concrete, 51 metal and 36 drywall, so the three largest were three
+	# segments of ONE concrete wall -- and the rig reported 0.00% between two
+	# builds whose drywall texture differs by 87% of its own pixels. The shots
+	# were real and looked at the wrong thing, which is the failure this file's
+	# header warns about in another form.
+	#
+	# Grouping by skin means a change to ANY interior material lands in some
+	# frame. Materials are visited in name order and walls within a material by
+	# area, so the selection is deterministic; with `want` below the material
+	# count the biggest materials are still the ones covered first.
+	var by_skin: Dictionary = {}
+	for w in walls:
+		var s: String = String(w["skin"])
+		if not by_skin.has(s):
+			by_skin[s] = []
+		by_skin[s].append(w)
+	var skins: Array = by_skin.keys()
+	skins.sort()
+	for s in skins:
+		var group: Array = by_skin[s]
+		group.sort_custom(func(a, b):
+			var aa: AABB = a["box"]
+			var bb: AABB = b["box"]
+			var area_a: float = maxf(aa.size.x, aa.size.z) * aa.size.y
+			var area_b: float = maxf(bb.size.x, bb.size.z) * bb.size.y
+			if is_equal_approx(area_a, area_b):
+				return String(a["name"]) < String(b["name"])
+			return area_a > area_b)
+		by_skin[s] = group
+
+	# Round-robin, so `--interiors 2` on a three-material site covers two
+	# materials rather than two walls of the first one.
+	var ordered: Array = []
+	var depth: int = 0
+	while ordered.size() < want:
+		var added: bool = false
+		for s in skins:
+			var group: Array = by_skin[s]
+			if depth < group.size():
+				ordered.append(group[depth])
+				added = true
+			if ordered.size() >= want:
+				break
+		if not added:
+			break
+		depth += 1
+
+	var out: Array = []
+	var used: Dictionary = {}
+	var fov_rad: float = deg_to_rad(75.0)
+	for w in ordered:
+		var box: AABB = w["box"]
+		var c: Vector3 = box.get_center()
+		# Thin horizontal axis is the wall's normal.
+		var nrm: Vector3 = Vector3(1.0, 0.0, 0.0)
+		if box.size.z < box.size.x:
+			nrm = Vector3(0.0, 0.0, 1.0)
+		# Point it at the rooms, not at the masonry.
+		var toward: Vector3 = centroid - c
+		if nrm.dot(toward) < 0.0:
+			nrm = -nrm
+		var inside: float = absf(nrm.dot(toward))
+		var want_d: float = (box.size.y * 0.5) / tan(fov_rad * 0.5)
+		var dist: float = clampf(want_d, 0.6, maxf(inside, 0.6))
+		var floor_y: float = box.position.y
+		var eye: Vector3 = c + nrm * dist
+		eye.y = floor_y + eye_h
+		var aim: Vector3 = c
+		aim.y = floor_y + eye_h
+		# NAMED BY MATERIAL, not by slot. `shot_diff` keys on the name, and a
+		# slot id like `int_-1_1_seg10` moves when the generator reshuffles
+		# segments, which would silently compare two different walls between
+		# runs. The material a station exists to show is the stable fact.
+		var shot_name: String = "in_" + String(w["skin"])
+		var bump: int = 2
+		while used.has(shot_name):
+			shot_name = "in_" + String(w["skin"]) + "_" + str(bump)
+			bump += 1
+		used[shot_name] = true
+		var how: String = "%s on slot %s, %.1f m wide x %.1f m tall, floor "
+		how += "from its own base, eye %.2f m, standing %.2f m off the wall"
+		var wide: float = maxf(box.size.x, box.size.z)
+		out.append({
+			"name": shot_name,
+			"eye": eye,
+			"target": aim,
+			"derivation": how % [String(w["skin"]), String(w["name"]), wide,
+				box.size.y, eye_h, dist],
+		})
+	return out
+
+
 func _eye_height(scene: Node) -> float:
 	for n in scene.find_children("*", "Camera3D", true, false):
 		var cam: Camera3D = n

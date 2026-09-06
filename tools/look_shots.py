@@ -68,7 +68,7 @@ MARK_END = "LOOK_SHOTS_JSON>>>"
 
 def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
           settle=10, frames_per_shot=6, keep_hud=False, rendering_driver=None,
-          timeout=900, verbose=False):
+          timeout=900, verbose=False, interiors=0):
     scene = scene or default_scene(project_dir)
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
@@ -82,6 +82,7 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
             "settle_frames": settle,
             "frames_per_shot": frames_per_shot,
             "hide_non_lux_canvas": not keep_hud,
+            "interiors": int(interiors),
         },
         "display": {
             "window/size/viewport_width": width,
@@ -177,6 +178,11 @@ def main(argv=None):
     ap.add_argument("--godot", default=None,
                     help="path to the Godot binary; default LOT_GODOT, then "
                          "DC_GODOT, then the usual install locations, then PATH")
+    ap.add_argument(
+        "--interiors", type=int, default=0, metavar="N",
+        help="also stand inside N rooms facing an interior wall. "
+             "OFF by default: it adds shots, and every existing "
+             "comparison is keyed on shot name")
     ap.add_argument("--width", type=int, default=1600)
     ap.add_argument("--height", type=int, default=900)
     ap.add_argument("--settle", type=int, default=10,
@@ -198,7 +204,7 @@ def main(argv=None):
     try:
         r = shoot(a.project, a.out, a.scene, a.godot, a.width, a.height,
                   a.settle, a.frames_per_shot, a.keep_hud, a.rendering_driver,
-                  a.timeout, a.verbose)
+                  a.timeout, a.verbose, interiors=a.interiors)
     except ProbeFailed as e:
         print("[look_shots] NOT MEASURED: " + str(e))
         return 1
