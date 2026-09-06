@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- THIS ITEM HAS A GATE AT LAST, AND THE FIX IS CONFIRMED BY EYE. `tools/texel_ |
+| 88 | **CLOSED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- WORLD PROJECTION SHIPS, AND THE FIX WAS A DECLARATION THIS REPO HAD ALREADY  |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -783,7 +783,7 @@ work of adopting this.
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 
-**103 items: 42 open, 37 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**103 items: 42 open, 38 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8419,6 +8419,36 @@ runtime script and is not what ships. The shipping route is the
 (see the status below) and still carries an unexplained 24.18% per-pixel
 residual that no longer blocks anything. Ship the route, then measure it with
 this instrument rather than with a camera.*
+
+*STATUS: CLOSED 2026-09-06 -- WORLD PROJECTION SHIPS, AND THE FIX WAS A
+DECLARATION THIS REPO HAD ALREADY WRITTEN AND THEN THROWN AWAY. Level Factory
+0.57.0: `_write_project_godot` now emits an `[importer_defaults]` block naming
+`res://zoo_worldskin.gd`. `presentation_compose` had been installing that
+post-import script and declaring it in ITS OWN project.godot for some time;
+the export writes project.godot from scratch and dropped the declaration, so
+every shipped package carried the script at its root and ran it on nothing.
+TWO FEATURES HAD INTERACTED, which is why nothing warned: 0.56.0's
+`_write_import_sidecars` runs AFTER `_write_project_godot`, so it baked the
+engine default -- an empty `import_script/path` -- into all 111 GLB sidecars,
+pinning the ABSENCE of the script into the package. Both halves did exactly
+what their own comments said. MEASURED WITH `tools/texel_density.gd` ON THE
+SHIPPED PACKAGE, not on a walk project, 3554 kit surfaces: before, metal 66.0x
+density mismatch between surfaces and 58.0x stretch WITHIN one surface,
+concrete 47.0x, drywall 12.5x; after, every skin reads 1.200 at 1.0x, flagged
+world-triplanar. `portability-test` PASS on the re-exported package. THE
+ELABORATE ROUTE WAS NOT NEEDED, and that is the lesson worth more than the
+fix: a `.tres` + `_subresources` override per GLB also works and was proven
+to, but it must reproduce the WHOLE material by hand and each omission is a
+silent regression -- three were found and fixed in one afternoon
+(baseColorFactor/alphaMode, so windows rendered opaque; `metallicFactor`,
+hardcoded 0.0 against the GLB's 0.85; `texture_filter`, defaulting to LINEAR
+against a glTF sampler asking for NEAREST on pixel art). The engine already
+had a supported hook and the package already shipped the script for it. WHAT
+REMAINS IS NOT A DEFECT: world-space projection still forecloses a trim-sheet
+atlas, which is an art-direction consequence this item has recorded from the
+start, and the `--triplanar` walk flag stays as the A/B instrument it was
+built to be. See 103 for the other half of the seam, which the tile period
+fixed and projection could not.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
