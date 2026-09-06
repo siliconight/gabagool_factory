@@ -782,9 +782,9 @@ work of adopting this.
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
-| 104 | **OPEN** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- FOUND BY SHIPPING THE FIX FOR 88 AND THEN CHECKING WHAT IT DID TO 103. WORLD |
+| 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 
-**104 items: 43 open, 38 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**104 items: 42 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9877,6 +9877,37 @@ CHECKING WHAT IT DID TO 103. WORLD PROJECTION CURRENTLY DISCARDS EVERY SKIN'S
 AUTHORED TILE PERIOD AND RENDERS THE WHOLE LIBRARY AT ONE DENSITY. Measured,
 not inferred: four skins carrying four different `meters_per_tile` all came
 out identical.*
+
+*STATUS: CLOSED 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS
+THE LIBRARY-WIDE ART CHANGE IT IS. `zoo_worldskin.gd` now carries the
+material's AUTHORED `uv1_scale` into the world-space density --
+`uv1_scale = measured_density * authored` -- rather than replacing it with the
+measured density alone. MEASURED on two copies of ONE shipped package
+differing only in that script, so the geometry, cameras and art are identical
+and the density is the single variable: before, concrete, metal, drywall and
+glass all read 1.200; after, concrete, metal and drywall read 0.600 -- they
+share `meters_per_tile` 2.0 -- and glass reads 1.200, because glass is
+authored at 1.0 m and is now the ONLY skin keeping a different density. Glass
+is the proof the field is live again. ROADMAP 88'S FIX IS UNTOUCHED, checked
+rather than assumed: per-skin mismatch stays 1.0x, because this moves the
+density and not the projection. `portability-test` PASS. THE DOCSTRING ARGUED
+AGAINST THIS FIX and was wrong on a checkable point, which is the part worth
+keeping: it held that Godot "bakes `KHR_texture_transform` into the mesh UVs"
+and therefore that re-applying the measured density alone "reproduces the old
+density exactly". If that were so, `_uv_density` would return DIFFERENT
+numbers for skins with different tile periods, and it returns the same one for
+all four. The transform is in the material, not the mesh. The earlier failure
+that docstring records is real and is a DIFFERENT operation -- that version
+multiplied by Zoo's CONSTANT 1.2 rather than by the material's own authored
+value -- and the refutation is kept above the function rather than deleted.
+WHAT THIS COST, stated because it was accepted rather than avoided: concrete,
+metal and drywall now render about 2x coarser than in every previous
+world-projected build, including the side-by-side that closed 88, which was
+judged at 1.2. At `meters_per_tile: 2.0` a texture now genuinely repeats every
+2.0 m in world space, which is what the profile always claimed; before, every
+skin repeated every 0.833 m whatever it asked for. Pixelcoat 0.18.0 and
+0.19.0, benched and approved on box-projected walks, are live in a shipped
+export for the first time.*
 
 **104. World projection discards the authored tile period, so every skin
 renders at one density.** Raised 2026-09-06, immediately after level_factory
