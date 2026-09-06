@@ -782,8 +782,9 @@ work of adopting this.
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
+| 104 | **OPEN** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- FOUND BY SHIPPING THE FIX FOR 88 AND THEN CHECKING WHAT IT DID TO 103. WORLD |
 
-**103 items: 42 open, 38 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**104 items: 43 open, 38 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9870,3 +9871,55 @@ locks onto whatever repeats most strongly, and windows and piers repeat at the
 module pitch too. It was discarded rather than built on. The bench above works
 because it isolates one texture against known module widths instead of asking
 a photograph of a building what its texture is doing.
+
+*STATUS: OPEN 2026-09-06 -- FOUND BY SHIPPING THE FIX FOR 88 AND THEN
+CHECKING WHAT IT DID TO 103. WORLD PROJECTION CURRENTLY DISCARDS EVERY SKIN'S
+AUTHORED TILE PERIOD AND RENDERS THE WHOLE LIBRARY AT ONE DENSITY. Measured,
+not inferred: four skins carrying four different `meters_per_tile` all came
+out identical.*
+
+**104. World projection discards the authored tile period, so every skin
+renders at one density.** Raised 2026-09-06, immediately after level_factory
+0.57.0 made `zoo_worldskin.gd` actually run in shipped packages (item 88).
+
+**THE MEASUREMENT.** `meters_per_tile` reaches a package as the glTF
+`KHR_texture_transform` scale, which Godot imports as the material's
+`uv1_scale`. `zoo_worldskin.gd` then REPLACES that value with the density it
+measures off the mesh. On a build carrying four different tile periods --
+concrete 2.5 m, metal 1.5 m, drywall 3.0 m, glass 1.0 m, so `uv1_scale` 0.4,
+0.6667, 0.3333 and 1.0 -- every one of them came out at **1.2000**. That is
+Zoo's texel constant, and it does not vary with the field.
+
+So in any world-projected package every skin repeats every 0.833 m, whatever
+its profile asks for, and `meters_per_tile` is inert.
+
+**THE SCRIPT'S OWN DOCSTRING IS THE CLEAREST STATEMENT OF THE BUG.** It says
+re-applying the measured density "reproduces the old density exactly while the
+projection becomes world-space". It does not. The old on-mesh density was the
+mesh's UV density MULTIPLIED BY the material's `uv1_scale`; the script sets
+the first term and drops the second. The claim and the code disagree, and the
+code is what shipped.
+
+**WHY IT WAS INVISIBLE UNTIL NOW.** Until 0.57.0 the script ran in no shipped
+package (item 88), and `--triplanar` was a dev-only A/B flag, so the only
+builds anyone judged for texture density were box-projected ones where the
+field IS live. Pixelcoat 0.18.0 and 0.19.0 were both benched, built, walked
+and APPROVED on exactly those builds. Neither is wrong -- both normalize their
+skin onto the library's 128 px/m target and both are correct for any consumer
+that does not world-project -- but neither is currently visible in an export,
+and the approvals do not transfer to one.
+
+**WHAT THE FIX PROBABLY IS, and it should be measured before it is believed.**
+Carry the authored scale into the world-space density rather than discarding
+it -- `uv1_scale = measured_density * previous_uv1_scale` -- so a skin asking
+for a 2.0 m tile gets a 2.0 m tile in world space and a skin asking for 1.0 m
+gets 1.0 m. `tools/texel_density.gd` already reports the number to check it
+against, and the check is cheap: after the fix, four skins with four tile
+periods must report FOUR densities, not one.
+
+**THE RISK, and it is why this is not a one-line change.** Every look decision
+made on a world-projected build so far was made at 1.2, including the
+side-by-side that closed 88. Fixing this changes the density of every kit
+surface in every themed level at once -- coarser for most skins, since 1.2 is
+finer than any profile asks for. That is a library-wide art change and needs
+eyes on it, not just a passing test.
