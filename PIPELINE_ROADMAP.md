@@ -787,9 +787,9 @@ work of adopting this.
 | 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
-| 109 | **OPEN** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- A DEFAULT THAT DIVERGED, NOT A MISSING CAPABILITY. `walk_themed --worldskin` |
+| 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
 
-**109 items: 46 open, 40 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**109 items: 45 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10188,6 +10188,27 @@ CAPABILITY. `walk_themed --worldskin` DOES exist and is correct; level_factory
 0.57.0 made the export always run world projection, and the walk preview still
 does not unless asked. The tool humans judge a level in now shows something
 the recipient will not see.*
+
+*STATUS: CLOSED 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW
+PREVIEWS THE PACKAGE. `walk_themed`'s `--worldskin` is on by default, with
+`--no-worldskin` keeping the A/B half this item did not want to lose.
+MEASURED with `tools/texel_density.gd` on `precinct_yard_001`: a walk built
+with NO FLAGS reads concrete, metal and drywall at `uv1_scale` 0.500 and glass
+at 1.000, worst mismatch 1.0x -- the same treatment and the same numbers as
+the shipped export. Before this it read concrete 47.0x, metal 66.0x with
+58.0x stretch within a single surface, and drywall 12.5x. `--worldskin` IS
+STILL ACCEPTED rather than removed: scripts and notes already pass it, and
+making it error would trade a real breakage for a cosmetic tidy. AND IT SAYS
+SO WHERE SOMEBODY LOOKS -- the summary prints `worldskin=` in the subject line
+and, when the flag is off, a line reading "NOT what ships; the export
+world-projects every kit module". The treatment was already recorded in the
+subject block, which is precisely where a person judging a wall does not look;
+that gap is what let three art calls today be made against hand-corrected
+review builds. WHAT THIS ITEM DELIBERATELY DID NOT DO: the second option it
+offered -- leaving the default and only labelling it -- is now moot, and the
+guard that partly existed (`shot_diff`'s `same_subject`, which can refuse a
+comparison between a `--worldskin` run and a plain one) is unchanged and still
+worth having, because `--no-worldskin` can still produce one.*
 
 **109. The walk preview and the shipped package stopped agreeing, because one
 of them changed and the other's default did not.** Found 2026-09-06 while
