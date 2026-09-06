@@ -784,7 +784,7 @@ work of adopting this.
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
-| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
+| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- THE NAME IS DECIDED AND THE RENAME IS DEFERRED ON PURPOSE. A NON-ENTERABLE S |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
@@ -10020,9 +10020,21 @@ target.
 cover measurement is how a site becomes traversable but unfightable -- exactly
 the gap item 102 names indoors, one scale up.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED.
 DELI COUNTER SHIPS THREE FACADE PRESETS, TWO ARE IN THE BUILT LIBRARY, AND NO
 MISSION HAS EVER INSTANCED ONE. NOT THE SAME WORD AS ITEM 79.*
+
+*STATUS: OPEN 2026-09-06 -- THE NAME IS DECIDED AND THE RENAME IS DEFERRED
+ON PURPOSE. A NON-ENTERABLE SHELL IS AN EMPTY; THE PLURAL IS EMPTIES. Decided
+by the person who raised this item, to end the collision with item 79, where
+"facade" means the FACE of a building and will keep meaning only that. THE
+RENAME IS NOT A SED, and the survey that says so is recorded below so nobody
+has to rediscover it: both meanings live inside Deli Counter in comparable
+numbers, and a blind search-and-replace would merge the two concepts this
+decision exists to separate. The spec key is DATA and sits in the built
+library, so it needs a migration accepting both keys rather than a flag day.
+Still open, and the wiring half of the item is unchanged.*
 
 **106. Non-enterable facade buildings exist and nothing places them.** Raised
 2026-09-06: "we need buildings that you can't enter, which are already created
@@ -10057,6 +10069,48 @@ reads. This item is a BUILDING you cannot enter. Two different meanings of one
 word in one repo, which is the same hazard as the five files called
 `site.tscn`. Whoever picks either item up should say which one they mean in
 the first sentence.
+
+**THE NAME IS NOW DECIDED, and it is a definition rather than a label:**
+
+> **A non-enterable shell is an EMPTY. The plural is EMPTIES.**
+
+Chosen 2026-09-06 by the person who raised the item, precisely to retire the
+collision above. "Facade" keeps the item-79 meaning -- the face of a building
+-- and nothing else. Singular `empty` is the spec flag and the code noun;
+plural `Empties` is what they are called in prose, briefs and placement rules.
+The rename itself is deliberately deferred; what follows is the survey that
+makes it cheap when it happens.
+
+**IT IS NOT A SEARCH-AND-REPLACE, and this is the reason.** Both meanings are
+already live in `deli_counter`, in comparable numbers:
+
+* SHELL sense, which becomes `empty` -- `presets._facade()` and the three
+  presets built on it, the `facade: bool` field on the spec
+  (`spec_types.py:557`), and every guard that reads it:
+  `audit_specs.py` (trapped-floor exemption), `combat_audit.py`
+  (`GAMEPLAY_PRESETS ... minus facades`), `evidence.py`, `stair_core.py`,
+  `stair_regression.py`, `migrate_stairs.py`, `validate.py`
+  ("facade shells are intentionally non-enterable"), and their tests.
+* FACE sense, which KEEPS the word -- `ladder._facade_wall()`,
+  `ladder_place`'s `prefer_rear_or_side_facade`, `public_facade_penalty` and
+  `rear_or_side_facade_fit`, `stairwell`'s "the facade an exterior tower
+  stands against", `lights`' storefront sign "on the windowed facade", and the
+  balcony geometry in `spec_types` and `deli_counter.py` that measures
+  projection "off the facade".
+
+**WHAT THE RENAME WOULD HAVE TO TOUCH, in order.** The spec key `"facade":
+true` is the load-bearing one: it is DATA, it is in the built library, and
+changing it moves every spec's content and therefore every build fingerprint.
+So it needs a migration that accepts both keys for a release rather than a
+flag day -- `migrate_stairs.py` is the local precedent for that shape. The
+preset names (`facade_rowhome`, `facade_storefront`, `facade_industrial`) are
+public identifiers in `specs/CATALOG.md` and in built filenames
+(`gs_facade_rowhome.json`), so they move with the same care.
+
+**AND IT MAKES THE WIRING HALF EASIER TO WRITE.** The brief field this item
+needs is more obvious as `empties` than as `facades`, and a placement rule
+reading "an Empty may stand on the perimeter and never on a route" cannot be
+misread as being about a wall's composition.
 
 **WHAT WOULD MOVE IT.** A brief field for perimeter fill, a `lot_assemble`
 rule for where facades may stand (edge only, never on a route), and the
