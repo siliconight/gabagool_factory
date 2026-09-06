@@ -786,9 +786,9 @@ work of adopting this.
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
 | 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
-| 108 | **OPEN** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- ONE FIELD, AND IT IS THE LAST 1.2x BETWEEN THE SHIPPED LIBRARY AND ITS OWN S |
+| 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 
-**108 items: 46 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**108 items: 45 open, 40 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10098,6 +10098,37 @@ three regexes and a docstring, and the list itself is the deliverable.
 *STATUS: OPEN 2026-09-06 -- ONE FIELD, AND IT IS THE LAST 1.2x BETWEEN THE
 SHIPPED LIBRARY AND ITS OWN STATED DENSITY TARGET. FOUND BY FOLLOWING A SWEEP
 `CONTRAST_DIRECTION.md` §6.3 ASKED FOR AND NOBODY RAN.*
+
+*STATUS: CLOSED 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW
+LANDS ON ITS OWN STATED DENSITY TARGET EXACTLY. `recipes/_arch.py` `texel`
+1.2 -> 1.0 on both the part builder and the glass pane, and
+`recipes/dress_cover.py` the same, swept together. BOTH FILES MOVED FOR A
+REASON: `CONTRAST_DIRECTION.md` 6.3 flagged only `dress_cover.py`, for putting
+covers 20% above the wall behind them -- but the walls carried the same 1.2
+and therefore MATCHED, so moving the architecture alone would have created the
+break the document was describing. MEASURED on a re-exported
+`precinct_yard_001` with `tools/texel_density.gd`, which is the instrument
+built earlier the same day for a different question: concrete, metal and
+drywall read `uv1_scale` 0.500 and glass 1.000 -- every skin at exactly 128.0
+px/m against the 128 px/m target, worst mismatch 1.0x. Full geometry rebuild
+rather than a cache hit, structural checks passed with 0 blockers, and
+`portability-test` PASS. `meters_per_tile` NOW MEANS WHAT IT SAYS: a grammar
+authored at 2.0 m repeats every 2.0 metres in world space. It repeated every
+1.67 m before this and every 0.83 m before level_factory 0.58.0, so THREE
+separate defects were stacked on one number -- world projection discarding the
+authored scale (104), the scale itself being carried but multiplied (this
+item), and before both of those the projection never running at all (88). This
+was the last of the three and the only one that lived in Zoo. AND IT NAMES THE
+1.2 THAT HAUNTED THE OTHER TWO: 88 and 104 both turn on a measured UV density
+of 1.2 appearing on every skin regardless of `meters_per_tile`, and both wrote
+it down as "Zoo's texel constant" without finding where it was set.
+`cube_project_uv` lays UVs as world-metres x `texel`, so a mesh built at 1.2
+reports that whatever the material asks for. Neither of those fixes is
+affected; this explains the number they multiply. THE ART CHANGE WAS ACCEPTED
+DELIBERATELY: every architectural surface in every level is 20% coarser, which
+is the direction 6.3 argues for -- the library was "authored 1.3-16x finer
+than the aesthetic calls for" against Quake II reference points of 32 / 64 /
+128 px/m -- and it was rendered, compared and approved before it landed.*
 
 **108. Every architectural module is built at `texel=1.2`, so the whole
 library ships 1.2x finer than the density it targets.** Found 2026-09-06 while
