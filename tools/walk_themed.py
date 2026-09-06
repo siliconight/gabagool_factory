@@ -665,12 +665,28 @@ def main(argv=None):
                          "(roadmap 87). The art digest changes, because the "
                          "payload changes -- that is the point, and a later "
                          "shot_diff will correctly say the art moved")
-    ap.add_argument("--worldskin", action="store_true",
+    # ON BY DEFAULT since level_factory 0.57.0 -- roadmap 109. Every exported
+    # package now runs this script at import, so a walk WITHOUT it previews a
+    # level the recipient will never see. Measured on `precinct_yard_001` with
+    # `tools/texel_density.gd`: a plain walk reads metal 66.0x density mismatch
+    # between surfaces and 58.0x stretch within one, against 1.0x on every skin
+    # in the shipped export. Before 0.57.0 neither ran it and the defaults
+    # agreed, which is why this was an opt-in switch and no longer can be.
+    #
+    # `--worldskin` is still ACCEPTED rather than removed: scripts and notes
+    # already pass it, and having it error would be a worse trade than having
+    # it mean what it always meant.
+    ap.add_argument("--worldskin", dest="worldskin", action="store_true",
+                    default=True,
                     help="bake world-space UVs onto kit modules AT IMPORT via "
                          "Godot's own `import_script/path` hook, which is what "
-                         "a pipeline would do (roadmap 76/80/88). Unlike "
-                         "--triplanar this needs no runtime script and "
-                         "persists in the imported scene")
+                         "the export does (roadmap 76/80/88). ON BY DEFAULT so "
+                         "the walk matches the shipped package; still accepted "
+                         "explicitly for invocations that already pass it")
+    ap.add_argument("--no-worldskin", dest="worldskin", action="store_false",
+                    help="build WITHOUT world-space UVs. NOT what ships any "
+                         "more -- this is the A/B half of roadmap 88, for "
+                         "looking at the difference on purpose")
     ap.add_argument("--triplanar", action="store_true",
                     help="set world-space triplanar UVs on the KIT materials "
                          "at runtime. Off by default: it changes how every "
@@ -993,13 +1009,22 @@ def main(argv=None):
     if args.triplanar:
         print("  uv       : WORLD TRIPLANAR on kit materials (--triplanar) "
               "-- NOT what ships")
+    if not args.worldskin:
+        # SAY IT WHERE SOMEBODY WILL SEE IT. The treatment was already in the
+        # subject block, which is exactly where a person judging a wall does
+        # not look. Roadmap 109 exists because a preview that quietly differs
+        # from the package is the artefact three art calls were made against.
+        print("  uv       : NO WORLDSKIN (--no-worldskin) -- NOT what ships; "
+              "the export world-projects every kit module")
     if args.vertex_colors:
         print("  vcolour  : %s (--vertex-colors) -- roadmap 84 probe"
               % args.vertex_colors.upper())
     if imported is not None:
         print("  import   : exit %d" % imported)
-    print("  subject  : art %s (%d files)  triplanar=%s fixtures=%s"
+    print("  subject  : art %s (%d files)  worldskin=%s triplanar=%s "
+          "fixtures=%s"
           % (subject["art_digest"][:12], subject["art_files"],
+             subject["treatment"]["worldskin"],
              subject["treatment"]["triplanar"],
              subject["treatment"]["fixture_lights"]))
     print()
