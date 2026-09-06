@@ -8300,6 +8300,7 @@ within 0.11 through every one of these errors. `walk_triplanar.gd` says why --
 "the elevation A/B could not see it because at that distance nothing is
 sharp". Only the eye-level shot has ever caught any of this.*
 
+SUPERSEDED STATUS, kept above the retraction that replaced it:
 *STATUS: NARROWED 2026-09-05 -- THE ROUTE REPRODUCES THE FLAG, AND THE
 RESIDUAL IS AN INTERACTION WITH 87 RATHER THAN A FAULT IN EITHER. Three
 variants shot through the same cameras against the flag route: (a) `.tres`
@@ -8321,6 +8322,57 @@ so the suspect is that a detached GLB has Godot importing the same file twice,
 once as the scene's own `uri` dependency and once as the material's
 `ext_resource`. Untested. AND THE STANDING WARNING: every elevation agreed
 within 0.11 through all of this; only the eye-level shot ever moved.*
+
+*STATUS: RETRACTED AND REOPENED 2026-09-05 -- THE CLAIM BELOW IS WRONG, AND
+IT IS WRONG BECAUSE IT WAS MEASURED WITH AN INSTRUMENT THAT CANNOT SEE THIS
+CHANGE. `look_shots` mean luma reads the `.tres` route 0.34 from the flag at
+worst and says "reproduces". It also reads a build with NO TRIPLANAR AT ALL
+0.14 from the flag. An instrument that scores the unfixed build as a match has
+not tested anything, and every "matches the flag on N of 8 shots" in this item
+and in 90 inherits that. Blurring or re-projecting a texture moves texels
+around and leaves the average where it was; mean luma is sensitive to
+BRIGHTNESS bugs, which is why it caught the dropped alpha and the dropped
+metallic, and blind to the thing this item is about. MEASURED PER-PIXEL
+INSTEAD (fraction of pixels differing by more than 8/255, `shot_diff`'s own
+metric), with the controls first because without them the number means
+nothing: re-rendering the same project reads 0.02%, and copying the project to
+a new directory, re-importing and re-rendering reads 0.03%. So the comparison
+is deterministic across projects and anything above ~0.1% is real. Against
+that floor: the shipping build differs from the flag on 25.59% of pixels, and
+the finished `.tres` route still differs on 24.18%. THE ROUTE DOES NOT
+REPRODUCE THE FLAG. THE 87 INTERACTION IS ALSO DISPROVEN, which is the other
+half of what the retracted status claimed: `detach_textures` alone, no
+overrides, reads 0.15% against the shipping build -- detaching is visually
+neutral on a varied lot, and it is not interacting with anything. THREE REAL
+DEFECTS WERE FOUND AND FIXED IN THE GENERATED MATERIAL on the way, all of them
+the same mistake: an override must carry the WHOLE material or the half it
+omits silently takes Godot's default. (1) `baseColorFactor` and `alphaMode`
+dropped, so every window rendered opaque. (2) `metallicFactor` dropped: the
+GLB carries 0.85 and the generator hardcoded `metallic = 0.0`, so metal
+rendered diffuse and bright -- this alone was the spawn +5.10 the retracted
+status blamed on an 87 interaction, and excluding that one material collapsed
+spawn to -0.03. glTF's default when the field is ABSENT is 1.0, not 0.0, so
+the fallback matters as much as the read. (3) `texture_filter` dropped: the
+glTF sampler asks magFilter 9728 (NEAREST) and Godot's importer honours it as
+NEAREST_WITH_MIPMAPS, but a `.tres` that omits the field takes
+LINEAR_WITH_MIPMAPS and BLURS pixel art on every kit surface. WHAT IS LEFT IS
+NOT EXPLAINED, and this is the honest state of the item. With all three fixed,
+a runtime dump of the assembled scene finds the two routes IDENTICAL on 6474
+surfaces across nineteen material fields -- triplanar, world-triplanar, scale,
+metallic, roughness, albedo colour, transparency, filter, repeat, cull,
+sharpness, uv offset and the three texture slots -- the bound textures are
+byte-identical (both projects hold the same 18 distinct images, none unique to
+either), both routes reach the same 57 materials and 3554 kit surfaces, the
+cameras agree to four decimals and the texture import settings are the same
+lossless mode. And 24.18% of pixels still differ. TWO SUSPECTS RULED OUT
+rather than left hanging: forcing the flag itself to a flat 1.2 via its own
+`scale_override` accounts for 1.08% of it, so the 4th decimal of the measured
+density is real but small; and the generator's OFFLINE density derivation is
+simply wrong -- it reads 0.849..201.1 off the raw glTF where the flag measures
+1.1995..1.2000 off the imported mesh, because Godot's importer does not hand
+back the UVs the file was written with. Deriving density offline from a .glb
+cannot be trusted and should be read from the imported mesh instead. NOTHING
+HERE SHIPS UNTIL THE 24% IS EXPLAINED.*
 
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
