@@ -783,8 +783,11 @@ work of adopting this.
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
+| 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
+| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
+| 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 
-**104 items: 42 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**107 items: 45 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9954,3 +9957,114 @@ side-by-side that closed 88. Fixing this changes the density of every kit
 surface in every themed level at once -- coarser for most skins, since 1.2 is
 finer than any profile asks for. That is a library-wide art change and needs
 eyes on it, not just a passing test.
+
+*STATUS: OPEN 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE
+DIFFERENT BUILDINGS; THIS IS ABOUT WHERE LOT PUTS THEM, WHICH IS A SEPARATE
+AXIS AND HAS NEVER BEEN VARIED OR MEASURED.*
+
+**105. Lot builds one arrangement of buildings, and nothing varies it.**
+Raised 2026-09-06: "lot [should] make more arrangements of buildings."
+
+**WHY THIS IS NOT ITEM 37.** 37 was "every building on the site is the same
+building", and it closed when a cold run shipped three distinct shells. That
+fixed the BUILDINGS. It did not touch the SITE PLAN -- how many buildings,
+where they sit relative to each other, what shape the space between them
+takes, which faces address the street. A site of four distinct buildings in
+the same footprint every time is still one level shape wearing different
+clothes, and interventions-per-level cannot see the difference.
+
+**WHAT IS ALREADY THERE, so this is a variation problem rather than an absence.**
+The brief already carries `site_shape` (`courtyard` on `precinct_yard_001`),
+`building_count`, `route_shape` and `verticality`, and Lot's `lot_assemble`
+consumes them. So there IS a parameterisation; nobody has established how much
+of the possible space it actually reaches, or whether two missions with
+different briefs produce recognisably different plans.
+
+**WHAT WOULD MOVE IT, and the first step is measurement rather than more
+arrangements.** Generate the same brief at several seeds and several
+`site_shape` values and measure the resulting plans -- building footprint
+positions, the area and aspect of the space between them, how many distinct
+approach routes reach the objective. The repetition instruments already exist
+for facades (`repetition_census.py`); nothing measures repetition at SITE
+scale. Until that number exists, "more arrangements" is a preference and not a
+target.
+
+**THE RISK OF DOING IT BLIND.** Adding plan variety without a sightline or
+cover measurement is how a site becomes traversable but unfightable -- exactly
+the gap item 102 names indoors, one scale up.
+
+*STATUS: OPEN 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED.
+DELI COUNTER SHIPS THREE FACADE PRESETS, TWO ARE IN THE BUILT LIBRARY, AND NO
+MISSION HAS EVER INSTANCED ONE. NOT THE SAME WORD AS ITEM 79.*
+
+**106. Non-enterable facade buildings exist and nothing places them.** Raised
+2026-09-06: "we need buildings that you can't enter, which are already created
+by Deli Counter called Facades."
+
+**IT IS ALREADY BUILT, which is what makes this a wiring item.** Deli Counter
+carries `_facade()` and three presets on top of it -- `facade_rowhome`,
+`facade_storefront`, `facade_industrial` -- each stamping `"facade": True` on
+the spec. The flag is honoured downstream where it matters: `audit_specs.py`
+skips trapped-floor checks on "facade-only shells with no interior", and
+`combat_audit.py` builds `GAMEPLAY_PRESETS` from the registry "minus facades".
+So the concept is modelled and the audits already know not to treat one as a
+playable interior.
+
+**AND NOTHING USES IT.** Measured 2026-09-06: 1240 specs in `deli_counter/build`,
+of which 2 are facade-only, and no `.tscn` in `cold-9001-ws` instances one.
+The mission brief has no way to ask for them and `lot_assemble` has no reason
+to place them.
+
+**WHY IT MATTERS FOR THIS PRODUCT.** An online heist PvE level needs a
+boundary that reads as a city rather than as a wall. Facades are the cheap
+half of that -- geometry and silhouette with no interior to light, navmesh,
+cover-seed or audit -- so they buy edge density and skyline at a fraction of a
+real building's cost. They are also the honest way to make a site feel larger
+without enlarging the playable area, which is a level-design lever this
+factory currently does not have.
+
+**NOT ITEM 79, and the shared word is the trap.** 79 is "nothing in the
+pipeline represents a FACADE, so nothing can compose one" -- that is the face
+of a building, its window and bay composition, and it is about how a wall
+reads. This item is a BUILDING you cannot enter. Two different meanings of one
+word in one repo, which is the same hazard as the five files called
+`site.tscn`. Whoever picks either item up should say which one they mean in
+the first sentence.
+
+**WHAT WOULD MOVE IT.** A brief field for perimeter fill, a `lot_assemble`
+rule for where facades may stand (edge only, never on a route), and the
+placement gate learning that a facade is not a defect when it has no door.
+
+*STATUS: OPEN 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND
+IT IS ABOUT WHICH TOOL THE CONTRACT BELONGS TO RATHER THAN ABOUT A BUG.*
+
+**107. Level Factory should own the final export, not Lot.** Raised
+2026-09-06: "Level factory should be owning this final export, not Lot."
+
+**WHAT IS TRUE TODAY.** The export is already Level Factory code --
+`packages/exporting/export.py` writes `project.godot`, the import sidecars,
+the resource and licence manifests and the handoff. But the SHAPE of what it
+exports is Lot's: `themed_site_assemble` is a Lot job, the package's scene
+graph is Lot's site, and the exporter reads Lot's layout back out to find its
+way around. `_LOT_SITE_REF` matches `lot/<id>/site.tscn` and
+`_assembly_building_dir` has to reason about whether the composed root "belongs
+under" a lot and whether a varied lot has already placed the buildings. That
+is an exporter inferring another tool's conventions from paths.
+
+**WHY IT IS WORTH FIXING RATHER THAN LIVING WITH.** Every defect in this area
+this year has been of the same species: the export producing a state it did
+not certify, or certifying one it did not produce. Items 27, 33, 34 and 50 are
+all that shape, and 88 was the same again -- the package shipped a script it
+never declared, because two writers of `project.godot` disagreed about who
+owned it and neither said so. When ownership is implicit, the second writer
+silently wins.
+
+**WHAT THE END STATE PROBABLY IS**, and it needs designing rather than
+patching: Lot emits a site and a manifest DESCRIBING it -- roots, building
+ids, which scene is the entry -- and the exporter consumes the manifest rather
+than pattern-matching paths. Then a change to Lot's layout conventions breaks
+a schema check instead of producing a subtly wrong package.
+
+**WHAT NOT TO DO FIRST.** Do not start by moving code. Start by writing down
+what the export needs from Lot, because the current answer is spread across
+three regexes and a docstring, and the list itself is the deliverable.
