@@ -787,8 +787,9 @@ work of adopting this.
 | 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
+| 109 | **OPEN** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- A DEFAULT THAT DIVERGED, NOT A MISSING CAPABILITY. `walk_themed --worldskin` |
 
-**108 items: 45 open, 40 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**109 items: 46 open, 40 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10181,3 +10182,58 @@ Then LOOK at it: this makes every architectural surface in every level 20%
 coarser at once, and the last two density changes both needed a walk to
 settle. `dress_cover.py`'s own 1.2 should go in the same sweep, or covers will
 sit 20% off the walls behind them in the other direction.
+
+*STATUS: OPEN 2026-09-06 -- A DEFAULT THAT DIVERGED, NOT A MISSING
+CAPABILITY. `walk_themed --worldskin` DOES exist and is correct; level_factory
+0.57.0 made the export always run world projection, and the walk preview still
+does not unless asked. The tool humans judge a level in now shows something
+the recipient will not see.*
+
+**109. The walk preview and the shipped package stopped agreeing, because one
+of them changed and the other's default did not.** Found 2026-09-06 while
+building review projects for an interior art decision.
+
+**WHAT IS TRUE, corrected from the first telling of it.** The first version of
+this note said `walk_themed` had no way to install the worldskin. That is
+wrong and worth recording as wrong: `--worldskin` has been there, it writes
+`zoo_worldskin.gd` into the project AND declares it in `[importer_defaults]`,
+and it does so BEFORE the import pass -- which is the correct order, because
+Godot resolves `import_script/path` while importing and a declaration added
+afterwards is a silent no-op against sidecars that already exist. That
+ordering is exactly the trap this session fell into when injecting the script
+by hand after the fact, and had to delete every `.import` file to escape. The
+tool had already solved it.
+
+**THE ACTUAL DEFECT IS THE DEFAULT.** Before level_factory 0.57.0 neither the
+walk nor the export ran the worldskin, so their defaults AGREED -- both showed
+box-projected UVs, and `--worldskin` was an A/B switch for looking at the
+difference. 0.57.0 made every exported package run it. Now the export always
+world-projects and the walk does so only on request, so the two disagree by
+default, and the walk is the one a person opens.
+
+**MEASURED, with `tools/texel_density.gd`, on the same mission.** A default
+walk project reads concrete 47.0x density mismatch between surfaces, metal
+66.0x with 58.0x stretch within a single surface, drywall 12.5x. The shipped
+export of the same art reads 1.0x on every skin. Those are not two gradings of
+one look; they are the presence and absence of the fix roadmap 88 closed.
+
+**WHY IT IS MORE THAN A FLAG NOBODY TYPED.** Every art judgement this project
+makes is made by walking. Three were made today, and each one needed a review
+build hand-corrected to match the package before it could be trusted. A
+preview that silently differs from the artefact is the same species as the
+five files called `site.tscn` and the two meanings of "facade": two things
+that look like the same thing and are not.
+
+**THE GUARD THAT PARTLY EXISTS.** `walk_themed` records `worldskin` in the
+walk subject block, and `look_shots` carries that subject into its manifest,
+so `shot_diff`'s `same_subject` check can already refuse a comparison between
+a `--worldskin` run and a plain one. What nothing checks is a person comparing
+a WALK against a PACKAGE, which is the comparison that actually happens.
+
+**WHAT WOULD MOVE IT, and the choice is a real one.** Either flip the default
+so a walk previews what ships and add a flag for the old A/B behaviour, or
+leave the default and make the walk SAY which treatment it used somewhere a
+person will see it -- the summary it prints already reports
+`triplanar=` and `worldskin=`, but only in a line that scrolls past before
+Godot opens. The first is the honest default; the second preserves
+`--worldskin` as the instrument it was built to be. They are not exclusive.
