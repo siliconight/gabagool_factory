@@ -788,8 +788,9 @@ work of adopting this.
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
+| 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
 
-**109 items: 45 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**110 items: 46 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10312,3 +10313,71 @@ person will see it -- the summary it prints already reports
 `triplanar=` and `worldskin=`, but only in a line that scrolls past before
 Godot opens. The first is the honest default; the second preserves
 `--worldskin` as the instrument it was built to be. They are not exclusive.
+
+*STATUS: OPEN 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF
+PATINA'S LAYER 3 IS BUILT, TESTED AND SHIPPED, AND THE PLANNER REFERENCES NONE
+OF IT. Stage one was RUN BY HAND on the current build to prove the chain still
+works. Wanted, not optional -- this is the ground-and-seam layering, and it is
+the only depth still available to a wall after proud geometry was correctly
+ruled out.*
+
+**110. Patina's Layer 3 surface dressing is built end to end and connected to
+nothing.** Raised 2026-09-06 from "layering should be used with Patina, which
+we haven't in some time, to create another layer of depth to the walls and
+ground."
+
+**THE ANSWER TO "WE HAVEN'T IN SOME TIME" IS LITERAL.** `_dress/` at the
+factory root holds `asset_sets.json`, `metrics.json`, `dressing.json` and two
+built `.tscn` files, all dated 2026-08-19, all UNTRACKED. Layer 3 was run once,
+by hand, outside the pipeline, and never wired.
+
+**THE MAP, verified 2026-09-06 rather than read off a docstring.**
+
+| stage | state |
+|---|---|
+| Lot `site_surfaces` | WORKS. Run on the current build: 56 zones, 3 exclusions, 4 bands, footprints merged 4 of 4 buildings |
+| Zoo clutter species `pebble`, `rubble_frag`, `weed_tuft`, `litter_scrap` | species AND recipes exist; NOT built by any job in this mission |
+| `tools/shape_metrics.py`, Zoo's `measure_shapes` capability | both exist; the planner never asks for it |
+| asset-set curation (`asset_id -> family`) | one exists, 4 entries, untracked scratch in `_dress/` |
+| Patina `surface_dressing.py` | implemented, with an adapter mode, a schema (`schemas/surface_dressing.v1.json`) and tests |
+| `packages/exporting/dressing_scene.py` | implemented and tested, and CALLED FROM NOWHERE |
+| the planner | zero references to any of the above |
+
+**WHY IT MATTERS MORE THAN IT LOOKS.** Patina's WALL layering is switched off
+and correctly so: `--panel-fields` and `--pilasters` draw boxes standing proud
+of the wall by 1.2 cm and 5 cm, while a Zoo module's collider is built from the
+same slab and ends AT the wall face, so every one was non-collision geometry in
+space a body walks through -- the adapter's own words, "'no dressing in
+walkable space or firing lines' broken by the SHAPE of the solution". That
+ruling is right and should stand. Its consequence is that a wall cannot get
+depth from proud geometry, and after Zoo 0.56.0 removed the relief it does not
+get depth from the mesh either. Layer 3 is what is left, and unlike the wall
+flags it is SAFE BY CONSTRUCTION: it refuses, at production rather than
+validation, any placement that is in traversed space, taller than
+`unassisted_step_max`, and carries `collision_policy: none`.
+
+**THE ORDER OF WORK, and it is five pieces rather than the two this was first
+scoped at.**
+
+1. Build the four clutter species. They exist in Zoo and no job makes them.
+2. Ask for `measure_shapes` on that build -- the capability is already in the
+   Zoo adapter at 0.4.0 and the planner has never passed it.
+3. Plan Lot `site_surfaces` against the SITE SPEC. Proven to work today.
+4. Track the asset-set curation somewhere real and plan Patina
+   `surface_dressing` with its three inputs, a `site_id` and a `source`.
+5. Call `dressing_scene` and have the site instance the result. It writes
+   `<site>_dressing.tscn` deliberately rather than editing the locked site.
+
+**TWO ERRORS ON THE WAY, KEPT because both are cheap to repeat.** The first
+run of `site_surfaces` was given `site.site.gameplay.json` and returned
+`LOT_SURFACE_NO_GROUND` -- "the site declares no ground plate". That was the
+WRONG ARTEFACT, not a finding: `lot_assemble` consumes a `site_spec_path`, the
+spec lives at `.level_factory/temp/<mission>/candidate_seed_<n>/site.json`, and
+against the real one it returns 56 zones. Second, this item was first scoped as
+"two jobs the planner doesn't have", from reading the adapter's MODE without
+checking that its three declared inputs had producers. Two of the three do not.
+
+**AND A VERSION DRIFT WORTH FIXING IN THE SAME PASS.** Patina is at 0.21.0.
+The adapter's header says "bound to the REAL Patina 0.18.0 CLI" and its
+`output_contract_version` is `patina.pass.0.18`. Three releases of a contract
+the pipeline asserts.
