@@ -757,7 +757,7 @@ work of adopting this.
 | 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
 | 77 | **OPEN** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-08-29 -- COST ONE AMBIGUOUS COUNT ON `cold_7003`, AND THE AMBIGUITY IS UNRESOLVABLE F |
 | 78 | **NARROWED** | Nothing measures how a level LOOKS -- only what it is made of | 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH WAS FALSE AND WAS WRITTEN WITH |
-| 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-08-29 -- THE FRAME ITEMS 74 THROUGH 76 ARE SYMPTOMS OF. NAMED FROM A WALKTHROUGH CRIT |
+| 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-09-06 -- INDEPENDENTLY NAMED A SECOND TIME, FROM THE ART SIDE, AND THE TWO DESCRIPTIO |
 | 80 | **OPEN** | Deli Counter's one-mesh-in-VRAM discipline is not carried any further  | 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS; THE STEP AFTER IT IS WRITTEN |
 | 81 | **NARROWED** | Zoo's wear noise runs at the mesh's vertex density, and a wall module  | 2026-08-29 -- THE MECHANISM IS REAL IN THE FILE AND INERT IN THE ENGINE. REMOVING THE WEAR |
 | 82 | **ANALYSIS** | Every tool's contract is about a piece. No contract is about the whole | 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF THIS ONE FACT, AND IT EXPLAINS W |
@@ -786,8 +786,9 @@ work of adopting this.
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
 | 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- CONTENT THAT EXISTS AND HAS NEVER BEEN USED. DELI COUNTER SHIPS THREE FACADE |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
+| 108 | **OPEN** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- ONE FIELD, AND IT IS THE LAST 1.2x BETWEEN THE SHIPPED LIBRARY AND ITS OWN S |
 
-**107 items: 45 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**108 items: 46 open, 39 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7540,9 +7541,34 @@ per face -- so a composition change has a before and after that is not a
 person's memory. Both are wiring, which is the shape of nearly everything in
 items 76 through 82.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-08-29 -- THE FRAME ITEMS 74 THROUGH 76 ARE SYMPTOMS OF.
 NAMED FROM A WALKTHROUGH CRITIQUE, GROUNDED IN THE EMITTER, AND NOT A TUNING
 PROBLEM: THE OBJECT THAT WOULD CARRY A COMPOSITION DOES NOT EXIST*
+
+*STATUS: OPEN 2026-09-06 -- INDEPENDENTLY NAMED A SECOND TIME, FROM THE ART
+SIDE, AND THE TWO DESCRIPTIONS AGREE. `pixelcoat/docs/CONTRAST_DIRECTION.md`
+§6.2 reaches this item's conclusion from a measurement rather than from a
+walkthrough: "Pixelcoat generates fields; Quake II textures are compositions",
+and "a tiling field generator cannot produce one no matter how good the
+generator gets. The missing subsystem is not a better field -- it is a PANEL
+COMPOSER that takes a quiet field from an existing grammar and lays graphic
+elements onto it at authored positions." That is this item's "the object that
+would carry a composition does not exist", said in Pixelcoat's own vocabulary.
+§6.1 adds the measurement that explains WHY the buildings read flat even
+though the palette is disciplined: a painted bevel needs SEPARATED value
+clusters -- bright edge, mid field, dark band, near-black interior, highlight,
+with gaps between them -- and 22 of 51 grammars have all their value mass in a
+single contiguous run. The doc's phrase for it is "the palette has no depth
+vocabulary". CONFIRMED THE HARD WAY 2026-09-06: two concrete grammars were
+authored against this item using the existing field generator's `form_lines`
+primitive, and the walk verdict on the better of them was that it "reads as
+stripes, not intentional architecture". A field generator emitting regular
+seams is not a composition, which is exactly what §6.2 predicts. WHOEVER PICKS
+THIS UP should read that document first -- it carries the measurements, and
+the two halves of the answer it states ("quiet at the macro level, intentional
+at the texture level") are the design intent this item is serving. Original
+status below.*
 
 **79. Nothing in the pipeline represents a facade, so nothing can compose
 one.** Found 2026-08-29, walking `bank_block_001` seed 7003 after items 74 and
@@ -10068,3 +10094,59 @@ a schema check instead of producing a subtly wrong package.
 **WHAT NOT TO DO FIRST.** Do not start by moving code. Start by writing down
 what the export needs from Lot, because the current answer is spread across
 three regexes and a docstring, and the list itself is the deliverable.
+
+*STATUS: OPEN 2026-09-06 -- ONE FIELD, AND IT IS THE LAST 1.2x BETWEEN THE
+SHIPPED LIBRARY AND ITS OWN STATED DENSITY TARGET. FOUND BY FOLLOWING A SWEEP
+`CONTRAST_DIRECTION.md` §6.3 ASKED FOR AND NOBODY RAN.*
+
+**108. Every architectural module is built at `texel=1.2`, so the whole
+library ships 1.2x finer than the density it targets.** Found 2026-09-06 while
+reading `pixelcoat/docs/CONTRAST_DIRECTION.md` after four days of density work
+that never once checked the multiplier.
+
+**THE DOC ASKED FOR THIS SWEEP AND NAMED THE SMALLER HALF OF IT.** §6.3 closes
+with: "`texel` is a live per-part multiplier, and `recipes/dress_cover.py` sets
+`texel=1.2`. Every dressing cover therefore sits at 20% higher density than the
+wall behind it ... Worth sweeping for other non-1.0 `texel` values once the
+pack sizes are consistent, or the fix above will be partly undone downstream."
+
+The pack sizes are now consistent -- Pixelcoat 0.18.0 and 0.19.0 did exactly
+what §6.3 prescribed, taking concrete 102 -> 128 px/m and metal and drywall
+171 -> 128. So the sweep is due, and it finds a bigger instance than the one
+the doc flagged.
+
+**`zoo_keeper/recipes/_arch.py:38` PASSES `texel=1.2`**, and `_arch.py` is the
+"shared builder for architectural modules (wall / doorway / window / breach /
+...)" -- imported by `wall.py`, `wallEnd.py`, `window.py`, `doorway.py`,
+`breach.py`, `ceiling.py`, `floor.py`, `roof.py` and `prop.py`. Line 133 sets
+it again on the glass part. So it is not one prop recipe: it is every wall,
+every opening, every floor and every ceiling in every building.
+
+**THE ARITHMETIC, and it closes exactly.** On-screen density is
+`size x texel / meters_per_tile` (`bpylayer/materials.py`, quoted in §6.3). At
+the current settings that is `256 x 1.2 / 2.0 = 153.6` px/m against the
+document's stated 128 px/m target -- 1.2x over, uniformly, across the library.
+Setting `texel=1.0` lands on 128.0 exactly.
+
+**IT IS ALSO THE 1.2 THAT HAS BEEN HAUNTING THE PROJECTION WORK.** Roadmap 88
+and 104 both turn on a measured UV density of 1.2 that appeared on every skin
+regardless of its `meters_per_tile`, and both wrote it down as "Zoo's texel
+constant" without finding where it was set. This is where. `cube_project_uv`
+lays UVs down as world-metres x `texel`, so a mesh built at `texel=1.2` reports
+|dUV|/|dPOS| = 1.2 no matter what the material asks for -- which is precisely
+what `zoo_worldskin.gd`'s `_uv_density` measures. 104's fix is unaffected and
+still correct; this explains the number it multiplies.
+
+**WHAT MAKES THIS MORE THAN A CONSTANT.** §6.3's whole argument is that the
+library is "4-8x too fine for the aesthetic" -- the Quake II notes offer 32 /
+64 / 128 px/m and the coarsest material shipped was 171. Every step taken
+toward that target so far has been in `meters_per_tile`, and this multiplier
+has been quietly undoing 20% of each one.
+
+**WHAT WOULD MOVE IT, and why it is not a one-line commit.** Change the
+default to 1.0 in `_arch.py`, rebuild, and measure with
+`tools/texel_density.gd`, which now reports world density per skin directly.
+Then LOOK at it: this makes every architectural surface in every level 20%
+coarser at once, and the last two density changes both needed a walk to
+settle. `dress_cover.py`'s own 1.2 should go in the same sweep, or covers will
+sit 20% off the walls behind them in the other direction.
