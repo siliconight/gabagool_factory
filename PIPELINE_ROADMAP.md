@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-05 -- TWO CONSECUTIVE RUNS AT ZERO, BOTH SHIPPING A GATED PACKAGE, AND THE ITEM ST |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-06 -- COLD RUN 6 BROKE THE ZERO STREAK, AND THE QUESTION THIS ITEM WAS STILL ASKIN |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -789,8 +789,10 @@ work of adopting this.
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
 | 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
+| 111 | **OPEN** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17 DELI COUNTER PRESETS HAVE NEV |
+| 112 | **OPEN** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT IS WHY EVERY BRIEF EVER WRITT |
 
-**110 items: 46 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**112 items: 48 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1257,6 +1259,7 @@ airborne, and the step probe tries three heights instead of one — and neither
 moved the result, which is exactly how it should have gone. The walker is now
 right and the route it was given is wrong.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: NARROWED 2026-09-05 -- TWO CONSECUTIVE RUNS AT ZERO, BOTH SHIPPING A
 GATED PACKAGE, AND THE ITEM STILL ASKS FOR MORE. `cold_8001` (bank_block_001,
 varied lot, seen vocabulary) and `cold_9001` (precinct_yard_001, an archetype
@@ -1271,6 +1274,33 @@ either package, so both are "works" and neither is "good" (item 18), and
 `LT_MAP_TRAVERSAL` is 0% on all six candidates as on every evaluation ever
 run. Two is not "several". Evidence: `docs/findings/COLD_RUN_8001.md` and
 `COLD_RUN_9001.md`, journals under `_runs/cold/`.*
+
+*STATUS: NARROWED 2026-09-06 -- COLD RUN 6 BROKE THE ZERO STREAK, AND THE
+QUESTION THIS ITEM WAS STILL ASKING TURNS OUT TO BE UNANSWERABLE. `cold_9002`
+(`mercy_annex_001`, archetype `office`, theme `rockay`, L shape, 3 buildings):
+**1 intervention, 0 retries, 0 unattributed file changes, 1 observation**,
+three pipeline-attributed spec writes, and a portable package that passed
+`portability-test` with 0 missing resources. THE ONE INTERVENTION WAS A REAL
+DEFECT AND IS FILED AS 111: the brief first asked for `archetype: hospital`
+and all three candidates failed `deli_generate` with "TACTICAL-ERROR: heist
+level has no extraction zone", 0 objectives, exit 1, and Deli Counter's own
+"This is a preset bug -- please report it". Editing the brief to another
+never-requested archetype is exactly the "hand-editing the input until the
+output works" this item is named after, so it was counted rather than
+excused. THE OPEN QUESTION THIS STATUS USED TO CARRY IS NOW ANSWERED IN THE
+NEGATIVE. It asked for a run on an unseen THEME. There is no such thing:
+Pixelcoat ships nine theme profiles and Zoo carries species styles for
+`default` and `rockay` (56/56) and `delco` (39/56) and NOTHING for the other
+seven, so every brief on disk uses rockay or delco because those are the only
+two that can be built. Filed as 112. Until that gap closes, "unseen theme" is
+not a run this item can ask for. WHAT RUN 6 DID BUY, and it was the reason for
+running it: eight releases shipped on 2026-09-06 across four tools were all
+verified by incrementally rebuilding ONE mission with warm caches, and run 6
+is the first time the changed stack ran from a fresh brief. It holds --
+`texel_density` on the shipped package reads five skins world-triplanar at
+1.0x with five DISTINCT densities (0.333, 0.500, 0.500, 1.000, 0.667), where
+delco showed one value repeated because its grammars share a tile period.
+Roadmap 104's fix is live on vocabulary it was never tested against.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -10381,3 +10411,105 @@ checking that its three declared inputs had producers. Two of the three do not.
 The adapter's header says "bound to the REAL Patina 0.18.0 CLI" and its
 `output_contract_version` is `patina.pass.0.18`. Three releases of a contract
 the pipeline asserts.
+
+*STATUS: OPEN 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17
+DELI COUNTER PRESETS HAVE NEVER BEEN REQUESTED BY ANY BRIEF, AND THE FIRST ONE
+ASKED FOR FAILED EVERY CANDIDATE. A second, which three existing briefs DO
+ask for, raises KeyError. The registry advertises seventeen archetypes and is
+exercised on three.*
+
+**111. The preset registry is advertised at seventeen and exercised at three,
+and first contact found two defects.** Found 2026-09-06 by cold run 6, which
+asked for an archetype no brief had ever requested.
+
+**WHAT THE RUN HIT.** `archetype: hospital` failed all three candidates at
+`deli_generate`:
+
+```
+TACTICAL-ERROR: heist level has no extraction zone
+  objectives: 0 (0 required)   extraction zones: 0
+  -> 1 tactical error(s)
+(exit=1)
+The generated spec has validation issues. This is a preset bug -- please
+report it; the spec was still written so you can inspect it.
+```
+
+Deli Counter diagnosed itself correctly in that last line.
+
+**IT IS ONE PRESET, NOT A GENERAL GAP, and that was measured rather than
+assumed.** All 17 presets were probed through `presets.make(seed=9002)`:
+`hospital` is the ONLY one that yields **zero objectives**. Every other preset
+yields 1-3, and `police_station` -- which built cleanly in cold run 5 -- yields
+2. So the validator is right and the preset is wrong.
+
+**A SECOND DEFECT IN THE SAME PROBE, and this one is worse because it is in
+use.** `urban_bank` raises `KeyError` from `presets.make(seed=...)`. Three
+briefs on disk ask for `urban_bank`. It was not touched during the run and is
+recorded here as an observation rather than a fix.
+
+**THE SHAPE OF IT.** Briefs on disk have ever asked for five archetypes --
+`bank`, `urban_bank`, `casino_tower`, `police_station`, and `mixed_block`,
+which does not exist. That leaves fourteen presets that no brief has ever
+requested, two of which are now known broken, and the other twelve unknown.
+`facade_rowhome`, `facade_storefront` and `facade_industrial` are three of the
+fourteen and are Empties (item 106), so they are not expected to carry a
+mission on their own -- but the remaining eleven are.
+
+**WHAT WOULD MOVE IT.** A probe that makes every preset in the registry and
+validates the result is a few lines against `presets.REGISTRY` and would have
+caught both of these before a cold run spent seven minutes on one. The
+registry is a public surface -- `specs/CATALOG.md` lists it -- and nothing
+checks that its entries produce a spec that validates.
+
+*STATUS: OPEN 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT
+IS WHY EVERY BRIEF EVER WRITTEN USES ONE OF THE SAME TWO. Pixelcoat ships nine
+theme profiles; Zoo carries species styles for two of them. The precondition
+check works and refused before any compute -- this is a content gap, not a
+missing gate.*
+
+**112. Pixelcoat has nine themes and Zoo can style two of them, so seven
+cannot be built.** Found 2026-09-06 while writing cold run 6's brief, which
+asked for `theme: bank` on the assumption the unused themes were merely
+unused.
+
+**THE MEASUREMENT, from `doctor`, before any compute was spent.**
+
+```
+pixelcoat: bank, casino, delco, rockay, rockay_civic, rockay_retail,
+           rockay_service, stadium, street
+zoo (56 species): default, rockay
+zoo partial: delco (39/56), center_city (54/56), industrial_flats (54/56),
+             1990s (14/56), modern (7/56), ... and 25 more at 1-5/56
+```
+
+A theme resolves for Zoo when it is a key in a species' `styles` block. `bank`,
+`casino`, `stadium`, `street` and the three `rockay_*` variants are keys in no
+species at all. `center_city` and `industrial_flats` are nearly complete in Zoo
+and have no Pixelcoat profile, so they are unbuildable from the other side.
+
+**THIS EXPLAINS SOMETHING THAT LOOKED LIKE NEGLECT.** Every brief on disk asks
+for `rockay` (6) or `delco` (4), and that was read on 2026-09-06 as the theme
+vocabulary being under-used. It is not: those are the only two that can be
+built. The nine-profile list in Pixelcoat is a promise the pipeline cannot
+keep.
+
+**IT ALSO STRANDS WORK ALREADY SHIPPED.** Pixelcoat 0.20.0 wired
+`rockay_service:drywall` to `drywall_taped_delco` and 0.21.0 left
+`bank:drywall` on `drywall_scuffed_delco`. Neither can be built, and the
+changelog for both says so. Roadmap 17's standing request for a cold run on an
+unseen theme is unanswerable for the same reason.
+
+**THE CHECK IS NOT MISSING -- IT WORKED.** `packages/tools/themes.py` exists
+because cold run `cold_7002` spent tens of minutes in Blender and Lot before
+`pixelcoat_build` exited 1 on a missing theme profile (item 72). It now
+reports Zoo coverage as a COUNT rather than a boolean, deliberately, "because
+'3 of 48 species carry it' and '48 of 48' are different answers". That count
+is what refused this brief in seconds. The gate is right; the content behind
+it is thin.
+
+**WHAT WOULD MOVE IT, and the choice is a real one.** Either author Zoo styles
+for the themes Pixelcoat already profiles -- 56 species x 7 themes is a lot of
+authoring, and partial coverage is what the count exists to expose -- or
+narrow Pixelcoat's advertised list to what can actually be built and treat the
+rest as material libraries rather than themes. Doing neither leaves nine
+themes named and two working.
