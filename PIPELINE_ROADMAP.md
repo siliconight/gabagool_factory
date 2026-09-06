@@ -766,7 +766,7 @@ work of adopting this.
 | 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
-| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-05 -- THE ROUTE REPRODUCES THE FLAG, AND THE RESIDUAL IS AN INTERACTION WITH 87 RA |
+| 88 | **NARROWED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- THE PERCEPTUAL QUESTION IS SETTLED AND IT GOES THE OTHER WAY FROM THE PER-PI |
 | 89 | **CLOSED** | Disabling Detect 3D silently disabled mipmaps, and it cost nothing unt | 2026-08-29 -- FOUND AND FIXED IN THE SAME PASS, AS A DIRECT CONSEQUENCE OF ITEM 87. `mipma |
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
@@ -781,8 +781,9 @@ work of adopting this.
 | 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
 | 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
+| 103 | **OPEN** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- MEASURED ON A BENCH AND BUILT FOR REAL, AWAITING THE EYE THAT DECIDES IT. TH |
 
-**102 items: 42 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**103 items: 43 open, 36 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8374,6 +8375,24 @@ back the UVs the file was written with. Deriving density offline from a .glb
 cannot be trusted and should be read from the imported mesh instead. NOTHING
 HERE SHIPS UNTIL THE 24% IS EXPLAINED.*
 
+*STATUS: NARROWED 2026-09-06 -- THE PERCEPTUAL QUESTION IS SETTLED AND IT
+GOES THE OTHER WAY FROM THE PER-PIXEL NUMBER. Asked to compare the flag route
+against the finished `.tres` route on the same cameras, the person who
+reported this defect in the first place said both "look good enough". So the
+24.18% of pixels differing by up to 100 codes, recorded in the retraction
+below, is BELOW WHAT A PERSON NOTICES on this content, and per-pixel is too
+strict a gate to decide shipping on. That does not un-retract anything: the
+retraction's real finding stands, which is that MEAN LUMA CANNOT SEE THIS
+CHANGE AT ALL -- it scores a build with the feature switched off as a match --
+and the three material defects it found were real. What changes is the
+verdict: the two routes are perceptually equivalent, the residual is
+unexplained but not visible, and this item is no longer blocked on explaining
+it. THE INSTRUMENT PROBLEM IS NOW THIS ITEM'S REAL RESIDUAL -- one metric is
+blind and the other is oversensitive, and neither is the gate item 18 asks
+for. See 103, which found a lever that removes seams outright rather than
+projecting around them, and which composes with this item rather than
+competing with it.*
+
 **88. Deli Counter stretches a unit box to fill slot remainders, and the skin
 stretches with it.** Found 2026-08-29, walking `wH2` -- reported as "the
 Pixelcoat application on these bands reads as stretched", which is what it
@@ -9688,3 +9707,95 @@ that question because no instrument in this repo asks it.
 **THE HONEST RISK.** This is the first item raised purely from someone
 looking, with no measurement attached, since item 18 was written about exactly
 that gap. It should not be closed on a screenshot either.
+
+*STATUS: OPEN 2026-09-06 -- MEASURED ON A BENCH AND BUILT FOR REAL, AWAITING
+THE EYE THAT DECIDES IT. THE MECHANISM IS ARITHMETIC AND THE PARTIAL FIX IS
+ONE FIELD IN A PIXELCOAT PROFILE. DISTINCT FROM 88, WHICH PROJECTS AROUND THE
+SEAM; THIS REMOVES IT WHERE THE NUMBERS DIVIDE.*
+
+**103. The module seam is a tile-period mismatch, and the skin owns half of
+it.** Raised 2026-09-06 from the observation that one skin carries the visible
+seams while the rest look fine: "most if not all the other textures look good.
+this one is the one that sticks out the most when we have seams showing."
+
+**THE MECHANISM.** `concrete_delco` has `meters_per_tile: 2.5`. Deli Counter's
+wall modules are 2.0, 1.6, 1.4, 1.3, 1.2 and 0.3 m wide. The tile period
+divides none of them, so every module box-projects a fraction of a tile, ends
+mid-pattern, and the next module restarts at zero. The break is therefore at
+EVERY module boundary and identical each time, which is why it reads as a
+deliberate architectural line rather than as noise.
+
+**MEASURED ON A BENCH, and the bench is validated against the one direction
+this repo knows for certain.** Simulate box projection across the six real
+module widths and measure the mean absolute luminance step AT the boundaries
+against the step everywhere else. Box-projected per module scores 2.13; the
+same texture projected continuously, which is what world triplanar does,
+scores 1.05. An instrument that reports "no seam" for the case with no seam is
+worth believing a little.
+
+| variant | seam step | elsewhere | ratio |
+|---|---|---|---|
+| current skin (mpt 2.5) | 30.04 | 14.09 | 2.13 |
+| macro band removed entirely | 28.80 | 14.22 | 2.03 |
+| contrast lowered (posterize, colour, detail) | 26.37 | 9.68 | 2.72 |
+| **meters_per_tile 2.0** | **20.55** | 13.99 | **1.47** |
+
+**TWO PLAUSIBLE CAUSES REFUTED, both of them mine.** Lowering CONTRAST was the
+first theory and it is wrong: `concrete_delco` is the highest-contrast skin in
+the library at 28.2 against a median of 13.7, and it is on 4199 of 6474
+surfaces, so it looked like the obvious culprit. Taking contrast down to 25.1
+moved the seam 12% and made the RATIO worse, because the surrounding texture
+quieted faster than the boundary did. Removing MACRO variation outright moved
+it 4%. The boundary step is the difference between two arbitrary PHASES of the
+texture; it is set by the tile period, not by how loud or how coarse the
+texture is.
+
+**THE PER-BOUNDARY NUMBERS ARE THE MECHANISM SHOWING ITSELF**, which is why
+they are kept rather than the average alone. Boundary order 2.0|1.4, 1.4|2.0,
+2.0|1.3, 1.3|2.0, 2.0|1.6. At mpt 2.5 the steps are 27.7, 33.5, 27.7, 33.5,
+27.7 -- all seam. At mpt 2.0 they are 14.4, 28.4, 14.4, 32.9, 12.7 -- the
+three boundaries whose LEFT module is 2.0 m wide fall to about 13, which is
+the texture's own step, and the ones following a 1.4 or 1.3 m module do not
+move. A 2.0 m module at a 2.0 m tile consumes exactly one whole tile and ends
+where it began, so the next module continues it. The seam is not hidden; it
+does not exist.
+
+**IT CANNOT CLEAR ALL OF THEM, and that is arithmetic rather than effort.**
+The widths' common divisor is 0.1 m and a 10 cm repeat would read as obvious
+tiling. `meters_per_tile: 2.0` clears the most common width and nothing clears
+1.4, 1.3 or 1.6. That residue is what 88 exists for, so the two compose: this
+change ships today with no engine feature, no runtime script and no material
+override, and world projection would take what is left.
+
+**BUILT FOR REAL 2026-09-06, NOT ONLY BENCHED.** `meters_per_tile` 2.5 to 2.0
+in `pixelcoat/profiles/materials/concrete_delco.json`, then the whole art
+layer re-run through the factory on `precinct_yard_001` -- pixelcoat_build,
+zoo swaps, patina, dressing, presentation_compose, themed_site_assemble,
+lux_apply. Structural checks passed, 0 blockers. THE CHANGE REACHED THE
+GEOMETRY, which is the half worth verifying rather than assuming: the
+`KHR_texture_transform` scale in the shipped GLBs moved concrete 0.4 to 0.5
+(1/2.5 to 1/2.0) with metal at 0.6667, drywall at 0.3333, carpet and ceiling
+at 0.5 all untouched, so it is a clean single-variable change. Walked in the
+SHIPPING configuration: no `--triplanar`, no detach, no overrides. Mean luma
+moved at most 0.46 across eight shots, which is one more reminder that luma
+would have called this nothing.
+
+**WHAT IS NOT SETTLED, and it is the part that decides whether this ships.**
+`meters_per_tile` is ART DIRECTION, not only a bug fix. `pack_size_for` rounds
+both 2.5 and 2.0 to a 256 px pack, so the resolution is unchanged and the
+on-mesh density rises from 102.4 to 128 px/m -- the concrete reads about 25%
+FINER, on roughly two thirds of the level's surfaces. Whether that looks like
+better detail or like a busier, smaller-grained wall than the buildings want
+is a judgement nobody has made yet, and no measurement in this repo settles
+it. The profile change is deliberately UNCOMMITTED in the working tree pending
+that call.
+
+**A FAILED INSTRUMENT, KEPT because it is cheaper than rediscovering it.** The
+first attempt measured seams from the RENDERS: column-mean luminance,
+differentiated, autocorrelated, peak taken as the module pitch. It ranked the
+flag route WORSE than the shipping build on all four elevations -- the exact
+opposite of the one thing known for certain -- because the autocorrelation
+locks onto whatever repeats most strongly, and windows and piers repeat at the
+module pitch too. It was discarded rather than built on. The bench above works
+because it isolates one texture against known module widths instead of asking
+a photograph of a building what its texture is doing.
