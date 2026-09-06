@@ -38,7 +38,10 @@ extends SceneTree
 ## Reports the numbers and stops. Whether a given spread is acceptable is an
 ## art call and belongs in the reply, not in this file.
 
-const SCENE := "res://site_walk.tscn"
+## Defaults to the project's own main scene, so this runs against an
+## EXPORTED package as well as a walk project -- the two name their
+## entry scene differently and the export is the one that ships.
+const FALLBACK_SCENE := "res://site_walk.tscn"
 
 
 ## True when any ancestor is a Deli Counter wall slot. The same `ext_*` /
@@ -55,9 +58,13 @@ func _is_kit(n: Node) -> bool:
 
 
 func _init() -> void:
-	var ps: PackedScene = load(SCENE)
+	var scene: String = String(ProjectSettings.get_setting(
+		"application/run/main_scene", FALLBACK_SCENE))
+	if scene == "":
+		scene = FALLBACK_SCENE
+	var ps: PackedScene = load(scene)
 	if ps == null:
-		print("texel_density: cannot load " + SCENE)
+		print("texel_density: cannot load " + scene)
 		quit(1)
 		return
 	var root_node: Node = ps.instantiate()
@@ -96,8 +103,8 @@ func _init() -> void:
 			r[4] = bm.uv1_triplanar
 			surfaces += 1
 
-	print("texel_density: %d kit surface(s) over %d skin(s)"
-		% [surfaces, per_skin.size()])
+	print("texel_density: %s -- %d kit surface(s) over %d skin(s)"
+		% [scene, surfaces, per_skin.size()])
 	print("%-26s %6s %9s %9s %9s %9s" % ["skin", "surfs", "min d", "max d",
 		"mismatch", "stretch"])
 	var names: Array = per_skin.keys()
