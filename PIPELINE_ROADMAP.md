@@ -795,9 +795,9 @@ work of adopting this.
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
 | 115 | **OPEN** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE BUILDING, AND NOTHING SAYS |
 | 116 | **OPEN** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline makes is a rectangular pris |
-| 117 | **OPEN** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- 114 CLIPPED WALLS AGAINST STAIRS AND STOPPED THERE. Ramps, ladders and floor |
+| 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 
-**117 items: 51 open, 42 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**117 items: 50 open, 42 closed, 3 retracted, 19 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10828,11 +10828,62 @@ have to look and feel deliberate, not merely be traversable", and a street of
 identical prisms fails that test at the first glance, before any texture is
 seen.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- 114 CLIPPED WALLS AGAINST STAIRS AND STOPPED
 THERE. Ramps, ladders and floor holes open slabs too, and a wall over one of
 those is the same defect with a different hole producer. Found because two
 derivations of "which pieces does this wall have" disagreed on exactly the
 walls the stair rule does not reach.*
+
+**NARROWED 2026-09-07 -- WHAT SHIPPED.** `stairwell.wall_voids` is now the ONE
+call that answers "what may a wall on this storey not stand ON or IN". The
+builder, the 2D plan and the egress contract each make it, instead of unioning
+two dictionaries at three separate call sites -- which is exactly what let a
+producer be remembered at two of them and forgotten at the third. It carries
+three producers, and every one of them is exercised by a real spec:
+
+```
+producer         walls  specs  doors lost   in wall_voids?
+stair cut + air     14     14          13   yes (roadmap 114)
+ramp cut             3      3           2   yes
+ramp footprint       1      1           0   yes
+ladder hole          0      0           0   NO -- deliberately
+floor_hole/hatch     0      0           0   NO -- deliberately
+```
+
+**THE OPEN QUESTION IS ANSWERED, and both halves of the answer are worth
+keeping.** A ramp DOES need the same two keys a stair does: its cut and its
+footprint are different rectangles -- the cut sits half a run along the ascent
+axis, at the head of the climb -- and `cbp_town`'s `int_0_1` stands in the
+footprint and in no cut, so a rule written from cuts alone would have left a
+wall across a ramp. A ladder would NOT: it is mounted flat against a wall on
+purpose, so reserving the air in front of it would delete the wall it hangs
+on, and only its through-hole could ever be a void.
+
+**WHAT IS STILL OPEN, AND WHY IT IS OPEN ON PURPOSE.** Ladders and
+`floor_hole` / `hatch` links open a slab, so the same argument reaches them,
+and a first cut of this change included both. The count is why they came back
+out: no wall in the library stands over either, so shipping those arms would
+have changed geometry on an argument with no case to check the result
+against -- no way to tell a correct rule from a wrong one, on a change that
+had already dropped 15 authored doors. They go in WITH the spec that needs
+them and the count that shows it. A test pins their absence so the decision is
+re-taken rather than drifting back in.
+
+`Builder._ramps` now takes its slab cut from `stairwell.ramp_hole` rather than
+spelling the rectangle inline, because two spellings of one rectangle is how a
+wall gets clipped against a hole the builder does not make.
+
+
+*STATUS: NARROWED 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0
+AND THE OTHER TWO PRODUCERS ARE NOW A DECISION RATHER THAN AN OVERSIGHT. The
+per-producer count is why: ramp cut 3 walls in 3 specs, ramp footprint 1 in 1,
+2 doors lost -- and ladder 0, `floor_hole`/`hatch` 0, in all 162 specs. A
+first cut of the change included all of them; the zero is why the last two
+came back out, because shipping a rule with no case to check it against
+changes geometry on an argument alone. The open question about ramps is
+answered YES, a ramp needs the same two keys a stair does. What remains open
+is the two arms, and they go in with the spec that needs them.*
 
 **117. The wall-over-void rule covers stairs and not the other three things
 that open a slab.** Found 2026-09-07 by sweeping door-node agreement across
