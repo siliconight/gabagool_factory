@@ -791,8 +791,9 @@ work of adopting this.
 | 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
 | 111 | **OPEN** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17 DELI COUNTER PRESETS HAVE NEV |
 | 112 | **OPEN** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT IS WHY EVERY BRIEF EVER WRITT |
+| 113 | **OPEN** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- THE SIX WERE TWO DIFFERENT THINGS AND ONE OF THEM IS ALREADY FIXED. Three we |
 
-**112 items: 48 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**113 items: 49 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10513,3 +10514,91 @@ authoring, and partial coverage is what the count exists to expose -- or
 narrow Pixelcoat's advertised list to what can actually be built and treat the
 rest as material libraries rather than themes. Doing neither leaves nine
 themes named and two working.
+
+*STATUS: OPEN 2026-09-07 -- THE SIX WERE TWO DIFFERENT THINGS AND ONE OF
+THEM IS ALREADY FIXED. Three were Level Factory transients that `build.py
+--all` should never have built; that rule now matches `catalog.py`'s and the
+count is 3 of 126. The other three are real library shells whose stair ramp
+fragments into disconnected navmesh islands mid-climb, and they block every
+commit to Deli Counter until they are fixed or quarantined.*
+
+**113. Three shipping shells have stairs that do not traverse, and the gate
+that says so now blocks every Deli Counter commit.** Found 2026-09-07 by
+attributing all six items in a gate's output before touching any of them --
+`CLAUDE.md`'s own rule, and it split the six into two unrelated causes.
+
+**HOW IT SURFACED.** A one-function fix to `presets.hospital` (Deli Counter
+0.104.0, roadmap 111) could not be committed: `presets.py` is a geometry
+source, so editing it made all 139 built shells stale by mtime and
+`build_freshness` refused. The mandatory `build.py --all` rebuild then let the
+pre-commit gate reach checks the stale library had been hiding, and it failed
+`nav-gate: 6/159 shell(s) FAILED traversal`.
+
+**THREE OF THE SIX WERE NOT SHELLS AT ALL, and that half is fixed.** Level
+Factory writes one spec per mission candidate into `deli_counter/specs/`,
+named `lf_<mission>_<seed>`. `catalog.py` has excluded that prefix since
+roadmap 73 and `building_library.index` refuses the ids outright -- but
+`build.py --all`, the one command that turns a spec into geometry, had no such
+rule. It built 33 transients into `build/`, where the nav gate then gated them
+like archetypes, and three of them (`lf_mercy_annex_001_9002`, `_9103`,
+`_9204`, from cold run 6 earlier the same day) failed traversal and blocked the
+commit the rebuild existed to unblock. `build.py` now shares `catalog.py`'s
+rule and its prefix, and the transient artefacts were deleted: 162 shells
+became 129 library specs, and the gate reads **3 of 126**.
+
+**THE OTHER THREE ARE REAL, and they are shipping content rather than scratch.**
+`night_pawn`, `primos_pizza` and
+`cbp_town_finale_midbalanced_schemafixed` all carry a `manifest.json`, so the
+lot pool offers them, and `lot-demo-ws` has already placed them. Specs date to
+2026-07-17 and 2026-08-13.
+
+**WHAT THE FAILURE ACTUALLY IS, measured from the gate's own island data
+rather than reasoned from source geometry -- the findings doc is explicit that
+four mechanisms were proposed from static measurement here and all four were
+refuted by their own data.**
+
+```
+night_pawn     192 polys,  8 islands
+  island 0  106 polys  y  0.19 .. 1.54      <- lower endpoint
+  island 1   59 polys  y  3.49 .. 3.79      <- upper endpoint
+  islands 3,4  2 polys each at y 1.24;  island 5  2 polys y 2.29..2.89
+  -> a 1.95 m vertical GAP, with 2-poly crumbs stranded inside it
+
+primos_pizza   376 polys, 13 islands
+  island 1  102 polys  y -2.90 .. 0.10      <- lower endpoint
+  island 3   33 polys  y  1.00 .. 3.55      <- upper endpoint
+  -> a 0.90 m gap
+
+cbp_town_...  1451 polys, 63 islands
+  stairs 2 and 3 pass; 0 and 1 land on islands 56 and 57
+```
+
+The ramp is not being baked as one surface. It is baked in disconnected
+fragments with a hole part-way up, and the pathfinder correctly refuses to
+cross it. That is a DIFFERENT shape from the one `docs/NAV_GATE_FINDINGS.md`
+diagnosed in August, where `cr_deli` broke "at y 0.30-0.60, near the FOOT of
+the ground-to-first flight" -- these break mid-climb. `cr_deli` itself now
+passes its stair check, so the rebuild fixed the case that doc left open.
+
+**IT IS NOT NEW, and the doc half-knew it.** `NAV_GATE_FINDINGS.md` already
+names `primos_pizza` among fifteen shells with "an objective or loot marker on
+a disconnected island", noting that "every one of them currently reports
+`passed`". The island fragmentation was recorded a month ago; what changed is
+that the STAIR check now fails too, because the shells were finally rebuilt
+with current code.
+
+**WHY IT IS URGENT RATHER THAN INTERESTING.** The gate is a pre-commit hook.
+Until these three pass or are quarantined, NOTHING can be committed to Deli
+Counter -- including the 0.104.0 hospital fix and the `build.py` transient fix
+described above, both of which are finished and staged. A repo whose gate
+blocks its own fixes is worse than one with three bad shells.
+
+**WHAT WOULD MOVE IT.** The doc is right that this needs the navmesh looked at
+in Godot rather than inferred: the island bands say WHERE the ramp breaks and
+not WHY. The 2-poly crumbs stranded at y 1.24 and y 2.29-2.89 in `night_pawn`
+are the sharpest lead -- something is cutting the ramp surface into pieces at
+those heights, and a bake with the ramp isolated would say what. Note the
+known contract tension already recorded in `CLAUDE.md`: the bake permits
+`agent_max_slope_deg` 55 while a body only walks `floor_max_angle` 45, and 20
+of 38 buildings emit ramps at 45.0-51.3 degrees. These three are dense
+hand-authored interiors, which is the same population as `cr_deli`.
