@@ -794,11 +794,12 @@ work of adopting this.
 | 113 | **NARROWED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY CHANGE RATHER THAN A QUARANTINE. T |
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
 | 115 | **CLOSED** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint` L19, A FAIL, AND THE ROADMA |
-| 116 | **OPEN** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline makes is a rectangular pris |
+| 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THERE IS A NUMBER NOW, AND IT LEAVES NOTHING TO ARGUE ABOUT. `tools/massing. |
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
+| 119 | **OPEN** | One manifest field, two coordinate frames | 2026-09-07 -- `fit.dims` CARRIES TWO DIFFERENT FRAMES IN ONE FIELD, written by two sibling |
 
-**118 items: 49 open, 43 closed, 3 retracted, 20 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**119 items: 49 open, 43 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10831,11 +10832,84 @@ wrong: punching the flight through the shell would breach the envelope, which
 is what `clamp_partition_span` was written to prevent. Either the stair moves
 or its run shortens.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline
 makes is a rectangular prism with a flat parapet, and no amount of texturing
 fixes a silhouette. This is the massing half of item 18's "works vs good" gap:
 the skin passes have been getting better all year while the shape they wrap
 has not changed since the first building.*
+
+**THE BASELINE, 2026-09-07.** `tools/massing.py` reports two numbers, neither
+of them a judgement:
+
+```
+fill      silhouette area / its own bounding box, per elevation.
+          A rectangular prism seen square-on fills its bounding box, so a
+          prism scores 1.000 and anything that steps, sets back or projects
+          scores less.
+masses    how many DISTINCT horizontal footprints the exterior describes,
+          one sample per storey. A single extruded rectangle describes one.
+
+127 shell(s): 114 measured from built geometry, 13 from the spec alone
+  127 describe ONE footprint
+  114 fill their own bounding box to within 0.5% on BOTH elevations
+  fill-Y  min 1.000  mean 1.000      fill-X  min 1.000  mean 1.000
+```
+
+There is no distribution to look at. Every shell is the same answer.
+
+**AND THE SPEC CANNOT SAY OTHERWISE.** `LevelSpec` carries one `footprint_x`,
+one `footprint_y` and one `n_stories`. There is no per-storey footprint, no
+setback, no projection, no massing vocabulary of any kind -- so this is not
+authoring debt that better presets would work off. It is a missing capability,
+and the 13 shells the instrument reads from the spec alone are reported that
+way for exactly this reason: a spec that cannot express a second answer cannot
+be measured for one.
+
+**WHAT THE INSTRUMENT COST, because three of its readings were wrong before
+one was right, and each was wrong in a way that looked plausible.**
+
+- It read `fit.dims` as world-aligned. A wall SEGMENT's dims already are;
+  an APERTURE's are in the module's frame with `rot_y` to turn them. Two
+  conventions in one manifest -- filed as 119. The bad read pushed
+  night_pawn's bounding box to +/-8.60 on a building whose walls stand at
+  +/-8.125.
+- It counted apertures as solid. A doorway is a VOID, and counting it as mass
+  is simply wrong.
+- Then it counted wall segments and left every aperture as a HOLE, scoring
+  0.963 on a prism -- penalising a well-fenestrated facade exactly like a
+  genuine setback. A silhouette is an OUTLINE: one block per storey, from that
+  storey's own wall extents.
+- The slab bands are real and the manifest cannot see them: its `floor` and
+  `ceiling` slots are 0.02 m skins while the structural slab is `floor_thick`.
+  Two missing bands of 0.25 m over a 6.80 m elevation is 7.4%.
+
+Each of the four moved the number by more than any plausible massing change
+would, which is the argument for building the instrument BEFORE the feature
+rather than after: a fill ratio of 0.93 would have been read as "some relief
+already" and it was an artefact every time.
+
+**WHAT WOULD MOVE IT, unchanged from the original filing and now with a
+number to check against.** The mass itself (Deli Counter) is the only option
+that changes the outline against the sky AND changes collision, so it is the
+only one a body can walk on or take cover behind. A layer on top (Patina's
+Layer 3 is built and wired nowhere, item 110) and arrangement (Lot, the
+standing request for more arrangements of buildings) are cheaper and
+complementary, but a canopy on a box is a box with a canopy: neither moves
+`fill` at all, because neither changes the mass.
+
+The instrument makes the next step checkable rather than arguable. Whatever
+lands, this is the measurement to re-run.
+
+
+*STATUS: NARROWED 2026-09-07 -- THERE IS A NUMBER NOW, AND IT LEAVES NOTHING
+TO ARGUE ABOUT. `tools/massing.py` measures a shell's silhouette against its
+own bounding box: 127 shells, every one describing ONE footprint, and the 114
+measurable from built geometry filling their bounding box on BOTH elevations
+with min 1.000, mean 1.000 and no variance at all. Not "mostly boxes" -- the
+library is 127 rectangular prisms, and `LevelSpec` carries one `footprint_x`,
+one `footprint_y` and one `n_stories`, so it cannot currently express anything
+else. The instrument is the cheap half; the massing vocabulary is the work.*
 
 **116. Buildings read as boxes, and that is a shape problem no skin can
 solve.** Raised 2026-09-07.
@@ -11134,3 +11208,70 @@ The third is the one that connects to the standing request for Lot to make
 more arrangements of buildings, and it is the most work. Decide it with the
 briefs in front of you rather than by adding two aliases and moving on --
 aliasing here would resolve the error and keep the confusion.
+
+*STATUS: OPEN 2026-09-07 -- `fit.dims` CARRIES TWO DIFFERENT FRAMES IN ONE
+FIELD, written by two sibling functions forty lines apart. A wall segment's
+dims are WORLD-aligned; an aperture's are in the MODULE's frame, waiting on
+`rot_y`. On a N/S wall the two coincide, which is why this has survived. On an
+E/W wall they do not: 6511 wall slots and 536 aperture slots across the
+library disagree about what dims[0] means. Found by an instrument that read
+the field the wrong way and produced a plausible number.*
+
+**119. One manifest field, two coordinate frames.** Found 2026-09-07 while
+building `tools/massing.py` for item 116, which read `fit.dims` as
+world-aligned, got a plausible-looking answer, and was wrong.
+
+**THE TWO PRODUCERS, both in `deli_counter.py`, forty lines apart.**
+
+```
+_record_wall_slot      "dims": dims                          # = sz, WORLD
+_record_opening_slot   "dims": [w, wall_thick, size[2]]      # module-LOCAL
+```
+
+`_record_wall_slot` passes the world size straight through, and its own
+comment leans on that: "Verified in-engine: unit box * fit.dims reproduces the
+baked shell 1:1" -- true only if nothing rotates dims afterwards.
+`_record_opening_slot` puts the opening WIDTH first regardless of which axis
+the wall runs on, which is the module's frame with `rot_y` still to be
+applied.
+
+**MEASURED ACROSS EVERY MANIFEST**, counting only slots on rotated walls
+(`rot_y` 90 or 270), where a wall is thin in X so the frames are
+distinguishable:
+
+```
+wall      world-aligned   6511
+doorway   module-local     262
+breach    module-local     152
+window    module-local     122
+```
+
+(A further 165 wall slots classify as "local" by the same heuristic and are
+false positives: corner posts and remainders like `0.30 x 0.15`, shorter than
+the wall is thick.)
+
+**WHAT IS NOT YET ESTABLISHED, and it is the part that decides how urgent this
+is.** `zoo_keeper/core/kit.py` reads `dims[0]` as the module's WIDTH -- the
+LOCAL reading. Under that reading every rotated wall segment asks for a module
+about 0.25-0.30 m wide where the gap is 2 m, which would be a live art defect
+across every E and W facade in the library. That has NOT been confirmed: the
+placement path may drive off `transform` and `scale` rather than `dims`, in
+which case the geometry is right and only the module catalogue is wrong, and
+themed builds have been reviewed by eye all year without this being obvious.
+Establish which before acting -- and note that `plan_kit`'s `missing_modules`
+is where a wrong width would surface, so that report is the place to look
+first.
+
+**WHY IT MATTERS EVEN IF NOTHING IS VISIBLY BROKEN.** The manifest is the
+contract between Deli Counter and every downstream art tool, and a field whose
+meaning depends on the role of the slot carrying it is a trap with no sign on
+it. It caught an instrument written by someone who had read one real slot
+record first, which is the precaution that is supposed to prevent exactly this
+-- the record read happened to be on a N/S wall, where both frames agree.
+
+**WHAT WOULD MOVE IT.** Decide which frame `fit.dims` means, say so in the
+manifest's own `space` field beside the existing "rot_y = degrees about up",
+make both producers agree, and add the case that would have caught it: a slot
+on an E or W wall whose dims are asserted against the geometry actually baked.
+`portable_building.py`, `circulation.py`, `floors.py` and `roofs.py` also read
+`dims` and should be checked against whichever answer wins.
