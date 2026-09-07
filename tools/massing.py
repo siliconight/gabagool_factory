@@ -62,12 +62,8 @@ def _shell_boxes(slots):
 
     APERTURES ARE EXCLUDED BECAUSE THEY ARE VOIDS. A doorway or window slot
     marks a hole in the wall plane, not a solid, and counting one as a box was
-    this tool's first bug -- it also walked straight into a second, because
-    `fit.dims` on an aperture is in the MODULE's frame (1.10 m of opening
-    width, to be turned by `rot_y`) while a wall segment's dims are already
-    world-aligned. Two conventions in one manifest; see roadmap 119. Dropping
-    apertures removes the exposure to both, and loses nothing: the wall plane
-    they sit in is already counted.
+    this tool's first bug. Dropping them loses nothing: the wall plane they
+    sit in is already counted.
     """
     out = []
     for s in slots:
@@ -84,6 +80,14 @@ def _shell_boxes(slots):
             continue
         cx, cy, cz = (float(v) for v in t_)
         sx, sy, sz = (float(v) for v in d)
+        # `fit.dims` IS MODULE-LOCAL and `rot_y` turns it -- one convention
+        # for every slot since Deli Counter 0.109.0 (roadmap 119). Before
+        # that, wall segments carried WORLD dims while apertures carried
+        # local ones, and this tool's first version read the world reading
+        # into both.
+        rot = int(round(float(tr.get("rot_y") or 0.0))) % 180
+        if rot == 90:
+            sx, sy = sy, sx
         out.append((cx - sx / 2, cy - sy / 2, cz - sz / 2,
                     cx + sx / 2, cy + sy / 2, cz + sz / 2))
     return out

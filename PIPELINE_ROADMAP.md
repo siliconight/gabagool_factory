@@ -797,9 +797,9 @@ work of adopting this.
 | 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THERE IS A NUMBER NOW, AND IT LEAVES NOTHING TO ARGUE ABOUT. `tools/massing. |
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
-| 119 | **OPEN** | One manifest field, two coordinate frames | 2026-09-07 -- `fit.dims` CARRIES TWO DIFFERENT FRAMES IN ONE FIELD, written by two sibling |
+| 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 
-**119 items: 49 open, 43 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**119 items: 48 open, 44 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11209,6 +11209,7 @@ more arrangements of buildings, and it is the most work. Decide it with the
 briefs in front of you rather than by adding two aliases and moving on --
 aliasing here would resolve the error and keep the confusion.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- `fit.dims` CARRIES TWO DIFFERENT FRAMES IN ONE
 FIELD, written by two sibling functions forty lines apart. A wall segment's
 dims are WORLD-aligned; an aperture's are in the MODULE's frame, waiting on
@@ -11216,6 +11217,67 @@ dims are WORLD-aligned; an aperture's are in the MODULE's frame, waiting on
 E/W wall they do not: 6511 wall slots and 536 aperture slots across the
 library disagree about what dims[0] means. Found by an instrument that read
 the field the wrong way and produced a plausible number.*
+
+**RESOLVED 2026-09-07.** `_record_wall_slot` records module-local dims. That
+is what `zoo_keeper.kit.plan_kit` reads as the module width, what
+`circulation.doorway_volume` unpacks as `(width, thickness, height)`, and what
+`_record_opening_slot` has always written -- the wall producer was the only
+one out of step.
+
+**THE OPEN QUESTION IS ANSWERED, AND IT IS THE GOOD ANSWER.** This item warned
+that under the local reading every rotated wall segment would ask for a 0.25 m
+module where the gap is 2 m, and said plainly that a live art defect was NOT
+established. It is not one. `_seg_box` resolves the module by `clen`, the true
+run length, and only RECORDS `sz`:
+
+```
+resolved = self._resolve_module(typ, width=clen)      # correct: w200
+self._record_wall_slot(vname, c, sz, axis, ...)       # world dims -> w35
+```
+
+So the right module was always chosen and the right wall was always built.
+Chasing it to the bottom before acting was worth the hour: the alarming
+reading would have had someone re-examining every themed facade.
+
+**WHAT IT ACTUALLY COST, measured.**
+
+```
+_resolve_module asks for   w200 x 14704   (every full wall segment is 2.00 m)
+plan_kit derived           w200 x 9106, w30 x 4819, w35 x 713, w25 x 66
+phantom                    5598 of 14704 full wall slots (38%)   ->  0 after
+```
+
+`cold-7001-ws` shipped 48 of 120 wall modules that way. One of them,
+`wall_rockay_01_w35`, records `dims [0.35, 2.0, 3.7]` in its own metadata: a
+panel 35 cm wide and TWO METRES deep, built by Zoo, packaged, and never
+placed. The cost is authoring time, package size, and the accuracy of
+`plan_kit`'s coverage report -- which item 112's theme decisions read, and
+which was 38% wrong on walls.
+
+**IT CAUGHT TWO INSTRUMENTS IN ONE DAY.** `tools/massing.py` read the world
+convention into both kinds of slot and produced a plausible number; correcting
+it needed the aperture rule, and then correcting THIS needed the tool inverted
+again to apply `rot_y`. A field whose meaning depends on the role of the slot
+carrying it is a trap with no sign on it, and reading one real record first --
+the precaution meant to prevent exactly this -- did not help, because the
+record read happened to be on a N/S wall where both frames agree.
+
+**STILL WORTH DOING, and not done here.** The manifest's `space` field says
+"spec/Blender Z-up raw coords; rot_y = degrees about up" and now ought to say
+which frame `dims` is in, so the next reader does not have to measure it.
+`portable_building.py` reads roof dims and opening heights, both unaffected by
+the axis swap, and `floors.py` / `roofs.py` write plate dims at rot 0 -- all
+checked, none affected.
+
+
+*STATUS: CLOSED 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is
+MODULE-LOCAL everywhere, which is what both consumers already expected. The
+open question this item recorded is answered and the answer is the reassuring
+one: the GEOMETRY was never wrong, because module resolution goes through
+`clen` and not through dims. What it cost was 5598 of 14704 full wall slots
+(38%) asking Zoo to author module widths nothing could ever resolve to --
+built, packaged, never placed -- and a 38% error in the one report that says
+which modules a theme still needs. Now 0 of 14704.*
 
 **119. One manifest field, two coordinate frames.** Found 2026-09-07 while
 building `tools/massing.py` for item 116, which read `fit.dims` as
