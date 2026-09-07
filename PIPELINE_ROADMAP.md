@@ -793,11 +793,12 @@ work of adopting this.
 | 112 | **OPEN** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT IS WHY EVERY BRIEF EVER WRITT |
 | 113 | **NARROWED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY CHANGE RATHER THAN A QUARANTINE. T |
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
-| 115 | **OPEN** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE BUILDING, AND NOTHING SAYS |
+| 115 | **CLOSED** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint` L19, A FAIL, AND THE ROADMA |
 | 116 | **OPEN** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline makes is a rectangular pris |
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
+| 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 
-**117 items: 50 open, 42 closed, 3 retracted, 19 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**118 items: 49 open, 43 closed, 3 retracted, 20 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10728,11 +10729,62 @@ exactly the change and can actually fail.
 in three processes have to agree on it and a fourth spelling is how an egress
 contract starts pointing at a node that is not there.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE
 BUILDING, AND NOTHING SAYS SO. `primos_pizza`'s flight runs through its own
 exterior north wall; `audit_specs` returns four warnings about that stair and
 not one of them is this. It is the last of item 113's three quarantined shells
 and the reason the quarantine list is not yet empty.*
+
+**RESOLVED 2026-09-07.** `layout_lint` L19 refuses, at SPEC time, a stair
+whose reserved rectangle leaves the shell -- the stair half of L14, and a FAIL
+for the same reason that one is. L13's partition version is advisory because
+`_partitions` clamps an out-of-bounds wall at build time, so the shipped
+geometry is already right. Nothing clamps a stair: it builds where it was
+authored, the wall stays put, and the flight runs into it. An exterior stair
+is exempt, standing outside the shell against a facade by design.
+
+**THE THRESHOLD IS THE FINDING.** `footprint_x / 2` is where the exterior wall
+is CENTRED, so a flight reaching exactly that already buries half a wall
+thickness of itself in solid. Both readings were measured across the library
+before either was chosen:
+
+```
+                    findings   on
+centreline          0          --
+wall inner face     1          primos_pizza_stair_0, 0.15 m
+```
+
+The zero was taken WHILE the stair was still in the wall, one edit after being
+declared fixed. A rule that reports clean on the case it was written for is
+the failure this repo keeps paying for, and it was caught only because both
+readings were counted rather than one being assumed.
+
+**THE SPEC FIX, and the alternative that was rejected on measurement.**
+`primos_pizza`'s stair moves y 4.5 -> 3.9 and its run shortens 5.2 -> 4.0,
+clearing the north wall's inner face by 0.15 m of real margin rather than
+sitting tangent to it, clipping no partition, and pitching at 38.7 degrees --
+the same band as `walkup_siege`, which walks. Keeping `run` at 5.2 and only
+moving the stair puts its foot across the storey-0 partition at y 1.0, which
+would clip that wall and drop the door in it; fixing a stair by deleting a
+door is not a fix. The pitch was checked because shortening a run steepens a
+flight, and `agent_max_slope_deg` 55 is not `floor_max_angle` 45.
+
+**THE QUARANTINE IS EMPTY.** All three shells item 113 quarantined were
+re-admitted by fixing the GENERATOR rather than the shells -- `night_pawn` and
+`cbp_town` in 0.105.0 (roadmap 114) and `primos_pizza` here. The dict is kept
+with the history in its comment, because the next shell that fails traversal
+belongs there with its reason beside its id.
+
+
+*STATUS: CLOSED 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint`
+L19, A FAIL, AND THE ROADMAP-113 QUARANTINE IS NOW EMPTY. The rule measures to
+the exterior wall's INNER FACE rather than to the footprint line, which is not
+a detail: the first repair of `primos_pizza` cleared the footprint line
+exactly, at which moment the centreline reading returned zero findings across
+all 162 specs and the face reading returned one -- the stair that had just
+been declared fixed, still 0.15 m inside the north wall. One stair in one
+spec, so it is not a rule looking for work.*
 
 **115. A stair's reserved footprint can leave the envelope, and no gate asks.**
 Found 2026-09-07 while confirming that 114's fix had not cleared
@@ -10928,3 +10980,157 @@ reserved on the storey it climbs THROUGH as well as the slab it cuts, which is
 what `stair_footprints` exists for. A ramp climbs through a storey too. Decide
 whether the same two-key treatment applies to it before writing the rule once
 and having to widen it again.
+
+SUPERSEDED STATUS, kept above the update that replaced it:
+*STATUS: OPEN 2026-09-07 -- `archetype` IS A BUILDING-LEVEL FIELD AND TWO
+BRIEFS USE IT TO NAME A BLOCK. Both are multi-building briefs, both refuse at
+`_preset_for`, and one of them is the very brief whose silent-bank incident
+motivated that resolver -- it no longer builds the wrong thing, and it does
+not build at all. The resolver has ten tests against synthetic inputs and
+nothing checks the corpus.*
+
+**THE CHEAP HALF SHIPPED 2026-09-07.** `test_archetype_resolution.py` grew a
+corpus section: it walks every brief in the repo -- 21 of them, across
+`examples/`, `docs/cold_runs/` and `workspaces/` -- resolves each archetype,
+and fails on any that refuses and is not named in `_KNOWN_UNRESOLVABLE` with
+its reason. A second test asserts the known list is EXACTLY what is found, so
+a fixed brief cannot keep looking broken and a reintroduced one cannot keep
+looking fixed.
+
+It found its own bug first, which is the useful part: the first version
+spelled four glob patterns, missed `level_factory/examples/` entirely, swept
+19 of 21 briefs and reported one of the two known defects. It walks with a
+predicate now. A sweep that cannot see a directory shape nobody thought of is
+a sweep that reports clean for the wrong reason.
+
+**THE EXPENSIVE HALF, ANSWERED BY COUNTING RATHER THAN ARGUING.**
+
+```
+bld  archetype              resolves        lot_library
+5    bank                   bank            yes
+5    mixed_block            REFUSED         yes
+4    casino_tower           casino_tower    -     (x4)
+4    police_station         police_station  yes   (x2)
+3    commercial_strip       REFUSED         -
+3    office                 office          yes   (x2)
+3    urban_bank             bank            mixed (x6)
+2    industrial_warehouse   warehouse       -
+```
+
+19 of 21 briefs are multi-building, so multi-building is the NORM. And 17 of
+those 19 name a building while asking for several, which means the convention
+was never ambiguous -- `archetype` is the anchor building and the rest of the
+lot comes from `lot_library`. The two that refuse are the outliers, and
+`mixed_block` says which buildings it wants TWICE: correctly through
+`lot_library`, and again through an `archetype` that cannot answer.
+
+So of the three candidate answers this item first listed, the corpus picks the
+second, and the third -- a lot-level vocabulary -- is not needed to unblock
+these two briefs. It may still be wanted for its own sake alongside the
+standing request for Lot to make more arrangements of buildings, but it should
+be argued on that ground rather than as a fix for two briefs.
+
+**WHAT IS LEFT.** Name the anchor building in `restaurant_row_001` and
+`rockay_lot_demo_001`, and take both out of `_KNOWN_UNRESOLVABLE`. That is an
+edit to two briefs -- one an example, one a workspace -- and workspaces are
+read-only evidence here, so the rockay one needs its owner rather than a
+patch.
+
+**A STALE CLAIM FOUND ON THE WAY, worth correcting where it sits.** The site
+builder prints a good warning when a multi-building brief sets no
+`lot_library` -- one shell placed N times, roadmap 37 -- and the comment above
+it says "of eight briefs on disk only two demos set `lot_library`, and all
+THREE cold-run briefs do not". That is no longer true: there are 21 briefs,
+8 set it, and cold runs 8001, 9001 and 9002 all do. The laggards are now the
+`examples/` briefs, which is worse in a different way, because examples are
+what a newcomer copies. 11 of 19 multi-building briefs still place one
+building N times.
+
+
+*STATUS: NARROWED 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN
+QUESTION IS ANSWERED BY THE CORPUS RATHER THAN BY ARGUMENT. `archetype` means
+the BUILDING: 17 of the 19 multi-building briefs on disk already name one
+(`urban_bank`, `casino_tower`, `police_station`, `office`) while asking for
+three to five of them, and the only two that refuse are the two that tried to
+name a block instead. So the fix for those two is to name their anchor
+building, not to invent a lot vocabulary. What stays open is the pair of
+briefs and a stale claim in the site builder's own comment.*
+
+**118. Nothing checks that the briefs on disk resolve to a preset, and two of
+them do not.** Found 2026-09-07 while looking for the next piece of work.
+
+**A REFUTATION FIRST, because the first measurement was wrong and the wrong
+number is the memorable one.** Probing `presets.make` directly said that six
+of ten requested archetypes did not exist, including `urban_bank` at eleven
+files -- the most-requested archetype in the workspace. THAT IS NOT WHAT
+BRIEFS GO THROUGH. `level_factory/adapters/deli_counter._preset_for` resolves
+an archetype with an alias table, a leading-qualifier strip and a keyword
+fallback, and `urban_bank` is the FIRST entry in that table. Asked of the
+layer briefs actually use, eight of ten resolve. A tenth, `"string"`, was the
+probe reading `mission.brief.schema.json` -- a type declaration, not a
+request. `CLAUDE.md`'s first rule, earned again: name what produced an
+artefact before concluding anything from it.
+
+**WHAT IS ACTUALLY WRONG, measured through the right layer.**
+
+```
+archetype             files  resolves to
+urban_bank               11  bank
+casino_tower              4  casino_tower
+bank                      4  bank
+office_lowrise            2  office        (keyword fallback)
+police_station            2  police_station
+office                    2  office
+industrial_warehouse      1  warehouse     (alias)
+commercial_strip          1  *** REFUSED ***
+mixed_block               1  *** REFUSED ***
+```
+
+**THE TWO THAT REFUSE ARE THE SAME SHAPE, and it is not a missing alias.**
+Both are MULTI-BUILDING briefs -- `restaurant_row_001` asks for 3 buildings
+and `rockay_lot_demo_001` for 5 -- and both use `archetype` to name a BLOCK
+rather than a building. `commercial_strip` and `mixed_block` are not buildings
+anybody could author a preset for; they are descriptions of a row. Adding
+either to `_ARCHETYPE_ALIASES` would be exactly the guess that resolver's own
+docstring refuses to make.
+
+**AND THE FIELD IS REDUNDANT ON ONE OF THEM.**
+`rockay_lot_demo_001` already carries `lot_library`, which is how a brief opts
+into a varied lot, and `building_library.lot_for` is described in its own
+docstring as "THE one rule" for which buildings a candidate places. So that
+brief says which buildings it wants twice: once correctly through
+`lot_library`, and once through a mandatory `archetype` field that cannot
+answer. `restaurant_row_001` carries `building_count: 3` and NO `lot_library`,
+so it does not even reach the lot path.
+
+**THE HISTORY MAKES THIS SHARPER.** `_preset_for` used to end in
+`return "bank"`. Its docstring records the cost: every mission in the lot demo
+carried `archetype: "mixed_block"`, so all of them silently built BANKS, and
+it surfaced only because `bank`'s vault sits at a hardcoded corner offset that
+collides with a stairwell and A PLAYER WALKED INTO IT. The silent fallback is
+gone and raising is right. But the brief was never fixed, no alias was added,
+and nothing looks at the corpus -- so the same brief has sat unbuildable ever
+since, and the ten tests that guard the resolver all use synthetic inputs.
+
+**THE CHEAP HALF.** A check that resolves every brief in `examples/`,
+`docs/cold_runs/` and `workspaces/` and reports the ones that refuse. It is a
+few lines over a directory walk, it would have caught `mixed_block` before a
+player did, and it is the corpus half of a resolver that is otherwise well
+tested. Same precedent as `packages/tools/themes.py` (item 72): refuse in
+seconds, before minutes of Blender.
+
+**THE EXPENSIVE HALF, and it is a real design question rather than a fix.**
+What does `archetype` MEAN on a brief that asks for five buildings? Three
+candidate answers, none of them obviously right:
+
+- make it optional when `lot_library` and `building_count > 1` already say
+  what to place, and let the lot path own the answer;
+- keep it mandatory and treat it as the ANCHOR building -- the one the
+  mission's objectives hang on -- with the rest coming from the lot;
+- give lots their own vocabulary, so `commercial_strip` and `mixed_block` are
+  first-class lot archetypes rather than building names that happen to fail.
+
+The third is the one that connects to the standing request for Lot to make
+more arrangements of buildings, and it is the most work. Decide it with the
+briefs in front of you rather than by adding two aliases and moving on --
+aliasing here would resolve the error and keep the confusion.
