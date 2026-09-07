@@ -48,6 +48,88 @@ re-runs. The routing table, for deciding where a change belongs:
 `PIPELINE_MAP.md` ("The repos") is the authority when this table and
 reality disagree.
 
+## The setting: 1990s Pennsylvania, weighted to Philadelphia and Delco
+
+Every content decision downstream of the geometry — which materials a facade
+carries, what a roofline does, whether a building steps or holds a flush
+street wall, what a room is full of — answers to a setting, and until
+2026-09-07 the setting lived in nobody's file. It is: **1990s Pennsylvania
+building types, with the emphasis on Philadelphia urban and Delaware County
+("Delco").**
+
+That is the operator's call and it is recorded here rather than argued. What
+this section adds is the part the repo can be asked: how much of that setting
+the toolset can currently build, measured rather than assumed.
+
+**IT IS A REFERENCE, NOT A SIMULATION, and that distinction governs how every
+number below should be read.** This is art. Embellishing and stylizing is
+wanted, not tolerated — where it makes sense, it is the point. The setting
+says what the work is ROOTED in: the shapes, materials, signage, wear and
+street logic of that time and place are the vocabulary being drawn from, and
+the job is a version of them that reads as deliberate at gameplay distance.
+Nothing here asks for accuracy to a surveyed building, and a finding phrased
+as "real ones were not like this" is not automatically a defect. The measured
+gaps below are worth knowing because they show where the toolset would fight
+a stylized reading, not because reality is the target.
+
+**THE ARCHETYPES ARE ALREADY THE SETTING.** `corner_deli`, `pawn_shop`,
+`auto_shop`, `gas_station`, `rowhouse_raid`, `strip_retail`, `foundry`,
+`freight_terminal`, `self_storage`, `funeral_home`, `brewery`,
+`parking_garage`, `train_yard`. The list also carries `casino`,
+`airport_terminal`, `courthouse`, `stadium`, `mansion`, `museum` and
+`bank_tower` — and those are IN setting too, as their 1990s Pennsylvania
+versions. A regional terminal or a Delco casino in 1997 is a building type,
+not a genre slip. Do not prune the list on a reading of its names.
+
+**THE LIBRARY IS LOW-RISE, which is correct and worth knowing before
+proposing massing.** 131 library specs: 59 of one storey, 67 of two, 5 of
+three. Nothing is taller. So a setback (roadmap 116) reads here as a ROOF
+TERRACE — a second approach route, a position above the street, cover on the
+roof — and not as a skyline step. Any massing proposal that assumes a tower is
+proposing a different game.
+
+**THE PHILADELPHIA HALF OF THE SETTING IS 96% AUTHORED AND UNBUILDABLE, and
+this is the sharpest gap the setting exposes.** Zoo carries species styles
+for `center_city` at 54 of 56 species and `industrial_flats` at 54 of 56 —
+the two families that most obviously read as Philadelphia — and Pixelcoat has
+no theme profile for either, so neither can be built. Meanwhile Pixelcoat
+ships `bank`, `casino`, `stadium`, `street` and three `rockay_*` variants that
+are keys in no Zoo species at all.
+
+```
+Pixelcoat profiles   bank casino delco rockay rockay_civic rockay_retail
+                     rockay_service stadium street
+Zoo species styles   default 56/56   rockay 56/56   center_city 54/56
+                     industrial_flats 54/56   delco 39/56   1990s 14/56
+                     1980s 5/56   1970s 5/56   bodega 1/56
+```
+
+The Delco half is buildable: `delco` exists on both sides. The Philadelphia
+half is two profiles away. That is roadmap item 112 restated with a reason —
+it was filed as "nine themes, two work", and the setting says WHICH two are
+worth closing first.
+
+**BRICK IS 20 OF 131.** Across the library, `concrete` appears 194 times,
+`metal` 133, `drywall` 122, `glass` 117, `wood` 115 — and `brick_ext` 20,
+`stone_ext` 4. Worth surfacing because brick is a load-bearing part of this
+setting's read and the palette barely reaches for it — not because a census of
+real rowhomes says so. The tools can carry it; the specs mostly do not ask.
+Whether the answer is more brick, a stylized brick, or a deliberately
+concrete-heavy take is the operator's call.
+
+**FIRE ESCAPES ARE 2 OF 131.** Deli Counter has built them since 0.4x and two
+specs use them. They are a facade signature AND a route — the rare element
+that pays in silhouette and in gameplay at once, which is the kind of thing
+worth stylizing hard rather than reproducing faithfully.
+
+**WHAT THIS SECTION DOES NOT DECIDE.** Which archetypes should step and which
+should hold a flush street wall; what a cornice or a parapet profile should
+look like; how a storefront differs from a rowhome facade; which of the
+period styles (`1990s`, `1980s`, `1970s`) is the target and which are decade
+texture. Those are design calls, they belong to the operator, and the
+`## The gap protocol` section below is how they reach the tools once made —
+the owning tool grows the capability, and nothing is hand-authored downstream.
+
 ## The gap protocol: when the catalog cannot make what the design asks
 
 Sooner or later a design asks for something no tool currently makes. That

@@ -10529,6 +10529,30 @@ count is 3 of 126. The other three are real library shells whose stair ramp
 fragments into disconnected navmesh islands mid-climb, and they block every
 commit to Deli Counter until they are fixed or quarantined.*
 
+**THE SETTING NAMES WHICH TWO TO CLOSE FIRST, 2026-09-07.** This item was
+filed as "nine themes, two work" without a way to rank the seven. The game's
+setting is now recorded in `USING_THE_FACTORY.md` -- 1990s Pennsylvania,
+weighted to Philadelphia urban and Delco -- and it picks the two:
+
+```
+center_city        Zoo 54/56    Pixelcoat: NO PROFILE
+industrial_flats   Zoo 54/56    Pixelcoat: NO PROFILE
+delco              Zoo 39/56    Pixelcoat: yes   -> buildable
+```
+
+`center_city` and `industrial_flats` are the two style families that read as
+Philadelphia, they are 54 of 56 species AUTHORED IN ZOO ALREADY, and they are
+unbuildable for want of a Pixelcoat theme profile each. That inverts the shape
+of the work this item assumed: it is not "author 56 species x 7 themes", it is
+TWO PROFILES against art that is 96% done. Meanwhile the profiles that exist
+and match no Zoo species at all -- `bank`, `casino`, `stadium`, `street`, and
+the three `rockay_*` -- are the ones to narrow or drop, and the setting says
+they are not what the game is about.
+
+The Delco half of the setting is already buildable. The Philadelphia half is
+two files away.
+
+
 *STATUS: NARROWED 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY
 CHANGE RATHER THAN A QUARANTINE. The mechanism was a wall standing where a
 stair goes, filed and fixed as 114; `night_pawn`'s stair and all four of
