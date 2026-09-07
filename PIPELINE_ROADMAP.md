@@ -794,7 +794,7 @@ work of adopting this.
 | 113 | **NARROWED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY CHANGE RATHER THAN A QUARANTINE. T |
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
 | 115 | **CLOSED** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint` L19, A FAIL, AND THE ROADMA |
-| 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THERE IS A NUMBER NOW, AND IT LEAVES NOTHING TO ARGUE ABOUT. `tools/massing. |
+| 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THE PIPELINE CAN STEP A BUILDING NOW, AND NO BUILDING STEPS. Deli Counter 0. |
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
@@ -10902,6 +10902,7 @@ The instrument makes the next step checkable rather than arguable. Whatever
 lands, this is the measurement to re-run.
 
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: NARROWED 2026-09-07 -- THERE IS A NUMBER NOW, AND IT LEAVES NOTHING
 TO ARGUE ABOUT. `tools/massing.py` measures a shell's silhouette against its
 own bounding box: 127 shells, every one describing ONE footprint, and the 114
@@ -10910,6 +10911,76 @@ with min 1.000, mean 1.000 and no variance at all. Not "mostly boxes" -- the
 library is 127 rectangular prisms, and `LevelSpec` carries one `footprint_x`,
 one `footprint_y` and one `n_stories`, so it cannot currently express anything
 else. The instrument is the cheap half; the massing vocabulary is the work.*
+
+**THE CAPABILITY, 2026-09-07 (Deli Counter 0.110.0).** `Setback` on
+`LevelSpec`, and `setbacks.py` as the per-storey footprint every consumer
+asks. `story` names the LOWEST storey an inset applies to and carries upward
+until a higher setback overrides it -- one entry steps a building once, two
+step it twice, and the highest applicable wins rather than compounding, so an
+author never computes deltas by hand. Insets are per side, so a street
+frontage holds the building line while the rear steps back.
+
+**`footprint_x` / `footprint_y` DID NOT CHANGE MEANING, and that decision is
+what kept the blast radius survivable.** 24 source files read them,
+`lot/preview.py` and `lot/site_layout_lint.py` among them, and those place the
+building on a site and need its widest extent. Setbacks only subtract, so
+those two stay the base footprint and therefore the maximum. Verified by hash:
+`night_pawn.glb` rebuilt bit-for-bit identical, only the manifest's
+`built_utc` moving.
+
+**THE TERRACE IS THE POINT, and it was measured rather than asserted.** A slab
+caps the storey BELOW it, so it takes that storey's extent -- which makes the
+step a walkable roof with a real collider instead of a ledge the upper wall
+stands on the edge of. Raycast on `setback_demo`:
+
+```
+sample                      floor z     head   collider
+terrace N (beyond inset)       4.00     8.00   slab_col_1   <- open sky
+terrace E (beyond inset)       4.00     8.00   slab_col_1   <- open sky
+control: inside upper          4.00     3.70   slab_col_1   <- under the roof
+```
+
+That is the whole argument for changing the MASS rather than adding a layer on
+top: it is the only option a body can stand on.
+
+**AND THE NUMBER MOVED.**
+
+```
+                        fill-Y  fill-X  masses
+setback_demo             0.927   0.852       2
+warehouse_a02 (twin)     1.000   1.000       1
+```
+
+The instrument was built before the feature precisely so this line could be
+read rather than argued, and it earned that: three of its own readings were
+artefacts before one was right, each moving the number more than a real
+massing change would.
+
+**WHAT IS LEFT, and it is no longer a capability gap.** No preset emits a
+setback, so the library is still 127 prisms and the baseline is unchanged.
+Adoption is a design pass -- which archetypes step, by how much, on which
+sides -- and it is the first piece of work on this item that is about taste
+rather than plumbing. The two cheaper complements are still open and still
+complementary: Patina's Layer 3 (item 110, built and wired nowhere) and Lot's
+arrangements. Neither moves `fill`, because neither changes the mass.
+
+**A SECOND MOVE WORTH HAVING LATER.** Setbacks step a building DOWN as it
+rises. A projecting bay or entrance mass -- pushing OUT from one facade at
+street level, where a player actually stands -- is the complementary move, has
+a smaller blast radius (additive geometry, `footprint_x/y` still bounds the
+core), and would read at eye level rather than against the sky.
+
+
+*STATUS: NARROWED 2026-09-07 -- THE PIPELINE CAN STEP A BUILDING NOW, AND NO
+BUILDING STEPS. Deli Counter 0.110.0 adds per-storey setbacks: `setbacks.py`
+is the single per-storey footprint, and `_exterior`, `_slabs`, `_parapets`,
+the roof slot, the partition clamp, L13, L19 and the 2D plan all ask it. The
+demo measures fill 0.927 / 0.852 against its unstepped twin's 1.000 / 1.000,
+and its terrace is walkable -- verified by raycast, a real collider with open
+sky above. But it is opt-in and only the demo opts in, so the library baseline
+is unchanged at 127 shells, min 1.000, mean 1.000. THE REMAINING WORK IS
+ADOPTION: presets have to start using it, and that is a design pass, not a
+capability gap.*
 
 **116. Buildings read as boxes, and that is a shape problem no skin can
 solve.** Raised 2026-09-07.
