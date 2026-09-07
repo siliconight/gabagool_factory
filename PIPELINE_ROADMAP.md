@@ -795,8 +795,9 @@ work of adopting this.
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
 | 115 | **OPEN** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE BUILDING, AND NOTHING SAYS |
 | 116 | **OPEN** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline makes is a rectangular pris |
+| 117 | **OPEN** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- 114 CLIPPED WALLS AGAINST STAIRS AND STOPPED THERE. Ramps, ladders and floor |
 
-**116 items: 50 open, 42 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**117 items: 51 open, 42 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10701,13 +10702,31 @@ flight running through `ext_col_0_N_lintel1` -- the EXTERIOR wall -- because
 the stair's reserved footprint reaches y 7.9 in a building whose north face is
 at y 7.0. That is a different defect and is filed as 115.
 
-**WHAT IS STILL OWED.** The 2D floorplan draws partitions from `p.start` and
-`p.end` raw: it mirrors neither the footprint clamp nor this cut, so a plan
-still shows a wall ruled across its own `OPEN` hatch. And
-`stairwell._door_nodes` derives a door's interactive id from the AUTHORED
-position on the AUTHORED wall name, which now disagrees with the baked id on
-any wall that got split -- as it already did on any wall the footprint clamp
-trimmed. Both are small and both are real.
+**THE TWO CONSUMERS WERE FIXED IN 0.106.0, and one of them was worse than
+this item first said.** `stairwell._door_nodes` promises "the SAME stable id
+the builder bakes" and derived it from the AUTHORED wall name and the AUTHORED
+position, both of which a split changes. Measured on the shipped
+`night_pawn`: **3 of its 4 door nodes named an interactive that was in no
+baked set**, and one of the three was the door in the middle of the staircase,
+which is not built at all. An egress contract citing a node that does not
+exist reads as satisfied, so this was worse than emitting nothing. It now
+takes the piece and the position from `partition_bounds`, skips a door that
+survives in no piece, and night_pawn reports 3 nodes, 0 mismatches.
+
+The 2D plan now draws a partition IN PIECES, from the same call. A correction
+to what this item first claimed: `_wall_and_openings` has always clamped the
+drawn extent to the footprint, so the plan and the builder never disagreed
+about the envelope -- only about the voids. It drew a wall ruled straight
+across its own `OPEN TO BELOW` hatch, and the check that says so computes both
+rectangles from floorplan's own transform rather than scraping the SVG,
+because the first version of that check matched nothing and reported a clean
+bill of health over zero rows. Isolated against the old drawing it finds one
+overlap 33.6 px wide -- the full width of night_pawn's shaft -- so it owns
+exactly the change and can actually fail.
+
+`partition_bounds.piece_name` now owns the `p1` suffix, because three passes
+in three processes have to agree on it and a fourth spelling is how an egress
+contract starts pointing at a node that is not there.
 
 *STATUS: OPEN 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE
 BUILDING, AND NOTHING SAYS SO. `primos_pizza`'s flight runs through its own
@@ -10808,3 +10827,53 @@ repo's stated end state is levels "good enough to ship -- which means they
 have to look and feel deliberate, not merely be traversable", and a street of
 identical prisms fails that test at the first glance, before any texture is
 seen.
+
+*STATUS: OPEN 2026-09-07 -- 114 CLIPPED WALLS AGAINST STAIRS AND STOPPED
+THERE. Ramps, ladders and floor holes open slabs too, and a wall over one of
+those is the same defect with a different hole producer. Found because two
+derivations of "which pieces does this wall have" disagreed on exactly the
+walls the stair rule does not reach.*
+
+**117. The wall-over-void rule covers stairs and not the other three things
+that open a slab.** Found 2026-09-07 by sweeping door-node agreement across
+the whole library after 114 shipped: 880 of 882 agreed and 2 did not.
+
+**HOW IT SURFACED, and the mechanism is worth keeping.** `slab_openings`
+reads `spec.slab_holes` AND re-derives the cut each stair makes. The builder
+MUTATES that list during the build -- `_stairs`, `_ladders`, `_ramps` and
+`_vertical_links` all append to it. `_partitions` runs before all four and so
+asks the question early; `stairwell._door_nodes` runs at the gameplay pass and
+asks it late. The two answers differ by exactly the holes the late list has
+grown, which is why `foundry_heist_vertical`'s `int_0_4` came back split for
+one caller and whole for the other.
+
+That divergence is fixed in 0.106.0 by handing the built pieces over rather
+than deriving them twice. THE GEOMETRY DEFECT IT EXPOSED IS NOT FIXED.
+
+**THE DEFECT.** `foundry_heist_vertical` authors a ramp from the basement to
+the ground floor -- axis Y, `x 14.0, y -10.0`, run 12, width 3, `cut_slabs`
+true -- which opens the storey-0 slab out to about y -4.0. `int_0_4` is an
+X-partition at `pos -4.0` running x -21..21. It stands over that opening, and
+a body climbing the ramp meets it exactly as `night_pawn`'s climber met the
+drywall over its stair.
+
+**IT IS THE SAME FIX, POINTED AT THREE MORE PRODUCERS.** Ramps, ladders and
+`vertical_links` of kind `floor_hole` / `hatch` are all AUTHORED in the spec,
+so all three are re-derivable before `_partitions` runs, the same way
+`stairwell.flight_rect` re-derives a stair's. `ladder_geom.through_hole`
+already exists and is described in its own comment as following "the
+partition_bounds pattern (single source of truth)", so the ladder half is a
+call rather than a derivation.
+
+**WHY IT WAS NOT DONE IN 114.** Scope, stated rather than smuggled. 114 was
+already changing 14 of 129 shells and dropping 13 authored doors; adding three
+more hole producers changes more shells and drops more doors, and that is a
+decision to take deliberately with the numbers in front of you rather than as
+a rider on a stair fix. The measurement to make first is the one 114 made:
+count the crossings per producer across every spec before patching anything.
+
+**A SECOND, SMALLER THING TO SETTLE WITH IT.** A stair's footprint is
+reserved on the storey it climbs THROUGH as well as the slab it cuts, which is
+what `stair_footprints` exists for. A ramp climbs through a storey too. Decide
+whether the same two-key treatment applies to it before writing the rule once
+and having to widen it again.
