@@ -791,9 +791,12 @@ work of adopting this.
 | 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
 | 111 | **OPEN** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17 DELI COUNTER PRESETS HAVE NEV |
 | 112 | **OPEN** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT IS WHY EVERY BRIEF EVER WRITT |
-| 113 | **OPEN** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- THE SIX WERE TWO DIFFERENT THINGS AND ONE OF THEM IS ALREADY FIXED. Three we |
+| 113 | **NARROWED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY CHANGE RATHER THAN A QUARANTINE. T |
+| 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
+| 115 | **OPEN** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE BUILDING, AND NOTHING SAYS |
+| 116 | **OPEN** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline makes is a rectangular pris |
 
-**113 items: 49 open, 41 closed, 3 retracted, 17 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**116 items: 50 open, 42 closed, 3 retracted, 18 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10515,12 +10518,22 @@ narrow Pixelcoat's advertised list to what can actually be built and treat the
 rest as material libraries rather than themes. Doing neither leaves nine
 themes named and two working.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- THE SIX WERE TWO DIFFERENT THINGS AND ONE OF
 THEM IS ALREADY FIXED. Three were Level Factory transients that `build.py
 --all` should never have built; that rule now matches `catalog.py`'s and the
 count is 3 of 126. The other three are real library shells whose stair ramp
 fragments into disconnected navmesh islands mid-climb, and they block every
 commit to Deli Counter until they are fixed or quarantined.*
+
+*STATUS: NARROWED 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY
+CHANGE RATHER THAN A QUARANTINE. The mechanism was a wall standing where a
+stair goes, filed and fixed as 114; `night_pawn`'s stair and all four of
+`cbp_town_finale_midbalanced_schemafixed`'s now report `ok`, and both come out
+of quarantine. `primos_pizza` remains, and it is a DIFFERENT defect -- its
+stair's reserved footprint leaves the building envelope and the flight runs
+through the exterior wall's own lintel, filed as 115. It stays quarantined
+until 115 is fixed, so the count on this item is 1, not 3.*
 
 **113. Three shipping shells have stairs that do not traverse, and the gate
 that says so now blocks every Deli Counter commit.** Found 2026-09-07 by
@@ -10602,3 +10615,196 @@ known contract tension already recorded in `CLAUDE.md`: the bake permits
 `agent_max_slope_deg` 55 while a body only walks `floor_max_angle` 45, and 20
 of 38 buildings emit ramps at 45.0-51.3 degrees. These three are dense
 hand-authored interiors, which is the same population as `cr_deli`.
+
+*STATUS: CLOSED 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared
+two of the three shells item 113 had quarantined. Partitions are now clipped
+against the slab holes they stand over AND the flights they stand in; 14 of
+129 library specs carry at least one such wall. Four doors authored inside a
+stairwell are named on the build line rather than dropped in silence.*
+
+**114. A wall stood where a stair goes, and it had been doing so in fourteen
+shells.** Found 2026-09-07 by raycasting UP from every tread of
+`night_pawn`'s stair after six static hypotheses had been refuted, then a
+second time DOWN the travel axis after the first fix left 0.6 m of the climb
+still missing.
+
+**THE DEFECT IS TWO SPELLINGS OF ONE SENTENCE, and only fixing both makes a
+stair walkable.**
+
+- A partition on storey k standing over a hole in the slab of storey k is a
+  wall standing on nothing -- and where that hole is a stairwell, it is also a
+  ceiling one storey height above the flight climbing through it.
+- A partition on storey k standing inside the footprint of a flight that
+  CLIMBS THROUGH storey k is a wall across a staircase. Its own slab is
+  intact, so the first rule never looks at it.
+
+`_partitions` runs BEFORE `_stairs`, so `spec.slab_holes` is empty at the
+moment the walls are drawn and neither question could be asked from it. Both
+are answered instead from `stairwell.slab_openings`, which re-derives a
+flight's rectangle from the spec, and from a new `stair_footprints`, which
+keys THE SAME rectangle at the storey whose air the flight occupies rather
+than the slab it cuts. The rectangle itself moved into `flight_rect` so the
+two keys cannot drift apart -- getting that off-by-one wrong is precisely what
+the first fix got wrong.
+
+**THE MEASUREMENT, on `night_pawn`, one change at a time.**
+
+```
+                            navmesh island 0     stair_0
+before                        y 0.19 .. 1.54     no_path
+clipped against its own hole  y 0.19 .. 2.89     no_path   (+1.35 m of climb)
+clipped against the flight    one island         ok
+```
+
+The first raycast found `int_col_1_1_seg6` 2.05 m above tread 6, where the
+bake quantises the ratified 2.0 m agent to `ceil(2.0/0.15) * 0.15 = 2.10`: the
+wall missed clearing the climber by 5 cm, those polygons were dropped, and the
+ramp baked as two islands. The control is `cr_pawn`, which carries a
+BYTE-IDENTICAL partition, places its stair clear of it, and passes -- and
+whose treads see 3.2-6.0 m of clear air, exactly what `night_pawn`'s see now.
+
+The second raycast, down the travel axis, found the remainder: between
+y 1.90 and 2.10 the first surface under the walker was
+`int_col_0_0_open1_lintel` at z 3.15 -- the DOOR LINTEL of a storey-0 wall,
+standing on an intact storey-0 slab, with the ramp passing through it.
+
+**IT IS NOT ONE BUILDING.** Every spec was measured before anything was
+patched, per `CLAUDE.md`'s rule about attributing a gate's whole output: **17
+crossings in 12 specs** for the first rule and **6 more specs** for the
+second, 14 distinct shells in all, including `bank_branch_a02`/`a03`,
+`credit_union_a01`, `apartment_walkup_a03`, `supermarket_a02`,
+`parking_garage_a02`, `final_stand`, `foundry_heist_vertical`, and the deli
+family. `cr_deli` is among them and currently PASSES its stair gate, so a
+crossing is not automatically fatal -- it is fatal when the wall happens to
+land in the 2.10 m band over a tread. That is a coin toss the pipeline should
+not be taking.
+
+**THE CENTRELINE DECIDES, deliberately.** A stair's hole is oversized on
+purpose -- `width + 0.8` across, 0.3 m behind the bottom step and 0.8 m past
+the top -- so testing the wall's whole thickness band would delete an
+enclosure wall seated flush against the shaft it encloses. The centreline is
+the minimum claim that can be made: the wall's own line is over void. It
+leaves up to a half-thickness of overhang, 0.125 m on the library's widest
+partition.
+
+**FOUR DOORS STOP BEING BUILT, and the build says so.** `night_pawn`'s
+`int_0_0` had a door at world x 5.6 -- opening into the middle of a staircase
+-- and three of `cbp_town`'s walls have one each at the centre of an atrium
+void. There is no wall left to hang them on, so they are not emitted; the void
+they sat in is a full-height gap, so nothing becomes less passable. Each one
+prints a named WARNING rather than vanishing, because a doorway that silently
+stops existing is a worse defect than the one being fixed.
+
+**WHAT IT DID NOT FIX.** `primos_pizza`, the third shell item 113 quarantined,
+has no partition anywhere near its stair. The same downward probe found its
+flight running through `ext_col_0_N_lintel1` -- the EXTERIOR wall -- because
+the stair's reserved footprint reaches y 7.9 in a building whose north face is
+at y 7.0. That is a different defect and is filed as 115.
+
+**WHAT IS STILL OWED.** The 2D floorplan draws partitions from `p.start` and
+`p.end` raw: it mirrors neither the footprint clamp nor this cut, so a plan
+still shows a wall ruled across its own `OPEN` hatch. And
+`stairwell._door_nodes` derives a door's interactive id from the AUTHORED
+position on the AUTHORED wall name, which now disagrees with the baked id on
+any wall that got split -- as it already did on any wall the footprint clamp
+trimmed. Both are small and both are real.
+
+*STATUS: OPEN 2026-09-07 -- A STAIR MAY BE PLACED SO ITS FOOTPRINT LEAVES THE
+BUILDING, AND NOTHING SAYS SO. `primos_pizza`'s flight runs through its own
+exterior north wall; `audit_specs` returns four warnings about that stair and
+not one of them is this. It is the last of item 113's three quarantined shells
+and the reason the quarantine list is not yet empty.*
+
+**115. A stair's reserved footprint can leave the envelope, and no gate asks.**
+Found 2026-09-07 while confirming that 114's fix had not cleared
+`primos_pizza`.
+
+**THE MEASUREMENT.** Raycasting down the travel axis of
+`primos_pizza_stair_0`, the first surface under the walker between y 6.90 and
+7.10 is `ext_col_0_N_lintel1` at z 2.90 -- the exterior north wall. The
+arithmetic says the same thing without a build: the stair sits at y 4.5 with
+`run` 5.2, so its flight spans y 1.9 to 7.1 and its reserved rectangle reaches
+y 7.9, in a building 14 m deep whose north face is at y 7.0. The navmesh
+breaks at the FOOT of the storey-0 flight -- islands at y -2.90..0.10 and
+1.00..3.55 -- which is the shape `docs/NAV_GATE_FINDINGS.md` recorded for
+`cr_deli` in August.
+
+**AND IT IS NOT HEADROOM, which is the wrong answer this will attract.**
+`tools/stair_probe.gd` reads 2.20 m of clear air over that foot tread -- above
+the 2.10 m the bake quantises a 2.0 m agent to, so the headroom test PASSES
+and the navmesh breaks anyway. What the same probe does show is that
+`stair0_0_0` is the only tread in the building whose view of the sky is
+`parapet_N_col` rather than `slab_col_2`: it is standing outside the shell,
+under the parapet, and the walkable ground at the foot is eroded away by the
+0.40 m agent radius against the wall beside it. Fixing this by lowering a
+lintel or raising a ceiling will do nothing.
+
+**NOTHING REFUSES IT.** `layout_lint` passes the spec clean. `audit_specs`
+returns four warnings on this very stair -- `STAIR_NOT_ENCLOSED`,
+`STAIR_VOLUME_INVADED`, two `STAIR_LATERAL_OPEN` -- and "your stair is outside
+the building" is not among them, so the operator gets four true statements and
+misses the one that matters. The containment section proves a body cannot fall
+OUT of a flight sideways; nothing proves the flight is INSIDE the shell.
+
+**WHY IT GENERALISES, and why it is not a `primos_pizza` bug.**
+`clamp_partition_span` exists because an interior wall authored past the
+envelope ships as an exterior spike; this is the same authoring mistake made
+with a stair instead of a wall, and the stair has no clamp and no lint. Any
+generated building that places a stair within `run/2 + 0.8` of a facade has
+it. The fix is a rule, not an edit to one spec -- `partition_bounds` already
+owns the wall half of this question and is the obvious place for the stair
+half.
+
+**DO NOT FIX IT BY CUTTING THE WALL.** The wall is right and the stair is
+wrong: punching the flight through the shell would breach the envelope, which
+is what `clamp_partition_span` was written to prevent. Either the stair moves
+or its run shortens.
+
+*STATUS: OPEN 2026-09-07 -- RAISED BY THE OPERATOR. Every shell the pipeline
+makes is a rectangular prism with a flat parapet, and no amount of texturing
+fixes a silhouette. This is the massing half of item 18's "works vs good" gap:
+the skin passes have been getting better all year while the shape they wrap
+has not changed since the first building.*
+
+**116. Buildings read as boxes, and that is a shape problem no skin can
+solve.** Raised 2026-09-07.
+
+**WHAT IT IS.** A Deli Counter shell is a footprint extruded to `n_stories *
+story_height` with a parapet on top. Every variation the pipeline has learned
+since -- Pixelcoat themes, macro-structure skins, Patina layering, the texel
+density work of items 79/104/108 -- happens on the SURFACE of that prism. From
+across a street the buildings are still boxes, and a street of boxes reads as
+generated no matter how good each wall looks up close. That is the same gap
+item 18 names, measured on silhouette rather than on texture.
+
+**WHERE IT COULD BE SOLVED, and the choice is a real one.**
+
+- **In the mass itself (Deli Counter).** Setbacks above a storey, a stepped or
+  L-shaped footprint, a projecting entrance bay, a taller corner element,
+  varying parapet height per run. This is the only option that changes the
+  outline against the sky and the only one that changes COLLISION, so it is
+  also the only one a body can walk on or take cover behind.
+- **In a layer on top (Patina / Lot).** Cornices, string courses, canopies,
+  fire escapes, signage, rooftop plant. Cheaper, does not touch collision, and
+  breaks up a facade without changing the prism -- roadmap 110's Layer 3 is
+  built and wired nowhere, which is a ready-made place to put some of it.
+- **In arrangement (Lot).** Already on the roadmap as "more arrangements of
+  buildings": varied heights and setbacks along a run do a lot of what
+  per-building massing does, at street scale.
+
+They are complementary rather than exclusive, and the cheap two are worth
+doing first -- but neither substitutes for the first, because a canopy on a
+box is a box with a canopy.
+
+**WHAT WOULD MOVE IT.** The instrument for this already exists in outline:
+`shot_contrast` measures figure-ground on a wall, and the same idea applied to
+a building's OUTLINE against the sky would give a number for "is this a
+prism". Without one, "less boxy" is a matter of opinion and will be argued
+rather than measured -- which is the failure mode `CLAUDE.md` warns about
+under "works and good are different gates".
+
+**IT IS NOT URGENT AND IT IS NOT OPTIONAL.** Nothing is blocked on it. But the
+repo's stated end state is levels "good enough to ship -- which means they
+have to look and feel deliberate, not merely be traversable", and a street of
+identical prisms fails that test at the first glance, before any texture is
+seen.
