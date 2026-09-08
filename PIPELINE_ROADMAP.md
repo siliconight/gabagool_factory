@@ -801,7 +801,7 @@ work of adopting this.
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
 | 122 | **NARROWED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND THE FIRST DIAGNOSIS IN THIS ITE |
-| 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE PROXY IS WIRED, THE SEAM IS NOT. Laser Tag 0.11.0 gives `LT_TestScenario |
+| 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
 
 **123 items: 48 open, 44 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -12005,18 +12005,30 @@ plainly which one a BODY is built from and which one a BAKE is run at, is
 cheap and would have prevented this.
 
 
-*STATUS: NARROWED 2026-09-08 -- THE PROXY IS WIRED, THE SEAM IS NOT. Laser Tag
-0.11.0 gives `LT_TestScenario` a Body group -- `player_radius_m`,
-`player_height_m`, `player_eye_height_m`, `player_walk_speed_mps` -- defaulted
-to `agent_contract.json`'s `characters.player`, and the harness builds the
-pill from them at spawn: capsule, the offsets that keep the origin at the
-feet, camera, speed, and the nav agent's radius and height. The drift is gone:
-the pill was 0.40 m and 4.5 m/s, it is now the contract's 0.35 and 4.0. WHAT
-REMAINS is the seam -- those are DEFAULTS in Laser Tag, not a read of the
-contract. Level Factory writes `mission_scenario.tres` and stages it beside
-the map and the addon, so that is where the contract's numbers should be
-copied in; until then a consumer editing `agent_contract.json` still has to
-edit one more place.*
+*STATUS: NARROWED 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT.
+Laser Tag 0.11.0 gave `LT_TestScenario` a Body group -- `player_radius_m`,
+`player_height_m`, `player_eye_height_m`, `player_walk_speed_mps` -- and the
+harness builds the pill from them at spawn: capsule, the offsets that keep the
+origin at the feet, camera, speed, and the nav agent's radius and height.
+Level Factory 0.59.0 now READS the contract rather than relying on those
+defaults matching it: `packages/validation/agent_contract.py` takes
+`characters.player` out of `deli_counter/agent_contract.json` and the Laser Tag
+adapter merges it into `mission_scenario.tres`, stock <- contract <- the job's
+own scenario block. Neither repo imports the other and nothing is read across
+repositories at run time -- the numbers cross in the file Level Factory was
+already writing into the staged project. Verified against a real installation
+(`workspaces/cold-7001-ws/tools.local.json`): the shipped contract resolves to
+0.35 / 1.8 / 1.6 / 4.0, and a synthetic 2.05 x 0.45 studio body reaches the
+generated resource unaltered (`test_a_studio_states_its_body_once`). The drift
+this item measured is gone: the pill was 0.40 m and 4.5 m/s, it is the
+contract's 0.35 and 4.0. TWO ARMS REMAIN, both named in the item above and
+neither touched. (1) `path_desired_distance` is still a hardcoded 0.8 in
+`LT_PlayerPill.tscn` and `LT_EnemyPill.tscn`; only `path_height_offset` was
+derived, under item 122, and the distance is the one that has to exceed the
+vertical error between a body's origin and the mesh it stands on. (2) The
+contract still does not distinguish in writing between the radius a BODY is
+built from and the radius a BAKE is run at, which is the confusion that
+produced the drift in the first place.*
 
 **123. The size proxy is disconnected from the size contract.** Found
 2026-09-08 while fixing the evaluation bot's navigation (item 122), which
