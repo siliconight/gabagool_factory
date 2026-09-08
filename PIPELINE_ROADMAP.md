@@ -800,9 +800,9 @@ work of adopting this.
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
-| 122 | **OPEN** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND FOR ITEMS 120 AND 121. The Laser Tag bot's `NavigationAgent |
+| 122 | **NARROWED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND THE FIRST DIAGNOSIS IN THIS ITE |
 
-**122 items: 49 open, 44 closed, 3 retracted, 23 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**122 items: 48 open, 44 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11806,6 +11806,7 @@ it is larger than the `enemy_sight_range` (35 m) the resource DOES expose. A
 metric gated on "can I see an enemy" cannot be tuned while the seeing range is
 unreachable from the scenario.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-08 -- ROOT CAUSE FOUND FOR ITEMS 120 AND 121. The Laser
 Tag bot's `NavigationAgent3D` returns a DEGENERATE PATH: on a no-enemy run it
 never moves a millimetre in 180 seconds, because
@@ -11814,6 +11815,85 @@ never moves a millimetre in 180 seconds, because
 map-specific and not combat-related -- it explains `route_completion_rate`
 being 0.0 in 31 of 33 reports across every workspace and every cold run this
 project has ever done.*
+
+**THE FIRST DIAGNOSIS IN THIS ITEM WAS WRONG, and the probe that produced it
+fired at the wrong moment.** The configuration dump was taken at t+3 s, when
+the bot's target was still waypoint 0 -- ONE METRE away. A two-point
+degenerate path is CORRECT there, and reading it as "the agent returns a
+degenerate path" was the same error as measuring the wrong thing and believing
+it. Re-probed at t+30, targeting the waypoint 61.6 m away:
+
+```
+target_position     = (-47.0, 0.0, 19.0)
+body position       = (13.0, 1.797, 5.0)
+current path len    = 14          <- a real route, not degenerate
+path[0]             = (13.0, 0.25, 5.0)
+path index          = 0           <- and it never advances
+path_desired_dist   = 0.8
+agent map == world map, 1 region, active, cell 0.25/0.25
+```
+
+Navigation works. The map is healthy. `NavigationServer3D.map_get_path`
+independently returns the same 14 points.
+
+**THE MECHANISM, in one line.** The body origin is 1.547 m above the navmesh
+(1.797 - 0.25) because a `CharacterBody3D` capsule is positioned by its
+CENTRE; `path_desired_distance` is 0.8 and Godot measures it in 3D; so the
+agent can never be "at" `path[0]`, the index sticks at 0,
+`get_next_path_position()` returns the bot's own XZ forever, and
+`_advance_route` -- which zeroes `flat.y` -- sees a zero horizontal vector and
+calls `_stop_horizontal()`. The bot is told to walk to where it already is.
+
+**CONFIRMED BY TURNING THE DIAL.** With `path_desired_distance = 2.0`, one
+change and nothing else:
+
+```
+t+ 4.9  pos=(13.0, 1.80, 5.0)   wp=0/3  vel=0.00
+t+ 9.9  pos=(11.8, 0.00, 13.8)  wp=1/3  vel=4.50   moving
+t+14.9  pos=(-7.9, 0.00, 15.6)  wp=1/3  vel=4.50   21 m covered
+t+29.9  pos=(-19.4, 0.00, 19.0) wp=2/3  vel=0.00   stalls
+```
+
+The bot walks 34 m and clears a waypoint it had never reached in seven cold
+runs. That is the confirmation this item's first status asked for.
+
+**THE FIX IS NOT 2.0, and should not be.** A magic number chosen to clear one
+capsule is the kind of constant `CLAUDE.md` says to derive or measure. The
+right knob is likely `NavigationAgent3D.path_height_offset`, which exists to
+raise returned path points to the agent's own height and would make the
+comparison horizontal by construction -- or positioning the agent at the
+capsule's feet. Either way the number should come from the capsule, not from
+a value that happened to work.
+
+**AND THERE IS A SECOND BLOCKER, reproducible and unexplained.** With the
+distance raised, both runs stop at exactly (-19.39, -0.001, 19.03) with a next
+path point at (-36.14, 0.25, 19.36) -- 16.8 m away, `reachable=true` -- and
+`vel=0.00` for the remaining 150 s. Velocity is read AFTER `move_and_slide`,
+so zero there means the body is being fully stopped by collision rather than
+never being pushed: the bot is jammed against geometry, which is what
+`player_stuck_events` has been counting all along. Whether that is a map
+defect at that spot, an agent radius against a doorway, or the same class of
+snag the stuck detector reports 44 times a run is NOT established.
+
+**WHAT THIS MEANS FOR 120 AND 121.** Both stand as corrected. The metric never
+measured the level or the encounter -- it measured a bot that could not take
+its first step. The `advance_while_engaging` flag shipped in Laser Tag 0.10.0
+is still untested for the same reason, and becomes testable the moment the
+first blocker is fixed.
+
+
+*STATUS: NARROWED 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND
+THE FIRST DIAGNOSIS IN THIS ITEM WAS WRONG. Navigation is NOT broken: the
+agent computes a real 14-point path to a target 61.6 m away. The bot's body
+ORIGIN sits 1.547 m above the navmesh (1.797 against 0.25) and
+`path_desired_distance` is 0.8, measured in 3D -- so the agent never registers
+arrival at `path[0]`, the path index never advances,
+`get_next_path_position()` keeps returning `path[0]` which IS the bot's own
+XZ, and `_advance_route` flattens that to a zero vector and stops. Raising the
+distance to 2.0 makes the bot walk 34 m and clear a waypoint, which confirms
+it. A SECOND, SEPARATE BLOCKER then stops it dead at (-19.4, 19.0) with a
+valid next point 16.8 m away -- reproducible in both runs, cause not
+established.*
 
 **122. The evaluation bot's navigation agent returns a degenerate path, so it
 never moves.** Found 2026-09-08 by instrumenting the bot after item 121's A/B
