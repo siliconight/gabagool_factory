@@ -798,9 +798,9 @@ work of adopting this.
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
-| 120 | **OPEN** | The route has never been completed, and half the reports that say so g | 2026-09-07 -- NO LEVEL THIS PROJECT HAS EVER GENERATED HAS BEEN COMPLETED BY THE BOT. `rou |
+| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-07, AND THIS ITEM'S HEADLINE IS RETRACTED. The open question is answered and the a |
 
-**120 items: 49 open, 44 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**120 items: 48 open, 44 closed, 3 retracted, 22 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1322,9 +1322,8 @@ unanswerable because only `rockay` and `delco` could be built; `center_city`
 became buildable on 2026-09-07 and themed 128 modules with ZERO
 greybox-fallback on first contact. AND THE CAVEAT IS THE POINT: zero
 interventions means nothing needed hand-patching. It does not mean the level
-is good. All three candidates graded FAIL on one finding -- the bot completed
-0% of routes -- and a census of every Laser Tag report on disk shows that
-number has never exceeded 0.16 in the project's history. Filed as 120.*
+is good. All three candidates graded FAIL on Laser Tag's own
+grade, and reading the file that computes that number showed why: `route_completion_rate` is structurally zero whenever a guard is visible, level_factory already classes it as an ENCOUNTER metric rather than a MAP one, and `lf validate` on the same three candidates reported 59 findings, none blocking. Filed, then largely retracted, as 120.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -11450,6 +11449,7 @@ on an E or W wall whose dims are asserted against the geometry actually baked.
 `portable_building.py`, `circulation.py`, `floors.py` and `roofs.py` also read
 `dims` and should be checked against whichever answer wins.
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-07 -- NO LEVEL THIS PROJECT HAS EVER GENERATED HAS BEEN
 COMPLETED BY THE BOT. `route_completion_rate` is 0.0 in 31 of the 33 Laser Tag
 reports on disk, across every workspace and every cold run ever done; the two
@@ -11457,6 +11457,82 @@ exceptions are 0.04 and 0.16. Every one of the 33 carries a TRAVERSAL finding
 at severity FAIL -- and 15 of them still grade WARN, so a FAIL-severity
 finding does not reliably produce a FAIL grade. Two defects, and the second is
 why the first went unnoticed.*
+
+**RETRACTED 2026-09-07, one hour after filing, and the retraction is the
+useful part.** This item was filed with two readings and "not yet established"
+between them. It is established. The second reading is right, and the answer
+was already written down in `level_factory/packages/validation/lasertag_report.py`:
+
+> `traversal` reads `route_completion_rate`, and `LT_BotPlayerController` only
+> advances its route in the ``else`` of "can I see an enemy" -- so with six
+> guards alive on a 260 m plate it is zero whatever the map looks like.
+
+That file goes further: it splits `MAP_CATEGORIES` ("cover", "npc_pathing",
+"sightlines" -- "sixty points, all of them about the level") from
+`ENCOUNTER_CATEGORIES` ("traversal", "combat_pacing"), and records the
+measurement that proved it -- `lot_demo_001` seed 5118 scored 45, 45, 10, 45
+across four evaluations while the map never changed.
+
+Its route gate is written to the same understanding: it fires only on an
+evaluated, non-degraded run, and its own message says "This is EVIDENCE, not
+the gate: `walktest_navqa` walks the same spine on the baked navmesh with no
+combat in it, and says which leg failed. Read that first."
+
+So "no level this project has generated has ever been completed by the bot" is
+TRUE, is what the census says, and does NOT mean what this item's first
+headline implied. A metric that is structurally zero whenever a guard is
+visible reports zero on a perfect map.
+
+**WHAT ACTUALLY SURVIVES, and it is worth keeping.**
+
+- THE CENSUS IS STILL WORTH HAVING RECORDED: 31 of 33 reports at 0.0, the two
+  exceptions 0.04 and 0.16, highest ever 0.16. Anyone meeting this number for
+  the first time will draw the same wrong conclusion, and now there is a place
+  that says why.
+- LASER TAG'S OWN `grade` FIELD COUNTS TRAVERSAL AS A MAP FAIL. That is what
+  made cold run 7 read as "all three candidates FAIL" when `lf validate` on the
+  same three reported 59 findings, 8 major, NONE BLOCKING. A reader who stops
+  at the Laser Tag grade is misled; the verdict that counts is level_factory's.
+  Whether that belongs in Laser Tag's grader or in a note beside it is a call
+  for whoever owns that tool.
+- THE UNDERLYING KNOB IS ALREADY FILED BY THE PIPELINE ITSELF.
+  `LT_ENGAGEMENT_NOT_CONFIGURABLE`, raised on all three candidates: "the crew's
+  sight range (45 m) is an @export default on `LT_BotPlayerController` that the
+  harness never assigns, so it is not settable from the scenario resource --
+  and it is larger than the `enemy_sight_range` (35 m) the resource does
+  expose". A route metric gated on "can I see an enemy" cannot be tuned while
+  the seeing range is unreachable from the scenario.
+
+**THE CLAIM ABOUT THE GRADER IS ALSO SOFTENED.** This item said 16 FAIL and 15
+WARN on the same severity and the same 0.0 showed the grade "does not follow
+the worst finding". That is not established either: the other categories differ
+between those reports, so a differing grade may be entirely correct. What is
+true is narrower -- a FAIL-severity finding does not by itself force a FAIL
+grade, which is defensible for a category the report itself treats as
+encounter rather than map.
+
+**HOW THIS WAS FOUND, because the method generalises.** The item was filed on
+a census and two hypotheses, then answered by reading the one file that
+computes the number -- which took minutes and contained the answer in a
+comment. `CLAUDE.md`'s rule is "read one real instance of an artefact before
+writing the code that reads it"; the same rule applies to writing a roadmap
+item ABOUT an artefact. The census was worth taking and the conclusion drawn
+from it was not, and both are kept here.
+
+
+*STATUS: NARROWED 2026-09-07, AND THIS ITEM'S HEADLINE IS RETRACTED. The open
+question is answered and the answer is the second reading: `route_completion_rate`
+measures the BOT AND THE ENCOUNTER, not the level. `LT_BotPlayerController`
+only advances its route in the `else` of "can I see an enemy", so with guards
+alive and visible it is zero whatever the map looks like. THE CODEBASE ALREADY
+KNEW -- `lasertag_report.py` documents that sentence, classes `traversal` as an
+ENCOUNTER category rather than a MAP one, and its route gate says in as many
+words "This is EVIDENCE, not the gate: walktest_navqa walks the same spine with
+no combat in it. Read that first." The 31-of-33 census is a real fact and it is
+NOT evidence that levels are uncompletable. What survives is smaller: Laser
+Tag's own `grade` field still counts this as a map FAIL, which is what made
+cold run 7 read as three failed candidates when level_factory's own verdict was
+59 findings, none blocking.*
 
 **120. The route has never been completed, and half the reports that say so
 grade WARN.** Found 2026-09-07 by cold run 7, which graded FAIL on all three
