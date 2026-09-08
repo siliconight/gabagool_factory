@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-06 -- COLD RUN 6 BROKE THE ZERO STREAK, AND THE QUESTION THIS ITEM WAS STILL ASKIN |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-07 -- COLD RUN 7 SCORED ZERO INTERVENTIONS, the first in the project, and the run  |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -798,8 +798,9 @@ work of adopting this.
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
+| 120 | **OPEN** | The route has never been completed, and half the reports that say so g | 2026-09-07 -- NO LEVEL THIS PROJECT HAS EVER GENERATED HAS BEEN COMPLETED BY THE BOT. `rou |
 
-**119 items: 48 open, 44 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**120 items: 49 open, 44 closed, 3 retracted, 21 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1282,6 +1283,7 @@ either package, so both are "works" and neither is "good" (item 18), and
 run. Two is not "several". Evidence: `docs/findings/COLD_RUN_8001.md` and
 `COLD_RUN_9001.md`, journals under `_runs/cold/`.*
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: NARROWED 2026-09-06 -- COLD RUN 6 BROKE THE ZERO STREAK, AND THE
 QUESTION THIS ITEM WAS STILL ASKING TURNS OUT TO BE UNANSWERABLE. `cold_9002`
 (`mercy_annex_001`, archetype `office`, theme `rockay`, L shape, 3 buildings):
@@ -1308,6 +1310,21 @@ is the first time the changed stack ran from a fresh brief. It holds --
 1.0x with five DISTINCT densities (0.333, 0.500, 0.500, 1.000, 0.667), where
 delco showed one value repeated because its grammars share a tile period.
 Roadmap 104's fix is live on vocabulary it was never tested against.*
+
+*STATUS: NARROWED 2026-09-07 -- COLD RUN 7 SCORED ZERO INTERVENTIONS, the
+first in the project, and the run that produced it also found why that number
+is not the whole answer. `market_row_001`: theme `center_city` and archetype
+`rowhome`, neither ever built, 0 interventions, 0 retries, 0 unattributed file
+changes, 6 observations, and the three files that changed on disk were the
+per-candidate specs Level Factory is expected to write. THE UNSEEN-THEME
+QUESTION THIS ITEM CARRIED FOR MONTHS IS ANSWERED: cold run 6 recorded it as
+unanswerable because only `rockay` and `delco` could be built; `center_city`
+became buildable on 2026-09-07 and themed 128 modules with ZERO
+greybox-fallback on first contact. AND THE CAVEAT IS THE POINT: zero
+interventions means nothing needed hand-patching. It does not mean the level
+is good. All three candidates graded FAIL on one finding -- the bot completed
+0% of routes -- and a census of every Laser Tag report on disk shows that
+number has never exceeded 0.16 in the project's history. Filed as 120.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -11432,3 +11449,78 @@ make both producers agree, and add the case that would have caught it: a slot
 on an E or W wall whose dims are asserted against the geometry actually baked.
 `portable_building.py`, `circulation.py`, `floors.py` and `roofs.py` also read
 `dims` and should be checked against whichever answer wins.
+
+*STATUS: OPEN 2026-09-07 -- NO LEVEL THIS PROJECT HAS EVER GENERATED HAS BEEN
+COMPLETED BY THE BOT. `route_completion_rate` is 0.0 in 31 of the 33 Laser Tag
+reports on disk, across every workspace and every cold run ever done; the two
+exceptions are 0.04 and 0.16. Every one of the 33 carries a TRAVERSAL finding
+at severity FAIL -- and 15 of them still grade WARN, so a FAIL-severity
+finding does not reliably produce a FAIL grade. Two defects, and the second is
+why the first went unnoticed.*
+
+**120. The route has never been completed, and half the reports that say so
+grade WARN.** Found 2026-09-07 by cold run 7, which graded FAIL on all three
+candidates and prompted the obvious question -- is that new? It is not.
+
+**THE CENSUS, every Laser Tag report on disk.**
+
+```
+route_completion_rate == 0.0      31 of 33
+only non-zero                     0.04 and 0.16, both in lot-demo-ws
+highest ever recorded             0.16
+```
+
+Those 33 span `cold-7001` through `cold-7301`, plus `lot-demo-ws`,
+`rockay-ws` and `unlit-3b-ws`. Every cold run this project has done is in
+there. Cold run 6, recorded as a success at "WARN 50, tied best of three",
+is in there at 0.0 as well.
+
+**AND THE GRADE DOES NOT FOLLOW THE FINDING.**
+
+```
+grade  TRAVERSAL severity   route   n
+FAIL   FAIL                   0.0   16
+WARN   FAIL                   0.0   15
+FAIL   FAIL                  0.04    1
+WARN   FAIL                  0.16    1
+```
+
+All 33 carry a TRAVERSAL finding at severity FAIL. Sixteen grade FAIL and
+fifteen grade WARN on the same severity and the same 0.0. Whatever decides the
+overall grade, it is not "the worst finding wins" -- so a level can carry a
+FAIL-severity traversal finding and be reported as a WARN a reader will accept.
+That is the mechanism by which the first defect stayed invisible for seven
+cold runs: the number was in every report and the grade kept saying it was
+survivable.
+
+**WHICH DEFECT IS THIS, and the honest answer is that it is not yet
+established.** Two readings fit the census equally:
+
+- Every generated level really is uncompletable by the bot, in which case the
+  pipeline has never produced a playable route and item 17's interventions
+  count has been measuring the wrong success.
+- The metric or the bot is broken -- measuring something other than "the route
+  was completed", or a route that is never actually assigned -- in which case
+  the levels may be fine and the instrument has been red since it was written.
+
+`CLAUDE.md`'s rule applies literally here: when two instruments disagree, one
+of them is wrong, and cold run 7 has a clean instance of the disagreement.
+`walktest_navqa` PASSED on all three candidates -- a body walks the site --
+while the bot completed 0 of 75 runs on those same shells. Establish which
+before acting on either.
+
+**WHAT WOULD SETTLE IT, cheapest first.** Read what `route_completion_rate`
+is computed from and what the bot is given as a route: if no route is assigned,
+or the completion test compares against something the level never provides,
+that is the answer and it is a one-file read. Only if the metric is sound does
+this become a level-design problem. The second defect -- grade not following
+severity -- is independent, is in the grader, and should be fixed either way:
+a FAIL finding reported as a WARN grade is worse than no grade.
+
+**WHY IT MATTERS BEYOND ITSELF.** Item 17 measures interventions-per-level and
+cold run 7 scored zero, which is the first real evidence it asked for. That
+number means "nothing needed hand-patching". It does NOT mean the level is
+good, and this item is the sharpest example of the gap item 18 names: every
+guardrail here measures traversal correctness, and the one instrument that
+measures whether a level can actually be PLAYED has been reporting failure
+since the beginning while the grade above it said WARN.
