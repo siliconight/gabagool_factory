@@ -801,8 +801,9 @@ work of adopting this.
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
 | 122 | **NARROWED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND THE FIRST DIAGNOSIS IN THIS ITE |
+| 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE PROXY IS WIRED, THE SEAM IS NOT. Laser Tag 0.11.0 gives `LT_TestScenario |
 
-**122 items: 48 open, 44 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**123 items: 48 open, 44 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11957,3 +11958,116 @@ path array and its map RID, not changing anything.
 (`enemies_enabled = false`), one run, on the staged evaluation project from
 cold run 7. No combat, no deaths, the bot alive for the full clock, and the
 whole failure visible in a position that never changes.
+
+SUPERSEDED STATUS, kept above the update that replaced it:
+*STATUS: OPEN 2026-09-08 -- THE PROXY THAT VALIDATES THE SIZE CONTRACT IS NOT
+BUILT FROM IT. `agent_contract.json` is "THE single source of truth for
+character/agent dimensions and every clearance derived from them", and
+`lasertag` reads neither it nor `docs/AGENT_CONTRACT.md`. The Laser Tag pill's
+capsule, camera, speed and navigation agent are hardcoded in a `.tscn`, and
+they have already drifted: the pill is 0.40 m wide where the contract says the
+player is 0.35, and walks at 4.5 m/s where the contract says 4.0. So a
+consumer who changes the contract to fit their own characters moves every
+clearance and opening in Deli Counter and silently leaves the body that tests
+them at 1.8 x 0.4.*
+
+**WIRED 2026-09-08 (Laser Tag 0.11.0).** `LT_MapEvalHarness._apply_body`
+builds the pill from the scenario at spawn rather than from `LT_PlayerPill.tscn`:
+capsule radius and height, the shape and mesh offsets that keep the origin at
+the FEET, the camera's eye height, the bot's move speed, and the navigation
+agent's radius and height. The capsule and mesh resources are duplicated
+first -- the `.tscn` declares them as sub-resources, so every pill in a scene
+shares one instance and the last write would win.
+
+The drift is closed in the direction of the contract: the pill was 0.40 m wide
+and walked at 4.5 m/s, and is now 0.35 and 4.0. That moves numbers, and the
+changelog says so.
+
+**WHAT IS STILL OPEN, and it is the part that matters for a consumer.** Those
+four fields are Laser Tag DEFAULTS that happen to equal the contract. Nothing
+reads `agent_contract.json`. A studio that states "our characters are 2.0 m
+tall and 0.45 m wide" in the contract moves every Deli Counter clearance and
+still has to change Laser Tag separately -- which is the same disconnection
+one layer up.
+
+THE SEAM ALREADY EXISTS. Level Factory writes `mission_scenario.tres` and
+stages it into the evaluation project beside the map and the vendored addon;
+it is the one place that already touches both repos. Populating the Body group
+there from `agent_contract.json` closes this item, and needs no cross-repo
+file dependency at runtime.
+
+**AND THE CONTRACT SHOULD PROBABLY GROW A FIELD WHILE THIS IS FRESH.** The
+`agent_radius_m` / `player.radius_m` confusion that caused the drift -- 0.40
+against 0.35, the bake's "fattest character + 0.05 safety" built into a body --
+is the kind of thing a reader will make again. The contract carries derivation
+notes for `agent_max_climb_m`; the same treatment on the two radii, saying
+plainly which one a BODY is built from and which one a BAKE is run at, is
+cheap and would have prevented this.
+
+
+*STATUS: NARROWED 2026-09-08 -- THE PROXY IS WIRED, THE SEAM IS NOT. Laser Tag
+0.11.0 gives `LT_TestScenario` a Body group -- `player_radius_m`,
+`player_height_m`, `player_eye_height_m`, `player_walk_speed_mps` -- defaulted
+to `agent_contract.json`'s `characters.player`, and the harness builds the
+pill from them at spawn: capsule, the offsets that keep the origin at the
+feet, camera, speed, and the nav agent's radius and height. The drift is gone:
+the pill was 0.40 m and 4.5 m/s, it is now the contract's 0.35 and 4.0. WHAT
+REMAINS is the seam -- those are DEFAULTS in Laser Tag, not a read of the
+contract. Level Factory writes `mission_scenario.tres` and stages it beside
+the map and the addon, so that is where the contract's numbers should be
+copied in; until then a consumer editing `agent_contract.json` still has to
+edit one more place.*
+
+**123. The size proxy is disconnected from the size contract.** Found
+2026-09-08 while fixing the evaluation bot's navigation (item 122), which
+required knowing where the pill's origin sits and turned up that nothing
+connects the pill to the contract at all.
+
+**WHAT THE PROXY IS FOR, and why the disconnection matters more than the
+numbers.** Nobody ships a floating capsule. The pill exists so the toolchain
+can prove a CONTRACT -- that a body of a stated size fits through the doors,
+climbs the stairs and clears the headroom this factory generates. A studio
+using these tools has characters of their own size, and the promise of
+`agent_contract.json` is that they state that size once and every derived
+clearance moves with it. That promise is only as good as the proxy: if the
+test body does not come from the contract, the gates prove something about a
+body nobody asked for.
+
+**THE DRIFT, measured.**
+
+```
+                 pill    contract
+body radius      0.40    0.35      <- the pill uses the BAKE radius as a BODY radius
+walk speed       4.50    4.00
+body height      1.80    1.80      ok
+eye height       1.60    1.60      ok
+```
+
+The 0.40 is `nav_bake.agent_radius_m`, whose own note says it is "fattest
+navigating character + 0.05 safety". The safety margin has been built into the
+body, so every door-width and corridor test has been run against a proxy 14%
+fatter than the character it stands for. That is the direction that hides
+defects rather than inventing them -- a door the fat proxy clears is a door
+the real body clears -- but it also means the margin is being spent twice and
+nobody can say how much is left.
+
+**WHO READS THE CONTRACT TODAY.** `deli_counter` -- `nav_gate`,
+`navigability`, `stairwell`, `agent_contract.py`, the headroom tests -- and
+`docs/AGENT_CONTRACT.md` for the derivation rules. Not `lasertag`, not `lot`.
+
+**WHAT WOULD CLOSE IT.** The scenario resource is already Laser Tag's tuning
+surface and already carries the enemy's ranges, so the body belongs there too:
+`player_radius_m`, `player_height_m`, `player_eye_height_m`,
+`player_walk_speed_mps`, defaulted to the contract's values, applied to the
+pill's capsule, its collision-shape offset, its camera and the bot's speed at
+spawn. Level Factory can then populate those from `agent_contract.json` when
+it writes the scenario, which is the seam where the two repos already meet --
+it stages the map, the scenario and the addon into the evaluation project
+already.
+
+**AND THE AGENT'S OWN TUNING SHOULD DERIVE TOO.** Item 122 showed
+`path_desired_distance` at a hardcoded 0.8 and `path_height_offset` unset.
+Both are functions of the body and the bake -- the offset is the navmesh's
+cell height, and the desired distance has to exceed the vertical error between
+a body's origin and the mesh it stands on. A number chosen to make one capsule
+work is what `CLAUDE.md` says to derive or measure.
