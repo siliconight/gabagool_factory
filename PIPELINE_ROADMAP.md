@@ -798,8 +798,8 @@ work of adopting this.
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
-| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-07, AND THIS ITEM'S HEADLINE IS RETRACTED. The open question is answered and the a |
-| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE CAPABILITY SHIPPED IN LASER TAG 0.10.0 AND NOTHING HAS RUN IT YET. `LT_T |
+| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
+| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
 
 **121 items: 48 open, 44 closed, 3 retracted, 23 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -11521,6 +11521,7 @@ item ABOUT an artefact. The census was worth taking and the conclusion drawn
 from it was not, and both are kept here.
 
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: NARROWED 2026-09-07, AND THIS ITEM'S HEADLINE IS RETRACTED. The open
 question is answered and the answer is the second reading: `route_completion_rate`
 measures the BOT AND THE ENCOUNTER, not the level. `LT_BotPlayerController`
@@ -11534,6 +11535,17 @@ NOT evidence that levels are uncompletable. What survives is smaller: Laser
 Tag's own `grade` field still counts this as a map FAIL, which is what made
 cold run 7 read as three failed candidates when level_factory's own verdict was
 59 findings, none blocking.*
+
+*STATUS: NARROWED AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN
+THE SAME DIRECTION, AND THE ANSWER IS ONE LAYER DEEPER. Filed as "levels may be
+uncompletable", retracted to "the metric measures the encounter, not the
+level". Measured on 2026-09-08 with combat removed entirely: a bot alone on
+`market_row_001`, zero shots fired, zero deaths, alive for the full 180 s in
+all 3 runs, still completes 0% of routes and gets stuck 44 times per run. THE
+METRIC MEASURES THE BOT. It reports zero on an empty map. The retraction
+stands -- 0% is still not evidence a level is bad -- but the `else`-branch
+explanation that produced it was not the whole cause. `walktest_navqa` passes
+that same site. See 121 for the isolation and what to look at.*
 
 **120. The route has never been completed, and half the reports that say so
 grade WARN.** Found 2026-09-07 by cold run 7, which graded FAIL on all three
@@ -11643,6 +11655,7 @@ at zero on a route that demonstrably walks, that is a much more interesting
 finding than this item currently anticipates, and it would belong here.
 
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: NARROWED 2026-09-08 -- THE CAPABILITY SHIPPED IN LASER TAG 0.10.0 AND
 NOTHING HAS RUN IT YET. `LT_TestScenario.advance_while_engaging` (default
 false) makes the bot advance its route while engaging, at
@@ -11654,6 +11667,82 @@ so the old behaviour is reachable from the scenario rather than only from git.
 WHAT IS LEFT is the measurement -- an evaluation with the flag ON, against a
 level whose route `walktest_navqa` already passes, which is the first time
 anything will have asked whether a crew can get through while being shot at.*
+
+**MEASURED 2026-09-08, and the result refutes this item's own premise.** The
+experiment this item asked for was run: `market_row_001` seed 7301, the same
+map and the same navmesh bake, three arms.
+
+```
+arm                        grade  route  p_stuck  timeouts  wipes  survival
+cold run 7 (old addon)     FAIL     0.0      968        22      3    159.24
+control (new addon, off)   FAIL     0.0      968        22      3    159.24
+treatment (flag ON)        FAIL     0.0      968        22      3    159.24
+```
+
+The control arm existed to prove the code change is inert with the flag off,
+and it is: identical to cold run 7 on every metric. The treatment arm is
+identical too -- and identical to the last digit is not a small effect, it is a
+branch that did not matter.
+
+**THE DIAL WAS CONFIRMED BEFORE THE NULL WAS BELIEVED**, which is the rule
+this repo wrote after three null results were misread. A probe in
+`LT_MapEvalHarness` prints `scenario.advance=true bot.advance=true sight=45.0`.
+The flag reaches the bot. The bot still finishes nothing.
+
+**REMOVING COMBAT SETTLES IT.** With `enemies_enabled = false` the engage
+branch cannot be entered at all:
+
+```
+runs 3, shots_fired 0, player_deaths 0, enemy_deaths 0
+avg_player_survival_seconds 180.07   (the full clock, all three)
+route_completion_rate 0.0
+player_stuck_events 132              (44 per run)
+timeout_count 3 of 3                 grade BROKEN
+```
+
+A bot alone on a map, unshot at, alive for the entire run, completes zero
+routes and gets stuck forty-four times. Combat was never the blocker.
+
+**AND `walktest_navqa` PASSES ON THAT SAME SITE.** Two instruments, one site,
+opposite answers, with the confounder removed. `CLAUDE.md` says when two
+instruments disagree one of them is wrong and to establish which before
+building on either -- this is now a clean, cheap repro for doing exactly that.
+
+**WHAT TO LOOK AT, and none of it is the flag.** The candidates are what
+differs between the two walkers: the ROUTE each is given (`_bot_route()`
+against walktest's spine), the NAVMESH each uses (the evaluation bakes its own
+-- 297 polygons on this map -- while walktest walks the one the package
+ships), and the AGENT each drives (`NavigationAgent3D` settings against
+walktest's controller). The 44-stuck-events-per-run figure says the bot is
+moving and being obstructed rather than never starting, which points at the
+navmesh or the agent rather than at an unreachable waypoint.
+
+**WHAT THIS DOES TO ITEM 120.** 120 was filed saying levels might be
+uncompletable, then retracted to "the metric measures the encounter, not the
+level". Both are now wrong in the same direction: the metric measures the BOT.
+It reports zero on an empty map. The retraction stands -- 0% is still not
+evidence that a level is bad -- but the reason is one layer deeper than the
+`else`-branch explanation that produced it.
+
+**AND THE SHIPPED FLAG IS STILL RIGHT TO HAVE.** It is off by default, it is
+inert when off (proven by the control arm), it closed
+`LT_ENGAGEMENT_NOT_CONFIGURABLE`, and it will be the thing that makes
+`route_completion_rate` meaningful the moment the bot can walk at all. It just
+cannot be tested until then.
+
+
+*STATUS: NARROWED 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED
+NOTHING, BECAUSE COMBAT WAS NEVER THE BLOCKER. Laser Tag 0.10.0's
+`advance_while_engaging` was measured A/B on `market_row_001` at seed 7301:
+control and treatment are IDENTICAL TO THE LAST DIGIT on every metric. The
+dial was confirmed turned -- a probe in the harness prints
+`scenario.advance=true bot.advance=true sight=45.0` -- so this is not a knob
+with no effect. Removing combat entirely settles it: with `enemies_enabled =
+false`, ZERO shots fired, zero deaths, the bot alive for the full 180 s in all
+3 runs, `route_completion_rate` is still 0.0 and the bot gets stuck 44 times
+per run. THE LASER TAG BOT CANNOT WALK ITS ROUTE ON AN EMPTY MAP -- on a site
+`walktest_navqa` passes. That is the finding, it is not what this item was
+filed about, and it moves item 120 a second time.*
 
 **121. Nothing measures traversal under fire.** Raised 2026-09-07, directly
 out of item 120: once `route_completion_rate` is understood to measure the bot
