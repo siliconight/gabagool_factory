@@ -799,8 +799,9 @@ work of adopting this.
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-07, AND THIS ITEM'S HEADLINE IS RETRACTED. The open question is answered and the a |
+| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE CAPABILITY SHIPPED IN LASER TAG 0.10.0 AND NOTHING HAS RUN IT YET. `LT_T |
 
-**120 items: 48 open, 44 closed, 3 retracted, 22 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**121 items: 48 open, 44 closed, 3 retracted, 23 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11600,3 +11601,117 @@ good, and this item is the sharpest example of the gap item 18 names: every
 guardrail here measures traversal correctness, and the one instrument that
 measures whether a level can actually be PLAYED has been reporting failure
 since the beginning while the grade above it said WARN.
+
+SUPERSEDED STATUS, kept above the update that replaced it:
+*STATUS: OPEN 2026-09-07 -- NOTHING MEASURES WHETHER A LEVEL CAN BE TRAVERSED
+UNDER FIRE, and the two instruments that exist straddle the question without
+covering it. `walktest_navqa` walks the mission spine with NO combat in it and
+passes. Laser Tag runs the combat but its bot STOPS DEAD the moment it sees a
+guard -- `_stop_horizontal()` in the `if`, `_advance_route()` only in the
+`else` -- so it is stand-and-fight, never fight-and-move. Between them, "can
+the crew get through while being shot at" is measured by neither. Raised by
+the operator on reading 120's retraction.*
+
+**SHIPPED 2026-09-08 (Laser Tag 0.10.0), option 2 of the three this item
+listed.** `advance_while_engaging` on the scenario resource, default false;
+the bot advances while engaging at `engaged_move_speed_scale` (0.5) of
+`move_speed`, facing and firing at what it sees. `LT_MapEvalHarness` assigns
+it, along with `player_sight_range` -- which it had never assigned at all, so
+the crew's 45 m sight was unreachable from the scenario while the enemy's 35 m
+was exposed. That was `LT_ENGAGEMENT_NOT_CONFIGURABLE`, raised on every
+candidate of every cold run, and it is closed.
+
+The implementation advances FIRST and scales the velocity afterwards, so there
+is one copy of the routing logic: `_advance_route` also steps the waypoint
+index and emits `route_completed`, and a second movement path in the engage
+branch would be a second place for those to happen. Facing is applied after,
+so the bot looks at what it is shooting rather than where it is walking --
+aim does not depend on it, `_fire_at` targets the enemy's chest directly.
+
+**WHY THE DEFAULT STAYS OFF.** 33 reports of comparison history were produced
+with the stand-and-fight bot. Flipping the default would invalidate all of
+them in one commit, and `engaged_move_speed_scale: 0.0` reproduces the old
+behaviour exactly -- so the original is a scenario setting rather than a git
+revert.
+
+**WHAT WOULD CLOSE THIS ITEM.** Run an evaluation with the flag ON against a
+level whose route `walktest_navqa` already passes -- `market_row_001` from
+cold run 7 is sitting in `workspaces/cold-7301-ws` and qualifies. If
+`route_completion_rate` rises off zero, the metric measures the level for the
+first time and the gap in the middle of the table above is closed. If it stays
+at zero on a route that demonstrably walks, that is a much more interesting
+finding than this item currently anticipates, and it would belong here.
+
+
+*STATUS: NARROWED 2026-09-08 -- THE CAPABILITY SHIPPED IN LASER TAG 0.10.0 AND
+NOTHING HAS RUN IT YET. `LT_TestScenario.advance_while_engaging` (default
+false) makes the bot advance its route while engaging, at
+`engaged_move_speed_scale` of its speed; `player_sight_range` is exposed for
+the first time, which closes `LT_ENGAGEMENT_NOT_CONFIGURABLE`. Off by default
+on purpose: every one of the 33 historical reports was produced with the
+stand-and-fight bot, and `engaged_move_speed_scale: 0.0` reproduces it exactly
+so the old behaviour is reachable from the scenario rather than only from git.
+WHAT IS LEFT is the measurement -- an evaluation with the flag ON, against a
+level whose route `walktest_navqa` already passes, which is the first time
+anything will have asked whether a crew can get through while being shot at.*
+
+**121. Nothing measures traversal under fire.** Raised 2026-09-07, directly
+out of item 120: once `route_completion_rate` is understood to measure the bot
+rather than the level, the question it LOOKED like it was answering turns out
+to be answered by nothing.
+
+**THE BOT, in four lines** (`LT_BotPlayerController._physics_process`):
+
+```gdscript
+var enemy := _find_visible_enemy()
+if enemy != null:
+    _stop_horizontal()
+    _face_point(enemy.global_position)
+    if _fire_timer <= 0.0:
+        _fire_at(enemy)
+else:
+    _advance_route(delta)
+```
+
+It is deliberate and its docstring says so -- "Useful, not clever: walk the
+route, shoot what it can see, take cover when hurt, report when stuck." As a
+combat sampler that is a defensible design. The consequence is that route
+progress and enemy presence are mutually exclusive by construction.
+
+**THE GAP IS BETWEEN TWO INSTRUMENTS, not inside one.**
+
+```
+walktest_navqa   walks the mission spine   NO combat        -> passes
+laser_tag        full combat               bot cannot move  -> 0% forever
+                 -- nothing here --        traversal UNDER FIRE
+```
+
+For a heist game that middle row is the question. A route that walks empty and
+is impassable under fire is a level that fails in play and passes every gate
+this repo has. That is item 18's "works vs good" gap with a specific,
+buildable shape rather than a general worry.
+
+**THREE WAYS TO CLOSE IT, and the choice is a real one.**
+
+- MAKE THE BOT FIGHT AND MOVE -- advance the route while engaging, perhaps at
+  reduced speed. Answers the question directly and makes
+  `route_completion_rate` mean what its name says. It also changes a
+  simulation's behaviour and invalidates every historical Laser Tag number,
+  which is the cost: 33 reports of comparison history go with it.
+- MAKE IT AN OPTION, default off. `advance_while_engaging` on the scenario
+  resource, so history is preserved byte-for-byte and a second evaluation pass
+  answers the new question. Cheapest honest version, and it fits how the
+  repo already treats behaviour changes -- opt-in, with the old path intact.
+- MEASURE IT WITHOUT THE BOT. A traversal probe that walks the spine on the
+  baked navmesh WITH enemies present as obstacles and line-of-sight blockers,
+  which is closer to what `walktest_navqa` already does than to what Laser Tag
+  does. Cheapest to build, weakest answer: it says the route is passable, not
+  that a crew under fire passes it.
+
+**A KNOB HAS TO MOVE FIRST WHICHEVER IS CHOSEN.** The pipeline already raises
+`LT_ENGAGEMENT_NOT_CONFIGURABLE` on every candidate: the crew's 45 m
+`sight_range` is an `@export` default on `LT_BotPlayerController` that the
+harness never assigns, so it is not settable from the scenario resource -- and
+it is larger than the `enemy_sight_range` (35 m) the resource DOES expose. A
+metric gated on "can I see an enemy" cannot be tuned while the seeing range is
+unreachable from the scenario.
