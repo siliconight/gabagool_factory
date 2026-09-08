@@ -800,8 +800,9 @@ work of adopting this.
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
+| 122 | **OPEN** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND FOR ITEMS 120 AND 121. The Laser Tag bot's `NavigationAgent |
 
-**121 items: 48 open, 44 closed, 3 retracted, 23 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**122 items: 49 open, 44 closed, 3 retracted, 23 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11804,3 +11805,75 @@ harness never assigns, so it is not settable from the scenario resource -- and
 it is larger than the `enemy_sight_range` (35 m) the resource DOES expose. A
 metric gated on "can I see an enemy" cannot be tuned while the seeing range is
 unreachable from the scenario.
+
+*STATUS: OPEN 2026-09-08 -- ROOT CAUSE FOUND FOR ITEMS 120 AND 121. The Laser
+Tag bot's `NavigationAgent3D` returns a DEGENERATE PATH: on a no-enemy run it
+never moves a millimetre in 180 seconds, because
+`get_next_path_position()` returns the bot's OWN position every frame while
+`is_target_reachable()` says true about a target 61.6 m away. This is not
+map-specific and not combat-related -- it explains `route_completion_rate`
+being 0.0 in 31 of 33 reports across every workspace and every cold run this
+project has ever done.*
+
+**122. The evaluation bot's navigation agent returns a degenerate path, so it
+never moves.** Found 2026-09-08 by instrumenting the bot after item 121's A/B
+showed that removing combat entirely changed nothing.
+
+**THE TRACE**, one run, `enemies_enabled = false`, `market_row_001` seed 7301:
+
+```
+[ROUTE] 3 point(s) given; bot at (13.0, 1.0, 5.0)
+[ROUTE]   0: (13.0, 0.0, 5.0)    (1.0 m from bot)
+[ROUTE]   1: (-13.0, 0.0, 11.0)  (26.7 m)
+[ROUTE]   2: (-47.0, 0.0, 19.0)  (61.6 m)
+
+t+  4.9  pos=(13.0, 1.797, 5.0)  wp=0/3  next=(13.0, 0.25, 5.0)  vel=0.00
+t+  9.9  pos=(13.0, 1.797, 5.0)  wp=1/3  next=(13.0, 0.25, 5.0)  vel=0.00
+t+ 14.9  pos=(13.0, 1.797, 5.0)  wp=2/3  next=(13.0, 0.25, 5.0)  vel=0.00
+...
+t+179.9  pos=(13.0, 1.797, 5.0)  wp=2/3  next=(13.0, 0.25, 5.0)  vel=0.00
+```
+
+The position never changes. `next` is the bot's own X and Z at every sample,
+projected to the navmesh's y.
+
+**HOW THAT PRODUCES EXACTLY WHAT THE REPORTS SHOW.** `_advance_route`
+computes `flat = _next_path_point() - body.global_position`, zeroes `flat.y`,
+and moves only `if flat.length() > 0.05`. With `next` equal to the bot's own
+XZ that test is always false, so it calls `_stop_horizontal()` every frame.
+
+The waypoint index still advances, which is the second half of the symptom:
+`_nav_finished()` returns `is_navigation_finished()`, and for waypoints 0 and
+1 that reads TRUE immediately -- so the bot "reaches" them standing still and
+burns all three in fifteen seconds. At waypoint 2 it reads false, so the index
+stops there and the run sits until the 180 s clock expires. Zero route
+completions, and the stuck detector fires 44 times a run because the bot is
+being asked to move and is not moving.
+
+**IT IS NOT THE MAP AND IT IS NOT COMBAT.** `walktest_navqa` passes this same
+site -- a body walks the spine on the shipped navmesh. The evaluation bakes
+its own navmesh successfully (297 polygons, 14916 source vertices) and
+`is_target_reachable()` returns TRUE for the 61.6 m target, so the agent
+believes it has a route. It simply never yields a path point that differs from
+where the bot already stands.
+
+**WHY IT MATTERS FAR BEYOND ONE RUN.** `route_completion_rate` is 0.0 in 31 of
+the 33 Laser Tag reports on disk -- every workspace, every cold run, highest
+ever recorded 0.16. This mechanism accounts for all of it, on every map,
+since the beginning. Item 120 was filed as "levels may be uncompletable" and
+retracted to "the metric measures the encounter"; both were wrong in the same
+direction and this is why.
+
+**WHAT IS NOT ESTABLISHED, and should not be guessed.** Why the agent yields
+a degenerate path. The usual Godot 4 candidates are the agent not being bound
+to the navigation map, a target set before the map has synchronised, or
+`path_desired_distance` / `target_desired_distance` set such that every point
+counts as arrived -- and the y gap here is a real clue, since the body sits at
+1.797 while the returned path point is at 0.25. The next step is reading the
+`NavigationAgent3D` configuration on the player pill and printing the agent's
+path array and its map RID, not changing anything.
+
+**THE REPRO IS THREE MINUTES.** A no-enemy scenario
+(`enemies_enabled = false`), one run, on the staged evaluation project from
+cold run 7. No combat, no deaths, the bot alive for the full clock, and the
+whole failure visible in a position that never changes.
