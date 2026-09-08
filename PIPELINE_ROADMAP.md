@@ -800,10 +800,10 @@ work of adopting this.
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
-| 122 | **NARROWED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND THE FIRST DIAGNOSIS IN THIS ITE |
+| 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
 
-**123 items: 48 open, 44 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**123 items: 48 open, 45 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11883,18 +11883,36 @@ is still untested for the same reason, and becomes testable the moment the
 first blocker is fixed.
 
 
-*STATUS: NARROWED 2026-09-08 -- CAUSE FOUND AND CONFIRMED BY EXPERIMENT, AND
-THE FIRST DIAGNOSIS IN THIS ITEM WAS WRONG. Navigation is NOT broken: the
-agent computes a real 14-point path to a target 61.6 m away. The bot's body
-ORIGIN sits 1.547 m above the navmesh (1.797 against 0.25) and
-`path_desired_distance` is 0.8, measured in 3D -- so the agent never registers
-arrival at `path[0]`, the path index never advances,
-`get_next_path_position()` keeps returning `path[0]` which IS the bot's own
-XZ, and `_advance_route` flattens that to a zero vector and stops. Raising the
-distance to 2.0 makes the bot walk 34 m and clear a waypoint, which confirms
-it. A SECOND, SEPARATE BLOCKER then stops it dead at (-19.4, 19.0) with a
-valid next point 16.8 m away -- reproducible in both runs, cause not
-established.*
+*STATUS: CLOSED 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE
+FIRST TWO DIAGNOSES IN THIS ITEM WERE BOTH WRONG. Navigation was never broken
+and `path_desired_distance` was never the problem. Lot's `site_walk.tscn`
+ships a preview `Player` -- a CharacterBody3D on collision layer 1, the World
+layer, with a 1.8 m capsule -- and `lot_site_walk.gd::_ready` parked it on
+`spawn_pos`. Level Factory stages that scene as Laser Tag's map and Laser Tag
+spawns its pill at the same coordinate, so the pill materialised INSIDE the
+capsule, was depenetrated onto the top of it, and rested there with
+`is_on_floor()` true. The bot was standing on the walkthrough's player.
+MEASURED on market_row_001 seed 7503, staged with the pipeline's own stager,
+one run, identical seed either side, probing `map_get_closest_point` at each
+trace mark: body_y 1.797 -> 0.001, gap to the navmesh +1.547 -> -0.499, route
+index 0/3 -> 2/3, and a bot that had not moved in 10.7 seconds walked ~20 m in
+14.9. Before the fix the position, velocity and `on_floor` are CONSTANT for
+the whole run, which is a body resting on an obstacle rather than one that
+cannot path. THE TWO EARLIER READINGS, kept because both were confident and
+both were wrong: (1) "the agent returns a degenerate path" -- it returns the
+bot's own XZ because the bot is 1.5 m off the mesh, not because the agent is
+broken; (2) "`path_desired_distance` 0.8 is too small" -- raising it to 2.0
+moved the bot only by letting it register arrival despite the vertical error,
+treating the symptom. A 1.0 m spawn lift was also suspected and REFUTED by
+A/B: 0.1 against 1.0 on Laser Tag's demo greybox is byte-identical in the
+trace, because gravity settles a metre in 0.45 s -- confirmed as a live dial
+by an 8.0 m run, which differs decisively. WHY NOTHING CAUGHT IT: Laser Tag's
+demo greybox has no such node, so its CI bot always walked;
+`validate_map` probes obstruction at one point, `spawn + UP * 0.9`, which
+clears an obstacle topping out at 1.797; and `ground_contact.MAX_DROP` is 4.0
+because it was built to catch spawns over a HOLE, not spawns in the air. THE
+SECOND BLOCKER at (-19.4, 19.0) is not addressed here and was measured on a
+different map; it stays open under item 120.*
 
 **122. The evaluation bot's navigation agent returns a degenerate path, so it
 never moves.** Found 2026-09-08 by instrumenting the bot after item 121's A/B
