@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-07 -- COLD RUN 7 SCORED ZERO INTERVENTIONS, the first in the project, and the run  |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-09 -- COLD RUN 9003 SCORED TWO, AFTER RUN 7 SCORED ZERO, AND THE DIFFERENCE IS THE |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -1330,6 +1330,41 @@ greybox-fallback on first contact. AND THE CAVEAT IS THE POINT: zero
 interventions means nothing needed hand-patching. It does not mean the level
 is good. All three candidates graded FAIL on Laser Tag's own
 grade, and reading the file that computes that number showed why: `route_completion_rate` is structurally zero whenever a guard is visible, level_factory already classes it as an ENCOUNTER metric rather than a MAP one, and `lf validate` on the same three candidates reported 59 findings, none blocking. Filed, then largely retracted, as 120.*
+
+*STATUS: NARROWED 2026-09-09 -- COLD RUN 9003 SCORED TWO, AFTER RUN 7 SCORED
+ZERO, AND THE DIFFERENCE IS THE SPEC RATHER THAN A REGRESSION. Run 7 is kept
+below because it is still the best number this project has recorded. RUN 9003:
+`restaurant_row_001`, archetype `commercial_strip` and theme `delco_1997`,
+never built -- 0 artefacts anywhere on disk beforehand. 2 interventions, 0
+retries, 10 observations, and the journal and the hash detector agreed exactly
+at 2 with the three attributed files being the per-candidate specs Level
+Factory is expected to write. Both interventions were CONTENT GAPS of the same
+shape, a shipped example brief naming something the shipped tools do not
+carry, and both are now permanently filled rather than worked around:
+`delco_1997` had no Pixelcoat profile (Pixelcoat 0.27.0 adds a real one; the
+identical error is recorded in `themes.py`'s docstring against cold_7002, where
+roadmap 72 added the pre-flight CHECK and left the content gap standing), and
+Zoo carried that style on 0 of 56 species (Zoo 0.57.0 resolves a theme name to
+the place or decade inside it, 0 -> 53, plus three authored styles to reach
+56). THE FIRST INTERVENTION WAS THE WRONG FIX AND IS RETRACTED, which is the
+more useful half of this run. It aliased `commercial_strip -> corner_deli`;
+roadmap 118 had already decided against exactly that from the corpus, its own
+test failed within the hour, and the pipeline had said so twice in the run's
+own output -- `[site] 3 buildings, ONE archetype ... the same generated shell
+is placed 3 times`, which was the alias's product. What shipped instead is the
+brief naming its anchor building. So the honest reading is that
+`restaurant_row_001` was not buildable as shipped without a design decision
+that was already written down, and the gated package this run produced was
+standing on the wrong answer until that was corrected. A SEPARATE RETRACTION,
+recorded because it was nearly filed as a defect: the run journal claims a
+failed invocation exited 0. It did not -- every command in the run was piped
+through `tail`, and a pipeline returns its LAST command's status. Unpiped, the
+same failure exits 1, and the archetype refusal would have exited 5. WHAT RUN
+9003 CONFIRMS BEYOND THE COUNT: `player_stuck_events` and `enemy_stuck_events`
+are 0 on all three candidates, so items 122, 124 and 125's fixes hold on
+geometry they were not developed against; and `route_completion_rate` is still
+0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
+survival 2.4-3.8s rather than anything about traversal.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
