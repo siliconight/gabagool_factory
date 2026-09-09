@@ -798,7 +798,7 @@ work of adopting this.
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
-| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
+| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE FIRST TIME IN THIS PROJECT'S  |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
@@ -11540,16 +11540,35 @@ Tag's own `grade` field still counts this as a map FAIL, which is what made
 cold run 7 read as three failed candidates when level_factory's own verdict was
 59 findings, none blocking.*
 
-*STATUS: NARROWED AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN
-THE SAME DIRECTION, AND THE ANSWER IS ONE LAYER DEEPER. Filed as "levels may be
-uncompletable", retracted to "the metric measures the encounter, not the
-level". Measured on 2026-09-08 with combat removed entirely: a bot alone on
-`market_row_001`, zero shots fired, zero deaths, alive for the full 180 s in
-all 3 runs, still completes 0% of routes and gets stuck 44 times per run. THE
-METRIC MEASURES THE BOT. It reports zero on an empty map. The retraction
-stands -- 0% is still not evidence a level is bad -- but the `else`-branch
-explanation that produced it was not the whole cause. `walktest_navqa` passes
-that same site. See 121 for the isolation and what to look at.*
+*STATUS: NARROWED 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE
+FIRST TIME IN THIS PROJECT'S HISTORY, AND THE PREVIOUS READING IN THIS ITEM IS
+SUPERSEDED. That reading -- "a bot alone on an empty map still completes 0% and
+gets stuck 44 times per run, THE METRIC MEASURES THE BOT" -- was correct when
+taken and had three causes under it, all since fixed: the pill spawning inside
+Lot's walk-preview player (122, Lot 0.52.0), the bot jamming on dead enemies'
+colliders (124, Laser Tag 0.13.0), and pills outliving their run (125, Laser
+Tag 0.14.0). Re-measured 2026-09-09 on `market_row_001` seed 7503, 6 runs at
+the production 180 s budget, varying only the enemy count:
+`enemies=0 -> route_completion_rate 1.0`, survival 180 s, 0 stuck events;
+`enemies=2 -> 0.0`, survival 16.7 s; `enemies=6 -> 0.0`, survival 9.1 s. So
+navigation and the route logic work end to end -- the bot walks spawn ->
+objective -> extraction, about 130 m, and finishes -- and the metric is
+functional rather than structurally zero. WHAT GATES IT NOW IS LETHALITY, not
+traversal and not the bot: completing needs at least 32.5 s of pure walking at
+4 m/s and the crew survives 9.1 s against six guards, wiping in 8 of 8 runs.
+Raising the cap does nothing, and that was checked rather than assumed -- 60 s
+and 180 s give identical results because no run reaches either. THE COVER
+INSTRUMENT AGREES INDEPENDENTLY, which is worth more than either reading
+alone: Laser Tag 0.12.0's spawn-free sampler puts 21% of `market_row_001`'s
+walkable positions open on all eight approaches within weapon range, 98% with
+a 40 m sightline, and only 75% with cover on half their approaches. A crew
+crossing that in the open dies, and the level is what says so. WHAT REMAINS
+OPEN in this item is therefore the second half of its title -- reports that
+grade WARN while reporting 0.0 -- plus the question of whether a 1-versus-6
+encounter over 130 m of thin cover is the right thing for the pipeline to
+grade a LEVEL against at all. `lasertag_report.py` already classes traversal
+as an ENCOUNTER category, which is consistent with everything above.*
+
 
 **120. The route has never been completed, and half the reports that say so
 grade WARN.** Found 2026-09-07 by cold run 7, which graded FAIL on all three
