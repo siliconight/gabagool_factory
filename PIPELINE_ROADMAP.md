@@ -802,8 +802,9 @@ work of adopting this.
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
+| 124 | **OPEN** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-08 -- CAUSE ESTABLISHED BY DIRECT OBSERVATION, FIX NOT VALIDATED. The blocking is  |
 
-**123 items: 48 open, 45 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**124 items: 49 open, 45 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12112,3 +12113,67 @@ Both are functions of the body and the bake -- the offset is the navmesh's
 cell height, and the desired distance has to exceed the vertical error between
 a body's origin and the mesh it stands on. A number chosen to make one capsule
 work is what `CLAUDE.md` says to derive or measure.
+
+
+*STATUS: OPEN 2026-09-08 -- CAUSE ESTABLISHED BY DIRECT OBSERVATION, FIX NOT
+VALIDATED. The blocking is measured and attributed; the one-line experiment
+that removes it changed something it should not have, and is NOT the patch to
+ship. See the last paragraph.*
+
+**124. A dead enemy is still a wall, and it is what the crew walks into.**
+Found 2026-09-08 by attributing the 79 `player_stuck_events` that remained
+after item 122's fix, rather than assuming they were the same defect.
+
+**WHERE THEY ARE.** All 79, across 8 runs of `market_row_001` seed 7503, fall
+in two 3 m cells and 76 of them in ONE: (57.2, 0.00, -28.5). Before item 122's
+fix the same measurement put all 104 at (60.0, 1.80, -30.0) -- the spawn, at
+the height of the preview player's capsule. So the count did not merely shrink
+from 104 to 79; it MOVED, which is what says the second defect is a different
+defect and not a residue of the first.
+
+**WHAT IS THERE**, from the 0.5 s trace at the moment the bot stops:
+
+```
+bot         pos=(57.2,-0.0,-28.5) vel=(0,0,0) route=2/3 next=(55.1,0.0,-28.7)
+LT_Enemy_06 pos=(56.5,-0.0,-28.7) state=DEAD  dist=0.8  los=true
+LT_Enemy_01 pos=(55.7,-0.0,-28.7) state=SEEK  dist=1.5  los=false
+LT_Enemy_02 pos=(54.9,-0.0,-28.6) state=SEEK  dist=2.3  los=false
+LT_Enemy_04 pos=(52.5,-0.0,-28.6) state=SEEK  dist=4.7  los=false
+```
+
+A DEAD enemy sits 0.8 m west, exactly on the segment to the next path point,
+with three live ones queued single file behind it at the same z. The bot walks
+into the corpse and stops. A static probe of the same coordinates finds the
+ground flat (`floor_y = -0.002`) and every body height from 0.05 to 1.75 m
+CLEAR -- because corpses and pills are not in the scene text, which is exactly
+why a geometry-only reading would have called this open ground and been wrong.
+
+**THE CODE.** `LT_EnemyBrain._on_died` sets the state, stops the movement
+component and disables its physics processing. It never touches the collider,
+so the `CharacterBody3D` remains solid forever. The bot already excludes dead
+enemies as TARGETS (`LT_BotPlayerController.gd:159` filters `is_dead`) -- it
+just cannot walk through one. The navmesh is baked before the run, so nothing
+in the path knows a body arrived, and `NavigationAgent3D` keeps returning a
+straight line through it.
+
+**IT ALSO EXPLAINS THE DETECTOR FIRING.** `_update_stuck` only counts an event
+when `_find_visible_enemy() == null`, and every live enemy in that queue reads
+`los=false` at 1.5-2.3 m. The corpse is occluding the sight ray as well as the
+path, so the crew is jammed by a body it cannot see past and the detector
+reads the situation as "stuck with nobody around".
+
+**WHY THIS IS NOT THE PATCH.** Disabling the corpse's collision layer and mask
+in `_on_died` takes `player_stuck_events` 79 -> 0 and `enemy_stuck_events`
+33 -> 0, which confirms corpses own ALL the remaining stuck events on this map.
+It does NOT move `route_completion_rate`, which is 0.0 in all three
+configurations. And it drops `avg_time_to_first_enemy_shot` from 2.70 s to
+0.38 s while `first_player_shot` stays at 2.93 -- enemies opening fire at
+t=0.38 when nothing has died yet, which a corpse cannot cause. The edit is
+therefore reaching something beyond corpses and the run cannot be used to
+justify it. Enemies are freed and respawned per run (`reset_run` ->
+`_clear_pills` -> `start_run` -> `spawn_enemies`), so a leak across runs is
+ruled out and the mechanism is unidentified. WHAT A REAL FIX HAS TO DECIDE is
+whether a corpse should still block BULLETS while not blocking BODIES -- the
+three-way run suggests corpses have been acting as cover, since removing them
+collapsed survival from 53.7 s to 8.9 s and wiped the crew in all 8 runs -- and
+that is a design question for Laser Tag, not a one-line collider change.
