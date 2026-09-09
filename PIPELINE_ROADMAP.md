@@ -799,7 +799,7 @@ work of adopting this.
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | AGAIN 2026-09-08 -- BOTH THIS ITEM'S READINGS WERE WRONG IN THE SAME DIRECTION, AND THE AN |
-| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED NOTHING, BECAUSE COMBAT WAS NEVER THE |
+| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
 | 124 | **OPEN** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-08 -- CAUSE ESTABLISHED BY DIRECT OBSERVATION, FIX NOT VALIDATED. The blocking is  |
@@ -11734,18 +11734,32 @@ inert when off (proven by the control arm), it closed
 cannot be tested until then.
 
 
-*STATUS: NARROWED 2026-09-08 -- THE FLAG SHIPPED, WAS RUN, AND CHANGED
-NOTHING, BECAUSE COMBAT WAS NEVER THE BLOCKER. Laser Tag 0.10.0's
-`advance_while_engaging` was measured A/B on `market_row_001` at seed 7301:
-control and treatment are IDENTICAL TO THE LAST DIGIT on every metric. The
-dial was confirmed turned -- a probe in the harness prints
-`scenario.advance=true bot.advance=true sight=45.0` -- so this is not a knob
-with no effect. Removing combat entirely settles it: with `enemies_enabled =
-false`, ZERO shots fired, zero deaths, the bot alive for the full 180 s in all
-3 runs, `route_completion_rate` is still 0.0 and the bot gets stuck 44 times
-per run. THE LASER TAG BOT CANNOT WALK ITS ROUTE ON AN EMPTY MAP -- on a site
-`walktest_navqa` passes. That is the finding, it is not what this item was
-filed about, and it moves item 120 a second time.*
+*STATUS: NARROWED 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL
+NOTHING; THE METRIC WAS AUDITED INSTEAD. The first A/B of this flag ran against
+a bot standing on Lot's preview player (item 122), so it measured nothing and
+its null result is withdrawn. Re-run after that fix, on market_row_001 seed
+7503, 8 runs, identical scenario but for the flag: `route_completion_rate` 0.0
+both sides, `player_stuck_events` 79 against 78, survival 53.67 s both, score
+45 both. The flag is not what gates completion. WHAT THE AUDIT FOUND:
+`route_completed` is set once `_route_index >= route_points.size()` in
+`_advance_route` -- every route point in order, and the last is the EXTRACTION
+marker, 130 m from spawn past six guards. Two things follow. (1) It is gated
+today by item 124, because the bot jams on a dead enemy's collider 78 times a
+run and no engagement flag helps a body that is physically blocked. (2)
+`_update_stuck` advances `_route_index` on every stuck event, clamped to
+`size() - 1`, so a jammed bot SKIPS points it never visited -- the index is
+not evidence of traversal, and a run can reach the last point having walked
+past the objective. `LT_TestScenario` already documented the engage-stop half
+in its own docstring, "structurally zero on any map with live guards", which
+is correct and was not the binding constraint. AND THE PIPELINE COULD NOT SET
+THE FLAG AT ALL, which is why no earlier run could have tested it end to end:
+`advance_while_engaging`, `player_sight_range` and `engaged_move_speed_scale`
+were absent from Level Factory's `_STOCK_SCENARIO`, and `_write_scenario`
+discarded any key not in that table without a word, so a brief asking for
+traversal under fire was graded against the stock bot and the report read as
+an answer. Fixed in Level Factory 0.60.0, which adds the three and refuses an
+override it cannot write. The A/B above was run by hand-editing the resource,
+before that fix existed.*
 
 **121. Nothing measures traversal under fire.** Raised 2026-09-07, directly
 out of item 120: once `route_completion_rate` is understood to measure the bot
