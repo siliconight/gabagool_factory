@@ -11912,7 +11912,18 @@ demo greybox has no such node, so its CI bot always walked;
 clears an obstacle topping out at 1.797; and `ground_contact.MAX_DROP` is 4.0
 because it was built to catch spawns over a HOLE, not spawns in the air. THE
 SECOND BLOCKER at (-19.4, 19.0) is not addressed here and was measured on a
-different map; it stays open under item 120.*
+different map; it stays open under item 120. AND THE METRIC DID NOT MOVE,
+which is the part worth writing down rather than counting. Re-measured on
+the same map and seed at EIGHT runs with a 60 s cap, the fix in and out:
+`route_completion_rate` is 0.0 either side. What changed is
+`player_stuck_events` 104 -> 79, survival 60.1 -> 53.7 s, and shots fired
+357 -> 83 against hits 32 -> 58; grade FAIL and score 45 both sides. The
+single-run reading above is reproducible at its own settings and does not
+generalise to completion: at 8 runs the pre-fix bot also survives to
+timeout. So this item -- an agent whose path was degenerate because the
+body was off the mesh -- is genuinely closed, and the 0.0 that item 120
+tracks is NOT. The 79 remaining stuck events are where the next blocker
+lives, and nothing here has established what they are.*
 
 **122. The evaluation bot's navigation agent returns a degenerate path, so it
 never moves.** Found 2026-09-08 by instrumenting the bot after item 121's A/B
