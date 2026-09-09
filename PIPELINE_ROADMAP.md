@@ -805,8 +805,9 @@ work of adopting this.
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **OPEN** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED. Laser Tag 0.15.0 made the wai |
+| 127 | **OPEN** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- MEASURED ON A STAGED COPY OF THE MAP, CAUSE ESTABLISHED, NOT FIXED. Both ins |
 
-**126 items: 49 open, 47 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**127 items: 50 open, 47 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12421,3 +12422,77 @@ makes is contaminated at that rate, and the corruption does not look like
 noise -- it looks like a specific, actionable verdict about a level. A gate
 that fails loudly is cheap; one that fails as a plausible finding is what
 costs a day.
+
+*STATUS: OPEN 2026-09-09 -- MEASURED ON A STAGED COPY OF THE MAP, CAUSE
+ESTABLISHED, NOT FIXED. Both instruments are honest; Lot's model is
+incomplete, in a way it already corrected once on the other side of the line.*
+
+**127. The opening is judged against an enemy that stands still, and it does
+not.** Found 2026-09-09 by chasing the disagreement cold run 9003 left behind:
+Lot reported the opening fair on all three candidates and Laser Tag reported
+INSTANT_CONTACT on all three.
+
+**FIRST, THE DISAGREEMENT WAS THREE READINGS, NOT TWO**, and two of them are
+not measuring the same thing. On `restaurant_row_001` seed 9003: Lot's
+`LOT_ENEMY_SPAWN_STANDOFF` says the nearest enemy is 22.2 m straight-line and
+the opening is fair BECAUSE A BUILDING STANDS BETWEEN; Level Factory's
+`LT_OPENING_STANDOFF` says two enemies are within 35 m WALKING distance and
+runs no occlusion test at all; Laser Tag's runtime reports first contact at
+0.73 s. The middle one is a distance heuristic and cannot arbitrate.
+
+**LASER TAG'S NUMBER IS NOT AN ARTEFACT.** `time_to_first_contact` is
+identical in all 25 runs of each candidate -- 0.73, 0.27, 0.27 -- with zero
+variance across separately seeded runs. That is not a firefight outcome; it is
+something deterministic at the opening. It is also not the run-boundary leak
+closed in Laser Tag 0.14.0: these are per-run values, not a dragged average,
+and 0.27 s is `enemy_reaction_delay_min` (0.25) plus a frame.
+
+**AND LOT IS RIGHT ABOUT THE SPAWN TILE.** Raycast on a staged copy of the
+map, World + Laser Blocker layers, both ends at the contract's 1.6 m eye:
+
+```
+Enemy_0   24.1 m   BLOCKED  ext_col_0_E_seg0 at 4.4 m along
+Enemy_1   24.1 m   BLOCKED  ext_col_0_E_seg1 at 3.3 m along
+Enemy_2   35.2 m   BLOCKED  ext_col_0_S_seg19 at 15.6 m along
+Enemy_3   49.0 m   BLOCKED
+Enemy_4   59.1 m   CLEAR
+Enemy_5   74.7 m   BLOCKED
+```
+
+The only clear line is 59.1 m, well beyond the 35 m an enemy sees. Standing on
+the spawn, no enemy that can see the crew has a line to it. The occlusion
+credit is real.
+
+**THE MODEL HOLDS THE ENEMY STILL.** `site_spawns.opening_engagement_is_fair`
+takes `candidate` -- one static enemy point -- and a moving `crew_path`, and
+`LT_EnemyMovement.move_speed` is 4.0 m/s, the same speed the crew walks.
+Stepping the crew along its route with the enemies static, the first in-range
+clear line is at 11 m, 2.75 s. Stepping BOTH at 4.0 m/s it is at 1.5 s, Enemy_0
+at 12.1 m. Runtime says 0.73 s; the straight-line model is not the navmesh
+path either side takes, so read those times as an order of magnitude. What
+they establish is not the stopwatch but the sign: the cover Lot credits does
+not survive one second, because the thing it is credited against walks around
+the corner at the same speed as the crew.
+
+**THIS IS THE SAME DEFECT LOT ALREADY FIXED, ON THE OTHER SIDE OF THE LINE.**
+`opening_engagement_is_fair`'s own docstring records it: "THE SPAWN TILE WAS
+THE DEFECT ... the crew does not spend that second standing on the spawn. It
+walks at `CREW_SPEED` from frame one. A corner that hides an enemy from the
+spawn and not from four metres down the street was credited as cover." That
+patch made the CREW a path. The enemy stayed a point.
+
+**A STALE CLAIM CORRECTED ON THE WAY.** The same docstring says "`lot.py`
+reads real collider boxes into `solids` three lines above its `place_enemies`
+call and does not pass them". It does pass them now, at both call sites
+(`lot.py:1364` and `lot.py:2000`), and cold run 9003 raised no
+`LOT_OCCLUDERS_DECLARED`, so the occluders were measured collision rather than
+declared footprints. The sentence describes a fix that has since landed.
+
+**WHAT A FIX HAS TO DECIDE.** Symmetry is the obvious move -- test the ground
+an enemy can reach inside the opening window, not the point it starts on --
+but the window is not obvious. One second of enemy travel at 4.0 m/s is 4 m of
+reachable ground in every direction the navmesh allows, and demanding cover
+against all of it may leave no legal placement on a strip site. `MAX_PUSH` and
+`OPENING_RANGE` already bound the search; a reachability disc bounded the same
+way is the cheap version, and the expensive version asks whether an opening
+that lasts one second is what the brief wanted in the first place.
