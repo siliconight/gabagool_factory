@@ -802,9 +802,10 @@ work of adopting this.
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
-| 124 | **OPEN** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-08 -- CAUSE ESTABLISHED BY DIRECT OBSERVATION, FIX NOT VALIDATED. The blocking is  |
+| 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
+| 125 | **OPEN** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- MEASURED AND ATTRIBUTED, MECHANISM NOT ESTABLISHED. One attempted fix was tr |
 
-**124 items: 49 open, 45 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**125 items: 49 open, 46 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12129,10 +12130,36 @@ a body's origin and the mesh it stands on. A number chosen to make one capsule
 work is what `CLAUDE.md` says to derive or measure.
 
 
-*STATUS: OPEN 2026-09-08 -- CAUSE ESTABLISHED BY DIRECT OBSERVATION, FIX NOT
-VALIDATED. The blocking is measured and attributed; the one-line experiment
-that removes it changed something it should not have, and is NOT the patch to
-ship. See the last paragraph.*
+*STATUS: CLOSED 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT
+THAT LOOKED CONFOUNDED WAS NOT. The rules were settled by design: players do
+not collide with each other or with corpses; players do collide with enemies
+while those enemies are alive. `_on_died` now takes the body off every layer,
+and `LT_PlayerPill`'s mask drops `LAYER_PLAYER` (7 -> 5). Measured on
+market_row_001 seed 7503, 8 runs, identical seed either side:
+`player_stuck_events` 79 -> 0 and `enemy_stuck_events` 33 -> 0 -- both to
+zero, which is what says corpses owned all of them. THREE SYMPTOMS, ONE CAUSE,
+and the third was not noticed when this item was filed: `LASER_HIT_MASK`
+includes `LAYER_ENEMY` and both line of sight and shooting use it, so a corpse
+on that layer blocked bodies, occluded sight, AND absorbed shots --
+`LT_Shooter` recorded a ray that stopped on one as `did_damage = true` and
+`ENEMY_HIT`, because a corpse still carries an `LT_Health`, while `apply_hit`
+early-returned on `is_dead`. Rounds fired into a body were counted as hits.
+THE 0.38 s THAT BLOCKED THIS ITEM IS EXPLAINED, and it was never about
+corpses: `avg_time_to_first_enemy_shot` fell from 2.70 s to 0.38 s because
+METRICS LEAK ACROSS THE RUN BOUNDARY, a shot from the end of one run being
+recorded against the next at `_now()` of 0.0. The per-run rows show it plainly
+-- `time_to_first_contact` is exactly 0.00, not small-but-plausible -- and the
+count tracks team wipes exactly: 1 wipe gave 1 corrupted run before the fix, 8
+wipes gave 7 after, one per boundary a wipe crossed, run 1 having no
+predecessor. Filed as item 125. The reasoning that called the earlier
+experiment untrustworthy was right for the wrong reason: the reading was real,
+it just was not measuring what its name said. WHAT THIS DID NOT DO:
+`route_completion_rate` is still 0.0, and item 121 carries what else gates it;
+and the crew now dies fast, survival 53.67 s -> 8.95 s with 1 team wipe
+becoming 8, because corpses had been serving as cover and as sight blockers --
+which was never a decision, it fell out of them keeping their layer. Whether a
+body should stop a laser is a design question this does not answer.*
+
 
 **124. A dead enemy is still a wall, and it is what the crew walks into.**
 Found 2026-09-08 by attributing the 79 `player_stuck_events` that remained
@@ -12191,3 +12218,57 @@ whether a corpse should still block BULLETS while not blocking BODIES -- the
 three-way run suggests corpses have been acting as cover, since removing them
 collapsed survival from 53.7 s to 8.9 s and wiped the crew in all 8 runs -- and
 that is a design question for Laser Tag, not a one-line collider change.
+
+*STATUS: OPEN 2026-09-09 -- MEASURED AND ATTRIBUTED, MECHANISM NOT ESTABLISHED.
+One attempted fix was tried and reverted; see the item.*
+
+**125. A shot from the end of one run is counted at the start of the next.**
+Found 2026-09-09 while explaining the one reading that had blocked item 124.
+
+**WHAT IT LOOKS LIKE.** `avg_time_to_first_enemy_shot` reads 0.38 s and
+`avg_time_to_first_contact` 0.37 s, which says enemies open fire almost
+instantly. No level produced that. The per-run rows give it away, because the
+value is exactly 0.00 rather than small:
+
+```
+run 1  first_contact=2.93   run 5  first_contact=0.00
+run 2  first_contact=0.00   run 6  first_contact=0.00
+run 3  first_contact=0.00   run 7  first_contact=0.00
+run 4  first_contact=0.00   run 8  first_contact=0.00
+```
+
+And the events show the crossing directly:
+
+```
+run1  t=11.07  PlayerKilled
+run1  t=11.07  TeamWipe
+run2  t=0.0    ShotHitPlayer     <- fired in run 1, bucketed into run 2
+run2  t=2.8    LineOfSightGained
+```
+
+The shot precedes any `LineOfSightGained` in run 2, so no enemy in that run
+had acquired the player yet.
+
+**THE COUNT TRACKS TEAM WIPES EXACTLY**, which is the strongest evidence it is
+a boundary artefact and not a behaviour: 1 wipe produced 1 corrupted run
+before Laser Tag 0.13.0, and 8 wipes produced 7 after -- one per boundary a
+wipe crossed, run 1 having no predecessor to leak from. 0.13.0 did not cause
+it; it made runs end by wipe instead of timeout, which crosses the boundary
+more often.
+
+**WHY IT MATTERS.** `first_contact_min_seconds` is 3.0 and the scorer pacing
+category reads these figures, so a corrupted run makes a level look like it
+ambushes the crew at spawn. It also silently poisons every comparison across
+maps, because the corruption rate depends on how a run ENDS rather than on the
+map.
+
+**WHAT WAS TRIED AND DID NOT WORK.** `_clear_pills` frees pills with
+`queue_free`, which is deferred, so the obvious theory was that a pill lived
+one frame past its run and fired again. Setting
+`process_mode = PROCESS_MODE_DISABLED` on the whole subtree before freeing
+changed nothing -- still 7 of 8 runs at 0.00. So the shot is not being FIRED
+late, its RECORDING is arriving late, and the deferral is somewhere between
+`LT_Shooter` and `LT_MetricsCollector.record_shot` rather than in the pill's
+lifetime. That patch was reverted rather than shipped. `_now()` returns
+`run_state.elapsed_seconds`, which `start_run` resets to zero, so anything
+recorded in the first frame of a run reads 0.0 whatever fired it.
