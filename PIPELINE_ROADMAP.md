@@ -804,8 +804,9 @@ work of adopting this.
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
+| 126 | **OPEN** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED. Laser Tag 0.15.0 made the wai |
 
-**125 items: 48 open, 47 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**126 items: 49 open, 47 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11779,7 +11780,7 @@ discarded any key not in that table without a word, so a brief asking for
 traversal under fire was graded against the stock bot and the report read as
 an answer. Fixed in Level Factory 0.60.0, which adds the three and refuses an
 override it cannot write. The A/B above was run by hand-editing the resource,
-before that fix existed.*
+before that fix existed. RE-TESTED AGAIN 2026-09-09 at survivable enemy counts, because at six the crew dies in 9 s and the flag cannot show: at two enemies, flag off against on gives completion 0.0 both, survival 16.69 against 16.71 s, 65 shots against 64. Still no effect. A one-enemy arm was DISCARDED rather than reported -- its findings carried NAVIGATION_MISSING, so that run had no navmesh, got stuck 240 times and never engaged; it is item 126 and not a flag result.*
 
 **121. Nothing measures traversal under fire.** Raised 2026-09-07, directly
 out of item 120: once `route_completion_rate` is understood to measure the bot
@@ -12317,3 +12318,49 @@ late, its RECORDING is arriving late, and the deferral is somewhere between
 lifetime. That patch was reverted rather than shipped. `_now()` returns
 `run_state.elapsed_seconds`, which `start_run` resets to zero, so anything
 recorded in the first frame of a run reads 0.0 whatever fired it.
+
+*STATUS: OPEN 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED.
+Laser Tag 0.15.0 made the wait condition-based, which is a robustness change
+against this failure mode rather than a fix for it: the trigger is still
+unidentified. See the item.*
+
+**126. One evaluation in fourteen silently indicts a good map.**
+Found 2026-09-09 while A/B-ing the traversal flag, when one arm returned a
+result that looked like a dramatic finding and was an artefact.
+
+**WHAT IT LOOKS LIKE.** `validate_map` raises `NAVIGATION_MISSING`, the bot
+falls back to direct movement, and the report comes back with 240 stuck
+events, zero shots fired, `NO_ENGAGEMENT` and `NO_CONTACT`. Nothing in it says
+"the instrument failed". It reads as a catastrophic level.
+
+**THE RATE.** 2 of 30 reports in one session, about 7%. Both were runs that
+had logged a successful bake first -- `Baked navmesh on Nav (477 polygons,
+18972 source vertices)` -- so this is not a map without collision or a bake
+that produced nothing.
+
+**NOT REPRODUCED.** 16 consecutive single-run evaluations of the same map and
+seed all passed, and identically: `iter=2 regions=1`, spawn-probe distance
+0.750 against a 3.0 limit. The distance margin is wide, so a failure is almost
+certainly the region-registration branch of `_navigation_ready` rather than
+the spawn probe -- but that is inference from where the margin is, not a
+measurement of a failing run.
+
+**WHAT 0.15.0 CHANGED.** `_await_navigation_sync` waited a flat 3 physics
+frames; it now waits for `_navigation_ready()` to be true, up to 30, and says
+how many extra frames it needed. `_navigation_ready` had always forced a
+synchronous server update and its comment claimed readiness "doesn't depend on
+how many frames happened to elapse since the bake" -- the wait in front of it
+was the part still counting frames.
+
+**AN INSTRUMENT NOTE WORTH KEEPING.** Polling the condition reports 0, 1 or 2
+frames in most runs and up to 26 in others -- and the figures MOVE when the
+poll prints, because printing every frame changes the timing. Both readings
+are from the same build minutes apart. Treat them as an order of magnitude.
+This is the observer effect this file's instrument rules keep warning about,
+caught here rather than after being built on.
+
+**WHY IT MATTERS BEYOND ONE RUN.** Every cross-map comparison this pipeline
+makes is contaminated at that rate, and the corruption does not look like
+noise -- it looks like a specific, actionable verdict about a level. A gate
+that fails loudly is cheap; one that fails as a plausible finding is what
+costs a day.
