@@ -796,7 +796,7 @@ work of adopting this.
 | 115 | **CLOSED** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint` L19, A FAIL, AND THE ROADMA |
 | 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THE PIPELINE CAN STEP A BUILDING NOW, AND NO BUILDING STEPS. Deli Counter 0. |
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
-| 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN QUESTION IS ANSWERED BY THE CORPUS  |
+| 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-09 -- ONE OF THE TWO IS FIXED, THE OTHER IS NOT OURS TO FIX, AND AN ALIAS WAS TRIE |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE FIRST TIME IN THIS PROJECT'S  |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
@@ -11238,14 +11238,36 @@ what a newcomer copies. 11 of 19 multi-building briefs still place one
 building N times.
 
 
-*STATUS: NARROWED 2026-09-07 -- THE CHEAP HALF IS SHIPPED AND THE DESIGN
-QUESTION IS ANSWERED BY THE CORPUS RATHER THAN BY ARGUMENT. `archetype` means
-the BUILDING: 17 of the 19 multi-building briefs on disk already name one
-(`urban_bank`, `casino_tower`, `police_station`, `office`) while asking for
-three to five of them, and the only two that refuse are the two that tried to
-name a block instead. So the fix for those two is to name their anchor
-building, not to invent a lot vocabulary. What stays open is the pair of
-briefs and a stale claim in the site builder's own comment.*
+*STATUS: NARROWED 2026-09-09 -- ONE OF THE TWO IS FIXED, THE OTHER IS NOT OURS
+TO FIX, AND AN ALIAS WAS TRIED AND REVERTED IN BETWEEN. The 2026-09-07 reading
+stands and decided this: `archetype` means the BUILDING, answered by the corpus
+rather than by argument -- 17 of the 19 multi-building briefs on disk already
+name one while asking for three to five, and the only two that refuse are the
+two that tried to name a block. COMMERCIAL_STRIP IS CLOSED on that basis.
+`restaurant_row_001` now names its anchor building, `corner_deli` -- the one
+the objectives hang on, since the brief asks for `enter_kitchen`,
+`reach_office` and `crack_safe` and a `facade_*` preset is a non-enterable
+shell (roadmap 106). Fixed in `level_factory/examples/delco_batch/briefs/`,
+which is the shipped copy a newcomer copies. THE REFUTATION, KEPT BECAUSE IT
+WAS MADE AGAINST THIS ITEM'S OWN ADVICE: cold run 9003 hit the refusal and the
+first fix attempted was `commercial_strip -> corner_deli` in
+`_ARCHETYPE_ALIASES`. This item's expensive half says in as many words not to
+do that -- "aliasing here would resolve the error and keep the confusion" --
+and `tests/test_archetype_resolution.py` failed within the hour because
+`_KNOWN_UNRESOLVABLE` is written to fail when an entry starts resolving. The
+pipeline had also said so twice in its own output, `[site] 3 buildings, ONE
+archetype ... the same generated shell is placed 3 times`, which was that
+alias's product: three identical delis standing in for a restaurant row. The
+alias was reverted before anything was committed. MIXED_BLOCK STAYS, and not
+for want of attention: its only carrier is
+`workspaces/rockay-ws/.../rockay_lot_demo_001/brief/brief.json`, and CLAUDE.md
+makes that tree read-only evidence -- "a level to iterate against: read it, do
+not edit it". Fixing it means editing a brief that is not ours. WHAT ELSE
+STAYS OPEN is unchanged: the stale claim in the site builder's own comment,
+and the laggard `examples/` briefs -- `restaurant_row_001` still sets no
+`lot_library`, so it places one shell three times even now that it resolves,
+and the shipped examples carry no `lot_library` at all while eight briefs
+elsewhere do. That is roadmap 37's half of this and is not addressed here.*
 
 **118. Nothing checks that the briefs on disk resolve to a preset, and two of
 them do not.** Found 2026-09-07 while looking for the next piece of work.
