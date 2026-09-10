@@ -806,7 +806,7 @@ work of adopting this.
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
-| 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
+| 128 | **CLOSED** | Winning the fight ends the run before the route can be walked | 2026-09-10 -- BOTH HALVES, as Laser Tag 0.22.0. A run ends when there is NOTHING LEFT TO D |
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
 | 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
@@ -814,7 +814,7 @@ work of adopting this.
 | 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 
-**134 items: 48 open, 53 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**134 items: 48 open, 54 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12630,7 +12630,32 @@ against all of it may leave no legal placement on a strip site. `MAX_PUSH` and
 way is the cheap version, and the expensive version asks whether an opening
 that lasts one second is what the brief wanted in the first place.
 
-*STATUS: NARROWED 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT.
+*STATUS: CLOSED 2026-09-10 -- BOTH HALVES, as Laser Tag 0.22.0. A run ends when
+there is NOTHING LEFT TO DO: guards down with route outstanding continues, route
+walked with guards standing continues, both ends it on `OBJECTIVE`. Neither of
+the item's three options -- deferring the end alone would have left a finished
+crew standing in an empty level for the rest of the clock, which is the cost the
+item weighed and refused. TWO TRAPS ON THE WAY: `route_completed` was a signal
+the bot emitted and nothing connected, so finishing the route could not end a
+run; and a run with no enemies is already cleared with nothing to say so,
+because `_check_enemies_cleared` is only reached from a death. A THIRD WAS
+SELF-INFLICTED and cost a full sweep -- Godot delivers signals synchronously, so
+emitting `route_completed` before recording `ObjectiveReached` closed the run
+first and the event landed in a closed run, `ObjectiveReached` 24 -> 0 and
+completion 0.00 on a route the crew had just walked. THE SCORE NOW READS THE
+MEASUREMENTS: traversal is scored on `route_progress_rate` rather than a
+three-band step on a boolean average, and NPC Pathing loses the cap that made a
+map whose guards cannot move cost the same ten points as a sticky corner (132's
+residue). MEASURED on the item's own sweep, 6 runs per cell, crew 4:
+completion 0.00 -> 1.00 at EVERY populated enemy count, the zero-enemy row
+unchanged at 45/1.00/1.00, and the whole sweep 23% FASTER (334.7 s -> 257.4 s)
+because the zero-enemy row fell 5.6x from burning the clock to ending on
+OBJECTIVE. A wipe-heavy map is untouched: warehouse_yard_001 crew 1, 9.1 -> 9.0
+s, same score. WHAT IT EXPOSES: at one and two enemies the map now scores 100
+PASS. Four crew against one guard is not a contest and nothing in the rubric
+notices; it scored 75 before only because a quarter of the rubric was
+unreachable. Both readings of traversal are correct and the gap is elsewhere.
+Previously: THE READING IS FIXED, THE RUN BOUNDARY IS NOT.
 Laser Tag 0.19.0 adds `route_progress_rate` to the summary,
 `route_points_reached` / `route_points_total` per run to the CSV, and puts the
 figure in the traversal finding so the zero beside it is interpretable. It is
@@ -13240,12 +13265,14 @@ The durable output is the measurement plus a finding that refuses to call a
 fight the guards could not reach a pass. If the gameplay layer never
 materialises, this item reopens with the work named above still to do.
 
-**AND THE SCORE STILL PASSES IT.** After the change, seed 9005 scores 75
-PASS_WITH_TUNING with `ENEMY_PATHING_BROKEN` filed against it, because
-`_score_pathing` caps its penalty at 10 of 100. The finding says the map is
-broken for one side and the number says it is fine. That is roadmap 128's open
-question -- whether these readings should move the score -- and it is not
-decided here.
+**AND THE SCORE STILL PASSED IT, UNTIL 128 CLOSED.** At 0.21.0 seed 9005 scored
+75 PASS_WITH_TUNING with `ENEMY_PATHING_BROKEN` filed against it, because
+`_score_pathing` capped its penalty at 10 of the category's 20 -- the finding
+said the map was broken for one side and the number said it was fine. Laser Tag
+0.22.0 removed the cap as part of roadmap 128: the penalty scales on
+`enemy_stuck_per_enemy_run` and 1.0 takes the whole category, so NPC Pathing can
+read zero when the NPCs cannot path. **The placement is still not fixed and
+still belongs to the gameplay layer**, which is what keeps this item open.
 
 **A DUPLICATE THAT WAS NEARLY BUILT, kept because the near-miss is the useful
 part.** The first plan for this item was an engagement metric plus a
