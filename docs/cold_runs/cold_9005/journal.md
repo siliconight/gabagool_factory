@@ -1,0 +1,17 @@
+# cold run: cold_9005
+
+begun 2026-09-10 09:08:55
+2443 source files hashed across 10 tools
+
+| when | kind | what |
+|---|---|---|
+| 2026-09-10 09:10:20 | observation | plan resolved cold: archetype county_hospital -> hospital preset via qualifier strip, theme delco_1997 found in Pixelcoat, all 56 Zoo species resolve it through Zoo's own fallback (0 carry the name). 3 candidates, seeds 9005/9106/9207. |
+| 2026-09-10 09:11:36 | observation | batch run reported 'no missions ready to run (each needs a selected candidate)' and exited 0 -- the batch DAG runs after a candidate is selected, so candidate generation is 'run <mission>' first. Not a failure; the order of operations. |
+| 2026-09-10 09:52:44 | observation | ROUTE COMPLETED 1.00 ON ALL THREE CANDIDATES, with enemies, first time in the project. Not an artefact: walktest_navqa walks the same spine on the baked navmesh and proves the rooftop leg -- proxy_2 at (-11.0, 7.2, -10.0), path 77.8 m in 71 points, ok true, 0 proof failures, 0 stranded anchors on all three seeds. |
+| 2026-09-10 09:52:44 | observation | AND THE FIGHT DID NOT HAPPEN. enemy_stuck_events 106 / 150 / 137 across the three candidates against 0 on cold 9004. Seed 9106 fired ZERO shots in 25 runs, 0 enemy deaths, contact -1.0, survival 180.07 s (the full clock) -- graded 35 FAIL, correctly. 9005: 651 shots, 2.12 of 6 enemies killed. 9207: 222 shots, 0.76 kills. All 75 runs ended TIMEOUT, 0 wipes. |
+| 2026-09-10 09:52:44 | observation | CANDIDATE MECHANISM, NOT CONFIRMED: the route's middle leg is the rooftop helipad (Route_1 at y=7.2) and the enemies are at ground level -- 3 of 6 inside the building footprint, 3 of 6 outside it 21 m south. LOT_ENEMY_SPAWN_PUSHED reports 6 of 6 moved off the route line, furthest 21.5 m. A crew on the roof and enemies on the ground is a fight that cannot reach itself. |
+| 2026-09-10 09:52:45 | observation | crew_size 4 in the brief drove FOUR LT_PlayerSpawn nodes into the staged scene (roadmap 129 end-to-end on a cold spec), and Deli Counter 0.112.0's shelter pass reached the generated level: COVER_HIGH_AUTO_KIOSK_LOBBY_SHELTER is in the site gameplay markers. |
+| 2026-09-10 09:52:45 | observation | LT_MARKER_OFF_FLOOR fires on all three: 'LT_ObjectivePoint 7.20 m up'. The objective IS the roof helipad, so the gate is measuring the floor at ground level and calling a legitimate rooftop objective a floating marker. An instrument defect, not a level one. |
+| 2026-09-10 09:54:16 | observation | ALL TEN ART-LAYER STAGES SUCCEEDED on an archetype never built: pixelcoat_build, zoo_kit_build, zoo_dressing_build, zoo_fixtures_build, patina_apply, patina_dressing, themed_site_assemble, lux_fixture_gate, lux_apply, presentation_compose. Structural checks passed, 0 blockers, 44 findings. pixelcoat_build is the stage that refused outright on cold 9003. |
+| 2026-09-10 09:54:16 | observation | presentation_compose exits 3 with two gate failures, non-blocking: 'placement gate [MISMATCH]: 400/430 modules sit on the greybox collision' -- 30 do not -- and 'z-fight gate [FAIL]: 30 coplanar pair(s) across 697 solids', reported as 'the package would flicker'. 449 themed modules, 0 greybox-fallback, walkable=True, closure portable=True. |
+| 2026-09-10 09:54:55 | observation | A GATED PACKAGE EXISTS: LF_county_hospital_001.portable-godot, 173 files, 7.7 MB, export exit 0, export_closure_scan ok=true with 0 issues and 0 missing resources. The run is over at this point per the protocol. |

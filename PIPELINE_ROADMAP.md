@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-09 -- COLD RUN 9004 SCORED ZERO, ON THE GAPS 9003 PAID FOR. `warehouse_yard_001`,  |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-10 -- COLD RUN 9005 SCORED ZERO ON AN ARCHETYPE NOBODY HAD BUILT, AND THE ROUTE WA |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -810,8 +810,10 @@ work of adopting this.
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
 | 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
+| 132 | **OPEN** | The route can go up and the fight cannot follow | 2026-09-10 -- found by cold run 9005, unfixed. The route goes vertical, the fight stays on |
+| 133 | **OPEN** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- reported by every cold run and filed by none of them until now. |
 
-**131 items: 48 open, 51 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**133 items: 50 open, 51 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1371,7 +1373,27 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-09 -- COLD RUN 9004 SCORED ZERO, ON THE GAPS 9003
+*STATUS: NARROWED 2026-09-10 -- COLD RUN 9005 SCORED ZERO ON AN ARCHETYPE
+NOBODY HAD BUILT, AND THE ROUTE WAS COMPLETED FOR THE FIRST TIME.
+`county_hospital_001`, archetype `county_hospital` resolving to the `hospital`
+preset by qualifier strip -- 0 artefacts anywhere beforehand, and the largest
+preset in the registry. 0 interventions, 0 retries, 0 unattributed file
+changes, 10 observations; the three files that moved were the per-candidate
+Deli Counter specs Level Factory is expected to write. THIRD ZERO IN THE
+PROJECT. All 22 stages succeeded including the ten art-layer ones, and the
+package exported clean: 173 files, closure scan ok, 0 missing resources.
+`route_completion_rate` AND `route_progress_rate` are 1.00 on all three
+candidates -- the first non-zero completion with enemies alive in this
+project's history -- and it is not an artefact: `walktest_navqa` proves the
+hard leg on the baked navmesh, `proxy_2` at (-11.0, 7.2, -10.0), 77.8 m in 71
+points, ok, with 0 proof failures and 0 stranded anchors on every seed. THE
+CREW WALKS TO A ROOFTOP HELIPAD AND BACK, 25 RUNS OF 25. AND THE FIGHT DID NOT
+HAPPEN, which is item 132: `enemy_stuck_events` 106 / 150 / 137 against ZERO on
+9004, and seed 9106 fired not one shot in 25 runs. Zero interventions means
+nothing needed hand-patching. On 9004 it did not mean the level plays because
+the crew died before it moved; here it does not mean it because nothing stopped
+the crew at all. THE CAVEAT SURVIVES A THIRD RUN AND HAS NOW BEEN WRONG IN BOTH
+DIRECTIONS. Previously: COLD RUN 9004 SCORED ZERO, ON THE GAPS 9003
 PAID FOR. `warehouse_yard_001`, archetype `industrial_warehouse` and theme
 `delco_1997`, never built -- 0 artefacts anywhere beforehand. 0 interventions,
 0 retries, 0 unattributed file changes, 3 observations, and the three files
@@ -13106,3 +13128,113 @@ Only its provenance changed.
 consumer: nothing in Laser Tag or Lot crouches. Until something does, "low
 cover" is life rather than shelter *in the evaluator*, which is a statement
 about the instrument and not about the shipped game.
+
+*STATUS: OPEN 2026-09-10 -- found by cold run 9005, unfixed. The route goes
+vertical, the fight stays on the ground, and every instrument reports success.*
+
+**132. The route can go up and the fight cannot follow.** Found 2026-09-10 by
+cold run 9005 on `county_hospital_001`, the first mission whose route has a leg
+above ground level.
+
+**WHAT THE INSTRUMENTS SAY, AND THEY AGREE WITH EACH OTHER.** Three candidates,
+25 runs each:
+
+```
+                         seed 9005   seed 9106   seed 9207
+overall_score / grade    80 PASS     35 FAIL     80 PASS
+route_completion_rate       1.00        1.00        1.00
+route_progress_rate         1.00        1.00        1.00
+team_wipe_count                0           0           0
+timeout_count                 25          25          25
+shots_fired                  651           0         222
+avg_enemy_deaths_per_run    2.12        0.00        0.76
+enemy_stuck_events           106         150         137
+```
+
+`walktest_navqa` passes on all three with 0 proof failures and 0 stranded
+anchors, and proves the rooftop leg directly: `proxy_2` at (-11.0, 7.2, -10.0),
+path 77.8 m in 71 points. **The traversal is real.** Cold run 9004, on a
+single-storey warehouse, had ZERO enemy stuck events across all 75 runs.
+
+**SEED 9106 FIRED NOT ONE SHOT IN 25 RUNS.** `avg_time_to_first_enemy_shot` is
+the -1.0 sentinel, `avg_player_survival_seconds` is 180.07 -- the full clock --
+and `player_deaths` is 0. The crew walked the entire route unopposed, twenty
+five times. It scored 35 FAIL, which is the grader working.
+
+**THE GEOMETRY, from the staged scene.** The route is
+`Route_0 (13.5, 0.0, -10.0)` -> `Route_1 (-11.0, 7.2, -10.0)` -> `Route_2
+(-4.0, 0.0, -10.0)`: out on the ground, up to the helipad, back down. The
+enemies are all at y = 1.0. Three stand inside the building footprint at
+z = 11.5 and three stand 21 m clear of it at z = -31.5, and
+`LOT_ENEMY_SPAWN_PUSHED` reports all six moved off the route line, furthest
+21.5 m -- because on a one-building campus the route line runs through the
+building and there is nowhere legal on it to stand.
+
+**WHY THIS IS NOT ITEM 127 OR 129 AGAIN.** Those are about the opening: an
+enemy too close, or a crew too small to survive it. This is the opposite end.
+The opening is fine -- `avg_time_to_first_enemy_shot` is 1.6 s on two of the
+three, so contact happens -- and then the crew climbs and the engagement ends
+because the enemies cannot follow. A hundred-odd stuck events per candidate is
+the shape of six bodies pathing at a target they cannot reach.
+
+**WHAT A REMEDY HAS TO DECIDE, and none of it is obvious:**
+
+- Should enemy placement know about the route's ELEVATION? `site_spawns` samples
+  the straight line crew -> objective -> extraction in plan, and a route with a
+  7.2 m leg projects onto that line as if it were flat.
+- Should some enemies spawn INSIDE the building, on the floor the objective is
+  on? Lot pushes every spawn out of a footprint on purpose (`WALL_MARGIN`, the
+  navmesh erosion band) and that rule is right for a street and wrong for a
+  building the crew enters.
+- Is this Lot's problem at all? Spawn placement is expected to leave this
+  toolchain for a gameplay layer. If so the finding belongs to whoever writes
+  that, and the useful output here is the MEASUREMENT plus a gate that refuses
+  to call a fight that never happened a pass.
+
+**THE SCORE IS THE THIRD PROBLEM.** Two candidates scored 80 PASS_WITH_TUNING
+on runs where the crew killed 2.12 and 0.76 of six enemies and nothing ever
+threatened it. `_score_traversal` gives 25 of 25 for a completed route, and
+completing a route nobody contested is worth less than that. Item 128's open
+question -- whether `route_progress_rate` should affect the score -- now has a
+second half: whether route credit should be discounted when the fight did not
+happen.
+
+**A SMALLER ONE FROM THE SAME CAUSE.** `LT_MARKER_OFF_FLOOR` fires on all three
+candidates with "LT_ObjectivePoint 7.20 m up". The objective IS the roof. The
+gate measures the floor beneath a marker at ground level, so a legitimate
+rooftop objective reads as a marker floating in the air. That is an instrument
+defect and it will fire on every vertical mission until the gate reads the
+surface under the marker rather than the ground plane.
+
+*STATUS: OPEN 2026-09-10 -- reported by every cold run and filed by none of
+them until now.*
+
+**133. The presentation package has failed its own z-fight gate on every cold
+run, and nobody wrote it down.** Found 2026-09-10 while attributing cold run
+9005's output, which is the only reason it was noticed: the finding is in the
+job log of a stage that exits 3 and is recorded as SUCCEEDED, so it never
+reached a status line.
+
+```
+cold 9003   z-fight [FAIL] 33 coplanar pair(s) / 636 solids   placement 335/346
+cold 9004   z-fight [FAIL] 15 coplanar pair(s) / 249 solids   placement 135/138
+cold 9005   z-fight [FAIL] 30 coplanar pair(s) / 697 solids   placement 400/430
+```
+
+`presentation_compose` prints `ERROR: coplanar surfaces detected -- the package
+would flicker` and the run continues, because the stage's exit code is
+advisory. That is the right call for a readiness signal and the wrong outcome
+here: three cold runs have shipped a package the composer itself says will
+flicker, and every one of them was recorded as a clean run.
+
+**THE PLACEMENT GATE IS THE SAME SHAPE.** 30 of 430 themed modules on this run
+do not sit on the greybox collision they are supposed to be skinning -- 3 of
+138 on 9004, 11 of 346 on 9003. A module off its collision is art the player
+walks through.
+
+**THIS IS ITEM 18's TERRITORY AND IT IS WORSE THAN 18 SAYS.** 18 records that
+no gate measures whether a level is GOOD. These two gates DO measure something
+about how it looks, they FAIL, and the failure is invisible to everything
+downstream. A gate that fires into a log nobody reads is the defect
+`patch_lf_score_split.py` warned about in the other direction: a number that
+looks actionable and is not.
