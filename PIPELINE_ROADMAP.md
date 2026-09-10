@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-09 -- COLD RUN 9003 SCORED TWO, AFTER RUN 7 SCORED ZERO, AND THE DIFFERENCE IS THE |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-09 -- COLD RUN 9004 SCORED ZERO, ON THE GAPS 9003 PAID FOR. `warehouse_yard_001`,  |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -1367,6 +1367,29 @@ are 0 on all three candidates, so items 122, 124 and 125's fixes hold on
 geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
+
+*STATUS: NARROWED 2026-09-09 -- COLD RUN 9004 SCORED ZERO, ON THE GAPS 9003
+PAID FOR. `warehouse_yard_001`, archetype `industrial_warehouse` and theme
+`delco_1997`, never built -- 0 artefacts anywhere beforehand. 0 interventions,
+0 retries, 0 unattributed file changes, 3 observations, and the three files
+that moved were the per-candidate Deli Counter specs Level Factory is expected
+to write. Journal and hash detector agree at zero. THIS IS THE SECOND ZERO IN
+THE PROJECT, after cold run 7, AND THE FIRST WHERE THE GAPS WERE CLOSED BY
+WORK RATHER THAN MISSED BY LUCK: 9003's two interventions were a missing
+Pixelcoat `delco_1997` profile and an archetype naming a block instead of a
+building, and this spec needed both. `pixelcoat_build` -- the stage that
+refused outright on 9003 -- ran clean, and the archetype resolved with no
+hand-edit. THE TRAVERSAL FIXES GENERALISE TO A THIRD MAP: `player_stuck_events`
+and `enemy_stuck_events` are 0 across all 75 Laser Tag runs, and
+`walktest_navqa` passes on all three candidates with 0 proof failures and 0
+stranded anchors, which 9003 could not say. AND THE LEVEL IS STILL NOT GOOD,
+which is the caveat cold run 7 raised and this run repeats with a sharper
+instrument: every one of those 75 runs ended TEAM_WIPE, 0 of 2 route legs
+walked, crew survival 5.0 to 11.4 s. `route_progress_rate` (Laser Tag 0.19.0)
+reports that as a true 0.00 rather than the free 1/3 a point count would have
+given, so the measure is working and what it says is that the encounter kills
+the crew before it moves. Zero interventions means nothing needed hand-patching.
+It still does not mean the level plays.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
