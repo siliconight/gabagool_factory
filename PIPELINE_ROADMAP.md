@@ -806,9 +806,9 @@ work of adopting this.
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
-| 128 | **OPEN** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- MEASURED ACROSS FIVE ENEMY COUNTS ON A MAP WHOSE TRAVERSAL IS PROVEN. Not a  |
+| 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
 
-**128 items: 49 open, 49 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**128 items: 48 open, 49 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12581,9 +12581,30 @@ against all of it may leave no legal placement on a strip site. `MAX_PUSH` and
 way is the cheap version, and the expensive version asks whether an opening
 that lasts one second is what the brief wanted in the first place.
 
-*STATUS: OPEN 2026-09-09 -- MEASURED ACROSS FIVE ENEMY COUNTS ON A MAP WHOSE
-TRAVERSAL IS PROVEN. Not a defect in a tool; a definition that cannot be
-satisfied. The remedy is a decision, not a patch.*
+*STATUS: NARROWED 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT.
+Laser Tag 0.19.0 adds `route_progress_rate` to the summary,
+`route_points_reached` / `route_points_total` per run to the CSV, and puts the
+figure in the traversal finding so the zero beside it is interpretable. It is
+counted in LEGS WALKED, and both traps that shape held were hit first:
+`_route_index` is not progress, because `_update_stuck` advances it to unjam a
+bot and so counts points SKIPPED (a separate counter now increments only on a
+genuine arrival, and a test asserts `_update_stuck` never touches it); and the
+route's first point IS the spawn, Lot emitting `Route_0` 0.00 m from it, which
+gave every run 1 of 3 for standing still including a crew wiped at 3.4 s.
+MEASURED ON `market_row_001`, three runs per enemy count, EVERY ROW SCORING
+`route_completion_rate` 0.00: progress reads 1.00 at 0 enemies, 0.50 at 1 and
+at 2 -- the crew reaches the objective and THEN clears the map -- and 0.17 at
+4, where it is mostly wiped first. Four identical zeros became four different
+numbers. On `restaurant_row_001` it reads 0.00 at every enemy count above
+zero, which is also true rather than a failure of the measure: there the crew
+is in contact before it walks a leg. WHAT REMAINS is the half that is a
+decision rather than a reading. The SCORE is untouched --
+`route_completion_rate` still drives the traversal category and nothing reads
+the new figure -- so a level that walks half its route still scores exactly as
+one that walks none. And `ENEMIES_CLEARED` still ends a run the moment the
+crew wins, which is the mechanism this item was filed for: the measure now
+describes the truncation honestly instead of hiding it, but the truncation is
+still there.*
 
 **128. Winning the fight ends the run before the route can be walked.** Found
 2026-09-09 by re-measuring `route_completion_rate` with enemies after item
