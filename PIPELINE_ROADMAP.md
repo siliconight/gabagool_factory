@@ -804,10 +804,10 @@ work of adopting this.
 | 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
-| 126 | **OPEN** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED. Laser Tag 0.15.0 made the wai |
+| 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 
-**127 items: 49 open, 47 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**127 items: 48 open, 48 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12377,10 +12377,34 @@ lifetime. That patch was reverted rather than shipped. `_now()` returns
 `run_state.elapsed_seconds`, which `start_run` resets to zero, so anything
 recorded in the first frame of a run reads 0.0 whatever fired it.
 
-*STATUS: OPEN 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED.
-Laser Tag 0.15.0 made the wait condition-based, which is a robustness change
-against this failure mode rather than a fix for it: the trigger is still
-unidentified. See the item.*
+*STATUS: CLOSED 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER
+BUT A WAIT THAT NEVER WAITED. Fixed in Laser Tag 0.17.0. TWO CAUSES, THE FIRST
+HIDING THE SECOND. (1) `await get_tree().physics_frame` in a headless
+SceneTree does not pace to 60 Hz -- it SPINS. Measured: 30 physics frames take
+1 ms inside `run_map_eval` and about 490 ms in a bare SceneTree, while the
+navigation server's own sync needs 14-28 ms of wall time. So the original flat
+3-frame wait was roughly 0.1 ms and 0.15.0's 30-frame replacement roughly 1 ms;
+neither was a wait at all, and whether the map read as ready came down to how
+much real time happened to pass doing other work. That is the coin flip the 7%
+was. `_await_navigation_sync` is now bounded by `NAV_SYNC_MAX_MSEC` (2000),
+with the frame cap kept at 3000 purely as a runaway guard. (2)
+`map_get_closest_point` returns exactly `Vector3.ZERO` before the map's first
+sync -- a plausible-looking coordinate, not an error. Iteration 1 answered
+(0,0,0) against a spawn at (0, 1, -23) and `_navigation_ready` measured that as
+"the navmesh is 23 m away". It cuts both ways and so is tested rather than left
+to the distance: on a map whose crew spawn sits near the world origin the same
+unsynced ZERO measures about 1 m and would have reported READY on a navigation
+map that had not been built. MEASURED: NAVIGATION_MISSING 2 of 30 before and 0
+of 20 after; the wait's own budget-exhausted warning 16 of 20 before and 0 of
+20 after; observed waits 14-28 ms. HOW IT WAS ACTUALLY FOUND, because it is the
+useful part: 0.15.0 shipped a condition-based wait as ROBUSTNESS against a
+failure it could not reproduce in 16 attempts, and that wait then warned on 16
+runs out of 20 that were completely fine. A fix crying wolf four times in five
+is what prompted timing the loop, and the loop turned out to take one
+millisecond. The unreproducible bug was found by instrumenting the failed
+attempt to fix it. `test_nav_wait_is_a_clock.gd` pins the PREMISE rather than
+the fix -- if a future Godot paces `physics_frame`, a frame count becomes a
+clock again and this analysis changes.*
 
 **126. One evaluation in fourteen silently indicts a good map.**
 Found 2026-09-09 while A/B-ing the traversal flag, when one arm returned a
