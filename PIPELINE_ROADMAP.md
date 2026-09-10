@@ -813,8 +813,9 @@ work of adopting this.
 | 132 | **NARROWED** | The route can go up and the fight cannot follow | 2026-09-10 -- the MEASUREMENT ships as Laser Tag 0.21.0 and the placement does not, on pur |
 | 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
+| 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**134 items: 48 open, 54 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 48 open, 55 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12651,10 +12652,11 @@ completion 0.00 -> 1.00 at EVERY populated enemy count, the zero-enemy row
 unchanged at 45/1.00/1.00, and the whole sweep 23% FASTER (334.7 s -> 257.4 s)
 because the zero-enemy row fell 5.6x from burning the clock to ending on
 OBJECTIVE. A wipe-heavy map is untouched: warehouse_yard_001 crew 1, 9.1 -> 9.0
-s, same score. WHAT IT EXPOSES: at one and two enemies the map now scores 100
-PASS. Four crew against one guard is not a contest and nothing in the rubric
-notices; it scored 75 before only because a quarter of the rubric was
-unreachable. Both readings of traversal are correct and the gap is elsewhere.
+s, same score. WHAT IT EXPOSED, now item 135 and closed one commit later: at one and
+two enemies the map scored 100 PASS. Four crew against one guard is not a
+contest and nothing in the rubric noticed; it scored 75 before only because a
+quarter of the rubric was unreachable. Both readings of traversal are correct
+and the gap was elsewhere.
 Previously: THE READING IS FIXED, THE RUN BOUNDARY IS NOT.
 Laser Tag 0.19.0 adds `route_progress_rate` to the summary,
 `route_points_reached` / `route_points_total` per run to the CSV, and puts the
@@ -13401,6 +13403,62 @@ touching the code under test. `HARNESS_WIRED` exists because of that, and the
 test now asserts `player_sight_is_configurable is True` before asserting
 anything else -- a check that cannot reach the branch it is named after is
 indistinguishable from one that passed.
+
+*STATUS: CLOSED 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the
+item that exposed it.*
+
+**135. Nothing in the rubric asks whether the encounter was a contest.** Found
+2026-09-10 the moment roadmap 128 made the traversal category reachable:
+`restaurant_row_001` seed 9003 scored **100 PASS** with four crew against one
+guard.
+
+**EVERY CATEGORY READ CORRECTLY.** Traversal 25 -- the crew walked the whole
+route. NPC Pathing 20 -- nothing jammed. Cover 20, sightlines 20, pacing 15.
+The map is good and the run proved nothing about it, because the crew was never
+under any pressure and no category is responsible for noticing that.
+
+**AND THE OLD SCORE WAS NOT A SAFEGUARD.** It read 75 before, which looks like
+the rubric being appropriately cautious. It was not: 25 of those missing points
+were the traversal category being unreachable in a populated run by
+construction (item 128). A broken instrument was accidentally pointing the
+right way, and fixing it removed the accident.
+
+**THE TEST IS THRESHOLD-FREE.** The crew lost NOBODY -- not "few deaths", not a
+rate, zero across every run in the sweep. Six runs at crew 4 is 24 crew lives;
+twenty-five is 100. None spent.
+
+**WHAT WAS TRIED FIRST AND DOES NOT WORK.** `player_deaths` is 0 at one, two
+AND four enemies on this map, so "trivial" is not the guard count -- four crew
+are simply dominant here. A force-ratio rule (crew against `enemy_count`) would
+also have been grading the BRIEF rather than the map, which is the line
+spawn-derived measures are not supposed to cross.
+
+**IT CAPS THE GRADE RATHER THAN DOCKING POINTS**, at 89, one below PASS. A
+deduction would be a claim about how much worse the map is, and this is not a
+claim about the map at all -- the geometry may be excellent. What the run
+cannot support is the sentence PASS means: that the level was exercised and
+held up. A map that earns PASS on a contested encounter still gets it, and a
+run already below the cap does not move.
+
+**MEASURED**, `restaurant_row_001` seed 9003, crew 4, 6 runs per cell:
+
+```
+enemies   before    after
+      1      100       89
+      4       80       80
+      6       90       89
+```
+
+Six caps as well, and that is the finding rather than an over-reach: this crew
+loses nobody against six guards either, so the encounter is not a contest at
+any count the map was tried at. A map that fights back is untouched, checked
+rather than assumed -- `county_hospital_001` seed 9005 put 47 crew members
+down, `warehouse_yard_001` at crew 1 was wiped in every run.
+
+**A ZERO-ENEMY SCENARIO IS EXEMPT.** A walkthrough is a legitimate thing to
+measure -- it is how `route_completion_rate` was first proved to work at all --
+and capping it would mark down the one configuration that was never in
+question.
 
 **THIS IS ITEM 18's TERRITORY AND IT IS WORSE THAN 18 SAYS.** 18 records that
 no gate measures whether a level is GOOD. These two gates DO measure something
