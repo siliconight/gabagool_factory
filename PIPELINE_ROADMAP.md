@@ -807,9 +807,9 @@ work of adopting this.
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 | 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
-| 129 | **OPEN** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- MEASURED ON TWO MAPS, CAUSE IS A PAIR OF DEFAULTS THAT DISAGREE. Not filed a |
+| 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
 
-**129 items: 49 open, 49 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**129 items: 48 open, 49 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12686,9 +12686,29 @@ already done:
 The second is the one that costs nothing and loses no information. The third
 is the honest one if the metric keeps its current shape.
 
-*STATUS: OPEN 2026-09-09 -- MEASURED ON TWO MAPS, CAUSE IS A PAIR OF DEFAULTS
-THAT DISAGREE. Not filed as a fix, because changing either default moves every
-historical comparison and the choice is a design one.*
+*STATUS: NARROWED 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND
+THAT IS THE CHOICE. Level Factory 0.62.0 documents `crew_size` in
+`mission.brief.schema.json` -- it was absent while `models.py` and
+`commands/__init__.py:423` both read it, which is very likely why 26 of 27
+briefs never set it -- and the four shipped example briefs now declare
+`crew_size: 4`. THE EXAMPLES RATHER THAN THE DEFAULT because raising the
+default changes every historical comparison in one line, the objection that
+kept `advance_while_engaging` opt-in; this is the remedy roadmap 118 reached
+for the `lot_library` laggards, for the same reason -- examples are what a
+newcomer copies. VERIFIED END TO END on `warehouse_yard_001`, the map whose
+cold run 9004 wiped 75 runs out of 75: the brief drives both the scenario
+(`player_count = 4` in the generated `.tres`) and Lot's markers (four
+`LT_PlayerSpawn` nodes), and across its three candidates the wipes went 25/25,
+25/25, 25/25 to 0, 2 and 19, route progress 0.00 to 0.33, 0.65 and 0.47, and
+seed 9105's score 65 to 73 with nine runs reaching the full clock. THAT IS THE
+FIRST LASER TAG SCORE TO MOVE on any change in this session. WHAT REMAINS: the
+DEFAULT is still 1, so any brief that does not declare a crew still evaluates
+outnumbered six to one -- 23 briefs on disk are in that position, though all of
+them are workspace copies and cold-run records rather than shipped inputs. And
+`route_completion_rate` is still 0.00 everywhere, which is item 128's
+truncation and not this: at crew 4 most runs end `ENEMIES_CLEARED`, stopping
+the clock before the route is walked. A crew of 4 measured against route
+completion with that truncation removed is still the unrun experiment.*
 
 **129. Every evaluation is one crew member against six guards, and no brief
 ever said so.** Found 2026-09-09 after cold run 9004 produced a
