@@ -811,9 +811,10 @@ work of adopting this.
 | 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
 | 132 | **OPEN** | The route can go up and the fight cannot follow | 2026-09-10 -- found by cold run 9005, unfixed. The route goes vertical, the fight stays on |
-| 133 | **OPEN** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- reported by every cold run and filed by none of them until now. |
+| 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
+| 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 
-**133 items: 50 open, 51 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**134 items: 49 open, 53 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -13206,8 +13207,12 @@ rooftop objective reads as a marker floating in the air. That is an instrument
 defect and it will fire on every vertical mission until the gate reads the
 surface under the marker rather than the ground plane.
 
-*STATUS: OPEN 2026-09-10 -- reported by every cold run and filed by none of
-them until now.*
+*STATUS: CLOSED 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight
+gate now becomes `PRESENTATION_ZFIGHT`, with the visible count separated from
+the total and the worst offenders named. CORRECTED WHILE FIXING IT: this item
+first claimed the placement gate was invisible too, and it was not -- it has
+always emitted `PRESENTATION_PLACEMENT_MISMATCH`, which appears in cold run
+9005's own validate output. One gate was silent, not two.*
 
 **133. The presentation package has failed its own z-fight gate on every cold
 run, and nobody wrote it down.** Found 2026-09-10 while attributing cold run
@@ -13227,10 +13232,86 @@ advisory. That is the right call for a readiness signal and the wrong outcome
 here: three cold runs have shipped a package the composer itself says will
 flicker, and every one of them was recorded as a clean run.
 
-**THE PLACEMENT GATE IS THE SAME SHAPE.** 30 of 430 themed modules on this run
-do not sit on the greybox collision they are supposed to be skinning -- 3 of
-138 on 9004, 11 of 346 on 9003. A module off its collision is art the player
-walks through.
+**THE PLACEMENT GATE IS NOT THE SAME SHAPE, AND THIS ITEM SAID IT WAS.** It
+reports: `normalize_validation` has always had a `placement_check` branch and
+`PRESENTATION_PLACEMENT_MISMATCH` is in cold run 9005's `validate` output, at
+MODERATE. The claim above was written from the job log -- where both gates
+appear together -- without checking which of them reached a finding, which is
+the same "name what produced the artefact" failure this file has a section
+about. Retracted and kept.
+
+What is true about it: 30 of 430 themed modules on this run do not sit on the
+greybox collision they are supposed to be skinning -- 3 of 138 on 9004, 11 of
+346 on 9003 -- and a module off its collision is art the player walks through.
+That is a real defect and it is reported. Nobody has acted on it.
+
+**WHAT THE Z-FIGHT FINDING SAYS NOW.** 30 pairs across 697 solids, of which 8
+are buried inside a solid and 14 are between two greybox faces -- so **8 can
+actually be seen**, and the message says so. Reporting the total alone would
+send somebody hunting thirty seams in a scene that has eight. The worst three
+are all stair bases coplanar with floors (`base:stair0_0_0 /
+floor_ground_west_ward` and its siblings), which is a specific defect with an
+address rather than a number.
+
+*STATUS: CLOSED 2026-09-10 -- shipped as Level Factory 0.64.0, found while
+fixing 133 and worse than 133.*
+
+**134. The module written to stop a tool reading the wrong sight range was
+reading the wrong sight range.** Found 2026-09-10, three lines into item 133's
+fix, by noticing an unrelated finding in cold run 9005's `validate` output.
+
+`packages/validation/lasertag_contract` opens with the bug it exists to
+prevent, in its own words: *"Lot held `SIGHT_RANGE = 35.0`, correctly sourced
+from the scenario resource, and the fight actually opens at 45 m because the
+crew's bot sees ten metres further."*
+
+It then read:
+
+```python
+player_sight = num(scenario.get("player_sight_range"), 0.0) if player_wired \
+    else num(bot.get("sight_range"), MEASURED.player_sight)
+```
+
+**`default_laser_tag_scenario.tres` does not write `player_sight_range`.** A
+`.tres` carries only the fields somebody put in it, so the wired branch fell to
+its `0.0` fallback and every consequence followed:
+
+```
+                    read          true
+player_sight         0.0          45.0
+opening_range       35.0          45.0
+opener          the enemy     the crew
+```
+
+And then, against Lot's correct `OPENING_RANGE = 45.0`:
+
+> Lot places enemies against a 45 m opening range and Laser Tag opens fire at
+> 35 m — the placement is stricter than the evaluator requires, which costs
+> site area rather than runs
+
+**That is the inversion.** Lot is right, the reader is wrong, and the finding
+tells the reader to relax the one constant that was correct. Had anybody acted
+on it, enemy standoff would have been cut by ten metres on every site and the
+result would have looked like roadmap 127 all over again.
+
+**WIRED MEANS THE SCENARIO DECIDES, AND A SILENT SCENARIO STILL DECIDES.** The
+value a run actually gets when the resource omits a field is the resource's own
+`@export` default, not zero. The fix is the fallback chain 131 already added
+for the three sight heights -- resource, then the scenario SCRIPT's default --
+applied to the field that needed it first.
+
+**HOW LONG.** Present since the module was written. Cold run 9004 carried three
+of these findings and cold run 9005 three more, one per candidate, and both
+runs were read closely enough to produce roadmap items without anybody reading
+that line.
+
+**AND THE TEST NEARLY REPEATED IT.** The first draft passed without the fix:
+the `HARNESS` fixture predates Laser Tag 0.11.0 and does not wire the crew's
+sight, so the test took the UNWIRED branch and read the bot's 45.0 without ever
+touching the code under test. `HARNESS_WIRED` exists because of that, and the
+test now asserts `player_sight_is_configurable is True` before asserting
+anything else -- a check that cannot reach the branch it is named after is
+indistinguishable from one that passed.
 
 **THIS IS ITEM 18's TERRITORY AND IT IS WORSE THAN 18 SAYS.** 18 records that
 no gate measures whether a level is GOOD. These two gates DO measure something
