@@ -810,11 +810,11 @@ work of adopting this.
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
 | 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
-| 132 | **OPEN** | The route can go up and the fight cannot follow | 2026-09-10 -- found by cold run 9005, unfixed. The route goes vertical, the fight stays on |
+| 132 | **NARROWED** | The route can go up and the fight cannot follow | 2026-09-10 -- the MEASUREMENT ships as Laser Tag 0.21.0 and the placement does not, on pur |
 | 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 
-**134 items: 49 open, 53 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**134 items: 48 open, 53 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -13130,8 +13130,14 @@ consumer: nothing in Laser Tag or Lot crouches. Until something does, "low
 cover" is life rather than shelter *in the evaluator*, which is a statement
 about the instrument and not about the shipped game.
 
-*STATUS: OPEN 2026-09-10 -- found by cold run 9005, unfixed. The route goes
-vertical, the fight stays on the ground, and every instrument reports success.*
+*STATUS: NARROWED 2026-09-10 -- the MEASUREMENT ships as Laser Tag 0.21.0 and
+the placement does not, on purpose. `enemy_stuck_per_enemy_run` puts units on a
+count that had none, and `ENEMY_PATHING_BROKEN` says a map is not traversable
+for the enemy side instead of calling it a sticky corner. What is NOT fixed is
+the placement itself, and the reason is in the item: spawn placement is
+expected to leave this toolchain, so teaching Lot about route elevation would
+invest in code that is going. The score also still passes such a map, which is
+roadmap 128's open question rather than this one's.*
 
 **132. The route can go up and the fight cannot follow.** Found 2026-09-10 by
 cold run 9005 on `county_hospital_001`, the first mission whose route has a leg
@@ -13206,6 +13212,62 @@ gate measures the floor beneath a marker at ground level, so a legitimate
 rooftop objective reads as a marker floating in the air. That is an instrument
 defect and it will fire on every vertical mission until the gate reads the
 surface under the marker rather than the ground plane.
+
+**WHAT SHIPPED, AND WHY IT IS AN INSTRUMENT RATHER THAN A FIX.** Laser Tag
+0.21.0. `enemy_stuck_events` was a sum over a sweep with no units, so it could
+not be compared between maps -- and comparing them is the only way to tell a
+sticky corner from a map one side cannot cross:
+
+```
+county_hospital 9005 / 9106 / 9207    0.71 / 1.00 / 0.91 per enemy-run
+warehouse_yard  9004 / 9105 / 9206    0.03 / 0.00 / 0.00
+restaurant_row  9003 / 9104 / 9205    0.00 / 0.00 / 0.00
+```
+
+`ENEMY_PATHING_BROKEN` is a FAIL above 0.5. The line is MEASURED rather than
+chosen: healthy maps sit at 0.00-0.03 and the sick one at 0.71-1.00, twenty-six
+times apart with nothing between, so any line in that gap picks the same maps.
+Verified on the map itself -- seed 9005 re-run reports `0.70` for the guards
+and `0.00` for the crew, and **that asymmetry is the whole finding**: the same
+navmesh, crossable by one side and not the other.
+
+**WHY NOT FIX THE PLACEMENT.** Spawn placement is expected to move out of this
+toolchain into a gameplay layer; the current spawns have had almost no thought
+put into them and are not to be treated as fixed. Teaching `site_spawns` about
+route elevation would be a real day's work invested in code that is leaving,
+and it would push Lot further into owning a question it is going to hand over.
+The durable output is the measurement plus a finding that refuses to call a
+fight the guards could not reach a pass. If the gameplay layer never
+materialises, this item reopens with the work named above still to do.
+
+**AND THE SCORE STILL PASSES IT.** After the change, seed 9005 scores 75
+PASS_WITH_TUNING with `ENEMY_PATHING_BROKEN` filed against it, because
+`_score_pathing` caps its penalty at 10 of 100. The finding says the map is
+broken for one side and the number says it is fine. That is roadmap 128's open
+question -- whether these readings should move the score -- and it is not
+decided here.
+
+**A DUPLICATE THAT WAS NEARLY BUILT, kept because the near-miss is the useful
+part.** The first plan for this item was an engagement metric plus a
+`NO_ENGAGEMENT` finding. **Both already exist.** Seed 9106 -- zero shots in 25
+runs -- already reported `NO_ENGAGEMENT` ("No shots were ever fired") and
+`NO_CONTACT`, and scored 35 FAIL. Laser Tag had detected the broken candidate
+correctly all along. This is the `probe_sightlines` trap exactly:
+`site_cover.plan_cover` already owned that question too.
+
+Checking before building also killed the metric the plan rested on. Enemies
+that ever acquired a target, computed from the `LineOfSightGained` events
+already in every report:
+
+```
+county_hospital 9005 / 9106 / 9207    0.63 / 0.17 / 0.20
+warehouse_yard  9004 / 9105 / 9206    0.43 / 0.39 / 0.19
+restaurant_row  9003 / 9104 / 9205    0.47 / 0.43 / 0.55
+```
+
+**0.19 on a healthy map and 0.17 on a broken one.** It does not discriminate,
+and a finding built on it would have fired everywhere. The stuck rate separates
+the same maps by twenty-six times.
 
 *STATUS: CLOSED 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight
 gate now becomes `PRESENTATION_ZFIGHT`, with the visible count separated from
