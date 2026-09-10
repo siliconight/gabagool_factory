@@ -808,8 +808,9 @@ work of adopting this.
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 | 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
+| 130 | **NARROWED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- shipped as Deli Counter 0.111.0. The height is derived and the rooms that fa |
 
-**129 items: 48 open, 49 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**130 items: 48 open, 49 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12767,3 +12768,121 @@ only one of them should move:
 MEASURE THE CAVEAT BEFORE CHOOSING: a crew of 4 was not measured against
 route completion with `ENEMIES_CLEARED` disabled, so how much of item 17's
 "the level does not play" survives a fair crew size is still unknown.
+
+*STATUS: NARROWED 2026-09-10 -- shipped as Deli Counter 0.111.0. The height is
+derived and the rooms that fail it are reported. What the corpus DOES about the
+39 rooms is a design call and is not made here; the four disagreeing sight
+heights inside Laser Tag are untouched and are the residue.*
+
+**130. Cover was measured against furniture, and nothing asked whether it
+stops anybody seeing anybody.** Found 2026-09-10 while testing a different
+hypothesis, which is refuted below and kept because rediscovering it would cost
+the same afternoon.
+
+**THE REFUTED HYPOTHESIS, FIRST.** The claim was that Zoo props are unmeasured
+cover: that theming a build adds solids the cover planner never sees, so the
+graded map and the shipped map differ in what breaks a sightline. It is wrong
+in every part, and the measurement is worth keeping because each part failed
+for a different reason.
+
+- Zoo props are DIMENSIONALLY EXACT swaps for greybox proxies Deli Counter
+  already emits. On `warehouse_yard_001` seed 9105, all 13 props match position
+  and size: `crate_stack_tall_1` at (-8, 1.5, 4) against
+  `prop_delco_1997_02_w300_d300_h300`, `rack_row_1` 14 x 1.2 x 3.0 against
+  `w1400_d120_h300`, and so on through the list.
+- The GREYBOX carries the collision. `shell.glb` has 147 `-colonly` nodes
+  including `crate`, `rack`, `pallet`, `desk` and `forklift`. The props are in
+  the map Laser Tag grades, as boxes.
+- Zoo's dressing pass emits `"collision": "none"` -- 258 facade covers, base
+  course, curb, gutter, none of it solid. It could not have been cover.
+- Props live inside a building footprint, and `site_cover.open_span` already
+  treats a footprint as a full occluder, so they could not have changed
+  `open_lines` even if they were solid and unknown.
+
+SO THE THEMED BUILD IS NOT THE PROBLEM. One true thing did fall out of looking:
+Laser Tag evaluates the `lot_assemble` scene, never the `themed_site_assemble`
+one -- verified by hash across three workspaces and three missions -- because
+`evaluation_scene` reads `job.depends_on[0]`, which is the candidate Lot job,
+and theming runs after selection. That is correct for candidate selection and
+it means nothing re-grades after theming. It is not this item.
+
+**WHAT IS ACTUALLY THERE.** Three chosen constants stood in for one derived
+quantity, and all three answered the wrong question:
+
+```
+deli_counter/level_design._COVER_MIN_Z    0.6   "below this it's a kerb"
+deli_counter/level_design._room_has_cover 0.6   a fourth copy, inline
+deli_counter/combat_audit.COVER_MIN_H     0.6   "taller solids block sight"
+lot/site_cover.MIN_COVER_HEIGHT           1.2   DERIVED, and the odd one out
+```
+
+Lot derives its number because a sightline is two lines: each side sights from
+its own eye at the other's chest, so one descends while the other climbs, and a
+solid tall enough to break one can sit under the other. Half a broken sightline
+is not half a fix -- Laser Tag stamps first contact on the first shot by
+*either* side. Deli Counter chose its number from furniture plausibility, and
+`combat_audit`'s own comment then asserted the two were the same thing.
+
+**MEASURED, 14 NON-FACADE PRESETS.** On `combat_audit`'s basis -- any solid over
+0.6 m with a footprint of 0.3 m or more, which is the right question because a
+structural column breaks a line and carries no furniture name:
+
+```
+qualifying solids                                        177
+  below the crossing height 1.2222 m                     100  (56%)
+combat rooms                                              91
+  furnished, with nothing in them that breaks a line      39  (43%)
+  ... all of them, in pawn_shop and suburban_safehouse
+```
+
+The authored heights are cleanly split already and nothing knew: **there is not
+one solid in the corpus between 1.10 m and 1.20 m.**
+
+Seven of the nine pieces `_SEED_ARCHETYPES` CREATES stand below the crossing --
+desk 0.75, pallet 0.9/1.0, crate 0.95/1.0/1.1, counter_island 1.05, planter
+0.9; only cabinet 1.4 and shelf_run 1.7 clear it. And the neighbouring
+`KILLBOX` finding advised "two or three 0.9-1.2 m volumes fix it", a remedy
+that reproduces the defect it is fixing.
+
+**AN INSTRUMENT THAT WAS WRONG, KEPT.** The first pass counted only NAME-TAGGED
+furniture and reported 43 of 91 rooms. It missed `parking_garage`, whose combat
+rooms are covered by structural columns no name hint matches, and called two of
+them bare. Two instruments disagreed by four rooms; the broader one is right.
+
+**FIXED, AS DELI COUNTER 0.111.0.** `agent_contract.json` grows a `sightlines`
+block carrying the three heights and deriving the fourth:
+`h = a - (a - c)^2 / (a + b - 2c)` = 1.2222 m from the crew's 1.4 m sight, the
+enemy's 1.5 m and the 1.0 m chest both aim at. It reduces to Lot's `(a + c)/2`
+when the two sides sight from the same height, so Lot's 1.2 was right about the
+form and short by 0.0222 for reading only the crew's half of the geometry.
+`combat_audit` reports `COVER_ALL_LOW` per room. `_COVER_HIGH_Z` is derived,
+which moves exactly one piece on the shipped corpus.
+
+**WHAT WAS DELIBERATELY NOT DONE.** The archetype heights are untouched and low
+furniture keeps its marker. A 0.9 m crate is a thing in the room and reads as
+life; the brief for this game is buildings, roads between them, and props
+inside that give cover and life without overkill -- which is an argument for a
+MIX, not for raising everything. So the item reports which rooms have no
+shelter at all and leaves the ratio to a person.
+
+**THE RESIDUE, AND IT IS INSIDE LASER TAG.** Four heights describe one firefight
+and no two of them agree:
+
+```
+crew    sees from 1.40 (hardcoded in LT_BotPlayerController)
+crew    shoots from 1.55 (Marker3D_Muzzle, under a Camera3D at 1.60)
+enemy   sees from 1.50 (LT_EnemyPill.tscn Marker3D_Eye)
+enemy   shoots from 1.30
+contract characters.player.eye_height_m = 1.60
+```
+
+The crew's own muzzle sits 0.15 m above its visibility probe, so it can decline
+a shot its barrel has. Which of these moves is Laser Tag's call; moving one
+moves the crossing under a measurement taken this week, so nothing here moves
+it. Two smaller things fall out of the same reading: `site_cover.py` and
+`site_spawns.py` both say Level Factory's `lasertag_contract` reports drift on
+the constants they carry, and `Engagement` holds only RANGES -- so the drift
+check those docstrings name does not cover `EYE_HEIGHT` or `CHEST_HEIGHT`. And
+`characters.player.crouch_height_m` has no consumer anywhere: nothing in Laser
+Tag or Lot crouches, which is why low cover is life rather than shelter *in the
+evaluator* and says nothing about the shipped game.
