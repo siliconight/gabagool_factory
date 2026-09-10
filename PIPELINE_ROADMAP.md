@@ -806,8 +806,9 @@ work of adopting this.
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
+| 128 | **OPEN** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- MEASURED ACROSS FIVE ENEMY COUNTS ON A MAP WHOSE TRAVERSAL IS PROVEN. Not a  |
 
-**127 items: 48 open, 49 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**128 items: 49 open, 49 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12579,3 +12580,63 @@ against all of it may leave no legal placement on a strip site. `MAX_PUSH` and
 `OPENING_RANGE` already bound the search; a reachability disc bounded the same
 way is the cheap version, and the expensive version asks whether an opening
 that lasts one second is what the brief wanted in the first place.
+
+*STATUS: OPEN 2026-09-09 -- MEASURED ACROSS FIVE ENEMY COUNTS ON A MAP WHOSE
+TRAVERSAL IS PROVEN. Not a defect in a tool; a definition that cannot be
+satisfied. The remedy is a decision, not a patch.*
+
+**128. Winning the fight ends the run before the route can be walked.** Found
+2026-09-09 by re-measuring `route_completion_rate` with enemies after item
+123's arrival-radius fix, on the suspicion that three earlier conclusions had
+been drawn through a broken agent.
+
+**THE SWEEP.** `restaurant_row_001` seed 9003, six runs per enemy count, 180 s,
+Laser Tag 0.18.0. `player_stuck_events` is ZERO in every cell, so traversal is
+not in question anywhere in this table:
+
+```
+enemies   end reasons                        route_completion   survival
+      0   TIMEOUT x6                                     1.00      180.0
+      1   ENEMIES_CLEARED x4, TEAM_WIPE x2                0.00        9.2
+      2   ENEMIES_CLEARED x5, TEAM_WIPE x1                0.00        9.4
+      4   TEAM_WIPE x6                                    0.00        3.8
+      6   TEAM_WIPE x6                                    0.00        3.4
+```
+
+**ZERO MEANS TWO DIFFERENT THINGS IN THAT COLUMN, AND NEITHER IS "THE LEVEL
+CANNOT BE TRAVERSED".** At 4 and 6 the crew dies, which is what items 120 and
+127 recorded. At 1 and 2 THE CREW WINS -- `enemy_deaths` 2 of 2 with
+`player_deaths` 0 in the seed-11 pair -- and `LT_MapEvalHarness` ends the run
+on `ENEMIES_CLEARED` the moment the last enemy falls, about seven seconds in.
+The route is 130 m, or 32.5 s of walking at 4.0 m/s. The crew never gets to
+start.
+
+**SO THE METRIC IS UNREACHABLE IN A POPULATED RUN, BY CONSTRUCTION.** A run
+with enemies ends one of three ways. Lose, and it is TEAM_WIPE. Win, and it is
+ENEMIES_CLEARED. Neither, and it is TIMEOUT -- but `LT_BotPlayerController`
+stops advancing the moment it sees a guard, so the only ground it covers is
+ground it crosses unseen. Route completion therefore requires enemies that are
+alive, unseen and unengaged for 32 consecutive seconds, which is not a level
+property and not a thing any brief asks for.
+
+**THIS IS THE THIRD STRUCTURAL REASON**, and the first two are already on file:
+item 121 has the engage-stop, item 123 had an arrival radius that broke
+traversal outright. Both were real. Neither is the whole answer, and this one
+is not in any item -- every previous investigation measured populated runs and
+read the zero as a statement about the map or the encounter.
+
+**WHAT A REMEDY HAS TO DECIDE**, and all three are cheap next to the measuring
+already done:
+
+- STOP ENDING ON `ENEMIES_CLEARED` when a route is defined, and let the run go
+  to TIMEOUT or the objective. Truest to the name, and it lengthens every
+  successful run to the full clock -- 25 runs at 180 s is a real cost.
+- KEEP THE END AND FIX THE METRIC: report route progress as the FRACTION of
+  route points reached, not a boolean at the end. A crew that wins at waypoint
+  1 of 3 scored 0.33 of a traversal, which is true and currently unrecorded.
+- MOVE THE QUESTION: `walktest_navqa` already walks the spine with no combat
+  and passes. If traversal is answered there, `route_completion_rate` should
+  stop claiming to answer it and be renamed for what it measures.
+
+The second is the one that costs nothing and loses no information. The third
+is the honest one if the metric keeps its current shape.
