@@ -801,13 +801,13 @@ work of adopting this.
 | 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE FIRST TIME IN THIS PROJECT'S  |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
-| 123 | **NARROWED** | The size proxy is disconnected from the size contract | 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT. Laser Tag 0.11.0 gave `LT_Tes |
+| 123 | **CLOSED** | The size proxy is disconnected from the size contract | 2026-09-09 -- THE SEAM AND BOTH DERIVATION ARMS. Laser Tag 0.11.0 gave `LT_TestScenario` a |
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 
-**127 items: 48 open, 48 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**127 items: 48 open, 49 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12128,7 +12128,7 @@ plainly which one a BODY is built from and which one a BAKE is run at, is
 cheap and would have prevented this.
 
 
-*STATUS: NARROWED 2026-09-08 -- THE SEAM IS CLOSED; THE DERIVATION ARM IS NOT.
+*STATUS: CLOSED 2026-09-09 -- THE SEAM AND BOTH DERIVATION ARMS.
 Laser Tag 0.11.0 gave `LT_TestScenario` a Body group -- `player_radius_m`,
 `player_height_m`, `player_eye_height_m`, `player_walk_speed_mps` -- and the
 harness builds the pill from them at spawn: capsule, the offsets that keep the
@@ -12144,14 +12144,31 @@ already writing into the staged project. Verified against a real installation
 0.35 / 1.8 / 1.6 / 4.0, and a synthetic 2.05 x 0.45 studio body reaches the
 generated resource unaltered (`test_a_studio_states_its_body_once`). The drift
 this item measured is gone: the pill was 0.40 m and 4.5 m/s, it is the
-contract's 0.35 and 4.0. TWO ARMS REMAIN, both named in the item above and
-neither touched. (1) `path_desired_distance` is still a hardcoded 0.8 in
-`LT_PlayerPill.tscn` and `LT_EnemyPill.tscn`; only `path_height_offset` was
-derived, under item 122, and the distance is the one that has to exceed the
-vertical error between a body's origin and the mesh it stands on. (2) The
-contract still does not distinguish in writing between the radius a BODY is
-built from and the radius a BAKE is run at, which is the confusion that
-produced the drift in the first place.*
+contract's 0.35 and 4.0. BOTH REMAINING ARMS ARE NOW CLOSED, and the first one
+was not the tidying job this item called it. (1) `path_desired_distance` is
+derived in `_align_agent_to_mesh` (Laser Tag 0.18.0) from three terms the
+runtime already has: the agent radius, which comes from the contract at spawn;
+`move_speed / physics_ticks_per_second`, below which a body steps OVER the
+threshold between samples; and half a cell height, being what
+`path_height_offset` cannot remove. Combined in 3D, because that is how Godot
+measures it. On the shipped contract that is 0.435 against the authored 0.8.
+MEASURED ON `restaurant_row_001` seed 9003, no enemies, 180 s, four runs
+either side with the constant the only difference: 0.8 gave
+`route_completion_rate` 0.0 and 38 stuck events in every run, and 0.435 gave
+1.0 and ZERO in every run, with three further seeds confirming. At 0.8 the
+agent counts a waypoint reached from 0.8 m away, cuts the corner and jams --
+the OPPOSITE failure to item 122, where the distance was too small to register
+arrival at all. Both directions are real, and 0.8 had worked on
+`market_row_001`, which is precisely what a constant that survives one map
+looks like. Under fire the two are indistinguishable (20 runs at 4 enemies: 0
+stuck either way, within 3% on survival and shots), because the crew dies
+before path-following precision matters -- which is why this went unseen while
+every measurement in this project was taken with guards on the map. (2) The
+contract distinguishes the two radii in writing: `characters.player` carries a
+`radius_note` saying a BODY is built from 0.35 and that
+`nav_bake.agent_radius_m` is a bake parameter with "fattest navigating
+character + 0.05 safety" folded in, and `nav_bake.note` points back at it (Deli
+Counter 0.110.1).*
 
 **123. The size proxy is disconnected from the size contract.** Found
 2026-09-08 while fixing the evaluation bot's navigation (item 122), which
