@@ -12443,12 +12443,22 @@ MOVE: 50 on all three, either side. `first_contact_min_seconds` is 3.0 and
 numbers on the same side of both thresholds, and INSTANT_CONTACT and
 NO_REACTION_TIME both still fire. By this file's own standard that is a
 measured, well-reasoned change that has not yet moved the deliverable, and it
-is recorded as such rather than counted. WHAT REMAINS, three things. (1) A NEW
-TRADE THIS MADE WITHOUT DECIDING IT: `BLIND_MAP` now fires at 52% -- more than
-half of walkable positions visible from no enemy spawn, where the run did not
-raise it before -- while overexposure fell 28% -> 19%. Enemies that keep cover
-through the opening stand further off the crew's path, and whether that is
-better is a design question nobody has answered. (2) THE DISTANCE BRANCH IS
+is recorded as such rather than counted. WHAT REMAINS, two things -- a third
+was claimed here and is RETRACTED. THE RETRACTION FIRST, because it was this
+item's own reasoning that was wrong: this status said the change made "a new
+trade without deciding it", `BLIND_MAP` firing at 52% where the run had not
+raised it before, against overexposure falling 28% -> 19%. It made no such
+trade. That comparison put a 2904-sample region beside a 3876-sample one,
+because `LT_MapEvalHarness` was still passing gameplay markers alongside the
+geometry corners when it bounded the sample grid, and enemies 59 to 75 m out
+had been stretching it over ground that was visible to them and so counted as
+un-blind. Fixed in Laser Tag 0.16.0. Re-measured over the same geometry-only
+region, `blind_fraction` is 0.5272 for the OLD placement and 0.5210 for the
+new: above the threshold either way, and slightly better after. The warning is
+a property of the site that the inflated region had been hiding. The lesson is
+the one this file keeps relearning -- name what produced an artefact before
+concluding anything from it, and two numbers are not comparable until they
+came from the same measurement. (2) THE DISTANCE BRANCH IS
 UNTOUCHED and still understates: `clearance` is the ground the CREW covers, so
 it models a closing speed of `CREW_SPEED` alone when both sides close at about
 4 m/s and the real gap shrinks by nearer 8.5 m in the second. It was left
