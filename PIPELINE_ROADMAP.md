@@ -805,9 +805,9 @@ work of adopting this.
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
 | 125 | **CLOSED** | A shot from the end of one run is counted at the start of the next | 2026-09-09 -- FIXED IN LASER TAG 0.14.0, AND THE FIRST DIAGNOSIS IN THIS ITEM WAS HALF WRO |
 | 126 | **OPEN** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- REAL, MEASURED, NOT REPRODUCED, AND NOT FIXED. Laser Tag 0.15.0 made the wai |
-| 127 | **OPEN** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- MEASURED ON A STAGED COPY OF THE MAP, CAUSE ESTABLISHED, NOT FIXED. Both ins |
+| 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 
-**127 items: 50 open, 47 closed, 3 retracted, 24 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**127 items: 49 open, 47 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12423,9 +12423,41 @@ noise -- it looks like a specific, actionable verdict about a level. A gate
 that fails loudly is cheap; one that fails as a plausible finding is what
 costs a day.
 
-*STATUS: OPEN 2026-09-09 -- MEASURED ON A STAGED COPY OF THE MAP, CAUSE
-ESTABLISHED, NOT FIXED. Both instruments are honest; Lot's model is
-incomplete, in a way it already corrected once on the other side of the line.*
+*STATUS: NARROWED 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE
+METRIC DID NOT MOVE. `opening_engagement_is_fair` now judges occlusion against
+`enemy_opening_positions` -- the candidate plus an eight-point ring at
+`ENEMY_SPEED * REACTION_SECONDS`, minus the samples standing inside a building
+-- so the enemy is a disc of reachable ground rather than the tile it starts
+on. Measured on cold run 9003's three candidates, same seeds either side:
+first contact 0.73 -> 1.53, 0.27 -> 1.40 and 0.27 -> 1.47 s; survival
+3.81 -> 5.58, 3.71 -> 5.38 and 2.40 -> 3.71 s. THE RESULT THAT MATTERS IS
+`enemy_stuck_events` 0 -> 0 ON ALL THREE, because that is the one the previous
+stricter-placement attempt failed: `ENEMY_SIGHT_RANGE`'s note records refusing
+occlusion inside 35 m taking it from 34 to 75, enemies stranded on ground they
+could not path off, score unchanged. Here nothing was dropped, no
+`LOT_ENEMY_SPAWN_UNPLACEABLE`, `ENEMY_PATHING` reports PASS, and
+`LOT_ENEMY_SPAWN_STANDOFF` stopped firing entirely -- the search finds fair
+ground first time rather than sliding onto it. AND THE SCORE STILL DID NOT
+MOVE: 50 on all three, either side. `first_contact_min_seconds` is 3.0 and
+`min_reasonable_survival_seconds` is 10.0, so 1.5 s and 5.6 s are better
+numbers on the same side of both thresholds, and INSTANT_CONTACT and
+NO_REACTION_TIME both still fire. By this file's own standard that is a
+measured, well-reasoned change that has not yet moved the deliverable, and it
+is recorded as such rather than counted. WHAT REMAINS, three things. (1) A NEW
+TRADE THIS MADE WITHOUT DECIDING IT: `BLIND_MAP` now fires at 52% -- more than
+half of walkable positions visible from no enemy spawn, where the run did not
+raise it before -- while overexposure fell 28% -> 19%. Enemies that keep cover
+through the opening stand further off the crew's path, and whether that is
+better is a design question nobody has answered. (2) THE DISTANCE BRANCH IS
+UNTOUCHED and still understates: `clearance` is the ground the CREW covers, so
+it models a closing speed of `CREW_SPEED` alone when both sides close at about
+4 m/s and the real gap shrinks by nearer 8.5 m in the second. It was left
+deliberately -- widening two axes in one change is what went wrong last time --
+and two shipped tests pin the current behaviour, so moving it is a decision
+with a diff attached rather than an oversight. (3) THE EXPENSIVE QUESTION is
+untouched: whether an opening that lasts one second is what a brief wanted,
+which is where `REACTION_SECONDS = 1.0` being "the floor, not a target" starts
+to matter.*
 
 **127. The opening is judged against an enemy that stands still, and it does
 not.** Found 2026-09-09 by chasing the disagreement cold run 9003 left behind:
