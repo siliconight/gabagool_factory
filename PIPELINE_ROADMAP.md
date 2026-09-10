@@ -809,8 +809,9 @@ work of adopting this.
 | 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
 | 130 | **NARROWED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- shipped as Deli Counter 0.111.0. The height is derived and the rooms that fa |
+| 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
 
-**130 items: 48 open, 49 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**131 items: 48 open, 50 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12886,3 +12887,132 @@ check those docstrings name does not cover `EYE_HEIGHT` or `CHEST_HEIGHT`. And
 `characters.player.crouch_height_m` has no consumer anywhere: nothing in Laser
 Tag or Lot crouches, which is why low cover is life rather than shelter *in the
 evaluator* and says nothing about the shipped game.
+
+*STATUS: CLOSED 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory
+0.63.0, Lot 0.54.0 and Deli Counter 0.111.1. Every body has one eye, the
+muzzle sits at it, and the drift check the Lot docstrings have always claimed
+now exists. A/B measured on three maps: traversal, wipes and kills identical;
+the residue is in stuck counts, which move in both directions.*
+
+**131. Seven heights described one firefight and no two of them agreed.**
+Raised 2026-09-10 as item 130's residue, and it is worse than 130 recorded --
+that item found four, and reading the rest of the call sites found three more.
+
+```
+crew   sees from   1.40   a literal inside LT_BotPlayerController
+crew   camera      1.60   scenario.player_eye_height_m, wired since 0.11.0
+crew   shoots from 1.55   Marker3D_Muzzle, a child of that camera, 0.3 m fwd
+enemy  sees from   1.50   LT_EnemyPill.tscn Marker3D_Eye
+enemy  shoots from 1.30   LT_EnemyPill.tscn Marker3D_Muzzle, 0.4 m fwd
+enemy  targeted at 1.40   LT_PlayerRegistry.get_best_target_for_enemy
+map    sampled at  1.50   LT_MapSampler's own const EYE_HEIGHT
+```
+
+**TWO OF THOSE ARE DEFECTS STANDING ALONE.** A body that sights 0.15 m BELOW
+its own barrel can decline a shot it has and take one it does not; an enemy
+that sights 0.2 m ABOVE its barrel fires into the cover it is looking over. The
+forward offsets bend it the wrong way as well: a muzzle 0.4 m in front of the
+eye can be through the wall the body is standing behind.
+
+The registry's 1.4 went live only when crews grew past one member --
+`get_best_target_for_enemy` returns early at `alive.size() == 1` -- so target
+SELECTION and target ENGAGEMENT have disagreed on every multi-member run since
+roadmap 129 landed on 2026-09-09, which is all of them.
+
+**AND ONE OF THEM IS NOT ABOUT A RUN AT ALL.** `LT_MapSampler`'s const decides
+what the report says about the MAP: `has_cover_fraction`,
+`long_sightline_fraction`, `avg_open_directions`. Cover was being measured 0.1 m
+below the eye that plays the level, which is a measurement of a different level.
+
+**A KNOB WITH A THIRD OF AN EFFECT.** `player_eye_height_m` moved the camera and
+therefore the muzzle, and did not move the visibility probe. A consumer stating
+a 2.05 m character got a 2.0 m barrel above a 1.4 m eye. Three of the seven
+heights were not reachable from a scenario at all.
+
+**FIXED.** A body's eye is a NODE, placed once by the harness from the
+scenario, and `LT_LineOfSightTester.eye_position(body)` is the only way to ask
+where it is -- a number cannot drift from itself. Each muzzle sits at its own
+eye with no forward offset, so the firing ray IS the ray the visibility test
+just proved clear; the offset was never load-bearing, because `LT_Shooter.fire`
+already excludes `owner_body` from its query. `enemy_eye_height_m` and
+`aim_height_m` join the scenario. The sampler reads `player_eye_height_m`.
+
+**MEASURED, warehouse_yard_001, crew 4, 25 runs, three maps, the addon the only
+difference.**
+
+```
+                       seed 9004        seed 9105        seed 9206
+overall_score          50 ->  48        75 ->  75        50 ->  50
+route_progress_rate  0.33 -> 0.33     0.33 -> 0.33     0.41 -> 0.41
+route_completion     0.00 -> 0.00     0.00 -> 0.00     0.08 -> 0.08
+team_wipe_count          0 ->    0        0 ->    0       21 ->   21
+avg_enemy_deaths       6.0 ->  6.0      6.0 ->  6.0      3.0 ->  3.0
+player_stuck_events      1 ->    5        4 ->    1        1 ->    1
+enemy_stuck_events       2 ->    7        1 ->    2       88 ->   90
+```
+
+TRAVERSAL, LETHALITY AND WIPES DO NOT MOVE AT ALL. The whole residue is in
+stuck counts, and they move in both directions -- +4 player on one seed, -3 on
+another. Seed 9004 crosses WARN -> FAIL on a two-point score change, which is a
+band boundary rather than a finding.
+
+**THE MAP-LEVEL FIGURES ARE WHERE IT LANDS, AND THEY MOVE THE SAME WAY ON EVERY
+SEED.** These come from `LT_MapSampler`, whose eye rose 1.5 -> 1.6 -- the one
+number here that describes the LEVEL rather than a run:
+
+```
+                          seed 9004         seed 9105         seed 9206
+avg_exposure          1.5664 -> 1.5858  1.4352 -> 1.4592  1.6308 -> 1.6552
+avg_open_directions   3.8555 -> 3.8619  3.9405 -> 3.9657  3.7769 -> 3.7929
+peer_exposed_fraction 0.7300 -> 0.7342  0.7662 -> 0.7742  0.7639 -> 0.7704
+overexposed_fraction  0.2662 -> 0.2677  0.2883 -> 0.2941  0.2586 -> 0.2624
+blind_fraction        0.6526 -> 0.6526  0.5496 -> 0.5492  0.4245 -> 0.4150
+```
+
+Nine of those ten move, all in the same direction, on three different maps:
+**every map reads as more open and more exposed than it was being reported.**
+That is not noise the way the stuck counts are -- it is a systematic
+correction, and its size is the 10 cm the sampler was measuring below the eye
+that plays the level. `has_cover_fraction` barely moves (0.6793 -> 0.6785 and
+unchanged on the other two) because it is a thresholded count and the
+threshold is coarse; the continuous measures are where a 10 cm error shows.
+
+This is the result that justifies the change. The run-level numbers say the
+firefight is indifferent to it on this map; the map-level numbers say the
+instrument was optimistic on all three.
+
+The map is also the wrong instrument for this change and says so: the shipped
+corpus has no geometry between 1.10 m and 1.20 m (roadmap 130), so raising an
+eye from 1.4 to 1.6 crosses nothing on it. A three-run smoke returned figures
+identical to four significant figures on both arms before the full sweep, which
+looked like a wiring failure and was not -- a probe printing the live positions
+showed eye 2.600 and muzzle 2.600 against a body at 1.000, exactly as intended.
+That is why `test_one_eye_per_body` guards the LITERALS as well as the
+behaviour: no run-level assertion catches a reintroduced constant on a map with
+nothing in the band that moved.
+
+**WHAT THIS DOES TO THE DERIVED COVER HEIGHT, AND IT IS THE POINT OF HAVING
+WRITTEN IT DOWN.** With both sides sighting from 1.6 at a 1.0 chest the
+crossing rises 1.2222 -> 1.3000. `deli_counter/agent_contract.json` is
+re-derived, `level_design._COVER_HIGH_Z` and `combat_audit.COVER_BREAK_H`
+follow it without an edit, and the corpus flags the SAME 39 of 91 combat rooms
+-- because nothing in it stands between 1.20 m and 1.40 m. The derivation
+followed the evaluator, which is what item 130 built it to do.
+
+**THE PROMISE THAT WAS NOT KEPT, NOW KEPT.** `site_cover.py` and
+`site_spawns.py` have both said since they were written that Level Factory's
+`lasertag_contract` reports drift on the constants they carry. `Engagement`
+held five numbers and every one was a RANGE, so the two constants those
+comments are attached to were the two nothing checked. It now carries
+`crew_eye`, `enemy_eye` and `aim_height`, derives `cover_break_height` from
+them, and `check_sight_drift` reports per constant and on the height they
+produce -- with a test that runs it against both sibling checkouts as they
+stand on disk, because a drift check that only ever sees fixtures cannot catch
+the drift it exists for.
+
+**STILL OPEN, AND SMALL.** `characters.player.eye_height_m` is 1.6 and the
+contract's `crouch_height_m` (1.2) still has no consumer: nothing in Laser Tag
+or Lot crouches. Until something does, "low cover" is life rather than shelter
+*in the evaluator*, which is a statement about the instrument and not about the
+shipped game. And `aim_height_m` is settable but not derived -- 1.0 m is where
+a 1.8 m body's chest is, and no contract field says so.
