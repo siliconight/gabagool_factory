@@ -807,8 +807,9 @@ work of adopting this.
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 | 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
+| 129 | **OPEN** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- MEASURED ON TWO MAPS, CAUSE IS A PAIR OF DEFAULTS THAT DISAGREE. Not filed a |
 
-**128 items: 48 open, 49 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**129 items: 49 open, 49 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12684,3 +12685,65 @@ already done:
 
 The second is the one that costs nothing and loses no information. The third
 is the honest one if the metric keeps its current shape.
+
+*STATUS: OPEN 2026-09-09 -- MEASURED ON TWO MAPS, CAUSE IS A PAIR OF DEFAULTS
+THAT DISAGREE. Not filed as a fix, because changing either default moves every
+historical comparison and the choice is a design one.*
+
+**129. Every evaluation is one crew member against six guards, and no brief
+ever said so.** Found 2026-09-09 after cold run 9004 produced a
+zero-intervention package whose every run ended in a team wipe -- the third map
+in a row to do that, which is one too many to keep blaming on the map.
+
+**THE TWO DEFAULTS.** `_STOCK_SCENARIO` ships `enemy_count` 6 and
+`player_count` 1. `player_count` is wired from the brief's `crew_size`
+(`apps/cli/commands/__init__.py:423`) and `crew_size` defaults to 1 in
+`packages/core/models.py`. OF THE 27 BRIEFS ON DISK, EXACTLY ONE DECLARES A
+CREW SIZE, and it says 4. So every evaluation this project has ever run has
+been 1 versus 6, and nothing in any brief asked for that.
+
+**MEASURED, 5 RUNS PER CELL, 6 ENEMIES, THE CONSTANT THE ONLY DIFFERENCE.**
+
+```
+restaurant_row_001            progress  survival  wipes  ends
+  crew 1                          0.00      3.4s    5/5  TEAM_WIPE x5
+  crew 2                          0.33      4.0s    5/5  TEAM_WIPE x5
+  crew 3                          0.33      5.0s    4/5  TEAM_WIPE x4, CLEARED x1
+  crew 4                          0.33      8.1s    1/5  CLEARED x4, TEAM_WIPE x1
+
+warehouse_yard_001 seed_9105  progress  survival  wipes  ends
+  crew 1                          0.00     11.0s    5/5  TEAM_WIPE x5
+  crew 4                          0.33     10.8s    0/5  CLEARED x5
+```
+
+`warehouse_yard_001` is the map on which cold run 9004 wiped 75 runs out of 75.
+At the crew size the one brief that states one uses, it wins every fight.
+
+**WHAT THIS REFRAMES, AND IT IS NOT NOTHING.** Item 17's standing caveat --
+"zero interventions does not mean the level plays" -- was measured at 1 versus
+6 on every run behind it. Items 120 and 127 concluded that
+`route_completion_rate` is gated by lethality; it is, at a crew size nobody
+chose. Item 121's traversal flag was A/B-ed three times against a crew that
+dies in seconds. NONE OF THOSE READINGS WAS WRONG about what it measured. All
+of them measured an encounter the briefs did not describe.
+
+**ROUTE COMPLETION STILL DOES NOT MOVE**, and that is item 128 rather than this
+one: at crew 4 the runs end `ENEMIES_CLEARED`, which stops the clock before the
+route is walked. Progress rises from 0.00 to 0.33 and stops there for the same
+reason.
+
+**WHAT A REMEDY HAS TO DECIDE.** The two defaults disagree with each other and
+only one of them should move:
+
+- RAISE `crew_size`'s default to a heist crew. Cheapest, and it invalidates the
+  comparison history in one line -- the same objection that kept
+  `advance_while_engaging` opt-in.
+- MAKE THE SHIPPED BRIEFS DECLARE IT. Narrower, keeps the default honest, and
+  fixes the corpus a newcomer copies -- which is where roadmap 118 found the
+  `lot_library` laggards too. 26 briefs to edit.
+- LOWER `enemy_count`. Defensible only if 6 guards is itself the wrong shape
+  for these sites, which nothing here establishes.
+
+MEASURE THE CAVEAT BEFORE CHOOSING: a crew of 4 was not measured against
+route completion with `ENEMIES_CLEARED` disabled, so how much of item 17's
+"the level does not play" survives a fair crew size is still unknown.
