@@ -12951,10 +12951,33 @@ player_stuck_events      1 ->    5        4 ->    1        1 ->    1
 enemy_stuck_events       2 ->    7        1 ->    2       88 ->   90
 ```
 
-TRAVERSAL, LETHALITY AND WIPES DO NOT MOVE AT ALL. The whole residue is in
-stuck counts, and they move in both directions -- +4 player on one seed, -3 on
-another. Seed 9004 crosses WARN -> FAIL on a two-point score change, which is a
-band boundary rather than a finding.
+TRAVERSAL, LETHALITY AND WIPES DO NOT MOVE AT ALL. The whole run-level residue
+is in stuck counts, and one seed crosses WARN -> FAIL on a two-point score move.
+So the map was held fixed and the RNG seed varied instead, four times each arm,
+to find out whether that was the change or the dice:
+
+```
+map 9004, 25 runs          score      player_stuck    enemy_stuck
+rng 11                    50 -> 50       1 ->  5        3 ->  6
+rng 22                    48 -> 48       1 ->  5        7 ->  7
+rng 33                    47 -> 47       3 ->  6       10 -> 10
+rng 44                    47 -> 48       3 ->  5       10 ->  8
+mean delta                    +0.25          +3.25          +0.25
+```
+
+TWO DIFFERENT ANSWERS, AND THEY NEEDED SEPARATING. **Player stuck rises by 2-4
+on every seed: systematic, not noise.** Enemy stuck scatters (+3, 0, 0, -2) --
+so the WARN -> FAIL that started this was `stuck_per_run > 0.25` being crossed
+by a number that moves in both directions, a threshold sitting inside its own
+noise band. The SCORE does not move at all, because the player-stuck penalty is
+a flat -10 that both arms already pay.
+
+THE OBVIOUS MECHANISM IS REFUTED. "A bot that stops to fight is counted as
+stuck" would explain a systematic rise from a higher eye seeing more enemies --
+and `_update_stuck` already guards it: the condition is
+`moved < stuck_distance_threshold and _find_visible_enemy() == null`, so an
+engaged bot is exempt. Whatever produces the extra three is downstream of a
+different fight rather than a miscount, and it is NOT established here.
 
 **THE MAP-LEVEL FIGURES ARE WHERE IT LANDS, AND THEY MOVE THE SAME WAY ON EVERY
 SEED.** These come from `LT_MapSampler`, whose eye rose 1.5 -> 1.6 -- the one
