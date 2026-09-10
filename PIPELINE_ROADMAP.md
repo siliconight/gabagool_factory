@@ -808,10 +808,10 @@ work of adopting this.
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 | 128 | **NARROWED** | Winning the fight ends the run before the route can be walked | 2026-09-09 -- THE READING IS FIXED, THE RUN BOUNDARY IS NOT. Laser Tag 0.19.0 adds `route_ |
 | 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
-| 130 | **NARROWED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- shipped as Deli Counter 0.111.0. The height is derived and the rooms that fa |
+| 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
 
-**131 items: 48 open, 50 closed, 3 retracted, 27 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**131 items: 48 open, 51 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -12770,10 +12770,10 @@ MEASURE THE CAVEAT BEFORE CHOOSING: a crew of 4 was not measured against
 route completion with `ENEMIES_CLEARED` disabled, so how much of item 17's
 "the level does not play" survives a fair crew size is still unknown.
 
-*STATUS: NARROWED 2026-09-10 -- shipped as Deli Counter 0.111.0. The height is
-derived and the rooms that fail it are reported. What the corpus DOES about the
-39 rooms is a design call and is not made here; the four disagreeing sight
-heights inside Laser Tag are untouched and are the residue.*
+*STATUS: CLOSED 2026-09-10 -- Deli Counter 0.111.0 derived the height and
+reported the rooms; 0.112.0 fixed them, 39 of 91 to ZERO, by giving each one
+piece at `shelter_height()` and leaving its furniture alone. The seven sight
+heights that were this item's residue are roadmap 131 and are closed too.*
 
 **130. Cover was measured against furniture, and nothing asked whether it
 stops anybody seeing anybody.** Found 2026-09-10 while testing a different
@@ -12865,6 +12865,50 @@ life; the brief for this game is buildings, roads between them, and props
 inside that give cover and life without overkill -- which is an argument for a
 MIX, not for raising everything. So the item reports which rooms have no
 shelter at all and leaves the ratio to a person.
+
+**THE RATIO WENT TO A PERSON AND CAME BACK: ONE PIECE.** Shipped as Deli
+Counter 0.112.0. `seed_cover` guarded on `_room_has_cover`, which answers "is
+there furniture here" -- so a room full of 0.9 m crates was covered, was
+skipped, and the one thing it lacked was the one thing never added. It now asks
+two questions, because there are two ways a combat room fails:
+
+- BARE, which the audit calls a kill box. Already handled: 2-4 archetype
+  pieces.
+- FURNISHED AND UNFIGHTABLE. One piece at `shelter_height()`, and the furniture
+  stays exactly as it was.
+
+**`shelter_height()` IS DERIVED, NOT A MARGIN.** `cover_break_height` is the
+shortest solid that works AT ALL; this is the shortest that works ANYWHERE
+along the line. The requirement along the line is
+`max(a + (c-a)t, c + (b-c)t)`, largest at the ends where it equals each side's
+own eye -- so a solid as tall as the taller eye works from any position:
+
+```
+h=1.30  ->  t in [0.50, 0.50]   width 0.00   the crossing
+h=1.40  ->  t in [0.33, 0.67]   width 0.33
+h=1.50  ->  t in [0.17, 0.83]   width 0.67
+h=1.60  ->  t in [0.00, 1.00]   width 1.00   this
+```
+
+At the crossing a producer has to land a piece within centimetres of one
+computed point, and the first constraint that vetoes that point takes the whole
+sightline with it. `_SEED_SHELTER` carries the FOOTPRINT only and takes the
+height from here, so the archetype decides what the thing looks like and the
+contract decides how tall it has to be.
+
+**MEASURED.** `COVER_ALL_LOW` 39 -> 0 across the 14 non-facade presets, with no
+other audit finding moving at all. 50 pieces over 91 combat rooms. And
+`layout_lint` reports **49 fails / 3 warnings with the change and 49 / 3
+without it** -- every one a pre-existing wall, opening or marker defect
+(L10/L11/L16/L18, item 111's territory), none about a volume. Attributed by
+running the gate with the change stashed rather than by reading the codes and
+assuming.
+
+**A CHECK THAT ONLY WORKS WHILE THE DEFECT EXISTS IS NOT A CHECK.** The test
+pinning this asserted the corpus HAD the defect, which stopped being true
+within a day. It now asserts the corpus does not, and the mechanism is tested
+on a fixture -- the same shape as the bare `== 1.2` in `test_site_cover` that
+roadmap 131 had to fix for the same reason.
 
 **THE RESIDUE, AND IT IS INSIDE LASER TAG.** Four heights describe one firefight
 and no two of them agree:
