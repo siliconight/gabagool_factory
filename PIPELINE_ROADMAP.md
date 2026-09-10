@@ -13033,9 +13033,32 @@ produce -- with a test that runs it against both sibling checkouts as they
 stand on disk, because a drift check that only ever sees fixtures cannot catch
 the drift it exists for.
 
-**STILL OPEN, AND SMALL.** `characters.player.eye_height_m` is 1.6 and the
-contract's `crouch_height_m` (1.2) still has no consumer: nothing in Laser Tag
-or Lot crouches. Until something does, "low cover" is life rather than shelter
-*in the evaluator*, which is a statement about the instrument and not about the
-shipped game. And `aim_height_m` is settable but not derived -- 1.0 m is where
-a 1.8 m body's chest is, and no contract field says so.
+**THE AIM POINT NOW BELONGS TO A BODY** (Deli Counter 0.111.2, Level Factory
+0.63.1, Laser Tag 0.20.1). `aim_height_m` was settable and derived from
+nothing: 1.0 m is where a 1.8 m body's chest is, and no field said so, so a
+studio stating a 2.05 m character got an eye that followed and an aim point
+that stayed at ours. `characters.player.chest_height_m` sits beside the eye,
+derived as the centre of mass of a standing adult -- about 0.55 of stature,
+0.55 * 1.8 = 0.99, ratified at 1.0 -- and `_FIELDS` carries it across the seam.
+
+**THE HARD CONSTRAINT IS NOT ANTHROPOMETRY.** A line-of-sight ray is cast AT
+this height and LOS is granted only when it hits the target body FIRST, so an
+aim point outside the target's own capsule misses. Nothing ever sees anything,
+and the report fills with zeroes that read like a map problem. The safe band is
+the capsule's cylindrical section, `radius <= chest <= height - radius` (0.35
+to 1.45 on this body); above it the ray grazes a hemisphere, and at the apex it
+misses. **A 1.0 m character aimed at a fixed 1.0 m is aimed at the top of its
+own head.** `agent_contract.chest_height()` refuses a contract that does it,
+and `validate_map` reports it -- FAIL above the capsule, WARN off the torso,
+because a value just outside the band still meets a narrowing hemisphere and
+refusing to evaluate would be stricter than the geometry warrants.
+
+The value does not move, and that was verified rather than assumed: seed 9105
+re-run at 25 runs against the 0.20.0 report is identical on score, wipes,
+timeouts, progress, completion, both stuck counts, shots, contact and survival.
+Only its provenance changed.
+
+**STILL OPEN, AND SMALL.** The contract's `crouch_height_m` (1.2) has no
+consumer: nothing in Laser Tag or Lot crouches. Until something does, "low
+cover" is life rather than shelter *in the evaluator*, which is a statement
+about the instrument and not about the shipped game.
