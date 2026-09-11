@@ -679,21 +679,21 @@ work of adopting this.
 
 | # | status | item | evidence |
 |---|---|---|---|
-| 1 | **CLOSED** *(inferred)* | Cover is exonerated — the trap is somewhere else | Closed 2026-07-27 |
-| 2 | **CLOSED** *(inferred)* | `walktest.py` into the DAG | Closed 2026-07-27** as Lot 0 |
+| 1 | **CLOSED** | Cover is exonerated — the trap is somewhere else | 2026-07-27 -- as the body records: "Closed 2026-07-27". Cover is exonerated; the trap is s |
+| 2 | **CLOSED** | `walktest.py` into the DAG | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Lot 0.x", `walktest.py` into the  |
 | 3 | **CLOSED** | Lot places enemies twice, and nothing checks the two agree | 2026-08-16 -- PLACED ONCE AND THREADED THROUGH, which is the first of the two remedies thi |
-| 4 | **OPEN** *(inferred)* | Lot emits absolute `res://` paths at source | — |
-| 5 | **CLOSED** *(inferred)* | A run that evaluated nothing reported a clean pass | Closed 2026-07-27 as Level Factory 0 |
-| 6 | **OPEN** *(inferred)* | The tactical advisory reads a scene that may not exist yet | — |
-| 7 | **CLOSED** *(inferred)* | The certified set has drifted | Closed 2026-07-27 as **factory 1 |
+| 4 | **CLOSED** | Lot emits absolute `res://` paths at source | 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Le |
+| 5 | **CLOSED** | A run that evaluated nothing reported a clean pass | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Level Factory 0.14.0", the resume |
+| 6 | **CLOSED** *(inferred)* | The tactical advisory reads a scene that may not exist yet | CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27 as factory 1 |
+| 7 | **CLOSED** | The certified set has drifted | 2026-07-27 -- as the body records: "Closed 2026-07-27 as factory 1.6.0", five stale pins r |
 | 8 | **CLOSED** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-14 -- shipped as Lot 0.28.0 + Level Factory 0.18.0; the seed_5219 report carries a |
 | 9 | **NARROWED** | Lot emits nav-QA anchors nothing checks | 2026-08-16 -- the residual this item names for itself, "Lot still cannot answer 'is this a |
 | 10 | **NARROWED** | `nav_gate.py` certifies geometry that never ships | 2026-08-14 -- quantified. `nav_gate.gd` bakes PARSED_GEOMETRY_MESH_INSTANCES; `lot.py:1430 |
-| 11 | **RETRACTED** *(inferred)* | The building interiors barely bake | Retracted 2026-07-28 |
+| 11 | **RETRACTED** | The building interiors barely bake | 2026-07-28 -- as the body records: "Retracted 2026-07-28". Written into a status line 2026 |
 | 12 | **NARROWED** | Props bake as walkable navmesh, and nothing can reach them | 2026-08-14 -- the mechanism this item named is not misconfigured, it is ABSENT: `geometry_ |
-| 13 | **RETRACTED** *(inferred)* | RETRACTED — seed 5320's vault was never broken; its walktest never ran | RETRACTED — seed 5320's vault was never broken; its walktest never ran |
+| 13 | **RETRACTED** | RETRACTED — seed 5320's vault was never broken; its walktest never ran | 2026-07-28 -- as the body records: seed 5320's vault was never broken; its walktest never  |
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
-| 15 | **CLOSED** *(inferred)* | Fail-fast is mission-wide, but the failures are candidate-scoped | Closed 2026-07-28 as Level Factory 0 |
+| 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
 | 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-10 -- COLD RUN 9005 SCORED ZERO ON AN ARCHETYPE NOBODY HAD BUILT, AND THE ROUTE WA |
 | 18 | **OPEN** *(inferred)* | Every gate measures whether a level WORKS. None measures whether it is | — |
@@ -701,7 +701,7 @@ work of adopting this.
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
 | 22 | **OPEN** *(inferred)* | Outdoor props have no swap contract, so cover stays boxes forever | — |
-| 23 | **CLOSED** *(inferred)* | A Node-typed export written by a tool is discarded in silence, and the | Closed for Lux on 2026-08-01; the general form is |
+| 23 | **CLOSED** | A Node-typed export written by a tool is discarded in silence, and the | 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" wha |
 | 24 | **OPEN** *(inferred)* | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | — |
 | 25 | **OPEN** *(inferred)* | A project `cater` has SERVED does not run until the editor imports it | — |
 | 26 | **OPEN** *(inferred)* | Something finally looks at the picture | — |
@@ -717,7 +717,7 @@ work of adopting this.
 | 36 | **NARROWED** | Walking it. Zoo's inserts are exact; the layer with no slot is the one | 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings  |
 | 37 | **CLOSED** | Every building on the site is the same building | 2026-09-05 -- BUILT, THEMED, AND SHIPPED IN A PACKAGE. The mechanism was already there and |
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
-| 39 | **RETRACTED** *(inferred)* | Cache correctness: the mechanism is designed and never wired, and the  | RETRACTED: `--force` is not broken |
+| 39 | **RETRACTED** | Cache correctness: the mechanism is designed and never wired, and the  | 2026-08-xx -- as the body records: "RETRACTED: `--force` is not broken". Overtaken since:  |
 | 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
@@ -815,11 +815,13 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**135 items: 37 open, 66 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 35 open, 68 closed, 3 retracted, 26 narrowed, 3 analysis.** 11 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
 <!-- END GENERATED -->
+
+*STATUS: CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27". Cover is exonerated; the trap is somewhere else. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **1. Cover is exonerated — the trap is somewhere else.** Closed 2026-07-27.
 
@@ -849,6 +851,8 @@ One number to re-check before quoting it: seed 5219's stats this run (835 stuck,
 previous run, across a different seed *and* a Lot code change. Two structurally
 similar sites could converge, but identical to four significant figures is the
 kind of coincidence that has been wrong twice in this file.
+
+*STATUS: CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27 as Lot 0.x", `walktest.py` into the DAG. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **2. `walktest.py` into the DAG.** Every navigation conclusion in this file was
 inferred from a firefight, which is the wrong instrument twice over: confounded
@@ -933,12 +937,16 @@ derived from the already-seated points. The comment claims "same inputs, same
 answer". That claim is untested. Place once, thread the result through, or
 assert the two agree.
 
+*STATUS: CLOSED 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Level Factory's site-spec writer records why in its own comment: Lot writes each ext_resource as os.path.join(glb_dir, src) with glb_dir=".", so an absolute src passes straight through -- therefore the spec names "lot/<id>/site.tscn" and a staging step run before Lot puts the package there. Every `lot_assemble` `site.tscn` in every workspace on disk was grepped on 2026-09-11 for a drive-letter path: 41 of 42 carry none, and the one that does -- `lot-demo-ws` `art_probe_001` seed 5017, dated 2026-08-05 -- predates the fix, which landed 2026-08-12 (`0e80f34`). Cold run 9005's ships `path="buildings/shell.glb"`. The two downstream repairs the item objected to relying on are still there as guards -- the export closure scan reports `absolute_path_count` 0 on every recent package -- but the guarantee no longer rests on them.*
+
 **4. Lot emits absolute `res://` paths at source.** It bakes building GLBs as
 `res://C:/Projects/.../shell.glb` — a reference to one developer's disk, which
 is the plainest violation of the standalone contract. Staging rewrites them and
 `PRESENTATION_UNRESOLVED_REF` blocks if any survive, so the guarantee currently
 rests on two downstream repairs rather than on Lot not breaking it. Fix where
 the path is written.
+
+*STATUS: CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27 as Level Factory 0.14.0", the resume pre-skip that replayed nothing. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **5. A run that evaluated nothing reported a clean pass.** The worst defect in
 this list, because a level that grades badly is fine and a pipeline that is
@@ -1011,6 +1019,8 @@ results asserted identical), plus six in
 adapter's pre-flight owns "there is no scene here" — but that assumes the two
 run at the same moment. When they do not, the scene half of the advisory
 silently vanishes. Make "I could not read the scene" say so.
+
+*STATUS: CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27 as factory 1.6.0", five stale pins re-pinned. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **7. The certified set has drifted.** Closed 2026-07-27 as **factory 1.6.0**.
 
@@ -1090,6 +1100,8 @@ It should bake what the runtime loads — instance the imported scene, or parse
 `PARSED_GEOMETRY_BOTH` the way the navqa scene does — or it will keep answering
 a question nobody asked.
 
+*STATUS: RETRACTED 2026-07-28 -- as the body records: "Retracted 2026-07-28". Written into a status line 2026-09-11 so the index reads it rather than infers it.*
+
 **11. The building interiors barely bake.** Retracted 2026-07-28. They bake.
 `slab_0` carries navmesh in all four buildings, the stairwells connect all three
 storeys, and `crew_home` standing inside b2 reaches the street. The polygon
@@ -1120,6 +1132,8 @@ The alternative reading, which should be settled before building either: some
 props *should* be mountable (a bar top, a low crate) and the right answer is a
 ramp or a step, not a mask. Deli Counter owns that decision — it is the repo that
 knows which prop is cover and which is scenery.
+
+*STATUS: RETRACTED 2026-07-28 -- as the body records: seed 5320's vault was never broken; its walktest never ran. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **13. RETRACTED — seed 5320's vault was never broken; its walktest never ran.**
 This item said one candidate of four reported a vault anchor off the main
@@ -1197,6 +1211,8 @@ column read that settled the anchors will do it — and compare the navmesh
 polygon there against the collider. If it is a doorway, `min_door_width` in
 `agent_contract.json` is the number it should have been checked against and Deli
 Counter owns it.
+
+*STATUS: CLOSED 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast made candidate-scoped. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **15. Fail-fast is mission-wide, but the failures are candidate-scoped.**
 Closed 2026-07-28 as Level Factory 0.22.0.
@@ -1666,6 +1682,8 @@ Pixelcoat could skin if anything told it their extents and material roles.
 
 Do not start this before the drift in item 21 is closed. It adds a contract
 between two tools that are both currently uncertified.
+
+*STATUS: CLOSED 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" what follows in the item. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **23. A Node-typed export written by a tool is discarded in silence, and the
 whole library carries it.** Closed for Lux on 2026-08-01; the general form is
@@ -3388,6 +3406,9 @@ re-run look identical from downstream -- which is why `tools/stage_census.py`
 prints mtimes and refuses cross-run comparisons. Any stage that reads a file it
 does not hash belongs on that list; the audit has not been done for the other
 adapters, and should be.
+
+*STATUS: RETRACTED 2026-08-xx -- as the body records: "RETRACTED: `--force` is not broken". Overtaken since: roadmap 93 found `--force` was a documented no-op and Level Factory 0.65.0 made it forget the plan's cache. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
+
 **39. Cache correctness: the mechanism is designed and never wired, and the
 pattern behind that is the finding.** Written 2026-08-02 after two stale-cache
 defects in one day. Nothing here is implemented; the measurements it asks for
