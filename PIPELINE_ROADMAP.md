@@ -774,7 +774,7 @@ work of adopting this.
 | 93 | **CLOSED** | Editing a driver script does not invalidate its job's cache | 2026-09-11 -- THE MAIN HALF LANDED TWELVE DAYS BEFORE THIS STATUS SAID SO, AND THE RESIDUE |
 | 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
 | 95 | **CLOSED** | The site light manifest declares a version its anchors outgrew | 2026-09-11 -- THE ENVELOPE IS STAMPED FROM THE FILES IT MERGES. Lot 0.55.0: `merge_lights` |
-| 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
+| 96 | **CLOSED** | Daylight anchors are specified and never realized, because the manifes | 2026-09-11 -- DECIDED (WINDOW AREA LIGHTS), WIRED, MEASURED, AND THE FIRST CALL OF THE PAT |
 | 97 | **CLOSED** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-11 -- BUILT, NOT ALIASED, AND RUN COLD TWICE. Pixelcoat 0.27.0 ships `profiles/the |
 | 98 | **CLOSED** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH. `check.py` exits 0 on 2026-0 |
 | 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
@@ -815,8 +815,9 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
+| 137 | **OPEN** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- MEASURED ON THE RUN THAT CREATED IT, NOT TUNED. ITEM 54'S BUDGET LAW MEETS I |
 
-**136 items: 25 open, 74 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**137 items: 25 open, 75 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9759,7 +9760,38 @@ consumer can see what went in. Owner is `lot` -- it writes the file -- and
 `probe_lightable.py` already fails on an unknown version, so it is the gate
 for whatever gets chosen.
 
-*STATUS: OPEN 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN
+*STATUS: CLOSED 2026-09-11 -- DECIDED (WINDOW AREA LIGHTS), WIRED, MEASURED,
+AND THE FIRST CALL OF THE PATH FOUND A DEFECT NOBODY COULD HAVE SEEN BEFORE.
+Lux 0.30.0 adds `LuxLightLoader.bake_daylight(path, scene_root)`: only the
+anchors with no hardware and no marker (`window`) under a `LuxDaylight`
+container beside the spawner's `LuxFixtureLights`, through the same
+`_rig_for` table (the shadowed area rig of item 60's first tier), returning
+`count` and `in_manifest` separately. Level Factory 0.70.0's driver takes
+`--lights <site.site.lights.json>` and calls it after the fixture spawn,
+re-owning the container so `pack()` keeps it; `lux.quality.json` reports
+`daylight_lights` / `daylight_anchors_in_manifest`; `LUX_NO_DAYLIGHT` fires
+when the manifest asked and nothing was made. THE SECOND FACE IS FINISHED
+TOO: the adapter passes `lights_json`, the key `fingerprint_inputs` had hashed
+since it was written and the command had never taken; the spec builder points
+it at the assembly job's merged manifest. RUN ON cold-9005-ws: 18 window
+anchors of 35, 18 lights, 0 issues; export closure ok; `mesh_light_census`
+counts 18 under `Site/LuxDaylight` beside 39 fixtures. THE DEFECT: every
+baked window panel stood PERPENDICULAR to its wall -- `_place` mapped Deli
+Counter's rot_y ("0 == +X") straight onto `rotation.y`, right for a rig that
+lays lamps along local +X (the fluorescent row) and a quarter turn wrong for
+one that faces local +Z (the area rig's quad). Seen as white quads sticking
+out of the west facade in the S elevation, derived (f = t + 90 under the axis
+swap), fixed in Lux 0.30.1, re-rendered flat. The omni beneath the panel is
+orientation-free and was never wrong. THE COST THE ITEM PREDICTED, NOW A
+NUMBER: the same package with `LuxDaylight` stripped has 2 meshes over the
+per-mesh light budget of 8 (worst 9); with it, 12 (worst 12), every one an
+east-ward ceiling or floor plate -- filed as item 137, because it is item 54's
+budget law and not this item's wiring. SEEN, NOT TOUCHED: Zoo writes its
+`LuxEmit_*` markers with a translation only, so a sign rig spawned on the
+marker path inherits an identity basis and its quad faces +Z whatever the
+wall; the sign's own hardware carries the visible face, which is why nobody
+has noticed. Item 55's territory.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN
 THE MANIFEST AND NEVER BECOME LIGHT: THE ONLY CODE THAT TURNS THEM INTO RIGS
 IS `LuxLightLoader.bake`, WHOSE SOLE CALLER IN THE TREE IS A DOCK BUTTON.
 MEASURED ON A REAL BUILD AND ON A REAL GATE RUN. THE MARKER PATH SKIPS THEM
@@ -13849,3 +13881,40 @@ costs one constant and a grep; the first costs a re-certification and a
 comparison history. Whichever is taken, a test should pin that the stamped
 version equals `VERSION`, because this drifted for 27 releases without a
 single check noticing.
+
+*STATUS: OPEN 2026-09-11 -- MEASURED ON THE RUN THAT CREATED IT, NOT TUNED.
+ITEM 54'S BUDGET LAW MEETS ITEM 96'S DECISION*
+
+**137. The window lights push ten interior plates over the per-mesh light
+budget.** Found 2026-09-11, the first time a built level lit its windows
+(item 96). `tools/mesh_light_census.py` over cold run 9005's export,
+`county_hospital_001`, Blue Hour, GL Compatibility's default of 8 positional
+lights per mesh:
+
+    package                          lights   meshes over 8   worst
+    LuxDaylight stripped (before)        39               2       9
+    as exported (after)                  57              12      12
+
+Every one of the ten is an east-ward ceiling or floor plate
+(`ceiling_ground_east_ward/Ceiling_Panel_t1_*`, `floor_ward_east_1/*`,
+`ceiling_ward_east_1/*`) and the census names the daylight rigs among the
+claimants -- `LuxDaylight/b0_ext_1_N_window_2/AreaPanel_Omni` at margin 4.50,
+range 6.4.
+
+**WHY, and it is two facts that were each fine alone.** Under Compatibility
+`LuxAreaLightRig` approximates the panel with an OmniLight3D whose range is
+`max(panel_size) * 4` -- 6.4 m for a 1.6 m window, 9.6 m for a 2.4 m one --
+and the anchor sits ON the building envelope (item 85 measured the windows at
+-0.150 m, the wall centreline, by design). So half of every window's sphere
+is inside the building, and a 6-10 m sphere from the wall reaches two rooms
+of plates. The fluorescent rows already paid this law once: item 54 trimmed
+their range to 4.0 and their density to one lamp per 4 m for exactly these
+tiles.
+
+**WHAT WOULD CLOSE THIS.** Derive the window omni's range from what a
+window lights rather than from the panel's size -- a wash a few metres into
+the room, not a sphere -- or give the daylight rigs the item 60 treatment
+(shadows) so the wall occludes the half that faces out; then re-run the census
+and land on 2. Neither is done here because the number was 12 and not 120:
+the level ships, and a tuning made without looking at the room it changes is
+the kind item 54 warned against.
