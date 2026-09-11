@@ -741,7 +741,7 @@ work of adopting this.
 | 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
 | 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
 | 62 | **NARROWED** | The capability-gap signal: a tool that cannot make what was asked says | 2026-09-11 -- ZOO SAYS IT, LEVEL FACTORY COUNTS IT, AND THE CLAIM THIS ITEM RESTED ON WAS  |
-| 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
+| 63 | **SUPERSEDED** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-09-11 -- BY ITEM 119, WHICH IS THIS ITEM FILED A SECOND TIME AND CLOSED IN DELI COUNT |
 | 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
 | 65 | **CLOSED** | The site copies go stale silently, and the detector that would say so  | 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE SECOND OF THE TWO REMEDIES THI |
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
@@ -816,7 +816,7 @@ work of adopting this.
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
 
-**136 items: 29 open, 71 closed, 3 retracted, 29 narrowed, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 28 open, 71 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -6700,7 +6700,28 @@ stdout and in the tool's report artifact where one exists; Level Factory
 surfacing gap counts in run summaries; and one test per tool proving an
 unknown ask produces the tag rather than silence.
 
-*STATUS: OPEN 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE
+*STATUS: SUPERSEDED 2026-09-11 -- BY ITEM 119, WHICH IS THIS ITEM FILED A
+SECOND TIME AND CLOSED IN DELI COUNTER 0.109.0 (2026-09-07, "fit.dims means
+one thing now"). The remedy taken was the second of the two this item offered:
+unify rather than declare. `_record_wall_slot` writes MODULE-LOCAL dims, the
+frame `_record_opening_slot` always wrote and both consumers (`plan_kit`,
+`circulation.doorway_volume`) always read, and every shell was rebuilt.
+MEASURED TODAY over the shipped library: 20,154 wall and opening slots in 128
+manifests, and the only 401 with the thickness ahead of the length are `end`
+remainders whose run is genuinely shorter than the wall is thick (0.10-0.28 m
+against 0.30) -- length-first still, so zero slots in the world frame. The
+August measurement in this item (266 building-space against 15 canonical on
+one site) described a writer that no longer exists; cold-run shells built by
+DC 0.103.0 still carry it and are the last that will. NOT RE-MEASURED, and
+said so: the `rot_y` table -- honoured on 8 of 698 exterior modules in the
+COMPOSED scene -- was taken on pre-0.109.0 slots, and no composed scene from
+a post-0.109.0 build exists on disk yet to repeat it against; 0.109.0's own
+note that "a unit box scaled by LOCAL dims and then turned by rot_y lands
+correctly" is the writer's claim, not the composer's measurement. If the next
+cold run's composed site still ignores `rot_y` on E/W segments, that is a new
+item about the composer, not this one. `docs/ASSET_SWAP_CONTRACT.md` does not
+yet spell the frame out in words.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE
 FIRST READING IS KEPT BELOW BECAUSE IT WAS WRONG IN AN INSTRUCTIVE WAY. Filed
 at 349 findings as "openings are transposed", a defect report about a
 CONVENTION; reading `zoo_keeper/core/kit.py` and then the composed scenes
