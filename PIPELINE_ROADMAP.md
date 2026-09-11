@@ -818,7 +818,7 @@ work of adopting this.
 | 137 | **CLOSED** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- DERIVED, NOT TUNED, AND MEASURED BACK TO ONE OF THE BASELINE. Lux 0.31.0: `L |
 | 138 | **NARROWED** | The windows read as black rectangles from outside | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.2 (the quad is double-sid |
 | 139 | **OPEN** | The sign is a white box with a white square standing off it | 2026-09-11 -- FOUND BY A PERSON; THE RESIDUE LUX 0.30.1 WROTE DOWN, NOW SEEN |
-| 140 | **OPEN** | The drywall skin is white noise | 2026-09-11 -- FOUND BY A PERSON, MEASURED THE SAME HOUR |
+| 140 | **NARROWED** | The drywall skin is white noise | 2026-09-11 -- THE DIAL FOUND BY SWEEPING, FIXED IN PIXELCOAT 0.28.0, MEASURED BACK INTO TH |
 | 141 | **OPEN** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- FOUND BY A PERSON, INSTRUMENT NAMED, NOT YET RUN |
 | 142 | **OPEN** | A prop ships black | 2026-09-11 -- FOUND BY A PERSON, HALF MEASURED |
 | 143 | **OPEN** | Ceiling lamps sit inside partitions on this shell | 2026-09-11 -- FOUND BY A PERSON, MEASURED, AND THE INSTRUMENT ALREADY EXISTED |
@@ -826,7 +826,7 @@ work of adopting this.
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 
-**146 items: 28 open, 77 closed, 3 retracted, 33 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**146 items: 27 open, 77 closed, 3 retracted, 34 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -14039,7 +14039,23 @@ applies the same quarter turn `_place` does for an area rig (Lux 0.30.1's
 derivation, f = t + 90); then a look at the sign's energy against its own
 cabinet.
 
-*STATUS: OPEN 2026-09-11 -- FOUND BY A PERSON, MEASURED THE SAME HOUR*
+*STATUS: NARROWED 2026-09-11 -- THE DIAL FOUND BY SWEEPING, FIXED IN PIXELCOAT
+0.28.0, MEASURED BACK INTO THE PLASTER/TILE BAND; NOT YET RE-WALKED. The
+metric reproduced on the shipped packs (drywall 23.9 / 0.12, carpet 10.0 /
+0.08). Sweeping the grammar through the real synthesizer at the shipped
+256 px: `detail_strength` alone -- the per-texel hash grain, 0.18 on drywall
+and 0.22 on carpet -- took drywall to 10.7 / 0.61; the micro band's cells and
+octaves moved NOTHING at one decimal, because its weight (0.30 x 0.12 of a
++-0.5 field) is under one step of `posterize: 16` and quantises away. What
+ships: drywall grain 0.04, meso worley 24, micro 40/2 -> std 11.6 / ac1
+0.70 (concrete's correlation at plaster's amplitude); carpet grain 0.05,
+meso fbm 48/2 at band 0.7 so the amplitude is pile, not noise -> 7.5 /
+0.66. `tests/test_theme_profiles.py` now synthesises delco_1997's drywall,
+carpet and plaster at pack size and holds ac1 >= 0.5 (0.3 plaster) in a
+spread band. RESIDUE: the eye has not judged it -- 0.70 may read flat under
+the nearest filter, and orange peel as relief (a normal map) is the honest
+version of the material and is not emitted. EARLIER STATUS, KEPT VERBATIM:
+OPEN 2026-09-11 -- FOUND BY A PERSON, MEASURED THE SAME HOUR*
 
 **140. The drywall skin is white noise.** Said on the walk as "fizzy, too
 much digital noise, a small concentration of texture would read better".
