@@ -742,7 +742,7 @@ work of adopting this.
 | 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
 | 62 | **NARROWED** | The capability-gap signal: a tool that cannot make what was asked says | 2026-09-11 -- ZOO SAYS IT, LEVEL FACTORY COUNTS IT, AND THE CLAIM THIS ITEM RESTED ON WAS  |
 | 63 | **SUPERSEDED** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-09-11 -- BY ITEM 119, WHICH IS THIS ITEM FILED A SECOND TIME AND CLOSED IN DELI COUNT |
-| 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
+| 64 | **NARROWED** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-09-11 -- THE THREE PRECONDITIONS ARE PAID; THE PROMOTION WAITS FOR ART, AS THE ITEM S |
 | 65 | **CLOSED** | The site copies go stale silently, and the detector that would say so  | 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE SECOND OF THE TWO REMEDIES THI |
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
 | 67 | **CLOSED** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-09-11 -- ARCHIVED, THE SECOND OF THE TWO ANSWERS THE ITEM ALLOWED. `scripts/promote_f |
@@ -807,7 +807,7 @@ work of adopting this.
 | 126 | **CLOSED** | One evaluation in fourteen silently indicts a good map | 2026-09-09 -- CAUSE FOUND, AND IT WAS NOT A RACE IN THE SERVER BUT A WAIT THAT NEVER WAITE |
 | 127 | **NARROWED** | The opening is judged against an enemy that stands still, and it does  | 2026-09-09 -- THE CHEAP HALF SHIPPED IN LOT 0.53.0 AND THE METRIC DID NOT MOVE. `opening_e |
 | 128 | **CLOSED** | Winning the fight ends the run before the route can be walked | 2026-09-10 -- BOTH HALVES, as Laser Tag 0.22.0. A run ends when there is NOTHING LEFT TO D |
-| 129 | **NARROWED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND THAT IS THE CHOICE. Level Facto |
+| 129 | **CLOSED** | Every evaluation is one crew member against six guards, and no brief e | 2026-09-11 -- THE DEFAULT IS 4, DECIDED. Level Factory 0.69.0 sets `crew_size = 4` in `Mis |
 | 130 | **CLOSED** | Cover was measured against furniture, and nothing asked whether it sto | 2026-09-10 -- Deli Counter 0.111.0 derived the height and reported the rooms; 0.112.0 fixe |
 | 131 | **CLOSED** | Seven heights described one firefight and no two of them agreed | 2026-09-10 -- shipped as Laser Tag 0.20.0, Level Factory 0.63.0, Lot 0.54.0 and Deli Count |
 | 132 | **NARROWED** | The route can go up and the fight cannot follow | 2026-09-10 -- the MEASUREMENT ships as Laser Tag 0.21.0 and the placement does not, on pur |
@@ -816,7 +816,7 @@ work of adopting this.
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
 
-**136 items: 26 open, 73 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 25 open, 74 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -6815,7 +6815,27 @@ the composed scene's node bases cost about ten minutes and reversed the
 conclusion.
 
 
-*STATUS: OPEN 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three
+*STATUS: NARROWED 2026-09-11 -- THE THREE PRECONDITIONS ARE PAID; THE
+PROMOTION WAITS FOR ART, AS THE ITEM SAID IT SHOULD. Zoo 0.60.0: (1) the
+genome's height range is 2.0-6.5 m (was 4.5, which excluded 252 of 988
+corners) and width/depth reach 0.25 -- re-measured over the rebuilt library
+today, 950 corner posts across 17 (thickness, height) pairs, 0.25/0.30/0.35 m
+by 2.7-6.2 m, the ranges and their measurement written into the genome; (2)
+`kit.plan_kit` keys `wallCorner` on width, depth and height (`CORNER_ROLES`,
+the prop's treatment), so `_w30` no longer names fourteen solids -- Deli
+Counter 0.114.0 mirrors it in `themed_tscn.resolve_themed_stem` and the same
+literal (`wallCorner_delco_01_w30_d30_h330`) is pinned in both suites; (3)
+the gap report was armed under item 62 (Zoo 0.58.0). WHAT REMAINS is the
+step the item priced and deferred: Deli Counter promoting its corner slots
+from the `wallEnd` unit post (0.102.0's answer to item 58, zero new modules)
+to `wallCorner`. Priced today: one exact module per (thickness, height) per
+building, 17 across the library per theme and style, one more Blender
+module per building per storey height in every kit job -- and at the slot's
+own dims of [t, t, h] the L-recipe degenerates to the same post, so it buys
+nothing a person can see until the corner has art a post does not (item 57's
+vocabulary). Everything upstream of that art is now in place, which is what
+this item was for.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three
 concrete preconditions measured against the shipped library, none of them
 large; the species and its recipe need no authoring at all*
 
@@ -13038,7 +13058,24 @@ already done:
 The second is the one that costs nothing and loses no information. The third
 is the honest one if the metric keeps its current shape.
 
-*STATUS: NARROWED 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND
+*STATUS: CLOSED 2026-09-11 -- THE DEFAULT IS 4, DECIDED. Level Factory
+0.69.0 sets `crew_size = 4` in `MissionBrief` and in the two CLI fallbacks that
+repeated the 1; a test pins the model's default and refuses any fallback that
+still says 1. The objection that held it at 1 -- raising the default changes
+every historical comparison -- was weighed and overruled on the facts this item
+already carried: 1 against the stock six guards was never a choice anyone
+made (26 of 27 briefs never set the field because the schema did not mention
+it), it wiped 75 of 75 runs on `warehouse_yard_001` and every run on two other
+maps, and the 23 briefs still without a crew are all workspace copies and
+cold-run records. Scenario values are in the Laser Tag fingerprint, so those
+briefs re-run at 4 on their next evaluation rather than replaying a grade
+taken at 1; the grades already stored stand as what they were. The four
+shipped example briefs keep declaring the field, because a brief that says how
+many people arrive beats one that inherits it. The unrun experiment this item
+named -- crew 4 against route completion with 128's truncation removed -- was
+run under 121 on 2026-09-11: `county_hospital_001` at 6 enemies, deaths
+17 -> 0, survival 41.6 -> 180.1 s, progress 1.00 both arms.
+EARLIER STATUS, KEPT VERBATIM: NARROWED 2026-09-09 -- THE CORPUS IS FIXED, THE DEFAULT IS NOT, AND
 THAT IS THE CHOICE. Level Factory 0.62.0 documents `crew_size` in
 `mission.brief.schema.json` -- it was absent while `models.py` and
 `commands/__init__.py:423` both read it, which is very likely why 26 of 27
