@@ -743,7 +743,7 @@ work of adopting this.
 | 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
 | 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
 | 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
-| 65 | **OPEN** | The site copies go stale silently, and the detector that would say so  | 2026-08-25 -- MEASURED AT 24 DAYS AND ~20 RELEASES, AND CLEARED THE SAME DAY. The propagat |
+| 65 | **CLOSED** | The site copies go stale silently, and the detector that would say so  | 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE SECOND OF THE TWO REMEDIES THI |
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
 | 67 | **OPEN** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a CHANGELOG entry before it  |
 | 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
@@ -779,7 +779,7 @@ work of adopting this.
 | 98 | **CLOSED** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH. `check.py` exits 0 on 2026-0 |
 | 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
 | 100 | **CLOSED** | `site_shape` silently falls back to a row | 2026-09-11 -- IT SAYS SO, AND THE SPELLINGS THE BRIEFS USE ARE KNOWN. Level Factory 0.65.0 |
-| 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
+| 101 | **CLOSED** | The handoff hands the server addresses that resolve to nothing | 2026-09-11 -- THE THIRD SHAPE, DONE REVERSIBLY, AS LEVEL FACTORY 0.66.0. `strip_dead_node_ |
 | 102 | **CLOSED** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-11 -- MEASURED FIRST, THEN FIXED, EXACTLY AS THIS ITEM ASKED. Roadmap 130 ran the  |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
@@ -815,7 +815,7 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**135 items: 39 open, 64 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 37 open, 66 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -6745,9 +6745,22 @@ paid once, when there is art to justify 18 modules per theme and style. Item
 57 gets its corner vocabulary out of it, which is the actual prize.
 
 
-*STATUS: OPEN 2026-08-25 -- MEASURED AT 24 DAYS AND ~20 RELEASES, AND CLEARED
-THE SAME DAY. The propagation is still manual and still in no job, which is
-the item; the backlog it accumulated is gone*
+*STATUS: CLOSED 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE
+SECOND OF THE TWO REMEDIES THIS ITEM NAMED AND THE ONE WITH THE PRECEDENT.
+`tools/library_walk.py` now runs `check_freshness.verify` over every building a
+site walks before staging it, and REFUSES the site -- printing each stale stem,
+its state and the rebuild command -- unless `--allow-stale` is passed. A refused
+site prints in the summary table as `REFUSED STALE`, counts as a regression
+when it carried a `pass` stamp, and exits non-zero, because a stamp this run
+could not re-earn is not a pass. Proved live on 2026-09-11: `ballpark_block`
+refused on three STALE-BUILDER buildings without launching Godot. THE DEBT THE
+ITEM MEASURED IS STILL THERE AND NOW CANNOT BE GRADED PAST: `check_freshness`
+reports 62 STALE-BUILDER across the library today ("78 files then, 79 now"),
+so the library cannot be walked until `rebuild_buildings.py --blender` runs --
+which is the point. The first remedy, propagation as a DAG job, is not needed
+for Level Factory missions: they stage each building fresh from its own
+`deli_generate` output and never read `lot/specs/<site>/buildings/` at all,
+which is why no cold run was affected.*
 
 **65. The site copies go stale silently, and the detector that would say so
 is in no job.**
@@ -9837,12 +9850,24 @@ and the aliases that exist, in the voice `USING_THE_FACTORY.md` asks every tool
 for. Then add `street_block` and `boardwalk_crescent` to the table, or change
 the two briefs, deliberately and once.
 
-*STATUS: OPEN 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT
-DELIBERATELY REPLACES DISPATCH'S `mission.tscn` WITH ITS OWN PORTABLE ENTRY,
-WHICH IS CORRECT, AND TWO DISPATCH FILES STILL SHIP NODE PATHS INTO THE TREE
-THAT WAS REPLACED. ZERO OF THOSE NODE NAMES EXIST IN ANY SCENE IN THE PACKAGE.
-THIS IS ITEM 50'S STALENESS ON THE SIBLING FILES OF THE SAME PRODUCER, AND IT
-LANDS ON THE ONE INTERFACE THE CONSUMING GAME READS FIRST.*
+*STATUS: CLOSED 2026-09-11 -- THE THIRD SHAPE, DONE REVERSIBLY, AS LEVEL
+FACTORY 0.66.0. `strip_dead_node_paths` runs as the export's last pass, once
+every scene is in place: a `node` that names nothing in the shipped scenes is
+renamed `node_dispatch`; position and stable id -- the pattern
+`interactives.json` used and the reason it survived -- are untouched, nothing is
+deleted, and the original address is one rename away for the day LF's entry
+grows the tree that would make it true (the first shape). Resolution is by node
+NAME anywhere in any shipped scene rather than by full path, because a
+re-parent is exactly the failure being handled. Only the two Dispatch files are
+touched, by name: `site.site.gameplay.json` carries 473 `node` fields on cold
+9005 and every one resolves. Re-measured on a re-export of cold 8001's
+`LF_bank_block_001`: `gameplay_anchors.json` 38 moved and 8 kept,
+`runtime_ownership_requirements.json` 12 moved, recorded in the package as
+`handoff_bindings.json`. Seven unit tests. THE FIRST SHAPE STAYS AVAILABLE and
+is not chosen here: whether the portable entry should carry a
+`Functional/GameplayAnchors` tree is a question for the gameplay layer that is
+expected to leave this toolchain, and a package that asserts nothing false is
+the right state to hand it.*
 
 **101. The handoff hands the server addresses that resolve to nothing.** Found
 2026-09-05 reading `LF_precinct_yard_001.portable-godot` to answer "what parts

@@ -105,6 +105,32 @@ def missions():
     return out
 
 
+def stale_buildings(spec):
+    """[(stem, state, detail)] for every building this site walks whose
+    geometry no longer matches its spec or builder, per
+    `check_freshness.verify`. Empty when every .glb is fresh -- and empty
+    when the checker cannot run, which is reported rather than treated
+    as fresh."""
+    try:
+        import check_freshness as cf
+    except ImportError:
+        print("  (check_freshness not importable -- freshness NOT verified)")
+        return []
+    src_b = os.path.join(os.path.dirname(spec), "buildings")
+    if not os.path.isdir(src_b):
+        return []
+    bhash, bcount = cf.builder_hash(cf.builder_files())
+    out = []
+    for fn in sorted(os.listdir(src_b)):
+        if not fn.endswith(".glb"):
+            continue
+        glb = cf.pathlib.Path(src_b) / fn
+        state, detail = cf.verify(glb, bhash, bcount)
+        if state != "fresh":
+            out.append((glb.stem, state, detail))
+    return out
+
+
 def stage(name, spec, keep=False):
     """A project directory holding the assembled site and its buildings."""
     proj = os.path.join(RUNS, f"{name}_proj")
@@ -248,6 +274,12 @@ def main() -> int:
     ap.add_argument("--keep", action="store_true",
                     help="reuse an existing project dir instead of rebuilding")
     ap.add_argument("--timeout", type=int, default=1200)
+    ap.add_argument("--allow-stale", action="store_true",
+                    help="walk a site whose building geometry is stale "
+                         "against its spec or builder anyway. Without "
+                         "this a stale site is REFUSED, not graded: a "
+                         "number taken on twenty-version-old geometry "
+                         "describes nothing (roadmap 65)")
     ap.add_argument("--godot", default=None,
                     help="path to the Godot binary; default LOT_GODOT, then "
                          "DC_GODOT, then the usual install locations, then PATH")
@@ -292,6 +324,33 @@ def main() -> int:
                 legs=0, failed=0, stuck=0, note=spec)))
             continue
         t0 = time.time()
+        # REFUSE STALE GEOMETRY RATHER THAN GRADE IT (roadmap 65).
+        # `check_freshness.py` detected this by content hash and was in
+        # `check_all.py` from the day it was written, and nobody ran it;
+        # every site-scale measurement for 24 days -- walks, nav-gate
+        # readings, Laser Tag runs -- was taken on geometry up to twenty
+        # Deli Counter versions old. The precedent is `build_freshness.py`,
+        # which refuses to grade a stale library. Same rule, one level up.
+        stale = stale_buildings(spec)
+        if stale and not args.allow_stale:
+            print(f"  {name}: REFUSED, {len(stale)} stale building(s) --")
+            for stem, state, detail in stale[:6]:
+                print(f"      {stem:<26} {state:<14} {detail}")
+            if len(stale) > 6:
+                print(f"      ... and {len(stale) - 6} more")
+            print("      rebuild: python tools/rebuild_buildings.py "
+                  "--blender <path>   (or --allow-stale to walk anyway)")
+            # Shaped like a summary so the table below prints it as a site
+            # the measurement did not complete on -- which is what it is.
+            # `ok` is not True, so it lands in `now` verbatim, and a site
+            # that carried a `pass` stamp and was refused is a regression:
+            # the stamp claims something this run could not re-earn.
+            results.append((name, mid, was, {
+                "ok": "REFUSED STALE", "anchors": 0, "legs": 0, "failed": 0,
+                "stranded": 0, "no_floor": 0, "barrier": 0, "stuck": 0,
+                "gates": None,
+                "rc": None, "stale": [x[0] for x in stale]}))
+            continue
         proj, how = stage(name, spec, keep=args.keep)
         rc, out = assemble(spec, proj)
         if rc != 0:
