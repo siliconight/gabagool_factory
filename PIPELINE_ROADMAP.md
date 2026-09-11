@@ -10723,7 +10723,12 @@ each), surfaces 6 zones / 3 exclusions / 1 of 1 footprints read, Patina
 1,094 instances / 144,532 tris / 4 meshes over 5,465.64 m2 (0.20 per m2), 9
 placements refused; export ships `county_hospital_001_dressing.tscn` at 4
 draw calls, `export_closure_scan` ok with 0 issues, portability PASS with the
-scene instantiated and 0 parser errors. THREE THINGS FOUND ON THE WAY, ALL
+scene instantiated and 0 parser errors -- and, read off the RUNNING
+package by the new `tools/dressing_census.py` rather than off the file
+that asked for it: 4 MultiMeshInstance3D nodes under
+`/root/Mission/county_hospital_001_dressing`, 1,094 instances, 1,094
+visible, every mesh resolved, origins on the ground plate at y 0.00
+spanning x -30.5..30.5 and z -34.5..34.5. THREE THINGS FOUND ON THE WAY, ALL
 FIXED: Lot's `--strict` counted its own info line ("footprints merged") as a
 failure and failed the first pipeline run of the stage on a clean result
 (Lot 0.55.2); the extraction script's first run hung Godot to the caller's
