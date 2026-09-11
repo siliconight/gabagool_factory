@@ -788,7 +788,7 @@ work of adopting this.
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
-| 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
+| 110 | **CLOSED** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-11 -- CONNECTED END TO END, IN THE ORDER THE ITEM GAVE, AND PROVEN ON A REAL PACKA |
 | 111 | **NARROWED** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-11 -- EIGHT OF FOURTEEN NOW, MEASURED RATHER THAN REMEMBERED. A census of every wo |
 | 112 | **NARROWED** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-11 -- THE AXIS IS EIGHT WIDE OF TWELVE, NOT TWO OF NINE, AND THE FOUR THAT CANNOT  |
 | 113 | **CLOSED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-11 -- ALL THREE RE-ADMITTED BY FIXING THE GENERATOR, AND THE QUARANTINE IS EMPTY A |
@@ -816,7 +816,7 @@ work of adopting this.
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
 
-**136 items: 28 open, 71 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 27 open, 72 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -10699,7 +10699,44 @@ person will see it -- the summary it prints already reports
 Godot opens. The first is the honest default; the second preserves
 `--worldskin` as the instrument it was built to be. They are not exclusive.
 
-*STATUS: OPEN 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF
+*STATUS: CLOSED 2026-09-11 -- CONNECTED END TO END, IN THE ORDER THE ITEM
+GAVE, AND PROVEN ON A REAL PACKAGE. Level Factory 0.68.0 plans three
+art-layer jobs after `themed_site_assemble`: `zoo_clutter_build` (Zoo
+`--habitat` over the four species, no collision, then `shape_metrics` on the
+result -- the `measure_shapes` capability the adapter had carried since 0.4.0
+and the planner had never asked for), `lot_site_surfaces` (`site_surfaces.py
+--strict` over the locked candidate's own site spec and assembly), and
+`patina_surface_dressing` (the 0.4.0 mode, planned against the THEMED
+assembly as its `source`). The curation the item found as untracked scratch
+in `_dress/` is `patina/asset_sets/ground_clutter.json` (Patina 0.21.1), and
+it drives BOTH ends: the spec builder reads the species off it for the Zoo
+build and hands the same file to the dressing pass. The mesh question
+`dressing_scene` refused to guess -- how a .glb becomes an addressable Mesh
+for a MultiMesh -- is answered once, in `assets/godot/extract_meshes.gd`: a
+scratch Godot project imports the clutter GLBs, merges each specimen's
+MeshInstance3D nodes into one ArrayMesh with placement baked in, and saves a
+bundled `.res`; the export puts them in `dressing/`, writes
+`<site>_dressing.tscn`, and the entry scene instances it BESIDE the level,
+never inside the locked shell. RUN ON cold-9005-ws (`county_hospital_001`,
+seed 9005): clutter built in one Blender pass (4 species, 120-230 vertices
+each), surfaces 6 zones / 3 exclusions / 1 of 1 footprints read, Patina
+1,094 instances / 144,532 tris / 4 meshes over 5,465.64 m2 (0.20 per m2), 9
+placements refused; export ships `county_hospital_001_dressing.tscn` at 4
+draw calls, `export_closure_scan` ok with 0 issues, portability PASS with the
+scene instantiated and 0 parser errors. THREE THINGS FOUND ON THE WAY, ALL
+FIXED: Lot's `--strict` counted its own info line ("footprints merged") as a
+failure and failed the first pipeline run of the stage on a clean result
+(Lot 0.55.2); the extraction script's first run hung Godot to the caller's
+timeout on `global_transform` of a node never added to a tree and a method
+that does not exist (`get_surface_arrays`), and the closure scan then read
+the diagnostics the report carried (`res://extract_meshes.gd`, a repo path)
+as references to resolve -- the report in the package is words now and the
+log sits beside it. THE VERSION DRIFT is fixed in the same pass: the adapter
+header no longer claims 0.18.0. NOT JUDGED BY A PERSON: nobody has looked at
+the dressed site yet, and the instance count (1,094) is one over the planner's
+auto budget (1,093), which the audit does not gate on. Both belong to item 18,
+where the rest of "does it read as placed" already lives.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF
 PATINA'S LAYER 3 IS BUILT, TESTED AND SHIPPED, AND THE PLANNER REFERENCES NONE
 OF IT. Stage one was RUN BY HAND on the current build to prove the chain still
 works. Wanted, not optional -- this is the ground-and-seam layering, and it is
