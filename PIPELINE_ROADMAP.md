@@ -815,9 +815,9 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
-| 137 | **OPEN** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- MEASURED ON THE RUN THAT CREATED IT, NOT TUNED. ITEM 54'S BUDGET LAW MEETS I |
+| 137 | **CLOSED** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- DERIVED, NOT TUNED, AND MEASURED BACK TO ONE OF THE BASELINE. Lux 0.31.0: `L |
 
-**137 items: 25 open, 75 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**137 items: 24 open, 76 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -13882,7 +13882,25 @@ comparison history. Whichever is taken, a test should pin that the stamped
 version equals `VERSION`, because this drifted for 27 releases without a
 single check noticing.
 
-*STATUS: OPEN 2026-09-11 -- MEASURED ON THE RUN THAT CREATED IT, NOT TUNED.
+*STATUS: CLOSED 2026-09-11 -- DERIVED, NOT TUNED, AND MEASURED BACK TO ONE
+OF THE BASELINE. Lux 0.31.0: `LuxAreaLightRig.omni_range` (0 = the old
+`4 x panel` rule, kept for signs and hand-placed rigs), and the loader sets a
+window's the way it derives every other type's -- twice the panel's longer
+side, clamped to 3.0-4.0 m: the floor under a 1.6 m sill and a few metres of
+room, capped where item 54 capped the fluorescent rows on the same tiles. 1.6
+m windows -> 3.2, 2.4 -> 4.0 (were 6.4 and 9.6). Deliberately NOT
+`rig.light_range`: that resource defaults to 12.0 and the rig had never read
+it, so honouring it would have made every window a 12 m sphere the day it was
+first consulted -- caught while writing the fix, before a run. SAME PACKAGE,
+SAME CENSUS: meshes over the per-mesh budget of 8 went 12 -> 3 (worst 12 ->
+10), against 2 with the daylight stripped; the window ranges now sit in the
+3-4 m bins beside the fluorescents (3m:21, 4m:32, 5m:4). THE RESIDUE, NAMED:
+the one plate beyond the baseline is `ceiling_ground_east_ward/Ceiling_Panel_
+t1_0` (and its floor twin), which a 3.2 m window grazes by 0.18 m -- the
+7.5 x 6.0 plate size item 54 split for the fluorescent density, one light
+class later. Trimming a window under 3.0 to shed it would stop it reaching
+its own floor; splitting the plate is 54's move, not this item's.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-11 -- MEASURED ON THE RUN THAT CREATED IT, NOT TUNED.
 ITEM 54'S BUDGET LAW MEETS ITEM 96'S DECISION*
 
 **137. The window lights push ten interior plates over the per-mesh light
