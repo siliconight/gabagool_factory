@@ -84,6 +84,15 @@ func _ready() -> void:
 	scene.add_child(cam)
 	cam.make_current()
 
+	# GPU TIME PER SHOT, from the engine's own timestamps (the film probe's
+	# reasoning: a wall clock around a draw measures submission, not
+	# execution). The frames a shot settles over are the frames that get
+	# timed; the first is discarded as the camera move. Reported beside the
+	# exposure figures so a before/after of a lighting policy carries its
+	# cost in the same manifest as its look (roadmap 60).
+	var vp_rid: RID = get_viewport().get_viewport_rid()
+	RenderingServer.viewport_set_measure_render_time(vp_rid, true)
+
 	for spec in cams:
 		var d: Dictionary = spec
 		# ORTHOGRAPHIC WHEN THE SPEC ASKS. A perspective elevation makes the
@@ -101,8 +110,13 @@ func _ready() -> void:
 		var target: Vector3 = d["target"]
 		if not target.is_equal_approx(cam.global_position):
 			cam.look_at(target, Vector3.UP)
+		var gpu: Array[float] = []
 		for _i in range(per_shot):
 			await RenderingServer.frame_post_draw
+			if _i > 0:
+				gpu.append(RenderingServer.viewport_get_measured_render_time_gpu(vp_rid))
+		_gpu_ms = _median(gpu)
+		_gpu_samples = gpu.size()
 		_shots.append(_capture(String(d["name"]), d))
 
 	# Both, deliberately. rendering_method is what the PROJECT asks for and is
@@ -272,6 +286,28 @@ func _derive_cameras(scene: Node) -> Array:
 	var want_int: int = int(ProjectSettings.get_setting("look_shots/interiors", 0))
 	if want_int > 0:
 		out.append_array(_interior_stations(scene, eye_h, want_int))
+
+	# GIVEN STATIONS (roadmap 60): the one deliberate exception to "derived,
+	# not chosen", for the shot a question needs that no derivation picks --
+	# the far side of a wall from a light. Reported as given, with the
+	# coordinates, so the manifest never passes one off as a derivation.
+	var given_json: String = String(ProjectSettings.get_setting("look_shots/stations", "[]"))
+	var given: Variant = JSON.parse_string(given_json)
+	if typeof(given) == TYPE_ARRAY:
+		for g in given:
+			if typeof(g) != TYPE_DICTIONARY:
+				continue
+			var e: Array = g.get("eye", [])
+			var t: Array = g.get("target", [])
+			if e.size() < 3 or t.size() < 3:
+				continue
+			out.append({
+				"name": String(g.get("name", "station")),
+				"eye": Vector3(float(e[0]), float(e[1]), float(e[2])),
+				"target": Vector3(float(t[0]), float(t[1]), float(t[2])),
+				"derivation": "GIVEN station, not derived: eye (%.2f, %.2f, %.2f) -> target (%.2f, %.2f, %.2f)" % [
+					float(e[0]), float(e[1]), float(e[2]), float(t[0]), float(t[1]), float(t[2])],
+			})
 
 	var spine := []
 	for key in ["spawn_pos", "objective_pos", "extraction_pos"]:
@@ -645,6 +681,18 @@ func _interior_stations(scene: Node, eye_h: float, want: int) -> Array:
 	return out
 
 
+var _gpu_ms: float = -1.0
+var _gpu_samples: int = 0
+
+
+func _median(values: Array[float]) -> float:
+	if values.is_empty():
+		return -1.0
+	var v := values.duplicate()
+	v.sort()
+	return v[v.size() / 2]
+
+
 func _eye_height(scene: Node) -> float:
 	for n in scene.find_children("*", "Camera3D", true, false):
 		var cam: Camera3D = n
@@ -677,6 +725,8 @@ func _capture(shot_name: String, spec: Dictionary) -> Dictionary:
 	stats["name"] = shot_name
 	stats["png"] = path
 	stats["png_error"] = err
+	stats["gpu_ms"] = _gpu_ms
+	stats["gpu_samples"] = _gpu_samples
 	stats["eye"] = [spec["eye"].x, spec["eye"].y, spec["eye"].z]
 	stats["target"] = [spec["target"].x, spec["target"].y, spec["target"].z]
 	stats["derivation"] = spec["derivation"]

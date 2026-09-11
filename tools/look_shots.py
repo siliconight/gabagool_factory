@@ -68,10 +68,24 @@ MARK_END = "LOOK_SHOTS_JSON>>>"
 
 def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
           settle=10, frames_per_shot=6, keep_hud=False, rendering_driver=None,
-          timeout=900, verbose=False, interiors=0):
+          timeout=900, verbose=False, interiors=0, stations=None):
     scene = scene or default_scene(project_dir)
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
+
+    # GIVEN STATIONS, beside the derived ones. Every other camera here is
+    # derived so a bigger site frames correctly without re-tuning; a station
+    # is the one deliberate exception, for the shot a question needs -- the
+    # far side of a partition from a light, say (roadmap 60) -- and it is
+    # reported as given, with its coordinates, so nobody mistakes it for a
+    # derivation. "name:ex,ey,ez,tx,ty,tz" in Godot metres, Y up.
+    given = []
+    for spec in stations or []:
+        name, _, nums = str(spec).partition(":")
+        vals = [float(v) for v in nums.split(",")]
+        if not name or len(vals) != 6:
+            raise ValueError(f"--station wants name:ex,ey,ez,tx,ty,tz, got {spec!r}")
+        given.append({"name": name, "eye": vals[:3], "target": vals[3:]})
 
     settings = {
         "look_shots": {
@@ -83,6 +97,7 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
             "frames_per_shot": frames_per_shot,
             "hide_non_lux_canvas": not keep_hud,
             "interiors": int(interiors),
+            "stations": json.dumps(given),
         },
         "display": {
             "window/size/viewport_width": width,
@@ -146,17 +161,22 @@ def report(r):
     else:
         print("  hidden non-Lux CanvasLayers: none")
     print("")
-    header = ("  %-12s %8s %6s %6s %6s %9s %9s %9s"
+    header = ("  %-12s %8s %6s %6s %6s %9s %9s %9s %8s"
               % ("shot", "mean", "p05", "p50", "p95", "clipped", "near-clip",
-                 "crushed"))
+                 "crushed", "gpu ms"))
     print(header)
     for s in r.get("shots", []):
         if not s.get("pixels"):
             print("  %-12s (no pixels)" % s.get("name", "?"))
             continue
-        print("  %-12s %8.1f %6d %6d %6d %8.2f%% %8.2f%% %8.2f%%"
+        # GPU time is the engine's own per-viewport timestamp, median over
+        # the shot's settle frames (roadmap 60 priced its shadow budget on
+        # it). -1 means the driver predates the column or measured nothing.
+        gpu = s.get("gpu_ms", -1)
+        print("  %-12s %8.1f %6d %6d %6d %8.2f%% %8.2f%% %8.2f%% %8s"
               % (s["name"], s["mean"], s["p05"], s["p50"], s["p95"],
-                 s["clipped_pct"], s["near_clipped_pct"], s["crushed_pct"]))
+                 s["clipped_pct"], s["near_clipped_pct"], s["crushed_pct"],
+                 ("%.3f" % gpu) if isinstance(gpu, (int, float)) and gpu >= 0 else "-"))
     print("")
     for s in r.get("shots", []):
         print("  %-12s %s" % (s.get("name", "?"), s.get("png", "")))
@@ -183,6 +203,11 @@ def main(argv=None):
         help="also stand inside N rooms facing an interior wall. "
              "OFF by default: it adds shots, and every existing "
              "comparison is keyed on shot name")
+    ap.add_argument(
+        "--station", action="append", default=[], metavar="NAME:EX,EY,EZ,TX,TY,TZ",
+        help="a GIVEN camera, repeatable: eye and target in Godot metres, Y "
+             "up. For the one shot a question needs that no derivation "
+             "picks; reported as given, with its coordinates")
     ap.add_argument("--width", type=int, default=1600)
     ap.add_argument("--height", type=int, default=900)
     ap.add_argument("--settle", type=int, default=10,
@@ -204,7 +229,8 @@ def main(argv=None):
     try:
         r = shoot(a.project, a.out, a.scene, a.godot, a.width, a.height,
                   a.settle, a.frames_per_shot, a.keep_hud, a.rendering_driver,
-                  a.timeout, a.verbose, interiors=a.interiors)
+                  a.timeout, a.verbose, interiors=a.interiors,
+                  stations=a.station)
     except ProbeFailed as e:
         print("[look_shots] NOT MEASURED: " + str(e))
         return 1

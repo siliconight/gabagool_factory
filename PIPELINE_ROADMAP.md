@@ -738,7 +738,7 @@ work of adopting this.
 | 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
 | 59 | **NARROWED** | One door, two corridors: a partition ends inside the aperture and spli | 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK WAS STALE AGAINST ITS OWN TAIL.  |
-| 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
+| 60 | **CLOSED** | Light walks through walls: a fixture in the next room lights this one' | 2026-09-11 -- DECIDED, BUILT INTO THE TIERS, PRICED ON HARDWARE, AND WALKED WITH NUMBERS;  |
 | 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
 | 62 | **NARROWED** | The capability-gap signal: a tool that cannot make what was asked says | 2026-09-11 -- ZOO SAYS IT, LEVEL FACTORY COUNTS IT, AND THE CLAIM THIS ITEM RESTED ON WAS  |
 | 63 | **SUPERSEDED** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-09-11 -- BY ITEM 119, WHICH IS THIS ITEM FILED A SECOND TIME AND CLOSED IN DELI COUNT |
@@ -817,7 +817,7 @@ work of adopting this.
 | 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
 | 137 | **CLOSED** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- DERIVED, NOT TUNED, AND MEASURED BACK TO ONE OF THE BASELINE. Lux 0.31.0: `L |
 
-**137 items: 24 open, 76 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**137 items: 23 open, 77 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -6167,7 +6167,41 @@ the AVOIDANCE in the floorplan/generator path (nudge the opening along its
 wall or terminate the partition one bay short -- never silently delete
 either), and a regenerated library with zero warnings.
 
-*STATUS: OPEN 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL
+*STATUS: CLOSED 2026-09-11 -- DECIDED, BUILT INTO THE TIERS, PRICED ON
+HARDWARE, AND WALKED WITH NUMBERS; AND THE WALK SAYS THE RANGES DID THE WORK.
+THE DECISION (lever a, quality-gated): shadows are a BUDGET the tier spends
+on the lights whose through-wall wash is worth stopping first. Lux 0.32.0
+adds `LuxLighting.apply_shadow_policy`: every registered rig light is ranked
+and `shadow_enabled` is set on the first `max_shadow_casters`, off on the
+rest, on every preset apply and after every rig registration; the rig's own
+`shadows_enabled` is what it does with no LuxRoot in the scene. 0.32.1 ranks
+by RANGE ACROSS AN ENVELOPE THE LIGHT IS OUTSIDE OF -- signs (8 m, the
+sighting), wall packs (5.5), streetlights (14) first, then windows (3.2-4.0
+since 0.31.0), bulbs, fluorescent rows -- after 0.32.0's first order spent
+all 24 casters on 19 windows and 5 bulbs and none on the four exterior
+lights, caught by the new `tools/shadow_census.py` reading the running
+package. `LuxRoot.shadow_caster_budget` overrides the tier so a level can be
+priced without moving post-fx. PRICED (RTX 2060, GL Compatibility, 1600x900,
+cold run 9005's export, 58 lights, GPU ms from the engine's own timestamps
+via `look_shots --station`'s new per-shot column): 0 casters 2.5-5.6 ms on
+the elevations, 4 -> 4.1-6.7, 12 -> 6.3-10.5, 24 -> 8.2-11.6; about 0.3 ms
+per shadowed omni. So "High shadows everything" is a slideshow, and the
+tiers are High 12, Medium 8, Low and Compatibility 4 (were 0, which would
+have switched the shipped window shadows off). THE WALK, AS NUMBERS: four
+GIVEN stations 2.15 m inside the rooms behind the sign and the three wall
+packs, facing the wall the light hangs outside of, rendered at 0/4/12/24
+casters. The doorway spill stays (the door fills the frame either way); the
+wall faces beside and above it move by 0.0-0.9 luma of 255 when their light
+gains a shadow map (sign station walls 1.8 -> 1.0, packs 12.3 -> 12.0, 35.0
+-> 35.0). THE WASH THE ITEM SAW IS NOT THERE TO STOP: the August sighting
+was a sign at energy 3 with an 8 m sphere before 0.19.0's drop-derived
+ranges and before 0.31.0 took windows from 6.4-9.6 m to 3.2-4.0 -- lever (b)
+already removed most of what lever (a) was priced for, which is the honest
+finding and the reason the budgets are modest rather than generous. The
+policy stands as the guard for the day a light class regains its range, and
+the census and the stations are how that day gets noticed. Lever (c), cull
+masks, stays unbuilt for the reason the item gave.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL
 POLICY STILL UNDECIDED. Lux 0.25.0 turns on `shadows_enabled` for the
 sign/window area rigs -- the only shadowed lights in the package, four
 rigs against ~128 interior fixtures; the plumbing existed end to end
