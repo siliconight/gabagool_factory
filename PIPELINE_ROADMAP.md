@@ -763,7 +763,7 @@ work of adopting this.
 | 82 | **ANALYSIS** | Every tool's contract is about a piece. No contract is about the whole | 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF THIS ONE FACT, AND IT EXPLAINS W |
 | 83 | **NARROWED** | The renderer lights the wall per piece, so light draws the module grid | 2026-08-29 -- REFUTED AS THE CAUSE OF THE EXTERIOR BANDING, BY ABLATION, WITHIN THE HOUR I |
 | 84 | **OPEN** | Zoo computes per-vertex wear, exports it correctly, and the engine doe | 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION RATHER THAN A FLAG. 1,896 KI |
-| 85 | **OPEN** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT INVESTIGATED. RECORDED BECAUSE  |
+| 85 | **NARROWED** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-09-11 -- MEASURED ACROSS THE LIBRARY, THE CAUSE FOUND AT THE SOURCE AND FIXED THERE,  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
 | 88 | **CLOSED** | Deli Counter stretches a unit box to fill slot remainders, and the ski | 2026-09-06 -- WORLD PROJECTION SHIPS, AND THE FIX WAS A DECLARATION THIS REPO HAD ALREADY  |
@@ -816,7 +816,7 @@ work of adopting this.
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
 
-**136 items: 32 open, 70 closed, 3 retracted, 27 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 31 open, 70 closed, 3 retracted, 28 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8365,7 +8365,39 @@ every wall in the library, which is item 81's defect arriving for the first
 time. The sequence is: confirm the layer is off, decide what wear SHOULD do on
 a mesh with no interior vertices, then turn it on.
 
-*STATUS: OPEN 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT
+*STATUS: NARROWED 2026-09-11 -- MEASURED ACROSS THE LIBRARY, THE CAUSE FOUND
+AT THE SOURCE AND FIXED THERE, THE INSTRUMENT KEPT; THE GATE IS NOT WIRED.
+`tools/anchor_wall_probe.py` (factory root) reads what Deli Counter already
+writes -- every anchor in `<building>.lights.json` expanded to its lamp
+points, every wall slot in `<building>.slots.json` as a rotated box -- and
+reports each lamp's signed clearance to the nearest wall on its storey.
+BEFORE, 125 shipped buildings: the ceiling rows the item suspected are clean,
+2,422 fluorescent and pendant lamp points with NONE inside a wall and a
+minimum clearance of 1.35 m -- so "one bad anchor or a systematic offset"
+was neither, for that type. The wall packs were the systematic offset: 334
+anchors at a median clearance of 0.000 to the nearest wall, min -0.025 in a
+0.35 m wall, and the 91 signs at 0.050. An opening's (x, y) is its wall's
+CENTRELINE (425 of 425 exterior doors at 0.000 from it) and
+`lights._WALL_PACK_OUT` / `_SIGN_OUT` were added to that point while their
+comments said "proud of the wall face". Zoo built to the comment: the pack's
+0.22 m body is centred on the anchor with an arm reaching 0.15 m back to the
+wall plane, the sign's 0.18 m cabinet hangs entirely behind its face plane.
+Half of every pack and most of every cabinet sat inside the wall -- a hanging
+light half-buried at a wall/ceiling junction is what a wall pack 0.25 m above
+a door head looks like from inside. Deli Counter 0.113.0: `derive_light_anchors`
+and `build_light_manifest` take `wall_thick` (required, the `cap_thick` rule)
+and place both facade types half a wall further out; `write_light_manifest`
+passes the spec's own thickness. AFTER, re-derived over the same 125
+buildings: pack clearance 0.150, sign 0.200 -- the constants, exactly -- and
+the ceiling rows unchanged. Four test files updated, two new tests, 658
+passing. The item's diagnosis of the gate was right and stands: Lux checks
+the fixture against its marker and nothing checks the marker against the
+wall. WHAT REMAINS is that check as a GATE rather than a probe run by hand --
+the geometry is pure and already in the probe, and the natural home is the
+Deli Counter adapter's `normalize_validation`, which has every input in one
+job's outputs. Until then a regression here is caught by re-running the probe,
+which is one command and no Godot.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-29 -- OBSERVED IN A WALKTHROUGH AND SET ASIDE, NOT
 INVESTIGATED. RECORDED BECAUSE THE EXISTING GATE CANNOT SEE IT BY
 CONSTRUCTION*
 
