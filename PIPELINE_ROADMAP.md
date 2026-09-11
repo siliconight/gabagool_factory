@@ -703,8 +703,8 @@ work of adopting this.
 | 22 | **OPEN** *(inferred)* | Outdoor props have no swap contract, so cover stays boxes forever | — |
 | 23 | **CLOSED** | A Node-typed export written by a tool is discarded in silence, and the | 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" wha |
 | 24 | **OPEN** *(inferred)* | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | — |
-| 25 | **OPEN** *(inferred)* | A project `cater` has SERVED does not run until the editor imports it | — |
-| 26 | **OPEN** *(inferred)* | Something finally looks at the picture | — |
+| 25 | **CLOSED** | A project `cater` has SERVED does not run until the editor imports it | 2026-09-11 -- EVERYTHING AUTOMATED IMPORTS FIRST, AND THE LINE A PERSON READS NOW SAYS SO. |
+| 26 | **NARROWED** | Something finally looks at the picture | 2026-09-11 -- THE INSTRUMENT SHIPPED AND GREW; THE GATE WAITS ON A NUMBER NOBODY HAS CHOSE |
 | 27 | **CLOSED** | The portable export ships a scene without its geometry, and every gate | 2026-08-12 -- 36 resources, closure ok, portability PASS. SESSION_0812 |
 | 28 | **OPEN** *(inferred)* | The VRAM question is about zoo's GLB embedding, not about pixelcoat | — |
 | 29 | **CLOSED** | The art path themes one building; the site is never themed, and the si | 2026-08-12 -- the export carries five archetypes plus site_base.glb, not one building |
@@ -816,7 +816,7 @@ work of adopting this.
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 | 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
 
-**136 items: 31 open, 70 closed, 3 retracted, 28 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 29 open, 71 closed, 3 retracted, 29 narrowed, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1784,6 +1784,21 @@ beside the level's own, while at runtime it correctly adopts the existing one.
 `ensure_world_environment`'s reuse path fails specifically under
 `Engine.is_editor_hint()`.
 
+*STATUS: CLOSED 2026-09-11 -- EVERYTHING AUTOMATED IMPORTS FIRST, AND THE
+LINE A PERSON READS NOW SAYS SO. The item asked two things. The pipeline half:
+every stage that launches a generated project runs `godot --headless --path
+<project> --import` before anything else -- Level Factory's staging
+(`staging/godot_project.py:231`), export (`exporting/export.py:338`) and
+portability check (`portability.py:92`), the Lux adapter's first command
+(`adapters/lux:208`), Lot's `package.py:284` and `walktest.py:122`, and the
+factory's `walk_export.py`, `walk_greybox.py` and `walk_themed.py`; `godot_probe`
+already did, which is why the light census was ever measuring a populated
+scene. The human half: `cater`'s "SERVED -> open <site>_walk.tscn in Godot, F6"
+is followed since Lot 0.55.1 by the import command and why -- an unopened
+project has no import artifacts and every building reads as vanished. The
+behaviour itself is Godot's and is not a defect; what closed was the trap
+being unannounced.*
+
 **25. A project `cater` has SERVED does not run until the editor imports it.**
 
 Running the walk scene on a generated project Godot has never opened gives 59
@@ -1799,6 +1814,20 @@ closes with `SERVED -> open <scene> in Godot, F6` without mentioning it. Any
 pipeline stage that runs a generated project must import first;
 `tools/godot_probe.py` does, and that is the only reason the light census
 measures a populated scene instead of an empty one.
+
+*STATUS: NARROWED 2026-09-11 -- THE INSTRUMENT SHIPPED AND GREW; THE GATE
+WAITS ON A NUMBER NOBODY HAS CHOSEN, WHICH THE ITEM SAYS IS THE RIGHT ORDER.
+`tools/look_shots.py` exists (2026-08-03, then orthographic elevations and
+`shot_diff`'s null floor on 09-02, `--interiors N` on 09-06): cameras derived
+from the mission spine and the site AABB, a Rec.709 luminance histogram per
+frame, and its first honest result a retraction of its own hand-run figures
+(28.6% clipped -> 0.00% at 255, the real effect 18.62% within three codes of
+white against 1.13% under Lux). It is not gated on anything, and the item is
+explicit that it should not be until somebody decides what a level has to
+beat. WHAT REMAINS is that decision, and the display dependency -- `--headless`
+disables rendering, so a machine without one measures under llvmpipe, which
+may be A/B'd against itself and not quoted beside a Forward+ figure. This does
+not close item 18 and never claimed to.*
 
 **26. Something finally looks at the picture.** A partial answer to item 18, and
 deliberately a small one.
