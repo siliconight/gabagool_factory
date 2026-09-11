@@ -740,12 +740,12 @@ work of adopting this.
 | 59 | **NARROWED** | One door, two corridors: a partition ends inside the aperture and spli | 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK WAS STALE AGAINST ITS OWN TAIL.  |
 | 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
 | 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
-| 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
+| 62 | **NARROWED** | The capability-gap signal: a tool that cannot make what was asked says | 2026-09-11 -- ZOO SAYS IT, LEVEL FACTORY COUNTS IT, AND THE CLAIM THIS ITEM RESTED ON WAS  |
 | 63 | **OPEN** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-08-24 -- REFRAMED THE SAME DAY IT WAS FILED, AND THE FIRST READING IS KEPT BELOW BECA |
 | 64 | **OPEN** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-08-24 -- FOUND, PRICED, UNBLOCKED IN PRINCIPLE. Three concrete preconditions measured |
 | 65 | **CLOSED** | The site copies go stale silently, and the detector that would say so  | 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE SECOND OF THE TWO REMEDIES THI |
 | 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
-| 67 | **OPEN** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a CHANGELOG entry before it  |
+| 67 | **CLOSED** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-09-11 -- ARCHIVED, THE SECOND OF THE TWO ANSWERS THE ITEM ALLOWED. `scripts/promote_f |
 | 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
 | 69 | **CLOSED** | Deli Counter's seed never varies, so every candidate is the same build | 2026-09-05 -- THIS ITEM'S OWN ACCEPTANCE TEST, MET ON A REAL RUN. It asked for distinct `s |
 | 70 | **CLOSED** | `cold_run.py` counts the pipeline's own writes into a tool repo as int | 2026-08-27 -- BOTH GAPS FIXED AND PROVEN ON THREE SYNTHETIC RUNS. `cold_run.py` now ATTRIB |
@@ -814,8 +814,9 @@ work of adopting this.
 | 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
+| 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
 
-**135 items: 33 open, 69 closed, 3 retracted, 26 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 32 open, 70 closed, 3 retracted, 27 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -6598,7 +6599,37 @@ hardware, with the walk as the final judge -- and item 57's texture-rhythm
 observations re-walked under it, since film response may change how the
 modular repetition reads.
 
-*STATUS: OPEN 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE
+*STATUS: NARROWED 2026-09-11 -- ZOO SAYS IT, LEVEL FACTORY COUNTS IT, AND
+THE CLAIM THIS ITEM RESTED ON WAS WRONG IN A USEFUL WAY. The 2026-08-24 status
+recorded `zoo_cli.py:370` as `plan_kit`'s ONLY caller and the argument never
+passed. `build.build_kit` -- the path the pipeline's `zoo_kit_build` stage
+actually runs -- has passed `known_species=genome.list_species()` since Zoo
+0.32.0 (2026-07-17, commit a944ccd), written `missing_modules` into every
+index and printed a WARNING. The CLI dry plan, which Level Factory runs as the
+pre-build gate, was the only UNARMED caller. MEASURED 2026-09-11 before wiring
+anything: 37 shipped kit indexes across 13 workspaces, 0 missing modules; 82
+fixture indexes, 430 skipped anchors, every one `window` daylight -- the
+`pendant` silence that raised this item is gone and nothing else is being
+dropped. SHIPPED: Zoo 0.58.0 arms `--kit` and prints one `CAPABILITY_GAP`
+line per missing module from both paths through one helper
+(`kit.capability_gaps`: asked, nearest species by `difflib`, owner, the two
+files to add); `missing_modules` entries carry `nearest` and `owner`. Level
+Factory 0.67.0 files `ZOO_CAPABILITY_GAP` (moderate, `art_coverage`,
+non-blocking) from a kit index's `missing_modules` and from a fixture index's
+skips whose reason is `no fixture species`, so the count reaches the run
+summary; six tests each side. FOUND ON THE WAY, AND FIXED: Level Factory's
+`ZOO_PARTIAL_BUILD` read `n_fail` off the kit index and Zoo only ever
+RETURNED it in-process -- 98 modules with status `fail` across those 37
+indexes (90 in `lot-demo-ws`, 8 in `unlit-3b-ws`, zero in any cold run), zero
+findings, and its own test green because the fixture was written to the
+reader's guessed schema rather than the producer's. Derived from the
+per-module `status` now, so it is live on every index Zoo has ever written,
+and 0.58.0 writes the key. WHAT REMAINS is the "uniformly" in the title: Lux's
+spawner still returns skips as a list rather than a tagged line, Pixelcoat's
+missing-profile refusal and Deli Counter's lint have no `CAPABILITY_GAP`
+spelling, and no run summary yet prints a gap COUNT as a number -- the
+findings appear, the tally does not.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE
 ONE PLACE THAT ALREADY BUILT THE REPORT NEVER ARMS IT. `USING_THE_FACTORY.md`
 states the protocol and names today's honest coverage; nothing emits the tag
 yet. MEASURED 2026-08-24: `kit.plan_kit` takes `known_species` and documents
@@ -6906,7 +6937,18 @@ it ran, and it asserts a real `dispatch build` with no blockers. The claim
 was made from a skip message without reading the test beside it -- this
 file's own first rule, reached for a third time in one session.
 
-*STATUS: OPEN 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a
+*STATUS: CLOSED 2026-09-11 -- ARCHIVED, THE SECOND OF THE TWO ANSWERS THE
+ITEM ALLOWED. `scripts/promote_factory.ps1` is removed from the tree (history
+keeps it at a240533 and every commit before) and a local copy sits in
+`_archive/scripts/`, which is gitignored; `docs/CERTIFY.md` Step 5 is the only
+promotion procedure and was already the correct one. Parameterising was the
+other answer and would have been padding: the certified set has been promoted
+by hand since 1.3.0 and the manifest today pins tools eight to twenty minor
+versions behind their checkouts, so the operation is not repeatable often
+enough to want a script. `tidy_tools.ps1` and `tidy_migrations.ps1` still
+name the file in their lists; those are records of the August move and are
+left as written.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-08-25 -- READ IN FULL, NOT RUN. Anyone who runs it loses a
 CHANGELOG entry before it fails*
 
 **67. `promote_factory.ps1` is a frozen one-off wearing a reusable name.**
@@ -13600,3 +13642,33 @@ about how it looks, they FAIL, and the failure is invisible to everything
 downstream. A gate that fires into a log nobody reads is the defect
 `patch_lf_score_split.py` warned about in the other direction: a number that
 looks actionable and is not.
+
+*STATUS: OPEN 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A
+DECISION ABOUT DETERMINISM RATHER THAN A STRING*
+
+**136. Zoo stamps every index with a version from July, and the same literal
+seeds every asset.** Found 2026-09-11 while wiring roadmap 62.
+`zoo_keeper/__init__.py` carries `TOOL_VERSION = "0.31.0"`; `VERSION` says
+0.58.0. Every `<building>_kit.built.json`, `_fixtures.built.json` and
+`_dressing.built.json` on disk therefore reads `zoo.tool_version: 0.31.0`,
+37 kit indexes across 13 workspaces included, and a reader comparing an
+artifact to the tool that made it is told a version that is 27 releases
+stale.
+
+**WHY IT IS NOT A ONE-LINE FIX.** The literal is also an input to every
+seeding root key: `tools/zoo_cli.py:164,170,208,216,227,318` and
+`tools/wear_probe.py:221` pass `TOOL_VERSION` into `seeding.root_key`, and
+`dna.resolve_plan` / `resolve_module_plan` take it as a parameter. Correcting
+the string re-rolls every asset Zoo builds -- the same brief, the same seed,
+different geometry -- which invalidates every cached Zoo job and every
+comparison history that rests on today's output.
+
+**TWO ANSWERS, AND THE SECOND IS THE ONE TO TAKE.** (1) Read `VERSION` into
+`TOOL_VERSION` and accept a one-time re-roll, re-certifying the set after.
+(2) Split the two meanings the one name carries: a `SEED_EPOCH` frozen at
+`"0.31.0"` for the root keys, so no vertex moves, and `TOOL_VERSION` read
+from `VERSION` for the stamps, so the index tells the truth. The second
+costs one constant and a grep; the first costs a re-certification and a
+comparison history. Whichever is taken, a test should pin that the stamped
+version equals `VERSION`, because this drifted for 27 releases without a
+single check noticing.
