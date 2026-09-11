@@ -755,7 +755,7 @@ work of adopting this.
 | 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A NEW INSTRUMENT, NO FIX ATTEM |
 | 75 | **CLOSED** | Delco's facade relief was drawing the module grid it exists to break u | 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING THE MODULE GRID BY TWO SEPARAT |
 | 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
-| 77 | **OPEN** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-08-29 -- COST ONE AMBIGUOUS COUNT ON `cold_7003`, AND THE AMBIGUITY IS UNRESOLVABLE F |
+| 77 | **CLOSED** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-09-11 -- `--begin` RECORDS WHAT WAS ALREADY DIRTY AND `--end` READS IT BACK. `cold_ru |
 | 78 | **NARROWED** | Nothing measures how a level LOOKS -- only what it is made of | 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH WAS FALSE AND WAS WRITTEN WITH |
 | 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-09-06 -- INDEPENDENTLY NAMED A SECOND TIME, FROM THE ART SIDE, AND THE TWO DESCRIPTIO |
 | 80 | **OPEN** | Deli Counter's one-mesh-in-VRAM discipline is not carried any further  | 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS; THE STEP AFTER IT IS WRITTEN |
@@ -771,16 +771,16 @@ work of adopting this.
 | 90 | **NARROWED** | `look_shots` was never measured against itself, so its own repeatabili | 2026-09-02 -- THE PER-PIXEL RULER IS STILL UNCALIBRATED AND EVERY `%px changed` FIGURE BEL |
 | 91 | **CLOSED** | World-space UVs reached the shipped build | 2026-08-30 -- CONFIRMED ON A SHIPPED PACKAGE, NOT A MECHANISM PROOF. THE COMPOSED `out/pre |
 | 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-09-02 -- MEASURED, AND THE DELETION LOSES. SUN LINK vs DELETION IS overview -0.05 AND |
-| 93 | **OPEN** | Editing a driver script does not invalidate its job's cache | 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT, SO THE PIPELINE SERVES THE  |
+| 93 | **CLOSED** | Editing a driver script does not invalidate its job's cache | 2026-09-11 -- THE MAIN HALF LANDED TWELVE DAYS BEFORE THIS STATUS SAID SO, AND THE RESIDUE |
 | 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
 | 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
-| 97 | **OPEN** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY HARNESS THAT PROVES THE PIPEL |
-| 98 | **OPEN** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR IT. `check.py` EXITS 1 ON T |
+| 97 | **CLOSED** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-11 -- BUILT, NOT ALIASED, AND RUN COLD TWICE. Pixelcoat 0.27.0 ships `profiles/the |
+| 98 | **CLOSED** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH. `check.py` exits 0 on 2026-0 |
 | 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
-| 100 | **OPEN** | `site_shape` silently falls back to a row | 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's PRE-CHECK. TWO BRIEFS ON DISK ASK  |
+| 100 | **CLOSED** | `site_shape` silently falls back to a row | 2026-09-11 -- IT SAYS SO, AND THE SPELLINGS THE BRIEFS USE ARE KNOWN. Level Factory 0.65.0 |
 | 101 | **OPEN** | The handoff hands the server addresses that resolve to nothing | 2026-09-05 -- MEASURED ON A SHIPPED PACKAGE. THE EXPORT DELIBERATELY REPLACES DISPATCH'S ` |
-| 102 | **OPEN** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE INTERIORS ARE BARE ENOUGH THAT A R |
+| 102 | **CLOSED** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-11 -- MEASURED FIRST, THEN FIXED, EXACTLY AS THIS ITEM ASKED. Roadmap 130 ran the  |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
@@ -798,7 +798,7 @@ work of adopting this.
 | 117 | **NARROWED** | The wall-over-void rule covers stairs and not the other three things t | 2026-09-07 -- THE RAMP HALF SHIPPED IN DELI COUNTER 0.107.0 AND THE OTHER TWO PRODUCERS AR |
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-09 -- ONE OF THE TWO IS FIXED, THE OTHER IS NOT OURS TO FIX, AND AN ALIAS WAS TRIE |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
-| 120 | **NARROWED** | The route has never been completed, and half the reports that say so g | 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE FIRST TIME IN THIS PROJECT'S  |
+| 120 | **CLOSED** | The route has never been completed, and half the reports that say so g | 2026-09-11 -- BOTH REMAINING HALVES ANSWERED BY LATER ITEMS. Completion is reachable with  |
 | 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **CLOSED** | The size proxy is disconnected from the size contract | 2026-09-09 -- THE SEAM AND BOTH DERIVATION ARMS. Laser Tag 0.11.0 gave `LT_TestScenario` a |
@@ -815,7 +815,7 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**135 items: 48 open, 55 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 42 open, 62 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7585,8 +7585,18 @@ would settle it is item 75's rebuilt level and nobody has seen it. Writing the
 doctrine first would be writing it from inference, which is how the `uv_offset`
 retraction above happened.
 
-*STATUS: OPEN 2026-08-29 -- COST ONE AMBIGUOUS COUNT ON `cold_7003`, AND THE
-AMBIGUITY IS UNRESOLVABLE FROM WHAT IS ON DISK*
+*STATUS: CLOSED 2026-09-11 -- `--begin` RECORDS WHAT WAS ALREADY DIRTY AND
+`--end` READS IT BACK. `cold_run.dirty()` runs `git status --porcelain
+--untracked-files=no` per tool repo; `--begin` stores the result in
+`before.json` and prints it, and `--end` annotates any changed file that was
+already modified at the start as "(was ALREADY modified at --begin)" so an edit
+in flight is distinguishable from an intervention. Untracked files are excluded
+on purpose -- `snapshot` already catches a new hand-authored file as an addition,
+and a workspace or a report is not a source edit. None, not [], when git cannot
+answer. Selftested on a real `git init` repo, and proved live the same hour: on
+2026-09-11 it correctly reported the two Level Factory files being edited for
+item 100 as already dirty. `cold_7003`'s ambiguous 1 stays ambiguous -- this
+closes the mechanism, not the archaeology.*
 
 **77. `cold_run.py --begin` cannot tell that a run is starting mid-edit.**
 Found 2026-08-29 while closing `cold_7003`.
@@ -9153,10 +9163,16 @@ from reading `lux_environment.gd`, not a measurement, and it would be settled
 by diffing the two Environment resources rather than by shooting anything.
 
 
-*STATUS: OPEN 2026-08-30 -- A TOOL'S OWN CODE IS NOT IN ITS JOB FINGERPRINT,
-SO THE PIPELINE SERVES THE PREVIOUS BEHAVIOUR OF A SCRIPT THAT WAS JUST
-REWRITTEN AND SAYS `cache` WHILE DOING IT. ONE DRIVER IS ALREADY TRACKED, SO
-THE PATTERN TO COPY EXISTS*
+*STATUS: CLOSED 2026-09-11 -- THE MAIN HALF LANDED TWELVE DAYS BEFORE THIS
+STATUS SAID SO, AND THE RESIDUE CLOSES WITH LEVEL FACTORY 0.65.0.
+`fingerprint_inputs` has carried `driver_src_hash` for the compose driver since
+2026-08-30, with `test_presentation_driver_in_fingerprint.py` mirroring the Lux
+test the item named -- this status was stale, not the code. The residue: `--force`
+was a documented no-op ("accepted and ignored") and the scheduler's docstring
+agreed. It now forgets every planned job's cached digest before the run, read
+from each job's own `fingerprint.last.json` receipt -- the `cache forget` this
+item found by reading the CLI, applied to the whole plan -- and the help text
+says so. A fresh workspace with no receipts is counted, not an error.*
 
 **93. Editing a driver script does not invalidate its job's cache.** Found
 2026-08-30, trying to prove item 91 on a shipped build.
@@ -9589,11 +9605,16 @@ it is the same unfinished thought as the missing caller, seen from the
 pipeline side. Whichever way item 96 is decided, that hash should stop
 claiming an input the command does not take.
 
-*STATUS: OPEN 2026-09-02 -- A THEME NOTHING CARRIES, ASKED FOR BY THE ONLY
-HARNESS THAT PROVES THE PIPELINE END TO END. NEEDS A PIXELCOAT SKIN PACK AND
-ZOO SPECIES STYLES, NOT ONE FILE. LF 0.53.0 POINTED THE SMOKE AT `delco` SO
-THE HARNESS STOPS MEASURING THE CATALOGUE; WHETHER `delco_1997` SHOULD EXIST
-IS UNANSWERED*
+*STATUS: CLOSED 2026-09-11 -- BUILT, NOT ALIASED, AND RUN COLD TWICE. Pixelcoat
+0.27.0 ships `profiles/themes/delco_1997.json`, a real profile differing from
+`delco` in five material slots; Zoo 0.57.0's `theme_style` resolves the decade
+qualifier so all 56 species reach a style through Zoo's own rule. Cold runs 9004
+and 9005 both ran `delco_1997` end to end -- the plan reports "pixelcoat profile
+found, all 56 species resolve" and `pixelcoat_build`, the stage that refused
+outright on 9003, succeeded on both. The item's open question -- does the design
+want a `delco_1997` -- was answered by the steer to fix gaps rather than route
+around them: an alias to `delco` was tried first and reverted the same day, for
+the reason roadmap 118 gives about aliases keeping the confusion.*
 
 **97. `delco_1997` is a theme two repos would have to grow, and only the
 smoke ever asked for it.** Named 2026-09-02, after the theme preflight refused
@@ -9646,14 +9667,15 @@ grammar and belongs to whoever owns the look. If no, the string was always a
 placeholder and this item closes as RETRACTED with the smoke change standing.
 Nobody has been asked.
 
-*STATUS: OPEN 2026-09-05 -- MEASURED WHILE COMMITTING, NOT WHILE LOOKING FOR
-IT. `check.py` EXITS 1 ON THREE SHELLS WHOSE STAIR ENDPOINTS BAKE ONTO
-DISJOINT NAVMESH ISLANDS, AND HAS DONE SINCE BEFORE 2026-08-24. THE HOOK
-THEREFORE REFUSES EVERY COMMIT, WHICH IS A CANDIDATE EXPLANATION -- NOT A
-PROVEN ONE -- FOR WHY FOUR RELEASES SAT UNCOMMITTED IN THE WORKING TREE.
-SECOND CAUSE, SEPARATE AND RECURRING: `build_freshness` GATES ON TEN `lf_`
-SHELLS THAT ARE LEVEL FACTORY'S OWN COMPOSED OUTPUT, TRACKED IN DELI
-COUNTER'S REPO, SO AN LF RUN CAN RED DC'S COMMIT GATE.*
+*STATUS: CLOSED 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH.
+`check.py` exits 0 on 2026-09-11 with "All checks passed" across all six gates
+(coherence, layout rails, stair sweep, build freshness, nav traversal, catalog).
+Five Deli Counter releases landed through the pre-commit hook on 2026-09-10 --
+0.111.0, 0.111.1, 0.111.2, 0.112.0 -- with the full suite and the preset
+scorecards running inside it each time. The three disjoint-navmesh shells the
+status named were fixed under items 113/114 (DC 0.105.0), and `build_freshness`
+did not fire on any of the four. The candidate explanation for four uncommitted
+releases is therefore no longer reproducible, and the hook is not the blocker.*
 
 **98. Deli Counter cannot commit through its own pre-commit hook.** Found
 2026-09-05 while committing the four releases item 69's work sat on top of.
@@ -9762,10 +9784,20 @@ vocabulary and `doctor` reports the intersection rather than each side's list.
 Today `doctor` prints both lists and leaves the reader to intersect them by
 eye, which is how this went unnoticed.
 
-*STATUS: OPEN 2026-09-05 -- MEASURED AS A CONTROL DURING COLD RUN 5's
-PRE-CHECK. TWO BRIEFS ON DISK ASK FOR A SHAPE THEY HAVE NEVER RECEIVED, AND
-NOTHING SAYS SO. THE ARCHETYPE PATH WAS FIXED FOR EXACTLY THIS CLASS OF BUG
-AND RAISES; THE SHAPE PATH STILL GUESSES.*
+*STATUS: CLOSED 2026-09-11 -- IT SAYS SO, AND THE SPELLINGS THE BRIEFS USE ARE
+KNOWN. Level Factory 0.65.0. A census of every brief on disk found SEVENTEEN OF
+TWENTY-SEVEN asking for a shape the table did not carry, every one silently a
+row -- including both of the two most recent cold runs, `warehouse_yard_001`
+("yard") and `county_hospital_001` ("campus"). `shape_known` now distinguishes a
+spelling nobody added from one that means row; the site spec records
+`site_shape_resolved` {asked, got, known} so the fallback is on disk; and the
+writer announces an unknown spelling on stderr in the gap-protocol voice. The
+four spellings the briefs use are added deliberately and once, each as a stated
+reading of the word: street_block -> row (7 briefs), boardwalk_crescent -> L (4),
+yard -> row (3), campus -> courtyard (2). `string` (1 brief) is left unknown on
+purpose, as the proof the announcement fires. The fallback itself is kept -- the
+original comment was right that refusing a build over a label is the wrong
+trade.*
 
 **100. `site_shape` silently falls back to a row.** Found 2026-09-05, choosing
 a site shape for cold run 5 that had never been built.
@@ -9887,11 +9919,17 @@ binding it does not carry -- the same shape as item 55 (fixtures with no art)
 and the export declaring `godot_version: 4.7` while telling the engine nothing
 (fixed in level_factory 0.55.0).
 
-*STATUS: OPEN 2026-09-05 -- RAISED FROM A WALK, NOT MEASURED YET. THE
-INTERIORS ARE BARE ENOUGH THAT A ROOM IS A SIGHTLINE RATHER THAN A FIGHT, AND
-THAT IS A LEVEL PROPERTY THIS FACTORY OWNS EVEN THOUGH THE AI THAT WOULD
-EXPLOIT IT IS BUILT ELSEWHERE. DISTINCT FROM 22, 44 AND 45, WHICH ARE ALL
-ABOUT THE OUTDOORS OR ABOUT SURFACES LOOKING FLAT.*
+*STATUS: CLOSED 2026-09-11 -- MEASURED FIRST, THEN FIXED, EXACTLY AS THIS ITEM
+ASKED. Roadmap 130 ran the instrument this item said did not exist: cover per
+interior room across the 14 non-facade presets, judged against a threshold
+DERIVED from the firefight's own sight geometry rather than chosen -- 100 of
+177 qualifying solids below the height where cover works, and 39 of 91 combat
+rooms furnished with nothing that breaks a sightline. Deli Counter 0.112.0 then
+seeds ONE piece at `shelter_height()` into each such room and leaves its
+furniture alone: 39 -> 0, no other audit finding moved, `layout_lint` identical
+with the change and without it. The "how much is enough" question resolved as
+one piece of shelter with the rest left as life, per the brief for these
+levels; it was not closed on a screenshot.*
 
 **102. The interiors are bare, so a room is a sightline rather than a fight.**
 Raised 2026-09-05 from the first walk of `precinct_yard_001`, in the reporter's
@@ -11650,35 +11688,17 @@ Tag's own `grade` field still counts this as a map FAIL, which is what made
 cold run 7 read as three failed candidates when level_factory's own verdict was
 59 findings, none blocking.*
 
-*STATUS: NARROWED 2026-09-09 -- THE ROUTE HAS NOW BEEN COMPLETED, WHICH IS THE
-FIRST TIME IN THIS PROJECT'S HISTORY, AND THE PREVIOUS READING IN THIS ITEM IS
-SUPERSEDED. That reading -- "a bot alone on an empty map still completes 0% and
-gets stuck 44 times per run, THE METRIC MEASURES THE BOT" -- was correct when
-taken and had three causes under it, all since fixed: the pill spawning inside
-Lot's walk-preview player (122, Lot 0.52.0), the bot jamming on dead enemies'
-colliders (124, Laser Tag 0.13.0), and pills outliving their run (125, Laser
-Tag 0.14.0). Re-measured 2026-09-09 on `market_row_001` seed 7503, 6 runs at
-the production 180 s budget, varying only the enemy count:
-`enemies=0 -> route_completion_rate 1.0`, survival 180 s, 0 stuck events;
-`enemies=2 -> 0.0`, survival 16.7 s; `enemies=6 -> 0.0`, survival 9.1 s. So
-navigation and the route logic work end to end -- the bot walks spawn ->
-objective -> extraction, about 130 m, and finishes -- and the metric is
-functional rather than structurally zero. WHAT GATES IT NOW IS LETHALITY, not
-traversal and not the bot: completing needs at least 32.5 s of pure walking at
-4 m/s and the crew survives 9.1 s against six guards, wiping in 8 of 8 runs.
-Raising the cap does nothing, and that was checked rather than assumed -- 60 s
-and 180 s give identical results because no run reaches either. THE COVER
-INSTRUMENT AGREES INDEPENDENTLY, which is worth more than either reading
-alone: Laser Tag 0.12.0's spawn-free sampler puts 21% of `market_row_001`'s
-walkable positions open on all eight approaches within weapon range, 98% with
-a 40 m sightline, and only 75% with cover on half their approaches. A crew
-crossing that in the open dies, and the level is what says so. WHAT REMAINS
-OPEN in this item is therefore the second half of its title -- reports that
-grade WARN while reporting 0.0 -- plus the question of whether a 1-versus-6
-encounter over 130 m of thin cover is the right thing for the pipeline to
-grade a LEVEL against at all. `lasertag_report.py` already classes traversal
-as an ENCOUNTER category, which is consistent with everything above.*
-
+*STATUS: CLOSED 2026-09-11 -- BOTH REMAINING HALVES ANSWERED BY LATER ITEMS.
+Completion is reachable with enemies alive: 1.00 on all three cold-run-9005
+candidates, and 0.00 -> 1.00 at EVERY populated enemy count on item 128's own
+sweep once Laser Tag 0.22.0 stopped ending a run the moment the last guard fell.
+The grade-does-not-follow-severity half: grades are score bands by design, and
+128, 132 and 135 made the FAIL findings move the score -- `ENEMY_PATHING_BROKEN`
+can take the whole pathing category and `TRIVIAL_ENCOUNTER` caps below PASS.
+The "is 1-versus-6 the right thing to grade against" half was item 129's and is
+answered: every shipped brief declares `crew_size: 4`. The census in this item
+(31 of 33 reports at 0.0) was true when taken and described an instrument that
+could not read the thing it was named for.*
 
 **120. The route has never been completed, and half the reports that say so
 grade WARN.** Found 2026-09-07 by cold run 7, which graded FAIL on all three
