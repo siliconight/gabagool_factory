@@ -814,9 +814,9 @@ work of adopting this.
 | 133 | **CLOSED** | The presentation package has failed its own z-fight gate on every cold | 2026-09-10 -- shipped as Level Factory 0.64.0. The z-fight gate now becomes `PRESENTATION_ |
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
-| 136 | **OPEN** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A DECISION ABOUT DETERMINISM RAT |
+| 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
 
-**136 items: 27 open, 72 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**136 items: 26 open, 73 closed, 3 retracted, 29 narrowed, 1 superseded, 4 analysis.** 7 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -13767,7 +13767,23 @@ downstream. A gate that fires into a log nobody reads is the defect
 `patch_lf_score_split.py` warned about in the other direction: a number that
 looks actionable and is not.
 
-*STATUS: OPEN 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A
+*STATUS: CLOSED 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT
+NO VERTEX MOVED IS THE MORNING'S OWN BUILD. Zoo 0.59.0 splits the one name
+into its two meanings: `TOOL_VERSION` is read from `VERSION` at import and
+stamps every index and meta.json (0.59.0 today, not 0.31.0); `SEED_EPOCH` is
+frozen at "0.31.0" and is what `seeding.root_key`, `habitat.habitat_id` and
+`variants.family_id` fold in -- seven call sites in `bpylayer/build.py`, five
+in `zoo_cli.py`, one in `wear_probe.py`, all moved. DETERMINISM CHECKED
+AGAINST ARTIFACTS, not asserted: the clutter Zoo built for cold run 9005 at
+09:0x this morning under the old code (`pebble_bb64e4.glb`,
+`habitat_a49078.habitat.json`, theme `delco_1997`, seed 9005) reproduces
+exactly under `SEED_EPOCH`, and `tests/test_version_stamp.py` pins those two
+ids, pins the stamp to the VERSION file, and refuses statically any seed call
+in the tree that reads the stamp -- the guard the dynamic tests cannot be,
+since the two strings would agree again the day the epoch is bumped to the
+tool version. 601 passing. What the item asked for beyond the fix -- "a test
+that the stamped version equals VERSION" -- is the first of those tests.
+EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-11 -- FOUND, PRICED, NOT DONE, BECAUSE THE FIX IS A
 DECISION ABOUT DETERMINISM RATHER THAN A STRING*
 
 **136. Zoo stamps every index with a version from July, and the same literal
