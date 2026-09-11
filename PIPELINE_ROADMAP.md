@@ -773,7 +773,7 @@ work of adopting this.
 | 92 | **NARROWED** | Lux REPLACES the art pass's lighting instead of adding to it | 2026-09-02 -- MEASURED, AND THE DELETION LOSES. SUN LINK vs DELETION IS overview -0.05 AND |
 | 93 | **CLOSED** | Editing a driver script does not invalidate its job's cache | 2026-09-11 -- THE MAIN HALF LANDED TWELVE DAYS BEFORE THIS STATUS SAID SO, AND THE RESIDUE |
 | 94 | **CLOSED** | Nothing in the pipeline binds fixture emissives, and the gate that cer | 2026-09-01 -- MEASURED ON A REAL GATE RUN WITH THE NEW DRIVER STAGED (9,098 BYTES, NOT 5,6 |
-| 95 | **OPEN** | The site light manifest declares a version its anchors outgrew | 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON A SITE MANIFEST WHOSE ANCHO |
+| 95 | **CLOSED** | The site light manifest declares a version its anchors outgrew | 2026-09-11 -- THE ENVELOPE IS STAMPED FROM THE FILES IT MERGES. Lot 0.55.0: `merge_lights` |
 | 96 | **OPEN** | Daylight anchors are specified and never realized, because the manifes | 2026-09-01 -- 24 WINDOW ANCHORS ARE DERIVED, MERGED, SHIPPED IN THE MANIFEST AND NEVER BEC |
 | 97 | **CLOSED** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-11 -- BUILT, NOT ALIASED, AND RUN COLD TWICE. Pixelcoat 0.27.0 ships `profiles/the |
 | 98 | **CLOSED** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH. `check.py` exits 0 on 2026-0 |
@@ -789,9 +789,9 @@ work of adopting this.
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
 | 110 | **OPEN** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-06 -- NOT A GAP, A DISCONNECTION. EVERY STAGE OF PATINA'S LAYER 3 IS BUILT, TESTED |
-| 111 | **OPEN** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17 DELI COUNTER PRESETS HAVE NEV |
-| 112 | **OPEN** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT IS WHY EVERY BRIEF EVER WRITT |
-| 113 | **NARROWED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY CHANGE RATHER THAN A QUARANTINE. T |
+| 111 | **NARROWED** | The preset registry is advertised at seventeen and exercised at three, | 2026-09-11 -- EIGHT OF FOURTEEN NOW, MEASURED RATHER THAN REMEMBERED. A census of every wo |
+| 112 | **NARROWED** | Pixelcoat has nine themes and Zoo can style two of them, so seven cann | 2026-09-11 -- THE AXIS IS EIGHT WIDE OF TWELVE, NOT TWO OF NINE, AND THE FOUR THAT CANNOT  |
+| 113 | **CLOSED** | Three shipping shells have stairs that do not traverse, and the gate t | 2026-09-11 -- ALL THREE RE-ADMITTED BY FIXING THE GENERATOR, AND THE QUARANTINE IS EMPTY A |
 | 114 | **CLOSED** | A wall stood where a stair goes, and it had been doing so in fourteen  | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.105.0, and it cleared two of the three shells item |
 | 115 | **CLOSED** | A stair's reserved footprint can leave the envelope, and no gate asks | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.108.0 AS `layout_lint` L19, A FAIL, AND THE ROADMA |
 | 116 | **NARROWED** | Buildings read as boxes, and that is a shape problem no skin can solve | 2026-09-07 -- THE PIPELINE CAN STEP A BUILDING NOW, AND NO BUILDING STEPS. Deli Counter 0. |
@@ -815,7 +815,7 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**135 items: 42 open, 62 closed, 3 retracted, 25 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 39 open, 64 closed, 3 retracted, 26 narrowed, 3 analysis.** 21 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9498,11 +9498,17 @@ not measurable against the rest of it.
 **WHAT THIS STILL DOES NOT SAY.** That the lighting is GOOD. Nothing else in
 item 94 is outstanding.
 
-*STATUS: OPEN 2026-09-01 -- `lot.merge_lights` STAMPS A HARDCODED "1.0.0" ON
-A SITE MANIFEST WHOSE ANCHORS ARE DELI COUNTER 1.1.0. MEASURED ON A BUILD
-MADE THE SAME DAY: ENVELOPE 1.0.0, `drop` PRESENT ON 28 OF 28. NOTHING READS
-THE FIELD TODAY, WHICH IS WHY IT HAS SURVIVED -- THE FIRST CONSUMER TO GATE
-ON IT IS THE ONE THAT PAYS*
+*STATUS: CLOSED 2026-09-11 -- THE ENVELOPE IS STAMPED FROM THE FILES IT
+MERGES. Lot 0.55.0: `merge_lights` collects each building manifest's
+`light_manifest_version`, stamps the HIGHEST on the site envelope -- because
+that is the contract the anchors actually need a reader to understand -- and
+records the full set as `light_manifest_versions_merged` so a mix is visible
+rather than averaged away. A file with no version field is 1.0.0 by
+definition; a site with no building manifests is Lot's streetlights alone and
+stays 1.0.0. Reproduced first on cold run 9005's build of 2026-09-10 --
+building envelope 1.1.0, site envelope 1.0.0, `drop` on the ceiling anchors --
+then fixed. The test that pinned `== "1.0.0"` was the same bare literal as the
+defect, one file over, and is replaced by an assertion on the merged set.*
 
 **95. The site light manifest declares a version its anchors outgrew.** Found
 2026-09-01, writing `tools/probe_lightable.py` for item 92's handoff question.
@@ -10566,11 +10572,18 @@ The adapter's header says "bound to the REAL Patina 0.18.0 CLI" and its
 `output_contract_version` is `patina.pass.0.18`. Three releases of a contract
 the pipeline asserts.
 
-*STATUS: OPEN 2026-09-06 -- FOUND BY COLD RUN 6 ON FIRST CONTACT. 14 OF 17
-DELI COUNTER PRESETS HAVE NEVER BEEN REQUESTED BY ANY BRIEF, AND THE FIRST ONE
-ASKED FOR FAILED EVERY CANDIDATE. A second, which three existing briefs DO
-ask for, raises KeyError. The registry advertises seventeen archetypes and is
-exercised on three.*
+*STATUS: NARROWED 2026-09-11 -- EIGHT OF FOURTEEN NOW, MEASURED RATHER THAN
+REMEMBERED. A census of every workspace on disk, counting a preset as exercised
+only where a `lot_assemble` job exists for a brief that resolves to it: bank
+(four missions), casino_tower, corner_deli, hospital, office, police_station,
+rowhome, warehouse -- eight of the fourteen non-facade presets. Cold run 9005
+added `hospital`, the largest in the registry, at zero interventions. NEVER
+BUILT: auto_shop, compound, gas_station, parking_garage, pawn_shop,
+suburban_safehouse -- six, and two of them (pawn_shop, suburban_safehouse) are
+the presets roadmap 130 found with NO combat room that could be fought in, so
+first contact there is likely to find more than a KeyError. The two defects
+this item opened on are closed (118 for the alias; the KeyError with it).
+WHAT REMAINS is the six, one cold run each.*
 
 **111. The preset registry is advertised at seventeen and exercised at three,
 and first contact found two defects.** Found 2026-09-06 by cold run 6, which
@@ -10615,11 +10628,19 @@ caught both of these before a cold run spent seven minutes on one. The
 registry is a public surface -- `specs/CATALOG.md` lists it -- and nothing
 checks that its entries produce a spec that validates.
 
-*STATUS: OPEN 2026-09-06 -- THE THEME AXIS IS TWO WIDE, NOT NINE, AND THAT
-IS WHY EVERY BRIEF EVER WRITTEN USES ONE OF THE SAME TWO. Pixelcoat ships nine
-theme profiles; Zoo carries species styles for two of them. The precondition
-check works and refused before any compute -- this is a content gap, not a
-missing gate.*
+*STATUS: NARROWED 2026-09-11 -- THE AXIS IS EIGHT WIDE OF TWELVE, NOT TWO OF
+NINE, AND THE FOUR THAT CANNOT BE BUILT ARE NAMED. Pixelcoat now ships twelve
+profiles (delco_1997 and two rockay variants since this was filed). Measured
+through `packages.tools.themes.resolve` against the shipped Zoo genome, species
+resolving a style out of 56: delco_1997 56, rockay 56, rockay_civic 56,
+rockay_retail 56, rockay_service 56, center_city 54, industrial_flats 54,
+delco 42 -- and bank 0, casino 0, stadium 0, street 0. So eight themes build
+with full or near-full species coverage and four render flat colour across the
+whole kit. Zoo 0.57.0's `theme_style` (decade qualifier, then base name) is
+what moved delco_1997 from 0 to 56 without a per-species pass. WHAT REMAINS:
+the four at zero are content gaps in Zoo -- bank, casino, stadium and street
+need species styles or a fallback rule that names them -- and delco's 14
+missing species are the 1990s-only set roadmap 112 first counted.*
 
 **112. Pixelcoat has nine themes and Zoo can style two of them, so seven
 cannot be built.** Found 2026-09-06 while writing cold run 6's brief, which
@@ -10700,14 +10721,17 @@ The Delco half of the setting is already buildable. The Philadelphia half is
 two files away.
 
 
-*STATUS: NARROWED 2026-09-07 -- TWO OF THE THREE ARE FIXED, BY A GEOMETRY
-CHANGE RATHER THAN A QUARANTINE. The mechanism was a wall standing where a
-stair goes, filed and fixed as 114; `night_pawn`'s stair and all four of
-`cbp_town_finale_midbalanced_schemafixed`'s now report `ok`, and both come out
-of quarantine. `primos_pizza` remains, and it is a DIFFERENT defect -- its
-stair's reserved footprint leaves the building envelope and the flight runs
-through the exterior wall's own lintel, filed as 115. It stays quarantined
-until 115 is fixed, so the count on this item is 1, not 3.*
+*STATUS: CLOSED 2026-09-11 -- ALL THREE RE-ADMITTED BY FIXING THE GENERATOR,
+AND THE QUARANTINE IS EMPTY AND KEPT. `deli_counter/build.py` records it beside
+the empty dict: `night_pawn` and `cbp_town_finale_midbalanced_schemafixed`
+came out with DC 0.105.0 (a partition stood where the stair goes, item 114,
+14 of 129 shells), and `primos_pizza` -- the one this status still counted --
+came out with DC 0.108.0, refused at spec time by `layout_lint` L19 measuring
+to the wall's inner face (item 115). `_QUARANTINE = {}` on 2026-09-11, and
+`check.py`'s stair regression sweep passes in the pre-commit hook today. The
+count on this item is 0, and the mechanism -- quarantine with the reason
+written beside the id, re-admit only on a passing `nav_gate` -- stays so the
+next failing shell has somewhere honest to go.*
 
 **113. Three shipping shells have stairs that do not traverse, and the gate
 that says so now blocks every Deli Counter commit.** Found 2026-09-07 by
