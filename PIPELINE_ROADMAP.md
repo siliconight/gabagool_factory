@@ -684,7 +684,7 @@ work of adopting this.
 | 3 | **CLOSED** | Lot places enemies twice, and nothing checks the two agree | 2026-08-16 -- PLACED ONCE AND THREADED THROUGH, which is the first of the two remedies thi |
 | 4 | **CLOSED** | Lot emits absolute `res://` paths at source | 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Le |
 | 5 | **CLOSED** | A run that evaluated nothing reported a clean pass | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Level Factory 0.14.0", the resume |
-| 6 | **CLOSED** *(inferred)* | The tactical advisory reads a scene that may not exist yet | CLOSED 2026-07-27 -- as the body records: "Closed 2026-07-27 as factory 1 |
+| 6 | **CLOSED** | The tactical advisory reads a scene that may not exist yet | 2026-09-11 -- IT SAYS SO, AT INFO. Level Factory 0.66.1: `advise_scene` files `LT_SCENE_NO |
 | 7 | **CLOSED** | The certified set has drifted | 2026-07-27 -- as the body records: "Closed 2026-07-27 as factory 1.6.0", five stale pins r |
 | 8 | **CLOSED** | Nothing checks the SIZE of the island an anchor snaps to | 2026-08-14 -- shipped as Lot 0.28.0 + Level Factory 0.18.0; the seed_5219 report carries a |
 | 9 | **NARROWED** | Lot emits nav-QA anchors nothing checks | 2026-08-16 -- the residual this item names for itself, "Lot still cannot answer 'is this a |
@@ -718,7 +718,7 @@ work of adopting this.
 | 37 | **CLOSED** | Every building on the site is the same building | 2026-09-05 -- BUILT, THEMED, AND SHIPPED IN A PACKAGE. The mechanism was already there and |
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
 | 39 | **RETRACTED** | Cache correctness: the mechanism is designed and never wired, and the  | 2026-08-xx -- as the body records: "RETRACTED: `--force` is not broken". Overtaken since:  |
-| 40 | **OPEN** *(inferred)* | The "is this called?" sweep, run | — |
+| 40 | **ANALYSIS** | The "is this called?" sweep, run | 2026-09-11 -- A TRIAGE RECORD, NOT A TASK. The item says so in its own first paragraph: th |
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
@@ -737,7 +737,7 @@ work of adopting this.
 | 56 | **OPEN** | The global light budget is derived from scene text, and the running le | 2026-08-23 -- MEASURED at discovery, unworked. Found by item 54's closing instrument on it |
 | 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
-| 59 | **OPEN** | One door, two corridors: a partition ends inside the aperture and spli | 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE AND THE FOUNDING SIGHTING REMAIN |
+| 59 | **NARROWED** | One door, two corridors: a partition ends inside the aperture and spli | 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK WAS STALE AGAINST ITS OWN TAIL.  |
 | 60 | **OPEN** | Light walks through walls: a fixture in the next room lights this one' | 2026-08-24 -- FIRST TIER SHIPPED, WALK PENDING; THE FULL POLICY STILL UNDECIDED. Lux 0.25. |
 | 61 | **NARROWED** | Optional color-preserving film emulsion for Lux | 2026-09-04 -- BUILT, COMPILED, RENDERED AND TIMED ON REAL HARDWARE IN LUX 0.28.0, AND AS O |
 | 62 | **OPEN** | The capability-gap signal: a tool that cannot make what was asked says | 2026-08-24 -- CONVENTION WRITTEN, SIGNAL NOT UNIFORM, AND THE ONE PLACE THAT ALREADY BUILT |
@@ -799,7 +799,7 @@ work of adopting this.
 | 118 | **NARROWED** | Nothing checks that the briefs on disk resolve to a preset, and two of | 2026-09-09 -- ONE OF THE TWO IS FIXED, THE OTHER IS NOT OURS TO FIX, AND AN ALIAS WAS TRIE |
 | 119 | **CLOSED** | One manifest field, two coordinate frames | 2026-09-07 -- SHIPPED IN DELI COUNTER 0.109.0. `fit.dims` is MODULE-LOCAL everywhere, whic |
 | 120 | **CLOSED** | The route has never been completed, and half the reports that say so g | 2026-09-11 -- BOTH REMAINING HALVES ANSWERED BY LATER ITEMS. Completion is reachable with  |
-| 121 | **NARROWED** | Nothing measures traversal under fire | 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL NOTHING; THE METRIC WAS AUDITED  |
+| 121 | **CLOSED** | Nothing measures traversal under fire | 2026-09-11 -- MEASURED, ON A TRIVIAL MAP AND ON ONE THAT FIGHTS BACK, AND THE FLAG SHOWS.  |
 | 122 | **CLOSED** | The evaluation bot's navigation agent returns a degenerate path, so it | 2026-09-08 -- ROOT CAUSE FOUND, FIXED IN LOT 0.52.0, AND THE FIRST TWO DIAGNOSES IN THIS I |
 | 123 | **CLOSED** | The size proxy is disconnected from the size contract | 2026-09-09 -- THE SEAM AND BOTH DERIVATION ARMS. Laser Tag 0.11.0 gave `LT_TestScenario` a |
 | 124 | **CLOSED** | A dead enemy is still a wall, and it is what the crew walks into | 2026-09-09 -- FIXED IN LASER TAG 0.13.0, AND THE EXPERIMENT THAT LOOKED CONFOUNDED WAS NOT |
@@ -815,7 +815,7 @@ work of adopting this.
 | 134 | **CLOSED** | The module written to stop a tool reading the wrong sight range was re | 2026-09-10 -- shipped as Level Factory 0.64.0, found while fixing 133 and worse than 133. |
 | 135 | **CLOSED** | Nothing in the rubric asks whether the encounter was a contest | 2026-09-10 -- shipped as Laser Tag 0.23.0, one commit after the item that exposed it. |
 
-**135 items: 35 open, 68 closed, 3 retracted, 26 narrowed, 3 analysis.** 11 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**135 items: 33 open, 69 closed, 3 retracted, 26 narrowed, 4 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1013,6 +1013,16 @@ code matches the intent; it cannot tell you the intent was wrong. Rewritten as
 results asserted identical), plus six in
 `tests/unit/test_resume_replays_findings.py`. Level Factory now reads
 **445 passed, 11 skipped, 456 collected**.
+
+*STATUS: CLOSED 2026-09-11 -- IT SAYS SO, AT INFO. Level Factory 0.66.1:
+`advise_scene` files `LT_SCENE_NOT_READ` when the scene is absent or never
+given -- the path and which, and the checks that therefore did not run
+(sightline, standoff, floating-marker) -- so their silence reads as absence
+rather than as a clean bill. Non-blocking and not a defect claim: the
+pre-flight still owns "there is no scene here", and the original reasoning
+against saying that twice is kept in the docstring. What the item asked for was
+provenance, and that is what is filed. The existing test that pinned silence
+now pins the notice.*
 
 **6. The tactical advisory reads a scene that may not exist yet.**
 `tactical.advise_scene` treats a missing scene as silence by design — the
@@ -3511,6 +3521,14 @@ review question for this toolchain is not "is this designed correctly" -- it
 generally is -- it is **"is this called?"** A grep for the writer of every
 declared input, and for the caller of every public entry point, would be a short
 afternoon and would probably find more.
+
+*STATUS: ANALYSIS 2026-09-11 -- A TRIAGE RECORD, NOT A TASK. The item says so
+in its own first paragraph: the sweep "reports questions, not defects", and
+this is the human half, naming four fifths of the output as correct by design
+so nobody re-triages it. It was inferred OPEN by silence, which misfiles a
+finding as work owed. Anything it surfaced that IS a defect has its own
+number.*
+
 **40. The "is this called?" sweep, run.** `tools/never_wired.py` across nine
 repos, 2026-08-02. It reports questions, not defects -- a key can legitimately
 be written by another repo or by hand-authored JSON, and this triage is the
@@ -6029,8 +6047,15 @@ with more than one perpendicular offset -- every building is a rectangle in
 plan. So it is not designed for, and `envelope_continuity.py` already refuses
 a storey whose run set is not the four rather than measuring it wrong.
 
-*STATUS: OPEN 2026-08-24 -- LIBRARY SURGERY LANDED; GENERATOR AVOIDANCE
-AND THE FOUNDING SIGHTING REMAIN. DC 0.101.1 slid all 33 offending
+*STATUS: NARROWED 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK
+WAS STALE AGAINST ITS OWN TAIL. The lint shipped (`layout_lint` L18, Deli
+Counter 0.101.0), the library was slid clean (0.101.1, 33 findings in 28
+specs), the founding sighting was probed at ZERO on the composed
+`lot_demo_001` (45 apertures, no wall inside any), and L18 graduated WARN ->
+FAIL (0.101.2) -- all recorded below, unchanged. WHAT REMAINS is the last
+third: the floorplan generator learning avoidance, for which the FAIL gate
+is the backstop rather than the fix. Reheaded 2026-09-11; the 2026-08-24
+record follows. LIBRARY SURGERY LANDED. DC 0.101.1 slid all 33 offending
 openings clear (28 specs, keep-side minimal motion by default; recorded
 exceptions: two garage_bays crossed to the garage they name, five
 dead-center collisions direction-picked from room roles, and the parking
@@ -11954,7 +11979,26 @@ inert when off (proven by the control arm), it closed
 cannot be tested until then.
 
 
-*STATUS: NARROWED 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL
+*STATUS: CLOSED 2026-09-11 -- MEASURED, ON A TRIVIAL MAP AND ON ONE THAT
+FIGHTS BACK, AND THE FLAG SHOWS. Every earlier A/B of `advance_while_engaging`
+ran against a crew of one that died in seconds or a run that ended the moment
+the last guard fell, so the flag had nowhere to show; 128 and 129 removed both.
+Fourth measurement, 10 runs per arm, crew 4, the flag the only difference.
+`restaurant_row_001` at 4 enemies: progress 1.00 both, deaths 0 both, kills 4.0
+both, `player_stuck` 2 -> 0, survival 32.5 -> 31.0 s -- a small, real effect on
+a map the crew was never threatened on. `county_hospital_001` at 6 enemies, the
+map that put 47 crew members down on cold run 9005: progress 1.00 both,
+**player_deaths 17 -> 0, survival 41.6 s -> 180.1 s (the full clock), kills 2.3
+-> 0.8**, score 76 -> 73 (PASS_WITH_TUNING -> WARN). THAT IS TRAVERSAL UNDER
+FIRE, READ OFF THE INSTRUMENT: a crew that keeps walking while it shoots gets
+through six guards without losing anyone, and clears a third as many of them.
+The score falling while the crew stops dying is the rubric doing its job --
+`TRIVIAL_ENCOUNTER` and the pacing category read a disengaged crew correctly.
+THE DEFAULT STAYS OFF, and that is a design call rather than a residue: stop-
+and-fight is the original bot and the comparison history rests on it, which is
+the same objection that has kept every behavioural flag opt-in. A brief that
+wants the other bot sets it, and since Level Factory 0.60.0 it can.
+EARLIER STATUS, KEPT VERBATIM: NARROWED 2026-09-08 -- RE-TESTED ON A BOT THAT CAN WALK, AND STILL
 NOTHING; THE METRIC WAS AUDITED INSTEAD. The first A/B of this flag ran against
 a bot standing on Lot's preview player (item 122), so it measured nothing and
 its null result is withdrawn. Re-run after that fix, on market_row_001 seed
