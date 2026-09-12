@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **OPEN** | The green boxes could be cars, and the collision would not change | 2026-09-11 -- RE-RAISED BY THE WALKER, FROM THE INSIDE, AND MEASURED: "a lack of set dress |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 -- THE WIRE AND THE EXACT FIT SHIPPED (STEPS 1 AND 2 OF THE MEASURED PLAN), BUI |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -828,7 +828,7 @@ work of adopting this.
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
 
-**148 items: 24 open, 77 closed, 3 retracted, 39 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**148 items: 23 open, 77 closed, 3 retracted, 40 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3954,8 +3954,37 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: OPEN 2026-09-11 -- RE-RAISED BY THE WALKER, FROM THE INSIDE, AND
-MEASURED: "a lack of set dressing, in terms of props that make the building
+*STATUS: NARROWED 2026-09-12 -- THE WIRE AND THE EXACT FIT SHIPPED (STEPS 1
+AND 2 OF THE MEASURED PLAN), BUILT THROUGH BLENDER, NOT YET IN A PACKAGE.
+Deli Counter 0.117.0: `prop_species.species_for_name` stamps a `species`
+hint on every volume slot from its name (teller -> teller_line; counter /
+reception / station / island / cage -> counter; desk / cubicle -> desk;
+cabinet / locker -> filing_cabinet; shelf / rack / stock -> shelving;
+vending, atm, hvac, tank, seat / bench, table, safe; crates, columns,
+pallets, pumps, carts, planters and the vault stay None), and
+`themed_tscn.module_stem` carries it between type and theme. Zoo 0.61.0:
+`plan_kit` checks the hint against the species' genome ranges in the
+slot's own orientation, plans that species at the slot's exact dims when
+it fits and the `prop` box otherwise, and reports every fallback with its
+reason in `species_fallbacks` (indexed, printed: "width 8.00 outside
+1.00..5.00", "would fit turned 90 degrees", "no genome"). DC's
+`resolve_slot_ref` asks for the species module first and the box second
+before the style-01 degrade, so a hinted slot never falls to greybox for
+not fitting. BUILT on a three-slot probe with the 9006 run's packs: the
+desk (1.6 x 0.8 x 0.75) is a desk -- top, legs, pedestal, two drawers with
+handles; the counter (2.0 x 0.65 x 0.95) a counter with its register
+attachment; the 8 m teller run the box, said out loud. The counter FAILED
+`fit_width` on the first build at 2.040 m -- the recipe's 2 cm top lip on
+a free-standing prop -- and now takes the lip out of the body under
+`fit_exact`; 3 of 3 pass. Unhinted slots plan byte for byte as before
+(`test_species_hint`, 27 kit tests; DC 684). RESIDUE, as measured on
+2026-09-11: 142 of 721 hinted placements fit today; the hospital's own
+are all runs (an 8 m reception, a 4.0 x 1.4 nurse station, a 5 m bench)
+and still ship as boxes -- step (3), the bays mode for counter, shelving,
+teller_line, locker and bench, is where 579 of them live. No package has
+been built by these versions yet; a bank brief is the first that would
+show a desk. EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-11 -- RE-RAISED
+BY THE WALKER, FROM THE INSIDE, AND MEASURED: "a lack of set dressing, in terms of props that make the building
 seem more like whatever it says it is -- a bank should have windows/tellers,
 ATMs, desks, water fountains." The interior half of this item, and the
 number is the same shape as the exterior one. Deli Counter's 176 specs

@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9007. cold_8001's bank brief with theme delco_1997 (the theme the last four runs used) and crew_size 4 (roadmap 129). WHAT THIS RUN TESTS: Deli Counter 0.117.0 + Zoo 0.61.0 (roadmap 44: a placement's species hint, built as a desk or counter where it fits, the box where it does not) on an archetype whose manager offices carry desks that fit; and every fix cold run 9006 carried, on a varied three-building lot.",
+  "crew_size": 4
+}
