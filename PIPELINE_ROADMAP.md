@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 -- COLD RUN 9007 SCORED ZERO ON THE BANK BRIEF OF 8001 AND DELIVERED A BANK BLO |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 -- COLD RUN 9009 SCORED ZERO ON THE BANK BRIEF, THIRD TRY, WITH A BANK IN EVERY |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-11 (evening) -- THE RE-WALK COPY IS BUILT FROM A COLD EXPORT, THE FIXES ARE MEASUR |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 -- THE WIRE AND THE EXACT FIT SHIPPED (STEPS 1 AND 2 OF THE MEASURED PLAN), BUI |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 -- STEPS 1 AND 2 SHIPPED AND NOW IN A COLD PACKAGE: cold run 9009's `auto_shop_ |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -827,9 +827,9 @@ work of adopting this.
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
-| 149 | **NARROWED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- 0.73.0 ANCHORED ONE OF THREE DRAWS AND COLD RUN 9008 CAUGHT IT; 0.73.1 MAKES |
+| 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 
-**149 items: 23 open, 77 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**149 items: 23 open, 78 closed, 3 retracted, 40 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1415,7 +1415,27 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 -- COLD RUN 9007 SCORED ZERO ON THE BANK BRIEF
+*STATUS: NARROWED 2026-09-12 -- COLD RUN 9009 SCORED ZERO ON THE BANK BRIEF,
+THIRD TRY, WITH A BANK IN EVERY CANDIDATE'S LOT AND THE FIRST DIEGETIC PROP
+IN A SHIPPED PACKAGE. Same `bank_block_001` brief as 9007 and 9008, on LF
+0.73.1: 0 interventions, 0 retries, 0 unattributed changes, every tool
+repo clean at --begin, all stages succeeded, export exit 0, 16 minutes
+(05:23 -> 05:40). The anchored lot held in all three draws --
+`bank_tower_a03` / auto_shop_a02 / warehouse_a01 (seed 9009, shipped),
+`bank_branch_a03` / casino_a01 / strip_club_a01 (9110), `bank_tower_a02`
+/ deli_a03 / parking_garage (9211) -- and the planner's guard stayed
+silent. Item 44 in the package: `auto_shop_a02`'s `office_desk` (1.8 x
+0.9 x 0.8) is `prop_desk_delco_1997_02_w180_d90_h80`, a desk, PASS, and a
+`look_shots --station` at it in the walk copy shows a wooden pedestal desk
+with drawers on the upper floor of the shop. The bank tower itself carried
+one unhinted 2.6 x 0.6 x 1.0 prop and no desk that fits; the warehouse's
+three racks and the shop's parts rack fell back to the box as runs, said
+in the index. The sequence 9007 -> 9008 -> 9009 is the item's own thesis
+in three runs: zero interventions each time, and only the third built
+the brief. Log and journal: `docs/cold_runs/cold_9009/`; walk copy
+`_runs/walk_export_bank_block_001` (this overwrites 9007's). EARLIER
+STATUS, KEPT VERBATIM: NARROWED 2026-09-12 -- COLD RUN 9007 SCORED ZERO
+ON THE BANK BRIEF
 OF 8001 AND DELIVERED A BANK BLOCK WITH NO BANK IN IT, WHICH IS THE FIFTH ZERO
 AND THE CLEAREST CASE YET THAT ZERO IS NOT THE NUMBER. `bank_block_001`,
 archetype `urban_bank`, three buildings from the lot library, theme
@@ -3975,10 +3995,19 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: NARROWED 2026-09-12 -- THE WIRE AND THE EXACT FIT SHIPPED (STEPS 1
-AND 2 OF THE MEASURED PLAN), BUILT THROUGH BLENDER; THE FIRST PACKAGE RUN TO
-SHOW IT (COLD 9007) HAD NO BANK IN ITS BANK BLOCK (ITEM 149), AND 9008 IS
-THE RE-RUN. On 9007's three shells the routing did what it says: the
+*STATUS: NARROWED 2026-09-12 -- STEPS 1 AND 2 SHIPPED AND NOW IN A COLD
+PACKAGE: cold run 9009's `auto_shop_a02` carries `office_desk` as
+`prop_desk_delco_1997_02_w180_d90_h80`, a desk, and the walk copy's frame
+shows it. The same package says the rest of the item's number out loud:
+`parts_rack` (1.0 x 5.0 x 1.8) and the warehouse's `rack_a/b/c` fell back
+from `shelving` as runs, and `tool_bench` (3.0 x 1.0 x 1.0) was hinted
+`chair` because "bench" is a chair keyword -- two words for the keyword
+table (`chair` itself, and `bench` only when not `work`/`tool`), with the
+next Deli Counter change that rebuilds the library. Step 3, the bays
+mode, is unchanged. Previously: THE WIRE AND THE EXACT FIT SHIPPED (STEPS
+1 AND 2 OF THE MEASURED PLAN), BUILT THROUGH BLENDER; THE FIRST PACKAGE
+RUN TO SHOW IT (COLD 9007) HAD NO BANK IN ITS BANK BLOCK (ITEM 149), AND
+9008 IS THE RE-RUN. On 9007's three shells the routing did what it says: the
 clinic's `reception_desk` (6.0 x 0.8 x 1.1, hinted `counter`) fell back to
 the box with "width 6.00 outside 0.80..4.00" in the kit index; arena and
 landmark hall carry no hinted volumes. `chair_row` (6.0 x 0.8 x 0.9) got
@@ -14585,9 +14614,17 @@ no-collision, one-MultiMesh contract the exterior layer already keeps.
 chain, one species placed by one rule, and a walk that finds a room
 reading as inhabited rather than modelled.
 
-*STATUS: NARROWED 2026-09-12 -- 0.73.0 ANCHORED ONE OF THREE DRAWS AND COLD
-RUN 9008 CAUGHT IT; 0.73.1 MAKES THE LOT ONE RULE READ OFF THE BRIEF; 9009
-RUNNING. 9008 (same bank brief, seeds 9008/9109/9210): the planner's lot
+*STATUS: CLOSED 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL
+THREE CANDIDATES' LOTS ON THE SAME BRIEF THAT GOT NONE IN 9007:
+`bank_tower_a03`, `bank_branch_a03`, `bank_tower_a02` lead the three draws,
+the other two places vary by seed as before (auto_shop / warehouse, casino
+/ strip_club, deli / parking_garage), the planner's disagreement guard
+stayed silent, the art layer ran to completion and the export is clean
+(LF 0.73.1, `lot_for_brief`). What remains is item 105's question, not
+this one's: where the anchor stands on the site. EARLIER STATUS, KEPT
+VERBATIM: NARROWED 2026-09-12 -- 0.73.0 ANCHORED ONE OF THREE DRAWS AND
+COLD RUN 9008 CAUGHT IT; 0.73.1 MAKES THE LOT ONE RULE READ OFF THE BRIEF;
+9009 RUNNING. 9008 (same bank brief, seeds 9008/9109/9210): the planner's lot
 had a bank and the compose spec's and the site spec's did not -- their
 greybox lots were marina_a02 / pawn_shop_a02 / strip_club_a02 and the
 like -- and the planner's own guard refused the art layer in one second:
