@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9029 SCORED ZERO WITH THE PAINT DECAL IN THE PACKAGE. The b |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9030 WAS NOT A ZERO: TWO SEED DEFECTS, ONE IN ZOO AND ONE I |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE STREET'S VOCABULARY IS IN COLD PACKAGES: ROAD, KERB LINE, PARKED |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE FOUR RESIDUES ARE IN THE TOOLS, MEASURED BY 9031. (1) THE CARS F |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,28 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9029 SCORED ZERO WITH THE
+*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9030 WAS NOT A ZERO: TWO
+SEED DEFECTS, ONE IN ZOO AND ONE IN LOT, AND THE EXPORT GATE HELD. The bank
+brief on Lot 0.66.0 / Zoo 0.69.0 / Pixelcoat 0.32.0: 0 interventions, 0
+retries, 0 unattributed changes, but `zoo_clutter_build` exited 2 and the
+export was refused. (1) `weed_tuft` at seed 9030 built 0.028 m wide
+against its genome's 0.050 m floor -- the blades' bases and leans are
+drawn, and this draw leaned them all one way from a tight root; the
+habitat FAILED on `dim_width`. Zoo 0.69.1 spreads the clump in plan until
+it fills nine tenths of the plan's width (never shrunk); rebuilt at seed
+9030, PASS. (2) The third seed's Laser Tag preflight refused its candidate
+for Enemy_4 inside solid geometry: a streetlight stood ON the spawn --
+the kerb line had never looked at the markers, where the cover planner
+and the cars always had. Lot 0.66.1 keeps every kerb-line piece
+`MARKER_CLEARANCE` from every marker (a lamp or a tree steps along its
+band, a corner piece is skipped). Neither defect was new: both were
+latent and seed-dependent, and the run's seed found them. WHAT THE RUN
+DID MEASURE: with the cars parked before the cover planner ran, 3 cover
+pieces were stood against 6 on 9028 for the same brief; the site kit
+built every species `pass` including the tree with its foliage material
+exported as alphaMode MASK. Cold run 9031 (Lot 0.66.1, Zoo 0.69.1) is
+running; no frames of 9030 exist because it shipped no package. Previously:
+COLD RUN 9029 SCORED ZERO WITH THE
 PAINT DECAL IN THE PACKAGE. The bank brief on Lot 0.65.1: 0 interventions,
 0 retries, 0 unattributed changes, every tool repo clean at --begin, all
 stages succeeded, 0 blockers, export exit 0, 15 minutes (18:42 -> 18:57);
@@ -15356,7 +15377,27 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (night) -- THE STREET'S VOCABULARY IS IN COLD
+*STATUS: NARROWED 2026-09-13 (night) -- THE FOUR RESIDUES ARE IN THE TOOLS,
+MEASURED BY 9031. (1) THE CARS FIRST: Lot 0.66.0 plans the kerb line and
+parks the cars before the cover planner runs and hands both to
+`plan_cover(standing=...)`, where they occlude a sightline like a placed
+piece and a piece keeps its daylight from them -- a truck in the road is
+now the exception (9030: 3 pieces against 9028's 6). (2) AN X CROSSING:
+the lower-index road owns the junction's surface; the higher road carries
+`gaps` and `drawn_spans` splits its slab and band pieces around the box
+(tested on a two-road X; the spec still makes a T). (3) THE CROWN AS
+CARDS: Zoo 0.69.0 builds `street_tree`'s crown as four crossed vertical
+cards and two horizontal ones wearing a new `foliage` kind; Pixelcoat
+0.32.0 mints `foliage_delco`, the vegetation greens under an inverted
+worley cutout (leaf clusters with sky between) with a scissor hint; Zoo's
+`_textured` feeds a scissor pack's alpha through Math > Greater Than 0.5
+into the Principled Alpha, which Blender 5.1's glTF exporter reads as
+alphaMode MASK (measured: MASK, double-sided) and Godot imports as alpha
+scissor. (4) THE PAINT IN PATCHES: the cutout is a low-frequency fbm
+field (3 cells, 4 octaves, threshold 0.40) rather than 7-cell holes, and
+a test pins that the largest hole is a patch, not a speck. 9030 built all
+of it and shipped none of it (item 17); 9031 measures it. Previously: THE
+STREET'S VOCABULARY IS IN COLD
 PACKAGES: ROAD, KERB LINE, PARKED CARS, THE WAITING PLACES, A CORNER, AND
 THE PAINT AS A DECAL (9023-9029). Cold run 9029 shipped the road-paint
 decal on every marking: 110 scissor materials tinted white or yellow,
