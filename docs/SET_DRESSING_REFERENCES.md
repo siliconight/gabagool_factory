@@ -54,10 +54,28 @@ props, materials, lighting, engine integration, "closely collaborating with
 level designers". No rules.
 
 **Reddit r/gamedev, "Where do you draw the line between level design and set
-dressing"** — NOT READ: the fetch is refused from here. The question it asks
-is the one `docs/SURFACE_DRESSING.md` section 1 already answers for this
-pipeline (dressing never carries collision or changes a route). Somebody with
-a browser should read it and add what the thread says about ownership.
+dressing"** — pasted in by the walker after the fetch was refused. The
+poster's definitions: level design is "how the player gets from A to B",
+dressing is "giving an environment life ... figuring out who inhabits a space,
+and how they've shaped what it's become". The thread's answers: the line is
+"somewhat fuzzy" and "the narrative is the sticking point" — why is this
+here, what story is the level telling; the split into phases exists because
+"very few level designers have the ability to deliver artist quality visual
+work", and the real workflow "is not a linear ... but an iterative one where
+the work loops between artist and designer". The Guerrilla example, from a
+Killzone level designer: a block-out places "a huge block to the left of the
+player coming out of a spawn point", the artist replaces it with a wall with
+a window — "a window blocks firing but it doesn't block sight"; and at small
+scale, "if an env artist puts a plant down in place of a cube, it cuts the
+corners off. Even if you extended the collision to be the same size as the
+original block, a potted plant doesn't 'afford' cover the way that a stone
+plinth would". The only consistent industry answer: "whatever works, works",
+provided "your sizes are consistent and the player experience is smooth" —
+standardised unit sizes so art knows what to build to. Best practice for the
+back-and-forth: "put notes directly in the map rather than in an abstract
+document". And the cost of skipping the hand-off: "expensive iteration and
+needless feedback rounds because design couldn't be arsed to sign off on
+block-ins".
 
 ## What it means for this pipeline, by layer and owner
 
@@ -115,6 +133,34 @@ pass exists in Patina and ships nowhere; the export carries it as Godot
 `Decal` nodes with the stamps beside them. That is the layer the walker
 called "opacity/transparency as layers on the dominant floor, wall,
 ceiling".
+
+**The block-in is the contract, and art can break it without touching
+collision (Reddit; Deli Counter, the placement gate, Laser Tag).** This
+pipeline already has the sign-off the thread asks for: `functional_shell_
+locked` is design signing the block-in, and every themed module is fitted to
+the greybox slot it replaces (`verify_placement`, a blocker since LF
+0.74.0). What that gate measures is footprint. The thread's two examples are
+the two things it does not: a window module in a wall slot changes SIGHT
+where the block did not, and a plant in a box's slot changes what the space
+AFFORDS as cover even at identical collision. The first is already in the
+spec's hands — Deli Counter authors every opening with a kind, so a wall
+slot never becomes a window by art — and the second is not measured
+anywhere: Patina's cover props and Zoo's species stand in prop volumes
+Laser Tag evaluated as boxes. A prop whose silhouette leaves the box it was
+judged in is an affordance change the walker will feel and no gate will
+report. The census that would catch it compares a placed prop's visual
+extent against its slot the way the wall gate does, and that is a Zoo/DC
+instrument to build before item 44's recipes stop being boxes.
+
+**Scale is the one thing everyone agrees on (Reddit; agent_contract.json).**
+"Your sizes are consistent" is this repo's `agent_contract.json` and the
+exact-fit contract — a module's extents equal its slot. Keep it the hard
+rule it already is; every reference that says anything says this.
+
+**Notes in the map (Reddit; the manifests).** The thread's best practice is
+this pipeline's habit: a package carries its slots, its provenance and its
+gate verdicts beside the scene, not in a document. The one gap is the
+verdict nobody reads — see item 18's third shape.
 
 ## What the references do not settle
 
