@@ -695,8 +695,8 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (night) -- COLD RUNS 9013 AND 9014 SCORED ZERO ON THE BANK BRIEF; 9013 IS THE P |
-| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-12 (night) -- THE FIX BELOW WAS HALF WRONG AND THE ENGINE CAUGHT IT IN THE NEXT CO |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (late night) -- THREE RUNS FOR THE GROUND SKIN: 9015 SHIPPED UNLIT OVER A BLOCK |
+| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-12 (late night) -- THE THIRD SHAPE A THIRD TIME IN ONE DAY, AND THE LAST PLACE IT  |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
@@ -723,7 +723,7 @@ work of adopting this.
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
 | 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (late) -- THE TELLER LINE IS IN A COLD PACKAGE: cold run 9012's bank branch car |
-| 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
+| 45 | **NARROWED** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-09-12 (late night) -- THE FIRST CONCRETE STEP IS IN A COLD PACKAGE: THE GROUND PLATE  |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
@@ -830,9 +830,9 @@ work of adopting this.
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
-| 152 | **OPEN** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (night) -- RAISED BY THE WALKER ON THE 9012 AND 9014 FRAMES, MEASURED, NOTHING  |
+| 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
 
-**152 items: 24 open, 79 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**152 items: 22 open, 79 closed, 3 retracted, 43 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1418,7 +1418,36 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 (night) -- COLD RUNS 9013 AND 9014 SCORED
+*STATUS: NARROWED 2026-09-12 (late night) -- THREE RUNS FOR THE GROUND
+SKIN: 9015 SHIPPED UNLIT OVER A BLOCKER, 9016 WAS REFUSED AT EXPORT BY THE
+GATE THAT RUN TAUGHT, 9017 IS THE ZERO WITH THE SKIN IN THE PACKAGE. All
+three the bank brief. 9015, on Pixelcoat 0.30.0 / Lot 0.57.1 / LF 0.75.0:
+0 interventions, all stages reported succeeded, export exit 0, 19 minutes
+-- and NOT A ZERO: Lot referenced the ground maps by absolute path, Godot
+has no importer for a png outside a project, the Lux stage failed to parse
+the assembly ("No loader found for resource ... expected type:
+Texture2D"), exited 2, was filed as a blocking `JOB_TOOL_EXIT`, and the
+export shipped the mission anyway -- a package with no lighting, whose
+every frame off the walk copy was black (item 18). Fixed twice: Lot 0.58.0
+copies the maps to `skins/` beside its scene and references them as
+siblings; LF 0.76.0 refuses an export with open blockers. 9016, on those:
+0 interventions, the Lux stage failed again ("Resource file not found:
+res://skins/asphalt_delco_albedo.png") because the Lot adapter published
+`.tscn/.json/.csv/.glb/.gd` and not the pngs Lot had just written -- and
+the export REFUSED, naming the blocker: the first time that gate closed on
+a real run, one stage after the cause. LF 0.76.1 publishes `.png`. 9017,
+on Pixelcoat 0.30.0 / Lot 0.58.0 / LF 0.76.1: 0 interventions, 0 retries,
+0 unattributed changes, every tool repo clean at --begin, all stages
+succeeded, Lux exit 0, 0 blockers, export exit 0, 16 minutes (11:59 ->
+12:16); lot `bank_tower_a02` / funeral_home_a01 / setback_demo; the
+package carries `skins/` with four maps and their sidecars, referenced
+from the assembly and from Lux's applied scene; the walk copy, imported
+and shot: the plate wears the asphalt grammar and the path the sidewalk
+grammar, world-projected at 3 m and 2 m, and the clutter sits ON a
+surface (item 152). The twelfth zero, and two runs that were not and say
+so. Logs and journals: `docs/cold_runs/cold_9015/` .. `cold_9017/`; walk
+copy `_runs/walk_export_bank_block_001` is 9017's. Previously: COLD RUNS
+9013 AND 9014 SCORED
 ZERO ON THE BANK BRIEF; 9013 IS THE PACKAGE THAT PROVED DC 0.120.0 WRONG
 AND 9014 IS THE ONE WITH THE REMAINDERS ALONG THEIR WALLS BY THE ENGINE'S
 READING AND NO OUTDOOR CLUTTER ON ANY FLOOR. Both the same brief as
@@ -1632,7 +1661,25 @@ copies, not evidence -- the distinction matters because a finding in genuinely
 GENERATED output would be a finding about the generator and the most actionable
 kind there is.)
 
-*STATUS: NARROWED 2026-09-12 (night) -- THE FIX BELOW WAS HALF WRONG AND
+*STATUS: NARROWED 2026-09-12 (late night) -- THE THIRD SHAPE A THIRD TIME
+IN ONE DAY, AND THE LAST PLACE IT COULD HIDE WAS THE EXPORT. Cold run
+9015: the Lux stage exited 2, the scheduler filed `JOB_TOOL_EXIT` as a
+BLOCKING finding in the mission's validation file, and `export` shipped
+the mission -- a package with no lighting, walked black. The finding
+existed, was marked blocking, and nothing that ships read it; the same
+shape as the placement gate (morning) and the pose census (afternoon),
+one gate further down. LF 0.76.0: `export` reads the mission's open
+blockers from the file `validate` reads and refuses with them named,
+before the functional-lock check -- minus the Layer 3 chain
+(`lot_site_surfaces`, `zoo_clutter_build`, `patina_surface_dressing`),
+whose absence the package already reports in `dressing_layer.json`; a
+package without its lighting reports nothing. Cold run 9016 was the first
+refusal on a real run. WHAT THE BLACK FRAME ALSO TAUGHT: a whole frame at
+mean brightness 15 with a flat grey sky is a scene that did not load, not
+a dark texture, and the first hypothesis (the walk copy's import cache)
+was wrong -- the Lux job's log named the cause in one line. The
+instrument score's rule for this: when a frame is uniformly wrong, read
+the stage logs before the frame. Previously: THE FIX BELOW WAS HALF WRONG AND
 THE ENGINE CAUGHT IT IN THE NEXT COLD RUN; THE HALF THAT STANDS IS THE
 FIT. DC 0.120.0 (the status below) rewrote `godot_basis` on the reading
 that its nine numbers were the placed axes and the old product was "scale
@@ -4385,7 +4432,24 @@ the same boundary from the other side -- structural art routed through the
 decoration path -- and both want `allowed_inward_intrusion_m` in the slot
 manifest with something that reads it.
 
-*STATUS: OPEN 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is the same boundary approached from the other side*
+*STATUS: NARROWED 2026-09-12 (late night) -- THE FIRST CONCRETE STEP IS
+IN A COLD PACKAGE: THE GROUND PLATE WEARS THE THEME'S SKIN. Until cold run
+9017 the exterior ground in every package was one untextured grey
+(`gb_floor`, 0.52, no image) -- the largest playable surface in the level
+and the flattest. Pixelcoat 0.30.0 mints `asphalt` and `sidewalk` kinds;
+LF 0.75.0's themed site spec names a pack per outdoor family (ground ->
+asphalt, path -> sidewalk, courtyard -> concrete); Lot 0.58.0 reads the
+pack and writes the maps as world-projected materials at the pack's
+`meters_per_tile`, copied beside the scene. Measured on 9017's walk copy:
+the plate and the path are textured, the clutter sits on a surface. WHAT
+THE FRAMES SAY NEXT, which is this item's real question: the asphalt
+grammar reads as cracked paving cells at roughly half a metre, not as
+asphalt, and the sidewalk as a white mosaic -- the same cell family the
+walls wear. The plumbing is done; the grammar is the surface, and a large
+surface needs the depth guide's macro layer under the tile period before
+it needs anything on top. Previously: OPEN 2026-08-14 -- specified by
+`Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is the same
+boundary approached from the other side*
 
 **45. Large playable surfaces are visually flat, and the fix is not more
 grass.** Surface Dressing is collisionless instanced detail placed across
@@ -14997,7 +15061,25 @@ shapes against the pawn-job fixture (399 pass). What this does not do:
 say what a bank lobby SHOULD have on its floor -- that is item 44's set
 dressing, and the answer is not pebbles.
 
-*STATUS: OPEN 2026-09-12 (night) -- RAISED BY THE WALKER ON THE 9012 AND
+*STATUS: NARROWED 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS
+IN A COLD PACKAGE (9017): THE GROUND PLATE AND THE PATHS WEAR PIXELCOAT
+SKINS, AND THE CLUTTER SITS ON A SURFACE. Pixelcoat 0.30.0 (the kinds),
+Lot 0.58.0 (`ground_skins`, maps beside the scene, `LOT_GROUND_SKIN_
+MISSING` when a pack cannot be read), LF 0.75.0-0.76.1 (the spec names
+the packs, the adapter publishes them, the export copies them). Three
+cold runs to land it, two of them not zeros and recorded on 17 -- the
+absolute-path and the unpublished-png failures were both the same lesson:
+a scene's textures are its siblings, and every stage that loads the scene
+copies siblings. The walker's references are digested in
+`docs/SET_DRESSING_REFERENCES.md` (nine pages, two with rules, the
+Reddit thread pasted in by hand, Klafke's modular rules), each mapped to
+the layer and owner here. WHAT REMAINS: steps 2-4 of the build order --
+decals to the package, clutter that is anchored and coloured by the
+surface under it with the density table turned round, the low band where
+nobody walks -- and, from the 9017 frames, the grammars themselves: the
+asphalt reads as paving cells and the sidewalk as a white mosaic (item
+45). Previously: OPEN 2026-09-12 (night) -- RAISED BY THE WALKER ON THE
+9012 AND
 9014 FRAMES, MEASURED, NOTHING BUILT; THE BUILD ORDER IS IN THE ITEM*
 
 **152. The surface dressing reads as defects in the texture, not as things
