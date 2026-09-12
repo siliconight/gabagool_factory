@@ -695,12 +695,12 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (late night) -- THREE RUNS FOR THE GROUND SKIN: 9015 SHIPPED UNLIT OVER A BLOCK |
-| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-12 (late night) -- THE THIRD SHAPE A THIRD TIME IN ONE DAY, AND THE LAST PLACE IT  |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (small hours) -- FOUR RUNS FOR THE SPECIES COVER: 9018 REFUSED AT EXPORT ON A S |
+| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
-| 22 | **OPEN** *(inferred)* | Outdoor props have no swap contract, so cover stays boxes forever | — |
+| 22 | **NARROWED** | Outdoor props have no swap contract, so cover stays boxes forever | 2026-09-12 (late night) -- THE SITE HAS A SLOT MANIFEST AND ITS COVER IS BUILT BY ZOO AND  |
 | 23 | **CLOSED** | A Node-typed export written by a tool is discarded in silence, and the | 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" wha |
 | 24 | **OPEN** *(inferred)* | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | — |
 | 25 | **CLOSED** | A project `cater` has SERVED does not run until the editor imports it | 2026-09-11 -- EVERYTHING AUTOMATED IMPORTS FIRST, AND THE LINE A PERSON READS NOW SAYS SO. |
@@ -832,7 +832,7 @@ work of adopting this.
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
 
-**152 items: 22 open, 79 closed, 3 retracted, 43 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**152 items: 21 open, 79 closed, 3 retracted, 44 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1418,7 +1418,30 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 (late night) -- THREE RUNS FOR THE GROUND
+*STATUS: NARROWED 2026-09-13 (small hours) -- FOUR RUNS FOR THE SPECIES
+COVER: 9018 REFUSED AT EXPORT ON A SEALED SPAWN, 9019 A ZERO THAT LOST ITS
+MODULES ONE STAGE ON, 9020 A ZERO WITH THE CLUTTER BUILD RED, 9021 THE
+ZERO WITH A TRUCK AND A CONTAINER ON THE LOT. All the bank brief. 9018,
+on Zoo 0.66.0 / Lot 0.59.0 / LF 0.77.0: the site kit built the truck and
+the container from Lot's manifest, Lot stood both, and Laser Tag's
+preflight refused two candidates -- "Enemy_2 is sealed off from the crew
+spawn", the container's end 0.25 m from the marker -- so the export
+refused the mission: the first cover defect stopped before it shipped
+(item 22). 9019, on Lot 0.59.1: 0 interventions, export exit 0, three
+species built and placed in Lot's scene, and NONE in the level: absolute
+module paths, the Lux stage's copy of the scene lost them, and the frames
+showed the street bare; not counted a zero. 9020, on Lot 0.59.2 / Zoo
+0.66.1: 0 interventions, export exit 0, the truck in the package, centred,
+in both scenes -- and `zoo_clutter_build` red, every clutter species
+failing the new pivot check it was never meant for; the export shipped
+undressed and said so. 9021, on Zoo 0.66.2: 0 interventions, 0 retries, 0
+unattributed changes, every tool repo clean at --begin, all stages
+succeeded, 0 blockers, export exit 0, 14 minutes (14:00 -> 14:14); a box
+truck and a cargo container on the lot, no open sightline, no pinch, the
+dressing back (2,387 pieces, none inside a footprint). The thirteenth
+zero. Logs and journals: `docs/cold_runs/cold_9018/` .. `cold_9021/`;
+walk copy `_runs/walk_export_bank_block_001` is 9020's. Previously: THREE
+RUNS FOR THE GROUND
 SKIN: 9015 SHIPPED UNLIT OVER A BLOCKER, 9016 WAS REFUSED AT EXPORT BY THE
 GATE THAT RUN TAUGHT, 9017 IS THE ZERO WITH THE SKIN IN THE PACKAGE. All
 three the bank brief. 9015, on Pixelcoat 0.30.0 / Lot 0.57.1 / LF 0.75.0:
@@ -1661,7 +1684,22 @@ copies, not evidence -- the distinction matters because a finding in genuinely
 GENERATED output would be a finding about the generator and the most actionable
 kind there is.)
 
-*STATUS: NARROWED 2026-09-12 (late night) -- THE THIRD SHAPE A THIRD TIME
+*STATUS: NARROWED 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM
+REPEATED AS A MEASUREMENT. Zoo's kit index carries `"pivot": "center"` on
+every module row, and Deli Counter and Lot place a module's origin at its
+slot's centre on the strength of it. The field was the PLAN's claim
+copied through; nothing measured where a built module's bounds sat.
+Measured 2026-09-12 off cold run 9019's site kit: the minted placeholders
+z 0 .. h and `simple_car` z 0.01 .. 1.45 under that claim, a truck placed
+by it 1.4 m in the air. The building props were centred (the teller line
+-1.2 .. 1.2), which is why nothing had ever shown it. Zoo 0.66.1:
+`gather_facts` reports the bounds' centre, `fit_pivot` fails a module off
+it, `build_module` re-centres what a recipe returns; 0.66.2 scopes it to
+slot-fit modules after the check failed every clutter species, which are
+built base-up to sit on a surface. THE RULE FOR THE SCORE: a manifest
+field that names a property of the artefact is a claim until an
+instrument reads it off the artefact; the index now carries both, and
+they are compared. Previously: THE THIRD SHAPE A THIRD TIME
 IN ONE DAY, AND THE LAST PLACE IT COULD HIDE WAS THE EXPORT. Cold run
 9015: the Lux stage exited 2, the scheduler filed `JOB_TOOL_EXIT` as a
 BLOCKING finding in the mission's validation file, and `export` shipped
@@ -1962,6 +2000,48 @@ Note that item 20 would re-certify two tools that currently read OK. That is not
 an argument against it, but it does mean the drift should be closed first, so
 the re-certification has a clean baseline rather than absorbing four unrelated
 version jumps at the same time.
+
+*STATUS: NARROWED 2026-09-12 (late night) -- THE SITE HAS A SLOT MANIFEST
+AND ITS COVER IS BUILT BY ZOO AND STANDS IN THE PACKAGE WITH COLLISION;
+THE SPECIES ARE STILL BOXES. The walker, on 9017's frames: "the green boxes
+should be larger props with collision to offer cover between buildings to
+force creative traversal." Built in one day, four cold runs: Lot 0.59.x
+places cover as SPECIES pieces -- a box truck (2.4 x 6.0 x 2.8), a cargo
+container (2.44 x 6.06 x 2.59), a car (1.75 x 4.3 x 1.45), the Zoo
+genomes' own defaults -- turned so the length lies across the sightline
+each breaks, quantised to 0/90 so the axis-aligned break and pinch
+arithmetic measure the piece and not its bounding box, the table walked
+per piece so a street gets a truck, a container, a car, and each piece the
+largest that fits its lane; `assemble` writes `<site>.slots.json` in Deli
+Counter's manifest shape, one prop slot per piece. LF 0.77.x fans out a
+`zoo_kit_build` for archetype `site` over it and the themed site names
+the build directory; Lot stands each module where its box stood, centre
+for centre, by the stem it mirrors from Deli Counter and Zoo, with the
+module's own collision, and keeps the box under `LOT_COVER_MODULE_MISSING`
+when a module is not there. Zoo 0.66.x minted `box_truck` and
+`cargo_container` beside the existing `simple_car`. IN A PACKAGE: cold run
+9021 (item 17) stands a box truck and a container on the lot, both `pass`
+in the site kit, both in the assembly and in Lux's applied scene, no open
+sightline, no pinch, no blocker. WHAT THE FOUR RUNS TAUGHT, each a rule
+now: the marker clearance was measured from a piece's centre, which left a
+3 m cube 1.5 m clear of a spawn and a 6 m container nothing -- Laser
+Tag's preflight refused 9018 ("Enemy_2 is sealed off", the container's
+end 0.25 m from it), and the export gate held (Lot 0.59.1: clearance from
+the edge); the modules were referenced by absolute path and the Lux
+stage's copy of the scene lost them (9019: three built, none in the
+level; Lot 0.59.2: copied beside the scene, like the skins); the kit index
+said "pivot: center" for modules built base-up, so a centre-placed truck
+stood 1.4 m in the air (9019, measured off the GLB; Zoo 0.66.1 re-centres
+on build and fails `fit_pivot`; 0.66.2 leaves clutter, built base-up on
+purpose, alone after 9020 failed all four species on it). WHAT REMAINS:
+the truck and the container are boxes at the right proportions (the
+recipes are where the cab, the wheels and the doors go); the car has a
+recipe and reads as one; the density is Lot's sightline budget, two or
+three pieces a site, which is cover and not yet a lot that reads as parked
+in; and the thing the references warned about (`docs/SET_DRESSING_
+REFERENCES.md`) is now live -- a prop's silhouette leaving the box it was
+graded in is an affordance change no gate measures. Previously OPEN,
+inferred: no status had ever been written for this item.*
 
 **22. Outdoor props have no swap contract, so cover stays boxes forever.** The
 art path's missing wire, and the reason a lit site still reads as a blockout.
