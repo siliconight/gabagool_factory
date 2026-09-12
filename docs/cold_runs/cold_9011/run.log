@@ -1,0 +1,58 @@
+== begin 2026-09-12 08:28:33
+  begun: cold_9011
+  2493 source files hashed
+    deli_counter    Deli Counter 0.118.0
+    dispatch        0.4.2
+    lasertag        Laser Tag 0.23.0
+    level_factory   0.73.1
+    lot             Lot 0.55.2
+    lux             Lux 0.33.0
+    patina          Patina 0.21.1
+    pipeline        Pipeline 0.6.0
+    pixelcoat       Pixelcoat 0.29.0
+    zoo             Zoo 0.64.0
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9011\journal.md
+== init
+initialized workspace at C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9011-ws
+  project_id: cold_9011_ws
+  edit tools.local.json to point at your tool repositories, then run: level-factory doctor
+== doctor
+  [PASS          ] python                 3.14.4
+  [PASS          ] git                    found
+  [PASS          ] godot                  4.7.stable.official.5b4e0cb0f
+  [PASS          ] blender                Blender 5.1.1
+  [WARN          ] tool:deli_counter      vDeli Counter 0.118.0 @ 6dc645e5 — drift vs certified 0.75.0 (grounded); re-certify
+  [WARN          ] tool:lot               vLot 0.55.2 @ d1eaabf1 — drift vs certified 0.18.3 (grounded); re-certify
+  [WARN          ] tool:laser_tag         vLaser Tag 0.23.0 @ 1b753c9f — drift vs certified 0.8.0 (grounded); re-certify
+  [WARN          ] tool:pixelcoat         vPixelcoat 0.29.0 @ fa2be91a — drift vs certified 0.9.0 (grounded); re-certify
+  [WARN          ] tool:zoo               vZoo 0.64.0 @ e59ccfd7 — drift vs certified 0.30.2 (grounded); re-certify
+  [WARN          ] tool:patina            vPatina 0.21.1 @ a64607c7 — drift vs certified 0.18.0 (grounded); re-certify
+  [WARN          ] tool:lux               vLux 0.33.0 @ 2eb71310 — drift vs certified 0.15.4 (grounded); re-certify
+  [PASS          ] tool:dispatch          v0.3.0 @ c71cf10d
+  [PASS          ] themes                 pixelcoat: bank, casino, center_city, delco, delco_1997, industrial_flats, rockay, rockay_civic, rockay_retail, rockay_service, stadium, street | zoo (57 species): default, rockay | zoo partial: 1970s (5/57), 1980s (5/57), 1990s (14/57), acoustic (1/57), aluminum (1/57), blue (1/57), bodega (1/57), carpet (1/57), center_city (55/57), clean (2/57), combat (1/57), construction (1/57), delco (43/57), diner (2/57), dirt (1/57), drywall (1/57), greasy (1/57), hiking (1/57), industrial_flats (55/57), military (1/57), modern (7/57), motorcycle (1/57), office (3/57), police (1/57), racing (1/57), school (1/57), snack (1/57), sports (1/57), tiled (1/57), toasted (1/57), wood (2/57), work (1/57)
+  [PASS          ] workspace_writable     writable
+  [WARN          ] windows_long_paths     verify LongPathsEnabled registry flag for deep asset paths
+
+worst: WARN
+== batch create
+created batch 'cold_9011' with 1 mission(s): gas_stop_001
+== plan  08:28:39
+plan for gas_stop_001 (output=graybox)
+  candidates: gas_stop_001.candidate.seed_9011, gas_stop_001.candidate.seed_9112, gas_stop_001.candidate.seed_9213
+  theme:      delco_1997 — pixelcoat profile found
+              zoo: all 57 species resolve 'delco_1997'
+              zoo: 0 carry the name itself; the rest reach it through Zoo's own fallback
+  gas_stop_001.deli_generate.candidate.seed_9011  [deli_counter/blender]
+  gas_stop_001.deli_generate.candidate.seed_9112  [deli_counter/blender]
+  gas_stop_001.deli_generate.candidate.seed_9213  [deli_counter/blender]
+  gas_stop_001.lot_assemble.candidate.seed_9011  [lot/python_cpu] <- gas_stop_001.deli_generate.candidate.seed_9011
+  gas_stop_001.lot_assemble.candidate.seed_9112  [lot/python_cpu] <- gas_stop_001.deli_generate.candidate.seed_9112
+  gas_stop_001.lot_assemble.candidate.seed_9213  [lot/python_cpu] <- gas_stop_001.deli_generate.candidate.seed_9213
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9011  [laser_tag/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9011
+  gas_stop_001.walktest_navqa.candidate.seed_9011  [walktest/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9011
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9112  [laser_tag/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9112
+  gas_stop_001.walktest_navqa.candidate.seed_9112  [walktest/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9112
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9213  [laser_tag/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9213
+  gas_stop_001.walktest_navqa.candidate.seed_9213  [walktest/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9213
+== run graybox  08:28:39

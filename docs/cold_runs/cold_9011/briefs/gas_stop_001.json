@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "gas_stop_001",
+  "display_name": "Gas Stop",
+  "archetype": "gas_station",
+  "building_count": 3,
+  "site_shape": "strip",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_store",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "forecourt_backtrack",
+  "verticality": "low",
+  "landmark": "canopy",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "crew_size": 4,
+  "candidate_count": 3,
+  "target_minutes": [
+    20,
+    30
+  ],
+  "lot_library": "C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build",
+  "notes": "COLD RUN 9011. A gas station brief, never run before (cold_9003 was a corner deli). WHAT THIS RUN TESTS: Zoo 0.64.0 -- the minted `pump` species (roadmap 150) reaching a package on the anchored gas station lot (roadmap 149), table and seating runs in bays, and the desk -> counter alternate; Deli Counter 0.118.0 and LF 0.73.1 as of 9010."
+}

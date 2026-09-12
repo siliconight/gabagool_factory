@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (evening) -- STEP 3 IN A COLD PACKAGE: cold run 9010's bank carries its 10 m te |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (night) -- THE 179 WORKED DOWN TO 52, AND THOSE ARE REGIONS, NOT FURNITURE: 728 |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -828,7 +828,7 @@ work of adopting this.
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
-| 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (later) -- THE PROP HALF (ZOO 0.63.0) AND THE TEXTURE HALF (PIXELCOAT 0.29.0) S |
+| 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (night) -- ALL THREE HALVES SHIPPED: PROPS (ZOO 0.63.0), TEXTURES (PIXELCOAT 0. |
 
 **150 items: 23 open, 78 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -4014,7 +4014,25 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: NARROWED 2026-09-12 (evening) -- STEP 3 IN A COLD PACKAGE: cold
+*STATUS: NARROWED 2026-09-12 (night) -- THE 179 WORKED DOWN TO 52, AND
+THOSE ARE REGIONS, NOT FURNITURE: 728 OF 780 HINTED PLACEMENTS PLAN AS
+THEIR SPECIES. Zoo 0.64.0, from the 179's own shapes: tables and seating
+run in bays (a 4 x 2 count table, a 5 x 2 x 0.6 waiting bench as a row of
+joined seats); ranges opened by measurement -- racks to 20 x 1.4 x 4.5,
+safes to 1.2 x 1.0 x 1.5, tanks to 3 x 3 x 4.5, desks 1.2 deep, counters
+2.0 deep; and an ALTERNATE of the same family before the box -- `desk` ->
+`counter` -- because 25 "desks" (front, check-in, manager, boss) stand
+1.1-1.2 m tall and are counters by any name, each reported in
+`species_alternates`. Two exact-fit refutations kept: the 3.0 m tank came
+out 2.925 (a 14-gon's flat width) and builds with sixteen segments under
+`fit_exact`. Probe of seven shapes through Blender, 7 of 7 pass. What
+falls back now (52): `cubicles_w/e` 8 x 6 blocks (28), `gaming_tables`
+12 x 6 floors (10), a 7 x 3 x 1.6 counting-table block, a 10 x 7 stadium
+seating arc -- a region wearing a furniture name, which is a spec
+authoring question (one block standing for a room's worth of desks) and
+not a species' failure to be a desk. The pump keyword added 60 hinted
+placements (720 -> 780). Not yet in a package: cold run 9011 (a gas
+station) is running. Previously: STEP 3 IN A COLD PACKAGE: cold
 run 9010's bank carries its 10 m teller counter as a counter run and its
 auto shop a turned 5 m parts rack, a workbench counter and a desk, zero
 fallbacks across the lot (item 17). What remains is the 179 of 720 that
@@ -14720,7 +14738,23 @@ that is said rather than guessed. **WHAT WOULD CLOSE THIS:** cold run 9008
 placing a bank first on the same brief; then the question item 105 already
 holds about where the anchor stands on the site.
 
-*STATUS: NARROWED 2026-09-12 (later) -- THE PROP HALF (ZOO 0.63.0) AND THE
+*STATUS: NARROWED 2026-09-12 (night) -- ALL THREE HALVES SHIPPED: PROPS
+(ZOO 0.63.0), TEXTURES (PIXELCOAT 0.29.0), STYLES (ZOO 0.64.0); ONE WORKED
+EXAMPLE OF EACH IN A COLD PACKAGE IS WHAT REMAINS. `zoo/tools/new_species.py
+style <theme>` reports which species resolve a theme to the uncoloured
+`default` -- measured: 0 of 57 carry `delco_1997` by name, 43 resolve to
+`delco` through the family walk, 14 to `default` (atm, briefcase,
+cash_stack, chair, cheesesteak, crt_tv, desk, filing_cabinet,
+flat_top_grill, ...) and wear no colour in a delco level -- and with
+`--write` mints a row under the theme's own name, copied from the ancestor
+each resolves to or from `--like`, with material / wear / ambient / colour
+overrides. A copied row is the ancestor's look under a new name, which is
+the honest state of a style nobody has tuned; the genome's `styles` block
+is where the tuning goes. The three tools share one shape -- report the
+queue, mint from a template, prove it validates, register it, say what
+the next repo needs -- and a page in USING_THE_FACTORY.md walking "the
+brief wants a planter" through all three is the last piece. Previously:
+THE PROP HALF (ZOO 0.63.0) AND THE
 TEXTURE HALF (PIXELCOAT 0.29.0) SHIPPED AND WIRED TO EACH OTHER; THE STYLE
 HALF IS NAMED AND UNBUILT. The walker: "this should also support minting
 new pixelcoats if that brings the prop or asset to life." A minted prop
