@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (late) -- COLD RUN 9025 SCORED ZERO WITH THE STREET PARKED IN. The bank brief o |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9026 WAS NOT A ZERO: THE LASER TAG PREFLIGHT REFUSED THE FI |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (late) -- CARS ARE PARKED IN THE KERB LANES, AND LOT READS THE KIT INDEX BEFORE |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE WAITING PLACES ARE IN THE TOOLS: A TREE BETWEEN THE LAMPS, A BUS |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,30 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (late) -- COLD RUN 9025 SCORED ZERO WITH
+*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9026 WAS NOT A ZERO: THE
+LASER TAG PREFLIGHT REFUSED THE FIRST SEED ON THE WRONG STOREY, AND THE
+EXPORT GATE HELD. The bank brief on Zoo 0.67.3 / Lot 0.63.0 / LF 0.78.0:
+0 interventions, 0 retries, 0 unattributed changes, but the first seed's
+`laser_tag_evaluate` failed at pre-flight -- "LT_ObjectivePoint is inside
+solid geometry" -- the driver selected that seed by rule, art ran on an
+eliminated candidate, and `export` refused it (exit 2) with the blocker
+named. THE INSTRUMENT WAS WRONG, NOT THE LEVEL: seed 9026 put the deli
+(`deli_a01`) at b2 with its objective in the basement vault at y = -3.0;
+`spawn_placement` builds ONE heightfield around the crew spawn's floor and
+judged the marker by the ground-floor cell above it, which the stockroom's
+shelving blocks; the walktest on the same candidate, which bakes every
+storey, walked all twelve anchors including that one (proxy_10, snapped
+1.0 m). Basement objectives had passed the same field on 9019, 9020, 9022
+and 9024 only because the cell above happened to be open floor. LF 0.78.1:
+a marker under the field's surface by more than a climb, or over it by
+more than a body, is "on a storey this field does not see" -- reported as
+`LT_STOREY_UNSEEN` with both heights, never refused; a marker on the held
+storey inside a solid still refuses (tested both ways). What held: the
+export gate (0.76.0) refused a package with an open blocker, as built.
+The waiting places (item 153) landed in Zoo 0.68.1 and Lot 0.64.0 on a
+local Blender kit build (5 modules, 0 failed, the tree `pass`); cold run
+9027 measures them with the preflight fix. Log and journal:
+`docs/cold_runs/cold_9026/`. Previously: COLD RUN 9025 SCORED ZERO WITH
 THE STREET PARKED IN. The bank brief on Lot 0.63.0 / Zoo 0.67.2: 0
 interventions, 0 retries, 0 unattributed changes, every tool repo clean
 at --begin, all stages succeeded, 0 blockers, export exit 0, 20 minutes
@@ -15277,7 +15300,34 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (late) -- CARS ARE PARKED IN THE KERB LANES,
+*STATUS: NARROWED 2026-09-13 (night) -- THE WAITING PLACES ARE IN THE
+TOOLS: A TREE BETWEEN THE LAMPS, A BUS STOP PER ROAD. Zoo 0.68.0/0.68.1:
+`bus_shelter` (four posts under a flat roof, glazed back and ends from a
+knee-high sill, open along the kerb; posts and panes collide, the roof
+does not), `bench` (three slats on two cast ends), `street_tree` (a
+tapered trunk from a 1.2 m iron grate, a two-frustum crown in the
+vegetation grammar filling the slot's width at its waist; ONLY THE TRUNK
+collides). Lot 0.64.0: `site_furniture` plants a tree halfway between
+every two lamp stations on the outer half of each band, and stands one bus
+stop per road -- shelter open to the kerb, bench inside against its back,
+a stop sign a metre before -- on the kerb the buildings face
+(`_facing_kerb`), at the midpoint of the longest stretch between
+crossings, nudged clear of what already stands (`_free`). A tree's SLOT is
+its crown (4 x 4 x 6, what Zoo builds) and its FOOTPRINT is its grate
+(1.2 x 1.2, what the greybox draws and the navmesh carves): the greybox
+over-blocks the trunk by the grate's margin and never under-blocks it.
+Measured on a local kit build: bench 220 tris and shelter 352 built as
+`warn` against prop's 200-tri budget, which Lot 0.63.0 read as "not pass"
+-- the species carry their own budgets now and Lot stands a `warn` row
+(an advisory, not a failure). The tree is the honest first state of the
+alpha-cutout foliage: a faceted volume, not cards. Cold run 9027 measures
+all of it. WHAT REMAINS: the marking texture (drafted: a Pixelcoat
+`road_paint` kind with a cutout alpha, Lot's quads wearing it as a
+scissor decal tinted by the marking's colour); intersections (drafted: a
+road that ends on another begins its slab at that road's band edge, a
+crossing is a box with crosswalks at its ends, the leg that ends is the
+one that stops); the cover planner's truck-in-the-road as the exception.
+Previously: CARS ARE PARKED IN THE KERB LANES,
 AND LOT READS THE KIT INDEX BEFORE IT STANDS A MODULE. Lot 0.63.0:
 `site_streets` gains parking lanes -- 6 m bays in a 2.2 m lane along each
 kerb of a road with sidewalks, none within 6 m of a crossing or over a
