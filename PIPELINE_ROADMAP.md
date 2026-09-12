@@ -817,7 +817,7 @@ work of adopting this.
 | 136 | **CLOSED** | Zoo stamps every index with a version from July, and the same literal  | 2026-09-11 -- THE SECOND ANSWER, TAKEN, AND THE PROOF THAT NO VERTEX MOVED IS THE MORNING' |
 | 137 | **CLOSED** | The window lights push ten interior plates over the per-mesh light bud | 2026-09-11 -- DERIVED, NOT TUNED, AND MEASURED BACK TO ONE OF THE BASELINE. Lux 0.31.0: `L |
 | 138 | **NARROWED** | The windows read as black rectangles from outside | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.2 (the quad is double-sid |
-| 139 | **OPEN** | The sign is a white box with a white square standing off it | 2026-09-11 -- FOUND BY A PERSON; THE RESIDUE LUX 0.30.1 WROTE DOWN, NOW SEEN |
+| 139 | **NARROWED** | The sign is a white box with a white square standing off it | 2026-09-11 -- THE SQUARE IS FIXED (LUX 0.33.0) AND ITS CAUSE WAS NOT THE ONE THIS ITEM NAM |
 | 140 | **NARROWED** | The drywall skin is white noise | 2026-09-11 -- THE DIAL FOUND BY SWEEPING, FIXED IN PIXELCOAT 0.28.0, MEASURED BACK INTO TH |
 | 141 | **OPEN** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- FOUND BY A PERSON, INSTRUMENT NAMED, NOT YET RUN |
 | 142 | **OPEN** | A prop ships black | 2026-09-11 -- FOUND BY A PERSON, HALF MEASURED |
@@ -826,7 +826,7 @@ work of adopting this.
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 
-**146 items: 26 open, 77 closed, 3 retracted, 35 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**146 items: 25 open, 77 closed, 3 retracted, 36 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -14022,8 +14022,41 @@ judge it. **WHAT WOULD CLOSE THIS:** the quad rendered double-sided
 (`cull_mode = CULL_DISABLED`, one line in `_build_quad`), and a look at
 whether the glass skin should carry a night-time tint of its own.
 
-*STATUS: OPEN 2026-09-11 -- FOUND BY A PERSON; THE RESIDUE LUX 0.30.1 WROTE
-DOWN, NOW SEEN*
+*STATUS: NARROWED 2026-09-11 -- THE SQUARE IS FIXED (LUX 0.33.0) AND ITS
+CAUSE WAS NOT THE ONE THIS ITEM NAMED; THE BOX IS MEASURED AND NOT FIXED.
+REFUTED, kept above what replaced it: the body says Zoo writes the marker
+"with a translation only (`build.py:661`)". It does not -- `build.py` has
+stamped the anchor's `rot_z` on the marker (`Translation @ rot`) since the
+markers existed, and `LuxFixtureSpawner` copies the marker's whole
+transform. The saved rig in the walked copy has an identity basis because
+the sign's `rot_y` IS 0. What was missing was the QUARTER TURN: the marker's
+facing is its local +X, an area rig faces local +Z, and `_place` (Lux
+0.30.1, f = t + 90) had it while the spawner did not. Lux 0.33.0: the
+spawner applies the same turn to area rigs, turns the rig's preview quad
+off under spawned hardware (the cabinet carries its own `M_SignBox_Face`;
+the quad through it was the square), and `rig_for_anchor("sign")` stands
+the source 0.29 m ahead of the face -- the anchor is the face plane, Zoo
+mounts `sign_box` centred on it, 0.18 m deep, so the omni sat inside the
+cabinet 0.09 m from a 0.28-grey box at energy 3.0. `colocation_selftest`
+case E holds the facing (dot 1.0) and the absence of the quad. MEASURED on
+the walked copy, its fixtures re-spawned with the 0.33.0 runtime and
+`look_shots --station` at the sign from the street and from along the
+wall: the square is gone from the along-wall frame; the bar above the door
+is white in BOTH frames -- 27.3% of the sign crop at >= 250 before, 34.5%
+after, the same 250 x 50 px bounding box -- so the "white box" is not the
+lamp lighting the cabinet, it is the FACE'S OWN EMISSION: Zoo's sign
+recipe gives it `emissive_strength` 2.2 (its style default) over the whole
+3.0 x 0.6 panel, which clips to white at Lux's exposure with no text or
+pack detail surviving. CONFOUND, named: the two frames ran different Lux
+runtimes (the walk copy's vendored pre-0.32 addon before, 0.33.0 after),
+and the after frame is darker overall with a flat sky -- crushed 13% ->
+62% -- which is the runtime refresh, not the spawner; the only node the
+re-pack dropped is the quad. **WHAT WOULD CLOSE THIS:** the sign face's
+emission against the tonemap -- a Zoo sign style row, measured by the
+near-clip figure of this station, so the pack's colour and text read
+instead of a white slab; then the re-walk. EARLIER STATUS, KEPT VERBATIM:
+OPEN 2026-09-11 -- FOUND BY A PERSON; THE RESIDUE LUX 0.30.1 WROTE DOWN,
+NOW SEEN*
 
 **139. The sign is a white box with a white square standing off it.** Walked
 2026-09-11. Two things in one frame. The square: Zoo writes its `LuxEmit_*`
