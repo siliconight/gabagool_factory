@@ -822,12 +822,12 @@ work of adopting this.
 | 141 | **NARROWED** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- INSTRUMENT RUN, CAUSE FOUND IN THE WIRING, FIXED IN LEVEL FACTORY 0.71.0, ME |
 | 142 | **NARROWED** | A prop ships black | 2026-09-11 -- THE HYPOTHESIS IS REFUTED AND THE CAUSE IS MEASURED: THE PROP IS NOT UNSKINN |
 | 143 | **NARROWED** | Ceiling lamps sit inside partitions on this shell | 2026-09-11 -- FIXED IN DELI COUNTER 0.116.0 AND MEASURED BACK WITH THE SAME PROBE: 9 LAMP  |
-| 144 | **OPEN** | The stairs ship in the greybox's fallback yellow | 2026-09-11 -- FOUND BY A PERSON; THE GAP PROTOCOL'S CASE |
+| 144 | **NARROWED** | The stairs ship in the greybox's fallback yellow | 2026-09-11 -- THE CHEAPEST OF THE TWO ANSWERS SHIPPED IN LEVEL FACTORY 0.72.0 AND MEASURED |
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 
-**147 items: 24 open, 77 closed, 3 retracted, 38 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**147 items: 23 open, 77 closed, 3 retracted, 39 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -14234,7 +14234,27 @@ walls, so the caller passes them the way it passes ceiling voids), and the
 probe run as a gate over the deli job's outputs -- item 85's residue, now
 with a shell that fails it.
 
-*STATUS: OPEN 2026-09-11 -- FOUND BY A PERSON; THE GAP PROTOCOL'S CASE*
+*STATUS: NARROWED 2026-09-11 -- THE CHEAPEST OF THE TWO ANSWERS SHIPPED IN
+LEVEL FACTORY 0.72.0 AND MEASURED ON THE WALKED COPY; NOT YET RE-EXPORTED OR
+RE-WALKED. `zoo_worldskin.gd` runs a second pass on `site_base*.glb` --
+reachable at all only since 0.71.0 declared the script project-wide (item
+141): every visual `stair<n>_*` mesh gets one `M_Skin_concrete_stairs`,
+the concrete albedo/roughness Zoo copied beside a plain `wall_*` module
+under `art/zoo/`, world-triplanar at that module's own imported
+`uv1_scale`, so the stair's texel density is the wall's. No UVs needed,
+which is the point of world projection on boxes nobody unwrapped. Measured
+on the walked copy, base sidecar regenerated: 76 stair surfaces on 76
+meshes skinned, 0 flat, `uv1_scale` 0.49999 read from
+`wall_delco_1997_01_w200.glb`. REFUTED on the first run, kept: the first
+albedo in sort order was `breach_*`'s BREACHED concrete and every stair
+wore rubble edges; the script now prefers a plain wall's. RESIDUE: the
+look-shot at the public stair is 75-84% crushed -- the stairwell is unlit,
+which is item 147's finding again (its lamps are the room row's, 4.0 m
+reach), so whether the concrete reads on the treads is for the re-walk;
+the `floor_hole` link is still unmarked; and a Zoo stair species built to
+DC's flight geometry remains the dearer, better answer. EARLIER STATUS,
+KEPT VERBATIM: OPEN 2026-09-11 -- FOUND BY A PERSON; THE GAP PROTOCOL'S
+CASE*
 
 **144. The stairs ship in the greybox's fallback yellow.** Walked 2026-09-11:
 every stair in the level is Deli Counter's greybox flight in the default
