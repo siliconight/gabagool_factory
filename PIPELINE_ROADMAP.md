@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9026 WAS NOT A ZERO: THE LASER TAG PREFLIGHT REFUSED THE FI |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9027 SCORED ZERO WITH THE WAITING PLACES STANDING. The bank |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -830,8 +830,8 @@ work of adopting this.
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
-| 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE WAITING PLACES ARE IN THE TOOLS: A TREE BETWEEN THE LAMPS, A BUS |
+| 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN THE TOOLS: THE ROAD PAINT. Pixelcoat 0 |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE WAITING PLACES ARE MEASURED (9027); THE PAINT IS A DECAL AND THE |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,19 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9026 WAS NOT A ZERO: THE
+*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9027 SCORED ZERO WITH
+THE WAITING PLACES STANDING. The bank brief on Zoo 0.68.1 / Lot 0.64.0 /
+LF 0.78.1: 0 interventions, 0 retries, 0 unattributed changes, every tool
+repo clean at --begin, all stages succeeded, 0 blockers, export exit 0,
+29 minutes (17:49 -> 18:18); 1 bus shelter with its bench, 17 street
+trees, 16 lamps, 4 signs, 3 hydrants, 3 bins and 31 parked cars; every
+species in the site kit `pass`, none boxed; the preflight's new
+`LT_STOREY_UNSEEN` advisory filed once and blocked nothing. The
+eighteenth zero. Frames: the shelter glazed with the bench inside and a
+car at the kerb; the trees' faceted crowns over the parked row
+(`docs/cold_runs/cold_9027/frames/`). Cold run 9028 (Lot 0.65.0,
+Pixelcoat 0.31.0, LF 0.79.0: a cross street, the paint as a decal) is
+running. Previously: COLD RUN 9026 WAS NOT A ZERO: THE
 LASER TAG PREFLIGHT REFUSED THE FIRST SEED ON THE WRONG STOREY, AND THE
 EXPORT GATE HELD. The bank brief on Zoo 0.67.3 / Lot 0.63.0 / LF 0.78.0:
 0 interventions, 0 retries, 0 unattributed changes, but the first seed's
@@ -15201,7 +15213,16 @@ shapes against the pawn-job fixture (399 pass). What this does not do:
 say what a bank lobby SHOULD have on its floor -- that is item 44's set
 dressing, and the answer is not pebbles.
 
-*STATUS: NARROWED 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS
+*STATUS: NARROWED 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN THE
+TOOLS: THE ROAD PAINT. Pixelcoat 0.31.0 `road_paint` (a cutout alpha, a
+scissor hint), Lot 0.65.0 (the marking quads wear it, tinted), LF 0.79.0
+(the spec names it) -- see item 153; cold run 9028 is the measurement.
+It is the decal layer's shape: a Pixelcoat pack with alpha, placed
+geometry that carries it, the consumer told to test rather than blend.
+Steps 3 and 4 (clutter anchored and coloured by its surface with the
+density table turned round; the low band) and the grammars (item 45: the
+asphalt still reads as paving cells on the 9027 frames) remain.
+Previously: STEP 1 OF THE BUILD ORDER IS
 IN A COLD PACKAGE (9017): THE GROUND PLATE AND THE PATHS WEAR PIXELCOAT
 SKINS, AND THE CLUTTER SITS ON A SURFACE. Pixelcoat 0.30.0 (the kinds),
 Lot 0.58.0 (`ground_skins`, maps beside the scene, `LOT_GROUND_SKIN_
@@ -15300,7 +15321,30 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (night) -- THE WAITING PLACES ARE IN THE
+*STATUS: NARROWED 2026-09-13 (night) -- THE WAITING PLACES ARE MEASURED
+(9027); THE PAINT IS A DECAL AND THE STREET HAS A CORNER, IN THE TOOLS.
+Cold run 9027: 1 shelter, 1 bench, 17 trees, 16 lamps standing, every
+species `pass`. THE PAINT: Pixelcoat 0.31.0 mints `road_paint` -- a kind
+for Lot, near-white at 0.5 m per tile with a CUTOUT alpha (a new grammar
+field thresholding a generator field into on/off alpha, the paint worn
+through to the road in patches) and an `alpha_mode: scissor` hint; Lot
+0.65.0 gives the markings a `paint` skin family, `transparency = 2` when
+the pack asks for scissor, and tints the pack by the marking's own colour
+(white lines, a yellow centre line); LF 0.79.0 names the pack. THE
+CORNER: Lot 0.65.0's street model holds intersections -- a road crossing
+is a BOX (the crosser's width plus its bands), crosswalks at each end of
+the box in line with the crosser's sidewalks, the stop bar only on the
+leg that ENDS there (`Cut.terminal`, judged at the centre line), the
+centre and edge lines broken over the box (the edge line over a road's
+mouth only), parking clear of it, and a road that ends on another begins
+its slab at that road's band edge so no two slabs lie coplanar over the
+mouth; LF 0.79.0's spec adds a cross street north from the through road
+through the widest gap between two buildings that holds a band (9021's
+row: 31 m, at x = -20.5), else past the west end with the plate widened.
+Residue: two roads CROSSING (an X) still overlap their slabs -- the spec
+makes a T. Cold run 9028 measures both. WHAT REMAINS after it: the cover
+planner's truck-in-the-road as the exception now that cars park; the
+tree's crown as cutout cards. Previously: THE WAITING PLACES ARE IN THE
 TOOLS: A TREE BETWEEN THE LAMPS, A BUS STOP PER ROAD. Zoo 0.68.0/0.68.1:
 `bus_shelter` (four posts under a flat roof, glazed back and ends from a
 knee-high sill, open along the kerb; posts and panes collide, the roof
