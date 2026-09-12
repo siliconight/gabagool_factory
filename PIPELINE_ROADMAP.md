@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (evening) -- COLD RUNS 9023 AND 9024 SCORED ZERO: THE PAINT, THEN THE KERB LINE |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (late) -- COLD RUN 9025 SCORED ZERO WITH THE STREET PARKED IN. The bank brief o |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (evening) -- THE STREET IS A MODEL, THE PAINT IS ON THE ROAD AND THE KERB LINE  |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (late) -- CARS ARE PARKED IN THE KERB LANES, AND LOT READS THE KIT INDEX BEFORE |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,17 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (evening) -- COLD RUNS 9023 AND 9024 SCORED
+*STATUS: NARROWED 2026-09-13 (late) -- COLD RUN 9025 SCORED ZERO WITH
+THE STREET PARKED IN. The bank brief on Lot 0.63.0 / Zoo 0.67.2: 0
+interventions, 0 retries, 0 unattributed changes, every tool repo clean
+at --begin, all stages succeeded, 0 blockers, export exit 0, 20 minutes
+(16:53 -> 17:13); 23 cars parked in the kerb lanes, 22 kerb-line pieces,
+1 truck and 1 container from the cover planner, 34 modules standing, 13
+lamp boxes kept by the index's `fail` verdict (item 153); the walktest's
+stuck counts (player 2, enemy 2) unchanged with 57 more colliders on the
+street. The seventeenth zero. Log and journal: `docs/cold_runs/cold_9025/`;
+walk copy `_runs/walk_export_bank_block_001` is 9025's. Previously: COLD
+RUNS 9023 AND 9024 SCORED
 ZERO: THE PAINT, THEN THE KERB LINE. Both the bank brief. 9023, on Lot
 0.61.0: 0 interventions, 0 retries, 0 unattributed changes, every tool
 repo clean at --begin, all stages succeeded, 0 blockers, export exit 0,
@@ -15267,7 +15277,31 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (evening) -- THE STREET IS A MODEL, THE PAINT
+*STATUS: NARROWED 2026-09-13 (late) -- CARS ARE PARKED IN THE KERB LANES,
+AND LOT READS THE KIT INDEX BEFORE IT STANDS A MODULE. Lot 0.63.0:
+`site_streets` gains parking lanes -- 6 m bays in a 2.2 m lane along each
+kerb of a road with sidewalks, none within 6 m of a crossing or over a
+kerb cut, the edge lines moved to the driving lanes' edge and every bay
+edge ticked -- and `site_parking` parks a `simple_car` in 60 percent of
+the bays by a stable hash, along the road, clear of every marker and of
+everything already standing by the cover planner's own rules. A parked
+car is cover and the same prop-slot record. Cold run 9025 (item 17): 23
+cars parked, 22 kerb-line pieces, the cover planner needing only one
+truck and one container with the street full; 34 modules standing; from
+the sidewalk, a row of cars along the kerb with the bay ticks between
+them. THE VERDICT, READ: Lot stood a module by file, so 9024 shipped the
+lamp at 6.18 m against a 6.00 m slot with its index row `fail`; 0.63.0
+reads `site_kit.built.json` and a row that is not `pass` keeps its box
+under `LOT_COVER_MODULE_FAILED`. Measured on 9025: 13 lamp boxes stood
+where 13 lamps had, which is the honest picture of a recipe that does
+not fit its slot -- the streetlight floats its head above the lamp point
+it puts at +h/2 for the light-anchor pipeline. Zoo 0.67.3 gives the
+recipe both placements: an exact-fit plan puts the head's top at +h/2 and
+the lamp point under the lens; the fixtures pipeline is unchanged. WHAT
+REMAINS: the bus stop and the tree; a marking texture in Pixelcoat so the
+paint is a decal; intersections; and the cover planner's own pieces are
+now mostly the parked cars' job, so its truck-in-the-road should become
+the exception it was meant to be. Previously: THE STREET IS A MODEL, THE PAINT
 IS ON THE ROAD AND THE KERB LINE STANDS ON THE SIDEWALKS, ALL IN COLD
 PACKAGES. Lot answered the walker's "does Lot need to evolve now" in
 three releases the same day. 0.61.0: `site_streets`, the road as a model
