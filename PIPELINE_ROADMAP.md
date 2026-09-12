@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9028 SCORED ZERO WITH A CORNER ON THE STREET; THE PAINT WAS |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9029 SCORED ZERO WITH THE PAINT DECAL IN THE PACKAGE. The b |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -830,8 +830,8 @@ work of adopting this.
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
-| 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN THE TOOLS: THE ROAD PAINT. Pixelcoat 0 |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE CORNER IS MEASURED (9028): A T JUNCTION IN A COLD PACKAGE; THE P |
+| 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE STREET'S VOCABULARY IS IN COLD PACKAGES: ROAD, KERB LINE, PARKED |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,15 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9028 SCORED ZERO WITH A
+*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9029 SCORED ZERO WITH THE
+PAINT DECAL IN THE PACKAGE. The bank brief on Lot 0.65.1: 0 interventions,
+0 retries, 0 unattributed changes, every tool repo clean at --begin, all
+stages succeeded, 0 blockers, export exit 0, 15 minutes (18:42 -> 18:57);
+110 marking materials in the themed scene carry `transparency = 2` and
+the road-paint albedo and roughness, and the package's `skins/` ships
+both maps with their imports. The twentieth zero. Frames in
+`docs/cold_runs/cold_9029/frames/`. Previously: COLD RUN 9028 SCORED ZERO
+WITH A
 CORNER ON THE STREET; THE PAINT WAS NAMED AND NOT WORN. The bank brief on
 Lot 0.65.0 / Pixelcoat 0.31.0 / LF 0.79.0: 0 interventions, 0 retries, 0
 unattributed changes, every tool repo clean at --begin, all stages
@@ -15235,7 +15243,12 @@ shapes against the pawn-job fixture (399 pass). What this does not do:
 say what a bank lobby SHOULD have on its floor -- that is item 44's set
 dressing, and the answer is not pebbles.
 
-*STATUS: NARROWED 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN THE
+*STATUS: NARROWED 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A
+COLD PACKAGE (9029): THE ROAD PAINT. A Pixelcoat pack with a cutout
+alpha, placed geometry that carries it, the consumer told to test rather
+than blend -- the decal layer's shape, shipped end to end after one
+dropped filter (item 17, Lot 0.65.1). Steps 3 and 4 and item 45's
+grammars remain as before. Previously: STEP 2 HAS ITS FIRST DECAL IN THE
 TOOLS: THE ROAD PAINT. Pixelcoat 0.31.0 `road_paint` (a cutout alpha, a
 scissor hint), Lot 0.65.0 (the marking quads wear it, tinted), LF 0.79.0
 (the spec names it) -- see item 153; cold run 9028 is the measurement.
@@ -15343,7 +15356,18 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (night) -- THE CORNER IS MEASURED (9028): A T
+*STATUS: NARROWED 2026-09-13 (night) -- THE STREET'S VOCABULARY IS IN COLD
+PACKAGES: ROAD, KERB LINE, PARKED CARS, THE WAITING PLACES, A CORNER, AND
+THE PAINT AS A DECAL (9023-9029). Cold run 9029 shipped the road-paint
+decal on every marking: 110 scissor materials tinted white or yellow,
+the maps beside the scene and in the package. What the item asked for on
+2026-09-13 morning is built and measured, each layer by a cold run. WHAT
+REMAINS, as residue rather than build order: an X crossing's slabs
+overlap (the spec makes a T); the cover planner's truck-in-the-road
+should become the exception now that cars park; the tree's crown as
+cutout cards rather than a faceted volume; and the paint's own look --
+the cutout at 0.5 m per tile reads as wear only up close. Previously:
+THE CORNER IS MEASURED (9028): A T
 JUNCTION IN A COLD PACKAGE; THE PAINT DECAL WAITS ON 9029. Cold run 9028
 built the cross street Level Factory 0.79.0 asked for and Lot 0.65.0
 drew the junction the model describes -- slab from the band edge, the
