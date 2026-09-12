@@ -77,7 +77,43 @@ document". And the cost of skipping the hand-off: "expensive iteration and
 needless feedback rounds because design couldn't be arsed to sign off on
 block-ins".
 
+**Thiago Klafke, "Modular environments"** — the one about kits, added by
+the walker after the first eight. Work on a power-of-two "home grid spacing"
+and keep every piece proportional to one base unit; pick the unit from how
+close the player gets — "smaller units" up close, "bigger modules" far away.
+Put a module's pivot "in one of the 'plane' extremities", not its centre,
+and keep contact faces square so pieces combine any way round. Texture
+"first when creating modular sets": a wall unit is "a 4-directionally tiling
+texture + a trim texture", and the trim carries the edges, the base and the
+cap. Hide repetition with vertex colour ("works like Photoshop multiply"),
+trims, and "unique modeling" mixed into the modular base. Where a gap
+cannot be closed, "add an artificial seam to your piece (such as the
+extremity of a panel)" so the join reads as designed. Bake tiling textures
+from high-poly planes; bake occlusion separately. "Export your pieces to the
+editor early" and refine on what tiles badly in the engine, not in the
+modeler.
+
 ## What it means for this pipeline, by layer and owner
+
+**The kit already keeps the grid; the trim is the missing half (Klafke; Zoo
++ Pixelcoat, items 76, 141).** Deli Counter's `module_size` 2.0 m is the
+home unit and every wall module is authored to it; the composer fits by
+footprint, so a centre pivot costs nothing here. What Zoo modules do not
+carry is the trim: one tiling skin covers the whole face, and the base,
+the cap and the jamb are the same texture as the field. Klafke's wall is
+two textures; ours is one. A trim strip at the skirting and the cornice,
+resolved by kind like everything else, is the cheapest depth a wall can
+gain, and it is also where the "artificial seam" goes: a wall-end
+remainder that meets a full module reads as designed when a trim runs
+across the join.
+
+**Texture first, then place, then look in the engine (Klafke; the whole
+chain).** The order this pipeline runs is the order he prescribes — the
+theme library builds before the kit, the kit before the compose — and the
+last step is the one to keep honest: the census and the walk are "export
+your pieces to the editor early", and every measurement in item 18 came
+from doing it.
+
 
 **Ground and its clutter share one vocabulary (Bloodborne's inserts; Zoo +
 Pixelcoat, item 152).** A clutter species is an insert on the surface it sits
