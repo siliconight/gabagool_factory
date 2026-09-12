@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9010. The same bank brief as 9007-9009. WHAT THIS RUN TESTS: Zoo 0.62.0 bays (an 8 m teller counter as a counter run, desk rows, cabinet banks, shelf runs) with Deli Counter 0.118.0's long-side-first slots and the teller -> counter route; Zoo 0.63.0's minted pump species where a lot draws a gas station.",
+  "crew_size": 4
+}

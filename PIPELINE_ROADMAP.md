@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 -- STEPS 1 AND 2 SHIPPED AND NOW IN A COLD PACKAGE: cold run 9009's `auto_shop_ |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (later) -- STEP 3 SHIPPED: THE RUN SPECIES FILL RUNS IN BAYS, THE RANGES MATCH  |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -828,8 +828,9 @@ work of adopting this.
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
+| 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 -- THE PROP HALF SHIPPED (ZOO 0.63.0) AND MINTED ITS FIRST SPECIES; THE TEXTURE |
 
-**149 items: 23 open, 78 closed, 3 retracted, 40 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**150 items: 23 open, 78 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -3995,8 +3996,35 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: NARROWED 2026-09-12 -- STEPS 1 AND 2 SHIPPED AND NOW IN A COLD
-PACKAGE: cold run 9009's `auto_shop_a02` carries `office_desk` as
+*STATUS: NARROWED 2026-09-12 (later) -- STEP 3 SHIPPED: THE RUN SPECIES FILL
+RUNS IN BAYS, THE RANGES MATCH WHAT THE SPECS AUTHOR, AND 541 OF 720 HINTED
+PLACEMENTS NOW PLAN AS THEIR SPECIES (FROM 142); NOT YET IN A COLD PACKAGE.
+Zoo 0.62.0: `recipes/_bays.bays` divides a width into equal bays of at
+most the genome's `bay_max` -- counter 4.0, shelving 2.4, filing_cabinet
+0.5, desk 2.2 -- and each recipe repeats its unit per bay (a counter run
+is one body and top with a shelf and register per bay; a shelf run shares
+an upright at every boundary; a cabinet bank is one body with a drawer
+stack per bay; a desk row is one top over a leg set, pedestal and modesty
+panel per bay); one bay is the unit each always built. Ranges opened by
+measurement, not taste: counter depth 1.4 / height 1.2, shelving depth
+1.2 / height 3.5, cabinet depth 0.9 / height 2.1, desk height 1.0,
+hvac_unit 4.0 x 3.0 x 1.5, table 1.4 deep / 0.8 tall. Deli Counter
+0.118.0: a hinted volume is recorded LONG SIDE FIRST (turned 90 when its
+long side is y -- alone that took desks from 58 to 91 fits and counters
+from 35 to 54), and `teller` routes to `counter`, because all 38
+`teller_counter` volumes are 1.0 m counters and the `teller_line` barrier
+starts at 2.0 m. REFUTED on the first build, kept: the cabinet bank came
+out 0.840 deep against 0.800 (drawer fronts proud of the body) and the
+counter 2.040 wide against 2.000 (the top's lip) -- both recipes now give
+the body up under `fit_exact`. Built through Blender: an 8 m counter, a
+6 x 1.0 shelf run turned, a 3 m locker bank, a 4.4 m desk row, a 4 x 3
+rooftop unit, 5 of 5 pass; `test_bays` plans the measured shapes with no
+fallback. THE NUMBER, re-measured over the specs with the turn: 720
+hinted, 541 plan as their species, 179 fall back -- desk 58 (5 m x 1.6
+"boss desks" too deep), shelving 35, table 30, chair 24 (5 m benches),
+drop_safe 13 (vault-sized), water_tank 9, counter 9, cabinet 1 -- none
+for want of a genome. Cold run 9010 is the package. Previously: STEPS 1
+AND 2 SHIPPED AND NOW IN A COLD PACKAGE: cold run 9009's `auto_shop_a02` carries `office_desk` as
 `prop_desk_delco_1997_02_w180_d90_h80`, a desk, and the walk copy's frame
 shows it. The same package says the rest of the item's number out loud:
 `parts_rack` (1.0 x 5.0 x 1.8) and the warehouse's `rack_a/b/c` fell back
@@ -14666,3 +14694,40 @@ hospital family; the transients are excluded by design (item 73) -- and
 that is said rather than guessed. **WHAT WOULD CLOSE THIS:** cold run 9008
 placing a bank first on the same brief; then the question item 105 already
 holds about where the anchor stands on the site.
+
+*STATUS: NARROWED 2026-09-12 -- THE PROP HALF SHIPPED (ZOO 0.63.0) AND MINTED
+ITS FIRST SPECIES; THE TEXTURE AND STYLE HALVES ARE NAMED AND UNBUILT*
+
+**150. A new person cannot yet ask the factory for a prop, a texture or a
+style that does not exist and get one.** The walker's goal, said
+2026-09-12: "new people can walk up to this level factory and make a good
+looking level and mint the necessary props, textures, styles to fulfil the
+request." The gap protocol (USING_THE_FACTORY.md) says the owning tool
+grows the capability; what it did not say is HOW, and for a prop that
+meant reading five recipes, a genome schema and a test file. MEASURED over
+Deli Counter's 129 built manifests (`zoo/tools/new_species.py report`):
+511 prop slots carry no species hint, and the names say what they are --
+`col_*` 96 (boxes by nature), `pump` 42, `canopy_col` 42, `pump_island`
+21, `aisle` 19, `display_case` 11, `stall` 10, `lift` 8, `planter_box`,
+`forecourt_pad`, `canopy_roof`; and a further 137 hinted slots name a
+species that exists and did not fit (item 44's residue). SHIPPED, the prop
+half: `new_species.py report` is that queue, most common first, split into
+"mint this", "route this" and "widen this"; `new_species.py new <species>
+--width --depth --height [--like prop] [--material] [--keywords]` writes a
+genome from the template with the dims as defaults and a 0.5x..2.0x range,
+a placeholder recipe (a solid box at the plan's exact dims, one named
+part, collision, an attachment, and a docstring that says this is where
+the drawing goes), a test, and a line in `genome/minted.json` that
+`test_genome` unions into its known set; it prints the keyword line Deli
+Counter needs and refuses to overwrite. `pump` (1.0 x 1.2 x 1.4, metal)
+is the first minted species, routed by DC 0.118.0 -- a pump that is a box
+is the honest state of a pump nobody has drawn, and it is now COUNTED as
+a pump in every kit report, which is what makes it a request rather than
+a silence. **WHAT WOULD CLOSE THIS:** the same tool for the other two
+halves -- a Pixelcoat material profile minted from a kind and a base
+colour (`profiles/materials/*.json` is a grammar, and `theme-library`
+already builds every profile a theme names), and a Zoo style row minted
+into a genome's `styles` for a new theme name -- each with its `report`
+of what the briefs ask for that does not exist; then one worked example
+of each reaching a cold package, and a page in USING_THE_FACTORY.md that
+a new person can follow from "the brief wants a planter" to the planter.
