@@ -14361,3 +14361,18 @@ lamps within 4.0 m of every 5 m slab tile and item 54's budget of 8 per
 mesh is the ceiling this has to fit under. If it does not fit, the honest
 alternative is a range that reaches the wall and a budget paid in shadows
 or in tiles, and that is item 54 reopened, not this item closed quietly.
+
+**THE BUDGET, MEASURED THE SAME HOUR** (`tools/mesh_light_census.py` on the
+walked copy, its 57 lights as spawned by Lux 0.33.0, ranges 3.2..5.6 m,
+median 4.0): three meshes are ALREADY over the engine default of 8 --
+`ceiling_ground_east_ward/Ceiling_Panel_t1_0` at 10, `floor_ward_east_1/
+Floor_Panel_t1_0` at 10, `ceiling_ward_east_1/Ceiling_Panel_t1_0` at 9,
+each a 7.5 x 6.0 m plate tile (Zoo's `PLATE_TILE` 8.0, not Deli Counter's
+5.0 -- item 54's two numbers, deliberately different, meeting here). The
+worst mesh's claimants are four ward fluorescents at margins 0.18-0.75 m,
+one window omni, four more fluorescents and a wall pack; the census says
+every row clears if every range came down 0.52 m. So the second row has NO
+headroom on this shell: the first closing move above cannot ship without
+either the plate split (Zoo's tile to 5.0, item 54's own residue) or the
+range cut it prices, and the item is a budget question before it is a
+lighting one.
