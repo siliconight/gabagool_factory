@@ -827,7 +827,7 @@ work of adopting this.
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
-| 149 | **NARROWED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- FOUND BY COLD RUN 9007, FIXED IN LEVEL FACTORY 0.73.0 THE SAME HOUR, NOT YET |
+| 149 | **NARROWED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- 0.73.0 ANCHORED ONE OF THREE DRAWS AND COLD RUN 9008 CAUGHT IT; 0.73.1 MAKES |
 
 **149 items: 23 open, 77 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -14585,8 +14585,27 @@ no-collision, one-MultiMesh contract the exterior layer already keeps.
 chain, one species placed by one rule, and a walk that finds a room
 reading as inhabited rather than modelled.
 
-*STATUS: NARROWED 2026-09-12 -- FOUND BY COLD RUN 9007, FIXED IN LEVEL
-FACTORY 0.73.0 THE SAME HOUR, NOT YET RUN*
+*STATUS: NARROWED 2026-09-12 -- 0.73.0 ANCHORED ONE OF THREE DRAWS AND COLD
+RUN 9008 CAUGHT IT; 0.73.1 MAKES THE LOT ONE RULE READ OFF THE BRIEF; 9009
+RUNNING. 9008 (same bank brief, seeds 9008/9109/9210): the planner's lot
+had a bank and the compose spec's and the site spec's did not -- their
+greybox lots were marina_a02 / pawn_shop_a02 / strip_club_a02 and the
+like -- and the planner's own guard refused the art layer in one second:
+"zoo_fixtures_build.bank_branch_a02 is planned for archetype
+'bank_branch_a02', which is not in this candidate's lot -- the planner
+and the spec builder disagree about which buildings this mission places".
+The guard was written for exactly this and did its job; the export then
+shipped the greybox lot (export exit 0, 0 interventions, which is item
+17's caveat again: the counter measures the tools, not the deliverable).
+The miss was mine: `lot_for`'s docstring names three callers, a grep of
+`packages` and `adapters` found one, and the other two live under
+`apps/cli/commands`. LF 0.73.1: `building_library.lot_for_brief(model,
+candidate, themed=)` reads library, count and archetype off one brief;
+the planner and `_lot_for_compose` call it, `_write_site_spec`'s
+`pick_lot` takes the same anchor, and `test_lot_for_brief` holds that the
+three are one draw. Cold run 9009 is the third try on the brief. EARLIER
+STATUS, KEPT VERBATIM: NARROWED 2026-09-12 -- FOUND BY COLD RUN 9007,
+FIXED IN LEVEL FACTORY 0.73.0 THE SAME HOUR, NOT YET RUN*
 
 **149. The varied lot ignores the brief's archetype: a bank block had no
 bank in it.** Cold run 9007 (item 17): `archetype: urban_bank`,
