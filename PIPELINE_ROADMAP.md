@@ -695,8 +695,8 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (late) -- COLD RUN 9012 SCORED ZERO ON THE BANK BRIEF AND SHIPPED THE TELLER LI |
-| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-12 (late) -- THE WALKER WAS RIGHT ABOUT THE ROTATED PIECES, THE CENSUS WAS BLIND T |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (night) -- COLD RUNS 9013 AND 9014 SCORED ZERO ON THE BANK BRIEF; 9013 IS THE P |
+| 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-12 (night) -- THE FIX BELOW WAS HALF WRONG AND THE ENGINE CAUGHT IT IN THE NEXT CO |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
@@ -1417,7 +1417,33 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 (late) -- COLD RUN 9012 SCORED ZERO ON THE
+*STATUS: NARROWED 2026-09-12 (night) -- COLD RUNS 9013 AND 9014 SCORED
+ZERO ON THE BANK BRIEF; 9013 IS THE PACKAGE THAT PROVED DC 0.120.0 WRONG
+AND 9014 IS THE ONE WITH THE REMAINDERS ALONG THEIR WALLS BY THE ENGINE'S
+READING AND NO OUTDOOR CLUTTER ON ANY FLOOR. Both the same brief as
+9007-9012. 9013, on DC 0.120.0 / Lot 0.56.0 / LF 0.74.0: 0 interventions,
+0 retries, 0 unattributed changes, all stages succeeded, export exit 0,
+11 minutes (09:45 -> 09:56); lot `bank_tower_a01` / freight_terminal_a01
+/ funeral_home_a03; the placement gate OK 165/165, the dressing 2,995
+pieces with 0 inside any footprint (601 refused as `inside building`);
+and `module_pose_census` OFF THE ENGINE: 6 wall remainders `across` on
+the bank -- the writer's rotation was the transpose of the engine's, so
+0.120.0 had turned the pieces across the other way, while the gate,
+summing extents the same wrong way, agreed with the wrong scene (item
+18). DC 0.120.1 within the hour. 9014, on DC 0.120.1: 0 interventions, 0
+retries, 0 unattributed changes, every tool repo clean at --begin, all
+stages succeeded, export exit 0, 12 minutes (10:05 -> 10:17); lot
+`bank_branch_a02` / strip_retail_a02 / large_warehouse_a01 -- the sibling
+of 9012's shell, with the same `int_0_1_seg1` beside the same doorway;
+placement gate OK 130/130; census off the engine on the bank: 231
+standing, 0 across (strip_retail_a02: 65 standing, 0 across, 1 spun, a
+pre-existing row to look at); dressing 2,708 pieces, 0 inside a footprint,
+489 refused as inside a building; `look_shots` at the walker's spot from
+both rooms: the wall beside the doorway is flush, and the lobby carpet
+carries nothing. The tenth and eleventh zeros; 9013's package is not one
+to walk. Logs and journals: `docs/cold_runs/cold_9013/`, `cold_9014/`;
+walk copy `_runs/walk_export_bank_block_001` is 9014's. Previously: COLD
+RUN 9012 SCORED ZERO ON THE
 BANK BRIEF AND SHIPPED THE TELLER LINE AS A GLASS BARRIER WITH SIX
 STATIONS, THE WALKER'S FEEDBACK ANSWERED IN A PACKAGE THE SAME DAY. Same
 brief as 9007-9010, on DC 0.119.0 / Zoo 0.65.0 / LF 0.73.1: 0
@@ -1605,7 +1631,28 @@ copies, not evidence -- the distinction matters because a finding in genuinely
 GENERATED output would be a finding about the generator and the most actionable
 kind there is.)
 
-*STATUS: NARROWED 2026-09-12 (late) -- THE WALKER WAS RIGHT ABOUT THE
+*STATUS: NARROWED 2026-09-12 (night) -- THE FIX BELOW WAS HALF WRONG AND
+THE ENGINE CAUGHT IT IN THE NEXT COLD RUN; THE HALF THAT STANDS IS THE
+FIT. DC 0.120.0 (the status below) rewrote `godot_basis` on the reading
+that its nine numbers were the placed axes and the old product was "scale
+in world axes after the rotation". They are Godot's ROWS (`basis.rows[i]
+[j]` is what the text format writes), and read as rows the 0.81.0 numbers
+had been `Ry(-t) x Scale_local` all along: the code right, the docstring
+wrong, and the fins had ONE cause -- the fit that tied on the unscaled
+unit cube and answered 0. 0.120.0 transposed the product and cold run
+9013 shipped the remainders across their walls the other way. What caught
+it: `module_pose_census` reads world AABBs OFF THE ENGINE and reported 6
+`across` on bank_tower_a01, while `verify_placement` -- writer and checker
+sharing one convention, and summing extents by columns where the engine
+sums by rows -- said 165 of 165 sat. Two instruments disagreed; the engine
+is the one that is right by definition, and the recomposed 9013 bank read
+195 standing / 0 across under 0.120.1 before 9014 was run. DC 0.120.1:
+the numbers restored and named for what they are, `placed_extent()`
+summing by rows in the fit and the gate, the fit given the scale kept.
+THE LESSON FOR THIS ITEM'S INSTRUMENT SCORE: a checker that shares the
+writer's convention measures the writer, not the level. The census counts
+because it asks the engine. Cold run 9014, the walker's spot, both rooms:
+flush (item 17). Previously: THE WALKER WAS RIGHT ABOUT THE
 ROTATED PIECES, THE CENSUS WAS BLIND TO THEM, AND A GATE HAD BEEN SAYING SO
 IN EVERY COLD PACKAGE SINCE 9001. Two questions on cold run 9012's bank
 frames. (1) "this rotation looks wrong? (opening in the building)" -- a
