@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9013. The same bank brief as 9007-9010. WHAT THIS RUN TESTS: the teller line authored at full height (DC 0.119.0) and built by Zoo 0.65.0 as a counter, a glass barrier and one service window per station -- the walker's references -- on the anchored lot.",
+  "crew_size": 4
+}

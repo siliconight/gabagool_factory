@@ -11,8 +11,19 @@ module's width (spun), and whether its bottom sits on a floor.
         [--slots <shell.slots.json>]
 
 With `--slots`, each wall row is judged against its own slot: expected height
-dims[2], expected horizontal extents {dims[0], dims[1]} (module-local, so the
-rotation does not matter to the set). Prints what it measured and stops.
+dims[2], and the expected WORLD footprint -- dims[0] along X and dims[1]
+along Z when the slot's rot_y is 0/180, swapped when it is 90/270.
+
+REFUTATION KEPT. The first version compared the SORTED horizontal extents
+"(module-local, so the rotation does not matter to the set)", judged 443 of
+443 wall-family modules on cold run 9005 correct, and roadmap item 18 recorded
+the walker's "pieces that looked rotated" as NOT REPRODUCED. The walker was
+right and the instrument was blind: a wall remainder placed with its 1.875 m
+length across a wall that runs along Z has the same sorted extents as one
+placed along it. Measured 2026-09-12 on cold run 9012's bank: 18 such pieces
+in bank_branch_a03, 237 of 777 across every cold package on disk
+(deli_counter 0.120.0 changelog). The judge now reports that pose as
+`across`. Prints what it measured and stops.
 """
 from __future__ import annotations
 
@@ -51,14 +62,26 @@ def judge(rows, slots_by_id, tol=0.12):
         dims = slot["fit"]["dims"]
         exp_h = float(dims[2])
         sx, sy, sz = r["size"]
-        horiz = sorted([round(sx, 2), round(sz, 2)])
-        want = sorted([round(float(dims[0]), 2), round(float(dims[1]), 2)])
+        horiz = [round(sx, 2), round(sz, 2)]
+        # the slot's footprint in WORLD axes: a wall that runs along Y in
+        # DC (rot_y 90/270) has its length along Godot Z. Slots.json is
+        # rounded to four decimals; the AABB is read off the engine.
+        rot = int(round(float((slot.get("transform") or {}).get("rot_y") or 0))) % 180
+        w, d = round(float(dims[0]), 2), round(float(dims[1]), 2)
+        want = [w, d] if rot == 0 else [d, w]
         # a scaled unit (wallEnd) carries its size in the transform; the AABB
         # is the truth either way
-        if abs(sy - exp_h) <= tol:
+        if abs(sy - exp_h) > tol:
+            if abs(sy - float(dims[0])) <= tol or abs(sy - float(dims[1])) <= tol:
+                pose = "spun"      # the module's width or thickness is vertical
+            else:
+                pose = "other"
+        elif horiz[0] <= want[0] + tol and horiz[1] <= want[1] + tol:
+            # inside the slot's world footprint: the module, or one of its
+            # parts (a jamb, a pane) -- a part is narrower than its slot
             pose = "standing"
-        elif abs(sy - float(dims[0])) <= tol or abs(sy - float(dims[1])) <= tol:
-            pose = "spun"      # the module's width or thickness is vertical
+        elif (abs(horiz[0] - want[1]) <= tol and abs(horiz[1] - want[0]) <= tol):
+            pose = "across"    # standing, but its length runs across the wall
         else:
             pose = "other"
         out.append({"slot": r["slot"], "mesh": r["mesh"], "pose": pose,
