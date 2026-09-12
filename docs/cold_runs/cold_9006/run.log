@@ -1,0 +1,143 @@
+== begin 2026-09-11 20:31:11
+  begun: cold_9006
+  2463 source files hashed
+    deli_counter    Deli Counter 0.116.0
+    dispatch        0.4.2
+    lasertag        Laser Tag 0.23.0
+    level_factory   0.72.0
+    lot             Lot 0.55.2
+    lux             Lux 0.33.0
+    patina          Patina 0.21.1
+    pipeline        Pipeline 0.6.0
+    pixelcoat       Pixelcoat 0.28.0
+    zoo             Zoo 0.60.0
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9006\journal.md
+== init
+initialized workspace at C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9006-ws
+  project_id: cold_9006_ws
+  edit tools.local.json to point at your tool repositories, then run: level-factory doctor
+== doctor
+  [PASS          ] python                 3.14.4
+  [PASS          ] git                    found
+  [PASS          ] godot                  4.7.stable.official.5b4e0cb0f
+  [PASS          ] blender                Blender 5.1.1
+  [WARN          ] tool:deli_counter      vDeli Counter 0.116.0 @ 8392fddd — drift vs certified 0.75.0 (grounded); re-certify
+  [WARN          ] tool:lot               vLot 0.55.2 @ d1eaabf1 — drift vs certified 0.18.3 (grounded); re-certify
+  [WARN          ] tool:laser_tag         vLaser Tag 0.23.0 @ 1b753c9f — drift vs certified 0.8.0 (grounded); re-certify
+  [WARN          ] tool:pixelcoat         vPixelcoat 0.28.0 @ 8415ae55 — drift vs certified 0.9.0 (grounded); re-certify
+  [WARN          ] tool:zoo               vZoo 0.60.0 @ d3d6a498 — drift vs certified 0.30.2 (grounded); re-certify
+  [WARN          ] tool:patina            vPatina 0.21.1 @ a64607c7 — drift vs certified 0.18.0 (grounded); re-certify
+  [WARN          ] tool:lux               vLux 0.33.0 @ 2eb71310 — drift vs certified 0.15.4 (grounded); re-certify
+  [PASS          ] tool:dispatch          v0.3.0 @ c71cf10d
+  [PASS          ] themes                 pixelcoat: bank, casino, center_city, delco, delco_1997, industrial_flats, rockay, rockay_civic, rockay_retail, rockay_service, stadium, street | zoo (56 species): default, rockay | zoo partial: 1970s (5/56), 1980s (5/56), 1990s (14/56), acoustic (1/56), aluminum (1/56), blue (1/56), bodega (1/56), carpet (1/56), center_city (54/56), clean (2/56), combat (1/56), construction (1/56), delco (42/56), diner (2/56), dirt (1/56), drywall (1/56), greasy (1/56), hiking (1/56), industrial_flats (54/56), military (1/56), modern (7/56), motorcycle (1/56), office (3/56), police (1/56), racing (1/56), school (1/56), snack (1/56), sports (1/56), tiled (1/56), toasted (1/56), wood (2/56), work (1/56)
+  [PASS          ] workspace_writable     writable
+  [WARN          ] windows_long_paths     verify LongPathsEnabled registry flag for deep asset paths
+
+worst: WARN
+== batch create
+created batch 'cold_9006' with 1 mission(s): county_hospital_001
+== plan  20:31:20
+plan for county_hospital_001 (output=graybox)
+  candidates: county_hospital_001.candidate.seed_9006, county_hospital_001.candidate.seed_9107, county_hospital_001.candidate.seed_9208
+  theme:      delco_1997 — pixelcoat profile found
+              zoo: all 56 species resolve 'delco_1997'
+              zoo: 0 carry the name itself; the rest reach it through Zoo's own fallback
+  county_hospital_001.deli_generate.candidate.seed_9006  [deli_counter/blender]
+  county_hospital_001.deli_generate.candidate.seed_9107  [deli_counter/blender]
+  county_hospital_001.deli_generate.candidate.seed_9208  [deli_counter/blender]
+  county_hospital_001.lot_assemble.candidate.seed_9006  [lot/python_cpu] <- county_hospital_001.deli_generate.candidate.seed_9006
+  county_hospital_001.lot_assemble.candidate.seed_9107  [lot/python_cpu] <- county_hospital_001.deli_generate.candidate.seed_9107
+  county_hospital_001.lot_assemble.candidate.seed_9208  [lot/python_cpu] <- county_hospital_001.deli_generate.candidate.seed_9208
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9006  [laser_tag/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9006
+  county_hospital_001.walktest_navqa.candidate.seed_9006  [walktest/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9006
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9107  [laser_tag/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9107
+  county_hospital_001.walktest_navqa.candidate.seed_9107  [walktest/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9107
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9208  [laser_tag/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9208
+  county_hospital_001.walktest_navqa.candidate.seed_9208  [walktest/godot_headless] <- county_hospital_001.lot_assemble.candidate.seed_9208
+== run graybox  20:31:20
+  county_hospital_001.deli_generate.candidate.seed_9006 succeeded
+  county_hospital_001.lot_assemble.candidate.seed_9006 succeeded
+  county_hospital_001.deli_generate.candidate.seed_9107 succeeded
+  county_hospital_001.lot_assemble.candidate.seed_9107 succeeded
+  county_hospital_001.deli_generate.candidate.seed_9208 succeeded
+  county_hospital_001.lot_assemble.candidate.seed_9208 succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9006 succeeded
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9006 succeeded
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9107 succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9107 succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9208 succeeded
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9208 succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 31)
+== run graybox exit 1  21:09:49
+== approve brief
+approved brief_approved for county_hospital_001
+== approve candidate
+approved candidate_selected for county_hospital_001
+== approve shell
+approved functional_shell_locked for county_hospital_001
+== run art + gameplay  21:09:50
+  county_hospital_001.deli_generate.candidate.seed_9006 cache
+  county_hospital_001.deli_generate.candidate.seed_9107 cache
+  county_hospital_001.deli_generate.candidate.seed_9208 cache
+  county_hospital_001.lot_assemble.candidate.seed_9006 succeeded
+  county_hospital_001.lot_assemble.candidate.seed_9107 succeeded
+  county_hospital_001.lot_assemble.candidate.seed_9208 succeeded
+  county_hospital_001.lot_site_surfaces            succeeded
+  county_hospital_001.zoo_fixtures_build           succeeded
+  county_hospital_001.zoo_clutter_build            succeeded
+  county_hospital_001.pixelcoat_build              succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9006 cache
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9006 cache
+  county_hospital_001.zoo_kit_build                succeeded
+  county_hospital_001.patina_apply                 succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9107 cache
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9107 cache
+  county_hospital_001.patina_dressing              succeeded
+  county_hospital_001.walktest_navqa.candidate.seed_9208 cache
+  county_hospital_001.zoo_dressing_build           succeeded
+  county_hospital_001.lux_fixture_gate             succeeded
+  county_hospital_001.presentation_compose         succeeded
+  county_hospital_001.themed_site_assemble         succeeded
+  county_hospital_001.patina_surface_dressing      succeeded
+  county_hospital_001.lux_apply                    succeeded
+  county_hospital_001.dispatch_handoff             succeeded
+  county_hospital_001.laser_tag_evaluate.candidate.seed_9208 succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 43)
+== run art exit 1  21:28:56
+== export  21:28:56
+[export] surface dressing: county_hospital_001_dressing.tscn -- 1085 instances of 4 meshes, 4 draw calls
+[export] 59 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+exported county_hospital_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9006-ws\.level_factory\exports\LF_county_hospital_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9006-ws\.level_factory county_hospital_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
+== export exit 0  21:29:17
+== end  2026-09-11 21:29:17
+
+  cold run: cold_9006
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_county_hospital_001_9006.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_county_hospital_001_9107.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_county_hospital_001_9208.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+driver exit 0
