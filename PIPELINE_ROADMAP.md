@@ -821,12 +821,12 @@ work of adopting this.
 | 140 | **NARROWED** | The drywall skin is white noise | 2026-09-11 -- THE DIAL FOUND BY SWEEPING, FIXED IN PIXELCOAT 0.28.0, MEASURED BACK INTO TH |
 | 141 | **OPEN** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- FOUND BY A PERSON, INSTRUMENT NAMED, NOT YET RUN |
 | 142 | **OPEN** | A prop ships black | 2026-09-11 -- FOUND BY A PERSON, HALF MEASURED |
-| 143 | **OPEN** | Ceiling lamps sit inside partitions on this shell | 2026-09-11 -- FOUND BY A PERSON, MEASURED, AND THE INSTRUMENT ALREADY EXISTED |
+| 143 | **NARROWED** | Ceiling lamps sit inside partitions on this shell | 2026-09-11 -- FIXED IN DELI COUNTER 0.116.0 AND MEASURED BACK WITH THE SAME PROBE: 9 LAMP  |
 | 144 | **OPEN** | The stairs ship in the greybox's fallback yellow | 2026-09-11 -- FOUND BY A PERSON; THE GAP PROTOCOL'S CASE |
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 
-**146 items: 27 open, 77 closed, 3 retracted, 34 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**146 items: 26 open, 77 closed, 3 retracted, 35 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -14107,8 +14107,32 @@ recipe's second primitive (the collision or the top?) given UVs or no skin
 at all, and `texel_density.gd` extended to report a mesh with a textured
 material and no UV set, which is the shape that is black.
 
-*STATUS: OPEN 2026-09-11 -- FOUND BY A PERSON, MEASURED, AND THE INSTRUMENT
-ALREADY EXISTED*
+*STATUS: NARROWED 2026-09-11 -- FIXED IN DELI COUNTER 0.116.0 AND MEASURED
+BACK WITH THE SAME PROBE: 9 LAMP POINTS INSIDE A WALL -> 0; NOT YET
+RE-WALKED, AND THE PROBE IS STILL NOT A GATE. `lights.partition_rects` hands
+the rows the spec's partitions (the builder's trimmed pieces, at the wall
+thickness the emitters build to) the way it hands them ceiling voids;
+`_row_runs` nudges a lamp whose centre falls within `wall_clearance` of a
+band to the band's edge along the row -- as its own run, since a run's
+points are equally spaced by contract -- and drops one with no landing
+inside half a spacing; `_colinear_shift` moves a row lying ALONG a
+partition (the roof's five bulbs in the y = 0 spine, every one of them) to
+the centre of the larger side. The clearance is derived: half the wall +
+half Zoo's troffer (`depth` 0.3 in `fluorescent_fixture`'s genome) + the
+row's own 0.1 m ceiling gap = 0.40 m from the centreline, 0.25 from the
+face. Rebuilt `lf_county_hospital_001_9005` and probed: 35 lamp points, 0
+inside a wall (was 9), 6 at exactly 0.250 m from a face -- the two lobby
+and two ward lamps nudged to x = +-8.4 / 7.6, and two roof bulbs that,
+once the row moved to y = 7.5, met the ward partitions at x = +-8 and were
+nudged in turn; 6 nudged, 0 dropped, 1 row moved, printed by
+`write_light_manifest` beside the void count. RESIDUE: the roof's south
+half has no bulbs now (one row, one side, on purpose -- whether that
+space wanted its own row is a room-splitting question for the spec); the
+probe's 0.30 m band still lists the six, which is the band being a
+reporting threshold and not a defect threshold; and item 85's ask -- the
+probe run as a gate over the deli job's outputs -- is still open. EARLIER
+STATUS, KEPT VERBATIM: OPEN 2026-09-11 -- FOUND BY A PERSON, MEASURED, AND
+THE INSTRUMENT ALREADY EXISTED*
 
 **143. Ceiling lamps sit inside partitions on this shell.** Walked 2026-09-11
 as "light inside the wall": a warm pool on the ceiling and floor at the top
