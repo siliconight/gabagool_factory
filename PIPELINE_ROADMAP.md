@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (night) -- COLD RUN 9011 SCORED ZERO ON A GAS STATION BRIEF NEVER RUN, THE ANCH |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (late) -- COLD RUN 9012 SCORED ZERO ON THE BANK BRIEF AND SHIPPED THE TELLER LI |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-11 (evening) -- THE RE-WALK COPY IS BUILT FROM A COLD EXPORT, THE FIXES ARE MEASUR |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (late) -- THE TELLER LINE IS A GLASS BARRIER WITH A WINDOW PER STATION, FROM TH |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (late) -- THE TELLER LINE IS IN A COLD PACKAGE: cold run 9012's bank branch car |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -1416,7 +1416,22 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 (night) -- COLD RUN 9011 SCORED ZERO ON A GAS
+*STATUS: NARROWED 2026-09-12 (late) -- COLD RUN 9012 SCORED ZERO ON THE
+BANK BRIEF AND SHIPPED THE TELLER LINE AS A GLASS BARRIER WITH SIX
+STATIONS, THE WALKER'S FEEDBACK ANSWERED IN A PACKAGE THE SAME DAY. Same
+brief as 9007-9010, on DC 0.119.0 / Zoo 0.65.0 / LF 0.73.1: 0
+interventions, 0 retries, 0 unattributed changes, every tool repo clean
+at --begin, all stages succeeded, export exit 0, 19 minutes (08:50 ->
+09:09). Lot `bank_branch_a03` / cr_garage / museum_a02. The bank's kit
+index: `prop_teller_line_..._w1200_d80_h240` PASS beside its filing
+cabinet, desk and rooftop unit; zero fallbacks, zero alternates.
+`look_shots --station` from the customer side of the walk copy: a
+wooden counter, a header, six glass stations with posts between and a
+service opening at the counter in each, on the lobby's carpet under a
+tile grid -- the four reference photographs' shape. The ninth zero. Log
+and journal: `docs/cold_runs/cold_9012/`; walk copy
+`_runs/walk_export_bank_block_001` (overwrites 9010's). Previously: COLD
+RUN 9011 SCORED ZERO ON A GAS
 STATION BRIEF NEVER RUN, THE ANCHOR HELD, AND THE PUMP DID NOT SHIP BECAUSE
 THE VARIANT THE ANCHOR DREW HAS NO PUMPS. `gas_stop_001`, archetype
 `gas_station`, three buildings, delco_1997, crew 4, on DC 0.118.0 / Zoo
@@ -4029,7 +4044,16 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: NARROWED 2026-09-12 (late) -- THE TELLER LINE IS A GLASS BARRIER
+*STATUS: NARROWED 2026-09-12 (late) -- THE TELLER LINE IS IN A COLD
+PACKAGE: cold run 9012's bank branch carries it as
+`prop_teller_line_..._w1200_d80_h240`, PASS, and the frame from the
+customer side shows six stations of glass over a wooden counter with a
+service opening in each -- the references' shape, zero interventions
+(item 17). What remains of this item is the eye on the re-walk (do six
+2 m stations read as a bank, does the tray opening read as one), the 52
+region-shaped placements that stay boxes, and the drawing itself: every
+species here is boxes at the right proportions, and the recipes are where
+a person makes them furniture. Previously: THE TELLER LINE IS A GLASS BARRIER
 WITH A WINDOW PER STATION, FROM THE WALKER'S REFERENCES; COLD RUN 9012 IS
 THE PACKAGE. The walker, on 9010's teller counter frame: "teller windows
 are usually facing a glass where people would be behind it", with four
