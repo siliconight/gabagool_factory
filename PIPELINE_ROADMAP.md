@@ -819,14 +819,14 @@ work of adopting this.
 | 138 | **NARROWED** | The windows read as black rectangles from outside | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.2 (the quad is double-sid |
 | 139 | **NARROWED** | The sign is a white box with a white square standing off it | 2026-09-11 -- THE SQUARE IS FIXED (LUX 0.33.0) AND ITS CAUSE WAS NOT THE ONE THIS ITEM NAM |
 | 140 | **NARROWED** | The drywall skin is white noise | 2026-09-11 -- THE DIAL FOUND BY SWEEPING, FIXED IN PIXELCOAT 0.28.0, MEASURED BACK INTO TH |
-| 141 | **OPEN** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- FOUND BY A PERSON, INSTRUMENT NAMED, NOT YET RUN |
+| 141 | **NARROWED** | The facade's texel scale jumps at the remainders and the openings | 2026-09-11 -- INSTRUMENT RUN, CAUSE FOUND IN THE WIRING, FIXED IN LEVEL FACTORY 0.71.0, ME |
 | 142 | **OPEN** | A prop ships black | 2026-09-11 -- FOUND BY A PERSON, HALF MEASURED |
 | 143 | **NARROWED** | Ceiling lamps sit inside partitions on this shell | 2026-09-11 -- FIXED IN DELI COUNTER 0.116.0 AND MEASURED BACK WITH THE SAME PROBE: 9 LAMP  |
 | 144 | **OPEN** | The stairs ship in the greybox's fallback yellow | 2026-09-11 -- FOUND BY A PERSON; THE GAP PROTOCOL'S CASE |
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 
-**146 items: 25 open, 77 closed, 3 retracted, 36 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**146 items: 24 open, 77 closed, 3 retracted, 37 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -14112,7 +14112,29 @@ mottle -- a target of ac1 >= 0.5 at std 10-14, the plaster/tile band -- and
 the two numbers above kept as the check that a texture reads as surface
 rather than as noise; carpet is next on the same list.
 
-*STATUS: OPEN 2026-09-11 -- FOUND BY A PERSON, INSTRUMENT NAMED, NOT YET RUN*
+*STATUS: NARROWED 2026-09-11 -- INSTRUMENT RUN, CAUSE FOUND IN THE WIRING,
+FIXED IN LEVEL FACTORY 0.71.0, MEASURED BACK TO 1.0x ON THE WALKED COPY;
+NOT YET RE-EXPORTED OR RE-WALKED. `tools/texel_density.gd` over the walked
+copy: 537 kit surfaces over 4 skins, concrete 0.152..10.0 texels/m (66.0x
+mismatch, 278 surfaces), drywall 0.152..5.0 (33.0x), glass_facade 11.0x --
+box projection, roadmap 88's defect, shipped. Of the two halves this item
+named, it is the binding: the package carries the script at
+`lot/shell/zoo_worldskin.gd` (compose installs it at the composed package's
+root; export nests that as `lot/shell/`), `export._importer_defaults_block`
+tested for it at the export ROOT, wrote no `[importer_defaults]`, and the
+sidecar pass baked `import_script/path=""` into all 48 kit sidecars. The
+same shape export.py's own docstring records for `LF_precinct_yard_001`
+("the package carried the script and ran it on nothing"), fixed once at
+the declaration and never at the path. LF 0.71.0 declares the script at
+the path it is found; `test_worldskin_declared` holds the `lot/shell/`
+shape. Measured on the walked copy with the declaration added by hand and
+the kit sidecars regenerated: 46 of 48 bound, all four skins
+world-triplanar, worst mismatch 1.0x. RESIDUE: no package has been
+exported by 0.71.0 yet; the walked copy `_runs/walk_county_hospital_001`
+now carries the declaration (its old `project.godot` kept as
+`project.godot.pre141`) and the Lux 0.33.0 runtime, so it is the copy to
+re-walk. EARLIER STATUS, KEPT VERBATIM: OPEN 2026-09-11 -- FOUND BY A
+PERSON, INSTRUMENT NAMED, NOT YET RUN*
 
 **141. The facade's texel scale jumps at the remainders and the openings.**
 Walked 2026-09-11: on the north elevation the voronoi cells are visibly larger
