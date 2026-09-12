@@ -178,7 +178,12 @@ the drawing, which is what a person is for.
    pass-through at counter height, posts between windows -- and none of
    that is in a box. The recipe's docstring should be able to cite what it
    is a drawing of. (Roadmap 44's teller counters shipped as plain counters
-   for a day because nobody had looked.)
+   for a day because nobody had looked.) For the rules that hold across
+   species -- big to small, one main material and one handled one, an
+   insert takes its colour from the surface it sits on, place things
+   slightly off kilter by a seeded rule -- read
+   `docs/SET_DRESSING_REFERENCES.md`, the walker's references digested per
+   layer and owner, before opening a recipe.
 
 1. **Is it asked for?** `python zoo/tools/new_species.py report` lists the
    placement names Deli Counter's specs carry with no species behind them,
