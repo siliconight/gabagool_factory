@@ -163,6 +163,73 @@ version of the same move: a design needs a look no skin provides →
 Pixelcoat mints the skin pack and the kit resolves against it — the design
 is not watered down, and no texture is hand-painted into output.
 
+### Minting, step by step: from "the brief wants a planter" to the planter
+
+The protocol above says the owner grows the capability. As of 2026-09-12
+each owner has a tool that does the growing to a first, honest state, and
+the three share one shape: **report** the queue, **mint** from a template,
+**prove** it validates, **register** it, and **say** what the next repo
+needs. A new person walks this in an afternoon; what remains afterwards is
+the drawing, which is what a person is for.
+
+0. **Look at the real thing first.** Before any of the steps below, search
+   the species name and look at ten photographs. A teller line is a
+   counter, a glass barrier over it, one service window per station with a
+   pass-through at counter height, posts between windows -- and none of
+   that is in a box. The recipe's docstring should be able to cite what it
+   is a drawing of. (Roadmap 44's teller counters shipped as plain counters
+   for a day because nobody had looked.)
+
+1. **Is it asked for?** `python zoo/tools/new_species.py report` lists the
+   placement names Deli Counter's specs carry with no species behind them,
+   most common first, split into: mint this (no species exists), route this
+   (a species exists, the name is not keyed to it), widen this (hinted,
+   exists, did not fit -- a range or a bay, not a mint).
+
+2. **Mint the prop.** `python zoo/tools/new_species.py new planter
+   --width 1.4 --depth 0.7 --height 0.9 --material concrete --keywords
+   planter,planter_box`. Writes the genome (dims as defaults, a 0.5x..2.0x
+   range), a placeholder recipe (a solid box at the slot's exact size, one
+   named part, collision, an attachment, a docstring saying where the
+   drawing goes), a test, and a line in `genome/minted.json`. Prints the
+   one line `deli_counter/prop_species.py` needs, and whether the theme
+   has a Pixelcoat pack for the material.
+
+3. **Route the name.** Add the printed keyword line to `PROP_SPECIES` in
+   `deli_counter/prop_species.py`, before any broader keyword, and
+   rebuild the library (`python build.py --all --blender ...`); the
+   volume's slot now carries `species: planter` and Zoo builds it as one
+   wherever the dims fit its range.
+
+4. **Mint the texture, if the material is new to the theme.**
+   `python pixelcoat/tools/new_material.py report --theme delco_1997`
+   names the kinds the theme cannot dress; `new terracotta_delco --kind
+   plaster --like plaster_delco --colors "#b5613f,#c26e4a,#a3532f" --theme
+   delco_1997` writes the grammar from a template, synthesizes it and
+   prints the two numbers a skin is judged by (albedo spread and neighbour
+   correlation -- under 0.3 it is static, roadmap 140), and maps the kind
+   into the theme so `theme-library` builds it. A kind Zoo does not know
+   needs its three tables first; the tool names them.
+
+5. **Mint the style, if the theme is new.** `python
+   zoo/tools/new_species.py style delco_2005` reports which species would
+   wear the uncoloured default under that name; `--write` copies each one's
+   nearest ancestor row under the new name, with `--material / --wear /
+   --ambient / --color` overrides.
+
+6. **Run it cold.** A brief through `cold_run.py --begin`, the pipeline,
+   `--end`: the species appears in the kit index as itself
+   (`species_fallbacks` and `species_alternates` say what did not), the
+   package carries it, and `tools/walk_export.py` gives you the copy to
+   walk. Then draw the recipe -- `desk.py`, `counter.py` and
+   `shelving.py` are the pattern -- and the next cold run ships the
+   drawing.
+
+What each mint leaves honest: a minted prop is a box wearing its name; a
+minted material is the template's surface in new colours; a minted style
+is an ancestor's look under a new name. Each is counted as itself in every
+report from then on, which is what turns a silence into a request.
+
 ## Tools say no out loud
 
 The gap protocol only fires if gaps are VISIBLE. So the convention:
