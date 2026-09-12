@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (later) -- COLD RUN 9010 SCORED ZERO ON THE BANK BRIEF WITH THE RUNS IN THE PAC |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-12 (night) -- COLD RUN 9011 SCORED ZERO ON A GAS STATION BRIEF NEVER RUN, THE ANCH |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-11 (evening) -- THE RE-WALK COPY IS BUILT FROM A COLD EXPORT, THE FIXES ARE MEASUR |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -722,7 +722,7 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (night) -- THE 179 WORKED DOWN TO 52, AND THOSE ARE REGIONS, NOT FURNITURE: 728 |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-09-12 (late) -- THE TELLER LINE IS A GLASS BARRIER WITH A WINDOW PER STATION, FROM TH |
 | 45 | **OPEN** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-08-14 -- specified by `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
@@ -828,7 +828,7 @@ work of adopting this.
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
 | 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
-| 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (night) -- ALL THREE HALVES SHIPPED: PROPS (ZOO 0.63.0), TEXTURES (PIXELCOAT 0. |
+| 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 
 **150 items: 23 open, 78 closed, 3 retracted, 41 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1416,7 +1416,22 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-12 (later) -- COLD RUN 9010 SCORED ZERO ON THE
+*STATUS: NARROWED 2026-09-12 (night) -- COLD RUN 9011 SCORED ZERO ON A GAS
+STATION BRIEF NEVER RUN, THE ANCHOR HELD, AND THE PUMP DID NOT SHIP BECAUSE
+THE VARIANT THE ANCHOR DREW HAS NO PUMPS. `gas_stop_001`, archetype
+`gas_station`, three buildings, delco_1997, crew 4, on DC 0.118.0 / Zoo
+0.64.0 / LF 0.73.1: 0 interventions, 0 retries, 0 unattributed changes,
+every tool repo clean at --begin, all stages succeeded, export exit 0, 12
+minutes (08:28 -> 08:40). Lot `gas_station_a03` / auto_shop_a01 /
+clinic_a02 -- the anchor family led. Kit indexes: the station's register
+counter, two 7 m aisles, a 6 m cooler backstock and a stock shelf built as
+counter and shelving runs, the shop's desk / counter / shelving as before;
+zero fallbacks, zero alternates. The minted `pump` (item 150) is in seven
+shells -- gas_station_a01, gas_station_a02, gas_street, gs_corner_station,
+cr_gas, fuel_stop_heist, gas_station -- and not in `gas_station_a03`,
+which the seed drew; the family anchor picks a variant, not a volume. The
+eighth zero. Log and journal: `docs/cold_runs/cold_9011/`. Previously:
+COLD RUN 9010 SCORED ZERO ON THE
 BANK BRIEF WITH THE RUNS IN THE PACKAGE: A 10 M TELLER COUNTER BUILT AS A
 COUNTER RUN, A TURNED PARTS RACK, A WORKBENCH THAT IS A COUNTER, NO
 FALLBACKS. Same brief, on DC 0.118.0 / Zoo 0.63.0 / LF 0.73.1: 0
@@ -4014,7 +4029,34 @@ fingerprint key -- which turns former cache hits into real runs -- is
 answered by reverting 0.32.0 and running the two directories again. Do that
 before assuming either.
 
-*STATUS: NARROWED 2026-09-12 (night) -- THE 179 WORKED DOWN TO 52, AND
+*STATUS: NARROWED 2026-09-12 (late) -- THE TELLER LINE IS A GLASS BARRIER
+WITH A WINDOW PER STATION, FROM THE WALKER'S REFERENCES; COLD RUN 9012 IS
+THE PACKAGE. The walker, on 9010's teller counter frame: "teller windows
+are usually facing a glass where people would be behind it", with four
+photographs, and "simple google searches of the zoo species can inform the
+design before we hit blender". What the references say: a continuous
+counter at waist height, a glass barrier over it to a header, one service
+window per station with a pass-through at the counter, posts between
+stations. Zoo's `teller_line` had the counter, posts, header, bulletproof
+glass and slot since it was written and NEVER FIRED, because every
+`teller_counter` volume was authored as the counter alone (1.0-1.2 m
+tall) and the barrier starts at 2.0 -- so 0.118.0 routed the name to
+`counter` and the bank shipped a wooden run. The volume was the
+placeholder for the counter; the line is what the name meant. DC
+0.119.0: the bank preset authors the line at 12 x 0.8 x 2.4 (a barrier
+on purpose: the lobby is 30 m wide, the line 12, the crew walks around
+either end) and the 37 committed specs with a waist-high teller are
+migrated the same way; `teller` routes to `teller_line` again. Zoo
+0.65.0: the recipe builds in bays of 2.0 m -- counter and header the full
+run, a post at every station boundary, each station's glass with its own
+service opening and a tray attachment -- its docstring saying what it is
+a drawing of; a teller still at counter height falls to `counter` by the
+alternate rule. Built through Blender: a 12 x 0.8 x 2.4 line, seven
+posts, six windows, PASS; the bank tower's 3.2 x 1.2 x 2.4 (depth opened
+to 1.2). The process note is now the tool's: `new_species.py new
+--reference` writes what the real thing looks like into the genome, and
+the minting page in USING_THE_FACTORY.md opens with "look at the real
+thing first". Previously: THE 179 WORKED DOWN TO 52, AND
 THOSE ARE REGIONS, NOT FURNITURE: 728 OF 780 HINTED PLACEMENTS PLAN AS
 THEIR SPECIES. Zoo 0.64.0, from the 179's own shapes: tables and seating
 run in bays (a 4 x 2 count table, a 5 x 2 x 0.6 waiting bench as a row of
@@ -14738,7 +14780,19 @@ that is said rather than guessed. **WHAT WOULD CLOSE THIS:** cold run 9008
 placing a bank first on the same brief; then the question item 105 already
 holds about where the anchor stands on the site.
 
-*STATUS: NARROWED 2026-09-12 (night) -- ALL THREE HALVES SHIPPED: PROPS
+*STATUS: NARROWED 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE
+REFERENCE STEP IS IN THE TOOL; THE WORKED EXAMPLES IN A COLD PACKAGE
+REMAIN. `USING_THE_FACTORY.md`, "Minting, step by step: from 'the brief
+wants a planter' to the planter": step 0 is look at the real thing (the
+walker: "simple google searches of the zoo species can inform the design
+before we hit blender" -- the teller line shipped as a plain counter for a
+day because nobody had), then report / mint the prop / route the name /
+mint the texture / mint the style / run it cold, each with the command.
+`new_species.py new --reference "..."` carries the looking into the
+genome. The minted pump is in seven shells and reached no package yet:
+9011's anchor drew `gas_station_a03`, which authors no pumps -- item 149's
+anchor picks a family's variant, not the volume a brief wants, and that
+is the next thing to say on 149. Previously: ALL THREE HALVES SHIPPED: PROPS
 (ZOO 0.63.0), TEXTURES (PIXELCOAT 0.29.0), STYLES (ZOO 0.64.0); ONE WORKED
 EXAMPLE OF EACH IN A COLD PACKAGE IS WHAT REMAINS. `zoo/tools/new_species.py
 style <theme>` reports which species resolve a theme to the uncoloured

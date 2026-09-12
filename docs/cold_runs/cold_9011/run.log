@@ -56,3 +56,122 @@ plan for gas_stop_001 (output=graybox)
   gas_stop_001.laser_tag_evaluate.candidate.seed_9213  [laser_tag/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9213
   gas_stop_001.walktest_navqa.candidate.seed_9213  [walktest/godot_headless] <- gas_stop_001.lot_assemble.candidate.seed_9213
 == run graybox  08:28:39
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+  gas_stop_001.deli_generate.candidate.seed_9011   succeeded
+  gas_stop_001.lot_assemble.candidate.seed_9011    succeeded
+  gas_stop_001.deli_generate.candidate.seed_9112   succeeded
+  gas_stop_001.lot_assemble.candidate.seed_9112    succeeded
+  gas_stop_001.deli_generate.candidate.seed_9213   succeeded
+  gas_stop_001.lot_assemble.candidate.seed_9213    succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9011  succeeded
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9112 succeeded
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9011 succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9112  succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9213  succeeded
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9213 succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 38)
+== run graybox exit 1  08:38:46
+== approve brief
+approved brief_approved for gas_stop_001
+== approve candidate
+approved candidate_selected for gas_stop_001
+== approve shell
+approved functional_shell_locked for gas_stop_001
+== run art + gameplay  08:38:47
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[compose] 4 archetype(s) not themeable (incomplete manifest): bank, kitbash_demo, rarity_demo, survival_demo
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 4 archetype(s) excluded from the lot for a missing manifest: bank, kitbash_demo, rarity_demo, survival_demo
+[site] 2 entr(y/ies) in C:/Projects/gabagool_studios/gabagool_factory/deli_counter/build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] themed lot: 100 of 125 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+  gas_stop_001.deli_generate.candidate.seed_9011   cache
+  gas_stop_001.lot_assemble.candidate.seed_9011    cache
+  gas_stop_001.deli_generate.candidate.seed_9112   cache
+  gas_stop_001.lot_site_surfaces                   succeeded
+  gas_stop_001.deli_generate.candidate.seed_9213   cache
+  gas_stop_001.patina_apply.gas_station_a03        succeeded
+  gas_stop_001.lot_assemble.candidate.seed_9112    cache
+  gas_stop_001.lot_assemble.candidate.seed_9213    cache
+  gas_stop_001.zoo_fixtures_build.auto_shop_a01    succeeded
+  gas_stop_001.patina_apply.auto_shop_a01          succeeded
+  gas_stop_001.patina_apply.clinic_a02             succeeded
+  gas_stop_001.pixelcoat_build                     succeeded
+  gas_stop_001.zoo_fixtures_build.clinic_a02       succeeded
+  gas_stop_001.patina_dressing.gas_station_a03     succeeded
+  gas_stop_001.zoo_fixtures_build.gas_station_a03  succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9011  cache
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9011 cache
+  gas_stop_001.patina_dressing.auto_shop_a01       succeeded
+  gas_stop_001.patina_dressing.clinic_a02          succeeded
+  gas_stop_001.zoo_clutter_build                   succeeded
+  gas_stop_001.zoo_kit_build.auto_shop_a01         succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9112  cache
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9112 cache
+  gas_stop_001.zoo_kit_build.clinic_a02            succeeded
+  gas_stop_001.zoo_kit_build.gas_station_a03       succeeded
+  gas_stop_001.walktest_navqa.candidate.seed_9213  cache
+  gas_stop_001.laser_tag_evaluate.candidate.seed_9213 cache
+  gas_stop_001.zoo_dressing_build.auto_shop_a01    succeeded
+  gas_stop_001.zoo_dressing_build.clinic_a02       succeeded
+  gas_stop_001.zoo_dressing_build.gas_station_a03  succeeded
+  gas_stop_001.lux_fixture_gate.auto_shop_a01      succeeded
+  gas_stop_001.lux_fixture_gate.clinic_a02         succeeded
+  gas_stop_001.lux_fixture_gate.gas_station_a03    succeeded
+  gas_stop_001.presentation_compose                succeeded
+  gas_stop_001.themed_site_assemble                succeeded
+  gas_stop_001.patina_surface_dressing             succeeded
+  gas_stop_001.lux_apply                           succeeded
+  gas_stop_001.dispatch_handoff                    succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 53)
+== run art exit 1  08:39:50
+== export  08:39:50
+[export] surface dressing: gas_stop_001_dressing.tscn -- 2240 instances of 4 meshes, 4 draw calls
+[export] 61 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+exported gas_stop_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9011-ws\.level_factory\exports\LF_gas_stop_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9011-ws\.level_factory gas_stop_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
+== export exit 0  08:40:19
+== end  2026-09-12 08:40:19
+
+  cold run: cold_9011
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_gas_stop_001_9011.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_gas_stop_001_9112.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_gas_stop_001_9213.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+driver exit 0
