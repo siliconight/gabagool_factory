@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (small hours) -- FOUR RUNS FOR THE SPECIES COVER: 9018 REFUSED AT EXPORT ON A S |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 -- COLD RUN 9022 SCORED ZERO WITH A STREET IN THE PACKAGE. The bank brief on Lo |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,9 +831,9 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-12 (late night) -- STEP 1 OF THE BUILD ORDER IS IN A COLD PACKAGE (9017): THE GROU |
-| 153 | **OPEN** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 -- FILED FROM THE WALKER'S QUESTION AFTER THE SPECIES COVER LANDED; THE VOCABUL |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 -- STEP ZERO IS IN A COLD PACKAGE: THE GENERATED SITE HAS A ROAD WITH SIDEWALKS |
 
-**153 items: 22 open, 79 closed, 3 retracted, 44 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1419,7 +1419,17 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (small hours) -- FOUR RUNS FOR THE SPECIES
+*STATUS: NARROWED 2026-09-13 -- COLD RUN 9022 SCORED ZERO WITH A STREET
+IN THE PACKAGE. The bank brief on Lot 0.60.0 / LF 0.78.0 / Zoo 0.66.2: 0
+interventions, 0 retries, 0 unattributed changes, every tool repo clean
+at --begin, all stages succeeded, 0 blockers, export exit 0, 20 minutes
+(15:18 -> 15:38); the plate deepened from 69 to 99 m for the road band;
+`road_0` with two sidewalks and three kerb cuts, one per building's spur;
+the species cover and the ground skins as before; the walktest's stuck
+counts (player 1, enemy 2) no worse than 9014's (3, 3) with the kerbs in
+place. The fourteenth zero. Log and journal: `docs/cold_runs/cold_9022/`;
+walk copy `_runs/walk_export_bank_block_001` is 9022's. Previously: FOUR
+RUNS FOR THE SPECIES
 COVER: 9018 REFUSED AT EXPORT ON A SEALED SPAWN, 9019 A ZERO THAT LOST ITS
 MODULES ONE STAGE ON, 9020 A ZERO WITH THE CLUTTER BUILD RED, 9021 THE
 ZERO WITH A TRUCK AND A CONTAINER ON THE LOT. All the bank brief. 9018,
@@ -15241,7 +15251,24 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: OPEN 2026-09-13 -- FILED FROM THE WALKER'S QUESTION AFTER THE SPECIES
+*STATUS: NARROWED 2026-09-13 -- STEP ZERO IS IN A COLD PACKAGE: THE
+GENERATED SITE HAS A ROAD WITH SIDEWALKS, AND THE KERB IS CUT WHERE THE
+CREW CROSSES AND A WALL EVERYWHERE ELSE. Level Factory 0.78.0's
+`_street_for` puts one 10 m road with 3 m sidewalks along the plate's
+south edge, the full plate width, in the band below the southernmost
+footprint face -- deepening the plate (9022: 69 -> 99 m) rather than
+squeezing the road -- and a 4 m spur from a metre clear of each
+building's south face to the road's centre line. Lot's existing
+`_kerb_crossings` did the rest: cold run 9022's package carries `road_0`,
+two sidewalk bands and three kerb cuts, one per spur, on the sidewalk the
+buildings face; Lot 0.60.0 skins the strip and the cuts with the `road`
+pack and the bands with `sidewalk`. Zero interventions, no blocker, the
+walktest and Laser Tag routed across it (item 17). The frames from the
+sidewalk and at a crossing: the kerb is a kerb, the cut is a cut, and the
+road reads by its kerbs alone -- the road and the lot wear one asphalt
+grammar, so the markings are what will make it a street, which is the
+next step of this item as filed. Previously: OPEN 2026-09-13 -- FILED
+FROM THE WALKER'S QUESTION AFTER THE SPECIES
 COVER LANDED; THE VOCABULARY AND ITS OWNERS ARE IN THE ITEM, NOTHING BUILT*
 
 **153. A street reads as ordered when its furniture says where cars and
