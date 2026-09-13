@@ -198,6 +198,35 @@ this pipeline's habit: a package carries its slots, its provenance and its
 gate verdicts beside the scene, not in a document. The one gap is the
 verdict nobody reads — see item 18's third shape.
 
+## The walker on trees (2026-09-13, cold runs 9031-9033)
+
+Two rulings from looking at frames, both of which generalise past trees.
+
+**A consistent low-poly style beats a half-finished realistic technique.**
+The faceted crown of Zoo 0.68 "looked nice in its own retro way"; the
+alpha-cutout cards of 0.69.2, measured on cold run 9032, were "not fully
+baked" -- hairlines from the cards' side faces, and a canopy in a different
+art style from the cars and the shelter beside it. So the cards stay behind
+a genome param and the faceted crown ships. Owner: Zoo; the rule for every
+species: an experimental technique ships only when a frame says it reads as
+finished, and the style of the street is the style of the piece.
+
+**Detail is structure first, and the species decides the structure.**
+"Trees usually have multiple branches that stem from the trunk and those
+branches have twigs and depending on what species of tree determines how
+that looks." Zoo 0.70.0 grows the tree that way -- trunk, leader, primary
+branches at the species' angles from vertical, twigs off the outer half,
+a faceted leaf cluster at every tip -- from `core.tree_forms`, a table of
+the street trees a Delaware County street plants: red maple (branches
+ascending 30-48 degrees, an oval crown), pin oak (a leader to the top,
+lower limbs drooping past level, upper rising: a pyramid), honey locust
+(open, few limbs, fine twigs, a flat thin crown), London plane (massive
+limbs forking low, a broad crown), callery pear (every branch rising tight
+from one point, a narrow oval). Numbers are what a photograph shows; the
+slot sizes the tree. Owner: Zoo, and the same order for every species that
+gets the detailed path -- the parts of the real thing in the house style
+before any texture trick.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
