@@ -308,6 +308,45 @@ a long thin thing along a road.
 Small, and all in the band between the kerb and the glazing that this
 pipeline now populates with lamps and trees.
 
+## The walker's fire escape photo (2026-09-13)
+
+"This is something i'd like to see in our toolset, fireescape stairs brick,
+uneven architecture." The photo (not kept on disk; described here) is a
+walk-up block in red brick, windows with stone lintels, sills and cornices. A
+steel fire escape is bolted to a RECESSED facade in a narrow light well
+between two street-facing masses: one landing per floor with a slatted steel
+deck and railings on three sides, a switchback flight between landings, and
+a drop ladder below the lowest. The neighbouring masses are different heights:
+a taller brick party wall and chimney stand above a shorter roof.
+
+**What the pipeline has, measured the same day** (full survey in roadmap 156):
+
+- **Deli Counter owns fire escapes, and they are rules more than geometry.**
+  `FireEscape` and fifteen placement tests exist; `_fire_escapes` builds a
+  0.12 m deck box, ONE rail on the outer edge with no collision, and a
+  0.6 x 0.6 m visual-only column for a stair. Nothing is recorded as a slot,
+  so no art ever reaches it. 2 of 132 library specs author one, both serving a
+  single floor; 0 of 177 generated specs. No preset proposes one:
+  `ladder_place.fire_escape_proposal` exists and nothing calls it.
+- **Zoo has pieces, not a fire escape.** `ladder` and `stair_rail` exist; no
+  landing, grating, open-tread steel flight or drop-ladder species, and no slot
+  role routes to any of them.
+- **Brick works end to end** (`brick_delco`, mapped in `delco_1997`). Stone
+  lintels, sills and cornices do not: DC's lintel and sill are flush infill in
+  the wall's own material, and Zoo's cornice is cut into the wall by design.
+- **Uneven massing is rectangular setbacks only** (2 specs). No recessed bays or
+  light wells, one parapet height per building, no chimneys. Level Factory's
+  site rows always leave an 8 m street between buildings, so a generated block
+  never has two buildings touching, let alone at two heights.
+
+**Owners, smallest first slice first:** Deli Counter rebuilds `_fire_escapes`
+as walkable landings, flights with collision and guarded edges, recorded as
+slots, and proposes one by default where a profile allows (`rowhome`); Zoo
+grows `fire_escape_landing` and `fire_escape_stair` species; Pixelcoat grows a
+steel grating (its material grammar already cuts holes). Then the massing:
+a recessed facade segment in DC, and a terrace site shape in Level Factory
+with buildings touching at different heights.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
