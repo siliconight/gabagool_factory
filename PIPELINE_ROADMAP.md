@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9031 SCORED ZERO WITH THE CROWN AS CARDS, THE PAINT IN PATC |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (night) -- COLD RUN 9032 SCORED ZERO WITH THE CROWN READING AS A CANOPY. The ba |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE FOUR RESIDUES ARE IN A COLD PACKAGE (9031). Measured on its fram |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (night) -- THE CROWN READS AS A CANOPY (9032): ONE FOLIAGE TILE PER CARD, THE C |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,18 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9031 SCORED ZERO WITH THE
+*STATUS: NARROWED 2026-09-13 (night) -- COLD RUN 9032 SCORED ZERO WITH THE
+CROWN READING AS A CANOPY. The bank brief on Zoo 0.69.2 / Pixelcoat
+0.32.1 / Lot 0.66.1: 0 interventions, 0 retries, 0 unattributed changes,
+every tool repo clean at --begin, all stages succeeded, 0 blockers, export
+exit 0, 15 minutes (19:45 -> 20:00); every site-kit module `pass`, 3
+cover pieces with the cars parked first. The twenty-second zero. Frames
+(`docs/cold_runs/cold_9032/frames/`): one foliage tile per card with the
+elliptical cutout -- the crown's edge is now the clusters' edge, from the
+kerb and from across the street. Residue seen on the frames: the cards
+are 2 cm boxes, and their thin side faces are projected on other axes
+where the cutout does not cut them, so hairlines poke above a crown; the
+card should be a plane. Previously: COLD RUN 9031 SCORED ZERO WITH THE
 CROWN AS CARDS, THE PAINT IN PATCHES AND THE CARS BEFORE THE COVER. The
 bank brief on Lot 0.66.1 / Zoo 0.69.1 / Pixelcoat 0.32.0: 0 interventions,
 0 retries, 0 unattributed changes, every tool repo clean at --begin, all
@@ -15388,7 +15399,16 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (night) -- THE FOUR RESIDUES ARE IN A COLD
+*STATUS: NARROWED 2026-09-13 (night) -- THE CROWN READS AS A CANOPY (9032):
+ONE FOLIAGE TILE PER CARD, THE CARD'S EDGE THE CANOPY'S. Pixelcoat 0.32.1
+(a cutout may name an ellipse; `foliage_delco` at 4 m per tile) and Zoo
+0.69.2 (four vertical cards, the diagonal pair root-two longer so every
+card fits the slot, UVs about the crown's centre). Measured on 9032's
+frames from the kerb and from across the street. Residue: the cards'
+thin side faces show as hairlines above a crown (item 17); an X
+crossing's slabs are handled but the spec makes only a T; parking lanes
+and the kerb line stop at the plate's roads, not at the courtyards or
+the paths. Previously: THE FOUR RESIDUES ARE IN A COLD
 PACKAGE (9031). Measured on its frames: the cards carry the cutout and
 read as leaf mass with sky between; the paint's wear is patches; the
 cars stand before the cover planner and the corner is drawn once. WHAT
