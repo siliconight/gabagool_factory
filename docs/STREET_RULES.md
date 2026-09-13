@@ -29,7 +29,10 @@ guidance).
 
 ## Crosswalks
 
-Source: NACTO, *Urban Street Design Guide*, "Crosswalks and Crossings".
+Source of truth (the walker, 2026-09-13): NACTO, *Urban Street Design Guide*,
+"Crosswalks and Crossings" --
+https://nacto.org/publication/urban-street-design-guide/intersection-design-elements/crosswalks-and-crossings/
+Where this summary and the page disagree, the page wins.
 
 - **Every leg of a signalised intersection gets a marked crosswalk,** unless
   pedestrians are prohibited there or there is no pedestrian access on either
