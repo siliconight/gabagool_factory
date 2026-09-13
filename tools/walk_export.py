@@ -59,10 +59,12 @@ import shutil
 import subprocess
 import sys
 
-_WALK_SCENE = """[gd_scene load_steps=4 format=3]
+_WALK_SCENE = """[gd_scene load_steps=6 format=3]
 
 [ext_resource type="PackedScene" path="res://mission.tscn" id="mission"]
 [ext_resource type="Script" path="res://_walk_player.gd" id="player"]
+[ext_resource type="Script" path="res://debug_overlay.gd" id="debug_overlay"]
+[ext_resource type="Script" path="res://_walk_ladders.gd" id="walk_ladders"]
 
 [sub_resource type="CapsuleShape3D" id="PlayerCol"]
 radius = 0.35
@@ -84,7 +86,34 @@ shape = SubResource("PlayerCol")
 
 [node name="Camera" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
-{headlamp}"""
+{headlamp}
+[node name="DebugOverlay" type="Node" parent="."]
+script = ExtResource("debug_overlay")
+
+[node name="WalkLadders" type="Node" parent="."]
+script = ExtResource("walk_ladders")
+"""
+
+#: LADDER CLIMB VOLUMES for the walk copy (`tools/walk_ladders.gd`). The
+#: package carries ladder MARKERS; the Area3D a body climbs is the consumer's
+#: to build, Lot's walk scene builds it, and this tool never did -- so every
+#: ladder in every walk copy was scenery until the walker could not climb one
+#: on 2026-09-13.
+_LADDERS_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "walk_ladders.gd")
+
+#: LEVEL FACTORY'S debug overlay -- position, the building under the
+#: crosshair, the collider looked at and its distance; F3 toggles, on by
+#: default. Read from LF rather than copied into this file, the way
+#: `walk_themed.py` carries it, so the two walk tools cannot show different
+#: things. This tool shipped without it until 2026-09-13, when the walker's
+#: first in-game feedback round asked "didnt we have a debug overlay that
+#: showed coordinates" -- every defect that round arrived as a picture that
+#: had to be located by hand. It rides in the walk copy only; the package is
+#: never touched.
+_OVERLAY_SRC = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "level_factory", "assets", "godot",
+    "debug_overlay.gd")
 
 _HEADLAMP = """
 [node name="Headlamp" type="SpotLight3D" parent="Player/Camera"]
@@ -216,6 +245,13 @@ def main(argv=None):
             return 2
     shutil.copytree(export_dir, out)
     shutil.copy2(player_src, os.path.join(out, "_walk_player.gd"))
+    if not os.path.isfile(_OVERLAY_SRC):
+        sys.stderr.write("Level Factory's debug overlay is not at %s -- refusing "
+                         "to assemble a walk copy that cannot say where a defect "
+                         "is.%s" % (_OVERLAY_SRC, os.linesep))
+        return 2
+    shutil.copy2(_OVERLAY_SRC, os.path.join(out, "debug_overlay.gd"))
+    shutil.copy2(_LADDERS_SRC, os.path.join(out, "_walk_ladders.gd"))
 
     # ONLY the main scene changes, and the file's LINE ENDINGS are preserved
     # byte for byte. The export ships CRLF; reading and rewriting through
@@ -279,6 +315,8 @@ def main(argv=None):
     print("  from     : " + os.path.basename(export_dir))
     print("  spawn    : %.3f, %.3f, %.3f   (%s, +%.2f lift)"
           % (pos[0], pos[1], pos[2], origin, args.lift))
+    print("  overlay  : Level Factory's debug_overlay.gd (F3 toggles; position, "
+          "building, surface)")
     print("  player   : Lot's lot_player.gd as _walk_player.gd  "
           "(capsule 0.35 x 1.8, step 0.5)")
     sys.stdout.write(budget)
