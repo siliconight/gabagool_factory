@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (late night) -- COLD RUN 9033 SCORED ZERO WITH THE FACETED CROWN BACK. The bank |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (late night) -- COLD RUN 9034 SCORED ZERO WITH THE TREE GROWN BY SPECIES. The b |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (late night) -- THE WALKER JUDGED THE CARDS NOT READY AND NAMED THE DETAILED PA |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (late night) -- THE TREE IS GROWN BY SPECIES, IN A COLD PACKAGE (9034). Zoo 0.7 |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,15 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (late night) -- COLD RUN 9033 SCORED ZERO WITH
+*STATUS: NARROWED 2026-09-13 (late night) -- COLD RUN 9034 SCORED ZERO WITH
+THE TREE GROWN BY SPECIES. The bank brief on Zoo 0.70.0: 0 interventions,
+0 retries, 0 unattributed changes, every tool repo clean at --begin, all
+stages succeeded, 0 blockers, export exit 0, 12 minutes (23:33 -> 23:45);
+every site-kit module `pass` (8 of 8). The twenty-fourth zero. Frames
+(`docs/cold_runs/cold_9034/frames/`): a red maple at the kerb -- trunk,
+leader, branches, twigs, faceted clusters at the tips, in the street's
+own low-poly style -- and the row of them along the parked cars.
+Previously: COLD RUN 9033 SCORED ZERO WITH
 THE FACETED CROWN BACK. The bank brief on Zoo 0.69.3: 0 interventions, 0
 retries, 0 unattributed changes, every tool repo clean at --begin, all
 stages succeeded, 0 blockers, export exit 0, 15 minutes (23:09 -> 23:25).
@@ -15404,7 +15412,24 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (late night) -- THE WALKER JUDGED THE CARDS
+*STATUS: NARROWED 2026-09-13 (late night) -- THE TREE IS GROWN BY SPECIES,
+IN A COLD PACKAGE (9034). Zoo 0.70.0: `core.tree_forms` tables red maple
+(default), pin oak, honey locust, London plane and callery pear; the
+recipe grows trunk, leader, branches at the species' angles, twigs and a
+faceted cluster at every tip, fits the skeleton to the slot and then
+places the clusters (fitting the whole tree after pressed them into
+plates on the first local build), and a cluster is a quarter taller than
+wide with a middle band (as wide as tall read as flat gems from the
+sidewalk on the second). Measured on 9034's frames from the kerb and
+along the row: a tree with a trunk you can see through to branches, leaf
+masses at the tips, the same style as the cars and the shelter. The
+walker's guidance is in `docs/SET_DRESSING_REFERENCES.md`. WHAT REMAINS:
+the four other species are a genome param away and unmeasured in a
+package; a street could plant one species per road or per block rather
+than red maples throughout; the cards stay behind `params.crown`; an X
+crossing's slabs are handled but the spec makes only a T; parking lanes
+and the kerb line stop at the plate's roads. Previously: THE WALKER
+JUDGED THE CARDS
 NOT READY AND NAMED THE DETAILED PATH: BRANCHES, TWIGS, SPECIES. On the
 9032 frames: "we went from mario64 trees which looked nice in their own
 retro way to something that isn't fully baked yet" -- the cards' thin
