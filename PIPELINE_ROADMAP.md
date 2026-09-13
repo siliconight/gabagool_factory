@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (morning) -- COLD RUNS 9035 AND 9036 SCORED ZERO: FIVE TREE SPECIES, THEN THE 1 |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (morning) -- COLD RUN 9037 COUNTED SEVEN INTERVENTIONS AND EVERY ONE WAS MINE.  |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,9 +831,9 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (morning) -- THE STREET IS 1990s AMERICA, AND EVERY ROAD HAS ITS OWN TREE. The  |
+| 153 | **OPEN** *(inferred)* | A street reads as ordered when its furniture says where cars and peopl | — |
 
-**153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**153 items: 22 open, 79 closed, 3 retracted, 44 narrowed, 1 superseded, 4 analysis.** 6 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1419,7 +1419,21 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (morning) -- COLD RUNS 9035 AND 9036 SCORED
+*STATUS: NARROWED 2026-09-13 (morning) -- COLD RUN 9037 COUNTED SEVEN
+INTERVENTIONS AND EVERY ONE WAS MINE. The run itself was clean by every
+other measure -- all stages succeeded, 0 blockers, export exit 0, and its
+own question answered: 8 stop signs stood at the driveway cuts where 9036
+had none. But `cold_run.py --end` found seven tool source files changed
+that nothing wrote down: `pixelcoat/` at 0.33.0, edited and committed
+WHILE THE RUN WAS IN FLIGHT, which is the one thing this repo's own rules
+forbid ("a tool-repo edit during a cold run counts as an intervention").
+The art stage then ran on a Pixelcoat the --begin snapshot had never
+seen. Nothing about the pipeline failed; the operator did, and the
+instrument caught it, which is what it is for. 9037 is recorded as SEVEN,
+not as a zero, and cold run 9038 re-asks its question on a clean tree.
+The habit that prevents it is the one already written down: check that no
+run is in flight before touching a tool repo, and when one is, draft in
+the scratchpad. Previously: COLD RUNS 9035 AND 9036 SCORED
 ZERO: FIVE TREE SPECIES, THEN THE 1990s AMERICAN STREET. 9035 on Zoo
 0.71.0 / Lot 0.67.0 (12 minutes, every module `pass`): the five street
 trees as species of their own, planted one per road -- and it drew red
@@ -15425,7 +15439,34 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (morning) -- THE STREET IS 1990s AMERICA, AND
+*STATUS: NARROWED 2026-09-13 (morning) -- THE SIGNS ARE RENDERED AND THE
+WALKER'S FRAMES NAME WHAT THE FORECOURT STILL LACKS. Pixelcoat 0.33.0:
+`theme-signs` builds one pack per business a theme names --
+`profiles/signs/delco_1997.json`, 22 of them: GOOSE MART, HOAGIE HUT,
+BEER WORLD, STATE WINE + SPIRITS, THE RUSTY TAP, CLUB VELVET, VIDEO STOP,
+APEX MARKETS, KEYSTONE SAVINGS, LUBE-N-GO, DELCO STORAGE -- with an index
+of slug, text and the families of business each suits. EVERY NAME IS
+INVENTED and the profile says so in a line a test asserts. `fit_scale`
+makes a name fit its panel: the first build read GOOSE MART as "OOSE MAR",
+because the default glyph scale puts a ten-character name 360 px wide on
+a 256 px tile. The walker: "those are fine for placeholders", and "the
+fonts are lazy for now" -- the 5x7 bitmap face is accepted as a
+placeholder and is residue, not a finding.
+
+THE CALL OF DUTY FRAMES (docs/SET_DRESSING_REFERENCES.md, digested): a
+shop's name is a BAND ACROSS ITS FRONTAGE, not a plaque; a PYLON SIGN
+stands at the kerb where a driver reads it first; NUMBERS sit on things
+(each pump bay numbered on its column); CLUTTER COMES IN CLUSTERS of
+cheap objects (four blue drums, stacked pallets, a concrete barrier
+across a lane, banded bollards at every column base); and walls, fences
+and hoardings divide a lot from the street at knee-to-eye height. Held
+against them, what this pipeline has right is the street -- road, kerbs,
+paint, parking, trees, furniture, junction -- and what it lacks is the
+FORECOURT. Drafted and not yet landed: Lot hanging the band on the facade
+that faces the street (`sign_placement`, sized from the facade), and four
+Zoo species for the clusters (`jersey_barrier`, `water_barrel`,
+`bollard`, `pallet_stack`). Not drafted: the pylon sign, the numbers, the
+fences. Previously: THE STREET IS 1990s AMERICA, AND
 EVERY ROAD HAS ITS OWN TREE. The walker: "the streets should look like
 America in the 1990s -- USPS mailboxes, stop signs, traffic lights".
 Zoo 0.72.0 mints the kit, each piece shaped: `stop_sign` (a 30-inch
