@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (late night) -- COLD RUN 9034 SCORED ZERO WITH THE TREE GROWN BY SPECIES. The b |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-13 (morning) -- COLD RUNS 9035 AND 9036 SCORED ZERO: FIVE TREE SPECIES, THEN THE 1 |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -831,7 +831,7 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (late night) -- THE TREE IS GROWN BY SPECIES, IN A COLD PACKAGE (9034). Zoo 0.7 |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-09-13 (morning) -- THE STREET IS 1990s AMERICA, AND EVERY ROAD HAS ITS OWN TREE. The  |
 
 **153 items: 21 open, 79 closed, 3 retracted, 45 narrowed, 1 superseded, 4 analysis.** 5 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -1419,7 +1419,20 @@ geometry they were not developed against; and `route_completion_rate` is still
 0.0, with the graders naming the cause as INSTANT_CONTACT at 0.4-0.7s and
 survival 2.4-3.8s rather than anything about traversal.*
 
-*STATUS: NARROWED 2026-09-13 (late night) -- COLD RUN 9034 SCORED ZERO WITH
+*STATUS: NARROWED 2026-09-13 (morning) -- COLD RUNS 9035 AND 9036 SCORED
+ZERO: FIVE TREE SPECIES, THEN THE 1990s AMERICAN STREET. 9035 on Zoo
+0.71.0 / Lot 0.67.0 (12 minutes, every module `pass`): the five street
+trees as species of their own, planted one per road -- and it drew red
+maples on BOTH roads, which is the one hash collision in five that shows,
+fixed in Lot 0.68.0. 9036 on Zoo 0.72.0 / Lot 0.68.0 (07:02, export exit
+0, 16 of 16 modules `pass`): the 1990s street standing -- 32 parking
+meters, a mast-arm traffic signal at the junction, 2 mailboxes, 4 news
+racks, a payphone, callery pears on one road and red maples on the other.
+Both zeros: 0 interventions, 0 retries, 0 unattributed changes. The
+twenty-fifth and twenty-sixth. Frames: `docs/cold_runs/cold_9036/frames/`
+-- the signal's arm over the near lane with its cobra luminaire the other
+way, and the bus stop with a payphone, two news racks, a mailbox and a
+meter beside the shelter. Previously: COLD RUN 9034 SCORED ZERO WITH
 THE TREE GROWN BY SPECIES. The bank brief on Zoo 0.70.0: 0 interventions,
 0 retries, 0 unattributed changes, every tool repo clean at --begin, all
 stages succeeded, 0 blockers, export exit 0, 12 minutes (23:33 -> 23:45);
@@ -15412,7 +15425,33 @@ skin, a decal layer and clutter that a frame at eye height shows as
 objects on a surface rather than noise in it -- judged by the walker, and
 counted by the census of what each layer put where.
 
-*STATUS: NARROWED 2026-09-13 (late night) -- THE TREE IS GROWN BY SPECIES,
+*STATUS: NARROWED 2026-09-13 (morning) -- THE STREET IS 1990s AMERICA, AND
+EVERY ROAD HAS ITS OWN TREE. The walker: "the streets should look like
+America in the 1990s -- USPS mailboxes, stop signs, traffic lights".
+Zoo 0.72.0 mints the kit, each piece shaped: `stop_sign` (a 30-inch
+octagonal blade on a u-channel post), `traffic_signal` (mast arm over the
+near lanes, a three-lens head at its end, a second on the pole, and a
+cobra luminaire arm the other way -- which is what puts the pole at the
+module's centre so its greybox box is a pole and not 8 m of arm across the
+carriageway), `mailbox`, `newspaper_box`, `parking_meter`, `payphone`.
+Nothing reproduces anybody's markings. Lot 0.68.0 places them: a signal
+where a leg meets an ARTERIAL (sidewalks and parking lanes) and a stop
+sign at every other junction mouth facing the approaching driver, a meter
+at every parking bay, and the mailbox, news racks and payphone at the bus
+stop. THE TREES: Zoo 0.71.0 mints the five as species of their own, each
+with its own slot dims, and Lot plants one species per road (`tree_for`,
+a hash of the road's endpoints) with a road that meets another taking the
+next species along. `geometry.fit_to` makes a detailed piece exact -- all
+six of the kit missed their slot depth the first time they built, because
+a door or a visor sits proud of a face. WHAT REMAINS: the generated spec
+only makes signalised T junctions, so a stop sign has nowhere to stand in
+a cold package yet -- the driveway a spur cuts is where that decade put
+one. And the signage: nothing in the pipeline builds a sign today and no
+building carries a storefront sign slot, so the parody brands the walker
+asked for (a Wawa, a beer distributor, a bar) need Deli Counter to cut the
+slot, a brand table per archetype, Pixelcoat to render the face and Zoo's
+`sign_box` to wear it. Lux already lights that cabinet. Previously: THE
+TREE IS GROWN BY SPECIES,
 IN A COLD PACKAGE (9034). Zoo 0.70.0: `core.tree_forms` tables red maple
 (default), pin oak, honey locust, London plane and callery pear; the
 recipe grows trunk, leader, branches at the species' angles, twigs and a
