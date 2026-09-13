@@ -227,6 +227,48 @@ slot sizes the tree. Owner: Zoo, and the same order for every species that
 gets the detailed path -- the parts of the real thing in the house style
 before any texture trick.
 
+## The walker's Call of Duty frames (2026-09-13): what a forecourt carries
+
+Two screenshots of a gas station in a Tavorsk-style district, sent as
+"examples of set dressing". What they show, and who owns each:
+
+**Signage is a BAND across the frontage, not a plaque.** The store's name
+runs the full width of its storefront above the glazing, and the canopy
+carries a second band along its fascia. A small cabinet centred on a wall
+reads as a notice board; the band is what says "this is a shop". Owner:
+Pixelcoat (the face, rendered wide) and Lot (the band, sized to the
+facade it hangs on).
+
+**A pylon sign at the road.** Tall, freestanding, at the kerb where a
+driver reads it before the building -- the second half of a strip's
+signage, and the one a player sees from three streets away. Owner: Zoo (a
+species) plus Lot (at the frontage, facing the road). NOT BUILT.
+
+**Numbers on things.** Each pump bay carries its number on the canopy
+column. Small legible marks at eye height are most of what makes a place
+feel run by somebody. Owner: Pixelcoat (a numeral decal), Deli Counter or
+Lot (where they go). NOT BUILT.
+
+**Clutter in CLUSTERS, and the clusters are cheap objects.** Blue potable
+water drums in a group of four, stacked sandbags, pallets, concrete
+jersey barriers dragged across a lane, red-and-white bollards at every
+column base. None is a hero asset; each is one simple shape repeated with
+variation, and the grouping is what sells it. This pipeline's cover
+planner reaches for a box truck or a shipping container -- both correct
+and both large. Owner: Zoo (barrel, jersey barrier, bollard, pallet
+stack) and Lot (`site_cover` and the kerb line placing them in clusters).
+NOT BUILT.
+
+**Walls, fences and hoardings that are not buildings.** A brick garden
+wall with coping, corrugated hoarding panels, chain link -- the things
+that divide a lot from the street and break a sightline at knee-to-eye
+height. Lot has a perimeter and blockers; neither reads as any of these.
+
+Held against the frames, what this pipeline now has right is the street
+itself (road, kerbs, paint, parking, trees, furniture, the junction) and
+what it lacks is the FORECOURT: the clusters, the bollards, the numbers,
+and signage at the size a shop actually wears.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
