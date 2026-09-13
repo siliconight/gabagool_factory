@@ -269,6 +269,45 @@ itself (road, kerbs, paint, parking, trees, furniture, the junction) and
 what it lacks is the FORECOURT: the clusters, the bollards, the numbers,
 and signage at the size a shop actually wears.
 
+## The walker's Delco main-street shots (2026-09-13)
+
+Three photographs of the real thing: a wet main street of attached
+storefronts, a close walk past a butcher's shop, and a trolley street in
+the evening. What they have that a generated site does not:
+
+**The buildings are ATTACHED and meet the sidewalk.** A continuous row of
+party-wall storefronts with no setback -- the door opens onto the walk.
+This pipeline lays freestanding shells with a plate between them and the
+road, which is a strip-mall lot, not a main street. Owner: Level Factory's
+`site_variation` (the row and its spacing) and Deli Counter (a party wall
+has no windows). The single biggest difference between these photographs
+and a cold package.
+
+**An awning over every storefront.** Red, black, striped; a metre and a
+half deep at the head of the glazing. Probably the cheapest object in this
+list and among the loudest. Owner: Zoo (a species) and Lot (hung on the
+same facade as the sign).
+
+**Two kinds of sign, not one.** The fascia band along the top of the
+storefront AND a projecting blade sign hung perpendicular over the walk,
+readable down the street. Owner: Pixelcoat (both faces) and Lot (both
+placements).
+
+**Overhead wires, and the poles that carry them.** Utility poles with
+crossarms down the kerb line and a web of wires crossing the street --
+plus trolley span wire where there are tracks. Nothing in this pipeline
+draws a line between two points in the air. Owner: Zoo (`utility_pole`)
+and Lot (the catenary between poles).
+
+**Trolley tracks in the road.** Two rails and their ties set into the
+asphalt: a Delaware County street, specifically. Owner: Lot, as another
+kind of marking -- the machinery that paints a centre line already draws
+a long thin thing along a road.
+
+**Pole banners, planters, benches, a wall-mounted mailbox by a door.**
+Small, and all in the band between the kerb and the glazing that this
+pipeline now populates with lamps and trees.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
