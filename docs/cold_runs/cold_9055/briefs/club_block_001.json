@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_001",
+  "display_name": "Club Block",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9055. The bank block's brief re-anchored on a strip club. WHAT THIS RUN TESTS: a strip club furnished and lit as one (DC 0.132.0, Zoo 0.88-0.89, Lux 0.37-0.38, Pixelcoat 0.42-0.43), interiors dark by default (Lux 0.38.0 / LF 0.87.0), the material stem contract between Zoo 0.89.0 and DC 0.132.0, the glowing vending machines (Zoo 0.87.0), and the hero vault door if a bank is drawn.",
+  "crew_size": 4
+}
