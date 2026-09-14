@@ -11507,7 +11507,7 @@ ITS PRESETS WERE WRITTEN AGAINST DOES NOT EXIST. All three presets seal the
 exterior; the two built shells are 48 and 60 slots, every one a `wall`. Their
 docstrings expect the art pass to turn wall slots into windows, and no code in
 Zoo does. The opaque-glazing tag an Empty's windows need was lost in Deli
-Counter's f54ebfe and is restored in 0.127.1. The rename and the wiring half
+Counter's f54ebfe and is restored in 0.128.1. The rename and the wiring half
 are unchanged.*
 
 **106. Non-enterable facade buildings exist and nothing places them.** Raised
@@ -11623,9 +11623,10 @@ entries. Zoo still reads the tag (`kit.plan_kit` keys on it,
 `dna.resolve_module_plan` sets `glazing_kind`, `recipes/_arch.py` glazes with
 it), and since Pixelcoat 0.40.0 `see_through_fault` makes every `glass` grammar
 blend and forbids transparency on `glass_facade`. An untagged window on an
-Empty would show the empty box behind it. Deli Counter 0.127.1 restores the
-two lines in `_record_opening_slot`, the only emitter of a `window` slot, and
-`test_facade_glazing.py` pins it (it fails against 0.127.0's builder).
+Empty would show the empty box behind it. Deli Counter 0.128.1 (bfaca1a)
+restores the two lines in `_record_opening_slot`, the only emitter of a
+`window` slot, and `test_facade_glazing.py` pins it (it fails against both
+0.127.0's and 0.128.0's builder).
 
 **WHAT GIVING AN EMPTY WINDOWS HAS TO GET RIGHT.**
 
