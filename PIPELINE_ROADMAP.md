@@ -784,7 +784,7 @@ work of adopting this.
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
-| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-06 -- THE NAME IS DECIDED AND THE RENAME IS DEFERRED ON PURPOSE. A NON-ENTERABLE S |
+| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-13 -- AN EMPTY HAS NO WINDOWS, AND THE ART-PASS PATH ITS PRESETS WERE WRITTEN AGAI |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
@@ -11490,6 +11490,7 @@ SUPERSEDED STATUS, kept above the update that replaced it:
 DELI COUNTER SHIPS THREE FACADE PRESETS, TWO ARE IN THE BUILT LIBRARY, AND NO
 MISSION HAS EVER INSTANCED ONE. NOT THE SAME WORD AS ITEM 79.*
 
+SUPERSEDED STATUS, kept above the update that replaced it:
 *STATUS: OPEN 2026-09-06 -- THE NAME IS DECIDED AND THE RENAME IS DEFERRED
 ON PURPOSE. A NON-ENTERABLE SHELL IS AN EMPTY; THE PLURAL IS EMPTIES. Decided
 by the person who raised this item, to end the collision with item 79, where
@@ -11500,6 +11501,14 @@ numbers, and a blind search-and-replace would merge the two concepts this
 decision exists to separate. The spec key is DATA and sits in the built
 library, so it needs a migration accepting both keys rather than a flag day.
 Still open, and the wiring half of the item is unchanged.*
+
+*STATUS: OPEN 2026-09-13 -- AN EMPTY HAS NO WINDOWS, AND THE ART-PASS PATH
+ITS PRESETS WERE WRITTEN AGAINST DOES NOT EXIST. All three presets seal the
+exterior; the two built shells are 48 and 60 slots, every one a `wall`. Their
+docstrings expect the art pass to turn wall slots into windows, and no code in
+Zoo does. The opaque-glazing tag an Empty's windows need was lost in Deli
+Counter's f54ebfe and is restored in 0.127.1. The rename and the wiring half
+are unchanged.*
 
 **106. Non-enterable facade buildings exist and nothing places them.** Raised
 2026-09-06: "we need buildings that you can't enter, which are already created
@@ -11580,6 +11589,68 @@ misread as being about a wall's composition.
 **WHAT WOULD MOVE IT.** A brief field for perimeter fill, a `lot_assemble`
 rule for where facades may stand (edge only, never on a route), and the
 placement gate learning that a facade is not a defect when it has no door.
+
+**2026-09-13 -- AN EMPTY HAS NO WINDOWS.** Both senses of the word are in play
+here, so to say which: this is about the windows (item 79's FACE) of an EMPTY
+(this item's shell), and it is filed here because the shell is what emits
+none. Found while restoring Deli Counter's facade glazing tag.
+
+**WHAT IS BUILT.** `presets._facade()` sets `"auto_exterior": True` with the
+comment "solid sealed exterior shell (no openings)" and `"modular": True`, and
+none of `facade_rowhome`, `facade_storefront` or `facade_industrial` adds an
+`ext_walls` entry. Measured off `deli_counter/build`: `gs_facade_rowhome.slots.json`
+is 48 slots and `gs_facade_storefront.slots.json` is 60, and every one has
+role `wall`. No window, no doorway.
+
+**WHAT THE PRESETS EXPECT, AND WHY IT DOES NOT HAPPEN.** The docstrings say
+the art pass supplies the openings: rowhome "resolves the slots to brick +
+windows + a stoop door", storefront "the ground floor to glazing + a sign
+band, the upper floor to apartment windows", industrial "corrugated metal + a
+roll-up door + clerestory strip". Zoo's `kit.plan_kit` groups modules by the
+slot's own type and role, so a `wall` slot becomes a wall module. A search of
+`zoo_keeper` for `facade` finds the glazing plumbing, Patina dressing covers
+and relief, and no path that turns a wall slot into a window. So an Empty
+ships as a sealed box, and the wall-to-window swap its presets were written
+against was never built.
+
+**THE TAG THOSE WINDOWS NEED WAS LOST AND IS BACK.** Deli Counter 0.80.0
+(501c9db, 2026-07-19) tagged a window slot on a facade shell
+`glazing: "facade"`, so Zoo glazes it with opaque `glass_facade`. Eleven hours
+later f54ebfe committed a working copy that predated it: its `deli_counter.py`
+hunk is that change inverted line for line, and the same commit put VERSION
+back from 0.81.0 to 0.80.0 and deleted the 0.80.0 and 0.81.0 changelog
+entries. Zoo still reads the tag (`kit.plan_kit` keys on it,
+`dna.resolve_module_plan` sets `glazing_kind`, `recipes/_arch.py` glazes with
+it), and since Pixelcoat 0.40.0 `see_through_fault` makes every `glass` grammar
+blend and forbids transparency on `glass_facade`. An untagged window on an
+Empty would show the empty box behind it. Deli Counter 0.127.1 restores the
+two lines in `_record_opening_slot`, the only emitter of a `window` slot, and
+`test_facade_glazing.py` pins it (it fails against 0.127.0's builder).
+
+**WHAT GIVING AN EMPTY WINDOWS HAS TO GET RIGHT.**
+
+* WINDOWS, NOT DOORS. `_wall_collision` leaves a door or garage aperture open,
+  and behind it is an interior with no navmesh and nothing in it. A window
+  with a sill keeps the wall solid behind the cut.
+* GAMEPLAY ENTRIES. `_record_openings` appends every authored opening to
+  `gameplay.openings`, and an Empty is meant to carry no gameplay. Built
+  Empties already ship a `gameplay.json`; it would gain entries unless the
+  facade path skips them. A window derives no interactive unless it is
+  `breakable`.
+* WHICH WALLS. A preset cannot know which of its walls faces the street.
+  Either every wall gets windows (an Empty seen from any side) or whoever
+  places it says which side is the front. That choice belongs with the
+  placement rule above, not inside the preset.
+* THE BUILT LIBRARY MOVES. Adding openings changes both `gs_facade_*` shells
+  and their fingerprints.
+
+**UNPROVEN.** The glazing tag has never reached a built module end to end: no
+shipped shell has had a facade window since 0.80.0, so nobody has seen an
+opaque `glass_facade` pane on an Empty in a walk. Whether it reads as a lit or
+curtained room or as a flat slab is a question for the eye, not for
+`see_through_fault`. The claim that nothing in Zoo turns a wall slot into a
+window rests on a search for `facade` in `zoo_keeper` and on reading
+`plan_kit`, not on building a shell through Zoo and looking at it.
 
 *STATUS: OPEN 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND
 IT IS ABOUT WHICH TOOL THE CONTRACT BELONGS TO RATHER THAN ABOUT A BUG.*
