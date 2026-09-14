@@ -260,11 +260,45 @@ def _active() -> str | None:
     return p.read_text(encoding="utf-8").strip() if p.is_file() else None
 
 
-def cmd_begin(label: str) -> int:
+def library_freshness(root: Path | None = None) -> tuple[int, str]:
+    """``(exit code, report)`` from Deli Counter's own `build_freshness.py`.
+
+    Cold run 9053, 2026-09-14: the run measured 0 interventions over a library
+    whose shells were 130 of 132 older than the code building them -- Deli
+    Counter 0.130.0 and 0.131.0 had been merged as tracked files while the
+    gitignored `build/*.glb` stayed at 0.129.0 -- and the export was refused
+    four stages in. A cold run over a stale library measures the tools against
+    geometry they no longer produce, so it is refused at the door. The owning
+    tool answers; nothing is re-derived here. ``(0, "")`` when it is absent."""
+    dc = (root or _root()) / "deli_counter"
+    tool = dc / "build_freshness.py"
+    if not tool.is_file():
+        return 0, ""
+    import os
+    import subprocess
+    env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+    r = subprocess.run([sys.executable, str(tool), "--list"], cwd=str(dc),
+                       capture_output=True, text=True, encoding="utf-8",
+                       errors="replace", env=env)
+    return r.returncode, (r.stdout + r.stderr).strip()
+
+
+def cmd_begin(label: str, allow_stale: bool = False) -> int:
     d, before, journal = _paths(label)
     if before.exists():
         print(f"  {label} already begun ({before}) -- pick another label or --end it")
         return 2
+    rc, report = library_freshness()
+    if rc != 0:
+        print("  Deli Counter's building library is STALE (build_freshness.py):")
+        for line in report.splitlines()[:20]:
+            print(f"    {line}")
+        if not allow_stale:
+            print("  refused: rebuild it (python build.py --all in deli_counter) "
+                  "and begin again,")
+            print("  or pass --allow-stale-library to measure over it on purpose.")
+            return 3
+        print("  --allow-stale-library: beginning anyway; recorded in the journal.")
     d.mkdir(parents=True, exist_ok=True)
     snap = snapshot()
     snap["dirty"] = dirty()
@@ -273,6 +307,10 @@ def cmd_begin(label: str) -> int:
         f"# cold run: {label}\n\nbegun {_stamp()}\n"
         f"{len(snap['files'])} source files hashed across {len(TOOLS)} tools\n\n"
         f"| when | kind | what |\n|---|---|---|\n", encoding="utf-8")
+    if rc != 0:
+        with journal.open("a", encoding="utf-8") as f:
+            f.write(f"| {_stamp()} | observation | begun over a STALE Deli Counter "
+                    f"library (--allow-stale-library) |\n")
     _out().mkdir(parents=True, exist_ok=True)
     (_out() / "ACTIVE").write_text(label, encoding="utf-8")
     print(f"  begun: {label}")
@@ -510,11 +548,13 @@ def main(argv) -> int:
     ap.add_argument("--observe", metavar="TEXT")
     ap.add_argument("--end", action="store_true")
     ap.add_argument("--selftest", action="store_true")
+    ap.add_argument("--allow-stale-library", action="store_true",
+                    help="begin even when deli_counter/build_freshness.py fails")
     a = ap.parse_args(argv)
     if a.selftest:
         return selftest()
     if a.begin:
-        return cmd_begin(a.begin)
+        return cmd_begin(a.begin, allow_stale=a.allow_stale_library)
     if a.note:
         return _append("intervention", a.note)
     if a.retry:
