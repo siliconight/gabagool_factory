@@ -347,6 +347,73 @@ steel grating (its material grammar already cuts holes). Then the massing:
 a recessed facade segment in DC, and a terrace site shape in Level Factory
 with buildings touching at different heights.
 
+## The walker's trading card shop references (2026-09-15)
+
+The walker named the next two building types to flesh out: a Wawa-style
+24-hour convenience store and "a 90s Trader Card Shop (Fake Pokemon, Fake
+Magic, Fake sports trading cards)", then sent nine photos of card shops. The
+photos did not reach disk; they are described here. Every brand in them is a
+real mark and stays out of the tools -- the shop sells invented Delco parodies
+(see the invented-brands rule the vending machine and the club signs follow).
+
+**The 1990s one, and the one to build to.** A small sports-card shop, cheap
+drop ceiling with fluorescent troffers, wood-panel lower walls. Along the top
+of the walls, a row of felt TEAM PENNANTS pinned at an angle, overlapping, in
+many colours. A large hand-lettered banner sign over the back ("The Great ...
+Sportscard Emporium", red and blue script on white). Tall white wire/wood
+shelving to the ceiling, every shelf crowded with wax boxes and packs, faces
+out. A glass-top showcase counter in front with a chrome frame, stacks of
+white card storage boxes and toploaders on top, a small CRT on a shelf behind.
+Framed jerseys and signed photos on the walls. Clutter everywhere, no two
+shelves the same.
+
+**The modern shops, for the furniture and how dense it gets:**
+
+- **Showcase counters** are the centrepiece: glass-top, glass-front,
+  aluminium-framed display cases in an L or U, two or three glass shelves
+  inside, every shelf packed with sealed boxes, tins and blister packs, graded
+  cards in slabs lying flat on the top shelf, loose packs in piles. Behind
+  them, tall wooden or glass curio cabinets with collectible figures.
+- **The pack wall:** floor-to-ceiling gondola shelving of booster displays in
+  tight rows, each row a different product, with a coloured header sign over
+  each bay naming the game. The walker's photo is one long aisle of it. Also
+  pegboard or slatwall with hanging blister packs and binders, and sealed
+  booster boxes stacked in towers on the floor under plastic.
+- **The play area:** long folding tables (white plastic or covered in a black
+  tablecloth) with black folding chairs, card playmats on the table, piles of
+  cards, deck boxes, dice. A big printed game banner on the wall behind it.
+  A small tournament area has several tables in rows.
+- **Loose cards:** a pile of mixed cards shows the art styles to parody at
+  low resolution: coloured borders (a monster game's yellow border, a wizard
+  game's black border and brown back, a sci-fi game's grey frame), round
+  mana-style symbols, a sports card's white border and team logo.
+- **Also on the walls:** posters in frames, a hand-lettered price sign, a
+  cooler or snack rack by the register, a register on the counter, a slatwall
+  shelf of board-game boxes, a TV.
+
+**What the pipeline would need, by owner** (to be measured before it is
+built, as roadmap items):
+
+- **Zoo:** `display_case` (glass counter, forms flat / L / tower, stock of
+  boxes, tins and slabs on its shelves via `_shelf_stock`/`_surface_stock`),
+  `pack_wall` (gondola bay of booster displays, a header sign per bay,
+  `module_variants` for product mix), `slatwall` / `pegboard` with hanging
+  packs, `booster_box_stack` (sealed boxes, some under plastic), `pennant_row`
+  (a strip of angled felt pennants in team colours along a wall top),
+  `framed_jersey`, `curio_cabinet`, `folding_table` (forms bare / black
+  cloth, with playmats, card piles and deck boxes as stock) and
+  `folding_chair`, and a banner sign. Card and box art is a generated,
+  deliberately blurry PNG from an invented brand table, in the manner of
+  `brands.py` and the neon sign names, with a denylist test against real
+  marks.
+- **Deli Counter:** a `card_shop` preset (storefront, sales floor with the
+  counter in front and pack walls behind, a play area, a back stockroom,
+  optionally an apartment above) and a `card_shop` room kind with the recipe
+  above; the name added to Level Factory's preset list, which a test now
+  checks against Deli Counter's registry.
+- **Pixelcoat:** wood panelling for the lower walls, slatwall, and a
+  tournament carpet.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
