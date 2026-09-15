@@ -485,6 +485,69 @@ reflections.
   the green soffit paint.
 - **Lot / Level Factory:** the lit fascia sign and the storefront pallets.
 
+## The walker's pump forecourt references (2026-09-15)
+
+"convinent stores are usually connecting to gas stations, so we already have
+the gas station pumps that we can use, now with the understanding that cars
+hsould have clearance to use them (eonnectivity to road, ect)". Three photos,
+described (not on disk; the brands in them are real marks and stay out):
+
+- **A small-town station by day:** a long red canopy on round red columns
+  over a row of pump islands, the store behind it, a lamp post and bare trees
+  in a grass strip, a painted kerb island separating the forecourt from the
+  road, and a wide open DRIVEWAY where the forecourt meets the street -- the
+  whole frontage is enterable, not a door-width gap.
+- **A highway station at night:** a big flat canopy with a lit fascia band all
+  round (a colour stripe and the name on each face), downlights in its
+  underside pooling on the pad, pumps on raised islands with bollards at the
+  ends, a brick store behind with its own lit sign band and an awning, cars
+  parked nose-in along the storefront, an open drive aisle between the
+  canopy and the store.
+- **A small old station from above (the Delco-sized one):** a flat canopy
+  over two pump islands beside the road, a brick store with a flat roof at
+  one end of the canopy, two wide curb cuts off the road (entry and exit),
+  a landscaped island at the corner, nose-in parking bays striped along the
+  lot edge and in front of the store, a pole sign at the road.
+
+**What the forecourt must satisfy for a car** (the contract the pieces are
+checked against, to be measured before it is built):
+
+- Every pump island reachable by a car from the road and leavable without
+  reversing: a drive lane on each fuelling side of each island, and a
+  circulation aisle at both ends of the islands to the driveways.
+- Driveways in the kerb at vehicle width, with an apron ramp, not a
+  pedestrian cut; the forecourt faces the street it is entered from.
+- Canopy underside above the tallest vehicle the lot parks (Lot's box truck
+  is 2.8 m), columns on the islands or outside the lanes, never in one.
+- Parking bays off the aisles (in front of the store, along the lot edge),
+  not across a lane.
+
+**What exists, measured 2026-09-15:**
+
+- **Zoo** has a `pump` species (0.5-2.0 x 0.6-2.4 x 0.7-2.8 m), `bollard` and
+  `jersey_barrier`. No canopy, fascia band, island, or pylon sign species.
+- **Deli Counter's `gas_station` preset** (`presets.py` ~1633) already authors
+  a forecourt in front of the store, as plain volumes (its docstring flags them
+  for promotion to placed assets): a 28 x 12 m pad at y -24..-12, a 24 x 10 m
+  canopy with its underside at 4.8 m on six 0.4 m columns (x -10, 0, 10 at
+  y -14 and -22), three pump islands 1.6 x 6.0 m at x -8, 0, 8, two pumps per
+  island. The lanes between islands are 6.4 m (room for a car either side).
+  The aisles at the islands' ends are 3.0 m on both sides -- shorter than a
+  4.3-4.8 m car, so a car cannot turn into or out of a lane there. The columns
+  at x +-10 stand 1.2 m outside the outer islands, inside the outer lanes'
+  swept path.
+- **Lot** cuts kerbs only for footpaths, and treats a wide cut as never an
+  approach (`site_furniture` per-cut loop, "A CUT IS NEVER AN APPROACH"): there
+  is no driveway, apron, or vehicle route from the road to a forecourt, and no
+  rule that a forecourt faces its street.
+
+**Owners:** Deli Counter (a forecourt module with the clearance contract above,
+shared by `gas_station` and a real `convenience_store` preset, emitted as slots
+rather than volumes); Lot (vehicle driveways and aprons at a forecourt's
+frontage, the forecourt oriented to the street, bays off the aisles, a vehicle
+reachability gate); Zoo (canopy with a lit fascia band and downlights, pump
+island with bollards, pylon/price sign); Lux (canopy downlight rig).
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
