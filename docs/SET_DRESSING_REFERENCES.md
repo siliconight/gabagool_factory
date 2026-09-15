@@ -414,6 +414,77 @@ built, as roadmap items):
 - **Pixelcoat:** wood panelling for the lower walls, slatwall, and a
   tournament carpet.
 
+## The walker's convenience store references (2026-09-15)
+
+Nine photos, described here (they did not reach disk). The store is a
+Wawa-style 24-hour Delco convenience store; every brand in the photos -- the
+store's own, the snacks, the yogurt, the cigarettes -- is a real mark and
+stays out of the tools. Invented Delco parodies on every sign and package.
+
+**The 1990s interior, and the one to build to** (a period photo of the
+store's service island): a long white laminate SERVICE COUNTER in a U or
+octagon, edged with a black-and-white CHECKERBOARD trim band at the top and
+bottom. Above it, a deep green soffit (a raised fascia box) running round the
+store at ceiling height with a yellow/gold trim line, carrying big sign
+letters; under the soffit a red header band labelled by section ("CUSTOMER
+SERVICE", "CANDY", "CIGARETTES", "HOAGIES"). Inside the U: the register
+stations (beige 1990s registers with pole displays) and the cigarette rack
+on the back wall. The counter front is a candy rack -- tiered shelves of
+brightly wrapped bars facing the customer. A self-serve coffee station along
+the side wall under a round coffee sign, a hoagie/deli counter further back.
+Drop ceiling with recessed can lights; a polished dark terrazzo floor with
+reflections.
+
+**The rest, from the modern stores, for the furniture and density:**
+
+- **Coffee bar:** a long counter of glass coffee pots on warming burners in a
+  row, orange-lidded (decaf) and black-lidded, several per blend, with the
+  brewers behind; a separate CONDIMENT ISLAND -- a waist-high wood-and-steel
+  island with round cup wells, towers of stacked paper cups, lids, stirrers
+  and creamer.
+- **Cooler wall:** a full back wall of glass-door reach-in coolers (drinks,
+  milk jugs, juice), lit from inside, with a sign band above ("ICE COLD
+  DRINKS" / "BOTTLED DRINKS").
+- **Snack aisles:** gondola shelving, four or five shelves of chip bags faced
+  out, end caps stacked with more chips, a candy/nut rack by the register,
+  a floor-standing branded display beside it.
+- **Grab-and-go:** a curved open refrigerated case (sandwiches, salads,
+  fruit cups) and, in a larger store, a tiered produce island with fruit in
+  a refrigerated tub.
+- **Behind the register:** the cigarette rack -- a wall unit of shelves of
+  packs faced out in their brand colours, a lit header panel, price tags on
+  each row; scratch-off lottery dispensers on the counter.
+- **Frozen drink machine** with a lit topper, and a hot-dog roller.
+- **Exterior (the night photo, a strip-mall store):** a brick base under
+  full-height windows plastered with sale posters, glass double doors in the
+  middle, a long illuminated sign fascia above -- a lit box sign with the
+  store name in the middle, "FOOD AND BEVERAGE" and "FAST AND FRIENDLY" side
+  panels, "OPEN 24 HRS" end panels -- the interior fluorescents glowing out
+  through the glass; cases of bottled water and washer fluid stacked on
+  pallets outside by the door, and a red trash drum.
+
+**What the pipeline would need, by owner** (measure first, as roadmap items):
+
+- **Zoo:** `service_counter` (laminate U/octagon with checkerboard trim bands,
+  forms straight / L / U, register stations and lottery dispensers as stock),
+  `candy_rack` (tiered counter-front rack of wrapped bars), `cigarette_rack`
+  (wall unit of faced-out packs with a lit header), `coffee_bar` (pots on
+  burners, brewers) and `condiment_island` (cup towers, lids), `reach_in_cooler`
+  (glass doors, lit shelves of bottles and jugs -- Zoo 0.84.0 listed it as
+  next), `snack_gondola` (shelves of chip bags, end cap), `grab_and_go_case`
+  (open refrigerated case), `frozen_drink_machine`, `hot_dog_roller`,
+  `pallet_stack` of water cases for the storefront. Package art from an
+  invented brand table beside `brands.py`, blurry at distance, with a
+  denylist test against real marks.
+- **Deli Counter:** a real `convenience_store` preset (today the name is an
+  alias for `gas_station` in Level Factory's adapter): storefront glazing,
+  the service island near the door, snack aisles, the cooler wall at the back,
+  the coffee bar on a side wall, a deli counter, a stockroom and walk-in
+  cooler behind; the soffit as a ceiling-band volume carrying section signs.
+- **Pixelcoat:** checkerboard trim, white laminate, polished dark terrazzo,
+  the green soffit paint.
+- **Lot / Level Factory:** the lit fascia sign and the storefront pallets.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
