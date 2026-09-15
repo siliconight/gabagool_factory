@@ -548,6 +548,41 @@ frontage, the forecourt oriented to the street, bays off the aisles, a vehicle
 reachability gate); Zoo (canopy with a lit fascia band and downlights, pump
 island with bollards, pylon/price sign); Lux (canopy downlight rig).
 
+## The walker's club bar reference (2026-09-15)
+
+"also in the strip club there should be a bar with lots of bottles like this".
+One photo, described (not on disk; the liquor labels are real marks and stay
+out): a 1980s-90s lounge bar under a magenta-lit drop ceiling with recessed
+cans and exposed ductwork. An L-SHAPED BAR in dark stained wood, a thick
+rounded rail edge and a glossy top, the front panelled with a curved end
+where it meets the wall. ALONG THE WHOLE TOP a dense row of liquor bottles,
+tall and short, different shapes and label colours, with a magnum in front,
+towers of stacked rocks glasses, cocktail glasses with drinks, and a speed
+rail of bottles with pour spouts on the inside run. BEHIND it, a tall BACK BAR
+against the wall: a curved dark-wood surround with a round porthole NICHE
+lit from inside, glass shelves in the niche carrying rows of stemware above
+bottles, and round mirrors on the wall beside it. Low round stools with red
+tops ring the bar; tub chairs beyond; busy patterned carpet.
+
+**What the pipeline has, measured 2026-09-15:** Deli Counter's club recipe
+places a `counter_club` (Zoo `counter` with stock `bar`) along a wall and the
+`stage_bar` (Zoo `club_stage` form `bar_stage`) with bottles on its rail;
+Zoo's `_surface_stock` `bar` flavour puts a few bottles, glasses and an
+ashtray per bay of a top. There is no back bar and no speed rail, and the bar
+flavour is sparse against this photo.
+
+**Owners:** Zoo -- a `back_bar` species (wall unit: tiered glass shelves of
+bottles and stemware, a mirror or porthole niche with a lit interior, a
+lower cabinet run; forms `straight` / `niche`), a DENSE `bar` stock flavour
+for a counter (bottles along the whole top in rows, glass towers, a speed rail
+on the service side), an L-shaped counter form; Deli Counter -- the club
+recipe places a back bar against the wall behind each bar counter with a
+bartender's aisle between (~0.9 m clear, a staff route, not a customer lane),
+and the counter as an L where the room corner allows; Lux -- a warm niche
+light in the back bar (a small omni, like the TV and neon spill anchors).
+Invented liquor brands on every label, as the vending, cigarette and card
+tables do.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
