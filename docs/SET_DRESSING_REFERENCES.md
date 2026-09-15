@@ -550,6 +550,13 @@ island with bollards, pylon/price sign); Lux (canopy downlight rig).
 
 ## The walker's club bar reference (2026-09-15)
 
+THE CLUB'S BAR, NOT THE DIVE BAR. The walker, the same day: "this will be
+different from the dive bar species we make later". So the pieces below are
+the strip club's lounge bar (the polished counter, the lit back bar, the
+dense bottle run); a neighbourhood dive bar is its own later slice with its
+own look, and the species should keep the two apart by form or style rather
+than one bar standing in for both.
+
 "also in the strip club there should be a bar with lots of bottles like this".
 One photo, described (not on disk; the liquor labels are real marks and stay
 out): a 1980s-90s lounge bar under a magenta-lit drop ceiling with recessed
