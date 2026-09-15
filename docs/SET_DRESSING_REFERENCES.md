@@ -564,6 +564,21 @@ lit from inside, glass shelves in the niche carrying rows of stemware above
 bottles, and round mirrors on the wall beside it. Low round stools with red
 tops ring the bar; tub chairs beyond; busy patterned carpet.
 
+**The bartender's side** (a second photo the same day, "a place where a
+bartender stands behind and serves drinks"; a modern bar, so read it for the
+arrangement, not the finishes): a long straight counter with a BRASS FOOT
+RAIL on posts along the customer front; along the top edge a ROW OF BEER TAP
+handles (a tap tower every metre or so) and two register terminals on the
+service side; behind the counter a staff aisle, then a full-height BACK BAR of
+bays divided by pilasters, each bay three or four lit glass shelves crowded
+with bottles (lit from behind and under each shelf), a big mirror in the
+centre bay, a lower cabinet run under the shelves at counter height, a
+chalkboard price list on the end wall; pendant lamps hanging over the
+counter. For 1997: warm bulbs behind the shelves rather than LED strips, a
+beige cash register rather than touch terminals, wood or laminate front
+rather than tile, the foot rail and taps unchanged. The staff aisle is
+reached through a hinged bar flap at one end of the counter.
+
 **What the pipeline has, measured 2026-09-15:** Deli Counter's club recipe
 places a `counter_club` (Zoo `counter` with stock `bar`) along a wall and the
 `stage_bar` (Zoo `club_stage` form `bar_stage`) with bottles on its rail;
@@ -575,10 +590,12 @@ flavour is sparse against this photo.
 bottles and stemware, a mirror or porthole niche with a lit interior, a
 lower cabinet run; forms `straight` / `niche`), a DENSE `bar` stock flavour
 for a counter (bottles along the whole top in rows, glass towers, a speed rail
-on the service side), an L-shaped counter form; Deli Counter -- the club
-recipe places a back bar against the wall behind each bar counter with a
-bartender's aisle between (~0.9 m clear, a staff route, not a customer lane),
-and the counter as an L where the room corner allows; Lux -- a warm niche
+on the service side), an L-shaped counter form, and on the counter a
+brass foot rail, beer tap towers and a register on the service side; Deli
+Counter -- the club recipe places a back bar against the wall behind each bar
+counter with a bartender's aisle between (~0.9 m clear, a staff route, not a
+customer lane, entered through a bar flap at one end so a body can actually
+stand behind the bar), and the counter as an L where the room corner allows; Lux -- a warm niche
 light in the back bar (a small omni, like the TV and neon spill anchors).
 Invented liquor brands on every label, as the vending, cigarette and card
 tables do.
