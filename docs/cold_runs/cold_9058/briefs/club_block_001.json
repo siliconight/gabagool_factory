@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_001",
+  "display_name": "Club Block",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9058. The club block brief again, after the walker walked 9057. WHAT THIS RUN TESTS: every room's ambient probe (Lux 0.38.1, a null colour is no colour), the pocket behind every one-run stair filled (DC 0.134.0), club TVs showing a lit ballgame with a cold spill, a game per set (Zoo 0.90.0, DC 0.135.0-0.135.1).",
+  "crew_size": 4
+}
