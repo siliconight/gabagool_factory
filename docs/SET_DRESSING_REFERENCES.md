@@ -586,6 +586,34 @@ beige cash register rather than touch terminals, wood or laminate front
 rather than tile, the foot rail and taps unchanged. The staff aisle is
 reached through a hinged bar flap at one end of the counter.
 
+**The clearance behind the bar** (a third photo, from above: a curved bar
+with a row of patrons on stools on the outside and bartenders WORKING on the
+inside -- a continuous working aisle between the counter and the back bar,
+with a stepped-down work shelf of wells, taps and the register under the
+counter's service edge, several bartenders passing each other). The walker:
+"just to show the clearance the bar should have for bartenders to stand
+behind, similar to the bank teller row". So the bar is a STAFF SIDE, like the
+teller line, not a counter against a wall:
+
+- Deli Counter already encloses a teller line's staff side
+  (`level_design.enclose_teller_lines`, DC 0.126.0): the staff side runs from
+  the counter to the parallel wall, is kept only between `_STAFF_MIN_DEPTH`
+  1.85 m and `_STAFF_MAX_DEPTH` 6.0 m, gets a `staff_only` room and a door at
+  each end. The bar follows the same pattern with a lighter enclosure: no
+  locked doors, a BAR FLAP (a hinged gap at least `min_door_width_m` 1.25 m
+  per `agent_contract.json`) at one end or both.
+- The aisle between the counter's service face and the back bar's front is a
+  walkable corridor, so it is at least `min_corridor_width` 1.1 m
+  (2 x bake radius 0.4 + 0.3, the navmesh's own rule -- narrower bakes as an
+  island, as twin_a01's 0.9 m flights did), plus the back bar's depth and the
+  counter's work shelf, against the wall.
+- Stools on the customer side stand off the counter's front; the service side
+  has none. The lane in front of the stools is a customer route and keeps the
+  usual clearance.
+- A body can stand behind the bar and be reached: the bar's staff side is on
+  the navmesh, so a gameplay marker (a bartender, a hostage, cover) can go
+  there and the nav gate proves it.
+
 **What the pipeline has, measured 2026-09-15:** Deli Counter's club recipe
 places a `counter_club` (Zoo `counter` with stock `bar`) along a wall and the
 `stage_bar` (Zoo `club_stage` form `bar_stage`) with bottles on its rail;
