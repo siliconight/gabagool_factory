@@ -414,6 +414,79 @@ built, as roadmap items):
 - **Pixelcoat:** wood panelling for the lower walls, slatwall, and a
   tournament carpet.
 
+## The card shop is not dense enough, and what dense means (2026-09-16)
+
+The walker walked cold run 9061's `card_shop_a01` and sent the frame back with
+nine more references: "the card shop should feel saturated with posters, ads,
+playmats, content, fantasy, ect ect." The frame is the argument. Standing at
+(-40.7, 1.6, 10.5) the room reads as a hall: an unbroken tile floor across the
+middle, two counters at the edges, one pack wall, bare wall above waist height,
+and a drop ceiling. Every reference photo is the opposite of that picture, and
+the difference is not one missing prop. It is five separate properties the
+recipe does not have.
+
+**1. Product goes to the ceiling, not to waist height.** In every shop photo
+the shelving runs floor to ceiling and the top shelf is as full as the bottom:
+boxed sets stacked flat on a wire rack above head height, board-game boxes
+faced out on five and six shelf levels, blister packs on pegs above those. The
+generated room stops at the top of one 2.2 m pack-wall bay and leaves a metre
+and a half of empty wall above it. A wall that stops at 2.2 m in a 3.4 m room
+reads as a partition; a wall filled to the ceiling reads as a shop.
+
+**2. The middle of the floor is occupied.** Two of the photos show gondola
+endcaps and low island displays on casters standing in the open floor, with
+aisles between them rather than one clear span. The current recipe treats the
+floor as circulation and puts everything against a wall. That is what makes
+the frame read as a hall: there is nothing between the camera and the far wall.
+
+**3. Things hang.** A painted dragon and a kraken hang from the drop ceiling in
+two of the photos; a hand-lettered STRATEGY sign hangs over an aisle; banners
+and pennant strips run above the shelving. Nothing in this pipeline has ever
+hung anything from a ceiling grid, and the ceiling in the frame is 40 square
+metres of bare tile.
+
+**4. The wall above the shelving is where the posters live.** Fantasy set
+posters, mounted high and slightly tilted, in frames or bare; a printed banner
+behind the play area; price signs and hand-lettered cards taped to the glass.
+Three of the nine references are posters ALONE -- the walker sent them as
+subject matter, not as set dressing: painted fantasy scenes, a set-announcement
+poster with a title block, a black-and-gold print with a moon diagram. That is
+the art register the invented brands must reach: painted, dark, full-bleed, with
+a title block at the bottom.
+
+**5. The play tables carry printed surfaces.** Every play photo has a printed
+playmat or a printed tablecloth -- a full-bleed painted scene under the cards,
+not a flat colour. One reference is a close-up of exactly this: a neon
+playmat, a pack held over it, deck boxes and sleeved cards around the edge.
+Zoo ships the mat as flat colour today (`_surface_stock` has no textured
+path, 0.95.0), which is the single most visible gap in the play area.
+
+**Every mark in these photos is real and none of them travels.** The
+references carry a named wizard game, a monster game, a brick toy line and
+several film franchises; what is taken is the COMPOSITION -- density, height,
+what hangs, what is printed -- and the brands stay invented, as
+`core/card_brands.py` already holds them with its denylist test.
+
+**What the pipeline needs, by owner:**
+
+- **Zoo**: flat-art species, which are the cheap half -- `poster` (framed and
+  bare, tilted, painted fantasy art from the invented brand table),
+  `hanging_banner`, `ceiling_hanger` (a painted model on a drop chain), an
+  `aisle_sign`, and a textured path for `_surface_stock` so a playmat is
+  printed rather than coloured. A poster is two triangles; the cost is the
+  texture, and one atlas for all of them is the way that has already worked
+  (`recipes/_card_atlas.py`).
+- **Zoo**: the tall half -- shelving that reaches the ceiling with stock on
+  every level, and an `endcap` / island display that stands in open floor.
+- **Deli Counter**: the recipe must fill height and floor, not only wall runs.
+  The caps written on 2026-09-16 were set to protect a triangle budget nothing
+  was near: the shipped room measured 8,260 + 2,996 triangles against a
+  10,664 worst case, while one `cubicle_bank` is budgeted 24,000. The caps
+  bought the budget and cost the density, and the walker has now called the
+  density.
+- **Pixelcoat**: the poster art itself, in the painted register above, at a
+  resolution that reads as art at 3 m and as a coloured rectangle at 10 m.
+
 ## The walker's convenience store references (2026-09-15)
 
 Nine photos, described here (they did not reach disk). The store is a
