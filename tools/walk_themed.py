@@ -313,6 +313,34 @@ class Failed(Exception):
     """Assembly could not complete. Never a partial success."""
 
 
+def worldskin_source(path=None):
+    """LF's `zoo_worldskin.gd`, or `Failed` naming the path it wanted.
+
+    REFUSES RATHER THAN FALLS BACK. `--worldskin` is on by default since
+    level_factory 0.57.0, so this text is what every themed walk previews; a
+    walk assembled without it imports every GLB unchanged and says nothing
+    about why, which is the same shape as the missing `import_script/path`
+    the caller's own comment warns about one function along. An empty string
+    here would produce a project that builds, imports, opens, and shows
+    untextured kit -- a defect that reads as a level defect.
+
+    `path` is a parameter so the refusal itself can be tested; nothing in the
+    tool passes it.
+    """
+    src = _WORLDSKIN_SRC if path is None else path
+    if not os.path.isfile(src):
+        raise Failed(
+            "walk_themed: no world-skin import script at\n   %s\n"
+            "The export runs LEVEL FACTORY's copy of this file and the "
+            "shipped package carries it byte-for-byte, so a walk assembled "
+            "without it previews a level nobody receives. Pass "
+            "--no-worldskin to build the A/B half on purpose; otherwise "
+            "check the level_factory checkout beside this tools/ directory."
+            % src)
+    with open(src, encoding="utf-8") as fh:
+        return fh.read()
+
+
 def newest(root, name):
     """The newest file called `name` anywhere under `root`."""
     best = None
@@ -433,10 +461,53 @@ _OVERLAY_NODE = """
 script = ExtResource("debug_overlay")
 """
 
+#: LEVEL FACTORY'S import script, read from LF for the same reason the overlay
+#: above is: the export runs LF's copy at import (`adapters/presentation`
+#: `_INSTALLED_ASSETS`, `run_presentation_compose.py`, `packages/exporting/
+#: export.py`) and the shipped package carries it byte-for-byte, so a preview
+#: running anything else previews a level nobody receives.
+#:
+#: THERE WAS A FORK AND IT RAN FOR FIVE RELEASES. `tools/zoo_worldskin.gd`,
+#: 6,664 bytes over 147 lines, never committed to any branch, last touched
+#: 2026-09-06, against LF 0.93.0's 42,515. MEASURED 2026-09-16 on cold run
+#: 9061's `card_block_001`, the same assembled tree imported twice with only
+#: this constant different -- 173 GLBs, `--headless --import`, exit 0 and no
+#: push_error either way:
+#:
+#:                                       fork      LF 0.93.0
+#:     [worldskin] lines                  173            298
+#:     kit materials world-projected       53             53
+#:     GLBs left alone as "not a kit"     128            125
+#:     blended materials out of shadow      0             21
+#:     CRT faces given a motion pass        0              2
+#:     materials drawing vertex colour      0    342 on 102 GLBs
+#:     stair flight surfaces skinned        0     18, 0 left flat
+#:
+#: The three `site_base.glb` the fork printed as "not a kit module, left alone"
+#: are the stair pass it predates (LF 0.72.0): one base skinned 18 flight
+#: surfaces from `floor_delco_1997_05_w1000_d700.glb`, two are single-storey
+#: and correctly reported no flight mesh. The `art/zoo` that pass wants beside
+#: the base is present in BOTH branches below -- `themed_site_assemble` puts
+#: one in every `lot/<archetype>/`, and the compose root carries one beside its
+#: own `site_base.glb` -- so neither shape errors.
+#:
+#: THE MIP PASS (LF 0.86.0) IS A NO-OP HERE, 0 textures, and that is correct
+#: rather than missing. It exists because the export pins
+#: `gltf/embedded_image_handling=3`, which embeds uncompressed images that keep
+#: no mipmaps; a walk project sets no such default, so Godot imports at 1
+#: (EXTRACT, read back off a generated `.glb.import`) and the extracted PNGs
+#: come through the `texture` defaults above with `mipmaps/generate` already
+#: true. So the walk cannot show the moire that pass removes, because the walk
+#: never had it -- one respect in which this preview still differs from the
+#: package, recorded here rather than left to be rediscovered.
+#:
+#: Read at assembly rather than at import, so the path is resolved once and a
+#: miss is a refusal at the point of use rather than an ImportError from a
+#: constant. If LF moves it, `worldskin_source` refuses by name.
 _WORLDSKIN_GD_NAME = "zoo_worldskin.gd"
-_WORLDSKIN_GD = open(os.path.join(os.path.dirname(
-    os.path.abspath(__file__)), "zoo_worldskin.gd"),
-    encoding="utf-8").read()
+_WORLDSKIN_SRC = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "level_factory", "assets", "godot",
+    _WORLDSKIN_GD_NAME)
 
 _TRIPLANAR_GD_NAME = "walk_triplanar.gd"
 _TRIPLANAR_GD = 'extends Node\n## World-space triplanar UVs on the KIT materials, at runtime, in the scratch\n## walk project only.\n##\n## WHY THIS IS A RUNTIME SCRIPT AND NOT A PIPELINE CHANGE. Zoo bakes UVs into\n## the mesh (`cube_project_uv`, box projection from each module\'s own\n## centre-pivot local box) and glTF carries UV sets and nothing else -- there\n## is no way to express "project from world position" in a .glb. So this can\n## only be a material property set after import, and setting it here, in a\n## throwaway project, is how to SEE the difference before deciding whether the\n## export should carry it.\n##\n## WHAT IT IS TESTING. Every module\'s texture restarts at its own edges,\n## because every module projects from its own local box. Measured on the\n## elevation of `bank_block_001`: a hard vertical discontinuity in the stone at\n## every 2.00 m module boundary, the whole length of a 30 m facade. World\n## triplanar makes the projection a function of world position instead, so two\n## adjacent panels sample continuous texture and the seam has nothing to draw\n## it. It also stops a scaled module stretching its texture, which is the\n## stated reason Deli Counter confines its one-mesh-fits-any-width `wallEnd` to\n## filler (`_record_wall_slot`: "Full-width walls and openings stay exact-fit\n## (scale 1) so themed art is never stretched").\n##\n## SCOPED TO THE KIT ON PURPOSE. Walls, openings and their fillers -- anything\n## under a node Deli Counter named `ext_*` or `int_*`. Dressing and props are\n## left alone: world-space projection on a small movable object is wrong, and\n## the dressing path already varies between instances (measured with\n## `vertex_variation.py`: BETWEEN sd 0.02 on every cover family, against 0.00\n## for every kit module).\n\n## THE SCALE IS MEASURED OFF THE MESH, NOT GUESSED. The first version\n## multiplied `uv1_scale` by Zoo\'s `texel=1.2` on the assumption that the\n## material still carried Pixelcoat\'s tiling as a UV scale. It does not --\n## Godot\'s glTF importer bakes `KHR_texture_transform` into the mesh UVs -- so\n## the stone came out roughly twice its proper size and visibly soft, and the\n## elevation A/B could not see it because at that distance nothing is sharp.\n##\n## The density is recoverable from the mesh that already has it: walk the\n## surface\'s own vertices and UVs and take the median of |dUV| / |dPOSITION|\n## over its edges. That ratio IS the texels-per-metre the baked projection was\n## using, so re-applying it as `uv1_scale` reproduces the old density exactly\n## while the projection becomes world-space. Nothing to tune and nothing to\n## read off another file.\n##\n## Set `scale_override` above zero to force a value instead, for the case where\n## the derivation is wrong and someone needs to see it be wrong.\n@export var scale_override: float = 0.0\n\n\nfunc _ready() -> void:\n\t# One frame, for the same reason walk_fixtures waits: the parent is still\n\t# setting up children during _ready and instanced subtrees are not all\n\t# present yet.\n\tawait get_tree().process_frame\n\tvar root: Node = get_parent()\n\tif root == null:\n\t\tpush_warning("walk_triplanar: no parent to walk")\n\t\treturn\n\n\tvar seen: Dictionary = {}\n\tvar changed: int = 0\n\tvar skipped_non_kit: int = 0\n\tvar no_material: int = 0\n\tvar no_density: int = 0\n\tfor n in root.find_children("*", "MeshInstance3D", true, false):\n\t\tvar mi: MeshInstance3D = n\n\t\tif not _is_kit(mi):\n\t\t\tskipped_non_kit += 1\n\t\t\tcontinue\n\t\tvar mesh: Mesh = mi.mesh\n\t\tif mesh == null:\n\t\t\tcontinue\n\t\tfor i in range(mesh.get_surface_count()):\n\t\t\tvar mat: Material = mi.get_active_material(i)\n\t\t\tif mat == null:\n\t\t\t\tno_material += 1\n\t\t\t\tcontinue\n\t\t\tvar bm: BaseMaterial3D = mat as BaseMaterial3D\n\t\t\tif bm == null:\n\t\t\t\tcontinue\n\t\t\tvar key: int = bm.get_instance_id()\n\t\t\tif seen.has(key):\n\t\t\t\tcontinue\n\t\t\tseen[key] = true\n\t\t\tvar before: Vector3 = bm.uv1_scale\n\t\t\tvar density: float = scale_override\n\t\t\tvar how: String = "override"\n\t\t\tif density <= 0.0:\n\t\t\t\tdensity = _uv_density(mesh, i)\n\t\t\t\thow = "measured"\n\t\t\tif density <= 0.0:\n\t\t\t\tno_density += 1\n\t\t\t\tprint("[walk_triplanar] %s  NO UV DENSITY -- left alone"\n\t\t\t\t\t% bm.resource_name)\n\t\t\t\tcontinue\n\t\t\tbm.uv1_triplanar = true\n\t\t\tbm.uv1_world_triplanar = true\n\t\t\tbm.uv1_scale = Vector3(density, density, density)\n\t\t\tchanged += 1\n\t\t\tprint("[walk_triplanar] %s  uv1_scale %s -> %.4f (%s)"\n\t\t\t\t% [bm.resource_name, before, density, how])\n\n\t# Report the counts, not just a success. A run that changed zero materials\n\t# looks identical to one that was never added to the scene, and those need\n\t# different fixes.\n\tprint("[walk_triplanar] %d material(s) made world-triplanar, %d left alone for want of a UV density"\n\t\t% [changed, no_density])\n\tprint("[walk_triplanar] %d non-kit mesh(es) left alone, %d surface(s) with no material"\n\t\t% [skipped_non_kit, no_material])\n\n\n## Texels per metre, read off the surface\'s own vertices and UVs.\n##\n## Median rather than mean: a box carries a few degenerate edges (zero-length\n## UV steps across a seam, coincident verts after bevelling) and one of those\n## in a mean drags the whole material to the wrong scale. Sampling is capped --\n## a wall is 85 vertices but a plate can be thousands, and the ratio is the\n## same everywhere on a box-projected mesh, so more samples buy nothing.\nfunc _uv_density(mesh: Mesh, surface: int) -> float:\n\tvar arrays: Array = mesh.surface_get_arrays(surface)\n\tif arrays.size() <= Mesh.ARRAY_TEX_UV:\n\t\treturn 0.0\n\tvar verts: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]\n\tvar uvs: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]\n\tif verts.size() < 2 or uvs.size() != verts.size():\n\t\treturn 0.0\n\tvar ratios: Array = []\n\tvar limit: int = mini(verts.size() - 1, 400)\n\tfor i in range(limit):\n\t\tvar dp: float = verts[i].distance_to(verts[i + 1])\n\t\tvar du: float = uvs[i].distance_to(uvs[i + 1])\n\t\tif dp > 0.001 and du > 0.00001:\n\t\t\tratios.append(du / dp)\n\tif ratios.is_empty():\n\t\treturn 0.0\n\tratios.sort()\n\treturn float(ratios[ratios.size() / 2])\n\n\n## True when any ancestor is a Deli Counter wall slot. The `ext_<storey>_<face>`\n## / `int_<storey>_<n>` naming is the same one `repetition_census.py` and\n## `look_shots.gd` already read, so the three tools agree on what a wall is.\nfunc _is_kit(n: Node) -> bool:\n\tvar cur: Node = n\n\twhile cur != null:\n\t\tvar nm: String = String(cur.name)\n\t\tif nm.begins_with("ext_") or nm.begins_with("int_"):\n\t\t\treturn true\n\t\tcur = cur.get_parent()\n\treturn false\n'
@@ -906,6 +977,21 @@ def main(argv=None):
     os.makedirs(os.path.join(out, "addons"), exist_ok=True)
     shutil.copytree(addons_src, os.path.join(out, "addons", "lot"))
 
+    # READ BEFORE project.godot IS OPENED, not inside it. `clear_out` cannot
+    # remove a file this process still holds open, so a refusal raised with
+    # the project file open would leave the one thing behind that makes the
+    # directory look assembled.
+    worldskin_gd = None
+    if args.worldskin:
+        try:
+            worldskin_gd = worldskin_source()
+        except Failed:
+            # Leave nothing half-built: `Failed` promises "never a partial
+            # success", and a tree of scenes with no import default is the
+            # same state the unresolved-reference refusal below clears.
+            clear_out(out)
+            raise
+
     with open(os.path.join(out, "project.godot"), "w", encoding="utf-8") as fh:
         scene_defaults = ""
         if args.worldskin:
@@ -915,7 +1001,7 @@ def main(argv=None):
             # says nothing about why.
             with open(os.path.join(out, _WORLDSKIN_GD_NAME), "w",
                       encoding="utf-8", newline="\n") as wf:
-                wf.write(_WORLDSKIN_GD)
+                wf.write(worldskin_gd)
             scene_defaults = _SCENE_DEFAULTS % _WORLDSKIN_GD_NAME
         fh.write(_PROJECT.format(name=args.mission_id, entry="site_walk.tscn",
                                  scene_defaults=scene_defaults))
@@ -1009,7 +1095,13 @@ def main(argv=None):
     if args.triplanar:
         print("  uv       : WORLD TRIPLANAR on kit materials (--triplanar) "
               "-- NOT what ships")
-    if not args.worldskin:
+    if args.worldskin:
+        # NAME THE FILE THAT WILL RUN, not just the switch. A fork lived beside
+        # this tool for five releases and every run printed `worldskin=True`
+        # over it, which is a treatment flag and not a provenance.
+        print("  worldskin: %s  (LF's, at import via import_script/path)"
+              % _WORLDSKIN_SRC)
+    else:
         # SAY IT WHERE SOMEBODY WILL SEE IT. The treatment was already in the
         # subject block, which is exactly where a person judging a wall does
         # not look. Roadmap 109 exists because a preview that quietly differs
