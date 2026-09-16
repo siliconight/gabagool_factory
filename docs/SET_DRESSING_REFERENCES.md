@@ -451,8 +451,26 @@ behind the play area; price signs and hand-lettered cards taped to the glass.
 Three of the nine references are posters ALONE -- the walker sent them as
 subject matter, not as set dressing: painted fantasy scenes, a set-announcement
 poster with a title block, a black-and-gold print with a moon diagram. That is
-the art register the invented brands must reach: painted, dark, full-bleed, with
-a title block at the bottom.
+the art register the invented brands must reach: painted, dark, full-bleed.
+
+**A fourth poster reference, sent alone later the same day, settles the layout
+and corrects the sentence above.** A framed magazine cover on a shop wall: a
+silver frame, a RED FABRIC MAT inside it, and inside that a painted plate -- a
+green horned ogre filling the frame and looking out of it, holding a small
+armoured figure against its chest, a burning red sky and a castle behind. THE
+TITLE IS AT THE TOP, in an ornate fantasy serif, over the art rather than under
+it; the only thing at the bottom is a small publisher mark in a corner. So:
+title top, mark bottom-right, one creature centred and facing the viewer, one
+strong warm ground. A framed poster is three rectangles -- frame, mat, plate --
+not one quad with a border painted into the texture, and the mat is what makes
+it read as framed rather than taped up.
+
+The walker, sending it: "obviously we can't copy this intellectual property,
+but it is comps of what it could look like." That is the standing arrangement
+for every reference in this file and it is worth writing down once: the
+composition travels, the content does not. What these frames license is a
+creature-forward painted plate with a serif title above it -- not any
+character, name, logo or set that appears in them.
 
 **5. The play tables carry printed surfaces.** Every play photo has a printed
 playmat or a printed tablecloth -- a full-bleed painted scene under the cards,
