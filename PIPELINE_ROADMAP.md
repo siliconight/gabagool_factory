@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **OPEN** *(inferred)* | The pipeline has never been run cold, so nobody knows what it costs to | — |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-16 -- FOUR MORE ZEROS AND THREE MORE REFUSALS IN RUNS 9053-9060, AND EVERY REFUSAL |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -841,9 +841,11 @@ work of adopting this.
 | 160 | **NARROWED** | The bank vault is a box | 2026-09-14 (afternoon) -- THE ROOM IS BUILT AND GATED; NO COLD PACKAGE HAS DRAWN A BANK TH |
 | 161 | **NARROWED** | A stale building library is invisible to every gate, and the guard tha | 2026-09-14 -- THREE GUARDS NOW ASK; THE LIBRARY IS REBUILT. |
 | 162 | **NARROWED** | Vending machines should glow, and sell something | 2026-09-14 -- ZOO SHIPPED THE MACHINE; NOT YET IN A COLD PACKAGE. |
-| 163 | **OPEN** | Strip clubs are lit like offices | 2026-09-14 -- PIECES, SURFACES AND LIGHT TYPES SHIPPED; THE ROOM IS NOT YET GENERATED, AND |
+| 163 | **NARROWED** | Strip clubs are lit like offices | 2026-09-16 -- THE CLUB IS GENERATED, IT IS DARK, AND THE LIGHT NOW COMES OUT OF FIXTURES.  |
+| 164 | **OPEN** | The library has no card shop and no convenience store, which are the t | 2026-09-16 -- SPECIFIED FROM THE WALKER'S OWN PHOTOS; THE FIRST SLICE IS BEING BUILT. |
+| 165 | **ANALYSIS** | This is a multiplayer online game, so every frame is spent on somebody | 2026-09-16 -- A STANDING CONSTRAINT ON EVERY LOOK THIS PIPELINE SHIPS, NOT A DEFECT. |
 
-**163 items: 28 open, 79 closed, 3 retracted, 48 narrowed, 1 superseded, 4 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**165 items: 27 open, 79 closed, 3 retracted, 50 narrowed, 1 superseded, 5 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1934,6 +1936,41 @@ reports that as a true 0.00 rather than the free 1/3 a point count would have
 given, so the measure is working and what it says is that the encounter kills
 the crew before it moves. Zero interventions means nothing needed hand-patching.
 It still does not mean the level plays.*
+
+*STATUS: NARROWED 2026-09-16 -- FOUR MORE ZEROS AND THREE MORE REFUSALS IN
+RUNS 9053-9060, AND EVERY REFUSAL WAS A GATE NAMING ITSELF RATHER THAN A RUN
+FALLING OVER. Journals in `docs/cold_runs/cold_9053..9060/`, each with 0 rows:
+no run in the set needed a hand-patch, including the four that produced no
+package.
+- **9055 and 9056 stopped at the same sentence**, graybox exit 5:
+`functional_shell_locked REFUSED for club_block_001: the lock this would write
+protects nothing`. The club preset existed in Deli Counter and not in the
+vocabulary Level Factory checks against. 9056 repeated 9055 exactly because a
+Deli Counter merge was taken on an agent's claim that "LF needs nothing"
+instead of on a reading of the keyword fallback, which iterates Level
+Factory's own preset list -- item 161's lesson, second instance. LF 0.87.1
+added `strip_club` and `twin` plus a test comparing Level Factory's list
+against Deli Counter's registry, so the next divergence fails in unit tests
+rather than five stages into a cold run.
+- **9057: a zero**, export exit 0, and the first GENERATED strip club and hero
+vault room in a cold package.
+- **9058: refused at export**, exit 2, `JOB_PREFLIGHT_REFUSED` --
+"LT_ObjectivePoint is sealed off from the crew spawn": pre-flight and the
+baked navmesh disagreeing about one level. Laser Tag 0.23.1 now takes the bake
+settings from `agent_contract.json` rather than from its own constants, which
+is the half of that disagreement this repo owns.
+- **9059: a zero**, with dartboards, cigarette machines, CRTs showing a
+ballgame, and every room dark.
+- **9060: a zero**, with the club's back bar, the bartender's aisle at the
+teller line's clearance, and the CRT sync roll.
+The thesis holds and cuts both ways again: a zero says only that nothing was
+hand-patched. WHERE THE REST OF THIS ITEM'S HISTORY IS: every status era
+before this one is the stack of paragraphs ABOVE this line, newest first, back
+to cold run 9003. That stack is prose the index cannot read -- `_block_above`
+takes the nearest non-blank BLOCK, and five blank lines inside the stack mean
+the block it finds does not start with `*STATUS:`. This line is that block; the
+history above is unchanged, and the same drift affects the other nine items
+`roadmap_status.py --unclassified` lists.*
 
 **17. The pipeline has never been run cold, so nobody knows what it costs to
 make a level.** The item the other sixteen do not cover.
@@ -16816,8 +16853,24 @@ was one brand (in progress, DC 0.132.0); single-size slogans do not read at
 room and laughs, or at least does not ask what the grey box is.
 
 
-*STATUS: OPEN 2026-09-14 -- PIECES, SURFACES AND LIGHT TYPES SHIPPED; THE
-ROOM IS NOT YET GENERATED, AND INTERIORS DO NOT YET READ DARK.*
+*STATUS: NARROWED 2026-09-16 -- THE CLUB IS GENERATED, IT IS DARK, AND THE
+LIGHT NOW COMES OUT OF FIXTURES. WHAT REMAINS IS AIM AND TUNING. Cold run
+9057 drew the first generated strip club (export exit 0, 0 interventions);
+9059 added dartboards, cigarette machines and CRTs showing a ballgame with
+every room dark; 9060 added the back bar, the bartender's aisle at the bank
+teller line's clearance, and the CRT sync roll. Between them: Lux 0.38.0 and
+LF 0.87.0 made interiors dark by default (per-room probes, sun shadows at the
+cheapest cascade, fog kept); Zoo 0.94.0 gave the club's light visible
+hardware after the walker asked "where is the light fixture giving that
+light?"; Lux 0.39.0/0.40.0 added the back-bar lamp row and softened the
+back-bar light from a sun to a glow; LF 0.89.0 attached the CRT roll as an
+import-time `next_pass`, measured below the noise floor. Open, each with an
+owner: Lot's `merge_lights` does not transform `stage_light.target`, so
+9060's stage light baked to energy 0 and drew black; Deli Counter does not
+yet write `room_drop` on club anchors or a building-local target; a01's
+window still lights a windowless box; neon signs are occasionally not placed
+at all; the room may still be too dark for the walker, which is a walk call
+and not a measurement.*
 
 **163. Strip clubs are lit like offices.** The walker, with GTA IV Triangle
 Club references: "strip clubs should have a dingy lived in feel, dark with
@@ -16870,3 +16923,70 @@ Shipped, none yet in a generated level:
 
 **WHAT WOULD CLOSE THIS:** the walker walks a generated strip club and calls
 it dingy.
+
+
+*STATUS: OPEN 2026-09-16 -- SPECIFIED FROM THE WALKER'S OWN PHOTOS; THE FIRST
+SLICE IS BEING BUILT.*
+
+**164. The library has no card shop and no convenience store, which are the
+two building types the walker asked for next.** The walker, 2026-09-15: "I
+have 2 building types... 1. A 'Wawa' convenience store 2. A 90s Trader Card
+Shop (Fake Pokemon, Fake Magic, Fake sports trading cards)", with nine
+reference photos of each, then "convenience stores are usually connecting to
+gas stations, so we already have the gas station pumps that we can use, now
+with the understanding that cars should have clearance to use them
+(connectivity to road, etc)". The photos did not reach disk; they are
+transcribed in `docs/SET_DRESSING_REFERENCES.md` under "The walker's trading
+card shop references", "convenience store references" and "pump forecourt
+references", with the owner of each piece named.
+
+Two things are already measured and are defects the forecourt work must fix,
+not guesses:
+
+- **The end aisles are 3.0 m wide and a car is 4.3-4.8 m long.** A forecourt
+  a car cannot enter is scenery, and the reachability of a pump from the road
+  is a Lot gate that does not exist yet.
+- **Two canopy columns stand in the outer lanes' swept path.** Placed to the
+  canopy's grid rather than to the lane's.
+
+Every brand in either building is invented in the Delco voice, with a
+denylist test, as the vending machines and the neon signs already are -- no
+real mark reaches a texture.
+
+**WHAT WOULD CLOSE THIS:** a cold package whose lot draws a card shop and a
+convenience store with a forecourt, and the walker walks in, buys nothing,
+and does not ask what either building is.
+
+
+*STATUS: ANALYSIS 2026-09-16 -- A STANDING CONSTRAINT ON EVERY LOOK THIS
+PIPELINE SHIPS, NOT A DEFECT.*
+
+**165. This is a multiplayer online game, so every frame is spent on
+somebody else's machine.** The walker, 2026-09-16: "I will always choose
+performance over look/graphics as this game will be multiplayer online so we
+don't need more bottlenecks where things could fall over", then, in the same
+breath, "you can present the tradeoffs when you think we are leaving
+something on the table we could have, so don't be so binary...but we lean
+towards performance when we can" and "we can always optimize later once we
+have better data from runtime tests".
+
+That is an ordering, not a veto, and it has a method attached which this
+repo has already used twice: LF 0.89.0's CRT roll shipped because it was
+priced on/off across several stations with a no-change control and landed
+below the noise floor; Lux 0.38.0's sun shadows were chosen at the cheapest
+cascade for the same reason. The rule now lives in `CLAUDE.md` ("Every frame
+is spent on somebody else's machine") and says: price a look before shipping
+it; when the cheap version loses something real, ship the cheap version AND
+state what the expensive one would have bought, with figures, because the
+spend is the walker's call; never refuse a look on an unmeasured guess; and
+record the budget rather than closing the question, because no runtime
+telemetry from real sessions exists yet.
+
+The shapes already deferred on this ground: screen-space post-processes and
+depth-texture reads (item 157's puddle reference), more than
+`max_lights_per_object` (8) lights reaching one mesh, and per-frame CPU work
+that scales with prop count. Zoo's per-species triangle budgets are the
+existing instrument and the model for the rest.
+
+**WHAT THIS IS NOT:** a reason to narrow a look quietly. An undocumented
+narrowing is not a performance decision.
