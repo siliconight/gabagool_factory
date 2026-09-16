@@ -16641,10 +16641,24 @@ MEASURED (survey, 2026-09-13):
   uses.
 
 SLICES: (1) Lux rain emitter following the camera, one collision box per
-roof, LF picks the rain preset from `brief.weather` -- in progress on
-`rain-slice1` branches of Lux and Level Factory; (2) wet ground: Lux pushes a
+roof, LF picks the rain preset from `brief.weather` -- SHIPPED (Lux 0.35.0,
+LF 0.83.0), walked from cold run 9052 on; (2) wet ground: Lux pushes a
 wet response to BaseMaterial3D on exterior surfaces, Lot ground first;
 (3) puddles as flat Zoo species placed by Patina; (4) ripple sub-emitters.
+
+**WETNESS IS THE NEXT SLICE, AND THE WALKER ASKED FOR IT** (2026-09-16):
+"improve the rain effect to include wetness on surfaces that are being rained
+on", with two references -- a per-drop shader that lands and dries drops on a
+surface from a four-channel texture, and a CC0 screen-space puddle shader with
+ripples and reflections. Both are transcribed, with what each owner would do
+and what must be measured first, in `docs/proposals/RAIN_WETNESS.md`. The two
+facts that decide the shape: every surface a package ships is a
+StandardMaterial3D (295 of 295 in the 9052 walk copy), so wetness needs a pass
+attached at import -- the mechanism LF 0.89.0 built for the CRT sync roll --
+and the puddle reference is a depth-texture post-process whose availability
+and cost on GL Compatibility are UNKNOWN and must be measured before it is
+chosen, since the pipeline ships Compatibility and that renderer has already
+refused particle trails, sub-emitters and volumetric fog.
 
 **WHAT WOULD CLOSE THIS:** a cold package whose brief says rain, walked: rain
 outside, dry inside, wet ground that reads as wet, at a measured frame cost
