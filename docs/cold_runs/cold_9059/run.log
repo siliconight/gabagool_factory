@@ -1,0 +1,180 @@
+== begin 2026-09-15 09:37:19
+  begun: cold_9059
+  2889 source files hashed
+    deli_counter    Deli Counter 0.136.0
+    dispatch        0.4.2
+    lasertag        Laser Tag 0.23.1
+    level_factory   0.88.0
+    lot             Lot 0.72.2
+    lux             Lux 0.38.1
+    patina          Patina 0.22.0
+    pipeline        Pipeline 0.6.0
+    pixelcoat       Pixelcoat 0.43.0
+    zoo             Zoo 0.91.0
+  1 tracked file(s) ALREADY MODIFIED at --begin -- a later change
+  to one of these is an edit in flight, not an intervention:
+    deli_counter/specs/CATALOG.md
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9059\journal.md
+== init
+initialized workspace at C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9059-ws
+  project_id: cold_9059_ws
+  edit tools.local.json to point at your tool repositories, then run: level-factory doctor
+== doctor
+  [PASS          ] python                 3.14.4
+  [PASS          ] git                    found
+  [PASS          ] godot                  4.7.stable.official.5b4e0cb0f
+  [PASS          ] blender                Blender 5.1.1
+  [WARN          ] tool:deli_counter      vDeli Counter 0.136.0 @ fb3ddb90 — drift vs certified 0.75.0 (grounded); re-certify
+  [WARN          ] tool:lot               vLot 0.72.2 @ 1a697d93 — drift vs certified 0.18.3 (grounded); re-certify
+  [WARN          ] tool:laser_tag         vLaser Tag 0.23.1 @ 12065a78 — drift vs certified 0.8.0 (grounded); re-certify
+  [WARN          ] tool:pixelcoat         vPixelcoat 0.43.0 @ 753fad82 — drift vs certified 0.9.0 (grounded); re-certify
+  [WARN          ] tool:zoo               vZoo 0.91.0 @ 88d79355 — drift vs certified 0.30.2 (grounded); re-certify
+  [WARN          ] tool:patina            vPatina 0.22.0 @ e69d1593 — drift vs certified 0.18.0 (grounded); re-certify
+  [WARN          ] tool:lux               vLux 0.38.1 @ ac5bfd99 — drift vs certified 0.15.4 (grounded); re-certify
+  [PASS          ] tool:dispatch          v0.3.0 @ c71cf10d
+  [PASS          ] themes                 pixelcoat: bank, casino, center_city, delco, delco_1997, industrial_flats, rockay, rockay_civic, rockay_retail, rockay_service, stadium, street | zoo (92 species): default, rockay | zoo partial: 1970s (5/92), 1980s (5/92), 1990s (26/92), acoustic (1/92), aluminum (1/92), blue (1/92), bodega (1/92), carpet (1/92), center_city (90/92), clean (2/92), combat (1/92), construction (1/92), delco (78/92), diner (3/92), dirt (1/92), drywall (1/92), greasy (1/92), hiking (1/92), industrial_flats (90/92), military (1/92), modern (7/92), motorcycle (1/92), office (3/92), police (1/92), racing (1/92), school (1/92), snack (1/92), sports (1/92), tiled (1/92), toasted (1/92), wood (2/92), work (1/92)
+  [PASS          ] workspace_writable     writable
+  [WARN          ] windows_long_paths     verify LongPathsEnabled registry flag for deep asset paths
+
+worst: WARN
+== batch create
+created batch 'cold_9059' with 1 mission(s): club_block_001
+== plan  09:37:27
+plan for club_block_001 (output=graybox)
+  candidates: club_block_001.candidate.seed_9059, club_block_001.candidate.seed_9160, club_block_001.candidate.seed_9261
+  theme:      delco_1997 — pixelcoat profile found
+              zoo: all 92 species resolve 'delco_1997'
+              zoo: 0 carry the name itself; the rest reach it through Zoo's own fallback
+  club_block_001.deli_generate.candidate.seed_9059  [deli_counter/blender]
+  club_block_001.deli_generate.candidate.seed_9160  [deli_counter/blender]
+  club_block_001.deli_generate.candidate.seed_9261  [deli_counter/blender]
+  club_block_001.lot_assemble.candidate.seed_9059  [lot/python_cpu] <- club_block_001.deli_generate.candidate.seed_9059
+  club_block_001.lot_assemble.candidate.seed_9160  [lot/python_cpu] <- club_block_001.deli_generate.candidate.seed_9160
+  club_block_001.lot_assemble.candidate.seed_9261  [lot/python_cpu] <- club_block_001.deli_generate.candidate.seed_9261
+  club_block_001.laser_tag_evaluate.candidate.seed_9059  [laser_tag/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9059
+  club_block_001.walktest_navqa.candidate.seed_9059  [walktest/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9059
+  club_block_001.laser_tag_evaluate.candidate.seed_9160  [laser_tag/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9160
+  club_block_001.walktest_navqa.candidate.seed_9160  [walktest/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9160
+  club_block_001.laser_tag_evaluate.candidate.seed_9261  [laser_tag/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9261
+  club_block_001.walktest_navqa.candidate.seed_9261  [walktest/godot_headless] <- club_block_001.lot_assemble.candidate.seed_9261
+== run graybox  09:37:28
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+  club_block_001.deli_generate.candidate.seed_9059 succeeded
+  club_block_001.lot_assemble.candidate.seed_9059  succeeded
+  club_block_001.deli_generate.candidate.seed_9160 succeeded
+  club_block_001.lot_assemble.candidate.seed_9160  succeeded
+  club_block_001.deli_generate.candidate.seed_9261 succeeded
+  club_block_001.lot_assemble.candidate.seed_9261  succeeded
+  club_block_001.walktest_navqa.candidate.seed_9059 succeeded
+  club_block_001.laser_tag_evaluate.candidate.seed_9160 succeeded
+  club_block_001.walktest_navqa.candidate.seed_9160 succeeded
+  club_block_001.laser_tag_evaluate.candidate.seed_9261 succeeded
+  club_block_001.laser_tag_evaluate.candidate.seed_9059 succeeded
+  club_block_001.walktest_navqa.candidate.seed_9261 succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 40)
+== run graybox exit 1  09:56:54
+== approve brief
+approved brief_approved for club_block_001
+== approve candidate
+approved candidate_selected for club_block_001
+== approve shell
+approved functional_shell_locked for club_block_001
+== run art + gameplay  09:56:55
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[compose] 2 archetype(s) not themeable (incomplete manifest): kitbash_demo, rarity_demo
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] graded lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 2 archetype(s) excluded from the lot for a missing manifest: kitbash_demo, rarity_demo
+[site] 2 entr(y/ies) in C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build are not source archetypes and were not offered to the lot: gs_facade_rowhome, gs_facade_storefront
+[site] themed lot: 101 of 128 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 3 shop sign(s): b0=club_velvet, b1=beer_world, b2=keystone_savings
+  club_block_001.deli_generate.candidate.seed_9059 cache
+  club_block_001.lot_assemble.candidate.seed_9059  cache
+  club_block_001.deli_generate.candidate.seed_9160 cache
+  club_block_001.lot_site_surfaces                 succeeded
+  club_block_001.deli_generate.candidate.seed_9261 cache
+  club_block_001.zoo_fixtures_build.courthouse_a03 succeeded
+  club_block_001.patina_apply.courthouse_a03       succeeded
+  club_block_001.lot_assemble.candidate.seed_9160  cache
+  club_block_001.patina_apply.self_storage_a02     succeeded
+  club_block_001.lot_assemble.candidate.seed_9261  cache
+  club_block_001.patina_apply.strip_club_a03       succeeded
+  club_block_001.zoo_fixtures_build.self_storage_a02 succeeded
+  club_block_001.walktest_navqa.candidate.seed_9059 cache
+  club_block_001.zoo_fixtures_build.strip_club_a03 succeeded
+  club_block_001.laser_tag_evaluate.candidate.seed_9059 cache
+  club_block_001.patina_dressing.courthouse_a03    succeeded
+  club_block_001.patina_dressing.self_storage_a02  succeeded
+  club_block_001.patina_dressing.strip_club_a03    succeeded
+  club_block_001.pixelcoat_build                   succeeded
+  club_block_001.lux_fixture_gate.courthouse_a03   succeeded
+  club_block_001.zoo_clutter_build                 succeeded
+  club_block_001.laser_tag_evaluate.candidate.seed_9160 cache
+  club_block_001.walktest_navqa.candidate.seed_9160 cache
+  club_block_001.zoo_kit_build.courthouse_a03      succeeded
+  club_block_001.walktest_navqa.candidate.seed_9261 cache
+  club_block_001.laser_tag_evaluate.candidate.seed_9261 cache
+  club_block_001.zoo_kit_build.self_storage_a02    succeeded
+  club_block_001.lux_fixture_gate.self_storage_a02 succeeded
+  club_block_001.lux_fixture_gate.strip_club_a03   succeeded
+  club_block_001.zoo_kit_build.site                succeeded
+  club_block_001.zoo_kit_build.strip_club_a03      succeeded
+  club_block_001.zoo_dressing_build.courthouse_a03 succeeded
+  club_block_001.zoo_dressing_build.self_storage_a02 succeeded
+  club_block_001.zoo_dressing_build.strip_club_a03 succeeded
+  club_block_001.presentation_compose              succeeded
+  club_block_001.themed_site_assemble              succeeded
+  club_block_001.patina_surface_dressing           succeeded
+  club_block_001.lux_apply                         succeeded
+  club_block_001.dispatch_handoff                  succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 61)
+== run art exit 1  09:59:53
+== export  09:59:53
+[export] surface dressing: club_block_001_dressing.tscn -- 5293 instances of 4 meshes, 4 draw calls
+[export] 66 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+exported club_block_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9059-ws\.level_factory\exports\LF_club_block_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9059-ws\.level_factory club_block_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
+== export exit 0  10:01:15
+== end  2026-09-15 10:01:15
+
+  cold run: cold_9059
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_club_block_001_9059.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_club_block_001_9160.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_club_block_001_9261.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
