@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "card_block_002",
+  "display_name": "Card Shop Block II",
+  "archetype": "card_shop",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_shop",
+    "reach_stockroom",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "storefront",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9062. The same brief as 9061, one release stack later, to answer TWO questions at once. (1) DOES THE SHOP READ AS A SHOP: Pixelcoat 0.45.0 gives delco_1997 the wood panelling and slatwall that 9061 drew blank on 21 surfaces; Zoo 0.99.0 puts seven shelves on a 2.70 m bay where six left bare plank; Zoo 0.98.0 adds posters, banners, ceiling hangers, aisle signs and printed playmats; DC 0.141.2 fills the wall to the ceiling and stands islands in the floor; LF 0.93.0 skins the stairs concrete where 9061 showed greybox yellow. (2) WHAT IT COSTS: the room's worst case is 25,008 triangles against 9061's 8,260, over a 24,000 ceiling that is NOT a frame cost -- it is cubicle_bank's per-species budget borrowed as a yardstick. This package is measured against 9061's at matched stations to get the first real frame figure this pipeline has ever had for room density.",
+  "crew_size": 4
+}
