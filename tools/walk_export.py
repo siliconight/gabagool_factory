@@ -124,6 +124,56 @@ spot_angle = 55.0
 
 _MAIN_SCENE = re.compile(r'\s*run/main_scene\s*=')
 
+#: WHY THE IMPORT PASS IS NOT OPTIONAL, and why it used to be.
+#:
+#: A Godot project keeps two things in `.godot/` that a copied tree does not
+#: carry: the imported form of every asset, keyed by UID, and the global
+#: `class_name` registry. Without it the copy does not merely look wrong --
+#: it does not load at all, and it says so in a way that names the wrong
+#: culprit. Walked on 2026-09-16 (cold run 9061's card block), an unimported
+#: copy printed 20+ parse errors of the shape `Could not find type
+#: "LuxLightRig"` from Lux's own runtime rigs, then `[ext_resource]
+#: referenced non-existent resource at: res://skins/asphalt_delco_albedo.png`
+#: -- a file that WAS on disk, beside the scene that could not find it --
+#: then `Failed loading resource: res://presentation/lux.applied.tscn`, and
+#: the walker dropped through an empty scene to y = -94.8 with "nothing
+#: within 60 m". Every one of those reads as a broken package. The package
+#: was fine.
+#:
+#: This tool has always known: `--godot` ran exactly this pass. It was
+#: opt-in, defaulted to None, and the copy is unusable without it -- so the
+#: flag was the whole feature wearing a switch. It is the default now, and
+#: `--no-import` is the deliberate act, which is the arrangement the rest of
+#: this repo uses for a step an artefact cannot be correct without.
+_NO_GODOT = """
+[walk_export] NO GODOT BINARY FOUND, so the copy was NOT imported.
+  It will not load as it stands: every class_name type parses as unknown and
+  every texture reads as a non-existent resource until .godot is built.
+  Set DC_GODOT, or pass --godot, or run this once yourself:
+      godot --headless --path %s --import
+"""
+
+
+def _find_godot(explicit):
+    """The Godot binary and where it came from, or (None, "").
+
+    Same order the rest of the toolchain uses: an explicit flag, then
+    DC_GODOT (which `check.py` and the nav gate already read), then GODOT,
+    then whatever is on PATH. Returns the source too, because "which Godot
+    imported this" is the first question when a walk behaves oddly.
+    """
+    if explicit:
+        return explicit, "--godot"
+    for var in ("DC_GODOT", "GODOT"):
+        val = os.environ.get(var)
+        if val and os.path.exists(val):
+            return val, var
+    for name in ("godot", "Godot_v4.7-stable_win64_console.exe"):
+        found = shutil.which(name)
+        if found:
+            return found, "PATH"
+    return None, ""
+
 
 def player_start(export_dir):
     """The package's own player_start anchor, or None."""
@@ -161,7 +211,13 @@ def main(argv=None):
                          "package's own lighting is part of what you are here "
                          "to judge, and a headlamp hides a level that ships dark")
     ap.add_argument("--lot-repo", default=None)
-    ap.add_argument("--godot", default=None)
+    ap.add_argument("--godot", default=None,
+                    help="the Godot binary to run the import pass with. "
+                         "Found from DC_GODOT / GODOT / PATH when not given")
+    ap.add_argument("--no-import", action="store_true",
+                    help="skip the import pass. The copy will NOT load: every "
+                         "class_name type parses as unknown and every texture "
+                         "reads as a non-existent resource until .godot exists")
     args = ap.parse_args(argv)
 
     export_dir = os.path.join(args.lf_dir, "exports",
@@ -295,10 +351,11 @@ def main(argv=None):
         fh.write(scene)
 
     imported = None
-    if args.godot:
+    godot, how = (None, "") if args.no_import else _find_godot(args.godot)
+    if godot:
         try:
             proc = subprocess.run(
-                [args.godot, "--headless", "--path", out, "--import"],
+                [godot, "--headless", "--path", out, "--import"],
                 capture_output=True, timeout=900)
             imported = proc.returncode
             if imported != 0:
@@ -306,6 +363,8 @@ def main(argv=None):
                                  "in the editor before walking.\n" % imported)
         except (OSError, subprocess.SubprocessError) as exc:
             sys.stderr.write("import pass did not run: %s\n" % exc)
+    elif not args.no_import:
+        sys.stderr.write(_NO_GODOT % out)
 
     budget = ""
     m = re.search(r"max_renderable_lights\s*=\s*(\d+)", text)
@@ -322,7 +381,10 @@ def main(argv=None):
     sys.stdout.write(budget)
     print("  renderer : the package's own")
     if imported is not None:
-        print("  import   : exit %d" % imported)
+        print("  import   : exit %d  (%s)" % (imported, how))
+    elif args.no_import:
+        print("  import   : SKIPPED (--no-import). This copy will not load "
+              "until\n  something builds its .godot cache.")
     if not args.headlamp:
         print("  no headlamp: you are walking the package's lighting. If it is "
               "too dark to\n  judge, --headlamp, but note that a level too dark "
