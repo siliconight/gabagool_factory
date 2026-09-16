@@ -84,6 +84,33 @@ cheap ripple normal, no SSR.
 - **Zoo / Patina** own puddles as geometry if the post-process route is
   refused.
 
+## What the performance rule does to this proposal
+
+The walker, the day after sending these references: performance over look, this
+being a multiplayer online game, and "we can always optimize later once we have
+better data from runtime tests." That does not refuse either reference — it
+orders them, and it says what a slice has to carry when it lands.
+
+- **Reference A is the cheap one and is the default.** A `next_pass` on
+  exterior materials is a fixed per-pixel cost on surfaces already being drawn,
+  with no extra buffer, no screen read and no per-frame CPU. It is the same
+  mechanism that was measured below the noise floor for the CRT roll, so the
+  measurement route already exists.
+- **Reference B is the expensive one and must earn its place.** A fullscreen
+  post-process with a depth read and a screen-space ray march costs every
+  client every frame whether or not it is raining, and its availability on GL
+  Compatibility is unmeasured (item 1 below). Measure it anyway rather than
+  refusing it blind: the answer is a number the walker gets to spend or not.
+- **If B is unaffordable, say what it would have bought.** Puddles as flat Zoo
+  species with a cheap ripple normal (slice 3's existing plan) give standing
+  water and lose the reflection of the neon above it — which in a 1997 Delco
+  street at night is most of the effect. That is the tradeoff to put in front of
+  the walker with the frame figures beside it, not a call to make quietly.
+- **Record the budget, do not close the question.** There is no runtime
+  telemetry from real multiplayer sessions yet. Whatever is deferred here is
+  deferred against today's evidence and gets reopened when that evidence
+  improves.
+
 ## What must be measured before building
 
 1. Does GL Compatibility on this machine give a usable `hint_depth_texture`

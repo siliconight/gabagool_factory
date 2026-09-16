@@ -38,6 +38,37 @@ A run that is measured, grounded, well-reasoned and does not reduce
 interventions-per-level is a good piece of work on the wrong problem. Say so
 rather than counting it.
 
+## Every frame is spent on somebody else's machine (hard rule)
+
+This game is multiplayer and online. A look that costs a few milliseconds here
+costs them on every client in a session, on hardware nobody in this repo has
+seen, every frame — and a client that falls over takes the session with it. The
+walker's standing call, 2026-09-16: **performance over look when the two
+compete.** Packages ship on GL Compatibility, which is the low-end target on
+purpose.
+
+It is a lean, not a veto, and the difference matters:
+
+- **Price a look before shipping it, and price it the way the CRT pass was
+  priced** — on/off, several stations, with a no-change control. LF 0.89.0's
+  screen-roll `next_pass` shipped because that measurement put it below the
+  noise floor. An unmeasured guess is not a reason to refuse a look; it is a
+  reason to go and measure.
+- **When the cheap version loses something real, ship the cheap version and say
+  what the expensive one would have bought.** Silently narrowing the look is
+  not a performance decision, it is an undocumented one, and the walker has
+  asked to be shown the tradeoff rather than handed a verdict.
+- **Cheap now does not mean cheap forever.** There is no runtime telemetry from
+  real sessions yet. A look held to a conservative budget today can be reopened
+  when that data exists — so record the budget and what it cost, rather than
+  closing the question.
+
+The shapes that have already been refused or deferred on this ground are worth
+recognising on sight: screen-space post-processes and depth-texture reads, more
+than `max_lights_per_object` (8) lights reaching one mesh, per-frame CPU work
+that scales with prop count, and anything whose cost grows with the number of
+players in the level rather than with the level.
+
 ## Attribution — no AI/Claude self-attribution (hard rule)
 
 When committing, opening PRs, or writing code in ANY repo under this workspace,
