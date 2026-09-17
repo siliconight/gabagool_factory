@@ -512,6 +512,13 @@ Wawa-style 24-hour Delco convenience store; every brand in the photos -- the
 store's own, the snacks, the yogurt, the cigarettes -- is a real mark and
 stays out of the tools. Invented Delco parodies on every sign and package.
 
+**THE STORE'S NAME IS FLAPPHAS** (the walker, 2026-09-16). That is the
+invented house brand for the Wawa-style store and its forecourt -- the
+fascia, the pumps' price signs, the cups, the bags, the hoagie wrapper. It
+is settled, so nothing downstream needs to invent a second one: when the
+convenience store slice is built, the sign says FLAPPHAS and the denylist
+test keeps the real mark out.
+
 **The 1990s interior, and the one to build to** (a period photo of the
 store's service island): a long white laminate SERVICE COUNTER in a U or
 octagon, edged with a black-and-white CHECKERBOARD trim band at the top and
