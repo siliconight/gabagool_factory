@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_003",
+  "display_name": "Club Block III",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9064 (9063 was begun and abandoned before any stage: doctor read FAIL on a major-number rule after Zoo crossed 1.0.0, and setup is a prerequisite rather than the measurement; the pin was certified against a passing real-tool smoke and the run re-begun). THE SAME BRIEF AS 9060, DELIBERATELY UNCHANGED, to answer one question: is the performance work in the TOOLS or was it a property of the card shop it was developed against? Nothing in this brief, its archetype or its buildings was touched by Zoo 1.1.0 (one mesh per material per module), Zoo 1.1.1, or Level Factory 0.96.0 (occluders baked from the package's own solid modules, with use_occlusion_culling written into the project). 9060's package is on disk and was built before all of it, so the two are measurable at matched stations. WHAT WOULD FALSIFY THE CLAIM: a club package whose draw calls did not fall, or which needed a hand to produce. The run's own verdict counts as much as the frame figures -- a fast package that needed interventions is not the product either.",
+  "crew_size": 4
+}
