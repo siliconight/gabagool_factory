@@ -69,6 +69,53 @@ than `max_lights_per_object` (8) lights reaching one mesh, per-frame CPU work
 that scales with prop count, and anything whose cost grows with the number of
 players in the level rather than with the level.
 
+### Draw calls are the budget, not triangles (hard rule)
+
+**Measured 2026-09-16 on cold run 9062's package, and it overturned how this
+repo had been reasoning about cost all that day.** Frame time tracks the
+number of submissions and barely notices the geometry in them. Walking the
+camera through a generated level: 1,730 draw calls read 9.49 ms with 13% of
+frames over 16.7 ms; 6,376 draw calls read 25.59 ms with 99.6% over. The
+primitive count sat at about 1.4M the whole way and never moved, render-CPU
+was about twice GPU, and a second lap over the same ground was no faster --
+so it is submission cost, not geometry cost and not shader compilation.
+
+For scale, in that same package a room was being agonised over at 25,008
+triangles against a borrowed 24,000 "budget" while 1.4M triangles were on
+screen. The triangle budgets in Zoo's genomes are REGRESSION DETECTORS -- a
+species that silently doubles trips them -- and they were never frame costs.
+Say which of the two you mean.
+
+The rules that follow from it, in the order to reach for them:
+
+- **Never express colour-only variation as a new material.** Forty pennants
+  in forty colours are one mesh with per-instance colour, not forty
+  materials -- Zoo's `pennant_row` shipped 89 meshes and 13 materials that
+  differed in nothing but `baseColorFactor`. Variation belongs in instance
+  data, a vertex colour channel, or an atlas UV. This is the cheapest rule
+  here and the easiest to break by accident, because a generator that takes
+  a colour and returns a material feels correct.
+- **Merge a module's parts by material, never across modules.** The chunk to
+  merge is the largest unit that becomes visible and invisible as one thing.
+  A prop is that unit: every part of one pack wall enters view together, so
+  merging inside it costs no culling (Zoo 1.1.0: 118 meshes to 4, triangles
+  identical, interiors 59-63% faster). A whole street merged into one mesh
+  would be faster to submit and slower to play, because looking at one
+  storefront would keep the rest alive.
+- **MultiMesh the large repeated sets, and partition them by visibility.**
+  Lot's surface dressing is the pattern that works here: 4,107 instances in
+  4 draw calls. One MultiMesh per room, block or wall run -- never one for
+  the level, because a MultiMesh is a single object to the culler.
+- **Prefer not submitting to submitting cheaply.** Occlusion and distance
+  representation beat any amount of per-object thrift.
+
+**Price a change the way the merge was priced**: draw calls AND frame time at
+fixed stations, before and after, on the target renderer, with a control that
+proves the instrument can see a difference at all. That merge's first render
+probe reported "pixel-identical" from frames that were 99.7% black, and a
+known geometry change measured zero through the same probe. A number that
+cannot move is not evidence.
+
 ## Attribution — no AI/Claude self-attribution (hard rule)
 
 When committing, opening PRs, or writing code in ANY repo under this workspace,
