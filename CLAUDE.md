@@ -412,6 +412,26 @@ The three that have each cost a full round-trip:
   the joined string first, then apply `%`.
 - `:=` **cannot infer from an untyped parameter**, and Godot rejects that at load
   as a parse error rather than warning about it. Type the parameters.
+- `:=` **also cannot infer from an untyped array element**, which `gdcheck`
+  does NOT catch: `var worst := sorted[n - 1]` where `sorted` came from
+  `duplicate()` is a Variant, and Godot refuses it at load the same way.
+  Annotate the type. Cost so far: two round-trips.
+
+**How a probe is launched is part of writing it, and it has reached the
+walker's desktop twice.** `godot --script foo.gd` runs the script AS the main
+loop, so it must `extends SceneTree` (or `MainLoop`) and drive itself; a
+script that `extends Node` has to be an autoload or sit on a node in a scene.
+Launch one the wrong way and the engine raises a MODAL DIALOG — on the
+walker's screen, because this is their machine — and the run blocks until
+somebody clicks OK, which reads as a hang rather than a mistake. Two real
+instances on 2026-09-21: a probe project with no `run/main_scene`, and a
+`warmup.gd` that extended `Node`.
+
+So: run measurements `--headless` whenever they do not need a window (a value
+read from the engine never does), and where a real frame time is needed —
+headless draws nothing, so it cannot answer that — open a window that
+measures and quits itself. Never leave one that can stop on a dialog, and
+never leave a Godot or Blender process running when the job ends.
 
 ## Known contract tensions
 
