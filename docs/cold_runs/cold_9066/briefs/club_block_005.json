@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_005",
+  "display_name": "Club Block V",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9066. The club brief a third time, unchanged, making a three-point series on one brief: 9060 was built before any of this work; 9065 carried Zoo 1.1.0's merge (same shell strip_club_a02 went 687 -> 355 meshes over 78 modules) and measured 44.3% -> 1.4% of frames missing 60 fps while walking -- but shipped use_occlusion_culling=true with ZERO occluders, because the bake ran against a project Godot had never imported and every load() failed. THIS RUN TESTS THE FIX. What would falsify it: a package that again ships the flag without occluders, occluders that cull something visible, or a frame cost that did not move at the stations where a wall stands between the camera and the rest of the site. The exporter should now be unable to emit the flag and no occluders -- that disagreement is the defect 9065 found.",
+  "crew_size": 4
+}
