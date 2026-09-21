@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_004",
+  "display_name": "Club Block IV",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9065. The same club brief as 9060 and 9064, unchanged, to answer whether the draw-call work is in the TOOLS rather than a property of the card shop it was developed against. 9064 refused at export on ZOO_FIXTURES_MARKER_MISMATCH -- Zoo 0.94.0 builds club light hardware that carries no emitter marker on purpose (built 25 = markers 18 + markerless 7) and LF's gate predated that contract. LF 0.97.0 fixed the gate, added a tally check against the index's own placements so the invariant is not a tautology, and re-grounded seven stale version pins. WHAT WOULD FALSIFY THE CLAIM: draw calls that do not fall on a brief nobody tuned, or a package that needed hands. Comparison: 9060's package is on disk, built before Zoo 1.1.0's merge and LF 0.96.0's occluders, and contains strip_club_a02 -- the same shell 9064 drew.",
+  "crew_size": 4
+}
