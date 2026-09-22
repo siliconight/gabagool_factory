@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_008",
+  "display_name": "Club Block VIII",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9069. The club brief a sixth time, unchanged. Tests LF 0.104.0: the resource manifest omitted five files the package ships -- LICENSES.json, export_profile.json and output_layers.json by an ordering accident, portable_resource_manifest.json structurally, and LF_MANIFEST.json deliberately -- and _WRITTEN_AFTER_VERDICT's own comment documented the accident as a decision, which is why nobody caught it. 0.104.0 moves the three, declares the two with their different reasons, and guards the arithmetic. WHAT WOULD FALSIFY THE CLAIM: a shipped manifest where listed + declared_unlisted does not equal the files on disk; a declared file that is absent; a file in both lists; or a package that needed hands. The closure verdict must also still close (9068: 669 + 6 = 675, fingerprint re-derived by an outside reader).",
+  "crew_size": 4
+}
