@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_007",
+  "display_name": "Club Block VII",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9068. The club brief a fifth time, unchanged. 9067 proved the occluders reach the running scene (317 nodes from res://mission.tscn) and walked at 0.1% of frames missing 60 fps on a COLD lap. This run tests LF 0.103.0's closure fix: the gate used to judge a package that did not exist yet -- 274 files landed after it, including a twice-rewritten mission.tscn, occluders.tscn and project.godot, which meant required_autoload_count and required_plugin_count could never be non-zero because the file they read was not written yet. The verdict now runs last, records which package it judged, and a guard refuses the build if anything changes underneath it. WHAT WOULD FALSIFY THE CLAIM: a shipped export_closure_scan.json whose resource_count disagrees with the files on disk; a verdict whose package_fingerprint does not re-derive; or a package that needed hands.",
+  "crew_size": 4
+}
