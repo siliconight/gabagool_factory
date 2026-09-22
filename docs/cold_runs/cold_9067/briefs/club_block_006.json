@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_006",
+  "display_name": "Club Block VI",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9067. The club brief a fourth time, unchanged, closing the series 9060 / 9065 / 9066 / 9067. 9066 shipped 301 occluders and NONE of them reachable: run/main_scene is mission.tscn, which loads presentation/lux.applied.tscn and the dressing layer, while occluders.tscn was instanced only from the package-root site.tscn that nothing runs -- so a recipient paid the culler's per-frame cost with nothing to cull, and every occlusion figure this repo had published came from a probe naming a scene the mission never loads. LF 0.102.0 wires the holder into mission.tscn, bakes against that same scene, and audits by walking from run/main_scene DOWNWARD with a Godot runtime count as arbiter. WHAT WOULD FALSIFY THE CLAIM: a package whose running scene reaches zero occluders; draw calls that do not fall at the interior stations; occluders that cull something visible; or a package that needed hands. The run's own verdict counts as much as the frame figures.",
+  "crew_size": 4
+}
