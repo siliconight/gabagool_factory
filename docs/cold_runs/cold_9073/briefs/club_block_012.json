@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_012",
+ "display_name": "Club Block XII",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9073. The club brief a tenth time, unchanged from 9072's so the only new variable is LF 0.107.0. WHAT THIS TESTS: 9072 measured a clean zero AND shipped a package in which occlusion culling hid real geometry -- the walker turned the flag off in a copy and a basement stairwell appeared, along with walls coming and going over 0.7 m. bake_occluders took a module's AABB as a proxy for what it blocks, so a floor plate with a stairwell cut through it emitted a 36 x 13 m box, 2 cm thick, spanning the opening. 0.107.0 measures the uncovered area of every solid module on its thin axis and refuses to emit a box for one over 0.25 m2 -- derived: the smallest opening this pipeline cuts is a 1.43 m2 ladder hole and the measured uncovered area of all 381 modules without an opening was exactly 0.000000 m2. On 9072's package that drops 11 of 392 occluders, retains 65.3% of the occlusion benefit and restores 5,746 object-frames. WHAT WOULD FALSIFY THE CLAIM: an export refused by the new gate, an occluders report whose rows lack uncovered_m2, a holed count of 0 on a package with stair openings, or a walk that still shows geometry appearing when occlusion is turned off. A gate that passes is not the same as a level that reads right.",
+ "crew_size": 4
+}
