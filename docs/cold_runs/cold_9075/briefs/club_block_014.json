@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_014",
+ "display_name": "Club Block XIV",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9075. The club brief a twelfth time, unchanged, so the only new variables are the tools. WHY THERE IS A TWELFTH: 9074 measured 0 interventions and produced NO PACKAGE -- the export refused twice, exit 2, and cold_run --end cannot see an export's exit code any more than it could in 9071. THE DEFECT: _open_blockers read every blocking issue in the validation file and filtered only by EXPORT_SELF_REPORTING_STAGES, while cmd_run calls aggregate with eliminated_candidates and selected_candidate. seed_9074 carried the only blocker (LT_ObjectivePoint inside solid geometry); selecting seed_9276 made the mission view print 'blockers open: 0' and the export still refused. No selection could have passed. LF 0.108.0 compares the candidate token in a finding's location against the approval marker, and fails safe when either is unknown. THIS RUN THEREFORE PROVES FOUR THINGS AT ONCE, none of which has yet had a cold run: DC 0.143.0's stair rail clipped to solid floor (2.050 -> 1.022 m opening), Dispatch 0.5.0's ladder off-mesh links reaching the package, LF 0.108.0's candidate-aware blocker query, and LF 0.107.0's occluder hole gate holding on a second package. WHAT WOULD FALSIFY ANY OF THEM: a nonzero export exit; a package whose buildings carry ladders and whose navigation_hints.json links[] is empty; a walkable_edge scan still reading a storey-height fall at a stairwell's floor-level edge; or an occluder shipped with uncovered area over 0.25 m2.",
+ "crew_size": 4
+}
