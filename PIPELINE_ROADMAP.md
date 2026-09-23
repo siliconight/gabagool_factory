@@ -852,9 +852,9 @@ work of adopting this.
 | 171 | **OPEN** | Exterior access exists and almost never gets placed | 2026-09-23 -- A BUILT CAPABILITY THAT IS ESSENTIALLY UNUSED. 2 fire escapes in 370 specs;  |
 | 172 | **OPEN** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 -- MEASURED ON A PACKAGE THAT HAS LADDERS. The link is generated per ladder and |
 | 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
-| 174 | **OPEN** | An opening's aperture is not declared, so the layer that adds the door | 2026-09-23 -- SMALL, AND HELD FOR ONE ANSWER. The aperture is derivable today (a `slot_ref |
+| 174 | **NARROWED** | `interactive_state` means one thing on a breach and another on a door | 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED WRONG WITHIN THE HOUR. The scene a |
 
-**174 items: 32 open, 79 closed, 3 retracted, 53 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**174 items: 31 open, 79 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -17583,12 +17583,16 @@ a routing cost problem, so building the hierarchy now would be optimising
 toward a number nobody has taken. The AAS ITSELF is not worth porting: its
 brush expansion and area subdivision are what Godot's Recast bake already does.
 
-*STATUS: OPEN 2026-09-23 -- SMALL, AND HELD FOR ONE ANSWER. The aperture is
-derivable today (a `slot_ref` resolves to a node in `site.tscn` and the GLBs)
-but not declared, so a consumer re-derives what this pipeline computed.*
+*STATUS: NARROWED 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED
+WRONG WITHIN THE HOUR. The scene already carries a full state contract:
+all 35 anchors appear as `metadata/interactive_id`, each state node carries
+`metadata/interactive_state`, and the non-default ships `visible = false`. What
+remains is narrower and real: 24 nodes are tagged `closed` over geometry that
+is an open aperture, with no `open` counterpart, while `breach_wall` uses the
+same two fields to mean "this node IS this state". One field, two meanings.*
 
-**174. An opening's aperture is not declared, so the layer that adds the door
-has to re-derive it.** Raised with the walker, 2026-09-23.
+**174. `interactive_state` means one thing on a breach and another on a door.**
+Raised with the walker, 2026-09-23.
 
 **WHAT THIS PIPELINE ACTUALLY SHIPS, corrected twice in the conversation that
 produced this item and worth stating precisely because both corrections
@@ -17607,19 +17611,51 @@ subtracts from it. `interactives.json`'s `default: "closed"` describes the door
 that will be added, not the geometry that shipped -- a reader could take it for
 the latter.
 
-**What is missing is one geometric fact.** An anchor carries a stable id, a
-`slot_ref`, a transform, `states` and `transitions`. It does not carry the
-aperture. `ext_0_S_open0` does resolve -- it names a node in `lot/<building>/
-site.tscn` and in the GLBs, 9 files in the package mention it -- so a consumer
-CAN get there by walking the scene and reading bounds. That is this pipeline
-asking somebody to re-derive a number it already computed, which is the same
-shape as item 172's dropped nav link.
+**RETRACTED, WITHIN AN HOUR OF BEING WRITTEN, and kept because the retraction
+is the useful half.** This item first claimed the missing thing was an
+aperture field on the anchor -- that `slot_ref` merely resolves to a node name
+and a consumer must walk the scene and read bounds to get the hole. Measured
+properly afterwards, the scene already carries a full state contract:
 
-**`breach_wall` is the case that matters most.** `intact -> breached`,
-`reversible: false`, `breach_class: soft_wall`. Breaching ADDS a route the
-baked mesh does not contain, so the gameplay layer has to tell navigation that
-something new exists -- and the aperture is precisely what it needs to say it.
-A door only ever subtracts; a breach adds.
+    [node name="ext_0_S_open2_breached" instance=ExtResource("..._breached")]
+    visible = false
+    metadata/interactive_id    = "deli_a03:if:bde83ff2"
+    metadata/interactive_state = "breached"
+
+Every one of the 35 anchors appears as a `metadata/interactive_id` in a
+building scene, each state node is labelled with `metadata/interactive_state`,
+and the non-default one ships `visible = false`. That is discoverable by id
+without any new field, and it is a better contract than the one this item
+proposed adding. The first claim was made from the anchor JSON alone, without
+reading the scene the anchor points into.
+
+**WHAT THE MEASUREMENT ACTUALLY SHOWS, and it is a sharper finding.** Counting
+`metadata/interactive_state` across the shipped building scenes:
+
+    closed    24      intact    11      breached  11
+
+A BREACH is fully specified: two nodes, `intact` solid and `breached` hollow,
+same id, the non-default hidden. A consumer toggles visibility and collision
+and navigation follows. Nothing is missing.
+
+A DOOR is not. There are 24 nodes tagged `closed` and NO node tagged `open` --
+and the geometry under the `closed` tag is the doorway module, which is a
+frame around 2.192 m2 of hole. So the state label says closed and the geometry
+is an opening a body walks straight through, with no counterpart mesh to swap
+to. That is the real gap: not an undeclared aperture, but a declared state that
+the shipped geometry does not represent.
+
+**Which is correct for what this pipeline builds** -- the door is added outside
+Level Factory by a networked layer, so there is no leaf to ship -- and is still
+a trap for a reader, because `breach_wall` right beside it uses the same two
+fields to mean "this node IS this state". One kind's `interactive_state` labels
+geometry; the other's labels an intention. Two meanings, one field.
+
+**So the work is a naming or a declaration, not an aperture.** Either the door
+node's state is marked as an intention rather than a state (`aperture` /
+`state_pending`, say), or the anchor says outright that no geometry represents
+`open` because the opening IS the open state. Whichever, it should be readable
+without comparing two kinds of interactive to notice the inconsistency.
 
 **Owners.** Deli Counter -- put the aperture on the interactive record it
 already derives (`interactives.derive_interactive` computes the stable id from
