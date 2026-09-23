@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_010",
+ "display_name": "Club Block X",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9071. The club brief an eighth time, deliberately unchanged from 9070's so the only new variable is the tools. THE DEFECT THIS TESTS: the walker descended a ladder on 9070's package and the floor below read grey and untextured from above, with the real texture appearing on the way down -- then the same on a staircase. Theming skins a slab's TOP as a floor and its BOTTOM as a ceiling and never touches the faces a hole cut through it CREATES, so deli_counter._slab_holes_cut leaves a floor_thick-deep ring of flat gb_floor around every ladder shaft and stairwell: 1.44 m2 around a 1.10 x 1.30 m opening, the same area as the opening itself, 10.44 m2 over 8 cut slabs in 9070's package. Four cheaper explanations were measured and refuted first (not draw distance, not occlusion culling, not z-fighting, not a gap in the floor) and it predates the performance work -- every package back to 2026-09-11 ships gb_floor on its slabs -- so that pass revealed it rather than causing it. LF 0.106.0 adds _skin_slabs beside _skin_stairs (world triplanar, because a boolean's new faces carry no usable UVs) and a greybox_skin gate that counts surfaces still drawing a gb_* material in the running scene, refusing on slabs and reporting the rest. WHAT WOULD FALSIFY THE CLAIM: a package whose census still reports slab surfaces on a greybox material, a worldskin push_error naming a base it could not find a pack for, or a walk that still shows a grey collar around an opening -- a gate that passes is not the same as a level that reads right.",
+ "crew_size": 4
+}
