@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_014",
+ "display_name": "Club Block XIV",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9076. The club brief a thirteenth time, unchanged, so the only new variables are the tools. WHY THERE IS A THIRTEENTH: 9075 was a genuine zero and it FALSIFIED one of the four claims it was run to test. Its navigation_hints.json read 'schema dispatch.navigation_hints.v0.3  nodes 57  edges 55  LINKS 0' on a package carrying 23 gb_ladder surfaces and a market_hall_a01 shell with a nav_link in it -- exactly the falsifier the 9075 brief had written down in advance. THE DEFECT: Dispatch 0.5.0 patched the DELI COUNTER importer. A site mission runs the LOT importer instead, because lot.gameplay.json is its manifest, and Lot concatenated its buildings' interactives into the site while dropping their ladders entirely -- measured, that file's keys were anchors, interactives, license, props, schema, up_axis. Nothing downstream could carry a link it never received. Lot 0.76.0 carries ladders into the site and moves every one of the twelve points and the plan rect into site space, refusing on a numeric triple it does not recognise rather than shipping one in the wrong frame; Dispatch 0.5.1's Lot importer reads them. THIS RUN THEREFORE PROVES TWO THINGS, neither of which has had a cold run: Lot 0.76.0 + Dispatch 0.5.1's ladder off-mesh links reaching a SITE package, and Deli Counter 0.144.0's hidden interactive states shipping with their collision off. WHAT WOULD FALSIFY EITHER: a package whose buildings carry ladders and whose navigation_hints.json links[] is still empty -- the same falsifier as 9075, restated deliberately because it has already caught a claim made from fixtures alone; or a shipped site.tscn carrying a node with 'visible = false' and an interactive_state the contract calls not-solid with no 'collision_layer = 0' under it. A nonzero export exit falsifies the run itself, as it did in 9071 and 9074, and the exit code is read rather than inferred from the intervention count.",
+ "crew_size": 4
+}

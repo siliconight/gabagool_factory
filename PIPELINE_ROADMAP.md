@@ -854,8 +854,9 @@ work of adopting this.
 | 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
 | 174 | **NARROWED** | `interactive_state` means one thing on a breach and another on a door | 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED WRONG WITHIN THE HOUR. The scene a |
 | 175 | **OPEN** | A hidden interactive state keeps its collider, so there is collision w | 2026-09-23 -- MEASURED IN THE ENGINE. All 11 `breached` nodes carry `visible = false` and  |
+| 176 | **CLOSED** | A stair regression hid behind a baseline that was doing its job | 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0. Attributed from the tracked `o |
 
-**175 items: 32 open, 79 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**176 items: 32 open, 80 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -17750,3 +17751,114 @@ false` that is already there.
 wanted while hidden -- a trigger volume, or a breach that should stop bullets
 but not sight. None of the 11 measured is that; all are wall panels. Worth a
 look before the rule is written as unconditional.
+
+*STATUS: CLOSED 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0.
+Attributed from the tracked `outputs_sha256_16` in `build/*.manifest.json`:
+this shell's glb reads `c600f22e9178d52e` before 0.143.0 and
+`8f2b4ae3a33c8567` at and since it, so that release moved the geometry and
+nothing after it did -- confirmed by building with `stairwell.py` from HEAD~1
+(old hash returns, both stairs `ok`) and at HEAD (`stair_0` `no_path`).
+MECHANISM: 0.143.0 clipped the rail's opening to the plate beneath it, 0.2778
++ 0.8 = 1.0778 m, while the bake needs about 1.4 -- so the opening must be
+WIDER than its floor and "opening <= floor" has no solution. Swept by forcing
+`open_rail` and rebuilding: FAIL at 1.0778/1.2/1.25/1.3/1.35, PASS at
+1.4/1.6/1.8/2.05, nine distinct glb hashes with the 2.05 control reproducing
+the pre-0.143.0 file exactly. FIX: `stair_guards` lets the opening hang past
+the plate by up to `agent_contract.body_radius()` (0.35), derived from the
+capsule the rail holds back rather than chosen; opening 1.4278, shell gates
+`navigable: yes` at glb `4914523fd9cf46ab`, removed from the baseline. TWO
+REFUTATIONS KEPT BELOW, including a fix that looks obviously right and does
+nothing. THE SECOND-ORDER FINDING IS NOT CLOSED and is restated below: this
+sat five weeks because the sweep that catches it needs a built library.*
+
+**176. A stair regression hid behind a baseline that was doing its job.** One
+shell in 135 stopped connecting its basement some time between 2026-08-21 and
+2026-09-23, and nothing failed until the library was rebuilt for an unrelated
+release.
+
+**WHAT THE GATE SAYS.** `build/foundry_heist_vertical.navgate.json`:
+
+    navmesh_polys  1675 in 19 islands
+    island 0       1286 polys   y   0.20 .. 10.55   ground floor to roof
+    island 1        339 polys   y  -3.10 ..  0.35   the basement
+    stair_0        no_path -- "endpoints on disjoint islands
+                   (lower on 1, upper on 0)"
+    stair_1        ok      -- storey 0 to 2, entirely above ground
+
+**THREE CONNECTIONS CROSS THAT JUNCTION AND NONE CARRIES**, which is what
+moves the suspicion off any one of them and onto the junction itself: the
+`switchback` stair (`from_story -1, to_story 3`), a 12 m ramp declared at
+30 deg, and `ladder1` (`from_story -1, to_story 0`). One failing is a defect in
+one thing. Three failing together is a defect in what they all land on.
+
+**THE POPULATION, so the shape is not mistaken for a one-off spec.** It is 1 of
+49 basement shells and the other 48 pass. It is also the only stair in the
+library spanning +4 storeys -- 131 span +1, 12 span +2, 5 span +3 -- so if the
+span is load-bearing, this is the only shell that could show it.
+
+**TWO HYPOTHESES RAISED AND REFUTED**, kept here because they are cheaper to
+read than to re-run:
+
+1. *The spec's `to_story: 3` exceeds `n_stories: 3`.* REFUTED: ten specs use
+   `to_story == n_stories` as the roof-access convention and only this one
+   fails, so the convention is not the defect. (This was also stated as a
+   finding earlier in the same session and retracted on checking the library --
+   the retraction is the useful part.)
+2. *The arrival sits one `cell_height` above the ground floor, so Recast will
+   not join the spans.* REFUTED by measuring the glb rather than the report:
+   `stair0_land_-1`, `stair0_discharge_-1` and `slab story 0` all top out at
+   y = 0.0000. They are level. The 0.20 and 0.35 that suggested a 0.15 m step
+   are Recast voxel tops on the `-3.70 + k * 0.15` grid the bake's own AABB and
+   `cell_height` define -- a ROUNDED ARTEFACT, exactly the thing CLAUDE.md
+   already records as unable to settle a question about floats. Both smooth
+   ramp colliders pitch at 35.0 deg (rise 3.853 m over run 5.50 m) against a
+   55 deg bake limit, so slope is not it either.
+
+**WHAT IS OPEN: which commit.** The window is 2026-08-21..2026-09-23 and is
+dominated by stair-guard work -- 0.126.0 (stairs are guarded), 0.134.0 (the
+back of a flight is filled flush with its side walls), 0.138.0 (the hole behind
+the stair), 0.143.0 (a rail's opening must have floor under it). Guards are the
+suspect and are NOT convicted. The one guard-shaped quantity checked came back
+clean: `st.width` is 1.8 against a `min_corridor_width` of 1.1, so this flight
+takes the filled guard rather than the thin one, and its side pieces measure
+flush to the flight edges (x -4.70..-4.31 and -0.70..-0.30 against a flight at
+-2.50..-0.70) with no slot between.
+
+**HOW TO SETTLE IT**, written down because the cost is the reason it has not
+been done yet: bisect that window in a separate git worktree -- so the main
+checkout stays clean and no cold run is disturbed -- rebuilding this one shell
+and re-running `nav_gate` at each step. Roughly fifteen commits.
+
+**A THIRD FIX WAS TRIED AND REFUTED, and it is the useful one to keep**
+because it is what anybody would reach for. Deepen the PLATE so the opening it
+allows has floor under all of it -- raise `WALKOFF_CLEAR` from 0.8 to 1.25,
+sized so `step_d + WALKOFF_CLEAR` clears 1.4 for the library's shallowest step
+(0.1667 m, measured over all 133 specs and 149 flights). It does nothing. The
+walk-off also sizes `flight_rect`'s reserved rectangle and the builder's hole,
+and the opening is measured from that rectangle's edge, so `t_lo` moved out by
+exactly as much as the opening grew and the rail landed in the same place.
+Rebuilt and gated: `no_path`, glb `2a371e974f9f852d`. **The opening and the
+plate are one quantity at any scale**, which is why the premise was
+unsatisfiable rather than merely tight -- and that is the thing worth
+remembering, not the number.
+
+**1.4 IS NOT A LIBRARY-WIDE MINIMUM**, and asserting it as one was the last
+wrong turn here -- caught by running the test that made the claim, which failed
+against 130 shells. 130 of 149 railed flights leave an opening below 1.4 (a
+typical `step_d` of 0.2350 gives 1.3850; the shallowest, 0.1667, gives 1.3167)
+and every one of them gates `navigable: yes`. What made this landing different
+is topological, not dimensional: it sits in a corner against the south wall, so
+the rail's opening is its ONLY way off. Elsewhere a landing has floor on more
+than one side and survives a narrow gap. A width threshold measured on one
+shell is a property of that shell's topology, and generalising it would have
+failed 130 working buildings.
+
+**THE SECOND-ORDER FINDING, and it may matter more than the first.** Nothing
+caught this for a month. `test_navgate_population.py` compares against
+`navgate_baseline.json` and reads `build/`, which is not committed -- so the
+comparison only happens on a machine that has just rebuilt the library, and the
+library is rebuilt when a release needs it rather than on a schedule. A gate
+that runs when somebody happens to rebuild is a gate with an unknown duty
+cycle, and the interval here was five weeks. Worth deciding whether the sweep
+should run on its own cadence, and worth noting that the regression surfaced as
+a side effect of an unrelated release rather than by being looked for.
