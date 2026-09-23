@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_011",
+ "display_name": "Club Block XI",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9072. The club brief a ninth time, unchanged from 9071's so the only new variable is LF 0.106.1. WHY THERE IS A NINTH: 9071 measured 0 interventions and was WRONGLY reported as a zero. Its export had died exit 5, EXPORT_CLOSURE_BROKEN, on .godot/editor/project_metadata.cfg -- 0.106.0's new greybox gate called ensure_imported and walked away, recreating an import cache the exporter had removed three steps earlier, and the closure verdict scanned it. The package shipped without its manifests. cold_run.py --end counts changed files and journal entries and cannot see an export's exit code, and nobody had read one: the gate's own log line was clean and printed BEFORE the failure it caused. 0.106.1 makes measure() restore the cache state it found and refuse out loud if it cannot. Re-exporting 9071's workspace on 0.106.1 gave exit 0, closure ok=true, 1082 files listed + 2 declared unlisted. WHAT THIS RUN HAS TO SHOW: a cold zero WITH an export that exits 0 and a package carrying its manifests -- and the slab class still at zero (9071's census read 'slabs 0' with 152 surfaces on M_Skin_slab_reveal, so the skin worked even while the package around it did not). WHAT WOULD FALSIFY IT: any nonzero export exit, a missing portable_resource_manifest.json, a .godot in the shipped package, or a census reporting slab surfaces on a greybox material.",
+ "crew_size": 4
+}
