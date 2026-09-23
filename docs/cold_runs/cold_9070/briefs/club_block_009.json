@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "club_block_009",
+  "display_name": "Club Block IX",
+  "archetype": "strip_club",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9070. The club brief a seventh time. THE REGRESSION THIS TESTS: Zoo 1.2.0 externalised module textures to _tex/<name>_<sha1>.png referenced by relative glTF uri, and every adapter's collect_outputs selects by suffix (.glb, .json) -- so a .png was never collected, never published to <job>/out, and three shipped packages (9067, 9068, 9069) rendered as greybox: 12 texture RIDs and 681 of 4,019 materials bound, against 214 and 3,529 when fixed. The walker caught it by walking; closure, the manifest and three cold-run zeros all passed it. LF 0.105.1 widens a job's outputs with whatever each GLB names (read from glTF JSON, no folder name in the code), DC 0.142.0 and Lot 0.75.0 carry the same dependency through the composer and the cover copy, and a new gate refuses any export whose GLB references do not resolve. WHAT WOULD FALSIFY THE CLAIM: a package with unresolved GLB references, or one that ships them and still binds no textures at runtime -- a file present is not a texture bound.",
+  "crew_size": 4
+}
