@@ -59,6 +59,7 @@ func _anchors(kinds: Array) -> Array:
 	## own `gameplay_anchors.json` rather than from node names, because that
 	## file is the handover contract and node names are for humans.
 	var out: Array = []
+	var seen: int = 0
 	var fh: FileAccess = FileAccess.open("res://gameplay_anchors.json",
 		FileAccess.READ)
 	if fh == null:
@@ -71,11 +72,25 @@ func _anchors(kinds: Array) -> Array:
 		var kind: String = String(rec.get("anchor_type", ""))
 		if not kinds.has(kind):
 			continue
+		seen += 1
+		# `pos`, READ OUT OF A REAL RECORD rather than guessed. The
+		# first version looked for `translation` then `position`,
+		# found neither, and dropped every anchor silently -- so the
+		# run reported "no player_start anchor" for a package that
+		# ships exactly one. The other spellings stay as fallbacks;
+		# what changed is that an unreadable record now REFUSES.
 		var tf = rec.get("transform", {})
-		var t = tf.get("translation", tf.get("position", null)) if typeof(tf) == TYPE_DICTIONARY else null
+		var t = null
+		if typeof(tf) == TYPE_DICTIONARY:
+			t = tf.get("pos", tf.get("translation", tf.get("position", null)))
 		if typeof(t) != TYPE_ARRAY or (t as Array).size() < 3:
 			continue
 		out.append([kind, Vector3(float(t[0]), float(t[1]), float(t[2]))])
+	# A TYPE THAT MATCHED BUT WHOSE POSITION WOULD NOT PARSE IS A
+	# DIFFERENT FAULT from a type that is absent, and saying so is
+	# the difference between fixing a reader and hunting a spec.
+	if seen > 0 and out.is_empty():
+		push_error("[navdemo] %d anchor(s) of %s matched by type and NONE carried a readable transform.pos" % [seen, str(kinds)])
 	return out
 
 
@@ -132,6 +147,19 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 	var region := NavigationRegion3D.new()
 	region.navigation_mesh = nm
 	root.add_child(region)
+	# THE MAP HAS ITS OWN CELL SIZE AND IT MUST MATCH THE MESH'S.
+	# Godot's navigation map defaults to 0.25; this pipeline bakes at
+	# `nav_bake.cell_size_m` 0.10. A region whose mesh disagrees with
+	# its map does not merge, and every `map_get_path` returns an
+	# EMPTY array -- not a short path, not a snapped point, nothing.
+	# Measured on cold run 9076's package before this line: 4,323
+	# polygons baked and 0 of 10 destinations reachable with points=0
+	# on every route, which reads like an unnavigable level and is
+	# actually an unconfigured map.
+	var _map: RID = region.get_navigation_map()
+	NavigationServer3D.map_set_cell_size(_map, cell)
+	NavigationServer3D.map_set_cell_height(_map, cell_h)
+	NavigationServer3D.map_set_active(_map, true)
 	# The region parses its OWN children, so the level moves under it.
 	root.remove_child(scene)
 	region.add_child(scene)
@@ -146,6 +174,18 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 	report["bake_ms"] = snappedf(float(baked) / 1000.0, 0.01)
 	report["polygons"] = nm.get_polygon_count()
 	report["vertices"] = nm.get_vertices().size()
+	# PUSH THE BAKED MESH TO THE SERVER. `bake_navigation_mesh` fills
+	# the RESOURCE; the region applies it to its map on a deferred
+	# callback, so a script that queries in the same run finds a map
+	# with no polygons. Measured on cold run 9076's package: 4,323
+	# polygons in `nm`, 1 region on the map, map active, cell 0.100 --
+	# and `map_get_closest_point(map, ZERO)` returning exactly
+	# (0,0,0), which is Godot's empty-map sentinel, with every route
+	# coming back `points=0`. That reads as an unnavigable level and
+	# is an unsynced one. Re-assigning is what commits it.
+	region.navigation_mesh = nm
+	for _i in range(5):
+		await physics_frame
 
 	if int(report["polygons"]) == 0:
 		report["error"] = ("the bake produced no polygons -- refusing to "
@@ -177,15 +217,41 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 	var nodes2: Array = []
 	_walk(scene, nodes2)
 	var ramps: int = 0
+	var named: int = 0
 	var steep: int = 0
 	var worst: float = 0.0
 	for n in nodes2:
 		if not String(n.name).contains("ramp"):
 			continue
+		named += 1
+		# A RAMP MAY HAVE NO VISUAL. Deli Counter ships the smooth stair
+		# collider as `-convcolonly`, and Godot DELETES the visual for
+		# that suffix -- it becomes a StaticBody3D with a
+		# CollisionShape3D and no VisualInstance3D anywhere. Scanning
+		# only visuals made this census read 0 ramps on a package with
+		# stairs in every building, which is a check that cannot fire.
+		var b: AABB
+		var got: bool = false
 		var v3: VisualInstance3D = n as VisualInstance3D
-		if v3 == null:
+		if v3 != null:
+			b = v3.global_transform * v3.get_aabb()
+			got = true
+		else:
+			# AND THE SHAPE IS USUALLY A CHILD. `stair0ramp_0-convcolonly`
+			# arrives as a StaticBody3D named `stair0ramp_0` with a
+			# CollisionShape3D under it, so matching the name and reading
+			# the node itself finds neither a visual nor a shape. Measured:
+			# 4 nodes named `ramp`, 0 of them yielding an AABB.
+			var kids: Array = []
+			_walk(n, kids)
+			for k in kids:
+				var cs: CollisionShape3D = k as CollisionShape3D
+				if cs != null and cs.shape != null:
+					var kb: AABB = cs.global_transform * cs.shape.get_debug_mesh().get_aabb()
+					b = kb if not got else b.merge(kb)
+					got = true
+		if not got:
 			continue
-		var b: AABB = v3.global_transform * v3.get_aabb()
 		var run: float = maxf(b.size.x, b.size.z)
 		if run <= 0.01 or b.size.y <= 0.01:
 			continue
@@ -195,6 +261,7 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 		if deg > 45.0:
 			steep += 1
 	report["stair_ramps"] = ramps
+	report["stair_ramps_named"] = named
 	report["stair_ramps_over_45deg"] = steep
 	report["steepest_stair_deg"] = snappedf(worst, 0.1)
 
@@ -203,6 +270,23 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 	var map: RID = region.get_navigation_map()
 	NavigationServer3D.map_force_update(map)
 	await physics_frame
+	# A ZERO MUST BE ATTRIBUTABLE. These three separate 'the level is
+	# not navigable' from 'the map was never set up', which looked
+	# identical the first time this ran.
+	report["map_regions"] = NavigationServer3D.map_get_regions(map).size()
+	report["map_cell_size"] = NavigationServer3D.map_get_cell_size(map)
+	report["map_active"] = NavigationServer3D.map_is_active(map)
+	# DOES THE MAP HOLD THE POLYGONS THE REGION BAKED? `map_get_regions`
+	# counts regions, not polygons, so it says yes to an empty one.
+	# `map_get_closest_point` is the cheapest question that only a
+	# populated map can answer.
+	var _probe: Vector3 = NavigationServer3D.map_get_closest_point(
+		map, Vector3.ZERO)
+	report["map_closest_to_origin"] = [_probe.x, _probe.y, _probe.z]
+	print("[navdemo] map closest point to (0,0,0): %s" % str(_probe))
+	print("[navdemo] map: %d region(s), cell %.3f, active %s"
+		% [int(report["map_regions"]), float(report["map_cell_size"]),
+			str(report["map_active"])])
 
 	var starts: Array = _anchors(["player_start", "crew_spawn"])
 	var dests: Array = _anchors(["objective", "extraction"])
@@ -239,14 +323,18 @@ func _run(out_path: String, radius: float, height: float, climb: float,
 		for pt in pts:
 			plo = minf(plo, pt.y)
 			phi = maxf(phi, pt.y)
-		var climb: float = (phi - plo) if pts.size() > 0 else 0.0
-		if ok and climb > 1.0:
+		# NOT `climb`: that is this function's own parameter (the bake's
+		# agent_max_climb), and Godot rejects a local that shadows a
+		# parameter as a PARSE ERROR at load rather than warning.
+		# gdcheck did not catch it; running the script did.
+		var rise: float = (phi - plo) if pts.size() > 0 else 0.0
+		if ok and rise > 1.0:
 			climbed += 1
 		report["routes"].append({
 			"to": String(d[0]), "reached": ok,
 			"points": pts.size(),
 			"length_m": snappedf(length, 0.01),
-			"climb_m": snappedf(climb, 0.01),
+			"climb_m": snappedf(rise, 0.01),
 			"gap_m": snappedf(minf(gap, 999.0), 0.01),
 		})
 	report["reached"] = reached

@@ -80,18 +80,20 @@ def lint(path: str) -> list:
                 sig += " " + lines[j].strip()
             if "(" in sig and ")" in sig:
                 inner = sig[sig.index("(") + 1:sig.rindex(")")]
+                parts = [q.strip() for q in inner.split(",") if q.strip()]
                 untyped = {p.split("=")[0].strip()
-                           for p in [q.strip() for q in inner.split(",") if q.strip()]
-                           if ":" not in p}
-                funcs.append((j, untyped))
+                           for p in parts if ":" not in p}
+                # EVERY parameter, typed or not, for the shadowing trap below.
+                allp = {p.split("=")[0].split(":")[0].strip() for p in parts}
+                funcs.append((j, untyped, allp))
             i = j
         i += 1
 
-    def params_at(n):
+    def params_at(n, which=0):
         cur = set()
-        for start, untyped in funcs:
-            if start < n:
-                cur = untyped
+        for entry in funcs:
+            if entry[0] < n:
+                cur = entry[1 + which]
         return cur
 
     prev = None
@@ -122,6 +124,17 @@ def lint(path: str) -> list:
         if m and m.group(1) in params_at(n):
             out.append((n, f"`:=` infers from `{m.group(1)}`, an untyped "
                            f"parameter -- Godot rejects this at load"))
+        # A LOCAL MAY NOT REUSE A PARAMETER'S NAME. Godot raises "There is
+        # already a parameter named X declared in this scope" as a PARSE
+        # ERROR at load -- not a warning -- so the script never runs. Cost:
+        # one round-trip on tools/navmesh_demo.gd, where `var climb` shadowed
+        # the bake's `climb` parameter and the driver reported only "wrote no
+        # report" because it swallowed the engine's output.
+        m2 = re.match(r'var\s+(\w+)\b', s)
+        if m2 and m2.group(1) in params_at(n, 1):
+            out.append((n, f"`var {m2.group(1)}` shadows a parameter of the "
+                           f"same name -- Godot rejects this at load as a "
+                           f"parse error"))
         prev = s
 
     if depth:
@@ -185,9 +198,9 @@ def main(argv) -> int:
                 where = f"  line {n}: " if n else "  "
                 print(where + why)
         elif parser_ok:
-            print(f"{path}: parses, and none of the three known traps")
+            print(f"{path}: parses, and none of the four known traps")
         else:
-            print(f"{path}: none of the three known traps -- NOT PARSED")
+            print(f"{path}: none of the four known traps -- NOT PARSED")
     # 1 = checked and found problems. 2 = could not fully check. Distinct,
     # because a checker that could not run must not report what a clean file
     # reports.

@@ -88,7 +88,7 @@ def bake(pkg: Path, agent: dict, godot: str, tag: str) -> dict:
     bundled = pkg / SCRIPT.name
     bundled.write_bytes(SCRIPT.read_bytes())
     try:
-        subprocess.run(
+        r = subprocess.run(
             [godot, "--headless", "--path", str(pkg),
              "--script", f"res://{SCRIPT.name}", "--", f"res://{REPORT}",
              str(agent["radius"]), str(agent["height"]), str(agent["climb"]),
@@ -97,7 +97,16 @@ def bake(pkg: Path, agent: dict, godot: str, tag: str) -> dict:
     finally:
         bundled.unlink(missing_ok=True)
     if not out.exists():
-        raise SystemExit(f"navmesh_demo: {tag} bake wrote no report")
+        # PRINT WHAT GODOT SAID. This swallowed it and reported only "wrote no
+        # report", which is a probe failing silently -- and the first real run
+        # hid a one-line GDScript parse error behind that sentence for as long
+        # as it took to run the engine by hand.
+        for stream, label in ((r.stdout, "stdout"), (r.stderr, "stderr")):
+            for line in (stream or "").strip().splitlines()[-25:]:
+                print(f"    [godot {label}] {line}")
+        raise SystemExit(
+            f"navmesh_demo: {tag} bake wrote no report (godot exit "
+            f"{r.returncode}); its output is above")
     rep = json.loads(out.read_text(encoding="utf-8"))
     out.unlink()
     if rep.get("schema") != "lf.navmesh_demo.v1":
