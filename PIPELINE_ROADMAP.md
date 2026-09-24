@@ -850,13 +850,14 @@ work of adopting this.
 | 169 | **OPEN** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A COLD RUN. Four anchored pa |
 | 170 | **OPEN** | Every roof opening in the library is an open hole, and a building does | 2026-09-23 -- MEASURED, NOT STARTED. 58 of 58 `roof_access` ladders cut the slab they arri |
 | 171 | **OPEN** | Exterior access exists and almost never gets placed | 2026-09-23 -- A BUILT CAPABILITY THAT IS ESSENTIALLY UNUSED. 2 fire escapes in 370 specs;  |
-| 172 | **OPEN** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 -- MEASURED ON A PACKAGE THAT HAS LADDERS. The link is generated per ladder and |
+| 172 | **CLOSED** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 by cold run 9077 -- `links: 1`, `lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] t |
 | 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
 | 174 | **NARROWED** | `interactive_state` means one thing on a breach and another on a door | 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED WRONG WITHIN THE HOUR. The scene a |
 | 175 | **OPEN** | A hidden interactive state keeps its collider, so there is collision w | 2026-09-23 -- MEASURED IN THE ENGINE. All 11 `breached` nodes carry `visible = false` and  |
 | 176 | **CLOSED** | A stair regression hid behind a baseline that was doing its job | 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0. Attributed from the tracked `o |
+| 177 | **OPEN** | A gate has printed FAIL on five consecutive cold runs and nobody read  | 2026-09-23 -- THE GATE HAS FAILED ON EVERY COLD RUN REPORTED AS CLEAN. `presentation_compo |
 
-**176 items: 32 open, 80 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**177 items: 32 open, 81 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -17451,10 +17452,22 @@ skin, and today there are three of them in the entire library, which is why
 169's interior look is the half worth getting right first. And a fire escape
 that terminates on a roof meets 170's missing hatch.
 
-*STATUS: OPEN 2026-09-23 -- MEASURED ON A PACKAGE THAT HAS LADDERS. The link is
-generated per ladder and reaches the shell's `gameplay.json`; ZERO files in the
-shipped package carry it. The climb marker ships, so a player can climb and an
-AI cannot path.*
+*STATUS: CLOSED 2026-09-23 by cold run 9077 -- `links: 1`,
+`lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] to [67.0, 7.2, -23.0], a 3.6 m
+climb, bidirectional, cost 3.0, `required_capability: climb`, agent_types
+player and ai_humanoid. 0 interventions, export exit 0. IT TOOK FOUR FIXES
+BECAUSE THE CHAIN IS FOUR HOPS, and the claim was made and falsified twice on
+the way: Dispatch 0.5.0 taught the Deli Counter importer to read ladders and
+9075 read LINKS 0 because a site mission runs the LOT importer; Lot 0.76.0 and
+Dispatch 0.5.1 fixed that and 9076 read LINKS 0 again because Level Factory's
+`stage_dispatch_inputs` projects Lot's file through a key whitelist that
+dropped `ladders` (LF 0.108.1). Both falsifications came from the same
+falsifier, written into each brief BEFORE the run: "a package whose buildings
+carry ladders and whose links[] is empty". THE VACUITY CHECK IS PART OF THE
+RESULT: 9077's best-graded candidate (seed_9279, PASS_WITH_TUNING) carried NO
+ladder, so selecting on grade as 9076 did would have read links 0 correctly
+and proved nothing; seed_9077 was selected for the falsifier instead, at a
+stated cost of a WARN grade.*
 
 **172. An AI cannot path up a ladder in a shipped package, because the off-mesh
 link the pipeline generates never leaves Deli Counter.** Raised by the walker,
@@ -17751,6 +17764,57 @@ false` that is already there.
 wanted while hidden -- a trigger volume, or a breach that should stop bullets
 but not sight. None of the 11 measured is that; all are wall panels. Worth a
 look before the rule is written as unconditional.
+
+*STATUS: OPEN 2026-09-23 -- THE GATE HAS FAILED ON EVERY COLD RUN REPORTED AS
+CLEAN. `presentation_compose` exits 3 with "z-fight gate [FAIL]" and the word
+ERROR on 9072 (107 coplanar pairs / 363 solids), 9073 (72/283), 9075 (44/300),
+9076 (130/594) and 9077 (79/525). All five were reported as zero-intervention
+runs. Nothing blocks, nothing is read, and no item tracked it until now.*
+
+**177. A gate has printed FAIL on five consecutive cold runs and nobody read
+it.** Found while attributing 9076's nonzero exit, which is the only reason it
+surfaced -- the number was not being looked for.
+
+**WHAT IT SAYS**, from `presentation_compose`'s own job log:
+
+    [compose] ERROR: coplanar surfaces detected -- the package would flicker.
+    [compose] z-fight gate [FAIL]: 130 coplanar pair(s) across 594 solids
+
+**THE SERIES**, normalised because the absolute count tracks site size:
+
+    run    pairs  solids  per solid   reported as
+    9072     107     363      0.295   genuine zero
+    9073      72     283      0.254   genuine zero
+    9075      44     300      0.147   genuine zero
+    9076     130     594      0.219   genuine zero
+    9077      79     525      0.150   genuine zero
+
+**WHY IT MATTERS MORE THAN THE NUMBER.** Coplanar surfaces are exactly the
+class of defect the traversal gates cannot see and a person looking at the
+screen notices immediately, as flicker. CLAUDE.md's own framing: "Works" and
+"good" are different gates, and only the first exists -- of the three problems
+found by actually playing a generated level, two were caught by a person
+looking at the screen. Here is an instrument already pointed at one of those,
+firing every time, wired to nothing.
+
+**THE SHAPE IS THE POINT, and it is the second instance found in one day.**
+`test_navgate_population` fires only when somebody happens to rebuild the shell
+library, which is how a stair regression sat five weeks (item 176). This one
+fires every run and is ignored. A gate with an unknown duty cycle and a gate
+nobody reads fail the same way: they make a red light that changes no
+behaviour, and a run gets called clean with the word ERROR in its log.
+
+**WHAT IS NOT KNOWN, and must be established before it is made to block.**
+Whether 79-130 coplanar pairs is a shipping defect or a threshold problem.
+Nobody has looked at one of these pairs in the engine to see whether it
+flickers at gameplay distances, whether the pairs are duplicate surfaces or
+merely near-coincident ones, or whether the count is dominated by one
+generator. Making it block today would stop every export on a number nobody
+has interpreted -- which is the opposite mistake, not the fix.
+
+**THE DECISION OWED**: block, warn, or delete. A gate that stays as it is
+teaches every future reader that FAIL means nothing here, which is worse than
+not having it.
 
 *STATUS: CLOSED 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0.
 Attributed from the tracked `outputs_sha256_16` in `build/*.manifest.json`:
