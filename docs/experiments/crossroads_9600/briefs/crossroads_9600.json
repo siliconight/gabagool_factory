@@ -1,0 +1,31 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "crossroads_9600",
+ "display_name": "Crossroads",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "THE FIRST LEVEL EVER BUILT ON A ROAD GRAMMAR OTHER THAN A T. Identical to cold run 9077's club brief in every field but mission_id, display_name and road_grammar, so anything that differs on the ground is attributable to the street and not to the buildings, the theme or the weather. WHAT IS NEW: Level Factory 0.109.0 emits a side street that runs the plate's full depth and PASSES THROUGH the front road instead of ending on it. Lot has carried the machinery for that junction since its Road model gained `gaps` and no generated level has ever exercised it -- so this is also the first time Lot's X-junction handling draws a real package. WHAT TO LOOK AT: the junction. Four approaches rather than three; a dropped kerb, crosswalk and stop bar on each; the side street's slab continuous through the crossing with the front road's carriageway owning the surface. NOT A COLD RUN -- no --begin, and nothing here is a claim about interventions-per-level.",
+ "crew_size": 4,
+ "road_grammar": "crossroads"
+}
