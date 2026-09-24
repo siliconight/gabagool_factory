@@ -188,3 +188,30 @@ of submissions.**
 - **Reference B's cost model is untouched by this.** A fullscreen post-process
   is one submission; its cost is fill and bandwidth, and item 1 is still
   unmeasured. Nothing here prices it.
+
+### What was built on the strength of it
+
+**Pixelcoat 0.46.0, 2026-09-24 -- the producer, not the chooser.** Ten ground
+grammars declare a `wet` block and their packs carry `wet_albedo`,
+`wet_roughness` and `wetness`: asphalt (x2), sidewalk (x2), cobblestone,
+flagstone, gravel, tar, dirt, road paint. Measured at 256 px, 23-37% darker and
+18-52% less rough.
+
+It had to be grown on the grammar path, which is NOT where Pixelcoat's wetness
+already lived. `pipeline_generation_7.py` has carried these exact map names for
+a long time and both importers wire them -- but the factory calls
+`theme-library` -> `build_material_pack` -> `synthesize`, and 0 of 86 shipped
+material profiles enabled wetness, so none of it was reachable from a level
+build. The new code emits the same names, so no importer changes.
+
+The response comes from `material_response.PRESETS`, which keeps one wetness
+model in Pixelcoat. `wet.floor` is new and exists because the first build
+measured wrong: `asphalt_delco` at `amount: 0.9` came out 17% darker, mask mean
+0.36 -- damp, not raining, because `wetness_mask` normalises to its own maximum
+and its mass sits near 0.4 whatever `amount` says. A wall wants that
+distribution; a road under rain wants a floor.
+
+**Nothing downstream picks the wet maps up.** Zoo resolves packs through a
+fixed `MAP_KEYS` allow-list, so no shipped pixel has changed, and the draw-call
+check that would prove a variant beats a pass has nothing to measure yet. The
+chooser is the next piece, and it is Zoo's and Level Factory's, not Pixelcoat's.

@@ -16716,7 +16716,12 @@ trails, sub-emitters and volumetric fog do not render; box and heightfield
 collision work. WHAT REMAINS: the ship-or-not call on wetness given the price,
 a Pixelcoat wet variant if the material route is taken, puddles, a night rain
 preset, and item 1 (screen-space reflection on GL Compatibility) still
-unpriced.*
+unpriced. PIXELCOAT 0.46.0 SHIPPED THE PRODUCER: ten ground grammars carry a
+`wet` block and their packs carry `wet_albedo`, `wet_roughness` and `wetness`
+(6 of delco_1997's 39 packs), reading 23-37% darker and 18-52% less rough, with
+every dry map byte-identical. Nothing chooses them yet -- Zoo's `MAP_KEYS`
+allow-list ignores them -- so no shipped pixel has changed and the draw-call
+check that would close the slice has nothing to run against.*
 
 **157. Weather: rain and wetness on top of the level.** The walker: "another
 layer to Level factory ... how to do things like rain and wetness on top of
@@ -16754,10 +16759,51 @@ Three consequences, in the order they bite:
   bounding box, not inside a building. Whether wetness stops at a roof needs
   the under-roof walk that proved rain does.
 
-**WHAT WOULD CLOSE SLICE 2:** a decision on the record about which route
-wetness takes, with the figures above beside it -- and if it is the material
-route, a Pixelcoat wet variant and a rebuild whose draw-call count is unchanged
-from dry, which is the check that proves the route was actually taken.
+**THE ROUTE WAS TAKEN, AND HALF OF IT IS BUILT.** Pixelcoat 0.46.0
+(2026-09-24) grew the wet variant on the path the factory actually uses --
+which is not the path the wetness was already on. `pipeline_generation_7.py`
+has carried `wet_albedo` / `wet_roughness` / `wetness` for a long time and both
+importers wire them; LF's adapter calls `theme-library`, which is
+`material_grammar.build_theme_library` -> `build_material_pack` ->
+`synthesize`, and that had no wetness at all. Measured: 0 of 86 shipped
+material profiles enabled wetness, and the gen7 wetness code was unreachable
+from a level build.
+
+Ten ground grammars now declare one -- asphalt (x2), sidewalk (x2),
+cobblestone, flagstone, gravel, tar, dirt and road paint -- emitting the SAME
+map names, so `integrations/godot/.../pack_importer.gd:62` already knows to
+build a second StandardMaterial3D from them. Measured at 256 px: 23-37% darker,
+18-52% less rough. The response is read from `material_response.PRESETS`, the
+model the gen7 path already uses, because deriving it from a grammar's own dry
+roughness does not work: `wet_darken / dry_roughness` is 0.50 concrete, 0.44
+brick, 0.83 wood, 0.71 painted metal, since darkening tracks porosity and wood
+is smoother than brick.
+
+**AND IT HAS CHANGED NOTHING YET, WHICH IS THE POINT.** `zoo/zoo_keeper/core/
+skins.py:35` resolves a pack through a fixed allow-list (`MAP_KEYS = albedo,
+normal, roughness, emissive, height`), so every consumer that exists today
+ignores the new maps; `tests/test_wet_variant.py` holds that as byte equality
+on every dry map. The producer can ship ahead of the chooser precisely because
+it cannot move a pixel on its own.
+
+**WHAT REMAINS TO CLOSE SLICE 2, in order:**
+
+1. **A chooser.** Something decides wet-or-dry per surface at build time and
+   points the material at the wet maps. That is a Zoo question (its `find_pack`
+   and `MAP_KEYS` would have to learn the variant) plus an LF one (what turns
+   it on for a level). Neither is touched yet.
+2. **The check that proves the route was taken:** a rebuilt package whose DRAW
+   CALL COUNT at the same stations is unchanged from dry. Equal draw calls is
+   what separates a variant from a second pass, and it is the only number that
+   can tell them apart from outside.
+3. **A person looking at a wet street.** `amount`, `floor` and `cavity_bias`
+   are chosen per material and nobody has seen a frame. A contact sheet of the
+   ten exists; a lit street does not.
+4. **Item 4 is still untouched** -- whether wetness stops at a roof the way
+   rain does. A build-time variant makes this easier than a `next_pass` did,
+   since an interior surface simply never takes the wet material, but easier
+   is not measured.
+
 
 Evidence: `docs/experiments/wet_pass_9600/`, which keeps the superseded first
 run beside the good one. That run's probe omitted the four setup lines
