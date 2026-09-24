@@ -116,10 +116,75 @@ orders them, and it says what a slice has to carry when it lands.
 1. Does GL Compatibility on this machine give a usable `hint_depth_texture`
    and screen texture at 1600x900, and at what GPU cost? (Reference B is
    unusable here without it.)
-2. Cost of a wet `next_pass` over the exterior surfaces of a real package,
-   the way the CRT pass was priced: on/off, several stations, with the
-   no-rain control.
+2. **MEASURED, 2026-09-24 — and it overturned the premise this proposal
+   argued Reference A on.** Cost of a wet `next_pass` over the exterior
+   surfaces of a real package, the way the CRT pass was priced: on/off,
+   several stations, with the no-rain control. See "What item 2 measured"
+   below. The short version: the pass does **not** cost per pixel, it costs
+   per draw call, so the sentence above that calls Reference A "a fixed
+   per-pixel cost on surfaces already being drawn" is wrong about this
+   renderer and the design that follows from it changes.
 3. Does the wet look survive the retro treatment? Pixelcoat's audit exists
    for exactly this, and a mirror-smooth puddle is not a 1997 Delco street.
 4. Interiors stay dry: the same walk that proved rain stops at a roof
    (every under-roof frame rose 0 pixels) must prove wetness does too.
+   **NOT measured by item 2's probe, and the probe cannot answer it.**
+   `wet_ab.gd` names two of its stations `interior_a` and `interior_b`, which
+   is a misnomer: they are eye-height views inside the site's bounding box,
+   not inside a building. Item 4 is still open and needs the under-roof walk,
+   not this.
+
+## What item 2 measured
+
+`level_factory/tools/wet_ab.gd` + `wet_ab_run.py`, on cold-run package
+`LF_crossroads_9600.portable-godot`, GL Compatibility, 1280x720, vsync off,
+3 rounds x 300 samples per station, 4 arms. The fragment is the cheap shape
+this proposal calls the default: a per-pixel darken and sheen keyed on how much
+a surface faces the sky, no screen read, no depth read, no per-frame CPU.
+
+    station         dry     wet_ground      wet (named)     wet_all (bound)
+                  draws  ms  draws     ms   draws     ms    draws     ms
+    street_along   1954 7.51  2473   9.47    2830  10.77     3481  12.85
+    interior_b     2781 12.08 3357  14.44    4055  17.29     5043  21.78
+    exterior_high  4385 19.16 5283  22.67    6391  27.22     7936  33.02
+    street_down     146 1.55   193   1.72     233   1.81      276   1.96
+    interior_a      147 1.52   195   1.71     235   1.81      278   1.94
+    ground_near      75 1.17   101   1.22     119   1.31      141   1.37
+
+    materials wet    0          133            172            802
+    worst station           +3.51 ms       +8.05 ms       +13.85 ms
+
+### The finding: this is submission cost, not fill cost
+
+Marginal cost of the extra pass, per added draw call, over 18 station-arm
+pairs: **2.27 - 4.29 us, median 3.5**. Flat — across stations spanning 26 to
+3,551 added draws, baselines from 1.17 to 19.16 ms, and three arms whose wet
+surfaces cover wildly different fractions of the screen.
+
+That flatness is the whole result, and it is the control. If the pass billed
+per pixel, `ground_near` — camera 2.5 m up with road filling the frame — would
+be the most expensive per draw and `exterior_high` — a distant aerial where wet
+surfaces are a small share of pixels — the cheapest. It is the other way round
+(2.27 vs 4.10 in the ground arm) and only by 1.8x. Render-CPU is 92-96% of
+frame time at the three loaded stations. This is the 2026-09-16 draw-call
+finding reappearing in a different measurement: **frame time tracks the number
+of submissions.**
+
+### What follows from it
+
+- **Narrowing the surface set works, proportionally.** Ground-only (road,
+  sidewalk, kerb, asphalt, ground slabs, road paint) costs 45-59% of the named
+  set's added draw calls and cuts the worst station from +8.05 to +3.51 ms.
+  Note the asymmetry: dropping 39 of 172 materials removed over half the added
+  draws, because a wall material is used by far more mesh instances than a road
+  material is.
+- **A wet variant folded into the base material costs zero extra draw calls.**
+  If the bill is per submission, a second pass is the expensive way to do this
+  and a second *material* is free — the same triangles are submitted once
+  either way. That makes "Pixelcoat authors a wet skin variant, the build picks
+  wet or dry per surface" the cheap option on this evidence, not the laborious
+  one. The cost moves to build time and to whether wetness can then vary
+  per-frame, which the `next_pass` gets for nothing and a variant does not.
+- **Reference B's cost model is untouched by this.** A fullscreen post-process
+  is one submission; its cost is fill and bandwidth, and item 1 is still
+  unmeasured. Nothing here prices it.
