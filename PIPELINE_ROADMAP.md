@@ -835,7 +835,7 @@ work of adopting this.
 | 154 | **OPEN** *(inferred)* | The buildings are designed all at once, and Delco buildings are not | — |
 | 155 | **NARROWED** | The walker played a generated level, and the list of what a person fin | 2026-09-14 (afternoon) -- EVERY RAIN-WALK FINDING HAS A SHIPPED FIX; COLD RUN 9054 CARRIES |
 | 156 | **OPEN** | Fire escapes, brick walk-ups, and buildings that are not one box at on | 2026-09-13 (late night) -- FILED FROM THE WALKER'S PHOTO, WITH THE SURVEY OF WHAT EXISTS.  |
-| 157 | **NARROWED** | Weather: rain and wetness on top of the level | 2026-09-14 -- SLICE 1 SHIPPED AND WAS WALKED: RAIN OUTSIDE, DRY INSIDE. Lux 0.35.0 and LF  |
+| 157 | **NARROWED** | Weather: rain and wetness on top of the level | 2026-09-24 -- SLICE 2 IS MEASURED AND THE ANSWER CHANGED THE DESIGN. A wet `next_pass` bil |
 | 158 | **NARROWED** | The cars read as boxes | 2026-09-14 -- SHIPPED AND WALKED IN 9052, NOT YET JUDGED. Zoo 0.79.0: sedan, hatchback, SU |
 | 159 | **NARROWED** | Rooms are a table-and-chair round robin | 2026-09-14 (afternoon) -- SHIPPED IN DELI COUNTER 0.131.0 AND WALKED-READY IN COLD RUN 905 |
 | 160 | **NARROWED** | The bank vault is a box | 2026-09-14 (afternoon) -- THE ROOM IS BUILT AND GATED; NO COLD PACKAGE HAS DRAWN A BANK TH |
@@ -16698,17 +16698,73 @@ body can climb from the drop ladder to the top landing, on a block where the
 walker can see two buildings of different heights share a wall.
 
 
-*STATUS: NARROWED 2026-09-14 -- SLICE 1 SHIPPED AND WAS WALKED: RAIN OUTSIDE,
-DRY INSIDE. Lux 0.35.0 and LF 0.83.0; cold run 9052 walked it. Against rain
-off, the two street shots rose 12,182 and 17,897 pixels and every under-roof
-shot 0; at 9,000 drops viewport GPU cost was +0.016 to +0.07 ms (RTX 2060). Measured on Godot 4.7 Compatibility: particle
+*STATUS: NARROWED 2026-09-24 -- SLICE 2 IS MEASURED AND THE ANSWER CHANGED
+THE DESIGN. A wet `next_pass` bills PER DRAW CALL, not per pixel: 2.27-4.29 us
+per added submission, median 3.5, flat across 18 station-arm pairs spanning 26
+to 3,551 added draws and 1.17 to 19.16 ms of baseline (LF 0.110.0's
+`tools/wet_ab.gd`, on `LF_crossroads_9600`, GL Compatibility, 1280x720, 3
+rounds x 300 samples, 4 arms). Worst station +3.51 ms ground-only (133
+materials), +8.05 ms named set (172), +13.85 ms all (802), against 19.16 ms
+dry. So the extra pass is the EXPENSIVE option and a wet variant folded into
+the base material is the cheap one -- same triangles, one submission -- which
+inverts what RAIN_WETNESS.md assumed when it called the pass "a fixed
+per-pixel cost on surfaces already being drawn". Slice 1 shipped 2026-09-14
+(rain outside, dry inside; Lux 0.35.0, LF 0.83.0, walked on cold run 9052;
+street shots rose 12,182 and 17,897 pixels, every under-roof shot 0; +0.016 to
++0.07 ms at 9,000 drops on an RTX 2060). Godot 4.7 Compatibility: particle
 trails, sub-emitters and volumetric fog do not render; box and heightfield
-collision work. Wet ground, puddles and a night rain preset remain.*
+collision work. WHAT REMAINS: the ship-or-not call on wetness given the price,
+a Pixelcoat wet variant if the material route is taken, puddles, a night rain
+preset, and item 1 (screen-space reflection on GL Compatibility) still
+unpriced.*
 
 **157. Weather: rain and wetness on top of the level.** The walker: "another
 layer to Level factory ... how to do things like rain and wetness on top of
 assets in the level", with two Godot rain tutorials (GPUParticles3D ribbon
 streaks, collision boxes/heightfields/SDF, sub-emitter ripples, fog).
+
+**SLICE 2, MEASURED 2026-09-24 -- AND THE FINDING IS NOT THE MILLISECONDS.**
+`docs/proposals/RAIN_WETNESS.md` item 2 asked what a wet `next_pass` costs over
+the exterior surfaces of a real package, priced the way the CRT roll was.
+LF 0.110.0's `tools/wet_ab.gd` answers it, and the shape of the cost matters
+more than its size: the marginal figure is **2.27-4.29 us per ADDED DRAW
+CALL**, median 3.5, and it is FLAT across stations whose wet-surface screen
+coverage differs wildly. `ground_near` -- camera 2.5 m up with road filling the
+frame -- is the cheapest per draw (2.27) and a distant aerial the dearest
+(4.10). Fill cost would run the other way. Render-CPU is 92-96% of frame at the
+loaded stations. This is the 2026-09-16 draw-call finding reproduced by a
+different instrument on a different question.
+
+Three consequences, in the order they bite:
+
+- **Narrowing the surface set works in proportion, and asymmetrically.**
+  Ground-only (road, sidewalk, kerb, asphalt, ground slabs, road paint) is 133
+  materials against the named set's 172 -- 77% of the materials, but only
+  45-59% of the added draw calls, because a wall material is used by far more
+  mesh instances than a road material is. Worst station falls from +8.05 to
+  +3.51 ms.
+- **The cheap and expensive options swap places.** A wet variant baked into the
+  base material submits the same triangles ONCE; the `next_pass` submits them
+  twice. On this evidence Pixelcoat authoring a wet skin and the build choosing
+  wet-or-dry per surface is the cheap route, and it moves the cost to build
+  time. What it gives up is per-frame variation -- the pass can fade wetness in
+  as rain starts, a variant needs a material swap.
+- **Item 4 is still open and this probe cannot close it.** `wet_ab.gd`'s
+  `interior_a`/`interior_b` stations are eye-height views inside the site's
+  bounding box, not inside a building. Whether wetness stops at a roof needs
+  the under-roof walk that proved rain does.
+
+**WHAT WOULD CLOSE SLICE 2:** a decision on the record about which route
+wetness takes, with the figures above beside it -- and if it is the material
+route, a Pixelcoat wet variant and a rebuild whose draw-call count is unchanged
+from dry, which is the check that proves the route was actually taken.
+
+Evidence: `docs/experiments/wet_pass_9600/`, which keeps the superseded first
+run beside the good one. That run's probe omitted the four setup lines
+`occlusion_ab.gd` has carried since it was written, and three of its six
+stations came back pinned at 6.07 ms -- a refresh interval, not a frame time --
+with the CPU/GPU split reading 0.00 throughout, so it could not have told
+submission cost from fill cost at all. The runner now refuses such a run.
 
 MEASURED (survey, 2026-09-13):
 
