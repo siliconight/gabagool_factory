@@ -37,16 +37,25 @@ So every building reaches every other one, on foot, down the street -- and the
 graph says two of three are connected and the third is isolated. An approaches
 gate over this graph would measure path authoring, not the level.
 
-THAT WARNING IS ALREADY BEING PRINTED AND NOBODY READS IT, which is the third
-instance of that shape found this week (`test_navgate_population` fires only
-after a library rebuild; the z-fight gate fails every run and blocks nothing,
-roadmap 177). A red light that changes no behaviour is the pattern, not the
-individual instrument.
+THAT WARNING WAS ALREADY BEING PRINTED AND NOBODY READ IT -- the third instance
+of that shape in one week, after `test_navgate_population` firing only on a
+library rebuild and the z-fight gate failing five straight runs. The pattern
+rather than the instrument is roadmap 178.
 
-WHAT HAS TO HAPPEN BEFORE THE GATE. The site graph must include street
-connectivity: two buildings whose spurs reach the same road are connected via
-that road, with a crossing where they sit on opposite sides. Until then this
-tool reports and gates nothing, and says so.
+FIXED IN LOT 0.77.0, and this tool measured the difference over the same corpus:
+
+    sites with an isolated building   65 of 79  ->  0 of 79
+    objective_approaches 0            38 specs  ->   2
+    objective_approaches 2             4 specs  ->  71
+
+`build_graph` now joins buildings that have a declared door onto the same road.
+
+THE RECIPE'S `min: 3` IS STILL UNMET EVERYWHERE, and that reading is now about
+the level rather than the graph: three buildings on one street afford two
+directions to approach from. A third needs a fourth building, or a second street
+the buildings actually front -- `_street_for` gives every door to the front
+road, so a generated cross street has no addresses on it at all. That is a Level
+Factory finding this tool could not see before.
 
     python tools/level_recipe_census.py
     python tools/level_recipe_census.py --json out.json
@@ -178,14 +187,20 @@ def main(argv=None) -> int:
           % dict(sorted(edges.items())))
     print("    roads per site          %s"
           % dict(sorted(collections.Counter(r["roads"] for r in ok).items())))
-    print("\n    A site of 3 buildings with 1 edge and 2 roads is not a site "
-          "with one connection.\n    Every building gets a spur to the "
-          "sidewalk and the street carries the rest;\n    `build_graph` counts "
-          "building-to-building paths only, by its own docstring.")
+    print("\n    Lot 0.77.0 joins buildings with a declared door onto the same "
+          "road, so the\n    graph carries the street. Measured over this same "
+          "corpus before it:\n    65 of 79 sites reported an isolated building "
+          "and approaches read 0 on 38.")
 
-    print("\n  This tool reports and gates nothing. An approaches gate over "
-          "this graph would\n  measure path authoring rather than the level -- "
-          "see docs/LEVEL_RECIPE.md.")
+    print("\n  This tool reports and gates nothing. The recipe's min of %d is "
+          "still unmet\n  everywhere, and that reading is now about the LEVEL "
+          "rather than the graph:\n  three buildings on one street afford two "
+          "directions to approach from, not\n  three. A third needs a fourth "
+          "building, or a second street the buildings\n  actually front -- and "
+          "`_street_for` gives every door to the front road, so a\n  generated "
+          "cross street has no addresses on it at all. That is a Level\n  "
+          "Factory finding this tool could not see before. "
+          "See docs/LEVEL_RECIPE.md." % RECIPE_MIN_APPROACHES)
 
     if args.json:
         args.json.write_text(json.dumps(
