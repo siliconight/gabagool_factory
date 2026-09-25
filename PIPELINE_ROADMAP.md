@@ -4209,6 +4209,45 @@ prints mtimes and refuses cross-run comparisons. Any stage that reads a file it
 does not hash belongs on that list; the audit has not been done for the other
 adapters, and should be.
 
+**THAT AUDIT GOT DONE ON ONE ADAPTER, 2026-09-24, AND FOUND ONE.** Not by
+auditing -- by pricing something else. Working out what bumping Pixelcoat's
+stale `__version__` would invalidate meant reading who hashes a pack manifest,
+and `ZooAdapter.fingerprint_inputs` hashed `*.pack.json` and nothing else.
+
+A pack manifest names FILENAMES and carries no digest of their contents, so a
+grammar retune -- new pixels, same metadata, which is what a Pixelcoat material
+edit usually is -- leaves it byte-identical. Measured with Pixelcoat's own
+builder, `asphalt_delco` rebuilt with a different `base_colors`:
+
+    asphalt_delco.pack.json    fd4678dbc03ab70f -> fd4678dbc03ab70f  IDENTICAL
+    asphalt_delco_albedo.png   68e2fd2cb8509e28 -> 500265cbf2630a20  differs
+
+The kit job's fingerprint therefore did not move, and because Zoo BAKES these
+maps into the GLB, the cache hit ships the previously baked MATERIAL -- not a
+stale reference to a fresh file. Exactly the symptom this item names: a green
+run that ships last week's answer, undetectable from downstream.
+
+Fixed in Level Factory 0.111.0 by applying Lot's rule, which its own comment
+had already stated for the ground skins: fold the pack manifest AND every map
+it names. `tests/unit/test_skin_map_fingerprint.py` holds it; four of its seven
+tests fail against the unfixed adapter, checked by stashing it.
+
+**WHAT THIS SAYS ABOUT THE REMAINING AUDIT.** Three adapters have now been
+found reading files they did not hash -- Lot (2026-08-02), Lux (a day later,
+which is why `hashing.py` holds one function with two importers) and Zoo. Each
+was found by a different accident rather than by looking. The general
+mechanism, `BuildFingerprint.upstream_artifact_hashes`, is still populated by
+nothing, so every other DAG edge carries the same blindness and the same
+inability to notice.
+
+**A CHEAPER SHAPE THAN AUDITING EVERY CONSUMER.** Each narrow fix makes one
+consumer re-hash a producer's payload on every fingerprint. The producer
+already knows what it wrote: a digest of its maps INSIDE the pack manifest
+would be computed once at build time and serve every consumer, and would make
+the manifest honest -- it currently names files without saying what is in them.
+That is a Pixelcoat pack-contract change, additive, and it is not done.
+
+
 *STATUS: RETRACTED 2026-08-xx -- as the body records: "RETRACTED: `--force` is not broken". Overtaken since: roadmap 93 found `--force` was a documented no-op and Level Factory 0.65.0 made it forget the plan's cache. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
 
 **39. Cache correctness: the mechanism is designed and never wired, and the
