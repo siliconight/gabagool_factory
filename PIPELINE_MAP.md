@@ -247,8 +247,11 @@ validates instead. Kit modules are center-pivot slabs built to each slot's
 the collision contract below, which is subtler than it looks.
 
 **patina** — cohesion and dressing. Pure-Python passes that unify the look
-across a shell and emit the dressing manifest Zoo builds from. Its repo VERSION
-file is currently empty, so the manifest check reports UNKNOWN.
+across a shell and emit the dressing manifest Zoo builds from. Its `VERSION`
+reads `Patina 0.22.0` (14 bytes, checked 2026-09-25); the sentence that used to
+sit here said the file was empty and that the manifest check reported UNKNOWN,
+which stopped being true at some point before the versioning section above was
+corrected and was missed in the same pass.
 
 **lux** — lighting. Godot-headless PS2-era look pass over the composed
 presentation scene, plus the light-fixture gate. Unlike Laser Tag, fixture-gate

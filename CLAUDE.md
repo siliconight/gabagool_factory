@@ -116,6 +116,25 @@ probe reported "pixel-identical" from frames that were 99.7% black, and a
 known geometry change measured zero through the same probe. A number that
 cannot move is not evidence.
 
+## The mechanics live in three files, loaded when needed
+
+This file is judgment; those are reference. Read the relevant one rather than
+guessing, and add to it the moment something here costs a round trip.
+
+- **`docs/COMMANDS.md`** — how to run the suites, the gates, a cold run and a
+  Godot probe, and the four commands that have each cost a round trip. The
+  worst: `pytest -q` in level_factory prints NO pass/fail line, because its
+  conftest replaces the summary. Reading that tail and calling it clean is a
+  mistake already recorded below.
+- **`docs/GLOSSARY.md`** — the vocabulary used constantly and defined nowhere
+  central: intervention, shell, slot, grammar, kind, pack, theme, candidate,
+  station, control, greybox vs themed build. It points at each owner's own
+  definition rather than restating it.
+- **`docs/SHIPPING_A_CHANGE.md`** — the order a change goes out in: ground,
+  anchored patch, a test proven to fail without it, suite, VERSION and
+  CHANGELOG, commit, roadmap. Step 0 is "is a cold run in flight", because a
+  mid-flight edit to a tool repo voids the zero.
+
 ## Attribution — no AI/Claude self-attribution (hard rule)
 
 When committing, opening PRs, or writing code in ANY repo under this workspace,
