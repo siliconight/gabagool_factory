@@ -347,11 +347,22 @@ def check(runs: dict, scene: dict | None = None) -> list[dict]:
                             note=f"fit.dims {dims} is canonical-X (width on x) "
                                  f"while this run's segments are building-space; "
                                  f"the run extent was read off the thickness"))
+        # AGAINST THE RUN'S REACH, not against the previous span. Sorting by
+        # `lo` does not make the previous entry the furthest-reaching one, and
+        # a span NESTED inside an earlier one then reads as a hole. Measured on
+        # `auto_shop_a02 ext_0_N`, which is the whole of this file's
+        # long-standing "ENV_RUN_GAP 1, pre-existing": `open0` (w 1.30) and
+        # `open1` (w 1.40) share a centre, so after `open0` the walk wanted the
+        # next span at -7.3500 and `seg3` starts at -7.3000 -- while `open1`
+        # covers -8.7000 to -7.3000 and leaves nothing missing.
         segs = sorted(r["segs"])
-        for a, b in zip(segs, segs[1:]):
-            if b[0] - a[1] > TOL:
+        reach, reach_id = segs[0][1], segs[0][2]
+        for lo, hi, sid in segs[1:]:
+            if lo - reach > TOL:
                 out.append(dict(code=RUN_GAP, storey=storey, side=side,
-                                size=round(b[0] - a[1], 4), a=a[2], b=b[2]))
+                                size=round(lo - reach, 4), a=reach_id, b=sid))
+            if hi > reach:
+                reach, reach_id = hi, sid
     for storey in sorted({k[0] for k in runs}):
         have = {k[1]: v for k, v in runs.items() if k[0] == storey}
         if set(have) != set(SIDES):
