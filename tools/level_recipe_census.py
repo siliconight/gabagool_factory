@@ -169,6 +169,25 @@ def main(argv=None) -> int:
     print("\n    the recipe asks for >= %d: %d of %d specs meet it"
           % (RECIPE_MIN_APPROACHES, meets, len(ok)))
 
+    # THE CEILING, PRINTED BESIDE THE DISTRIBUTION. `_distinct_routes_to`
+    # iterates `adj[target]`, so the count can never exceed the objective's
+    # DEGREE, which is at most `buildings - 1`. A site that cannot reach the
+    # target is not a site that failed to; quoting the measure against a
+    # target it cannot reach is a number that looks actionable and is not.
+    capped = [r for r in ok
+              if max(0, r["buildings"] - 1) < RECIPE_MIN_APPROACHES]
+    if capped:
+        by_n = collections.Counter(r["buildings"] for r in capped)
+        print("\n    OF WHICH %d CANNOT, AT ANY ROAD TOPOLOGY: "
+              "`_distinct_routes_to`\n    iterates the objective's "
+              "neighbours, so approaches <= degree <= buildings - 1."
+              % len(capped))
+        for n in sorted(by_n):
+            print("      %d building(s) -> ceiling %d : %d site(s)"
+                  % (n, max(0, n - 1), by_n[n]))
+        print("      A fourth building raises the ceiling. A different street "
+              "does not.")
+
     iso = [r for r in ok if r["isolated"]]
     print("\n  SITES WITH AN ISOLATED BUILDING  %d of %d" % (len(iso), len(ok)))
     if iso:
@@ -192,15 +211,27 @@ def main(argv=None) -> int:
           "corpus before it:\n    65 of 79 sites reported an isolated building "
           "and approaches read 0 on 38.")
 
-    print("\n  This tool reports and gates nothing. The recipe's min of %d is "
-          "still unmet\n  everywhere, and that reading is now about the LEVEL "
-          "rather than the graph:\n  three buildings on one street afford two "
-          "directions to approach from, not\n  three. A third needs a fourth "
-          "building, or a second street the buildings\n  actually front -- and "
-          "`_street_for` gives every door to the front road, so a\n  generated "
-          "cross street has no addresses on it at all. That is a Level\n  "
-          "Factory finding this tool could not see before. "
-          "See docs/LEVEL_RECIPE.md." % RECIPE_MIN_APPROACHES)
+    print("\n  This tool reports and gates nothing.\n"
+          "\n  CORRECTED 2026-09-25, and the correction is the finding. This "
+          "paragraph\n  used to end 'a generated cross street has no "
+          "addresses on it at all', and\n  read as though the road grammar "
+          "were what stood between this factory and\n  three approaches. Both "
+          "halves were wrong by cold run 9078:\n"
+          "\n    - The cross street HAS addresses. LF 0.109.2's "
+          "`_lateral_spurs` shipped,\n      and all three of 9078's "
+          "candidates read street_members\n      {0: [b0, b1, b2], "
+          "1: [b1, b2]} -- two corner doors onto the side street.\n"
+          "\n    - And it changed the count by nothing, because the count "
+          "CANNOT move.\n      A 3-building site is a complete graph; the "
+          "objective's degree is 2; and\n      `_distinct_routes_to` counts "
+          "the objective's neighbours. The recipe's\n      min of %d is "
+          "unreachable there at any road topology.\n"
+          "\n  What raises it is a fourth building, or a measure that counts "
+          "approaches\n  the way a player experiences them -- along streets "
+          "and sightlines -- rather\n  than as adjacency in a "
+          "building-to-building graph. Those are different\n  questions and "
+          "this tool answers only the second. See docs/LEVEL_RECIPE.md."
+          % RECIPE_MIN_APPROACHES)
 
     if args.json:
         args.json.write_text(json.dumps(
