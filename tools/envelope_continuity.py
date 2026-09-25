@@ -98,12 +98,29 @@ from pathlib import Path
 
 TOL = 1e-6                      # geometry here is authored on exact 0.05 m steps
 
-# Pinned, not assumed. Both are uniform across all 137 manifests in
-# `deli_counter/build` as of 2026-08-24, and both decide how every number
-# below is read: the version fixes the field names, the space fixes which two
-# of the three axes are the plan. If either moves, this file has to be re-read
-# against the new shape rather than quietly keep measuring against the old one.
-KNOWN_VERSIONS = ("1.2.0",)
+# Pinned, not assumed. Both decide how every number below is read: the version
+# fixes the field names, the space fixes which two of the three axes are the
+# plan. If either moves, this file has to be re-read against the new shape
+# rather than quietly keep measuring against the old one.
+#
+# 2026-08-24: uniform across all 137 manifests in `deli_counter/build`.
+#
+# 2026-09-25: 1.3.0 ADDED, after doing the re-read this comment demands. Deli
+# Counter 0.121.0 bumped it so "the slot manifest names a KIND the art pass can
+# resolve ... only the emitted slot moves" -- additive. Checked against the
+# files rather than the changelog, over 132 manifests and 31,230 slots:
+# `space` still uniform and still KNOWN_SPACE, and `slot_id`, `facing`, `wall`,
+# `transform` and `fit` present on 31,230 of 31,230. Five slots carry
+# `fit.dims: null` -- crates in `kitbash_demo`, one of the two archetypes the
+# site builder already excludes for an incomplete manifest -- and they are
+# skipped before any dims check because their `wall` is not `ext_<storey>_<side>`.
+#
+# Until that re-read, this check had been reporting NOT CHECKED to
+# `check_all.py` for a month. Refusing was correct; leaving it refused was not.
+#
+# 1.2.0 stays although nothing on disk carries it: this code can still read such
+# a file, and dropping it would refuse a manifest it can measure.
+KNOWN_VERSIONS = ("1.2.0", "1.3.0")
 KNOWN_SPACE = "spec/Blender Z-up raw coords; rot_y = degrees about up"
 SIDES = ("N", "S", "E", "W")
 _WALL = re.compile(r"^ext_(-?\d+)_([NSEW])$")
@@ -243,21 +260,52 @@ def load_slots(path: Path) -> dict:
     return {k: _measure(v) for k, v in runs.items()}
 
 
+def _run_thickness(segs: list[dict], wall: str) -> float:
+    """The thickness of a wall run, taken FROM the run rather than from an
+    assumed axis.
+
+    `run_axis` answers which way a run travels in WORLD space, and the
+    translations below depend on that answer. It used to be asked a second
+    question it cannot answer -- which dims index holds the thickness -- and
+    the two diverged: every wall segment in the shipped library is now
+    canonical-X, `[run extent, thickness, height]`, so for an E or W wall
+    `dims[1 - ax]` is the run EXTENT. The most common segment length then
+    became the "thickness" and `_span` correctly refused every segment of a
+    different length, which is why E walls failed and N/S walls did not.
+
+    So: of the two plan axes, the one whose value is CONSTANT across the
+    segments is the thickness. Measured over all 132 manifests and all 908
+    exterior runs, 2026-09-25: thickness on Y in 908 of 908, ambiguous in 0.
+
+    A run whose segments are all the same size leaves both axes constant. That
+    does not occur in the library today but is legal, so the tie-break is
+    stated rather than left to chance: the SMALLER value is the thickness,
+    because a wall segment is longer than it is thick. A run that is constant
+    on NEITHER axis is refused, as it was before.
+    """
+    if not segs:
+        raise ValueError(f"{wall}: no segments to take a thickness from")
+    xs = {round(s["fit"]["dims"][0], 6) for s in segs}
+    ys = {round(s["fit"]["dims"][1], 6) for s in segs}
+    if len(xs) == 1 and len(ys) == 1:
+        return min(next(iter(xs)), next(iter(ys)))
+    if len(ys) == 1:
+        return next(iter(ys))
+    if len(xs) == 1:
+        return next(iter(xs))
+    raise ValueError(
+        f"{wall}: segments agree on no thickness -- x {sorted(xs)}, "
+        f"y {sorted(ys)}. One of the two plan axes must be constant across a "
+        f"run or there is no single wall to measure.")
+
+
 def _measure(slots: list[dict]) -> dict:
     """One run, measured twice: the segments fix the thickness, then every
     slot is resolved against it. A run whose segments do not agree on one
     thickness is refused rather than guessed at."""
     ax = run_axis(slots[0]["facing"])
     segs_only = [s for s in slots if "_open" not in s["slot_id"]] or slots
-    th_counts: dict[float, int] = {}
-    for s in segs_only:
-        t = round(s["fit"]["dims"][1 - ax], 6)
-        th_counts[t] = th_counts.get(t, 0) + 1
-    ranked = sorted(th_counts.items(), key=lambda kv: -kv[1])
-    if len(ranked) > 1 and ranked[0][1] == ranked[1][1]:
-        raise ValueError(f'{slots[0]["wall"]}: segments disagree on thickness '
-                         f'{sorted(th_counts)}')
-    thickness = ranked[0][0]
+    thickness = _run_thickness(segs_only, slots[0].get("wall", "?"))
     out = {"axis": ax, "segs": [], "perp": set(), "th": set(), "swapped": []}
     for s in slots:
         _, lo, hi, perp, th, swapped = _span(s, thickness)
