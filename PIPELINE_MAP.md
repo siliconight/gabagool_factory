@@ -96,8 +96,16 @@ level-factory verify-manifest --factory C:\Projects\gabagool_studios\gabagool_fa
 ```
 
 `OK` = pin matches. `DRIFT` = same major, re-certify and bump. `INCOMPATIBLE` =
-major bump, adapters likely broken. `UNKNOWN` = no VERSION source, which is the
-known state for patina, pixelcoat and lasertag — see the notes in the manifest.
+major bump, adapters likely broken. `UNKNOWN` = no VERSION source.
+
+*That was the state for patina, pixelcoat and lasertag and is not any more.*
+Checked 2026-09-24 by calling `BaseAdapter._read_tool_version` on each repo:
+pixelcoat `Pixelcoat 0.46.1`, patina `Patina 0.22.0`, lasertag `Laser Tag
+0.23.1`, lot `Lot 0.77.1`, lux `Lux 0.40.0`, zoo `1.2.0`. All ten tools report
+a version. What IS stale is the manifest itself — it pins level_factory 0.48.0
+against 0.110.0, lot 0.48.0 against 0.77.1 and pixelcoat 0.16.0 against 0.46.1
+— so the set has not been re-certified in a long time and `verify-manifest`
+will say DRIFT rather than UNKNOWN.
 
 ## Running it
 
@@ -223,8 +231,12 @@ demotes a BLOCKER to MAJOR. Its findings are answered by changing what gets
 built, not by blocking the build.
 
 **pixelcoat** — materials. Builds the themed skin library (one `<kind>_<theme>/`
-pack per curated material) that Zoo kits resolve against. Version lives in
-`pixelcoat/version.py`, not a root VERSION file.
+pack per curated material) that Zoo kits resolve against. Version lives in the
+root `VERSION` file, added 2026-07-18; `pixelcoat/version.py` reads it and
+`pyproject.toml` reads that, so all three follow one number. Before 0.46.1 they
+did not: the module held a literal that stopped moving at 0.16.0 on 2026-08-21
+while `VERSION` advanced 32 releases, and `tool_version` in every pack manifest
+said 0.16.0.
 
 **zoo** — kit and props. Blender-side builder of structural kit modules from DC
 slots (skinned by Pixelcoat), plus dressing props and light fixtures. Names
