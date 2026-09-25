@@ -4240,12 +4240,48 @@ mechanism, `BuildFingerprint.upstream_artifact_hashes`, is still populated by
 nothing, so every other DAG edge carries the same blindness and the same
 inability to notice.
 
-**A CHEAPER SHAPE THAN AUDITING EVERY CONSUMER.** Each narrow fix makes one
-consumer re-hash a producer's payload on every fingerprint. The producer
-already knows what it wrote: a digest of its maps INSIDE the pack manifest
-would be computed once at build time and serve every consumer, and would make
-the manifest honest -- it currently names files without saying what is in them.
-That is a Pixelcoat pack-contract change, additive, and it is not done.
+**A CHEAPER SHAPE THAN AUDITING EVERY CONSUMER — BUILT, 2026-09-24.** Each
+narrow fix makes one consumer re-hash a producer's payload on every
+fingerprint, and each one has to be thought of first. The producer already
+knows what it wrote.
+
+Pixelcoat 0.47.0 writes `map_sha256` into every pack manifest: `{map key:
+sha256 of the file}`, read back from disk by the process that wrote it, from
+all five writers (grammar library, gen7 pipeline, pixel pipeline, decals,
+signage) through one helper, `core/pack.py`. Re-measured with the same
+experiment that found the defect — `asphalt_delco` rebuilt with a different
+`base_colors` — the manifest's digest now moves with the albedo's.
+
+**WHAT THAT DOES AND DOES NOT FIX, because it is a claim and not a measurement
+of the files as they stand.** It is written by the producer, so it describes
+what was emitted rather than what is on disk now. A consumer whose question is
+"have these bytes changed since I last looked" must still hash the bytes, which
+is why LF 0.111.0's Zoo fix stays exactly as it is. What it buys is three
+things that are not that:
+
+- **The obvious cheap thing is no longer silently wrong.** A consumer that
+  hashes the manifest — which is what Zoo did, and what anyone reaches for,
+  since it is one small JSON beside a directory of PNGs — now gets the right
+  answer without having to know it needed to.
+- **A pack can be checked INTACT rather than merely complete.** LF 0.112.0's
+  `PixelcoatAdapter` reports a map that is present and does not match its
+  digest: a truncated write, a half-copied stage directory, a file edited in
+  place. Advisory rather than blocking, since a mismatched map can still be
+  drawn and nobody has seen it fire on a real run.
+- **One hash at build time** in place of every consumer re-hashing every PNG on
+  every fingerprint.
+
+Additive: `pixelcoat-pack/2` does not move, and a reader that has never heard
+of `map_sha256` reads these manifests exactly as before.
+
+**THE GENERAL DEFECT IS STILL OPEN.** This closes the pack edge properly, from
+both ends. `BuildFingerprint.upstream_artifact_hashes` is still populated by
+nothing, so every other DAG edge carries the same blindness and the same
+inability to notice — and the lesson of the three found so far is that they are
+found by accident, not by looking. The shape that generalises is the one above:
+**a producer that states a digest of what it wrote**, so a consumer hashing the
+cheap thing is right by construction. Nothing but Pixelcoat's packs does that
+yet.
 
 
 *STATUS: RETRACTED 2026-08-xx -- as the body records: "RETRACTED: `--force` is not broken". Overtaken since: roadmap 93 found `--force` was a documented no-op and Level Factory 0.65.0 made it forget the plan's cache. Written into a status line 2026-09-11 so the index reads it rather than infers it.*
