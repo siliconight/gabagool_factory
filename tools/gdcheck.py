@@ -63,6 +63,13 @@ def _code(ln: str) -> str:
     return "".join(out)
 
 
+#: A function signature as Godot spells it: an optional `static` before
+#: `func`. Anchored after indentation so a `func` inside a string cannot match
+#: -- this scanner reads raw lines, unlike the checks below it, which read
+#: `_code(ln)` with comments already stripped.
+_FUNC = re.compile(r"^[ \t]*(?:static[ \t]+)?func[ \t]+\w+")
+
+
 def lint(path: str) -> list:
     """The failures a grammar check cannot see."""
     lines = open(path, encoding="utf-8").read().splitlines()
@@ -70,10 +77,20 @@ def lint(path: str) -> list:
 
     # every function's untyped parameter names, keyed by the line its
     # signature ends on, so a `:=` below it can be attributed to the right one
+    #
+    # `static func` COUNTS, and missing it was not a cosmetic gap. Until
+    # 2026-09-25 this tested `startswith("func ")`, so no static function ever
+    # entered `funcs`, and `params_at` -- which returns the nearest preceding
+    # entry -- attributed every line inside one to the last NON-static function
+    # above it. That produced false positives on Lux's shipped addon
+    # (`lux_validator.gd:373` and `skymint_profile.gd:138`, neither of which
+    # shadows anything) and, worse because nobody sees them, false negatives:
+    # a real shadow or a `:=` on an untyped parameter inside a static function
+    # was uncatchable, and both are load-time parse errors.
     funcs = []
     i = 0
     while i < len(lines):
-        if lines[i].lstrip().startswith("func "):
+        if _FUNC.match(lines[i]):
             sig, j = lines[i], i
             while sig.count("(") > sig.count(")") and j + 1 < len(lines):
                 j += 1
@@ -120,7 +137,14 @@ def lint(path: str) -> list:
         if re.search(r'\+\s*"[^"]*"\s*%(?!\w)', s):
             out.append((n, "`%` binds tighter than `+`, so this formats only "
                            "the last fragment -- build the joined string first"))
-        m = re.match(r'var\s+\w+\s*:=\s*(\w+)\s*[.(\[]', s)
+        # THE SUFFIX USED TO BE REQUIRED -- `[.(\[]` -- so this caught
+        # `var n := param.field` and missed a bare `var n := param`, which is
+        # the same load-time error ("Cannot infer the type of 'n' variable
+        # because the value doesn't have a set type"). Widening is safe
+        # because the finding is gated on membership in the UNTYPED parameter
+        # set below: a typed parameter never reaches it, and a call like
+        # `var n := helper(x)` captures `helper`, which is not a parameter.
+        m = re.match(r'var\s+\w+\s*:=\s*(\w+)\b', s)
         if m and m.group(1) in params_at(n):
             out.append((n, f"`:=` infers from `{m.group(1)}`, an untyped "
                            f"parameter -- Godot rejects this at load"))
