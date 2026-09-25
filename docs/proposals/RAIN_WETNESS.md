@@ -215,3 +215,47 @@ distribution; a road under rain wants a floor.
 fixed `MAP_KEYS` allow-list, so no shipped pixel has changed, and the draw-call
 check that would prove a variant beats a pass has nothing to measure yet. The
 chooser is the next piece, and it is Zoo's and Level Factory's, not Pixelcoat's.
+
+### What the wet roughness does, measured — and one gap that is not one
+
+**`wet_detail_normal` was named as a gap and is not one.** The reasoning was
+that gen7 emits a fourth map the grammar path does not, so a wet road's
+aggregate would not visibly smooth out. Checked before building: all ten wet
+grammars declare `emit.normal: false`, and the grammar path emits no
+`detail_normal` either. gen7's map softens a DETAIL normal by pulling micro
+height toward flat inside the mask; with neither map present there is nothing
+to soften and no dry counterpart for an importer to substitute. The aggregate
+these surfaces show is carried by albedo and roughness variation. Withdrawn.
+
+**What IS measurable is that the wet roughness is MORE varied than the dry
+one.** The shipped model is gen7's, faithfully — `wet_gloss = gloss +
+wet_gloss_boost * mask`, hence `wet_roughness = dry - boost * mask`, a SHIFT.
+The mask varies spatially, so the subtraction writes the mask's own texture
+into the roughness channel. At 192 px:
+
+    grammar           dry sd    wet sd   change
+    asphalt_delco     0.0192    0.0258    +34%
+    sidewalk_delco    0.0227    0.0295    +30%
+    pebble_gravel     0.0272    0.0452    +66%
+    tar_neutral       0.0485    0.0507     +5%
+
+Two readings, and the measurement does not choose between them. A partly wet
+surface genuinely is more varied than a dry one — pooled hollows glossy, crowns
+still rough, which is what the mask is for. Or the water film should even the
+micro-roughness out, and the rise is the mask leaking into a channel that ought
+to be smoothing.
+
+The alternative is a LERP toward water rather than a shift,
+`wet = dry + (water - dry) * boost * mask`, which narrows the spread instead —
+asphalt 0.0193, sidewalk 0.0216, gravel 0.0366, tar 0.0313 at a water roughness
+of 0.08.
+
+**Neither model reaches water at full mask**, because `boost` is below 1:
+asphalt saturates at 0.50 shifted and 0.56 lerped, against roughly 0.05–0.10
+for standing water. A fully wet road does not currently read as one under
+either.
+
+Not changed. The shipped model is what `material_response.PRESETS` encodes and
+what the gen7 path uses, reused deliberately so Pixelcoat has one wetness
+rather than two. Swapping a shift for a lerp is a look decision against that
+model, not a defect fix.
