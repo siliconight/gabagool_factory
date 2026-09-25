@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_n4",
+ "display_name": "Club Block XIV (n=4)",
+ "archetype": "strip_club",
+ "building_count": 4,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 1,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9077. The club brief a fourteenth time, unchanged, so the only new variables are the tools. WHY THERE IS A FOURTEENTH: 9076 was a genuine zero -- 0 interventions, 0 unattributed, 0 retries, export exit 0 -- and it falsified the ladder off-mesh link claim for the SECOND time, reading 'LINKS 0' on a package whose arena_a03 carries a ladder. THE CHAIN IS FOUR HOPS AND ONLY THE MIDDLE TWO HAD BEEN FIXED. Traced on 9076's own files: deli_counter/build/arena_a03.gameplay.json ladders 1; Lot 0.76.0's site.site.gameplay.json ladders 1; Level Factory's dispatch_inputs/lot/lot.gameplay.json NO `ladders` KEY AT ALL; navigation_hints.json links 0. `stage_dispatch_inputs` does not copy Lot's file, it projects it through a key whitelist -- schema, license, up_axis, anchors, props, interactives -- and a whitelist that drops is indistinguishable from an upstream that never sent. LF 0.108.1 carries `ladders` on both the lot and deli_counter sides. IT WAS VERIFIED END TO END BEFORE THIS RUN, which is the step skipped both previous times: re-staging 9076's real Lot output and re-running the same `dispatch build --mode shell-handoff` gave LINKS 1 (lot:ar03_ladder_0_navlink, a 6 m climb, agent_types player and ai_humanoid) against LINKS 0 for a control with `ladders` stripped. That drives the two programs by hand; THIS RUN is the pipeline doing it. WHAT WOULD FALSIFY IT: a package whose buildings carry ladders and whose navigation_hints.json links[] is still empty. AND THE VACUITY CHECK THAT COMES FIRST, because a new seed draws different buildings: if NO building on this site carries a ladder, links[] is legitimately 0 and this run says nothing about the fix. The building ladder count is to be read from the site's own gameplay.json before the links count is read from the package, and reported either way.",
+ "crew_size": 4
+}
