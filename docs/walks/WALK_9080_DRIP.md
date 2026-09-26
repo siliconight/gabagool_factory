@@ -240,3 +240,83 @@ and `drip_speed` are uniforms and constants in the same instruction stream --
 changing them does not change the +1.85 ms, so the look can be pushed without
 re-pricing. What WOULD need re-pricing is any change that adds a texture fetch,
 a branch with real work in it, or a screen read.
+
+---
+
+# Walk: cold run 9082's package, the first NIGHT one
+
+`_runs/walk_9082_canopy`. Walked 2026-09-26, after the canopy shipped.
+
+## 9. The canopy grid renders, and lights nothing
+
+The lamp grid is there -- a 6 x 4 soffit grid, two draw calls, visible from
+across the forecourt. The walker: "it's a lit ceiling over black ground", and
+then, on the STREETLIGHTS: "the lights aren't lighting past its immediate
+fixture".
+
+That second sentence is the finding. It is not the canopy's defect.
+
+### What was checked and came back correct
+
+`scratchpad/canopy_pool_probe.gd`, run headless on the walk copy:
+
+    126 Light3D nodes in the scene
+    bake_mode counts { 2: 126 }        all DYNAMIC, none baked-static
+    by class { DirectionalLight3D: 1, SpotLight3D: 112, OmniLight3D: 13 }
+    0 lights at zero energy, 0 not visible in tree
+    LightmapGI nodes: 0                (consistent with all-dynamic)
+
+    canopy washes, each:
+      world pos (92.00, 4.88, z)   points toward (0, -1, 0)
+      energy 16.000   spot_range 8.917   angle 55.0   atten 2.00
+      drop to ground 4.882 m -> REACHES      cone radius at ground 6.97 m
+
+Every property is right. `energy` is 16.0 because `energy_for` CAPS there --
+`CANOPY_WASH_LEVEL = 10.0` was already saturating, so the "provisional, raise
+it if it is dim" note on that constant was wrong and is corrected.
+
+### What the pixels say
+
+`scratchpad/pool_ab.gd`: frame mean luminance at a station, lights ON, the set
+switched OFF, then ON again. Two ON readings that disagree refuse the row.
+
+    under_canopy       3 washes   ON .13568/.13593  OFF .13592  delta -0.00012
+    forecourt_edge     3 washes   ON .13595/.13602  OFF .13604  delta -0.00006
+    street_ALL_LIGHTS  125 lights ON .12725/.12722  OFF .12653  delta +0.00071
+    canopy_ALL_LIGHTS  125 lights ON .12732/.12719  OFF .12657  delta +0.00068
+
+**EVERY ARTIFICIAL LIGHT IN THE PACKAGE, ALL 125 OF THEM, MOVES THE FRAME BY
+HALF A PERCENT.** Three lights or five are indistinguishable from zero, which
+is exactly what the walker described. The night look is sky plus emissive
+materials; the lamps are pictures of lights.
+
+### Two hypotheses killed on the way, kept above the result
+
+* **Baked-static lights with no lightmap.** It would have explained everything
+  -- a BAKE_STATIC light with no LightmapGI contributes nothing at runtime.
+  Refuted: all 126 are mode 2, DYNAMIC.
+* **The per-object light budget.** `max_lights_per_object` is 8 on GL
+  Compatibility and the package ships 126 lights, so the ground tiles could
+  have been dropping the washes. Refuted by experiment: a walk copy patched to
+  32 measured the same nothing at all three stations.
+
+### And one instrument error worth keeping
+
+The probe's first version read 0.00000 at its first station and "proved" the
+lights do nothing. The viewport texture is not ready on the first read, and a
+black frame measures nothing -- the same shape as the merge probe "reporting
+pixel-identical from frames that were 99.7% black". The control that caught it
+was reading ON twice; a single ON/OFF pair would have shipped the wrong answer
+twice over. A later warm-up read still returns 0.00000 and its "buried camera"
+verdict is WRONG for the same reason -- the station readings taken afterwards,
+from the same coordinate, read 0.1355.
+
+### Why this was never seen before
+
+Every prior cold run was `afternoon` or `rain`, and both resolve to a daylight
+preset where a directional sun dominates the frame. 9082 is the first NIGHT
+package this pipeline has produced. The lights have presumably never worked;
+nothing has ever been in a position to notice.
+
+**Owner: Lux, and it is ahead of every look item in this file.** Nothing else
+about a night level matters while the lamps are pictures.
