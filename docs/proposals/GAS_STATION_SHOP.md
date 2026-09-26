@@ -115,6 +115,19 @@ It matters more than its size suggests: it is the most SATURATED object in a
 1990s convenience store, and the two barrels of colour are what a dark shop
 interior has to catch the eye. A grey box in that corner loses the whole read.
 
+**Roller dogs.** A slanted bank of chrome rollers turning under a clear hood,
+sausages in three or four distinct colours and thicknesses laid across them --
+pale, tan, deep red -- small labelled flag signs pushed in between the rows to
+name each one, grease darkening the rollers toward the back, and a printed
+"Buns" panel across the front of the cabinet below.
+
+NOT the same object as `flat_top_grill`, which Zoo already has and which this
+very station already places twice in its `food_service` room. A flat top is
+kitchen equipment behind a counter; a roller grill is a customer-facing display
+case at the till, and its whole point is that the food is visible and turning.
+The rollers reading as a set of parallel cylinders with the dogs lying ACROSS
+them is the silhouette; a static tray of sausages loses it.
+
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
 carries a real mark. The rule is already the repo's: invented Delco-slang
 brands on every branded surface, PG-13 crass, no real trademarks -- the strip
@@ -141,6 +154,7 @@ machine with "two rows of packs behind the front"), `carton_stack`,
     cooler_run         the glass-door reach-in wall facing the sales floor
     impulse_rack       the candy and gum rack at the till
     slush_machine      twin-hopper frozen drink, syrup rail, cup tube
+    roller_grill       chrome rollers under a hood, flag signs, buns panel
 
 `cigarette_machine` is NOT the cigarette rack. It is a standalone vending
 machine; what the reference shows is a lit overhead rack behind the counter,
