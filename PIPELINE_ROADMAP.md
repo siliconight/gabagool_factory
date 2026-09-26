@@ -16803,6 +16803,20 @@ layer to Level factory ... how to do things like rain and wetness on top of
 assets in the level", with two Godot rain tutorials (GPUParticles3D ribbon
 streaks, collision boxes/heightfields/SDF, sub-emitter ripples, fog).
 
+**THE 2026-09-24 MEASUREMENT BELOW IS WITHDRAWN.** It priced a pass that
+almost certainly never shaded a pixel: `wet_ab.gd` declared `blend_mix,
+depth_draw_never` and offset nothing, which `assets/godot/zoo_worldskin.gd`
+had already measured as "not drawn" on GL Compatibility -- the depth test
+rejects a pass at the depth the base already wrote. Its control was "draw
+calls must rise", which proves a SUBMISSION and not a shaded fragment.
+Re-measured with a 2 mm normal offset and a frame-readback control
+(LF 0.115.0): worst station +8.05 ms -> +6.00 ms, and us-per-draw 3.51 median
+FLAT (2.27-4.29) -> 5.75 median with a 3.79-12.63 spread, the ground arm
+spanning 3.22-21.11. The flatness was the entire argument for "per submission,
+not per pixel" and it is gone. The architectural call survives -- a variant
+costs zero extra submissions, a pass at least one -- and the reasoning does
+not. Read the paragraph below as the record of a mistake, not as a result.
+
 **SLICE 2, MEASURED 2026-09-24 -- AND THE FINDING IS NOT THE MILLISECONDS.**
 `docs/proposals/RAIN_WETNESS.md` item 2 asked what a wet `next_pass` costs over
 the exterior surfaces of a real package, priced the way the CRT roll was.

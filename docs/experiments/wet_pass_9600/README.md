@@ -30,6 +30,22 @@ set helps at all.
 The runner now refuses a run whose stations all report a zero CPU/GPU split,
 for the same reason it already refused one whose draw calls did not rise.
 
+## WITHDRAWN 2026-09-26 -- do not quote these figures either
+
+The superseded run below was superseded for a blind instrument. The run that
+replaced it had a second, larger problem nobody saw at the time: its
+`next_pass` was `blend_mix, depth_draw_never` with no vertex offset, which GL
+Compatibility's depth test rejects. `assets/godot/zoo_worldskin.gd` had
+measured exactly that variant as "not drawn" before this probe existed.
+
+So BOTH runs in this directory priced submissions with a fragment that never
+ran. The corrected measurement is in LF 0.115.0's changelog and was taken on
+cold run 9080's package, not this one.
+
+The whole directory is kept because the retraction is the useful part: a
+control that proves the instrument can SUBMIT is not a control that proves it
+can DRAW.
+
 ## The finding
 
 The pass bills **per draw call, not per pixel**: 2.27-4.29 us per added

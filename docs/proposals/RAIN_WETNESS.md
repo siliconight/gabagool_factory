@@ -154,6 +154,39 @@ a surface faces the sky, no screen read, no depth read, no per-frame CPU.
     materials wet    0          133            172            802
     worst station           +3.51 ms       +8.05 ms       +13.85 ms
 
+
+> **WITHDRAWN 2026-09-26, and the retraction is above the result on purpose.**
+> The figures below priced a pass that almost certainly never shaded a pixel.
+> A `next_pass` rasterises the same triangles at the same depth the base pass
+> already wrote, and GL Compatibility's depth test rejects it --
+> `assets/godot/zoo_worldskin.gd` measured that in the club at 1600x900 before
+> this probe was written: `blend_mix` with `depth_draw_never` and no offset
+> reads "not drawn", and `VERTEX` along `NORMAL` at 2 mm draws while still
+> occluding correctly. `wet_ab.gd` declared exactly the first and offset
+> nothing.
+>
+> The control could not have caught it. "Draw calls must rise" proves a
+> SUBMISSION, not a shaded fragment -- the same distinction that same file had
+> already paid for, its first render probe "reporting pixel-identical from
+> frames that were 99.7% black".
+>
+> Re-measured with the offset and with a control that reads the frame back
+> (LF 0.115.0), on cold run 9080's package:
+>
+>     wet worst  +8.05 ms -> +6.00 ms
+>     us/draw     3.51 median, FLAT 2.27-4.29
+>              -> 5.75 median, spread 3.79-12.63; ground arm 3.22-21.11
+>
+> **The shape is what changed.** The flatness was the whole argument for "per
+> submission, not per pixel". A 6.5x spread whose cheapest per-draw arm covers
+> the LEAST screen is fill cost behaving like fill cost. That conclusion is
+> withdrawn.
+>
+> What survives is the architectural call: a baked variant costs zero extra
+> submissions and a pass costs at least one, so choosing the variant for the
+> ground was right whatever the fragment costs. The reasoning published beside
+> it was not.
+
 ### The finding: this is submission cost, not fill cost
 
 Marginal cost of the extra pass, per added draw call, over 18 station-arm
