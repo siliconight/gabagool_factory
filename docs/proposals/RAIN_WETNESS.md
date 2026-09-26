@@ -350,3 +350,49 @@ Still unmeasured, and each is a reason the figure above could move:
 - the drip shader itself, which does not exist yet outside the probe. The price
   is for the fragment; the pipeline that attaches it to the right surfaces at
   build time is unwritten.
+
+### Correction: the 19 were one family, not nineteen
+
+**2026-09-26, caught by the runtime node printing what it attached to.** The
+table above is right and the words beside it were not. `drip_few`'s 19 are 19
+material RESOURCES -- one copy per imported GLB -- and all 19 carry the same
+name:
+
+    narrow family   entries in this package
+    brick                19   (1 distinct name, M_Skin_brick_delco_1997)
+    siding                0
+    stucco                0
+    corrugated            0
+    shingle               0
+
+So **+1.85 ms is the price of drips on this package's brick.** Siding, stucco,
+corrugated and shingle were not measured, because this package has none of
+them; a package that wears them pays more and this figure does not say how much
+more. An empty name pattern and a cheap one look identical in a total, which is
+the ordinary trap of a name-matched set and the reason the node prints its
+matches rather than counting them silently.
+
+The rest of the package, from 295 GLBs: 908 material entries, 242 distinct
+names, 55 distinct (254 entries) matching the wide arm's patterns -- glass 22,
+drywall 22, concrete 20, brick 19, then a long tail of `metal_painted` colour
+variants. The wide arm's 250 is consistent with that. **The non-proportionality
+finding is untouched**: 250 resources against 19 still cost 4.65x rather than
+13.16x.
+
+That tail is worth its own look and is not wetness's business: 20+ materials
+named `M_Skin_metal_painted_delco_1997_<hexcolour>`, which is colour-only
+variation expressed as separate materials -- the first rule under "draw calls
+are the budget", and the defect `pennant_row` shipped.
+
+### What exists now
+
+`level_factory/assets/godot/rain_drip.gdshader` (the fragment, extracted from
+the probe so both read one text), `rain_drip.gd` (the runtime node),
+`tools/drip_assets.py` (one stager for shader and atlas, shared by the
+measurement and the walk), and `tools/walk_export.py --drip`, which puts all
+three into a walk copy. Verified on cold run 9080's package: 19 of 880
+materials, 12,189 mesh instances visited.
+
+**The pipeline still attaches nothing.** A walk copy is not a package. When the
+look holds up, the attachment belongs in the presentation compose step, gated
+on the brief's weather the way Lot's wet ground already is.

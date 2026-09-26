@@ -59,13 +59,13 @@ import shutil
 import subprocess
 import sys
 
-_WALK_SCENE = """[gd_scene load_steps=6 format=3]
+_WALK_SCENE = """[gd_scene load_steps={steps} format=3]
 
 [ext_resource type="PackedScene" path="res://mission.tscn" id="mission"]
 [ext_resource type="Script" path="res://_walk_player.gd" id="player"]
 [ext_resource type="Script" path="res://debug_overlay.gd" id="debug_overlay"]
 [ext_resource type="Script" path="res://_walk_ladders.gd" id="walk_ladders"]
-
+{drip_res}
 [sub_resource type="CapsuleShape3D" id="PlayerCol"]
 radius = 0.35
 height = 1.8
@@ -92,7 +92,7 @@ script = ExtResource("debug_overlay")
 
 [node name="WalkLadders" type="Node" parent="."]
 script = ExtResource("walk_ladders")
-"""
+{drip_node}"""
 
 #: LADDER CLIMB VOLUMES for the walk copy (`tools/walk_ladders.gd`). The
 #: package carries ladder MARKERS; the Area3D a body climbs is the consumer's
@@ -114,6 +114,30 @@ _LADDERS_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 _OVERLAY_SRC = os.path.join(os.path.dirname(os.path.dirname(
     os.path.abspath(__file__))), "level_factory", "assets", "godot",
     "debug_overlay.gd")
+
+#: RAIN RUNNING DOWN THE WALLS, staged into the walk copy only.
+#:
+#: The fragment was priced before this flag existed (LF 0.116.0): +1.85 ms at
+#: the worst of six stations for 19 wall material resources -- all of them
+#: brick on the package that was measured (0.117.0) -- with draw calls up at
+#: 6 of 6 and the frame's luminance CHANGED at 5 of 6. The walker's
+#: call on that number was that it is affordable enough to walk, which is what
+#: this is -- a look, not an approval. No package the factory builds carries
+#: drips; when the look is approved the attachment belongs in the presentation
+#: compose step, gated on the brief's weather the way the wet ground is.
+#:
+#: Its shader and atlas come from `level_factory/tools/drip_assets.py`, the
+#: same stager the MEASUREMENT uses, so this walk shows the fragment that was
+#: measured rather than a second copy of it.
+_DRIP_RES = ('[ext_resource type="Script" path="res://rain_drip.gd" '
+             'id="rain_drip"]\n')
+_DRIP_NODE = """
+[node name="RainDrip" type="Node" parent="."]
+script = ExtResource("rain_drip")
+"""
+
+_DRIP_STAGER = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "level_factory", "tools")
 
 _HEADLAMP = """
 [node name="Headlamp" type="SpotLight3D" parent="Player/Camera"]
@@ -210,6 +234,18 @@ def main(argv=None):
                     help="add a spotlight to the camera. OFF by default: the "
                          "package's own lighting is part of what you are here "
                          "to judge, and a headlamp hides a level that ships dark")
+    ap.add_argument("--drip", action="store_true",
+                    help="run rain down the walls. OFF by default and NOT "
+                         "part of any package: this stages Level Factory's "
+                         "rain_drip.gd, its shader and Pixelcoat's drop atlas "
+                         "into the copy so the look can be judged. Priced at "
+                         "+1.85 ms worst-station for 19 wall material "
+                         "resources, all brick on the package measured "
+                         "(LF 0.117.0); adding patterns is a performance "
+                         "change, not a setting")
+    ap.add_argument("--pixelcoat", default=None,
+                    help="pixelcoat checkout the drop atlas is generated "
+                         "from. Only read with --drip")
     ap.add_argument("--lot-repo", default=None)
     ap.add_argument("--godot", default=None,
                     help="the Godot binary to run the import pass with. "
@@ -309,6 +345,22 @@ def main(argv=None):
     shutil.copy2(_OVERLAY_SRC, os.path.join(out, "debug_overlay.gd"))
     shutil.copy2(_LADDERS_SRC, os.path.join(out, "_walk_ladders.gd"))
 
+    drip_staged = []
+    if args.drip:
+        # STAGED THROUGH LEVEL FACTORY'S OWN STAGER, not copied here. It owns
+        # the atlas size and seed, and a walk judging a different texture from
+        # the one that was measured would be judging an unpriced look.
+        sys.path.insert(0, _DRIP_STAGER)
+        try:
+            import drip_assets
+            drip_staged = drip_assets.stage(out, args.pixelcoat, node=True)
+        except (ImportError, OSError, SystemExit) as exc:
+            sys.stderr.write(
+                "--drip could not stage its assets: %s\nThe copy is "
+                "assembled WITHOUT drips rather than with a shader that "
+                "samples nothing.%s" % (exc, os.linesep))
+            args.drip = False
+
     # ONLY the main scene changes, and the file's LINE ENDINGS are preserved
     # byte for byte. The export ships CRLF; reading and rewriting through
     # Python's default translation turned all 24 lines into LF -- which on
@@ -342,7 +394,13 @@ def main(argv=None):
 
     # The walk scene takes the package's line endings too, so a diff of this
     # directory against the export shows content and not whitespace.
+    # `load_steps` counts the resources the scene loads: 4 ext + 1 sub, and
+    # one more ext when the drip rides along. It is a progress hint rather
+    # than a contract, which is exactly why a stale one goes unnoticed.
     scene = _WALK_SCENE.format(x=pos[0], y=pos[1], z=pos[2],
+                               steps=7 if args.drip else 6,
+                               drip_res=_DRIP_RES if args.drip else "",
+                               drip_node=_DRIP_NODE if args.drip else "",
                                headlamp=_HEADLAMP if args.headlamp else "")
     if eol == "\r\n":
         scene = scene.replace("\n", "\r\n")
@@ -380,6 +438,12 @@ def main(argv=None):
           "(capsule 0.35 x 1.8, step 0.5)")
     sys.stdout.write(budget)
     print("  renderer : the package's own")
+    if args.drip:
+        print("  drip     : ON -- %s" % ", ".join(drip_staged))
+        print("             +1.85 ms worst-station measured for 19 wall "
+              "materials (LF 0.117.0; all brick on that package).")
+        print("             THE PACKAGE HAS NO DRIPS. This is staged into the "
+              "copy to be looked at.")
     if imported is not None:
         print("  import   : exit %d  (%s)" % (imported, how))
     elif args.no_import:
