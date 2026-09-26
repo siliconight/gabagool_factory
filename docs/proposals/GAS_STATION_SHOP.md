@@ -90,6 +90,19 @@ rail under every shelf carrying a printed tag per facing. The rail is what
 makes it read as a shop rather than as bottles on a board, and it is a strip of
 texture rather than geometry.
 
+**The pumps are mechanical, and that is the period tell.** The walker's
+close-up: three grades in separate colour-coded bodies (silver, red, gold),
+each with a MECHANICAL PRICE WHEEL showing dollars-per-gallon to the
+nine-tenths -- 1.55, 1.45 9/10, 1.65 9/10 -- above a smaller wheel for the
+sale. Coiled black hose, nozzle in a holster on the face, a stencilled
+"UNLEADED GASOLINE" plate, grade buttons along the front, and a yellow bollard
+at the island end. A digital seven-segment display would date the whole
+forecourt wrong by a decade, and the 9/10 fraction is the detail that reads as
+1997 at a glance.
+
+Zoo's `pump` species exists; whether it carries wheels, a holstered nozzle, a
+coiled hose and per-grade colour has not been checked against this reference.
+
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
 carries a real mark. The rule is already the repo's: invented Delco-slang
 brands on every branded surface, PG-13 crass, no real trademarks -- the strip
