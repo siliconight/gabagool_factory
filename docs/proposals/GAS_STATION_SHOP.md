@@ -157,6 +157,33 @@ at 588 removable draw calls (LF 0.119.0). The stock program must carry colour
 the way `_shelf_stock` already does, on tintable packs and vertex colour, not
 by minting materials.
 
+**Bagged snacks, and they hang rather than sit.** A branded snack rack: red
+shelf rails carrying a repeated wordmark strip, four tiers of crisp bags
+standing on edge and leaning back, price flags on the rail, and the bags
+themselves glossy and saturated -- yellow, green, blue, red -- against the rack.
+Same FACINGS rule as the car-care aisle: two or three of each bag side by side.
+
+A bag is a different form from a jug or a box: soft, leaning, wider at the top,
+and it catches light on a crease. Straight boxes standing in rows will not read
+as crisps. This is a fifth item form for the retail stock program, and the
+branded rail strip is a texture rather than geometry.
+
+**Snack cakes, and the first named brand: `yummyjawns`.** The walker, with a
+Tastykake shelf as the reference: "yummyjawns -- tastycake rip off". A jawn is
+Philadelphia for any noun at all, so a Delco snack cake called a yummyjawn is
+the right kind of joke -- local, affectionate, and not a trademark.
+
+The shelf itself is the densest facing pattern in the whole reference set: flat
+rectangular cartons standing on edge, four to six of each flavour side by side,
+each flavour a saturated colour band -- blue, purple, pink, teal, yellow -- with
+a price tag under every facing on a white rail. From two metres it reads as
+stripes of colour, and that is the whole effect. A sixth item form for the
+retail stock program: the flat carton.
+
+**BRANDS, as the walker names them.** This list grows as they are invented.
+
+    yummyjawns   -- snack cakes, a Tastykake rip-off
+
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
 carries a real mark. The rule is already the repo's: invented Delco-slang
 brands on every branded surface, PG-13 crass, no real trademarks -- the strip
