@@ -103,6 +103,18 @@ forecourt wrong by a decade, and the 9/10 fraction is the detail that reads as
 Zoo's `pump` species exists; whether it carries wheels, a holstered nozzle, a
 coiled hose and per-grade colour has not been checked against this reference.
 
+**The frozen drink machine is its own object and it is loud.** Two walker
+references: a twin-hopper slush dispenser with clear barrels showing the
+product itself -- one red, one blue, visibly churning -- a branded topper above,
+a cartoon mascot on the front panel, a pull tap per hopper, and a tube of
+stacked cups beside it. The second reference adds the six-bottle syrup rail
+with a labelled pump per flavour and a numbered "1 select cup size, 2 add
+flavor, 3 pull to fill" instruction panel, a drip tray, and a straw caddy.
+
+It matters more than its size suggests: it is the most SATURATED object in a
+1990s convenience store, and the two barrels of colour are what a dark shop
+interior has to catch the eye. A grey box in that corner loses the whole read.
+
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
 carries a real mark. The rule is already the repo's: invented Delco-slang
 brands on every branded surface, PG-13 crass, no real trademarks -- the strip
@@ -128,6 +140,7 @@ machine with "two rows of packs behind the front"), `carton_stack`,
     cigarette_overhead the rack above and behind the service counter
     cooler_run         the glass-door reach-in wall facing the sales floor
     impulse_rack       the candy and gum rack at the till
+    slush_machine      twin-hopper frozen drink, syrup rail, cup tube
 
 `cigarette_machine` is NOT the cigarette rack. It is a standalone vending
 machine; what the reference shows is a lit overhead rack behind the counter,
