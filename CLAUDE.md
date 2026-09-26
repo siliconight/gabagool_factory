@@ -69,6 +69,12 @@ than `max_lights_per_object` (8) lights reaching one mesh, per-frame CPU work
 that scales with prop count, and anything whose cost grows with the number of
 players in the level rather than with the level.
 
+**The policy this rule belongs to is `docs/PERFORMANCE_CONTRACT.md`** — target
+profiles, the nine scenarios a report must cover, per-phase budgets with named
+owners, the runtime pressure states, and a definition of done for a new tool.
+It is PROPOSED and nothing gates on it yet; the measured rules below are what
+this repo actually enforces.
+
 ### Draw calls are the budget, not triangles (hard rule)
 
 **Measured 2026-09-16 on cold run 9062's package, and it overturned how this

@@ -7,6 +7,7 @@ three of the four traps below are a command run from the wrong one.
 This file is for mechanics. The reasoning that governs when to run any of it is
 in `CLAUDE.md`; the architecture is in `PIPELINE_MAP.md`; the content routing is
 in `USING_THE_FACTORY.md`.
+The performance policy a measurement is taken against is `docs/PERFORMANCE_CONTRACT.md`.
 
 ---
 
