@@ -170,3 +170,73 @@ That is a guess. It is written down so the measurement that refutes it stays
 attached to it — and per this repo's own rule, every item in the list above
 gets attributed before any patch is written, because fixing the obvious one and
 leaving two behind is how a sweep looks like it did not work.
+
+
+---
+
+## 2, CLOSED: the windows are there, they are just very dark
+
+`pos x 6.3 y 4.9 z -7.2`, crosshair on `ext_col_1_S_open0_pane` at 1.80 m.
+
+The kit was never missing and neither was the placement. The panes are dark
+enough that at street distance the facade reads as an unbroken box, which is
+what "the windows are gone" was describing. That is a lighting and glass
+decision, not a defect in the build. Closed as reported; whether the glass
+should read lighter is the walker's call.
+
+## 6. It is raining indoors
+
+`pos x 8.8 y 1.6 z 18.4` -> deli local (-13.80, -13.40), inside
+`floor_stairwell` -- `crate_stack_stairwell_0`, a brick crate under a roof,
+carrying drips.
+
+MINE, 2026-09-26, and it is the defect `RAIN_WETNESS.md` item 4 names:
+"interiors stay dry ... NOT measured by item 2's probe, and the probe cannot
+answer it".
+
+**The cause is the attachment being per MATERIAL.** `rain_drip.gd` walks the
+scene and attaches to every material whose name matches a wall family.
+`M_Skin_brick_delco_1997` is worn by the exterior walls AND by that crate AND
+by the window reveals, and it is ONE resource shared by all of them -- 19 of
+them across the package, one per imported GLB, which is the same fact that made
+the +1.85 ms figure a figure about brick. A shared material cannot be wet on
+one instance and dry on another.
+
+The obvious fix is the wrong one. Attaching per instance means a
+`surface_material_override` per mesh, which is one material per instance --
+exactly the defect measured on this package the same morning (284 colour-only
+materials, `PRESENTATION_TINT_MATERIALS`). Trading a weather bug for a
+draw-call bug is not a fix.
+
+The place this resolves is BUILD time, where `ext_*` and `int_*` are already
+different meshes: the exterior families get one wet variant material each --
+one extra material per family, not per instance -- and interiors keep the dry
+one. That is the attachment the drip work has been deferring, and this finding
+is the reason it cannot be deferred further.
+
+## 7. Drips on the window reveal and sill
+
+Same frame as 2. The sill and the inner reveal of the opening carry drips,
+and both are sheltered by the head above them.
+
+Same root cause as 6 -- they are brick, and brick is one material. The shader's
+up-vector term keeps rain off a face that points down; nothing in it knows
+whether there is a roof, a soffit or a window head ABOVE a face that points
+out. A per-fragment test cannot answer that; a build-time one can, because the
+builder knows which module is a reveal.
+
+## 8. The drips are hard to see at all
+
+Walker: "found some drops, they are really hard to find. need the right
+lighting".
+
+Correct, and expected from the fragment: `ALBEDO` is black, `ALPHA` is
+`wet * 0.30`, and the visible part is a normal-map perturbation plus a
+roughness cut. That needs a specular highlight to disturb, so in an unlit
+interior or under overcast there is nothing for it to modulate.
+
+**Tuning this costs nothing to run.** `NORMAL_MAP_DEPTH`, `ALPHA`, `drip_scale`
+and `drip_speed` are uniforms and constants in the same instruction stream --
+changing them does not change the +1.85 ms, so the look can be pushed without
+re-pricing. What WOULD need re-pricing is any change that adds a texture fetch,
+a branch with real work in it, or a screen read.
