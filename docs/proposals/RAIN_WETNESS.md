@@ -292,3 +292,61 @@ Not changed. The shipped model is what `material_response.PRESETS` encodes and
 what the gen7 path uses, reused deliberately so Pixelcoat has one wetness
 rather than two. Swapping a shift for a lerp is a look decision against that
 model, not a defect fix.
+
+## What the drip fragment costs, measured
+
+**2026-09-26, LF 0.116.0, and it is the first drip figure in this file that was
+measured rather than derived.** The estimate it replaces -- "+0.15-0.4 ms on
+4-8 vertical families" -- was arithmetic off the per-submission model withdrawn
+above, and is wrong by 5-12x. Cold run 9080's package, GL Compatibility,
+1280x720, 3 rounds x 300 samples, `wet_ab.gd` with the 2 mm offset and the
+frame-luminance control:
+
+    station                   dry        drip_few          drip
+                      draws     ms   draws     ms   draws     ms
+    street_along       3467  17.08    3712  18.58    4961  23.30
+    exterior_high      4646  22.13    4911  23.72    6637  30.74
+    interior_b         4200  20.35    4464  22.20    6032  27.62
+
+    materials touched     0              19            250
+    median delta                    +0.83 ms       +3.59 ms
+    WORST station                   +1.85 ms       +8.60 ms
+
+`drip_few` is the street-facing set a shipping drip would use: brick, siding,
+stucco, corrugated, shingle. `drip` is the wide 15-pattern set and is an upper
+bound. Both controls fired -- draw calls rose at 6 of 6 stations, and the frame
+CHANGED at 5 of 6, which is the control the withdrawn figure lacked.
+
+### The material count does not predict the cost
+
+    material ratio   wide / few = 13.16x
+    worst-station ms ratio      =  4.65x
+
+Scaling the wide arm's +8.60 ms by the material ratio predicts +0.65 ms for 19
+families. The measurement says +1.85 ms -- nearly 3x, in the unaffordable
+direction. **Cost tracks screen coverage, not the length of the material
+list.** Brick and siding are large surfaces; 19 of them fill far more of a
+street frame than their 7.6% share of the list suggests. Keep this beside the
+asymmetry already recorded above ("dropping 39 of 172 materials removed over
+half the added draws") -- it is the same fact from the other end, and it means
+a material count is never a stand-in for a price here.
+
+### The walker's call, 2026-09-26
+
+**+1.85 ms worst-station for 19 wall families is affordable enough to walk.**
+That is roughly 8% of a 22 ms frame. It is a decision to look at the drip on a
+real street, not an approval to ship it: the performance contract's budget
+comes from a target profile that does not exist yet, so there is no allocation
+to charge this against and nothing gates on the contract. What exists is the
+number and the two controls that make it mean something.
+
+Still unmeasured, and each is a reason the figure above could move:
+
+- one package, one theme, six stations -- the contract asks for nine scenarios
+  including worst encounter and rapid traversal;
+- interiors staying dry (item 4), which this probe cannot answer for the same
+  reason it could not answer it for the wet pass: its `interior_*` stations are
+  eye-height views inside the site's bounding box, not under a roof;
+- the drip shader itself, which does not exist yet outside the probe. The price
+  is for the fragment; the pipeline that attaches it to the right surfaces at
+  build time is unwritten.
