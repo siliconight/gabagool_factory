@@ -180,8 +180,35 @@ a price tag under every facing on a white rail. From two metres it reads as
 stripes of colour, and that is the whole effect. A sixth item form for the
 retail stock program: the flat carton.
 
+**Hoagies, wrapped and labelled.** The grab-and-go case item: a long roll
+split and filled, sealed in clear film, with a printed white label across the
+middle carrying the name, a barcode, a price and an enjoy-by date. The label is
+the object -- it is what says "shop" rather than "sandwich" -- and it is a
+texture on a wrapped cylinder rather than geometry.
+
+Zoo already has a `cheesesteak` recipe, which is the same family: a long filled
+roll. A hoagie is a sibling form plus the film and the label, and both belong
+in a refrigerated grab-and-go case beside the coffee counter, which is where a
+1990s Delco store puts them.
+
+**The 1990s storefront is a MANSARD, not a flat fascia.** The walker's period
+photograph: a deep brown shingled roof band sloping over the whole shopfront,
+a stone-and-brick facade under it, the red wordmark and goose set on the dark
+band with "FOOD MARKET" beside it, a white promo board at the left end ("It's
+Hot... Breakfast on a Bagel"), and deep storefront windows with product visible
+through them.
+
+That shingled mansard is the single biggest difference from the modern store,
+and getting it wrong dates the building. The current `gas_station_a02` shop is
+a flat box. A shingled sloping band over the shopfront, a promo board at one
+end, and a lit window band is most of the 1997 read.
+
 **BRANDS, as the walker names them.** This list grows as they are invented.
 
+    Flappahs     -- the gas station and its shop, a Wawa rip-off. Wawa is
+                    the Lenape word for goose and the mark is a flying one,
+                    so a Flappah is the same bird in Delco-speak. The logo
+                    is a flapping goose; the wordmark is red.
     yummyjawns   -- snack cakes, a Tastykake rip-off
 
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
