@@ -74,6 +74,28 @@ counter. That is the 1990s convenience store growing a coffee programme, dated
 to the decade this theme is set in, and it says the coffee station should read
 as a BAR with syrups and cup stacks rather than as a pot on a warmer.
 
+## Two more references, and one of them dates the whole thing
+
+**The period is exact, and the reference says so.** Wawa's own fact sheet:
+"began opening stores with gasoline operations in 1996 in an effort to provide
+customers with a total one-stop shopping experience". A 1997 Delco forecourt
+with a convenience store attached is not a liberty -- it is the year the format
+arrived. The same sheet gives the shape of the offer: built-to-order hoagies,
+brewed coffee, a hot breakfast sandwich, burgers and fries, and "more than
+6,000 items including groceries, tobacco and candy".
+
+**The cooler is a dense wall of labelled product.** The walker's close-up: a
+glass-door reach-in, wire dividers holding each row straight, and a blue price
+rail under every shelf carrying a printed tag per facing. The rail is what
+makes it read as a shop rather than as bottles on a board, and it is a strip of
+texture rather than geometry.
+
+**THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
+carries a real mark. The rule is already the repo's: invented Delco-slang
+brands on every branded surface, PG-13 crass, no real trademarks -- the strip
+club takes its vibe from a real place and not its name, and the same applies
+here. Reference the format, the density and the light; name it something else.
+
 ## What Zoo already has, and what it does not
 
 Checked against `zoo/zoo_keeper/recipes/`, 2026-09-26.
