@@ -128,6 +128,35 @@ case at the till, and its whole point is that the food is visible and turning.
 The rollers reading as a set of parallel cylinders with the dogs lying ACROSS
 them is the silhouette; a static tray of sausages loses it.
 
+**The car-care aisle, and it is NOT a new species.** A wire-shelf gondola
+against pegboard: 1-litre oil jugs with moulded handles in ranks, aerosol cans
+with coloured caps standing in rows, trigger spray bottles, and larger 4-5 litre
+jugs on the bottom shelf where the weight goes.
+
+Zoo already has the machinery. `recipes/_shelf_stock.py` decides the contents of
+one shelf span in pure Python with rules a render punishes you for breaking --
+nothing overhangs its span, nothing shares a plane, every choice comes from a
+named rng stream -- and `shelving.build` turns each item into geometry. What it
+does not have is a RETAIL vocabulary: its palette and its kinds are "a
+Delco-1997 back office and stockroom", boxes and binders and ledgers and coffee
+cans. So this is a second stock program against the same tested layout code,
+plus four item forms (handled jug, aerosol with cap, trigger bottle, big jug),
+not a species.
+
+**THE RULE THAT MAKES RETAIL LOOK LIKE RETAIL IS FACINGS.** In the reference
+the same product repeats three to six times across before the next one starts.
+A stockroom shelf is all different; a shop shelf is runs of identical items.
+That one rule is most of the difference between the two reads, and
+`_shelf_stock` currently has no notion of it.
+
+And it is a trap worth naming here, because this repo measured it the same day:
+a facing run is a row of identical geometry in one colour, and the obvious way
+to build a colourful aisle is a material per product colour. That is
+`PRESENTATION_TINT_MATERIALS` -- 284 of them already in this package, measured
+at 588 removable draw calls (LF 0.119.0). The stock program must carry colour
+the way `_shelf_stock` already does, on tintable packs and vertex colour, not
+by minting materials.
+
 **THE BRANDS ARE INVENTED.** These references are Wawa, and nothing shipped
 carries a real mark. The rule is already the repo's: invented Delco-slang
 brands on every branded surface, PG-13 crass, no real trademarks -- the strip
@@ -155,6 +184,12 @@ machine with "two rows of packs behind the front"), `carton_stack`,
     impulse_rack       the candy and gum rack at the till
     slush_machine      twin-hopper frozen drink, syrup rail, cup tube
     roller_grill       chrome rollers under a hood, flag signs, buns panel
+
+And one that is NOT a species, listed here so nobody builds it as one:
+
+    retail shelf stock -- a second program for `recipes/_shelf_stock.py`:
+                          handled oil jug, aerosol with cap, trigger bottle,
+                          big jug, a saturated retail palette, and FACINGS
 
 `cigarette_machine` is NOT the cigarette rack. It is a standalone vending
 machine; what the reference shows is a lit overhead rack behind the counter,
