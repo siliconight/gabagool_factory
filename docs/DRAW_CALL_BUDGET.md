@@ -275,6 +275,113 @@ Added by the 60 FPS target:
 
 ---
 
+## Where the draw calls actually come from — ATTRIBUTED, 2026-09-27
+
+`level_factory/tools/draw_attrib.gd`. The harness said twelve of twelve
+stations were over budget; this says what is submitting. It counts the
+passes of every drawable whose world AABB survives the camera frustum,
+groups them by the GLB they came from, and — the part that makes it an
+attribution rather than a story — **checks the model against the engine's
+own draw-call counter at every station**.
+
+    camera_socket_0   actual 4,008 draws
+      visible surfaces (colour pass)   1,771    44%
+      sun shadow pass                  1,712    43%
+      local light shadows (12)           522    13%
+                                       -----
+                                       4,005    vs 4,008 measured
+
+    camera_socket_1   actual 5,071 draws
+      colour 2,329 (46%) + sun 2,217 (44%) + local 525 (10%) = 5,071  exact
+
+With both shadow passes switched off, draws divided by frustum-visible
+surfaces is **1.00 and 1.00**. The model is not approximating.
+
+### The headline: about 44% of the frame is the moon's shadow map
+
+One `DirectionalLight3D` resubmits every caster in the level. It is the
+single largest line in the budget at every station measured, larger than all
+the geometry a player can see, and larger than the twelve local
+shadow-casting lights by a factor of three.
+
+This is a LIGHTING dial, not a geometry problem, and the levers are ordered:
+
+* `directional_shadow_max_distance` — the sun's shadow frustum currently
+  reaches far enough to include most of a 230 x 115 m site. Cutting it
+  reduces the caster set directly and costs shadow detail only at range.
+* `shadow_casting_setting = OFF` on small clutter. The walker's supplied
+  bible says the same in its §2 generator rule ("disable shadows on small
+  clutter and distant characters"), and it is an authoring decision in Zoo
+  and Lot rather than a Lux one.
+* Fewer directional splits.
+
+None of it touches the moonlight itself, which the walker likes and which is
+`delco_night`'s tuned 0.75 at elevation 38. Shadow RANGE is not shadow
+PRESENCE.
+
+### What was refuted on the way, each by measurement
+
+| Suspect | Verdict |
+|---|---|
+| Local light shadows | real, but **10–13%** |
+| `next_pass` material chains | **3 extra passes in the entire level** |
+| Multiple surfaces per mesh | every drawable has exactly **1** — Zoo's merge-by-material worked |
+| Something in the visible geometry | after both shadow passes, the ratio is exactly 1.00 |
+
+### The visible half, ranked
+
+Consistent across stations, as a share of the colour pass:
+
+    19-21%  lux.applied              site surfaces, roads, walls, in-scene
+    10-13%  strip_club_a01_dressing
+     9%     prop_simple              parked cars
+     5-6%   prop_shelving, prop_club, site_base
+     3-4%   prop_cocktail, prop_parking, prop_bar, wall_delco_1997_01
+
+No single prop family dominates. Halving the *geometry* would save about a
+quarter of the frame; halving the *sun's caster set* saves about a fifth on
+its own and touches nothing a player sees standing still.
+
+### Two probe bugs worth recording, because both produced confident nonsense
+
+* **The frustum sign convention was backwards** and the first run reported
+  "predicted 0 surfaces on 0 objects" at all eight stations while the engine
+  drew four thousand. The probe now CALIBRATES the sign against a point that
+  must be inside the frustum, and prints the calibration, rather than
+  asserting a convention.
+* **`current_scene = scene` before `add_child` is refused outright** by Godot
+  4.7 ("Condition p_scene->get_parent() != root is true"), so the assignment
+  silently did nothing. Several probes in this session drew conclusions from
+  a scene whose `current_scene` was null — including the one that briefly
+  "found" a Lux defect that did not exist. Use `change_scene_to_packed`.
+
+## Against the walker's performance bible
+
+`docs/reference/Godot_4_7_Multiplayer_Procedural_Level_Performance_Bible.md`,
+supplied 2026-09-27. Three places it bears directly on the numbers above.
+
+**Its §2 budget is much stricter than this file's**: ≤800 visible opaque
+submissions at 60 FPS against the 2,000 derived here, with measured stations
+at 2,056–5,071. Both can be right — theirs is a starting point for the
+*minimum supported device*, this file's is the measured 16.7 ms crossing on
+an RTX 2060 in a debug build. The honest reading is that 2,000 is generous
+and should move toward 800 once anyone measures on a low-end GL
+Compatibility machine, which is already the open item in §2.
+
+**Its §2 caps real-time shadow-casting lights at 1 sun + 2 local for 60
+FPS.** This package ships 12 local. Measured, those 12 cost 10–13% of
+submissions — so the cap looks conservative *for draw calls*, and if it is
+right it is right about GPU time, which nobody here has measured.
+
+**Its §8 "required generated report" is very nearly `perf_stations.gd`**, and
+names two camera probes the harness does not have: the **longest sightline**
+and the **highest vantage point**. Stations currently come from gameplay
+anchors, which covers spawn and combat centre. Those two are exactly where a
+level blows its budget and they should be added.
+
+Its §2 also caps unique materials in a visible area at 80; `material_census`
+found 242 names on cold 9080, 183 of them in 11 tint families.
+
 ## Open questions this file does not answer
 
 - Whether partitioning the dressing MultiMesh is a net win (item 1). It is a
