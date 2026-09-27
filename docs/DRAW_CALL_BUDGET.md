@@ -355,6 +355,47 @@ its own and touches nothing a player sees standing still.
   a scene whose `current_scene` was null — including the one that briefly
   "found" a Lux defect that did not exist. Use `change_scene_to_packed`.
 
+## The shadow cut, end to end — cold run 9089
+
+Lux 0.50.0 cut `delco_night`'s `sun_shadow_max_distance` from 60 m to 30.
+Cold run 9089 is 9088 again with that one change, same mission, same seed,
+same candidate, and it closed at **zero interventions** with the same 34 and
+58 findings. The harness against both packages, worst heading per station:
+
+| station | 9088 (60 m) | 9089 (30 m) | ms |
+|---|---|---|---:|
+| extraction_10 | 13.55 ms / 3,507 | 8.89 / 2,300 | -34% |
+| player_start_28 | 13.35 / 3,710 | 8.84 / 2,773 | -34% |
+| attacker_spawn_16 | 12.77 / 3,403 | 8.04 / 2,167 | -37% |
+| attacker_spawn_11 | 11.85 / 2,287 | 7.45 / 1,692 | -37% |
+| camera_socket_1 | 11.12 / 3,124 | 5.85 / 2,024 | -47% |
+| crew_spawn_2 | 9.37 / 2,755 | 5.38 / 1,953 | -43% |
+| extraction_3 | 8.84 / 2,903 | 5.64 / 2,027 | -36% |
+| camera_socket_0 | 8.52 / 2,351 | 6.51 / 1,941 | -24% |
+| defender_spawn_25 | 8.35 / 3,025 | 5.16 / 1,566 | -38% |
+| patrol_point_5 | 7.00 / 2,216 | 4.71 / 1,824 | -33% |
+| defender_spawn_24 | 5.46 / 2,056 | 2.71 / 793 | -50% |
+| objective_4 | 4.64 / 2,289 | 2.14 / 1,278 | -54% |
+
+**Stations over the 11 ms budget: 5 to 0.** The worst is 8.89 ms against a
+16.7 ms frame, so the level now has better than 7 ms of headroom for the
+gameplay, AI, netcode and other players that none of this measurement
+contains.
+
+**Stations over the 2,000-draw guardrail: 12 to 5**, and the five that remain
+sit at 2,024-2,773 rather than 3,000-3,700.
+
+Every station improved and none regressed, which is what a single global
+dial should look like. It is also the cheapest change in this file by a wide
+margin: one number in one preset, no geometry touched, no authoring work, and
+`lux_preset.gd`'s own luma numbers say the night look is unaffected.
+
+WHAT IT DOES NOT DO. It is a NIGHT preset change. The daytime presets keep
+60 m, the same cut there is unmeasured, and a daylit level will still carry
+the full sun-shadow pass -- which attribution put at 43-44% of submissions.
+That measurement should be repeated on a daytime package before assuming the
+saving transfers.
+
 ## Against the walker's performance bible
 
 `docs/reference/Godot_4_7_Multiplayer_Procedural_Level_Performance_Bible.md`,
