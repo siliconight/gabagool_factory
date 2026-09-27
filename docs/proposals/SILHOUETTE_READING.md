@@ -86,26 +86,65 @@ This matters because an instrument that finds nothing on a real library is
 indistinguishable from an instrument that cannot see. This one has ~2,900
 findings waiting, and they are known-true before it is written.
 
-## Instrument 1: silhouette collision
+## What it is FOR, which decides its shape
 
-**Question:** can a player tell these two things apart at gameplay distance,
-with no texture?
+The walker, 2026-09-26: "really all it should do is to push Zoo to make assets
+that read well at various distances."
 
-Render each species as a flat mask against a clear background at a fixed
-camera distance and a fixed set of yaws, reduce each to a shape descriptor,
-and report the pairs whose descriptors are closer than some separation. No
-verdict: print the pairs and their distance, most-similar first, and let a
-person decide which collisions are acceptable. A crate and a carton arguably
-should look alike; a safe and a shelf run should not.
+That is not a gate on a package. It is a development instrument for ONE repo,
+and two things follow from it.
 
-This is a COMPARISON, not a judgement, which is the only reason it can be
-automated honestly.
+**It reports a worklist, not a verdict.** Nothing here should block a Level
+Factory run or become a finding in a validation record. A species that reads
+badly is Zoo's to improve, and the output wants to be a ranked list of species
+worth an hour of modelling, most-broken first. The coplanar census is the
+working precedent: it runs 106 species through Blender, prints a table, and
+gates nothing.
+
+**"At various distances" is the measurement, not a parameter of it.** A single
+gameplay distance was the wrong design. An asset does not read or fail to read
+-- it reads *up to* a distance and then stops, and the useful number per
+species is where that happens.
+
+## Instrument 1: legibility range
+
+**Question:** out to what distance does this species still read as itself?
+
+For each species, render its flat mask at a ladder of camera distances and a
+fixed set of yaws, and at each distance ask two things:
+
+* **Is it still more than a box?** Compare its mask against a plain box of the
+  same bounding volume. Every species starts distinguishable from its own
+  bounding box and converges to it as the silhouette collapses into a
+  rectangle at range. The distance where it stops being distinguishable is the
+  number: "this crate reads as a crate to 8 m and as a box after that."
+* **Is it still itself and not its neighbour?** Compare against every other
+  species' mask at the same distance and report the nearest one. A safe and a
+  shelf run colliding at 6 m is a different and worse finding than either
+  collapsing to a box at 25 m.
+
+The output is one row per species -- its box-range, its nearest neighbour, and
+the range at which that neighbour becomes indistinguishable -- sorted by
+box-range ascending, so the species that stop reading soonest are at the top.
+That is the worklist.
+
+A crate and a carton arguably should collide; a safe and a shelf run should
+not. No verdict is printed on which.
+
+**AND IT PAYS FOR ITSELF IN DRAW CALLS, WHICH IS THE PART TO NOT OVERSELL.**
+The distance at which a species stops being distinguishable from its own
+bounding box is also the distance past which its geometry is buying nothing
+visible. That is exactly where an LOD swap, an impostor, or a MultiMesh
+collapse belongs, and it is currently chosen by nobody. It would be the first
+derived answer this repo has to "where does detail stop paying" -- but it is a
+consequence of the instrument, not its purpose, and the purpose is that the
+asset reads.
 
 Design notes that follow from this repo's own history:
 
-* **Fixed distance and yaw set, recorded in the output.** A silhouette is a
-  function of where you stand; a number that does not state its camera is not
-  a measurement.
+* **The distance ladder and yaw set are recorded in the output.** A silhouette
+  is a function of where you stand; a number that does not state its camera is
+  not a measurement.
 * **The instrument must prove it can see.** A pair of known-distinct species
   and a pair of known-identical ones (any two of the 2,876 boxes) go through
   every run as controls. A descriptor that cannot separate a `streetlight`
@@ -147,6 +186,11 @@ they do. On this renderer triangles are nearly free.
 Instrument 1, and only after its controls pass. It is the one with 2,876
 findings already waiting, it needs no decimation machinery, and its output is
 a ranked list a person can read in a minute.
+
+The first thing to look at in that list is not the boxes. It is any species
+with real geometry whose box-range is SHORT -- an asset somebody modelled that
+stops reading at four metres is a worse finding than a placeholder that never
+read at all, because the placeholder is honest about what it is.
 
 Instrument 2 needs a decimator and a threshold, and a threshold is exactly the
 kind of number this repo insists on measuring before choosing. Build it second,
