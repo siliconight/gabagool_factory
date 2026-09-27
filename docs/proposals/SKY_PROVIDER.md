@@ -261,9 +261,17 @@ RETRACTED: "with clouds off ... the per-pixel cloud work (7 texture fetches)
 is gone." It is not. Read the shader rather than the profile: the five noise
 fetches, the `pow` and the cloud lighting run on every pixel, and
 `cloud_density = 1.0` zeroes the resulting MASK, after the work. Clouds off
-is a look, not a saving. The saving is one branch around that block, which
-would move `glow_occlusion` slightly (it reads cloud thickness even at zero
-coverage) and is unpriced.
+is a look, not a saving.
+
+RETRACTED AGAIN, same day, by measurement: the branch around that block
+recovered nothing, and nor did any edit to the shader — a valid sky of a
+flat colour costs what SkyMint costs. **The cost is the radiance map**: on
+GL Compatibility a custom sky's radiance cubemap is rendered and filtered
+every frame and read by every lit surface as ambient and reflection.
+`radiance_size` 128 → 32 recovers half; flat ambient plus reflections
+disabled recovers all of it. The full ladder, and the two broken-shader
+copies that misled it for an hour, are in `docs/DRAW_CALL_BUDGET.md` § "The
+sky, priced". Which of the two to ship is a look call and is the walker's.
 
 What was known before that, kept for the record: `Sky` is set to
 `PROCESS_MODE_INCREMENTAL` at 256 in the prototype rather than SkyMint's
