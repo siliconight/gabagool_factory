@@ -51,6 +51,36 @@ from 24,000 to 3,000 would change frame time by approximately nothing.
 So the triangle bands are the wrong end of the document. Adopting them as a
 performance budget would be measuring the cheap thing carefully.
 
+## WHAT THIS MUST NEVER BECOME
+
+**No asset in this repo gets simplified because it has more triangles than a
+2001 game had.** The walker, 2026-09-26: "what I don't want is for us to
+reduce poly count 'just cause' it's more than halo."
+
+The numbers above are a comparison, and a comparison is not a target. Three
+reasons to hold that line, in the order they bite:
+
+* **Triangles are nearly free on the renderer this ships on.** Measured, twice.
+  Frame time tracks submissions: 870k triangles in 119 draws costs 6.09 ms
+  while 2.06M in 4,078 draws costs 13.45 ms. A reduction pass would spend
+  modelling time to buy approximately zero milliseconds.
+* **The budgets in Zoo's genomes were never frame costs.** CLAUDE.md is
+  explicit that they are REGRESSION DETECTORS -- "a species that silently
+  doubles trips them" -- and a room was once agonised over at 25,008 triangles
+  against a borrowed 24,000 "budget" while 1.4M were on screen. Reading the
+  Xbox bands as caps would repeat that exactly.
+* **Halo CE's constraint was a 2001 GPU, and ours is a draw-call submission
+  path.** Same word, different bill. Copying the number without the constraint
+  is cargo cult.
+
+The ONLY reason to change an asset's geometry under this proposal is that the
+asset does not READ -- and then the change is as likely to be adding a shape
+as removing one. A crate that silhouettes as a box needs a lid, a lip or a
+strap; it does not need fewer triangles.
+
+If a legibility measurement ever DOES lead somewhere that happens to reduce a
+count, that is a side effect to be reported, not a goal to be pursued.
+
 ## The right end
 
 > Assets should read clearly at normal gameplay distance through strong
@@ -152,7 +182,7 @@ Design notes that follow from this repo's own history:
 * **No texture, no material, no lighting.** Silhouette only -- that is the
   doc's test and it is also what makes the result stable across themes.
 
-## Instrument 2: silhouette efficiency
+## Instrument 2: silhouette efficiency -- LATER, AND NOT A REDUCTION TOOL
 
 **Question:** how many of this asset's triangles change its outline at all?
 
@@ -164,6 +194,13 @@ ratio is "how much of this geometry is doing silhouette work".
 That is the number that would settle `cubicle_bank`'s 24,000 -- not by
 comparing it to a band from another game, but by saying how many of those
 24,000 a player could see the absence of.
+
+**AND A LOW SCORE IS NOT AN INSTRUCTION TO DECIMATE.** Geometry that does no
+silhouette work is a hint that an asset is shaped wrong, and the fix may well
+be to MOVE those triangles somewhere they change the outline rather than to
+delete them. Read it as "this species is spending its detail where nobody can
+see it", not as "this species is too expensive" -- it is not expensive, see
+the section at the top.
 
 It also answers something the triangle budgets cannot. A Zoo budget is a
 REGRESSION DETECTOR ("a species that silently doubles trips them", CLAUDE.md)
@@ -195,6 +232,18 @@ read at all, because the placeholder is honest about what it is.
 Instrument 2 needs a decimator and a threshold, and a threshold is exactly the
 kind of number this repo insists on measuring before choosing. Build it second,
 with instrument 1's descriptor already proven.
+
+## LOD, deliberately out of scope
+
+The walker, 2026-09-26: "not sure if we need to eventually take into account
+LOD but for now we can do this i think."
+
+So the legibility range is measured and reported and nothing acts on it. The
+observation that it is also where detail stops paying stands on the record
+above because it will be useful later, but no LOD ladder, impostor threshold
+or visibility range is designed here, and none should be added to this
+proposal without its own measurement. A number that is interesting for two
+purposes is a number that gets tuned for the wrong one.
 
 ## Where it would live
 
