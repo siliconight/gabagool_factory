@@ -252,9 +252,20 @@ That is a constraint on authoring, not a reason to avoid panoramas.
 
 ## Cost
 
-Not yet priced properly, and it should be before anything ships. What is
-known: with clouds off the sky shader does one equirect lookup plus a disc,
-and the per-pixel cloud work (7 texture fetches) is gone. `Sky` is set to
+**PRICED 2026-09-27, cold run 9090, and the paragraph below it was wrong.**
+Same package, sky provider on and off, same harness back to back: **about
+1.3 ms GPU and 0.2–1.7 ms p95 at every station, on identical draw counts.**
+The table is in `docs/DRAW_CALL_BUDGET.md` § "The sky, priced".
+
+RETRACTED: "with clouds off ... the per-pixel cloud work (7 texture fetches)
+is gone." It is not. Read the shader rather than the profile: the five noise
+fetches, the `pow` and the cloud lighting run on every pixel, and
+`cloud_density = 1.0` zeroes the resulting MASK, after the work. Clouds off
+is a look, not a saving. The saving is one branch around that block, which
+would move `glow_occlusion` slightly (it reads cloud thickness even at zero
+coverage) and is unpriced.
+
+What was known before that, kept for the record: `Sky` is set to
 `PROCESS_MODE_INCREMENTAL` at 256 in the prototype rather than SkyMint's
 `REALTIME` at 128, which costs a face rebuild per frame rather than all at
 once; with a static sky neither should matter and neither has been measured
