@@ -150,6 +150,37 @@ walker's screen** and blocks until somebody clicks OK, which reads as a hang.
 Use `--headless` whenever a window is not needed; a real frame time needs one,
 so open a window that measures and quits itself.
 
+**How a probe exits, and how to check that it did.** Both have cost a
+retraction (2026-09-27).
+
+- `quit()` asks the main loop to stop at the end of the frame. It cannot
+  close an in-engine modal. Every shipped probe therefore exits through
+  `_exit(code)`: `quit(code)`, two `await process_frame`, then
+  `OS.kill(OS.get_process_id())`. A normal exit never reaches the kill --
+  the loop has stopped -- so it costs nothing on the path that works. Proven
+  with a probe that skipped `quit()` entirely: the kill path ended a
+  windowed engine on its own.
+- **A launcher's timeout kills its direct child only.** Godot's console
+  launcher spawns the real engine as a grandchild, so `subprocess.run(...,
+  timeout=)` left an engine drawing to the walker's desktop with nobody
+  waiting on it. `perf_stations_run.py` kills the tree (`taskkill /T` on
+  Windows) and refuses with CANNOT MEASURE if any Godot it did not start is
+  still up afterwards. Proven with a probe that never exits: tree gone at
+  15.9 s, zero processes left.
+- **Count Godot processes AFTER teardown, not at +0 ms.** A windowed
+  engine freeing a 12,000-node scene and a GL context takes up to a second
+  to leave, and the console launcher and the engine are two processes.
+  Counting the instant a shell pipeline closed read "2 processes still
+  running" on a probe that had exited correctly, and those two were then
+  killed mid-teardown -- a retraction, not a hang. Wait a second, or use the
+  runner, which does.
+- Kill by PID, never by image name: `Get-Process Godot*` includes the
+  walker's own editor.
+
+```powershell
+Start-Sleep -Milliseconds 1500; Get-Process | Where-Object { $_.ProcessName -like '*Godot*' } | Select-Object Id, StartTime
+```
+
 ```bash
 godot --headless --path <project> --import
 godot --path <project> --script res://probe.gd -- <args>
