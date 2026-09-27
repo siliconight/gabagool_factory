@@ -23,6 +23,13 @@ generated levels.
 > - §10's permanent benchmark set does not exist yet. `tools/cold_run.py`
 >   measures interventions, not frames; `tools/wet_ab.gd` and
 >   `tools/occlusion_ab.gd` measure frames at fixed stations on one package.
+>   `docs/DRAW_CALL_BUDGET.md` names this as the item that makes every other
+>   performance item checkable, and therefore the one to build first.
+> - §2's target is now stated: **60 FPS**, with the derived draw-call
+>   guardrail and the gaps against it in `docs/DRAW_CALL_BUDGET.md`. Three of
+>   those gaps are this repo breaking its own written rules in shipped output
+>   — one MultiMesh for the whole level, no `custom_aabb` anywhere, and 34
+>   meshes over the 8-light GL Compatibility cap.
 >
 > Verify specific monitor names and renderer support against the exact Godot
 > 4.7 build this project uses.
@@ -64,6 +71,32 @@ exclusively to procedural content.
 Start with provisional CPU, GPU, memory and loading budgets. Replace them with
 measured limits on representative hardware. Do not present a guessed draw-call
 count, node count or VRAM allowance as a universal Godot limit.
+
+### This project's target, and the one budget derived from measurement
+
+**60 FPS — 16.7 ms — is the walker's stated target (2026-09-27).** It is a
+whole-frame budget shared with gameplay, AI, netcode, audio and UI, on a
+multiplayer online title where a cost here is paid on every client in a
+session.
+
+The one budget this project has actually derived rather than guessed is the
+draw-call guardrail, and it lives in **`docs/DRAW_CALL_BUDGET.md`** with the
+measurements behind it: two independent runs (cold 9062 and cold 9088) in
+which frame time tracked submissions and ignored a flat triangle count, and
+render-CPU exceeded GPU at every station — which is this contract's §3 test
+for "is CPU-side submission the bottleneck" answered yes.
+
+Its provisional figure is **2,000 draw calls in the worst sightline**, about
+half the 16.7 ms crossing measured on a debug walk copy, with the remainder
+reserved for the work that measurement did not contain. Cold run 9088's own
+worst station read 5,739 draws at 29.90 ms, so shipped output is roughly 2.9x
+over it.
+
+That number is provisional in the exact sense §2 means: it was measured on an
+RTX 2060 at 1152x648 in a debug build with nothing else running, and packages
+ship on **GL Compatibility as the low-end target on purpose**. Replacing it
+with an exported-build measurement on that target is the deliverable, not the
+number.
 
 ---
 
