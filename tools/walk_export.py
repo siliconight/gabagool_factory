@@ -65,6 +65,7 @@ _WALK_SCENE = """[gd_scene load_steps={steps} format=3]
 [ext_resource type="Script" path="res://_walk_player.gd" id="player"]
 [ext_resource type="Script" path="res://debug_overlay.gd" id="debug_overlay"]
 [ext_resource type="Script" path="res://_walk_ladders.gd" id="walk_ladders"]
+[ext_resource type="Script" path="res://_walk_flashlight.gd" id="walk_flashlight"]
 {drip_res}
 [sub_resource type="CapsuleShape3D" id="PlayerCol"]
 radius = 0.35
@@ -92,6 +93,9 @@ script = ExtResource("debug_overlay")
 
 [node name="WalkLadders" type="Node" parent="."]
 script = ExtResource("walk_ladders")
+
+[node name="WalkFlashlight" type="Node" parent="."]
+script = ExtResource("walk_flashlight")
 {drip_node}"""
 
 #: LADDER CLIMB VOLUMES for the walk copy (`tools/walk_ladders.gd`). The
@@ -101,6 +105,15 @@ script = ExtResource("walk_ladders")
 #: on 2026-09-13.
 _LADDERS_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                             "walk_ladders.gd")
+
+#: A FLASHLIGHT, OFF BY DEFAULT AND TOGGLED WITH F. The walker on cold run
+#: 9086's night package: "its so dark I cant find my way outside of this
+#: building". `--headlamp` below has existed all along and is the wrong answer
+#: on its own -- its own help says a headlamp "hides a level that ships dark".
+#: A toggle keeps both halves: press F to get out of a black room, press F
+#: again to judge it. Always in the walk copy, never in the package.
+_FLASHLIGHT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "walk_flashlight.gd")
 
 #: LEVEL FACTORY'S debug overlay -- position, the building under the
 #: crosshair, the collider looked at and its distance; F3 toggles, on by
@@ -344,6 +357,7 @@ def main(argv=None):
         return 2
     shutil.copy2(_OVERLAY_SRC, os.path.join(out, "debug_overlay.gd"))
     shutil.copy2(_LADDERS_SRC, os.path.join(out, "_walk_ladders.gd"))
+    shutil.copy2(_FLASHLIGHT_SRC, os.path.join(out, "_walk_flashlight.gd"))
 
     drip_staged = []
     if args.drip:
@@ -398,7 +412,7 @@ def main(argv=None):
     # one more ext when the drip rides along. It is a progress hint rather
     # than a contract, which is exactly why a stale one goes unnoticed.
     scene = _WALK_SCENE.format(x=pos[0], y=pos[1], z=pos[2],
-                               steps=7 if args.drip else 6,
+                               steps=8 if args.drip else 7,
                                drip_res=_DRIP_RES if args.drip else "",
                                drip_node=_DRIP_NODE if args.drip else "",
                                headlamp=_HEADLAMP if args.headlamp else "")
@@ -432,6 +446,8 @@ def main(argv=None):
     print("  from     : " + os.path.basename(export_dir))
     print("  spawn    : %.3f, %.3f, %.3f   (%s, +%.2f lift)"
           % (pos[0], pos[1], pos[2], origin, args.lift))
+    print("  flashlight: F toggles one, OFF at start -- a level too dark "
+          "to walk IS a finding, and a lamp that is always on hides it")
     print("  overlay  : Level Factory's debug_overlay.gd (F3 toggles; position, "
           "building, surface)")
     print("  player   : Lot's lot_player.gd as _walk_player.gd  "
