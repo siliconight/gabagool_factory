@@ -129,7 +129,15 @@ the pole stretch turned it into a 90-degree square. A feathering experiment
 that blurred the sides toward the top was run and is discarded: it fixed a
 problem the cube never had.
 
-**The fix, shipped as SkyMint 1.1 inside Lux:** `cubes/<slug>/` carries the
+**The fix, shipped as SkyMint 1.1 inside Lux 0.52.0, and verified in a
+pipeline-shaped package** -- the localizer's rewrite applied to the script,
+the faces mirrored to `runtime/skymint/cubes/`, zenith view, no geometry,
+inside the old square against outside:
+
+    sinister (shipped)    use_cube=true   ratio 0.982
+    moody (worst case)    use_cube=true   ratio 1.065    (equirect: 0.069)
+
+`cubes/<slug>/` carries the
 six source faces, `skymint.gd` builds a `Cubemap` from them at runtime and
 sets `use_cube`, and the shader samples it with `EYEDIR`. The equirect path
 stays as the fallback for a skybox with no faces on disk. The zenith-contrast
