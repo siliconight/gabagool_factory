@@ -192,19 +192,62 @@ merge-by-module made interiors 59–63% faster and made this worse. Any
 partitioning work in item 1 should report the light-per-object histogram
 before and after, because it moves both numbers at once.
 
-### 5. Nothing measures any of this per run
+### 5. Nothing measured any of this per run — BUILT, LF 0.122.0
 
 `tools/cold_run.py` counts interventions. `tools/wet_ab.gd`,
 `tools/occlusion_ab.gd` and `tools/tint_merge_ab.gd` measure frames at fixed
-stations on one package, by hand, when someone remembers. There is no
-per-run draw-call report, no worst-sightline station set, and no gate.
-
-`PERFORMANCE_CONTRACT.md` §10 calls for a permanent benchmark set and notes
-it does not exist. **That is the item that makes every other item on this
-list checkable**, and it is the one to build first — a fixed station set per
-package reporting draws, triangles, frame ms, GPU ms, render-CPU ms and the
-lights-per-object histogram, so a change can be priced without a human
+stations on one package, by hand, when someone remembers. There was no
+per-run draw-call report, no worst-sightline station set, and no gate — every
+number in the table above was transcribed from a screenshot of a person
 walking the level.
+
+**`level_factory/tools/perf_stations_run.py` is that harness.** Stations come
+from the package's own `gameplay_anchors.json`; each takes four headings and
+reports the worst, because facing matters more than standing. It reports
+draws, primitives, objects, frame-time median/p95/worst, a GPU/CPU split and
+the lights-per-object histogram in one place.
+
+    python level_factory/tools/perf_stations_run.py <exported package>
+
+First run on cold run 9088's own package, 12 stations warm:
+
+| station | p95 ms | draws |
+|---|---:|---:|
+| extraction_10 | 13.55 | 3,507 |
+| player_start_28 | 13.35 | 3,710 |
+| attacker_spawn_16 | 12.77 | 3,403 |
+| camera_socket_1 | 11.12 | 3,124 |
+| crew_spawn_2 | 9.37 | 2,755 |
+| objective_4 | 4.64 | 2,289 |
+
+**12 of 12 stations over the 2,000-draw guardrail; 5 over 11 ms.** And it
+agrees with the walk overlay independently — 11.85 ms at 2,287 draws from the
+harness against 11.28 ms at 2,257 draws read off F4 during the walk. Two
+instruments, two runs, one curve.
+
+Exit codes match `tools/check_all.py`: 0 clean, 1 findings, 2 COULD NOT
+MEASURE.
+
+**Three measurement traps it fell into first, recorded because each produced
+a confident wrong answer and the third is the interesting one:**
+
+* **An unimported package measures as a fast one.** A portable package ships
+  sidecars and no `.godot`; without importing it once no GLB loads, only the
+  four dressing MultiMeshes draw, and the first run reported **4 draw calls at
+  all 29 stations** as "every station inside budget".
+* **A truncated run reported a pass.** The watchdog fired, the probe wrote
+  what it had, and the caller read it as finished.
+* **The instrument cost 13x the frame it was measuring.**
+  `RenderingServer.viewport_set_measure_render_time` inserts GPU timestamp
+  queries every frame: with them on, `defender_spawn_25` read **109.26 ms**
+  p95 at 3,025 draws; with them off, **8.35 ms**. `debug_overlay.gd` had
+  already found this and enables them only while its panel is visible. Frame
+  time is now measured with the timers off; the GPU/CPU split comes from a
+  separate short pass with them on and is labelled as not comparable.
+
+The remaining gap is the one §2 names: every number here is still a debug
+build on an RTX 2060. The harness makes an exported-build run on a low-end GL
+Compatibility machine a command rather than an afternoon.
 
 ---
 
