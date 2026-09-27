@@ -546,6 +546,10 @@ a window before being measured. Name what produced the artefact.
 - **Leave it**: 1.3 ms at 720p, scaling with pixels, on a card that has
   the headroom — and an open item for the GL Compatibility target.
 
+**Chosen 2026-09-27: radiance 32**, shipped as Lux 0.54.0 / SkyMint 1.2.0.
+Half the saving for no expected change to the night; confirmed or not on
+the next walk.
+
 `process_mode` QUALITY did not help, with the uniform writes proven off.
 Either Compatibility re-renders the radiance every frame whatever the mode,
 or something not counted still dirties the sky; the two are not separated,
