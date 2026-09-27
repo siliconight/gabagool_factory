@@ -482,10 +482,13 @@ are left out rather than compared across headings. Reports:
 **The sky costs about 1.3 ms of GPU and 0.2–1.7 ms of p95 at every
 station, on identical draw counts.** It is a per-pixel cost — a fullscreen
 shader — so it scales with resolution and not with the level, which is the
-one shape of cost this file's draw-call reasoning cannot see. On an RTX 2060
-at the walk copy's resolution that is inside the 11 ms budget everywhere
-except the vantage, which was over without it (11.41). On the GL
-Compatibility target it is unmeasured and will be larger in proportion.
+one shape of cost this file's draw-call reasoning cannot see. **The harness
+renders at a fixed 1280×720** (`perf_stations.gd` `W`/`H`), 0.92 megapixels,
+so 1.3 ms there is about 2.9 ms at 1080p and 5.2 ms at 1440p on the same
+card before any difference in the card. On an RTX 2060 at 720p that is
+inside the 11 ms budget everywhere except the vantage, which was over
+without it (11.41). On the GL Compatibility target it is unmeasured and will
+be larger in proportion.
 
 **And it is not the cube.** SkyMint's cloud block — five noise fetches, a
 `pow`, and the lighting that follows — runs on every pixel whether or not
