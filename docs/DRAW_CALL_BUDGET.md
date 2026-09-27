@@ -423,7 +423,23 @@ and the **highest vantage point**. Both are now derived from the package (LF
 
 Worse than all twelve anchor stations, whose worst was 8.89 ms. The view that
 blows the budget was the one that had never been measured. It puts cold run
-9089 back to one station over the 11 ms frame budget. Stations currently come from gameplay
+9089 back to one station over the 11 ms frame budget.
+
+**And then it did not hold still.** The second run read the same station at
+22.89 ms p95 at a different worst heading, with fewer draws (2,429 against
+2,649) and a GPU/CPU split of 8.25 / 12.03 that does not add up to it. One
+sample each. That is run-to-run instability at a station that looks across
+the whole level, not a measurement of it, and the harness does not yet repeat
+a station to tell the two apart. Until it does, "the vantage is the worst
+station" is the honest reading and "22.89 ms" is not.
+
+The **longest sightline** landed a real view once misses stopped counting:
+127.7 m from `extraction_10` at yaw 293, 10.02 ms and 2,139 draws. Its first
+run had ranked a 500 m ray that hit nothing -- a 4.6 m eye from a camera
+socket clears the perimeter wall -- and measured 260 draws of void. Rays that
+leave the map are now counted apart: **37 of them on this package**, which is
+a finding about the boundary height against a standing eye, not about the
+frame. Stations currently come from gameplay
 anchors, which covers spawn and combat centre. Those two are exactly where a
 level blows its budget and they should be added.
 
