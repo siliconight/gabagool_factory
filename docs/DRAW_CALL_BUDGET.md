@@ -415,8 +415,15 @@ submissions — so the cap looks conservative *for draw calls*, and if it is
 right it is right about GPU time, which nobody here has measured.
 
 **Its §8 "required generated report" is very nearly `perf_stations.gd`**, and
-names two camera probes the harness does not have: the **longest sightline**
-and the **highest vantage point**. Stations currently come from gameplay
+named two camera probes the harness did not have: the **longest sightline**
+and the **highest vantage point**. Both are now derived from the package (LF
+0.124.0), and the first run proved the bible's point in one line:
+
+    highest_vantage   12.17 ms p95   2,649 draws   <- the worst station in the level
+
+Worse than all twelve anchor stations, whose worst was 8.89 ms. The view that
+blows the budget was the one that had never been measured. It puts cold run
+9089 back to one station over the 11 ms frame budget. Stations currently come from gameplay
 anchors, which covers spawn and combat centre. Those two are exactly where a
 level blows its budget and they should be added.
 

@@ -113,7 +113,43 @@ A hard-edged dark square in the sky, which the walker raised twice — *"the
 skybox square needs to not look like a hard square in the sky"*, and with a
 drawn line, *"the way the squares cut and aren't blended"*.
 
-### What it is
+### RETRACTED 2026-09-27: it is not the engine, it is the pictures
+
+Everything below this heading down to "Minimal reproduction" described the
+square as an engine artefact of panorama skies. **Withdrawn.** Measured in
+order, each with an instrument that could see the edge:
+
+| test | result |
+|---|---|
+| Forward+ instead of Compatibility | square present |
+| `sky_rotation` 45 degrees about Y | the square becomes a **diamond** — it rotates with the panorama, so it is not a world-axis cube face |
+| tilt 30 degrees about X | it moves and skews with the content |
+| looking +Z, -X (side faces) | no square straight ahead — only at the pole |
+| nearest filtering, 512x256 image, anisotropy 0, `textureLod(0)` | identical |
+| radiance size 32 / 256 / 2048, edge metric | 0.5895 / 0.5895 / 0.5895 |
+| exact `atan`/`acos` from EYEDIR instead of `SKY_COORDS` | **identical square** |
+| `moody.png` reprojected to cube faces, no engine at all | **+Y face sharpness 0.304; +Z 0.757; -X 0.801** |
+
+The last row is the answer. SkyMint's README: *"the `panoramas/` here are
+baked from that CC0 pack"* — Vladislav Zhukov's retro skyboxes, distributed as
+**512x512 cube faces**. The equirects were baked from six-face cubes, and the
+bake carried the source cube's +Y face into the pole rows blurrier than its
+neighbours, with the cube seam preserved as a hard edge at exactly 45
+degrees. Reprojected back to a cube, the +Y face is a featureless smear and
+the +Z face is sharp cloud. It is in the image. The three-file "engine
+reproduction" reproduced it because it used the same image.
+
+**The fix the right way, not by choosing a dark sky:** ship the cubes AS
+cubemaps. A sky shader samples `samplerCube` with `EYEDIR` directly — no
+equirect, no pole, no seam, one fetch — and 6 x 512^2 is 1.5 MB against the
+2 MB equirect. That needs the CC0 source pack rather than SkyMint's bakes,
+and it sets the rule for the PA skies to come: author cube faces or a
+high-resolution equirect, never bake one from the other.
+
+The zenith-contrast ranking further down stays useful as a description of
+which bakes show it worst; it is no longer the mitigation.
+
+### What it is (as first described, superseded above)
 
 **A 90-degree square centred on world +Y — the up face of the sky cubemap.**
 Measured: in a 1280x720 frame at 110 degrees vertical FOV looking straight
