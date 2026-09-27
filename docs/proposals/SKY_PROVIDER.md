@@ -113,7 +113,30 @@ A hard-edged dark square in the sky, which the walker raised twice — *"the
 skybox square needs to not look like a hard square in the sky"*, and with a
 drawn line, *"the way the squares cut and aren't blended"*.
 
-### RETRACTED 2026-09-27: it is not the engine, it is the pictures
+### RETRACTED AGAIN, same day: not the art either -- the BAKE
+
+The section directly below blamed the source art: the retro skyboxes' `up`
+face is painted soft (moody 0.148 against 0.467 for `front`, source faces
+measured), and "a soft face meeting sharp ones at the cube seam reads as a
+hard edge". Half right. The face IS soft. **But the source cube, built as a
+`Cubemap` from its six faces at runtime and sampled with `EYEDIR`, shows the
+same clouds at the zenith with no edge at all** -- original faces, no
+feathering, a top-edge step of 0.0001 against the equirect's 0.5895. The
+soft face transitions smoothly in the cube; only the equirect has the step.
+
+So the seam was **manufactured by SkyMint's cube-to-equirect bake**, and
+the pole stretch turned it into a 90-degree square. A feathering experiment
+that blurred the sides toward the top was run and is discarded: it fixed a
+problem the cube never had.
+
+**The fix, shipped as SkyMint 1.1 inside Lux:** `cubes/<slug>/` carries the
+six source faces, `skymint.gd` builds a `Cubemap` from them at runtime and
+sets `use_cube`, and the shader samples it with `EYEDIR`. The equirect path
+stays as the fallback for a skybox with no faces on disk. The zenith-contrast
+ranking below is retired: it ranked bakes by how badly they showed a defect
+the bake introduced.
+
+### RETRACTED 2026-09-27: it is not the engine, it is the pictures (superseded above)
 
 Everything below this heading down to "Minimal reproduction" described the
 square as an engine artefact of panorama skies. **Withdrawn.** Measured in
