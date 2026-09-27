@@ -320,3 +320,78 @@ nothing has ever been in a position to notice.
 
 **Owner: Lux, and it is ahead of every look item in this file.** Nothing else
 about a night level matters while the lamps are pictures.
+
+---
+
+# Walk: cold run 9087, the first night that reads as night
+
+`_runs/walk_9087_lit`, moon 0.75. Walked 2026-09-26.
+
+## 10. PASSED: the moon
+
+The walker: "definitely reads as night and the moons light is actually great
+now". Measured alongside: under the canopy 76.7% -> 62.7% black and p50
+0.0039 -> 0.0078 against the 0.15 moon, one field changed.
+
+## 11. A streetlight is inside a building, and no streetlight has a lamp
+
+`pos x 12.5 y 4.9 z -1.3`, inside `int_1_3_seg6`. The walker: "a reminder that
+light should comes from light sources, i don't know where this light is coming
+from" -- over warm pools on an interior floor with no fixture above them.
+
+Named by probing the running scene for every light whose reach touches that
+point, and asking of each whether a mesh sits within 1.2 m of it:
+
+    8.1 m  Street_1  parent site_path_0_lights  spot 55 deg  e19.8
+           hardware: NO HARDWARE (nearest 1.6 m)
+
+Every interior light there has its lamp -- fluorescents at 0.27 m, pendants at
+0.06 m. The one with none is the one making the pools, and it is a SODIUM
+streetlight, which is why they are warm while the ceiling fixtures above them
+are cool white.
+
+**Two defects, and the first is site-wide.** Zoo's fixture pass runs per
+BUILDING and there is no `zoo_fixtures_build.site`, so not one of the site's
+~18 streetlights has hardware anywhere. The poles visible outdoors are Lot's
+own cover props, placed independently; they coincide with the light only by
+luck. Outdoors that is invisible -- a pool beside a pole reads fine. Indoors it
+is naked.
+
+**And Lot is placing path streetlights inside building footprints.** This one
+is 8.1 m from an interior position on storey 1 with its pole top at y 6.
+
+THE CHECK IS NOW MECHANICAL. "Light should come from light sources" is a query
+a scene can answer: for every light, is there a visible mesh within 1.2 m? It
+would flag all 18 today.
+
+## 12. The map-edge light is a perimeter streetlight
+
+`pos x 13.0 y 1.6 z -49.3`, looking at `perim_N`. The walker: "where is this
+light coming from?"
+
+    9.9 m  Street_5  parent site_perimeter_n_lights  spot 55 deg  e19.3 r14.0
+
+Working as built: Lot runs streetlights along the site perimeter. Whether a LIT
+BOUNDARY is wanted is a placement call -- a bright wall at the edge of the map
+draws the eye to the edge of the map -- and it is Lot's, not Lux's.
+
+## 13. The drywall reads as cheetah print
+
+`pos x 78.2 y 1.6 z 6.1`, `int_0_0_seg1`. The walker: "black/dark grey spots on
+a white wall, giving it a pseudo cheatah print look ... should probably read as
+flatter and less like a bunch of circles or blotches".
+
+The theme picks it: `profiles/themes/delco_1997.json` maps drywall to
+`drywall_orangepeel_delco`, whose grammar is
+
+    meso: { generator: "worley_f1", cells: 24 }   band weight 0.42
+    meters_per_tile: 2.0    height_strength: 0.30
+
+**Worley F1 is a cellular generator; rounded blobs are what it makes.** At 24
+cells across a 2 m tile each blob is 8.3 cm. Real orange-peel drywall is a
+2-5 mm stipple, so it is 20-40x too coarse -- and it is the DOMINANT band at
+0.42, carrying the highest `height_strength` of the four drywall profiles, so
+the blobs catch light as well as colour.
+
+Direction is clear and the amount is not: finer, flatter, and possibly not
+Worley at all. Owner: Pixelcoat.
