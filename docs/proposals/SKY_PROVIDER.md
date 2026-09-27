@@ -29,30 +29,51 @@ threshold.
 
 ---
 
-## Two defects in Lux, found by prototyping
+## One defect in Lux, and one claim withdrawn
 
-### 1. Lux does not grade an adopted provider environment
+### 1. RETRACTED -- Lux DOES grade an adopted provider environment
 
-`lux/addons/lux/docs/skymint_integration.md` states the split: SkyMint owns
-the sky, Lux owns the grade, on one shared environment. `LuxEnvironment.apply`
-implements the first half — `_sky_is_provided(env)` correctly detects a
-non-Procedural sky material and skips the sky block, with a comment saying it
-will "write only the grade (tonemap/exposure/fog/glow/adjustment) onto the
-shared environment".
+**This section previously claimed Lux fails to write its grade onto a sky
+provider's Environment. That was wrong, and the measurement behind it was an
+artefact of how the probe loaded the scene.**
 
-Measured on the running scene: it does not. With SkyMint present, Lux adopts
-its Environment and the live values are SkyMint's defaults —
+Measured properly -- scene loaded with `change_scene_to_packed`, which is how
+the engine loads a main scene and what assigns `current_scene`, and with the
+prototype's own `_sky_switch.gd` REMOVED because it writes these very values:
 
-    ambient_light_energy  1.00   (delco_night wants 0.55)
-    tonemap_exposure      1.00   (delco_night wants 1.05)
+    WorldEnvironment node(s): 1
+      SkyMint   ambient 0.55  exposure 1.05  bg 1.00  sky ShaderMaterial  <== LIVE
+    delco_night wants ambient 0.55, exposure 1.05
 
-This is not only a sky problem. Ambient here is background-sourced, so a dark
-night panorama collapses the **whole level's** fill: the first walk of the
-prototype was black indoors and out, and the cause was the grade never being
-written, not the sky being dark. `_sky_switch.gd` patches the two values at
-runtime; the fix belongs in `lux_environment.gd`.
+One Environment, SkyMint's, live, carrying Lux's grade exactly. The
+documented split works as written: `_sky_is_provided()` detects the
+ShaderMaterial sky and skips the sky block, and `apply()` writes ambient and
+tonemap outside that branch.
 
-### 2. A night sky cannot have a moon
+**Where the false reading came from, because the shape recurs.** Every
+`ambient 1.00` came from a `--script` probe that instantiated the scene with
+`add_child` and never set `current_scene`.
+`LuxEnvironment._find_world_environment` searches
+`get_tree().current_scene`, so with it unset Lux cannot see SkyMint, builds
+its own WorldEnvironment, and grades that one while Godot honours the
+other. The probe was measuring its own launch path -- for the third time in
+this investigation.
+
+Worse, the prototype then **printed the conclusion as a fact on every run**:
+`_sky_switch.gd` logged "ADOPTED: Lux did not grade it; restoring ambient
+0.55 / exposure 1.05" and wrote those values, having checked nothing. A line
+that asserts a diagnosis it never tested, repeated every launch, is
+indistinguishable from evidence -- and it was cited as evidence here.
+
+Reading the source would have refused this before any of it: `apply()` writes
+the grade unconditionally, and `apply_preset` defers correctly when the
+setter fires before `_ready`. The code said so the whole time.
+
+**Consequence for shipping: there is nothing to fix here, and the prototype's
+sky-moving machinery is unnecessary.** A `SkyMint` node present in the scene
+is adopted and graded on its own.
+
+### 2. A night sky cannot have a moon -- REAL, and the only Lux work needed
 
 SkyMint's default profile (`SkyMintProfile.make_default()`):
 
@@ -180,10 +201,11 @@ walk reads 5,739 draw calls at 29.90 ms in a busy view, and
 
 ## What shipping this needs
 
-1. `lux_environment.gd` — write the grade onto an adopted provider
-   environment. Defect 1 above.
+1. ~~`lux_environment.gd` — write the grade onto an adopted provider
+   environment.~~ **Withdrawn: it already does.** See §1.
 2. A `delco_night` SkyMintProfile in Lux, with a moon disc at night and
-   `sun_direction` driven from the scene's DirectionalLight3D. Defect 2.
+   `sun_direction` driven from the scene's DirectionalLight3D. Defect 2 --
+   now the only code change this needs.
 3. A Lux preset row naming a sky provider and a panorama, so the exporter
    carries `runtime/skymint/` the way it already carries `runtime/lux/`.
 4. A decision on `Sky.process_mode` and `radiance_size` defaults, priced at
