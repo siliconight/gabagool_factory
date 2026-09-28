@@ -17242,10 +17242,13 @@ candy rack, registers and lottery, the cigarette rack overhead (Zoo 1.7.0,
 `register_counter`), shipped in cold runs 9094 and 9095 at 0 interventions
 each -- and the coffee island, 1985-style pour-over brewers from the
 walker's photos with the FLAPPHAS COFFEE sign (Zoo 1.9.0/1.9.1, 5 draw
-calls; Deli Counter 0.147.0), whose first package is cold run 9096.
+calls; Deli Counter 0.147.0), shipped in cold run 9096 -- and the reach-in
+cooler wall, glowing on one backlit image with no lights (Zoo 1.12.0, 3 draw
+calls; Deli Counter 0.148.0 puts one on the walk-in's customer side of the
+stores that lacked it), shipped in cold run 9097 at 0 interventions.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
-`gas_station`); the cooler wall, the snack gondolas with retail stock, the
-slush machine, the roller grill and the price pylon; FLAPPHAS on the
+`gas_station`); the snack gondolas with retail stock, the slush machine,
+the roller grill and the price pylon; FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
 columns in the outer lanes' swept path).*

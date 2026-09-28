@@ -235,7 +235,7 @@ grows. What has been built since, and where:
     price_pylon        the roadside sign with price digits
     coffee_counter     BUILT -- Zoo 1.9.0/1.9.1 `coffee_island` (below)
     cigarette_overhead BUILT -- Zoo 1.7.0 `counter` form `service`
-    cooler_run         the glass-door reach-in wall facing the sales floor
+    cooler_run         BUILT -- Zoo 1.12.0 `cooler_run` (below)
     impulse_rack       BUILT as the candy rack on the service counter's face
     slush_machine      twin-hopper frozen drink, syrup rail, cup tube
     roller_grill       chrome rollers under a hood, flag signs, buns panel
@@ -250,7 +250,14 @@ lit header. Shipped in the packages of cold runs 9094 and 9095.
 `coffee_island` and `coffee_food_island` to it): 1985-style pour-over
 brewers back to back from the walker's photos, one carafe brewing in each
 and a couple on the burner row, cup towers, syrups, creamer, and a round
-FLAPPHAS COFFEE sign. Five draw calls. Cold run 9096 is its first package.
+FLAPPHAS COFFEE sign. Five draw calls. Shipped in cold run 9096.
+
+**The reach-in cooler wall** (Zoo 1.12.0; Deli Counter 0.148.0 routes
+`cooler_run` and gives the walk-in stores one on the walk-in's customer side):
+glass doors on black frames, shelves of invented drinks, milk and juice, a
+fluorescent tube down every mullion, and a sign band ("ICE COLD DRINKS",
+"DAIRY", ...) -- all the glow one backlit image, no lights. Three draw calls.
+Shipped in cold run 9097, facing food service in `gas_station_a02`.
 
 And one that is NOT a species, listed here so nobody builds it as one:
 
