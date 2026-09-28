@@ -237,7 +237,7 @@ grows. What has been built since, and where:
     cigarette_overhead BUILT -- Zoo 1.7.0 `counter` form `service`
     cooler_run         BUILT -- Zoo 1.12.0 `cooler_run` (below)
     impulse_rack       BUILT as the candy rack on the service counter's face
-    slush_machine      twin-hopper frozen drink, syrup rail, cup tube
+    slush_machine      BUILT -- Zoo 1.15.0 `slush_machine` (below)
     roller_grill       chrome rollers under a hood, flag signs, buns panel
 
 **The service counter** (Zoo 1.7.0, merged to 6 draw calls in 1.8.0; Deli
@@ -266,6 +266,17 @@ with twelve invented Delco snack brands. Two draw calls. Shipped in cold run
 9098 -- all three of `gas_station_a02`'s aisles -- together with the walk-in
 cooler furnished as cold storage (racks, cartons, Zoo 1.14.0's milk crate
 stacks) instead of the kitchen it had been.
+
+**The frozen drink station** (Zoo 1.15.0; Deli Counter 0.150.0 places one in
+all nine stores, 0.151.0 in the `gas_station` preset): a counter-height stand
+with a lit mascot panel, clear cup tubes and a straw caddy, the six-bottle
+syrup rail with a lit flavour strip and the numbered "select cup size, add
+flavor, pull to fill" panel, and the twin-hopper machine -- a red and a blue
+barrel of glowing churn-striped slush, taps with pull handles over a drip
+tray, a lit FROZEN JAWN topper. The slush is on the backlit image, so the
+barrels are the saturated thing in the room without a light. Three draw
+calls. Shipped in cold run 9099, on `gas_station_a02`'s food-service
+partition level with the register, facing the sales floor.
 
 And one that is NOT a species, listed here so nobody builds it as one:
 

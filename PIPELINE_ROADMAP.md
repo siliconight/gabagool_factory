@@ -17248,9 +17248,14 @@ calls; Deli Counter 0.148.0 puts one on the walk-in's customer side of the
 stores that lacked it), shipped in cold run 9097 at 0 interventions --
 and the snack gondolas, chip bags as real bags (Zoo 1.13.0, 2 draw calls;
 Deli Counter 0.149.0 routes every store's aisles to them), shipped in cold
-run 9098 at 0, with the walk-in furnished as cold storage, not a kitchen.
+run 9098 at 0, with the walk-in furnished as cold storage, not a kitchen --
+and the frozen drink station, twin clear barrels of glowing slush, a syrup
+rail, cup tubes and a lit FROZEN JAWN topper (Zoo 1.15.0, 3 draw calls; Deli
+Counter 0.150.0 places one in all nine stores by a measured wall rule, and
+0.151.0 gives the `gas_station` preset the same station and its gondolas),
+shipped in cold run 9099 at 0 (+2 draws at 2 of 53 headings).
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
-`gas_station`); the slush machine, the roller grill and the price pylon; FLAPPHAS on the
+`gas_station`); the roller grill and the price pylon; FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
 columns in the outer lanes' swept path).*
