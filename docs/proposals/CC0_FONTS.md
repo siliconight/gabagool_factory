@@ -1,6 +1,14 @@
 # More CC0 faces for the factory's lettering
 
-PROPOSED. Nothing here is built. The walker, 2026-09-28: "I'm curious if we
+IN PROGRESS, 2026-09-28. Built: steps A and B (Zoo 1.10.0 -- a face
+parameter on the mint and on `pixel_type`, and a mint that reads each font's
+character map and refuses a missing glyph); the five other vendored Pixel
+Operator faces minted (1.10.0); m5x7 and monogram with its italic vendored
+(Pixelcoat 0.53.0) and minted (Zoo 1.11.0) -- nine faces, each measured
+on/off, whole-advance and kern-free at its grid. Not built: C to F below,
+and no recipe letters in a new face yet.
+
+Originally PROPOSED. The walker, 2026-09-28: "I'm curious if we
 can find other cc0 fonts to add to our factory to expand the looks and feels
 (still being used by our toolset tho)". This records how a face gets in
 today, what a candidate has to be, and a shortlist whose licences were read
