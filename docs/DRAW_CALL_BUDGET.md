@@ -550,6 +550,36 @@ a window before being measured. Name what produced the artefact.
 Half the saving for no expected change to the night; confirmed or not on
 the next walk.
 
+**In a shipped package it read smaller, and the reading does not settle it**
+(cold run 9093, 2026-09-27, the same content as 9091 with Lux 0.54.0; same
+harness, same 14 stations). The two packages submit the same work: 13 of 14
+stations match 9091 in heading and draw count to the draw. Against 9091, at
+those 13:
+
+    gpu_ms          median -0.23   range -0.77 .. +0.46
+    render_cpu_ms   median +0.21   range -0.32 .. +1.80
+    ms_median       median +0.42   range +0.11 .. +2.18
+    ms_p95          median +0.98   range +0.00 .. +7.39
+
+The GPU moved the right way at a third of V5's −0.67, and frame time moved
+the WRONG way at identical draws. These are two runs 2.5 hours apart, one
+sample each, and this doc's own record of run-to-run spread at unchanged
+draws is ~1.2 ms a day apart — larger than the effect under test. V5 was a
+paired A/B inside one package in one session; this is not, so the two
+instruments do not disagree so much as one of them cannot see −0.67. What
+would settle it is V5 again, paired, on 9093's export: radiance 32 against
+128 in the same package, back to back.
+
+**A void run first, kept because the shape recurs.** 9093's first harness
+read every station 3–4x slower at identical draws (median p95 +25 ms, GPU
++4.7 ms). A game had been running since 19:06 at 4.9 GB and was the cause;
+the harness ran at 20:28. Rerun with it closed, the table above. So the
+eight sky A/B copies measured after 19:06 were measured with it open —
+they agreed with their 18:20 baseline to ±0.1 ms, so it was idle then,
+but it is a condition on V4 and V5 that this paragraph exists to record.
+The harness does not check what else is running on the machine; it should
+say so in its output rather than rely on a person noticing.
+
 `process_mode` QUALITY did not help, with the uniform writes proven off.
 Either Compatibility re-renders the radiance every frame whatever the mode,
 or something not counted still dirties the sky; the two are not separated,
