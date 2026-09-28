@@ -17253,9 +17253,14 @@ and the frozen drink station, twin clear barrels of glowing slush, a syrup
 rail, cup tubes and a lit FROZEN JAWN topper (Zoo 1.15.0, 3 draw calls; Deli
 Counter 0.150.0 places one in all nine stores by a measured wall rule, and
 0.151.0 gives the `gas_station` preset the same station and its gondolas),
-shipped in cold run 9099 at 0 (+2 draws at 2 of 53 headings).
+shipped in cold run 9099 at 0 (+2 draws at 2 of 53 headings) -- and the
+hot dog roller grill, rollers across the width with dogs in the grooves,
+tagged columns and a glass hood with a bun shelf (Zoo 1.17.0, 4 draw calls;
+Deli Counter 0.152.0 places one in every store nearest the register's queue,
+out of the clerk's aisle, beside the slush station where they share a wall),
+shipped in cold run 9101 at 0.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
-`gas_station`); the roller grill and the price pylon; FLAPPHAS on the
+`gas_station`); the price pylon; FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
 columns in the outer lanes' swept path).*

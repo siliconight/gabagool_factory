@@ -238,7 +238,7 @@ grows. What has been built since, and where:
     cooler_run         BUILT -- Zoo 1.12.0 `cooler_run` (below)
     impulse_rack       BUILT as the candy rack on the service counter's face
     slush_machine      BUILT -- Zoo 1.15.0 `slush_machine` (below)
-    roller_grill       chrome rollers under a hood, flag signs, buns panel
+    roller_grill       BUILT -- Zoo 1.17.0 `roller_grill` (below)
 
 **The service counter** (Zoo 1.7.0, merged to 6 draw calls in 1.8.0; Deli
 Counter 0.146.0 gives every store `register_counter` the form): checkerboard
@@ -277,6 +277,15 @@ tray, a lit FROZEN JAWN topper. The slush is on the backlit image, so the
 barrels are the saturated thing in the room without a light. Three draw
 calls. Shipped in cold run 9099, on `gas_station_a02`'s food-service
 partition level with the register, facing the sales floor.
+
+**The roller grill** (Zoo 1.17.0; Deli Counter 0.152.0 places one in all
+nine stores): the walker's three photographs settled how the dogs lie --
+rollers across the width, each dog in the groove between two -- and gave
+the rest: columns of one kind each with a black tube tag naming it (BIG
+JAWN, CHEEZY, HOT LINK, TAQUITO), chrome dividers, a black control panel
+with dials, lights and a switch, a glass hood with a shelf of buns, and a
+NICE BUNS cabinet below. Four draw calls, nothing lit. Shipped in cold run
+9101, beside the slush station in `gas_station_a02`.
 
 And one that is NOT a species, listed here so nobody builds it as one:
 
