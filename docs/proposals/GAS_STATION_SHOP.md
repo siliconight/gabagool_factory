@@ -228,16 +228,29 @@ machine with "two rows of packs behind the front"), `carton_stack`,
 `pallet_stack`, `flat_top_grill`, `aisle_sign`, `poster`, `fluorescent_fixture`,
 `sign_box`, `newspaper_box`, `litter_bin`, `condiment_bottle`, `soda_cup`.
 
-**Does not exist**, and each is a species the gap protocol says Zoo grows:
+**Did not exist on 2026-09-26**, each a species the gap protocol says Zoo
+grows. What has been built since, and where:
 
-    canopy_fixture     recessed soffit light hardware + the fascia band
+    canopy_fixture     BUILT -- Zoo 1.4.0/1.5.0 `canopy_lights`, Lot 0.79.0
     price_pylon        the roadside sign with price digits
-    coffee_counter     burner row, glass carafes, condiment rail
-    cigarette_overhead the rack above and behind the service counter
+    coffee_counter     BUILT -- Zoo 1.9.0/1.9.1 `coffee_island` (below)
+    cigarette_overhead BUILT -- Zoo 1.7.0 `counter` form `service`
     cooler_run         the glass-door reach-in wall facing the sales floor
-    impulse_rack       the candy and gum rack at the till
+    impulse_rack       BUILT as the candy rack on the service counter's face
     slush_machine      twin-hopper frozen drink, syrup rail, cup tube
     roller_grill       chrome rollers under a hood, flag signs, buns panel
+
+**The service counter** (Zoo 1.7.0, merged to 6 draw calls in 1.8.0; Deli
+Counter 0.146.0 gives every store `register_counter` the form): checkerboard
+trim, a three-tier candy rack inside the top's overhang, registers and
+lottery dispensers, the cigarette rack overhead on two posts with a faintly
+lit header. Shipped in the packages of cold runs 9094 and 9095.
+
+**The coffee island** (Zoo 1.9.0/1.9.1; Deli Counter 0.147.0 routes
+`coffee_island` and `coffee_food_island` to it): 1985-style pour-over
+brewers back to back from the walker's photos, one carafe brewing in each
+and a couple on the burner row, cup towers, syrups, creamer, and a round
+FLAPPHAS COFFEE sign. Five draw calls. Cold run 9096 is its first package.
 
 And one that is NOT a species, listed here so nobody builds it as one:
 

@@ -818,6 +818,43 @@ cheap version exists — skin the existing boxes and take the value contrast —
 and is worth doing first if it is wanted sooner, but it should be recorded as
 the cheap version rather than sold as the look.
 
+## The walker's coffee brewer photos (2026-09-28)
+
+Four photos, described here (they did not reach disk), sent while the coffee
+island was being built. Every badge and carafe print in them is a real mark
+and stays out of the tools; the island's brewers carry an invented plaque.
+
+- **Three of one brewer, a 1985 pour-over model**, the look the walker
+  chose -- "a good look for the carafe at least", and then two more photos
+  of the same machine: a brushed stainless HOOD across the top with two
+  warmers on it (one carafe on, one warmer empty); on the hood's front two
+  rocker switches, each beside a red lamp, and a black maker's plaque with a
+  gold rule and cream lettering on the right; a WOODGRAIN column down the
+  right-hand third from the base plate to the hood; a stainless BASE PLATE
+  projecting a little forward with a warmer in the open bay to the left of
+  the column; a stainless brew FUNNEL hanging under the hood over that
+  warmer, with a black handle.
+- **The carafes**, in those photos and a product shot of three: a squat
+  glass BULB wider than it is tall; a plastic COLLAR band round the top
+  quarter in the lid colour -- black regular, ORANGE decaf -- with a pour
+  spout on one side and a hooked handle of the same plastic on the other,
+  off the collar and down. A decaf pot is printed "freshly brewed
+  decaffeinated coffee" in orange on the glass.
+- **One of a later commercial three-warmer brewer**: a tall stainless
+  tower, a black control panel with rocker switches, a green ready lamp and
+  a red hot-water faucet, a black plastic funnel under a forward head, and a
+  stepped deck -- two warmers in front, one raised at the back. Not built;
+  it is the obvious second form of `coffee_island`.
+
+The walker's two notes on the first renders, which shaped what ships:
+"we can have 20% as many carafes" (every warmer had been full -- 20 on a
+3 m island; now one brewing a brewer) and "lets have a couple on the
+warmers (not on top of the drip king)" (one a face on the burner row for
+every two stations; the hood warmers stay empty).
+
+Not built, and each would cost a draw call: the printed decaf lettering on
+the glass (a textured glass material), and the brewer's lit lamps.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
