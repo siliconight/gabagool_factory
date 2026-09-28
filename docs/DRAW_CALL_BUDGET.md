@@ -619,8 +619,27 @@ No station over the 2,000-draw budget sees more than +4. What a cheaper
 counter would cost the look: six of its 14 materials differ only in colour
 (the register, keys, lottery, posts, rack) and the three candy strips are
 three images of one size -- an atlas for each set would take it to about 7
-submissions with no visible change. Not done; the price above is what
-ships.
+submissions with no visible change. ~~Not done; the price above is what
+ships.~~
+
+**Done, 2026-09-28 (Zoo 1.8.0, cold run 9095): 6 submissions over 6
+materials.** One material per surface kind with each part's colour in its
+`Wear` vertex colour, one painted atlas for the checker and the candy, and
+the rack's display and lit header kept as they were. A headless Godot
+readback confirmed the colour survives the move (COLOR_0 imports linear and
+is read linear). Freshly imported copies of 9094 and 9095, back to back, per
+heading:
+
+    attacker_spawn_11   yaw 270   1705 -> 1697   -8
+    defender_spawn_25   yaw 270   1576 -> 1570   -6
+    highest_vantage     yaw 270   2653 -> 2652   -1
+    every other heading           draws and objects unchanged
+
+−8 where −9 was expected (15 → 6) is not accounted for; it is consistent
+with one of 1.7.0's parts being out of frame at that heading, and that is
+not verified. Primitive counts moved by up to 78 between the two fresh
+imports at headings that cannot see the counter, so primitives carry a
+small noise floor between imports that draws and objects do not.
 
 `process_mode` QUALITY did not help, with the uniform writes proven off.
 Either Compatibility re-renders the radiance every frame whatever the mode,
