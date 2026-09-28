@@ -259,6 +259,14 @@ fluorescent tube down every mullion, and a sign band ("ICE COLD DRINKS",
 "DAIRY", ...) -- all the glow one backlit image, no lights. Three draw calls.
 Shipped in cold run 9097, facing food service in `gas_station_a02`.
 
+**The snack gondolas** (Zoo 1.13.0; Deli Counter 0.149.0 routes the stores'
+aisles to them): island gondolas with shelves on both faces, price strips
+and end caps, stocked with chip bags that are real bag-shaped solids printed
+with twelve invented Delco snack brands. Two draw calls. Shipped in cold run
+9098 -- all three of `gas_station_a02`'s aisles -- together with the walk-in
+cooler furnished as cold storage (racks, cartons, Zoo 1.14.0's milk crate
+stacks) instead of the kitchen it had been.
+
 And one that is NOT a species, listed here so nobody builds it as one:
 
     retail shelf stock -- a second program for `recipes/_shelf_stock.py`:
