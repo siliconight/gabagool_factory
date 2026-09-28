@@ -580,6 +580,48 @@ but it is a condition on V4 and V5 that this paragraph exists to record.
 The harness does not check what else is running on the machine; it should
 say so in its output rather than rely on a person noticing.
 
+**Cross-run milliseconds cannot price a small change here, and now there is a
+measurement that says so.** 9093's package, harnessed twice on the same
+evening with identical counts at every heading, read up to 2.1 ms GPU and
+2.7 ms p95 apart at the same station. 9094's ten stations with unchanged
+draws read a median 2.3 ms p95 FASTER than 9093's second run. Nothing in
+9094 is in view there, so that is the machine, and it is also the likeliest
+reading of 9093's +0.98 against 9091 above. What the harness reports
+reliably across runs is COUNTS -- draws, objects, primitives -- and those
+only heading by heading, for the next reason.
+
+**Two harness traps, found pricing the service counter (cold run 9094).**
+
+- *The worst heading is chosen by frame time.* Each station's headline row
+  is whichever of its four headings measured slowest, so its draw count can
+  change between runs with no change in content. `defender_spawn_24` read
+  943 draws in 9093 and 893 in 9094; per heading, all four were unchanged --
+  the worst had moved from 270 to 0. Compare stations heading by heading.
+- *A cached import and a fresh import of one package do not render the same
+  set.* A copy of 9093 with `.godot` deleted and re-imported rendered 66
+  more objects (+852k primitives) at `defender_spawn_25` heading 270 and 41
+  more at `defender_spawn_24` heading 180 than 9093's own cache, with
+  every other heading identical. 9094's cache matches a fresh import. Why
+  9093's cache differs is not established. Price an A/B between two copies
+  imported the same way.
+
+**The service counter's price** (Zoo 1.7.0, `counter` form `service`, one
+instance in `gas_station_a02`): 15 primitives where the plain counter had
+2, 14 materials. Measured against a copy of 9094 with 9093's counter swapped
+back in, both freshly imported, per heading:
+
+    attacker_spawn_11   +13 draws
+    defender_spawn_25   +10 draws   (heading 270)
+    highest_vantage      +4 draws
+    every other heading   0
+
+No station over the 2,000-draw budget sees more than +4. What a cheaper
+counter would cost the look: six of its 14 materials differ only in colour
+(the register, keys, lottery, posts, rack) and the three candy strips are
+three images of one size -- an atlas for each set would take it to about 7
+submissions with no visible change. Not done; the price above is what
+ships.
+
 `process_mode` QUALITY did not help, with the uniform writes proven off.
 Either Compatibility re-renders the radiance every frame whatever the mode,
 or something not counted still dirties the sky; the two are not separated,
