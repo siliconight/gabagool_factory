@@ -583,6 +583,39 @@ reflections.
   the green soffit paint.
 - **Lot / Level Factory:** the lit fascia sign and the storefront pallets.
 
+## The walker's store-at-night references (2026-09-28)
+
+Six photographs, with the walker's words: "These pictures are to point out
+the 'glow' of the gas station at night, coming through the glass doors of a
+gas station convenience store. Also glow behind the glass door refrigerator.
+Glow, glass see-through door, etc." What they show, not what they sell:
+
+- **A corner store at night:** the building above is black; the only light is
+  a lit fascia band across the storefront and a lit box sign on a pole, and
+  below the band the whole shop front is glass -- the interior's fluorescent
+  white and its shelves of colour read from across the street through it.
+- **A single glass door and window, night:** an "Open 24 Hours" transom sign,
+  a full-height glass door with shelves of snacks straight through it, a
+  reach-in cooler lit from inside seen through the side glass, and the
+  light from inside laid out across the pavement in front of the door.
+- **A wide storefront, dusk:** a lit channel-letter "Open" sign above, a
+  bank of glass doors standing open, ceiling fluorescents in rows running
+  back through the store, lit posters in the windows, the interior floor
+  shining.
+- **The entry doors from inside, day:** two aluminium-framed full-glass doors
+  with push bars, stickers on the glass (lottery, "we card", payment marks,
+  push/pull), a door closer on each, worn kick plates -- and the lot outside
+  visible THROUGH them.
+- **Two reach-in cooler walls:** glass doors on thin frames, each door's own
+  vertical light strip, product in rows, the light the thing that reads.
+
+**What it asks of the pipeline:** the entry doors and storefront must be SEE
+THROUGH (measured 2026-09-28 on cold run 9099's package: the entry-door
+module and the glass-facade wall panels export OPAQUE; only window modules
+carry a see-through pane), and the interior must be BRIGHTER THAN THE NIGHT
+outside it so the glass reads as glow. The cooler wall's glow already ships
+(Zoo 1.12.0).
+
 ## The walker's pump forecourt references (2026-09-15)
 
 "convinent stores are usually connecting to gas stations, so we already have
