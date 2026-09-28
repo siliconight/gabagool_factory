@@ -842,7 +842,7 @@ work of adopting this.
 | 161 | **NARROWED** | A stale building library is invisible to every gate, and the guard tha | 2026-09-14 -- THREE GUARDS NOW ASK; THE LIBRARY IS REBUILT. |
 | 162 | **NARROWED** | Vending machines should glow, and sell something | 2026-09-14 -- ZOO SHIPPED THE MACHINE; NOT YET IN A COLD PACKAGE. |
 | 163 | **NARROWED** | Strip clubs are lit like offices | 2026-09-16 -- THE CLUB IS GENERATED, IT IS DARK, AND THE LIGHT NOW COMES OUT OF FIXTURES.  |
-| 164 | **NARROWED** | The library has no card shop and no convenience store, which are the t | 2026-09-21 -- THE CARD SHOP IS BUILT, GENERATED AND WALKED; THE CONVENIENCE STORE AND ITS  |
+| 164 | **NARROWED** | The library has no card shop and no convenience store, which are the t | 2026-09-28 -- THE CARD SHOP IS BUILT, GENERATED AND WALKED; THE CONVENIENCE STORE HAS ITS  |
 | 165 | **ANALYSIS** | This is a multiplayer online game, so every frame is spent on somebody | 2026-09-21 -- STILL A STANDING CONSTRAINT, AND NOW A MEASURED ONE. The rule as written was |
 | 166 | **NARROWED** | A generated level chugged, and everything this repo believed about why | 2026-09-21 -- SUBMISSION COST AND MEMORY ARE FIXED AND PROVEN ON A COLD RUN; THE WARM-UP'S |
 | 167 | **ANALYSIS** | Per-instance variation has no home in this pipeline, and a GLB cannot  | 2026-09-21 -- A CAPABILITY GAP WITH A MEASURED CEILING, NOT A DEFECT. |
@@ -17217,8 +17217,9 @@ Shipped, none yet in a generated level:
 it dingy.
 
 
-*STATUS: NARROWED 2026-09-21 -- THE CARD SHOP IS BUILT, GENERATED AND
-WALKED; THE CONVENIENCE STORE AND ITS FORECOURT ARE UNTOUCHED. Shipped
+*STATUS: NARROWED 2026-09-28 -- THE CARD SHOP IS BUILT, GENERATED AND
+WALKED; THE CONVENIENCE STORE HAS ITS COUNTER AND ITS COFFEE, AND ITS
+FORECOURT'S TWO DEFECTS REMAIN. Card shop (2026-09-21): shipped
 across Zoo 0.95.0-1.0.0 (display case, pack wall, pennant row, folding table
 and chair, the invented card brands with a denylist test, posters, banners,
 ceiling hangers, aisle signs, printed playmats, and a cash register whose
@@ -17235,11 +17236,19 @@ for a kind `delco_1997` did not map; stairs in the greybox fallback yellow
 it asked a building for a `concrete` finish a card shop does not own); a room
 that read as a hall because caps set against a measured reference were
 mistaken for a budget; and the chugging that became item 166.
-WHAT REMAINS: the convenience store and the pump forecourt, with the two
-measured defects this item already names (3.0 m end aisles against a
-4.3-4.8 m car; two canopy columns in the outer lanes' swept path). The
-walker settled its name on 2026-09-16: FLAPPHAS, on the fascia, the pump
-price signs, the cups, the bags and the wrappers.*
+THE STORE (2026-09-26..28): the service counter -- checkerboard trim, a
+candy rack, registers and lottery, the cigarette rack overhead (Zoo 1.7.0,
+6 draw calls since 1.8.0; Deli Counter 0.146.0 on every store
+`register_counter`), shipped in cold runs 9094 and 9095 at 0 interventions
+each -- and the coffee island, 1985-style pour-over brewers from the
+walker's photos with the FLAPPHAS COFFEE sign (Zoo 1.9.0/1.9.1, 5 draw
+calls; Deli Counter 0.147.0), whose first package is cold run 9096.
+WHAT REMAINS: a real `convenience_store` preset (today an alias for
+`gas_station`); the cooler wall, the snack gondolas with retail stock, the
+slush machine, the roller grill and the price pylon; FLAPPHAS on the
+fascia, the pump signs, the cups and the bags; and the forecourt's two
+measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
+columns in the outer lanes' swept path).*
 
 **164. The library has no card shop and no convenience store, which are the
 two building types the walker asked for next.** The walker, 2026-09-15: "I
@@ -17265,6 +17274,21 @@ not guesses:
 Every brand in either building is invented in the Delco voice, with a
 denylist test, as the vending machines and the neon signs already are -- no
 real mark reaches a texture.
+
+**2026-09-26..28, the store's fixtures.** Built from the walker's store
+references and, for the coffee, four photos of a brewer and its carafes sent
+while it was being built (transcribed in `docs/SET_DRESSING_REFERENCES.md`,
+"The walker's coffee brewer photos"). Two corrections are kept here because
+each would have shipped silently. Deli Counter 0.146.0's first draft put the
+service form on the `gas_station` PRESET only; cold runs place the checked-in
+specs, which a preset does not regenerate, so it would have changed nothing --
+a migration now carries it, and a test reads the built `slots.json`. And the
+counter first shipped at 15 draw calls over 14 materials, five of them
+colour-only twins; the colour moved into the vertex (verified by a headless
+Godot readback to land on the same albedo) and it ships at 6. The coffee
+island was designed to its 5 from the start. The walker trimmed it twice on
+renders: "we can have 20% as many carafes", then "a couple on the warmers
+(not on top of the drip king)".
 
 **WHAT WOULD CLOSE THIS:** a cold package whose lot draws a card shop and a
 convenience store with a forecourt, and the walker walks in, buys nothing,
