@@ -371,3 +371,19 @@ glass, so the rule does not reach them, and no frame of them has shown the
 difference (9104's back-room check).
 
 STILL OPEN: the street at 30 m (5.4), where the grade is the last lever.
+
+## After the night grade (cold run 9111)
+
+The walker, 2026-09-29: "do the night grade next" -- the last of the four
+levers. Lux 0.58.0 takes Delco Night's contrast from 1.08 to 1.0: the post
+stack pivots contrast on mid-grey, so above 1 it subtracted ~10 codes from a
+frame that sits near zero and sent half of it to black. The street seen from
+30 m, which the glass, the reach and the spill had left at 5.4-6.2, reads
+10.2 with 36% black instead of 51%; the store from 8 m 20.9 -> 25.3; the
+sales floor 16.1 -> 24.0; the darkest shots stay dark (spawn 1.6 -> 2.1).
+Full table and the grade sweep in docs/cold_runs/cold_9111/NOTES.md.
+
+All four levers are pulled. The store reads from the forecourt and, dimly,
+from 30 m; what it does not yet do is outshine its street the way the
+walker's photographs show -- a lit store on a dark road is the brightest
+thing in the frame there, and here the canopy still is.

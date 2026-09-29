@@ -17296,9 +17296,10 @@ WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
 into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
 meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's
-stockroom and back hall at 10-13, no frame showing it); the store seen from
-the street at 30 m, unchanged (the grade,
-docs/proposals/INTERIOR_EXTERIOR_BALANCE.md); FLAPPHAS on the
+stockroom and back hall at 10-13, no frame showing it); the store at night
+does not yet outshine its street (the night grade pulled -- Lux 0.58.0, cold
+run 9111: the street at 30 m 6.2 -> 10.2, 51% -> 36% black -- and the canopy
+is still the brightest thing there); FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
 columns in the outer lanes' swept path).*

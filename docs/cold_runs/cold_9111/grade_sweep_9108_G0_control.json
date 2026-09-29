@@ -1,0 +1,579 @@
+{
+ "adapter": "NVIDIA GeForce RTX 2060",
+ "adapter_api": "3.3.0 NVIDIA 616.56",
+ "adapter_vendor": "NVIDIA",
+ "engine": "4.7-stable (official)",
+ "hidden_canvas_layers": [
+  "Mission/Warmup/@CanvasLayer@13",
+  "DebugOverlay/@CanvasLayer@4"
+ ],
+ "notes": [],
+ "rendering_method": "gl_compatibility",
+ "shots": [
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 21.7373358348968,
+    "mean": 8.61363977485929,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 3,
+    "p95": 34,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 49.8389583333333,
+   "derivation": "site visual AABB, framed to 75 deg vertical FOV",
+   "eye": [
+    -111.902641296387,
+    100.74836730957,
+    -110.968566894531
+   ],
+   "gpu_ms": 3.59800004959106,
+   "gpu_samples": 5,
+   "mean": 4.97158472222222,
+   "name": "overview",
+   "near_clipped_pct": 0.0,
+   "p05": 0,
+   "p50": 1,
+   "p95": 18,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/overview.png",
+   "png_error": 0,
+   "target": [
+    -7.62939453125e-06,
+    0.0359992980957031,
+    0.934062957763672
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 61.5697310819262,
+    "mean": 0.764233896185116,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 0,
+    "p95": 3,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 59.1398611111111,
+   "derivation": "154 above-grade wall slots of b1 (1 of 3 buildings on this site), orthographic, 23.3 m tall frame",
+   "eye": [
+    -5.0,
+    11.3298120498657,
+    -57.5249977111816
+   ],
+   "gpu_ms": 26.8050003051758,
+   "gpu_samples": 5,
+   "mean": 2.04761458333333,
+   "name": "elev_N",
+   "near_clipped_pct": 0.000625,
+   "p05": 0,
+   "p50": 0,
+   "p95": 3,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/elev_N.png",
+   "png_error": 0,
+   "target": [
+    -5.0,
+    11.3298120498657,
+    4.99999904632568
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 56.4240150093809,
+    "mean": 4.64966854283927,
+    "near_clipped_pct": 0.34208880550344,
+    "p05": 0,
+    "p50": 0,
+    "p95": 15,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 41.8276388888889,
+   "derivation": "154 above-grade wall slots of b1 (1 of 3 buildings on this site), orthographic, 23.3 m tall frame",
+   "eye": [
+    -5.0,
+    11.3298120498657,
+    67.5249938964844
+   ],
+   "gpu_ms": 6.15000009536743,
+   "gpu_samples": 5,
+   "mean": 17.1326875,
+   "name": "elev_S",
+   "near_clipped_pct": 0.0379861111111111,
+   "p05": 0,
+   "p50": 1,
+   "p95": 89,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/elev_S.png",
+   "png_error": 0,
+   "target": [
+    -5.0,
+    11.3298120498657,
+    4.99999904632568
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 61.6560350218887,
+    "mean": 0.760794246404003,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 0,
+    "p95": 3,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 61.6145833333333,
+   "derivation": "154 above-grade wall slots of b1 (1 of 3 buildings on this site), orthographic, 17.2 m tall frame",
+   "eye": [
+    52.5249977111816,
+    8.292311668396,
+    4.99999904632568
+   ],
+   "gpu_ms": 5.80000019073486,
+   "gpu_samples": 5,
+   "mean": 0.824027083333333,
+   "name": "elev_E",
+   "near_clipped_pct": 0.00819444444444445,
+   "p05": 0,
+   "p50": 0,
+   "p95": 3,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/elev_E.png",
+   "png_error": 0,
+   "target": [
+    -5.0,
+    8.292311668396,
+    4.99999904632568
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 37.2151344590369,
+    "mean": 27.2221575984991,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 2,
+    "p95": 119,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 42.5786111111111,
+   "derivation": "154 above-grade wall slots of b1 (1 of 3 buildings on this site), orthographic, 17.2 m tall frame",
+   "eye": [
+    -62.5249977111816,
+    8.292311668396,
+    4.99999904632568
+   ],
+   "gpu_ms": 8.7790002822876,
+   "gpu_samples": 5,
+   "mean": 14.0010625,
+   "name": "elev_W",
+   "near_clipped_pct": 0.0,
+   "p05": 0,
+   "p50": 1,
+   "p95": 106,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/elev_W.png",
+   "png_error": 0,
+   "target": [
+    -5.0,
+    8.292311668396,
+    4.99999904632568
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 52.5440900562852,
+    "mean": 9.80432770481551,
+    "near_clipped_pct": 1.16135084427767,
+    "p05": 0,
+    "p50": 0,
+    "p95": 54,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 50.5615972222222,
+   "derivation": "GIVEN station, not derived: eye (111.00, 1.70, 14.00) -> target (81.00, 1.80, 14.00)",
+   "eye": [
+    111.0,
+    1.70000004768372,
+    14.0
+   ],
+   "gpu_ms": 8.55799961090088,
+   "gpu_samples": 5,
+   "mean": 5.45857152777778,
+   "name": "street_30m",
+   "near_clipped_pct": 0.279930555555556,
+   "p05": 0,
+   "p50": 0,
+   "p95": 20,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/street_30m.png",
+   "png_error": 0,
+   "target": [
+    81.0,
+    1.79999995231628,
+    14.0
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 22.1694809255785,
+    "mean": 37.7367854909318,
+    "near_clipped_pct": 5.92933083176986,
+    "p05": 0,
+    "p50": 12,
+    "p95": 252,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 34.4273611111111,
+   "derivation": "GIVEN station, not derived: eye (89.00, 1.70, 14.00) -> target (81.00, 1.60, 14.00)",
+   "eye": [
+    89.0,
+    1.70000004768372,
+    14.0
+   ],
+   "gpu_ms": 23.056999206543,
+   "gpu_samples": 5,
+   "mean": 20.9300701388889,
+   "name": "storefront_8m",
+   "near_clipped_pct": 0.669305555555556,
+   "p05": 0,
+   "p50": 2,
+   "p95": 94,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/storefront_8m.png",
+   "png_error": 0,
+   "target": [
+    81.0,
+    1.60000002384186,
+    14.0
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 44.9837398373984,
+    "mean": 11.1457535959975,
+    "near_clipped_pct": 0.41963727329581,
+    "p05": 0,
+    "p50": 1,
+    "p95": 66,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 40.8931944444444,
+   "derivation": "GIVEN station, not derived: eye (86.00, 1.70, 0.00) -> target (80.00, 1.40, 14.00)",
+   "eye": [
+    86.0,
+    1.70000004768372,
+    0.0
+   ],
+   "gpu_ms": 21.5240001678467,
+   "gpu_samples": 5,
+   "mean": 18.5423770833333,
+   "name": "forecourt_south",
+   "near_clipped_pct": 0.138888888888889,
+   "p05": 0,
+   "p50": 1,
+   "p95": 100,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/forecourt_south.png",
+   "png_error": 0,
+   "target": [
+    80.0,
+    1.39999997615814,
+    14.0
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 16.0800500312695,
+    "mean": 21.7533520950594,
+    "near_clipped_pct": 0.218261413383365,
+    "p05": 0,
+    "p50": 11,
+    "p95": 84,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 14.8897222222222,
+   "derivation": "GIVEN station, not derived: eye (71.00, 1.70, 5.00) -> target (76.00, 0.20, 18.00)",
+   "eye": [
+    71.0,
+    1.70000004768372,
+    5.0
+   ],
+   "gpu_ms": 10.9440002441406,
+   "gpu_samples": 5,
+   "mean": 16.1510652777778,
+   "name": "inside_sales_floor",
+   "near_clipped_pct": 0.146111111111111,
+   "p05": 0,
+   "p50": 9,
+   "p95": 60,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/inside_sales_floor.png",
+   "png_error": 0,
+   "target": [
+    76.0,
+    0.200000002980232,
+    18.0
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 50.5691056910569,
+    "mean": 10.7345465916198,
+    "near_clipped_pct": 1.00375234521576,
+    "p05": 0,
+    "p50": 0,
+    "p95": 50,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 48.9067361111111,
+   "derivation": "GIVEN station, not derived: eye (112.00, 1.70, 40.00) -> target (92.00, 4.80, 33.50)",
+   "eye": [
+    112.0,
+    1.70000004768372,
+    40.0
+   ],
+   "gpu_ms": 3.02900004386902,
+   "gpu_samples": 5,
+   "mean": 5.54880694444444,
+   "name": "pylon_20m",
+   "near_clipped_pct": 0.142777777777778,
+   "p05": 0,
+   "p50": 1,
+   "p95": 27,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/pylon_20m.png",
+   "png_error": 0,
+   "target": [
+    92.0,
+    4.80000019073486,
+    33.5
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 60.6197623514697,
+    "mean": 1.06883677298311,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 0,
+    "p95": 3,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 59.3702777777778,
+   "derivation": "res://gameplay_anchors.json: spawn_pos at eye height 1.60 m, facing the next leg",
+   "eye": [
+    0.542241394519806,
+    1.60000002384186,
+    0.654137909412384
+   ],
+   "gpu_ms": 25.886999130249,
+   "gpu_samples": 5,
+   "mean": 1.60525208333333,
+   "name": "spawn",
+   "near_clipped_pct": 0.016875,
+   "p05": 0,
+   "p50": 0,
+   "p95": 3,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/spawn.png",
+   "png_error": 0,
+   "target": [
+    3.0,
+    1.80000007152557,
+    -8.5
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 0.0,
+    "mean": 188.03593495935,
+    "near_clipped_pct": 0.0,
+    "p05": 137,
+    "p50": 200,
+    "p95": 216,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 20.3850694444444,
+   "derivation": "res://gameplay_anchors.json: objective_pos at eye height 1.60 m, facing the next leg",
+   "eye": [
+    3.0,
+    1.80000007152557,
+    -8.5
+   ],
+   "gpu_ms": 2.15499997138977,
+   "gpu_samples": 5,
+   "mean": 128.692771527778,
+   "name": "objective",
+   "near_clipped_pct": 0.0,
+   "p05": 0,
+   "p50": 189,
+   "p95": 215,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/objective.png",
+   "png_error": 0,
+   "target": [
+    -3.09999990463257,
+    1.60000002384186,
+    10.5
+   ]
+  },
+  {
+   "centre": {
+    "clipped_pct": 0.0,
+    "crushed_pct": 56.2320200125078,
+    "mean": 4.42872420262664,
+    "near_clipped_pct": 0.0,
+    "p05": 0,
+    "p50": 0,
+    "p95": 26,
+    "pixels": 159900
+   },
+   "centre_fraction": 0.333333333333333,
+   "centre_rect": [
+    533,
+    300,
+    533,
+    300
+   ],
+   "clipped_pct": 0.0,
+   "crushed_pct": 49.8154861111111,
+   "derivation": "res://gameplay_anchors.json: extraction_pos at eye height 1.60 m, facing the next leg",
+   "eye": [
+    -3.09999990463257,
+    1.60000002384186,
+    10.5
+   ],
+   "gpu_ms": 11.7559995651245,
+   "gpu_samples": 5,
+   "mean": 14.5439895833333,
+   "name": "extraction",
+   "near_clipped_pct": 0.107569444444444,
+   "p05": 0,
+   "p50": 1,
+   "p95": 97,
+   "pixels": 1440000,
+   "png": "C:/Projects/gabagool_studios/gabagool_factory/_runs/grade_G0_control/extraction.png",
+   "png_error": 0,
+   "target": [
+    0.542241394519806,
+    1.60000002384186,
+    0.654137909412384
+   ]
+  }
+ ],
+ "viewport": [
+  1600,
+  900
+ ],
+ "project": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_runs\\walk_export_club_block_014",
+ "scene": ""
+}
