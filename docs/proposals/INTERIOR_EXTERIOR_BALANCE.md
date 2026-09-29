@@ -119,3 +119,30 @@ Three numbers, one room, one variable.
 
 That would say whether the daylight interior is already a void, which decides
 whether this is one fix or two.
+
+## Measured (2026-09-28, cold run 9102's walk copy)
+
+The prescribed first step, on the store the walker's night photographs are
+about: gas_station_a02, with its see-through storefront (Zoo 1.18.0) and a
+fluorescent row over the sales floor (Deli Counter 0.154.0). `look_shots.py`
+with given stations, the walk copy's ONE preset line swapped per run and
+restored byte for byte; RTX 2060, gl_compatibility, 1600 x 900, whole-frame
+Rec.709 luma on 8-bit sRGB after the post stack.
+
+                         inside the     inside, facing   the storefront from
+                         sales floor    the glass        15 m out, square
+                         mean  p50      mean  p95        mean  p95  crushed
+    delco_summer_after.  42.1   44      48.0  127        54.9  180    0.0%
+    blue_hour            18.2   20      22.7   97        14.9   83   44.0%
+    delco_night           8.4    9      13.8   62         4.2    3   59.1%
+
+**The interior follows the sky, not its lamps.** The same room is five times
+darker at night than at noon with its fixtures unchanged, which is this
+document's finding measured in a frame: the practicals are a minority of the
+light even where they are the only light that should be on. And at night the
+storefront from outside is 4.2 -- the glass passes what is behind it, and
+what is behind it is 8.4.
+
+So the daylight interior is NOT a void (42) and the night interior is (8.4):
+this is ONE fix, at night. Nothing here has changed the constant yet; the
+decision it needs is recorded in the next step, not taken.

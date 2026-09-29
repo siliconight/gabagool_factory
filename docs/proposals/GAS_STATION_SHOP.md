@@ -232,7 +232,7 @@ machine with "two rows of packs behind the front"), `carton_stack`,
 grows. What has been built since, and where:
 
     canopy_fixture     BUILT -- Zoo 1.4.0/1.5.0 `canopy_lights`, Lot 0.79.0
-    price_pylon        the roadside sign with price digits
+    price_pylon        BUILT -- Zoo 1.19.0 `price_pylon`, placed by Lot 0.80.0 (below)
     coffee_counter     BUILT -- Zoo 1.9.0/1.9.1 `coffee_island` (below)
     cigarette_overhead BUILT -- Zoo 1.7.0 `counter` form `service`
     cooler_run         BUILT -- Zoo 1.12.0 `cooler_run` (below)
@@ -286,6 +286,17 @@ JAWN, CHEEZY, HOT LINK, TAQUITO), chrome dividers, a black control panel
 with dials, lights and a switch, a glass hood with a shelf of buns, and a
 NICE BUNS cabinet below. Four draw calls, nothing lit. Shipped in cold run
 9101, beside the slush station in `gas_station_a02`.
+
+**The store at night** (the walker's six photographs, 2026-09-28, and "yes,
+make the storefront see-through glass"): every full storefront wall is an
+aluminium storefront with a see-through pane and the entry doors framed
+glass leaves with push bars, the collider unchanged (Zoo 1.18.0, Deli
+Counter 0.153.0); the sales floor is a fluorescent row, not five bare bulbs
+(Deli Counter 0.154.0); and the price pylon -- FLAPPHAS over REGULAR, PLUS
+and SUPER to the nine-tenths and OPEN 24 HRS, both faces lit -- stands at
+the road frontage behind the sidewalk, facing along the road (Zoo 1.19.0,
+Lot 0.80.0). All shipped in cold run 9102 at zero, `gas_station_a02`: 16
+storefront walls, 2 doors, the pylon at (92, -33.5).
 
 And one that is NOT a species, listed here so nobody builds it as one:
 

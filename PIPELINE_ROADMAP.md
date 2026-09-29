@@ -17258,9 +17258,17 @@ hot dog roller grill, rollers across the width with dogs in the grooves,
 tagged columns and a glass hood with a bun shelf (Zoo 1.17.0, 4 draw calls;
 Deli Counter 0.152.0 places one in every store nearest the register's queue,
 out of the clerk's aisle, beside the slush station where they share a wall),
-shipped in cold run 9101 at 0.
+shipped in cold run 9101 at 0 -- and the store at night: a see-through
+storefront (Zoo 1.18.0, Deli Counter 0.153.0: kick, mullions, header and a
+blended pane on every full storefront wall; framed glass leaves on the
+doors, an open state of its own; collision unchanged), the sales floor lit
+as a fluorescent row rather than bare bulbs (Deli Counter 0.154.0), and the
+FLAPPHAS price pylon at the forecourt's road frontage (Zoo 1.19.0, Lot
+0.80.0), all shipped in cold run 9102 at 0.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
-`gas_station`); the price pylon; FLAPPHAS on the
+`gas_station`); the storefront on the two stores whose walls are generated
+into the shell (`fuel_stop_heist`, `stop_n_go`); the interior's night energy
+(measure first, docs/proposals/INTERIOR_EXTERIOR_BALANCE.md); FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
 columns in the outer lanes' swept path).*
