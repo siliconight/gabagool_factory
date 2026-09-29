@@ -17287,7 +17287,11 @@ held at 20.2, draws 71,802 (9105) -> 71,868 summed, stations over budget 7
 -- and the pylon's lettering set as large as its face allows (Zoo 1.25.0),
 cold run 9108 at 0: FLAPPHAS a bold word at 12 m, day and night (brand
 detail 48 -> 59); its digits and, beyond ~14 m, its name are past what a
-2.4 m face resolves in this frame, and read as colour.
+2.4 m face resolves in this frame, and read as colour -- then the pylon made
+3.4 x 0.7 x 9.0 (Zoo 1.26.0, Lot 0.81.0; cold run 9109 FAILED on its cover
+test point at 4.5 m, fixed in Lot 0.82.0), cold run 9110 at 0: the name reads
+at 20 m as it did at 12 m, the brand stands over a roofline that hid the old
+pylon at 30 m, draws identical.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
 into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
