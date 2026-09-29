@@ -336,3 +336,38 @@ frustum. PUT TO THE WALKER, not decided here: keep it (the look and the light
 budget, at +7% draws), narrow it to the rooms lit from outside through
 storefront glass (the rooms where the regression was), or revert it (9105's
 look, the room ~15% dimmer at the glass).
+
+## Narrowed to the storefront rooms (cold run 9107)
+
+The walker, 2026-09-29: "yes, narrow it to the storefront rooms". Deli
+Counter 0.157.0 tags `light_budget_tiles` on the floor and ceiling of each
+room lit from outside through storefront glass (`lights.storefront_lit_rooms`,
+the spill rooms: 32 plate slots in 8 buildings), and Zoo 1.24.0 splits only
+those, under `_lbt`; every other floor and ceiling merges again. In this
+level: six plates split (gas_station_a02's sales floor 6 tiles each, food
+service and walk-in cooler 4), the other 40 are single meshes as in 9105.
+Cold run 9107, zero interventions, findings identical to 9106 (58).
+
+THE LOOK HELD: the carpet through the glass 20.2 (9106 20.5, 9105 16.9), the
+sales floor 16.1 (9106 16.1), the pavement's spill 13.2, every other camera
+within 0.1 of 9106.
+
+THE COST WENT AWAY. Against 9105 (merged floors), one session, 9107 twice,
+the runs agreeing on draws:
+
+    draws        6 of 53 headings up, +4 to +24; summed 71,802 -> 71,868
+                 (+0.09%; 9106 was 77,139, +7.4%); 4,666 -> 4,688 meshes
+    frame time   median p95 4.93 ms -> 5.06 / 5.29, max 12.07 -> 13.01 /
+                 12.46 -- the two 9107 runs disagree by as much as either
+                 differs from 9105, so within this session's noise, not a
+                 measured cost; 9105 itself read 4.76 in 9106's session
+    budget       stations over the provisional budget 7 of 14, as 9105
+
+THE CENSUS COUNT IS NOT THE SEVERITY. Meshes over 8 lights read 59 (9105 51,
+9106 42): the store's tiles count one by one now, at 10-11 claimants where
+its two room-sized meshes carried 20. b2's stockroom (13 / 12) and back hall
+(10 / 10) are merged and over, as on 9104 and 9105 -- they are not behind
+glass, so the rule does not reach them, and no frame of them has shown the
+difference (9104's back-room check).
+
+STILL OPEN: the street at 30 m (5.4), where the grade is the last lever.

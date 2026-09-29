@@ -17280,13 +17280,16 @@ its lamps (the carpet through the glass 19.7 -> 16.9, proven by a raised
 cap restoring 20.1) -- and Zoo 1.23.0 shipping floor and ceiling light-budget
 tiles as their own meshes, cold run 9106 at 0: the carpet 16.9 -> 20.5,
 meshes over 8 lights 51 -> 42, COST draws +7.4% summed (+4..+230 at 51 of 53
-headings) and median p95 4.76 -> 5.1-5.2 ms, stations over budget 7 -> 10-11;
-keep, narrow or revert put to the walker.
+headings) and median p95 4.76 -> 5.1-5.2 ms, stations over budget 7 -> 10-11
+-- then NARROWED to the storefront-lit rooms (Deli Counter 0.157.0 tags
+their plates, Zoo 1.24.0 splits only those), cold run 9107 at 0: the carpet
+held at 20.2, draws 71,802 (9105) -> 71,868 summed, stations over budget 7.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
 into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
-meshes over the per-mesh light budget, which the spill made visible; the
-store seen from the street at 30 m, unchanged (the grade,
+meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's
+stockroom and back hall at 10-13, no frame showing it); the store seen from
+the street at 30 m, unchanged (the grade,
 docs/proposals/INTERIOR_EXTERIOR_BALANCE.md); FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
