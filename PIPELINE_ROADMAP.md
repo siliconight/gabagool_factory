@@ -17296,7 +17296,14 @@ built non-modular (fuel_stop_heist, stop_n_go: `modular` unset, not
 `pvp_heist`, so no wall slots for it to ride on), Deli Counter 0.158.0: every
 storefront spec builds modular; 172 and 96 slots where there were 51 and 17,
 reach, spill and tiles with them; every other building's GLB byte-identical.
-Not seen in a level: no cold-run candidate draws either store.
+Not seen in a level: no cold-run candidate draws either store -- and glass
+kept off the back rooms (Deli Counter 0.159.0, `SHOPFRONT_ROOMS`), cold run
+9112 at 0: gas_station_a02's east facade glazes beside food_service only, the
+walk-in cooler's run is stone. 9112 drew different buildings on every seed:
+0.158.0 made stop_n_go modular, it became the 43rd themed-fit family, and
+`pick_lot`'s positional draw moved every pick (replayed: without it, all nine
+9111 picks come back exactly), so 9112's 64 findings do not compare with
+9111's 58.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); room-sized floor and ceiling
 meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's

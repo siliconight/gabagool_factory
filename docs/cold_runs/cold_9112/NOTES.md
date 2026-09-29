@@ -1,0 +1,43 @@
+# Cold run 9112 -- glass off the back rooms
+
+The walker, 2026-09-29: "keep glass off the back rooms, use a room-name list".
+Deli Counter 0.159.0: a storefront slot glazes only where the room behind it
+is named in `SHOPFRONT_ROOMS` (`sales_floor`, `food_service`); a shell-walled
+store's other rooms keep the building's default wall. Zero interventions; the
+art leg read before export: 0 blockers, 64 findings.
+
+    gas_station_a02, east facade (from its slots.json, the kit's input)
+      y -9.85 .. 0.2    glass_facade   food_service behind it (centre y -5)
+      y  2.2  .. 10.03  stone          walk_in_cooler behind it (centre y 6)
+
+THE FINDINGS DO NOT COMPARE TO 9111, and not because of this change. Every
+candidate drew different buildings:
+
+    seed    9111                                  9112
+    9181    deli_a01, gas_station_a02             airport_terminal_a02, gas_station_a02
+    9080    brewery_a01, market_hall_a02          landmark_hall_a02, pvp_station_ref
+    9282    credit_union_a02, museum_a02          casino_a02, funeral_home_a02
+            (strip_club_a01/a02/a03 anchor each lot in both)
+
+Attributed, not assumed: `building_library.pick_lot` replayed on today's
+library with `stop_n_go` removed from the themed pool gives all nine 9111
+picks exactly. Deli Counter 0.158.0 (the storefront on every store) made
+`stop_n_go` modular, so its slot coverage stopped being empty and
+`themed_fitness` passed it -- the 43rd fit family. `pick_lot` draws
+`pool.pop(next(rng) % len(pool))`, so one more family moves every draw after
+it. The comment on `REQUIRED` warns of exactly this for suffixes; a family
+becoming fit does it too, and nothing says so when it happens.
+
+So 58 -> 64 is a different lot's findings (the airport terminal alone adds
+LUX_NO_ROOM_PROBES for its check-in hall and rooms beside it), not a
+regression. The gas station is the one building both lots share.
+
+NOT PRICED: the change swaps one wall material for another on a few slots
+per store -- same modules, same draw calls -- and a price against 9111 would
+be a price of a different lot.
+
+OPEN, reported not changed: a stable draw -- ranking families by a per-family
+hash of (seed, family) instead of popping from a positional list -- would make
+a new fit family displace only the picks it outranks, so a cold-run series
+stays comparable across library growth. It re-draws every existing seed once
+when it lands, which is the cost `REQUIRED` exists to avoid.
