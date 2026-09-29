@@ -17277,7 +17277,11 @@ the pavement in front of the glass luma 0.8 -> 13.2, the store from 8 m 9.1
 -> 20.8, draws unchanged; COST the sales floor's own room-sized floor and
 ceiling meshes went 16 -> 20 claimants for 8 slots and the room lost some of
 its lamps (the carpet through the glass 19.7 -> 16.9, proven by a raised
-cap restoring 20.1).
+cap restoring 20.1) -- and Zoo 1.23.0 shipping floor and ceiling light-budget
+tiles as their own meshes, cold run 9106 at 0: the carpet 16.9 -> 20.5,
+meshes over 8 lights 51 -> 42, COST draws +7.4% summed (+4..+230 at 51 of 53
+headings) and median p95 4.76 -> 5.1-5.2 ms, stations over budget 7 -> 10-11;
+keep, narrow or revert put to the walker.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
 into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling

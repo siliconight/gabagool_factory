@@ -305,3 +305,34 @@ the whole room -- roadmap 54's law met from the other side.
 STILL OPEN: the street at 30 m (5.4) -- it is 30 m of dark road with the
 canopy between; the grade is the last lever, and the walker has not pulled
 it.
+
+## After splitting the floor and ceiling tiles (cold run 9106)
+
+The walker, 2026-09-29: "yes, split the floor and ceiling tiles". Zoo 1.23.0
+stops merging `Floor` and `Ceiling` parts, so the light-budget tiles
+`arch.tile_parts` has cut since roadmap 54 (8 m) reach Godot as their own
+meshes -- the sales floor's floor and ceiling six each. Roofs still merge.
+Cold run 9106, zero interventions, findings identical to 9105 (58).
+
+THE LOOK CAME BACK. Night, graded, the same cameras: the carpet seen through
+the glass 16.9 -> 20.5 (9104, before the spill, 19.7), the sales floor 15.1
+-> 16.1, the pavement's spill unchanged at 13.2. Meshes over 8 lights 51 ->
+42; every room-sized floor and ceiling that was one mesh at 15-21 claimants
+across all three buildings is now tiles, the store's worst at 9-11.
+
+AND IT COST DRAW CALLS -- the rule this repo holds hardest. Priced in one
+session, 9105 against 9106 twice, the runs agreeing:
+
+    draws        51 of 53 headings up, +4 to +230; summed 71,802 -> 77,139
+                 (+7.4%); 4,666 -> 4,918 meshes
+    frame time   median p95 4.76 ms -> 5.11 / 5.19; max 12.14 -> 12.61 / 12.73
+                 (longest_sightline +209 draws, 8.45 -> 9.6 ms)
+    budget       stations over the provisional 2000 draws / 11 ms: 7 -> 11 / 10
+
+The split is library-wide, not the store's: every floor and ceiling over 8 m
+on a side in b0, b1 and b2 is tiles now, and interiors have no occlusion
+culling, so a heading that looks across a building draws every tile in the
+frustum. PUT TO THE WALKER, not decided here: keep it (the look and the light
+budget, at +7% draws), narrow it to the rooms lit from outside through
+storefront glass (the rooms where the regression was), or revert it (9105's
+look, the room ~15% dimmer at the glass).
