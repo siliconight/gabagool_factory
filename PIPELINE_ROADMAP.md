@@ -17283,7 +17283,11 @@ meshes over 8 lights 51 -> 42, COST draws +7.4% summed (+4..+230 at 51 of 53
 headings) and median p95 4.76 -> 5.1-5.2 ms, stations over budget 7 -> 10-11
 -- then NARROWED to the storefront-lit rooms (Deli Counter 0.157.0 tags
 their plates, Zoo 1.24.0 splits only those), cold run 9107 at 0: the carpet
-held at 20.2, draws 71,802 (9105) -> 71,868 summed, stations over budget 7.
+held at 20.2, draws 71,802 (9105) -> 71,868 summed, stations over budget 7
+-- and the pylon's lettering set as large as its face allows (Zoo 1.25.0),
+cold run 9108 at 0: FLAPPHAS a bold word at 12 m, day and night (brand
+detail 48 -> 59); its digits and, beyond ~14 m, its name are past what a
+2.4 m face resolves in this frame, and read as colour.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
 into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
