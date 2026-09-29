@@ -233,3 +233,75 @@ moving; it stays a named risk rather than a cleared one.
 WHAT IS STILL OPEN: the street at 30 m does not see the store yet (5.4 ->
 5.5); the grade and outward spill are the levers left, and a street-level
 view of the forecourt under its canopy is its own lighting question.
+
+## After the spill (cold run 9105)
+
+The walker, 2026-09-29: "do the outward spill next". Deli Counter 0.156.0
+derives a `storefront_spill` along the glass of every room whose row reaches
+it (one per two heads of glass, at the glass head, facing out); Zoo 1.22.0
+records it as hardware-elsewhere; Lux 0.57.0 bakes each as a one-lamp
+fluorescent rig tilted 45 degrees out and down with the window's 45-degree
+cone, scaled by the preset like the room it comes from, killed by a power
+cut. 35 in the library, 7 at gas_station_a02. Cold run 9105, zero
+interventions, findings identical to 9104 (58).
+
+THE LEVEL IS FRAME-MATCHED, and the first answer was nothing. The physical
+rule -- the pavement takes what the lit floor inside takes, less the glass,
+0.378 at Delco Night -- was stood outside the store at runtime on 9104's walk
+copy and the pavement in front of the glass read luma 0.8 with it and
+without. The dial was live (x20 lit three pools); the forecourt pad's 32
+range-sphere claimants were not it (the engine read a raised
+`max_lights_per_object` of 64 and neither frame moved). The room's floor is
+lifted by its probe's ambient and a carpet's albedo, the pavement by
+neither, under a night grade that crushes its toe. Matched in frames
+instead, pavement luma against the carpet through the same glass (x1 / x5 /
+x10 / x20: 0.8 / 8.8 / 21.9 / 44.0 against 17.6 wanted): x8.4, written into
+`LuxLightLoader.SPILL_FRAME_MATCH` with the settings it was measured at.
+
+Night, graded, the same cameras (mean / p95):
+
+                                   9104          9105
+    through the storefront      11.0 / 64      22.1 / 93
+    the forecourt, south corner  6.7 / 43      18.5 / 100
+    the store from 8 m           9.1 / 43      20.8 / 94
+    along the sidewalk           8.2 / 45      17.6 / 83
+    the forecourt, north corner  6.4 / 24       6.4 / 24
+    the street at 30 m           5.5 / 21       5.4 / 20
+    inside the sales floor      16.1 / 58      15.1 / 58
+
+    region luma: the pavement in front of the glass 0.8 -> 13.2, the pool
+    seen from the south corner 0.8 -> 32.9.
+
+Noon (the afternoon preset, scale 1.0): the pavement in front of the glass
+50.1 -> 54.5 and the south pool 85.0 -> 91.6 -- a store's light at noon is a
+tenth of the sunlit pavement, as the preset scaling intends.
+
+COST. Draws: 4 of 53 headings -2 or -3, both 9105 runs agreeing, the rest
+identical. Frame time: median p95 3.46 ms (9104) against 3.97 and 3.48 --
+the two 9105 runs disagree with each other by more than 3.48 differs from
+3.46, so noise; max p95 10.51 against 10.46 / 10.60; stations over the
+provisional budget 7 of 14 on both.
+
+THE PER-MESH BUDGET, AND IT IS VISIBLE THIS TIME. Meshes over 8 lights 39 ->
+51 (census; the perf harness's own count 38 -> 50). The spills reach into
+the store as well as out of it -- a tilted spot's culling box extends about
+3.3 m back through the glass -- and b2's sales floor FLOOR and CEILING are
+each one mesh the size of the room, already at 16 claimants for 8 slots. At
+20 the engine's choice of eight moved, and the room lost some of its own
+lamps: the carpet through the glass 19.7 -> 16.9, the sales floor 16.1 ->
+15.1. PROVEN, not inferred: the same 9105 build with
+`max_lights_per_object` raised to 64 read the carpet 20.1 and the room 16.0,
+9104's figures, with the pavement unchanged at 13.2. (A first attempt at
+that control patched an anchor the fresh export did not have -- 157
+renderable lights, not 150 -- and ran unchanged; it was caught by its own
+assertion and rerun.)
+
+The store is still brighter than 9103 (8.8) and the pavement is lit where it
+was black. The defect underneath is older than this change: a room's floor
+and ceiling are merged into one mesh per material (Zoo 1.1.0's merge, right
+for draw calls), which makes every room-sized plate one claimant list for
+the whole room -- roadmap 54's law met from the other side.
+
+STILL OPEN: the street at 30 m (5.4) -- it is 30 m of dark road with the
+canopy between; the grade is the last lever, and the walker has not pulled
+it.

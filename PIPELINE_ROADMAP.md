@@ -17270,11 +17270,19 @@ storefront clear float glass (Zoo 1.20.0) and a storefront-walled ceiling
 row reaching its glass (Deli Counter 0.155.0, Zoo 1.21.0, Lux 0.56.0),
 cold run 9104 at 0: through the storefront 6.2 -> 11.2 and the forecourt's
 south corner 3.8 -> 6.7, draws unchanged, meshes over 8 lights 35 -> 39
-(b2's stockroom and back hall, no change seen in frames there).
+(b2's stockroom and back hall, no change seen in frames there) -- and the
+store's light spilling out through its storefront onto the pavement (Deli
+Counter 0.156.0, Zoo 1.22.0, Lux 0.57.0, frame-matched), cold run 9105 at 0:
+the pavement in front of the glass luma 0.8 -> 13.2, the store from 8 m 9.1
+-> 20.8, draws unchanged; COST the sales floor's own room-sized floor and
+ceiling meshes went 16 -> 20 claimants for 8 slots and the room lost some of
+its lamps (the carpet through the glass 19.7 -> 16.9, proven by a raised
+cap restoring 20.1).
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); the storefront on the two stores whose walls are generated
-into the shell (`fuel_stop_heist`, `stop_n_go`); the store seen from the
-street at 30 m, unchanged (the grade and outward spill,
+into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
+meshes over the per-mesh light budget, which the spill made visible; the
+store seen from the street at 30 m, unchanged (the grade,
 docs/proposals/INTERIOR_EXTERIOR_BALANCE.md); FLAPPHAS on the
 fascia, the pump signs, the cups and the bags; and the forecourt's two
 measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy
