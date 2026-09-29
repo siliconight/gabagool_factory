@@ -182,3 +182,54 @@ each a separate lever and none pulled here:
 A pre-grade probe once read the first bullet as the fix working (a table in
 Lux 0.55.0's changelog, corrected there): the instrument that hides the HUD
 by hiding every CanvasLayer also hides Lux's post stack.
+
+## After the glass and the reach (cold run 9104)
+
+The walker, 2026-09-28: "yes, do the glass first then the troffer reach" --
+the first two of the four levers above; the grade and outward spill are not
+pulled. Measured on 9103's walk copy before anything shipped (the values set
+at runtime), then shipped as Zoo 1.20.0 (a storefront pane is clear float
+glass, opacity 0.12, its own material), Deli Counter 0.155.0 + Zoo 1.21.0 +
+Lux 0.56.0 (a ceiling row walled by storefront glass carries `reach`, the
+metres to the glass, and its range is derived to the floor there: 7.5, the
+clamp, for gas_station_a02's sales floor against 4.55). Cold run 9104, zero
+interventions, findings identical to 9103 (58).
+
+Night, look_shots, the player's graded frame, the same eight cameras on each
+build (mean / p95; the 9103 column reproduced 9103's own recorded figures):
+
+                                   9103          9104
+    inside the sales floor       8.8 / 29      15.9 / 58
+    through the storefront       6.2 / 31      11.2 / 65
+    the forecourt, south corner  3.8 / 32       6.7 / 43
+    the store from 8 m           6.9 / 31       9.1 / 43   (centre 30.5 -> 34.6)
+    the forecourt, north corner  6.1 / 23       6.3 / 24
+    the street at 30 m           5.4 / 19       5.5 / 21
+    the office (bare bulbs)     21.4 / 77      21.3 / 77
+
+REFUTED, kept: `storefront_square` (15 m, the camera the section above used
+for "the street does not see it") stands behind a pump island that fills the
+lower half of its frame; its 4.2 -> 4.5 is the island, not the store. The
+three forecourt cameras replaced it.
+
+The row moved 3.5 m toward the glass at the old range was also measured, and
+was WORSE through the glass (8.2 against 9.0 with the glass alone): the pool
+moved and did not grow. It did not ship.
+
+COST. Draws: 4 of 53 headings -1, the rest identical, both 9104 runs agreeing;
+median p95 frame time 3.75 ms (9103) against 3.56 and 3.46 (9104), stations
+over the provisional budget 7 of 14 on both. THE PER-MESH LIGHT BUDGET MOVED:
+meshes over 8 lights 35 -> 39 (`mesh_light_census`; the perf harness's own
+count 34 -> 38), all of them b2's -- the stockroom's ceiling (13) and floor
+(12) and the back hall's (10, 10) are newly over, reached through the
+partition by the sales floor's 7.5 m lamps, and the sales floor's own ceiling
+and floor, over before this, went 15 -> 16 and 12 -> 16. The census counts a
+range sphere through walls and is an upper bound. Frames of the stockroom and
+back hall on 9104 with those five lamps at 7.5 and at 4.55 (one build) read
+4.0 / 4.1 and 70.5 / 70.5: nothing a camera there can see moved. That is
+four cameras, not a walk, and roadmap 54's seam is a thing a person sees
+moving; it stays a named risk rather than a cleared one.
+
+WHAT IS STILL OPEN: the street at 30 m does not see the store yet (5.4 ->
+5.5); the grade and outward spill are the levers left, and a street-level
+view of the forecourt under its canopy is its own lighting question.
