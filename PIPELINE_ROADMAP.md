@@ -17291,10 +17291,14 @@ detail 48 -> 59); its digits and, beyond ~14 m, its name are past what a
 3.4 x 0.7 x 9.0 (Zoo 1.26.0, Lot 0.81.0; cold run 9109 FAILED on its cover
 test point at 4.5 m, fixed in Lot 0.82.0), cold run 9110 at 0: the name reads
 at 20 m as it did at 12 m, the brand stands over a roofline that hid the old
-pylon at 30 m, draws identical.
+pylon at 30 m, draws identical -- and the storefront on the two stores that
+built non-modular (fuel_stop_heist, stop_n_go: `modular` unset, not
+`pvp_heist`, so no wall slots for it to ride on), Deli Counter 0.158.0: every
+storefront spec builds modular; 172 and 96 slots where there were 51 and 17,
+reach, spill and tiles with them; every other building's GLB byte-identical.
+Not seen in a level: no cold-run candidate draws either store.
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
-`gas_station`); the storefront on the two stores whose walls are generated
-into the shell (`fuel_stop_heist`, `stop_n_go`); room-sized floor and ceiling
+`gas_station`); room-sized floor and ceiling
 meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's
 stockroom and back hall at 10-13, no frame showing it); the store at night
 does not yet outshine its street (the night grade pulled -- Lux 0.58.0, cold
