@@ -146,3 +146,39 @@ what is behind it is 8.4.
 So the daylight interior is NOT a void (42) and the night interior is (8.4):
 this is ONE fix, at night. Nothing here has changed the constant yet; the
 decision it needs is recorded in the next step, not taken.
+
+## After Lux 0.55.0 (cold run 9103)
+
+The walker, 2026-09-28: "brighten fluorescents at night, keep pendants
+moody". Lux 0.55.0 multiplies every fluorescent rig by the preset's
+`fluorescent_energy_scale`, derived from its sky (Delco Night 6.0); bare
+bulbs refuse it. On 9103's shipped package, `look_shots.py`, the walk copy's
+Delco Night at 1.0 against the shipped 6.0, one build, the player's graded
+frame:
+
+                               scale 1.0          scale 6.0
+                               mean   p95         mean   p95
+    inside the sales floor      6.5    13          8.9    29
+    outside, through the glass  5.6    27          6.2    31
+    the storefront from 15 m    4.2     3          4.2     3
+    the office (bare bulbs)    20.3    74         21.4    77
+
+**The room reads; the street does not see it yet.** Inside, the shelves and
+the cooler wall come out of black and the bright end doubles. Outside, the
+change is a tenth of a stop. What stands between the lamps and the street,
+each a separate lever and none pulled here:
+
+  * the NIGHT GRADE compresses the interior's gain (pre-grade the same room
+    went 1.9 -> 15.7; graded, 6.5 -> 8.9) -- a grade question, and this
+    document says not to fix lighting with exposure;
+  * each troffer's REACH is `drop + 0.75`, a per-mesh light-budget number
+    (roadmap 54), so it floors a ~2.9 m pool and the walls and the glass
+    line stay outside every pool;
+  * the storefront PANE is the theme's glass at 0.38 opacity with a tint,
+    which takes about a third of what is behind it;
+  * nothing SPILLS: no light leaves the store onto the pavement (priced as
+    real lights against the forecourt's budget of 8, not built).
+
+A pre-grade probe once read the first bullet as the fix working (a table in
+Lux 0.55.0's changelog, corrected there): the instrument that hides the HUD
+by hiding every CanvasLayer also hides Lux's post stack.
