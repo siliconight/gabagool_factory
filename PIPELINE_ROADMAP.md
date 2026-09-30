@@ -17303,7 +17303,14 @@ walk-in cooler's run is stone. 9112 drew different buildings on every seed:
 0.158.0 made stop_n_go modular, it became the 43rd themed-fit family, and
 `pick_lot`'s positional draw moved every pick (replayed: without it, all nine
 9111 picks come back exactly), so 9112's 64 findings do not compare with
-9111's 58.
+9111's 58. Then the warm counter accent and a beer neon in the window (Deli
+Counter 0.160.0, Zoo 1.27.0, Lux 0.59.0), cold run 9113 at 0: +34 draws over
+53 headings, +1 light; the accent is applied but subtle (counter red 54.8 ->
+59.0), the sign reads but its door end is behind the lit sign box. AND
+`look_shots` had been photographing during LF 0.99.0's shader warm-up at
+`scaling_3d_scale` 0.1 since 2026-09-21 (fixed in tools/look_shots.gd; frame
+statistics held to a code, fine detail did not -- the pylon's name reads at
+30 m at full scale, which reopens the 3.4 m enlargement).
 WHAT REMAINS: a real `convenience_store` preset (today an alias for
 `gas_station`); room-sized floor and ceiling
 meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's
