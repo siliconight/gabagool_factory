@@ -32,6 +32,12 @@ So 58 -> 64 is a different lot's findings (the airport terminal alone adds
 LUX_NO_ROOM_PROBES for its check-in hall and rooms beside it), not a
 regression. The gas station is the one building both lots share.
 
+ERRATUM (cold run 9113): the frames below were taken during Level Factory's
+shader warm-up, at scaling_3d_scale 0.1 -- see cold_9113/NOTES.md. Re-shot
+at full scale in `cooler_wall_9111_vs_9112_fullscale.png`: east wall 16 m
+9.4 / 8.7, cooler run 8 m 16.6 / 7.4 (36.1% / 47.2% black), oblique 9.8 /
+9.6. The conclusion stands; the figures move by under a code.
+
 THE COOLER WALL AT NIGHT, 9111 vs 9112 (`cooler_wall_9111_vs_9112.png`,
 left 9111, right 9112; rows: east wall at 16 m, the cooler's run at 8 m, an
 oblique from the forecourt end). The gas station stands at x 70 in 9111's lot

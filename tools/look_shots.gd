@@ -36,6 +36,18 @@ const LUMA_R := 0.2126
 const LUMA_G := 0.7152
 const LUMA_B := 0.0722
 
+## THE LEVEL'S SHADER WARM-UP (Level Factory >= 0.99.0, `warmup.gd`) sweeps
+## the level at `scaling_3d_scale` 0.1 with occlusion culling off, for up to
+## 96 stations x 4 headings of frames, behind a black cover that
+## `_hide_non_lux_canvas` hides. Shooting during it photographs a 160 x 90
+## render stretched to the window. MEASURED 2026-09-29 on cold run 9113's walk
+## copy: a probe 60 frames in read `scaling_3d_scale=0.100`, and the store's
+## window neon -- 2-3 px strokes when rendered alone at full scale -- came out
+## as broken dashes in every shot. Every look_shots frame of a package
+## exported since 2026-09-21 was at risk. So: wait for any running warm-up to
+## finish before placing the camera, and refuse to measure if it does not.
+const WARMUP_MAX_FRAMES := 5000
+
 var _out_dir: String = ""
 var _shots: Array = []
 var _hidden_layers: Array = []
@@ -67,6 +79,11 @@ func _ready() -> void:
 	if scene == null:
 		_emit({"error": "current_scene is null"})
 		return
+	var warm := await _await_warmups(scene)
+	if warm.has("error"):
+		_emit(warm)
+		return
+	_notes.append("warm-up: " + JSON.stringify(warm))
 	if _out_dir == "":
 		_emit({"error": "look_shots/out_dir was not set by the driver"})
 		return
@@ -117,7 +134,11 @@ func _ready() -> void:
 				gpu.append(RenderingServer.viewport_get_measured_render_time_gpu(vp_rid))
 		_gpu_ms = _median(gpu)
 		_gpu_samples = gpu.size()
-		_shots.append(_capture(String(d["name"]), d))
+		var shot: Dictionary = _capture(String(d["name"]), d)
+		# the state the frame was drawn in, beside the frame
+		shot["scaling_3d_scale"] = get_viewport().scaling_3d_scale
+		shot["occlusion_culling"] = get_viewport().use_occlusion_culling
+		_shots.append(shot)
 
 	# Both, deliberately. rendering_method is what the PROJECT asks for and is
 	# what a reader assumes they got; the API version is what the process
@@ -136,6 +157,40 @@ func _ready() -> void:
 		"notes": _notes,
 		"shots": _shots,
 	})
+
+
+## Wait for every node carrying `warmup_finished` whose sweep is running.
+## Returns a note -- {"warmup": nodes found, "waited_frames": n} -- or
+## {"error": ...} when one is still running after WARMUP_MAX_FRAMES. A node
+## that exposes the signal but no `_running` is reported, not waited on: an
+## unrecognised shape says so rather than passing.
+func _await_warmups(scene: Node) -> Dictionary:
+	var found: Array = []
+	var waited := 0
+	var unknown: Array = []
+	# The warm-up nodes FIRST, then the waiting: a warm-up frees its own
+	# camera and cover when it ends, so a list of every node taken before the
+	# wait holds freed instances after it (measured: "Cannot call method
+	# 'has_signal' on a previously freed instance", and the note came back {}).
+	var warms: Array = []
+	for n in scene.find_children("*", "", true, false):
+		if n.has_signal(&"warmup_finished"):
+			warms.append(n)
+	for n in warms:
+		if not is_instance_valid(n):
+			continue
+		found.append(String(n.get_path()))
+		if not (&"_running" in n):
+			unknown.append(String(n.get_path()))
+			continue
+		while bool(n.get(&"_running")) and waited < WARMUP_MAX_FRAMES:
+			await get_tree().process_frame
+			waited += 1
+		if bool(n.get(&"_running")):
+			return {"error": "warm-up at %s still running after %d frames; nothing measured" % [
+				String(n.get_path()), waited]}
+	return {"warmup": found, "waited_frames": waited, "warmup_state_unreadable": unknown,
+		"scaling_3d_scale_after": get_viewport().scaling_3d_scale}
 
 
 func _emit(report: Dictionary) -> void:
