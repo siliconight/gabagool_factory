@@ -1,6 +1,6 @@
 # Poster guides -- what they are for here
 
-Three guides the walker supplied on 2026-09-29, and three more on 2026-09-30,
+Three guides the walker supplied on 2026-09-29, and four more on 2026-09-30,
 kept verbatim beside this file.
 The walker asked that posters fill walls in four places -- strip club
 interiors, bar interiors, exterior alley walls and utility poles, and store
@@ -15,6 +15,7 @@ do not override a look the walker already likes.
 | `Lewd_Poster_Art_Direction_Guide.md` | The copy and tone by location: club (brash faux glamour), bar (cheap photocopied gig bills), alley (layered, torn handbills); setup, double meaning, deflating turn |
 | `Poster_Atlas_Art_Direction_Feedback.md` | A review of Zoo 1.30.0's atlas: one recipe a family read as generated. A layout library (centred, diagonal, off-centre, split, collage), a specific focal image drawn by hand, an eye path, one hand-made flaw, and a material cue per location |
 | `Drawing_Humans_and_Humanlike_Figures_for_Poster_Art.md` | The figure: a pose brief (who, doing what, felt how, read first), gesture before anatomy, masses that turn, the black-silhouette test and its negative spaces, a 3-5 value plan with thicker darks in creases and lit edges let go, and controlled pose variation so figures do not look "stamped from one mold" |
+| `Drawing_Clothing_Layers_on_the_Figure.md` | Clothing: dress the pose, not a template; decide each garment's fit and how it attaches; a bikini's top and bottom as separate constructed pieces with bands, straps and seams; folds only where a force explains them; layer order shown at every overlap |
 | `Poster_Typography_Legibility_Guide.md` | Type: the fix order (words, hierarchy, size, spacing, contrast, then a plate or effect), one display face a family, and "do not solve every fit problem by shrinking the type" |
 
 ## The three tests, which are the useful part
@@ -101,5 +102,10 @@ suggestive ceiling (Duke Nukem 3D's club dancer, 1996) and their direction
   Two headlines were rewritten instead (the guide's first fix is the words):
   CHAMPAGNE ROOM became BUBBLY ROOM and SHOWGIRLS became SHOW GIRLS.
 - **One display face:** monogram italic, the walker's pick from all eight.
+- **Zoo 1.32.0, by the figure and clothing guides:** three poses chosen by
+  headline (hand behind the head, the pole lean, hands on hips), each keeping
+  the silhouette gaps it declares -- measured, where 1.31.0's one pose merged
+  its elbow into its waist and its legs into one column; waist and thigh
+  curves, a little cleavage, and the swimsuit built with cups, straps and ties.
 - **All 72 club sheets pass the three tests** at unchanged thresholds. Bar,
   alley and store are still the 1.30.0 recipe.
