@@ -37,6 +37,8 @@ re-runs. The routing table, for deciding where a change belongs:
 |--------------------------------------------------------------|-----------------|
 | floor plans, rooms, storeys, stairs, openings, which rooms get which light anchors | `deli_counter` |
 | structural kit modules, dressing props, light-fixture hardware (species) | `zoo` |
+| wall posters and flat printed art: the copy, the art, `poster_checks` (see `docs/reference/POSTER_GUIDES.md`) | `zoo` |
+| where posters hang: which rooms and walls get a poster run    | `deli_counter` (buildings), `lot` (alleys, poles) |
 | themed surface looks (skin packs)                            | `pixelcoat`     |
 | cross-shell cohesion passes, the dressing manifest           | `patina`        |
 | site assembly: building placement, routes, cover, spawns     | `lot`           |
