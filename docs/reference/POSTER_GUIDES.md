@@ -1,6 +1,6 @@
 # Poster guides -- what they are for here
 
-Three guides the walker supplied on 2026-09-29, and four more on 2026-09-30,
+Three guides the walker supplied on 2026-09-29, and five more on 2026-09-30,
 kept verbatim beside this file.
 The walker asked that posters fill walls in four places -- strip club
 interiors, bar interiors, exterior alley walls and utility poles, and store
@@ -16,6 +16,7 @@ do not override a look the walker already likes.
 | `Poster_Atlas_Art_Direction_Feedback.md` | A review of Zoo 1.30.0's atlas: one recipe a family read as generated. A layout library (centred, diagonal, off-centre, split, collage), a specific focal image drawn by hand, an eye path, one hand-made flaw, and a material cue per location |
 | `Drawing_Humans_and_Humanlike_Figures_for_Poster_Art.md` | The figure: a pose brief (who, doing what, felt how, read first), gesture before anatomy, masses that turn, the black-silhouette test and its negative spaces, a 3-5 value plan with thicker darks in creases and lit edges let go, and controlled pose variation so figures do not look "stamped from one mold" |
 | `Drawing_Clothing_Layers_on_the_Figure.md` | Clothing: dress the pose, not a template; decide each garment's fit and how it attaches; a bikini's top and bottom as separate constructed pieces with bands, straps and seams; folds only where a force explains them; layer order shown at every overlap |
+| `Placing_Posters_in_a_Fictional_Game_Town.md` | Placement: every poster has a reason (who put it up, for whom, why this surface, how long ago); placement zones per building type; one focal sheet with supporting pieces; varied heights, sizes and attachment within authored ranges; age that follows exposure; keep doors, windows and gameplay cues clear |
 | `Poster_Typography_Legibility_Guide.md` | Type: the fix order (words, hierarchy, size, spacing, contrast, then a plate or effect), one display face a family, and "do not solve every fit problem by shrinking the type" |
 
 ## The three tests, which are the useful part
@@ -109,3 +110,20 @@ suggestive ceiling (Duke Nukem 3D's club dancer, 1996) and their direction
   curves, a little cleavage, and the swimsuit built with cups, straps and ties.
 - **All 72 club sheets pass the three tests** at unchanged thresholds. Bar,
   alley and store are still the 1.30.0 recipe.
+
+## Placement against the placement guide (2026-09-30)
+
+Deli Counter 0.163.0 and Lot 0.84.0-0.85.0 place runs; measured against the
+placement guide, what holds and what does not yet:
+
+- Holds: posters stay off doors and windows (openings are subtracted); store
+  runs stay off the glass; no room repeats a run; runs are one physical,
+  opaque, wall-aligned mesh; the club's blacklight is a stated choice, not a
+  screen by accident; pole bills take the face the night light reaches.
+- Does not yet: every run is centred at one height (1.6 m, the camera's eye)
+  -- the guide's "repeated perfect centerline" tell; outdoor runs sit in the
+  middle of free wall, not beside a service door as a known posting spot;
+  every sheet in a family is one size (no hero and supporting sizes, no
+  tear-off or half sheet); a pole carries one sheet, not a loose stack; no
+  store window posters facing the street; age and wear do not follow
+  exposure.
