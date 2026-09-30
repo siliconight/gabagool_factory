@@ -1,6 +1,7 @@
 # Poster guides -- what they are for here
 
-Three guides the walker supplied on 2026-09-29, kept verbatim beside this file.
+Three guides the walker supplied on 2026-09-29, and three more on 2026-09-30,
+kept verbatim beside this file.
 The walker asked that posters fill walls in four places -- strip club
 interiors, bar interiors, exterior alley walls and utility poles, and store
 windows and walls -- and that these guides raise poster quality across the
@@ -12,6 +13,9 @@ do not override a look the walker already likes.
 | `Making_Strong_2D_Poster_Art_With_Procedural_Tools.md` | The art: hierarchy, three-value blocking, silhouette, directional composition, limited inks, one purposeful imperfection -- and the three tests below |
 | `Procedural_Poster_Art_Guide_Blender_Godot_4_7.md` | The system: families with fixed layout rules, a seed that picks only among approved options, viewing bands, atlases, review at play distance |
 | `Lewd_Poster_Art_Direction_Guide.md` | The copy and tone by location: club (brash faux glamour), bar (cheap photocopied gig bills), alley (layered, torn handbills); setup, double meaning, deflating turn |
+| `Poster_Atlas_Art_Direction_Feedback.md` | A review of Zoo 1.30.0's atlas: one recipe a family read as generated. A layout library (centred, diagonal, off-centre, split, collage), a specific focal image drawn by hand, an eye path, one hand-made flaw, and a material cue per location |
+| `Drawing_Humans_and_Humanlike_Figures_for_Poster_Art.md` | The figure: a pose brief (who, doing what, felt how, read first), gesture before anatomy, masses that turn, the black-silhouette test and its negative spaces, a 3-5 value plan with thicker darks in creases and lit edges let go, and controlled pose variation so figures do not look "stamped from one mold" |
+| `Poster_Typography_Legibility_Guide.md` | Type: the fix order (words, hierarchy, size, spacing, contrast, then a plate or effect), one display face a family, and "do not solve every fit problem by shrinking the type" |
 
 ## The three tests, which are the useful part
 
@@ -80,3 +84,22 @@ and 3 m. Against the guides' checks:
 | Title reads at play distance | about 6 cm capitals; unreadable at 5 m | fail |
 | Print character with a cause | flat fills; no paper, ink offset, halftone or wear | fail |
 | Cheap to repeat | one texture and one art material per poster, each atlas padded to 256 px wide | fail |
+
+## The club family redrawn, 2026-09-30 (Zoo 1.31.0)
+
+Against the feedback and the typography guide, with the walker's comp for the
+suggestive ceiling (Duke Nukem 3D's club dancer, 1996) and their direction
+"using whites and blacks for depth is essential":
+
+- **A figure drawn, not generated:** `zoo_keeper/core/pixel_figure.py`, an
+  authored contrapposto pose (eight heads, three masses, the Loomis framework
+  first), shaded from the upper left into five values with a near-black and a
+  near-white, outlined. Swimwear and a pose, no more.
+- **Three layouts, chosen by whether the title fits them:** a lit marquee
+  (centred), a stepped diagonal, an off-centre gold strip. A layout that cannot
+  set the whole headline at display size is not that sheet's; nothing shrinks.
+  Two headlines were rewritten instead (the guide's first fix is the words):
+  CHAMPAGNE ROOM became BUBBLY ROOM and SHOWGIRLS became SHOW GIRLS.
+- **One display face:** monogram italic, the walker's pick from all eight.
+- **All 72 club sheets pass the three tests** at unchanged thresholds. Bar,
+  alley and store are still the 1.30.0 recipe.
