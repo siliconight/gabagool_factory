@@ -100,3 +100,14 @@ figure compares only to one measured beside it; the 61 is not explained.
    (the storey-0 exterior ones), all clear before and after, no building
    walled in, and the same one warning (b0, the strip club: no authored path
    to a clear entry) in both.
+
+## After the run: the blacklight probe (Zoo 1.33.0)
+
+The walker chose "blacklight treatment for the club posters" ("if it looks
+bad, no light is also ok"). Probed before shipping, outside the clock: the six
+club modules this run used were rebuilt under their exact stems with the
+working tree's Zoo (a backlit `_Face` material, emission 0.6, same atlases),
+swapped into a copy of this run's walk scene, re-imported, and shot at the same
+stations (`blacklight_probe.png`, paper left, blacklight right). Poster band at
+2 m: max 92-127 -> 237-247, p95 29-58 -> 131-192, p5 unchanged (0-5). It
+shipped as Zoo 1.33.0; the next cold run is the first to carry it.
