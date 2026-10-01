@@ -47,3 +47,9 @@ not established (a shadowed light's coverage moving is one candidate) and is
 not asserted. The harness prints the over-cap count but not which meshes, and
 its JSON does not keep either, so the one mesh that crossed the cap is not
 named here.
+
+CORRECTED after the fact: the JSON did keep the COUNT and the single worst
+mesh's name (`rows[].light_census`; the search above looked only at the top
+level) -- what it did not keep was the list of meshes over the cap. Level
+Factory 0.125.0 records that list; its first run, on cold run 9127's
+package, puts the gas station's forecourt pad first at 39 lights.
