@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "club_block_014",
+ "display_name": "Club Block XIV",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "night",
+ "weather": "clear",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9087. Same brief, same seed, same night-and-clear. ONE FIELD of one preset: Delco Night's moon, 0.15 -> 0.75. WHY. 9086 put the moon in and measured it as doing nothing -- black moved about a point per station and the median pixel stayed at zero (forecourt 83.1 -> 82.3, under_canopy 76.4 -> 76.7, street_pool 84.8 -> 83.0). The reasoning behind 0.15, 'about a quarter of the ambient, which shapes rather than lights', produced a light that did neither. The walker, from the frame: 'lets try your moon x5'. AND 9086'S FIRST CHECK COULD NOT SEE THE MOON AT ALL. It grepped lux.applied.tscn for DirectionalLight3D and read 0, which was reported as the moon failing to appear. The sun is created AT RUNTIME by LuxRoot from the preset and has never been in that file -- the same grep reads 0 for Blue Hour, whose 0.9-energy sun visibly casts long shadows. A probe of the running scene finds one. That check returned the same answer in three states that differ, and had also been used to report 9084's sun-off preset as PASSING. It is replaced this run by a runtime probe of the walk copy. THE CHECKS. Vacuity as before. Falsification: (1) a RUNTIME probe must find exactly one DirectionalLight3D and its energy must read 0.75 -- grepping the baked scene is the broken check and is not used; (2) the local light energies must be unchanged (canopy 29.5, streetlight 19.8, club wash 7.1/9.1) or this run moved more than one field; (3) the histogram must move off 9086's 82.3/76.7/83.0% black with p50 at 0.0031/0.0039/0.0000; (4) no ENERGY_CEILING bind. WHAT THIS RUN CANNOT REACH, and it is worth stating because the walker's last frame was one: INTERIORS. A directional moon does not go indoors, and the deli read as unnavigable black. Its lights are fluorescents at a flat energy of 1.0 -- the same flat-constant shape the streetlight's old 6.0 had -- and office_floor_value is literally defined as what one of them puts on a floor: 0.057 at a 3.2 m ceiling, a twelfth of a club wash. That is the next one-variable change and it is deliberately not in this run.",
+ "crew_size": 4
+}
