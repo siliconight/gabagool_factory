@@ -888,6 +888,60 @@ every two stations; the hood warmers stay empty).
 Not built, and each would cost a draw call: the printed decaf lettering on
 the glass (a textured glass material), and the brewer's lit lamps.
 
+## The walker's video store references (2026-10-02)
+
+Nine photographs, sent in two batches after cold run 9132 put the first
+MACDADE MOVIES in a level -- built "from the era" with no references, all
+boxes faced out on grey steel under printed genre boards. The photographs are
+two kinds of store and the walker sent both, so the store is both.
+
+**The cult store** (five photographs: two from a mezzanine over the floor,
+three at shelf height).
+
+- **Spines out, packed tight.** Shelves are dense rows of tape SPINES, top
+  edges uneven, a tape leaning or lying flat here and there. From the
+  mezzanine a whole aisle reads as stripes of small coloured ticks. Faced-out
+  boxes are the exception: one wall of them, leaning back on tilted shelves,
+  each with a round price sticker.
+- **Painted shelving in bold colours.** Whole units painted one colour --
+  purple, green, blue, black -- uprights, shelves and all. Not steel.
+- **Tall aisles.** The floor units are full-height double-sided shelving in
+  long rows: corridors, with nothing to see over.
+- **Section words.** Hand-cut letters standing on top of a unit ("WAR"), a
+  word on a dark board over the shelf ("CHOP!"), a word in pink letters
+  along a unit's head; yellow signs on the aisle ends ("DIRECTORS",
+  "FOREIGN"); a yellow hand-painted board hung from the ceiling listing
+  sections over a row of black arrows ("... ZOMBIES + MORE!").
+- **Shelf tags.** Small yellow and orange labels along the shelf edges,
+  and vertical yellow section strips on the uprights.
+- **The room.** Teal walls and a teal door with a lit EXIT sign over it and
+  a hand-written notice on it, a painted movie one-sheet on the door, a pair
+  of orange velvet armchairs in a corner, grey carpet, a fluorescent troffer.
+
+**The chain store** (four photographs).
+
+- **The new-release wall.** Boxes faced out in neat rows on wire racks, the
+  same title several facings wide, under large cut-out letters fixed to the
+  wall above ("new release").
+- **The counter.** A long counter whose front is the store's colours in
+  panels, a large sign in those colours overhead, registers, stacks of
+  returned tapes on the top, a small shelf of faced-out boxes behind it; a
+  novelty freezer and a wet-floor stand beside it.
+- **The floor.** Rows of faced-out racks with a small section tag on top of
+  each ("ACTION", "TELEVISION"), walls in the store's colour.
+
+**What it changes.** Spines are the stock and faced-out is the display wall;
+the units are painted; the islands are tall; the section words are lettered,
+not printed boards; the shelves carry tags. **What it must not copy:** every
+name, title and sign in these photographs is real, and the chain's
+blue-and-yellow ticket is trade dress -- the format, the density and the
+colour of a painted unit are the reference; MACDADE MOVIES keeps its own
+name, its own colours and its invented titles.
+
+**Not yet built from these:** teal walls (a surface), the movie one-sheet (a
+poster family of invented films), the ceiling board with arrows, the EXIT
+sign, the counter's overhead sign, the freezer.
+
 ## What the references do not settle
 
 None of them give a number for density, cluster size or contact darkening.
