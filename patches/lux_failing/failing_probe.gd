@@ -98,6 +98,7 @@ func _run() -> void:
 	var drops: int = 0
 	var was_low: bool = false
 	var frames: int = 0
+	var base_e: float = 1.0
 	var bright: Image = null
 	var dim: Image = null
 	var pole_min: float = 1e9
@@ -109,8 +110,11 @@ func _run() -> void:
 		var e: float = lamp.light_energy
 		var em: float = (lens[2] as BaseMaterial3D).emission_energy_multiplier
 		if frames == 1:
+			base_e = e
 			print("FAIL tube base energy=", e, " lens base emission=", float(lens[3]))
-		var low: bool = e < 0.9 * (tube.get("rig") as LuxLightRig).energy
+		# against the lamp's own first-frame energy: the rig's `energy` is scaled
+		# by the preset before it reaches the lamp (2.2 became 6.0 here)
+		var low: bool = e < 0.9 * base_e
 		if low and not was_low:
 			drops += 1
 			if dim == null:

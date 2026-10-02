@@ -28,13 +28,16 @@ WHAT THIS DOES:
     0; the every-third streetlight that buzzed now CYCLES.
 
 COST: a script tick a FAILING fixture (a handful a level) where every rig
-ticked before; one draw a failing fixture for its own lens material.
+ticked before. No draws: a lens surface is one draw whatever material it
+wears, so its override adds none -- measured on run 9137's package, 53
+views, draw counts identical to the view (see the 0.62.0 changelog).
 
     python patch_lux_failing_fixtures.py
     LUX_ROOT=<copy> python patch_lux_failing_fixtures.py
 
 Every edit asserts its anchor once and refuses to write on a miss. The new
-file is written beside the edits.
+files (`runtime/lux_failing.gd`, `tools/failing_fixtures_selftest.gd`) are
+copied from `lux_failing/` beside this script.
 """
 from __future__ import annotations
 
@@ -102,7 +105,10 @@ var _lenses: Array = []
 	if root != null:
 		for l in _lights:
 			root.register_lux_light(l)
-	_bind_lenses()
+	# DEFERRED, not now: the spawner places a rig AFTER add_child, so at
+	# ready its lamps still sit at the container's origin and the nearest
+	# lens is nowhere (measured: 0 of 9 tubes bound on the first probe)
+	_bind_lenses.call_deferred()
 	set_process(rig != null and rig.bake_mode != 1
 		and (rig.flicker_amount > 0.0 or rig.failing_kind != LuxFailing.NONE))
 
@@ -183,7 +189,7 @@ func _rebuild() -> void:
 	if root != null:
 		for l in _lights:
 			root.register_lux_light(l)
-	_bind_lenses()
+	_bind_lenses.call_deferred()        # after the spawner has placed the rig
 	if rig != null and rig.failing_kind != LuxFailing.NONE and rig.bake_mode != 1:
 		set_process(true)
 
@@ -346,7 +352,9 @@ def main():
     _edit("addons/lux/runtime/lux_light_loader.gd", LOADER)
     _edit("addons/lux/runtime/lux_fixture_spawner.gd", SPAWNER)
     _edit("addons/lux/runtime/lux_root.gd", ROOT)
-    assert (LUX / "addons/lux/runtime/lux_failing.gd").exists(), "write runtime/lux_failing.gd first"
+    for src, dst in (("lux_failing.gd", "addons/lux/runtime/lux_failing.gd"),
+                     ("failing_fixtures_selftest.gd", "tools/failing_fixtures_selftest.gd")):
+        (LUX / dst).write_bytes((HERE / "lux_failing" / src).read_bytes())
     (LUX / "VERSION").write_bytes(b"Lux 0.62.0")
     print("0.61.0 -> 0.62.0 (changelog is written separately)")
 

@@ -1,17 +1,19 @@
-# Failing fixtures (Lux 0.62.0) -- paused mid-build, 2026-10-02
+# Failing fixtures (Lux 0.62.0) -- shipped, 2026-10-02
 
-The walker asked for a safe pausing point. The Lux working tree was
-REVERTED to 0.61.0 so a cold run can begin clean; everything built is here.
+Picked back up from the pause the same day. The Lux working tree carries
+0.62.0; `patch_lux_failing_fixtures.py` (one level up) applies every edit to
+a clean 0.61.0 and copies the two new files from here.
 
 ## What is here
-- `patch_lux_failing_fixtures.py` (one level up): every edit to Lux, anchored.
-  It expects `lux_failing.gd` at `lux/addons/lux/runtime/` first -- copy
-  `lux_failing/lux_failing.gd` there, then run the patch.
 - `lux_failing.gd`: the model (STUTTER, CYCLING, WAVER) and `find_lens`.
-- `failing_probe.gd`: the scratch probe. Copy a walk export, drop the new
-  Lux scripts into its `runtime/lux/` with `res://addons/lux/` rewritten to
-  `res://runtime/lux/`, put this at the copy's root, delete `.godot`, import
-  headless, run windowed with `--script`.
+  Installed at `lux/addons/lux/runtime/lux_failing.gd`.
+- `failing_fixtures_selftest.gd`: 55 checks; installed at
+  `lux/tools/failing_fixtures_selftest.gd`. Dies on 0.61.0.
+- `failing_probe.gd`: the scratch probe that produced the measurements in
+  `docs/findings/failing_fixtures/NOTES.md`. Copy a walk export, drop the
+  new Lux scripts into its `runtime/lux/` with `res://addons/lux/` rewritten
+  to `res://runtime/lux/`, put this at the copy's root, delete `.godot`,
+  import headless, run windowed with `--script`.
 
 ## The design the walker approved
 One failing fixture an anchor (a ceiling row is a room's): a fluorescent
@@ -20,26 +22,19 @@ sits dark, restrikes). Everything else steady -- the loader's always-on
 12 % / 9 Hz wobble on every row goes to 0. A failing rig moves its lamps
 AND the nearest lit face to each lamp, on that face's own material override.
 
-## What the first probe run said (scratch copy of run 9137's walk export)
-    FAIL respawn: Spawned 64 fixture light(s) from 64 marker(s)
-    FAIL rigs=146 failing=12 kinds={ 1: 9, 3: 3 }
-    FAIL lenses bound=0
-    FAIL tube=false pole=true pole lenses=1
+## What was wrong at the pause, and what it was
+The fluorescent rigs bound no lens. Not the mount height: the spawner places
+a rig AFTER `add_child`, so a bind at `_ready` searched from the container's
+origin. Deferred, 12 of 12 bind. The probe's drop counter then compared the
+lamp with the unscaled rig energy and could not fire; it compares with the
+lamp's first frame now.
 
-The spawner's choice works: 9 stuttering tubes and 3 wavering bulbs across
-the lot, one an anchor. THE FLUORESCENT RIGS BOUND NO LENS, so a tube's
-light would move while its diffuser stayed lit -- the exact failure the
-design exists to avoid -- and the probe stopped there by design (it refuses
-to watch a tube with no lens). The pole bound its lens (the same code),
-so the difference is in where the fluorescent lamp sits relative to its
-diffuser: `FLUORESCENT_MOUNT` hangs the lamp below the anchor, and
-`find_lens` looks within 1.5 m of the LAMP. First thing to check: the
-distance from a spawned fluorescent lamp to its own diffuser's box, and
-whether the import merged the diffusers into one mesh (then the override
-would dim every tube in the building and the bind must be per-surface of a
-per-fixture mesh, or refused).
+## Done
+- The watch: 24 s, 10 drops, the lens following; frames bright and dim.
+- The perf A/B with a control: draws identical in 53 views, frame time
+  within the instrument's spread. Lux CHANGELOG 0.62.0.
+- The selftest, and the existing eight pass unchanged.
 
-## Not done
-- The lens bind for fluorescents (above).
-- The watch: energy and lens traces, a bright and a dim frame, drop counts.
-- The perf A/B with a control pass; Lux CHANGELOG; the cold run.
+## Next
+Cold run 9138 on gas_block_001 (the first package with this Lux), priced
+against 9137, with in-level frames of a stuttering tube and a cycling pole.
