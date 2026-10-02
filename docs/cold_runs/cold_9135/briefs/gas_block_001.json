@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "gas_block_001",
+ "display_name": "Gas Block I",
+ "archetype": "gas_station",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "night",
+ "weather": "clear",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9135. The real look, trialled (Zoo 1.46.0): the video poker, the ATM and the registers rebuilt with smooth type, painted shading and broken corners. A gas_station-anchored brief, so the lot holds an ATM, a poker cabinet and a service counter with its tills whatever the library's size does to the other two buildings. VACUITY: the selected candidate's lot must contain a gas station. The candidate is picked on merit: nav walktest ok and no major Laser Tag route or pathing finding.",
+ "crew_size": 4
+}
