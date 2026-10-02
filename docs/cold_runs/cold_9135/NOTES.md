@@ -44,6 +44,14 @@ in one room for the first time.
 
 ## Priced (`perf_9135.json`)
 
+**RETRACTED AS A FRAME-TIME FIGURE, 2026-10-02, kept above what replaced
+it.** The table below was not measured on an idle machine. The same lot at
+the same draw counts reads 9.3 to 9.7 ms at `highest_vantage` yaw 90 (16.70
+here) and 7.8 to 8.1 ms at `longest_sightline` yaw 90 (14.39 here) in four
+passes with nothing else running: `docs/findings/real_look_trial/
+AB_IN_LEVEL.md`. The DRAW counts below hold; the milliseconds and "6 of 14
+over" do not.
+
 The fixed-station harness on a fresh copy of the package, GL Compatibility.
 Budget 2000 draws and 11.0 ms p95 (provisional). 6 of 14 stations over:
 
