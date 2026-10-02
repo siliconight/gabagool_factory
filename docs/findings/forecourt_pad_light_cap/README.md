@@ -1,6 +1,7 @@
 # The forecourt pad and the 8-light cap -- measured 2026-10-02
 
-**The lead** (cold run 9126's light census, Level Factory 0.125.0): the gas
+**The lead** (the perf harness's light census, Level Factory 0.125.0; the
+same 39 in cold run 9130's report): the gas
 station's `forecourt_pad` is ONE mesh, 46 x 46 m, and 39 lights reach it by
 range against GL Compatibility's `max_lights_per_object` of 8. The census
 counts reach; it does not say whether the 31 lights over the cap would have
