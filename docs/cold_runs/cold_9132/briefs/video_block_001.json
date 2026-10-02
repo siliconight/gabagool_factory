@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "video_block_001",
+ "display_name": "Video Block I",
+ "archetype": "video_store",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "night",
+ "weather": "clear",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9132. The first level with a video rental store in it: Deli Counter 0.171.0's `video_store` preset (MACDADE MOVIES, the walker's name), Zoo 1.43.0's tape racks, Level Factory 0.126.0's alias. Night and clear, three buildings, the brief's archetype anchoring one of them to the video store. VACUITY: the selected candidate's lot must contain video_store_a01, or the run measured nothing about it.",
+ "crew_size": 4
+}
