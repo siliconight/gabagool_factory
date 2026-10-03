@@ -8,7 +8,7 @@ roller grill, and i want some motion on the slurpee stuff too".
 **Status.** Steps 1 and 2 SHIPPED as Zoo 1.55.0 and Level Factory 0.129.0
 (`docs/findings/moving_parts/NOTES.md` has the frames and the price).
 Steps 3 and 4 (the wind: trees and flyers; pennants, banners, hangers) are
-not started. One lesson from step 1 belongs here because step 3 will meet
+not started; their design is `WIND_DESIGN.md` beside this file. One lesson from step 1 belongs here because step 3 will meet
 it: a pivot written into the vertex data at build time is stale by
 whatever moves the vertices afterwards -- Zoo re-centres every module --
 so the layer rides with the vertices and is converted to the engine's axes
