@@ -101,6 +101,18 @@ SIDES, from a camera on the cylinder's axis; a clean cylinder with the lamp
 exactly on its cap lit the ground fully (0.742) and refuted it before it
 reached a constant.
 
+## RETRACTED IN PART (2026-10-03, later): the 0.64.0 placement put the lamp inside the pole
+
+The diagnosis below stands: the shadowed poles were dark because the shaft's
+cap filled their shadow frustum. The fix did not. Hanging the lamp 0.10 m
+below the mount put it 9.5 cm inside the steel shaft, whose cap is only 5 mm
+under the mount. A shadow map culls the shaft's inside faces, so the walk
+showed every pool and the walker confirmed it. The light bake ray-traces,
+and baked those poles to nothing (`docs/findings/light_bake/NOTES.md`). Lux
+0.65.0 puts the lamp beside the pole: 0.2 m along the head, 1 cm under the
+lens. What was missed: the hang was measured only as "does the pool come
+back", never as "where is the lamp relative to the solid it hangs in".
+
 ## The fix (Lux 0.64.0, `patches/patch_lux_streetlight_hang.py`)
 
 `LuxStreetlightRig.LAMP_HANG_M` (0.10): the lamp hangs that far below the
