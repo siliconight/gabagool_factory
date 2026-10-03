@@ -64,7 +64,10 @@ builds buildings by rule. What transfers is the RULES, not the hands.
    upper storey, a backdrop shell) carries dark vertex colour on its inside
    faces, so an opening reads as depth and not as the greybox behind glass.
    This is also the backdrop guide's "windows suggest occupancy without a
-   bright grid".
+   bright grid". THE WALKER'S CALL, 2026-10-03: this goes to the EMPTIES
+   (roadmap item 106, the non-enterable shells), which no level has placed
+   yet -- the wiring is first, then see-through windows over a dark shell
+   in place of today's opaque `glass_facade` pane.
 4. **A vocabulary of neglect, for the buildings the brief says are
    neglected.** Boarded windows with janky planks, a sagging awning, a plank
    patch over a hole: Zoo species, each board its own few degrees off,

@@ -2,7 +2,13 @@
 
 Steps 3 and 4 of `MOVING_PARTS_DESIGN.md` (small things that move), after
 steps 1 and 2 shipped as Zoo 1.55.0 / Level Factory 0.129.0. Shown before
-anything is built. Nothing here is implemented.
+anything was built; the walker: "start with the crowns".
+
+**Status.** Step 3a (the crowns) SHIPPED as Zoo 1.56.0 and Level Factory
+0.130.0 (`docs/findings/wind/NOTES.md`: invisible at rest within 15 pixels
+of 746,496; the lean shown in a storm frame; draws identical in 53 views).
+Steps 3b and 4 are not started. The amplitudes below are the shipped
+starting values; the walker's eye on the frames sets them.
 
 ## What is in the level, read off cold run 9139's package
 
