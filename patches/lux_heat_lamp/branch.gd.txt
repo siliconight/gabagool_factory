@@ -1,0 +1,18 @@
+		"heat_lamp":
+			var hl := LuxFluorescentRig.new()
+			hl.name = String(a.get("id", "heat_lamp"))
+			var rhl := LuxLightRig.new()
+			rhl.rig_name = &"Heat Lamp (infrared)"
+			rhl.light_color = LuxColorTemp.kelvin(HEAT_LAMP_KELVIN)
+			rhl.energy = FLUORESCENT_ENERGY * HEAT_LAMP_LEVEL
+			rhl.light_range = HEAT_LAMP_RANGE_M
+			rhl.attenuation = HEAT_LAMP_ATTENUATION
+			rhl.preset_scaled = false
+			rhl.count = 1
+			rhl.spacing = 0.0
+			rhl.mount_height = 0.0
+			rhl.flicker_amount = 0.0
+			# no `_make_downlight`: an omni, so the buns above the shelf and the
+			# dogs below it both see it
+			hl.rig = rhl
+			return hl
