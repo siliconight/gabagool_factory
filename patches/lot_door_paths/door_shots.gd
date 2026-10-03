@@ -8,6 +8,8 @@ const SHOTS: Array = [
 	["bank_above", Vector3(57.0, 9.0, 17.0), Vector3(55.0, 0.0, 6.0)],
 	["station_above", Vector3(-60.0, 10.0, 16.0), Vector3(-61.0, 0.0, 2.0)],
 	["between_above", Vector3(-38.0, 22.0, 14.0), Vector3(-38.0, 0.0, -5.0)],
+	["walker_between", Vector3(-32.6, 1.7, 14.5), Vector3(-40.0, 0.5, 0.0)],
+	["walker_bank_west", Vector3(42.3, 1.6, -26.7), Vector3(43.0, 0.5, -10.0)],
 ]
 
 

@@ -33,7 +33,10 @@ def run(spec_p, gp_p, verbose):
     after_spec = copy.deepcopy(spec)
     findings = site_paths.snap_to_doors(after_spec, merged)
     moved, ends, snapped = [], 0, 0
-    for i, (p0, p1) in enumerate(zip(spec.get("paths", []), after_spec.get("paths", []))):
+    # 0.89.0 inserts a walk's further legs after its record; compare the
+    # authored records only
+    authored_after = [p for p in after_spec.get("paths", []) if "leg_of" not in p]
+    for i, (p0, p1) in enumerate(zip(spec.get("paths", []), authored_after)):
         a0, b0 = before[i]
         a1, b1 = site_paths.endpoints_or_none(p1, bld)
         if a0 is None:
