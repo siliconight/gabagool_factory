@@ -470,3 +470,15 @@ merely when viewed from a convenient camera position.
 - Background loading — Godot Docs
 - Optimizing 3D performance — Godot Engine (4.3) documentation
 - Using MultiMeshes — Godot Docs
+
+## Reference
+
+`docs/reference/Godot_4_7_Runtime_Optimization_Guide.md` (the walker, 2026-10-03): the
+runtime side of this contract in Godot 4.7's own terms -- the A/B protocol with
+its verification record (section 4), the symptom-to-experiment table (5), twenty
+techniques each with a mechanism, an experiment and a trap (6), the asset
+handoff contract (7), the requirements on a procedural generator (9) and the
+review-rejection table (12). Labelled by its own evidence boundary: documented,
+project prescription, or verified in project. The nine scenarios above and
+the harness's same-session control are this repo's reading of its section 4;
+its verification record is the shape a cold run's perf note should grow into.
