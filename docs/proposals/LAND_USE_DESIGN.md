@@ -94,6 +94,27 @@ is one material and its repeats (stripes, wheel stops, weeds) are
 MultiMesh per field, so the draw cost is a handful per lot, priced on the
 harness before it ships (`docs/PERFORMANCE_CONTRACT.md`).
 
+**4, as it will be built (Lot 0.93.0, `site_lots.py`, after the dumpsters
+and before the cover planner).** Two uses first, each from a standard:
+
+- SERVICE PAD under each dumpster: a concrete pad the size of a dumpster
+  enclosure (about 12 x 10 ft, 3.7 x 3.0 m) with a 3 m apron in front where
+  the truck's forks reach. A new slab family, `yard`, skinned with the
+  walks' concrete pack, so it needs no new art.
+- PARKING FIELD in a gap between buildings along the through road, when the
+  gap holds one: a two-way drive aisle (24 ft, 7.3 m) running in from the
+  road, 90-degree bays (9 x 18 ft, 2.7 x 5.5 m) both sides of it, so a field
+  is 18.3 m wide and as deep as its bays. Painted bay lines from the
+  markings Lot already draws; cars from `site_parking`'s fleet at its
+  occupancy hash, as cover pieces; the field's slab a `parking` family on
+  the asphalt pack. The aisle meets the street through a dropped kerb with
+  no crosswalk and no crossing furniture -- a new crosser kind, `driveway`,
+  in `site_streets.kerb_crossings`, because a driveway is not a crossing.
+
+Measured by the census: remainder share and largest remainder piece, before
+and after, on the same briefs and seeds; priced on the harness (one
+material per use; stripes and cars are the cost to watch).
+
 **5. The brief says what kind of place this is (Level Factory brief, both
 repos read it).** A `settlement_archetype` (the guide's section 6: suburban
 strip, borough main street, industrial corridor, ...) and the guide's
