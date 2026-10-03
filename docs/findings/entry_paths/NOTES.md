@@ -106,3 +106,53 @@ Three ways to close it, in Level Factory, not built:
 Recommended: 2 first (small, no layout change, stops the visible defect on
 177 sites), then 1 as its own piece with a before-and-after census, since
 it reshuffles lots. 3 only if 1 leaves side streets badly served.
+
+## Lot 0.91.0: a walk leads to a door, and a side door gets a landing
+
+The walker, walking 0.90.0, with a frame at plan (32.8, 14.9) facing the
+bank's west wall: "still have sidewalks going to walls"; and of the square
+walk between the station's east door and the terminal's west door: "looks
+better, but you should do some research as to what looks more natural on a
+path between the sides of 2 buildings (not the normal path that customers
+would likely take)".
+
+**The wall was a breach.** Read off the merged gameplay: the bank's west
+wall carries a `breach` at local (-18, 0) and a window with a 1.8 m sill,
+and no door. 0.88.0 snapped to anything `site_enterability` counts as a way
+in, which is a door, a garage, a breach or a vaultable window. On this lot
+the station's north and west walls and the terminal's east wall carry
+breaches too, and the terminal's whole south face is garages.
+
+**The research** (2026-10-03, web; the municipal pages themselves refused
+the fetch, so these are the search engine's readings of them, not quotes):
+
+- Commercial design codes: a continuous walkway at least 5 ft wide along
+  any facade with a customer entrance, connected to the street sidewalk;
+  walkways connecting business entries on one development site; where a
+  walk crosses a drive aisle or parking, the crossing marked by a change of
+  material, perpendicular where practicable, and the drive aisle is not
+  itself a walkway. (West Valley City 7-11-306; Lafayette CO commercial
+  design guidelines; Raleigh UDO 8.3.5; Anacortes 19.62.050.)
+- Building code: a landing outside every exterior door, at least the
+  door's width and 36 in in the direction of travel, slope 2 % at most; the
+  accessible landing is 60 x 60 in. (IBC 1010.1.6 as up.codes renders it;
+  Minneapolis "Exterior Entry Landings".)
+- Desire lines: people cut diagonals across open ground where a route
+  turns; parking studies see pedestrians cross aisles on the diagonal. That
+  is why a drawn diagonal across a lot reads as a path worn by feet, and a
+  square jog in open asphalt reads as nothing a site plan draws.
+
+**So, between two separate businesses' side doors, no walk:** a landing at
+each door and the lot's own pavement between. What 0.91.0 does
+(`patches/patch_lot_walks_to_doors.py`): a walk leads only to a `door`; a
+spur runs up to its door instead of stopping a metre short; a spur with no
+door on its facade, and every building-to-building path, is left undrawn
+with its record kept for the street graph; every door no walk reaches gets
+a landing, 60 in deep and the door's width plus a foot each side, never
+under 60 in. Nine tests; each of five constants fails one when removed.
+
+What this leaves open, and is the walker's call: a site that wants a
+visible link between two buildings (a strip of shops, one owner) would get
+it the code's way -- a walk along each facade and one marked crossing,
+square to the gap, where the buildings are nearest -- and nothing here
+draws that yet.
