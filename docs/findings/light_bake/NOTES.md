@@ -96,3 +96,33 @@ closed 6 m pole and one static spot):
 Lux 0.65.0 puts the pole's lamp 0.2 m along the head, 1 cm under the lens,
 beside the pole (`patches/patch_lux_pole_lamp.py`). The run after it is
 `v2/` below.
+
+## Step 4: priced on a quiet machine (`price/`, 2026-10-03)
+
+The v2 pair (Lux 0.65.0's pole lamps, the same lot baked and unbaked, raw
+GL Compatibility packages), on the fixed-station harness with no other
+Godot running, alternated unbaked, baked, unbaked, baked:
+
+| package | mean median ms | mean p95 ms | mean GPU ms | mean draws |
+|---|---|---|---|---|
+| unbaked, run a | 5.14 | 5.73 | 2.24 | 1078.2 |
+| baked, run a | 4.29 | 4.95 | 1.75 | 933.1 |
+| unbaked, run b | 5.18 | 5.82 | 2.23 | 1078.2 |
+| baked, run b | 4.39 | 4.98 | 1.80 | 933.1 |
+
+    median ms, baked minus unbaked:   -0.85 (pair a), -0.79 (pair b)
+    GPU ms,    baked minus unbaked:   -0.49, -0.43
+    controls (same package twice):    unbaked +0.04 ms, baked +0.10 ms
+
+About 16 % off the median frame and 20 % off GPU time, eight to twenty
+times the controls. No view of 53 got slower by more than 0.3 ms. The
+heaviest views gain most: the extraction and attacker-spawn views looking
+across the lot drop ~3 ms each (extraction_14 at yaw 90: 13.5 to 10.5 ms,
+2,730 to 2,115 draws). The earlier run's 1.1 ms control was the walker's
+Godot window competing for the GPU; with it closed the controls are
+0.04-0.10 ms.
+
+Not yet measured: the light leak and per-mesh light cap claims (expected
+from how a static light treats lightmapped surfaces), and bake quality
+above Low. Not yet decided: which lights may bake (the power-cut beat and
+the Lux presets cannot change a baked light's effect on the level).
