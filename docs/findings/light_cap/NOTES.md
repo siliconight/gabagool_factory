@@ -90,3 +90,18 @@ the lot gets its poles back at the price of every room.
    front could be cut finer. Costs draws; priced if 1 and 2 fall short.
 
 Not a fix: the poles' own range (14 m) is not what crowds the tiles.
+
+## RETRACTED as the cause of the dark poles (2026-10-03, later the same day)
+
+Kept above as written. The leak and the cap are real on the tiles the
+probe named, and they are not why the walker's poles were dark: at the
+walker's second spot (-3, 1.6, 35) the tiles under the dark poles carried
+1-4 lights, under the cap, and a fresh unshadowed spot on a dark pole's own
+transform lit its foot (0.594) while the pole's own lamp did not (0.180)
+with every other light in the level switched off. A survey over all 17
+poles (`docs/findings/streetlight_shadow/NOTES.md`) found the 12 dark ones
+were exactly the 12 the shadow budget had given shadow maps, and the caster
+was the pole's own shaft cap, 5 mm under the lamp. Fixed in Lux 0.64.0 (the
+lamp hangs 0.10 m below the lens point). The cap of 16 stays refused on its
+own price; items 1-3 under "What would fix it" remain the answer to the
+leak, which still crowds the lot tiles beside the store.

@@ -186,4 +186,22 @@ godot --headless --path <project> --import
 godot --path <project> --script res://probe.gd -- <args>
 ```
 
+**A raw export and a walk copy are two different folders** (three round
+trips, 2026-10-03).
+
+- `export` writes a package whose main scene is `mission.tscn` and which has
+  no player. Copying it over a walk folder gives Godot no walk scene;
+  `python tools/walk_export.py <ws>/.level_factory <mission> --out DIR` is
+  what makes the walk copy (the nine underscore files plus
+  `run/main_scene`).
+- `_runs/perf_inner/run.py <tag> <package>` measures a RAW export. Handed a
+  walk copy, the station probe never finishes: the watchdog ends it after
+  ten minutes and the runner prints CANNOT MEASURE over a partial report.
+  A raw package rebuilds from a walk copy by deleting the nine underscore
+  files and restoring `run/main_scene="res://mission.tscn"`; the two then
+  differ in nothing else.
+- A fresh copy needs `godot --headless --path <copy> --import` before any
+  `--script` probe that names a Lux class, or the probe fails to parse with
+  `Could not find type "LuxLightRig"`.
+
 Never leave a Godot or Blender process running when the job ends.
