@@ -126,3 +126,55 @@ Not yet measured: the light leak and per-mesh light cap claims (expected
 from how a static light treats lightmapped surfaces), and bake quality
 above Low. Not yet decided: which lights may bake (the power-cut beat and
 the Lux presets cannot change a baked light's effect on the level).
+
+## Step 5: a pipeline step, and the runtime states (Level Factory 0.131.0, Lux 0.66.0)
+
+`python -m level_factory -C <ws> export <mission> --bake-lights` bakes the
+package (`level_factory/packages/exporting/light_bake.py`). On the walker's
+lot: 193 models and 1,370 primitive meshes lightmapped, 7 kept dynamic, 77
+steady rigs baked, 17 failing fixtures live, 3,263 lightmap users, 54 s in
+the editor, 214 s for the whole export; closure clean, 0 issues.
+
+**The unwrap is deterministic.** A digest of the lightmap UVs of 1,603
+surfaces (`uv2_hash.gd`) was identical as baked, after a fresh import, and
+after a second one -- so a recipient's import lands the lightmap where it
+was baked.
+
+**The runtime states** (`runtime_switch_probe.gd`, the baked export's walk
+copy, through Lux 0.66.0's own calls):
+
+    state               above           station front    street
+    baked at load       0.153 / 2,614   0.166 / 1,344    0.097 / 1,575
+    real time           0.155 / 3,302   0.169 / 1,429    0.091 / 1,960
+    baked again         0.153 / 2,615   0.165 / 1,344    0.097 / 1,576
+    power cut           0.119 / 2,401   0.069 / 1,249    0.078 / 1,459
+    power back          0.153 / 2,615   0.165 / 1,344    0.097 / 1,576
+
+Real time is the never-baked build's picture. Getting there took the step
+the first fallback probe found (`fallback_probe.gd`): clearing the lightmap
+alone, or flipping the lights' bake mode alone, left the static lights
+excluded from the surfaces it had covered (2,614 draws, darker); hiding
+and showing each light again re-pairs it (3,253).
+
+**Priced as shipped** (`price/lbx_*.json`): the same build exported with and
+without `--bake-lights`, alternated twice:
+
+| package | mean median ms | mean GPU ms | mean draws |
+|---|---|---|---|
+| unbaked export | 4.55 | 2.13 | 1078.2 |
+| baked export | 3.98 | 1.79 | 934.7 |
+
+    median ms, baked minus unbaked:   -0.57, -0.55
+    GPU ms:                           -0.34, -0.40
+    controls:                         0.00 ms
+
+12 % off the median frame and 17 % off GPU, against controls that did not
+move. The probe's figure (-0.8 ms on a 5.14 ms baseline) was the same
+saving on a slower day of the same machine.
+
+## Open
+
+- Off by default: the bake needs a GPU, a display, and an editor window for
+  a minute. Whether cold runs bake by default is the walker's call.
+- Bake quality above Low, and what it costs in bake time.
+- The light-leak and per-mesh-cap effects, expected and not yet measured.
