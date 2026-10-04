@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "gas_block_001",
+ "display_name": "Gas Block I",
+ "archetype": "gas_station",
+ "building_count": 3,
+ "site_shape": "street_block",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "night",
+ "weather": "clear",
+ "theme": "delco_1997",
+ "candidate_count": 3,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "COLD RUN 9137. 9135's brief and seed. Since 9136: Zoo 1.49.0 (the owner pass: Aileron, Vegur and MFB Oldstyle from Pixelcoat 0.55.0, each typeface with an owner; the ATM's and the poker's tubes in the pixel face), 1.50.0 (the candy rack), 1.51.0 (the cooler wall), 1.52.0 (the frozen drink station), 1.53.0 (the roller grill). VACUITY: the lot must be 9135's three buildings.",
+ "crew_size": 4
+}
