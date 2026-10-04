@@ -1,0 +1,59 @@
+Lot: Lot 0.94.0  LF: 0.134.0
+== build 20:08:24
+created batch 'cold_9140' with 1 mission(s): gas_block_001
+created batch 'cold_9134' with 1 mission(s): club_block_014
+created batch 'crossroads_9600' with 1 mission(s): crossroads_9600
+  after gas_block_001: candidates: 3 built, all distinct
+  after gas_block_001: Structural checks passed  (blockers open: 0, total findings: 47)
+  after club_block_014: candidates: 3 built, all distinct
+  after club_block_014: Structural checks passed  (blockers open: 0, total findings: 42)
+  after crossroads_9600: candidates: 3 built, all distinct
+  after crossroads_9600: Structural checks passed  (blockers open: 0, total findings: 42)
+== census 20:30:26
+before  gas_block_001    9080  parking     0.0 m2  yard  59.5  remainder 0.5990 (11141.2 m2)  largest piece 10544.2 m2
+        fields 0 (), cars 0; pads 3
+before  gas_block_001    9181  parking     0.0 m2  yard  59.5  remainder 0.6469 (15681.8 m2)  largest piece 15681.8 m2
+        fields 0 (), cars 0; pads 3
+before  gas_block_001    9282  parking     0.0 m2  yard  59.5  remainder 0.6526 (15422.8 m2)  largest piece 15235.8 m2
+        fields 0 (), cars 0; pads 3
+before  club_block_014   9080  parking     0.0 m2  yard  59.5  remainder 0.5888 (11280.2 m2)  largest piece 11280.2 m2
+        fields 0 (), cars 0; pads 3
+before  club_block_014   9181  parking     0.0 m2  yard  59.5  remainder 0.6186 (13245.8 m2)  largest piece 12998.2 m2
+        fields 0 (), cars 0; pads 3
+before  club_block_014   9282  parking     0.0 m2  yard  59.5  remainder 0.6250 (13255.8 m2)  largest piece 12643.2 m2
+        fields 0 (), cars 0; pads 3
+before  crossroads_9600  9600  parking     0.0 m2  yard  57.8  remainder 0.6634 (15187.0 m2)  largest piece 14957.5 m2
+        fields 0 (), cars 0; pads 3
+before  crossroads_9600  9701  parking     0.0 m2  yard  59.5  remainder 0.6377 (11998.8 m2)  largest piece 11998.8 m2
+        fields 0 (), cars 0; pads 3
+before  crossroads_9600  9802  parking     0.0 m2  yard  57.8  remainder 0.6703 (14930.0 m2)  largest piece 14435.2 m2
+        fields 0 (), cars 0; pads 3
+after   gas_block_001    9080  parking   880.0 m2  yard  59.5  remainder 0.5517 (10261.2 m2)  largest piece  9664.2 m2
+        fields 3 (road 0 L 6 bays, road 0 L 6 bays, road 1 L 6 bays), cars 17; pads 3
+after   gas_block_001    9181  parking  1161.0 m2  yard  59.5  remainder 0.5990 (14520.8 m2)  largest piece 14520.8 m2
+        fields 4 (road 0 L 6 bays, road 0 L 6 bays, road 1 L 6 bays, road 1 R 6 bays), cars 25; pads 3
+after   gas_block_001    9282  parking   873.0 m2  yard  59.5  remainder 0.6156 (14549.8 m2)  largest piece 14362.8 m2
+        fields 3 (road 0 L 6 bays, road 1 L 6 bays, road 1 R 6 bays), cars 24; pads 3
+after   club_block_014   9080  parking   288.0 m2  yard  59.5  remainder 0.5738 (10992.2 m2)  largest piece 10992.2 m2
+        fields 1 (road 0 L 6 bays), cars 6; pads 3
+after   club_block_014   9181  parking  1176.0 m2  yard  59.5  remainder 0.5637 (12069.8 m2)  largest piece 11822.2 m2
+        fields 4 (road 0 L 6 bays, road 0 L 6 bays, road 1 L 6 bays, road 1 R 6 bays), cars 30; pads 3
+after   club_block_014   9282  parking   888.0 m2  yard  59.5  remainder 0.5831 (12367.8 m2)  largest piece 11755.2 m2
+        fields 3 (road 0 L 6 bays, road 1 L 6 bays, road 1 R 6 bays), cars 28; pads 3
+after   crossroads_9600  9600  parking   592.0 m2  yard  57.8  remainder 0.6376 (14595.0 m2)  largest piece 14365.5 m2
+        fields 2 (road 1 L 6 bays, road 1 R 6 bays), cars 13; pads 3
+after   crossroads_9600  9701  parking   296.0 m2  yard  59.5  remainder 0.6220 (11702.8 m2)  largest piece 11702.8 m2
+        fields 1 (road 0 L 6 bays), cars 11; pads 3
+after   crossroads_9600  9802  parking   592.0 m2  yard  57.8  remainder 0.6438 (14338.0 m2)  largest piece 13843.2 m2
+        fields 2 (road 1 L 6 bays, road 1 R 6 bays), cars 12; pads 3
+== findings 20:30:39
+gas_block_001 43 -> 47
+   gained {('LT_MAP_INSTANT_CONTACT', '9080'): 1, ('LT_MAP_OVEREXPOSED', '9181'): 1, ('LT_MAP_INSTANT_CONTACT', '9181'): 1, ('LT_MAP_NO_REACTION_TIME', '9181'): 1}
+   lost   {}
+club_block_014 43 -> 42
+   gained {}
+   lost   {('LT_ROUTE_NEVER_COMPLETED', '9181'): 1}
+crossroads_9600 42 -> 42
+   gained {}
+   lost   {}
+== done 20:30:39
