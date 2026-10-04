@@ -1,0 +1,18 @@
+[export] surface dressing: gas_block_001_dressing.tscn -- 4241 instances of 4 meshes, 4 draw calls
+[export] 1091 occluder(s) from 1097 solid module(s); 43 glass, 257 porous and 859 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1091 occluder node(s) in a tree of 26618
+[export] light bake: 244 model(s) and 1650 primitive mesh(es) lightmapped, 7 kept dynamic; 77 steady rig(s) baked, 17 failing left live; 8073 users, 89.9 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1091 occluder node(s) reachable from res://mission.tscn (1091 in the package, 14 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 68 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] glb references: 251 GLB(s), 892 external reference(s): 892 resolve to 229 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 324 surface(s) on a greybox material (gb_wall 324); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 67 resource(s) in a package of 1667 file(s)
+[export] manifest: 1671 file(s) listed + 2 declared unlisted = 1673 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported gas_block_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9148-ws\.level_factory\exports\LF_gas_block_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9148-ws\.level_factory gas_block_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
