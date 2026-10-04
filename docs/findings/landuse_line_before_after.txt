@@ -1,0 +1,52 @@
+old LF: 0.134.0  new LF: 0.135.0
+== gas_block_001 04:27:57
+created batch 'cold_9144' with 1 mission(s): gas_block_001
+created batch 'cold_9144' with 1 mission(s): gas_block_001
+  before gas_block_001: candidates: 3 built, all distinct
+  before gas_block_001: Structural checks passed  (blockers open: 0, total findings: 45)
+  after gas_block_001: candidates: 3 built, all distinct
+  after gas_block_001: Structural checks passed  (blockers open: 0, total findings: 40)
+== club_block_014 04:51:11
+created batch 'cold_9134' with 1 mission(s): club_block_014
+created batch 'cold_9134' with 1 mission(s): club_block_014
+  before club_block_014: candidates: 3 built, all distinct
+  before club_block_014: Structural checks passed  (blockers open: 0, total findings: 42)
+  after club_block_014: candidates: 3 built, all distinct
+  after club_block_014: Structural checks passed  (blockers open: 0, total findings: 42)
+== crossroads_9600 05:11:22
+created batch 'crossroads_9600' with 1 mission(s): crossroads_9600
+created batch 'crossroads_9600' with 1 mission(s): crossroads_9600
+  before crossroads_9600: candidates: 3 built, all distinct
+  before crossroads_9600: Structural checks passed  (blockers open: 0, total findings: 42)
+  after crossroads_9600: candidates: 3 built, all distinct
+  after crossroads_9600: Structural checks passed  (blockers open: 0, total findings: 45)
+== census 05:36:08
+before  gas_block_001    9080  through-road line spread  24.0 m (3 fronting)  door-to-road 4/5  remainder 0.552  parking  880.0
+before  gas_block_001    9181  through-road line spread  20.0 m (3 fronting)  door-to-road 3/5  remainder 0.599  parking 1161.0
+before  gas_block_001    9282  through-road line spread  20.0 m (3 fronting)  door-to-road 4/5  remainder 0.616  parking  873.0
+before  club_block_014   9080  through-road line spread  21.0 m (3 fronting)  door-to-road 3/5  remainder 0.574  parking  288.0
+before  club_block_014   9181  through-road line spread  19.0 m (3 fronting)  door-to-road 3/5  remainder 0.564  parking 1176.0
+before  club_block_014   9282  through-road line spread  19.0 m (3 fronting)  door-to-road 5/5  remainder 0.583  parking  888.0
+before  crossroads_9600  9600  through-road line spread  15.0 m (3 fronting)  door-to-road 3/5  remainder 0.638  parking  592.0
+before  crossroads_9600  9701  through-road line spread  10.0 m (3 fronting)  door-to-road 3/5  remainder 0.622  parking  296.0
+before  crossroads_9600  9802  through-road line spread  13.0 m (3 fronting)  door-to-road 5/5  remainder 0.644  parking  592.0
+after   gas_block_001    9080  through-road line spread   0.0 m (3 fronting)  door-to-road 4/5  remainder 0.541  parking  880.0
+after   gas_block_001    9181  through-road line spread  20.9 m (3 fronting)  door-to-road 3/5  remainder 0.596  parking 1161.0
+after   gas_block_001    9282  through-road line spread  20.9 m (3 fronting)  door-to-road 4/5  remainder 0.621  parking  873.0
+after   club_block_014   9080  through-road line spread   0.0 m (3 fronting)  door-to-road 3/5  remainder 0.536  parking  584.0
+after   club_block_014   9181  through-road line spread   0.0 m (3 fronting)  door-to-road 3/5  remainder 0.469  parking  880.0
+after   club_block_014   9282  through-road line spread   0.0 m (3 fronting)  door-to-road 5/5  remainder 0.462  parking  888.0
+after   crossroads_9600  9600  through-road line spread   0.0 m (3 fronting)  door-to-road 3/5  remainder 0.590  parking  592.0
+after   crossroads_9600  9701  through-road line spread   0.0 m (3 fronting)  door-to-road 3/5  remainder 0.608  parking  545.8
+after   crossroads_9600  9802  through-road line spread   0.0 m (3 fronting)  door-to-road 5/5  remainder 0.604  parking  592.0
+== findings 05:36:17
+gas_block_001 45 -> 40
+   gained {('LT_MAP_BLIND_MAP', '9080'): 1, ('LT_MAP_ENEMY_STUCK', '9080'): 1, ('LT_MAP_ENEMY_STUCK', '9282'): 1, ('LT_MAP_TRIVIAL_ENCOUNTER', '9080'): 1}
+   lost   {('LOT_COVER_PLACED', '9080'): 1, ('LOT_ROUTE_COVER_PLACED', '9080'): 1, ('LT_MAP_INSTANT_CONTACT', '9080'): 1, ('LT_MAP_INSTANT_CONTACT', '9282'): 1, ('LT_MAP_OVEREXPOSED_ZONE', '9282'): 1, ('LT_MAP_PLAYER_STUCK', '9080'): 1, ('LT_OPEN_SIGHTLINE', '9181'): 2, ('LT_ROUTE_NEVER_COMPLETED', '9181'): 1}
+club_block_014 42 -> 42
+   gained {('LOT_ENEMY_SPAWN_STANDOFF', '9181'): 1, ('LOT_SIGHTLINE_UNBREAKABLE', '9181'): 1, ('LT_MAP_ENEMY_STUCK', '9282'): 1, ('LT_MAP_INSTANT_CONTACT', '9181'): 1, ('LT_MAP_INSTANT_CONTACT', '9282'): 1, ('LT_MAP_TRIVIAL_ENCOUNTER', '9282'): 1}
+   lost   {('LOT_ROUTE_COVER_PLACED', '9181'): 1, ('LT_MAP_ENEMY_PATHING_BROKEN', '9080'): 1, ('LT_MAP_ENEMY_STUCK', '9181'): 1, ('LT_MAP_OVEREXPOSED_ZONE', '9282'): 1, ('LT_MAP_TRIVIAL_ENCOUNTER', '9080'): 1, ('LT_OPEN_SIGHTLINE', '9181'): 1}
+crossroads_9600 42 -> 45
+   gained {('LOT_ROUTE_COVER_PLACED', '9600'): 1, ('LT_MAP_BLIND_MAP', '9701'): 1, ('LT_MAP_INSTANT_CONTACT', '9600'): 1, ('LT_MAP_TRIVIAL_ENCOUNTER', '9701'): 1, ('LT_MAP_TRIVIAL_ENCOUNTER', '9802'): 1}
+   lost   {('LT_MAP_ENEMY_STUCK', '9802'): 1, ('LT_MAP_OVEREXPOSED_ZONE', '9802'): 1}
+== done 05:36:17
