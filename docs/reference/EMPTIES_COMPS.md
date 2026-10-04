@@ -26,6 +26,24 @@ The comps are today's photographs of older buildings. The game is set in the
 
 All signs are invented brands, Delco slang, PG-13.
 
+## LIT WINDOWS AT NIGHT (the walker, 2026-10-04, with a Vampire: The
+Masquerade -- Bloodlines street as the comp: "I think its actually ok to have
+lights on in the windows at night to show life")
+
+This supersedes the earlier "windows read only as unlit depth". In the comp:
+- Windows are mixed: some warm yellow and lit, many of those behind bars or
+  grilles; most dark; distant towers a grid of small lit windows.
+- None of the lit windows is a real light. They are emissive texture.
+
+So an Empty's painted pane has states, mixed per building:
+- lit warm (emissive at night);
+- dark depth;
+- curtain or blind;
+- barred, over any of the three.
+
+Named for Lux's emissive binder (`_Face`), so the power cut can darken
+them. Costs: no light, one material.
+
 ## The families the walker agreed, in build order (2026-10-04)
 
 1. Rowhome: brick, painted, siding and boarded variants; the occasional
