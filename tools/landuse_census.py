@@ -1,6 +1,6 @@
 """Land-use census over every assembled site on disk (`lot/site_landuse.py`):
 what share of each plate is building, road, sidewalk, frontage, walk,
-courtyard, or REMAINDER (ground with no role), the largest piece of
+courtyard, service pad, parking field, or REMAINDER (ground with no role), the largest piece of
 remainder, building separation, and per road the building line's spread,
 frontage occupancy and whether fronting buildings have a door facing it.
 
@@ -45,6 +45,12 @@ def measure(spec_p, gp_p):
         if mb and mb.get("footprint") and not b.get("footprint") and not b.get("_footprint"):
             b["_footprint"] = mb["footprint"]
     site_paths.snap_to_doors(s, merged)
+    # what assemble planned onto the ground and recorded in the gameplay
+    # (Lot 0.93.0): the service pads; absent on an older build, so none
+    s["yards"] = list(s.get("yards") or []) + list((merged.get("yard_plan") or {}).get("placed") or [])
+    # ...and the parking fields and their driveways (Lot 0.94.0)
+    s["fields"] = list((merged.get("field_plan") or {}).get("placed") or [])
+    s["driveways"] = [f["driveway"] for f in s["fields"]]
     return site_landuse.census(s, merged)
 
 
