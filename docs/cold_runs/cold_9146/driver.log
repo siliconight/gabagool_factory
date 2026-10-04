@@ -1,0 +1,24 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9146\journal.md
+== batch
+created batch 'cold_9146' with 1 mission(s): gas_block_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 40)
+  gas_block_001.lot_assemble.candidate.seed_9080: bank_tower_a02.glb freight_terminal_a01.glb gas_station_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb 
+  gas_block_001.lot_assemble.candidate.seed_9181: arena_a03.glb gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb marina_a02.glb 
+  gas_block_001.lot_assemble.candidate.seed_9282: airport_terminal_a02.glb funeral_home_a02.glb gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 55)
+  exit 1
+== export
+[export] light bake: 238 model(s) and 1650 primitive mesh(es) lightmapped, 7 kept dynamic; 77 steady rig(s) baked, 17 failing left live; 8435 users, 85.6 s in the editor
+  exit 5
+STOPPED: export
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
