@@ -9,6 +9,40 @@ rowhome street, then four industrial and loft buildings. The images were
 shown in chat and are not stored here. What follows is what was read off
 them -- format only; no real business, sign or mark is reproduced.
 
+## THE PERIOD IS THE 1990s (the walker, 2026-10-04: "it should be 1990s
+themes/origin")
+
+The comps are today's photographs of older buildings. The game is set in the
+1990s, so every Empty wears its 1990s state:
+- **Walls:** aluminium and vinyl siding over brick, faux-stone Formstone,
+  painted brick.
+- **Windows:** window air conditioners hanging off sills; the odd early
+  satellite dish; glass-block stair windows.
+- **Storefronts:** roll-down security gates and steel grilles, neon beer
+  signs, faded painted wall ads, a payphone on the corner.
+- **Vacancy:** boarded or sheet-metal windows on vacant rowhomes.
+- **What is not there:** LED signs, modern storefront glass, solar panels,
+  new windows.
+
+All signs are invented brands, Delco slang, PG-13.
+
+## The families the walker agreed, in build order (2026-10-04)
+
+1. Rowhome: brick, painted, siding and boarded variants; the occasional
+   arched alley passage.
+2. Porch-front rowhouse: two storeys, a continuous porch roof, aluminium
+   awnings.
+3. Main-street storefront: shop below, one or two floors above, a sign band
+   and awning.
+4. Corner store or taproom: the cut-off corner door, a hand-painted sign,
+   glass block.
+5. Brick factory or loft (Family 2 below).
+6. Cinder-block garage or auto body: roll-up bays, painted sign.
+
+Then landmarks, a few per level: a stone church with a steeple, a
+volunteer fire company, a brick school or post office. And mural end walls
+on the blank party walls.
+
 ## Family 1: the rowhome terrace (Philadelphia / Delco)
 
 One photograph: three attached brick rowhouses on a city street.
