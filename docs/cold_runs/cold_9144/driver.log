@@ -1,0 +1,30 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9144\journal.md
+== batch
+created batch 'cold_9144' with 1 mission(s): gas_block_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 45)
+  gas_block_001.lot_assemble.candidate.seed_9080: bank_tower_a02.glb freight_terminal_a01.glb gas_station_a03.glb 
+  gas_block_001.lot_assemble.candidate.seed_9181: arena_a03.glb gas_station_a02.glb marina_a02.glb 
+  gas_block_001.lot_assemble.candidate.seed_9282: airport_terminal_a02.glb funeral_home_a02.glb gas_station_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 63)
+  exit 1
+== export
+[export] light bake: 198 model(s) and 1554 primitive mesh(es) lightmapped, 7 kept dynamic; 76 steady rig(s) baked, 17 failing left live; 3205 users, 54.6 s in the editor
+exported gas_block_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9144-ws\.level_factory\exports\LF_gas_block_001.portable-godot
+  exit 0
+== findings
+findings 63 -> 63
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired; identical to 9111's wiring: False
+DONE

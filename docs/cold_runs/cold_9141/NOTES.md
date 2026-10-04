@@ -117,3 +117,8 @@ here: the fields read as lots -- bay lines, cars nose in both sides of the
 aisle, the driveway a gap in the sidewalk -- and the open-ground pebble
 dressing lies thick on the aisles; the pads read as concrete under and in
 front of the bins.
+
+**RETRACTION (2026-10-03, cold run 9144's notes):** the stuck events said here to carry no
+position always carried it, in `metadata.position`; these notes read Laser Tag's top-level
+field, which 0.23.1 logged as (0, 0, 0) for every named event. Seed 9181's are 1,354 of 1,378
+at one spot, six metres up inside `arena_a03`. Laser Tag 0.23.2 logs the real position.
