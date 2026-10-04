@@ -111,6 +111,54 @@ loft.
 - **At ground: a chain-link fence along one of them**, which is the walker's
   boundary rule (`fence-marks-the-playable-edge`).
 
+## Family 4 comp: the roadside taproom and carry-out
+
+One photograph, sent by the walker 2026-10-04. It shows a one-storey
+restaurant, carry-out and tavern on a Maryland roadside: "it's in MD but i
+think its a PA vibe as well". It is a Delco taproom with a take-out beer
+counter: one building doing three jobs, behind its own lot. The family-4 slot
+above is the corner store or taproom; this is the roadside version of the
+taproom, set back from the road rather than on a corner.
+
+The sign, name and mascot in the photo are a real business's. Keep the
+format and never the marks: an invented Delco brand goes on its awning and
+sign, as on every branded surface (`fake-delco-brands-funny-and-crass`). It
+may also be the look the first dive bar wants (`first-dive-bar-the-wooder-hole`);
+that is the walker's call, not made here.
+
+- **Low and wide.** One storey under a steep mansard of grey asphalt shingle
+  that wraps the front and side. The whole building reads as one long
+  horizontal band.
+- **Two-tone paint.**
+  - White-painted brick from the ground to about 1.5 m.
+  - Charcoal-painted wall above, up to the awnings.
+  - A corner of painted block where the two meet.
+- **Canvas awnings.**
+  - A continuous dark navy-to-black valance along the front, with a
+    white scalloped edge trim.
+  - A quarter-round barrel awning over the entrance, carrying the name and
+    a cartoon mascot. The barrel is the building's sign.
+- **Few windows.** A flush steel door painted cream, with a house number
+  beside it. A hand-painted wall sign: "DELI & CARRY OUT" with an arrow.
+  A "MAIN ENTRANCE" sign with an arrow round the side. A bar is a box you
+  cannot see into.
+- **At the lot.**
+  - A pole sign at the edge naming all three uses: liquor store, carry out,
+    tavern.
+  - Wooden planter boxes painted grey-green, with flowers, standing in the
+    front parking bays.
+  - A yellow hydrant on the corner, a grey trash can by the door.
+  - Painted parking stalls nose-in to the building.
+
+| Feature | Have | Owner |
+|---|---|---|
+| One storey, set back behind its own lot | Lot parking fields (0.94.0) | exists |
+| Two-tone painted wall, split at ~1.5 m | one material per wall | Pixelcoat (painted-brick-under-painted-wall skin) and Deli Counter (the split height) |
+| Mansard in asphalt shingle | parapets; `roof_material: "shingle"` exists | Deli Counter: a sloped parapet style |
+| Continuous valance awning with scalloped trim; branded barrel awning | none | Zoo: two awning species, brand from Pixelcoat |
+| Pole sign, painted wall sign with arrow | the 3.4 m pylon, Pixelcoat signs | exists; a three-use sign text set |
+| Planter boxes in the bays (cover height) | none | Zoo species; Lot places them, which is also cover on the playable side |
+
 ## What each tool already has, and what it owes
 
 | Feature | Have | Owner |
