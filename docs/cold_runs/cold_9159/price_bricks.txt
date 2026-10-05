@@ -1,0 +1,16 @@
+# A = cold 9158, B = cold 9159 (house bricks), A2 = cold 9158 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -0.018  mean    -0.091  min    -3.527  max    +1.838
+           A2-A median    -0.011  mean    -0.137  min    -3.513  max    +0.105
+ms_p95     B-A  median    +0.026  mean    -0.044  min    -7.649  max   +12.064
+           A2-A median    -0.042  mean    -0.480  min    -8.519  max    +1.049
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1            0.0: 521 -> 521, 1.962 -> 2.819
+  attacker_spawn_1           90.0: 3913 -> 3913, 11.895 -> 11.796
+  attacker_spawn_1          180.0: 3037 -> 3037, 5.750 -> 7.588
+  attacker_spawn_1          270.0: 3444 -> 3444, 10.675 -> 10.494
+  attacker_spawn_12           0.0: 515 -> 515, 1.949 -> 1.937
