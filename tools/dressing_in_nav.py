@@ -37,6 +37,17 @@ exactly 2 samples, the two nearest polygon vertices sitting on the boundary.
 `--agent-radius` still exists for an extra margin on top; 0.0 is the honest
 default.
 
+MERGED DRESSING (Zoo >= 1.68.0). Zoo merges a building's covers one SIDE per
+material, so a node is no longer one cover: it is every cover on that side in
+that material, named `Cover<side>_<material>` (a cover alone in its group keeps
+`Cover<side>_<kind>`). Its box runs from the wall to the proudest cover on it
+and from the curb to the gutter, so a finding names a side, not a cover, and
+the step-to-head window no longer separates a gutter at 9 m from a base
+course at the foot inside one node. For per-cover precision build the
+dressing with Zoo's `--no-merge-parts` -- the one-build control -- and walk
+that. The default prefix `Cover` matches both spellings, and a run that
+matched no cover at all is NOT MEASURED rather than clean.
+
 WHAT IT CANNOT TELL YOU. Firing lines. A shot travels where a body cannot, so
 the navmesh under-reports the rule by design -- window lanes are Patina's half
 of that and this is not a substitute for them. It also cannot tell a placement
@@ -71,7 +82,7 @@ def default_scene(project_dir):
 
 
 def probe(project_dir, scene=None, godot=None, settle=5, agent_radius=0.0,
-          step_clear=0.15, body_height=1.8, prefix="Cover_", backing=0.0,
+          step_clear=0.15, body_height=1.8, prefix="Cover", backing=0.0,
           timeout=900, verbose=False):
     scene = scene or default_scene(project_dir)
     payload, _out, _mirror = run_probe(
@@ -211,9 +222,11 @@ def main(argv=None):
                          "flat on a wall and a rod standing free in a gap BOTH "
                          "contain no walkable sample. 0.75 is a sensible reach "
                          "(covers stand 0.05-0.10 m proud).")
-    ap.add_argument("--prefix", default="Cover_",
-                    help="node-name prefix of the geometry to test; "
-                         "'WallPack_' checks the light fixtures instead")
+    ap.add_argument("--prefix", default="Cover",
+                    help="node-name prefix of the geometry to test (default "
+                         "'Cover': Zoo's merged `Cover<side>_*` and the older "
+                         "`Cover_<kind>`); 'WallPack_' checks the light "
+                         "fixtures instead")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--timeout", type=int, default=900)
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -228,6 +241,13 @@ def main(argv=None):
                   verbose=args.verbose)
     except ProbeFailed as exc:
         sys.stderr.write("[dressing_in_nav] NOT MEASURED: %s\n" % exc)
+        return 2
+    # NOTHING MATCHED IS NOT CLEAN. A prefix that names no node -- the old
+    # `Cover_` against Zoo >= 1.68.0's merged `Cover<side>_*` -- counts 0
+    # covers and 0 offenders, and the report below would call that clear.
+    if "error" not in r and not r.get("covers"):
+        sys.stderr.write("[dressing_in_nav] NOT MEASURED: no MeshInstance3D "
+                         "named %r* in the scene\n" % args.prefix)
         return 2
     if args.json:
         print(json.dumps(r, indent=2))

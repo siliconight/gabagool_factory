@@ -42,7 +42,7 @@ func _ready() -> void:
 	var body_height: float = float(ProjectSettings.get_setting(
 		"dressing_nav/body_height", 1.8))
 	var prefix: String = String(ProjectSettings.get_setting(
-		"dressing_nav/prefix", "Cover_"))
+		"dressing_nav/prefix", "Cover"))
 
 	var samples: Array = []
 	var regions: Array = []
