@@ -1,0 +1,17 @@
+# A = cold 9154, B = cold 9154 with every Dressing node hidden, A2 = cold 9154 again
+# every B-A draw delta is negative: 'largest draw increases' lists the smallest savings
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -850.000  mean -1019.623  min -3119.000  max   -72.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  -815.000  mean  -950.660  min -2740.000  max   -72.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -2.066  mean    -2.751  min   -14.614  max    +0.096
+           A2-A median    +0.063  mean    -0.079  min    -5.844  max    +0.881
+ms_p95     B-A  median    -1.915  mean    -2.857  min   -26.599  max    +0.303
+           A2-A median    +0.285  mean    +0.146  min   -17.523  max    +2.552
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  defender_spawn_22           0.0: 253 -> 181, 1.700 -> 1.656
+  defender_spawn_21           0.0: 580 -> 471, 2.835 -> 2.532
+  camera_socket_0             0.0: 612 -> 475, 2.356 -> 2.183
+  extraction_14               0.0: 1213 -> 1065, 3.556 -> 3.127
+  objective_4                 0.0: 821 -> 672, 3.830 -> 3.673

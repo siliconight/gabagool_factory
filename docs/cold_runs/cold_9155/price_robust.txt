@@ -1,0 +1,34 @@
+# python patches/zoo_cover_merge/price_robust.py mrg_a mrg_a2 mrg_b mrg_c
+53 station x heading pairs; unstable between the two controls (> 1.0 ms): 3
+  camera_socket_6           270.0: A 29.740  A2 23.896  (p95 43.02 / 25.50)
+  defender_spawn_22          90.0: A 5.017  A2 3.389  (p95 8.33 / 4.72)
+  defender_spawn_22         180.0: A 3.230  A2 2.082  (p95 5.16 / 2.41)
+  control A2 - A, ms median, stable  median   +0.069  mean   +0.089  min   -0.460  max   +0.881  (n 50)
+_runs/perf_inner/mrg_b.json:
+  draws, B - A                       median -673.000  mean -900.679  min -2786.000  max  -61.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -1.847  mean   -2.352  min  -10.544  max   -0.097  (n 53)
+  ms median, B - mean(A,A2), stable  median   -1.863  mean   -2.242  min   -9.275  max   -0.097  (n 50)
+  ms p95, B - mean(A,A2), stable     median   -2.323  mean   -2.607  min  -10.377  max   +0.300  (n 50)
+  light cap: 61 of 5179 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+_runs/perf_inner/mrg_c.json:
+  draws, B - A                       median -850.000  mean -1019.623  min -3119.000  max  -72.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -2.013  mean   -2.711  min  -11.692  max   +0.069  (n 53)
+  ms median, B - mean(A,A2), stable  median   -2.093  mean   -2.601  min  -10.199  max   +0.069  (n 50)
+  ms p95, B - mean(A,A2), stable     median   -2.344  mean   -2.664  min  -10.509  max   +0.463  (n 50)
+  light cap: 46 of 8317 meshes over 8, worst 30 (Ceiling_ceiling_tile_delco_1997)
+  of the listed over-cap meshes, covers: 1 of 46
+      9  /root/Mission/Bake/Site/b0/Dressing/Cover_edge_strip_046
+control census: 46 of 8317 over, worst 30 (Ceiling_ceiling_tile_delco_1997)

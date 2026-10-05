@@ -1,0 +1,16 @@
+# A = cold 9154, B = cold 9155 (Zoo 1.68.0 merged covers), A2 = cold 9154 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -673.000  mean  -900.679  min -2786.000  max   -61.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  -673.000  mean  -845.660  min -2467.000  max   -61.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -1.969  mean    -2.392  min   -13.466  max    -0.094
+           A2-A median    +0.063  mean    -0.079  min    -5.844  max    +0.881
+ms_p95     B-A  median    -2.036  mean    -2.796  min   -25.630  max    +0.258
+           A2-A median    +0.285  mean    +0.146  min   -17.523  max    +2.552
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  defender_spawn_22           0.0: 253 -> 192, 1.700 -> 1.602
+  defender_spawn_21           0.0: 580 -> 495, 2.835 -> 2.647
+  camera_socket_0             0.0: 612 -> 489, 2.356 -> 2.262
+  objective_4                 0.0: 821 -> 685, 3.830 -> 3.383
+  defender_spawn_22         180.0: 676 -> 535, 3.230 -> 1.836
