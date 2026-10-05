@@ -1,0 +1,18 @@
+# A = cold 9154 package, B = the same with every building's Dressing node hidden (patches/lf_empties/make_nocov.py), A2 = cold 9154 again (control)
+# python patches/lf_empties/compare_price.py _runs/perf_inner/gut_b.json _runs/perf_inner/nocov_b.json _runs/perf_inner/gut_b2.json
+# NOTE: every B-A draw delta here is negative, so the list headed 'largest draw increases' shows the SMALLEST savings
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -850.000  mean -1021.057  min -3119.000  max   -72.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  -815.000  mean  -952.094  min -2740.000  max   -72.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -2.062  mean    -2.515  min    -9.334  max    -0.179
+           A2-A median    +0.054  mean    +0.063  min    -0.065  max    +0.398
+ms_p95     B-A  median    -2.219  mean    -2.625  min    -9.589  max    -0.153
+           A2-A median    +0.058  mean    +0.117  min    -0.791  max    +0.992
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  defender_spawn_22           0.0: 253 -> 181, 2.791 -> 1.768
+  defender_spawn_21           0.0: 580 -> 471, 2.685 -> 2.443
+  camera_socket_0             0.0: 612 -> 475, 2.326 -> 2.142
+  extraction_14               0.0: 1213 -> 1065, 3.364 -> 2.941
+  objective_4                 0.0: 821 -> 672, 3.599 -> 3.132

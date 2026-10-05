@@ -1,0 +1,17 @@
+# A = cold 9152 package, B = cold 9154 package, A2 = cold 9152 again (control)
+# python patches/lf_empties/compare_price.py _runs/perf_inner/gut_a.json _runs/perf_inner/gut_b.json _runs/perf_inner/gut_a2.json
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  +137.000  mean  +160.189  min   +12.000  max  +418.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  +127.000  mean  +153.472  min   +12.000  max  +379.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    +0.274  mean    +0.367  min    +0.026  max    +1.255
+           A2-A median    +0.018  mean    +0.025  min    -0.094  max    +0.218
+ms_p95     B-A  median    +0.212  mean    +0.297  min    -1.038  max    +1.619
+           A2-A median    +0.004  mean    -0.010  min    -0.704  max    +0.856
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  extraction_14              90.0: 7926 -> 8344, 25.054 -> 26.221
+  longest_sightline          90.0: 8276 -> 8690, 25.918 -> 26.885
+  camera_socket_6           270.0: 6494 -> 6888, 20.929 -> 22.184
+  camera_socket_6           180.0: 5777 -> 6099, 12.593 -> 13.188
+  attacker_spawn_12         180.0: 4229 -> 4550, 12.116 -> 12.938
