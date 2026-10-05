@@ -1,0 +1,16 @@
+# A = cold 9161, B = cold 9161 with every Empty hidden, A2 = cold 9161 again; two-pass harness
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -816.000  mean -1209.906  min -3951.000  max    +0.000
+           A2-A median    +0.000  mean    -1.585  min   -84.000  max    +0.000
+objects    B-A  median  -740.000  mean -1090.283  min -3314.000  max    +0.000
+           A2-A median    +0.000  mean    -1.585  min   -84.000  max    +0.000
+ms_median  B-A  median    -1.367  mean    -2.484  min   -10.695  max    +0.074
+           A2-A median    +1.086  mean    +1.062  min    +0.217  max    +2.214
+ms_p95     B-A  median    -1.417  mean    -2.355  min   -10.478  max    +0.833
+           A2-A median    +1.435  mean    +1.502  min    +0.541  max    +3.324
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1            0.0: 521 -> 521, 1.956 -> 1.866
+  attacker_spawn_12           0.0: 515 -> 515, 1.937 -> 1.937
+  attacker_spawn_2            0.0: 527 -> 527, 2.047 -> 2.042
+  camera_socket_0             0.0: 489 -> 489, 2.179 -> 2.184
+  camera_socket_6             0.0: 807 -> 807, 3.618 -> 3.507

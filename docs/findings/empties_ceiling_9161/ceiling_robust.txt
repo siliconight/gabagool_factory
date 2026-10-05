@@ -1,0 +1,53 @@
+# A = cold 9161, A2 = cold 9161 again, B = cold 9161 with every Empty hidden (patches/lf_empties/make_noempties.py); two-pass harness
+53 station x heading pairs; unstable between the two controls (> 1.0 ms): 30
+  attacker_spawn_1           90.0: A 11.253  A2 12.629  (p95 11.67 / 13.83)
+  attacker_spawn_1          270.0: A 11.143  A2 12.581  (p95 11.44 / 13.44)
+  attacker_spawn_12         180.0: A 9.788  A2 11.262  (p95 10.10 / 12.43)
+  attacker_spawn_12         270.0: A 6.253  A2 7.510  (p95 6.43 / 8.20)
+  attacker_spawn_2           90.0: A 11.313  A2 13.059  (p95 11.57 / 13.85)
+  attacker_spawn_2          270.0: A 11.039  A2 12.691  (p95 11.79 / 13.40)
+  camera_socket_0            90.0: A 8.264  A2 9.604  (p95 8.49 / 10.15)
+  camera_socket_0           180.0: A 9.150  A2 10.652  (p95 9.47 / 11.48)
+  camera_socket_0           270.0: A 7.780  A2 9.150  (p95 8.07 / 9.72)
+  camera_socket_6            90.0: A 4.731  A2 5.735  (p95 4.92 / 6.12)
+  camera_socket_6           180.0: A 8.456  A2 9.682  (p95 8.74 / 10.62)
+  camera_socket_6           270.0: A 15.841  A2 17.731  (p95 16.08 / 19.40)
+  defender_spawn_21         270.0: A 4.998  A2 6.485  (p95 5.19 / 7.30)
+  extraction_14              90.0: A 18.092  A2 19.859  (p95 18.51 / 21.05)
+  extraction_14             180.0: A 6.580  A2 7.595  (p95 6.76 / 7.94)
+  extraction_3               90.0: A 10.866  A2 12.966  (p95 11.15 / 13.95)
+  extraction_3              180.0: A 6.048  A2 7.544  (p95 6.19 / 7.99)
+  extraction_3              270.0: A 10.333  A2 12.547  (p95 10.50 / 13.26)
+  highest_vantage            90.0: A 4.326  A2 5.412  (p95 4.47 / 5.95)
+  highest_vantage           180.0: A 5.428  A2 6.582  (p95 5.56 / 7.12)
+  highest_vantage           270.0: A 9.005  A2 10.395  (p95 9.45 / 10.89)
+  longest_sightline          90.0: A 18.845  A2 21.009  (p95 19.24 / 22.44)
+  objective_4                90.0: A 5.348  A2 6.540  (p95 5.53 / 7.01)
+  objective_4               180.0: A 4.910  A2 5.990  (p95 5.27 / 6.39)
+  objective_4               270.0: A 7.520  A2 9.047  (p95 7.77 / 10.34)
+  objective_5                90.0: A 7.503  A2 8.983  (p95 7.68 / 9.30)
+  objective_5               180.0: A 5.291  A2 6.561  (p95 5.49 / 7.52)
+  player_start_24            90.0: A 7.007  A2 8.463  (p95 7.37 / 9.10)
+  player_start_24           180.0: A 5.243  A2 6.418  (p95 5.42 / 7.37)
+  player_start_24           270.0: A 4.981  A2 6.135  (p95 5.15 / 6.74)
+  control A2 - A, ms median, stable  median   +0.519  mean   +0.557  min   +0.217  max   +0.922  (n 23)
+_runs/perf_inner/ne_b.json:
+  draws, B - A                       median -816.000  mean -1209.906  min -3951.000  max   +0.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -2.036  mean   -3.015  min  -11.777  max   -0.160  (n 53)
+  ms median, B - mean(A,A2), stable  median   -0.346  mean   -0.706  min   -4.553  max   -0.160  (n 23)
+  ms p95, B - mean(A,A2), stable     median   -0.475  mean   -0.776  min   -4.814  max   +0.432  (n 23)
+  light cap: 61 of 5027 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+control census: 61 of 5027 over, worst 35 (CoverE_concrete_delco_1997)
