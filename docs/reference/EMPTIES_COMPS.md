@@ -159,6 +159,51 @@ that is the walker's call, not made here.
 | Pole sign, painted wall sign with arrow | the 3.4 m pylon, Pixelcoat signs | exists; a three-use sign text set |
 | Planter boxes in the bays (cover height) | none | Zoo species; Lot places them, which is also cover on the playable side |
 
+## Window comps (the walker, 2026-10-04, eleven photographs)
+
+Sent while the painted panes were being built, with "color variation is key".
+Read for format only.
+
+- **Night facades** (four photographs: rowhouse and tenement fronts).
+  - **The lit colour varies window to window:** tungsten yellow, deep orange
+    behind curtains, a pale cool fluorescent, a pink lampshade glow.
+  - **Many lit windows are partly covered:** blinds, a roller shade pulled
+    past half with the light below it, curtains drawn to the sides.
+  - **The dark ones are dark, not black.**
+- **Window air conditioners in nearly every photograph.**
+  - A white or beige box in the lower sash, sometimes on a bracket, sometimes
+    in a welded cage.
+  - It stands out of the wall, so it is GEOMETRY. It is not painted into a
+    pane.
+- **Bars.**
+  - Straight vertical bars on two horizontal straps, bolted into the brick
+    and standing proud of the frame.
+  - The New York bellied grille with cast scrolls is a variant.
+  - A security cage around the air conditioner.
+- **A South Philly row by day.**
+  - Every house a different brick: brown, red, orange.
+  - White stone lintels and sills over and under every window; dark brown or
+    white frames.
+  - Green roller shades and closed blinds; a box fan in the window.
+  - A black iron security door with a grille.
+  - A pale downspout down the party wall; a TV antenna on the roof; an
+    aluminium awning.
+- **A porch-front pair** (family 2):
+  - painted brick, pale blue-grey beside red;
+  - a porch roof on brick piers, a shingle mansard with a dormer;
+  - green trim, a satellite dish, a block foundation.
+
+| Feature | Have | Owner |
+|---|---|---|
+| Four room lights, blinds, shades, curtains, box fan, bars, plywood | Zoo 1.65.0's sixteen-state atlas, Deli Counter 0.180.0's mix | done |
+| Window air conditioner, caged or bracketed | none | Zoo species, placed per window from the slot (the pane state already rides there) |
+| Bars proud of the frame on bolted straps | painted onto the pane | Zoo: geometry over the opening, from the same state |
+| A different brick per house | one brick texture, all houses | instance tint over the skin (never a material per colour); Deli Counter or Lot chooses |
+| Door colour per house; a black iron security door | one leaf, the skin's wood (Zoo 1.61.0) | instance tint; a grille door as a leaf variant |
+| Stone lintels and sills | none | Zoo trim, from the window slots |
+| Downspout down the party wall; eave gutter | Patina `gutter_run` strips only, no downspout | queued next |
+| TV antenna, satellite dish | none | Zoo roof props |
+
 ## What each tool already has, and what it owes
 
 | Feature | Have | Owner |
