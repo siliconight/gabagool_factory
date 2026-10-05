@@ -859,8 +859,9 @@ work of adopting this.
 | 178 | **OPEN** | The instruments report and nothing blocks, and that is one defect rath | 2026-09-24 -- FOUR INSTRUMENTS, ALL REPORTING, NONE BLOCKING, found inside one week while  |
 | 179 | **OPEN** | Manhole covers and sewer drain grates: a street has them, and only so  | 2026-10-04 -- FILED FOR LATER by the walker, with five photographs. Nothing places either  |
 | 180 | **CLOSED** | Every Patina cover is its own draw call, and the covers are a third of | 2026-10-05 -- Zoo 1.68.0 merges a building's covers one SIDE per material (8 meshes a buil |
+| 181 | **OPEN** | Zoo's roof props cannot fire: the adapter reads a key no planner write | 2026-10-05 -- FOUND, NOT STARTED. Zoo's roof scatter (`core/roofprops.py`, v0.25; `zoo_cli |
 
-**180 items: 34 open, 82 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**181 items: 35 open, 82 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18509,3 +18510,37 @@ the rest of the overrun lives in something other than Patina's dressing.
 cold run 9154's package: hiding every cover takes the worst view from 8,690
 draws / 27.33 ms p95 to 5,571 / 17.74 ms, and the median view 850 draws /
 2.06 ms lighter; control 0 draws / +0.05 ms. Nothing merges them.*
+
+*STATUS: OPEN 2026-10-05 -- FOUND, NOT STARTED. Zoo's roof scatter (`core/roofprops.py`, v0.25; `zoo_cli.py --roof-props`) has never run in a level: Level Factory's Zoo adapter passes `--roof-props` only for a job carrying `roof_props_slots`, and nothing in Level Factory writes that key.*
+
+**181. Zoo's roof props cannot fire: the adapter reads a key no planner
+writes.** Found while giving the Empties TV antennas and satellite dishes
+(Zoo 1.74.0, Patina 0.29.0, Deli Counter 0.185.0), which took the dressing
+path instead.
+
+**WHAT EXISTS.** Zoo 0.25 plans and builds a rooftop scatter -- water tanks,
+HVAC units, vent stacks, exhaust fans, skylights, satellite dishes --
+deterministic per manifest and seed: `zoo_keeper/core/roofprops.py`
+`scatter`, `bpylayer.build.build_roof_props`, `zoo_cli.py --roof-props`, with
+its own tests (`tests/test_roofprops.py`). Level Factory's Zoo adapter
+(`adapters/zoo/__init__.py:375`) adds `--roof-props` when a job spec carries
+`roof_props_slots`.
+
+**WHAT DOES NOT.** Nothing writes `roof_props_slots`. Grepped over Level
+Factory's Python, tests excluded, on 2026-10-05: the key appears only where
+the adapter reads it. No level has had a roof prop, and the adapter's branch
+is a code path that cannot fire -- indistinguishable, from outside, from one
+that ran and found nothing to do.
+
+**WHY THE EMPTIES DID NOT USE IT.**
+  * Its rules are a commercial roofscape -- a water tank on any roof of 50 m2
+    or more, HVAC units by area -- most of it below a parapet from the
+    street.
+  * It writes a GLB per building with a mesh per part, where the Empties'
+    covers merge one mesh per side per material (roadmap 180).
+  * It has no TV antenna, which is the thing a rowhome's roofline shows.
+
+**WHAT WOULD CLOSE IT.** Either a planner that writes the key -- for the
+enterable buildings whose flat roofs a player sees from a higher roof or a
+ladder -- with the result priced A/B/A2 like any look; or the branch and the
+module removed. A path nothing reaches reads as a capability.
