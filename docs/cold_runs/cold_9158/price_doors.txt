@@ -1,0 +1,16 @@
+# A = cold 9157, B = cold 9158 (front doors), A2 = cold 9157 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median    +0.000  mean    +0.642  min    +0.000  max    +3.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median    +0.000  mean    +0.623  min    +0.000  max    +3.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    +0.023  mean    +0.156  min    -0.052  max    +3.073
+           A2-A median    +0.005  mean    +0.017  min    -0.046  max    +0.253
+ms_p95     B-A  median    +0.037  mean    +0.386  min    -1.053  max    +8.689
+           A2-A median    -0.004  mean    -0.025  min    -0.792  max    +0.534
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1          180.0: 3034 -> 3037, 5.732 -> 5.800
+  attacker_spawn_2          270.0: 3191 -> 3194, 10.550 -> 10.586
+  extraction_3              270.0: 3118 -> 3121, 9.598 -> 9.708
+  attacker_spawn_1          270.0: 3442 -> 3444, 10.648 -> 10.697
+  attacker_spawn_12         180.0: 3234 -> 3236, 9.069 -> 9.216

@@ -1,0 +1,23 @@
+# python patches/zoo_cover_merge/price_robust.py dr_a dr_a2 dr_b
+53 station x heading pairs; unstable between the two controls (> 1.0 ms): 0
+  control A2 - A, ms median, stable  median   +0.005  mean   +0.017  min   -0.046  max   +0.253  (n 53)
+_runs/perf_inner/dr_b.json:
+  draws, B - A                       median   +0.000  mean   +0.642  min   +0.000  max   +3.000  (n 53)
+  ms median, B - mean(A,A2), all     median   +0.018  mean   +0.148  min   -0.059  max   +3.065  (n 53)
+  ms median, B - mean(A,A2), stable  median   +0.018  mean   +0.148  min   -0.059  max   +3.065  (n 53)
+  ms p95, B - mean(A,A2), stable     median   +0.003  mean   +0.399  min   -0.991  max   +8.728  (n 53)
+  light cap: 61 of 5246 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+control census: 61 of 5244 over, worst 35 (CoverE_concrete_delco_1997)
