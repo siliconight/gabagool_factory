@@ -1,0 +1,16 @@
+# A = cold 9159, B = cold 9160 (twelve rowhome Empties), A2 = cold 9159 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median   -49.000  mean   -87.755  min  -459.000  max   +76.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median   -80.000  mean   -93.377  min  -442.000  max   +66.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -0.021  mean    -0.085  min    -1.918  max    +0.567
+           A2-A median    -0.013  mean    -0.090  min    -1.492  max    +0.281
+ms_p95     B-A  median    -0.080  mean    -0.595  min   -11.201  max    +1.117
+           A2-A median    -0.045  mean    -0.418  min   -10.405  max   +11.238
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  extraction_3              270.0: 3121 -> 3197, 9.796 -> 10.280
+  objective_5               180.0: 2013 -> 2083, 4.938 -> 5.211
+  attacker_spawn_12         180.0: 3236 -> 3290, 9.144 -> 9.711
+  attacker_spawn_12         270.0: 1813 -> 1817, 6.157 -> 6.320
+  attacker_spawn_1            0.0: 521 -> 521, 1.965 -> 1.963
