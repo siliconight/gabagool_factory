@@ -1,0 +1,16 @@
+# A = cold 9161, B = cold 9162 (the terrace deals its houses), A2 = cold 9161 again; two-pass harness, 60 s cool-downs
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median    +0.000  mean   -24.094  min  -377.000  max  +179.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median    +0.000  mean    -5.755  min  -326.000  max  +187.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    +0.007  mean    -0.022  min    -0.795  max    +0.638
+           A2-A median    +0.002  mean    +0.016  min    -0.078  max    +0.164
+ms_p95     B-A  median    +0.005  mean    -0.015  min    -1.002  max    +0.804
+           A2-A median    +0.014  mean    +0.023  min    -0.601  max    +0.799
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  camera_socket_6           180.0: 3652 -> 3831, 8.423 -> 8.997
+  attacker_spawn_1           90.0: 3572 -> 3721, 11.064 -> 11.702
+  camera_socket_6            90.0: 1404 -> 1523, 4.692 -> 5.048
+  highest_vantage            90.0: 1747 -> 1845, 4.285 -> 4.435
+  defender_spawn_21         180.0: 1642 -> 1731, 2.141 -> 2.235
