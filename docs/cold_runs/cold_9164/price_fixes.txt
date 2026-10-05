@@ -1,0 +1,16 @@
+# A = cold 9162, B = cold 9164 (an Empty's door shut to a ray, no party-wall gutters), A2 = cold 9162 again; two-pass harness, 60 s cool-downs
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median   -16.000  mean   -20.000  min   -62.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median   -14.000  mean   -19.302  min   -58.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -0.068  mean    -0.075  min    -0.753  max    +0.514
+           A2-A median    +0.030  mean    +0.030  min    -0.680  max    +0.336
+ms_p95     B-A  median    -0.070  mean    -0.112  min    -0.799  max    +0.696
+           A2-A median    +0.012  mean    +0.013  min    -0.610  max    +0.877
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1            0.0: 521 -> 521, 2.314 -> 2.271
+  attacker_spawn_12           0.0: 515 -> 515, 2.270 -> 2.379
+  attacker_spawn_2            0.0: 527 -> 527, 2.453 -> 2.449
+  camera_socket_0             0.0: 489 -> 489, 2.577 -> 2.528
+  camera_socket_6             0.0: 807 -> 807, 4.362 -> 4.458
