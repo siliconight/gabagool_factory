@@ -861,10 +861,10 @@ work of adopting this.
 | 180 | **CLOSED** | Every Patina cover is its own draw call, and the covers are a third of | 2026-10-05 -- Zoo 1.68.0 merges a building's covers one SIDE per material (8 meshes a buil |
 | 181 | **OPEN** | Zoo's roof props cannot fire: the adapter reads a key no planner write | 2026-10-05 -- FOUND, NOT STARTED. Zoo's roof scatter (`core/roofprops.py`, v0.25; `zoo_cli |
 | 182 | **CLOSED** | The Empties cost 816 draws and 1.87 ms at the median view: merge each  | 2026-10-05 -- Level Factory 0.143.0 merges each Empty's kit modules one mesh a side per ma |
-| 183 | **OPEN** | An Empty's front door is open to a ray | 2026-10-05 -- MEASURED, NOT STARTED. On gs_empty_rowhome_f in cold run 9162's walk copy, r |
-| 184 | **OPEN** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- FOUND, CAUSE NOT ESTABLISHED. Two dashed lines in the sky over gs_empty_rowh |
+| 183 | **CLOSED** | An Empty's front door is open to a ray | 2026-10-05 -- Deli Counter 0.186.0 fills a facade's door full-thickness, as its window's p |
+| 184 | **CLOSED** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0  |
 
-**184 items: 37 open, 83 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**184 items: 35 open, 85 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18609,7 +18609,7 @@ with 962 colliders kept.
 
 *Earlier status, kept verbatim:* *STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. Hiding all 25 Empties saves 816 draws / 1.87 ms at the median view, up to 3,951 / 11.6 ms (9161, interleaved with cool-downs, control 0.05 ms). A prototype merging each Empty's kit modules one mesh a side per material saves 686 / 0.88 ms, up to 3,015 / 6.9 ms (9162, control 0.026 ms).*
 
-*STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. On gs_empty_rowhome_f in cold run 9162's walk copy, rays at 1.0 and 2.0 m pass 10 m into the shell through the front door (x 1.2-1.8) and stop at the face everywhere else; a 0.4 m capsule stops in the reveal.*
+*STATUS: CLOSED 2026-10-05 -- Deli Counter 0.186.0 fills a facade's door full-thickness, as its window's pane. Cold run 9164 (0 interventions), the same probe on gs_empty_rowhome_f: every ray across the doorway stops at the face at 1.0 and 2.0 m; the walk capsule stops at the wall, where it had reached 0.26 m into the reveal. The walker, the same day: Empties keep their doors closed, never meant to be entered.*
 
 **183. An Empty's front door is open to a ray.**
 `patches/lf_empties/door_collision_probe.gd`.
@@ -18622,7 +18622,9 @@ with 962 colliders kept.
   * The fix is Deli Counter's: a facade doorway gets a leaf collider, as
     its window gets a pane.
 
-*STATUS: OPEN 2026-10-05 -- FOUND, CAUSE NOT ESTABLISHED. Two dashed lines in the sky over gs_empty_rowhome_l's roof in 9160's and 9161's street frames; the gutter Patina hangs on the neighbouring house's party wall projects along their slope, about 30 px below them.*
+*Earlier status, kept verbatim:* *STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. On gs_empty_rowhome_f in cold run 9162's walk copy, rays at 1.0 and 2.0 m pass 10 m into the shell through the front door (x 1.2-1.8) and stop at the face everywhere else; a 0.4 m capsule stops in the reveal.*
+
+*STATUS: CLOSED 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0 interventions): the Empties' gutter orders went from 158 front/back plus 144 east/west to 158 and 0; -16 draws at the median view (-62 at most), median frame -0.076 ms against a +0.030 control. The lines' cause was never pinned past the gutter's slope; the 30 px residue is unexplained, and no frame since has been checked for them.*
 
 **184. A gutter on every party wall, and lit covers against an unlit wall.**
 Patina's `roofline_slots` gutters every top-storey exterior wall, party
@@ -18639,3 +18641,5 @@ walls included.
     the rest.
   * A rowhouse roof drains front and back, and the downspouts already keep
     to faces with openings. A party wall wants a coping, not a gutter.
+
+*Earlier status, kept verbatim:* *STATUS: OPEN 2026-10-05 -- FOUND, CAUSE NOT ESTABLISHED. Two dashed lines in the sky over gs_empty_rowhome_l's roof in 9160's and 9161's street frames; the gutter Patina hangs on the neighbouring house's party wall projects along their slope, about 30 px below them.*
