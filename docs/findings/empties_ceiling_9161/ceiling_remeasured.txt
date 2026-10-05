@@ -1,0 +1,42 @@
+# RE-MEASURED, interleaved with 90 s cool-downs: A = cold 9161, B = every Empty hidden, A2 = cold 9161, C = every Empty hidden again; two-pass harness
+53 station x heading pairs; unstable between the two controls (> 1.0 ms): 0
+  control A2 - A, ms median, stable  median   +0.050  mean   +0.080  min   -0.281  max   +0.575  (n 53)
+_runs/perf_inner/ce_b.json:
+  draws, B - A                       median -816.000  mean -1212.358  min -3951.000  max   +0.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -1.869  mean   -2.853  min  -11.571  max   +0.006  (n 53)
+  ms median, B - mean(A,A2), stable  median   -1.869  mean   -2.853  min  -11.571  max   +0.006  (n 53)
+  ms p95, B - mean(A,A2), stable     median   -2.227  mean   -3.007  min  -12.228  max   +0.476  (n 53)
+  light cap: 61 of 5027 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+_runs/perf_inner/ce_b2.json:
+  draws, B - A                       median -816.000  mean -1212.358  min -3951.000  max   +0.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -1.869  mean   -2.803  min  -11.365  max   +0.006  (n 53)
+  ms median, B - mean(A,A2), stable  median   -1.869  mean   -2.803  min  -11.365  max   +0.006  (n 53)
+  ms p95, B - mean(A,A2), stable     median   -2.223  mean   -2.915  min  -11.726  max   +0.507  (n 53)
+  light cap: 61 of 5027 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+control census: 61 of 5027 over, worst 35 (CoverE_concrete_delco_1997)

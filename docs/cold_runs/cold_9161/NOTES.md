@@ -111,3 +111,16 @@ The same package with every Empty hidden
   (0 to 3). The machine changed under the last two -- an antivirus agent
   was at about 15 % CPU afterwards -- and the frame half is to be measured
   again, interleaved, with a cool-down between runs.
+
+**Re-measured** (`ceiling_remeasured.txt`): 9161, hidden, 9161, hidden,
+each run after a 90 s cool-down.
+- **The control:** 0 headings more than 1 ms apart; median +0.050 ms.
+- **The two hidden runs agree:**
+  - draws median -816, mean -1,212, up to -3,951, identical in both;
+  - **median frame -1.869 ms** in both, mean -2.85 and -2.80 ms, at most
+    -11.6 ms;
+  - p95 median -2.23 ms.
+- **That is the most any work on the Empties could save.** A three-storey
+  Empty draws about 258 surfaces (wall 119, wall ends 99, windows 21, its
+  covers 11, doorways 6, roof 2) and uses 8 materials. Its base GLB's 94
+  further meshes are all `-convcolonly` and never draw.
