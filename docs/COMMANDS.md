@@ -115,6 +115,23 @@ python -m level_factory -C workspaces/<ws> export <mission> --mode portable-godo
 python tools/cold_run.py --end
 ```
 
+**The same shape as one script: `tools/cold_drive/`.**
+
+    python tools/cold_drive/stage_batch.py <N> <PREV> "<what this run tests>"
+    EXPORT_FLAGS=--bake-lights bash tools/cold_drive/cold_drive.sh <N> <PREV> <mission> <seed|auto> > docs/cold_runs/cold_<N>/driver.log 2>&1
+    python tools/cold_run.py --end
+
+- **What the driver does.** It stops at the first failing leg and keeps the
+  art and export legs' full output beside the batch (`art.log`,
+  `export.log`). A grep that kept only success lines once threw away the one
+  error a stopped export printed.
+- **What it leaves to you.** It does not call `--end`; a stopped run leaves
+  `_runs/cold/ACTIVE` until it is ended on purpose.
+- **Stage with the script.** `stage_batch.py` sets the batch id as well as
+  the description. Runs 9148 to 9151 were staged by hand-copying the
+  previous `batch.json` and editing only the description, and all four ran
+  as batch `cold_9147`.
+
 `-C` names the **workspace** (the folder holding `.level_factory/`), never the
 factory root. Record interventions with `--note`, identical re-runs with
 `--retry`, and things you only looked at with `--observe`; the three are
