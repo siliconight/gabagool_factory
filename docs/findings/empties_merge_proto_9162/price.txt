@@ -1,0 +1,16 @@
+# PROTOTYPE: A = cold 9162, B = merged per side per material, A2 = cold 9162 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -686.000  mean  -913.000  min -3015.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  -645.000  mean  -866.736  min -2687.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -0.830  mean    -1.505  min    -6.920  max    +0.005
+           A2-A median    +0.026  mean    +0.041  min    -0.059  max    +0.348
+ms_p95     B-A  median    -0.684  mean    -1.527  min    -6.907  max    +0.021
+           A2-A median    +0.055  mean    +0.127  min    -0.436  max    +1.430
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1            0.0: 521 -> 521, 1.947 -> 1.921
+  attacker_spawn_12           0.0: 515 -> 515, 1.924 -> 1.907
+  attacker_spawn_2            0.0: 527 -> 527, 2.026 -> 2.014
+  camera_socket_0             0.0: 489 -> 489, 2.138 -> 2.111
+  camera_socket_6             0.0: 807 -> 807, 3.589 -> 3.511

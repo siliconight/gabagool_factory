@@ -1,0 +1,23 @@
+# PROTOTYPE, measurement only: A = cold 9162, A2 = cold 9162 again, B = cold 9162 with every Empty's kit modules merged one mesh per side per material (patches/lf_empties/merge_empties_proto.gd; the merged meshes miss the lightmap); C = 9162 with every Empty hidden is the ceiling, measured on 9161 (ce_b): -816 draws, -1.87 ms median; two-pass harness, 60 s cool-downs
+53 station x heading pairs; unstable between the two controls (> 1.0 ms): 0
+  control A2 - A, ms median, stable  median   +0.026  mean   +0.041  min   -0.059  max   +0.348  (n 53)
+_runs/perf_inner/mg_b.json:
+  draws, B - A                       median -686.000  mean -913.000  min -3015.000  max   +0.000  (n 53)
+  ms median, B - mean(A,A2), all     median   -0.880  mean   -1.525  min   -6.935  max   -0.017  (n 53)
+  ms median, B - mean(A,A2), stable  median   -0.880  mean   -1.525  min   -6.935  max   -0.017  (n 53)
+  ms p95, B - mean(A,A2), stable     median   -1.069  mean   -1.591  min   -6.695  max   +0.017  (n 53)
+  light cap: 61 of 3228 meshes over 8, worst 35 (CoverE_concrete_delco_1997)
+  of the listed over-cap meshes, covers: 16 of 61
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+     35  /root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     26  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+     24  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+control census: 61 of 5136 over, worst 35 (CoverE_concrete_delco_1997)
