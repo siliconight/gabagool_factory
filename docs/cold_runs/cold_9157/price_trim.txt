@@ -1,0 +1,16 @@
+# A = cold 9156, B = cold 9157 (seams + lintels and sills), A2 = cold 9156 again
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median   +14.000  mean   +17.660  min    +0.000  max   +59.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median   +12.000  mean   +15.774  min    +0.000  max   +49.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    +0.019  mean    +0.017  min    -0.203  max    +0.146
+           A2-A median    -0.008  mean    -0.016  min    -0.227  max    +0.187
+ms_p95     B-A  median    +0.002  mean    -0.053  min    -2.307  max    +1.116
+           A2-A median    -0.027  mean    -0.006  min    -1.879  max    +5.098
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  longest_sightline          90.0: 5922 -> 5981, 18.757 -> 18.902
+  extraction_14              90.0: 5721 -> 5777, 18.217 -> 18.268
+  camera_socket_6           180.0: 4066 -> 4111, 9.000 -> 9.019
+  camera_socket_6           270.0: 4687 -> 4727, 15.298 -> 15.423
+  attacker_spawn_12         180.0: 3195 -> 3234, 9.118 -> 9.074
