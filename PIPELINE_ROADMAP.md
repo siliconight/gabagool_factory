@@ -860,11 +860,11 @@ work of adopting this.
 | 179 | **OPEN** | Manhole covers and sewer drain grates: a street has them, and only so  | 2026-10-04 -- FILED FOR LATER by the walker, with five photographs. Nothing places either  |
 | 180 | **CLOSED** | Every Patina cover is its own draw call, and the covers are a third of | 2026-10-05 -- Zoo 1.68.0 merges a building's covers one SIDE per material (8 meshes a buil |
 | 181 | **OPEN** | Zoo's roof props cannot fire: the adapter reads a key no planner write | 2026-10-05 -- FOUND, NOT STARTED. Zoo's roof scatter (`core/roofprops.py`, v0.25; `zoo_cli |
-| 182 | **OPEN** | The Empties cost 816 draws and 1.87 ms at the median view: merge each  | 2026-10-05 -- MEASURED, NOT STARTED. Hiding all 25 Empties saves 816 draws / 1.87 ms at th |
+| 182 | **CLOSED** | The Empties cost 816 draws and 1.87 ms at the median view: merge each  | 2026-10-05 -- Level Factory 0.143.0 merges each Empty's kit modules one mesh a side per ma |
 | 183 | **OPEN** | An Empty's front door is open to a ray | 2026-10-05 -- MEASURED, NOT STARTED. On gs_empty_rowhome_f in cold run 9162's walk copy, r |
 | 184 | **OPEN** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- FOUND, CAUSE NOT ESTABLISHED. Two dashed lines in the sky over gs_empty_rowh |
 
-**184 items: 38 open, 82 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**184 items: 37 open, 83 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18548,7 +18548,7 @@ enterable buildings whose flat roofs a player sees from a higher roof or a
 ladder -- with the result priced A/B/A2 like any look; or the branch and the
 module removed. A path nothing reaches reads as a capability.
 
-*STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. Hiding all 25 Empties saves 816 draws / 1.87 ms at the median view, up to 3,951 / 11.6 ms (9161, interleaved with cool-downs, control 0.05 ms). A prototype merging each Empty's kit modules one mesh a side per material saves 686 / 0.88 ms, up to 3,015 / 6.9 ms (9162, control 0.026 ms).*
+*STATUS: CLOSED 2026-10-05 -- Level Factory 0.143.0 merges each Empty's kit modules one mesh a side per material in the export, after the occluder bake and before the light bake (colliders kept, materials duplicated, every merged mesh unwrapped). Cold run 9165, 0 interventions, against 9164 at 53 headings (control +0.058 ms, none unstable): draws median -643 / mean -875, up to -2,914; median frame -1.11 ms (59% of the hidden ceiling's -1.87), up to -7.10 ms. Light bake ok at 3,309 users; door collision and the street frame unchanged.*
 
 **182. The Empties cost 816 draws and 1.87 ms at the median view: merge each
 one's sides.** The walker, 2026-10-04: finish the Empties, "then
@@ -18590,6 +18590,24 @@ the light bake.
 thing that enters and leaves view as one. One side of one sealed Empty is
 that thing, as one side of a building's covers was for 180. Merging across
 houses stays wrong.
+
+**SHIPPED (0.143.0, cold run 9165).** `packages/exporting/merge_empties.py`
+finds the scenes the site's `blocker_<n>` nodes instance, runs
+`assets/godot/merge_empties.gd`, and believes its report, never its exit
+code. 12 designs: 1,061 meshes of 1,660 surfaces became 236 merged meshes,
+with 962 colliders kept.
+
+**WHAT REMAINS, NOT THIS ITEM'S.**
+  * **More merged meshes than the prototype made.** 14-22 a design, against
+    the prototype's 12-13 on a walk copy already imported for its lightmap.
+    The untested candidate is surface format (UV2 or not), which is part of
+    the group key; the merge re-unwraps every mesh anyway.
+  * **The Empties' module GLBs still ship and are re-imported.** Nothing
+    instances them after the merge.
+  * **The Empties' occluders are still one per wall module.** They were 1,002
+    of 1,316 in 9162's package.
+
+*Earlier status, kept verbatim:* *STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. Hiding all 25 Empties saves 816 draws / 1.87 ms at the median view, up to 3,951 / 11.6 ms (9161, interleaved with cool-downs, control 0.05 ms). A prototype merging each Empty's kit modules one mesh a side per material saves 686 / 0.88 ms, up to 3,015 / 6.9 ms (9162, control 0.026 ms).*
 
 *STATUS: OPEN 2026-10-05 -- MEASURED, NOT STARTED. On gs_empty_rowhome_f in cold run 9162's walk copy, rays at 1.0 and 2.0 m pass 10 m into the shell through the front door (x 1.2-1.8) and stop at the face everywhere else; a 0.4 m capsule stops in the reveal.*
 

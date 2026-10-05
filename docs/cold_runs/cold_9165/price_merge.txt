@@ -1,0 +1,16 @@
+# A = cold 9164, B = cold 9165 (the Empties merged one mesh a side per material, LF 0.143.0), A2 = cold 9164 again; two-pass harness, 60 s cool-downs
+complete: A True, B True, A2 True; 53 station x heading pairs in all three (A 53, B 53, A2 53)
+draws      B-A  median  -643.000  mean  -874.981  min -2914.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+objects    B-A  median  -608.000  mean  -806.679  min -2507.000  max    +0.000
+           A2-A median    +0.000  mean    +0.000  min    +0.000  max    +0.000
+ms_median  B-A  median    -1.078  mean    -1.557  min    -7.090  max    +0.213
+           A2-A median    +0.058  mean    +0.057  min    -0.315  max    +0.454
+ms_p95     B-A  median    -0.983  mean    -1.619  min    -7.447  max    +0.276
+           A2-A median    +0.120  mean    +0.121  min    -0.501  max    +0.778
+largest draw increases (station, yaw: A -> B draws, A -> B ms_median):
+  attacker_spawn_1            0.0: 521 -> 521, 2.260 -> 2.131
+  attacker_spawn_12           0.0: 515 -> 515, 2.278 -> 2.226
+  attacker_spawn_2            0.0: 527 -> 527, 2.576 -> 2.387
+  camera_socket_0             0.0: 489 -> 489, 2.423 -> 2.537
+  camera_socket_6             0.0: 807 -> 807, 4.444 -> 4.312
