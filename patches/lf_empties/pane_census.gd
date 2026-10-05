@@ -43,6 +43,11 @@ func _run() -> void:
 			key += " | emission %s | emission_texture %s | albedo_texture %s | energy %.2f" % [
 				str(bm.emission_enabled), str(bm.emission_texture != null),
 				str(bm.albedo_texture != null), bm.emission_energy_multiplier]
+			# how the material MAPS its textures: a triplanar material ignores
+			# the mesh's UVs entirely
+			key += " | uv1_triplanar %s | uv1_world_triplanar %s | uv1_scale %s | uv1_offset %s" % [
+				str(bm.uv1_triplanar), str(bm.uv1_world_triplanar),
+				str(bm.uv1_scale), str(bm.uv1_offset)]
 		var name_ok: bool = String(mat.resource_name).begins_with("M_") \
 			and String(mat.resource_name).ends_with("_Face")
 		key += " | binder name test %s" % str(name_ok)
