@@ -83,3 +83,5 @@ session. Same lot, so the stations are the same 14 and the headings the same
 
 The 7.89 is one run's spikes (player_start_26 20.1 ms in run c, 10.0 in run
 d); the clean runs are within noise.
+
+**Frame:** `counter_accent_0x_1x_2x_3x.png`, the four counter-accent strengths side by side (2026-09-29), filed with this record on 2026-10-06.

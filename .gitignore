@@ -75,3 +75,16 @@ unlit_ab2.txt
 _dress/
 
 _archive/
+
+# harness state and test caches at the root: regenerated, never content
+.claude/
+.pytest_cache/
+
+# Godot import caches anywhere under the tracked workspaces -- 229 of them were
+# committed under rockay-ws before this rule existed (2026-10-06)
+.godot/
+
+# workspaces are regenerable: a cold run is staged from docs/cold_runs/cold_N/
+# (batch.json, briefs/) and its record is written back there. Tracked files in
+# the three legacy workspaces stay tracked, as _runs/measurements/ does.
+workspaces/

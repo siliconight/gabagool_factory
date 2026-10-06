@@ -6,11 +6,11 @@ extends SceneTree
 
 ## [name, eye (Godot), target (Godot)]; plan (x, y) is Godot (x, -y)
 const SHOTS: Array = [
-	["empties_across_the_street", Vector3(1.55, 1.70, 21.15), Vector3(1.55, 4.50, 37.65)],
+	["empties_across_the_street", Vector3(4.60, 1.70, 21.15), Vector3(4.60, 4.50, 37.65)],
 	["empties_down_the_row", Vector3(-95.35, 1.70, 34.15), Vector3(-43.35, 4.00, 38.65)],
-	["empties_one_front", Vector3(1.55, 1.70, 31.65), Vector3(1.55, 3.00, 37.65)],
-	["empties_from_above", Vector3(1.55, 30.00, 2.65), Vector3(1.55, 0.00, 43.80)],
-	["empties_roofs", Vector3(16.55, 22.00, 69.95), Vector3(1.55, 8.00, 37.65)],
+	["empties_one_front", Vector3(4.60, 1.70, 31.65), Vector3(4.60, 3.00, 37.65)],
+	["empties_from_above", Vector3(4.60, 30.00, 2.65), Vector3(4.60, 0.00, 43.80)],
+	["empties_roofs", Vector3(19.60, 22.00, 69.95), Vector3(4.60, 8.00, 37.65)],
 ]
 
 

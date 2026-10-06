@@ -102,6 +102,10 @@ reported success for a commit that failed.
   proposal **above the sentence it refutes**, not only into the changelog.
 - If you found something real and out of scope, say so plainly rather than
   widening the change.
+- The record shipped with the work: `python tools/factory_hygiene.py --check`
+  is clean -- nothing untracked under `docs/` or `patches/`, nothing loose at
+  the root, every generated index matching its folder (`docs/FILING.md`).
+  After adding to an indexed folder, `python tools/factory_index.py --write`.
 
 ## 9. Say what is still unproven
 

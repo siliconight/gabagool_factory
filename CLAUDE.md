@@ -122,10 +122,25 @@ probe reported "pixel-identical" from frames that were 99.7% black, and a
 known geometry change measured zero through the same probe. A number that
 cannot move is not evidence.
 
-## The mechanics live in three files, loaded when needed
+## Where things go (hard rule)
+
+`docs/FILING.md` is the table: a change is a patch under `patches/`, an
+investigation is a folder under `docs/findings/` with its instruments beside
+its README, a cold run's record is `docs/cold_runs/cold_N/`, scratch is
+`_scratch/`, and nothing is written to the factory root. At the end of a
+block of work nothing is untracked under `docs/` or `patches/`, and
+`python tools/factory_hygiene.py --check` is clean. On 2026-10-06 the root
+carried 766 MB of session scratch, eleven cold-run folders and ten patches
+that no commit had ever seen; that is the state the rule forbids.
+
+## The mechanics live in four files, loaded when needed
 
 This file is judgment; those are reference. Read the relevant one rather than
 guessing, and add to it the moment something here costs a round trip.
+
+- **`docs/FILING.md`** — where every kind of thing lives, the four rules that
+  keep it so, and the generated indexes (`docs/findings/`, `patches/`,
+  `tools/`) a new reader starts from.
 
 - **`docs/COMMANDS.md`** — how to run the suites, the gates, a cold run and a
   Godot probe, and the four commands that have each cost a round trip. The

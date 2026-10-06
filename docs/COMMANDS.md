@@ -106,6 +106,18 @@ The layout is not uniform. Run from inside the repo.
 - Never set the time back instead. A source older than its build is the
   direction the guard's docstring calls unsafe.
 
+## Hygiene: is everything filed where `docs/FILING.md` says?
+
+```bash
+python tools/factory_hygiene.py --check     # LOOSE at the root, untracked records, index drift; exit 1 on any
+python tools/factory_index.py --write       # regenerate docs/findings, patches, tools ... READMEs after adding a file
+python tools/factory_retire.py              # what the retention rule would remove (dry run); --apply removes it
+```
+
+The check runs at the end of every cold run (`cold_run.py --end` prints its
+one line) and is step 8 of `docs/SHIPPING_A_CHANGE.md`. A `(undescribed)` in
+an index is a file with no docstring or heading: give it one.
+
 ## GDScript, before it leaves this machine
 
 ```bash

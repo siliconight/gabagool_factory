@@ -424,6 +424,17 @@ def cmd_end() -> int:
           f"   (journal {len(noted)}, unattributed files {len(unattributed)})")
     print(f"  A run needing zero is the first real evidence -- roadmap item 17.")
     (_out() / "ACTIVE").unlink(missing_ok=True)
+    # Is the run's record filed (docs/FILING.md)? One line, never the verdict:
+    # a run is clean or not on its interventions, and a loose file is a
+    # different defect reported in its own words.
+    try:
+        import subprocess
+        here = Path(__file__).resolve().parent
+        line = subprocess.run([sys.executable, str(here / "factory_hygiene.py"), "--brief"],
+                              capture_output=True, text=True, timeout=300).stdout.strip()
+        print("  " + (line or "hygiene: (no report)"))
+    except Exception as exc:  # the end of a run must never fail on its tidiness
+        print(f"  hygiene: could not run ({exc})")
     return 1 if verdict else 0
 
 

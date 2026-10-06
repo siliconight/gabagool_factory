@@ -1,0 +1,30 @@
+{
+ "schema": "level_factory.mission_brief.v0.1",
+ "mission_id": "shape_courtyard_9500",
+ "display_name": "Shape sweep: courtyard",
+ "archetype": "strip_club",
+ "building_count": 3,
+ "site_shape": "courtyard",
+ "route_shape": "push_then_backtrack",
+ "objective_hypotheses": [
+  "enter_bank",
+  "reach_vault",
+  "hold_vault",
+  "carry_loot",
+  "return_to_vehicle"
+ ],
+ "extraction_relationship": "crew_start_backtrack",
+ "verticality": "medium",
+ "landmark": "neon_sign",
+ "time_of_day": "afternoon",
+ "weather": "rain",
+ "theme": "delco_1997",
+ "candidate_count": 2,
+ "target_minutes": [
+  25,
+  35
+ ],
+ "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+ "notes": "SHAPE SWEEP, not a cold run. Three briefs identical but for site_shape, at one seed_base, so building selection is constant and the layout is the only variable. Two candidates each so the sweep carries its own within-shape control. Measured with tools/site_plan_census.py. THE QUESTION: every plan on disk is a row -- L and courtyard have never been generated -- so whether site_variation's layouts change a plan at all has never been asked. WHAT WOULD SHOW THE PARAMETER IS INERT: between-shape plan distance no larger than the between-seed distance at a single shape. THIS BRIEF: site_shape 'courtyard' -> courtyard.",
+ "crew_size": 4
+}
