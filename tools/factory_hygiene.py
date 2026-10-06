@@ -75,7 +75,12 @@ def main():
     if n_un:
         fails.append("UNTRACKED")
 
-    records = [u for u in untracked_in(root) if u.startswith(("docs/", "patches/"))]
+    # docs/ and patches/ are records by definition; every indexed folder is
+    # too, because the index generator writes a README there. The first
+    # version watched the first two only and passed two untracked READMEs
+    # under migrations/ and scripts/ (2026-10-06).
+    watched = ("docs/", "patches/") + tuple(k + "/" for k in factory_index.REGISTRY if "/" not in k)
+    records = [u for u in untracked_in(root) if u.startswith(watched)]
     lines.append(("RECORDS", len(records), ", ".join(records[:5]) + (" ..." if len(records) > 5 else "")))
     if records:
         fails.append("RECORDS")
