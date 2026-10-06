@@ -865,10 +865,11 @@ work of adopting this.
 | 184 | **CLOSED** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0  |
 | 185 | **CLOSED** | Demo and reference shells are drawn into real levels | 2026-10-06 -- Deli Counter 0.187.0 says it: five demo and reference specs carry `demo: tru |
 | 186 | **NARROWED** | The detail put into a building type must live in the logic every level | 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter  |
-| 187 | **NARROWED** | A building carries two names | 2026-10-06 -- option D shipped: Level Factory 0.147.0 (a band names a shop; 68 of 148 libr |
+| 187 | **CLOSED** | A building carries two names | 2026-10-06 -- option A, the walker's call ("Agreed"): one name list on both signs, the doo |
 | 188 | **OPEN** | The fence at the playable edge | 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot |
+| 189 | **OPEN** | A building's walkable connectivity depends on where it lands on the vo | 2026-10-06 -- FOUND, NOT STARTED. Cold run 9185 lost two of its three candidates to it, an |
 
-**188 items: 35 open, 87 closed, 3 retracted, 56 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**189 items: 36 open, 88 closed, 3 retracted, 55 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18719,7 +18720,7 @@ Level Factory reads the flag rather than a word in an id.
 traced to `setback_demo`. Nothing here says the demo shell caused it.
 
 
-*STATUS: NARROWED 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter 0.188.0, Zoo 1.75.0, Pixelcoat 0.58.0, Level Factory 0.146.0; cold runs 9181 (a never-seen one-building convenience store, generated) and 9182 (gas_block_001), both 0 interventions. The strip club's band no longer contradicts its neon (item 187's option D). Open: deli detail; the brief words still refused (`deli`, `night_deli`, `stop_n_go`, `corner_store`, `nightclub`).*
+*STATUS: NARROWED 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter 0.188.0, Zoo 1.75.0, Pixelcoat 0.58.0, Level Factory 0.146.0; cold runs 9181 (a never-seen one-building convenience store, generated) and 9182 (gas_block_001), both 0 interventions. The strip club's band no longer contradicts its neon (item 187's option D). FLAPPAHS is cream on green on every sign, the walker's call: Pixelcoat 0.60.0 draws the band in Zoo's colourway 0. No cold run has drawn a FLAPPAHS store since. Open: deli detail; the brief words still refused (`deli`, `night_deli`, `stop_n_go`, `corner_store`, `nightclub`).*
 
 **186. The detail put into a building type must live in the logic every level runs for it.** The walker, 2026-10-06: "the care and detail we put into the strip club and flappahs convient store [should not] just get lost to the next phase of level creation. That level of detail should be in the logic that is called when a level calls for a Gas Station, Convient Store, or a strip club."
 
@@ -18742,7 +18743,7 @@ traced to `setback_demo`. Nothing here says the demo shell caused it.
   - A generated row reads the preset it was built from.
   - A fascia is dealt a name, never the price board.
 
-*STATUS: NARROWED 2026-10-06 -- option D shipped: Level Factory 0.147.0 (a band names a shop; 68 of 148 library shells are dealt one, where all 148 were) and Zoo 1.76.0 (a retail strip is not a strip club). Open: a named shop's band and door still say two different names -- option A (one table, Zoo's names on both) or B (the door says the band's name) is the walker's call.*
+*STATUS: CLOSED 2026-10-06 -- option A, the walker's call ("Agreed"): one name list on both signs, the door box's. Pixelcoat 0.61.0 holds it (each shop family holds exactly Zoo's door names, mirror-tested against Zoo's source); Level Factory 0.148.0 deals one business a shell and hands that pack to the shell's fixtures job; Zoo 1.79.0's door box wears it. Cold run 9185 (restaurant_row_001), 0 interventions: deli_a01's band and door box both say SCRAPPLE & SONS DELI (`M_SignBox_sign_scrapple_sons_deli_Face`, in the package); the office and the rail station take no band and show one name each.*
 
 **187. A building carries two names.** Found 2026-10-06, measuring the strip club's open item (`docs/findings/two_names_one_building/`).
 
@@ -18760,7 +18761,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - **C.** One sign a building.
 - **D.** Stop the absurd pairings now.
 
-*STATUS: OPEN 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot 0.97.0's `site_fences`, closing an Empty row's gaps and ends; Pixelcoat 0.59.0 lists `chain_link` as a kind Zoo knows. Cold run 9183 is its first level: seven fences on gas_block_001, 0 interventions, findings 57 -> 57 against 9182 on the same candidate. Seen at 7 m, an alley reads as a gated alley. Seen along a 16.8 m run, the far fabric is cut away -- alpha-test mip thinning, the fabric being about 25 % wire -- and that is the next step (coverage-preserving mips, a lower cutoff for this kind, or a distant card; a look-and-price call). Priced against 9182 run twice: +3.8 draws a station, +0.020 ms median against a control spread of 0.124 ms -- under the floor; its +32 mesh instances included 22 from a plate that grew 4 m past each end fence (`site_extent.required_rect` counted fences as content), leaving a walk-around at both ends of the row -- fixed in Lot 0.97.1, re-assembled at 246 m. Open after that: the plate perimeter, which needs the backdrop behind it because the fence is see-through; vacant lots; Empties not in a row.*
+*STATUS: OPEN 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot 0.97.0's `site_fences`, closing an Empty row's gaps and ends; Pixelcoat 0.59.0 lists `chain_link` as a kind Zoo knows. Cold run 9183 is its first level: seven fences on gas_block_001, 0 interventions, findings 57 -> 57 against 9182 on the same candidate. Priced against 9182 run twice: +3.8 draws a station, +0.020 ms median against a control spread of 0.124 ms -- under the floor; its +32 mesh instances included 22 from a plate that grew 4 m past each end fence, fixed in Lot 0.97.1 (cold run 9184, back to 246 m). THE FAR FABRIC, cut away by alpha-test mip thinning in 9183, is BLENDED since Zoo 1.78.0 and Pixelcoat 0.60.0. Rendered on 9184's walk copy, a 0.2 cutoff and alpha hash went solid dark, and the distant card the walker leaned to still left a long run bare seen along its length (a visibility range switches a whole node, and one run is one node); the blended texture keeps the near wire and leaves a faint far screen, with no extra draw. Cold run 9185 (restaurant_row_001), 0 interventions: six fences on the Empty row's front line, every fabric `BLEND`, both end runs stopping on the perimeter at x +-98. NOT YET PRICED in frame time against the alpha test: a run was started and stopped for a pause before any report (`docs/cold_runs/cold_9185/price_fabric.sh` reruns it); also to check in frames, the fence's shadow blended against alpha-tested. Open after that: the plate perimeter, which needs the backdrop behind it because the fence is see-through; vacant lots; Empties not in a row.*
 
 **188. The fence at the playable edge.** The walker, 2026-10-04: "I like the idea of a fence between playable areas and non playable areas, thats good feedback to the player".
 - A fence goes wherever playable ground meets an Empty's back, a vacant lot or the backdrop.
@@ -18773,3 +18774,22 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - On cold run 9180's site: three runs, 3.0, 13.5 and 22.0 m.
 
 **WHY NOT THE PERIMETER FIRST.** The perimeter is four opaque 3 m boxes ("the edge of the world: bright, flat, dead"). Chain link is see-through, so a fence there shows the void beyond the plate until a backdrop stands behind it, which is the walker's next item after the Empties.
+
+*STATUS: OPEN 2026-10-06 -- FOUND, NOT STARTED. Cold run 9185 lost two of its three candidates to it, and the third was clean (0 interventions). deli_a03's upper floor joins its ground floor at 8 of 32 voxel-grid origins (`docs/findings/stairwell_on_one_grid_in_four/`). Next: the library census written beside the finding (`grid_census.py`, not yet run), then the fix where the census says.*
+
+**189. A building's walkable connectivity depends on where it lands on the voxel grid.** Found 2026-10-06, closing cold run 9185 (`docs/findings/stairwell_on_one_grid_in_four/`).
+
+**WHAT WAS MEASURED.**
+- 9185 dropped seed_9003 and seed_9205 for `walktest not ok`. Both stand deli_a03, and in both the objective upstairs (`OBJECTIVE_A`) is off the navmesh's main network. In 9179 the same anchor was off it too, and passed.
+- **The verdict came from an engine error.** The walk test passes an unreachable anchor as "VERTICAL access" when Godot's fallback path ends under it. In 9185 that fallback hit Godot's internal "It's not expect to not find the most reachable polygons" on each failing call and returned a path that stopped near home; the same target from `proxy_1` still ended under the anchor and passed.
+- **The cause is a stairwell.** Baked alone, deli_a03's upper floor joins the ground floor at 8 of 32 grid origins, all at one X offset; the Y and Z offsets change nothing. The stairwell's only way in, the 1.25 m `office_stair_door`, opens into a neck pinched between two stair heads. Baked as a whole site, seed_9003 reproduces the walk test's 4,254 polygons and puts the stairwell, the stair and the whole upper floor on one island of 364, cut off from the street.
+- **The gate that should see it bakes once.** Deli Counter's nav gate passed deli_a03 at its own grid origin.
+
+**WHY IT MATTERS.** Which candidates survive the walk test is decided by the grid a building lands on and by whether an engine fallback succeeds. A brief that draws such a shell into every candidate could lose them all, which is an intervention. Bots in a level that ships with the stairwell unbaked cannot reach the objective.
+
+**REFUTED, KEPT.** That the site outgrew Godot's 4,096-polygon path-search cap: 9179's passing seed_9003 baked 5,251 polygons, and 9185's failing one 4,254.
+
+**OPEN, IN ORDER.**
+1. The census: every library shell at eight grid origins, every pair of floor markers and stair ends that is connected at some origins and not all.
+2. The source fix, by what the census shows: a door never opens where a stair head pinches its landing, and Deli Counter's gate requires connectivity at every origin.
+3. The walk test decides ladder access from geometry it can see, the same from any start, and says when the engine errored.
