@@ -1,0 +1,28 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9171\journal.md
+== batch
+created batch 'cold_9171' with 1 mission(s): county_hospital_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 45)
+  county_hospital_001.lot_assemble.candidate.seed_9006: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9107: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9208: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9006: 3 major, out for ['LT_ROUTE_NEVER_COMPLETED']
+  seed 9107: 3 major, out for ['LT_MAP_ENEMY_PATHING_BROKEN', 'LT_ROUTE_NEVER_COMPLETED']
+  seed 9208: 2 major, out for ['LT_ROUTE_NEVER_COMPLETED']
+  every candidate is out; taking the fewest major findings
+  picked seed_9208 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 57)
+  exit 1
+== export
+  exit 2
+STOPPED: export
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
