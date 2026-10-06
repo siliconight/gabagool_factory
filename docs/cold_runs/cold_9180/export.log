@@ -1,0 +1,19 @@
+[export] surface dressing: warehouse_yard_001_dressing.tscn -- 2501 instances of 4 meshes, 4 draw calls
+[export] 825 occluder(s) from 831 solid module(s); 16 glass, 150 porous and 508 filler left open
+[export]   res://mission.tscn loaded by Godot holds 825 occluder node(s) in a tree of 15062
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] light bake: 324 model(s) and 1062 primitive mesh(es) lightmapped, 5 kept dynamic; 40 steady rig(s) baked, 11 failing left live; 2044 users, 62.2 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 825 occluder node(s) reachable from res://mission.tscn (825 in the package, 19 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 47 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] glb references: 329 GLB(s), 1259 external reference(s): 1259 resolve to 323 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 77 resource(s) in a package of 2327 file(s)
+[export] manifest: 2331 file(s) listed + 2 declared unlisted = 2333 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported warehouse_yard_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9180-ws\.level_factory\exports\LF_warehouse_yard_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9180-ws\.level_factory warehouse_yard_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
