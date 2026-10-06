@@ -1,0 +1,31 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "gas_block_001",
+  "display_name": "Gas Block I",
+  "archetype": "gas_station",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9184. 9183's brief and seeds. WHAT THIS RUN TESTS: Lot 0.97.1 -- fence cover is not ground content, so the plate stays 246 m (9183 grew it to 254 m) and each row's end fence meets the perimeter wall instead of stopping 4 m short.",
+  "crew_size": 4,
+  "empties": "across"
+}

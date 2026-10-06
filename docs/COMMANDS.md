@@ -86,6 +86,14 @@ The layout is not uniform. Run from inside the repo.
 | `deli_counter` | `python -m pytest -q` | tests are `test_*.py` at the REPO ROOT, not under `tests/` |
 | `lasertag`, `lux` | — | Godot addon repos, no Python suite; check `.gd` with `gdcheck.py` |
 
+**In Pixelcoat, a release bumps `pixelcoat/version.py`'s `_FALLBACK` with
+`VERSION`.**
+- `tests/test_version_is_single_sourced.py` holds the two equal.
+- Pixelcoat 0.58.0 shipped with `_FALLBACK` at 0.57.0. Its suite had run
+  before the release patch, so it never saw the bump; 0.59.0 fixed it.
+- In any repo, run the suite AFTER the VERSION bump when the repo has
+  version-coupled tests.
+
 **In Deli Counter, prove a test fails BEFORE `build.py --all`, not after.**
 - `build_freshness.py` compares modification times, and `check.py` (the
   pre-commit hook) runs it.
