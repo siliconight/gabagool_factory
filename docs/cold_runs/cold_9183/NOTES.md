@@ -70,9 +70,27 @@ standing eye height of 1.6 m):
   - -2 bands, each a `sign_b`, a `face` and a `mesh`;
   - +22 ground tiles (`mesh_t`): +5 each under `Ground` and `Ground_15`,
     +1 each under `perim_N` and `perim_S`, and the rest elsewhere.
-- **Why the ground tiles.** Lot's ground tiling splits a tile at the edge of
-  every standing piece, and a 6 cm fence is now one.
-  - The plate is the same 246 x 118 m in both runs, so the plate did not
-    grow.
-  - A fence stands on the ground and needs no cut in it, so this is a cheap
-    Lot follow-up, not a defect in the fence.
+- **RETRACTED, kept above what replaced it.** This said: "Lot's ground
+  tiling splits a tile at the edge of every standing piece ... The plate is
+  the same 246 x 118 m in both runs, so the plate did not grow ... a cheap
+  Lot follow-up, not a defect in the fence."
+  - Both halves were wrong.
+  - Lot tiles a box into cells of at most 8 m by equal division. A tile
+    count moves only when a box's size does.
+  - The 246 m came from the `LOT_GROUND_EXTENDED` line, which is printed by
+    a resolve that runs before the fences stand.
+- **What replaced it, measured on the scenes:**
+  - `perim_S` and `Ground` are 254 m wide in 9183's greybox and themed
+    `site.tscn`, against 246 m in 9182's.
+  - `site_extent.required_rect` grows the plate 4 m (`CLEARANCE`) past
+    every cover piece. The end fences reach the edge, so the plate grew past
+    them.
+  - Each end fence therefore stopped 4 m short of the perimeter: a
+    walk-around at both ends of the row.
+  - The 22 extra tiles are the wider ground and perimeter boxes.
+- **Fixed in Lot 0.97.1:** fence cover is not ground content. Re-assembled
+  on this run's `site.json`, `perim_S` is 246 m and the 13.0 m end run stops
+  at x -123.0, on `perim_W`.
+- This is a defect in the fence's first level that the 0.97.0 assembly
+  check missed: that check read the fence lines and never the plate they
+  produced.
