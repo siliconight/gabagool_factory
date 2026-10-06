@@ -3,8 +3,11 @@
 # Stops at the first leg that exits non-zero; nothing here edits a tool repo.
 #
 #   python tools/cold_drive/stage_batch.py <N> <PREV> "<what this run tests>"
-#   EXPORT_FLAGS=--bake-lights bash tools/cold_drive/cold_drive.sh <N> <PREV> <mission> <seed|auto> \
+#   bash tools/cold_drive/cold_drive.sh <N> <PREV> <mission> <seed|auto> \
 #       > docs/cold_runs/cold_<N>/driver.log 2>&1
+#
+# The export bakes the lights by default since Level Factory 0.144.0;
+# EXPORT_FLAGS=--no-bake-lights skips it.
 #   python tools/cold_run.py --end
 #
 # The shape `docs/COMMANDS.md` lists, as one script. It lived in one session's

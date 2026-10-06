@@ -118,9 +118,18 @@ python tools/cold_run.py --end
 **The same shape as one script: `tools/cold_drive/`.**
 
     python tools/cold_drive/stage_batch.py <N> <PREV> "<what this run tests>"
-    EXPORT_FLAGS=--bake-lights bash tools/cold_drive/cold_drive.sh <N> <PREV> <mission> <seed|auto> > docs/cold_runs/cold_<N>/driver.log 2>&1
+    bash tools/cold_drive/cold_drive.sh <N> <PREV> <mission> <seed|auto> > docs/cold_runs/cold_<N>/driver.log 2>&1
     python tools/cold_run.py --end
 
+- **The export bakes the lights by default** (Level Factory 0.144.0).
+  `EXPORT_FLAGS=--no-bake-lights` skips the bake. Runs before 0.144.0
+  passed `EXPORT_FLAGS=--bake-lights`, which still parses.
+- **A mission whose last run's workspace is gone.** `stage_batch.py`
+  copies `batch.json` and `briefs/` out of `docs/cold_runs/cold_<PREV>`, so
+  stage from the mission's own last run. Then drive with `<PREV>` set to the
+  newest workspace that still exists. The driver copies
+  `workspaces/cold-<PREV>-ws/tools.local.json` and stops without it, and
+  its findings diff against a different mission reads as an empty count.
 - **What the driver does.** It stops at the first failing leg and keeps the
   art and export legs' full output beside the batch (`art.log`,
   `export.log`). A grep that kept only success lines once threw away the one
