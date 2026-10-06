@@ -114,6 +114,44 @@ means varies, and a census cannot tell them apart:
   roof openings. Possibly by design.
 - **The parking garages:** a column half over the ramp opening.
 
+## Over a hole, or in a stair's walk (`stale_pieces.py`, `stale_pieces.txt`)
+
+**The same question, plus a stair's walk.** That is a flight's rectangle on
+the storey it climbs from, and its landing rects.
+- **64 pieces in 18 shells:** 55 over a hole, 17 in a walk, 10 both.
+- **Refuted first, kept:** the first run filed every landing rect under the
+  stair's lowest storey. `stair_endpoints` carries no storey: "lower" is the
+  lowest and "upper" the highest.
+
+**Two causes the census cannot tell apart.**
+- **Stale.** The presets, `seed_cover` and `furnish` each clear a piece of
+  the stairs when they place it, and each is idempotent by name, so a piece
+  placed before a stair changed is never asked again.
+  - The deli islands date from Deli Counter 0.80.0. The stair's default run
+    has lengthened since.
+  - **twin_a01's two wardrobes were put over its widened hole by 0.190.0**,
+    0.12 m2 each, measured on 0.189.0's spec and on 0.190.0's. Its swept gate
+    passed it: walking is unaffected, and nothing checked pieces against
+    openings.
+- **Unseen.** `furnish` and `seed_cover` clear the stairs
+  (`_stair_reserved_rects`), not an authored `slab_holes` opening.
+  - apartment_walkup_a01's dining set stands over an authored 2 x 2 m hole.
+  - Moved, it failed the fixed point of furnish: the refurnish puts it back.
+
+**Deli Counter 0.192.0:**
+- L23 (WARN) asks every piece of the spec as it stands.
+- `reseat_piece` moves one by its own placement rule.
+- `migrate_stale_pieces.py` moved 17 pieces in 10 shells and refurnished
+  each.
+- `stale_pieces_baseline.json` freezes 47 in 8 shells, each with why.
+- **The gate:** all 11 shells rebuilt keep 0.191.0's verdicts. The deli
+  shells' circulation arm is clean.
+
+**The census's storey rule is not L23's.** `stale_pieces.py` rounds a piece's
+base to the nearest storey, which files a hung sign on the storey above.
+L23's `piece_story` takes the nearest floor within 0.25 m, and floors
+anything else. On the library both give the same 64 pieces.
+
 ## What is not established
 
 - Whether the deli islands are visible in a level as floating, or only as an
@@ -122,3 +160,9 @@ means varies, and a census cannot tell them apart:
 - What the z-fight pairs on office and rail_station_a02 are. deli_a01's worst
   pairs, from the one finding that was recorded, are slab tiles against a
   server rack cluster.
+- **A walkable piece at a door.** twin_a01's `porch_deck_left` and
+  `stoop_right` read 0.2 m into its front doorways' volumes, and the shell
+  arm fails it. A stoop is where a body steps up to a door. The gate has no
+  notion of a piece being walked on.
+- The furnish fix for authored openings, and what it does to cbp_town_finale,
+  final_stand and apartment_walkup_a01 when they are refurnished.
