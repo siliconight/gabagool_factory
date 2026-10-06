@@ -1,0 +1,5930 @@
+{
+  "complete": true,
+  "geometry": {
+    "cold_worst_ms": 59.947,
+    "mesh_instances": 4371,
+    "multimesh_instances": 4,
+    "nodes": 24822,
+    "passes": 2
+  },
+  "rows": [
+    {
+      "headings": [
+        {
+          "draws": 3286,
+          "gpu_ms": 3.98225004673004,
+          "ms_median": 10.304,
+          "ms_p95": 11.282,
+          "ms_worst": 11.861,
+          "objects": 3144,
+          "pass_spread_ms": 0.0180000000000007,
+          "passes": [
+            {
+              "draws": 3286,
+              "ms_median": 10.304,
+              "ms_p95": 11.282
+            },
+            {
+              "draws": 3286,
+              "ms_median": 10.924,
+              "ms_p95": 11.3
+            }
+          ],
+          "primitives": 1402436,
+          "render_cpu_ms": 9.70484991073608,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 4464,
+          "gpu_ms": 4.28039997816086,
+          "ms_median": 10.68,
+          "ms_p95": 10.974,
+          "ms_worst": 11.399,
+          "objects": 4260,
+          "pass_spread_ms": 0.808,
+          "passes": [
+            {
+              "draws": 4464,
+              "ms_median": 10.68,
+              "ms_p95": 10.974
+            },
+            {
+              "draws": 4464,
+              "ms_median": 10.753,
+              "ms_p95": 11.782
+            }
+          ],
+          "primitives": 1737256,
+          "render_cpu_ms": 10.0137000083923,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 3699,
+          "gpu_ms": 3.42120003700256,
+          "ms_median": 10.514,
+          "ms_p95": 10.957,
+          "ms_worst": 11.457,
+          "objects": 3461,
+          "pass_spread_ms": 0.835999999999999,
+          "passes": [
+            {
+              "draws": 3699,
+              "ms_median": 10.514,
+              "ms_p95": 10.957
+            },
+            {
+              "draws": 3699,
+              "ms_median": 10.305,
+              "ms_p95": 11.793
+            }
+          ],
+          "primitives": 1701538,
+          "render_cpu_ms": 9.38159995079041,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 716,
+          "gpu_ms": 1.00725000202656,
+          "ms_median": 2.838,
+          "ms_p95": 3.085,
+          "ms_worst": 3.178,
+          "objects": 638,
+          "pass_spread_ms": 0.032,
+          "passes": [
+            {
+              "draws": 716,
+              "ms_median": 2.838,
+              "ms_p95": 3.085
+            },
+            {
+              "draws": 596,
+              "ms_median": 2.688,
+              "ms_p95": 3.117
+            }
+          ],
+          "primitives": 1628486,
+          "render_cpu_ms": 2.33055000901222,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 9.0745,
+      "pos": [
+        -22.0,
+        1.60000002384186,
+        -4.0
+      ],
+      "station": "attacker_spawn_2",
+      "type": "attacker_spawn",
+      "worst_heading": {
+        "draws": 3286,
+        "gpu_ms": 3.98225004673004,
+        "ms_median": 10.304,
+        "ms_p95": 11.282,
+        "ms_worst": 11.861,
+        "objects": 3144,
+        "pass_spread_ms": 0.0180000000000007,
+        "passes": [
+          {
+            "draws": 3286,
+            "ms_median": 10.304,
+            "ms_p95": 11.282
+          },
+          {
+            "draws": 3286,
+            "ms_median": 10.924,
+            "ms_p95": 11.3
+          }
+        ],
+        "primitives": 1402436,
+        "render_cpu_ms": 9.70484991073608,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 3792,
+          "gpu_ms": 6.96074993610382,
+          "ms_median": 12.944,
+          "ms_p95": 13.566,
+          "ms_worst": 14.805,
+          "objects": 3572,
+          "pass_spread_ms": 0.315999999999999,
+          "passes": [
+            {
+              "draws": 3792,
+              "ms_median": 12.944,
+              "ms_p95": 13.566
+            },
+            {
+              "draws": 3792,
+              "ms_median": 13.248,
+              "ms_p95": 13.882
+            }
+          ],
+          "primitives": 1467632,
+          "render_cpu_ms": 12.016900062561,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 4692,
+          "gpu_ms": 3.88449997901917,
+          "ms_median": 11.093,
+          "ms_p95": 11.656,
+          "ms_worst": 11.876,
+          "objects": 4505,
+          "pass_spread_ms": 0.619999999999999,
+          "passes": [
+            {
+              "draws": 4692,
+              "ms_median": 11.093,
+              "ms_p95": 11.656
+            },
+            {
+              "draws": 4692,
+              "ms_median": 11.045,
+              "ms_p95": 12.276
+            }
+          ],
+          "primitives": 1800524,
+          "render_cpu_ms": 10.1941000461578,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1955,
+          "gpu_ms": 2.24669998288155,
+          "ms_median": 6.95,
+          "ms_p95": 7.34,
+          "ms_worst": 7.532,
+          "objects": 1779,
+          "pass_spread_ms": 0.311,
+          "passes": [
+            {
+              "draws": 1955,
+              "ms_median": 6.95,
+              "ms_p95": 7.34
+            },
+            {
+              "draws": 1955,
+              "ms_median": 7.046,
+              "ms_p95": 7.651
+            }
+          ],
+          "primitives": 1230600,
+          "render_cpu_ms": 6.10784997940064,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 2204,
+          "gpu_ms": 1.72224999070168,
+          "ms_median": 5.631,
+          "ms_p95": 6.044,
+          "ms_worst": 7.427,
+          "objects": 2098,
+          "pass_spread_ms": 0.0300000000000002,
+          "passes": [
+            {
+              "draws": 2204,
+              "ms_median": 5.631,
+              "ms_p95": 6.044
+            },
+            {
+              "draws": 2204,
+              "ms_median": 5.708,
+              "ms_p95": 6.074
+            }
+          ],
+          "primitives": 1455604,
+          "render_cpu_ms": 4.85665001869202,
+          "split_perturbed": true,
+          "yaw": 180.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 9.6515,
+      "pos": [
+        -17.5,
+        4.19999980926514,
+        12.5
+      ],
+      "station": "camera_socket_0",
+      "type": "camera_socket",
+      "worst_heading": {
+        "draws": 3792,
+        "gpu_ms": 6.96074993610382,
+        "ms_median": 12.944,
+        "ms_p95": 13.566,
+        "ms_worst": 14.805,
+        "objects": 3572,
+        "pass_spread_ms": 0.315999999999999,
+        "passes": [
+          {
+            "draws": 3792,
+            "ms_median": 12.944,
+            "ms_p95": 13.566
+          },
+          {
+            "draws": 3792,
+            "ms_median": 13.248,
+            "ms_p95": 13.882
+          }
+        ],
+        "primitives": 1467632,
+        "render_cpu_ms": 12.016900062561,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 3874,
+          "gpu_ms": 4.1495000243187,
+          "ms_median": 10.913,
+          "ms_p95": 11.472,
+          "ms_worst": 13.35,
+          "objects": 3609,
+          "pass_spread_ms": 0.0970000000000013,
+          "passes": [
+            {
+              "draws": 3874,
+              "ms_median": 10.913,
+              "ms_p95": 11.472
+            },
+            {
+              "draws": 3874,
+              "ms_median": 10.855,
+              "ms_p95": 11.569
+            }
+          ],
+          "primitives": 1536696,
+          "render_cpu_ms": 10.0763499736786,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 3973,
+          "gpu_ms": 1.71464999914169,
+          "ms_median": 6.972,
+          "ms_p95": 7.371,
+          "ms_worst": 7.865,
+          "objects": 3963,
+          "pass_spread_ms": 0.156999999999999,
+          "passes": [
+            {
+              "draws": 3973,
+              "ms_median": 6.972,
+              "ms_p95": 7.371
+            },
+            {
+              "draws": 3973,
+              "ms_median": 7.03,
+              "ms_p95": 7.528
+            }
+          ],
+          "primitives": 1725356,
+          "render_cpu_ms": 6.26494996547699,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 4134,
+          "gpu_ms": 1.39305000901222,
+          "ms_median": 6.236,
+          "ms_p95": 6.729,
+          "ms_worst": 7.076,
+          "objects": 4134,
+          "pass_spread_ms": 0.0199999999999996,
+          "passes": [
+            {
+              "draws": 4134,
+              "ms_median": 6.236,
+              "ms_p95": 6.729
+            },
+            {
+              "draws": 4134,
+              "ms_median": 6.13,
+              "ms_p95": 6.749
+            }
+          ],
+          "primitives": 1601084,
+          "render_cpu_ms": 5.30579998493195,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 243,
+          "gpu_ms": 0.885900002717972,
+          "ms_median": 1.553,
+          "ms_p95": 1.784,
+          "ms_worst": 2.023,
+          "objects": 243,
+          "pass_spread_ms": 0.165,
+          "passes": [
+            {
+              "draws": 243,
+              "ms_median": 1.553,
+              "ms_p95": 1.784
+            },
+            {
+              "draws": 243,
+              "ms_median": 1.548,
+              "ms_p95": 1.949
+            }
+          ],
+          "primitives": 1026474,
+          "render_cpu_ms": 1.09055000543594,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 6.839,
+      "pos": [
+        16.0,
+        8.80000019073486,
+        -7.98999977111816
+      ],
+      "station": "defender_spawn_21",
+      "type": "defender_spawn",
+      "worst_heading": {
+        "draws": 3874,
+        "gpu_ms": 4.1495000243187,
+        "ms_median": 10.913,
+        "ms_p95": 11.472,
+        "ms_worst": 13.35,
+        "objects": 3609,
+        "pass_spread_ms": 0.0970000000000013,
+        "passes": [
+          {
+            "draws": 3874,
+            "ms_median": 10.913,
+            "ms_p95": 11.472
+          },
+          {
+            "draws": 3874,
+            "ms_median": 10.855,
+            "ms_p95": 11.569
+          }
+        ],
+        "primitives": 1536696,
+        "render_cpu_ms": 10.0763499736786,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 4289,
+          "gpu_ms": 8.49779994487762,
+          "ms_median": 14.553,
+          "ms_p95": 15.092,
+          "ms_worst": 16.175,
+          "objects": 3967,
+          "pass_spread_ms": 0.048,
+          "passes": [
+            {
+              "draws": 4289,
+              "ms_median": 14.553,
+              "ms_p95": 15.092
+            },
+            {
+              "draws": 4289,
+              "ms_median": 14.213,
+              "ms_p95": 15.14
+            }
+          ],
+          "primitives": 1604240,
+          "render_cpu_ms": 13.5917500019073,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 5573,
+          "gpu_ms": 7.43709995746613,
+          "ms_median": 13.567,
+          "ms_p95": 14.118,
+          "ms_worst": 14.437,
+          "objects": 5413,
+          "pass_spread_ms": 0.801,
+          "passes": [
+            {
+              "draws": 5573,
+              "ms_median": 13.567,
+              "ms_p95": 14.118
+            },
+            {
+              "draws": 5573,
+              "ms_median": 14.372,
+              "ms_p95": 14.919
+            }
+          ],
+          "primitives": 1903804,
+          "render_cpu_ms": 12.6066000461578,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 2540,
+          "gpu_ms": 4.09539996385574,
+          "ms_median": 8.413,
+          "ms_p95": 8.97,
+          "ms_worst": 9.479,
+          "objects": 2375,
+          "pass_spread_ms": 0.987,
+          "passes": [
+            {
+              "draws": 2540,
+              "ms_median": 8.413,
+              "ms_p95": 8.97
+            },
+            {
+              "draws": 2540,
+              "ms_median": 8.557,
+              "ms_p95": 9.957
+            }
+          ],
+          "primitives": 1330628,
+          "render_cpu_ms": 7.68345007896423,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 2280,
+          "gpu_ms": 1.60620000362396,
+          "ms_median": 5.159,
+          "ms_p95": 5.784,
+          "ms_worst": 5.97,
+          "objects": 2219,
+          "pass_spread_ms": 0.33,
+          "passes": [
+            {
+              "draws": 2280,
+              "ms_median": 5.159,
+              "ms_p95": 5.784
+            },
+            {
+              "draws": 2280,
+              "ms_median": 5.369,
+              "ms_p95": 6.114
+            }
+          ],
+          "primitives": 1481740,
+          "render_cpu_ms": 4.71225001811981,
+          "split_perturbed": true,
+          "yaw": 180.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 10.991,
+      "pos": [
+        0.0,
+        1.60000002384186,
+        17.0
+      ],
+      "station": "extraction_11",
+      "type": "extraction",
+      "worst_heading": {
+        "draws": 4289,
+        "gpu_ms": 8.49779994487762,
+        "ms_median": 14.553,
+        "ms_p95": 15.092,
+        "ms_worst": 16.175,
+        "objects": 3967,
+        "pass_spread_ms": 0.048,
+        "passes": [
+          {
+            "draws": 4289,
+            "ms_median": 14.553,
+            "ms_p95": 15.092
+          },
+          {
+            "draws": 4289,
+            "ms_median": 14.213,
+            "ms_p95": 15.14
+          }
+        ],
+        "primitives": 1604240,
+        "render_cpu_ms": 13.5917500019073,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 5657,
+          "gpu_ms": 9.97675006389618,
+          "ms_median": 15.342,
+          "ms_p95": 16.183,
+          "ms_worst": 17.629,
+          "objects": 5459,
+          "pass_spread_ms": 0.611000000000001,
+          "passes": [
+            {
+              "draws": 5657,
+              "ms_median": 15.342,
+              "ms_p95": 16.183
+            },
+            {
+              "draws": 5657,
+              "ms_median": 16.313,
+              "ms_p95": 16.794
+            }
+          ],
+          "primitives": 1902840,
+          "render_cpu_ms": 14.6808000564575,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 2737,
+          "gpu_ms": 1.65674998760223,
+          "ms_median": 6.209,
+          "ms_p95": 6.501,
+          "ms_worst": 6.846,
+          "objects": 2669,
+          "pass_spread_ms": 0.726,
+          "passes": [
+            {
+              "draws": 2737,
+              "ms_median": 6.209,
+              "ms_p95": 6.501
+            },
+            {
+              "draws": 2737,
+              "ms_median": 6.811,
+              "ms_p95": 7.227
+            }
+          ],
+          "primitives": 1543144,
+          "render_cpu_ms": 5.3436999797821,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1310,
+          "gpu_ms": 1.3851499915123,
+          "ms_median": 4.596,
+          "ms_p95": 5.107,
+          "ms_worst": 5.714,
+          "objects": 1175,
+          "pass_spread_ms": 1.312,
+          "passes": [
+            {
+              "draws": 1310,
+              "ms_median": 4.596,
+              "ms_p95": 5.107
+            },
+            {
+              "draws": 1310,
+              "ms_median": 5.097,
+              "ms_p95": 6.419
+            }
+          ],
+          "primitives": 1170988,
+          "render_cpu_ms": 3.82874997854233,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 2308,
+          "gpu_ms": 1.27655001282692,
+          "ms_median": 4.265,
+          "ms_p95": 4.729,
+          "ms_worst": 5.204,
+          "objects": 2267,
+          "pass_spread_ms": 0.382,
+          "passes": [
+            {
+              "draws": 2308,
+              "ms_median": 4.265,
+              "ms_p95": 4.729
+            },
+            {
+              "draws": 2308,
+              "ms_median": 4.733,
+              "ms_p95": 5.111
+            }
+          ],
+          "primitives": 1318322,
+          "render_cpu_ms": 3.53400000333786,
+          "split_perturbed": true,
+          "yaw": 90.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 8.13,
+      "pos": [
+        -12.0,
+        2.5,
+        7.0
+      ],
+      "station": "objective_7",
+      "type": "objective",
+      "worst_heading": {
+        "draws": 5657,
+        "gpu_ms": 9.97675006389618,
+        "ms_median": 15.342,
+        "ms_p95": 16.183,
+        "ms_worst": 17.629,
+        "objects": 5459,
+        "pass_spread_ms": 0.611000000000001,
+        "passes": [
+          {
+            "draws": 5657,
+            "ms_median": 15.342,
+            "ms_p95": 16.183
+          },
+          {
+            "draws": 5657,
+            "ms_median": 16.313,
+            "ms_p95": 16.794
+          }
+        ],
+        "primitives": 1902840,
+        "render_cpu_ms": 14.6808000564575,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 5565,
+          "gpu_ms": 9.26625006198883,
+          "ms_median": 14.511,
+          "ms_p95": 15.224,
+          "ms_worst": 16.192,
+          "objects": 5409,
+          "pass_spread_ms": 0.0630000000000006,
+          "passes": [
+            {
+              "draws": 5565,
+              "ms_median": 14.511,
+              "ms_p95": 15.224
+            },
+            {
+              "draws": 5565,
+              "ms_median": 14.335,
+              "ms_p95": 15.287
+            }
+          ],
+          "primitives": 1902104,
+          "render_cpu_ms": 15.0953499794006,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 3646,
+          "gpu_ms": 4.5978499174118,
+          "ms_median": 11.47,
+          "ms_p95": 12.131,
+          "ms_worst": 12.398,
+          "objects": 3320,
+          "pass_spread_ms": 0.500999999999999,
+          "passes": [
+            {
+              "draws": 3646,
+              "ms_median": 11.47,
+              "ms_p95": 12.131
+            },
+            {
+              "draws": 3646,
+              "ms_median": 11.315,
+              "ms_p95": 12.632
+            }
+          ],
+          "primitives": 1533040,
+          "render_cpu_ms": 10.3519000530243,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 2842,
+          "gpu_ms": 1.95250000357628,
+          "ms_median": 6.909,
+          "ms_p95": 7.114,
+          "ms_worst": 7.505,
+          "objects": 2741,
+          "pass_spread_ms": 1.352,
+          "passes": [
+            {
+              "draws": 2842,
+              "ms_median": 6.909,
+              "ms_p95": 7.114
+            },
+            {
+              "draws": 2842,
+              "ms_median": 7.03,
+              "ms_p95": 8.466
+            }
+          ],
+          "primitives": 1582206,
+          "render_cpu_ms": 6.11219997406006,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1821,
+          "gpu_ms": 2.11849999427795,
+          "ms_median": 6.622,
+          "ms_p95": 6.945,
+          "ms_worst": 7.18,
+          "objects": 1660,
+          "pass_spread_ms": 0.499,
+          "passes": [
+            {
+              "draws": 1821,
+              "ms_median": 6.622,
+              "ms_p95": 6.945
+            },
+            {
+              "draws": 1821,
+              "ms_median": 6.746,
+              "ms_p95": 7.444
+            }
+          ],
+          "primitives": 1192896,
+          "render_cpu_ms": 5.74170000553131,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 10.3535,
+      "pos": [
+        -2.0,
+        1.60000002384186,
+        11.0
+      ],
+      "station": "patrol_point_3",
+      "type": "patrol_point",
+      "worst_heading": {
+        "draws": 5565,
+        "gpu_ms": 9.26625006198883,
+        "ms_median": 14.511,
+        "ms_p95": 15.224,
+        "ms_worst": 16.192,
+        "objects": 5409,
+        "pass_spread_ms": 0.0630000000000006,
+        "passes": [
+          {
+            "draws": 5565,
+            "ms_median": 14.511,
+            "ms_p95": 15.224
+          },
+          {
+            "draws": 5565,
+            "ms_median": 14.335,
+            "ms_p95": 15.287
+          }
+        ],
+        "primitives": 1902104,
+        "render_cpu_ms": 15.0953499794006,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 3801,
+          "gpu_ms": 1.15120000243187,
+          "ms_median": 5.556,
+          "ms_p95": 5.789,
+          "ms_worst": 6.008,
+          "objects": 3780,
+          "pass_spread_ms": 0.265000000000001,
+          "passes": [
+            {
+              "draws": 3801,
+              "ms_median": 5.556,
+              "ms_p95": 5.789
+            },
+            {
+              "draws": 3801,
+              "ms_median": 5.529,
+              "ms_p95": 6.054
+            }
+          ],
+          "primitives": 1599526,
+          "render_cpu_ms": 5.15269999504089,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 2342,
+          "gpu_ms": 0.87790000140667,
+          "ms_median": 3.653,
+          "ms_p95": 4.353,
+          "ms_worst": 4.681,
+          "objects": 2328,
+          "pass_spread_ms": 0.466,
+          "passes": [
+            {
+              "draws": 2342,
+              "ms_median": 3.653,
+              "ms_p95": 4.353
+            },
+            {
+              "draws": 2342,
+              "ms_median": 3.99,
+              "ms_p95": 4.819
+            }
+          ],
+          "primitives": 1403014,
+          "render_cpu_ms": 2.86895000934601,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 2156,
+          "gpu_ms": 0.82440000474453,
+          "ms_median": 3.288,
+          "ms_p95": 3.692,
+          "ms_worst": 3.799,
+          "objects": 2147,
+          "pass_spread_ms": 0.0449999999999999,
+          "passes": [
+            {
+              "draws": 2156,
+              "ms_median": 3.288,
+              "ms_p95": 3.692
+            },
+            {
+              "draws": 2156,
+              "ms_median": 3.342,
+              "ms_p95": 3.737
+            }
+          ],
+          "primitives": 1274876,
+          "render_cpu_ms": 2.72400000095367,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 734,
+          "gpu_ms": 1.14680001139641,
+          "ms_median": 1.916,
+          "ms_p95": 2.363,
+          "ms_worst": 2.523,
+          "objects": 717,
+          "pass_spread_ms": 0.0779999999999998,
+          "passes": [
+            {
+              "draws": 734,
+              "ms_median": 1.916,
+              "ms_p95": 2.363
+            },
+            {
+              "draws": 734,
+              "ms_median": 1.996,
+              "ms_p95": 2.441
+            }
+          ],
+          "primitives": 1120284,
+          "render_cpu_ms": 1.44045001268387,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 4.04925,
+      "pos": [
+        -13.9655170440674,
+        1.60000002384186,
+        4.08655166625977
+      ],
+      "station": "player_start_31",
+      "type": "player_start",
+      "worst_heading": {
+        "draws": 3801,
+        "gpu_ms": 1.15120000243187,
+        "ms_median": 5.556,
+        "ms_p95": 5.789,
+        "ms_worst": 6.008,
+        "objects": 3780,
+        "pass_spread_ms": 0.265000000000001,
+        "passes": [
+          {
+            "draws": 3801,
+            "ms_median": 5.556,
+            "ms_p95": 5.789
+          },
+          {
+            "draws": 3801,
+            "ms_median": 5.529,
+            "ms_p95": 6.054
+          }
+        ],
+        "primitives": 1599526,
+        "render_cpu_ms": 5.15269999504089,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 5576,
+          "gpu_ms": 8.29525001049042,
+          "ms_median": 13.899,
+          "ms_p95": 15.935,
+          "ms_worst": 17.993,
+          "objects": 5416,
+          "pass_spread_ms": 0.191999999999998,
+          "passes": [
+            {
+              "draws": 5576,
+              "ms_median": 13.899,
+              "ms_p95": 15.935
+            },
+            {
+              "draws": 5576,
+              "ms_median": 13.868,
+              "ms_p95": 16.127
+            }
+          ],
+          "primitives": 1904142,
+          "render_cpu_ms": 13.2915999412537,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 4375,
+          "gpu_ms": 9.36089997291565,
+          "ms_median": 14.967,
+          "ms_p95": 15.905,
+          "ms_worst": 16.118,
+          "objects": 4060,
+          "pass_spread_ms": 0.0790000000000006,
+          "passes": [
+            {
+              "draws": 4375,
+              "ms_median": 14.967,
+              "ms_p95": 15.905
+            },
+            {
+              "draws": 4375,
+              "ms_median": 15.058,
+              "ms_p95": 15.984
+            }
+          ],
+          "primitives": 1613556,
+          "render_cpu_ms": 14.2532500267029,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 2644,
+          "gpu_ms": 4.3633000254631,
+          "ms_median": 8.582,
+          "ms_p95": 8.995,
+          "ms_worst": 9.374,
+          "objects": 2486,
+          "pass_spread_ms": 0.17,
+          "passes": [
+            {
+              "draws": 2644,
+              "ms_median": 8.582,
+              "ms_p95": 8.995
+            },
+            {
+              "draws": 2644,
+              "ms_median": 8.684,
+              "ms_p95": 9.165
+            }
+          ],
+          "primitives": 1337528,
+          "render_cpu_ms": 8.29435002803802,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 2170,
+          "gpu_ms": 1.50740000009537,
+          "ms_median": 5.013,
+          "ms_p95": 5.319,
+          "ms_worst": 5.823,
+          "objects": 2116,
+          "pass_spread_ms": 0.166,
+          "passes": [
+            {
+              "draws": 2170,
+              "ms_median": 5.013,
+              "ms_p95": 5.319
+            },
+            {
+              "draws": 2170,
+              "ms_median": 5.006,
+              "ms_p95": 5.485
+            }
+          ],
+          "primitives": 1465396,
+          "render_cpu_ms": 4.38375005722046,
+          "split_perturbed": true,
+          "yaw": 180.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 11.5385,
+      "pos": [
+        0.0,
+        1.60000002384186,
+        18.0
+      ],
+      "station": "attacker_spawn_10",
+      "type": "attacker_spawn",
+      "worst_heading": {
+        "draws": 5576,
+        "gpu_ms": 8.29525001049042,
+        "ms_median": 13.899,
+        "ms_p95": 15.935,
+        "ms_worst": 17.993,
+        "objects": 5416,
+        "pass_spread_ms": 0.191999999999998,
+        "passes": [
+          {
+            "draws": 5576,
+            "ms_median": 13.899,
+            "ms_p95": 15.935
+          },
+          {
+            "draws": 5576,
+            "ms_median": 13.868,
+            "ms_p95": 16.127
+          }
+        ],
+        "primitives": 1904142,
+        "render_cpu_ms": 13.2915999412537,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 5019,
+          "gpu_ms": 10.0370000362396,
+          "ms_median": 17.07,
+          "ms_p95": 17.807,
+          "ms_worst": 19.682,
+          "objects": 4663,
+          "pass_spread_ms": 0.334,
+          "passes": [
+            {
+              "draws": 5019,
+              "ms_median": 17.07,
+              "ms_p95": 17.807
+            },
+            {
+              "draws": 5019,
+              "ms_median": 17.326,
+              "ms_p95": 18.141
+            }
+          ],
+          "primitives": 1636234,
+          "render_cpu_ms": 16.4342000484467,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 4573,
+          "gpu_ms": 3.97519996166229,
+          "ms_median": 10.049,
+          "ms_p95": 10.606,
+          "ms_worst": 10.948,
+          "objects": 4486,
+          "pass_spread_ms": 0.113,
+          "passes": [
+            {
+              "draws": 4573,
+              "ms_median": 10.049,
+              "ms_p95": 10.606
+            },
+            {
+              "draws": 4573,
+              "ms_median": 9.872,
+              "ms_p95": 10.719
+            }
+          ],
+          "primitives": 1808630,
+          "render_cpu_ms": 9.41440000534058,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 4318,
+          "gpu_ms": 2.64855000376701,
+          "ms_median": 7.401,
+          "ms_p95": 7.707,
+          "ms_worst": 8.038,
+          "objects": 4315,
+          "pass_spread_ms": 2.499,
+          "passes": [
+            {
+              "draws": 4318,
+              "ms_median": 7.401,
+              "ms_p95": 7.707
+            },
+            {
+              "draws": 4318,
+              "ms_median": 9.562,
+              "ms_p95": 10.206
+            }
+          ],
+          "primitives": 1606812,
+          "render_cpu_ms": 6.50079998970032,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 159,
+          "gpu_ms": 0.948749998211861,
+          "ms_median": 1.301,
+          "ms_p95": 1.57,
+          "ms_worst": 1.657,
+          "objects": 159,
+          "pass_spread_ms": 0.097,
+          "passes": [
+            {
+              "draws": 159,
+              "ms_median": 1.301,
+              "ms_p95": 1.57
+            },
+            {
+              "draws": 159,
+              "ms_median": 1.316,
+              "ms_p95": 1.667
+            }
+          ],
+          "primitives": 996482,
+          "render_cpu_ms": 0.900849997997284,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 9.4225,
+      "pos": [
+        16.0,
+        7.40000009536743,
+        -12.0
+      ],
+      "station": "camera_socket_1",
+      "type": "camera_socket",
+      "worst_heading": {
+        "draws": 5019,
+        "gpu_ms": 10.0370000362396,
+        "ms_median": 17.07,
+        "ms_p95": 17.807,
+        "ms_worst": 19.682,
+        "objects": 4663,
+        "pass_spread_ms": 0.334,
+        "passes": [
+          {
+            "draws": 5019,
+            "ms_median": 17.07,
+            "ms_p95": 17.807
+          },
+          {
+            "draws": 5019,
+            "ms_median": 17.326,
+            "ms_p95": 18.141
+          }
+        ],
+        "primitives": 1636234,
+        "render_cpu_ms": 16.4342000484467,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 3453,
+          "gpu_ms": 3.93394999504089,
+          "ms_median": 9.16,
+          "ms_p95": 9.721,
+          "ms_worst": 11.113,
+          "objects": 3382,
+          "pass_spread_ms": 0.356999999999999,
+          "passes": [
+            {
+              "draws": 3453,
+              "ms_median": 9.16,
+              "ms_p95": 9.721
+            },
+            {
+              "draws": 3453,
+              "ms_median": 9.467,
+              "ms_p95": 10.078
+            }
+          ],
+          "primitives": 1556818,
+          "render_cpu_ms": 8.39084994792938,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 2398,
+          "gpu_ms": 2.62560002803802,
+          "ms_median": 8.038,
+          "ms_p95": 8.506,
+          "ms_worst": 8.742,
+          "objects": 2250,
+          "pass_spread_ms": 2.422,
+          "passes": [
+            {
+              "draws": 2398,
+              "ms_median": 8.038,
+              "ms_p95": 8.506
+            },
+            {
+              "draws": 2398,
+              "ms_median": 9.334,
+              "ms_p95": 10.928
+            }
+          ],
+          "primitives": 1438046,
+          "render_cpu_ms": 7.69389996528625,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 532,
+          "gpu_ms": 0.879650002717972,
+          "ms_median": 2.481,
+          "ms_p95": 2.952,
+          "ms_worst": 3.224,
+          "objects": 529,
+          "pass_spread_ms": 0.55,
+          "passes": [
+            {
+              "draws": 532,
+              "ms_median": 2.481,
+              "ms_p95": 2.952
+            },
+            {
+              "draws": 532,
+              "ms_median": 2.755,
+              "ms_p95": 3.502
+            }
+          ],
+          "primitives": 1041828,
+          "render_cpu_ms": 1.91399998664856,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 317,
+          "gpu_ms": 0.79920000731945,
+          "ms_median": 1.808,
+          "ms_p95": 2.072,
+          "ms_worst": 2.282,
+          "objects": 317,
+          "pass_spread_ms": 0.81,
+          "passes": [
+            {
+              "draws": 317,
+              "ms_median": 1.808,
+              "ms_p95": 2.072
+            },
+            {
+              "draws": 317,
+              "ms_median": 2.22,
+              "ms_p95": 2.882
+            }
+          ],
+          "primitives": 1029838,
+          "render_cpu_ms": 1.35280000567436,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 5.81275,
+      "pos": [
+        -68.0,
+        -1.39999997615814,
+        -9.01000022888184
+      ],
+      "station": "defender_spawn_29",
+      "type": "defender_spawn",
+      "worst_heading": {
+        "draws": 3453,
+        "gpu_ms": 3.93394999504089,
+        "ms_median": 9.16,
+        "ms_p95": 9.721,
+        "ms_worst": 11.113,
+        "objects": 3382,
+        "pass_spread_ms": 0.356999999999999,
+        "passes": [
+          {
+            "draws": 3453,
+            "ms_median": 9.16,
+            "ms_p95": 9.721
+          },
+          {
+            "draws": 3453,
+            "ms_median": 9.467,
+            "ms_p95": 10.078
+          }
+        ],
+        "primitives": 1556818,
+        "render_cpu_ms": 8.39084994792938,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 4863,
+          "gpu_ms": 9.15004990100861,
+          "ms_median": 15.225,
+          "ms_p95": 16.076,
+          "ms_worst": 19.622,
+          "objects": 4576,
+          "pass_spread_ms": 0.463999999999999,
+          "passes": [
+            {
+              "draws": 4863,
+              "ms_median": 15.225,
+              "ms_p95": 16.076
+            },
+            {
+              "draws": 4863,
+              "ms_median": 15.821,
+              "ms_p95": 16.54
+            }
+          ],
+          "primitives": 1803080,
+          "render_cpu_ms": 14.3267999172211,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1447,
+          "gpu_ms": 1.46049998998642,
+          "ms_median": 5.177,
+          "ms_p95": 5.752,
+          "ms_worst": 6.461,
+          "objects": 1330,
+          "pass_spread_ms": 0.0250000000000004,
+          "passes": [
+            {
+              "draws": 1447,
+              "ms_median": 5.177,
+              "ms_p95": 5.752
+            },
+            {
+              "draws": 1447,
+              "ms_median": 5.488,
+              "ms_p95": 5.777
+            }
+          ],
+          "primitives": 1210864,
+          "render_cpu_ms": 4.3844500541687,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1253,
+          "gpu_ms": 1.48530000448227,
+          "ms_median": 4.527,
+          "ms_p95": 4.833,
+          "ms_worst": 5.071,
+          "objects": 1111,
+          "pass_spread_ms": 0.247,
+          "passes": [
+            {
+              "draws": 1253,
+              "ms_median": 4.527,
+              "ms_p95": 4.833
+            },
+            {
+              "draws": 1253,
+              "ms_median": 4.719,
+              "ms_p95": 5.08
+            }
+          ],
+          "primitives": 1317672,
+          "render_cpu_ms": 4.09389995336533,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1506,
+          "gpu_ms": 0.912050002813339,
+          "ms_median": 2.777,
+          "ms_p95": 3.172,
+          "ms_worst": 3.241,
+          "objects": 1502,
+          "pass_spread_ms": 0.00499999999999989,
+          "passes": [
+            {
+              "draws": 1506,
+              "ms_median": 2.777,
+              "ms_p95": 3.172
+            },
+            {
+              "draws": 1506,
+              "ms_median": 2.686,
+              "ms_p95": 3.177
+            }
+          ],
+          "primitives": 1142978,
+          "render_cpu_ms": 2.18539999127388,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 7.45825,
+      "pos": [
+        -52.0,
+        1.60000002384186,
+        14.9899997711182
+      ],
+      "station": "extraction_27",
+      "type": "extraction",
+      "worst_heading": {
+        "draws": 4863,
+        "gpu_ms": 9.15004990100861,
+        "ms_median": 15.225,
+        "ms_p95": 16.076,
+        "ms_worst": 19.622,
+        "objects": 4576,
+        "pass_spread_ms": 0.463999999999999,
+        "passes": [
+          {
+            "draws": 4863,
+            "ms_median": 15.225,
+            "ms_p95": 16.076
+          },
+          {
+            "draws": 4863,
+            "ms_median": 15.821,
+            "ms_p95": 16.54
+          }
+        ],
+        "primitives": 1803080,
+        "render_cpu_ms": 14.3267999172211,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 4791,
+          "gpu_ms": 9.67210001945496,
+          "ms_median": 17.009,
+          "ms_p95": 17.546,
+          "ms_worst": 18.188,
+          "objects": 4416,
+          "pass_spread_ms": 0.113,
+          "passes": [
+            {
+              "draws": 4791,
+              "ms_median": 17.009,
+              "ms_p95": 17.546
+            },
+            {
+              "draws": 4791,
+              "ms_median": 16.568,
+              "ms_p95": 17.659
+            }
+          ],
+          "primitives": 1638110,
+          "render_cpu_ms": 16.0145498275757,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 5065,
+          "gpu_ms": 4.36035001277924,
+          "ms_median": 11.214,
+          "ms_p95": 11.663,
+          "ms_worst": 12.35,
+          "objects": 4933,
+          "pass_spread_ms": 0.081999999999999,
+          "passes": [
+            {
+              "draws": 5065,
+              "ms_median": 11.214,
+              "ms_p95": 11.663
+            },
+            {
+              "draws": 5065,
+              "ms_median": 11.099,
+              "ms_p95": 11.745
+            }
+          ],
+          "primitives": 1756348,
+          "render_cpu_ms": 10.3375999927521,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 4485,
+          "gpu_ms": 3.65145000219345,
+          "ms_median": 10.317,
+          "ms_p95": 11.207,
+          "ms_worst": 11.317,
+          "objects": 4251,
+          "pass_spread_ms": 0.0299999999999994,
+          "passes": [
+            {
+              "draws": 4485,
+              "ms_median": 10.317,
+              "ms_p95": 11.207
+            },
+            {
+              "draws": 4485,
+              "ms_median": 10.788,
+              "ms_p95": 11.237
+            }
+          ],
+          "primitives": 1873660,
+          "render_cpu_ms": 9.37854990959167,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 344,
+          "gpu_ms": 0.813749995827675,
+          "ms_median": 1.841,
+          "ms_p95": 2.225,
+          "ms_worst": 2.597,
+          "objects": 333,
+          "pass_spread_ms": 0.00300000000000011,
+          "passes": [
+            {
+              "draws": 344,
+              "ms_median": 1.841,
+              "ms_p95": 2.225
+            },
+            {
+              "draws": 344,
+              "ms_median": 1.908,
+              "ms_p95": 2.228
+            }
+          ],
+          "primitives": 1039704,
+          "render_cpu_ms": 1.3369500041008,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 10.66025,
+      "pos": [
+        8.5,
+        -0.600000023841858,
+        -6.0
+      ],
+      "station": "objective_8",
+      "type": "objective",
+      "worst_heading": {
+        "draws": 4791,
+        "gpu_ms": 9.67210001945496,
+        "ms_median": 17.009,
+        "ms_p95": 17.546,
+        "ms_worst": 18.188,
+        "objects": 4416,
+        "pass_spread_ms": 0.113,
+        "passes": [
+          {
+            "draws": 4791,
+            "ms_median": 17.009,
+            "ms_p95": 17.546
+          },
+          {
+            "draws": 4791,
+            "ms_median": 16.568,
+            "ms_p95": 17.659
+          }
+        ],
+        "primitives": 1638110,
+        "render_cpu_ms": 16.0145498275757,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 3874,
+          "gpu_ms": 4.18305000066757,
+          "ms_median": 10.929,
+          "ms_p95": 11.384,
+          "ms_worst": 11.616,
+          "objects": 3609,
+          "pass_spread_ms": 0.0949999999999989,
+          "passes": [
+            {
+              "draws": 3874,
+              "ms_median": 10.929,
+              "ms_p95": 11.384
+            },
+            {
+              "draws": 3874,
+              "ms_median": 10.7,
+              "ms_p95": 11.479
+            }
+          ],
+          "primitives": 1536696,
+          "render_cpu_ms": 10.2283000469208,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 3973,
+          "gpu_ms": 1.69724999070168,
+          "ms_median": 6.922,
+          "ms_p95": 7.38,
+          "ms_worst": 8.073,
+          "objects": 3963,
+          "pass_spread_ms": 0.132,
+          "passes": [
+            {
+              "draws": 3973,
+              "ms_median": 6.922,
+              "ms_p95": 7.38
+            },
+            {
+              "draws": 3973,
+              "ms_median": 6.977,
+              "ms_p95": 7.512
+            }
+          ],
+          "primitives": 1725356,
+          "render_cpu_ms": 6.05179998874664,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 4134,
+          "gpu_ms": 1.27645001411438,
+          "ms_median": 6.087,
+          "ms_p95": 6.377,
+          "ms_worst": 6.96,
+          "objects": 4134,
+          "pass_spread_ms": 0.147,
+          "passes": [
+            {
+              "draws": 4134,
+              "ms_median": 6.087,
+              "ms_p95": 6.377
+            },
+            {
+              "draws": 4134,
+              "ms_median": 6.291,
+              "ms_p95": 6.524
+            }
+          ],
+          "primitives": 1601084,
+          "render_cpu_ms": 5.32200000286102,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 243,
+          "gpu_ms": 1.33115000128746,
+          "ms_median": 1.573,
+          "ms_p95": 1.808,
+          "ms_worst": 2.052,
+          "objects": 243,
+          "pass_spread_ms": 0.024,
+          "passes": [
+            {
+              "draws": 243,
+              "ms_median": 1.573,
+              "ms_p95": 1.808
+            },
+            {
+              "draws": 243,
+              "ms_median": 1.561,
+              "ms_p95": 1.832
+            }
+          ],
+          "primitives": 1026474,
+          "render_cpu_ms": 1.05175000727177,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 6.73725,
+      "pos": [
+        16.0,
+        8.80000019073486,
+        -7.98999977111816
+      ],
+      "station": "highest_vantage",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 3874,
+        "gpu_ms": 4.18305000066757,
+        "ms_median": 10.929,
+        "ms_p95": 11.384,
+        "ms_worst": 11.616,
+        "objects": 3609,
+        "pass_spread_ms": 0.0949999999999989,
+        "passes": [
+          {
+            "draws": 3874,
+            "ms_median": 10.929,
+            "ms_p95": 11.384
+          },
+          {
+            "draws": 3874,
+            "ms_median": 10.7,
+            "ms_p95": 11.479
+          }
+        ],
+        "primitives": 1536696,
+        "render_cpu_ms": 10.2283000469208,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 6980,
+          "gpu_ms": 14.9580499649048,
+          "ms_median": 22.337,
+          "ms_p95": 23.811,
+          "ms_worst": 24.125,
+          "objects": 6472,
+          "pass_spread_ms": 0.425000000000001,
+          "passes": [
+            {
+              "draws": 6980,
+              "ms_median": 22.337,
+              "ms_p95": 23.811
+            },
+            {
+              "draws": 6980,
+              "ms_median": 22.513,
+              "ms_p95": 24.236
+            }
+          ],
+          "primitives": 2061834,
+          "render_cpu_ms": 21.7920497894287,
+          "split_perturbed": true,
+          "yaw": 90.0
+        }
+      ],
+      "light_census": {
+        "cap": 8,
+        "lights": 149,
+        "meshes": 4371,
+        "over_cap": 70,
+        "over_list": [
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 76,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 50,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_floor_1/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_manager_office/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_corridor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_apartment_hideout/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_market_aisles/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 22,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_lobby/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stockroom_loading/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_kitchen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_utility_room/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_server_room/Floor_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stockroom_loading/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_concourse/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_apartment_hideout/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_manager_office/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_kitchen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_upper_hall/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_cold_storage/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_concourse/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_basement_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_fare_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_server_room/Ceiling_drywall_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_exec_lobby/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_ground_bullpen/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_lobby/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_vault_approach/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_upper_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_customer_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_customer_floor/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_exec_anteroom/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_stairwell/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_stairwell/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_utility_room/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/int_0_1_seg16/Wall_Panel"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_cloth_delco_1997_5c665c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_laminate_delco_1997_bdb5a1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/CubicleBank_metal_painted_delco_1997_4c4f4c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Folder"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Paper"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_Screen_led_0_Detail"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_1a1a1c"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/cubicles_e_2/Stock_plastic_delco_1997_4c473d"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_ground_bullpen/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_agent_wing/Floor_tile_delco_1997"
+          }
+        ],
+        "over_list_truncated": false,
+        "worst": 76,
+        "worst_mesh": "CoverE_concrete_delco_1997"
+      },
+      "mean_p95_over_headings": 23.811,
+      "pos": [
+        63.0,
+        1.60000002384186,
+        15.0100002288818
+      ],
+      "station": "longest_sightline",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 6980,
+        "gpu_ms": 14.9580499649048,
+        "ms_median": 22.337,
+        "ms_p95": 23.811,
+        "ms_worst": 24.125,
+        "objects": 6472,
+        "pass_spread_ms": 0.425000000000001,
+        "passes": [
+          {
+            "draws": 6980,
+            "ms_median": 22.337,
+            "ms_p95": 23.811
+          },
+          {
+            "draws": 6980,
+            "ms_median": 22.513,
+            "ms_p95": 24.236
+          }
+        ],
+        "primitives": 2061834,
+        "render_cpu_ms": 21.7920497894287,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    }
+  ],
+  "schema": "level_factory.perf_stations.v1"
+}

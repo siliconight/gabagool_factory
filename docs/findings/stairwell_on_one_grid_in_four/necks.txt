@@ -1,0 +1,112 @@
+cases: 22 across 16 shells (from census.json)
+rows: 22 of 22 (complete: True)
+
+bank_job  RESPONDER_SPAWN_1#1 <-> COVER_LOW_AUTO_CRATE_STACK_SECURITY_ROOM_0#8  connected at 7 of 8
+    breaks 12.0 m along a 12.6 m route at level (3.40, 4.15, z 0.25); pass origin [0.0, 0.0, 0.0], fail origin [0.075, 0.075, 0.05]
+    islands along the route at the failing origin: 0x60, -1x3
+       0.00 m  collider slab_col_0-colonly, box 30.00 x 22.00 centred (0.00, -0.00)
+       0.47 m  collider crate_stack_security_room_0_col-convcolonly, box 1.10 x 1.10 centred (2.38, 3.85)
+       0.72 m  collider desk_rad8edd5a_4_col-convcolonly, box 1.80 x 0.90 centred (4.82, 3.20)
+       1.40 m  collider VAULTLEDGE_0-convcolonly, box 4.00 x 0.20 centred (0.00, 4.00)
+       2.00 m  collider int_col_0_0_seg8-convcolonly, box 2.00 x 0.30 centred (2.60, 2.00)
+       2.01 m  collider int_col_0_0_seg9-convcolonly, box 2.00 x 0.30 centred (4.60, 2.00)
+cbp_town_finale_midbalanced_schemafixed  DEFENDER_SPAWN_LOUD_THIRD_BASE_SEATING_CROSS#15 <-> DEFENDER_SPAWN_LOUD_FIRST_BASE_SEATING_CROSS#16  connected at 3 of 8
+    breaks 31.4 m along a 193.4 m route at level (-42.35, -7.71, z 0.18); pass origin [0.075, 0.075, 0.05], fail origin [0.0, 0.0, 0.0]
+    islands along the route at the failing origin: 32x157, -1x4, 34x806
+       0.00 m  collider slab_col_0-colonly, box 86.00 x 68.00 centred (0.00, -0.00)
+       0.50 m  collider int_col_0_1_jambN-convcolonly, box 10.12 x 0.30 centred (-36.81, -8.00)
+       0.50 m  collider ext_col_0_W_jamb1-convcolonly, box 0.30 x 61.90 centred (-43.00, -2.45)
+       0.60 m  door third_vomitory 2.00m on int_0_1 at (-42.88, -8.00)
+       2.77 m  collider atm_re098cec3_2_col-convcolonly, box 0.55 x 0.60 centred (-42.56, -10.78)
+       3.65 m  collider cabinet_file_rcc4ee72f_2_col-convcolonly, box 0.50 x 0.90 centred (-42.59, -3.61)
+corner_deli_heist_01  OBJECTIVE_REGISTER#5 <-> COVER_LOW_AISLE_LEFT#9  connected at 2 of 8
+    breaks 0.0 m along a 29.0 m route at level (-12.76, -5.45, z 0.17); pass origin [0.05, 0.075, 0.025], fail origin [0.0, 0.0, 0.0]
+    islands along the route at the failing origin: 1x145
+       0.00 m  collider slab_col_0-colonly, box 38.00 x 28.00 centred (0.00, -0.00)
+       1.10 m  collider front_register_counter_col-convcolonly, box 6.00 x 0.90 centred (-12.00, -7.00)
+       1.58 m  collider VAULTLEDGE_0-convcolonly, box 0.35 x 5.50 centred (-11.00, -6.00)
+       1.81 m  collider shelf_run_r7070a315_3_col-convcolonly, box 1.20 x 0.50 centred (-13.77, -3.44)
+       2.55 m  collider cabinet_file_r7070a315_5_col-convcolonly, box 0.90 x 0.60 centred (-10.38, -3.48)
+       3.21 m  collider cartons_r7070a315_7_col-convcolonly, box 1.60 x 1.20 centred (-12.25, -9.26)
+cr_deli  COVER_LOW_AISLE_LEFT#5 <-> OBJECTIVE_REGISTER#14  connected at 2 of 8
+    the passing route stays on one island at the failing origin
+cr_deli  COVER_LOW_AISLE_RIGHT#6 <-> LANDMARK_MANAGER_OFFICE#30  connected at 2 of 8
+    the passing route stays on one island at the failing origin
+cr_gas  COVER_LOW_REG#0 <-> OBJECTIVE_REGISTER#5  connected at 3 of 8
+    the passing route stays on one island at the failing origin
+deli_a03  DEFENDER_SPAWN#5 <-> COVER_LOW_AISLE_LEFT#8  connected at 8 of 8
+    no origin of each kind; nothing to compare
+deli_a03  OBJECTIVE_A#6 <-> COVER_LOW_AISLE_RIGHT#9  connected at 8 of 8
+    no origin of each kind; nothing to compare
+foundry_heist_vertical  DEFENDER_SPAWN_LOUD_VAULT_PUSH#11 <-> DEFENDER_SPAWN_LOUD_ROOF_DROP#12  connected at 2 of 8
+    breaks 27.0 m along a 122.4 m route at level (-2.08, 14.19, z 0.36); pass origin [0.0, 0.0, 0.0], fail origin [0.05, 0.075, 0.025]
+    islands along the route at the failing origin: 0x135, -1x6, 0x117, -1x5, 1x349
+       0.42 m  collider stair0ramp_0-convcolonly, box 1.80 x 6.48 centred (-3.40, 11.68)
+       0.63 m  collider stair0col_under_0_1-convcolonly, box 1.80 x 0.28 centred (-3.40, 13.58)
+       0.66 m  collider ext_col_0_N_jamb1-convcolonly, box 23.60 x 0.30 centred (-1.90, 15.00)
+       0.86 m  collider stair0col_under_0_2-convcolonly, box 1.80 x 0.28 centred (-3.40, 13.31)
+       1.11 m  collider stair0col_under_0_3-convcolonly, box 1.80 x 0.28 centred (-3.40, 13.03)
+       1.37 m  collider stair0col_under_0_4-convcolonly, box 1.80 x 0.28 centred (-3.40, 12.75)
+foundry_heist_vertical  COVER_HIGH_COVER_ROOF_AC_A#23 <-> stair:foundry_heist_vertical_stair_0:lower  connected at 2 of 8
+    breaks 38.8 m along a 74.4 m route at level (-4.45, 14.40, z 7.05); pass origin [0.0, 0.0, 0.0], fail origin [0.05, 0.075, 0.025]
+    islands along the route at the failing origin: 1x194, -1x5, 0x117, -1x6, 0x50
+       0.00 m  collider slab_col_2-colonly, box 42.00 x 30.00 centred (0.00, -0.00)
+       0.00 m  collider stair0col_discharge_1-convcolonly, box 4.40 x 0.61 centred (-2.50, 14.50)
+       0.15 m  collider stair0ramp_2-convcolonly, box 1.80 x 6.48 centred (-3.40, 11.68)
+       0.21 m  collider stair0col_land_1-convcolonly, box 4.40 x 0.47 centred (-2.50, 13.96)
+       0.45 m  collider ext_col_2_N-convcolonly, box 42.00 x 0.30 centred (0.00, 15.00)
+       1.06 m  collider stair_guard_rail_9_col-convcolonly, box 0.10 x 4.67 centred (-4.75, 11.04)
+fuel_stop_heist  OBJECTIVE_REGISTER#3 <-> LOOT_COOLER_GOODS#6  connected at 1 of 8
+    the passing route stays on one island at the failing origin
+gas_station  COVER_LOW_REG#0 <-> OBJECTIVE_REGISTER#5  connected at 3 of 8
+    the passing route stays on one island at the failing origin
+gas_street  COVER_LOW_REG#0 <-> OBJECTIVE_REGISTER#5  connected at 3 of 8
+    the passing route stays on one island at the failing origin
+gs_auto_shop  COVER_LOW_LIFT1#2 <-> COVER_HIGH_RACK#4  connected at 4 of 8
+    the passing route stays on one island at the failing origin
+gs_corner_station  COVER_LOW_REG#0 <-> OBJECTIVE_REGISTER#5  connected at 3 of 8
+    the passing route stays on one island at the failing origin
+night_auto  COVER_LOW_LIFT1#3 <-> COVER_HIGH_RACK#5  connected at 4 of 8
+    the passing route stays on one island at the failing origin
+night_deli  COVER_LOW_AISLE_LEFT#5 <-> OBJECTIVE_REGISTER#14  connected at 2 of 8
+    the passing route stays on one island at the failing origin
+night_deli  COVER_LOW_AISLE_RIGHT#6 <-> LANDMARK_MANAGER_OFFICE#33  connected at 2 of 8
+    the passing route stays on one island at the failing origin
+primos_pizza  OBJECTIVE_COUNT_SAFE#4 <-> LOOT_TILL#5  connected at 6 of 8
+    breaks 16.4 m along a 38.4 m route at level (6.05, 6.30, z 0.28); pass origin [0.0, 0.0, 0.0], fail origin [0.025, 0.0, 0.075]
+    islands along the route at the failing origin: 3x82, -1x5, 0x105
+       0.00 m  collider slab_col_0-colonly, box 20.00 x 14.00 centred (0.00, -0.00)
+       0.00 m  collider stair0col_discharge_-1-convcolonly, box 4.00 x 0.62 centred (7.50, 6.39)
+       0.00 m  collider stair0ramp_0-convcolonly, box 1.60 x 5.54 centred (6.70, 4.06)
+       0.22 m  collider stair0col_land_-1-convcolonly, box 4.00 x 0.43 centred (7.50, 5.86)
+       0.55 m  collider ext_col_0_N_jamb1-convcolonly, box 5.95 x 0.30 centred (3.28, 7.00)
+       0.59 m  collider ext_col_0_N_BREACHPANEL1, box 1.50 x 0.30 centred (7.00, 7.00)
+primos_pizza  LOOT_STASH#6 <-> PATROL_POINT_PAT_DINING#13  connected at 6 of 8
+    breaks 15.8 m along a 40.6 m route at level (8.40, 6.40, z 0.20); pass origin [0.0, 0.0, 0.0], fail origin [0.025, 0.0, 0.075]
+    islands along the route at the failing origin: 1x79, -1x11, 3x3, -1x5, 0x105
+       0.00 m  collider slab_col_0-colonly, box 20.00 x 14.00 centred (0.00, -0.00)
+       0.00 m  collider stair0col_discharge_-1-convcolonly, box 4.00 x 0.62 centred (7.50, 6.39)
+       0.32 m  collider stair0col_land_-1-convcolonly, box 4.00 x 0.43 centred (7.50, 5.86)
+       0.45 m  collider ext_col_0_N_jambN-convcolonly, box 2.25 x 0.30 centred (8.88, 7.00)
+       0.79 m  collider ext_col_0_N_BREACHPANEL1, box 1.50 x 0.30 centred (7.00, 7.00)
+       0.79 m  collider ext_col_0_N_BREACHPANEL1-convcolonly, box 1.50 x 0.30 centred (7.00, 7.00)
+twin_a01  DEFENDER_SPAWN_D#2 <-> COVER_HIGH_AUTO_KIOSK_FRONT_LEFT_0_SHELTER#4  connected at 7 of 8
+    breaks 19.8 m along a 71.0 m route at level (4.80, 5.40, z 0.32); pass origin [0.0, 0.0, 0.0], fail origin [0.05, 0.075, 0.025]
+    islands along the route at the failing origin: 1x99, -1x24, 0x8, -1x2, 0x83, -1x2, 0x28, -1x5, 0x76, -1x1, 0x27
+       0.80 m  collider stair1ramp_0-convcolonly, box 0.90 x 5.21 centred (3.55, 3.47)
+       0.82 m  collider fridge_right_0_col-convcolonly, box 0.75 x 0.75 centred (6.00, 5.10)
+       0.93 m  collider stair1col_under_0_1-convcolonly, box 0.90 x 0.27 centred (3.55, 4.79)
+       0.95 m  collider ext_col_0_N_seg6-convcolonly, box 2.00 x 0.30 centred (5.60, 6.50)
+       0.96 m  collider stair_guard_rail_13_col-convcolonly, box 0.10 x 1.13 centred (5.35, 4.01)
+       1.09 m  collider stair1col_under_0_2-convcolonly, box 0.90 x 0.27 centred (3.55, 4.52)
+twin_a01  OBJECTIVE_UPSTAIRS#3 <-> COVER_LOW_AUTO_PLANTER_BOX_FRONT_LEFT_0_1#5  connected at 7 of 8
+    breaks 19.8 m along a 70.0 m route at level (4.80, 5.40, z 0.32); pass origin [0.0, 0.0, 0.0], fail origin [0.05, 0.075, 0.025]
+    islands along the route at the failing origin: 1x99, -1x24, 0x8, -1x2, 0x83, -1x2, 0x28, -1x5, 0x76, -1x1, 0x22
+       0.80 m  collider stair1ramp_0-convcolonly, box 0.90 x 5.21 centred (3.55, 3.47)
+       0.82 m  collider fridge_right_0_col-convcolonly, box 0.75 x 0.75 centred (6.00, 5.10)
+       0.93 m  collider stair1col_under_0_1-convcolonly, box 0.90 x 0.27 centred (3.55, 4.79)
+       0.95 m  collider ext_col_0_N_seg6-convcolonly, box 2.00 x 0.30 centred (5.60, 6.50)
+       0.96 m  collider stair_guard_rail_13_col-convcolonly, box 0.10 x 1.13 centred (5.35, 4.01)
+       1.09 m  collider stair1col_under_0_2-convcolonly, box 0.90 x 0.27 centred (3.55, 4.52)
+
+report: C:\Projects\gabagool_studios\gabagool_factory\docs\findings\stairwell_on_one_grid_in_four\necks.json

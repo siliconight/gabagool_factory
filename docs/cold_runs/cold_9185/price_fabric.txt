@@ -1,0 +1,20 @@
+geometry  control a: {'cold_worst_ms': 330.948, 'mesh_instances': 4371, 'multimesh_instances': 4, 'nodes': 24822, 'passes': 2} 
+          control b: {'cold_worst_ms': 59.947, 'mesh_instances': 4371, 'multimesh_instances': 4, 'nodes': 24822, 'passes': 2} 
+          change   : {'cold_worst_ms': 61.687, 'mesh_instances': 4371, 'multimesh_instances': 4, 'nodes': 24822, 'passes': 2}
+station                       draws a  draws b draws chg |   ms a   ms b ms chg chg-mean(a,b)  |a-b| | p95 chg
+attacker_spawn_2               3011.2   3041.2    3043.2 |   9.12   8.58   8.75         -0.11   0.54 |   9.22
+camera_socket_0                3160.8   3160.8    3163.0 |   9.45   9.15   9.21         -0.09   0.30 |   9.92
+defender_spawn_21              3056.0   3056.0    3058.5 |   6.41   6.42   6.39         -0.02   0.00 |   6.90
+extraction_11                  3670.5   3670.5    3672.8 |  10.69  10.42  11.60         +1.05   0.26 |  12.77
+objective_7                    3003.0   3003.0    3005.2 |   8.04   7.60   8.09         +0.27   0.43 |   8.66
+patrol_point_3                 3468.5   3468.5    3470.8 |   9.61   9.88   9.89         +0.15   0.27 |  10.47
+player_start_31                2258.2   2258.2    2260.5 |   3.58   3.60   3.70         +0.11   0.02 |   4.07
+attacker_spawn_10              3691.2   3691.2    3693.5 |  10.92  10.62  10.47         -0.30   0.30 |  11.09
+camera_socket_1                3517.2   3517.2    3519.8 |   9.28   8.96   9.31         +0.19   0.33 |  10.00
+defender_spawn_29              1675.0   1675.0    1676.0 |   5.66   5.37   5.49         -0.03   0.29 |   5.92
+extraction_27                  2267.2   2267.2    2268.8 |   7.12   6.93   7.16         +0.14   0.19 |   7.78
+objective_8                    3671.2   3671.2    3673.5 |   9.94  10.10  10.49         +0.47   0.15 |  11.22
+highest_vantage                3056.0   3056.0    3058.5 |   6.37   6.38   6.43         +0.05   0.01 |   7.14
+longest_sightline              6980.0   6980.0    6984.0 |  22.48  22.34  24.00         +1.59   0.14 |  24.69
+
+over 14 stations: draws change - control mean +3.3; median ms change - control mean +0.248; control |a-b| mean 0.231, max 0.540

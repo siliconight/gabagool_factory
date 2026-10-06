@@ -16,7 +16,16 @@ const AGENT_RADIUS := 0.4
 const AGENT_HEIGHT := 1.8
 const AGENT_MAX_CLIMB := 0.15
 const AGENT_MAX_SLOPE := 55.0
-const SNAP_MAX := 1.0
+# SNAPPED AS DELI COUNTER'S GATE SNAPS (nav_gate.gd): within 2.0 m, and a
+# marker never onto a surface more than one slab and a climb above it. The
+# first full census (census_loose_snap.*) snapped every point to within 1.0 m
+# and up to 1.0 m above, and called the four gas stations split at 1 of 8
+# origins: their safe markers stand at z 0.5 and 0.6, and at seven origins
+# that rule put them on the safe's own top -- a six-vertex island
+# (necks_closest_approach.txt) -- while at the eighth it found the floor.
+# Stair endpoints snap with no ceiling, as the gate's do.
+const SNAP_MAX := 2.0
+const MARKER_MAX_ABOVE := 0.3 + AGENT_MAX_CLIMB
 
 
 func _ready() -> void:
@@ -62,7 +71,8 @@ func _census_one(glb: String, pts: Dictionary, offsets: Array,
 		var row := {}
 		for k in pts.keys():
 			var a: Array = pts[k]
-			var hit := _snap(nm, Vector3(float(a[0]), float(a[1]), float(a[2])))
+			var above: float = INF if str(k).begins_with("stair:") else MARKER_MAX_ABOVE
+			var hit := _snap(nm, Vector3(float(a[0]), float(a[1]), float(a[2])), above)
 			var poly: int = hit["poly"]
 			var d: float = hit["dist"]
 			row[k] = int(comp[poly]) if poly >= 0 and d <= SNAP_MAX else -1
@@ -125,9 +135,9 @@ func _islands(adj: Array) -> Array:
 	return comp
 
 
-func _snap(nm: NavigationMesh, p: Vector3) -> Dictionary:
+func _snap(nm: NavigationMesh, p: Vector3, max_above: float) -> Dictionary:
 	## Nearest polygon by its true closest point, skipping any surface more
-	## than 1 m above p (the ceiling over a storey is not its floor).
+	## than `max_above` above p (a desk's top is not the floor beside it).
 	var verts := nm.get_vertices()
 	var best := -1
 	var best_d := INF
@@ -151,7 +161,7 @@ func _snap(nm: NavigationMesh, p: Vector3) -> Dictionary:
 					q = q2
 				if p.distance_squared_to(q3) < p.distance_squared_to(q):
 					q = q3
-			if q.y - p.y > 1.0:
+			if q.y - p.y > max_above:
 				continue
 			var d := p.distance_to(q)
 			if d < best_d:

@@ -1,0 +1,83 @@
+docs/findings/stairwell_on_one_grid_in_four/neck_finder.gd: parses, and none of the four known traps
+deli_a03  OBJECTIVE_A#6 <-> COVER_LOW_AISLE_RIGHT#9  connected at 4 of 8
+    gap 0.000 m at level (-14.57, 6.67, z 0.25), failing origin [0.0, 0.0, 0.0]
+       0.80 m  door office_stair_door 1.25m on int_0_1 at (-15.0, 6.0)
+       1.63 m  stair deli_stair_down upper end at (-15.8, 5.6)
+       5.65 m  stair deli_stair_up lower end at (-11.8, 11.6)
+       7.61 m  breach  1.40m on int_0_0 at (-8.0, 10.5) [breach panel]
+foundry_heist_vertical  DEFENDER_SPAWN_LOUD_VAULT_PUSH#11 <-> stair:foundry_heist_vertical_stair_1:upper  connected at 2 of 8
+    gap 0.400 m at level (-4.30, 14.43, z 6.98), failing origin [0.05, 0.075, 0.025]
+       7.73 m  door roof_north_to_skylight 1.20m on int_2_8 at (0.0, 8.0)
+      16.35 m  door roof_south_to_north 1.20m on int_2_9 at (-12.0, 0.0)
+      21.77 m  door comms_to_skylight 1.20m on int_2_9 at (12.0, 0.0)
+      22.83 m  door roof_south_to_comms 1.20m on int_2_8 at (0.0, -8.0)
+foundry_heist_vertical  stair:foundry_heist_vertical_stair_0:lower <-> stair:foundry_heist_vertical_stair_0:upper  connected at 4 of 8
+    gap 0.424 m at level (-0.07, 13.92, z 0.15), failing origin [0.025, 0.0, 0.075]
+       9.33 m  door maintenance_to_central 1.20m on int_0_2 at (-5.0, 6.0)
+       9.41 m  door central_to_east_floor 1.20m on int_0_3 at (5.0, 6.0)
+      10.63 m  door north_service 1.20m on ext_0_N at (10.5, 15.0)
+      14.47 m  breach north_soft_panel 1.60m on ext_0_N at (-14.5, 15.0) [breach panel]
+gas_station  COVER_LOW_REG#0 <-> OBJECTIVE_SAFE#6  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [834, 6]}, "pair": ["COVER_LOW_REG#0", "OBJECTIVE_SAFE#6"]
+gas_station  COVER_HIGH_AISLE1#1 <-> LOOT_SAFECASH#7  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [834, 6]}, "pair": ["COVER_HIGH_AISLE1#1", "LOOT_SAFECASH#
+gas_street  COVER_LOW_REG#0 <-> OBJECTIVE_SAFE#6  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [846, 6]}, "pair": ["COVER_LOW_REG#0", "OBJECTIVE_SAFE#6"]
+gas_street  COVER_HIGH_AISLE1#1 <-> LOOT_SAFECASH#7  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [846, 6]}, "pair": ["COVER_HIGH_AISLE1#1", "LOOT_SAFECASH#
+gs_auto_shop  COVER_LOW_LIFT1#2 <-> COVER_HIGH_RACK#4  connected at 2 of 8
+    gap 1.300 m at level (-12.45, 4.00, z 0.25), failing origin [0.0, 0.0, 0.0]
+       0.74 m  window  1.40m on ext_0_W at (-13.0, 4.5)
+       5.95 m  door  1.10m on int_0_0 at (-6.5, 4.0)
+       6.69 m  breach  1.30m on ext_0_N at (-8.0, 9.0) [breach panel]
+      15.50 m  garage bay_door 4.00m on ext_0_S at (-4.0, -9.0)
+gs_auto_shop  COVER_LOW_LIFT2#3 <-> OBJECTIVE_SAFE#5  connected at 6 of 8
+    gap 0.806 m at level (4.95, -3.68, z 0.33), failing origin [0.05, 0.075, 0.025]
+       6.69 m  door front_man_door 1.10m on ext_0_S at (9.0, -9.0)
+       8.25 m  door side_door 1.10m on ext_0_E at (13.0, -5.5)
+       8.26 m  door  1.10m on int_0_0 at (8.0, 4.0)
+      10.41 m  garage bay_door 4.00m on ext_0_S at (-4.0, -9.0)
+gs_corner_station  COVER_LOW_REG#0 <-> OBJECTIVE_SAFE#6  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [906, 6]}, "pair": ["COVER_LOW_REG#0", "OBJECTIVE_SAFE#6"]
+gs_corner_station  COVER_HIGH_AISLE1#1 <-> LOOT_SAFECASH#7  connected at 1 of 8
+    no failing origin, or no same-storey gap: {"connected": [true, false, false, false, false, false, false, false], "fail_offset": [0.05, 0.075, 0.025], "neck": {"found": false, "verts": [906, 6]}, "pair": ["COVER_HIGH_AISLE1#1", "LOOT_SAFECASH#
+night_auto  COVER_LOW_LIFT1#3 <-> COVER_HIGH_RACK#5  connected at 2 of 8
+    gap 1.300 m at level (-12.45, 4.00, z 0.25), failing origin [0.0, 0.0, 0.0]
+       0.74 m  window  1.40m on ext_0_W at (-13.0, 4.5)
+       5.95 m  door  1.10m on int_0_0 at (-6.5, 4.0)
+       6.69 m  breach  1.30m on ext_0_N at (-8.0, 9.0) [breach panel]
+      15.50 m  garage bay_door 4.00m on ext_0_S at (-4.0, -9.0)
+night_auto  COVER_LOW_LIFT2#4 <-> OBJECTIVE_SAFE#6  connected at 6 of 8
+    gap 0.800 m at level (5.40, -2.78, z 0.33), failing origin [0.05, 0.075, 0.025]
+       7.19 m  door front_man_door 1.10m on ext_0_S at (9.0, -9.0)
+       7.26 m  door  1.10m on int_0_0 at (8.0, 4.0)
+       8.07 m  door side_door 1.10m on ext_0_E at (13.0, -5.5)
+      11.27 m  garage bay_door 4.00m on ext_0_S at (-4.0, -9.0)
+primos_pizza  OBJECTIVE_COUNT_SAFE#4 <-> LOOT_TILL#5  connected at 6 of 8
+    gap 0.400 m at level (5.88, 6.38, z 0.20), failing origin [0.025, 0.0, 0.075]
+       1.29 m  breach rear_breach 1.50m on ext_0_N at (7.0, 7.0) [breach panel]
+       3.03 m  door hall_stairs 1.40m on int_0_3 at (4.0, 4.0)
+       5.45 m  door kitchen_stairs 1.20m on int_0_1 at (5.0, 1.0)
+       6.90 m  garage alley_roll 2.60m on ext_0_N at (-1.0, 7.0)
+primos_pizza  LOOT_STASH#6 <-> PATROL_POINT_PAT_DINING#13  connected at 6 of 8
+    gap 2.100 m at level (6.73, 6.38, z 0.20), failing origin [0.025, 0.0, 0.075]
+       0.68 m  breach rear_breach 1.50m on ext_0_N at (7.0, 7.0) [breach panel]
+       3.61 m  door hall_stairs 1.40m on int_0_3 at (4.0, 4.0)
+       5.65 m  door kitchen_stairs 1.20m on int_0_1 at (5.0, 1.0)
+       7.75 m  garage alley_roll 2.60m on ext_0_N at (-1.0, 7.0)
+twin_a01  DEFENDER_SPAWN_D#2 <-> COVER_LOW_AUTO_PLANTER_BOX_FRONT_LEFT_0_1#5  connected at 7 of 8
+    gap 1.200 m at level (0.00, 5.93, z 0.17), failing origin [0.05, 0.075, 0.025]
+       4.04 m  door back_door_right 1.20m on ext_0_N at (4.0, 6.5)
+       4.04 m  door back_door_left 1.20m on ext_0_N at (-4.0, 6.5)
+       9.96 m  window  1.00m on ext_0_E at (8.0, 0.0)
+       9.96 m  window  1.00m on ext_0_W at (-8.0, 0.0)
+twin_a01  OBJECTIVE_UPSTAIRS#3 <-> COVER_HIGH_AUTO_CABINET_SUPPLY_R184347F1_2#8  connected at 7 of 8
+    gap 1.200 m at level (0.00, 5.93, z 0.17), failing origin [0.05, 0.075, 0.025]
+       4.04 m  door back_door_right 1.20m on ext_0_N at (4.0, 6.5)
+       4.04 m  door back_door_left 1.20m on ext_0_N at (-4.0, 6.5)
+       9.96 m  window  1.00m on ext_0_E at (8.0, 0.0)
+       9.96 m  window  1.00m on ext_0_W at (-8.0, 0.0)
+
+report: C:\Projects\gabagool_studios\gabagool_factory\docs\findings\stairwell_on_one_grid_in_four\necks.json
+
+[exited with code 0]

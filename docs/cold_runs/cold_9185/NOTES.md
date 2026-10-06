@@ -57,6 +57,31 @@ Read from the art log, the fixtures jobs and the package
   three fence models (`cover/prop_chain_link_fence_delco_1997_01_w{300,1350,1950}_...glb`).
   The posts and rails are `OPAQUE`.
 
+## The fabric, priced (2026-10-06, after the run)
+
+The blended fabric against the alpha test it replaced (Zoo 1.77.0's MASK at
+0.5), on this run's package:
+- The shipped package was run twice as the control pair.
+- The change was a copy whose three fence models differ in nothing but the
+  fabric's alpha mode.
+- Method: `price_fabric.sh`, `fabric_mask_variant.py` and
+  `compare_prices.py`, all here. Output: `price_fabric.txt` and the three
+  reports.
+
+| over 14 stations | alpha test, against the blended control |
+|---|---|
+| draw calls | +3.3 a view: +2 to +4 at every station. The control pair differs by 0, except 30 at one station. |
+| median frame | +0.25 ms on average, inside the control's own spread (0.23 mean, 0.54 max) |
+| where the fence fills the view | +1.05 ms at `extraction_11` and +1.59 ms at `longest_sightline`, against control spreads of 0.26 and 0.14 |
+
+**The blended fabric is the cheaper one.** Its draws per view went down,
+not up, and its frame time is the same or better.
+
+**What the alpha test would have bought.** Its extra draws per view are
+consistent with the fabric casting a shadow, and Godot's documentation says
+alpha blending disables shadow casting. So the price of the cheaper fabric
+is a chain-link shadow on the ground. It is not yet seen in a frame.
+
 ## Two candidates out for one stairwell
 
 Both lost candidates stand deli_a03. Both fail on the same anchor:
