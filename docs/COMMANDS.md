@@ -86,6 +86,18 @@ The layout is not uniform. Run from inside the repo.
 | `deli_counter` | `python -m pytest -q` | tests are `test_*.py` at the REPO ROOT, not under `tests/` |
 | `lasertag`, `lux` | — | Godot addon repos, no Python suite; check `.gd` with `gdcheck.py` |
 
+**In Deli Counter, prove a test fails BEFORE `build.py --all`, not after.**
+- `build_freshness.py` compares modification times, and `check.py` (the
+  pre-commit hook) runs it.
+- `git stash` then `git stash pop` on a file in its `GEOMETRY_SOURCES`, such
+  as `presets.py`, writes the same content back with a new time. Every shell
+  built before it then reads as stale, and the hook refuses the commit.
+- Deli Counter 0.188.0 paid one refused hook (about ten minutes) and a
+  second `build.py --all` (6.5 minutes) for it.
+- So stash, prove and pop first, then rebuild once.
+- Never set the time back instead. A source older than its build is the
+  direction the guard's docstring calls unsafe.
+
 ## GDScript, before it leaves this machine
 
 ```bash
