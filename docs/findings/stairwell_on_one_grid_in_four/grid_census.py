@@ -32,6 +32,10 @@ sys.path.insert(0, str(ROOT / "tools"))
 import godot_probe  # noqa: E402
 
 BUILD = ROOT / "deli_counter" / "build"
+# `--build DIR` measures shells built somewhere else -- a scratch build of a
+# candidate fix, gated before it touches the library.
+if "--build" in sys.argv:
+    BUILD = pathlib.Path(sys.argv[sys.argv.index("--build") + 1])
 # Markers that stand on a floor a body walks to. Wall sockets (camera,
 # door, key), vertical links (ladder, hatch) and street points (attacker
 # spawn, extraction) are not floor positions inside one building.
@@ -95,6 +99,9 @@ def main():
     argv = sys.argv[1:]
     only = set(argv[argv.index("--only") + 1].split(",")) if "--only" in argv else None
     out_path = pathlib.Path(argv[argv.index("--out") + 1]) if "--out" in argv else HERE / "census.json"
+    if out_path == HERE / "census.json" and ("--build" in argv or only):
+        sys.exit("--build or --only measures part of the record: pass --out, so census.json "
+                 "stays the library's")
     shells, skipped = {}, []
     for gp_path in sorted(BUILD.glob("*.gameplay.json")):
         name = gp_path.name[:-len(".gameplay.json")]

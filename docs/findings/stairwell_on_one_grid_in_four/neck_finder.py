@@ -5,7 +5,10 @@ it does not, and report where it leaves the start's island
 (neck_finder.gd). Then name the openings, stair ends and collider nodes
 nearest that point.
 
-    python neck_finder.py [--only a,b] [--census census.json]
+    python neck_finder.py [--only a,b] [--census census.json] [--build DIR] [--out necks.json]
+
+`--build DIR` reads shells from a scratch build (through grid_census). With
+`--build` or `--only`, `--out` is required: necks.json is the library's record.
 
 Prints what it measured -- where the route breaks (level space: x, y north, z
 up), the island sequence along it, and what stands nearest. It does not say
@@ -98,6 +101,12 @@ def nearest(gp, cols, at):
 def main():
     argv = sys.argv[1:]
     only = set(argv[argv.index("--only") + 1].split(",")) if "--only" in argv else None
+    out_path = pathlib.Path(argv[argv.index("--out") + 1]) if "--out" in argv else HERE / "necks.json"
+    # A scratch run once wrote twin_a01's two rows over the library's 22 here
+    # (kept as necks_twin_exp.json); the record is restored from git.
+    if out_path == HERE / "necks.json" and ("--build" in argv or only):
+        sys.exit("--build or --only measures part of the record: pass --out, so necks.json "
+                 "stays the library's")
     cpath = HERE / (argv[argv.index("--census") + 1] if "--census" in argv else "census.json")
     census = json.loads(cpath.read_text(encoding="utf-8"))
     cases, gps = [], {}
@@ -159,8 +168,8 @@ def main():
         cols = glb_colliders(gc.BUILD / (shell + ".glb"))
         for d, what in nearest(gps[shell], cols, at):
             print("      %5.2f m  %s" % (d, what))
-    (HERE / "necks.json").write_text(json.dumps(rows, indent=1), encoding="utf-8")
-    print("\nreport: %s" % (HERE / "necks.json"))
+    out_path.write_text(json.dumps(rows, indent=1), encoding="utf-8")
+    print("\nreport: %s" % out_path)
 
 
 if __name__ == "__main__":

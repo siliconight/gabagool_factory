@@ -242,12 +242,68 @@ gs_auto_shop and night_auto:
 - The gate re-snaps each marker at each origin. Testing the base bake's own
   standing point at every origin would report only floor fragility.
 
+## What fixing deli_a03 exposed: a ledge at the head of every stair
+
+Cold run 9186 stood deli_a03 in two candidates, and its walk test passed both:
+the objective was on the main network, with no ladder concession and no
+engine error. Laser Tag then dropped seed_9003 on `LT_ROUTE_NEVER_COMPLETED`:
+- 0 of 25 runs finished;
+- players stuck 3,148 times, every one in a single 2 m cell, deli_a03's upper
+  landing at the head of its up-stair.
+
+**The census** (`ramp_ridge_census.py`): every stair collision ramp in the
+library, 174 in 98 shells, topped out 0.19 to 0.21 m above the floor it
+delivers to.
+- That is the top face's end corner, `step_rise/2 + (thickness/2) *
+  cos(pitch)` over the landing.
+- The half-step-proud offset that makes a ramp ride the nosings caused it.
+- Deli Counter's foot fix of 2026-07-21 said it left the head untouched.
+
+**The walk** (`stair_head_walk.gd`, `run_stair_head_walk.py`): a capsule of
+Laser Tag's size (r 0.35, h 1.8, no step-up, `floor_max_angle` 45) on
+deli_a03's up-stair.
+- As built: DOWN stuck on the landing for the full 8 s; UP arrived.
+- With the ramp lowered one riser (the control): down in 2.4 s, up in 3.8 s.
+- Going up, the ledge is a drop; coming down, it is a 0.2 m riser.
+- The navmesh climbs 0.15 m and Lot's walkers step 0.5 m, so neither
+  instrument saw it.
+
+**Refuted, kept: sinking the ramp** (`patches/patch_dc_ramp_head.py`, built
+and reverted).
+- Lowering every ramp by its overshoot read 0.000 on the census, and walked
+  both ways.
+- But it ran the ramp a riser under the nosings, so every visual tread stood
+  above it.
+- The nav bake reads visual meshes, and saw 0.206 m risers against a 0.15
+  climb. The swept gate failed stair traversal on **94 of 144** shells, where
+  0.189.0 passed all 144.
+- The census and the walk had both measured collision only. That is the gap
+  the gate closed.
+
+**Deli Counter 0.190.0 trims the head instead** (`stairwell.ramp_head_trim`).
+- The ramp keeps riding the nosings, and loses `overshoot / sin(pitch)` from
+  its head, so its corner meets the landing where the nosing line does.
+- A final leg's discharge collider reaches back over the strip left.
+
+**Rebuilt on 0.190.0 and measured three ways:**
+- census, 0.000 m over the landing on all 174 ramps (`ramp_ridge_census.txt`);
+- walk, down in 2.4 s and up in 3.8 s. The control, lowered a further riser,
+  now fails going up, so the instrument sees both directions;
+- swept gate, 144 of 144 shells traverse their stairs, as on 0.189.0.
+
 ## Open
 
-1. **Fix the located necks**, starting with twin_a01. It is the only one
-   whose family lost its last fit shell: move the fridge off the stair top.
-   Then foundry_heist_vertical's and primos_pizza's discharges, the
-   vomitory door, and bank_job's pocket.
+1. **Fix the located necks.** twin_a01 is done in Deli Counter 0.190.0.
+   - **Refuted first, kept:** moving the fridge, because it stood nearest
+     the tear. Built in scratch with all four tall pieces against the end
+     walls (`twin_exp`), it was still 7 of 8.
+   - **The fix:** the neck finder put the tear on the flight itself, 0.9 m
+     wide, which leaves one cell after erosion. At 1.2 m it is 8 of 8, gate
+     and census, furniture untouched.
+   - The generators now draw `presets.STAIR_FLIGHT_WIDTH`: the contract's
+     corridor minimum and a cell.
+   - Still to do: foundry_heist_vertical's and primos_pizza's discharges,
+     the vomitory door, and bank_job's pocket.
 2. **The gate's marker sweep** should test the base bake's standing point,
    not a fresh snap. The register markers would then stop reading as
    fragile for where they snap.
@@ -272,6 +328,21 @@ gs_auto_shop and night_auto:
 - `neck_finder.gd`, `neck_finder.py`: where a split connection breaks, by
   walking the passing origin's route at a failing origin. The superseded
   closest-approach output is `necks_closest_approach.*`.
+  - `necks_twin_exp.json` is the run on `twin_exp`: twin_a01 rebuilt in
+    scratch with its four tall pieces against the end walls. It is the run
+    behind "the tear is on the flight itself".
+  - That run once wrote over `necks.json`, which was restored from git.
+  - Both scripts now refuse `--build` or `--only` without `--out`.
+- `ramp_ridge_census.py`: every library GLB's stair collision ramps against
+  the slab they deliver to.
+  - `ramp_ridge_census.txt` is the run on 0.190.0's build.
+  - The run on 0.189.0's build (174 of 174 at 0.19 to 0.21 m) went to a
+    task log, and is recorded only in the prose above.
+- `stair_head_walk.gd`, `run_stair_head_walk.py`: one capsule down and up
+  deli_a03's up-stair, as built and with the ramp lowered.
+  - `stair_head_walk.json` is the run on 0.190.0's build.
+  - The 0.189.0 run's JSON was overwritten by it. Its figures are in the
+    prose above and in `docs/cold_runs/cold_9186/NOTES.md`.
 - The project probed is cold run 9185's staged walk test for seed_9003:
   `workspaces/cold-9185-ws/.level_factory/staging/restaurant_row_001.walktest_navqa.candidate.seed_9003`.
   It is mirrored to a temp directory on every run (`tools/godot_probe.py`),
