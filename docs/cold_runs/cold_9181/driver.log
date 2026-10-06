@@ -1,0 +1,49 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9181\journal.md
+== batch
+created batch 'cold_9181' with 1 mission(s): convenience_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 29)
+  convenience_001.lot_assemble.candidate.seed_9181: shell.glb 
+  convenience_001.lot_assemble.candidate.seed_9282: shell.glb 
+  convenience_001.lot_assemble.candidate.seed_9383: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9181: 0 major, out for nothing
+  seed 9282: 1 major, out for ['LT_MAP_ENEMY_PATHING_BROKEN']
+  seed 9383: 1 major, out for nothing
+  picked seed_9181 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 43)
+  exit 1
+== export
+[export] light bake: 80 model(s) and 602 primitive mesh(es) lightmapped, 7 kept dynamic; 25 steady rig(s) baked, 6 failing left live; 802 users, 33.3 s in the editor
+exported convenience_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9181-ws\.level_factory\exports\LF_convenience_001.portable-godot
+  exit 0
+== findings
+findings 0 -> 43
+   DISPATCH_FINDING 0 -> 5
+   LOT_DESTINATION_RESEATED 0 -> 4
+   LOT_DESTINATION_RESOLVED 0 -> 4
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 4
+   LOT_GROUND_EXTENDED 0 -> 4
+   LT_MAP_ENEMY_PATHING_BROKEN 0 -> 1
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 3
+   LT_MAP_PLAYER_STUCK 0 -> 3
+   LT_MAP_TRIVIAL_ENCOUNTER 0 -> 1
+   LT_OPENING_STANDOFF 0 -> 3
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   PRESENTATION_ZFIGHT 0 -> 1
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE
