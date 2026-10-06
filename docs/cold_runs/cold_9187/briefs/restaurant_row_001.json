@@ -1,0 +1,27 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "restaurant_row_001",
+  "display_name": "Restaurant Row",
+  "archetype": "corner_deli",
+  "building_count": 3,
+  "site_shape": "strip",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_kitchen",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "alley_backtrack",
+  "verticality": "low",
+  "landmark": "neon_sign",
+  "time_of_day": "evening",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "notes": "COLD RUN 9187. 9186's brief. WHAT THIS RUN TESTS: Deli Counter 0.190.0 -- every stair collision ramp's head is trimmed onto its landing (all 174 stood 0.19 to 0.21 m over it, and in 9186's seed_9003 Laser Tag's bots stuck 3,148 times at the head of deli_a03's up-stair and finished 0 of 25 runs); and no generator draws a stair flight narrower than a corridor, 1.2 m (twin_a01 connects at 8 of 8 and is back among themed lots, 102 fit)."
+}
