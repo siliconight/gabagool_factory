@@ -695,7 +695,7 @@ work of adopting this.
 | 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
-| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-09-21 -- FOUR MORE ZEROS, ONE REFUSAL AND ONE ABANDONED RUN IN 9061-9066, AND THE TWO |
+| 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-10-06 -- THE BREADTH SWEEP: TEN MISSIONS, EIGHT UNTOUCHED FIRST TIME AND TWO AFTER ON |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
 | 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
@@ -784,7 +784,7 @@ work of adopting this.
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
-| 106 | **OPEN** | Non-enterable facade buildings exist and nothing places them | 2026-09-13 -- AN EMPTY HAS NO WINDOWS, AND THE ART-PASS PATH ITS PRESETS WERE WRITTEN AGAI |
+| 106 | **CLOSED** | Non-enterable facade buildings exist and nothing places them | 2026-10-06 -- PLACED, AND PLACED BY DEFAULT. Level Factory 0.137.0 stands a terrace of Emp |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
@@ -863,8 +863,9 @@ work of adopting this.
 | 182 | **CLOSED** | The Empties cost 816 draws and 1.87 ms at the median view: merge each  | 2026-10-05 -- Level Factory 0.143.0 merges each Empty's kit modules one mesh a side per ma |
 | 183 | **CLOSED** | An Empty's front door is open to a ray | 2026-10-05 -- Deli Counter 0.186.0 fills a facade's door full-thickness, as its window's p |
 | 184 | **CLOSED** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0  |
+| 185 | **OPEN** | Demo and reference shells are drawn into real levels | 2026-10-06 -- FOUND IN THE BREADTH SWEEP, A QUESTION FOR THE WALKER. Cold runs 9170 and 91 |
 
-**184 items: 35 open, 85 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**185 items: 35 open, 86 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1956,7 +1957,33 @@ given, so the measure is working and what it says is that the encounter kills
 the crew before it moves. Zero interventions means nothing needed hand-patching.
 It still does not mean the level plays.*
 
-*STATUS: NARROWED 2026-09-21 -- FOUR MORE ZEROS, ONE REFUSAL AND ONE
+*STATUS: NARROWED 2026-10-06 -- THE BREADTH SWEEP: TEN MISSIONS, EIGHT
+UNTOUCHED FIRST TIME AND TWO AFTER ONE TOOL FIX EACH. Cold runs 9135 to
+9165 had all built gas_block_001, so the zeros were one level's. On
+2026-10-05 the walker made the Empties and the light bake the defaults
+(Level Factory 0.144.0) and asked for the ten mission families, on their
+briefs as last run cold. Cold runs 9166-9177, recorded in
+`docs/findings/breadth_sweep_2026-10-06/`:
+- **Eight exported first time, `INTERVENTIONS: 0`:** gas_block_001 (the
+control, every number equal to 9165's), club_block_014, bank_block_001,
+video_block_001, precinct_yard_001, restaurant_row_001, warehouse_yard_001
+and gas_stop_001. Their briefs were last run cold between 9001 and 9134.
+- **Two stopped at export.** Each was a defect in Level Factory, fixed there
+and proven by a re-run of the same brief:
+  - 9170, card_block_001: refused over a blocker on a candidate nobody
+chose. `_open_blockers` read the candidate from `location`, and the
+finding carried it in `candidate_id`. Fixed in 0.144.1; 9174 exported.
+  - 9171, county_hospital_001: its site was re-assembled after the
+functional lock. With no lot library, the site spec was written before
+the shell it measures existed. Fixed in 0.144.2; 9173 exported. That
+path is the default for every new brief.
+- **The defaults found a third defect before any run:** a failed light
+bake wrote an absolute path into its report, and the closure scan refused
+the export (fixed in 0.144.0).
+A `0` on 9170 and 9171 counts hand-touches and nothing more: neither
+level shipped until the tool changed. WHAT THE SWEEP DOES NOT SHOW: every
+brief had been through the pipeline before, on older tools. The
+acceptance test below asks for a spec that never has. Previously: FOUR MORE ZEROS, ONE REFUSAL AND ONE
 ABANDONED RUN IN 9061-9066, AND THE TWO THAT PRODUCED NO PACKAGE BOTH PAID
 FOR THEMSELVES. Journals in `docs/cold_runs/cold_9061..9066/`.
 - **9061 and 9062: zeros.** 9061 drew the first generated card shop; 9062 the
@@ -11746,13 +11773,19 @@ decision exists to separate. The spec key is DATA and sits in the built
 library, so it needs a migration accepting both keys rather than a flag day.
 Still open, and the wiring half of the item is unchanged.*
 
-*STATUS: OPEN 2026-09-13 -- AN EMPTY HAS NO WINDOWS, AND THE ART-PASS PATH
-ITS PRESETS WERE WRITTEN AGAINST DOES NOT EXIST. All three presets seal the
-exterior; the two built shells are 48 and 60 slots, every one a `wall`. Their
-docstrings expect the art pass to turn wall slots into windows, and no code in
-Zoo does. The opaque-glazing tag an Empty's windows need was lost in Deli
-Counter's f54ebfe and is restored in 0.128.1. The rename and the wiring half
-are unchanged.*
+*STATUS: CLOSED 2026-10-06 -- PLACED, AND PLACED BY DEFAULT. Level Factory
+0.137.0 stands a terrace of Empties along the far side of the through road
+(`empties: "across"`), drawn from Deli Counter's rowhome family: 0.174.0
+first, twelve designs by 0.184.0, windows over dark rooms. 0.143.0 merges
+each one a side per material (item 182). 0.144.0 makes the terrace the
+brief's default wherever a lot library and two or more buildings allow it.
+The breadth sweep (cold runs 9166-9177) stood all twelve designs on seven of
+its ten missions, six of which never asked, and each of those seven exports
+merged 1,061 meshes into 236. What remains is not this item: a brief with no
+`lot_library` gets no Empties (three of the ten), because the library is
+opt-in for the reason its own comment gives; and `gs_facade_rowhome` and
+`gs_facade_storefront`, the two sealed boxes this item began from, are still
+not offered.*
 
 **106. Non-enterable facade buildings exist and nothing places them.** Raised
 2026-09-06: "we need buildings that you can't enter, which are already created
@@ -11896,6 +11929,14 @@ curtained room or as a flat slab is a question for the eye, not for
 `see_through_fault`. The claim that nothing in Zoo turns a wall slot into a
 window rests on a search for `facade` in `zoo_keeper` and on reading
 `plan_kit`, not on building a shell through Zoo and looking at it.
+
+*Earlier status, kept verbatim:* *STATUS: OPEN 2026-09-13 -- AN EMPTY HAS NO WINDOWS, AND THE ART-PASS PATH
+ITS PRESETS WERE WRITTEN AGAINST DOES NOT EXIST. All three presets seal the
+exterior; the two built shells are 48 and 60 slots, every one a `wall`. Their
+docstrings expect the art pass to turn wall slots into windows, and no code in
+Zoo does. The opaque-glazing tag an Empty's windows need was lost in Deli
+Counter's f54ebfe and is restored in 0.128.1. The rename and the wiring half
+are unchanged.*
 
 *STATUS: OPEN 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND
 IT IS ABOUT WHICH TOOL THE CONTRACT BELONGS TO RATHER THAN ABOUT A BUG.*
@@ -18643,3 +18684,31 @@ walls included.
     to faces with openings. A party wall wants a coping, not a gutter.
 
 *Earlier status, kept verbatim:* *STATUS: OPEN 2026-10-05 -- FOUND, CAUSE NOT ESTABLISHED. Two dashed lines in the sky over gs_empty_rowhome_l's roof in 9160's and 9161's street frames; the gutter Patina hangs on the neighbouring house's party wall projects along their slope, about 30 px below them.*
+
+*STATUS: OPEN 2026-10-06 -- FOUND IN THE BREADTH SWEEP, A QUESTION FOR THE
+WALKER. Cold runs 9170 and 9174 (card_block_001) drew `setback_demo` on
+seed_9061 and `pvp_station_ref` on seed_9162. Neither candidate was picked,
+and seed_9061's map failed Laser Tag in 2 s (`UNREACHABLE_SPAWN`). Not
+started.*
+
+**185. Demo and reference shells are drawn into real levels.** Found in the
+breadth sweep, 2026-10-06.
+
+**WHAT HAPPENS.** `building_library.source_exclusion`
+(`level_factory/packages/pipeline/building_library.py`) keeps two kinds of
+shell out of a lot: Level Factory's own composed outputs (the `lf_` prefix it
+writes) and facades (Deli Counter's own `facade` flag). Everything else
+complete in `deli_counter/build` is a building a lot may draw. That includes
+`setback_demo` and `pvp_station_ref`, which carry every manifest a building
+does (gameplay, slots, lights, navgate, validation), rebuilt with the rest of
+the library on 2026-10-05.
+
+**WHY IT IS A QUESTION AND NOT A FIX.** The exclusion rule refuses to guess
+from names, deliberately: "A name rule is normally the weak kind of rule", in
+its own comment. Whether a demo or a reference shell belongs in a shipped
+level is an art-direction call. If it does not, the house way is the way
+`facade` works: Deli Counter says so in the shell's validation manifest, and
+Level Factory reads the flag rather than a word in an id.
+
+**NOT CONNECTED, AS FAR AS MEASURED.** seed_9061's `UNREACHABLE_SPAWN` was not
+traced to `setback_demo`. Nothing here says the demo shell caused it.

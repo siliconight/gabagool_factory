@@ -1,0 +1,56 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9177\journal.md
+== batch
+created batch 'cold_9177' with 1 mission(s): gas_stop_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 37)
+  gas_stop_001.lot_assemble.candidate.seed_9011: cr_garage.glb gas_station_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb self_storage_a01.glb 
+  gas_stop_001.lot_assemble.candidate.seed_9112: funeral_home_a01.glb gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb pharmacy_a02.glb 
+  gas_stop_001.lot_assemble.candidate.seed_9213: gas_station_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb marina_a02.glb parking_garage.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9011: 0 major, out for nothing
+  seed 9112: 0 major, out for nothing
+  seed 9213: 0 major, out for nothing
+  picked seed_9011 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 55)
+  exit 1
+== export
+[export] light bake: 363 model(s) and 1452 primitive mesh(es) lightmapped, 6 kept dynamic; 70 steady rig(s) baked, 17 failing left live; 2896 users, 75.5 s in the editor
+exported gas_stop_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9177-ws\.level_factory\exports\LF_gas_stop_001.portable-godot
+  exit 0
+== findings
+findings 0 -> 55
+   DISPATCH_FINDING 0 -> 7
+   LOT_COVER_PLACED 0 -> 3
+   LOT_DESTINATION_RESOLVED 0 -> 2
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 4
+   LOT_GROUND_EXTENDED 0 -> 4
+   LOT_PATH_END_OFF_DOOR 0 -> 5
+   LOT_ROUTE_COVER_PLACED 0 -> 3
+   LT_MAP_ENEMY_STUCK 0 -> 1
+   LT_MAP_INSTANT_CONTACT 0 -> 1
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 3
+   LT_MAP_PLAYER_STUCK 0 -> 2
+   LT_MAP_TRAVERSAL 0 -> 1
+   LT_OPENING_STANDOFF 0 -> 3
+   LT_OPEN_SIGHTLINE 0 -> 2
+   LT_SEAL_UNVERIFIED 0 -> 1
+   LT_STOREY_UNSEEN 0 -> 2
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   PRESENTATION_ZFIGHT 0 -> 1
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
