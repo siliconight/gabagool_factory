@@ -863,9 +863,12 @@ work of adopting this.
 | 182 | **CLOSED** | The Empties cost 816 draws and 1.87 ms at the median view: merge each  | 2026-10-05 -- Level Factory 0.143.0 merges each Empty's kit modules one mesh a side per ma |
 | 183 | **CLOSED** | An Empty's front door is open to a ray | 2026-10-05 -- Deli Counter 0.186.0 fills a facade's door full-thickness, as its window's p |
 | 184 | **CLOSED** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0  |
-| 185 | **OPEN** | Demo and reference shells are drawn into real levels | 2026-10-06 -- FOUND IN THE BREADTH SWEEP, A QUESTION FOR THE WALKER. Cold runs 9170 and 91 |
+| 185 | **CLOSED** | Demo and reference shells are drawn into real levels | 2026-10-06 -- Deli Counter 0.187.0 says it: five demo and reference specs carry `demo: tru |
+| 186 | **NARROWED** | The detail put into a building type must live in the logic every level | 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter  |
+| 187 | **NARROWED** | A building carries two names | 2026-10-06 -- option D shipped: Level Factory 0.147.0 (a band names a shop; 68 of 148 libr |
+| 188 | **OPEN** | The fence at the playable edge | 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot |
 
-**185 items: 35 open, 86 closed, 3 retracted, 54 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**188 items: 35 open, 87 closed, 3 retracted, 56 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18691,6 +18694,8 @@ seed_9061 and `pvp_station_ref` on seed_9162. Neither candidate was picked,
 and seed_9061's map failed Laser Tag in 2 s (`UNREACHABLE_SPAWN`). Not
 started.*
 
+*STATUS: CLOSED 2026-10-06 -- Deli Counter 0.187.0 says it: five demo and reference specs carry `demo: true`, carried into their validation manifests, and Level Factory 0.144.4's `source_exclusion` refuses a shell whose manifest says so. Cold run 9178 (card_block_001, whose 9174 lots had drawn `setback_demo` and `pvp_station_ref`) drew neither on any candidate, 0 interventions.*
+
 **185. Demo and reference shells are drawn into real levels.** Found in the
 breadth sweep, 2026-10-06.
 
@@ -18712,3 +18717,59 @@ Level Factory reads the flag rather than a word in an id.
 
 **NOT CONNECTED, AS FAR AS MEASURED.** seed_9061's `UNREACHABLE_SPAWN` was not
 traced to `setback_demo`. Nothing here says the demo shell caused it.
+
+
+*STATUS: NARROWED 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter 0.188.0, Zoo 1.75.0, Pixelcoat 0.58.0, Level Factory 0.146.0; cold runs 9181 (a never-seen one-building convenience store, generated) and 9182 (gas_block_001), both 0 interventions. The strip club's band no longer contradicts its neon (item 187's option D). Open: deli detail; the brief words still refused (`deli`, `night_deli`, `stop_n_go`, `corner_store`, `nightclub`).*
+
+**186. The detail put into a building type must live in the logic every level runs for it.** The walker, 2026-10-06: "the care and detail we put into the strip club and flappahs convient store [should not] just get lost to the next phase of level creation. That level of detail should be in the logic that is called when a level calls for a Gas Station, Convient Store, or a strip club."
+
+**WHAT WAS WRONG.**
+- **Migrated, not generated.** Some of that detail lived only in spec files a migration had edited: the window beer sign and the sale posters were in every library store, and in 0 of the 6 stores `presets.gas_station` generated.
+- **The Flappahs store had no recipe.** It sat in the gas-station family as `gas_station_a03`, and `convenience_store` was an alias for the forecourt station.
+- **A generated store's identity was read off the mission id.** `presets.gas_station` wrote no `preset` key.
+- **The brand had two spellings.** Zoo had FLAPPHAS and Pixelcoat FLAPPAHS, and `delco_1997` had no FLAPPAHS sign at all.
+- **The words a brief reaches for were refused.** `mini_mart`, `service_station` and `gentlemens_club` never reached a recipe.
+
+**WHAT SHIPPED.**
+- **Deli Counter 0.188.0.**
+  - `convenience_store` is a recipe of its own.
+  - a03 becomes `convenience_store_a01`.
+  - The generated store gets the window sign, the posters and its `preset`.
+- **Zoo 1.75.0:** FLAPPAHS, and a convenience store's door says it.
+- **Pixelcoat 0.58.0:** FLAPPAHS is the only name a station or store can be dealt.
+- **Level Factory 0.146.0.**
+  - The brief words resolve.
+  - A generated row reads the preset it was built from.
+  - A fascia is dealt a name, never the price board.
+
+*STATUS: NARROWED 2026-10-06 -- option D shipped: Level Factory 0.147.0 (a band names a shop; 68 of 148 library shells are dealt one, where all 148 were) and Zoo 1.76.0 (a retail strip is not a strip club). Open: a named shop's band and door still say two different names -- option A (one table, Zoo's names on both) or B (the door says the band's name) is the walker's call.*
+
+**187. A building carries two names.** Found 2026-10-06, measuring the strip club's open item (`docs/findings/two_names_one_building/`).
+
+**WHAT WAS MEASURED.** A building can carry two lit name signs:
+- the band Lot hangs on its street face, dealt by Level Factory from Pixelcoat's sign profile;
+- the box over its door, which Zoo names from `storefront_names`.
+
+Of the 95 library shells with a door box, the band's pool held the door's name for 6.
+
+**THE WORST PAIRINGS.** A police station could be dealt STATE WINE + SPIRITS, because Pixelcoat's `civic` family means state-run commerce. A hospital shipped as CORNER TAP (cold runs 9171 and 9173). A casino wore CLUB VELVET (9179). In 9182 an airport wore DELCO STORAGE and a funeral home KEYSTONE SAVINGS.
+
+**THE OPTIONS** (the finding's README):
+- **A.** One name table that every sign reads.
+- **B.** The door says the band's name.
+- **C.** One sign a building.
+- **D.** Stop the absurd pairings now.
+
+*STATUS: OPEN 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot 0.97.0's `site_fences`, closing an Empty row's gaps and ends; Pixelcoat 0.59.0 lists `chain_link` as a kind Zoo knows. Cold run 9183 is its first level: seven fences on gas_block_001, 0 interventions, findings 57 -> 57 against 9182 on the same candidate. Seen at 7 m, an alley reads as a gated alley. Seen along a 16.8 m run, the far fabric is cut away -- alpha-test mip thinning, the fabric being about 25 % wire -- and that is the next step (coverage-preserving mips, a lower cutoff for this kind, or a distant card; a look-and-price call). Priced against 9182 run twice: +3.8 draws a station, +0.020 ms median against a control spread of 0.124 ms -- under the floor; 22 of its +32 mesh instances are ground tiles Lot splits at each fence's edge, a cheap follow-up. Open after that: the plate perimeter, which needs the backdrop behind it because the fence is see-through; vacant lots; Empties not in a row.*
+
+**188. The fence at the playable edge.** The walker, 2026-10-04: "I like the idea of a fence between playable areas and non playable areas, thats good feedback to the player".
+- A fence goes wherever playable ground meets an Empty's back, a vacant lot or the backdrop.
+- The mock is `docs/findings/backdrop_mock/`.
+
+**PHASE ONE: AN EMPTY ROW'S GAPS.** Every gap in a row of Empties that a player's capsule fits through (0.7 m) is a way behind the row. So is the ground from each end of a row to the plate.
+- Each is closed along the row's front line.
+- Never across a road, path, building or blocker.
+- Never enclosing a mission marker.
+- On cold run 9180's site: three runs, 3.0, 13.5 and 22.0 m.
+
+**WHY NOT THE PERIMETER FIRST.** The perimeter is four opaque 3 m boxes ("the edge of the world: bright, flat, dead"). Chain link is see-through, so a fence there shows the void beyond the plate until a backdrop stands behind it, which is the walker's next item after the Empties.
