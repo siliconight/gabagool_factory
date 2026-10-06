@@ -1,0 +1,27 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "restaurant_row_001",
+  "display_name": "Restaurant Row",
+  "archetype": "corner_deli",
+  "building_count": 3,
+  "site_shape": "strip",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_kitchen",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "alley_backtrack",
+  "verticality": "low",
+  "landmark": "neon_sign",
+  "time_of_day": "evening",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "notes": "COLD RUN 9188. 9187's brief, and the same draw expected: themed fitness is unchanged at 102 of 127. WHAT THIS RUN TESTS: Lot 0.97.3 -- spawns keep out of the Empties and enemies out of the band behind an Empty row (it moves no enemy on 9187's candidates, so this measures for regressions); Deli Counter 0.191.0 -- the circulation gate reads a dressing's parts and excuses a stair's own guards; Deli Counter 0.192.0 -- L23 and 17 stale pieces moved, deli_a01's counter islands off the up-stair's hole; Level Factory 0.149.0 -- every placed building's package is read and named in its findings, and the circulation gate reaches a finding. Expect PRESENTATION_ZFIGHT to rise from 1 to 3 (office and rail_station_a02 were failing unread) and no PRESENTATION_CIRCULATION on deli_a01."
+}
