@@ -129,7 +129,17 @@ func _report(label: String, r: Array) -> void:
 		% [label, p.x, p.y, p.z, str(r[1]), int(r[2])])
 
 
+## A WATCHDOG. A script error inside a case ends the coroutine without
+## reaching quit(), and a headless run then sits until something kills it --
+## this test's first run, on 0.23.2, did exactly that for 300 s. Fail loudly
+## instead of hanging.
+func _on_watchdog() -> void:
+	print("test_step_up_is_the_contracts: WATCHDOG -- no verdict in 120 s")
+	quit(2)
+
+
 func _init() -> void:
+	create_timer(120.0).timeout.connect(_on_watchdog)
 	LT_Const.ensure_input_actions()
 
 	print("[1] a 0.08 m step, under the unassisted line (the control)")
@@ -157,18 +167,33 @@ func _init() -> void:
 		"with the contract's step-up it steps up and finishes the route")
 
 	print("[3] a 37.9 degree ramp met from its open side, as on the bank's stair")
-	# 4.2 m over 5.4 m, the bank's flight; met across its width at x = 0.25,
-	# where its top stands 0.195 m.
-	var c_off: Array = await _walk(_wedge(5.4, 4.2, 1.6, Vector3.ZERO),
-		Vector3(0.25, 0.02, -2.0), Vector3(0.25, 0.195, 1.4), 0.0)
-	var c_on: Array = await _walk(_wedge(5.4, 4.2, 1.6, Vector3.ZERO),
-		Vector3(0.25, 0.02, -2.0), Vector3(0.25, 0.195, 1.4), 0.5)
+	# 4.2 m over 5.4 m, the bank's pitch; met across its width at x = 0.25,
+	# where its top stands 0.195 m. Made 3 m wide and the target put 2.6 m
+	# in, so the crew must step on, walk ACROSS the slope and arrive there:
+	# a first draft arrived within the 1.2 m radius on the step itself, froze
+	# in the air at y 0.534 (a finished bot stops moving), and its y > 0.1
+	# check passed a body that had never landed.
+	var c_off: Array = await _walk(_wedge(5.4, 4.2, 3.0, Vector3.ZERO),
+		Vector3(0.25, 0.02, -2.0), Vector3(0.25, 0.195, 2.6), 0.0)
+	var c_on: Array = await _walk(_wedge(5.4, 4.2, 3.0, Vector3.ZERO),
+		Vector3(0.25, 0.02, -2.0), Vector3(0.25, 0.195, 2.6), 0.5)
 	_report("off", c_off)
 	_report("on ", c_on)
 	check(not bool(c_off[1]) and (c_off[0] as Vector3).z < 0.0,
 		"with no step-up the crew stops at the ramp's side")
-	check(bool(c_on[1]) and (c_on[0] as Vector3).y > 0.1 and int(c_on[2]) >= 1,
-		"with it the crew steps onto the ramp and finishes")
+	var c_at: Vector3 = c_on[0]
+	# Where a capsule RESTING on that slope has its feet: a sphere on an
+	# incline touches it uphill of its centre, so the bottom of the capsule
+	# stands r * (1 / cos(pitch) - 1) above the surface below its centre --
+	# 0.0935 m here. Derived, so a body left hanging by the lift cannot pass.
+	var pitch: float = atan(4.2 / 5.4)
+	var top_h: float = c_at.x * 4.2 / 5.4
+	var stand_h: float = top_h + RADIUS * (1.0 / cos(pitch) - 1.0)
+	check(bool(c_on[1]) and int(c_on[2]) >= 1 and c_at.z > 1.0,
+		"with it the crew steps onto the ramp, walks across it and finishes")
+	check(absf(c_at.y - stand_h) < 0.03,
+		("and it is STANDING on the ramp: feet at y %.3f, where a capsule resting"
+		+ " there stands at %.3f (the top's %.3f plus r(1/cos - 1))") % [c_at.y, stand_h, top_h])
 
 	print("[4] a 0.6 m box, over the contract's 0.5")
 	var d_on: Array = await _walk(_box(Vector3(4.0, 0.6, 4.0), Vector3(3.0, 0.3, 0.0)),

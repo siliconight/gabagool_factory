@@ -19,7 +19,9 @@ bank_branch_a04 crew wedged against a stair ramp's open side 0.118 m high
 
 Anchored on, as read 2026-10-07:
   lasertag/addons/laser_tag_tool/scripts/player/LT_BotPlayerController.gd  16,345 bytes, LF
-  lasertag/addons/laser_tag_tool/resources/LT_TestScenario.gd               6,631 bytes, CRLF
+  lasertag/addons/laser_tag_tool/resources/LT_TestScenario.gd               6,500 bytes, LF
+    (read at 6,631 CRLF first; a `git checkout` under core.autocrlf=input rewrote it
+    LF -- 131 lines, 131 bytes, the index unchanged: `i/lf w/lf`, no diff)
   lasertag/addons/laser_tag_tool/scripts/core/LT_MapEvalHarness.gd         42,165 bytes, LF
 A CRLF file is matched with its endings normalised and written back CRLF; a
 mixed file is refused. Every anchor must match once; nothing is written until
@@ -102,15 +104,24 @@ BOT = [
      "\t\treturn false\n"
      "\tif normal.angle_to(Vector3.UP) > body.floor_max_angle:\n"
      "\t\treturn false\n"
-     "\tvar lift: Vector3 = Vector3.UP * (rise + STEP_PROBE_MARGIN)\n"
-     "\tif body.test_move(body.global_transform, lift):\n"
-     "\t\treturn false\n"
-     "\tif body.test_move(body.global_transform.translated(lift), fwd * reach):\n"
-     "\t\treturn false\n"
-     "\tbody.global_position = feet + lift + fwd * reach\n"
-     "\tbody.velocity.y = 0.0\n"
-     "\tsteps_taken += 1\n"
-     "\treturn true\n"
+     "\t# THE TOP'S HEIGHT FIRST, THE FULL LIFT SECOND. A top that rises ACROSS the\n"
+     "\t# walk -- a stair ramp met from its open side, the bank's case -- stands\n"
+     "\t# higher under the capsule's uphill side than under its centre, so a lift\n"
+     "\t# sized to the centre leaves that side inside the ramp and the move refuses\n"
+     "\t# it. The contract's full lift is tried before giving up: the body still\n"
+     "\t# lands on the top it was cleared for, and never above max_step_up.\n"
+     "\tvar lifts: Array[float] = [rise + STEP_PROBE_MARGIN, max_step_up + STEP_PROBE_MARGIN]\n"
+     "\tfor lift_height: float in lifts:\n"
+     "\t\tvar lift: Vector3 = Vector3.UP * lift_height\n"
+     "\t\tif body.test_move(body.global_transform, lift):\n"
+     "\t\t\tcontinue\n"
+     "\t\tif body.test_move(body.global_transform.translated(lift), fwd * reach):\n"
+     "\t\t\tcontinue\n"
+     "\t\tbody.global_position = feet + lift + fwd * reach\n"
+     "\t\tbody.velocity.y = 0.0\n"
+     "\t\tsteps_taken += 1\n"
+     "\t\treturn true\n"
+     "\treturn false\n"
      "\n"
      "\n"
      "func _body_radius() -> float:\n"
@@ -144,7 +155,7 @@ HARNESS = [
 
 FILES = [
     (LT / "scripts" / "player" / "LT_BotPlayerController.gd", 16345, BOT),
-    (LT / "resources" / "LT_TestScenario.gd", 6631, SCENARIO),
+    (LT / "resources" / "LT_TestScenario.gd", 6500, SCENARIO),
     (LT / "scripts" / "core" / "LT_MapEvalHarness.gd", 42165, HARNESS),
 ]
 

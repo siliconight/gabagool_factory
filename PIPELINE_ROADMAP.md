@@ -881,12 +881,12 @@ work of adopting this.
 | 200 | **NARROWED** | Four brief fields reach nothing | 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: eve |
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
-| 203 | **OPEN** | The crew wedges leaving the bank's vault | 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's  |
+| 203 | **NARROWED** | The crew wedges leaving the bank's vault | 2026-10-07 -- fixed in the crew, measured on cold run 9194's own candidates, a cold run to |
 | 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **OPEN** | The extraction is the getaway vehicle | 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and  |
 
-**206 items: 40 open, 94 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**206 items: 39 open, 94 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19142,7 +19142,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Their machines: "Windows and Linux". Every driver and setup step must run on Linux too: the cold drive is bash with a hardcoded `/c/` root, and the 23 developer scripts that carry this machine's paths are Windows PowerShell.
 - *As first filed:* "Does the collaborator make levels ... or change tools?" and "What is their machine? A Mac turns this item into a port."
 
-*STATUS: OPEN 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's crew leaves bank_branch_a04's basement vault and wedges at one building-local point, (-16.88, -6.89) on the basement floor, 0.31 m off the lower landing of the service stair `a03_stair_bw` -- on both candidates that drew that bank (seed_9054, the picked one, 8% route completion; seed_9256 0%). The walktest passes there because it walks a different body: a 0.28 m capsule with a 56 degree floor, a 0.5 m step-up and teleport recovery, against the crew's 0.35 m, 45 degrees and none. The contract's `qa.walker_capsule_radius_m` (0.35) is read by nothing. The driver's picker now reads route completion.*
+*STATUS: NARROWED 2026-10-07 -- fixed in the crew, measured on cold run 9194's own candidates, a cold run to come: Laser Tag 0.24.0 gives the crew bot the agent contract's step-up (max_step_up_m 0.5, onto a top it can stand on, never a slope) and Level Factory 0.154.0 carries the contract's value to it. Re-run on 9194's two bank_branch_a04 evaluation projects: route completion 0.08 -> 0.84 and 0.00 -> 0.84, PlayerStuck 1,306 -> 4 and 2,366 -> 7; the step-up-off control reproduces 9194's reports exactly (`docs/findings/stair_step_up/`). Open: the walktest's own body (0.28 m, not the contract's 0.35) and the mission's order; and whether a level should avoid band transitions for a consumer with no step-up.*
 
 **203. The crew wedges leaving the bank's vault.** Found 2026-10-07 by cold run 9194 (`docs/cold_runs/cold_9194/NOTES.md`), the first run in which the score is the bank.
 
@@ -19171,6 +19171,22 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - `characters.player.max_step_up_m` is **0.5**: the contract's player lifts itself over a 0.5 m step. `clearances.unassisted_step_max_m` (0.1025) is what a capsule walks over with no step-up, and the contract says a transition above it "requires the consumer to have implemented step-up themselves".
 - `nav_bake.agent_max_climb_m` is 0.15, one voxel: it was 0.5 until walkers parked against a staircase's open lateral edge on walkup_siege (2026-07-28), and asking for less quantises to zero and disconnects the map. The same derivation records a REJECTED fix: "enforcing lateral containment on every flight", a barrier along every staircase's sides.
 - So the 0.118 m edge at the wedge sits in the band the contract hands to the consumer's step-up, and **Laser Tag's crew bot has no step-up at all** (no step code in `LT_BotPlayerController.gd`). The walktest's walker carries the contract's 0.5 m step-up but a thinner body (0.28 m, not 0.35). Each departs from the contract's player in one way; at this wedge, Laser Tag's departure is the one that decides.
+
+**FIXED IN THE CREW: Laser Tag 0.24.0 and Level Factory 0.154.0** (`patches/patch_lt_step_up_tests.py`, `patches/patch_lt_step_up.py`, `patches/patch_lf_step_up_tests.py`, `patches/patch_lf_step_up.py`).
+- `LT_BotPlayerController` steps up after the slide when it is on the floor and walking into a wall: a ray straight down a body-width ahead must find a TOP within `max_step_up` whose normal is inside the body's `floor_max_angle`, and the lift and the move onto it must both test clear. The top's height is tried first and the contract's full lift second, because a ramp met from its open side rises across the capsule's width -- the first draft took no step there for exactly that reason.
+- `LT_TestScenario.player_max_step_up_m` (0.5), handed to the bot by the harness; Level Factory maps `characters.player.max_step_up_m` into it beside the radius.
+- `runners/tests/test_step_up_is_the_contracts.gd`: the real pill, step-up off and on, over a 0.08 m step (the control), a 0.118 m step, a 37.9 degree ramp met from its side (on: stands on it, feet at y 0.288 where a resting capsule stands at 0.287), a 0.6 m box and a 50 degree slope (never climbed).
+
+**MEASURED** (`docs/findings/stair_step_up/rerun_9194_with_step_up.sh`): 9194's two staged evaluation projects, copied, same level, seed and 25 runs --
+
+| candidate | step-up | completion | progress | PlayerStuck |
+|---|---|---|---|---|
+| seed_9054 | off | 0.08 | 0.67 | 1,306 (1,302 in one cell) |
+| seed_9054 | on | 0.84 | 0.89 | 4 |
+| seed_9256 | off | 0.00 | 0.69 | 2,366 (2,363 in one cell) |
+| seed_9256 | on | 0.84 | 0.93 | 7 |
+
+The control reproduces cold run 9194's own reports exactly, so the evaluation is deterministic and the step-up is the whole difference. Not attributed: the 16% of runs that still do not finish.
 
 **NEXT, revised.**
 - Laser Tag's crew gets the contract's step-up (`max_step_up_m`), gated on the top surface being walkable (CLAUDE.md: step-up must not try to rescue a slope); re-run bank_block_001's two bank_branch_a04 candidates.
