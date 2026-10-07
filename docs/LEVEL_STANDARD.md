@@ -7,7 +7,10 @@ The walker, 2026-10-07:
 > something that knows how to guide future requests of levels. It will be
 > something we iterate on, as we learn.
 
-**This is v1.** Its spine is the walker's own draft, *Level Factory --
+**This is v1.1** (2026-10-07). v1's tool claims were re-checked against the
+code by a full capability sweep, and 26 were corrected
+(`patches/patch_level_standard_v1_1.py` lists each, and the code it was
+checked against). Its spine is the walker's own draft, *Level Factory --
 Repeatable Heist Level Generation Schema & Gold-Standard Proposal Example*,
 kept unedited at `docs/reference/LEVEL_FACTORY_STANDARD_v0.docx`.
 
@@ -239,9 +242,10 @@ character, surrounding uses, and development history.
 **In this factory:**
 - **Region and era are fixed:** `theme: delco_1997`. Pixelcoat's Delco
   profile and Zoo's `delco` styles carry them.
-- **Philadelphia is two profiles away.** Zoo has `center_city` and
-  `industrial_flats` styles; Pixelcoat has no theme for either
-  (`USING_THE_FACTORY.md`, "The setting").
+- **Philadelphia's themes exist on both sides now.** Pixelcoat carries
+  `center_city` and `industrial_flats` among its 13 themes, and Zoo has
+  styles for both. No level has been built in them yet.
+  `USING_THE_FACTORY.md`'s "two profiles away" predates them.
 - **Terrain is flat.** Lot builds "no terrain, no organic shapes"
   (`lot.py`). Height comes from buildings, kerbs and basements.
 - **Density, surrounding uses and history** have no brief field: GAP, owner
@@ -281,6 +285,22 @@ room with a marker in it.
   executive suites, server rooms). Lux lights them moody. BUILT.
 - **Objective anchors** reach the package: 9 on cold run 9193's level.
   BUILT.
+- **The heist grammar exists in Deli Counter's spec types:**
+  - `Objective` kinds: drill, hack, grab, thermite, interact;
+  - `LootSpawn`;
+  - `Zone` kinds: extraction, secure, drop;
+  - `interactives` state machines: a vault door (locked, unlocked, open,
+    breached), teller windows, safe-deposit boxes, breach walls, doors;
+  - Zoo species: `vault_door`, `drop_safe`, `safe_deposit_boxes`,
+    `teller_line`, `cash_stack`.
+  BUILT as data.
+- **The score building is a seeded pick, not a decision.**
+  `site_variation.site_placements` draws the spawn and the objective
+  building independently from the seed. It ignores the archetype, and it
+  ignores which building holds the objective rooms. The objective can even
+  be the spawn building. GAP, owner Level Factory: the score should be the
+  building the brief asked for. Dispatch's mission flow is spawn -> extract
+  only.
 - **The score record** (why here, faces, access) is written nowhere. GAP:
   Level Factory, a `score` block the review reads against the frames.
 - **The secure chain** (a public hall to a manager to a vault, each door
@@ -294,8 +314,8 @@ v0 wants 3-5 meaningfully different approaches, not 3-5 cosmetic doors.
 | family | in this factory | status |
 |---|---|---|
 | public / obvious | the front door on the street (Level Factory 0.132.0 turns every front door to the road) | BUILT |
-| stealth / concealed | a side or rear door (Deli Counter's rear staff entries; Lot's side-door landings) | BUILT; GAP: nothing marks a route as the quiet one |
-| technical (alarms, power, credentials) | -- | GAP: no alarm, power or credential state exists. Lux's power cut and `reacts_to_alarm` lights are the only hooks |
+| stealth / concealed | a side or rear door (Deli Counter's rear staff entries; Lot's side-door landings); Deli Counter's combat audit reports `H_NO_STEALTH` and `H_ONE_ROUTE` per building | BUILT; MEASURED per building; GAP at site scale |
+| technical (alarms, power, credentials) | the `hack` objective kind | BUILT as data; GAP for alarm, power or credential state (§11: the hooks exist and nothing calls them) |
 | spatial / adjacent building | breach walls (Zoo's breach species; 12 in cold run 9193) | BUILT inside a building; GAP between buildings (no shared wall is breachable) |
 | vertical | ladders, roof hatches, terraces | BUILT |
 | below-grade | basements under the score | BUILT; GAP for tunnels or utility runs between buildings |
@@ -314,6 +334,11 @@ described:**
 - **Lot's tactical graph** (`site_tactical`, in the gameplay manifest) holds
   buildings, edges, the spawn, objective and extraction designations, and
   `objective_approaches`.
+  - Its hard gates fire only when the site spec carries a `mode`, and
+    Level Factory writes none. On every generated site it is intel, not a
+    gate (roadmap 200).
+  - The crew's route is a straight polyline: spawn -> objective ->
+    extraction.
 - **`encounters.legs`** are meant to hold each leg's route choice, open
   ground and cover. They were **empty** on cold run 9193's pick.
 
@@ -390,13 +415,18 @@ Factory. Until it exists, the review asks it of every enterable building.
 ### 7.2 Vertical layers
 
 **The library is low-rise, which is correct:** 59 of 131 specs one storey,
-67 two, 5 three, none taller (`USING_THE_FACTORY.md`). Height comes from:
+67 two, 5 three, none taller (`USING_THE_FACTORY.md`).
+
+Across 146 non-generated specs: stairs 98, ladders 60, basements 49, slab
+holes 12, ramps 6, fire escapes 2, setbacks 2. A generated building's spec
+carries only archetype, mode, theme and seed, so a brief cannot ask for
+storeys or a basement. Height comes from:
 
 | element | in this factory | status |
 |---|---|---|
 | stairs | Deli Counter, every multi-storey building; pitch follows storey height (`CLAUDE.md`, "Known contract tensions") | BUILT; GATE (nav gate) |
 | basements | Deli Counter (`has_basement`) | BUILT |
-| ladders and roof hatches | Deli Counter, Lot's ladders reach the site (Lot 0.76.0) | BUILT |
+| ladders and roof hatches | Deli Counter; Lot's ladders reach the site (Lot 0.76.0); Dispatch makes them AI nav links | BUILT as geometry and AI links. GAP for players: a player can climb one only in a walk copy (`tools/walk_ladders.gd`, DEV ONLY) |
 | floor holes (attack angles) | Deli Counter `slab_holes`, tagged `vertical_attack_angle` | BUILT |
 | roof terraces (setbacks) | Deli Counter (roadmap 116) | BUILT, rare |
 | fire escapes | Deli Counter, since 0.4x | BUILT, used by 2 of 131 specs. v0's MacDade vertical route needs one, and the setting needs more (`USING_THE_FACTORY.md`) |
@@ -420,11 +450,11 @@ visual thesis and tone words (v0 §8.1) are read against both.
 |---|---|---|
 | visual thesis, tone words | the request; `DELCO_1997_ART_DIRECTION.md` for the setting | EYE |
 | colour hierarchy (~70% base / 20% commercial / 10% accent) | Pixelcoat's `delco_1997` palette; `tools/art_standard_audit.py` measures the material library's chroma, value range and edge density against a controlled-contrast standard | MEASURED for the environment layer; EYE for the frame |
-| material families | Pixelcoat skins, 29 kinds in the 1997 theme | BUILT; brick is 20 of 131 specs, stone has no grammar (`USING_THE_FACTORY.md`) |
+| material families | Pixelcoat's `delco_1997` theme maps 42 material kinds, stone, siding and shingle among them (89 material grammars) | BUILT. The specs rarely ask for them: brick is 20 of 131 (`USING_THE_FACTORY.md`, whose "29 kinds, no stone" is stale) |
 | exterior lighting | the Lux preset of the slot (§17) | BUILT |
 | interior lighting by use | by room kind, not use (§17) | GAP |
 | weathering, maintenance gradient | Zoo's `Wear` attribute, seeded per style; Patina's passes | BUILT, uniform: wear has no cause (`docs/AUTHORSHIP_GUIDE_APPLIED.md`, shortfall 2) |
-| cultural signifiers | Zoo's street furniture (signal, stop sign, mailbox, meter, payphone, newspaper box, shelter, hydrant, bollard, street trees), the invented Delco brands, posters | BUILT; EYE |
+| cultural signifiers | Zoo's street furniture (signal, stop sign, mailbox, meter, payphone, newspaper box, shelter, hydrant, bollard, street trees), the invented Delco brands, posters | BUILT; EYE. GAP: utility poles and wires, window air conditioners, security bars, roll-down gates, awnings (`DELCO_1997_ART_DIRECTION.md` asks for each; no species) |
 | landmark hierarchy | neon and pylon signs, lit storefronts, the brief's `landmark` field | BUILT as objects; GAP as a hierarchy (the field is read by nothing) |
 | 5-8 hero props | Zoo species exist for many (the deli case, the registers, the video poker cabinet, the ATM) | BUILT as props; GAP: nothing chooses a level's heroes |
 | signage and typography | Zoo's `smooth_type` faces by role (display, information, utility); Pixelcoat's brand names; every string written and denylisted | BUILT |
@@ -447,7 +477,7 @@ dressing derived from behaviour; 3-6 environmental story clusters.
 | v0 item | in this factory | status |
 |---|---|---|
 | controlled history | Deli Counter's twin (two homes on one party wall, differentiated); Patina's per-Empty alterations (a TV antenna, a satellite dish: Patina 0.29.0) | BUILT, two moves. GAP for additions, conversions, vacancy as a district pattern (`DELCO_1997_ART_DIRECTION.md`, "the accretion") |
-| maintenance gradient | -- | GAP: wear is per style, not per owner or use |
+| maintenance gradient | Pixelcoat grammar wear (chips, streaks); Zoo's style `wear`; Deli Counter's `state`, `vacant`, `security_door` | BUILT, uniform: wear is per style, not per owner or use (GAP). Patina runs its `default` theme in the pipeline, and its decals exist only in a builtin theme the pipeline never selects |
 | behaviour-based dressing | dumpsters beside or behind each building on a pad, from four invented haulers (Lot 0.90.0, 0.93.0); Deli Counter's furnish by room recipe (the deli case, registers, shelves, the poker cabinets); posters on four wall kinds; Lot's surface dressing | BUILT. The dumpster is the model v0 asks for: a use that needs waste handling derives the bin, the pad and the side it stands on |
 | environmental story clusters | -- | GAP: nothing composes a small scene (a smoker's chair and crate behind the shop) |
 
@@ -468,10 +498,13 @@ runtime layer beside Lux.
 What exists is visual life, under "levels feel alive":
 - screens that play (Zoo 1.45.0);
 - moving parts: hot-dog rollers turn, the slush machine churns (Zoo 1.55.0);
-- one failing fluorescent tube a room and cycling street poles (Lux 0.62.0).
+- tree crowns sway and CRT screens roll, driven by the weather's wind
+  (`zoo_worldskin.gd`, `lf_wind`);
+- one failing fluorescent tube a room and cycling street poles (Lux 0.62.0);
+- the club's stage lights cycle; Lux rain.
 
-All BUILT. Audio is not yet on the walker's "alive" queue: wind and a
-changing world come next there.
+All BUILT. Audio is not yet on the walker's "alive" queue: wind's later
+steps and a changing world come next there.
 
 ## 11. Combat, Escalation & Extraction
 
@@ -489,7 +522,7 @@ by contract.**
 
 | v0 item | in this factory | status |
 |---|---|---|
-| escalation shape (room -> building -> perimeter -> block -> district -> extraction) | -- | GAP: no alarm or escalation state is represented anywhere (`docs/LEVEL_RECIPE.md`). Lux's alarm pulse and power cut are lights, not state |
+| escalation shape (room -> building -> perimeter -> block -> district -> extraction) | the pieces exist and nothing calls them: Deli Counter's light anchors carry `reacts_to_alarm`; Lux has `pulse_alarm_lights`, `set_mission_phase` and the Mission Goes Hot preset; Lot's site audit checks `responder_spawn` and `horde_spawn` markers Level Factory never writes | GAP: no escalation state is represented anywhere (`docs/LEVEL_RECIPE.md`); the hooks are built and unwired |
 | enemy access: arrival, staging, ingress, flanks | spawn, patrol and hook anchors | BUILT as points; GAP as a plan |
 | which shortcuts enemies share | -- | GAP |
 | where responders stop | -- | GAP |
@@ -503,9 +536,9 @@ the world simply stop.
 
 | v0 item | in this factory | status |
 |---|---|---|
-| a credible playable edge | a chain-link fence along the playable edge (Zoo 1.77.0, Lot 0.97.0); far fabric blended | BUILT |
+| a credible playable edge | a 3 m perimeter wall round the plate (the site spec's `perimeter`); chain-link fences closing the Empty rows' gaps and ends (Zoo 1.77.0, Lot 0.97.0, phase one) | BUILT as a wall; EYE as a transition |
 | non-playable continuation | the Empties terrace across the road | BUILT, one row |
-| streets, wires, roofs continuing past the boundary | -- | GAP: the walker's Pennsylvania backdrop guide (`docs/reference/PENNSYLVANIA_BACKDROP_WORLDS_GUIDE.md`, 18 recipes) is filed for after the "alive" queue |
+| streets, wires, roofs continuing past the boundary | -- | GAP: `docs/proposals/BACKDROP_WORLD.md` (proposed, not started) and the walker's Pennsylvania backdrop guide (`docs/reference/PENNSYLVANIA_BACKDROP_WORLDS_GUIDE.md`, 18 recipes), filed for after the "alive" queue |
 | distant landmark, skyline | Lux's skybox | BUILT as sky; GAP as massing |
 | moving traffic, continuing audio | -- | GAP |
 | a landmark that implies access that is not there | -- | EYE |
@@ -520,7 +553,7 @@ the world simply stop.
 
 | budget area | the figure | status |
 |---|---|---|
-| Frame target | 60 FPS, 16.7 ms, the walker's call (2026-09-27): a whole frame shared with gameplay, AI, netcode, audio and UI | MEASURED: the fixed-station harness (`_runs/perf_inner/run.py`) reports median and p95 per view |
+| Frame target | 60 FPS, 16.7 ms, the walker's call (2026-09-27): a whole frame shared with gameplay, AI, netcode, audio and UI | MEASURED: the fixed-station harness (`_runs/perf_inner/run.py`; Level Factory's `tools/perf_stations_run.py`, stations from `gameplay_anchors.json` at four headings) reports median and p95 per view. There is no performance stage in the planner, and `docs/PERFORMANCE_CONTRACT.md` is proposed, not enforced |
 | Renderer | GL Compatibility, the low-end target on purpose | GATE: packages ship on it |
 | Draw calls | ~2,000 in the worst sightline, provisional, measured on an RTX 2060 in a debug build | MEASURED: no gate; cold 9088's worst station read 5,739 |
 | Lights | at most 8 lights reaching one mesh (`max_lights_per_object`); steady lights baked into a lightmap, failing ones live | BUILT: the light bake (Level Factory 0.131.0) |
@@ -626,7 +659,7 @@ until the first state that varies exists.
 | buildings block required routes or clearance | Lot's site gates; layout lint's door and clearance rules | GATE |
 | unexplained leftover parcel area | `tools/landuse_census.py`: the remainder | MEASURED (55-64%, no bound set) |
 | landmarks and affordances unreadable at player height | -- | EYE |
-| the playable edge ends without a transition | the fence | BUILT |
+| the playable edge ends without a transition | the 3 m perimeter wall; fences on the Empty rows | BUILT as a wall; EYE as a transition |
 | performance over the hard budget | the price | MEASURED, no gate: the 2,000-draw figure is provisional (§13) |
 
 ### 15.3 Design warnings
@@ -813,11 +846,11 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
 
 | v0 method | today | status |
 |---|---|---|
-| quiet / credentials | -- | GAP: no credential state |
-| technical (alarm, security) | -- | GAP: no alarm state |
+| quiet / credentials | the vault door's `unlocked` state | BUILT as a state; GAP: nothing grants it |
+| technical (alarm, security) | the `hack` objective kind | BUILT as data; GAP: no alarm state |
 | spatial (breach a shared wall) | breach walls inside a building | BUILT, partly; GAP between buildings |
 | vertical (upper access) | ladders, roof hatches | BUILT |
-| loud (drill) | the geometry; nothing escalates | BUILT, partly |
+| loud (drill, thermite) | the `drill` and `thermite` objective kinds; the vault door's `breached` state | BUILT as data; GAP: nothing escalates |
 
 ### Routes A-E
 
@@ -851,11 +884,11 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
 | pizza rooftop sign, pharmacy sign (secondary) | fascia signs and neon for every business | BUILT, partly; GAP for rooftop signs |
 | church steeple, water tower | -- | GAP (backdrop, §12) |
 | local: newspaper box, bus shelter | Zoo species | BUILT |
-| local: utility transformer, alley couch | not checked / -- | GAP |
+| local: utility transformer, alley couch | -- (no utility pole or wire species either) | GAP |
 | station wagon | Zoo's car species | not checked for a wagon |
 | chunky exterior ATM | Zoo's ATM | BUILT |
 | washer/dryer wall | -- | GAP |
-| heavy mechanical vault door | not checked | not checked |
+| heavy mechanical vault door | Zoo's `vault_door` species and the `vault_door` interactive | BUILT |
 | choosing 5-8 heroes for this level | -- | GAP (§8) |
 
 ### Time, light and extraction
@@ -885,6 +918,10 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
 
 ### What MacDade would take, in the order that buys the most
 
+0. **The score is the building the brief asked for.** Today the objective
+   building is a seeded pick, independent of the archetype and of which
+   building holds the vault (§4). Owner: Level Factory. It is the cheapest
+   item here and the one every other item assumes.
 1. **A third approach.** A fourth enterable building on the site, or (better)
    a measure of approaches as a player meets them. Owner: Lot, Level Factory.
    It moves the Routes category, which v0 makes critical.
@@ -943,24 +980,26 @@ notes:        anything else, in plain words
 
 | request field | brief field (`level_factory.mission_brief.v0.1`) | read by | status |
 |---|---|---|---|
-| heist (the score) | `archetype` (+ `objective_hypotheses`) | Level Factory's archetype aliases, then Deli Counter's preset or library family | BUILT |
+| heist (the score) | `archetype` | Level Factory's archetype aliases, then Deli Counter's preset or library family | BUILT; GAP: the score building is a seeded pick, not the archetype's (§4) |
+| the score's steps | `objective_hypotheses` | only the functional lock's signature (`models.py`); no builder | GAP |
 | fantasy | -- (`display_name`, `notes`) | nothing | GAP: Level Factory, a `fantasy` field the review reads back |
 | location / district | `theme` (`delco_1997`), `site_shape`, `road_grammar` (T, or `crossroads`) | Lot, Pixelcoat | BUILT for the street; GAP for the district story (land use by zone: Lot, roadmap 199) |
 | scale | `building_count`, `lot_library`, `empties` (`across` by default) | Level Factory, Lot | BUILT |
 | density / land pressure | -- | nothing | GAP: Lot (`docs/reference/LAND_PRESSURE_AND_SPATIAL_LOGIC.md` §4) |
 | time | `time_of_day` | Level Factory `_preset_for` -> a Lux preset | BUILT for afternoon, evening, night; GAP for morning, high noon (§17) |
-| weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot | BUILT, with that trade |
+| weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot. Rain also sets Pixelcoat's wet maps, Lot's wet ground and the wind that sways trees (`lf_wind`) | BUILT, with that trade; fog, snow and overcast read as clear |
 | tone | -- | nothing | EYE: the review checks it against the frames |
 | playstyle | -- | nothing | GAP: no alarm or escalation state exists (§11) |
 | session_min | `target_minutes` | Laser Tag's scenario timing | BUILT |
-| players | `crew_size` (4), `crew_health` | Laser Tag | BUILT |
+| players | `crew_size` (4), `crew_health` | Laser Tag; `crew_size` also places the crew's spawns (Lot) | BUILT |
 | enemies | `enemy_count` (6), `enemy_health` | Laser Tag spawns the count over Lot's hooks; **Lot always places six hooks** | BUILT, partly: below six the spread is uneven (`models.py`) |
-| route shape | `route_shape`, `extraction_relationship`, `verticality` | Lot, Level Factory | BUILT |
+| route shape, extraction, height | `route_shape`, `extraction_relationship`, `verticality` | no builder: `route_shape` is Level Factory metadata that Lot ignores, and the other two feed only the functional lock's signature | GAP (roadmap 200) |
 | landmark | `landmark` | **nothing reads it** (`docs/LEVEL_RECIPE.md`, re-checked 2026-10-07) | GAP: Lot or Level Factory |
 | must_have | -- | `tools/level_recipe_census.py` measures one of them (approaches) | MEASURED for one; GAP for four |
 | hero_props | -- | nothing | GAP: minted per prop by Zoo (`USING_THE_FACTORY.md`, minting) |
 | dens_of_sin | -- | Lux 0.68.2 keeps any building with a club room dark | BUILT for clubs; a dive bar needs the club set (Deli Counter) |
-| -- | `candidate_count` (3), `seed_policy` | Level Factory: builds 3, picks one | BUILT |
+| -- | `candidate_count` (3) | Level Factory: derives the seeds, builds 3, picks one | BUILT |
+| -- | `seed_policy` | nothing | unused |
 
 **The brief file today** looks like `docs/cold_runs/cold_9193/briefs/restaurant_row_001.json`.
 Its `notes` are where a cold run records what it tests, what it predicts and

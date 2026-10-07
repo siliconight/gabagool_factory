@@ -87,6 +87,10 @@ capability and nothing is hand-authored in a workspace. What follows is that
 routing applied to the five points above, with the state of each as of Lot
 0.69.2 / Pixelcoat 0.36.0 / Zoo 0.61.x.
 
+**CORRECTED 2026-10-07:** the 1997 theme now maps 42 kinds, and stone,
+siding and shingle are among them (`pixelcoat/profiles/themes/delco_1997.json`).
+The paragraph below is kept as it was measured on 2026-09-13.
+
 **Pixelcoat owns the surfaces.** The 1997 theme maps 29 kinds
 (`profiles/themes/delco_1997.json`) and none of them is STONE -- no fieldstone
 grammar exists, so point 3, the material the walker calls the county's visual

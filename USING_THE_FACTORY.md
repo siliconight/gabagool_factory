@@ -124,6 +124,12 @@ half is two profiles away. That is roadmap item 112 restated with a reason —
 it was filed as "nine themes, two work", and the setting says WHICH two are
 worth closing first.
 
+**CORRECTED 2026-10-07.** Both sides exist now. Pixelcoat carries
+`center_city` and `industrial_flats` among 13 themes
+(`pixelcoat/profiles/themes/`), and `delco_1997` maps 42 material kinds,
+stone, siding and shingle among them. No level has been built in either
+Philadelphia theme yet. The tables above are kept as they were measured.
+
 **BRICK IS 20 OF 131.** Across the library, `concrete` appears 194 times,
 `metal` 133, `drywall` 122, `glass` 117, `wood` 115 — and `brick_ext` 20,
 `stone_ext` 4. Worth surfacing because brick is a load-bearing part of this
