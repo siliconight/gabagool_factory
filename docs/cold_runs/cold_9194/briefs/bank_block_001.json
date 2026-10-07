@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9194. 9168's brief, unchanged. WHAT THIS RUN TESTS: Level Factory 0.152.0 (roadmap 201) -- the score is the building the brief asked for. On 0.151.0, site_placements drew spawn and objective independently, and 9168's pick (seed 9054) put the objective on b2, not the bank. Also the first bank level under Lux 0.67.0 (bulbs under their glass), 0.68.2 (room floor, dens of sin by building) and Level Factory 0.151.0 (the bake lays the floor). PREDICTED: 0 interventions; the site spec's objective is b0, a bank-family building, with objective_from 'archetype', and the spawn is not b0; light_bake.json carries room_fills. The draw may differ from 9168's (DC's specs were refurnished since), which this run measures rather than assumes. CHECK AFTER: the site spec's spawn/objective/extraction and objective_from; which building b0 is; the night census of the bank's rooms; Laser Tag's grade and stuck counts against 9168's.",
+  "crew_size": 4
+}

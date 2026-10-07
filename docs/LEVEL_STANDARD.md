@@ -7,10 +7,12 @@ The walker, 2026-10-07:
 > something that knows how to guide future requests of levels. It will be
 > something we iterate on, as we learn.
 
-**This is v1.1** (2026-10-07). v1's tool claims were re-checked against the
-code by a full capability sweep, and 26 were corrected
-(`patches/patch_level_standard_v1_1.py` lists each, and the code it was
-checked against). Its spine is the walker's own draft, *Level Factory --
+**This is v1.2** (2026-10-07). It records cold run 9194, the first level
+whose score is the building its brief asked for (§4, §5, Part II's first
+item and Appendix A; `patches/patch_level_standard_v1_2.py`). v1.1
+re-checked v1's tool claims against the code by a full capability sweep
+and corrected 26 (`patches/patch_level_standard_v1_1.py` lists each, and
+the code it was checked against). Its spine is the walker's own draft, *Level Factory --
 Repeatable Heist Level Generation Schema & Gold-Standard Proposal Example*,
 kept unedited at `docs/reference/LEVEL_FACTORY_STANDARD_v0.docx`.
 
@@ -294,13 +296,20 @@ room with a marker in it.
   - Zoo species: `vault_door`, `drop_safe`, `safe_deposit_boxes`,
     `teller_line`, `cash_stack`.
   BUILT as data.
-- **The score building is a seeded pick, not a decision.**
-  `site_variation.site_placements` draws the spawn and the objective
-  building independently from the seed. It ignores the archetype, and it
-  ignores which building holds the objective rooms. The objective can even
-  be the spawn building. GAP, owner Level Factory: the score should be the
-  building the brief asked for. Dispatch's mission flow is spawn -> extract
-  only.
+- **The score is the building the brief asked for** (Level Factory
+  0.152.0, roadmap 201). On a library lot `pick_lot` places the
+  archetype's family first, and `building_library.score_building` makes
+  that building, b0, the objective. The spawn is drawn among the others,
+  and the site spec records which rule decided (`objective_from`:
+  `archetype` or `seed`). With no family for the archetype the seeded pick
+  stands, and says so. Proven in cold run 9194: all three bank_block_001
+  candidates put the score in a bank's basement vault. BUILT. Dispatch's
+  mission flow is spawn -> extract only.
+  - *v1.1 read GAP here, correctly at the time:* the spawn and the
+    objective were two independent seeded draws, blind to the archetype,
+    and the objective could be the spawn building.
+  - *What it exposed:* on bank_branch_a04 the crew wedges leaving the
+    vault (roadmap 203, §5).
 - **The score record** (why here, faces, access) is written nowhere. GAP:
   Level Factory, a `score` block the review reads against the frames.
 - **The secure chain** (a public hall to a manager to a vault, each door
@@ -352,7 +361,7 @@ described:**
 | a shortcut with a readable cost | breach walls and ladders are shortcuts; nothing records their cost | BUILT, unmeasured |
 | recovery when a route is unsafe | -- | GAP: no route is ever blocked, so recovery is never asked |
 | dead ends only with a purpose | -- | GAP |
-| everything reachable | Deli Counter's nav gate on every library build; Level Factory's structural checks ("blockers open") on every leg of a run; the walk test (`walktest_navqa`), which picks the candidate; Laser Tag's route completion and stuck events | GATE (nav gate, blockers); MEASURED (walk test, Laser Tag: advisory by contract) |
+| everything reachable | Deli Counter's nav gate on every library build; Level Factory's structural checks ("blockers open") on every leg of a run; the walk test (`walktest_navqa`), which picks the candidate; Laser Tag's route completion and stuck events, which the cold driver's pick reads since roadmap 203 | GATE (nav gate, blockers); MEASURED (walk test, Laser Tag: advisory by contract). GAP: the walk test proves home -> each anchor and a chain through them, never the mission's order (spawn -> objective -> extraction). Cold run 9194's crew wedged on the leg it skipped, leaving the vault (roadmap 203) |
 
 **v0's route record is the missing output.** Level Factory should write one
 per route the plan intends, so the review can test them (§15.4). Owner:
@@ -918,10 +927,11 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
 
 ### What MacDade would take, in the order that buys the most
 
-0. **The score is the building the brief asked for.** Today the objective
-   building is a seeded pick, independent of the archetype and of which
-   building holds the vault (§4). Owner: Level Factory. It is the cheapest
-   item here and the one every other item assumes.
+0. **The score is the building the brief asked for.** DONE: Level Factory
+   0.152.0, proven in cold run 9194 (§4). It sent the crew into a bank's
+   vault for the first time, and on one bank variant they wedge leaving it
+   (roadmap 203): a defect no level could show while the score was
+   elsewhere.
 1. **A third approach.** A fourth enterable building on the site, or (better)
    a measure of approaches as a player meets them. Owner: Lot, Level Factory.
    It moves the Routes category, which v0 makes critical.
@@ -990,7 +1000,7 @@ notes:        anything else, in plain words
 | weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot. Rain also sets Pixelcoat's wet maps, Lot's wet ground and the wind that sways trees (`lf_wind`) | BUILT, with that trade; fog, snow and overcast read as clear |
 | tone | -- | nothing | EYE: the review checks it against the frames |
 | playstyle | -- | nothing | GAP: no alarm or escalation state exists (§11) |
-| session_min | `target_minutes` | Laser Tag's scenario timing | BUILT |
+| session_min | `target_minutes` | **nothing reads it.** *v1.1 read "Laser Tag's scenario timing, BUILT":* wrong. Nothing in Laser Tag or in Level Factory's Laser Tag path reads it (re-checked 2026-10-07). Lot's pacing estimate is the reader it was meant for, and is wired by Level Factory 0.153.0 | GAP (roadmap 200) |
 | players | `crew_size` (4), `crew_health` | Laser Tag; `crew_size` also places the crew's spawns (Lot) | BUILT |
 | enemies | `enemy_count` (6), `enemy_health` | Laser Tag spawns the count over Lot's hooks; **Lot always places six hooks** | BUILT, partly: below six the spread is uneven (`models.py`) |
 | route shape, extraction, height | `route_shape`, `extraction_relationship`, `verticality` | no builder: `route_shape` is Level Factory metadata that Lot ignores, and the other two feed only the functional lock's signature | GAP (roadmap 200) |

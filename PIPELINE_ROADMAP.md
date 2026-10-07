@@ -879,9 +879,11 @@ work of adopting this.
 | 198 | **CLOSED** | Baked interiors are darker than their lamps say | 2026-10-07 -- cold run 9193 (0 interventions, findings 64 -> 64, Laser Tag identical): res |
 | 199 | **OPEN** | Lot's layout against the walkable-city brief | 2026-10-07 -- filed, not compared: the walker's Dynamic Walkable City brief (`docs/referen |
 | 200 | **OPEN** | Four brief fields reach nothing | 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): fou |
-| 201 | **OPEN** | The score building is a seeded pick | 2026-10-07 -- found by the level standard's capability sweep and re-read in the code: `sit |
+| 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
+| 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started: a stranger's first hour with the factory package woul |
+| 203 | **OPEN** | The crew wedges leaving the bank's vault | 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's  |
 
-**201 items: 38 open, 92 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**203 items: 39 open, 93 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19081,7 +19083,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Set the pacing `mode` from the brief (a heist's spawn -> objective -> extraction), with a test that the manifest's breakdown carries travel legs.
 - Decide, with the walker, what each of the other three should drive -- or retire them from the schema.
 
-*STATUS: OPEN 2026-10-07 -- found by the level standard's capability sweep and re-read in the code: `site_variation.site_placements` draws the spawn and the objective building independently from the seed (`ids[next(rng) % count]`, twice), so the score is not the archetype's building, not the one holding the objective rooms, and can be the spawn building itself.*
+*STATUS: CLOSED 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building` names b0 when a library family answers to the archetype (`pick_lot` places it first), `site_placements(..., objective=)` draws the spawn among the other buildings, and the site spec records `objective_from`. Cold run 9194 (bank_block_001, 0 interventions): all three candidates' objective is b0, a bank (bank_branch_a04, bank_tower_a01, bank_branch_a04), `objective_from: archetype`, spawn and extraction each another building, and the walk scene's objective point is the bank's basement vault. It exposed item 203: on both bank_branch_a04 candidates the crew wedges at a service stair's foot on the way out.*
 
 **201. The score building is a seeded pick.** Found 2026-10-07 writing `docs/LEVEL_STANDARD.md` (§4, and Part II's first item).
 
@@ -19093,3 +19095,61 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Make the objective the building the brief asked for: the anchor family's building, or the one whose spec carries the objective rooms.
 - Keep the spawn and extraction seeded, and never the objective's building.
 - A test pins it, and a cold run of a library brief shows the score where the brief put it.
+
+**PROVEN, cold run 9194** (`docs/cold_runs/cold_9194/NOTES.md`). Level Factory 0.152.0 (`building_library.score_building`, `site_placements(..., objective=)`, `objective_from` in the site spec; `tests/unit/test_score_building.py`, 10 of 11 failing on 0.151.0). On bank_block_001 all three candidates put the score in b0, a bank; the spawn and the extraction are each another building; the objective point is the bank's `OBJECTIVE_A` in its basement `vault_room`. Lot moved that point 0.25 m off a desk prop on bank_branch_a04 (`LOT_DESTINATION_RESOLVED`, minor). The companions differ from 9168's because the library grew between the runs, so the finding counts (63 -> 66) are not attributed to this change. What the change exposed is item 203.
+
+*STATUS: OPEN 2026-10-07 -- measured, not started: a stranger's first hour with the factory package would cost interventions before any level is built. The certified set is six weeks stale (`level-factory verify-manifest`: 8 DRIFT, 1 INCOMPATIBLE, 1 OK); `level_factory init` writes all ten tool paths blank and the cold driver copies the previous run's instead (cold run 9194 stopped there); the driver hardcodes the factory root; 7 of 11 repos declare no dependencies; no page says how to install. The level-making code itself is portable.*
+
+**202. Handing the factory to a stranger.** Measured 2026-10-07, when the walker said a collaborator gets "a full export of the tools" in about two weeks. CLAUDE.md's first paragraph says the deliverable is that somebody who has never seen this repo points these tools at their own game and gets levels out. Every zero-intervention run so far (9189; the breadth sweep's 8 of 10, then 10 of 10) was earned on this machine, by a driver that knows the workarounds. A stranger's setup steps are interventions too, and nobody has counted them.
+
+**WHAT TRAVELS.** `tools/make_factory_package.ps1` zips every tracked file of all eleven repos at their checked-out HEADs (`git archive`; uncommitted work does not travel). Tracked bytes on 2026-10-07: the root 856 MB (`docs/cold_runs` 518, `docs/findings` 306, `patches` 20), Lux 48, Deli Counter 40, Lot 27, Zoo 7, Level Factory 4, the other five under 3 each -- about 987 MB, of which 824 MB is the run record.
+
+**THE CERTIFIED SET IS SIX WEEKS STALE.** The factory already has a handoff mechanism (README, "Two-layer versioning"): `factory.manifest.json` pins the tool versions certified together, each tool is tagged, and the factory is tagged `factory-vX.Y.Z`. It last ran 2026-08-22 (factory 1.34.1, commit 2bb1911). `level-factory verify-manifest --factory .` on 2026-10-07: DRIFT on Deli Counter (certified 0.94.0, installed 0.202.0), Dispatch, Laser Tag, Level Factory (0.48.0, 0.152.0), Lot, Lux (0.16.0, 0.68.2), Patina and Pixelcoat; INCOMPATIBLE on Zoo (0.48.0, 1.81.0, a major bump); OK on Pipeline only. Tagging stopped with it: the newest tags are Deli Counter v0.101.0, Level Factory v0.53.0, Lux v0.27.0, Zoo v0.50.0, Lot v0.49.0, Pixelcoat v0.16.0, Laser Tag v0.9.0, Patina v0.21.0, Dispatch v0.4.2, and only Pipeline's HEAD is tagged. `docs/CERTIFY.md` is the runbook -- Zoo's walkabout, Pixelcoat's signage packs, Level Factory's suites with the real-tool smoke, the engine leg, then promote the manifest and tag -- written for 1.1.0 -> 1.2.0 with this machine's paths. The README tells a newcomer to run the lockstep check, which today tells them their install is broken.
+
+**WHAT A STRANGER HITS, in the order they would hit it.**
+- **No setup page.** `docs/PACKAGE_README.md` is the readme of one exported level (lot_demo_001), not of the factory. The package script's last line points the recipient at `USING_THE_FACTORY.md`, the operator's charter (the routing table, the gap protocol), which does not say how to install anything.
+- **Dependencies.** Four repos declare theirs in a `pyproject.toml`: Level Factory (nothing at runtime; PySide6 is its optional desktop GUI), Pixelcoat, Patina and Dispatch. Seven declare none, and between them import Pillow, numpy, pygltflib, jsonschema, PyYAML and cairosvg (Deli Counter's `migrations/ai_review.py` also imports `anthropic`; it is advisory and never gates). Nothing installs the set in one step. Python: Level Factory asks >= 3.11; this machine runs 3.14.4. Blender: Zoo's README says 4.2+ or 5.x, Deli Counter's says 4.x, this machine runs 5.1.1. Godot: 4.7.
+- **Tool paths.** `level_factory init` writes `tools.local.json` with all ten paths blank -- eight tool repos, Blender and Godot -- and tells the user to fill them in and run `doctor`. The cold driver (`tools/cold_drive/cold_drive.sh`) never does that: it copies `workspaces/cold-$PREV-ws/tools.local.json`. A stranger has no previous run. Cold run 9194 stopped exactly there on 2026-10-07, because 9168's workspace had been retired.
+- **The driver's root.** `cold_drive.sh` and `sweep_one.sh` `cd /c/Projects/gabagool_studios/gabagool_factory`; `stage_batch.py` writes to `C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs`.
+- **Developer scripts.** 23 PowerShell scripts carry this machine's paths: 14 in the tool repos (Level Factory 2, Lot 3, Lux 2, Patina 1, Pixelcoat 2, Zoo 4 -- previews, smoke walks, theme rebuilds, and Zoo's walkabout, which CERTIFY.md runs) and 9 in the root's `scripts/`.
+- **Four brief fields reach nothing** (item 200). A stranger filling in the request template (`docs/LEVEL_STANDARD.md`, Appendix A) sets them and hears nothing back.
+
+**WHAT IS ALREADY PORTABLE: the level-making code.** Searched every tracked text file in the ten tool repos for `C:/Projects`, `C:/blender`, `C:/Godot`, `C:/Users` and `/c/Projects`, either slash. Level Factory's `packages/` and `apps/` name such paths only in docstrings about catching non-portable `res://` paths. The tools find each other through `tools.local.json`. Godot and Blender resolve from a flag, then the environment, then the usual installs, then PATH. Lot's `cater.py` tries `$DELI_COUNTER` and a relative `../deli_counter` before any absolute guess. The test hits are deliberate fixtures (Dispatch's leak detector, Patina's Windows temp paths, Level Factory's non-portable `res://C:/` cases).
+
+**REFUTED, kept:** the first search, restricted to `.py .sh .ps1 .gd .json .cfg .toml` and without the `/c/` spelling, read zero files in every tool repo. It missed the PowerShell scripts' `C:\` paths and the test fixtures, and the wider search above replaced it.
+
+**NEXT.** The measure is a cold run of the install itself.
+- Re-certify the set and tag every repo. Every cold run's `_runs/cold/<label>/before.json` already records each tool's version at `--begin`, so a run that ends at 0 interventions is stronger evidence of "verified together" than CERTIFY.md's smoke; promoting the manifest from one is worth weighing against running the runbook.
+- `init` fills `tools.local.json` from `factory.manifest.json`'s tool list and the Godot and Blender resolution chain, and `doctor` passes before the first run. The driver derives its root from its own path and stops copying.
+- One install step for the Python packages, with the Python, Godot and Blender versions stated once.
+- One "first level" page: install, doctor, request, run, walk, score.
+- A lean package: tools and docs, with the run record optional.
+- **The test:** unpack into a fresh path (not `C:\Projects\gabagool_studios`), follow only that page, and count every question or edit as an intervention. Fix until zero, then zip at the tags.
+
+**OPEN DECISIONS (the walker's).**
+- Does the collaborator make levels (a zip at the certified tags is enough) or change tools (they need the remotes and `docs/SHIPPING_A_CHANGE.md`)?
+- What is their machine? A Mac turns this item into a port: the drivers are bash and PowerShell over Windows paths.
+
+*STATUS: OPEN 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's crew leaves bank_branch_a04's basement vault and wedges at one building-local point, (-16.88, -6.89) on the basement floor, 0.31 m off the lower landing of the service stair `a03_stair_bw` -- on both candidates that drew that bank (seed_9054, the picked one, 8% route completion, 1,302 of 1,306 PlayerStuck there; seed_9256 0%, 2,363 of 2,366). `walktest_navqa`'s walkers leave the same basement, so whether the stair foot or the crew controller is wrong is not established. The driver's picker took seed_9054 over seed_9155 (100%) because it read major findings, not completion; fixed in the same commit.*
+
+**203. The crew wedges leaving the bank's vault.** Found 2026-10-07 by cold run 9194 (`docs/cold_runs/cold_9194/NOTES.md`), the first run in which the score is the bank.
+
+**WHAT WAS MEASURED.** Laser Tag, 25 runs a candidate:
+- seed_9054 (bank_branch_a04, picked): route completion 0.08, progress 0.67, 1,306 PlayerStuck, grade WARN.
+- seed_9155 (bank_tower_a01): 1.00, 0.99, 5, PASS.
+- seed_9256 (bank_branch_a04): 0.00, 0.69, 2,366, PASS_WITH_TUNING; `LT_ROUTE_NEVER_COMPLETED` (major).
+
+**WHERE.** Both bank_branch_a04 candidates stick at the same building-local point (both b0 at rot 0): (-16.88, -6.89) at the basement floor (-4.20), in `vault_antechamber`, 0.31 m north of `a03_stair_bw`'s lower landing (rect x -17.9..-16.7, y -8.8..-7.2, from `deli_counter/build/bank_branch_a04.gameplay.json`'s `stair_systems`), 0.36 m from the corner of the stair's solid block (x -16.7, y -7.2).
+
+**WHEN.** On the way out. seed_9054's crew reaches the vault about 30 s in and first sticks about 44 s in; of the 49 player-runs that stuck, 45 had already reached the vault. The extraction is east at (52, 0, 13); the stair is 25 m west of the vault, where the navmesh routes the exit.
+
+**THE INSTRUMENTS DISAGREE, and neither is yet known to be the wrong one.** `walktest_navqa` passes all three candidates. Its chain walks the vault (proxy_3, (-54, -4.2, -12)) to a ground-floor anchor (proxy_4, (-56, 0, 12)) -- path proof ok, walkers 12 of 12 -- so a navmesh walker leaves this basement and Laser Tag's crew does not. The walktest's chain never walks the mission's own order (vault to extraction, proxy_3 to proxy_12); `LT_ROUTE_NEVER_COMPLETED`'s text says the walktest "walks the same spine", which holds for its anchors and not for their order.
+
+**WHY IT MATTERS.** Every bank brief whose draw puts bank_branch_a04 at b0 now sends the crew into that basement; before Level Factory 0.152.0 the score was usually another building (9168's heist pointed at b2), so nothing walked there. And the run counted 0 interventions while shipping the 8% candidate -- the gates measure traversal, and this one passed between them.
+
+**THE PICKER, FIXED.** `tools/cold_drive/pick_candidate.py` dropped a candidate only for a failed walktest or a MAJOR route finding, then took the fewest majors and the lowest seed. Laser Tag raises `LT_ROUTE_NEVER_COMPLETED` only at 0%, so seed_9054's 8% carried no major, tied seed_9155 at zero and won on its seed. It now reads `summary.route_completion_rate` from each candidate's `lasertag.report.json` after the majors. Re-run on 9194's workspace it picks seed_9155; on 9193's it still picks seed_9104, the pick that run made.
+
+**NEXT.**
+- Settle which instrument is wrong at the stair foot: a frame there, then the walktest's walker against Laser Tag's crew controller (radius, steering, step) on the vault -> extraction leg.
+- Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
+- Whether Laser Tag's route finding should be major below some completion short of zero is Laser Tag's call; the 8% case is the evidence for it.

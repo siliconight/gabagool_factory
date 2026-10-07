@@ -1,0 +1,16 @@
+site specs read: 144 (themed copies skipped), unreadable: 0
+already carrying a mode: 0; already carrying pacing: 0
+
+HEIST GATE (site_tactical.gate with mode=heist injected)
+  pass 144
+  specs with an isolated building: 0
+  buildings per site: {1: 8, 2: 3, 3: 123, 4: 6, 5: 4}
+  objective == extraction building: 51 of 144
+    by buildings per site: {1: 8, 2: 1, 3: 40, 4: 2} (a one-building site is all three by construction)
+  spawn == objective on a site of 2+ buildings: 43
+
+PACING (one objective marker, no loot; origin-to-origin metres at 4.0 m/s)
+  as written today: target 7-15 min on 144 of 144 specs
+  with mode and window: expected 2.5-3.6 min (median 2.8); travel 0-63 s (median 16)
+  target windows: {'25-35 min': 125, '20-30 min': 3, '10-20 min': 6, '6-10 min': 2, '12-20 min': 8}
+  status: {'likely TOO SHORT vs target': 144}

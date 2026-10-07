@@ -5,10 +5,19 @@
 Prints the seed to select. A candidate is out when its nav walktest is not
 ok, or when Laser Tag raised a MAJOR route or pathing finding against it
 (LT_ROUTE_NEVER_COMPLETED, LT_MAP_ENEMY_PATHING_BROKEN). Among the rest the
-fewest major findings wins, then the lowest seed. If every candidate is out,
-the one with the fewest major findings is printed and the reason goes to
-stderr: the run still needs a selection, and a pick that says it is the
-least bad is better than one that says nothing.
+fewest major findings wins, then the highest route completion Laser Tag
+measured, then the lowest seed. If every candidate is out, the one with the
+fewest major findings is printed and the reason goes to stderr: the run still
+needs a selection, and a pick that says it is the least bad is better than one
+that says nothing.
+
+ROUTE COMPLETION (2026-10-07, roadmap 203). Cold run 9194 picked seed_9054,
+whose crew finished the route in 8% of Laser Tag's runs, over seed_9155 at
+100%: both had zero major findings, because Laser Tag raises
+LT_ROUTE_NEVER_COMPLETED only at 0%, and the tie went to the lower seed.
+Completion is read from each candidate's `lasertag.report.json`
+(`summary.route_completion_rate`); a candidate without one sorts last and
+says so.
 """
 import collections
 import glob
@@ -45,10 +54,23 @@ for seed in seeds:
     with open(wt[-1], encoding="utf-8") as f:
         if not json.load(f).get("ok"):
             out[seed].append("walktest not ok")
+completion = {}
 for seed in seeds:
-    print(f"  seed {seed}: {major[seed]} major, out for {out[seed] or 'nothing'}", file=sys.stderr)
+    rep = glob.glob(os.path.join(lf, "jobs", f"{mission}.laser_tag_evaluate.candidate.seed_{seed}", "*", "out",
+                                 "lasertag.report.json"))
+    try:
+        with open(rep[-1], encoding="utf-8") as f:
+            completion[seed] = float(json.load(f)["summary"]["route_completion_rate"])
+    except (IndexError, OSError, ValueError, KeyError, TypeError) as exc:
+        completion[seed] = None
+        print(f"  seed {seed}: no route completion read ({type(exc).__name__}); it sorts last",
+              file=sys.stderr)
+for seed in seeds:
+    rc = "?" if completion[seed] is None else f"{completion[seed]:.2f}"
+    print(f"  seed {seed}: {major[seed]} major, route completion {rc}, out for {out[seed] or 'nothing'}",
+          file=sys.stderr)
 good = [s for s in seeds if not out[s]]
 pool = good or seeds
 if not good:
     print("  every candidate is out; taking the fewest major findings", file=sys.stderr)
-print(sorted(pool, key=lambda s: (major[s], s))[0])
+print(sorted(pool, key=lambda s: (major[s], -(completion[s] if completion[s] is not None else -1.0), s))[0])
