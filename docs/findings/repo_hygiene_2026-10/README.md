@@ -124,8 +124,14 @@ filling between passes.
 70 copies, 9.2 GB; the five without a JSON stay); file `Claude outputs/`
 under `docs/findings/claude_outputs_2026-09/` (done); move Deli Counter's
 one-shots only (done, 0.193.0). The older cold-run workspaces were not
-ticked and stay; `factory_retire.py` reports them, 8.0 GB in 13, and
-removes nothing without `--apply`.
+ticked at first; on the walker's later word `factory_retire.py --apply`
+retired them: 13 workspaces, cold-9164 to cold-9176, 8.0 GB. The rule kept
+cold-9180 and cold-9185 because a finding names them, and the newest
+twelve (9177 to 9188). The disk went from 20 GB free to 38 GB.
+
+**Pushed, 2026-10-06:** all ten tool repos are level with `origin/main`,
+six of them pushed in this pass (deli_counter, lot, zoo, level_factory,
+pixelcoat, lux). The factory root was pushed by the walker.
 
 **Phase 1, landed.** `SESSION_0815/0821.md` to `docs/sessions/`;
 `census7.json` and the two film JSONs to `_runs/measurements/`; the nine
@@ -172,5 +178,7 @@ now show.
   `mp_smoke.py` as a site gate. Neither is moved on this survey's say-so.
 - Whether any of the 16 unreferenced tools is run by hand. Unreferenced is
   not unused.
-- Which cold-run workspaces a finding still reads. `grep` for
-  `workspaces/cold-` across `docs/` is the test, and it has not been run.
+- ~~Which cold-run workspaces a finding still reads.~~ Run: the grep
+  found cold-7001, 7301, 8001, 9001, 9067, 9080, 9180 and 9185 named under
+  `docs/`. `factory_retire.py` does that grep before retiring anything, and
+  of those names only 9180 and 9185 were still on disk.
