@@ -96,6 +96,36 @@ Across the library: 69 seeded pieces in 128 shells; 23 stale, 35 within
   (672 m2) and stair and upper storey (759 m2). Islands: 165, then 164,
   then 161.
 
+**A side effect, attributed.** 0.195.0 added two lint warnings, 412 to 414,
+measured by linting every library spec from git at both commits. Both are
+L9 groups the refurnish formed in migrated shells: four identical
+0.5 x 2.0 x 1.9 pieces in bank_branch_a03, and four identical
+0.6 x 0.6 x 1.0 pieces in deli_a02. **Refuted first, kept:** a parse of the
+hook's log put both on warehouse_a02. Neither commit touched that spec, and
+it lints identically at both. The parser filed every warning under the last
+header it had seen, and the log interleaves its sections. A log is not the
+measurement.
+
+**The shell gate sees it too (Deli Counter 0.196.0).** The nav gate's new
+entrance check, run on the shipped deli_a01 (9188's GLB with its own
+gameplay file):
+- both stairs read "ok" and navigable reads "yes", as the old gate always
+  said;
+- "stairs an entrance reaches: 1/2 -- no entrance reaches stair
+  deli_stair_up";
+- the fixed shell reads 2/2.
+
+**Across the library, after 0.195.0** (`nav_gate.py --all`):
+- 98 shells have judged stairs, 149 stairs in all, and 148 are reached from
+  an entrance.
+- **The exception is `primos_pizza_stair_0`.** It runs from the basement
+  through the ground floor to storey 1; its ends join and all three
+  entrances snap, but the ground floor cannot reach it. That is roadmap
+  189's discharge neck, frozen in `navgate_baseline.json` with that reason.
+- No shell with stairs went unjudged. 14 have no storey-0 exterior door: the
+  12 Empties, shut by design, and the two facade shells, which have no
+  stairs.
+
 ## Break 2: the server room had no door
 
 **What the bake and the spec showed.** Island 10 was `server_room` exactly
