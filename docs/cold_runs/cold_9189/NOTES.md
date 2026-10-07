@@ -62,8 +62,28 @@ basement and no roof anywhere.
   not a goal. What changed near those spots is that the upper storey is now
   reachable.
 
+**Narrowed later the same day, not established.** One run was re-traced
+on a copy of this run's staging (seed 9106 puts the stuck run first; the
+runner traces run 1 only), and it reproduced the stop: two bots at t 52,
+at the same point.
+- **The route points are 9188's, unchanged:**
+  - the street start;
+  - the objective in deli_a01's basement vault, building (8, 8) at -3.0;
+  - the extraction outside its south wall.
+- **So the bots stop on the way back up from the vault to the front door,**
+  at the front register counter's west corner. The gap past it is 3.8 m
+  wide.
+- **Nothing they touch moved.** What changed is the navmesh's polygon
+  partition, which moved round the stairwell and the joined upper storey,
+  and a funnelled path's corners move with it.
+- **Not measured:** what a bot was pushing into at t 52. The trace's
+  snapshots end at t 20.1 s.
+
 ## Deli Counter's gates, at the release before the run
 
 - **The entrance check:** 148 of the library's 149 judged stairs are reached
   from an entrance. primos_pizza is frozen (roadmap 189's discharge neck).
-- **L24:** 15 rooms frozen for the walker's call.
+- **L24:** 15 rooms frozen for the walker's call at the time. Deli Counter
+  0.197.0, after this run, found 11 of them open floor that L24's graph did
+  not model. 4 server rooms are left: three objectives breach-only by the
+  walker's call, and deli_a03's, pending.
