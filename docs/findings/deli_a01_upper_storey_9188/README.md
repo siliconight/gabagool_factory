@@ -1,108 +1,145 @@
-# deli_a01's upper storey is cut off from the street in 9188's site bake
+# deli_a01's upper storey was cut off from the street in 9188's site bake
 
-Measured 2026-10-06. **In progress: the cause of the main break is not
-established.** What follows is what the bake says, and which reads would
-decide the rest.
+Measured 2026-10-06. **Fixed in Deli Counter 0.194.0 and 0.195.0, and proven
+on 9188's own site before shipping. Not yet seen in a cold run.**
 
-**The artefact, and what made it.** A `run_bake_sweep.py --dump`
-(`docs/findings/stairwell_on_one_grid_in_four/`) of the scene Laser Tag
-grades for cold run 9188's picked candidate, seed_9104:
-`workspaces/cold-9188-ws/.level_factory/staging/restaurant_row_001.laser_tag_evaluate.candidate.seed_9104`.
-This is the GREYBOX site that `lot_assemble` builds, not the themed export.
-The bake has 165 islands. Island 0 holds the home point and 16,944 m²; it is
-the street.
+**The artefact, and what made it.** `run_bake_sweep.py --dump`
+(`docs/findings/stairwell_on_one_grid_in_four/`) of
+`res://site_navqa.tscn` in the WALK-TEST staging of cold run 9188's picked
+candidate, seed_9104:
+`workspaces/cold-9188-ws/.level_factory/staging/restaurant_row_001.walktest_navqa.candidate.seed_9104`.
+The bake has 165 islands, and island 0 holds the home point and 16,944 m2:
+the street. The site spec the instruments read footprints from is the
+laser_tag_evaluate staging's `site.site.drawn.json`. All four stagings of
+9187 and 9188 hold the same file (md5 `a022f8f17378`), so the pairing is
+one build.
+
+**Refuted, kept.** The first version of this README said the bake was of
+"the scene Laser Tag grades". It was the walk-test scene; only the site
+spec came from Laser Tag's staging.
 
 **Frames and units.** Level (x, y) is Godot (x, -z). The building frame is
-level minus deli_a01's `at`, (-58, 1.01), at rot 0. That is the frame of
-`deli_counter/build/deli_a01.gameplay.json`, so its rooms, openings and
-stair footprints read directly against it. Heights are navmesh polygon
-heights in metres: ground floor 0.25, story 1 3.55, roof 6.85, basement
--3.05.
+level minus deli_a01's `at`, (-58, 1.01), rot 0, which is the frame of
+`deli_counter/build/deli_a01.gameplay.json` and of its spec. Heights are
+navmesh polygon heights in metres:
+- ground floor 0.25;
+- story 1 3.55;
+- roof 6.85;
+- basement -3.05.
 
-## What is reachable, and what is not
+## What was reachable
 
-- **The ground floor and the basement are island 0.** Probed 0.3 to 3.5 m
-  either side of both doors (`front_customer_entry` on the south wall,
-  `alley_entry` on the west): island 0 on both sides, at both doors.
-- **The upper storey is not.**
-  - Island 9: 592 m², heights 0.2 to 3.5. It holds the up-stair, its lower
-    landing, `upper_hall`, `manager_office` and `apartment_hideout`.
-  - Island 10: 186 m², height 3.55. It is `server_room`.
-- Island 12 (957 m², 6.85) is the roof, which nothing is meant to reach.
+The ground floor and the basement were island 0, at both doors. The upper
+storey was not:
+- island 9: 592 m2, the up-stair and story 1's hall, office and apartment;
+- island 10: 186 m2, the server room.
 
-**Refuted, kept.** The first report of this, in conversation on
-2026-10-06, said "778 m² of deli_a01 is disconnected from the street". The
-area was right; the implication that the deli was shut was wrong. The
-building is open. Its upper storey is not.
+**Refuted, kept:** "778 m2 of deli_a01 is disconnected from the street", as
+first reported in conversation. The area was right; the implication that
+the deli was shut was wrong.
 
-## Break 1: the up-stair's lower landing
+**9187 was cut off the same way.** Baked identically, its islands were
+595 m2 and 186 m2. deli_a01's GLB differs between the two runs, because
+Deli Counter 0.192.0 refurnished it, so 0.192.0 did not do this. The
+roadmap-190 proof in 9187 was deli_a03's stair, not deli_a01's; this
+building's upper storey may never have connected.
 
-- **Island 9 reaches the ground.** It has floor-height polygons (0.25) at
-  building x -16.25..-14.15, y 11.6..12.9. That is north of both stair
-  footprints:
-  - `deli_stair_down`: x -16.6..-15.0, y 7..11, floors -1 and 0;
-  - `deli_stair_up`: x -12.6..-11.0, y 7..11, floors 0 and 1.
-- **Island 0's stairwell floor stops short of it.** Between the two stairs
-  (x -14.05..-13.05) it ends at y ≈ 11.2.
-- **The closest approach is 0.41 m,** at building (-14.10, 11.44), with
-  both sides at 0.25. It is not a step.
-- **Not established: what fills that 0.41 m.** Story 1's interior walls
-  leave seams of exactly 1.30 m (below). At any ordinary wall thickness,
-  that implies an erosion much larger than 0.2 m a side. If so, 0.41 m is
-  too narrow to be an obstacle eroded on both sides, and the gap is a hole
-  or a crack in the floor rather than a thing standing on it. Two reads
-  decide it, and neither has been made:
-  - the bake's agent radius (`agent_contract.json` `nav_bake`, and the
-    settings `run_bake_sweep` passes);
-  - the shell's geometry in building x -15..-12.6, y 11.0..11.8 on the
-    ground floor.
+## Break 1: two crate stacks shut the up-stair's foot
 
-## Break 2: the server room has no door
+![The ground-floor stairwell against the bake](deli_a01_stairwell_9188.png)
 
-- **Island 10 is `server_room` exactly.** The room's bounds are story 1,
-  x -2..19, y 2..14. The island spans x -1.4..18.4, y 2.6..13.3.
-- **Every opening into it is a breach:**
+Blue is the street's island and orange is island 9; black outlines are
+visual nodes and red are collision-only. Green is a stair's footprint, and
+thick green is a landing (`stairwell_plan.py`).
 
-  | wall | opening | at | connects to |
-  |---|---|---|---|
-  | west, `int_1_2` | breach | (-2, 10) | `upper_hall` |
-  | south, `int_1_3` | breach | (10.5, 2) | `apartment_hideout` |
-  | north, `ext_1_N` | `roofline_breach` | (13, 14) | outside |
-  | east | (exterior wall, no opening) | | |
+**The stair splits the stairwell.** The up-stair runs from the stairwell's
+south wall to its foot at y 11.4, with its side and back guards. So the only
+ways from the stairwell's door (`office_stair_door`, south wall, x -15) to
+the stair's foot landing (x -12.6..-11.0, y 11.0..12.2) run north past it.
+Two crate stacks `seed_cover` placed shut both:
 
-- **Story 1's two doors connect the other rooms:** `apartment_hall` at
-  (-9.5, 2) joins `upper_hall` and `manager_office`, and
-  `hall_to_manager_office` at (-2, 0) joins `manager_office` and
-  `apartment_hideout`.
-- **The seams between island 10 and island 9 are all 1.30 m,** along x = -2
-  and y = 2: the walls.
+| piece | at (building frame) | passages it leaves | today's seeder rule |
+|---|---|---|---|
+| `crate_stack_stairwell_0` | x -13.71..-12.61, y 11.54..12.64 | 0.79 m to the down-stair's guard corner; 0.54 m to the up-stair's first tread (0.21 m tall, over the 0.15 m climb) | refuses it: 0.01 m off the foot landing, stale |
+| `crate_stack_stairwell_1` | x -18.42..-17.33, y 10.47..11.57 | 0.40 m to the west wall's inner face; 0.23 m to the down-stair's guard | allows it |
 
-So the navmesh agrees with the spec. This is a breach-only room by
-construction. Whether 186 m² with no door is the intent is a design call,
-not a measurement.
+**Why 0.8 m.** The bake erodes `ceil(0.4 / 0.1)` cells, 0.4 m, from every
+obstacle, so a passage needs at least 0.8 m. The first measurement, a 0.41 m
+"seam" at building (-14.10, 11.44), was the two eroded regions' corners
+meeting diagonally between the crate and the guard. It was not an obstacle
+standing in a gap.
+
+**Why the rules let it.** Each of `_seed_clear`'s margins was a fraction of
+a body:
+- 0.3 m off a stair's reserve;
+- 0.9 m off a volume;
+- 1.0 m from a partition's LINE to the piece's centre;
+- nothing off an exterior wall.
+
+Across the library: 69 seeded pieces in 128 shells; 23 stale, 35 within
+1.1 m of something, 40 either (`seeded_slots_census.py`).
+
+**Why no gate saw it.**
+- The circulation gate keeps pieces out of stair and door volumes, and the
+  crate was 1 cm outside the landing.
+- L23 asks whether a piece is over a hole or in a walk; it was beside one.
+- The Godot nav gate proves a stair's two ends join, and they did, both on
+  island 9. Nothing asked whether an entrance reaches the stair.
+
+**The fix, Deli Counter 0.195.0.**
+- A seeded piece now keeps `min_corridor_width` (1.1 m) from every wall,
+  stair reserve and standing volume.
+- 35 pieces were moved and 7 dropped across 13 shells. The drops include
+  both crates in deli_a01, a02 and a03.
+- On 9188's site with the new shell, deli_a01's only island of its own is
+  its roof. The street's island covers its basement (783 m2), ground floor
+  (672 m2) and stair and upper storey (759 m2). Islands: 165, then 164,
+  then 161.
+
+## Break 2: the server room had no door
+
+**What the bake and the spec showed.** Island 10 was `server_room` exactly
+(story 1, x -2..19, y 2..14). Its only ways in were two soft-wall breaches,
+from the upper hall at (-2, 10) and from the apartment at (10.5, 2), plus
+`roofline_breach` in its north wall. It had no door. Its seams with island
+9 were all 1.30 m: walls.
+
+**The walker's call (2026-10-06): give it a door.** Deli Counter 0.194.0:
+- a 1.25 m door at (-2, 7.0), `hall_to_server_room`, from the upper hall;
+- the breach stays;
+- on 9188's site with the new shell, island 10 is gone and island 9 grows
+  from 592 to 779 m2.
+
+**L24 (WARN) names every room only a breach, window or drop reaches.** 16
+rooms in 8 shells were found. The 15 left are frozen for the walker's call
+(`walk_reach_census.py`; `deli_counter/walk_reach_baseline.json`):
+- the deli family's server rooms, the objective in three of them;
+- the deli family's basement utility rooms;
+- three apartment rooms;
+- rowhouse_raid's kitchen and vault.
 
 ## Instruments
 
-- `navmesh_islands.py`: the largest islands other than the largest; area,
-  height range, extent, and what footprint each lies over. Its docstring
-  says "other than the spawn's". The code skips the LARGEST island. Here
-  that is the same island (the home point is in island 0, the largest), so
-  the listing holds for this bake and would not for one where it is not.
-- `door_islands.py`: the island on each side of each exterior door or
-  breach, at set distances along the wall's outward normal. Rot 0 only;
-  refuses anything else.
-- `island_seams.py`: the closest approaches between two islands in a
-  height band, in both frames, beside every door-like opening's distance.
+| file | what it measures |
+|---|---|
+| `navmesh_islands.py` | The largest islands other than the largest: area, height range, extent, and what footprint each lies over. Its docstring says "other than the spawn's" while the code skips the LARGEST island. The home point is in the largest here, so the listing holds for these bakes. |
+| `door_islands.py` | The island either side of each exterior door or breach, along the wall's normal. Rot 0 only. |
+| `island_seams.py` | The closest approaches between two islands in a height band, beside every opening's distance. |
+| `glb_region_nodes.py` | Every mesh node of a building GLB touching a box, visual and collision-only, in the building frame. With two GLBs, it prints the diff. |
+| `stairwell_plan.py` | The plan above: navmesh polygons by island, nodes in the body band, stair footprints and landings. |
+| `swap_and_bake.py` | Copies a staged site, swaps one building's GLB, reimports, and bakes as the original was baked. The before-and-after proof of both fixes. |
+| `walk_reach_census.py` | Rooms L12 reaches that a body cannot walk to, across every spec. |
+| `seeded_slots_census.py` | Seeded pieces that are stale, or that leave a gap under 1.1 m, across the built library. |
+
+`islands_*.txt` hold the three bakes' island tables: shipped, door, and
+door plus corridor.
 
 ## Not established
 
-- **The cause of break 1.** The two reads above decide it.
-- **Whether DC's own gate sees break 1.** Deli Counter's nav gate and
-  `stair_regression.py` ("all occupied stories reachable") bake the shell
-  alone. If they say story 1 is reachable and this bake says it is not, two
-  instruments disagree and one of them is wrong.
-- **Whether break 1 predates Deli Counter 0.192.0.** That release moved
-  deli_a01's counter islands off its stair hole and refurnished its upper
-  hall. 9187's workspace is still on disk, so its seed_9104 scene can be
-  baked the same way.
-- **Whether the themed export carries the same break.**
+- **Whether a cold run on restaurant_row_001 sees it.** The site proofs here
+  swap one shell into 9188's staging; a cold run rebuilds everything.
+- **Whether furniture cuts other floors the same way.** Furnish keeps 0.9 m
+  from a volume. 4 seeded pieces in 2 shells have furniture 0.9 to 1.1 m
+  from them.
+- **Whether other shells have stairs no entrance reaches.** The nav gate
+  does not ask; that check comes next.

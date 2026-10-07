@@ -11,7 +11,7 @@
 - `breadth_sweep_2026-10-06/` -- The breadth sweep, 2026-10-05/06: ten missions, cold
 - `cars_price/` -- 3 file(s), no README
 - `claude_outputs_2026-09/` -- Frames saved outside the findings, September 2026
-- `deli_a01_upper_storey_9188/` -- deli_a01's upper storey is cut off from the street in 9188's site bake
+- `deli_a01_upper_storey_9188/` -- deli_a01's upper storey was cut off from the street in 9188's site bake
 - `dressing_frames_9143/` -- 9 file(s), no README
 - `dressing_frames_9144/` -- 9 file(s), no README
 - `dressing_price/` -- 3 file(s), no README
