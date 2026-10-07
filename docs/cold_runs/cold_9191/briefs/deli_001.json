@@ -1,0 +1,28 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "deli_001",
+  "display_name": "Corner Deli",
+  "archetype": "deli",
+  "building_count": 1,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_deli",
+    "grab_register",
+    "drill_basement_safe",
+    "extract"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "lit_storefront",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "crew_size": 4,
+  "candidate_count": 3,
+  "target_minutes": [
+    10,
+    20
+  ],
+  "notes": "COLD RUN 9191. A deli brief, never run before: one building, so no lot library, and the building is GENERATED from Deli Counter's corner_deli recipe. Its archetype is the plain word 'deli', refused until Level Factory 0.150.0. WHAT THIS RUN TESTS: Level Factory 0.150.0 -- 'deli' resolves to corner_deli; Deli Counter 0.199.0 -- presets.make trims the recipe's case off its own wall (x -14.0..-8.185); Zoo 1.81.0 and Deli Counter 0.200.0 -- the case builds as the deli_case species; Deli Counter 0.201.0 -- the recipe hangs a beer sign in its front window and tapes sale posters under it. PREDICTED: 0 interventions; one deli in the package, its case prop_deli_case_..._w582_d110_h130, its window_sign a neon window prop and its window_poster a store poster pair in the S wall's window; the fascia dealt from Pixelcoat's deli family. CHECK AFTER: a frame of the front window from the street and of the case from the customer floor."
+}

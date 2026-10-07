@@ -1,0 +1,54 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9191\journal.md
+== batch
+created batch 'cold_9191' with 1 mission(s): deli_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 42)
+  deli_001.lot_assemble.candidate.seed_9191: shell.glb 
+  deli_001.lot_assemble.candidate.seed_9292: shell.glb 
+  deli_001.lot_assemble.candidate.seed_9393: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9191: 2 major, out for ['LT_MAP_ENEMY_PATHING_BROKEN']
+  seed 9292: 2 major, out for ['LT_MAP_ENEMY_PATHING_BROKEN']
+  seed 9393: 2 major, out for ['LT_MAP_ENEMY_PATHING_BROKEN']
+  every candidate is out; taking the fewest major findings
+  picked seed_9191 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 58)
+  exit 1
+== export
+[export] light bake: 169 model(s) and 628 primitive mesh(es) lightmapped, 6 kept dynamic; 59 steady rig(s) baked, 18 failing left live; 1855 users, 49.6 s in the editor
+exported deli_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9191-ws\.level_factory\exports\LF_deli_001.portable-godot
+  exit 0
+== findings
+findings 0 -> 58
+   DISPATCH_FINDING 0 -> 7
+   LOT_DESTINATION_RESEATED 0 -> 4
+   LOT_DESTINATION_RESOLVED 0 -> 4
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 3
+   LOT_GROUND_EXTENDED 0 -> 4
+   LOT_PACING_OUTSIDE_TARGET 0 -> 4
+   LT_MAP_BLIND_MAP 0 -> 3
+   LT_MAP_ENEMY_PATHING_BROKEN 0 -> 3
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 3
+   LT_MAP_PLAYER_STUCK 0 -> 3
+   LT_SEAL_UNVERIFIED 0 -> 3
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   PRESENTATION_ZFIGHT 0 -> 1
+   WALKTEST_ANCHOR_ISOLATED 0 -> 3
+   WALKTEST_MARKER_BURIED 0 -> 3
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE
+driver exit 0

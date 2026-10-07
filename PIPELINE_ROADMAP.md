@@ -864,7 +864,7 @@ work of adopting this.
 | 183 | **CLOSED** | An Empty's front door is open to a ray | 2026-10-05 -- Deli Counter 0.186.0 fills a facade's door full-thickness, as its window's p |
 | 184 | **CLOSED** | A gutter on every party wall, and lit covers against an unlit wall | 2026-10-05 -- Patina 0.29.1 gutters only an Empty's faces with openings. Cold run 9164 (0  |
 | 185 | **CLOSED** | Demo and reference shells are drawn into real levels | 2026-10-06 -- Deli Counter 0.187.0 says it: five demo and reference specs carry `demo: tru |
-| 186 | **NARROWED** | The detail put into a building type must live in the logic every level | 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter  |
+| 186 | **NARROWED** | The detail put into a building type must live in the logic every level | 2026-10-07 -- the gas station and the convenience store are done and proven: Deli Counter  |
 | 187 | **CLOSED** | A building carries two names | 2026-10-06 -- option A, the walker's call ("Agreed"): one name list on both signs, the doo |
 | 188 | **OPEN** | The fence at the playable edge | 2026-10-06 -- phase one shipped: Zoo 1.77.0's `chain_link_fence` (two draws a run) and Lot |
 | 189 | **NARROWED** | A building's walkable connectivity depends on where it lands on the vo | 2026-10-06 -- the gate and the walk test shipped and are proven, and twin_a01 is fixed. De |
@@ -873,9 +873,11 @@ work of adopting this.
 | 192 | **NARROWED** | The presentation gates were read for one building in sixteen, and the  | 2026-10-06 -- read, honest, and proven in a level. Level Factory 0.149.0 reads every place |
 | 193 | **NARROWED** | Pieces stand over openings and on stair walks, and nothing asks again | 2026-10-06 -- the rule exists and 17 pieces moved; 47 are frozen, 30 of them over AUTHORED |
 | 194 | **CLOSED** | deli_a01's upper storey was cut off from the street, and nothing asked | 2026-10-06 -- proven in a level. Cold run 9189 (restaurant_row_001, 0 interventions, findi |
-| 195 | **NARROWED** | A piece passes through a wall, and no gate asked | 2026-10-06 -- Deli Counter 0.199.0: layout_lint L25 (WARN) names every piece reaching past |
+| 195 | **NARROWED** | A piece passes through a wall, and no gate asked | 2026-10-07 -- Deli Counter 0.199.0: layout_lint L25 (WARN) names every piece reaching past |
+| 196 | **OPEN** | Furnish stands wall pieces against walls that are not there | 2026-10-07 -- measured, not fixed: 155 of the library's 4,086 furnished wall pieces stand  |
+| 197 | **OPEN** | A generated deli's enemies jam at its rear door | 2026-10-07 -- narrowed to one spot, not explained: in cold run 9191 every generated-deli c |
 
-**195 items: 34 open, 91 closed, 3 retracted, 60 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**197 items: 36 open, 91 closed, 3 retracted, 60 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18724,7 +18726,7 @@ traced to `setback_demo`. Nothing here says the demo shell caused it.
 **TRACED 2026-10-06 (item 191).** seed_9061's refusal in 9170 and 9174 was its Enemy_5 standing inside Empty e15, pushed there off the route by Lot's spawn placer. `setback_demo` played no part.
 
 
-*STATUS: NARROWED 2026-10-06 -- the gas station and the convenience store are done and proven: Deli Counter 0.188.0, Zoo 1.75.0, Pixelcoat 0.58.0, Level Factory 0.146.0; cold runs 9181 (a never-seen one-building convenience store, generated) and 9182 (gas_block_001), both 0 interventions. The strip club's band no longer contradicts its neon (item 187's option D). FLAPPAHS is cream on green on every sign, the walker's call: Pixelcoat 0.60.0 draws the band in Zoo's colourway 0. No cold run has drawn a FLAPPAHS store since. Open: deli detail; the brief words still refused (`deli`, `night_deli`, `stop_n_go`, `corner_store`, `nightclub`).*
+*STATUS: NARROWED 2026-10-07 -- the gas station and the convenience store are done and proven: Deli Counter 0.188.0, Zoo 1.75.0, Pixelcoat 0.58.0, Level Factory 0.146.0; cold runs 9181 (a never-seen one-building convenience store, generated) and 9182 (gas_block_001), both 0 interventions. The strip club's band no longer contradicts its neon (item 187's option D). FLAPPAHS is cream on green on every sign, the walker's call: Pixelcoat 0.60.0 draws the band in Zoo's colourway 0. THE DELI, done generated and drawn alike: its case stops at its wall (Deli Counter 0.199.0, item 195) and builds as Zoo 1.81.0's `deli_case` (curved glass, a lit deck of salads, cards and parsley, logs cut to the glass; Deli Counter 0.200.0 routes it), its front window hangs a beer neon over two taped posters (Deli Counter 0.201.0), and `deli`, `delicatessen`, `night_deli` and `stop_n_go` resolve (Level Factory 0.150.0). Cold run 9190 (restaurant_row_001, 0 interventions) stood the case in deli_a01 and priced it against the box it replaced: +1.0 draw a station, +0.017 ms median, under the controls' 0.084 ms spread. Cold run 9191 (deli_001, a never-seen one-building `deli` brief, generated, 0 interventions) built the case, the sign and the posters, framed from the street. Open: `corner_store` and `nightclub` stay refused by decision; furnish's wall pieces on open edges stand in front of the case (item 196); the generated deli's enemies jam at its rear door (item 197); the window neon reads faint behind its pane, the walker's to judge.*
 
 **186. The detail put into a building type must live in the logic every level runs for it.** The walker, 2026-10-06: "the care and detail we put into the strip club and flappahs convient store [should not] just get lost to the next phase of level creation. That level of detail should be in the logic that is called when a level calls for a Gas Station, Convient Store, or a strip club."
 
@@ -18955,7 +18957,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 3. seed_9104's five new player stuck events inside deli_a01 (9189), NARROWED: a re-traced run (seed 9106; `lt_trace_one.py` in the finding) reproduces two bots stopped at t 52 at the front register counter's west corner, on the way back up from the basement-vault objective to the extraction outside the south wall -- route points identical to 9188's, nothing they touch moved; what changed is the navmesh's polygon partition round the opened stairwell, which moves a funnelled path's corners. Not measured: what the bot pushed into at t 52 (the trace's snapshots end at t 20.1 s).
 4. The entrance check runs at the gate's own origin only; the grid sweep could ask it at all eight.
 
-*STATUS: NARROWED 2026-10-06 -- Deli Counter 0.199.0: layout_lint L25 (WARN) names every piece reaching past both faces of a wall the builder stands -- 19 pieces in 15 of 146 non-LF specs at 0.198.0, 7 THROUGH a wall and 12 ALONG one; `presets.make` trims a recipe's piece through its own wall (the corner deli's case, the hospital's waiting seats) and `migrate_wall_crossing` trimmed the library's 7 (six deli cases to x -14.0..-8.185, warehouse's shelving run to x -4.0..7.84); both instruments read 12 in 8 specs after. Open: the twelve ALONG a wall, frozen in `wall_crossing_baseline.json`, each to be looked at; `casino_tower`'s generated basement vault block, centred on a partition; a level frame of the trimmed case.*
+*STATUS: NARROWED 2026-10-07 -- Deli Counter 0.199.0: layout_lint L25 (WARN) names every piece reaching past both faces of a wall the builder stands -- 19 pieces in 15 of 146 non-LF specs at 0.198.0, 7 THROUGH a wall and 12 ALONG one; `presets.make` trims a recipe's piece through its own wall (the corner deli's case, the hospital's waiting seats) and `migrate_wall_crossing` trimmed the library's 7 (six deli cases to x -14.0..-8.185, warehouse's shelving run to x -4.0..7.84); both instruments read 12 in 8 specs after. In a level: cold run 9190's composed deli_a01 stands the case at x -11.0925, the trimmed 5.815 m, and 9191's generated deli the same (`frame_9190_case_*.jpg`). Open: the twelve ALONG a wall, frozen in `wall_crossing_baseline.json`, each to be looked at; `casino_tower`'s generated basement vault block, centred on a partition.*
 
 **195. A piece passes through a wall, and no gate asked.** Found 2026-10-06 sizing the deli case for item 186's deli detail (`docs/findings/pieces_through_walls/`).
 
@@ -18979,3 +18981,31 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 1. The twelve ALONG a wall. A column on a wall line may be structure; a 14 m rack centred on a partition is not.
 2. `casino_tower`'s generated basement `vault_block`, centred on the partition at x 0: every generated casino stands its vault across a wall.
 3. A level frame of the trimmed case, from the next cold run that draws a deli.
+
+*STATUS: OPEN 2026-10-07 -- measured, not fixed: 155 of the library's 4,086 furnished wall pieces stand against a room edge with no built wall behind them, in 18 of 146 shells (`docs/findings/wall_pieces_without_walls/`); the generated deli does it too (cold run 9191's frame). The fix belongs in `level_design._wall_slots`.*
+
+**196. Furnish stands wall pieces against walls that are not there.** Found 2026-10-07 framing the deli case in cold run 9190 (`docs/findings/wall_pieces_without_walls/`).
+
+**WHAT WAS SEEN.** In deli_a01 an ATM and two paper lottery boards stood in front of the deli case's service front. The boards were hanging in mid-air. All three were wall pieces slotted against the customer floor's north edge, y -3.0, where no wall stands: the customer floor and the deli counter room meet across open floor.
+
+**WHY.** `_wall_slots` offers a wall piece every edge of its room. It checks an exterior edge's openings and glazing; an interior edge it assumes is a wall and never asks whether a partition stands on it. Layout_lint L12 and L24 learned the open-floor rule in Deli Counter 0.197.0 (`tactical.shared_open_edge`); furnish never did.
+
+**WHAT WAS MEASURED** (`wall_pieces_without_walls.py`, Deli Counter 0.201.0's specs). A wall piece is one `furnish` wrote whose stem `_PIECES` puts on a wall; a wall behind it is a built wall (`layout_lint.built_walls`) on its storey within 0.10 m of the edge it was slotted against, covering half its run.
+- 155 of 4,086, in 18 shells, every one 0.18-0.19 m off its edge (`_wall_slots`' own spacing).
+- The six delis 76 between them, apartment_walkup_a01 18, rowhouse_raid 17, office_stepped 8.
+- Shelf runs 43, file cabinets 27, store poster boards 17, waiting chairs 10, service counters 10, vending 9, video poker 6.
+
+**NOT ESTABLISHED.** How each reads in a frame (the deli's three are seen; the rest are counted), and whether every open edge in the list is meant to be open.
+
+*STATUS: OPEN 2026-10-07 -- narrowed to one spot, not explained: in cold run 9191 every generated-deli candidate fails Laser Tag's ENEMY_PATHING_BROKEN, and 165 of seed_9191's 177 enemy-stuck events stand 1 m outside the recipe's 1.1 m rear staff door.*
+
+**197. A generated deli's enemies jam at its rear door.** Found 2026-10-07 in cold run 9191, the first cold run of a generated corner deli (`docs/cold_runs/cold_9191/NOTES.md`).
+
+**WHAT WAS MEASURED.**
+- All three candidates fail `ENEMY_PATHING_BROKEN`: seed_9191 177 enemy-stuck events (1.18 per enemy per run, 19 timeouts in 25 runs), seed_9292 192 (20 timeouts).
+- 165 of seed_9191's 177 stand at site (18-20, 0, -15): in the building's frame x 12-14, y +15, 1 m outside the north wall at and just east of `rear_staff_entry` (pos 0.32, x 12.0 as cut, 1.1 m wide). All six enemies jam there, the first at t 6.07 s. The site stands only the walk Lot lays to that door.
+- The door is 1.1 m against the contract's 1.25 (`min_door_width`). Library deli_a01 has no rear door and 0 enemy-stuck events in 9190; deli_a03, whose rear door is 1.4 m, had 36.
+
+**REFUTED, KEPT.** A floor safe flush against the north wall inside the door's span was the first suspect. It is the basement vault's (storey -1); the first filter took pieces by plan position without their storey.
+
+**NEXT.** Bake 9191's walk-copy site and read the navmesh through the rear door, before any change to the recipe.
