@@ -11,8 +11,11 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 RM = ROOT / "PIPELINE_ROADMAP.md"
 
-TAIL = ("- Set the pacing `mode` from the brief (a heist's spawn -> objective -> extraction), with a test that the "
-        "manifest's breakdown carries travel legs.\n")
+#: Item 200's LAST line. The first version of this patch anchored on the line
+#: above it and refused; that version was committed alone (b9c6635) by a
+#: command chain that did not stop on the refusal.
+TAIL = ("- Decide, with the walker, what each of the other three should drive -- or retire them from the "
+        "schema.\n")
 
 ADD = """
 *STATUS: OPEN 2026-10-07 -- found by the level standard's capability sweep and re-read in the code: `site_variation.site_placements` draws the spawn and the objective building independently from the seed (`ids[next(rng) % count]`, twice), so the score is not the archetype's building, not the one holding the objective rooms, and can be the spawn building itself.*

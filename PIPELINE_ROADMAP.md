@@ -879,8 +879,9 @@ work of adopting this.
 | 198 | **CLOSED** | Baked interiors are darker than their lamps say | 2026-10-07 -- cold run 9193 (0 interventions, findings 64 -> 64, Laser Tag identical): res |
 | 199 | **OPEN** | Lot's layout against the walkable-city brief | 2026-10-07 -- filed, not compared: the walker's Dynamic Walkable City brief (`docs/referen |
 | 200 | **OPEN** | Four brief fields reach nothing | 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): fou |
+| 201 | **OPEN** | The score building is a seeded pick | 2026-10-07 -- found by the level standard's capability sweep and re-read in the code: `sit |
 
-**200 items: 37 open, 92 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**201 items: 38 open, 92 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19079,3 +19080,16 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Route `target_minutes` to `pacing.target_minutes`, with a test that the brief's number appears in the manifest's `pacing.target_min`.
 - Set the pacing `mode` from the brief (a heist's spawn -> objective -> extraction), with a test that the manifest's breakdown carries travel legs.
 - Decide, with the walker, what each of the other three should drive -- or retire them from the schema.
+
+*STATUS: OPEN 2026-10-07 -- found by the level standard's capability sweep and re-read in the code: `site_variation.site_placements` draws the spawn and the objective building independently from the seed (`ids[next(rng) % count]`, twice), so the score is not the archetype's building, not the one holding the objective rooms, and can be the spawn building itself.*
+
+**201. The score building is a seeded pick.** Found 2026-10-07 writing `docs/LEVEL_STANDARD.md` (§4, and Part II's first item).
+
+**WHAT THE CODE DOES.** `level_factory/packages/pipeline/site_variation.py::site_placements` returns `spawn`, `objective` and `extraction` building ids for Lot. The spawn and the objective are each `ids[next(rng) % count]` -- two independent draws -- and the extraction prefers a building other than the spawn. Nothing reads the brief's `archetype`, the lot library's anchor family, or which building's Deli Counter spec carries `objective_room`s or `Objective` records. Lot then puts the objective point at that building's first `objective` marker, else its first objective record, else its origin (`lot.py::_walk_positions`).
+
+**WHY IT MATTERS.** A brief that asks for a bank job puts the bank on the site as the anchor family and then may point the heist at the row home beside it. Every level's score, approaches census and pacing estimate is computed against whichever building the seed drew. On cold run 9193's pick the draw happened to land on the deli (b0).
+
+**NEXT.**
+- Make the objective the building the brief asked for: the anchor family's building, or the one whose spec carries the objective rooms.
+- Keep the spawn and extraction seeded, and never the objective's building.
+- A test pins it, and a cold run of a library brief shows the score where the brief put it.
