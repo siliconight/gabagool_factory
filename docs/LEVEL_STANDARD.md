@@ -161,7 +161,7 @@ most-tested brief this factory has):
 | measure | value | what it means |
 |---|---|---|
 | interventions | 0 | it **works** |
-| Lot's pacing estimate | 1.6-3.4 min expected, "likely TOO SHORT vs target" | that is setup plus one objective at 120 s, against Lot's own default target of 7-15 min. The brief asked 25-35 min, and that number never reaches the estimate: Level Factory writes `target_minutes` where `site_pacing` does not look (it reads `pacing.target_minutes`) |
+| Lot's pacing estimate | 1.6-3.4 min, "likely TOO SHORT vs target" | **not yet evidence about session length.** The estimate is setup (30 s) plus one objective (120 s) and nothing else: Level Factory sets no `mode`, so `site_pacing` counts no travel (a heist's spawn -> objective -> extraction); it counts the objective building's own markers (1 objective, 0 loot in Lot's merged markers, where the package's room-level anchors number 9 objectives and 5 loot); and it judges against Lot's default 7-15 min, because the brief's `target_minutes` (25-35) is written where `site_pacing` does not look (roadmap 200) |
 | site-level objectives, loot, zones, encounter legs | all 0 in Lot's gameplay manifest | the heist is nine `objective` anchors, five `loot`, three `extraction`, 23 doors and 12 breach walls inside the buildings (`gameplay_anchors.json`, `interactives.json`), and nothing at site scale ties them into a plan |
 | objective approaches | 2 | `tools/level_recipe_census.py`: 122 of 141 site plans score 2 and 2 of 141 reach 3. The count is graph degree, so 3 needs a fourth building or a measure of approaches as a player meets them |
 
@@ -892,10 +892,11 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
    schedule (class, use, why a player goes in) and the route records, written
    into the package where the review can read them. Owner: Level Factory.
    This is how every later request becomes checkable.
-3. **Session length.** The brief's `target_minutes` reaching Lot's pacing
-   estimate, and enough structure to fill it: more objectives, loot that
-   holds something. Today's estimate is 1.6-3.4 minutes. Owner: Level
-   Factory, Lot.
+3. **Session length, measured.** First make the pacing estimate measure the
+   level (roadmap 200): a heist `mode` so it counts travel, and the brief's
+   `target_minutes` reaching it. Then read what the level holds against the
+   request's session, and add structure where it falls short: more
+   objectives, loot that holds something. Owner: Level Factory, Lot.
 4. **The companions MacDade names:** a check-cashing and a laundromat family
    (Deli Counter, with Zoo's props), and a bank drive-through.
 5. **The alley and the climb:** service alleys behind commercial rows (Lot);

@@ -19059,7 +19059,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **NEXT.** Map the brief's hard failures and design warnings onto those gates one by one, and measure the gap on a few briefs before any layout changes.
 
-*STATUS: OPEN 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): four mission-brief fields reach nothing that uses them. `target_minutes` is written where Lot's pacing does not look, so cold run 9193's level was judged against Lot's default 7-15 min, not the brief's 25-35; `landmark`, `verticality` and `extraction_relationship` have no reader in any repo.*
+*STATUS: OPEN 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): four mission-brief fields reach nothing that uses them, and Lot's pacing estimate is under-wired. `target_minutes` is written where Lot's pacing does not look, so cold run 9193's level was judged against Lot's default 7-15 min, not the brief's 25-35; Level Factory sets no pacing `mode`, so the estimate counted no travel; `landmark`, `verticality` and `extraction_relationship` have no reader in any repo.*
 
 **200. Four brief fields reach nothing.** Found 2026-10-07 mapping the walker's level standard onto the mission brief (`level_factory.mission_brief.v0.1`).
 
@@ -19070,6 +19070,12 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **WHY IT MATTERS.** `CLAUDE.md`: a knob with no effect is itself a defect, because the next person turns it and is not believed. These four sit in every brief ever written. The level standard's request template marks them GAP until each reaches a reader or is removed.
 
+- **The pacing `mode`.** `site_pacing._critical_legs` builds the travel legs only for `mode` heist, assault or survival, read from the site spec. Level Factory writes none, so cold run 9193's manifest reads `"mode": null` and its estimate is setup (30 s) plus one objective (120 s) with no travel breakdown at all.
+- **Two counts of objectives.** The estimate counts the objective building's markers in Lot's merged gameplay (one objective a building, no loot in b0). The package's `gameplay_anchors.json` carries 9 objective and 5 loot anchors at room level. They are different counts, not a contradiction. Which one pacing should read is a decision.
+
+**REFUTED, KEPT.** The level standard's first headline read the 1.6-3.4 min estimate as how much heist the level held. With no mode and the default target, the number measures neither. It is corrected in the standard.
+
 **NEXT.**
 - Route `target_minutes` to `pacing.target_minutes`, with a test that the brief's number appears in the manifest's `pacing.target_min`.
+- Set the pacing `mode` from the brief (a heist's spawn -> objective -> extraction), with a test that the manifest's breakdown carries travel legs.
 - Decide, with the walker, what each of the other three should drive -- or retire them from the schema.
