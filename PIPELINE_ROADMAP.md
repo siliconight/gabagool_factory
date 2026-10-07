@@ -881,12 +881,14 @@ work of adopting this.
 | 200 | **NARROWED** | Four brief fields reach nothing | 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: eve |
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
-| 203 | **NARROWED** | The crew wedges leaving the bank's vault | 2026-10-07 -- fixed in the crew, measured on cold run 9194's own candidates, a cold run to |
+| 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
 | 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **OPEN** | The extraction is the getaway vehicle | 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and  |
+| 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses tw |
+| 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
 
-**206 items: 39 open, 94 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**208 items: 41 open, 95 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19142,7 +19144,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Their machines: "Windows and Linux". Every driver and setup step must run on Linux too: the cold drive is bash with a hardcoded `/c/` root, and the 23 developer scripts that carry this machine's paths are Windows PowerShell.
 - *As first filed:* "Does the collaborator make levels ... or change tools?" and "What is their machine? A Mac turns this item into a port."
 
-*STATUS: NARROWED 2026-10-07 -- fixed in the crew, measured on cold run 9194's own candidates, a cold run to come: Laser Tag 0.24.0 gives the crew bot the agent contract's step-up (max_step_up_m 0.5, onto a top it can stand on, never a slope) and Level Factory 0.154.0 carries the contract's value to it. Re-run on 9194's two bank_branch_a04 evaluation projects: route completion 0.08 -> 0.84 and 0.00 -> 0.84, PlayerStuck 1,306 -> 4 and 2,366 -> 7; the step-up-off control reproduces 9194's reports exactly (`docs/findings/stair_step_up/`). Open: the walktest's own body (0.28 m, not the contract's 0.35) and the mission's order; and whether a level should avoid band transitions for a consumer with no step-up.*
+*STATUS: CLOSED 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's step-up (max_step_up_m 0.5, onto a top it can stand on, never a slope) and Level Factory 0.154.0 carries the contract's value to it. Cold run 9197 (bank_block_001, 0 interventions, 9194's seeds): route completion on the two bank_branch_a04 candidates 0.08 -> 0.84 and 0.00 -> 0.84, `LT_ROUTE_NEVER_COMPLETED` 1 -> 0, matching the rerun on 9194's staged projects whose step-up-off control reproduced 9194 exactly (`docs/findings/stair_step_up/`); the picker took seed_9155 (1.00) on completion. The threads left open are items 208 (the walktest's body and order) and the design call on band transitions recorded below.*
 
 **203. The crew wedges leaving the bank's vault.** Found 2026-10-07 by cold run 9194 (`docs/cold_runs/cold_9194/NOTES.md`), the first run in which the score is the bank.
 
@@ -19253,3 +19255,31 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Where it stands is a design question to weigh against `S_BACKTRACK`: at the crew's start (the briefs' "backtrack") or a different edge of the site (Lot's audit).
 - A choice of several vehicle spots is replayability's first step, and the package marks the live one (item 204).
 - A test: no candidate's extraction is the objective building.
+
+*STATUS: OPEN 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses two of its club anchors (`LUX_CLUB_REFUSED`, moderate, non-blocking). Cold run 9197: "Baked 42 club rig(s) from 44 club anchor(s); refused b2/main_floor_stage, b2/vip_wing_stage" (strip_club_a01); cold run 9167 (club_block_014) carried the same code. Filed nowhere until now.*
+
+**207. A strip club's two stages are not lit.** Found 2026-10-07 attributing cold run 9197's findings (`docs/cold_runs/cold_9197/NOTES.md`): the code arrived with the picked candidate's strip_club_a01, not with the release under test.
+
+**WHAT WAS MEASURED.** 9197's validation, seed_9155: `LUX_CLUB_REFUSED` -- 42 of 44 club anchors became rigs; the two refused are the main-floor and VIP-wing stages, the rooms a club is for. Beside it, `ZOO_FIXTURES_MARKERLESS` (info): 13 of 18 club fixtures are hardware with no emitter marker by design (club_wash, stage_light), and Lux's fixture gate counts the other 5. Cold run 9167's driver log carries `LUX_CLUB_REFUSED 0 -> 1` on club_block_014; its notes do not explain it.
+
+**NEXT.**
+- Read why Lux refuses a stage anchor (the refusal's own reason, in Lux's club rig builder), on strip_club_a01 and the other club variants.
+- Then decide whether the stage is lit by its hardware (the markerless fixtures) and the refusal is correct, or a rig is missing.
+- The walker's standing call applies: dens of sin are dark buildings, but a stage is where a club's light goes.
+
+*STATUS: OPEN 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the agent contract's player (0.28 m, `AGENT_RADIUS * 0.7`, against `characters.player.radius_m` 0.35; the contract's `qa.walker_capsule_radius_m` 0.35 is read by nothing), with a 56 degree floor and a 0.5 m teleport step-up, and it walks home -> each anchor plus a chain through them, never the mission's order (spawn -> objective -> extraction). It passed cold run 9194's bank basement where the crew wedged.*
+
+**208. The walktest walks a different body, in a different order.** Split out of item 203 on 2026-10-07, after the crew's own fix (Laser Tag 0.24.0) closed the wedge.
+
+**WHAT WAS MEASURED** (`lot/godot/addons/heist_nav_qa/nav_qa_director.gd`, re-read 2026-10-07):
+- `capsule.radius = AGENT_RADIUS * 0.7` with `AGENT_RADIUS` the bake radius (0.4, `DC_NAV_RADIUS`) -- 0.28 m. The contract's player is 0.35, and `qa.walker_capsule_radius_m` (0.35) sits in `agent_contract.json` and `agent_contract.py`'s defaults with no reader: a knob with no effect.
+- Floor 56 degrees (`DC_NAV_SLOPE` + 1); a step-up that teleports up to 0.5 m with no check that it lands on a floor; a 0.072 m waypoint tolerance; up to three repaths a leg, each snapping the body back onto the navmesh within 2 m.
+- Path proofs are navmesh queries that move no body; the walkers walk the anchors in marker order. On cold run 9194 the chain walked the vault to a ground-floor anchor, never the vault to the extraction.
+
+**WHY IT MATTERS.** The walktest picks the candidate (a walktest that is not ok puts it out), and a lenient walker passes geometry the crew cannot cross: it passed the stair foot where 9194's crew wedged at 8% and 0%. A thinner body clears doors and corners the contract's player does not.
+
+**NEXT.**
+- The walker reads the contract's body: `walker_capsule_radius_m`, and the floor angle the crew stands on.
+- Its step-up lands only on a floor (the rule Laser Tag 0.24.0's carries).
+- It walks the mission's order as well as the chain.
+- Measure first: re-walk the kept workspaces' candidates with the contract's body and count what fails, before it becomes the gate it already is.
