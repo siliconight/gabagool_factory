@@ -10,6 +10,19 @@ because the factory does not distinguish: the rules that keep an overnight
 agent session from corrupting a repo are the same ones that keep a Saturday
 design session from doing it.
 
+## Requesting a level
+
+Start from `docs/LEVEL_STANDARD.md` (the walker's level standard, v1).
+It has:
+- the request template;
+- which of its fields the factory reads today;
+- what each part of a level is made by and checked by, from GATE through
+  MEASURED, BUILT and EYE to GAP;
+- the scorecard a level is judged by after its cold run.
+
+A level is real when it passes both gates, WORKS and GOOD, at zero
+interventions.
+
 ## Wear one hat at a time
 
 Every task here is done under one of two hats:

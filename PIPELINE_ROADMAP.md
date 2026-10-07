@@ -878,8 +878,9 @@ work of adopting this.
 | 197 | **OPEN** | A generated deli's enemies jam at its rear door | 2026-10-07 -- narrowed to one spot, not explained: in cold run 9191 every generated-deli c |
 | 198 | **CLOSED** | Baked interiors are darker than their lamps say | 2026-10-07 -- cold run 9193 (0 interventions, findings 64 -> 64, Laser Tag identical): res |
 | 199 | **OPEN** | Lot's layout against the walkable-city brief | 2026-10-07 -- filed, not compared: the walker's Dynamic Walkable City brief (`docs/referen |
+| 200 | **OPEN** | Four brief fields reach nothing | 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): fou |
 
-**199 items: 36 open, 92 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**200 items: 37 open, 92 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19057,3 +19058,18 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - `tools/landuse_census.py`, and the land-use guide's parcel and open-space accounting.
 
 **NEXT.** Map the brief's hard failures and design warnings onto those gates one by one, and measure the gap on a few briefs before any layout changes.
+
+*STATUS: OPEN 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): four mission-brief fields reach nothing that uses them. `target_minutes` is written where Lot's pacing does not look, so cold run 9193's level was judged against Lot's default 7-15 min, not the brief's 25-35; `landmark`, `verticality` and `extraction_relationship` have no reader in any repo.*
+
+**200. Four brief fields reach nothing.** Found 2026-10-07 mapping the walker's level standard onto the mission brief (`level_factory.mission_brief.v0.1`).
+
+**WHAT WAS MEASURED.**
+- **`target_minutes`.** Level Factory writes it at the site spec's top level (`apps/cli/commands/__init__.py`, the site spec writer: `"target_minutes": list(model.target_minutes)`). Lot's `site_pacing._cfg` reads `site_spec["pacing"]["target_minutes"]`. On cold run 9193's pick, the shipped gameplay manifest's `pacing` reads `"target_min": "7-15 min"` (Lot's `TARGET_MIN_S`/`TARGET_MAX_S` defaults) against a brief of [25, 35], and reports "likely TOO SHORT vs target" for an estimate of 1.6-3.4 min.
+- **`landmark`.** Read by nothing. `docs/LEVEL_RECIPE.md` recorded it on 2026-09-24, and a search of every repo on 2026-10-07 finds only comments and other meanings of the word.
+- **`verticality` and `extraction_relationship`.** Defined in `packages/core/models.py` and serialised; no reader in any repo.
+
+**WHY IT MATTERS.** `CLAUDE.md`: a knob with no effect is itself a defect, because the next person turns it and is not believed. These four sit in every brief ever written. The level standard's request template marks them GAP until each reaches a reader or is removed.
+
+**NEXT.**
+- Route `target_minutes` to `pacing.target_minutes`, with a test that the brief's number appears in the manifest's `pacing.target_min`.
+- Decide, with the walker, what each of the other three should drive -- or retire them from the schema.
