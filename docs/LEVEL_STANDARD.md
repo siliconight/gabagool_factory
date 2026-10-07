@@ -7,9 +7,13 @@ The walker, 2026-10-07:
 > something that knows how to guide future requests of levels. It will be
 > something we iterate on, as we learn.
 
-**This is v1.2** (2026-10-07). It records cold run 9194, the first level
-whose score is the building its brief asked for (§4, §5, Part II's first
-item and Appendix A; `patches/patch_level_standard_v1_2.py`). v1.1
+**This is v1.3** (2026-10-07). v1.3 adds what the package says about the
+score (§4, roadmap 204) and the brief's pacing reaching Lot, seen in cold
+run 9195 (Part 0, §5, Appendix A; roadmap 200;
+`patches/patch_level_standard_v1_3.py`). v1.2 recorded cold run 9194, the
+first level whose score is the building its brief asked for (§4, §5,
+Part II's first item and Appendix A; `patches/patch_level_standard_v1_2.py`).
+v1.1
 re-checked v1's tool claims against the code by a full capability sweep
 and corrected 26 (`patches/patch_level_standard_v1_1.py` lists each, and
 the code it was checked against). Its spine is the walker's own draft, *Level Factory --
@@ -166,7 +170,7 @@ most-tested brief this factory has):
 | measure | value | what it means |
 |---|---|---|
 | interventions | 0 | it **works** |
-| Lot's pacing estimate | 1.6-3.4 min, "likely TOO SHORT vs target" | **not yet evidence about session length.** The estimate is setup (30 s) plus one objective (120 s) and nothing else: Level Factory sets no `mode`, so `site_pacing` counts no travel (a heist's spawn -> objective -> extraction); it counts the objective building's own markers (1 objective, 0 loot in Lot's merged markers, where the package's room-level anchors number 9 objectives and 5 loot); and it judges against Lot's default 7-15 min, because the brief's `target_minutes` (25-35) is written where `site_pacing` does not look (roadmap 200) |
+| Lot's pacing estimate | 1.6-3.4 min, "likely TOO SHORT vs target" | **not yet evidence about session length.** The estimate is setup (30 s) plus one objective (120 s) and nothing else: Level Factory sets no `mode`, so `site_pacing` counts no travel (a heist's spawn -> objective -> extraction); it counts the objective building's own markers (1 objective, 0 loot in Lot's merged markers, where the package's room-level anchors number 9 objectives and 5 loot); and it judges against Lot's default 7-15 min, because the brief's `target_minutes` (25-35) is written where `site_pacing` does not look (roadmap 200). **Since Level Factory 0.153.0** the estimate counts a heist's travel and reads the brief's window: cold run 9195's three candidates read 2.8-3.4 min against 25-35, "likely TOO SHORT". It counts travel, setup and objective work, and no fighting |
 | site-level objectives, loot, zones, encounter legs | all 0 in Lot's gameplay manifest | the heist is nine `objective` anchors, five `loot`, three `extraction`, 23 doors and 12 breach walls inside the buildings (`gameplay_anchors.json`, `interactives.json`), and nothing at site scale ties them into a plan |
 | objective approaches | 2 | `tools/level_recipe_census.py`: 122 of 141 site plans score 2 and 2 of 141 reach 3. The count is graph degree, so 3 needs a fourth building or a measure of approaches as a player meets them |
 
@@ -286,7 +290,15 @@ room with a marker in it.
 - **Objective rooms** carry the `objective_room` role (vaults, cash rooms,
   executive suites, server rooms). Lux lights them moody. BUILT.
 - **Objective anchors** reach the package: 9 on cold run 9193's level.
-  BUILT.
+  BUILT, and unmarked (roadmap 204). No anchor names its building and
+  none marks the score: on cold run 9194's bank level the score's vault
+  is the last of five objective anchors. On a library lot the mission's
+  own generated shell, which the lot does not place, contributes anchors
+  in its local frame, listed first. The package's own readers depend on
+  that list: `tools/look_shots.py` takes the first anchor of each type for
+  its eye-level shots, and the perf harness takes its stations from it
+  (§13). GAP, owner Level Factory: mark the score, name each anchor's
+  building, and stage no anchor from a shell the lot does not place.
 - **The heist grammar exists in Deli Counter's spec types:**
   - `Objective` kinds: drill, hack, grab, thermite, interact;
   - `LootSpawn`;
@@ -343,9 +355,12 @@ described:**
 - **Lot's tactical graph** (`site_tactical`, in the gameplay manifest) holds
   buildings, edges, the spawn, objective and extraction designations, and
   `objective_approaches`.
-  - Its hard gates fire only when the site spec carries a `mode`, and
-    Level Factory writes none. On every generated site it is intel, not a
-    gate (roadmap 200).
+  - Its hard gates fire only when the site spec carries a `mode`. Level
+    Factory writes `heist` since 0.153.0 (roadmap 200), so the heist gate
+    -- spawn, objective and extraction joined -- runs on every generated
+    site. It passed all 144 candidate specs on disk before it was
+    switched on, and cold run 9195's three assemblies after. GATE.
+    *v1.2 read: Level Factory writes none, so it is intel, not a gate.*
   - The crew's route is a straight polyline: spawn -> objective ->
     extraction.
 - **`encounters.legs`** are meant to hold each leg's route choice, open
@@ -1000,10 +1015,10 @@ notes:        anything else, in plain words
 | weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot. Rain also sets Pixelcoat's wet maps, Lot's wet ground and the wind that sways trees (`lf_wind`) | BUILT, with that trade; fog, snow and overcast read as clear |
 | tone | -- | nothing | EYE: the review checks it against the frames |
 | playstyle | -- | nothing | GAP: no alarm or escalation state exists (§11) |
-| session_min | `target_minutes` | **nothing reads it.** *v1.1 read "Laser Tag's scenario timing, BUILT":* wrong. Nothing in Laser Tag or in Level Factory's Laser Tag path reads it (re-checked 2026-10-07). Lot's pacing estimate is the reader it was meant for, and is wired by Level Factory 0.153.0 | GAP (roadmap 200) |
+| session_min | `target_minutes` | Lot's pacing estimate, as its window (`pacing.target_minutes`, Level Factory 0.153.0); a level outside it raises `LOT_PACING_OUTSIDE_TARGET`, non-blocking. What the window means -- a session, which the estimate cannot reach without a combat term, or the structural route, which it measures at about 3 min -- is the walker's call. *v1.1 read "Laser Tag's scenario timing, BUILT": wrong; nothing in Laser Tag reads it, and before 0.153.0 nothing read it at all* | BUILT (cold run 9195) |
 | players | `crew_size` (4), `crew_health` | Laser Tag; `crew_size` also places the crew's spawns (Lot) | BUILT |
 | enemies | `enemy_count` (6), `enemy_health` | Laser Tag spawns the count over Lot's hooks; **Lot always places six hooks** | BUILT, partly: below six the spread is uneven (`models.py`) |
-| route shape, extraction, height | `route_shape`, `extraction_relationship`, `verticality` | no builder: `route_shape` is Level Factory metadata that Lot ignores, and the other two feed only the functional lock's signature | GAP (roadmap 200) |
+| route shape, extraction, height | `route_shape`, `extraction_relationship`, `verticality` | no builder: `route_shape` is Level Factory metadata that Lot ignores, and the other two feed only the functional lock's signature. `batch create` says so out loud since Level Factory 0.153.0 (`UNBUILT_BRIEF_FIELDS`) | GAP (roadmap 200) |
 | landmark | `landmark` | **nothing reads it** (`docs/LEVEL_RECIPE.md`, re-checked 2026-10-07) | GAP: Lot or Level Factory |
 | must_have | -- | `tools/level_recipe_census.py` measures one of them (approaches) | MEASURED for one; GAP for four |
 | hero_props | -- | nothing | GAP: minted per prop by Zoo (`USING_THE_FACTORY.md`, minting) |

@@ -8,8 +8,12 @@ exists). On 0.152.0 it must FAIL: the site spec carries no `mode` and no
 `pacing`, `commands` has no `mission_mode` or `unbuilt_brief_fields`, and the
 Lot adapter reads only a status containing "outside target".
 
-Expected on 0.152.0: 3 pass (the heist-gate guard, the straddle status and
-"within target", which 0.152.0 already handled), the other 11 fail.
+Expected on 0.152.0, and measured (`FFF.FF.F.FFFF`): 3 pass (the heist-gate
+guard, the straddle status and "within target", which 0.152.0 already
+handled), the other 10 fail -- each on the defect it pins (no `pacing`, no
+`mode`, Lot's estimate reading no mode, TOO SHORT and TOO LONG surfacing
+nothing, no status list, an unknown or missing status passing silently, no
+`unbuilt_brief_fields`).
 """
 import pathlib
 
@@ -165,7 +169,7 @@ def test_no_pacing_block_is_said_out_loud(tmp_path):
     assert [i["code"] for i in got] == ["LOT_PACING_UNREAD"], got
 
 
-def test_the_brief_fields_no_tool_reads_are_named():
+def test_the_brief_fields_nothing_builds_from_are_named():
     brief = {"route_shape": "push_then_backtrack", "objective_hypotheses": ["enter_bank"],
              "extraction_relationship": "crew_start_backtrack", "verticality": "medium",
              "landmark": "bank_clock", "archetype": "bank", "target_minutes": [25, 35]}

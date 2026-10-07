@@ -1,0 +1,31 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "gas_block_001",
+  "display_name": "Gas Block I",
+  "archetype": "gas_station",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9195. 9184's brief and seeds. WHAT THIS RUN TESTS: Level Factory 0.152.0 on a second archetype -- the score is the gas station (b0) and the crew spawns at another building (the breadth sweep's seed_9080 put the spawn in the score) -- and Level Factory 0.153.0: the site spec carries mode heist and pacing.target_minutes [25, 35], so Lot's estimate counts travel against the brief's window and the adapter reports its verdict, and batch create names the brief fields nothing builds from. The driver's picker now reads Laser Tag's route completion.",
+  "crew_size": 4,
+  "empties": "across"
+}

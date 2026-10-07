@@ -878,12 +878,14 @@ work of adopting this.
 | 197 | **OPEN** | A generated deli's enemies jam at its rear door | 2026-10-07 -- narrowed to one spot, not explained: in cold run 9191 every generated-deli c |
 | 198 | **CLOSED** | Baked interiors are darker than their lamps say | 2026-10-07 -- cold run 9193 (0 interventions, findings 64 -> 64, Laser Tag identical): res |
 | 199 | **OPEN** | Lot's layout against the walkable-city brief | 2026-10-07 -- filed, not compared: the walker's Dynamic Walkable City brief (`docs/referen |
-| 200 | **OPEN** | Four brief fields reach nothing | 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): fou |
+| 200 | **NARROWED** | Four brief fields reach nothing | 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: eve |
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
-| 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started: a stranger's first hour with the factory package woul |
+| 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
 | 203 | **OPEN** | The crew wedges leaving the bank's vault | 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's  |
+| 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
+| 205 | **OPEN** | A 25 m cooler run | 2026-10-07 -- found by cold run 9195, which stopped at the art leg on it: gas_station_a02' |
 
-**203 items: 39 open, 93 closed, 3 retracted, 61 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**205 items: 40 open, 93 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19062,7 +19064,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **NEXT.** Map the brief's hard failures and design warnings onto those gates one by one, and measure the gap on a few briefs before any layout changes.
 
-*STATUS: OPEN 2026-10-07 -- found writing the level standard (`docs/LEVEL_STANDARD.md`, Appendix A): four mission-brief fields reach nothing that uses them, and Lot's pacing estimate is under-wired. `target_minutes` is written where Lot's pacing does not look, so cold run 9193's level was judged against Lot's default 7-15 min, not the brief's 25-35; Level Factory sets no pacing `mode`, so the estimate counted no travel; `landmark`, `verticality` and `extraction_relationship` have no reader in any repo.*
+*STATUS: NARROWED 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: every candidate's pacing is a heist (travel counted) judged against the brief's 25-35 min, reads 2.8-3.4 min "likely TOO SHORT", and Level Factory raised one non-blocking `LOT_PACING_OUTSIDE_TARGET` each; the heist gate the mode switches on passed all three (and all 144 candidate specs on disk); `batch create` names the brief fields nothing builds from. Open, the walker's: what `target_minutes` means (a session needs a combat term; a structural route is overstated about tenfold), and what route_shape, objective_hypotheses, extraction_relationship, verticality and landmark should drive.*
 
 **200. Four brief fields reach nothing.** Found 2026-10-07 mapping the walker's level standard onto the mission brief (`level_factory.mission_brief.v0.1`).
 
@@ -19083,6 +19085,8 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Set the pacing `mode` from the brief (a heist's spawn -> objective -> extraction), with a test that the manifest's breakdown carries travel legs.
 - Decide, with the walker, what each of the other three should drive -- or retire them from the schema.
 
+**SHIPPED: Level Factory 0.153.0** (`patches/patch_lf_brief_pacing_tests.py`, `patches/patch_lf_brief_pacing.py`; census in `docs/findings/brief_pacing_mode/`). Three disconnections, not two: besides the window and the mode, the Lot adapter matched "outside target" in Lot's status, which only the straddle case carries, so "likely TOO SHORT" and "likely TOO LONG" never surfaced -- and Level Factory's fake Lot wrote only the straddle status, so no test could see it. Now: the site spec carries `mode` (`mission_mode`, which Deli Counter's spec reads too) and `pacing.target_minutes`; the adapter names Lot's four statuses (a test reads Lot's source and fails when they differ) and reports an unknown status or a missing block as `LOT_PACING_UNREAD`; `batch create` prints the fields in `UNBUILT_BRIEF_FIELDS`. And the search widened the list from three to six: `route_shape`, `objective_hypotheses` and `seed_policy` build nothing either -- the first five are read only by `functional_signature`, so changing one re-locks a mission and changes no geometry. Tests: 13, 10 failing on 0.152.0. Seen in cold run 9195 (`docs/cold_runs/cold_9195/NOTES.md`), whose art leg stopped on item 205.
+
 *STATUS: CLOSED 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building` names b0 when a library family answers to the archetype (`pick_lot` places it first), `site_placements(..., objective=)` draws the spawn among the other buildings, and the site spec records `objective_from`. Cold run 9194 (bank_block_001, 0 interventions): all three candidates' objective is b0, a bank (bank_branch_a04, bank_tower_a01, bank_branch_a04), `objective_from: archetype`, spawn and extraction each another building, and the walk scene's objective point is the bank's basement vault. It exposed item 203: on both bank_branch_a04 candidates the crew wedges at a service stair's foot on the way out.*
 
 **201. The score building is a seeded pick.** Found 2026-10-07 writing `docs/LEVEL_STANDARD.md` (§4, and Part II's first item).
@@ -19098,7 +19102,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **PROVEN, cold run 9194** (`docs/cold_runs/cold_9194/NOTES.md`). Level Factory 0.152.0 (`building_library.score_building`, `site_placements(..., objective=)`, `objective_from` in the site spec; `tests/unit/test_score_building.py`, 10 of 11 failing on 0.151.0). On bank_block_001 all three candidates put the score in b0, a bank; the spawn and the extraction are each another building; the objective point is the bank's `OBJECTIVE_A` in its basement `vault_room`. Lot moved that point 0.25 m off a desk prop on bank_branch_a04 (`LOT_DESTINATION_RESOLVED`, minor). The companions differ from 9168's because the library grew between the runs, so the finding counts (63 -> 66) are not attributed to this change. What the change exposed is item 203.
 
-*STATUS: OPEN 2026-10-07 -- measured, not started: a stranger's first hour with the factory package would cost interventions before any level is built. The certified set is six weeks stale (`level-factory verify-manifest`: 8 DRIFT, 1 INCOMPATIBLE, 1 OK); `level_factory init` writes all ten tool paths blank and the cold driver copies the previous run's instead (cold run 9194 stopped there); the driver hardcodes the factory root; 7 of 11 repos declare no dependencies; no page says how to install. The level-making code itself is portable.*
+*STATUS: OPEN 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and Godot and nothing else. Today a stranger's first hour with the factory package would cost interventions before any level is built. The certified set is six weeks stale (`level-factory verify-manifest`: 8 DRIFT, 1 INCOMPATIBLE, 1 OK); `level_factory init` writes all ten tool paths blank and the cold driver copies the previous run's instead (cold run 9194 stopped there); the driver hardcodes the factory root; 7 of 11 repos declare no dependencies; no page says how to install. The level-making code itself is portable.*
 
 **202. Handing the factory to a stranger.** Measured 2026-10-07, when the walker said a collaborator gets "a full export of the tools" in about two weeks. CLAUDE.md's first paragraph says the deliverable is that somebody who has never seen this repo points these tools at their own game and gets levels out. Every zero-intervention run so far (9189; the breadth sweep's 8 of 10, then 10 of 10) was earned on this machine, by a driver that knows the workarounds. A stranger's setup steps are interventions too, and nobody has counted them.
 
@@ -19126,11 +19130,17 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - A lean package: tools and docs, with the run record optional.
 - **The test:** unpack into a fresh path (not `C:\Projects\gabagool_studios`), follow only that page, and count every question or edit as an intervention. Fix until zero, then zip at the tags.
 
+**THE BAR: BLENDER AND GODOT, NOTHING ELSE** (the walker, 2026-10-07: "My goal is for consumers of Gabagool Factory to only need Blender, Godot and then to be able to make great looking fun to play levels"). Measured the same day:
+- **Blender already ships the interpreter.** Blender 5.1.1's bundled Python (`<blender>/5.1/python/bin/python.exe`) is 3.13.9 and carries numpy 2.3.4, pip 25.2, pytest 9.1.1 and requests. Level Factory asks for >= 3.11 and needs no third-party package at runtime; its CLI starts, and `verify-manifest` runs, under that interpreter unchanged.
+- **Five packages are missing from it:** Pillow, pygltflib, jsonschema, PyYAML and cairosvg -- exactly the set the seven repos without a `pyproject.toml` import (Pillow in Deli Counter, Zoo, Lux, Pixelcoat, Patina and root tools; pygltflib in Deli Counter and Patina; jsonschema in Deli Counter and Patina; PyYAML and cairosvg in one Deli Counter file each). Each is a candidate to drop, to vendor (pygltflib, jsonschema and PyYAML are pure Python), or to install into Blender's own Python with its bundled pip at setup.
+- **So the bar is two installs plus one discovery step:** find Blender and Godot (the resolution chain every tool already uses), run every factory tool on Blender's interpreter, and fill `tools.local.json` from that -- no separate Python, no hand-edited paths.
+- **Not yet measured:** the suites of every repo under Blender's interpreter (pytest is there to run them), and which of the five packages sit on the level-making path rather than on developer tools.
+
 **OPEN DECISIONS (the walker's).**
 - Does the collaborator make levels (a zip at the certified tags is enough) or change tools (they need the remotes and `docs/SHIPPING_A_CHANGE.md`)?
 - What is their machine? A Mac turns this item into a port: the drivers are bash and PowerShell over Windows paths.
 
-*STATUS: OPEN 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's crew leaves bank_branch_a04's basement vault and wedges at one building-local point, (-16.88, -6.89) on the basement floor, 0.31 m off the lower landing of the service stair `a03_stair_bw` -- on both candidates that drew that bank (seed_9054, the picked one, 8% route completion, 1,302 of 1,306 PlayerStuck there; seed_9256 0%, 2,363 of 2,366). `walktest_navqa`'s walkers leave the same basement, so whether the stair foot or the crew controller is wrong is not established. The driver's picker took seed_9054 over seed_9155 (100%) because it read major findings, not completion; fixed in the same commit.*
+*STATUS: OPEN 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's crew leaves bank_branch_a04's basement vault and wedges at one building-local point, (-16.88, -6.89) on the basement floor, 0.31 m off the lower landing of the service stair `a03_stair_bw` -- on both candidates that drew that bank (seed_9054, the picked one, 8% route completion; seed_9256 0%). The walktest passes there because it walks a different body: a 0.28 m capsule with a 56 degree floor, a 0.5 m step-up and teleport recovery, against the crew's 0.35 m, 45 degrees and none. The contract's `qa.walker_capsule_radius_m` (0.35) is read by nothing. The driver's picker now reads route completion.*
 
 **203. The crew wedges leaving the bank's vault.** Found 2026-10-07 by cold run 9194 (`docs/cold_runs/cold_9194/NOTES.md`), the first run in which the score is the bank.
 
@@ -19149,7 +19159,45 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **THE PICKER, FIXED.** `tools/cold_drive/pick_candidate.py` dropped a candidate only for a failed walktest or a MAJOR route finding, then took the fewest majors and the lowest seed. Laser Tag raises `LT_ROUTE_NEVER_COMPLETED` only at 0%, so seed_9054's 8% carried no major, tied seed_9155 at zero and won on its seed. It now reads `summary.route_completion_rate` from each candidate's `lasertag.report.json` after the majors. Re-run on 9194's workspace it picks seed_9155; on 9193's it still picks seed_9104, the pick that run made.
 
+**THE TWO MOVERS ARE DIFFERENT BODIES** (a read-only survey of both, its load-bearing lines re-read 2026-10-07):
+- **Laser Tag's crew bot** (`lasertag/addons/laser_tag_tool/scripts/player/LT_BotPlayerController.gd`): a stock `CharacterBody3D` of the contract's radius 0.35, the engine's 45 degree floor, no step-up; a `NavigationAgent3D` whose `path_desired_distance` is `sqrt((max(0.05, r) + speed/ticks)^2 + (cell_h/2)^2)` -- 0.42 m on the 0.15 m-cell bake -- so it takes a corner waypoint 0.42 m early with 0.05 m of clearance (0.40 bake radius minus 0.35). Its own comment derives 0.44 on a 0.25 m cell; Laser Tag 0.23.1 moved to 0.1 m cells. Stuck is under 0.5 m in 4 s with no enemy in sight, and it never moves the body to recover.
+- **The walktest's walker** (`lot/godot/addons/heist_nav_qa/nav_qa_director.gd`): `capsule.radius = AGENT_RADIUS * 0.7` with `AGENT_RADIUS` defaulting to 0.4 -- 0.28 m -- a 56 degree floor, a step-up that teleports up to 0.5 m, a 0.072 m waypoint tolerance, and up to three repaths a leg, each first snapping the body back onto the navmesh within 2 m.
+- **The contract has the right number and nothing reads it:** `agent_contract.json`'s `qa.walker_capsule_radius_m` is 0.35 (also in `agent_contract.py`'s defaults); nothing in Lot reads it.
+- **Not yet established:** the survey's own computation from the staged glb puts the ramp's open north edge 0.31 m from the wedge point, about 0.2 m high where a 0.35 m capsule meets it -- a wall at 45 degrees with no step-up, a step for the walker. Consistent with the wedge; not measured in the engine.
+
 **NEXT.**
+- Give the walktest the crew's body: the contract's `walker_capsule_radius_m`, the crew's floor angle, no teleport step -- a knob that exists and is read by nothing -- and walk the vault -> extraction leg with it. If it wedges at the same point, the walktest was the wrong instrument and the geometry (the ramp's open edge) is the defect.
 - Settle which instrument is wrong at the stair foot: a frame there, then the walktest's walker against Laser Tag's crew controller (radius, steering, step) on the vault -> extraction leg.
 - Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
 - Whether Laser Tag's route finding should be major below some completion short of zero is Laser Tag's call; the 8% case is the evidence for it.
+
+*STATUS: OPEN 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the game layer receives, marks no objective as the score and names no anchor's building (5 objective anchors, 3 extractions, `objective: ""` and `source_building: ""` on all 64), and on that bank level its `deli_counter:*` anchors -- listed first -- are the mission's own generated shell, which a library lot never places, in that shell's local frame. The first two facts hold on 9189, 9191 and 9193's packages too.*
+
+**204. The package does not say where the score is.** Found 2026-10-07 while framing cold run 9194's stair foot: `tools/look_shots.py` takes the first anchor of each type from the package's `gameplay_anchors.json`, and its "objective" camera stood at (4.5, -1.5, 2.25), near the spawn building, while the score's vault is at (-54, -3.9, -12).
+
+**WHAT WAS MEASURED** (9194, `workspaces/cold-9194-ws/.level_factory/exports/LF_bank_block_001.portable-godot/gameplay_anchors.json`, 64 anchors):
+- **Five objective anchors, none marked.** In order: `deli_counter:crack_vault` (4.5, -3.1, 2.25), `deli_counter:grab_drawers` (0, 0.5, 2.0), `lot:A_17` (18.6, 4.2, -10.0), `lot:A_24` (62, 0, 0), and the score's own vault, `lot:A_6` (-54, -3.9, -12.0), last. Every anchor carries `"objective": ""` and `"source_building": ""`.
+- **The `deli_counter:*` anchors are a building that is not in the level.** crack_vault, grab_drawers and the crew spawn `deli_counter:A` (-2, 0, 14) are the generated shell `lf_bank_block_001_9054`'s `OBJECTIVE_CRACK_VAULT` (x 4.5, y -2.25, z -3.1, room `vault_room_east`), `OBJECTIVE_GRAB_DRAWERS` and `CREW_SPAWN_A` -- its local coordinates mapped to Godot with no site placement. The lot is library buildings (bank_branch_a04, casino_a03, strip_retail_a02); bank_branch_a04 has no `vault_room_east` and no `lobby`.
+- **Three extractions, none marked.** `lot:EXIT` (6, 0, 13) first, by the spawn building; the site spec's extraction, b2's street point (52, 0, 13), is `lot:STREET_25`, last.
+- **The earlier packages:** 9189 and 9193 (restaurant_row_001, 116 anchors, 9 objectives) and 9191 (deli_001, 171, 12) mark no objective and name no building either. Whether their `deli_counter:*` anchors are placed buildings' (deli_a01 is a Deli Counter building on that lot) or the unplaced shell's was not checked.
+
+**WHY IT MATTERS.** The package is the deliverable, and the game layer is somebody else's code. Roadmap 201 made the score the brief's building for Lot, the walk scene and Laser Tag; the package still cannot tell its consumer which of five objectives that is, and on a library lot it offers objectives from a building that is not there, first.
+
+**NEXT.**
+- Read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything: where it takes Deli Counter anchors from on a library lot, and in which frame.
+- Mark the score: the objective anchors of the site spec's `objective` building carry the objective, and the site spec's extraction is marked as such.
+- Name each anchor's building (`source_building`).
+- A test on a library-lot package: no anchor from a shell the lot does not place.
+
+*STATUS: OPEN 2026-10-07 -- found by cold run 9195, which stopped at the art leg on it: gas_station_a02's greybox lays a cooler run 25.442 m long and the composer placed the theme's 3.28 m module on it (`PRESENTATION_PLACEMENT_MISMATCH`, blocker; 166 of 167 modules aligned). The same mismatch is in cold run 9184's compose manifest, where Level Factory 0.147.0 never read it; 0.149.0 reads every placed building's package, and no run since had placed this building.*
+
+**205. A 25 m cooler run.** Found 2026-10-07 by cold run 9195 (`docs/cold_runs/cold_9195/NOTES.md`), gas_block_001, seed_9080.
+
+**WHAT WAS MEASURED.** `presentation/lot/gas_station_a02/portable_resource_manifest.json`, `placement_check`: 167 checked, 166 matched, 1 mismatched, `ok: false`; the mismatch is slot `cooler_run`, `greybox_extent` [25.442, 2.2, 0.9], `placed_extent` [3.28, 2.2, 0.9], stem `prop_cooler_run_delco_1997_04_w328_d90_h220`, `fit_rot` 0. The theme's kit bundles two cooler runs, 3.28 m (`w328`) and 8.00 m (`w800`). 9184's manifest for the same building reads the same, field for field.
+
+**WHY IT STOPPED A RUN NOW.** Level Factory 0.147.0 (9184) read one placed building's compose manifest of many; 0.149.0 reads all of them (its CHANGELOG: "Every placed building's package is read"). The defect is at least as old as 9184; 0.149.0 made it a blocker, correctly, and gas_block_001 cannot ship until it is fixed.
+
+**NEXT.**
+- Read where the 25.442 m comes from: the recipe's cooler run in Deli Counter (a run sized to its wall?), and what a gas station's store holds in the land-use and art guides.
+- Decide where the fix lands: a shorter run in Deli Counter, or a composer that fills a long run with the kit's modules (8.00 m x 3 + a 3.28 m, or a module grown to fit). One owner, not both: `USING_THE_FACTORY.md`'s routing table says which repo owns the domain.
+- Re-run gas_block_001 cold.
