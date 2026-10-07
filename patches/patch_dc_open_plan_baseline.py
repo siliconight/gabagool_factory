@@ -1,0 +1,64 @@
+"""Deli Counter 0.197.0: the walk-reach baseline is four rooms, not six.
+
+    python patch_dc_open_plan_baseline.py
+
+Anchored on walk_reach_baseline.json as `patch_dc_open_plan.py` wrote it.
+
+`patch_dc_open_plan.py` froze six rooms, from a scratch census whose search
+added open-floor links on top of the old walkable set WITHOUT re-following
+stairs and doors from the rooms open floor reached. The shipped rule searches
+one graph, and finds apartment_walkup_a01's bedroom and office walkable: its
+front hall opens straight into the kitchen (no partition on that edge), the
+up-stair climbs from the kitchen to the bedroom, and a 1.25 m door joins the
+bedroom to the office. test_walk_baseline_has_not_gone_stale said so first.
+"""
+import json
+import pathlib
+
+ROOT = pathlib.Path(__file__).resolve().parent.parent
+BASE = ROOT / "deli_counter" / "walk_reach_baseline.json"
+
+SIX = {
+    "apartment_walkup_a01": ["bedroom", "office"],
+    "cr_deli": ["server_room"],
+    "deli_a02": ["server_room"],
+    "deli_a03": ["server_room"],
+    "night_deli": ["server_room"],
+}
+FOUR = {
+    "cr_deli": ["server_room"],
+    "deli_a02": ["server_room"],
+    "deli_a03": ["server_room"],
+    "night_deli": ["server_room"],
+}
+REASON = (
+    "Rooms a body can only reach by breaching a panel, vaulting a window or dropping "
+    "through a hole (layout_lint L24). KEPT BY DESIGN, the walker's call (2026-10-06): the "
+    "server room where it is the OBJECTIVE -- cr_deli, deli_a02, night_deli -- an objective "
+    "you breach into. PENDING the walker: deli_a03's server room (fortifiable, on deli_a01's "
+    "layout, whose server room got a door in 0.194.0). REFUTED, kept: 0.194.0 froze 15 here, "
+    "and 11 were open floor L24's graph did not model -- the deli family's six basement "
+    "utility rooms, apartment_walkup_a01's kitchen and, downstream of it, its bedroom (by the "
+    "stair) and office (by a door), and rowhouse_raid's kitchen and basement vault. 0.197.0 "
+    "asks tactical.shared_open_edge, and cold run 9189's bake walks into deli_a01's utility "
+    "room. A scratch census first kept the bedroom and office: it added open-floor links "
+    "without re-following stairs and doors from the rooms they reached. A room given a door "
+    "must leave this list (test_walk_baseline_has_not_gone_stale); a new one fails "
+    "(test_no_new_room_only_a_breach_reaches).")
+
+
+def main():
+    b = BASE.read_bytes()
+    assert b"\r\n" not in b
+    d = json.loads(b.decode("utf-8"))
+    assert json.dumps(d, indent=2) + "\n" == b.decode("utf-8"), "baseline does not round-trip"
+    assert d["walk_unreachable"] == SIX, "baseline is not patch_dc_open_plan.py's; refusing"
+    d["walk_unreachable"] = FOUR
+    d["reason"] = REASON
+    d["counts"] = {"rooms": 4, "shells": 4}
+    BASE.write_bytes((json.dumps(d, indent=2) + "\n").encode("utf-8"))
+    print("walk_reach_baseline.json: 4 rooms in 4 shells")
+
+
+if __name__ == "__main__":
+    main()

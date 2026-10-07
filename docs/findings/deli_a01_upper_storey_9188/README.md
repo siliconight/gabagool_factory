@@ -143,13 +143,30 @@ from the upper hall at (-2, 10) and from the apartment at (10.5, 2), plus
 - on 9188's site with the new shell, island 10 is gone and island 9 grows
   from 592 to 779 m2.
 
-**L24 (WARN) names every room only a breach, window or drop reaches.** 16
-rooms in 8 shells were found. The 15 left are frozen for the walker's call
-(`walk_reach_census.py`; `deli_counter/walk_reach_baseline.json`):
-- the deli family's server rooms, the objective in three of them;
-- the deli family's basement utility rooms;
-- three apartment rooms;
-- rowhouse_raid's kitchen and vault.
+**L24 (WARN) names every room only a breach, window or drop reaches.**
+
+**Refuted, kept: 0.194.0's census of 16 rooms in 8 shells.** L24 asked L12's
+graph, which joins rooms through openings, stairs and ladders and never
+through open floor.
+- deli_a01's basement partition along y = 1 stops at x 12, so its utility
+  room's north edge from x 12 to 19 is open floor. 9189's bake walks across
+  it (215 m2 of the room, on the street's island).
+- On the wrong report the walker asked for the deli utility rooms to get
+  doors. None was needed, and none was added.
+- 11 of the 15 rooms first frozen were open floor or downstream of it.
+
+Deli Counter 0.197.0 makes L12 and L24 ask `tactical.shared_open_edge`,
+the open-floor rule tactical's graph always had, lifted unchanged:
+`build_graph` is identical on 128 specs.
+
+**What is left: 4 rooms.**
+- The objective server rooms of cr_deli, deli_a02 and night_deli, kept
+  breach-only by the walker's call: an objective you breach into.
+- deli_a03's fortifiable server room, pending.
+
+`walk_reach_census.py` is the first census, kept as the refuted
+instrument; its scratch successor was wrong a second time, because it did
+not re-follow stairs and doors from the rooms open floor reached.
 
 ## Instruments
 
