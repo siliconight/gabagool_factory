@@ -62,9 +62,29 @@ together in 2-D, to the gate's tolerance.
 | rail_station_a02 | `ext_0_E_seg8` ~ `int_0_0_seg19`, z -5.150 (min), 0.70 m2 | the same junction shape |
 | office | `base:VAULTLEDGE_0` ~ `reception_desk`, x +-2.5, 0.20 m2 each | the reception desk on a greybox ledge of exactly its width, their sides coplanar, facing the room |
 
-**Not established:** whether any of the five flickers at gameplay distance,
-which takes a frame, and so whether the gate should block (177's owed
-decision).
+**Frames, taken the same day** (`tools/look_shots.py` on 9189's walk copy
+of its export, `_runs/walk_export_restaurant_row_001`, at stations given
+rather than derived, aimed at each pair's centre):
+
+| frame | mean luminance (/255) |
+|---|---|
+| `frame_9189_deli_junction_north.jpg` | 24.9 |
+| `frame_9189_deli_junction_south.jpg` | 6.1 |
+| `frame_9189_office_desk_east.jpg` | 4.1 |
+| `frame_9189_office_desk_west.jpg` | 3.9 |
+| `frame_9189_rail_junction_north.jpg` | 3.5 |
+
+**What the frames show.**
+- **deli_a01, north view:** the only one lit enough to read. It shows the
+  corner where the partition meets the east wall beside the window, as a
+  dark vertical seam, and no mottled stripe.
+- **The other four** are under 7/255: the level's own night lighting.
+  Nothing is visible at them, and nothing could be.
+
+**Not established:** whether any of the five flickers when lit or in motion.
+A still frame under 7/255 cannot show a coplanar stripe. So whether the gate
+should block (177's owed decision) rests on the count alone: 5 pairs with
+an open side, none seen on screen.
 
 ## Instrument
 
