@@ -1,0 +1,35 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9193\journal.md
+== batch
+created batch 'cold_9193' with 1 mission(s): restaurant_row_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 43)
+  restaurant_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb depot_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb self_storage_a01.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb rail_station_a02.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb parking_garage.glb supermarket_a01.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 1 major, out for nothing
+  seed 9104: 0 major, out for nothing
+  seed 9205: 1 major, out for nothing
+  picked seed_9104 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 64)
+  exit 1
+== export
+[export] light bake: 479 model(s) and 1478 primitive mesh(es) lightmapped, 4 kept dynamic; 118 steady rig(s) baked, 31 failing left live; 267 room fill(s); 4276 users, 96.2 s in the editor
+exported restaurant_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9193-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  exit 0
+== findings
+findings 64 -> 64
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE
+driver exit 0
