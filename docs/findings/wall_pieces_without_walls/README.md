@@ -61,6 +61,48 @@ Counter 0.197.0 (`tactical.shared_open_edge`); furnish never did.
   counter, a file cabinet, a poker cabinet and a poster board;
 - one each in the kitchen and the utility room.
 
+## What shipped (Deli Counter 0.202.0)
+
+- **A wall piece needs a wall behind it.** `_wall_slots` offers a slot only
+  where a built wall (`layout_lint.built_walls`) lies on the edge and holds
+  the piece's whole run. Every slot is drawn and shuffled as before, and the
+  unheld ones are dropped after the shuffle, so only pieces that stood
+  against nothing move.
+  - **Refuted, kept:** dropping them before the shuffle re-rolled 33 specs.
+- **Furniture keeps off an authored hole in its own floor** (`_seed_clear`).
+  The wall rule's refurnish re-rolled two dining rooms, and both sets landed
+  over their drop holes.
+- **The library, refurnished:** 20 specs moved: these 18, plus
+  cbp_town_finale and final_stand for the hole rule.
+- **After** (`census_0202.txt`): 3,998 furnished wall pieces, **0** with no
+  wall behind them.
+
+**Seen in a level: cold run 9192** (`docs/cold_runs/cold_9192/NOTES.md`).
+deli_a01's ATM stands on the west wall and its two poster boards on the south
+wall, and the case is clear in the frame. Laser Tag's PlayerStuck fell 9 -> 4,
+and the four that went all stood on the customer floor.
+
+**A regression it caused.** A piece that no built wall in its room holds is
+dropped, not placed somewhere else. The six delis lost 18 of their 20 video
+poker cabinets:
+
+| spec | 0.201.0 | 0.202.0 |
+|---|---|---|
+| deli_a01 | 4 | 0 |
+| deli_a03 | 4 | 1 |
+| deli_a02 | 3 | 1 |
+| cr_deli, night_deli, corner_deli_heist_01 | 3 each | 0 |
+
+The walker decided two a store. Open in roadmap 196.
+
+**Why furnish had used open edges at all.** On 0.201.0's library, 3,924 wall
+pieces stood against exterior walls, 42 near a partition and 120 against
+nothing. `_seed_clear` keeps every piece 1.0 m from a partition's line to
+keep its doors clear, so partitions were almost never furnished. The
+"interior walls" furnish used were the open edges. A partition is still
+unfurnished: that rule would have to clear a partition's openings rather
+than its length.
+
 ## Not yet established
 
 - **How each piece reads in a frame.** The deli's two boards and its ATM are
