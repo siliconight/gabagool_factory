@@ -883,9 +883,10 @@ work of adopting this.
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
 | 203 | **OPEN** | The crew wedges leaving the bank's vault | 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's  |
 | 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
-| 205 | **OPEN** | A 25 m cooler run | 2026-10-07 -- found by cold run 9195, which stopped at the art leg on it: gas_station_a02' |
+| 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
+| 206 | **OPEN** | The extraction is the getaway vehicle | 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and  |
 
-**205 items: 40 open, 93 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**206 items: 40 open, 94 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19064,7 +19065,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **NEXT.** Map the brief's hard failures and design warnings onto those gates one by one, and measure the gap on a few briefs before any layout changes.
 
-*STATUS: NARROWED 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: every candidate's pacing is a heist (travel counted) judged against the brief's 25-35 min, reads 2.8-3.4 min "likely TOO SHORT", and Level Factory raised one non-blocking `LOT_PACING_OUTSIDE_TARGET` each; the heist gate the mode switches on passed all three (and all 144 candidate specs on disk); `batch create` names the brief fields nothing builds from. Open, the walker's: what `target_minutes` means (a session needs a combat term; a structural route is overstated about tenfold), and what route_shape, objective_hypotheses, extraction_relationship, verticality and landmark should drive.*
+*STATUS: NARROWED 2026-10-07 -- Level Factory 0.153.0 wires the dial, seen in cold run 9195's shell leg: every candidate's pacing is a heist (travel counted) judged against the brief's 25-35 min, reads 2.8-3.4 min "likely TOO SHORT", and Level Factory raised one non-blocking `LOT_PACING_OUTSIDE_TARGET` each; the heist gate the mode switches on passed all three (and all 144 candidate specs on disk); `batch create` names the brief fields nothing builds from. The walker, 2026-10-07: `target_minutes` is not a hard rule now -- a real length counts fighting and acquiring the score ("the drilling"), which the estimate does not. Open: that term, and what route_shape, objective_hypotheses, extraction_relationship, verticality and landmark should drive.*
 
 **200. Four brief fields reach nothing.** Found 2026-10-07 mapping the walker's level standard onto the mission brief (`level_factory.mission_brief.v0.1`).
 
@@ -19136,9 +19137,10 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - **So the bar is two installs plus one discovery step:** find Blender and Godot (the resolution chain every tool already uses), run every factory tool on Blender's interpreter, and fill `tools.local.json` from that -- no separate Python, no hand-edited paths.
 - **Not yet measured:** the suites of every repo under Blender's interpreter (pytest is there to run them), and which of the five packages sit on the level-making path rather than on developer tools.
 
-**OPEN DECISIONS (the walker's).**
-- Does the collaborator make levels (a zip at the certified tags is enough) or change tools (they need the remotes and `docs/SHIPPING_A_CHANGE.md`)?
-- What is their machine? A Mac turns this item into a port: the drivers are bash and PowerShell over Windows paths.
+**DECISIONS (the walker's, answered 2026-10-07).**
+- The collaborator will "likely just be making levels", and a tool change "will likely be a fork from this repo". So the deliverable is a zip at the certified tags with the install page, not access to the remotes.
+- Their machines: "Windows and Linux". Every driver and setup step must run on Linux too: the cold drive is bash with a hardcoded `/c/` root, and the 23 developer scripts that carry this machine's paths are Windows PowerShell.
+- *As first filed:* "Does the collaborator make levels ... or change tools?" and "What is their machine? A Mac turns this item into a port."
 
 *STATUS: OPEN 2026-10-07 -- found by cold run 9194: with the score now the bank (item 201), Laser Tag's crew leaves bank_branch_a04's basement vault and wedges at one building-local point, (-16.88, -6.89) on the basement floor, 0.31 m off the lower landing of the service stair `a03_stair_bw` -- on both candidates that drew that bank (seed_9054, the picked one, 8% route completion; seed_9256 0%). The walktest passes there because it walks a different body: a 0.28 m capsule with a 56 degree floor, a 0.5 m step-up and teleport recovery, against the crew's 0.35 m, 45 degrees and none. The contract's `qa.walker_capsule_radius_m` (0.35) is read by nothing. The driver's picker now reads route completion.*
 
@@ -19165,7 +19167,17 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - **The contract has the right number and nothing reads it:** `agent_contract.json`'s `qa.walker_capsule_radius_m` is 0.35 (also in `agent_contract.py`'s defaults); nothing in Lot reads it.
 - **Not yet established:** the survey's own computation from the staged glb puts the ramp's open north edge 0.31 m from the wedge point, about 0.2 m high where a 0.35 m capsule meets it -- a wall at 45 degrees with no step-up, a step for the walker. Consistent with the wedge; not measured in the engine.
 
-**NEXT.**
+**WHAT THE AGENT CONTRACT SAYS** (`deli_counter/agent_contract.json`, read 2026-10-07 after the survey). It settles which mover departs from the player it is meant to be:
+- `characters.player.max_step_up_m` is **0.5**: the contract's player lifts itself over a 0.5 m step. `clearances.unassisted_step_max_m` (0.1025) is what a capsule walks over with no step-up, and the contract says a transition above it "requires the consumer to have implemented step-up themselves".
+- `nav_bake.agent_max_climb_m` is 0.15, one voxel: it was 0.5 until walkers parked against a staircase's open lateral edge on walkup_siege (2026-07-28), and asking for less quantises to zero and disconnects the map. The same derivation records a REJECTED fix: "enforcing lateral containment on every flight", a barrier along every staircase's sides.
+- So the 0.118 m edge at the wedge sits in the band the contract hands to the consumer's step-up, and **Laser Tag's crew bot has no step-up at all** (no step code in `LT_BotPlayerController.gd`). The walktest's walker carries the contract's 0.5 m step-up but a thinner body (0.28 m, not 0.35). Each departs from the contract's player in one way; at this wedge, Laser Tag's departure is the one that decides.
+
+**NEXT, revised.**
+- Laser Tag's crew gets the contract's step-up (`max_step_up_m`), gated on the top surface being walkable (CLAUDE.md: step-up must not try to rescue a slope); re-run bank_block_001's two bank_branch_a04 candidates.
+- The walktest's walker gets the contract's body (`qa.walker_capsule_radius_m`, read by nothing today) and walks the mission's order.
+- Whether a level should carry route-critical transitions in the band at all -- for a consumer whose controller lacks step-up -- is a design call: the contract rejected barriers along every flight; a flared ramp foot would remove the band at the foot only.
+
+**NEXT, as first filed.**
 - Give the walktest the crew's body: the contract's `walker_capsule_radius_m`, the crew's floor angle, no teleport step -- a knob that exists and is read by nothing -- and walk the vault -> extraction leg with it. If it wedges at the same point, the walktest was the wrong instrument and the geometry (the ramp's open edge) is the defect.
 - Settle which instrument is wrong at the stair foot: a frame there, then the walktest's walker against Laser Tag's crew controller (radius, steering, step) on the vault -> extraction leg.
 - Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
@@ -19189,7 +19201,7 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 - Name each anchor's building (`source_building`).
 - A test on a library-lot package: no anchor from a shell the lot does not place.
 
-*STATUS: OPEN 2026-10-07 -- found by cold run 9195, which stopped at the art leg on it: gas_station_a02's greybox lays a cooler run 25.442 m long and the composer placed the theme's 3.28 m module on it (`PRESENTATION_PLACEMENT_MISMATCH`, blocker; 166 of 167 modules aligned). The same mismatch is in cold run 9184's compose manifest, where Level Factory 0.147.0 never read it; 0.149.0 reads every placed building's package, and no run since had placed this building.*
+*STATUS: CLOSED 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25 m cooler run. The placement gate and the composer's fit took a sibling slot whose id begins `<slot_id>_` as one of the slot's parts, so gas_station_a02's 3.28 m `cooler_run` took in `cooler_run_sales` (8.0 m) and read 25.442 m. Deli Counter 0.203.0: a node belongs to the longest slot id that names it (`themed_tscn.owns_node`), one rule for both readers; it had blocked 5 library buildings (three pawn shops, two gas stations). Cold run 9196 (gas_block_001, 0 interventions): the art leg passed with 0 blockers, `PRESENTATION_PLACEMENT_MISMATCH` 1 -> 0, and the level shipped.*
 
 **205. A 25 m cooler run.** Found 2026-10-07 by cold run 9195 (`docs/cold_runs/cold_9195/NOTES.md`), gas_block_001, seed_9080.
 
@@ -19197,7 +19209,31 @@ Of the 95 library shells with a door box, the band's pool held the door's name f
 
 **WHY IT STOPPED A RUN NOW.** Level Factory 0.147.0 (9184) read one placed building's compose manifest of many; 0.149.0 reads all of them (its CHANGELOG: "Every placed building's package is read"). The defect is at least as old as 9184; 0.149.0 made it a blocker, correctly, and gas_block_001 cannot ship until it is fixed.
 
-**NEXT.**
+**REFUTED, KEPT: there was no 25 m cooler run.** The status line above this item's first version read the greybox as laying one run 25.442 m long. The built slots say otherwise: `cooler_run` is 3.28 m at x 14.26 and `cooler_run_sales` 8.0 m at x -5.54, and the module placed was built to its slot. 25.442 m is exactly their union, x -9.54 to 15.90.
+
+**THE CAUSE.** `portable_building._slot_greybox_extent` (the gate) and `themed_tscn._slot_extent` (the composer's fit, which orients every module) counted a greybox node as the slot's when its name was the slot id or began `<slot_id>_` -- the rule for an opening's own parts (`_lintel`, `_sill`, `_pane`), written so `seg1` would not swallow `seg10`. A sibling slot whose id begins the same way was swallowed with them. Over the library: 9 of 145 buildings carry such an id pair (19 pairs), and in 5 the sibling has greybox nodes -- `counter` in cr_pawn, night_pawn and pawn_shop_a01 (read 9.86 x 6.36 m against its own 4.0 x 0.7), `cooler_run` in gas_station_a02 and fuel_stop_heist. Every level placing one of the five stopped at its art leg.
+
+**FIXED: Deli Counter 0.203.0** (`patches/patch_dc_slot_owner_tests.py`, `patches/patch_dc_slot_owner.py`). One rule, `themed_tscn.longer_siblings` and `themed_tscn.owns_node`: a node belongs to the longest slot id that names it. Both extents take the building's slot ids. The gate re-run on the real greybox with 9195's kit read 167 of 167 matched. `build.py --all` changed no shell, slot or gameplay file, only each manifest's `built_utc`. Tests: 7, all failing on 0.202.0.
+
+**PROVEN: cold run 9196** (`docs/cold_runs/cold_9196/NOTES.md`): art leg 0 blockers of 69 findings, `PRESENTATION_PLACEMENT_MISMATCH` 1 -> 0, gas_block_001 exported and walked.
+
+**NEXT, as filed (answered above).**
 - Read where the 25.442 m comes from: the recipe's cooler run in Deli Counter (a run sized to its wall?), and what a gas station's store holds in the land-use and art guides.
 - Decide where the fix lands: a shorter run in Deli Counter, or a composer that fills a long run with the kit's modules (8.00 m x 3 + a 3.28 m, or a module grown to fit). One owner, not both: `USING_THE_FACTORY.md`'s routing table says which repo owns the domain.
 - Re-run gas_block_001 cold.
+
+*STATUS: OPEN 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and returns to the getaway vehicle to leave the scene. Today the extraction is a seeded draw among the buildings that are not the spawn, and it is the score building itself on 43 of 136 multi-building candidate specs on disk and on 2 of cold run 9195's 3 candidates.*
+
+**206. The extraction is the getaway vehicle.** The walker, 2026-10-07: "On extraction, I would think the default is they have to leave the building and return to the 'getaway' car or vehicle to leave the scene."
+
+**WHAT THE FACTORY DOES TODAY.**
+- `site_variation.site_placements` draws the extraction among the buildings other than the spawn, so it can be the objective building (Level Factory 0.152.0 fixed the objective; the extraction draw is unchanged). Lot then stands the extraction at that building's first extraction marker, else its origin.
+- Measured with `docs/findings/brief_pacing_mode/heist_gate_census.py`: the extraction is the objective building on 43 of 136 multi-building specs on disk; on cold run 9195, 2 of 3 candidates, whose pacing reads `travel b0->b0 0.0` -- no second half to the heist.
+- 159 of 181 cold-run briefs ask for `extraction_relationship: "crew_start_backtrack"`, which nothing builds from (item 200). Lot's `site_audit` warns against exactly that shape (`S_BACKTRACK`, "the exfil rewinds the entry").
+- The package carries three extraction anchors on cold run 9194's level (`lot:EXIT`, `lot:STREET`, `lot:STREET_25`), none marked as the mission's (item 204).
+
+**NEXT.**
+- The extraction becomes a point, not a building: a getaway vehicle on the street, outside the score building, never in it.
+- Where it stands is a design question to weigh against `S_BACKTRACK`: at the crew's start (the briefs' "backtrack") or a different edge of the site (Lot's audit).
+- A choice of several vehicle spots is replayability's first step, and the package marks the live one (item 204).
+- A test: no candidate's extraction is the objective building.

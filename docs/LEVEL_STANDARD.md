@@ -7,7 +7,10 @@ The walker, 2026-10-07:
 > something that knows how to guide future requests of levels. It will be
 > something we iterate on, as we learn.
 
-**This is v1.3** (2026-10-07). v1.3 adds what the package says about the
+**This is v1.4** (2026-10-07). v1.4 records two of the walker's calls: the
+extraction is the getaway vehicle (§11, roadmap 206), and `target_minutes`
+is not a hard rule (Appendix A, roadmap 200;
+`patches/patch_level_standard_v1_4.py`). v1.3 added what the package says about the
 score (§4, roadmap 204) and the brief's pacing reaching Lot, seen in cold
 run 9195 (Part 0, §5, Appendix A; roadmap 200;
 `patches/patch_level_standard_v1_3.py`). v1.2 recorded cold run 9194, the
@@ -550,7 +553,7 @@ by contract.**
 | enemy access: arrival, staging, ingress, flanks | spawn, patrol and hook anchors | BUILT as points; GAP as a plan |
 | which shortcuts enemies share | -- | GAP |
 | where responders stop | -- | GAP |
-| 2-3 extraction possibilities | extraction anchors (3 on 9193) | BUILT as points; GAP for a choice. The brief's `extraction_relationship` is read by nothing, and nothing varies between runs |
+| 2-3 extraction possibilities | extraction anchors (3 on 9193) | BUILT as points; GAP for a choice. The brief's `extraction_relationship` is read by nothing, and nothing varies between runs. **The default is the getaway vehicle** (the walker, 2026-10-07): the crew leaves the score building and returns to the car to leave the scene. GAP: the extraction is still a building drawn by seed, and it is the score building itself on 43 of 136 multi-building candidate specs on disk (roadmap 206) |
 | replay by reinterpretation | `interactives` are state machines, and `collision_per_state` says which states are solid | GAP: nothing chooses among states at runtime (`docs/LEVEL_RECIPE.md`, "Two absences") |
 
 ## 12. Backdrop World
@@ -1015,7 +1018,7 @@ notes:        anything else, in plain words
 | weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot. Rain also sets Pixelcoat's wet maps, Lot's wet ground and the wind that sways trees (`lf_wind`) | BUILT, with that trade; fog, snow and overcast read as clear |
 | tone | -- | nothing | EYE: the review checks it against the frames |
 | playstyle | -- | nothing | GAP: no alarm or escalation state exists (§11) |
-| session_min | `target_minutes` | Lot's pacing estimate, as its window (`pacing.target_minutes`, Level Factory 0.153.0); a level outside it raises `LOT_PACING_OUTSIDE_TARGET`, non-blocking. What the window means -- a session, which the estimate cannot reach without a combat term, or the structural route, which it measures at about 3 min -- is the walker's call. *v1.1 read "Laser Tag's scenario timing, BUILT": wrong; nothing in Laser Tag reads it, and before 0.153.0 nothing read it at all* | BUILT (cold run 9195) |
+| session_min | `target_minutes` | Lot's pacing estimate, as its window (`pacing.target_minutes`, Level Factory 0.153.0); a level outside it raises `LOT_PACING_OUTSIDE_TARGET`, non-blocking. What the window means -- a session, which the estimate cannot reach without a combat term, or the structural route, which it measures at about 3 min -- was the walker's call, and the walker made it on 2026-10-07: **not a hard rule** until the estimate counts fighting and acquiring the score ("the drilling"). *v1.1 read "Laser Tag's scenario timing, BUILT": wrong; nothing in Laser Tag reads it, and before 0.153.0 nothing read it at all* | BUILT (cold run 9195) |
 | players | `crew_size` (4), `crew_health` | Laser Tag; `crew_size` also places the crew's spawns (Lot) | BUILT |
 | enemies | `enemy_count` (6), `enemy_health` | Laser Tag spawns the count over Lot's hooks; **Lot always places six hooks** | BUILT, partly: below six the spread is uneven (`models.py`) |
 | route shape, extraction, height | `route_shape`, `extraction_relationship`, `verticality` | no builder: `route_shape` is Level Factory metadata that Lot ignores, and the other two feed only the functional lock's signature. `batch create` says so out loud since Level Factory 0.153.0 (`UNBUILT_BRIEF_FIELDS`) | GAP (roadmap 200) |

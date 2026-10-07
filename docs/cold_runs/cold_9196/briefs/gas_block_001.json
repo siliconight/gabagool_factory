@@ -1,0 +1,31 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "gas_block_001",
+  "display_name": "Gas Block I",
+  "archetype": "gas_station",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "neon_sign",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9196. 9195's brief and seeds. WHAT THIS RUN TESTS: Deli Counter 0.203.0 -- the placement gate and the composer measure a slot's own greybox nodes, never a sibling slot's, so gas_station_a02's cooler_run reads its own 3.28 m (not 25.442 m, the union with cooler_run_sales) and the art leg that stopped 9195 passes (roadmap 205). Level Factory 0.152.0 and 0.153.0 again: the score is the gas station, the crew spawns elsewhere, and the brief's pacing reaches Lot.",
+  "crew_size": 4,
+  "empties": "across"
+}
