@@ -1,7 +1,10 @@
 # deli_a01's upper storey was cut off from the street in 9188's site bake
 
-Measured 2026-10-06. **Fixed in Deli Counter 0.194.0 and 0.195.0, and proven
-on 9188's own site before shipping. Not yet seen in a cold run.**
+Measured 2026-10-06. **Fixed in Deli Counter 0.194.0 and 0.195.0, gated by
+0.196.0, and proven in a level.** In cold run 9189 (0 interventions;
+`docs/cold_runs/cold_9189/NOTES.md`), deli_a01's only island of its own is
+its roof. The street's island covers its basement, ground floor, stair and
+upper storey: 17,728 m2, against 16,944 in 9188. Roadmap item 194, CLOSED.
 
 **The artefact, and what made it.** `run_bake_sweep.py --dump`
 (`docs/findings/stairwell_on_one_grid_in_four/`) of
