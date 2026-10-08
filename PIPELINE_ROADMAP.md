@@ -882,7 +882,7 @@ work of adopting this.
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
 | 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
-| 204 | **NARROWED** | The package does not say where the score is | 2026-10-08 -- the site-level half is fixed. Level Factory 0.156.0 stages Lot's `site_marke |
+| 204 | **CLOSED** | The package does not say where the score is | 2026-10-08 -- the package says where the score is, whose each anchor is, and starts and en |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is parked at the spawn: Lot 0.98.0 stands Zoo 1.85.0's `step_van` in |
 | 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-08 -- cause measured, not fixed: Lot's `merge_lights` carries an anchor's `pos` in |
@@ -892,7 +892,7 @@ work of adopting this.
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
 
-**212 items: 41 open, 96 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**212 items: 41 open, 97 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19205,7 +19205,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
 - Whether Laser Tag's route finding should be major below some completion short of zero is Laser Tag's call; the 8% case is the evidence for it.
 
-*STATUS: NARROWED 2026-10-08 -- the site-level half is fixed. Level Factory 0.156.0 stages Lot's `site_markers`: the getaway van's crew spawn as a `player_start` tagged `mission_start`, its extraction tagged `extraction`, and each responder arrival as an `ai_spawn` tagged `responder`. Cold run 9201's package binds the mission's spawn and extract beats to the van; 9200's bound them to a start synthesized at the centroid of every Lot anchor and to three buildings' street points. The walk copy now stands its player at the van. 0.157.0 ships how each responder arrives beside its anchor (`responder_arrivals.json`): cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open, as filed: the score is unmarked and its building unnamed, and the `deli_counter:*` anchors are the mission's unplaced generated shell's.*
+*STATUS: CLOSED 2026-10-08 -- the package says where the score is, whose each anchor is, and starts and ends the mission at the getaway van. Level Factory 0.156.0 stages Lot's site markers -- the van's start and exit tagged `mission_start` and `extraction`, the responder arrivals as `ai_spawn`s tagged `responder` -- and 0.157.0 ships how each arrival arrives (cold runs 9201, 9202). 0.158.0 tags the site's objective building's objective `score` and writes the flow spawn -> score -> extract, passes each anchor's building through as `source_building`, and stages the generated Deli Counter shell's anchors only when the site has none of its own -- on a library lot they were a building not in the level, on deli_001 85 duplicates 6 m off. Cold run 9203: 0 interventions; the shipped package's beats are spawn -> score -> extract with score at b0's vault, 33 anchors all Lot's, 28 naming their building, Dispatch at readiness 100 and its notes 10 -> 7.*
 
 **204. The package does not say where the score is.** Found 2026-10-07 while framing cold run 9194's stair foot: `tools/look_shots.py` takes the first anchor of each type from the package's `gameplay_anchors.json`, and its "objective" camera stood at (4.5, -1.5, 2.25), near the spawn building, while the score's vault is at (-54, -3.9, -12).
 
@@ -19222,7 +19222,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 **WHY IT MATTERS.** The package is the deliverable, and the game layer is somebody else's code. Roadmap 201 made the score the brief's building for Lot, the walk scene and Laser Tag; the package still cannot tell its consumer which of five objectives that is, and on a library lot it offers objectives from a building that is not there, first.
 
 **NEXT.**
-- *Done 2026-10-08, for the site-level markers (the cause above):* read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything. Still to read: where it takes Deli Counter anchors from on a library lot, and in which frame.
+- *Done 2026-10-08, for the site-level markers (the cause above):* read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything. Still to read: where it takes Deli Counter anchors from on a library lot, and in which frame. *Answered 2026-10-08: from the candidate's generated shell (`deli_generate.candidate.seed_N`), in the shell's own frame; Level Factory 0.158.0 no longer stages them when the site carries its buildings.*
 - **Pass Lot's `site_markers` through** -- *done, below.* As filed:
   - `crew_spawn` as the mission's `player_start`, tagged `mission_start`;
   - the getaway van's `extraction` as the mission's extraction, tagged `extraction`;
@@ -19235,9 +19235,20 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **Cold run 9201** (0 interventions; `docs/cold_runs/cold_9201/NOTES.md`). The same, in the shipped package. The package's `player_start` moved from (-7.03, 0, 0.68) to (-4.15, 0, 14.95). `tools/walk_export.py` stands its body there, so walking a generated heist now starts at the van, where every earlier walk started at the centroid. Dispatch's ten notes are word for word 9200's.
 - **Level Factory 0.157.0** (`patches/patch_lf_responder_arrivals_sidecar.py`). `responder_arrivals.json` carries each arrival keyed by its anchor's id: entry, stop, forward, the stop and lane boxes, the vehicle and the way-back point it serves, in the frame of `gameplay_anchors.json`. One counting of the ids (`site_marker_anchor_pairs`) serves the staging and the file. It is written before the closure verdict and the manifest walk, named in `closure._METADATA_FILES`, and described in `HANDOFF.md`. **Cold run 9202** (0 interventions; `docs/cold_runs/cold_9202/NOTES.md`): the shipped package carries the file, three arrivals, each naming an anchor tagged `responder` at exactly its stop, listed in `portable_resource_manifest.json` (2,746 + 2 declared = 2,748 files), the closure scan ok with 0 issues.
 - **What is still this item's:** the score unmarked, its building unnamed, and the unplaced shell's anchors first -- the NEXT bullets below.
-- Mark the score: the objective anchors of the site spec's `objective` building carry the objective, and the site spec's extraction is marked as such.
-- Name each anchor's building (`source_building`).
-- A test on a library-lot package: no anchor from a shell the lot does not place.
+- Mark the score: the objective anchors of the site spec's `objective` building carry the objective, and the site spec's extraction is marked as such. *Done, below.*
+- Name each anchor's building (`source_building`). *Done, below.*
+- A test on a library-lot package: no anchor from a shell the lot does not place. *Done, below.*
+
+**THE REST, DONE: LEVEL FACTORY 0.158.0 (2026-10-08)** (`patches/patch_lf_package_score.py`).
+- **No anchor from a building that is not there.** Lot's gameplay holds every placed building's markers in site space, the generated shell's among them when the lot places it. So the shell's own anchors, props, interactives and ladders are staged only when the site has no markers to stand in for them.
+  - On a library lot they were a building not in the level, listed first.
+  - On deli_001 (cold run 9191), where the shell is placed as b0 at (6, 0), all 85 duplicated Lot's b0 anchors by name, 6 m off.
+- **The score.** `stage_dispatch_inputs(lot_site=)` reads the Lot job's drawn site spec for its `objective` building, and that building's objective anchors are tagged `score`. `mission_flow` writes spawn -> score -> extract; the score beat is written only when something carries the tag, since a beat bound to nothing is a Dispatch blocker. The extraction was already the van's (0.156.0).
+- **Each anchor's building.** `markers_to_anchors` passes `building` through, and Dispatch writes it as `source_building`, which was "" on every anchor of every package.
+- **Before the cold run.** Measured on cold run 9202's own outputs, built by the real Dispatch: the beats became spawn -> score -> extract, with score bound to `lot:A_6`, b0's vault. Anchors went 68 -> 33 (the unplaced shell's 35 gone), and 28 of the 33 name their building -- the other 5 are the van's and the responders'. Dispatch's notes went 10 -> 7, at readiness 100 with 0 blockers.
+- **The tests** (`tests/unit/test_dispatch_score_and_buildings.py`, 6) include the library-lot test this item asked for.
+- **Cold run 9203** (0 interventions; `docs/cold_runs/cold_9203/NOTES.md`): the shipped package matches the measurement made before it to the anchor. `DISPATCH_FINDING` went 10 -> 7, the three that went being the shell's `crew_spawn` and `responder_spawn` notes and its one nav bridge to Lot.
+- **A consequence to know.** The perf harness and `tools/look_shots.py` both take their stations and cameras from `gameplay_anchors.json`, so their station sets change with 0.158.0. A frame-time comparison across it compares different stations.
 
 *STATUS: CLOSED 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25 m cooler run. The placement gate and the composer's fit took a sibling slot whose id begins `<slot_id>_` as one of the slot's parts, so gas_station_a02's 3.28 m `cooler_run` took in `cooler_run_sales` (8.0 m) and read 25.442 m. Deli Counter 0.203.0: a node belongs to the longest slot id that names it (`themed_tscn.owns_node`), one rule for both readers; it had blocked 5 library buildings (three pawn shops, two gas stations). Cold run 9196 (gas_block_001, 0 interventions): the art leg passed with 0 blockers, `PRESENTATION_PLACEMENT_MISMATCH` 1 -> 0, and the level shipped.*
 
