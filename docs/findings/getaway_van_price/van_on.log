@@ -1,0 +1,38 @@
+import 0
+perf 0
+ longest_sightline            90    10.62    11.23     3.77    9.79    1923     921798  
+  attacker_spawn_8            270     8.75     9.45     3.60    7.89    1719     892640  
+  camera_socket_0              90     8.31     8.89     2.68    6.61    1380     800026  
+  objective_2                  90     7.80     9.49     2.49    6.56    1457     776596  
+  extraction_19               270     7.64     8.81     2.52    6.37    1443     866704  
+  extraction_13                90     7.21     8.81     2.15    5.90    1294     780094  
+  attacker_spawn_12           270     6.81     7.23     2.19    5.84    1316     751878  
+  crew_spawn_1                 90     6.52     6.93     2.01    5.53    1198     756960  
+  highest_vantage             270     5.35     6.25     1.39    4.73     952     744092  
+  player_start_24             270     5.31     6.24     1.28    4.12     887     682580  
+  objective_3                  90     5.05     5.13     1.33    4.41     917     695216  
+  defender_spawn_21           270     3.50     3.52     1.02    2.97     576     576198  
+  defender_spawn_22           180     2.30     2.39     0.86    1.84     308     584880  
+  camera_socket_4              90     1.98     2.26     0.72    1.51     252     528162  
+
+  passes: 2 per heading, the lower p95 kept; 10 of 53 heading(s) differed by more than 1.0 ms p95 (largest 4.16 ms); 0 drew a different count
+
+  lights per object: cap 8, 38 of 3697 mesh(es) over it, worst 45 (CoverE_concrete_delco_1997)
+     45 lights  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     45 lights  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     45 lights  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     45 lights  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     36 lights  /root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\van_on.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: longest_sightline at yaw 90 -- 10.62 ms p95, 1923 draws
+
+every station inside budget
+
+
