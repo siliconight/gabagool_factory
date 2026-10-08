@@ -884,11 +884,11 @@ work of adopting this.
 | 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
 | 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
-| 206 | **OPEN** | The extraction is the getaway vehicle | 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and  |
+| 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-07 -- the van is built and not yet placed: Zoo 1.82.0's `step_van`, a P30-style st |
 | 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses tw |
 | 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
 
-**208 items: 41 open, 95 closed, 3 retracted, 62 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**208 items: 40 open, 95 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19240,7 +19240,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Decide where the fix lands: a shorter run in Deli Counter, or a composer that fills a long run with the kit's modules (8.00 m x 3 + a 3.28 m, or a module grown to fit). One owner, not both: `USING_THE_FACTORY.md`'s routing table says which repo owns the domain.
 - Re-run gas_block_001 cold.
 
-*STATUS: OPEN 2026-10-07 -- the walker's default, not yet built: the crew leaves the score building and returns to the getaway vehicle to leave the scene. Today the extraction is a seeded draw among the buildings that are not the spawn, and it is the score building itself on 43 of 136 multi-building candidate specs on disk and on 2 of cold run 9195's 3 candidates.*
+*STATUS: NARROWED 2026-10-07 -- the van is built and not yet placed: Zoo 1.82.0's `step_van`, a P30-style step van in matte black gone chalky, builds PASS at an exact fit (2.600 x 6.800 x 3.050), 4,860 tris against 5,500, five submissions, 0 coincident pairs at six sizes, and awaits the walker's verdict on its frames. Nothing parks it at the spawn yet: the extraction is still a seeded draw among the buildings that are not the spawn, and the score building itself on 43 of 136 multi-building candidate specs on disk and on 2 of cold run 9195's 3 candidates. Comps: `docs/reference/GETAWAY_VAN_COMPS.md`.*
 
 **206. The extraction is the getaway vehicle.** The walker, 2026-10-07: "On extraction, I would think the default is they have to leave the building and return to the 'getaway' car or vehicle to leave the scene."
 
@@ -19250,10 +19250,23 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - 159 of 181 cold-run briefs ask for `extraction_relationship: "crew_start_backtrack"`, which nothing builds from (item 200). Lot's `site_audit` warns against exactly that shape (`S_BACKTRACK`, "the exfil rewinds the entry").
 - The package carries three extraction anchors on cold run 9194's level (`lot:EXIT`, `lot:STREET`, `lot:STREET_25`), none marked as the mission's (item 204).
 
+**PHASE 1 -- THE VAN, BUILT (Zoo 1.82.0, 2026-10-07).** `step_van` is a species of its own, laid out in pure Python (`zoo_keeper/core/van_forms.py`) and built by `recipes/step_van.py`. Its record is `patches/patch_zoo_step_van.py` with `patches/zoo_step_van/`.
+- **What it is.** A tall box behind a flat-nosed cab, a raked two-piece windshield, round headlamps in square bezels with amber lamps over them, black bumpers, tall mirrors on tube arms, amber clearance lamps, dual rear wheels on steel discs and rear doors. It carries no maker's mark and no lettering. The slot is exact (mirror heads, bumpers, clearance lamps), the collision is the slot's box, and the crew's door is on the kerb side (`ATT_side_door`).
+- **The finish is its history, on one material** (`paint_matte`, a new kind). Near-black low down, sun-chalked on the roof and upper panels, dust on the lower third, rust at the arches and the rocker, and one grey primer patch on the kerb side, per corner in `Wear` (`geometry.tint_wear_by`). It is deterministic: the same van in every level.
+- **Built at 2.6 x 6.8 x 3.05:** PASS, an exact fit, 4,860 tris (4,640 and 5,080 at the genome's corners) against 5,500, and five submissions (paint, painted parts, rubber, interior, glass). `tools/coplanar_probe.py` and the census read 0 coincident pairs at six sizes. Two defects were found on the way and fixed at their source: 10-12 coincident pairs a build, and the van standing 10.3 mm off the ground, because at 14 segments no tyre vertex points down (`van_forms.axle_height`; the fit test fails at all three sizes with it reverted).
+- **The frames are deterministic.** From `zoo/`, `blender --background --python tools/preview_specimen.py -- --species step_van --dims 2.6 6.8 3.05 --theme delco_1997 --azimuth A --eye 1.7 --dist 10 --render <png>` at A = -45 (front), 225 (kerb side) and 135 (rear). The preview's sun is on +X, the road side, so the kerb side and the rear stand in shade.
+- **Unproven:** the walker has not judged the frames, and nothing places the van.
+
 **NEXT.**
 - The extraction becomes a point, not a building: a getaway vehicle on the street, outside the score building, never in it.
-- Where it stands is a design question to weigh against `S_BACKTRACK`: at the crew's start (the briefs' "backtrack") or a different edge of the site (Lot's audit).
-- A choice of several vehicle spots is replayability's first step, and the package marks the live one (item 204).
+- **Where it stands -- decided** (the walker, 2026-10-07): "the same as the missions spawn point. you spawn, do the job, then return to the car." The spawn and the extraction are one point, the van at the curb. 159 of 181 cold-run briefs already asked for this (`crew_start_backtrack`). Lot's `S_BACKTRACK` ("the exfil rewinds the entry") would fire on every level under it, so the rule must recognise the getaway van rather than overrule the walker. *As first filed:* "a design question to weigh against `S_BACKTRACK`: at the crew's start ... or a different edge of the site".
+- **What it is -- decided, and built** (Zoo 1.82.0, phase 1 above). The walker judges the frames before it rolls out. *As first filed:* "a step van -- walk-in body and cab as one box, flat split windshield, round headlights in square bezels, walk-in side door -- matte black, sun-faded, rust at the arches and seams, grime on the lower third. One hero prop, the same truck in every level."
+- **What parking it touches** (each reference re-read 2026-10-07, nothing patched yet):
+  - **Lot.** The cover planners keep 3 m off every mission marker (`site_cover.MARKER_CLEARANCE`), so the van needs a placement of its own. It runs after `site_spawns.clear_crew_spawn` (`lot.py:3272`) and before `site_spawns.place_enemies` (`lot.py:3276`), at the curb, with the spawn on the sidewalk by its kerb-side door: a crew member spawned inside its collision box fails Laser Tag's `SPAWN_IN_COLLISION` (`LT_MapEvalHarness.gd:340`). It wants a `COVER_MATERIALS` row (`lot.py:1615`).
+  - **Lot's audit.** `S_BACKTRACK` (`site_audit.py:169`, pinned by `tests/test_lot.py:775`) fires when the extraction stands within `BACKTRACK_NEAR` of the spawn and within `BACKTRACK_ANGLE` of its bearing from the objective. With the van at the spawn that is 0 m and 0 degrees on every level, so the rule must recognise the getaway van. `S_RESPONDER_CAMP` (`site_audit.py:198`) checks the crew spawn and the extraction separately, so one responder spawn near the van would report twice.
+  - **Level Factory.** `site_variation.site_placements` (`packages/pipeline/site_variation.py`) draws the extraction last, among the buildings that are not the spawn. Under the walker's rule the extraction is the spawn, and that draw is still made, so no other number a seed gives moves (the pattern its objective and front-door changes already follow).
+  - **Laser Tag.** When the crew's bot is stuck, `_update_stuck` (`LT_BotPlayerController.gd:394`) advances it to the next route point, `mini(_route_index + 1, size - 1)`. That gives up the point it was stuck on rather than reaching it. On a route that ends where it starts, the last point is the first, so read what completion means there before a there-and-back route is trusted.
+- A choice of several spawn-and-van spots is replayability's first step, and the package marks the live one as the mission's start and extraction (item 204).
 - A test: no candidate's extraction is the objective building.
 
 *STATUS: OPEN 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses two of its club anchors (`LUX_CLUB_REFUSED`, moderate, non-blocking). Cold run 9197: "Baked 42 club rig(s) from 44 club anchor(s); refused b2/main_floor_stage, b2/vip_wing_stage" (strip_club_a01); cold run 9167 (club_block_014) carried the same code. Filed nowhere until now.*
