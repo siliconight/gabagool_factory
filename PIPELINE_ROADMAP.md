@@ -19420,7 +19420,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
 - Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
 
-*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open: the cruiser (the walker's comps first); `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective; and the getaway van closing every lane that has to pass it, which cost cold run 9204 one arrival of three.*
+*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Zoo 1.86.0 builds the cruiser the walker asked for, a 1990s Crown Victoria lettered DELCO COUNTY POLICE in two liveries: 0 coincident pairs at the genome's three corners and over 51 swept sizes, five meshes and 3,476 triangles a car, and `simple_car`'s own cars unchanged, 200 meshes hashed (`docs/findings/cruiser_build/`). Open: the cruiser into a level -- Lot's responder slot derived from it, the asset in the package for the gameplay layer to spawn, and a price; `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective; and the getaway van closing every lane that has to pass it, which cost cold run 9204 one arrival of three.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19468,6 +19468,26 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - **The lane cannot pass it.** The planner's lane is a 3.0 m box at the lane's centre, in a 2.8 m driving half. It overlaps the van by 0.55 m, and the cruiser alone would by 0.05 m. So every lane that has to pass the van is refused, and every stop short of it is within `CAMP_RADIUS` of the crew.
   - **It recurs** wherever an open road end's inbound lane runs along the van's kerb toward it. `LOT_RESPONDER_ENTRY_NO_STOP` counted it twice on 9204, once from the candidate's assemble and once from the themed site's: one road end.
   - **The fix:** a lane that shifts across the carriageway round standing ground, as a driver does, with a test that fails on 9204's spec.
+
+**ZOO 1.86.0, DONE: THE CRUISER (2026-10-08)** (`patches/patch_zoo_cruiser.py`; the evidence in `docs/findings/cruiser_build/`).
+- **What the walker asked for.** "I would think a classic 1990s Crown Victoria", with five photographs; "Delco County Police Dept. as a start?"; and a photograph of the interior. The comps are `docs/reference/CRUISER_COMPS.md`, read for format only.
+- **What it is.** A species, `cruiser`, on `simple_car`'s sedan at a Crown Victoria's published proportions, its form pinned (four doors and a quarter glass, black steel wheels, a blue-grey cloth interior), with no jitter, and never drawn by `auto`.
+  - **The kit:** a light bar (red on the driver's side), a push bar, an A-pillar spotlight, a whip, and inside a partition and a radio console.
+  - **The livery:** one image on one material, `black_white` (the default) or `white_blue`. DELCO COUNTY POLICE, seals with unit 214, the motto WE'LL GET YOUSE. It is lettered where `simple_car` cut the doors, and the marks shrink together on a lower car (0.92 at the genome's lowest; refused under 0.8).
+  - **The slot:** 2.196 x 5.545 x 1.578 m by default: wide to the mirror heads, long from the push bar to the rear bumper, tall to the light bar's top.
+- **Measured.**
+  - Coincident faces: 0 pairs at the three corners on the census's third run, and 0 over 51 swept sizes in each livery.
+  - Five meshes, one a material, as the van has; 3,476 triangles at every size.
+  - `simple_car`'s own cars unchanged: 200 meshes, every vertex hashed against 1.85.0, 0 differ.
+- **Found on the way, each fixed at its source and kept in the finding.**
+  - The first build drew it as an SUV where a style decides details, with a hatchback's quarter glass (1.45 m doors). It is a sedan there now (`car_forms.SEDANS`): 1.67 m doors.
+  - The census's first run found 8-9 pairs a build in the kit, the partition through the headrests among them, and the lowest corner unable to letter its doors.
+  - The kit was a sixth mesh: named outside the car's part family, the export could not merge it.
+- **Not done.**
+  - **Lot's slot is still hand-set.** `site_responders.VEHICLE` is 2.0 x 5.4 x 1.5 m, "not derived: Zoo has no cruiser species yet" (`lot/site_responders.py:59`). Derived from the genome's default, the stop needs 0.196 m more width and 0.145 m more length, so stops that fit today may not. Its comment calls 2.0 m the width to the mirrors; the published 1.99-2.0 m it cites is the body's, and the cruiser's mirror heads stand 2.196 m apart.
+  - **The asset is not in a package.** Responders are the gameplay layer's to spawn, so the car has to ship beside `responder_arrivals.json` rather than stand in the scene.
+  - **Not priced in a frame.**
+  - **The livery is the walker's to choose.** Both are shown in the finding's frames.
 
 *STATUS: CLOSED 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_STAGE_LEVEL` 24, eight times the old level, and a cycling lamp bakes no bounce; Level Factory 0.160.0's bake leaves a cycling rig live. Cold run 9205 (club_block_014, 0 interventions): "76 steady rig(s) baked, 13 failing and 2 cycling left live", the two cycling being the two stages; the stage top reads 22.2 and the pole 56.5 (luminance, 8-bit codes) against 9.5 and 2.5 as 9204 shipped, within 0.1 codes of the 8x hand copy the call was made from; the lamp housings' frozen first colours are gone, brightest pixel 640-644 to 9; paired census still 0 over 8, worst 6 (`docs/cold_runs/cold_9205/NOTES.md`). Not this item's: a lens that follows the lamp's colour, unbuilt and unpriced.*
 

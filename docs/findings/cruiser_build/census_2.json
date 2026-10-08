@@ -1,0 +1,67 @@
+{
+ "tol": 0.002,
+ "min_area": 1e-06,
+ "normal_tol": 0.001,
+ "theme": "delco_1997",
+ "style": 1,
+ "rows": [
+  {
+   "species": "cruiser",
+   "corner": "min",
+   "dims": [
+    2.1,
+    5.35,
+    1.5
+   ],
+   "stem": "prop_cruiser_delco_1997_01_w210_d535_h150",
+   "built_species": "cruiser",
+   "status": "pass",
+   "tris": 3476,
+   "pairs": []
+  },
+  {
+   "species": "cruiser",
+   "corner": "default",
+   "dims": [
+    2.196,
+    5.545,
+    1.578
+   ],
+   "stem": "prop_cruiser_delco_1997_01_w220_d554_h158",
+   "built_species": "cruiser",
+   "status": "pass",
+   "tris": 3476,
+   "pairs": [
+    {
+     "a": "Car_Body",
+     "b": "Cruiser_Kit",
+     "facing": "OPP",
+     "gap_mm": 2.0,
+     "normal_of_a": [
+      -0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.033356,
+     "cover_pos_mm": 11.0,
+     "cover_neg_mm": 11.0,
+     "cover_mm": 11.0
+    }
+   ]
+  },
+  {
+   "species": "cruiser",
+   "corner": "max",
+   "dims": [
+    2.3,
+    5.75,
+    1.66
+   ],
+   "stem": "prop_cruiser_delco_1997_01_w230_d575_h166",
+   "built_species": "cruiser",
+   "status": "pass",
+   "tris": 3476,
+   "pairs": []
+  }
+ ]
+}

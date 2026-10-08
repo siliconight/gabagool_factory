@@ -1,0 +1,305 @@
+{
+ "tol": 0.002,
+ "min_area": 1e-06,
+ "normal_tol": 0.001,
+ "theme": "delco_1997",
+ "style": 1,
+ "rows": [
+  {
+   "species": "cruiser",
+   "corner": "min",
+   "dims": [
+    2.1,
+    5.35,
+    1.5
+   ],
+   "error": "ValueError: the cruiser's marks reach 0.794 m, into the door handles over 0.775 m",
+   "traceback": "Traceback (most recent call last):\n  File \"C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\2026-10-08_cruiser\\zoo\\tools\\coplanar_census.py\", line 194, in run\n    res = build.build_module(mod, out_dir, theme=theme, style=style,\n                             options={\"save_blend\": False})\n  File \"C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\2026-10-08_cruiser\\zoo\\zoo_keeper\\bpylayer\\build.py\", line 216, in build_module\n    result = recipes.get(build_species)(plan, streams, coll)\n  File \"C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\2026-10-08_cruiser\\zoo\\zoo_keeper\\recipes\\cruiser.py\", line 74, in build\n    art = cruiser_forms.livery_art(lay, car[\"door_edges\"], car[\"door_skin_z\"], livery,\n                                   moulding_z=car.get(\"moulding_z\"))\n  File \"C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\2026-10-08_cruiser\\zoo\\zoo_keeper\\core\\cruiser_forms.py\", line 349, in livery_art\n    raise ValueError(\"the cruiser's marks reach %.3f m, into the door handles over %.3f m\"\n                     % (z_top, ceiling))\nValueError: the cruiser's marks reach 0.794 m, into the door handles over 0.775 m\n"
+  },
+  {
+   "species": "cruiser",
+   "corner": "default",
+   "dims": [
+    2.196,
+    5.545,
+    1.578
+   ],
+   "stem": "prop_cruiser_delco_1997_01_w220_d554_h158",
+   "built_species": "cruiser",
+   "status": "pass",
+   "tris": 3476,
+   "pairs": [
+    {
+     "a": "Car_Interior",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "overlap_m2": 0.032856,
+     "cover_pos_mm": 120.0,
+     "cover_neg_mm": 10.0,
+     "cover_mm": 10.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 2.0,
+     "normal_of_a": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "overlap_m2": 0.002,
+     "cover_pos_mm": 924.258,
+     "cover_neg_mm": 22.0,
+     "cover_mm": 22.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 1.0,
+     "normal_of_a": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "overlap_m2": 0.002,
+     "cover_pos_mm": 563.766,
+     "cover_neg_mm": 19.5,
+     "cover_mm": 19.5
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 1.0,
+     "normal_of_a": [
+      -0.0,
+      1.0,
+      -0.0
+     ],
+     "overlap_m2": 0.002,
+     "cover_pos_mm": 792.535,
+     "cover_neg_mm": 19.5,
+     "cover_mm": 19.5
+    },
+    {
+     "a": "Car_Interior",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 1.37,
+     "normal_of_a": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "overlap_m2": 0.00144,
+     "cover_pos_mm": 551.02,
+     "cover_neg_mm": 24.314,
+     "cover_mm": 24.314
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "overlap_m2": 0.000418,
+     "cover_pos_mm": 0.0,
+     "cover_neg_mm": 25.0,
+     "cover_mm": 0.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      1.0,
+      -0.0,
+      -0.0
+     ],
+     "overlap_m2": 0.000418,
+     "cover_pos_mm": 0.0,
+     "cover_neg_mm": 25.0,
+     "cover_mm": 0.0
+    },
+    {
+     "a": "Car_Interior",
+     "b": "Cruiser_Kit",
+     "facing": "OPP",
+     "gap_mm": 1.37,
+     "normal_of_a": [
+      1.0,
+      -0.0,
+      -0.0
+     ],
+     "overlap_m2": 0.00144,
+     "cover_pos_mm": 25.686,
+     "cover_neg_mm": 260.687,
+     "cover_mm": 25.686
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.0004,
+     "cover_pos_mm": 48.0,
+     "cover_neg_mm": 40.0,
+     "cover_mm": 40.0
+    }
+   ]
+  },
+  {
+   "species": "cruiser",
+   "corner": "max",
+   "dims": [
+    2.3,
+    5.75,
+    1.66
+   ],
+   "stem": "prop_cruiser_delco_1997_01_w230_d575_h166",
+   "built_species": "cruiser",
+   "status": "pass",
+   "tris": 3476,
+   "pairs": [
+    {
+     "a": "Car_Interior",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "overlap_m2": 0.034921,
+     "cover_pos_mm": 120.0,
+     "cover_neg_mm": 10.0,
+     "cover_mm": 10.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 1.0,
+     "normal_of_a": [
+      0.0,
+      -1.0,
+      0.0
+     ],
+     "overlap_m2": 0.002,
+     "cover_pos_mm": 591.835,
+     "cover_neg_mm": 19.5,
+     "cover_mm": 19.5
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 1.0,
+     "normal_of_a": [
+      -0.0,
+      1.0,
+      -0.0
+     ],
+     "overlap_m2": 0.002,
+     "cover_pos_mm": 791.004,
+     "cover_neg_mm": 19.5,
+     "cover_mm": 19.5
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 2.0,
+     "normal_of_a": [
+      -0.0,
+      1.0,
+      -0.0
+     ],
+     "overlap_m2": 0.001,
+     "cover_pos_mm": 702.416,
+     "cover_neg_mm": 22.0,
+     "cover_mm": 22.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "overlap_m2": 0.000418,
+     "cover_pos_mm": 0.0,
+     "cover_neg_mm": 25.0,
+     "cover_mm": 0.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "SAME",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      1.0,
+      -0.0,
+      -0.0
+     ],
+     "overlap_m2": 0.000418,
+     "cover_pos_mm": 0.0,
+     "cover_neg_mm": 25.0,
+     "cover_mm": 0.0
+    },
+    {
+     "a": "Car_Interior",
+     "b": "Cruiser_Kit",
+     "facing": "OPP",
+     "gap_mm": 2.0,
+     "normal_of_a": [
+      -1.0,
+      0.0,
+      0.0
+     ],
+     "overlap_m2": 0.027804,
+     "cover_pos_mm": 11.0,
+     "cover_neg_mm": 24.0,
+     "cover_mm": 11.0
+    },
+    {
+     "a": "Cruiser_Kit",
+     "b": "Cruiser_Kit",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.0004,
+     "cover_pos_mm": 48.0,
+     "cover_neg_mm": 40.0,
+     "cover_mm": 40.0
+    }
+   ]
+  }
+ ]
+}
