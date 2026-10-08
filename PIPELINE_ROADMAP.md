@@ -884,11 +884,13 @@ work of adopting this.
 | 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
 | 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
-| 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-07 -- the van is built and not yet placed: Zoo 1.82.0's `step_van`, a P30-style st |
-| 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses tw |
+| 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is built and not yet placed: Zoo 1.83.0's `step_van`, a P30-style st |
+| 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-08 -- cause measured, not fixed: Lot's `merge_lights` carries an anchor's `pos` in |
 | 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
+| 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
+| 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 
-**208 items: 40 open, 95 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**210 items: 42 open, 95 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19240,7 +19242,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Decide where the fix lands: a shorter run in Deli Counter, or a composer that fills a long run with the kit's modules (8.00 m x 3 + a 3.28 m, or a module grown to fit). One owner, not both: `USING_THE_FACTORY.md`'s routing table says which repo owns the domain.
 - Re-run gas_block_001 cold.
 
-*STATUS: NARROWED 2026-10-07 -- the van is built and not yet placed: Zoo 1.82.0's `step_van`, a P30-style step van in matte black gone chalky, builds PASS at an exact fit (2.600 x 6.800 x 3.050), 4,860 tris against 5,500, five submissions, 0 coincident pairs at six sizes, and awaits the walker's verdict on its frames. Nothing parks it at the spawn yet: the extraction is still a seeded draw among the buildings that are not the spawn, and the score building itself on 43 of 136 multi-building candidate specs on disk and on 2 of cold run 9195's 3 candidates. Comps: `docs/reference/GETAWAY_VAN_COMPS.md`.*
+*STATUS: NARROWED 2026-10-08 -- the van is built and not yet placed: Zoo 1.83.0's `step_van`, a P30-style step van in matte black gone chalky, with the header, the chassis and the ghost lettering (variant 1) the walker's first look asked for, builds PASS at an exact fit, 5,372 tris against 6,000, five submissions, 0 coincident pairs at six probed sizes and at every centimetre of height in its chassis sweep. The walker, 2026-10-08: it is the foundation of a hero prop reused across missions, so it can afford to look good -- a hero pass is next. Nothing parks it at the spawn yet: the extraction is still a seeded draw among the buildings that are not the spawn, and the score building itself on 43 of 136 multi-building candidate specs on disk and on 2 of cold run 9195's 3 candidates. Comps: `docs/reference/GETAWAY_VAN_COMPS.md`.*
 
 **206. The extraction is the getaway vehicle.** The walker, 2026-10-07: "On extraction, I would think the default is they have to leave the building and return to the 'getaway' car or vehicle to leave the scene."
 
@@ -19255,7 +19257,14 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The finish is its history, on one material** (`paint_matte`, a new kind). Near-black low down, sun-chalked on the roof and upper panels, dust on the lower third, rust at the arches and the rocker, and one grey primer patch on the kerb side, per corner in `Wear` (`geometry.tint_wear_by`). It is deterministic: the same van in every level.
 - **Built at 2.6 x 6.8 x 3.05:** PASS, an exact fit, 4,860 tris (4,640 and 5,080 at the genome's corners) against 5,500, and five submissions (paint, painted parts, rubber, interior, glass). `tools/coplanar_probe.py` and the census read 0 coincident pairs at six sizes. Two defects were found on the way and fixed at their source: 10-12 coincident pairs a build, and the van standing 10.3 mm off the ground, because at 14 segments no tyre vertex points down (`van_forms.axle_height`; the fit test fails at all three sizes with it reverted).
 - **The frames are deterministic.** From `zoo/`, `blender --background --python tools/preview_specimen.py -- --species step_van --dims 2.6 6.8 3.05 --theme delco_1997 --azimuth A --eye 1.7 --dist 10 --render <png>` at A = -45 (front), 225 (kerb side) and 135 (rear). The preview's sun is on +X, the road side, so the kerb side and the rear stand in shade.
-- **Unproven:** the walker has not judged the frames, and nothing places the van.
+- *As first written:* "Unproven: the walker has not judged the frames, and nothing places the van."
+
+**THE WALKER'S FIRST LOOK (2026-10-08), AND ZOO 1.83.0.** "Looks great", with three asks: "the windows in the front feel proportionally a little too tall"; the ghost lettering -- "show me this"; and "flesh out the bottom of the truck a bit...like giving it a driveshaft and rear differential". Then: "this van is also going to be the foundation of a hero prop that get's reused in multiple missions, so we can afford to really make it look good". The record is `patches/patch_zoo_van_183.py` with `patches/zoo_van_183/`.
+- **The header:** the glass stops `van_forms.HEADER` (0.28 m) under the roof, where 1.82.0 left 0.10.
+- **The chassis** (`van_forms.chassis`, prims): frame rails, crossmembers, leaf springs, a front beam, the rear axle with its differential and pinion, the engine's sump, the transmission, the driveshaft with its yokes, an exhaust with its muffler out to the road side, the fuel tank on its straps. 28 parts, 512 triangles, on the body's material: no submission more. Its first build read 1-2 coincident pairs at the corners and the next three more BETWEEN them -- a rail hung from the body's floor met the front axle's top within 1.8 mm near a 3.0 m slot -- so the rails now stand on the axle, and the species' test sweeps the chassis at every centimetre of height (`prims.rod` gained `phase` for it: level 6- and 10-sided pipes shared their flat tops at the exhaust's elbows).
+- **The ghost, variant 1:** the van's old life as SKEEVY'S WOODER ICE, its vinyl peeled off and the letters left as unfaded paint -- one 1024 x 512 image under the paint's `Wear` colour on the same material (`materials.make_wear_textured_material`); both the texture and COLOR_0 verified in the GLB. Off by default until the walker chooses; the frames showed it even and then patched.
+- **The budget:** `tris_lod0` 5,500 -> 6,000 (5,592 at the largest slot). A regression detector, not a frame cost: draw calls are the van's price, and they are unchanged at five.
+- **Unproven:** the walker's verdict on the ghost; the hero pass; and nothing places the van.
 
 **NEXT.**
 - The extraction becomes a point, not a building: a getaway vehicle on the street, outside the score building, never in it.
@@ -19269,16 +19278,22 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - A choice of several spawn-and-van spots is replayability's first step, and the package marks the live one as the mission's start and extraction (item 204).
 - A test: no candidate's extraction is the objective building.
 
-*STATUS: OPEN 2026-10-07 -- recurring, unexplained: whenever a level places a strip club, Lux refuses two of its club anchors (`LUX_CLUB_REFUSED`, moderate, non-blocking). Cold run 9197: "Baked 42 club rig(s) from 44 club anchor(s); refused b2/main_floor_stage, b2/vip_wing_stage" (strip_club_a01); cold run 9167 (club_block_014) carried the same code. Filed nowhere until now.*
+*STATUS: OPEN 2026-10-08 -- cause measured, not fixed: Lot's `merge_lights` carries an anchor's `pos` into site coordinates and copies its `target` verbatim, so a stage light off the site's origin aims 73-74 m away, past Lux's 12 m range, and Lux refuses it (`LUX_CLUB_REFUSED`). Cold run 9197: `b2/main_floor_stage` and `b2/vip_wing_stage` (strip_club_a01); cold run 9167 (club_block_014) carried the same code. Lux named this defect on cold run 9060 and left it to Lot.*
 
 **207. A strip club's two stages are not lit.** Found 2026-10-07 attributing cold run 9197's findings (`docs/cold_runs/cold_9197/NOTES.md`): the code arrived with the picked candidate's strip_club_a01, not with the release under test.
 
 **WHAT WAS MEASURED.** 9197's validation, seed_9155: `LUX_CLUB_REFUSED` -- 42 of 44 club anchors became rigs; the two refused are the main-floor and VIP-wing stages, the rooms a club is for. Beside it, `ZOO_FIXTURES_MARKERLESS` (info): 13 of 18 club fixtures are hardware with no emitter marker by design (club_wash, stage_light), and Lux's fixture gate counts the other 5. Cold run 9167's driver log carries `LUX_CLUB_REFUSED 0 -> 1` on club_block_014; its notes do not explain it.
 
+**THE CAUSE, MEASURED (2026-10-08).**
+- **Lux's refusal names it.** `lux_light_loader.gd` (the `stage_light` branch of the club rig builder, ~1710-1760) refuses a stage light with no target, a throw under 0.25 m, or an energy that solves to 0 because the throw runs past the range it clamps to 12 m. Its comment records cold run 9060's `b0/main_floor_stage`: a 54.2 m throw, "That is Lot's to fix and this cannot fix it -- an anchor carries no building transform." Nobody fixed it.
+- **Lot's `merge_lights`** (`lot.py` 611-621): `wa = dict(a)`, then `pos` through `_place_point` and `rot_y` plus the placement's turn. `target` rides in the copy untouched.
+- **9197's manifests, both builds** -- the greybox candidate's (`bank_block_001.lot_assemble.candidate.seed_9155/out/site.site.lights.json`) and the themed site's (`bank_block_001.themed_site_assemble/1/out/site.site.lights.json`), identical: `b2/main_floor_stage` pos [73.0, -6.5, 3.2], target [0.0, -5.0, 1.68], throw 73.03 m; `b2/vip_wing_stage` pos [69.0, 5.5, 3.2], target [-5.0, 7.0, 1.68], throw 74.03 m. The targets are the building's own coordinates.
+- **So it is not intermittent.** It fires whenever a club stands far enough off the site's origin, which is where a library draw puts it -- the reason it reads as recurring and unexplained.
+
 **NEXT.**
-- Read why Lux refuses a stage anchor (the refusal's own reason, in Lux's club rig builder), on strip_club_a01 and the other club variants.
-- Then decide whether the stage is lit by its hardware (the markerless fixtures) and the refusal is correct, or a rig is missing.
-- The walker's standing call applies: dens of sin are dark buildings, but a stage is where a club's light goes.
+- Lot: `merge_lights` carries `target` through `_place_point` with `pos`, and a test proves a placed stage light's throw is the building's own, at a turned and offset placement.
+- Then a cold run with a club: `LUX_CLUB_REFUSED` gone, 44 of 44 club rigs, and the stages lit in a frame.
+- *As first filed:* "Read why Lux refuses a stage anchor ... Then decide whether the stage is lit by its hardware (the markerless fixtures) and the refusal is correct, or a rig is missing." The refusal is correct; the anchor is wrong. The walker's standing call still applies: dens of sin are dark buildings, but a stage is where a club's light goes.
 
 *STATUS: OPEN 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the agent contract's player (0.28 m, `AGENT_RADIUS * 0.7`, against `characters.player.radius_m` 0.35; the contract's `qa.walker_capsule_radius_m` 0.35 is read by nothing), with a 56 degree floor and a 0.5 m teleport step-up, and it walks home -> each anchor plus a chain through them, never the mission's order (spawn -> objective -> extraction). It passed cold run 9194's bank basement where the crew wedged.*
 
@@ -19296,3 +19311,31 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Its step-up lands only on a floor (the rule Laser Tag 0.24.0's carries).
 - It walks the mission's order as well as the chain.
 - Measure first: re-walk the kept workspaces' candidates with the contract's body and count what fails, before it becomes the gate it already is.
+
+*STATUS: OPEN 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the front, a guitar and music store first. Nothing builds one: Deli Counter's storefront is glass onto the selling floor with an empty window bay, Zoo has no instrument species, and no library family is a music store. Comps: `docs/reference/MUSIC_STORE_WINDOW_COMPS.md`.*
+
+**209. Window displays, a music store first.** The walker, 2026-10-08: "For later, I want to add to the roadmap the ability to create certain buildings with a Window Display on the front, we can start with a Guitar/Music Store", with six photographs read for format only.
+
+**WHAT A WINDOW DISPLAY IS, from the comps:** a shop window as a stage -- a carpeted or draped riser with instruments on stands, a back of guitars hung by their headstocks with amps stacked behind, neon words hung in the glass, the display lit by spots and the window framed in neon tube at night, price tags and pedals, and the selling floor visible behind it.
+
+**WHAT EXISTS TODAY** (read 2026-10-08):
+- Deli Counter's storefront: a storey-0 `storefront_glass` wall built modular, its slots tagged `glazing: "storefront"` (0.153.0) and glazed see-through by Zoo (1.18.0), the room behind lit through it (0.157.0). The bay behind the glass holds nothing.
+- Zoo: no instrument. Near: `neon_sign`, `video_rack`, `pack_wall` (and the `slatwall` kind), `display_case`, `poster_wall` (already in store windows), a crude guitar icon in `poster_art`.
+
+**NEXT, when it is picked up.**
+- Deli Counter: the window bay as its own zone with slots (riser, back, hanging rails, words in the glass), and a music-store family whose front carries display windows -- two storeys of them in the first comp.
+- Zoo: guitars in their forms on a stand or hung, amps, the riser; a window of twelve guitars in twelve colours is one mesh with the colours in the vertex (the draw-call rule); neon words from `neon_sign`.
+- Lux: the display lit as a display, the window the street's brightest thing at night, within `max_lights_per_object` and priced.
+- An invented Delco music store on the sign band (the fake-brands rule).
+
+*STATUS: OPEN 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operated (quarters), the handset on an armoured steel cord. Zoo's `payphone` (roadmap 153) is a box half-booth with a handset on a hook -- no cord, no keypad, no coin slot -- and Lot places exactly one, at a bus stop. Comps: `docs/reference/PAYPHONE_COMPS.md`.*
+
+**210. Payphones: quarters and a steel cord.** The walker, 2026-10-08: "Another roadmap item for city/urban levels: PayPhones. In the 90s you would pay with quarters, and the phonse is not wireless, it's on a metal cord.", with three photographs read for format only.
+
+**WHAT EXISTS TODAY** (read 2026-10-08):
+- Zoo's `payphone` recipe (81 lines): a post, a back panel, a hood, a face plate, a coin box and a handset on a hook, all boxes; the genome lists no parts and no params.
+- Lot: `site_furniture._stop_corner` stands one payphone 6.4 m along from each bus shelter, beside the mailbox and the news racks; a street with no stop has none.
+
+**NEXT, when it is picked up.**
+- Zoo: the instrument redrawn (keypad, coin slot, coin return, cradle, cards, vault door), the armoured cord as a swept tube on a hanging curve, the enclosure as forms (booth on a post, pedestal shroud, wall shroud), a "PHONE" header with an invented telephone company, a phone-book binder, graffiti and stickers.
+- Lot: wall shrouds on store walls by the door and pedestals at corners, on the streets the walker means by city and urban -- which themes those are is the walker's call.
