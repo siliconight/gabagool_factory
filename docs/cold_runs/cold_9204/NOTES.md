@@ -71,6 +71,12 @@ A null result from a dial that was not the dial refutes nothing.
 bake, compared with this one at the same stations, or a station inside a
 stage's own cone.
 
+**Since shown, with the dial that works** (`docs/findings/club_stage_live_price/`).
+A copy with the two stage rigs' resources set live lights the stage and the
+pole: at Lux's own energy, 0.46% of the close frame moves by more than 8
+codes, against 0.00% for a second launch. At that energy the stage does not
+read lit, baked or live.
+
 ## Found on the way: the bake freezes the stage show (roadmap 213)
 
 **Why it happens.**
@@ -84,6 +90,8 @@ stage's own cone.
 So every club package ships its stage show frozen on one colour. This is the
 first package whose stage rigs exist at all. Live or baked is the walker's
 call: four dynamic spot lights in a club, priced, or a frozen show, said.
+Priced since on this package (`docs/findings/club_stage_live_price/`): no
+draw calls, and 0.11 to 0.17 ms at a view facing a stage.
 
 ## Findings
 
@@ -93,8 +101,17 @@ Nothing here is compared code by code with 9167. 207's code is the one that
 matters, and it is absent.
 
 Also present, all known shapes, none attributed further here:
-- `LOT_RESPONDER_ENTRY_NO_STOP` 2. Lot 0.99.0's arrivals: two road ends on
-  this mission found no stop.
+- `LOT_RESPONDER_ENTRY_NO_STOP` 2: one road end counted twice.
+  - *As first written:* "two road ends on this mission found no stop".
+    Wrong.
+  - **What it is.** Both issues name road 0's east end at (92.5, -22.8) on
+    seed_9181. One comes from the candidate's `lot_assemble`, the other from
+    `themed_site_assemble`, which assembles the same site again.
+  - **Why it found no stop.** The getaway van's mirrors stand 0.45 m out of
+    its parking lane into the inbound lane, so every responder lane that has
+    to pass the van crosses it. Every stop short of the van is within 12 m
+    of the crew. Measured by replaying Lot's planner on the job's inputs:
+    `docs/findings/responder_entry_no_stop/`.
 - `ZOO_FIXTURES_MARKERLESS` 1, info: 13 of 18 club fixtures are hardware
   with no emitter marker by design.
 - `LUX_NO_ROOM_PROBES` 1.

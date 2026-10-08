@@ -1,0 +1,13 @@
+columns: on, on2, live
+facing a stage:
+  patrol_point_18          0  draws   880   880   880  ms median  2.746  2.719  2.893  live - mean +0.160  control -0.027  main stage, 5.9 m ahead
+  defender_spawn_15      270  draws  1074  1074  1074  ms median  3.039  3.071  3.168  live - mean +0.113  control +0.032  VIP stage, 5.1 m ahead
+the five largest |live - mean| anywhere:
+  patrol_point_18          0  draws   880   880   880  ms median  2.746  2.719  2.893  live - mean +0.160  control -0.027  
+  extraction_4           270  draws  2144  2144  2144  ms median  9.579  9.700  9.520  live - mean -0.120  control +0.121  
+  defender_spawn_15      270  draws  1074  1074  1074  ms median  3.039  3.071  3.168  live - mean +0.113  control +0.032  
+  camera_socket_1        270  draws  1279  1279  1279  ms median  5.012  5.172  4.979  live - mean -0.113  control +0.160  
+  objective_3             90  draws   862   862   862  ms median  2.431  2.403  2.525  live - mean +0.108  control -0.028  
+by distance from the nearer stage (53 headings):
+  within 17 m    n 24  live - mean: mean +0.022  median +0.013
+  beyond 50 m    n 29  live - mean: mean -0.011  median -0.007

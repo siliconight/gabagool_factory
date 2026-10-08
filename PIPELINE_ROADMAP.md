@@ -885,15 +885,15 @@ work of adopting this.
 | 204 | **CLOSED** | The package does not say where the score is | 2026-10-08 -- the package says where the score is, whose each anchor is, and starts and en |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is parked at the spawn: Lot 0.98.0 stands Zoo 1.85.0's `step_van` in |
-| 207 | **NARROWED** | A strip club's two stages are not lit | 2026-10-08 -- the refusal is fixed: Lot 0.99.1 carries a light anchor's `target` into site |
+| 207 | **CLOSED** | A strip club's two stages are not lit | 2026-10-08 -- Lot 0.99.1 carries a light anchor's `target` into site space with its `pos`  |
 | 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
-| 213 | **OPEN** | The light bake freezes the club's stage show | 2026-10-08 -- found, the walker's call: Level Factory's light bake marks every Lux rig who |
+| 213 | **OPEN** | The light bake freezes the club's stage show | 2026-10-08 -- priced, the walker's call: Level Factory's light bake bakes every Lux rig wh |
 
-**213 items: 41 open, 97 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**213 items: 41 open, 98 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19322,7 +19322,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - A choice of several spawn-and-van spots is replayability's first step, and the package marks the live one as the mission's start and extraction (item 204).
 - A test: no candidate's extraction is the objective building.
 
-*STATUS: NARROWED 2026-10-08 -- the refusal is fixed: Lot 0.99.1 carries a light anchor's `target` into site space with its `pos` (and refuses any numeric triple it has not classed), so cold run 9204 (club_block_014, 0 interventions) built 44 of 44 club rigs where 9197 built 42, `LUX_CLUB_REFUSED` is gone, and the stages throw 4.28 and 5.23 m in the shipped manifests. Not shown: the stages lit in a frame. The club's frames are dark, and the on/off test that tried was invalid -- the stage rig rebuilds its lamps from its resource at load, and the light bake bakes it -- so it is retracted, not counted. The bake also freezes the stage's colour cycle (item 213).*
+*STATUS: CLOSED 2026-10-08 -- Lot 0.99.1 carries a light anchor's `target` into site space with its `pos` (and refuses any numeric triple it has not classed), so cold run 9204 (club_block_014, 0 interventions) built 44 of 44 club rigs where 9197 built 42, `LUX_CLUB_REFUSED` is gone, the stages throw 4.28 and 5.23 m, and the lamps land on the stage and the pole in a frame: with the stage rigs' resources set live at Lux's own energy, 0.46% of the close frame moves by more than 8 codes, against 0.00% for a second launch of the shipped package (`docs/findings/club_stage_live_price/`). At that energy the stage does not read lit, baked or live; that question, with the frozen colour cycle, is item 213's.*
 
 **207. A strip club's two stages are not lit.** Found 2026-10-07 attributing cold run 9197's findings (`docs/cold_runs/cold_9197/NOTES.md`): the code arrived with the picked candidate's strip_club_a01, not with the release under test.
 
@@ -19336,7 +19336,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 
 **NEXT.**
 - Lot: `merge_lights` carries `target` through `_place_point` with `pos`, and a test proves a placed stage light's throw is the building's own, at a turned and offset placement. *Done, below.*
-- Then a cold run with a club: `LUX_CLUB_REFUSED` gone, 44 of 44 club rigs, and the stages lit in a frame. *The first two done, below; the third not shown.*
+- Then a cold run with a club: `LUX_CLUB_REFUSED` gone, 44 of 44 club rigs, and the stages lit in a frame. *All three done, below. The third is shown as the lamps landing on the stage and the pole; whether the stage reads lit is item 213's.*
 
 **DONE: LOT 0.99.1 (2026-10-08)** (`patches/patch_lot_light_targets.py`).
 - **Every point, not only `pos`.** `_LIGHT_POINTS` (`pos`, `target`) are placed with the building, and `_LIGHT_NOT_POINTS` (`size`, `color`) are kept: `size` is an extent in the light's own frame, which Lux turns with `rot_y`. Any other numeric triple is refused rather than shipped in the building's frame -- the rule `_ladder_to_site` keeps.
@@ -19349,6 +19349,11 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The test that followed, and why it is void.** It zeroed the four stage spots' `light_energy` in a copy, then raised their `spot_range` to 16 m. Neither moved a pixel beyond the control (on against on: maximum deltas 17, 25 and 237; on against off: 16, 26 and 237). But `lux_stage_light_rig.gd`'s `_rebuild()` frees every saved `Light3D` child at load and makes the lamps again from the rig's resource, so the edited values never ran. The resource reads `bake_mode = 1`, "Stage Light (baked)", so the stage's light is in the lightmap, where no scene edit reaches it. A null result from a dial that was not the dial refutes nothing. *As first read:* "the stage spotlights make no measurable difference", then "its range is the limit" -- both retracted.
 - **What would answer it:** an export with the stage rigs removed before the bake, against one with them, at the same stations -- or a station inside a stage's own cone.
 - *As first filed:* "Read why Lux refuses a stage anchor ... Then decide whether the stage is lit by its hardware (the markerless fixtures) and the refusal is correct, or a rig is missing." The refusal is correct; the anchor is wrong. The walker's standing call still applies: dens of sin are dark buildings, but a stage is where a club's light goes.
+
+**THE STAGES IN A FRAME -- SHOWN (2026-10-08)** (`docs/findings/club_stage_live_price/`).
+- **The dial that works.** `make_live_copy.py` sets the stage rigs' resources live (`bake_mode = 1` to 0), the value `_rebuild()` reads. On the raw package it reproduces the hand-made copy the price ran on, byte for byte.
+- **The lamps land.** At the main stage from 8 m (`main_stage_close`), a live copy at Lux's energy moves 0.46% of the frame by more than 8 codes (largest 221), against 0.00% (largest 25) for a second launch of the shipped package; at ten times Lux's energy, 1.06%. The frames show the pole lit and a brighter pool on the stage.
+- **The stage does not read lit at Lux's energy, baked or live.** As shipped it is a dim red-brown wash; live adds a lit pole and a slightly brighter pool. Whose light the shipped wash is -- the stage lamps', baked, or the stage lip's orange neon, baked, reaching 2.5 m -- is not separated. Item 213 carries it.
 
 *STATUS: OPEN 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the agent contract's player (0.28 m, `AGENT_RADIUS * 0.7`, against `characters.player.radius_m` 0.35; the contract's `qa.walker_capsule_radius_m` 0.35 is read by nothing), with a 56 degree floor and a 0.5 m teleport step-up, and it walks home -> each anchor plus a chain through them, never the mission's order (spawn -> objective -> extraction). It passed cold run 9194's bank basement where the crew wedged.*
 
@@ -19415,7 +19420,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
 - Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
 
-*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open: the cruiser (the walker's comps first), and `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective.*
+*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open: the cruiser (the walker's comps first); `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective; and the getaway van closing every lane that has to pass it, which cost cold run 9204 one arrival of three.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19458,8 +19463,13 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The package** marks them, with the pose and the routes, so the game layer can find them -- *done*: Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201), and 0.157.0 ships how each arrives in `responder_arrivals.json` (cold run 9202). Item 204 has the detail.
 - **Zoo: the responder vehicle.** A 1990s cruiser from `simple_car`'s police style: a light bar, a push bar, an A-pillar spotlight, and an invented department's markings on one texture. The walker's comps come first, as for the van.
 - **Price** the cruiser the way the van was priced.
+- **Lot: let the lane steer round the van.** Cold run 9204's club_block_014 lost one arrival of three to the getaway van (`docs/findings/responder_entry_no_stop/`, which replays Lot's planner on the job's inputs and reproduces its record).
+  - **The van overhangs its bay, by design.** Its body is 2.30 m and stands 0.20 m off the kerb, so in a 2.2 m parking lane the body overhangs 0.30 m and the mirrors 0.45 m.
+  - **The lane cannot pass it.** The planner's lane is a 3.0 m box at the lane's centre, in a 2.8 m driving half. It overlaps the van by 0.55 m, and the cruiser alone would by 0.05 m. So every lane that has to pass the van is refused, and every stop short of it is within `CAMP_RADIUS` of the crew.
+  - **It recurs** wherever an open road end's inbound lane runs along the van's kerb toward it. `LOT_RESPONDER_ENTRY_NO_STOP` counted it twice on 9204, once from the candidate's assemble and once from the themed site's: one road end.
+  - **The fix:** a lane that shifts across the carriageway round standing ground, as a driver does, with a test that fails on 9204's spec.
 
-*STATUS: OPEN 2026-10-08 -- found, the walker's call: Level Factory's light bake marks every Lux rig whose resource carries no `failing_kind` as baked (`bake_mode = 1`), and a baked rig stops cycling (`lux_stage_light_rig.gd`, `_cycles()`). Lux's club stage rig cycles colour every 4 s by design but is not a failing fixture, so every club package ships its stage show frozen on one colour. Seen first in cold run 9204, the first package whose stage rigs were built at all (item 207). Keep the cycling stages live and price them, or bake them frozen and say so.*
+*STATUS: OPEN 2026-10-08 -- priced, the walker's call: Level Factory's light bake bakes every Lux rig whose resource carries no `failing_kind`, and a baked rig stops cycling, so every club package ships its stage show frozen on one colour (seen first in cold run 9204). Keeping the stage rigs live costs no draw calls and 0.11 to 0.17 ms at a view facing a stage, on frames of about 3 ms, in two runs against two controls; beyond 50 m of a stage it does not measure (`docs/findings/club_stage_live_price/`). At Lux's energy the stage does not read lit, baked or live. The calls: live and cycling, or baked and frozen; and whether the stage should be brighter.*
 
 **213. The light bake freezes the club's stage show.** Found 2026-10-08 checking cold run 9204's club for item 207.
 
@@ -19471,6 +19481,18 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 **WHY IT IS THE WALKER'S CALL.** A colour cycle is unsteady light, and baking it freezes the look Lux built. Keeping it live costs four dynamic spot lights in a club, each one more light against the 8-lights-a-mesh cap on the stage and floor. CLAUDE.md asks for that tradeoff to be shown rather than settled silently, and today it is settled silently.
 
 **NEXT.**
-- Price the four stage spots live against baked, the way the van was priced, with a station inside a stage's cone.
-- The walker chooses: live, or baked and frozen with the choice recorded.
-- If live: the bake keeps a rig with `cycle_period_s > 0` live, as it keeps a failing one, with a test that fails while it bakes one.
+- Price the four stage spots live against baked, the way the van was priced, with a station inside a stage's cone. *Done, below -- from the two stations whose headings face a stage, not from inside a cone.*
+- The walker chooses: live, or baked and frozen with the choice recorded. And, separately, whether the stage should read brighter than Lux's solve: at that energy it does not read lit either way.
+- If live: the bake keeps a rig with `cycle_period_s > 0` live, as it keeps a failing one, with a test that fails while it bakes one. The stage then loses whatever part of its baked wash is the stage lamps'.
+
+**DONE: THE PRICE (2026-10-08)** (`docs/findings/club_stage_live_price/`).
+- **How.** Four runs of Level Factory's fixed-station harness: cold run 9204's package as shipped, a copy with the two stage rigs' resources live at Lux's energy, the shipped package again, and the live copy again. 53 station headings, GL Compatibility, RTX 2060, 1280x720.
+- **Draw calls: none.** Live against shipped is 0 at every heading; unshadowed lamps add no pass. The one exception is -160 at `attacker_spawn_8` yaw 0 in the repeat. That heading draws 871 or 711 from pass to pass in all four runs, the controls included.
+- **Level-wide: nothing measurable.** The median frame moved +0.014 and +0.001 ms against the controls' mean. The controls differ from each other by +0.021.
+- **Facing a stage: 0.11 to 0.17 ms**, on frames of 2.7 and 3.1 ms.
+  - `patrol_point_18` yaw 0, the main stage 5.9 m ahead: +0.143 and +0.160 ms (control -0.027).
+  - `defender_spawn_15` yaw 270, the VIP stage 5.1 m ahead: +0.170 and +0.113 ms (control +0.032).
+  - The 24 headings within 17 m of a stage moved +0.047 and +0.022 ms on average; the 29 beyond 50 m, +0.006 and -0.011.
+- **Not measured: the 8-lights-a-mesh cap.** The harness's light census counts every positional light by its reach, baked or live. So it reads the same in all four runs (33 of 3,954 meshes over 8), and cannot say whether the live lamps put a stage mesh over the lights the renderer pairs with it.
+- **The look.** At Lux's energy, live adds a lit pole and a slightly brighter pool to the shipped dim wash; the frames are beside the price. Ten times Lux's energy gives a magenta pool -- a dial turned to see the light land, not a proposal.
+- *As first written in the finding:* "8 of the 9 largest differences are at stations within 17 m of a stage". Retracted: ninth place is a tie at 0.075 ms between a near heading and a far one.

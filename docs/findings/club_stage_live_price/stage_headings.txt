@@ -1,0 +1,13 @@
+columns: on, on2, live
+facing a stage:
+  patrol_point_18          0  draws   880   880   880  ms median  2.746  2.719  2.876  live - mean +0.143  control -0.027  main stage, 5.9 m ahead
+  defender_spawn_15      270  draws  1074  1074  1074  ms median  3.039  3.071  3.225  live - mean +0.170  control +0.032  VIP stage, 5.1 m ahead
+the five largest |live - mean| anywhere:
+  player_start_19         90  draws  2984  2984  2984  ms median 12.323 12.423 12.544  live - mean +0.171  control +0.100  
+  defender_spawn_15      270  draws  1074  1074  1074  ms median  3.039  3.071  3.225  live - mean +0.170  control +0.032  
+  patrol_point_18        270  draws  1196  1196  1196  ms median  4.333  4.334  4.500  live - mean +0.167  control +0.001  
+  patrol_point_18          0  draws   880   880   880  ms median  2.746  2.719  2.876  live - mean +0.143  control -0.027  
+  extraction_4           180  draws   838   838   838  ms median  2.803  2.737  2.875  live - mean +0.105  control -0.066  
+by distance from the nearer stage (53 headings):
+  within 17 m    n 24  live - mean: mean +0.047  median +0.038
+  beyond 50 m    n 29  live - mean: mean +0.006  median +0.011
