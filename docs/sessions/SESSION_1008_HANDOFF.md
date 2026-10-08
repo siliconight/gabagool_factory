@@ -15,7 +15,7 @@ this date. Read `CLAUDE.md` and the memory index first, then this, then
 | deli_counter | 0.203.0 | 0 |
 | lux | 0.68.2 | 0 |
 | dispatch, patina, pixelcoat, pipeline | 0.5.2, 0.29.1, 0.61.0, 0.6.0 | 0 |
-| factory root | -- | 11, this one included |
+| factory root | -- | 13, the handoff's two commits included |
 
 - **Clean.** Every tool repo has a clean tree.
 - **Nothing running.** No cold run is in flight, and no Godot or Blender
