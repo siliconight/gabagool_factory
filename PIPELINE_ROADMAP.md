@@ -882,7 +882,7 @@ work of adopting this.
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
 | 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
-| 204 | **OPEN** | The package does not say where the score is | 2026-10-08 -- cause found for the site-level markers: Level Factory's Dispatch staging (`p |
+| 204 | **NARROWED** | The package does not say where the score is | 2026-10-08 -- the site-level half is fixed. Level Factory 0.156.0 stages Lot's `site_marke |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is parked at the spawn: Lot 0.98.0 stands Zoo 1.85.0's `step_van` in |
 | 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-08 -- cause measured, not fixed: Lot's `merge_lights` carries an anchor's `pos` in |
@@ -890,9 +890,9 @@ work of adopting this.
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
-| 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- phase 1 proven: Lot 0.99.0 plans an arrival per open road end -- the inbound |
+| 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
 
-**212 items: 42 open, 96 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**212 items: 41 open, 96 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19205,7 +19205,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
 - Whether Laser Tag's route finding should be major below some completion short of zero is Laser Tag's call; the 8% case is the evidence for it.
 
-*STATUS: OPEN 2026-10-08 -- cause found for the site-level markers: Level Factory's Dispatch staging (`packages/staging/dispatch_inputs.py`) turns Lot's `markers`, `objectives` and `loot` into anchors and never reads `site_markers`, so the getaway van's crew spawn and extraction, and Lot 0.99.0's responder arrivals, never reach the package; with no `player_start` from Lot, `ensure_mission_anchors` synthesizes one at the centroid of every Lot anchor and tags every untagged extraction as the mission's. As filed 2026-10-07 from cold run 9194's package: `gameplay_anchors.json` marks no objective as the score, names no anchor's building, and lists first the `deli_counter:*` anchors of the mission's own generated shell, which a library lot never places, in that shell's local frame.*
+*STATUS: NARROWED 2026-10-08 -- the site-level half is fixed. Level Factory 0.156.0 stages Lot's `site_markers`: the getaway van's crew spawn as a `player_start` tagged `mission_start`, its extraction tagged `extraction`, and each responder arrival as an `ai_spawn` tagged `responder`. Cold run 9201's package binds the mission's spawn and extract beats to the van; 9200's bound them to a start synthesized at the centroid of every Lot anchor and to three buildings' street points. The walk copy now stands its player at the van. 0.157.0 ships how each responder arrives beside its anchor (`responder_arrivals.json`): cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open, as filed: the score is unmarked and its building unnamed, and the `deli_counter:*` anchors are the mission's unplaced generated shell's.*
 
 **204. The package does not say where the score is.** Found 2026-10-07 while framing cold run 9194's stair foot: `tools/look_shots.py` takes the first anchor of each type from the package's `gameplay_anchors.json`, and its "objective" camera stood at (4.5, -1.5, 2.25), near the spawn building, while the score's vault is at (-54, -3.9, -12).
 
@@ -19223,11 +19223,18 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 
 **NEXT.**
 - *Done 2026-10-08, for the site-level markers (the cause above):* read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything. Still to read: where it takes Deli Counter anchors from on a library lot, and in which frame.
-- **Pass Lot's `site_markers` through:**
+- **Pass Lot's `site_markers` through** -- *done, below.* As filed:
   - `crew_spawn` as the mission's `player_start`, tagged `mission_start`;
   - the getaway van's `extraction` as the mission's extraction, tagged `extraction`;
   - `responder_spawn` as an `ai_spawn` tagged `responder`.
   Carry each arrival's entry, lane and stop pose somewhere the game layer can read them: a Dispatch anchor holds only a position, a facing and tags.
+
+**THE SITE-LEVEL HALF, DONE (2026-10-08).**
+- **Level Factory 0.156.0** (`patches/patch_lf_site_markers.py`). `site_markers_to_anchors` stages Lot's site markers ahead of its buildings' markers, mapped as filed above, on the plate. `ensure_mission_anchors` then finds the start and the exit already tagged, so it synthesizes no start and tags no building's extraction. No facing is passed: Lot's slot yaw and Dispatch's `rot_y` have not been shown to share a convention.
+- **Before the cold run.** Measured on cold run 9200's own outputs, built by the real Dispatch: `spawn` bound to the van's crew spawn, not the centroid, and `extract` to the van's extraction, not three street points. Anchors went 64 -> 68 and `responder` tags 0 -> 3, at readiness 100 with 0 blockers.
+- **Cold run 9201** (0 interventions; `docs/cold_runs/cold_9201/NOTES.md`). The same, in the shipped package. The package's `player_start` moved from (-7.03, 0, 0.68) to (-4.15, 0, 14.95). `tools/walk_export.py` stands its body there, so walking a generated heist now starts at the van, where every earlier walk started at the centroid. Dispatch's ten notes are word for word 9200's.
+- **Level Factory 0.157.0** (`patches/patch_lf_responder_arrivals_sidecar.py`). `responder_arrivals.json` carries each arrival keyed by its anchor's id: entry, stop, forward, the stop and lane boxes, the vehicle and the way-back point it serves, in the frame of `gameplay_anchors.json`. One counting of the ids (`site_marker_anchor_pairs`) serves the staging and the file. It is written before the closure verdict and the manifest walk, named in `closure._METADATA_FILES`, and described in `HANDOFF.md`. **Cold run 9202** (0 interventions; `docs/cold_runs/cold_9202/NOTES.md`): the shipped package carries the file, three arrivals, each naming an anchor tagged `responder` at exactly its stop, listed in `portable_resource_manifest.json` (2,746 + 2 declared = 2,748 files), the closure scan ok with 0 issues.
+- **What is still this item's:** the score unmarked, its building unnamed, and the unplaced shell's anchors first -- the NEXT bullets below.
 - Mark the score: the objective anchors of the site spec's `objective` building carry the objective, and the site spec's extraction is marked as such.
 - Name each anchor's building (`source_building`).
 - A test on a library-lot package: no anchor from a shell the lot does not place.
@@ -19385,7 +19392,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
 - Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
 
-*STATUS: NARROWED 2026-10-08 -- phase 1 proven: Lot 0.99.0 plans an arrival per open road end -- the inbound keep-right lane, and a stop a 1990s cruiser fits with its doors open, nearest the crew's way back and outside the audit's camping line -- reserves both from the parking and the cover, reads the reservation back after every planner, and writes each as a `responder_spawn` site marker. Cold run 9200 (0 interventions): three arrivals on each of three candidates, nothing standing in any lane or stop, and the nav QA walked a bot from every stop to the nearest crew point, 5.8-22.5 m. Open: the package carries none of it (item 204, cause found), the cruiser (the walker's comps first), and `S_RESPONDER_ARC` fires on every candidate because their roads lie to one side of the objective.*
+*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Open: the cruiser (the walker's comps first), and `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19425,6 +19432,6 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - a stop where a cruiser fits with its doors open, in a travel lane, outside `CAMP_RADIUS` of the van;
   - a walkable route from the stop to the crew's leg back to the van.
   Spread them so `S_RESPONDER_ARC` passes. Reserve them before the cover, the fence and the parking are planned, and check them after all three: a lane or a stop that something now stands in is a finding. Write them as `responder_spawn` site markers carrying the entry, the lane, the stop's pose and the route.
-- **The package** marks them, with the pose and the routes, so the game layer can find them (item 204, whose cause is now found: Level Factory's Dispatch staging reads no site markers).
+- **The package** marks them, with the pose and the routes, so the game layer can find them -- *done*: Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201), and 0.157.0 ships how each arrives in `responder_arrivals.json` (cold run 9202). Item 204 has the detail.
 - **Zoo: the responder vehicle.** A 1990s cruiser from `simple_car`'s police style: a light bar, a push bar, an A-pillar spotlight, and an invented department's markings on one texture. The walker's comps come first, as for the van.
 - **Price** the cruiser the way the van was priced.
