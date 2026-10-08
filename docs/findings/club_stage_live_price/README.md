@@ -93,6 +93,15 @@ package (`shot_diff --images`):
 - **These frames keep the old bake's wash under the stage.** A live stage
   baked without its lamps will read a little darker on its top. The cold
   run that follows shows the real one.
+  - *Refuted by that cold run* (9205, `docs/cold_runs/cold_9205/NOTES.md`).
+    Baked without its lamps, the stage top reads 22.2 (luminance, 8-bit
+    codes) against this 8x copy's 22.3, and the pole 56.5 against 56.5:
+    not measurably darker.
+  - **What did change is above the stage.** The two lamp housings are lit
+    in every frame here, brightest pixel 640-644 and 547-551 whatever the
+    live energy, in the colours the lamps start their cycle with. In 9205
+    they read 9. That light was the old bake's: the show frozen on its
+    first colours.
 
 ## What live costs
 

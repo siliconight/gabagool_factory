@@ -1,0 +1,125 @@
+[mesh_light_census] C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_club_block_014
+  scene            _walk   (engine 4.7-stable (official), settled 5 frames)
+  lights           95 positional visible, 1 directional visible
+  project caps     max_lights_per_object=8  max_renderable_lights=96
+
+  meshes           3948 visible
+    <=8 lights     3915
+    over 8         33
+    over 16        23
+    over 32        0
+    worst          31   Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997
+
+  paired           what the engine binds: no light masked off the mesh, no baked light on a lightmapped mesh (3898 lightmap user(s))
+    <=8 lights     3948
+    over 8         0
+    worst          6   Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+
+  meshes over the engine default of 8:
+     31  (5 paired)  34.0x0.3x24.0  Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997
+         shed 23 -> trim > 5.17 m   (slimmest margins: 0.03c, 0.03c, 0.06c, 0.60c, 0.70c, 0.73w, 0.73w, 1.75w, 1.75w, 1.75w, 2.20w, 2.88w, 2.88w, 4.10w, 4.10c, 4.10c, 4.10w, 4.50w, 4.50w, 4.61w, 5.00w, 5.17c, 5.17w)
+     31  (5 paired)  34.4x3.7x23.6  Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+         shed 23 -> trim > 5.50 m   (slimmest margins: 1.20c, 1.20c, 1.22c, 1.70c, 1.80c, 2.50w, 2.50w, 2.88w, 3.34w, 3.34w, 3.34w, 3.60w, 3.60w, 4.45w, 4.45c, 4.45c, 4.45w, 4.49w, 4.89w, 5.22w, 5.35w, 5.35w, 5.50w)
+     31  (5 paired)  34.2x3.7x23.3  Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+         shed 23 -> trim > 5.35 m   (slimmest margins: 1.20c, 1.20c, 1.22c, 1.70c, 1.80c, 2.50w, 2.50w, 3.00w, 3.34w, 3.34w, 3.34w, 3.60w, 3.60w, 4.45w, 4.45c, 4.45c, 4.45w, 4.66w, 4.83w, 5.08w, 5.23w, 5.35w, 5.35w)
+     31  (5 paired)  33.6x3.7x24.6  Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+         shed 23 -> trim > 5.38 m   (slimmest margins: 1.20c, 1.20c, 1.22c, 1.70c, 1.80c, 2.50w, 2.50w, 3.00w, 3.34w, 3.34w, 3.34w, 3.60w, 3.60w, 4.45w, 4.45c, 4.45c, 4.45w, 4.88w, 5.01w, 5.33w, 5.35w, 5.35w, 5.38w)
+     31  (5 paired)  33.8x3.7x24.4  Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+         shed 23 -> trim > 5.50 m   (slimmest margins: 1.20c, 1.20c, 1.22c, 1.70c, 1.80c, 2.50w, 2.50w, 3.00w, 3.34w, 3.34w, 3.34w, 3.60w, 3.60w, 4.45w, 4.45c, 4.45c, 4.45w, 4.92w, 4.99w, 5.14w, 5.35w, 5.35w, 5.50w)
+     30  (6 paired)  52.4x6.1x32.4  Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997
+         shed 22 -> trim > 6.35 m   (slimmest margins: 3.90w, 4.00w, 4.02w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.23w, 5.23w, 5.33w, 5.50w, 6.35w, 6.35w, 6.35w, 6.35w, 6.35w)
+     30  (6 paired)  54.2x6.1x31.5  Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997
+         shed 22 -> trim > 6.35 m   (slimmest margins: 4.00w, 4.00w, 4.80w, 4.88w, 4.88w, 5.04w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.23w, 6.35w, 6.35w, 6.35w, 6.35w, 6.35w)
+     30  (6 paired)  53.3x6.1x32.4  Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997
+         shed 22 -> trim > 6.35 m   (slimmest margins: 4.00w, 4.00w, 4.77w, 4.99w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.23w, 5.50w, 5.50w, 6.35w, 6.35w, 6.35w, 6.35w, 6.35w)
+     30  (6 paired)  54.4x6.1x31.7  Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+         shed 22 -> trim > 6.35 m   (slimmest margins: 4.00w, 4.00w, 4.72w, 4.96w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.07w, 5.14w, 5.14w, 5.50w, 6.35w, 6.35w, 6.35w, 6.35w, 6.35w)
+     27  (5 paired)  34.4x3.5x23.3  Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997
+         shed 19 -> trim > 4.00 m   (slimmest margins: 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 3.18w, 3.20w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w)
+     27  (5 paired)  33.7x3.5x24.6  Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997
+         shed 19 -> trim > 4.00 m   (slimmest margins: 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 3.20w, 3.20w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w)
+     27  (5 paired)  33.9x3.5x24.2  Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997
+         shed 19 -> trim > 4.00 m   (slimmest margins: 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 3.20w, 3.20w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w)
+     27  (5 paired)  34.4x3.5x23.6  Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997
+         shed 19 -> trim > 4.00 m   (slimmest margins: 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 2.57w, 3.08w, 3.20w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w, 4.00w)
+     23  (4 paired)  34.0x0.0x14.0  Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997
+         shed 15 -> trim > 4.92 m   (slimmest margins: 0.05c, 0.08c, 0.72c, 0.75w, 0.93w, 1.38w, 1.77w, 1.77w, 1.77w, 1.93w, 1.93c, 2.13w, 2.22w, 4.63w, 4.92w)
+     20  (4 paired)  54.0x0.3x32.0  Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997
+         shed 12 -> trim > 6.00 m   (slimmest margins: 0.60w, 0.80w, 2.14w, 2.14w, 2.14w, 2.39w, 2.93w, 6.00w, 6.00w, 6.00w, 6.00w, 6.00w)
+     20  (4 paired)  54.0x0.0x21.6  Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997
+         shed 12 -> trim > 4.98 m   (slimmest margins: 1.02w, 1.02w, 1.02w, 1.02w, 1.02w, 1.72w, 2.14w, 2.99w, 3.15w, 4.70w, 4.70w, 4.98w)
+     20  (4 paired)  34.0x0.0x14.0  Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997
+         shed 12 -> trim > 2.17 m   (slimmest margins: 0.09w, 0.52w, 0.60w, 0.60c, 0.86w, 0.99w, 1.10w, 1.65w, 1.65w, 1.65w, 2.17w, 2.17w)
+     19  (4 paired)  34.0x0.0x14.0  Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997
+         shed 11 -> trim > 2.48 m   (slimmest margins: 0.52w, 0.52w, 1.27w, 1.27w, 1.27w, 1.27w, 1.27w, 1.62w, 2.36w, 2.48w, 2.48w)
+     17  (3 paired)  19.0x0.0x24.0  Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997
+         shed 9 -> trim > 2.68 m   (slimmest margins: 0.80w, 0.95w, 0.95w, 0.95w, 0.95w, 0.95w, 0.95w, 1.30w, 2.68w)
+     17  (3 paired)  34.0x0.3x24.0  Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997
+         shed 9 -> trim > 3.65 m   (slimmest margins: 1.70w, 2.20w, 3.65w, 3.65w, 3.65w, 3.65w, 3.65w, 3.65w, 3.65w)
+     17  (4 paired)  27.0x0.0x32.0  Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997
+         shed 9 -> trim > 2.83 m   (slimmest margins: 0.70w, 0.70w, 0.70w, 0.70w, 0.70w, 0.70w, 1.40w, 2.04w, 2.83w)
+     17  (3 paired)  27.0x0.0x32.0  Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997
+         shed 9 -> trim > 2.19 m   (slimmest margins: 0.70w, 0.70w, 0.70w, 0.70w, 0.70w, 0.70w, 1.20w, 1.40w, 2.19w)
+     17  (4 paired)  54.0x0.0x21.6  Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997
+         shed 9 -> trim > 2.41 m   (slimmest margins: 0.62w, 1.14w, 1.14w, 1.14w, 1.14w, 1.14w, 1.38w, 2.16w, 2.41w)
+     16  (4 paired)  54.0x0.0x10.4  Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997
+         shed 8 -> trim > 1.52 m   (slimmest margins: 0.31w, 0.31w, 1.02w, 1.02w, 1.02w, 1.02w, 1.02w, 1.52w)
+     15  (2 paired)  15.0x0.0x24.0  Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997
+         shed 7 -> trim > 0.95 m   (slimmest margins: 0.08w, 0.35w, 0.35w, 0.95w, 0.95w, 0.95w, 0.95w)
+     14  (4 paired)  34.0x0.0x10.0  Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997
+         shed 6 -> trim > 1.27 m   (slimmest margins: 1.12w, 1.25w, 1.25w, 1.27w, 1.27w, 1.27w)
+     13  (3 paired)  24.0x0.0x10.0  Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997
+         shed 5 -> trim > 2.01 m   (slimmest margins: 0.05c, 0.62c, 0.75w, 1.00w, 2.01w)
+     11  (2 paired)  34.0x0.0x14.0  Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997
+         shed 3 -> trim > 3.67 m   (slimmest margins: 1.72w, 3.67w, 3.67w)
+     11  (3 paired)  24.0x0.0x10.0  Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997
+         shed 3 -> trim > 0.96 m   (slimmest margins: 0.02w, 0.96w, 0.96c)
+     10  (3 paired)  54.3x5.7x0.1   Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4
+         shed 2 -> trim > 1.00 m   (slimmest margins: 1.00w, 1.00w)
+     10  (2 paired)  54.0x0.0x10.4  Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997
+         shed 2 -> trim > 2.16 m   (slimmest margins: 0.82w, 2.16w)
+     10  (0 paired)  34.3x3.3x0.1   Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4
+         shed 2 -> trim > 1.87 m   (slimmest margins: 0.08c, 1.87w)
+      9  (2 paired)  4.9x0.3x4.8    Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3
+         shed 1 -> trim > 0.25 m   (slimmest margins: 0.25w)
+    every row above clears if every light's range came down 6.35 m
+
+  the worst mesh's claimants (margin = range - distance):
+    margin  0.03  range  1.2  cool  LuxClub/b0_wall_tv_r1d196568_7_screen/Fluoro_0
+    margin  0.03  range  1.2  cool  LuxClub/b0_wall_tv_r3914c1cb_2_screen/Fluoro_0
+    margin  0.06  range  1.2  cool  LuxClub/b0_wall_tv_r1d196568_6_screen/Fluoro_0
+    margin  0.60  range  1.7  cool  LuxClub/b0_vip_wing_neon_1/Fluoro_0
+    margin  0.70  range  1.8  cool  LuxClub/b0_main_floor_neon_1/Fluoro_0
+    margin  0.73  range  2.5  warm  LuxClub/b0_main_floor_stage_lip/Fluoro_0
+    margin  0.73  range  2.5  warm  LuxClub/b0_vip_wing_stage_lip/Fluoro_0
+    margin  1.75  range  3.3  warm  LuxClub/b0_back_bar_r1d196568_2_niche/Fluoro_0
+    margin  1.75  range  3.3  warm  LuxClub/b0_back_bar_r1d196568_2_niche/Fluoro_1
+    margin  1.75  range  3.3  warm  LuxClub/b0_back_bar_r1d196568_2_niche/Fluoro_2
+    margin  2.20  range  3.0  warm  LuxDaylight/b0_ext_0_S_window_1/AreaPanel_Spot
+    margin  2.88  range  3.6  warm  LuxFixtureLights/Spawned_pendant/Fluoro_0
+    margin  2.88  range  3.6  warm  LuxFixtureLights/Spawned_pendant_001/Fluoro_0
+    margin  4.10  range  4.5  warm  LuxClub/b0_vip_wing_wash_1/Fluoro_0
+    margin  4.10  range  4.5  cool  LuxClub/b0_vip_wing_wash_2/Fluoro_0
+    margin  4.10  range  4.5  cool  LuxClub/b0_vip_wing_wash_3/Fluoro_0
+    margin  4.10  range  4.5  warm  LuxClub/b0_vip_wing_wash_4/Fluoro_0
+    margin  4.50  range  5.5  warm  LuxFixtureLights/Spawned_wall_pack_001/Street_0
+    margin  4.50  range  5.5  warm  LuxFixtureLights/Spawned_wall_pack/Street_0
+    margin  4.61  range  5.6  warm  LuxFixtureLights/Spawned_sign/AreaPanel_Omni
+    margin  5.00  range 14.0  warm  LuxClub/site_lamp_0/Street_0
+    margin  5.17  range  5.5  cool  LuxClub/b0_main_floor_wash_4/Fluoro_0
+    margin  5.17  range  5.5  warm  LuxClub/b0_main_floor_wash_5/Fluoro_0
+    margin  5.17  range  5.5  cool  LuxClub/b0_main_floor_wash_3/Fluoro_0
+    margin  5.17  range  5.5  warm  LuxClub/b0_main_floor_wash_2/Fluoro_0
+    margin  5.17  range  5.5  warm  LuxClub/b0_main_floor_wash_1/Fluoro_0
+    margin  5.25  range  5.3  warm  LuxClub/b0_main_floor_stage/Stage_0
+    margin  5.25  range  5.3  warm  LuxClub/b0_main_floor_stage/Stage_1
+    margin  6.43  range  6.5  warm  LuxClub/b0_vip_wing_stage/Stage_0
+    margin  6.43  range  6.5  warm  LuxClub/b0_vip_wing_stage/Stage_1
+    margin 10.52  range 14.0  warm  LuxClub/site_lamp_2/Street_0
+
+  light population (the other half of every count above):
+    range            min 1.20 m   median 5.50 m   max 14.00 m
+    ranges (1m bins) 1m:5   2m:2   3m:18   4m:16   5m:18   6m:22   14m:14
+    lights within 10 cm of another light: 0
+    by tree location:
+        95  Mission/Bake

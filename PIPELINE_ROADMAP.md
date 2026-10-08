@@ -891,9 +891,9 @@ work of adopting this.
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
-| 213 | **OPEN** | The light bake freezes the club's stage show | 2026-10-08 -- decided, not built. The walker: "Stage can be brighter, im ok with live or b |
+| 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
 
-**213 items: 41 open, 98 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**213 items: 40 open, 99 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19469,7 +19469,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - **It recurs** wherever an open road end's inbound lane runs along the van's kerb toward it. `LOT_RESPONDER_ENTRY_NO_STOP` counted it twice on 9204, once from the candidate's assemble and once from the themed site's: one road end.
   - **The fix:** a lane that shifts across the carriageway round standing ground, as a driver does, with a test that fails on 9204's spec.
 
-*STATUS: OPEN 2026-10-08 -- decided, not built. The walker: "Stage can be brighter, im ok with live or baked, whatever you think is the best". The call is LIVE, and brighter. Live costs no draw calls and 0.11 to 0.17 ms at a view facing a stage, on frames of about 3 ms (`docs/findings/club_stage_live_price/`). With the four stage lamps live, no mesh is over the 8-lights-a-mesh cap: Level Factory 0.159.0's paired census reads 0 over, worst 6, the same as baked (`docs/findings/light_census_pairs/`). Next: the bake keeps a cycling stage rig live, Lux lights the stage brighter, and a cold run on club_block_014 shows both.*
+*STATUS: CLOSED 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_STAGE_LEVEL` 24, eight times the old level, and a cycling lamp bakes no bounce; Level Factory 0.160.0's bake leaves a cycling rig live. Cold run 9205 (club_block_014, 0 interventions): "76 steady rig(s) baked, 13 failing and 2 cycling left live", the two cycling being the two stages; the stage top reads 22.2 and the pole 56.5 (luminance, 8-bit codes) against 9.5 and 2.5 as 9204 shipped, within 0.1 codes of the 8x hand copy the call was made from; the lamp housings' frozen first colours are gone, brightest pixel 640-644 to 9; paired census still 0 over 8, worst 6 (`docs/cold_runs/cold_9205/NOTES.md`). Not this item's: a lens that follows the lamp's colour, unbuilt and unpriced.*
 
 **213. The light bake freezes the club's stage show.** Found 2026-10-08 checking cold run 9204's club for item 207.
 
@@ -19499,3 +19499,14 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - *Measured since* (Level Factory 0.159.0, `docs/findings/light_census_pairs/`). Godot 4.7's culler never pairs a light masked off a mesh's layers, nor a BAKE_STATIC light with a lightmapped mesh (`renderer_scene_cull.cpp`, `_scene_cull`), and the census now counts that too, as `paired`. On this package: by reach 33 of 3,954 over 8, worst 31; paired 0 over, worst 6. With the stage rigs live, paired gains 420 light-mesh pairs and is still 0 over, worst 6; the reach count does not move.
 - **The look.** At Lux's energy, live adds a lit pole and a slightly brighter pool to the shipped dim wash; the frames are beside the price. Ten times Lux's energy gives a magenta pool -- a dial turned to see the light land, not a proposal.
 - *As first written in the finding:* "8 of the 9 largest differences are at stations within 17 m of a stage". Retracted: ninth place is a tie at 0.075 ms between a near heading and a far one.
+
+**DONE: BUILT (2026-10-08).**
+- **Lux 0.69.0** (`patches/patch_lux_stage_live.py`, its tests first in `patch_lux_stage_live_tests.py`). `CLUB_STAGE_LEVEL` 3 to 24, chosen against live frames at 4x, 8x and 10x: 8x is the brightest thing in the room with nothing clipped, and 10x barely differs (`docs/findings/club_stage_live_price/`, "How bright"). A cycling stage rig's lamps get `light_indirect_energy = 0`, so no bake holds a show that moves. `club_light_selftest` case M: 3 checks fail on 0.68.2.
+- **Level Factory 0.160.0** (`patches/patch_lf_bake_cycling_live.py`). The trap above, answered on the bake's side: `mark_steady_rigs` maps each rig resource to the nodes that use it, and leaves it live when one of them cycles. On 9204's pre-bake scene, 78 baked and 13 failing live before; 76 baked, 13 failing and 2 cycling live after.
+
+**DONE: PROVEN (cold run 9205, 2026-10-08)** (`docs/cold_runs/cold_9205/NOTES.md`, its frames and `stage_measure.py` beside it).
+- **The package carries it.** 0 interventions. The two cycling rigs are the two stages, the only nodes carrying `cycle_period_s`; their resources carry no `bake_mode` (0, Realtime); their lamps are exactly eight times 9204's energy, with `light_indirect_energy` 0.0.
+- **It reads as the copy the call was made from.** At the close station the stage top is 22.2 against the 8x copy's 22.3, and the pole 56.5 against 56.5. As 9204 shipped they were 9.5 and 2.5.
+- **The frozen show was visible, and it is gone.** Above the main stage the two lamp housings read 640-644 and 547-551 in every 9204 frame, whatever the live energy, in the colours the lamps start their cycle with. In 9205 they read 9 and 9. The frames this decision rests on carry those lit housings; the package does not.
+- **The census agrees.** Paired: 0 over 8, worst 6, as predicted. Ten of b0's meshes gain the live lamps, none past 5. By reach: 33 over 8, unmoved.
+- **Not settled.** Whose light 9204's dim wash was: the 8x copy kept 9204's bake and still matches 9205 on the stage top to 0.1 codes, and the stage lip's neon is the candidate, untested. And the resource is still named "Stage Light (baked)" on a live rig: the loader names every club rig so, and `lux_lighting.gd` ranks shadows by those names.
