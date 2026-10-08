@@ -882,17 +882,17 @@ work of adopting this.
 | 201 | **CLOSED** | The score building is a seeded pick | 2026-10-07 -- proven in a level. Level Factory 0.152.0: `building_library.score_building`  |
 | 202 | **OPEN** | Handing the factory to a stranger | 2026-10-07 -- measured, not started. The walker's bar: a consumer installs Blender and God |
 | 203 | **CLOSED** | The crew wedges leaving the bank's vault | 2026-10-07 -- proven in a level. Laser Tag 0.24.0 gives the crew bot the agent contract's  |
-| 204 | **OPEN** | The package does not say where the score is | 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the |
+| 204 | **OPEN** | The package does not say where the score is | 2026-10-08 -- cause found for the site-level markers: Level Factory's Dispatch staging (`p |
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is parked at the spawn: Lot 0.98.0 stands Zoo 1.85.0's `step_van` in |
 | 207 | **OPEN** | A strip club's two stages are not lit | 2026-10-08 -- cause measured, not fixed: Lot's `merge_lights` carries an anchor's `pos` in |
 | 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
-| 211 | **OPEN** | The audit measures cover by its height | 2026-10-08 -- found, not fixed: Lot's `site_audit._cover_rects` reads a cover record's `si |
-| 212 | **OPEN** | Responders arrive on the way back | 2026-10-08 -- the walker's design, not started: responders arrive after the job, on the wa |
+| 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
+| 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- phase 1 proven: Lot 0.99.0 plans an arrival per open road end -- the inbound |
 
-**212 items: 44 open, 95 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**212 items: 42 open, 96 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19205,7 +19205,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Have `walktest_navqa` walk the mission's order (spawn -> objective -> extraction), so a leg the crew needs is a leg the walktest proves.
 - Whether Laser Tag's route finding should be major below some completion short of zero is Laser Tag's call; the 8% case is the evidence for it.
 
-*STATUS: OPEN 2026-10-07 -- found reading cold run 9194's package: `gameplay_anchors.json`, the list the game layer receives, marks no objective as the score and names no anchor's building (5 objective anchors, 3 extractions, `objective: ""` and `source_building: ""` on all 64), and on that bank level its `deli_counter:*` anchors -- listed first -- are the mission's own generated shell, which a library lot never places, in that shell's local frame. The first two facts hold on 9189, 9191 and 9193's packages too.*
+*STATUS: OPEN 2026-10-08 -- cause found for the site-level markers: Level Factory's Dispatch staging (`packages/staging/dispatch_inputs.py`) turns Lot's `markers`, `objectives` and `loot` into anchors and never reads `site_markers`, so the getaway van's crew spawn and extraction, and Lot 0.99.0's responder arrivals, never reach the package; with no `player_start` from Lot, `ensure_mission_anchors` synthesizes one at the centroid of every Lot anchor and tags every untagged extraction as the mission's. As filed 2026-10-07 from cold run 9194's package: `gameplay_anchors.json` marks no objective as the score, names no anchor's building, and lists first the `deli_counter:*` anchors of the mission's own generated shell, which a library lot never places, in that shell's local frame.*
 
 **204. The package does not say where the score is.** Found 2026-10-07 while framing cold run 9194's stair foot: `tools/look_shots.py` takes the first anchor of each type from the package's `gameplay_anchors.json`, and its "objective" camera stood at (4.5, -1.5, 2.25), near the spawn building, while the score's vault is at (-54, -3.9, -12).
 
@@ -19215,11 +19215,19 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **Three extractions, none marked.** `lot:EXIT` (6, 0, 13) first, by the spawn building; the site spec's extraction, b2's street point (52, 0, 13), is `lot:STREET_25`, last.
 - **The earlier packages:** 9189 and 9193 (restaurant_row_001, 116 anchors, 9 objectives) and 9191 (deli_001, 171, 12) mark no objective and name no building either. Whether their `deli_counter:*` anchors are placed buildings' (deli_a01 is a Deli Counter building on that lot) or the unplaced shell's was not checked.
 - **Cold run 9198, the first package with the getaway van (2026-10-08):** the van's crew point and its extraction, both site-level markers in Lot's site spec, are not among the package's 64 anchors at all. Its `crew_spawn` is still `deli_counter:A` (-2, 0, 14), the unplaced shell's; its extractions are `lot:EXIT`, `lot:STREET` and `lot:STREET_25`; its one `player_start` is `lot:mission_start` (-7.03, 0, 0.68). The walk scene and Laser Tag stand the crew at the van; a game layer reading the package would not know where it is. Whether Dispatch's Lot input carries the markers was not checked.
+- **THE CAUSE, for the site-level markers (read 2026-10-08).** Two things in `level_factory/packages/staging/dispatch_inputs.py`:
+  - **`_iter_records` never reads `site_markers`.** It yields Lot's gameplay `markers`, `objectives` and `loot`, and nothing else, so no site-level marker becomes an anchor: not the van's crew spawn, not its extraction, and not Lot 0.99.0's responder arrivals. It is the shape of the `ladders` line that was missing there in cold run 9076.
+  - **`ensure_mission_anchors` covers the gap.** With no `player_start` among Lot's anchors, it synthesizes one at the centroid of every Lot anchor: that is `lot:mission_start`, (-7.03, 0, 0.68) on 9198. With extractions present but none tagged, it tags every one of them, so the mission's extraction is every building's street point and never the van.
 
 **WHY IT MATTERS.** The package is the deliverable, and the game layer is somebody else's code. Roadmap 201 made the score the brief's building for Lot, the walk scene and Laser Tag; the package still cannot tell its consumer which of five objectives that is, and on a library lot it offers objectives from a building that is not there, first.
 
 **NEXT.**
-- Read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything: where it takes Deli Counter anchors from on a library lot, and in which frame.
+- *Done 2026-10-08, for the site-level markers (the cause above):* read Level Factory's dispatch staging (`packages/staging/dispatch_inputs.py` and its caller) before deciding anything. Still to read: where it takes Deli Counter anchors from on a library lot, and in which frame.
+- **Pass Lot's `site_markers` through:**
+  - `crew_spawn` as the mission's `player_start`, tagged `mission_start`;
+  - the getaway van's `extraction` as the mission's extraction, tagged `extraction`;
+  - `responder_spawn` as an `ai_spawn` tagged `responder`.
+  Carry each arrival's entry, lane and stop pose somewhere the game layer can read them: a Dispatch anchor holds only a position, a facing and tags.
 - Mark the score: the objective anchors of the site spec's `objective` building carry the objective, and the site spec's extraction is marked as such.
 - Name each anchor's building (`source_building`).
 - A test on a library-lot package: no anchor from a shell the lot does not place.
@@ -19357,7 +19365,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Zoo: the instrument redrawn (keypad, coin slot, coin return, cradle, cards, vault door), the armoured cord as a swept tube on a hanging curve, the enclosure as forms (booth on a post, pedestal shroud, wall shroud), a "PHONE" header with an invented telephone company, a phone-book binder, graffiti and stickers.
 - Lot: wall shrouds on store walls by the door and pedestals at corners, on the streets the walker means by city and urban -- which themes those are is the walker's call.
 
-*STATUS: OPEN 2026-10-08 -- found, not fixed: Lot's `site_audit._cover_rects` reads a cover record's `size` as [plan x, plan y, ...], where every planner writes [plan x, height, plan y] (`lot.py:2123` stands each box at half the middle number), so the audit measures every cover piece with its height for a depth -- 3.05 m for the getaway van's 6.8 m, 1.73 m for a parked car's 4.7 m. It moves one check, `S_NAKED_ANCHOR`, and has since v0.17.1.*
+*STATUS: CLOSED 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site specs on disk (112 with cover): 18 `S_NAKED_ANCHOR` as shipped and 0 that the fix moves, while a constructed site flips both ways (`tests/test_audit_cover_depth.py`, 3 of 3 fail on 0.98.1); cold run 9200 (0 interventions) has no `S_NAKED_ANCHOR` in its logs or 9199's. 0.98.1's two overstatements are corrected in the same release.*
 
 **211. The audit measures cover by its height.** Found 2026-10-08 writing Lot 0.98.1's `site_spawns.cover_rects`, which reads `size` the way `lot.py` stands the box.
 
@@ -19371,7 +19379,13 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Run the audit over the specs on disk before and after, and attribute every `S_NAKED_ANCHOR` that moves.
 - In the same release, correct 0.98.1's two overstatements: its changelog's "two checks" (it is one), and `place_enemies`' single-file account of the one-leg spread, which cold run 9199's seed_9256 contradicts (item 206).
 
-*STATUS: OPEN 2026-10-08 -- the walker's design, not started: responders arrive after the job, on the way back to the getaway van. Spawning them is the gameplay layer's; the factory makes their assets and guarantees they can arrive -- an entry, a clear lane, a stop a vehicle fits with its doors open, and a walkable route from it to the crew's way back, marked in the package. Today the plate is walled on all four sides with no opening, its roads stop short of the walls, `site_cover` may stand a box truck across a lane, and Lot's audit rules for responder spawns have never run, because nothing writes the markers.*
+**DONE, LOT 0.98.2 (2026-10-08)**, all three, recorded in `patches/patch_lot_audit_cover_depth.py`:
+- `_cover_rects` reads the third number as plan y.
+- The census, `patches/lot_audit_cover_depth/census_naked_anchor.py`, audited every drawn site in the workspaces and every spec under `lot/specs/` both ways. Of 18 `S_NAKED_ANCHOR` as shipped, it found none that moves; a constructed site flips, so it could have seen one. The error had moved no verdict on any site on disk.
+- The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
+- Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
+
+*STATUS: NARROWED 2026-10-08 -- phase 1 proven: Lot 0.99.0 plans an arrival per open road end -- the inbound keep-right lane, and a stop a 1990s cruiser fits with its doors open, nearest the crew's way back and outside the audit's camping line -- reserves both from the parking and the cover, reads the reservation back after every planner, and writes each as a `responder_spawn` site marker. Cold run 9200 (0 interventions): three arrivals on each of three candidates, nothing standing in any lane or stop, and the nav QA walked a bot from every stop to the nearest crew point, 5.8-22.5 m. Open: the package carries none of it (item 204, cause found), the cruiser (the walker's comps first), and `S_RESPONDER_ARC` fires on every candidate because their roads lie to one side of the objective.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19385,13 +19399,32 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The fence keeps off the roads** (`site_fences.plan_fences` adds every road's box to its keep-out). **`site_cover` does not:** it stands cover in the street -- a box truck, a container or a car, turned across the line it breaks -- and nothing keeps a lane open for a vehicle.
 - **The vehicle.** Zoo's `simple_car` has a `police` style that is black paint and nothing else: no light bar, no push bar, no spotlight, no markings.
 
+**PHASE 1, DONE: LOT 0.99.0 (2026-10-08).** `site_responders`, recorded in `patches/patch_lot_responder_arrivals.py`:
+- **An arrival per open road end**, up to three, spread by bearing. Each has:
+  - the inbound keep-right lane;
+  - a stop where a 2.0 x 5.4 m cruiser fits with a 1.0 m door's room each side, at the lane's station nearest the crew's way back (objective to extraction);
+  - and refuses a stop within `site_audit.CAMP_RADIUS` of the van, in a junction, or less than 10.8 m in from the road's end, as well as anything already standing and the other arrivals' stops and lanes.
+- **Reserved and read back.** The stops and lanes reach `plan_parking` as standing ground and `plan_cover` as the new placement-only `keep_out`. After every planner, `LOT_RESPONDER_BLOCKED` names anything standing in one.
+- **Written as `responder_spawn` site markers,** with the rest under `arrival`. The audit judges them, and Lot's nav QA spawns a bot at each.
+- **Cold run 9200** (0 interventions; `docs/cold_runs/cold_9200/NOTES.md`): three arrivals on each of three candidates, and no `LOT_RESPONDER_*` finding. Every arrival's bot reached the nearest crew point on the baked navmesh, 5.8-22.5 m.
+- **What the reservation moved.**
+  - seed_9054: a parked car out of a stop, which is the bake's 4 fewer users.
+  - seed_9256: a 4.7 m SUV swapped for a 4.3 m sedan beside a stop.
+  - seed_9155: a cargo container out of the road 1 lane. The cover planner broke the same line with one car beside the lane, and that fight went from 0 crew deaths in 25 runs to 6.
+  A clear lane is street the cover planner can no longer stand a truck in.
+- **`S_RESPONDER_ARC` fires on all three,** at 20, 5 and 30 degree arcs. Every stop is on a road, and these roads all lie to one side of each objective.
+- **Unproven:**
+  - a route from each stop to the van itself on every site -- the nav QA proves the nearest crew point;
+  - the package;
+  - anything a player sees, since there is no vehicle.
+
 **NEXT, in order.**
-- **Lot: arrival routes.** For a heist, two or three, each made of four parts:
+- **Lot: arrival routes** -- *done, phase 1 above.* As filed: for a heist, two or three, each made of four parts:
   - an entry at a road's end inside the plate;
   - the lane from the entry to a stop;
   - a stop where a cruiser fits with its doors open, in a travel lane, outside `CAMP_RADIUS` of the van;
   - a walkable route from the stop to the crew's leg back to the van.
   Spread them so `S_RESPONDER_ARC` passes. Reserve them before the cover, the fence and the parking are planned, and check them after all three: a lane or a stop that something now stands in is a finding. Write them as `responder_spawn` site markers carrying the entry, the lane, the stop's pose and the route.
-- **The package** marks them, with the pose and the routes, so the game layer can find them (item 204).
+- **The package** marks them, with the pose and the routes, so the game layer can find them (item 204, whose cause is now found: Level Factory's Dispatch staging reads no site markers).
 - **Zoo: the responder vehicle.** A 1990s cruiser from `simple_car`'s police style: a light bar, a push bar, an A-pillar spotlight, and an invented department's markings on one texture. The walker's comps come first, as for the van.
 - **Price** the cruiser the way the van was priced.
