@@ -68,6 +68,32 @@ every saved lamp at load and makes it again from the rig's resource.
 - **Each live frame catches one colour.** The cycle is 4 s per colour, and
   a frame is one instant of it.
 
+## How bright: the level the stage ships at
+
+The walker, 2026-10-08: "Stage can be brighter, im ok with live or baked,
+whatever you think is the best". Live frames of the same station at more
+multiples of Lux's level (`CLUB_STAGE_LEVEL` 3), each against the shipped
+package (`shot_diff --images`):
+
+| frame | stage level | close: pixels moved, largest | pixels clipped |
+|---|---|---|---|
+| `stage_live_x1.png` | 3 | 0.46%, 221 | +0.00% |
+| `stage_live_x4.png` | 12 | 0.75%, 255 | +0.00% |
+| `stage_live_x8.png` | 24 | 0.96%, 255 | +0.00% |
+| `stage_live_x10.png` | 30 | 1.06%, 255 | +0.00% |
+
+- **4x** is lit, but at the room's own wash level (`CLUB_WASH_LEVEL` 12)
+  it is no brighter than the room.
+- **8x** is the brightest thing in the room, with the pole lit and nothing
+  clipped. `vip_live_x8.png` is the VIP stage at the same level.
+- **10x** hardly differs from 8x: the tonemapper's shoulder.
+- **So Lux 0.69.0 lights the stage at 24,** twice the wash, chosen against
+  these frames rather than derived. Level Factory 0.160.0 keeps the
+  cycling rig live through the bake.
+- **These frames keep the old bake's wash under the stage.** A live stage
+  baked without its lamps will read a little darker on its top. The cold
+  run that follows shows the real one.
+
 ## What live costs
 
 **In one line:** no draw calls, and 0.11 to 0.17 ms at a view facing a
@@ -136,15 +162,16 @@ a change of bake mode cannot move it.
 
 ## Records beside this README
 
-- **The frames:** `stage_as_shipped.png`, `stage_live_x1.png` and
-  `stage_live_x10.png`.
-- **The shots:** `shots_on.json`, `shots_on2.json`, `shots_live_x1.json`
-  and `shots_live_x10.json`, the `look_shots` manifests the frame deltas
-  came from.
+- **The frames:** `stage_as_shipped.png`, `stage_live_x1.png`,
+  `stage_live_x4.png`, `stage_live_x8.png`, `stage_live_x10.png` and
+  `vip_live_x8.png`.
+- **The shots:** `shots_on.json`, `shots_on2.json`, `shots_live_x1.json`,
+  `shots_live_x4.json`, `shots_live_x8.json` and `shots_live_x10.json`, the
+  `look_shots` manifests the frame deltas came from.
   - The deltas were read with `python tools/shot_diff.py <a> <b> --images`
     while every PNG existed.
-  - Only the three PNGs above were kept, so on these manifests `shot_diff`
-    still compares the statistics but no longer the pixels.
+  - Only the PNGs above were kept, so on these manifests `shot_diff` still
+    compares the statistics but no longer the pixels.
 - **The live copies:** `make_live_copy.py`.
 - **The price:** `club_on.json`, `club_live.json`, `club_on2.json` and
   `club_live2.json`, with their logs.
