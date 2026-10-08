@@ -891,7 +891,7 @@ work of adopting this.
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
-| 213 | **OPEN** | The light bake freezes the club's stage show | 2026-10-08 -- priced, the walker's call: Level Factory's light bake bakes every Lux rig wh |
+| 213 | **OPEN** | The light bake freezes the club's stage show | 2026-10-08 -- decided, not built. The walker: "Stage can be brighter, im ok with live or b |
 
 **213 items: 41 open, 98 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
@@ -19469,7 +19469,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - **It recurs** wherever an open road end's inbound lane runs along the van's kerb toward it. `LOT_RESPONDER_ENTRY_NO_STOP` counted it twice on 9204, once from the candidate's assemble and once from the themed site's: one road end.
   - **The fix:** a lane that shifts across the carriageway round standing ground, as a driver does, with a test that fails on 9204's spec.
 
-*STATUS: OPEN 2026-10-08 -- priced, the walker's call: Level Factory's light bake bakes every Lux rig whose resource carries no `failing_kind`, and a baked rig stops cycling, so every club package ships its stage show frozen on one colour (seen first in cold run 9204). Keeping the stage rigs live costs no draw calls and 0.11 to 0.17 ms at a view facing a stage, on frames of about 3 ms, in two runs against two controls; beyond 50 m of a stage it does not measure (`docs/findings/club_stage_live_price/`). At Lux's energy the stage does not read lit, baked or live. The calls: live and cycling, or baked and frozen; and whether the stage should be brighter.*
+*STATUS: OPEN 2026-10-08 -- decided, not built. The walker: "Stage can be brighter, im ok with live or baked, whatever you think is the best". The call is LIVE, and brighter. Live costs no draw calls and 0.11 to 0.17 ms at a view facing a stage, on frames of about 3 ms (`docs/findings/club_stage_live_price/`). With the four stage lamps live, no mesh is over the 8-lights-a-mesh cap: Level Factory 0.159.0's paired census reads 0 over, worst 6, the same as baked (`docs/findings/light_census_pairs/`). Next: the bake keeps a cycling stage rig live, Lux lights the stage brighter, and a cold run on club_block_014 shows both.*
 
 **213. The light bake freezes the club's stage show.** Found 2026-10-08 checking cold run 9204's club for item 207.
 
@@ -19482,8 +19482,10 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 
 **NEXT.**
 - Price the four stage spots live against baked, the way the van was priced, with a station inside a stage's cone. *Done, below -- from the two stations whose headings face a stage, not from inside a cone.*
-- The walker chooses: live, or baked and frozen with the choice recorded. And, separately, whether the stage should read brighter than Lux's solve: at that energy it does not read lit either way.
+- The walker chooses: live, or baked and frozen with the choice recorded. And, separately, whether the stage should read brighter than Lux's solve: at that energy it does not read lit either way. *Answered 2026-10-08: "Stage can be brighter, im ok with live or baked, whatever you think is the best". The call: live, because the colour cycle is the show and its price is small and local; and brighter.*
 - If live: the bake keeps a rig with `cycle_period_s > 0` live, as it keeps a failing one, with a test that fails while it bakes one. The stage then loses whatever part of its baked wash is the stage lamps'.
+  - **The trap in that sentence.** The cycle is the rig NODE's -- `cycle_period_s` and `colors` are `LuxStageLightRig` exports -- while `mark_steady_rigs` reads the rig RESOURCE, which carries only `bake_mode` and the lamp numbers. So the bake has to map each resource to the nodes that use it, or Lux has to flag the resource when it builds a cycling rig.
+- Brighter: Lux's stage solve (`lux_light_loader.gd`, the `stage_light` branch), judged by frames of the live stage. Pairing reads range, not energy, so a brighter stage at the same range keeps the census's counts.
 
 **DONE: THE PRICE (2026-10-08)** (`docs/findings/club_stage_live_price/`).
 - **How.** Four runs of Level Factory's fixed-station harness: cold run 9204's package as shipped, a copy with the two stage rigs' resources live at Lux's energy, the shipped package again, and the live copy again. 53 station headings, GL Compatibility, RTX 2060, 1280x720.
@@ -19494,5 +19496,6 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - `defender_spawn_15` yaw 270, the VIP stage 5.1 m ahead: +0.170 and +0.113 ms (control +0.032).
   - The 24 headings within 17 m of a stage moved +0.047 and +0.022 ms on average; the 29 beyond 50 m, +0.006 and -0.011.
 - **Not measured: the 8-lights-a-mesh cap.** The harness's light census counts every positional light by its reach, baked or live. So it reads the same in all four runs (33 of 3,954 meshes over 8), and cannot say whether the live lamps put a stage mesh over the lights the renderer pairs with it.
+  - *Measured since* (Level Factory 0.159.0, `docs/findings/light_census_pairs/`). Godot 4.7's culler never pairs a light masked off a mesh's layers, nor a BAKE_STATIC light with a lightmapped mesh (`renderer_scene_cull.cpp`, `_scene_cull`), and the census now counts that too, as `paired`. On this package: by reach 33 of 3,954 over 8, worst 31; paired 0 over, worst 6. With the stage rigs live, paired gains 420 light-mesh pairs and is still 0 over, worst 6; the reach count does not move.
 - **The look.** At Lux's energy, live adds a lit pole and a slightly brighter pool to the shipped dim wash; the frames are beside the price. Ten times Lux's energy gives a magenta pool -- a dial turned to see the light land, not a proposal.
 - *As first written in the finding:* "8 of the 9 largest differences are at stations within 17 m of a stage". Retracted: ninth place is a tie at 0.075 ms between a near heading and a far one.

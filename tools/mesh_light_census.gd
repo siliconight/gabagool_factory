@@ -17,6 +17,15 @@ extends Node
 ## count is an upper bound on what the engine will bind. A mesh that passes
 ## this cannot fail in the renderer.
 ##
+## AND WHAT THE ENGINE PAIRS, beside it (2026-10-08). Godot 4.7's culler
+## (servers/rendering/renderer_scene_cull.cpp, `_scene_cull`) never binds a
+## light whose cull mask misses the mesh's layers, nor a BAKE_STATIC light to
+## a mesh that has a lightmap -- the lightmap holds that light already. Level
+## Factory has baked most of a package's lights since 0.131.0, so the reach
+## count over-reports exactly on the lightmapped meshes. `paired_*` counts
+## with both rules; a mesh has a lightmap when a LightmapGI lists it as a
+## user, which is how the engine gives it one.
+##
 ## It reports what it found and stops. Whether 9 lights on one mesh is a
 ## defect belongs in the reply, where it can be argued with.
 
@@ -53,6 +62,8 @@ func _ready() -> void:
 		if l.is_visible_in_tree():
 			lights.append({"pos": l.global_transform.origin,
 							"range": l.omni_range, "kind": "omni",
+							"static": l.light_bake_mode == Light3D.BAKE_STATIC,
+							"mask": l.light_cull_mask,
 							"warm": l.light_color.r > l.light_color.b,
 							"path": String(scene.get_path_to(l))})
 	for n in scene.find_children("*", "SpotLight3D", true, false):
@@ -60,29 +71,56 @@ func _ready() -> void:
 		if l.is_visible_in_tree():
 			lights.append({"pos": l.global_transform.origin,
 							"range": l.spot_range, "kind": "spot",
+							"static": l.light_bake_mode == Light3D.BAKE_STATIC,
+							"mask": l.light_cull_mask,
 							"warm": l.light_color.r > l.light_color.b,
 							"path": String(scene.get_path_to(l))})
 	var directional := 0
 	for n in scene.find_children("*", "DirectionalLight3D", true, false):
 		if (n as Light3D).is_visible_in_tree():
 			directional += 1
+	# THE MESHES THAT HAVE A LIGHTMAP: every LightmapGI's own users, resolved
+	# relative to it, the way LightmapGI resolves them. Keyed by instance id.
+	var users := {}
+	for n in scene.find_children("*", "LightmapGI", true, false):
+		var lm: LightmapGI = n
+		if lm.light_data == null:
+			continue
+		for i in range(lm.light_data.get_user_count()):
+			var u: Node = lm.get_node_or_null(lm.light_data.get_user_path(i))
+			if u != null:
+				users[u.get_instance_id()] = true
 
 	var meshes := 0
 	var histogram := {}          # light count -> mesh count
 	var over: Array = []         # every mesh over the engine default of 8
 	var worst_count := 0
 	var worst_path := ""
+	var paired_histogram := {}   # paired count -> mesh count
+	var paired_over := 0
+	var paired_worst := 0
+	var paired_worst_path := ""
 	for n in scene.find_children("*", "MeshInstance3D", true, false):
 		var mi: MeshInstance3D = n
 		if mi.mesh == null or not mi.is_visible_in_tree():
 			continue
 		meshes += 1
 		var aabb: AABB = mi.global_transform * mi.get_aabb()
+		var mapped: bool = users.has(mi.get_instance_id())
 		var count := 0
+		var paired := 0
 		for l in lights:
 			if _sphere_touches_aabb(l["pos"], l["range"], aabb):
 				count += 1
+				if (int(l["mask"]) & mi.layers) != 0 and not (mapped and bool(l["static"])):
+					paired += 1
 		histogram[count] = int(histogram.get(count, 0)) + 1
+		paired_histogram[paired] = int(paired_histogram.get(paired, 0)) + 1
+		if paired > 8:
+			paired_over += 1
+		if paired > paired_worst:
+			paired_worst = paired
+			paired_worst_path = String(scene.get_path_to(mi))
 		if count > worst_count:
 			worst_count = count
 			worst_path = String(scene.get_path_to(mi))
@@ -108,6 +146,7 @@ func _ready() -> void:
 			over.append({
 				"path": String(scene.get_path_to(mi)),
 				"lights": count,
+				"paired": paired,
 				"size": [snappedf(aabb.size.x, 0.01),
 							snappedf(aabb.size.y, 0.01),
 							snappedf(aabb.size.z, 0.01)],
@@ -128,6 +167,11 @@ func _ready() -> void:
 		"over_8": over.size(),
 		"worst": worst_count,
 		"worst_path": worst_path,
+		"paired_histogram": paired_histogram,
+		"paired_over_8": paired_over,
+		"paired_worst": paired_worst,
+		"paired_worst_path": paired_worst_path,
+		"lightmap_users": users.size(),
 		"over_rows": over.slice(0, WORST_ROWS),
 		"over_rows_truncated": truncated,
 		"cap_per_object": int(ProjectSettings.get_setting(

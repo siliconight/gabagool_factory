@@ -1,0 +1,63 @@
+$ C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe --path C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\census_live --script res://perf_stations.gd -- --out res://perf_stations.json
+[perf] longest sightline: 178.9 m from extraction_14 at yaw 90  (27 ray(s) left the map)
+[perf] geometry: 3954 MeshInstance3D, 4 MultiMeshInstance3D, 23454 nodes
+[perf] warmed 14 station(s); worst frame while warming 33.3 ms
+[perf] 14 station(s) x 4 heading(s) x 2 pass(es), 60 frames each after 30 warmup
+  attacker_spawn_8       worst yaw 270  p95  13.23 ms  draws  2424  prim   1575184  gpu  5.30  rcpu 11.39
+  camera_socket_0        worst yaw 270  p95  10.80 ms  draws  1907  prim   1430332  gpu  3.59  rcpu  9.67
+  defender_spawn_15      worst yaw 270  p95   4.72 ms  draws  1074  prim   1226294  gpu  1.35  rcpu  3.85
+  extraction_4           worst yaw 270  p95  12.80 ms  draws  2144  prim   1500722  gpu  5.02  rcpu 11.05
+  objective_3            worst yaw 270  p95   5.95 ms  draws  1025  prim   1194096  gpu  1.79  rcpu  4.66
+  patrol_point_18        worst yaw 270  p95   6.14 ms  draws  1196  prim   1252822  gpu  2.22  rcpu  5.20
+  player_start_19        worst yaw  90  p95  16.69 ms  draws  2984  prim   1641076  gpu  9.15  rcpu 14.69
+  attacker_spawn_9       worst yaw  90  p95  10.30 ms  draws  2036  prim   1343410  gpu  4.79  rcpu  8.80
+  camera_socket_1        worst yaw 270  p95   8.25 ms  draws  1279  prim   1290310  gpu  2.24  rcpu  6.44
+  defender_spawn_16      worst yaw 180  p95   8.40 ms  draws  1577  prim   1446836  gpu  2.00  rcpu  6.57
+  extraction_7           worst yaw 270  p95  10.55 ms  draws  1563  prim   1337496  gpu  3.57  rcpu  7.85
+  objective_5            worst yaw  90  p95   7.03 ms  draws  1357  prim   1266448  gpu  1.72  rcpu  4.84
+  highest_vantage        worst yaw  90  p95   7.92 ms  draws  1646  prim   1406068  gpu  1.91  rcpu  6.81
+  longest_sightline      worst yaw  90  p95  16.48 ms  draws  2972  prim   1659048  gpu  8.74  rcpu 14.49
+[perf] lights per object: cap 8; by reach 33 of 3954 mesh(es) over it, worst 31 (Roof_paint_block_delco_1997); paired 0 over it, worst 6 (CoverE_concrete_delco_1997)
+[perf] wrote C:/Projects/gabagool_studios/gabagool_factory/_runs/perf_inner/census_live/perf_stations.json
+
+  station                     yaw   p95 ms    worst   gpu ms    rcpu   draws primitives
+  player_start_19              90    16.69    18.05     9.15   14.69    2984    1641076  DRAWS MS
+  longest_sightline            90    16.48    18.35     8.74   14.49    2972    1659048  DRAWS MS
+  attacker_spawn_8            270    13.23    13.98     5.30   11.39    2424    1575184  DRAWS MS
+  extraction_4                270    12.80    13.32     5.02   11.05    2144    1500722  DRAWS MS
+  camera_socket_0             270    10.80    11.58     3.59    9.67    1907    1430332  
+  extraction_7                270    10.55    12.06     3.57    7.85    1563    1337496  
+  attacker_spawn_9             90    10.30    10.49     4.79    8.80    2036    1343410  DRAWS
+  defender_spawn_16           180     8.40    10.92     2.00    6.57    1577    1446836  
+  camera_socket_1             270     8.25    10.19     2.24    6.44    1279    1290310  
+  highest_vantage              90     7.92     8.86     1.91    6.81    1646    1406068  
+  objective_5                  90     7.03     7.71     1.72    4.84    1357    1266448  
+  patrol_point_18             270     6.14     8.37     2.22    5.20    1196    1252822  
+  objective_3                 270     5.95     7.74     1.79    4.66    1025    1194096  
+  defender_spawn_15           270     4.72     5.19     1.35    3.85    1074    1226294  
+
+  passes: 2 per heading, the lower p95 kept; 10 of 53 heading(s) differed by more than 1.0 ms p95 (largest 5.88 ms); 1 drew a different count
+
+  lights per object, by reach: cap 8, 33 of 3954 mesh(es) over it, worst 31 (Roof_paint_block_delco_1997); 6143 light-mesh pair(s)
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997
+  lights per object, paired: 0 of 3954 mesh(es) over the cap, worst 6 (CoverE_concrete_delco_1997); 1578 light-mesh pair(s); 3898 lightmap user(s), 78 of 95 light(s) baked
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\docs\findings\light_census_pairs\census_live.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: player_start_19 at yaw 90 -- 16.69 ms p95, 2984 draws
+
+PERF_STATION_OVER_BUDGET: 5 of 14 station(s)
+  player_start_19          DRAWS+MS (16.69 ms p95, 2984 draws)
+  longest_sightline        DRAWS+MS (16.48 ms p95, 2972 draws)
+  attacker_spawn_8         DRAWS+MS (13.23 ms p95, 2424 draws)
+  extraction_4             DRAWS+MS (12.80 ms p95, 2144 draws)
+  attacker_spawn_9         DRAWS (10.30 ms p95, 2036 draws)

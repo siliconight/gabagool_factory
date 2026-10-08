@@ -1,0 +1,25 @@
+shipped: import 0
+shipped: perf 1, report written
+shipped2: import 0
+shipped2: perf 1, report written
+Resource_b1dm2: bake_mode 1 -> 0, energy 8.9791 -> 8.9791
+Resource_jitlq: bake_mode 1 -> 0, energy 13.3925 -> 13.3925
+2 stage rig resource(s) live in C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\census_live\presentation\lux.applied.tscn
+live: import 0
+live: perf 1, report written
+shipped: 3954 meshes, 95 positional lights, 82 baked, 3898 lightmap users
+  by reach  over the cap  33   worst  31 (Roof_paint_block_delco_1997)   pairs 6143
+  paired    over the cap   0   worst   6 (CoverE_concrete_delco_1997)   pairs 1158
+shipped2: 3954 meshes, 95 positional lights, 82 baked, 3898 lightmap users
+  by reach  over the cap  33   worst  31 (Roof_paint_block_delco_1997)   pairs 6143
+  paired    over the cap   0   worst   6 (CoverE_concrete_delco_1997)   pairs 1158
+live: 3954 meshes, 95 positional lights, 78 baked, 3898 lightmap users
+  by reach  over the cap  33   worst  31 (Roof_paint_block_delco_1997)   pairs 6143
+  paired    over the cap   0   worst   6 (CoverE_concrete_delco_1997)   pairs 1578
+
+control, shipped against shipped2: IDENTICAL in every field
+live against shipped:
+  by reach: pairs +0, over the cap +0, histogram moved {}
+  paired:   pairs +420, over the cap +0, worst 6 -> 6, lights baked 82 -> 78
+            histogram moved {'0': -215, '1': 36, '2': 166, '3': 5, '4': 3, '5': 5}
+census_three exit 0

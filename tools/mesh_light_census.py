@@ -28,6 +28,15 @@ light behind a wall still counts if its range crosses the mesh's AABB --
 both make the count an upper bound on what the engine will bind. A mesh
 that passes at 8 here cannot drop a light in the renderer; one that fails
 here may still render clean, and the fix for that is to look, not to trust.
+
+AND WHAT THE ENGINE PAIRS (2026-10-08). Beside the reach count, a PAIRED
+count applies the culler's own two rules (Godot 4.7,
+servers/rendering/renderer_scene_cull.cpp, `_scene_cull`): no light whose
+cull mask misses the mesh's layers, and no BAKE_STATIC light on a mesh that
+has a lightmap. Level Factory has baked most of a package's lights since
+0.131.0, so on a baked package the reach count over-reports exactly on the
+lightmapped meshes. `--count paired` makes `--max-per-mesh` gate on it; the
+default stays `reach`, the count every earlier verdict was given in.
 """
 import argparse
 import os
@@ -117,6 +126,19 @@ def report(c):
     print("    over 32        %d" % _bucket(h, 33))
     print("    worst          %d   %s" % (c["worst"], c["worst_path"]))
 
+    ph = c.get("paired_histogram")
+    print("")
+    if ph is None:
+        print("  paired           not in this census (a payload from before the "
+              "paired count)")
+    else:
+        print("  paired           what the engine binds: no light masked off the mesh, "
+              "no baked light on a lightmapped mesh (%d lightmap user(s))"
+              % c.get("lightmap_users", 0))
+        print("    <=8 lights     %d" % _bucket(ph, 0, 8))
+        print("    over 8         %d" % _bucket(ph, 9))
+        print("    worst          %d   %s" % (c["paired_worst"], c["paired_worst_path"]))
+
     rows = c.get("over_rows", [])
     if rows:
         print("")
@@ -130,7 +152,8 @@ def report(c):
         trims = []
         for row in rows:
             size = "x".join("%.1f" % v for v in row["size"])
-            print("    %3d  %-14s %s" % (row["lights"], size, row["path"]))
+            print("    %3d  (%s paired)  %-14s %s"
+                  % (row["lights"], row.get("paired", "?"), size, row["path"]))
             binders = row.get("binders") or []
             shed = int(row["lights"]) - 8
             if binders and 0 < shed <= len(binders):
@@ -197,6 +220,11 @@ def main(argv=None):
                          "positional lights. Off by default -- the right "
                          "number is a decision about the level, not about "
                          "this tool. Roadmap 54 closes at 8.")
+    ap.add_argument("--count", choices=("reach", "paired"), default="reach",
+                    help="which count --max-per-mesh gates on (default: "
+                         "%(default)s). `paired` leaves out what the engine "
+                         "never binds: masked-off lights and baked lights on "
+                         "lightmapped meshes")
     ap.add_argument("--json", action="store_true",
                     help="emit the raw census instead of the table")
     ap.add_argument("--timeout", type=int, default=600)
@@ -230,6 +258,14 @@ def main(argv=None):
         if a.max_per_mesh is not None:
             return 1
 
+    if a.max_per_mesh is not None and "error" not in c and a.count == "paired":
+        if "paired_histogram" not in c:
+            print("")
+            print("[mesh_light_census] NOT MEASURED: --count paired, and this "
+                  "payload carries no paired count.")
+            return 1
+        c = dict(c, worst=c["paired_worst"], worst_path=c["paired_worst_path"],
+                 histogram=c["paired_histogram"])
     if a.max_per_mesh is not None and "error" not in c:
         # With a declared limit the run is a GATE, and a gate announces its
         # verdict in both directions -- a pass you have to infer from the
