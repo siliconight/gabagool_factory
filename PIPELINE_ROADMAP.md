@@ -886,7 +886,7 @@ work of adopting this.
 | 205 | **CLOSED** | A 25 m cooler run | 2026-10-07 -- proven in a level, and the reading it was filed on refuted: there was no 25  |
 | 206 | **NARROWED** | The extraction is the getaway vehicle | 2026-10-08 -- the van is parked at the spawn: Lot 0.98.0 stands Zoo 1.85.0's `step_van` in |
 | 207 | **CLOSED** | A strip club's two stages are not lit | 2026-10-08 -- Lot 0.99.1 carries a light anchor's `target` into site space with its `pos`  |
-| 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
+| 208 | **NARROWED** | The walktest walks a different body, in a different order | 2026-10-09 -- the body measured, the order open. The 18 distinct walk tests in the kept wo |
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
 | 210 | **NARROWED** | Payphones: quarters and a steel cord | 2026-10-09 -- the Zoo half, the light and the indoor form shipped. Zoo 1.88.0 redrew the p |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
@@ -896,7 +896,7 @@ work of adopting this.
 | 215 | **NARROWED** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the si |
 | 216 | **OPEN** | Trees: a sculpted trunk and a crown of branch cards, and god rays unde | 2026-10-09 -- filed, not started. The walker's ask: better-looking trees, with a CC0 refer |
 
-**216 items: 40 open, 100 closed, 3 retracted, 66 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**216 items: 39 open, 100 closed, 3 retracted, 67 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19358,7 +19358,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The lamps land.** At the main stage from 8 m (`main_stage_close`), a live copy at Lux's energy moves 0.46% of the frame by more than 8 codes (largest 221), against 0.00% (largest 25) for a second launch of the shipped package; at ten times Lux's energy, 1.06%. The frames show the pole lit and a brighter pool on the stage.
 - **The stage does not read lit at Lux's energy, baked or live.** As shipped it is a dim red-brown wash; live adds a lit pole and a slightly brighter pool. Whose light the shipped wash is -- the stage lamps', baked, or the stage lip's orange neon, baked, reaching 2.5 m -- is not separated. Item 213 carries it.
 
-*STATUS: OPEN 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the agent contract's player (0.28 m, `AGENT_RADIUS * 0.7`, against `characters.player.radius_m` 0.35; the contract's `qa.walker_capsule_radius_m` 0.35 is read by nothing), with a 56 degree floor and a 0.5 m teleport step-up, and it walks home -> each anchor plus a chain through them, never the mission's order (spawn -> objective -> extraction). It passed cold run 9194's bank basement where the crew wedged.*
+*STATUS: NARROWED 2026-10-09 -- the body measured, the order open. The 18 distinct walk tests in the kept workspaces (cold-9193-ws to cold-9204-ws, four missions) re-walked from patched copies (`docs/findings/walktest_crew_body/rewalk.py`): `crew_body` (radius 0.35, floor 45 degrees) passes 18 of 18 (2026-10-08), and `crew_full` (that body with Laser Tag 0.24.0's step-up) passes 18 of 18 (2026-10-09), its own refusal strings in 12 walks' records and 110 of 312 walkers travelling differently -- the dial turned. The control reproduces the job exactly. Open: the mission's order (spawn, objective, extraction), which the director never walks, and whether the gate adopts the crew's body, which would put out no kept candidate today.*
 
 **208. The walktest walks a different body, in a different order.** Split out of item 203 on 2026-10-07, after the crew's own fix (Laser Tag 0.24.0) closed the wedge.
 
@@ -19374,6 +19374,20 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Its step-up lands only on a floor (the rule Laser Tag 0.24.0's carries).
 - It walks the mission's order as well as the chain.
 - Measure first: re-walk the kept workspaces' candidates with the contract's body and count what fails, before it becomes the gate it already is.
+
+**MEASURED: THE CREW'S BODY FAILS NO KEPT CANDIDATE (2026-10-08 and 2026-10-09)** (finding `docs/findings/walktest_crew_body/`).
+- **What was walked.** The 18 distinct staged walk tests in cold-9193-ws to cold-9204-ws: restaurant_row_001, bank_block_001 (three Lot generations), gas_block_001 and club_block_014, all 36 recorded ok.
+- **How.** Patched copies of each, through `walktest.py`'s own steps and not its `main()`, whose `sync_addon` would copy the shipped director over the patch.
+  - **The control:** the copy unpatched reproduces the job, 158.2 simulated seconds against 158.2.
+- **`crew_body`, radius 0.35 and floor 45:** 18 of 18 pass.
+- **`crew_full`, that body with Laser Tag 0.24.0's step-up:** 18 of 18 pass.
+  - **The dial turned:** the crew step's own refusals are in 12 walks' records, and 110 of 312 walkers travelled differently from `crew_body`, by up to 2.50 m.
+- **What it says.** On these candidates none of the three leniencies -- the thin body, the steep floor, the teleport step-up -- passed geometry the crew cannot cross.
+  - *Retracted, kept:* the first `crew_body` run derived a 0.03 m waypoint radius for the wider body, and froze every walker. A body moves 0.067 m a frame, and the director's own 0.072 m was kept.
+
+**STILL OPEN.**
+- **The order.** The director walks home to each anchor and a chain through them, never spawn, objective, extraction. That is a director change to measure, not a variant of this one.
+- **The gate's body.** Moving the walker to the contract's body (`qa.walker_capsule_radius_m`, still read by nothing) and Laser Tag's step-up would put out no kept candidate today. Whether to make that change is now a question of what the gate should mean, not of what it would cost.
 
 *STATUS: OPEN 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the front, a guitar and music store first. Nothing builds one: Deli Counter's storefront is glass onto the selling floor with an empty window bay, Zoo has no instrument species, and no library family is a music store. Comps: `docs/reference/MUSIC_STORE_WINDOW_COMPS.md`.*
 

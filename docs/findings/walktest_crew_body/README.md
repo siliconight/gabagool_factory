@@ -72,6 +72,25 @@ geometry the crew's body cannot cross.
   It was never a question of body width, so `crew_body` passing 9194 says
   nothing about it.
 
+**`crew_full`: 18 of 18 pass, as recorded** (2026-10-09, `crew_full.log`,
+`results_crew_full.json`, `reports/crew_full/`). The settings: `crew_body`
+with Laser Tag 0.24.0's step-up in place of the director's. Walks took 117 to
+206 s each.
+- **Its first walk was its load test.** Cold run 9204's seed_9181 passed,
+  with all 68 targets reached.
+- **The dial turned, so the pass is evidence:**
+  - in 12 of the 18 walks, walkers' records end on the crew step's own
+    refusal ("crew step refused: the wall is not ahead", 40 walkers; "the
+    top rises -0.00 m", 16). Those strings exist only in the patched copy;
+  - 110 of the 312 walkers travelled differently from `crew_body`, by up to
+    2.50 m.
+- **What it says.** Laser Tag's step-up asks what it lands on, and still
+  fails none of the 18. On these candidates, the director's lenient step-up
+  hid nothing the crew's rule cannot climb.
+- **What it cannot say:** the report keeps only each walker's LAST step
+  refusal, so how many steps the rule took or refused along the way is not
+  recorded.
+
 **The waypoint radius, on paper and in practice:**
 - **On paper,** the director's waypoint rule cannot be met for the crew's
   body (the retraction above).
@@ -80,19 +99,24 @@ geometry the crew's body cannot cross.
   that widens the body needs a slower walk, a higher physics rate, or a
   different consumption rule.
 
-## Next: `crew_full`
+## Next: the order
 
-    python docs/findings/walktest_crew_body/rewalk.py --variant crew_full
+The crew's body is measured, with all three of its differences: radius,
+floor and step-up. None fails a kept candidate, so `radius_only` and
+`floor_only`, which would attribute a failure, have nothing to attribute.
 
-- **What it walks:** all 18, with Laser Tag 0.24.0's step-up in the copy,
-  in about 50 minutes.
-- **It has never run in Godot.** The patched director passed
-  `tools/gdcheck.py`, so the first walk is its load test.
-- **A walk with no report is a load failure,** and its log is in
-  `_scratch/2026-10-08_walktest_body/crew_full/`.
-- **What 9194 should show:** Laser Tag's crew passes that stair now, so a
-  `crew_full` failure there means the copied rule is wrong, not the level.
-- **After it:** `radius_only` and `floor_only`, on whatever fails.
+**What is left is 208's third difference.** The director walks home to each
+anchor, plus a chain through them, and never the mission's own order: spawn,
+then objective, then extraction. Cold run 9194's chain walked the vault to a
+ground-floor anchor, never the vault to the extraction. Re-walking that
+order needs the director to take a route rather than a set, so it is a
+director change to measure, not a variant of this one.
+
+*Kept, as filed before it ran:* "`crew_full`: all 18 with Laser Tag 0.24.0's
+step-up, about 50 minutes; never yet run in Godot, so the first walk is its
+load test; a 9194 failure would mean the copied rule is wrong." It loaded,
+and its walks took 2,805 s between them, about 47 minutes. 9194's three
+passed.
 
 ## Records beside this README
 
@@ -103,6 +127,8 @@ geometry the crew's body cannot cross.
   `reports/as_run/`.
 - **The crew's body:** `results_crew_body.json`, its 18 reports under
   `reports/crew_body/`, and `crew_body.log`.
+- **The crew's body and step-up:** `results_crew_full.json`, its 18 reports
+  under `reports/crew_full/`, and `crew_full.log`.
 - **Refuted, kept:** `results_crew_body_wp003_refuted.json`,
   `reports/crew_body_wp003_refuted/` and `crew_body_wp003_refuted.log`.
 - **Deleted:** the scratch copies, once each report was kept.
