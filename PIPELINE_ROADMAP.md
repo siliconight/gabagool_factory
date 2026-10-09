@@ -890,11 +890,12 @@ work of adopting this.
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
 | 210 | **OPEN** | Payphones: quarters and a steel cord | 2026-10-08 -- filed, the walker's design: payphones on city and urban streets, coin-operat |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
-| 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
+| 212 | **CLOSED** | Responders arrive on the way back | 2026-10-08 -- responders can arrive, and the car they arrive in ships. Lot 0.99.0-0.101.0  |
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
 | 214 | **OPEN** | Zoo's minting meets the modern low-poly standard | 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `d |
+| 215 | **OPEN** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-08 -- split out of item 212 at its close, not worked. On club_block_014 (cold run  |
 
-**214 items: 41 open, 99 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**215 items: 42 open, 100 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19421,7 +19422,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
 - Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
 
-*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Zoo 1.86.0 builds the cruiser the walker asked for, a 1990s Crown Victoria lettered DELCO COUNTY POLICE in two liveries: 0 coincident pairs at the genome's three corners and over 51 swept sizes, five meshes and 3,476 triangles a car, and `simple_car`'s own cars unchanged, 200 meshes hashed (`docs/findings/cruiser_build/`). Lot 0.100.0 and 0.100.1 size the arrivals for that cruiser and steer a lane round what stands in it, and Level Factory 0.161.0 ships the steered lanes: cold runs 9206 and 9207 (club_block_014, 0 interventions each) took `LOT_RESPONDER_ENTRY_NO_STOP` 2 to 0, three arrivals on every candidate, each candidate one lane steered 0.649 m round the getaway van, every stop walked by Lot's nav QA. Open: the cruiser itself in the package for the gameplay layer to spawn, and a price; `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective.*
+*STATUS: CLOSED 2026-10-08 -- responders can arrive, and the car they arrive in ships. Lot 0.99.0-0.101.0 plans an arrival per open road end, sized for Zoo 1.86.0's cruiser, its lane steered round the getaway van and reserved from every later planner; Level Factory 0.156.0-0.162.1 marks each stop as a `responder` anchor and ships `responder_arrivals.json` (v3) naming the car each brings. Cold runs 9206-9209 (club_block_014, 0 interventions each): three arrivals on every candidate, every stop walked by Lot's nav QA, the cruiser built by Zoo's site kit, in the package at 259,531 bytes, named for every arrival and stood nowhere, its import Dynamic so a spawned one samples the lightmap's probes (Godot 4.7 measured: `light_baking=3` gives gi_mode DYNAMIC). How many responders spawn, and when, is the gameplay layer's. `S_RESPONDER_ARC` is a question about road layout, and moves to item 215.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19512,7 +19513,21 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The van's lane is the same on every site.** The van's 0.45 m overhang is fixed by design, so each site's van lane needs the same shift.
 - **Not done: the cruiser in the package.** The gameplay layer spawns responders, so the car must ship beside `responder_arrivals.json`, not stand in the scene.
   - **The route.** Lot gives the arrivals kit slots, so Zoo's site kit builds the car. The themed assembly copies the module to a new `vehicles/` sibling without standing it, and writes which file it is. Level Factory adds `vehicles` to its sibling list and names the car in `responder_arrivals.json`.
-  - **Not built yet.** Then a price.
+  - *Built, below: Lot 0.101.0, Level Factory 0.162.0 and 0.162.1.*
+
+**LOT 0.101.0, LEVEL FACTORY 0.162.0 AND 0.162.1, DONE: THE CAR IN THE PACKAGE (2026-10-08)** (`patches/patch_lot_responder_vehicle.py`, `patch_lf_responder_vehicle.py`, `patch_lf_bake_spawned.py`).
+- **Built, never stood.** Lot writes each arrival's car as `site_spec["responders"]`, a list of its own, not cover. `write_site_slots` gives each a slot, so Zoo's site kit builds the cruiser.
+  - The themed assembly copies the module into `cover/` with its textures, declares none of it in `site.tscn`, and names it in `responders.json`.
+  - Level Factory gives each arrival `vehicle_scene`, checked present in the package.
+- **Cold run 9208** (`docs/cold_runs/cold_9208/NOTES.md`, its `check_vehicle.py` read in pipeline order):
+  - the kit built `prop_cruiser_delco_1997_01_w220_d554_h158`, `pass`;
+  - all three arrivals name it, and the scene stands nothing;
+  - the closure and GLB-reference scans are clean, 440 GLBs.
+- **Found by 9208: the bake had marked the car static.** Every GLB sidecar was set to Static Lightmaps.
+  - Measured on Godot 4.7: `light_baking=2` gives the car's five meshes gi_mode STATIC, `3` gives DYNAMIC.
+  - A static mesh outside the bake gets neither the lightmap nor the probes.
+  - Level Factory 0.162.1 sets a spawned car to 3. Cold run 9209: `light_baking=3`, no unwrap cache, "1 spawned set dynamic".
+- **The price.** 259,531 bytes of package: the GLB and its own 21,639-byte livery; its other eight textures were already shipped. Nothing a frame until spawned, then five draws and 3,476 triangles a car.
 
 *STATUS: CLOSED 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_STAGE_LEVEL` 24, eight times the old level, and a cycling lamp bakes no bounce; Level Factory 0.160.0's bake leaves a cycling rig live. Cold run 9205 (club_block_014, 0 interventions): "76 steady rig(s) baked, 13 failing and 2 cycling left live", the two cycling being the two stages; the stage top reads 22.2 and the pole 56.5 (luminance, 8-bit codes) against 9.5 and 2.5 as 9204 shipped, within 0.1 codes of the 8x hand copy the call was made from; the lamp housings' frozen first colours are gone, brightest pixel 640-644 to 9; paired census still 0 over 8, worst 6 (`docs/cold_runs/cold_9205/NOTES.md`). Not this item's: a lens that follows the lamp's colour, unbuilt and unpriced.*
 
@@ -19593,3 +19608,30 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   3. a procedural bake source: a creased or support-looped second build under a Subdivision Surface modifier, baked onto the game mesh. One texture per species, no triangles. Zoo bakes nothing today.
   4. procedural detail on that bake source.
 - **A.5 What does not change.** No subdivided mesh at runtime; a normal map is a texture in the part family's one material; triangles are counted on the game mesh.
+
+*STATUS: OPEN 2026-10-08 -- split out of item 212 at its close, not worked. On club_block_014 (cold run 9209) the site audit reports all three responder arrivals inside a 6-degree arc of the objective, and that finding -- with every other site-audit finding -- reaches no report: it is in Lot's job log only.*
+
+**215. `S_RESPONDER_ARC` fires where a site's roads lie to one side of the objective, and the site audit reaches no report.**
+
+**WHAT THE RULE ASKS.** No gap between responders' bearings from the objective wider than 150 degrees: three or more, spread round it, so "pressure changes direction between waves".
+
+**WHAT THE SITES GIVE IT.**
+- **Stops stand on roads, at open road ends.** Where the roads lie to one side of the objective, no stop can pass the rule.
+- **The measured arcs:**
+  - cold run 9198's seed_9256: every road point bears 215 to 18 degrees from the objective;
+  - cold run 9200: arcs of 20, 5 and 30 degrees;
+  - cold run 9209's club_block_014 seed_9181: 6 degrees.
+- **So the finding is about the road layout,** not the stops (item 212).
+
+**THE AUDIT REACHES NO REPORT.** Measured on cold run 9209's seed_9181:
+- **What Lot printed.** Its job log carries one MED (`S_RESPONDER_ARC`) and three INFO (`S_GETAWAY_AT_SPAWN`, `S_STREET_CROSS` twice).
+- **What the report carries.** Level Factory's validation report carries no `S_` code at all.
+- **What follows.** No cold run's findings diff has ever counted the site audit, so a finding it raises moves no number anyone reads.
+
+**NOT DECIDED HERE.**
+- **The rule's premise** (assault waves from different directions) is the gameplay layer's design.
+- **The factory's options:**
+  - leave the rule, which reports a true fact about the roads;
+  - let Lot open road ends on more sides of a heist;
+  - change the rule's severity.
+- **First, separately:** carry the site audit into the validation report, so whatever it says is counted.
