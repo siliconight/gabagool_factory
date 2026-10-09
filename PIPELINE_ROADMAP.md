@@ -19580,3 +19580,5 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **Trim sheets** are Pixelcoat's and Patina's, not Zoo's. The standard's deli and convenience-store trim family is their brief.
 
 **FOUND WHILE MAPPING.** `simple_car` skips its style bevel on purpose. It models a car's chamfers into its sections, because bevelling every edge took 12-triangle boxes to 44. So its genome's style bevels, 0.01-0.014 m, do nothing: a knob with no effect, which CLAUDE.md calls a defect. Small; recorded here, not fixed.
+
+**ZOO POINTS AT IT** (531db42, docs only, no version). The README's "Adding a species" now opens on the standard and its mapping, with the authorship guide's brief per prop. It says the standard's numbers are starting points and that the measured house rules win. "Low-poly heroes (PS1/N64)" notes that the house target has moved to the standard's "modernized low poly". One copy of the standard lives at the factory root; Zoo carries the pointer.
