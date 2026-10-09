@@ -1,0 +1,4516 @@
+{
+  "complete": true,
+  "geometry": {
+    "cold_worst_ms": 29.666,
+    "mesh_instances": 3954,
+    "multimesh_instances": 4,
+    "nodes": 23454,
+    "passes": 2
+  },
+  "rows": [
+    {
+      "headings": [
+        {
+          "draws": 2416,
+          "gpu_ms": 5.31714999675751,
+          "ms_median": 12.315,
+          "ms_p95": 13.93,
+          "ms_worst": 14.569,
+          "objects": 2235,
+          "pass_spread_ms": 1.104,
+          "passes": [
+            {
+              "draws": 2416,
+              "ms_median": 12.315,
+              "ms_p95": 13.93
+            },
+            {
+              "draws": 2416,
+              "ms_median": 13.615,
+              "ms_p95": 15.034
+            }
+          ],
+          "primitives": 1579530,
+          "render_cpu_ms": 11.5268999099731,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 779,
+          "gpu_ms": 1.21354999542236,
+          "ms_median": 3.394,
+          "ms_p95": 4.105,
+          "ms_worst": 5.098,
+          "objects": 775,
+          "pass_spread_ms": 0.069,
+          "passes": [
+            {
+              "draws": 779,
+              "ms_median": 3.394,
+              "ms_p95": 4.105
+            },
+            {
+              "draws": 779,
+              "ms_median": 3.64,
+              "ms_p95": 4.174
+            }
+          ],
+          "primitives": 1226708,
+          "render_cpu_ms": 2.75765000581741,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 711,
+          "gpu_ms": 1.09069999456406,
+          "ms_median": 2.806,
+          "ms_p95": 3.709,
+          "ms_worst": 4.008,
+          "objects": 711,
+          "pass_spread_ms": 0.458,
+          "passes": [
+            {
+              "draws": 711,
+              "ms_median": 2.806,
+              "ms_p95": 3.709
+            },
+            {
+              "draws": 711,
+              "ms_median": 2.556,
+              "ms_p95": 4.167
+            }
+          ],
+          "primitives": 1128216,
+          "render_cpu_ms": 2.04915001392364,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 677,
+          "gpu_ms": 1.14469999074936,
+          "ms_median": 2.954,
+          "ms_p95": 3.562,
+          "ms_worst": 4.358,
+          "objects": 672,
+          "pass_spread_ms": 0.278,
+          "passes": [
+            {
+              "draws": 677,
+              "ms_median": 2.954,
+              "ms_p95": 3.562
+            },
+            {
+              "draws": 677,
+              "ms_median": 2.837,
+              "ms_p95": 3.84
+            }
+          ],
+          "primitives": 1632218,
+          "render_cpu_ms": 2.4363499879837,
+          "split_perturbed": true,
+          "yaw": 90.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.3265,
+      "pos": [
+        -64.0,
+        1.60000002384186,
+        16.0
+      ],
+      "station": "attacker_spawn_8",
+      "type": "attacker_spawn",
+      "worst_heading": {
+        "draws": 2416,
+        "gpu_ms": 5.31714999675751,
+        "ms_median": 12.315,
+        "ms_p95": 13.93,
+        "ms_worst": 14.569,
+        "objects": 2235,
+        "pass_spread_ms": 1.104,
+        "passes": [
+          {
+            "draws": 2416,
+            "ms_median": 12.315,
+            "ms_p95": 13.93
+          },
+          {
+            "draws": 2416,
+            "ms_median": 13.615,
+            "ms_p95": 15.034
+          }
+        ],
+        "primitives": 1579530,
+        "render_cpu_ms": 11.5268999099731,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1903,
+          "gpu_ms": 3.57494995594025,
+          "ms_median": 10.186,
+          "ms_p95": 11.374,
+          "ms_worst": 11.724,
+          "objects": 1750,
+          "pass_spread_ms": 0.635,
+          "passes": [
+            {
+              "draws": 1903,
+              "ms_median": 10.186,
+              "ms_p95": 11.374
+            },
+            {
+              "draws": 1903,
+              "ms_median": 10.24,
+              "ms_p95": 12.009
+            }
+          ],
+          "primitives": 1435668,
+          "render_cpu_ms": 9.58555002212524,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1025,
+          "gpu_ms": 1.42535000443459,
+          "ms_median": 4.056,
+          "ms_p95": 4.788,
+          "ms_worst": 5.853,
+          "objects": 1014,
+          "pass_spread_ms": 0.121,
+          "passes": [
+            {
+              "draws": 1025,
+              "ms_median": 4.056,
+              "ms_p95": 4.788
+            },
+            {
+              "draws": 1025,
+              "ms_median": 4.343,
+              "ms_p95": 4.909
+            }
+          ],
+          "primitives": 1347422,
+          "render_cpu_ms": 3.3814000248909,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1066,
+          "gpu_ms": 1.32540001273155,
+          "ms_median": 3.861,
+          "ms_p95": 4.347,
+          "ms_worst": 5.66,
+          "objects": 1061,
+          "pass_spread_ms": 0.406999999999999,
+          "passes": [
+            {
+              "draws": 1066,
+              "ms_median": 3.861,
+              "ms_p95": 4.347
+            },
+            {
+              "draws": 1066,
+              "ms_median": 4.196,
+              "ms_p95": 4.754
+            }
+          ],
+          "primitives": 1236802,
+          "render_cpu_ms": 3.22114999294281,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 796,
+          "gpu_ms": 1.1555999994278,
+          "ms_median": 3.322,
+          "ms_p95": 3.86,
+          "ms_worst": 5.379,
+          "objects": 796,
+          "pass_spread_ms": 0.427,
+          "passes": [
+            {
+              "draws": 796,
+              "ms_median": 3.322,
+              "ms_p95": 3.86
+            },
+            {
+              "draws": 796,
+              "ms_median": 3.326,
+              "ms_p95": 4.287
+            }
+          ],
+          "primitives": 1104240,
+          "render_cpu_ms": 2.71550000905991,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.09225,
+      "pos": [
+        -48.0,
+        4.59999990463257,
+        11.0
+      ],
+      "station": "camera_socket_0",
+      "type": "camera_socket",
+      "worst_heading": {
+        "draws": 1903,
+        "gpu_ms": 3.57494995594025,
+        "ms_median": 10.186,
+        "ms_p95": 11.374,
+        "ms_worst": 11.724,
+        "objects": 1750,
+        "pass_spread_ms": 0.635,
+        "passes": [
+          {
+            "draws": 1903,
+            "ms_median": 10.186,
+            "ms_p95": 11.374
+          },
+          {
+            "draws": 1903,
+            "ms_median": 10.24,
+            "ms_p95": 12.009
+          }
+        ],
+        "primitives": 1435668,
+        "render_cpu_ms": 9.58555002212524,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1074,
+          "gpu_ms": 1.35299999713898,
+          "ms_median": 4.585,
+          "ms_p95": 5.294,
+          "ms_worst": 5.5,
+          "objects": 1074,
+          "pass_spread_ms": 0.216,
+          "passes": [
+            {
+              "draws": 1074,
+              "ms_median": 4.585,
+              "ms_p95": 5.294
+            },
+            {
+              "draws": 1074,
+              "ms_median": 4.765,
+              "ms_p95": 5.51
+            }
+          ],
+          "primitives": 1227300,
+          "render_cpu_ms": 4.34655007123947,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 786,
+          "gpu_ms": 1.22594998478889,
+          "ms_median": 3.225,
+          "ms_p95": 4.056,
+          "ms_worst": 5.008,
+          "objects": 784,
+          "pass_spread_ms": 0.0359999999999996,
+          "passes": [
+            {
+              "draws": 786,
+              "ms_median": 3.225,
+              "ms_p95": 4.056
+            },
+            {
+              "draws": 786,
+              "ms_median": 3.158,
+              "ms_p95": 4.092
+            }
+          ],
+          "primitives": 1192934,
+          "render_cpu_ms": 3.00784999132156,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 203,
+          "gpu_ms": 1.00674999654293,
+          "ms_median": 1.937,
+          "ms_p95": 2.584,
+          "ms_worst": 3.15,
+          "objects": 203,
+          "pass_spread_ms": 0.0459999999999998,
+          "passes": [
+            {
+              "draws": 203,
+              "ms_median": 1.937,
+              "ms_p95": 2.584
+            },
+            {
+              "draws": 203,
+              "ms_median": 2.001,
+              "ms_p95": 2.63
+            }
+          ],
+          "primitives": 1010730,
+          "render_cpu_ms": 1.47850000858307,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 221,
+          "gpu_ms": 1.16095001101494,
+          "ms_median": 2.137,
+          "ms_p95": 2.501,
+          "ms_worst": 3.092,
+          "objects": 221,
+          "pass_spread_ms": 0.364,
+          "passes": [
+            {
+              "draws": 221,
+              "ms_median": 2.137,
+              "ms_p95": 2.501
+            },
+            {
+              "draws": 221,
+              "ms_median": 2.092,
+              "ms_p95": 2.865
+            }
+          ],
+          "primitives": 1018256,
+          "render_cpu_ms": 1.56579999923706,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 3.60875,
+      "pos": [
+        -72.0,
+        1.60000002384186,
+        -4.0
+      ],
+      "station": "defender_spawn_15",
+      "type": "defender_spawn",
+      "worst_heading": {
+        "draws": 1074,
+        "gpu_ms": 1.35299999713898,
+        "ms_median": 4.585,
+        "ms_p95": 5.294,
+        "ms_worst": 5.5,
+        "objects": 1074,
+        "pass_spread_ms": 0.216,
+        "passes": [
+          {
+            "draws": 1074,
+            "ms_median": 4.585,
+            "ms_p95": 5.294
+          },
+          {
+            "draws": 1074,
+            "ms_median": 4.765,
+            "ms_p95": 5.51
+          }
+        ],
+        "primitives": 1227300,
+        "render_cpu_ms": 4.34655007123947,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 2136,
+          "gpu_ms": 5.04244999885559,
+          "ms_median": 11.752,
+          "ms_p95": 12.769,
+          "ms_worst": 14.059,
+          "objects": 1941,
+          "pass_spread_ms": 0.411,
+          "passes": [
+            {
+              "draws": 2136,
+              "ms_median": 11.752,
+              "ms_p95": 12.769
+            },
+            {
+              "draws": 2136,
+              "ms_median": 12.054,
+              "ms_p95": 13.18
+            }
+          ],
+          "primitives": 1506118,
+          "render_cpu_ms": 11.0790999889374,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 834,
+          "gpu_ms": 1.34470000863075,
+          "ms_median": 3.761,
+          "ms_p95": 4.565,
+          "ms_worst": 5.105,
+          "objects": 828,
+          "pass_spread_ms": 0.241,
+          "passes": [
+            {
+              "draws": 834,
+              "ms_median": 3.761,
+              "ms_p95": 4.565
+            },
+            {
+              "draws": 834,
+              "ms_median": 3.878,
+              "ms_p95": 4.806
+            }
+          ],
+          "primitives": 1204094,
+          "render_cpu_ms": 2.95174998044968,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 834,
+          "gpu_ms": 1.34839998483658,
+          "ms_median": 3.696,
+          "ms_p95": 4.496,
+          "ms_worst": 4.873,
+          "objects": 826,
+          "pass_spread_ms": 0.321999999999999,
+          "passes": [
+            {
+              "draws": 834,
+              "ms_median": 3.696,
+              "ms_p95": 4.496
+            },
+            {
+              "draws": 834,
+              "ms_median": 3.859,
+              "ms_p95": 4.818
+            }
+          ],
+          "primitives": 1252164,
+          "render_cpu_ms": 2.98494999408722,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 758,
+          "gpu_ms": 0.99909999370575,
+          "ms_median": 2.402,
+          "ms_p95": 2.919,
+          "ms_worst": 3.245,
+          "objects": 757,
+          "pass_spread_ms": 0.0209999999999999,
+          "passes": [
+            {
+              "draws": 758,
+              "ms_median": 2.402,
+              "ms_p95": 2.919
+            },
+            {
+              "draws": 758,
+              "ms_median": 2.207,
+              "ms_p95": 2.94
+            }
+          ],
+          "primitives": 1117430,
+          "render_cpu_ms": 2.14375000596046,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.18725,
+      "pos": [
+        -56.0,
+        1.60000002384186,
+        16.0
+      ],
+      "station": "extraction_4",
+      "type": "extraction",
+      "worst_heading": {
+        "draws": 2136,
+        "gpu_ms": 5.04244999885559,
+        "ms_median": 11.752,
+        "ms_p95": 12.769,
+        "ms_worst": 14.059,
+        "objects": 1941,
+        "pass_spread_ms": 0.411,
+        "passes": [
+          {
+            "draws": 2136,
+            "ms_median": 11.752,
+            "ms_p95": 12.769
+          },
+          {
+            "draws": 2136,
+            "ms_median": 12.054,
+            "ms_p95": 13.18
+          }
+        ],
+        "primitives": 1506118,
+        "render_cpu_ms": 11.0790999889374,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1021,
+          "gpu_ms": 1.68075000047684,
+          "ms_median": 5.806,
+          "ms_p95": 6.977,
+          "ms_worst": 7.22,
+          "objects": 917,
+          "pass_spread_ms": 0.12,
+          "passes": [
+            {
+              "draws": 1021,
+              "ms_median": 5.806,
+              "ms_p95": 6.977
+            },
+            {
+              "draws": 1021,
+              "ms_median": 5.712,
+              "ms_p95": 7.097
+            }
+          ],
+          "primitives": 1193994,
+          "render_cpu_ms": 4.79449994564056,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 995,
+          "gpu_ms": 1.33629999756813,
+          "ms_median": 3.698,
+          "ms_p95": 4.296,
+          "ms_worst": 4.621,
+          "objects": 990,
+          "pass_spread_ms": 0.668,
+          "passes": [
+            {
+              "draws": 995,
+              "ms_median": 3.698,
+              "ms_p95": 4.296
+            },
+            {
+              "draws": 995,
+              "ms_median": 4.155,
+              "ms_p95": 4.964
+            }
+          ],
+          "primitives": 1259270,
+          "render_cpu_ms": 3.42564998865128,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 862,
+          "gpu_ms": 1.15310000181198,
+          "ms_median": 3.384,
+          "ms_p95": 3.917,
+          "ms_worst": 4.084,
+          "objects": 862,
+          "pass_spread_ms": 0.16,
+          "passes": [
+            {
+              "draws": 862,
+              "ms_median": 3.384,
+              "ms_p95": 3.917
+            },
+            {
+              "draws": 862,
+              "ms_median": 3.385,
+              "ms_p95": 4.077
+            }
+          ],
+          "primitives": 1151204,
+          "render_cpu_ms": 2.70655000209808,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 260,
+          "gpu_ms": 0.982050004601479,
+          "ms_median": 2.008,
+          "ms_p95": 2.393,
+          "ms_worst": 2.819,
+          "objects": 260,
+          "pass_spread_ms": 0.472,
+          "passes": [
+            {
+              "draws": 260,
+              "ms_median": 2.008,
+              "ms_p95": 2.393
+            },
+            {
+              "draws": 260,
+              "ms_median": 2.109,
+              "ms_p95": 2.865
+            }
+          ],
+          "primitives": 1012272,
+          "render_cpu_ms": 1.72705001235008,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 4.39575,
+      "pos": [
+        -50.0,
+        1.60000002384186,
+        -5.0
+      ],
+      "station": "objective_3",
+      "type": "objective",
+      "worst_heading": {
+        "draws": 1021,
+        "gpu_ms": 1.68075000047684,
+        "ms_median": 5.806,
+        "ms_p95": 6.977,
+        "ms_worst": 7.22,
+        "objects": 917,
+        "pass_spread_ms": 0.12,
+        "passes": [
+          {
+            "draws": 1021,
+            "ms_median": 5.806,
+            "ms_p95": 6.977
+          },
+          {
+            "draws": 1021,
+            "ms_median": 5.712,
+            "ms_p95": 7.097
+          }
+        ],
+        "primitives": 1193994,
+        "render_cpu_ms": 4.79449994564056,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1184,
+          "gpu_ms": 1.87640000581741,
+          "ms_median": 6.0,
+          "ms_p95": 6.882,
+          "ms_worst": 7.412,
+          "objects": 1156,
+          "pass_spread_ms": 0.00600000000000023,
+          "passes": [
+            {
+              "draws": 1184,
+              "ms_median": 6.0,
+              "ms_p95": 6.882
+            },
+            {
+              "draws": 1184,
+              "ms_median": 5.973,
+              "ms_p95": 6.888
+            }
+          ],
+          "primitives": 1252998,
+          "render_cpu_ms": 5.08380000591278,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 880,
+          "gpu_ms": 1.2663499891758,
+          "ms_median": 3.699,
+          "ms_p95": 4.413,
+          "ms_worst": 4.809,
+          "objects": 880,
+          "pass_spread_ms": 0.726999999999999,
+          "passes": [
+            {
+              "draws": 880,
+              "ms_median": 3.699,
+              "ms_p95": 4.413
+            },
+            {
+              "draws": 880,
+              "ms_median": 4.179,
+              "ms_p95": 5.14
+            }
+          ],
+          "primitives": 1151516,
+          "render_cpu_ms": 3.07610001564026,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 573,
+          "gpu_ms": 1.31294999718666,
+          "ms_median": 3.059,
+          "ms_p95": 3.449,
+          "ms_worst": 3.807,
+          "objects": 569,
+          "pass_spread_ms": 0.337,
+          "passes": [
+            {
+              "draws": 573,
+              "ms_median": 3.059,
+              "ms_p95": 3.449
+            },
+            {
+              "draws": 573,
+              "ms_median": 3.045,
+              "ms_p95": 3.786
+            }
+          ],
+          "primitives": 1111960,
+          "render_cpu_ms": 2.49299997091293,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 639,
+          "gpu_ms": 1.20850000977516,
+          "ms_median": 1.987,
+          "ms_p95": 2.426,
+          "ms_worst": 2.768,
+          "objects": 639,
+          "pass_spread_ms": 0.448,
+          "passes": [
+            {
+              "draws": 639,
+              "ms_median": 1.987,
+              "ms_p95": 2.426
+            },
+            {
+              "draws": 639,
+              "ms_median": 2.002,
+              "ms_p95": 2.874
+            }
+          ],
+          "primitives": 1676552,
+          "render_cpu_ms": 1.53969999551773,
+          "split_perturbed": true,
+          "yaw": 180.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 4.2925,
+      "pos": [
+        -63.4700012207031,
+        1.60000002384186,
+        12.7250003814697
+      ],
+      "station": "patrol_point_18",
+      "type": "patrol_point",
+      "worst_heading": {
+        "draws": 1184,
+        "gpu_ms": 1.87640000581741,
+        "ms_median": 6.0,
+        "ms_p95": 6.882,
+        "ms_worst": 7.412,
+        "objects": 1156,
+        "pass_spread_ms": 0.00600000000000023,
+        "passes": [
+          {
+            "draws": 1184,
+            "ms_median": 6.0,
+            "ms_p95": 6.882
+          },
+          {
+            "draws": 1184,
+            "ms_median": 5.973,
+            "ms_p95": 6.888
+          }
+        ],
+        "primitives": 1252998,
+        "render_cpu_ms": 5.08380000591278,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 2976,
+          "gpu_ms": 8.72785003185272,
+          "ms_median": 15.735,
+          "ms_p95": 17.913,
+          "ms_worst": 19.308,
+          "objects": 2699,
+          "pass_spread_ms": 0.565000000000001,
+          "passes": [
+            {
+              "draws": 2976,
+              "ms_median": 15.735,
+              "ms_p95": 17.913
+            },
+            {
+              "draws": 2976,
+              "ms_median": 15.55,
+              "ms_p95": 18.478
+            }
+          ],
+          "primitives": 1647994,
+          "render_cpu_ms": 14.167399930954,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1071,
+          "gpu_ms": 1.43499999642372,
+          "ms_median": 4.766,
+          "ms_p95": 5.648,
+          "ms_worst": 6.975,
+          "objects": 940,
+          "pass_spread_ms": 0.0260000000000007,
+          "passes": [
+            {
+              "draws": 1071,
+              "ms_median": 4.766,
+              "ms_p95": 5.648
+            },
+            {
+              "draws": 1071,
+              "ms_median": 4.648,
+              "ms_p95": 5.674
+            }
+          ],
+          "primitives": 1120958,
+          "render_cpu_ms": 4.25255000591278,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 632,
+          "gpu_ms": 1.19444999098778,
+          "ms_median": 2.844,
+          "ms_p95": 3.328,
+          "ms_worst": 4.265,
+          "objects": 631,
+          "pass_spread_ms": 0.978,
+          "passes": [
+            {
+              "draws": 632,
+              "ms_median": 2.844,
+              "ms_p95": 3.328
+            },
+            {
+              "draws": 632,
+              "ms_median": 2.966,
+              "ms_p95": 4.306
+            }
+          ],
+          "primitives": 1183472,
+          "render_cpu_ms": 2.29480000734329,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 472,
+          "gpu_ms": 1.12459999918938,
+          "ms_median": 2.243,
+          "ms_p95": 2.815,
+          "ms_worst": 3.09,
+          "objects": 472,
+          "pass_spread_ms": 0.169,
+          "passes": [
+            {
+              "draws": 472,
+              "ms_median": 2.243,
+              "ms_p95": 2.815
+            },
+            {
+              "draws": 472,
+              "ms_median": 2.305,
+              "ms_p95": 2.984
+            }
+          ],
+          "primitives": 1111216,
+          "render_cpu_ms": 1.88715000152588,
+          "split_perturbed": true,
+          "yaw": 270.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 7.426,
+      "pos": [
+        73.8499984741211,
+        1.60000002384186,
+        17.9500007629395
+      ],
+      "station": "player_start_19",
+      "type": "player_start",
+      "worst_heading": {
+        "draws": 2976,
+        "gpu_ms": 8.72785003185272,
+        "ms_median": 15.735,
+        "ms_p95": 17.913,
+        "ms_worst": 19.308,
+        "objects": 2699,
+        "pass_spread_ms": 0.565000000000001,
+        "passes": [
+          {
+            "draws": 2976,
+            "ms_median": 15.735,
+            "ms_p95": 17.913
+          },
+          {
+            "draws": 2976,
+            "ms_median": 15.55,
+            "ms_p95": 18.478
+          }
+        ],
+        "primitives": 1647994,
+        "render_cpu_ms": 14.167399930954,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 2028,
+          "gpu_ms": 4.50629998445511,
+          "ms_median": 9.191,
+          "ms_p95": 10.251,
+          "ms_worst": 10.623,
+          "objects": 1644,
+          "pass_spread_ms": 0.733000000000001,
+          "passes": [
+            {
+              "draws": 2028,
+              "ms_median": 9.191,
+              "ms_p95": 10.251
+            },
+            {
+              "draws": 2028,
+              "ms_median": 9.514,
+              "ms_p95": 10.984
+            }
+          ],
+          "primitives": 1345126,
+          "render_cpu_ms": 8.61394991874695,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1386,
+          "gpu_ms": 1.84745000004768,
+          "ms_median": 6.666,
+          "ms_p95": 7.38,
+          "ms_worst": 7.981,
+          "objects": 1261,
+          "pass_spread_ms": 0.212,
+          "passes": [
+            {
+              "draws": 1386,
+              "ms_median": 6.666,
+              "ms_p95": 7.38
+            },
+            {
+              "draws": 1386,
+              "ms_median": 6.549,
+              "ms_p95": 7.592
+            }
+          ],
+          "primitives": 1348002,
+          "render_cpu_ms": 5.14100003242493,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 992,
+          "gpu_ms": 1.53615001440048,
+          "ms_median": 4.547,
+          "ms_p95": 5.317,
+          "ms_worst": 6.302,
+          "objects": 807,
+          "pass_spread_ms": 0.141999999999999,
+          "passes": [
+            {
+              "draws": 992,
+              "ms_median": 4.547,
+              "ms_p95": 5.317
+            },
+            {
+              "draws": 992,
+              "ms_median": 4.559,
+              "ms_p95": 5.459
+            }
+          ],
+          "primitives": 1143210,
+          "render_cpu_ms": 3.87304997444153,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 745,
+          "gpu_ms": 1.18330000042915,
+          "ms_median": 2.296,
+          "ms_p95": 2.724,
+          "ms_worst": 3.109,
+          "objects": 725,
+          "pass_spread_ms": 0.468,
+          "passes": [
+            {
+              "draws": 745,
+              "ms_median": 2.296,
+              "ms_p95": 2.724
+            },
+            {
+              "draws": 745,
+              "ms_median": 2.368,
+              "ms_p95": 3.192
+            }
+          ],
+          "primitives": 1141088,
+          "render_cpu_ms": 2.01560001969337,
+          "split_perturbed": true,
+          "yaw": 270.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.418,
+      "pos": [
+        52.0,
+        1.60000002384186,
+        2.0
+      ],
+      "station": "attacker_spawn_9",
+      "type": "attacker_spawn",
+      "worst_heading": {
+        "draws": 2028,
+        "gpu_ms": 4.50629998445511,
+        "ms_median": 9.191,
+        "ms_p95": 10.251,
+        "ms_worst": 10.623,
+        "objects": 1644,
+        "pass_spread_ms": 0.733000000000001,
+        "passes": [
+          {
+            "draws": 2028,
+            "ms_median": 9.191,
+            "ms_p95": 10.251
+          },
+          {
+            "draws": 2028,
+            "ms_median": 9.514,
+            "ms_p95": 10.984
+          }
+        ],
+        "primitives": 1345126,
+        "render_cpu_ms": 8.61394991874695,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1642,
+          "gpu_ms": 1.75154999494553,
+          "ms_median": 6.54,
+          "ms_p95": 7.676,
+          "ms_worst": 8.192,
+          "objects": 1589,
+          "pass_spread_ms": 1.15,
+          "passes": [
+            {
+              "draws": 1642,
+              "ms_median": 6.54,
+              "ms_p95": 7.676
+            },
+            {
+              "draws": 1642,
+              "ms_median": 7.15,
+              "ms_p95": 8.826
+            }
+          ],
+          "primitives": 1407222,
+          "render_cpu_ms": 5.68234994411469,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1275,
+          "gpu_ms": 2.06535000801086,
+          "ms_median": 6.405,
+          "ms_p95": 7.057,
+          "ms_worst": 7.513,
+          "objects": 1165,
+          "pass_spread_ms": 2.175,
+          "passes": [
+            {
+              "draws": 1275,
+              "ms_median": 6.405,
+              "ms_p95": 7.057
+            },
+            {
+              "draws": 1275,
+              "ms_median": 7.383,
+              "ms_p95": 9.232
+            }
+          ],
+          "primitives": 1295570,
+          "render_cpu_ms": 5.66175003051758,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1005,
+          "gpu_ms": 1.63745000362396,
+          "ms_median": 4.471,
+          "ms_p95": 5.117,
+          "ms_worst": 6.218,
+          "objects": 927,
+          "pass_spread_ms": 0.189,
+          "passes": [
+            {
+              "draws": 1005,
+              "ms_median": 4.471,
+              "ms_p95": 5.117
+            },
+            {
+              "draws": 1005,
+              "ms_median": 4.745,
+              "ms_p95": 5.306
+            }
+          ],
+          "primitives": 1334712,
+          "render_cpu_ms": 4.19550001621246,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1107,
+          "gpu_ms": 1.4107999920845,
+          "ms_median": 4.117,
+          "ms_p95": 4.728,
+          "ms_worst": 5.025,
+          "objects": 1010,
+          "pass_spread_ms": 0.676,
+          "passes": [
+            {
+              "draws": 1107,
+              "ms_median": 4.117,
+              "ms_p95": 4.728
+            },
+            {
+              "draws": 1107,
+              "ms_median": 4.414,
+              "ms_p95": 5.404
+            }
+          ],
+          "primitives": 1668770,
+          "render_cpu_ms": 3.48289999961853,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.1445,
+      "pos": [
+        27.0,
+        6.59999990463257,
+        11.0
+      ],
+      "station": "camera_socket_1",
+      "type": "camera_socket",
+      "worst_heading": {
+        "draws": 1642,
+        "gpu_ms": 1.75154999494553,
+        "ms_median": 6.54,
+        "ms_p95": 7.676,
+        "ms_worst": 8.192,
+        "objects": 1589,
+        "pass_spread_ms": 1.15,
+        "passes": [
+          {
+            "draws": 1642,
+            "ms_median": 6.54,
+            "ms_p95": 7.676
+          },
+          {
+            "draws": 1642,
+            "ms_median": 7.15,
+            "ms_p95": 8.826
+          }
+        ],
+        "primitives": 1407222,
+        "render_cpu_ms": 5.68234994411469,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1569,
+          "gpu_ms": 1.77790001630783,
+          "ms_median": 6.623,
+          "ms_p95": 7.55,
+          "ms_worst": 8.255,
+          "objects": 1494,
+          "pass_spread_ms": 0.0600000000000005,
+          "passes": [
+            {
+              "draws": 1569,
+              "ms_median": 6.623,
+              "ms_p95": 7.55
+            },
+            {
+              "draws": 1569,
+              "ms_median": 6.734,
+              "ms_p95": 7.61
+            }
+          ],
+          "primitives": 1447196,
+          "render_cpu_ms": 5.4949000120163,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1464,
+          "gpu_ms": 1.37704998254776,
+          "ms_median": 5.534,
+          "ms_p95": 6.231,
+          "ms_worst": 6.278,
+          "objects": 1461,
+          "pass_spread_ms": 1.9,
+          "passes": [
+            {
+              "draws": 1464,
+              "ms_median": 5.534,
+              "ms_p95": 6.231
+            },
+            {
+              "draws": 1464,
+              "ms_median": 6.118,
+              "ms_p95": 8.131
+            }
+          ],
+          "primitives": 1324642,
+          "render_cpu_ms": 4.90089995861053,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1268,
+          "gpu_ms": 1.69535000324249,
+          "ms_median": 5.539,
+          "ms_p95": 6.165,
+          "ms_worst": 7.059,
+          "objects": 1184,
+          "pass_spread_ms": 0.887,
+          "passes": [
+            {
+              "draws": 1268,
+              "ms_median": 5.539,
+              "ms_p95": 6.165
+            },
+            {
+              "draws": 1268,
+              "ms_median": 5.838,
+              "ms_p95": 7.052
+            }
+          ],
+          "primitives": 1227560,
+          "render_cpu_ms": 4.74160001277924,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 717,
+          "gpu_ms": 1.23234999775887,
+          "ms_median": 3.231,
+          "ms_p95": 3.736,
+          "ms_worst": 4.109,
+          "objects": 717,
+          "pass_spread_ms": 0.793,
+          "passes": [
+            {
+              "draws": 717,
+              "ms_median": 3.231,
+              "ms_p95": 3.736
+            },
+            {
+              "draws": 717,
+              "ms_median": 3.529,
+              "ms_p95": 4.529
+            }
+          ],
+          "primitives": 1064244,
+          "render_cpu_ms": 2.90214999914169,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 5.9205,
+      "pos": [
+        -10.5,
+        -4.09999990463257,
+        -2.0
+      ],
+      "station": "defender_spawn_16",
+      "type": "defender_spawn",
+      "worst_heading": {
+        "draws": 1569,
+        "gpu_ms": 1.77790001630783,
+        "ms_median": 6.623,
+        "ms_p95": 7.55,
+        "ms_worst": 8.255,
+        "objects": 1494,
+        "pass_spread_ms": 0.0600000000000005,
+        "passes": [
+          {
+            "draws": 1569,
+            "ms_median": 6.623,
+            "ms_p95": 7.55
+          },
+          {
+            "draws": 1569,
+            "ms_median": 6.734,
+            "ms_p95": 7.61
+          }
+        ],
+        "primitives": 1447196,
+        "render_cpu_ms": 5.4949000120163,
+        "split_perturbed": true,
+        "yaw": 180.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1919,
+          "gpu_ms": 3.19310001730919,
+          "ms_median": 9.072,
+          "ms_p95": 10.397,
+          "ms_worst": 12.035,
+          "objects": 1902,
+          "pass_spread_ms": 1.413,
+          "passes": [
+            {
+              "draws": 1919,
+              "ms_median": 9.072,
+              "ms_p95": 10.397
+            },
+            {
+              "draws": 1919,
+              "ms_median": 9.362,
+              "ms_p95": 11.81
+            }
+          ],
+          "primitives": 1455766,
+          "render_cpu_ms": 8.57949995994568,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1559,
+          "gpu_ms": 3.30584999322891,
+          "ms_median": 8.065,
+          "ms_p95": 9.035,
+          "ms_worst": 10.345,
+          "objects": 1429,
+          "pass_spread_ms": 1.116,
+          "passes": [
+            {
+              "draws": 1559,
+              "ms_median": 8.065,
+              "ms_p95": 9.035
+            },
+            {
+              "draws": 1559,
+              "ms_median": 8.67,
+              "ms_p95": 10.151
+            }
+          ],
+          "primitives": 1338866,
+          "render_cpu_ms": 7.09920001029968,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1028,
+          "gpu_ms": 1.70635001063347,
+          "ms_median": 4.957,
+          "ms_p95": 5.869,
+          "ms_worst": 6.066,
+          "objects": 901,
+          "pass_spread_ms": 0.647,
+          "passes": [
+            {
+              "draws": 1028,
+              "ms_median": 4.957,
+              "ms_p95": 5.869
+            },
+            {
+              "draws": 1028,
+              "ms_median": 5.553,
+              "ms_p95": 6.516
+            }
+          ],
+          "primitives": 1285606,
+          "render_cpu_ms": 4.15459997653961,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 1038,
+          "gpu_ms": 1.55410001277924,
+          "ms_median": 4.247,
+          "ms_p95": 4.689,
+          "ms_worst": 4.772,
+          "objects": 1020,
+          "pass_spread_ms": 0.269,
+          "passes": [
+            {
+              "draws": 1038,
+              "ms_median": 4.247,
+              "ms_p95": 4.689
+            },
+            {
+              "draws": 1038,
+              "ms_median": 4.247,
+              "ms_p95": 4.958
+            }
+          ],
+          "primitives": 1099598,
+          "render_cpu_ms": 3.45799999237061,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 7.4975,
+      "pos": [
+        3.0,
+        1.60000002384186,
+        16.0
+      ],
+      "station": "extraction_7",
+      "type": "extraction",
+      "worst_heading": {
+        "draws": 1919,
+        "gpu_ms": 3.19310001730919,
+        "ms_median": 9.072,
+        "ms_p95": 10.397,
+        "ms_worst": 12.035,
+        "objects": 1902,
+        "pass_spread_ms": 1.413,
+        "passes": [
+          {
+            "draws": 1919,
+            "ms_median": 9.072,
+            "ms_p95": 10.397
+          },
+          {
+            "draws": 1919,
+            "ms_median": 9.362,
+            "ms_p95": 11.81
+          }
+        ],
+        "primitives": 1455766,
+        "render_cpu_ms": 8.57949995994568,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1211,
+          "gpu_ms": 1.85029999017715,
+          "ms_median": 5.884,
+          "ms_p95": 6.89,
+          "ms_worst": 7.384,
+          "objects": 1024,
+          "pass_spread_ms": 0.556,
+          "passes": [
+            {
+              "draws": 1211,
+              "ms_median": 5.884,
+              "ms_p95": 6.89
+            },
+            {
+              "draws": 1211,
+              "ms_median": 6.174,
+              "ms_p95": 7.446
+            }
+          ],
+          "primitives": 1219844,
+          "render_cpu_ms": 5.14719998836517,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 1353,
+          "gpu_ms": 1.54869999885559,
+          "ms_median": 4.923,
+          "ms_p95": 5.488,
+          "ms_worst": 5.537,
+          "objects": 1345,
+          "pass_spread_ms": 0.287,
+          "passes": [
+            {
+              "draws": 1353,
+              "ms_median": 4.923,
+              "ms_p95": 5.488
+            },
+            {
+              "draws": 1353,
+              "ms_median": 5.192,
+              "ms_p95": 5.775
+            }
+          ],
+          "primitives": 1266610,
+          "render_cpu_ms": 4.46364998817444,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1100,
+          "gpu_ms": 1.67295001149178,
+          "ms_median": 4.13,
+          "ms_p95": 4.805,
+          "ms_worst": 5.426,
+          "objects": 1072,
+          "pass_spread_ms": 0.29,
+          "passes": [
+            {
+              "draws": 1100,
+              "ms_median": 4.13,
+              "ms_p95": 4.805
+            },
+            {
+              "draws": 1100,
+              "ms_median": 4.413,
+              "ms_p95": 5.095
+            }
+          ],
+          "primitives": 1297558,
+          "render_cpu_ms": 3.35670001506805,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 867,
+          "gpu_ms": 1.51179999709129,
+          "ms_median": 3.849,
+          "ms_p95": 4.44,
+          "ms_worst": 4.743,
+          "objects": 812,
+          "pass_spread_ms": 0.334,
+          "passes": [
+            {
+              "draws": 867,
+              "ms_median": 3.849,
+              "ms_p95": 4.44
+            },
+            {
+              "draws": 867,
+              "ms_median": 3.891,
+              "ms_p95": 4.774
+            }
+          ],
+          "primitives": 1093012,
+          "render_cpu_ms": 3.19500002861023,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 5.40575,
+      "pos": [
+        16.5,
+        -4.09999990463257,
+        -2.0
+      ],
+      "station": "objective_5",
+      "type": "objective",
+      "worst_heading": {
+        "draws": 1211,
+        "gpu_ms": 1.85029999017715,
+        "ms_median": 5.884,
+        "ms_p95": 6.89,
+        "ms_worst": 7.384,
+        "objects": 1024,
+        "pass_spread_ms": 0.556,
+        "passes": [
+          {
+            "draws": 1211,
+            "ms_median": 5.884,
+            "ms_p95": 6.89
+          },
+          {
+            "draws": 1211,
+            "ms_median": 6.174,
+            "ms_p95": 7.446
+          }
+        ],
+        "primitives": 1219844,
+        "render_cpu_ms": 5.14719998836517,
+        "split_perturbed": true,
+        "yaw": 270.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1642,
+          "gpu_ms": 1.78660000562668,
+          "ms_median": 6.422,
+          "ms_p95": 7.516,
+          "ms_worst": 8.27,
+          "objects": 1589,
+          "pass_spread_ms": 0.554,
+          "passes": [
+            {
+              "draws": 1642,
+              "ms_median": 6.422,
+              "ms_p95": 7.516
+            },
+            {
+              "draws": 1642,
+              "ms_median": 6.773,
+              "ms_p95": 8.07
+            }
+          ],
+          "primitives": 1407222,
+          "render_cpu_ms": 5.90550000667572,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1275,
+          "gpu_ms": 2.21120001077652,
+          "ms_median": 6.609,
+          "ms_p95": 7.088,
+          "ms_worst": 7.551,
+          "objects": 1165,
+          "pass_spread_ms": 0.0289999999999999,
+          "passes": [
+            {
+              "draws": 1275,
+              "ms_median": 6.609,
+              "ms_p95": 7.088
+            },
+            {
+              "draws": 1275,
+              "ms_median": 6.447,
+              "ms_p95": 7.117
+            }
+          ],
+          "primitives": 1295570,
+          "render_cpu_ms": 5.69564995765686,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 960,
+          "gpu_ms": 1.43725001215935,
+          "ms_median": 4.498,
+          "ms_p95": 4.923,
+          "ms_worst": 5.275,
+          "objects": 863,
+          "pass_spread_ms": 0.0919999999999996,
+          "passes": [
+            {
+              "draws": 960,
+              "ms_median": 4.498,
+              "ms_p95": 4.923
+            },
+            {
+              "draws": 960,
+              "ms_median": 4.233,
+              "ms_p95": 5.015
+            }
+          ],
+          "primitives": 1141240,
+          "render_cpu_ms": 3.25404999256134,
+          "split_perturbed": true,
+          "yaw": 0.0
+        },
+        {
+          "draws": 1005,
+          "gpu_ms": 1.56074999570847,
+          "ms_median": 4.279,
+          "ms_p95": 4.889,
+          "ms_worst": 5.516,
+          "objects": 927,
+          "pass_spread_ms": 0.196,
+          "passes": [
+            {
+              "draws": 1005,
+              "ms_median": 4.279,
+              "ms_p95": 4.889
+            },
+            {
+              "draws": 1005,
+              "ms_median": 4.575,
+              "ms_p95": 5.085
+            }
+          ],
+          "primitives": 1334712,
+          "render_cpu_ms": 4.41860002279282,
+          "split_perturbed": true,
+          "yaw": 180.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 6.104,
+      "pos": [
+        27.0,
+        6.59999990463257,
+        11.0
+      ],
+      "station": "highest_vantage",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 1642,
+        "gpu_ms": 1.78660000562668,
+        "ms_median": 6.422,
+        "ms_p95": 7.516,
+        "ms_worst": 8.27,
+        "objects": 1589,
+        "pass_spread_ms": 0.554,
+        "passes": [
+          {
+            "draws": 1642,
+            "ms_median": 6.422,
+            "ms_p95": 7.516
+          },
+          {
+            "draws": 1642,
+            "ms_median": 6.773,
+            "ms_p95": 8.07
+          }
+        ],
+        "primitives": 1407222,
+        "render_cpu_ms": 5.90550000667572,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 2964,
+          "gpu_ms": 8.42869997024536,
+          "ms_median": 14.689,
+          "ms_p95": 15.827,
+          "ms_worst": 16.781,
+          "objects": 2706,
+          "pass_spread_ms": 1.398,
+          "passes": [
+            {
+              "draws": 2964,
+              "ms_median": 14.689,
+              "ms_p95": 15.827
+            },
+            {
+              "draws": 2964,
+              "ms_median": 15.111,
+              "ms_p95": 17.225
+            }
+          ],
+          "primitives": 1667060,
+          "render_cpu_ms": 14.5885999202728,
+          "split_perturbed": true,
+          "yaw": 90.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 1016,
+          "1": 1427,
+          "2": 888,
+          "3": 330,
+          "4": 118,
+          "5": 91,
+          "6": 28,
+          "7": 20,
+          "8": 3,
+          "9": 1,
+          "10": 3,
+          "11": 2,
+          "13": 1,
+          "14": 1,
+          "15": 1,
+          "16": 1,
+          "17": 5,
+          "19": 1,
+          "20": 3,
+          "23": 1,
+          "27": 4,
+          "30": 4,
+          "31": 5
+        },
+        "lights": 95,
+        "meshes": 3954,
+        "over_cap": 33,
+        "over_list": [
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 31,
+            "mesh": "/root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 30,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 23,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_main_floor/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_main_floor/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_checkin_hall/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_reception/Floor_carpet_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_bond_store/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_checkin_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_under_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_lower_hall/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/roof_footprint/Roof_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/floor_baggage_band/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_columbarium_vault/Ceiling_plaster_delco_1997"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/floor_crematory_wing/Floor_tile_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/ceiling_vip_wing/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/floor_vip_wing/Floor_carpet_club_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/ceiling_reception/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b1/ceiling_baggage_band/Ceiling_ceiling_tile_delco_1997"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_3"
+          }
+        ],
+        "over_list_truncated": false,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 2846,
+            "1": 726,
+            "2": 336,
+            "3": 21,
+            "4": 12,
+            "5": 9,
+            "6": 4
+          },
+          "lightmap_users": 3898,
+          "lights_static": 78,
+          "over_cap": 0,
+          "over_list": [],
+          "over_list_truncated": false,
+          "pairs": 1578,
+          "worst": 6,
+          "worst_mesh": "CoverE_concrete_delco_1997"
+        },
+        "pairs": 6141,
+        "worst": 31,
+        "worst_mesh": "Roof_paint_block_delco_1997"
+      },
+      "mean_p95_over_headings": 15.827,
+      "pos": [
+        77.0,
+        1.60000002384186,
+        16.0
+      ],
+      "station": "longest_sightline",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 2964,
+        "gpu_ms": 8.42869997024536,
+        "ms_median": 14.689,
+        "ms_p95": 15.827,
+        "ms_worst": 16.781,
+        "objects": 2706,
+        "pass_spread_ms": 1.398,
+        "passes": [
+          {
+            "draws": 2964,
+            "ms_median": 14.689,
+            "ms_p95": 15.827
+          },
+          {
+            "draws": 2964,
+            "ms_median": 15.111,
+            "ms_p95": 17.225
+          }
+        ],
+        "primitives": 1667060,
+        "render_cpu_ms": 14.5885999202728,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    }
+  ],
+  "schema": "level_factory.perf_stations.v1"
+}

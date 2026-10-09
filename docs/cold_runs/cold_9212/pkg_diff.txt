@@ -1,0 +1,75 @@
+files: A 2833, B 2835; only in A 4, only in B 6, in both 2829, differing 136
+  only in A: cover/_tex/plastic_neutral_albedo_50ed9ac2.png
+  only in A: cover/_tex/plastic_neutral_albedo_50ed9ac2.png.import
+  only in A: cover/_tex/plastic_neutral_roughness_2da5f3b8.png
+  only in A: cover/_tex/plastic_neutral_roughness_2da5f3b8.png.import
+  only in B: cover/_tex/Payphone_256x1243_de5fe867_2202867d.png
+  only in B: cover/_tex/Payphone_256x1243_de5fe867_2202867d.png.import
+  only in B: lot/airport_terminal_a02/art/zoo/_tex/Payphone_256x1243_de5fe867_2202867d.png
+  only in B: lot/airport_terminal_a02/art/zoo/_tex/Payphone_256x1243_de5fe867_2202867d.png.import
+  only in B: lot/funeral_home_a03/art/zoo/_tex/Payphone_256x1243_de5fe867_2202867d.png
+  only in B: lot/funeral_home_a03/art/zoo/_tex/Payphone_256x1243_de5fe867_2202867d.png.import
+differing, by extension: {'.exr': 1, '.glb': 8, '.html': 1, '.import': 92, '.json': 9, '.lmbake': 1, '.md': 1, '.res': 1, '.tscn': 14, '.unwrap_cache': 8}
+  GLB JSON chunk differs: cover/prop_payphone_delco_1997_01_w75_d50_h230.glb
+  GLB bytes differ OUTSIDE normals: lot/airport_terminal_a02/art/fixtures/airport_terminal_a02_fixtures.glb: 1289 (inside 362), in {'indices': 1289}; triangles (position, uv, colour) the same as multisets: True
+  GLB JSON chunk differs: lot/airport_terminal_a02/art/zoo/prop_payphone_delco_1997_04_w75_d50_h230_mmetal.glb
+  GLB bytes differ OUTSIDE normals: lot/funeral_home_a03/art/fixtures/funeral_home_a03_fixtures.glb: 1468 (inside 644), in {'indices': 1468}; triangles (position, uv, colour) the same as multisets: True
+  GLB JSON chunk differs: lot/funeral_home_a03/art/zoo/prop_payphone_delco_1997_04_w75_d50_h230_mmetal.glb
+  GLB bytes differ OUTSIDE normals: lot/gs_empty_rowhome_b/art/dressing/gs_empty_rowhome_b_dressing.glb: 469 (inside 147), in {'POSITION': 126, 'TEXCOORD_0': 113, 'COLOR_0': 117, 'indices': 113}; triangles (position, uv, colour) the same as multisets: True
+  GLB bytes differ OUTSIDE normals: lot/gs_empty_rowhome_k/art/dressing/gs_empty_rowhome_k_dressing.glb: 761 (inside 263), in {'POSITION': 240, 'TEXCOORD_0': 156, 'COLOR_0': 225, 'indices': 140}; triangles (position, uv, colour) the same as multisets: True
+  GLB bytes differ OUTSIDE normals: lot/strip_club_a01/art/fixtures/strip_club_a01_fixtures.glb: 589 (inside 144), in {'indices': 589}; triangles (position, uv, colour) the same as multisets: True
+GLBs differing: 8; JSON chunk differs in 3; not parsed 0; differing binary bytes inside NORMAL ranges 1560, outside 4576, the outside ones by attribute {'indices': 3599, 'POSITION': 366, 'TEXCOORD_0': 269, 'COLOR_0': 342}; GLBs with bytes outside whose triangles are the same multiset: 5
+other differing files: 128; Godot import sidecars and unwrap caches 100, of which 84 belong to no differing GLB
+  sidecar of an unchanged file: bake.exr.import
+  sidecar of an unchanged file: cover/_tex/glass_delco_albedo_62413a45.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/concrete_delco_roughness_b1f07708.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/metal_bare_neutral_roughness_e3809aa1.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/metal_rusted_street_albedo_54c113e6.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/metal_rusted_street_normal_1f5687b5.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/plastic_neutral_albedo_50ed9ac2.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/vct_floor_beige_albedo_11551b28.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/wood_delco_normal_70b18ffa.png.import
+  sidecar of an unchanged file: lot/airport_terminal_a02/art/zoo/_tex/wood_delco_roughness_583ec196.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/concrete_delco_albedo_e9dfe734.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/concrete_delco_roughness_b1f07708.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/drywall_orangepeel_delco_albedo_33f2e1fa.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/glass_delco_albedo_62413a45.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/metal_painted_neutral_albedo_fa269f8e.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/metal_rusted_street_normal_1f5687b5.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/metal_rusted_street_roughness_142550f4.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/paper_neutral_albedo_ce4b63ef.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/paper_neutral_roughness_b72f3e7c.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/plastic_neutral_albedo_50ed9ac2.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/plastic_neutral_roughness_2da5f3b8.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/wood_delco_albedo_2056cb03.png.import
+  sidecar of an unchanged file: lot/funeral_home_a03/art/zoo/_tex/wood_delco_normal_70b18ffa.png.import
+  sidecar of an unchanged file: lot/gs_empty_rowhome_a/art/zoo/_tex/brick_orange_delco_albedo_2b19b177.png.import
+  sidecar of an unchanged file: lot/gs_empty_rowhome_a/art/zoo/_tex/brick_orange_delco_roughness_691b6e8f.png.import
+  LF_MANIFEST.json  (1570 -> 1570 bytes)
+  LICENSES.json  (867 -> 867 bytes)
+  bake.exr  (50582001 -> 50678870 bytes)
+  bake.lmbake  (303650 -> 303171 bytes)
+  bake.tscn  (523 -> 519 bytes)
+  build.lock.json  (4449 -> 4449 bytes)
+  dressing/pebble.res  (535357 -> 535357 bytes)
+  export_closure_scan.json  (692 -> 692 bytes)
+  glb_reference_scan.json  (436 -> 436 bytes)
+  light_bake.json  (37399 -> 37399 bytes)
+  lot/gs_empty_rowhome_a/site.tscn  (58015 -> 58015 bytes)
+  lot/gs_empty_rowhome_b/site.tscn  (61194 -> 61199 bytes)
+  lot/gs_empty_rowhome_c/site.tscn  (64964 -> 64971 bytes)
+  lot/gs_empty_rowhome_d/site.tscn  (46268 -> 46272 bytes)
+  lot/gs_empty_rowhome_e/site.tscn  (48280 -> 48283 bytes)
+  lot/gs_empty_rowhome_f/site.tscn  (64148 -> 64162 bytes)
+  lot/gs_empty_rowhome_g/site.tscn  (61603 -> 61605 bytes)
+  lot/gs_empty_rowhome_h/site.tscn  (46594 -> 46614 bytes)
+  lot/gs_empty_rowhome_i/site.tscn  (61254 -> 61229 bytes)
+  lot/gs_empty_rowhome_j/site.tscn  (57981 -> 57989 bytes)
+  lot/gs_empty_rowhome_k/site.tscn  (59809 -> 59812 bytes)
+  lot/gs_empty_rowhome_l/site.tscn  (47501 -> 47501 bytes)
+  occluders.json  (648982 -> 648982 bytes)
+  portable_resource_manifest.json  (606763 -> 607277 bytes)
+  presentation/lux.applied.tscn  (494471 -> 494453 bytes)
+  validation/report.html  (2732 -> 2732 bytes)
+  validation/report.json  (2359 -> 2359 bytes)
+  validation/report.md  (2648 -> 2648 bytes)
