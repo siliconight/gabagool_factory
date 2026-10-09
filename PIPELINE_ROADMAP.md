@@ -893,9 +893,9 @@ work of adopting this.
 | 212 | **CLOSED** | Responders arrive on the way back | 2026-10-08 -- responders can arrive, and the car they arrive in ships. Lot 0.99.0-0.101.0  |
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
 | 214 | **OPEN** | Zoo's minting meets the modern low-poly standard | 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `d |
-| 215 | **OPEN** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-08 -- split out of item 212 at its close, not worked. On club_block_014 (cold run  |
+| 215 | **NARROWED** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the si |
 
-**215 items: 42 open, 100 closed, 3 retracted, 63 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**215 items: 41 open, 100 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19609,7 +19609,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   4. procedural detail on that bake source.
 - **A.5 What does not change.** No subdivided mesh at runtime; a normal map is a texture in the part family's one material; triangles are counted on the game mesh.
 
-*STATUS: OPEN 2026-10-08 -- split out of item 212 at its close, not worked. On club_block_014 (cold run 9209) the site audit reports all three responder arrivals inside a 6-degree arc of the objective, and that finding -- with every other site-audit finding -- reaches no report: it is in Lot's job log only.*
+*STATUS: NARROWED 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the site's gameplay manifest and Level Factory 0.163.0 reads it, one non-blocking issue a finding (HIGH major, MED moderate, INFO info), `LOT_SITE_AUDIT_UNREAD` when it cannot. Cold run 9210 (club_block_014, 0 interventions): findings 58 to 72, every one of the 14 new ones attributed to a Lot run and matching its job log; `S_RESPONDER_ARC` fires on all three candidates, at 33, 6 and 16 degrees. Open: the arc question itself, now counted on every run of this mission.*
 
 **215. `S_RESPONDER_ARC` fires where a site's roads lie to one side of the objective, and the site audit reaches no report.**
 
@@ -19634,4 +19634,20 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - leave the rule, which reports a true fact about the roads;
   - let Lot open road ends on more sides of a heist;
   - change the rule's severity.
-- **First, separately:** carry the site audit into the validation report, so whatever it says is counted.
+- **First, separately:** carry the site audit into the validation report, so whatever it says is counted. *Done, below.*
+
+**LOT 0.102.0 AND LEVEL FACTORY 0.163.0, DONE: THE AUDIT IS COUNTED (2026-10-09)** (`patches/patch_lot_site_audit_record.py`, `patch_lf_site_audit.py`). Instrument work: it makes findings Lot already computed visible to the report and to every cold run's findings diff. It reduces no interventions by itself.
+- **Lot keeps it.** `site_audit.record` makes the block, and `assemble` writes it as `site_audit` in `<stem>.site.gameplay.json`: the mode, the counts, and one dict a finding (`severity`, `code`, `message`). The fields are named, not the tuple's positions. The job log prints the same report as before.
+- **Level Factory reads it.** `adapters.lot.normalize_validation` reads each finding as an issue:
+  - HIGH as major, MED as moderate, INFO as info (`LOT_SITE_AUDIT_SEVERITY`);
+  - category `combat_structure`;
+  - never blocking: the audit is report-only, HIGH included.
+  - No block, or a shape it cannot read, is `LOT_SITE_AUDIT_UNREAD`. An absent audit and a clean one must not look alike.
+- **Tests.** Lot: 3, all failing on 0.101.0. Level Factory: 13, all but one failing on 0.162.1. The one is a guard: a clean audit says nothing.
+  - The Level Factory test reads Lot's own `audit` and `record`, so a change to Lot's shape fails there.
+  - `test_real_lot` fails against Lot 0.101.0 and passes against 0.102.0.
+- **Cold run 9210** (`docs/cold_runs/cold_9210/NOTES.md`, `audit_codes.py`): findings 58 to 72.
+  - `S_GETAWAY_AT_SPAWN` 0 to 4, `S_RESPONDER_ARC` 0 to 4, `S_STREET_CROSS` 0 to 6.
+  - Four of each, because the selected candidate is assembled twice, as a candidate and themed. Six crossings, because seed_9080's legs cross no road.
+  - The pick is unchanged (seed_9181): moderate and info move no count of majors.
+- **The arc question is unchanged in substance and is now counted.** `S_RESPONDER_ARC` fires on every candidate of club_block_014, at 33, 6 and 16 degrees against the rule's 210. The options above stand.
