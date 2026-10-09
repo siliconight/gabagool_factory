@@ -1,7 +1,9 @@
 <!--
 Filed 2026-10-08 from the walker's `Blender_Modern_Low_Poly_Asset_Standard.docx`
 (the original is beside this file). Rendered to Markdown from the document's
-own paragraph styles by a script; the text is the document's, unedited.
+own paragraph styles by a script; the text is the document's, unedited,
+except Addendum A (before section 16), added 2026-10-08 at the walker's
+request and not in the .docx.
 How it maps to Zoo's minting today: MODERN_LOW_POLY_IN_ZOO.md.
 -->
 
@@ -550,6 +552,149 @@ If a scene is pixel-, shadow-, or transparency-limited, reducing triangle count 
 Require inputs for dimensions, construction type, viewing distance, repetition, interaction, silhouette features, resource limits, and material family. Choose geometry from those inputs. Preserve separate moving parts and spatial grouping. Emit the asset record with the mesh.
 
 Reject silent budget overruns, hidden dense sources in exports, unexplained global smoothing, unsupported material graphs, and claims of equivalent performance without a comparison. When a feature fails review, revise the specific cause rather than increasing detail across the asset.
+
+## Addendum A: subdivision, sculpt and retopology, multires -- and where each fits here
+
+*Added 2026-10-08 from the walker's notes, a sculpt-and-retopology
+walkthrough and a Blender retopology tutorial. It is not in the original
+`.docx`. Written for this project, not transcribed.*
+
+**Why it is here.** The default target is modernized low poly, and section
+6 bakes selected detail. Three Blender workflows decide how good a hard
+prop's edges and an organic piece's forms can look:
+- **subdivision modeling**, for hard surfaces;
+- **sculpt and retopology**, for organic forms;
+- **multires**, for detail sculpted on a clean mesh.
+
+**None of them puts a subdivided or sculpted mesh in the game.** The rule
+above stands: "Use no automatic subdivision of the runtime mesh." What they
+make is a better bake source, a cleaner game mesh, or both.
+
+### A.1 Subdivision modeling and the topology that goes with it
+
+**What it is.** A coarse cage, smoothed by a Subdivision Surface modifier.
+Where an edge must stay hard, something holds it:
+- **support loops** (holding or control edges) run parallel and close to
+  it; the closer, the tighter the curve;
+- **edge crease** weights;
+- **a bevel** of two or three segments, applied before the subdivision.
+
+**The topology that goes with it:**
+- **Quads where the surface curves.** Triangles and n-gons only on flat
+  regions: a flat n-gon subdivides cleanly, a curved one pinches.
+- **Poles off the highlights.** A pole is a vertex with three edges, or five
+  or more. Put them on flat areas, never where a highlight runs.
+- **Support loops evenly spaced.** Keep them parallel and evenly spaced, and
+  as few as hold the shape.
+
+**Edge reduction.** These keep the cage light by stopping a loop from
+running across the whole model:
+- 2-to-1 and 3-to-1 reductions;
+- a loop ended in a triangle or a pole on a flat area;
+- a loop routed round a cut-out;
+- Limited Dissolve on coplanar edges.
+
+**Where it fits here.**
+- **As a bake source.** The subdivided high-poly's rounded edges bake into
+  the game mesh's normal map (section 6, Selected to Active). The game mesh
+  keeps its triangles, and its edges catch light like a casting's.
+- **As a hero mesh,** subdivision level 1 applied, and only for the
+  "selected hero" tier, priced. Each level multiplies the faces by four.
+- **Never as a runtime modifier.**
+
+**Its cheaper cousin is already in Zoo:** one-segment bevels, smooth-by-angle
+shading, and weighted normals (the one not yet used). Choose between them:
+- **bevels and normals** when the radius shows at gameplay distance and
+  geometry is cheap;
+- **a subdivided bake source** when the edges are small and many (a
+  payphone's housing, a register's keys) and a texture is affordable.
+
+### A.2 Sculpt and retopology
+
+**The workflow,** for characters, food, fabric and padding, rocks, dents and
+damage:
+1. **Block the shape** by any means: a voxel remesh of joined pieces,
+   booleans, Dyntopo sculpting. Ignore the topology.
+2. **Sculpt only the forms that change the silhouette.** Keep the
+   resolution as low as the shape allows; more only slows the work.
+3. **Retopologize.** Build the game mesh on top of the sculpt, snapped to
+   its surface. The sculpt is a mold, not the model.
+4. **Discard the sculpt,** keeping a copy.
+5. **Put multires on the clean mesh,** and sculpt the fine detail that does
+   not change the silhouette.
+6. **UV unwrap, then bake from multires:** normals for a game mesh,
+   displacement for a film one.
+7. **Apply the maps and remove multires,** keeping a backup.
+8. **Colour,** by one of:
+   - vertex paint on the detailed mesh in Sculpt Mode (multires applied on a
+     copy), baked to an image, with cavity masking to tell bumps from
+     crevices;
+   - a cavity or curvature map recoloured as the base of the texture;
+   - an external painting application.
+
+   Texture Paint mode is the weakest of these: old and slow.
+
+**Retopology practice.**
+- **Snapping.** Snap to the sculpt's surface (Face Project, projecting
+  individual elements).
+- **A Shrinkwrap modifier,** Above Surface with a small offset, and On Cage,
+  so the new vertices show above the sculpt.
+- **Mirror with Clipping** on a symmetric piece. Hide the mirror while
+  working near its plane, so a click does not take a vertex on the far
+  side.
+- **Quads of even size,** smaller where detail lives. A few triangles where
+  they hide; n-gons avoided.
+- **Loops follow the form's flow:** round the eyes and the mouth, along
+  creases and folds. Then the shape holds with few faces.
+- **Tools.** Loop Cut adds resolution where a region is too coarse; Edge
+  Slide evens the spacing; F fills.
+- **Back up before applying** the Mirror and the Shrinkwrap.
+
+**Where it fits here.** Human-made assets:
+- enemy characters (section 1's 6,000-12,000 triangle range);
+- food, padded seating, sculpted damage.
+
+Zoo does not sculpt. A human-made asset enters the factory through Zoo's
+ingest (Zoo's README, "Adopting external assets") and is held to this
+standard.
+
+### A.3 Multires
+
+Subdivision that can be sculpted at several levels over a fixed base mesh.
+Blender bakes normal or displacement maps from it ("Bake from Multires"),
+the only way it bakes displacement.
+
+**Here: normal maps only.** Displacement needs a subdivided render mesh,
+which the runtime rule forbids.
+
+### A.4 What procedural props can take from this
+
+These are ways for Zoo's hard models to look better than today. Each is a
+look, so each is a trial priced on and off at fixed stations before it
+ships:
+1. **Weighted normals on bevelled parts.** The cheapest: no textures, no
+   triangles.
+2. **Convex-edge wear in vertex colour.** Zoo's `wear_colors` darkens
+   concave vertices and adds grime; it does not lighten or chip exposed
+   edges. Wear by shape is the cavity mask above, at no texture cost.
+3. **A procedural bake source.**
+   - A second build of the same recipe, its hard edges creased or
+     support-looped under a Subdivision Surface modifier, is the high-poly.
+   - Cycles bakes a tangent-space normal map from it onto the game mesh
+     (Selected to Active).
+   - The cost: one texture per species (section 6's 512 px start), no
+     triangles.
+   - Zoo bakes nothing today.
+4. **Procedural detail on the bake source only:** noise, dents, weld seams,
+   panel lines.
+
+### A.5 What does not change
+
+- **No subdivided or sculpted mesh in a runtime export.**
+- **A normal map is a texture,** in the part family's one material, not a
+  new material. Draw calls are this project's budget.
+- **Triangles are counted on the game mesh,** after any of this. The bake
+  source's are not counted.
 
 ## 16 Artist and production references
 

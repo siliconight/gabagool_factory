@@ -85,12 +85,19 @@ at 0.5 and 0.25, off by default.
 
 **4. Weighted normals** (section 5). Not used. A trial is a look, so it is
 priced: on/off frames at fixed stations under the three lighting checks.
-The standard asks for the same comparison in section 14.
+The standard asks for the same comparison in section 14. Addendum A.4 puts
+it first of four trials: it costs no texture and no triangles.
 
 **5. Baked normal maps** (section 6). Zoo bakes none. The standard expects
 them only for selected close props and says common props "may need only
 geometry normals and shared materials". A bake adds texture memory and
 sampling, so it is priced before it ships.
+- **Where a source would come from.** Addendum A.1 and A.4 (subdivision
+  modeling) say how Zoo could make its own bake source.
+- **How.** A second build of the same recipe, its hard edges creased or
+  support-looped under a Subdivision Surface modifier, baked Selected to
+  Active onto the game mesh.
+- **What it buys.** Rounded, light-catching edges without a triangle more.
 
 **6. Trim sheets** (section 7). These belong to Pixelcoat (skins) and
 Patina (the facade covers' trim atlas), not Zoo. The standard's deli and
@@ -107,6 +114,17 @@ counterpart:
 
 The standard's A/B/C comparison (basic boxes; construction; bevels and
 normals) under identical neutral light has never been run on any of them.
+
+**8. Wear by shape on exposed edges** (section 8, and Addendum A.2's cavity
+masking). `geometry.wear_colors` darkens concave vertices by their average
+edge angle and adds seeded grime. It does not lighten or chip convex edges,
+which is where impact and handling put wear. The change is in vertex colour
+only, so it needs no texture: Addendum A.4's second trial.
+
+**9. Sculpted and human-made assets** (Addendum A.2 and A.3). Characters,
+food and sculpted damage are made by sculpt, retopology and multires, by a
+person. They enter through Zoo's ingest and meet this standard there. Zoo
+does not sculpt.
 
 ## Where a measured house rule decides
 

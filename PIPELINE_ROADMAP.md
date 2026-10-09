@@ -19556,7 +19556,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The census agrees.** Paired: 0 over 8, worst 6, as predicted. Ten of b0's meshes gain the live lamps, none past 5. By reach: 33 over 8, unmoved.
 - **Not settled.** Whose light 9204's dim wash was: the 8x copy kept 9204's bake and still matches 9205 on the stage top to 0.1 codes, and the stage lip's neon is the candidate, untested. And the resource is still named "Stage Light (baked)" on a live rig: the loader names every club rig so, and `lux_lighting.gd` ranks shadows by those names.
 
-*STATUS: OPEN 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `docs/reference/MODERN_LOW_POLY_ASSET_STANDARD.md` (the original `.docx` beside it), is the brief for "a human artist or procedural asset tool"; `docs/reference/MODERN_LOW_POLY_IN_ZOO.md` maps it onto Zoo 1.86.0's minting, measured: what Zoo already does, seven gaps, and where a measured house rule decides. Next: the asset record's missing fields, a budget class per genome, and the standard's A/B/C review on its three approval assets.*
+*STATUS: OPEN 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `docs/reference/MODERN_LOW_POLY_ASSET_STANDARD.md` (the original `.docx` beside it), is the brief for "a human artist or procedural asset tool"; `docs/reference/MODERN_LOW_POLY_IN_ZOO.md` maps it onto Zoo 1.86.0's minting, measured: what Zoo already does, nine gaps, and where a measured house rule decides. Addendum A, from the walker's notes the same day, adds subdivision modeling, sculpt and retopology, and multires. Next: the asset record's missing fields, a budget class per genome, the standard's A/B/C review on its three approval assets, and Addendum A.4's priced trials, weighted normals and convex-edge wear first.*
 
 **214. Zoo's minting meets the modern low-poly standard.** The walker, 2026-10-08, with `Blender_Modern_Low_Poly_Asset_Standard.docx`: "this should go with Zoo and help future minting?"
 
@@ -19582,3 +19582,14 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 **FOUND WHILE MAPPING.** `simple_car` skips its style bevel on purpose. It models a car's chamfers into its sections, because bevelling every edge took 12-triangle boxes to 44. So its genome's style bevels, 0.01-0.014 m, do nothing: a knob with no effect, which CLAUDE.md calls a defect. Small; recorded here, not fixed.
 
 **ZOO POINTS AT IT** (531db42, docs only, no version). The README's "Adding a species" now opens on the standard and its mapping, with the authorship guide's brief per prop. It says the standard's numbers are starting points and that the measured house rules win. "Low-poly heroes (PS1/N64)" notes that the house target has moved to the standard's "modernized low poly". One copy of the standard lives at the factory root; Zoo carries the pointer.
+
+**ADDENDUM A (2026-10-08).** The walker: "I missed some parts in that docx", namely subdivision modeling and the topology that goes with it (support edges, edge reduction methods), sculpt and retopology, and the multires modifier, with a sculpt-and-retopology walkthrough and a retopology tutorial. Written into the standard as Addendum A, before its references, in this project's terms; the `.docx` is unchanged.
+- **A.1 Subdivision modeling.** Support loops, creases and pre-subdivision bevels, quads where the surface curves, poles off the highlights, and edge reduction. It is a bake source or a priced level-1 hero mesh, never a runtime modifier.
+- **A.2 Sculpt and retopology.** The eight-step workflow and retopology practice, for human-made characters, food and damage, which enter through Zoo's ingest.
+- **A.3 Multires.** Normal maps only here: displacement needs a subdivided render mesh.
+- **A.4 The priced trials Zoo could run,** cheapest first:
+  1. weighted normals;
+  2. convex-edge wear in vertex colour. `wear_colors` darkens concave vertices only. No texture.
+  3. a procedural bake source: a creased or support-looped second build under a Subdivision Surface modifier, baked onto the game mesh. One texture per species, no triangles. Zoo bakes nothing today.
+  4. procedural detail on that bake source.
+- **A.5 What does not change.** No subdivided mesh at runtime; a normal map is a texture in the part family's one material; triangles are counted on the game mesh.
