@@ -15,6 +15,7 @@ followed.
 | an investigation | `docs/findings/<topic>/README.md`, with its instruments (`.py`, `.gd`) and their outputs (`.txt`, `.json`) beside it | yes | a frame only when a sentence needs it; a refuted instrument stays, marked |
 | a cold run | `docs/cold_runs/cold_N/`: `batch.json`, `briefs/`, `driver.log`, `art.log`, `export.log`, `NOTES.md` | yes | the workspace `workspaces/cold-N-ws/` is regenerable from it and is ignored; the clock's journal is `_runs/cold/` |
 | a measurement worth keeping on its own | `_runs/measurements/` (`git add -f`: the folder is ignored, its files are tracked) or the finding that made it | yes | a census, a price, a probe's JSON |
+| a reference asset too large to track (a `.blend`, a photo set) | the binary in `_archive/reference/`; a note in `docs/reference/` with its sha256, its source, its licence and what was read from it | the note yes, the binary no | the note must stand without the binary: a collaborator's checkout has only the note. First: the walker's tree, 2026-10-09, 75 MB. |
 | session scratch, output you are still looking at, a package copy | `_scratch/<date>_<topic>/` | no, ignored | never the root, never a `scratchpad/` |
 | a one-shot that already ran | `migrations/` at the root, `<repo>/migrations/` in a tool | yes | kept: see the first row |
 | a standing tool | `tools/` at the root, with a docstring whose first line says what it does | yes | that line is what the index shows |

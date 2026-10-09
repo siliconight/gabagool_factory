@@ -894,8 +894,9 @@ work of adopting this.
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
 | 214 | **NARROWED** | Zoo's minting meets the modern low-poly standard | 2026-10-09 -- trial 1 shipped: Zoo 1.87.0 weighs every part's corner normals by face area  |
 | 215 | **NARROWED** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the si |
+| 216 | **OPEN** | Trees: a sculpted trunk and a crown of branch cards, and god rays unde | 2026-10-09 -- filed, not started. The walker's ask: better-looking trees, with a CC0 refer |
 
-**215 items: 40 open, 100 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**216 items: 41 open, 100 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19671,3 +19672,45 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - Four of each, because the selected candidate is assembled twice, as a candidate and themed. Six crossings, because seed_9080's legs cross no road.
   - The pick is unchanged (seed_9181): moderate and info move no count of majors.
 - **The arc question is unchanged in substance and is now counted.** `S_RESPONDER_ARC` fires on every candidate of club_block_014, at 33, 6 and 16 degrees against the rule's 210. The options above stand.
+
+*STATUS: OPEN 2026-10-09 -- filed, not started. The walker's ask: better-looking trees, with a CC0 reference tree, the method it was made by, and god rays through canopies (`docs/reference/TREE_REFERENCE.md`). Zoo's six tree species are grown from a skeleton under faceted box leaf clusters: 2,220-3,564 triangles and 4 primitives each. The reference is a sculpted trunk under about 800 bent, alpha-tested branch cards: about 21,000 triangles in 3 materials with 2048 maps. Next: price an alpha-tested crown before building one.*
+
+**216. Trees: a sculpted trunk and a crown of branch cards, and god rays under them.** The walker, 2026-10-09: "On the roadmap, improving Trees", with `one tree hill_gumroad.blend` ("The cc0 tree to use as a reference for how to make better looking trees"), a transcript of the video it comes from, and a note on god rays with a photograph.
+
+**THE REFERENCE** (measured: `docs/findings/trees_reference/`, read with Blender's auto-exec off; it holds no scripts). One 21 m stylized hill tree.
+- **The trunk:** one connected mesh of 7,030 triangles, roots to main limbs, with its Multires sculpt beside it. A 2048 colour map and a 2048 normal map, opaque.
+- **The crown:** 12 large branch cards (100 triangles each) and about 800 small leafy ones in three variants (about 28 each). The placed cards are bent, not flat. Each material has a 2048 colour map with alpha and a 2048 normal map, alpha-tested and two-sided.
+- **The binary is not tracked** (75 MB). It is in `_archive/reference/`, and the note carries its sha256. `docs/FILING.md` has a new row for reference assets too large to track.
+
+**THE METHOD** (the video, in this repo's words, in the note): a trunk from a skeleton under a Skin modifier and a subdivision, applied, thinned by dissolving every second loop, sculpted and baked. That is the standard's Addendum A.2 and A.3 in use. A crown of cards, each a 3D branch baked onto a plane, cut to its outline, bent, its origin at the branch base. Cards are merged to cut draw calls, and the wind is on the cards.
+
+**ZOO TODAY** (`zoo/zoo_keeper/recipes/street_tree.py`, `core/tree_forms.py`).
+- **How a tree is grown.** Species angles, a tapered six-sided trunk and leader, box twigs, a faceted box "leaf cluster" at every tip: the low-poly retro read the walker kept on 2026-09-13.
+- **What it costs:** 2,220 to 3,564 triangles, 4 primitives and 203 to 320 KB, on 3 to 5 m slots.
+- **Wind exists:** a `Sway` UV layer on the crown (Zoo 1.56.0).
+- **Cards were tried.** `params.crown = "cards"` keeps 0.69.2's four crossed cutout planes, judged not ready on cold run 9032.
+- **At night in a level**, a trunk under a few square green masses (`docs/findings/weighted_normals/level_extraction_pair.png`).
+
+**THE WORK, by owner.**
+- **Zoo, the trunk.** The skeleton Zoo already grows, under a Skin modifier with a radius per vertex: one connected trunk instead of intersecting cylinders. Bark rides as a baked normal map, which is Addendum A.4's trial 3, the procedural bake source. The tree may be its first use.
+- **Zoo, the crown.**
+  - A branch generator per species: twigs and leaves as 3D geometry, baked into one card atlas of colour, alpha and normal. One atlas per species, shared by every tree of it.
+  - Cards bent and placed at the skeleton's tips, their origins at the branch bases, and merged by material per tree. Target: the same 4 primitives.
+  - The `Sway` layer written on the cards.
+- **Lux, god rays.** Fake shafts: additive quads or cones under a canopy, angled along the sun.
+  - Lux's streetlight cone (`lux_light_cone.gdshader`: a flat alpha gradient, faded as the camera walks under it) is the same kind of object.
+  - Daylight slots with a low sun only (morning, afternoon, evening); never midnight.
+  - Volumetric fog does not render on GL Compatibility (Lux measured it), and screen-space shafts are the post-process class CLAUDE.md defers.
+
+**PRICE FIRST: alpha-tested cards are the costliest surface this renderer draws.**
+- **The house measurement.** Cold run 9185 priced the fence fabric alpha-tested against blended. Alpha test cost +3.3 draws a view, consistent with a shadow pass, and +1.05 to +1.59 ms where the fence filled the view. Blended was cheaper, and casts no shadow.
+- **For a crown, neither is free.**
+  - Blended cards cannot sort against each other, and a tree without a shadow reads wrong.
+  - Alpha-tested cards pay the shadow pass, and the discard and overdraw under the crown, where a player on the sidewalk stands.
+- **Triangles** would go up about 7x a tree. That is not the budget (CLAUDE.md, draw calls are), but it trips the genome's regression detector. A budget class (item 214's "hero") makes the jump a stated exception.
+- **So the first step is a price, not a tree:** one species' crown of cards, alpha-tested and blended, on a street of them, at fixed stations against a control.
+
+**NOT DECIDED HERE.**
+- **Ingesting the reference as it is.** Possible: Zoo's ingest keeps authored normals since 1.87.0. But it is one 21 m hill tree, not a Delco street tree, and the deliverable is the generator. The reference is a brief, not a part.
+- **The look.** Whether the retro read the walker kept on 2026-09-13 gives way to the reference's is the walker's call. Their 2026-10-02 call, that realism replaces the retro look, points that way.
+- **Which species first.** `red_maple`, the default form, unless the walker says otherwise.

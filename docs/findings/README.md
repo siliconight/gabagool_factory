@@ -64,7 +64,7 @@
 - `stairwell_on_one_grid_in_four/` -- A stairwell that bakes on one grid in four
 - `street_line_frames/` -- 4 file(s), no README
 - `streetlight_shadow/` -- 5 file(s); The dark poles: their shadow was their own shaft cap
-- `trees_reference/` -- 2 file(s); What a reference .blend holds, read without running anything in it.
+- `trees_reference/` -- The walker's reference tree, read without running it (roadmap 216)
 - `two_names_one_building/` -- Two names on one building
 - `walktest_crew_body/` -- The walk test re-walked with the crew's body (roadmap 208, measure first)
 - `wall_pieces_without_walls/` -- Wall pieces with no wall behind them
