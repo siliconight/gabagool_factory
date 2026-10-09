@@ -1,0 +1,31 @@
+		"payphone_hood":
+			# THE PAYPHONE'S HOOD LAMP (0.70.0): one tube's downlight under a
+			# booth's roof, behind its header (Zoo >= 1.89.0's marker). The
+			# fluorescent rig's machinery, as the counter accent and the heat
+			# lamp use it -- a power cut kills it with every spawned light --
+			# but not preset scaled and not named "fluorescent", so the time of
+			# day leaves it at its outdoor level (PAYPHONE_HOOD_LEVEL).
+			var ph := LuxFluorescentRig.new()
+			ph.name = String(a.get("id", "payphone_hood"))
+			var rph := LuxLightRig.new()
+			rph.rig_name = &"Payphone Hood (baked)"
+			rph.light_color = LuxColorTemp.cool_fluorescent()
+			# THE DROP IS THE MARKER'S: its height above the ground the booth
+			# stands on, which the slot's height moves. The range is a ceiling
+			# lamp's for that drop, and the energy puts PAYPHONE_HOOD_LEVEL on
+			# the ground under it, so a taller booth is no dimmer.
+			var pdrop := float(a.get("drop", 0.0))
+			if pdrop <= 0.0:
+				pdrop = PAYPHONE_DEFAULT_DROP
+			rph.light_range = fluorescent_range(pdrop)
+			rph.attenuation = 2.0
+			rph.energy = energy_for(PAYPHONE_HOOD_LEVEL, pdrop, rph.light_range,
+				String(a.get("id", "payphone_hood")))
+			rph.preset_scaled = false
+			rph.count = 1
+			rph.spacing = 0.0
+			rph.mount_height = 0.0
+			rph.flicker_amount = 0.0
+			_make_downlight(rph)
+			ph.rig = rph
+			return ph

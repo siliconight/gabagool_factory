@@ -1,0 +1,39 @@
+import 0
+perf 1
+5     2.84    7.40    1918    1455844  
+  camera_socket_1             270     7.39     7.67     2.04    5.79    1273    1295774  
+  highest_vantage              90     7.34     9.37     1.84    5.43    1643    1407476  
+  defender_spawn_16           180     7.04     8.79     1.73    5.38    1569    1447196  
+  objective_5                 270     6.53     7.18     1.82    5.17    1206    1220004  
+  patrol_point_18             270     6.10     6.40     1.76    5.19    1184    1252998  
+  objective_3                 270     6.05     6.74     1.66    4.68    1019    1194234  
+  defender_spawn_15           270     4.97     5.58     1.32    3.58    1074    1227300  
+
+  passes: 2 per heading, the lower p95 kept; 13 of 53 heading(s) differed by more than 1.0 ms p95 (largest 3.19 ms); 0 drew a different count
+
+  lights per object, by reach: cap 8, 33 of 3951 mesh(es) over it, worst 32 (CoverW_concrete_delco_1997); 6231 light-mesh pair(s)
+     32 lights  /root/Mission/Bake/Site/b1/Dressing/CoverW_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+  lights per object, paired: 0 of 3951 mesh(es) over the cap, worst 6 (CoverE_concrete_delco_1997); 1579 light-mesh pair(s); 3895 lightmap user(s), 81 of 98 light(s) baked
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\pl_on.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: player_start_19 at yaw 90 -- 16.67 ms p95, 2975 draws
+
+PERF_STATION_OVER_BUDGET: 6 of 14 station(s)
+  player_start_19          DRAWS+MS (16.67 ms p95, 2975 draws)
+  longest_sightline        DRAWS+MS (16.15 ms p95, 2963 draws)
+  attacker_spawn_8         DRAWS+MS (13.96 ms p95, 2415 draws)
+  extraction_4             DRAWS+MS (13.82 ms p95, 2135 draws)
+  camera_socket_0          MS (11.83 ms p95, 1901 draws)
+  attacker_spawn_9         DRAWS (9.70 ms p95, 2024 draws)
+
+

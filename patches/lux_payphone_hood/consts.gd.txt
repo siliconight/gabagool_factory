@@ -1,0 +1,38 @@
+## THE PAYPHONE'S HOOD LAMP (0.70.0, roadmap 210). Zoo 1.89.0 hangs a tube's
+## diffuser under a payphone's roof, just behind its header, and
+## `LuxEmit_payphone_hood` under it carrying `lux_drop`, the lamp's height
+## above the ground the payphone stands on. Cold run 9212 stood a booth at a
+## bus stop, and at midnight it was a silhouette. The walker, 2026-10-09:
+## "yes light it".
+##
+## In the outdoor unit -- the value on the ground straight under the lamp --
+## and NOT preset scaled: a street fixture, like the pole and the canopy, not
+## a room that has to out-shine the dark (`fluorescent_energy_scale`).
+##
+## MEASURED with a lamp stood live in cold run 9212's package (club_block_014,
+## midnight) where Zoo 1.89.0 hangs it in the bus-stop booth: drop 2.211,
+## range 4.0, the caller's view of the instrument, mean luma of 255 over the
+## frame's middle third (`docs/findings/payphone_light/` at the factory root):
+##
+##     level, x REFERENCE_POOL    lamp mid-hood    lamp behind the header
+##     0 (the control)                20.6                 --
+##     0.375                           --                 68.5
+##     0.75                           89.2                94.8
+##     1.5                           118.4               123.9
+##     3.0                           146.7                 --
+##     6.0                           170.4                 --
+##
+## Nothing clipped at any of them. At 0.75 every word on the instrument reads
+## -- the card, the digits, the stickers -- and the back panel's top, a hand's
+## width from the tube, is pale; from 1.5 it washes toward white while the
+## instrument gains less with each doubling. So 0.75: the pavement under a
+## booth's tube reads as the road under a streetlight. That is the same ratio
+## as STREETLIGHT_LEVEL by a different road, and it is NOT that constant, so
+## tuning one does not move the other. The probe's lamp was live and
+## unshadowed; this one bakes, so the booth's own parts shadow it and its
+## walls bounce it. Cold run 9213 measures the residue.
+const PAYPHONE_HOOD_LEVEL := REFERENCE_POOL * 0.75
+## A hood lamp whose marker carries no drop hangs at the default booth's:
+## Zoo 1.89.0's 2.3 m slot, less the 45 mm roof, the diffuser's 14 mm and the
+## marker's 30 mm under it.
+const PAYPHONE_DEFAULT_DROP := 2.211

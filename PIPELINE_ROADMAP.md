@@ -888,7 +888,7 @@ work of adopting this.
 | 207 | **CLOSED** | A strip club's two stages are not lit | 2026-10-08 -- Lot 0.99.1 carries a light anchor's `target` into site space with its `pos`  |
 | 208 | **OPEN** | The walktest walks a different body, in a different order | 2026-10-07 -- measured, not fixed: `walktest_navqa`'s walker is a thinner body than the ag |
 | 209 | **OPEN** | Window displays, a music store first | 2026-10-08 -- filed for later, the walker's design: buildings with a window display on the |
-| 210 | **NARROWED** | Payphones: quarters and a steel cord | 2026-10-09 -- the Zoo half shipped. Zoo 1.88.0 redraws the payphone as a stainless coin ph |
+| 210 | **NARROWED** | Payphones: quarters and a steel cord | 2026-10-09 -- the Zoo half, the light and the indoor form shipped. Zoo 1.88.0 redrew the p |
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **CLOSED** | Responders arrive on the way back | 2026-10-08 -- responders can arrive, and the car they arrive in ships. Lot 0.99.0-0.101.0  |
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
@@ -19391,7 +19391,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - Lux: the display lit as a display, the window the street's brightest thing at night, within `max_lights_per_object` and priced.
 - An invented Delco music store on the sign band (the fake-brands rule).
 
-*STATUS: NARROWED 2026-10-09 -- the Zoo half shipped. Zoo 1.88.0 redraws the payphone as a stainless coin phone -- twelve keys showing their digits, a coin slot, a real coin-return recess, the vault door, the instruction card, the cradle with the handset hung in it -- on an armoured cord swept as one tube, in a booth (the default), a pedestal shroud or a wall unit, YOUSETEL's header, card and stickers in one atlas: one draw where 1.87.0 drew three, 980-1,098 tris, 0 coincident pairs over 3 forms at 3 corners in Blender. Cold run 9212 (club_block_014, 0 interventions): three payphones in the level, priced against 9211 at 53 headings with no measurable frame cost and 2-8 fewer draws at the 21 that see one. Open: Lot's placement by theme (the walker's call on which are city and urban), Deli Counter's indoor payphones asking for the wall form, and light at night -- at midnight the booth is a silhouette.*
+*STATUS: NARROWED 2026-10-09 -- the Zoo half, the light and the indoor form shipped. Zoo 1.88.0 redrew the payphone (cold run 9212). Zoo 1.89.0 lights it -- the header's face and a hood lamp's diffuser on a backlit atlas, `LuxEmit_payphone_hood` under the diffuser carrying its height above the ground -- Lux 0.70.0 spawns that lamp (`payphone_hood`, `REFERENCE_POOL` x 0.75 on the ground under it, set from frames of a lamp stood live in 9212's package), and Deli Counter 0.204.0 makes an indoor payphone a wall unit (39 payphones in 38 specs refurnished and rebuilt). Cold run 9213 (club_block_014, 0 interventions): three lamps spawned and baked; the booth's caller view at midnight 20.5 to 81.8 mean luma; priced against 9212 at 53 headings with no measurable frame cost, one draw per payphone in view, 0 over the paired 8-light cap. Open: Lot's placement by theme (the walker's call on which are city and urban), and the walker's eye on the lit booth.*
 
 **210. Payphones: quarters and a steel cord.** The walker, 2026-10-08: "Another roadmap item for city/urban levels: PayPhones. In the 90s you would pay with quarters, and the phonse is not wireless, it's on a metal cord.", with three photographs read for format only.
 
@@ -19427,6 +19427,34 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **Lot's placement:** wall units by store doors, pedestals at corners. Which themes are city and urban is the walker's call.
 - **Deli Counter's indoor payphones**, the airport terminal's and the funeral home's, stand against walls (`level_design._piece("payphone", ..., "wall")`) and build as booths. Asking for `form="wall"` is a one-field change, and a piece edit needs the library refurnished (L23).
 - **Light at night:** a backlit header and a hood lamp at `ATT_hood`, at one more draw a payphone. The walker's to call.
+
+**ZOO 1.89.0, LUX 0.70.0, DELI COUNTER 0.204.0, DONE: THE PAYPHONE LIT, AND INDOORS A WALL UNIT (2026-10-09)** (`patches/patch_zoo_payphone_light.py`, `patch_lux_payphone_hood.py`, `patch_dc_payphone_wall.py`, `patch_dc_kind_paint_matte.py`, `patch_dc_0204_release.py`; finding `docs/findings/payphone_light/`; cold run 9213). The walker, 2026-10-09: "yes light it, and do the indoor wall form".
+- **Where the lamp hangs, and how bright, were measured, not chosen.** A lamp was stood live in 9212's package at five levels and two depths.
+  - Behind the header, the card takes 0.42 per unit of energy and the back panel's top 5.9. Mid-hood they take 0.27 and 11.4. A real booth's tube sits behind its header too.
+  - At 0.75 x `REFERENCE_POOL` every word on the instrument reads and nothing clips.
+- **Zoo 1.89.0.**
+  - The header's face and a diffuser just behind it go on a second, backlit atlas named `_Face`, which the power cut takes.
+  - Two draws; 1,056 triangles in a default booth; 0 coincident pairs over 3 forms at 3 corners.
+  - `LuxEmit_payphone_hood` hangs 30 mm under the diffuser, in free air, carrying `lux_type` and `lux_drop` as glTF extras.
+  - A recipe may now return `marker_props`, which `markers.add_marker` sets as the empty's custom properties.
+- **Lux 0.70.0:** the `payphone_hood` row.
+  - One cool fluorescent downlight; its range is `fluorescent_range(drop)`.
+  - Its energy puts `PAYPHONE_HOOD_LEVEL` on the ground under it at any drop. That level is `REFERENCE_POOL` x 0.75, the streetlight's ratio, kept as its own constant.
+  - Not preset scaled.
+- **Deli Counter 0.204.0.**
+  - The payphone piece asks `form="wall"`.
+  - The refurnish, run on a copy first, gave exactly 39 payphones in 38 specs the form and moved nothing else. The 38 shells were rebuilt.
+  - The two AUTHORED payphones (`primos_pizza`, `strip_retail_a01`) stay booths.
+  - A second fix: `material_kind` learns Zoo 1.82.0's `paint_matte`, whose pin to Zoo's kinds had failed since that release.
+- **Cold run 9213, 0 interventions.**
+  - Three lamps spawned and baked: steady rigs 76 to 79. The indoor payphones built as `_fwall`.
+  - At midnight the booth's caller view reads 20.5 to 81.8; the live probe read 94.8.
+  - Priced against 9212: no measurable frame cost; one draw per payphone in view (23 of 53 headings, +1 to +4); 0 over the paired 8-light cap.
+  - *Corrected, kept:* 9212's notes faced the booth to +X. Its transform faces it to -X.
+
+**STILL OPEN.**
+- **Lot's placement:** wall units by store doors, pedestals at corners. Which themes are city and urban is the walker's call.
+- **The walker's eye** on the lit booth and the wall units at midnight (`docs/cold_runs/cold_9213/payphone_*.png`).
 
 *STATUS: CLOSED 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site specs on disk (112 with cover): 18 `S_NAKED_ANCHOR` as shipped and 0 that the fix moves, while a constructed site flips both ways (`tests/test_audit_cover_depth.py`, 3 of 3 fail on 0.98.1); cold run 9200 (0 interventions) has no `S_NAKED_ANCHOR` in its logs or 9199's. 0.98.1's two overstatements are corrected in the same release.*
 

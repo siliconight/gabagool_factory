@@ -1,0 +1,39 @@
+import 0
+perf 1
+  9.35    1900    1435912  
+  highest_vantage              90     7.52     8.20     1.72    5.46    1642    1407478  
+  defender_spawn_16           180     7.12     8.17     1.70    5.31    1569    1447196  
+  camera_socket_1              90     7.12     7.45     1.80    5.80    1642    1407478  
+  objective_5                 270     6.99     7.20     1.98    5.29    1205    1220000  
+  patrol_point_18             270     6.64     6.97     1.95    4.97    1184    1252998  
+  objective_3                 270     6.20     6.62     1.69    4.82    1018    1194238  
+  defender_spawn_15           270     4.75     4.93     1.36    4.08    1074    1227300  
+
+  passes: 2 per heading, the lower p95 kept; 14 of 53 heading(s) differed by more than 1.0 ms p95 (largest 6.59 ms); 0 drew a different count
+
+  lights per object, by reach: cap 8, 33 of 3948 mesh(es) over it, worst 31 (Roof_paint_block_delco_1997); 6135 light-mesh pair(s)
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997
+     31 lights  /root/Mission/Bake/Site/b0/roof_footprint/Roof_paint_block_delco_1997
+  lights per object, paired: 0 of 3948 mesh(es) over the cap, worst 6 (CoverE_concrete_delco_1997); 1576 light-mesh pair(s); 3892 lightmap user(s), 78 of 95 light(s) baked
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\pl_off.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: longest_sightline at yaw 90 -- 17.09 ms p95, 2962 draws
+
+PERF_STATION_OVER_BUDGET: 6 of 14 station(s)
+  longest_sightline        DRAWS+MS (17.09 ms p95, 2962 draws)
+  player_start_19          DRAWS+MS (15.51 ms p95, 2974 draws)
+  attacker_spawn_8         DRAWS+MS (13.07 ms p95, 2414 draws)
+  extraction_4             DRAWS+MS (12.56 ms p95, 2134 draws)
+  extraction_7             MS (11.43 ms p95, 1557 draws)
+  attacker_spawn_9         DRAWS (10.02 ms p95, 2020 draws)
+
+

@@ -25,6 +25,11 @@ Patina 0.29.1, Pixelcoat 0.61.0, Pipeline 0.6.0. Only Zoo moved since 9211.
 Three, all built `auto`, so all three are booths:
 - **One on the street,** `cover_101`, at Lot's bus stop: Godot
   (34.45, 1.25, -2.08), its open front to +X.
+  - *Corrected 2026-10-09, kept above:* its open front faces **-X**. Its
+    transform, read as basis rows, turns the booth's caller side (glTF +Z)
+    onto world -X. The caller station below, at x 33.05 looking toward +X,
+    already stood there. Cold run 9213's probe read the transform
+    (`docs/findings/payphone_light/`).
 - **Two indoors,** Deli Counter's: the airport terminal (`airport_terminal_a02`)
   and the funeral home (`funeral_home_a03`). Each is `_mmetal`, style 4,
   against a wall.
