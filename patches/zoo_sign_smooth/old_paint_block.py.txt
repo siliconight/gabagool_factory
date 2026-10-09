@@ -1,0 +1,57 @@
+TEXEL = 80                 # px a metre: the pylon's, read from the street
+
+
+def layout(text, w, h, face):
+    """``(scale, lines)``: the largest scale ``text`` sets at in ``w`` x
+    ``h`` px, one line or wrapped, stacked on the face's OWN line height --
+    `fit_text` stacks on the trimmed glyphs plus 1-2 px, which blurred two
+    lines into one on a 0.6 m sign from the street (the first render). One
+    line wins a tie."""
+    from . import pixel_type as pt
+    best = (0, [text])
+    for s in range(6, 0, -1):
+        for lines in ([text], pt.wrap(text, w, s, face) or []):
+            if not lines:
+                continue
+            tall = pt.line(face) * s * (len(lines) - 1) + len(pt.trim(pt.render(lines[-1], s, face)))
+            wide = max(pt.ink_width(ln, s, face) for ln in lines)
+            if wide <= w and tall <= h and s > best[0]:
+                best = (s, lines)
+        if best[0]:
+            return best
+    return best
+
+
+def paint(spec):
+    """The sign's face as a Canvas: its field, a rule top and bottom, and the
+    name as large as it sets, outlined in the rule. ``c.unset`` lists the
+    name if it did not set."""
+    from . import pixel_type as pt
+    from .vending_forms import Canvas
+    w = max(8, int(round(spec["w_m"] * TEXEL)))
+    h = max(8, int(round(spec["h_m"] * TEXEL)))
+    field, rule, ink = (tuple(x) for x in spec["colours"])
+    c = Canvas(w, h, field)
+    c.rect(0, 2, w, 4, rule)
+    c.rect(0, h - 4, w, h - 2, rule)
+    c.unset = []
+    if spec.get("edge"):
+        return c
+    face = PY.HEAD_FACE
+    s, lines = layout(spec["text"], w - 10, h - 14, face)
+    if not s:
+        face = "m5x7"
+        s, lines = layout(spec["text"], w - 10, h - 14, face)
+    if not s:
+        c.unset = [spec["text"]]
+        return c
+    masks = [pt.trim(pt.render(ln, s, face)) for ln in lines]
+    step = pt.line(face) * s
+    tall = step * (len(masks) - 1) + len(masks[-1])
+    y = (h - tall) // 2
+    for m in masks:
+        x = (w - len(m[0])) // 2
+        c.mask(m, x, y, rule, grow=1)
+        c.mask(m, x, y, ink)
+        y += step
+    return c
