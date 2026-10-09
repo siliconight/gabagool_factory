@@ -892,8 +892,9 @@ work of adopting this.
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **NARROWED** | Responders arrive on the way back | 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an |
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
+| 214 | **OPEN** | Zoo's minting meets the modern low-poly standard | 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `d |
 
-**213 items: 40 open, 99 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**214 items: 41 open, 99 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19530,3 +19531,28 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The frozen show was visible, and it is gone.** Above the main stage the two lamp housings read 640-644 and 547-551 in every 9204 frame, whatever the live energy, in the colours the lamps start their cycle with. In 9205 they read 9 and 9. The frames this decision rests on carry those lit housings; the package does not.
 - **The census agrees.** Paired: 0 over 8, worst 6, as predicted. Ten of b0's meshes gain the live lamps, none past 5. By reach: 33 over 8, unmoved.
 - **Not settled.** Whose light 9204's dim wash was: the 8x copy kept 9204's bake and still matches 9205 on the stage top to 0.1 codes, and the stage lip's neon is the candidate, untested. And the resource is still named "Stage Light (baked)" on a live rig: the loader names every club rig so, and `lux_lighting.gd` ranks shadows by those names.
+
+*STATUS: OPEN 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `docs/reference/MODERN_LOW_POLY_ASSET_STANDARD.md` (the original `.docx` beside it), is the brief for "a human artist or procedural asset tool"; `docs/reference/MODERN_LOW_POLY_IN_ZOO.md` maps it onto Zoo 1.86.0's minting, measured: what Zoo already does, seven gaps, and where a measured house rule decides. Next: the asset record's missing fields, a budget class per genome, and the standard's A/B/C review on its three approval assets.*
+
+**214. Zoo's minting meets the modern low-poly standard.** The walker, 2026-10-08, with `Blender_Modern_Low_Poly_Asset_Standard.docx`: "this should go with Zoo and help future minting?"
+
+**WHAT THE STANDARD IS.** Seventeen sections, from budgets and viewing distance through construction, bevels and normals, baking, trim sheets, materials and wear, lighting, LODs and collision, export, three worked examples (a deli cabinet, a payphone, a storefront), proof of improvement and cost, and a handoff record with acceptance checks. Its default target is "modernized low poly: small bevels, controlled normals, restrained materials, and stable lighting". It calls its own numbers "proposed starting points", not measured limits.
+
+**WHAT ZOO ALREADY DOES** (the mapping has each with its source):
+- **Colour and surfaces.** One material per part family, with colour in vertex colour, merged at export by family and material.
+- **Bevels and normals.** Style bevels applied through one-segment `bevel_edges` in most recipes, and smooth-by-angle shading at 50 degrees.
+- **Mesh and placement.** No subdivision, primitive collision, and enforced centre pivots.
+- **Checks and record.** A coincident-face census of every species, wear placed by cause, and a `meta.json` validation record.
+
+**THE GAPS, as the work** (from `MODERN_LOW_POLY_IN_ZOO.md`):
+- **The asset record.** `meta.json` lacks viewing conditions, the features the construction serves, exported vertices per LOD, the surface count, texture size and texel density, and review evidence. The standard's tool instructions: "Emit the asset record with the mesh."
+- **A budget class per genome** (clutter, medium, hero, assembly).
+  - Across 122 species the median budget is 900.
+  - 7 are over the standard's 8,000 hero range: mostly whole assemblies (snack_gondola 22,000, cubicle_bank 24,000), and the getaway van at 16,000.
+  - A named class makes an exception stated; the standard rejects "silent budget overruns". CLAUDE.md calls a triangle budget a regression detector, not a frame cost.
+- **The A/B/C review** (basic boxes; construction; bevels and normals) under identical neutral light on the three approval assets: Zoo's `deli_case` and `counter`, `payphone` (roadmap 210) and Deli Counter's storefront. It has never been run.
+- **Priced trials, not adoptions.** Weighted normals, and baked normal maps on selected close props. Each is a look, so each is priced first (CLAUDE.md, performance over look).
+- **LODs.** `bpylayer/lods.py`'s Decimate copies are off, and stay so unless a measurement says a level is triangle-bound; here submissions dominate.
+- **Trim sheets** are Pixelcoat's and Patina's, not Zoo's. The standard's deli and convenience-store trim family is their brief.
+
+**FOUND WHILE MAPPING.** `simple_car` skips its style bevel on purpose. It models a car's chamfers into its sections, because bevelling every edge took 12-triangle boxes to 44. So its genome's style bevels, 0.01-0.014 m, do nothing: a knob with no effect, which CLAUDE.md calls a defect. Small; recorded here, not fixed.
