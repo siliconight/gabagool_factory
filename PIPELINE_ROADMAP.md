@@ -892,10 +892,10 @@ work of adopting this.
 | 211 | **CLOSED** | The audit measures cover by its height | 2026-10-08 -- Lot 0.98.2 reads `size[2]` as plan y. Audited both ways over the 115 site sp |
 | 212 | **CLOSED** | Responders arrive on the way back | 2026-10-08 -- responders can arrive, and the car they arrive in ships. Lot 0.99.0-0.101.0  |
 | 213 | **CLOSED** | The light bake freezes the club's stage show | 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_S |
-| 214 | **OPEN** | Zoo's minting meets the modern low-poly standard | 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `d |
+| 214 | **NARROWED** | Zoo's minting meets the modern low-poly standard | 2026-10-09 -- trial 1 shipped: Zoo 1.87.0 weighs every part's corner normals by face area  |
 | 215 | **NARROWED** | `S_RESPONDER_ARC` fires where a site's roads lie to one side of the ob | 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the si |
 
-**215 items: 41 open, 100 closed, 3 retracted, 64 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**215 items: 40 open, 100 closed, 3 retracted, 65 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19571,7 +19571,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The census agrees.** Paired: 0 over 8, worst 6, as predicted. Ten of b0's meshes gain the live lamps, none past 5. By reach: 33 over 8, unmoved.
 - **Not settled.** Whose light 9204's dim wash was: the 8x copy kept 9204's bake and still matches 9205 on the stage top to 0.1 codes, and the stage lip's neon is the candidate, untested. And the resource is still named "Stage Light (baked)" on a live rig: the loader names every club rig so, and `lux_lighting.gd` ranks shadows by those names.
 
-*STATUS: OPEN 2026-10-08 -- filed, not adopted. The walker's production standard for Delco Dangerous, `docs/reference/MODERN_LOW_POLY_ASSET_STANDARD.md` (the original `.docx` beside it), is the brief for "a human artist or procedural asset tool"; `docs/reference/MODERN_LOW_POLY_IN_ZOO.md` maps it onto Zoo 1.86.0's minting, measured: what Zoo already does, nine gaps, and where a measured house rule decides. Addendum A, from the walker's notes the same day, adds subdivision modeling, sculpt and retopology, and multires. Next: the asset record's missing fields, a budget class per genome, the standard's A/B/C review on its three approval assets, and Addendum A.4's priced trials, weighted normals and convex-edge wear first.*
+*STATUS: NARROWED 2026-10-09 -- trial 1 shipped: Zoo 1.87.0 weighs every part's corner normals by face area at export. Every bevelled part at the 50-degree default had shipped as a dome, 28.89 degrees off flat on all 36 big-face corners of a bevelled crate; weighted, 2.40. Census of 121 species: vertices, triangles, primitives and bytes identical, big-face corners over 10 degrees 15,114 to 5,498. Priced at 53 station headings against two controls: no measurable frame or draw cost (median -0.066 and -0.316 ms). Cold run 9211, 0 interventions. The walker, on the frames: "yeah looks better". Open: the asset record, a budget class per genome, the A/B/C review on the three approval assets, and trials 2-4, convex-edge wear next.*
 
 **214. Zoo's minting meets the modern low-poly standard.** The walker, 2026-10-08, with `Blender_Modern_Low_Poly_Asset_Standard.docx`: "this should go with Zoo and help future minting?"
 
@@ -19608,6 +19608,26 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   3. a procedural bake source: a creased or support-looped second build under a Subdivision Surface modifier, baked onto the game mesh. One texture per species, no triangles. Zoo bakes nothing today.
   4. procedural detail on that bake source.
 - **A.5 What does not change.** No subdivided mesh at runtime; a normal map is a texture in the part family's one material; triangles are counted on the game mesh.
+
+**ZOO 1.87.0, DONE: TRIAL 1, WEIGHTED NORMALS (2026-10-09)** (`patches/patch_zoo_weighted_normals.py`; finding `docs/findings/weighted_normals/`). Look work, the "good" gate (item 18): it reduces no interventions.
+- **What was wrong.** `shade_by_angle` smooths every fold under 50 degrees, so a one-segment chamfer joins both faces it touches. The default corner normal weighs a fan's faces by corner angle, so every big-face corner leaned toward its chamfer: 28.89 degrees on a bevelled crate, the same 28.9 `bm_to_object`'s docstring measured on a wall panel and called a dome. The walls had kept every edge hard; the props kept the dome.
+- **The change.** `core.normals.weighted_corner_normals`, pure Python: each corner's normal is the area-weighted sum of its fan, the fan being Blender's own split. Applied at export to every visual part, after everything that moves a vertex; the merge carries corner normals; ingest opts out; `--no-weighted-normals` is the control. 12 tests, all failing on 1.86.0.
+- **Found on the way:** 1.86.0's merge dropped an ingested asset's authored normals when two of its parts shared a material, 8 of 104 kept. 1.87.0 keeps 104 of 104.
+- **What it does, across the library** (`census.py`):
+  - 121 of 122 species built (`boots` does not build through the kit path, already recorded);
+  - vertices, triangles, primitives and bytes identical in 121 of 121;
+  - 81 species changed; the 40 that did not are faceted on purpose, walls or flat panels;
+  - big-face corners over 10 degrees, 15,114 to 5,498. canopy_lights, safe_deposit_boxes, pallet_stack, pool_table, back_bar, stair_rail, payphone and teller_line go to 0.
+- **A retraction, kept.** The census's first run reported normals flipped by up to 178 degrees. It had paired the two GLBs' vertices by index, and a card's front and back share a position, so the exporter's re-ordering read as flips. Paired by triangle corner, the largest move is 40.08 degrees, the figure `fan_probe.py` reads in the mesh.
+- **The frames.** Ten species rendered both ways from one build, with a control that reads 0.000. The payphone, counter, cabinet, pallets and tank read as made things.
+  - The booth seat's cushions lose an accidental plumpness: rounded geometry is the fix, if wanted.
+  - The walker: "yeah looks better".
+- **The price** (`price_robust.txt`). Against the mean of two controls, the median frame moved -0.316 and -0.066 ms, inside the controls' own -0.69 to +0.59. Draw calls are unchanged at the median, and the 8-light cap is identical.
+- **In the level** (cold run 9211 against 9210, `docs/cold_runs/cold_9211/NOTES.md`):
+  - the packages differ in normals, the vertex order that follows them, Godot's lightmap unwrap (119 caches) and the bake;
+  - everything else differs in the 9209-9210 control too;
+  - at night the frames move by 0.2 codes of mean at most.
+- **The payphone is still the old model.** It has no keypad, coin slot or decals, as the walker noted. Item 210 is its redraw.
 
 *STATUS: NARROWED 2026-10-09 -- the site audit reaches the validation report. Lot 0.102.0 keeps it in the site's gameplay manifest and Level Factory 0.163.0 reads it, one non-blocking issue a finding (HIGH major, MED moderate, INFO info), `LOT_SITE_AUDIT_UNREAD` when it cannot. Cold run 9210 (club_block_014, 0 interventions): findings 58 to 72, every one of the 14 new ones attributed to a Lot run and matching its job log; `S_RESPONDER_ARC` fires on all three candidates, at 33, 6 and 16 degrees. Open: the arc question itself, now counted on every run of this mission.*
 

@@ -21,7 +21,7 @@ real `meta.json` (the cruiser's).
 |---|---|
 | One opaque surface per simple prop; repeated-object tint in vertex colour (1, 2) | Colour rides `Wear`, the vertex colour, on one material per part family (`geometry.tint_wear`, `tint_wear_by`). The export packs parts by family and material (`bpylayer/merge.py`). CLAUDE.md: "Never express colour-only variation as a new material". |
 | Small selected bevels, one segment (5) | Genome styles carry `bevel`: 588 of 733 style rows set one above 0, and 97 of 122 species bevel in some style. Most recipes apply it through `bevel_edges`, one segment. Some choose their chamfers instead: `simple_car` models the ones a car reads by into its sections and builds every part at 0, because bevelling every edge took 12-triangle boxes to 44 (its own comment, measured on walk 9048's car). That is the standard's "selected" in practice, but its genome's style bevels (0.01-0.014) then do nothing. Four recipes pass only a literal 0: cruiser, glass_shard, step_van, vault_door. How many shipped parts carry a bevel was not measured here. |
-| Controlled normals, smooth by angle, sharp edges kept (5) | `geometry.shade_by_angle` at 50 degrees on the bmesh. Bevels roll off as highlights; box corners stay hard. No Weighted Normal. |
+| Controlled normals, smooth by angle, sharp edges kept (5) | `geometry.shade_by_angle` at 50 degrees on the bmesh. Bevels roll off as highlights; box corners stay hard. Since 1.87.0 the export weighs each part's normals by face area (`core/normals.py`), so a bevelled face reads flat; before, every bevelled part at 50 degrees was a dome (`docs/findings/weighted_normals/`). |
 | No automatic subdivision of the runtime mesh (preserve) | None. Every face is built. |
 | Count exported triangles against a budget (1) | `budgets.tris_lod0` in every genome, checked as `tri_budget` (a warning) at every build. |
 | Collision separate and simple (10) | `-colonly` boxes from a recipe's `collision_boxes`. |
@@ -87,6 +87,10 @@ at 0.5 and 0.25, off by default.
 priced: on/off frames at fixed stations under the three lighting checks.
 The standard asks for the same comparison in section 14. Addendum A.4 puts
 it first of four trials: it costs no texture and no triangles.
+- *Shipped, Zoo 1.87.0 (2026-10-09).* Census of 121 species: vertices,
+  triangles, primitives and bytes identical; big-face corners over 10
+  degrees 15,114 to 5,498. No measurable frame cost against two controls.
+  The walker: "yeah looks better". `docs/findings/weighted_normals/`.
 
 **5. Baked normal maps** (section 6). Zoo bakes none. The standard expects
 them only for selected close props and says common props "may need only
