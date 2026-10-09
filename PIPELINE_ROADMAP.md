@@ -897,9 +897,9 @@ work of adopting this.
 | 216 | **OPEN** | Trees: a sculpted trunk and a crown of branch cards, and god rays unde | 2026-10-09 -- filed, not started. The walker's ask: better-looking trees, with a CC0 refer |
 | 217 | **NARROWED** | Levels read by day and by night | 2026-10-09 -- the instruments exist, the street lamps are dark by day, and the sky is in t |
 | 218 | **CLOSED** | The export's import pass checked nothing | 2026-10-09 -- the import pass checks its own work, proven cold. Level Factory 0.163.1 coun |
-| 219 | **OPEN** | The walk of 2026-10-09: twelve notes | 2026-10-09 -- twelve notes from the walker's walk of club_block_014 (cold run 9213, midnig |
+| 219 | **NARROWED** | The walk of 2026-10-09: twelve notes | 2026-10-09 -- three of the twelve notes fixed, not yet run cold. Lot 0.102.1 stands the bu |
 
-**219 items: 40 open, 101 closed, 3 retracted, 68 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**219 items: 39 open, 101 closed, 3 retracted, 69 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19880,7 +19880,7 @@ Item 198 found the dark rooms at night. This item is the standing check, and wha
 **NOT DONE.**
 - **The occluder bake still says `ok` on a scene with no modules.** The import check now stops the export before it can, but the bake cannot tell an empty site from an unloadable one.
 
-*STATUS: OPEN 2026-10-09 -- twelve notes from the walker's walk of club_block_014 (cold run 9213, midnight), each filed with its owner and the cause found by reading the code; one decided (Blue Highway for the shop signs), none fixed yet. The quick ones go first, each with a test that fails without it: the news racks, the meters, the antennas, the sign face, the signals and the den windows; then the club's light, the moon, the two placeholders and the bags; then the perimeter and the backdrop, as a menu with frames.*
+*STATUS: NARROWED 2026-10-09 -- three of the twelve notes fixed, not yet run cold. Lot 0.102.1 stands the bus stop on its band before the corner is spaced against it (note 6: a marker swept along the kerb probe's stop band found 22 overlaps on 0.102.0 and none now); Lot 0.102.2 turns each meter's windows across the kerb, one to the sidewalk (note 4); Deli Counter 0.204.1 keeps 3 of the rowhomes' 10 roof fixtures, antennas on a and g and the dish on k (note 3), its 146 shells rebuilt. Decided: Blue Highway for the shop signs. Next, each a block of its own: the sign face (Zoo sets shop signs in minted Pixel Operator bitmaps, inside Blender, so Blue Highway is minted with coverage at a higher density and sampled smooth), the signals' runtime cycle (Zoo lit all three lenses dim on purpose, "a signal whose state is baked is a signal that is wrong half the time"), and the den windows; then the club's light, the moon, the two placeholders and the bags; then the perimeter and the backdrop as a menu with frames. A cold run of club_block_014 proves the quick ones together.*
 
 **219. The walk of 2026-10-09: twelve notes.** The walker walked club_block_014 (cold run 9213, midnight) and sent notes with screenshots, closing with "i think that's enough for this round, thank you". Two more came after. Owners and causes were found by reading the code; nothing is changed yet. The notes' own record is the memory note `walk-feedback-2026-10-09`.
 
