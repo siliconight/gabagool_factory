@@ -102,6 +102,22 @@ combinations isolate the bake.
 
 ## What it says
 
+**A CORRECTION, 2026-10-09: the drops are not shares.** Light adds before
+the display mapping (the lighting spec in `docs/reference/
+Godot_4_7_Natural_and_Artificial_Lighting_Spec.md`, its R-001 and section 9),
+and every number below is luma after it:
+- **The presets' curve and post:** they tonemap (filmic, ACES), cut to 24-28
+  colour levels, dither, and add grain, glow and a vignette.
+- **So a drop is how much darker the frame got,** not how much of the light
+  that source supplied. "The fills give 9.7 of its frame's 16.2" below is a
+  frame difference, not a share, and a table's drops need not sum to its
+  whole.
+- **What stands:** the ranking, and every statement that a frame goes black
+  without a source (the drywall room at 0.8, the facades at 1.6). Black is
+  black through any monotone curve.
+- **Not built:** a capture with the curve and the post switched off, which
+  would make the drops shares.
+
 **Outdoors at midnight, the moon carries the level.** Without it the
 facades fall from 15-17 to 1.6, and the extraction from 29 to 2.7. The
 baked street lamps add 1-2 to a facade and 9-22 near the anchors they stand

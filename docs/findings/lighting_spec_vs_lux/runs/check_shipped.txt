@@ -1,0 +1,56 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_bank_block_001
+own preset runtime/lux/presets/heavy_rain.tres; 15 rooms; dens of sin: none; no room list (not judged): none
+
+SLOT own: heavy_rain (as shipped), day; the street's median 47.5
+  PASS 10  REPORT 1  WARN 12
+  station                                        region   kind     mean  p50  near%         rule
+  bank_branch_a04__boardroom                     interior ROW      69.2   65   0.00  WARN   by day it is brighter than the street (69.2 over 47.5)
+  bank_branch_a04__grand_lobby                   interior ROW      41.7   38   0.00  PASS   p50 38 at or over 10
+  bank_branch_a04__mezzanine                     interior ROW      80.6   82   0.00  WARN   by day it is brighter than the street (80.6 over 47.5)
+  bank_branch_a04__security_office               interior ROW      60.6   62   0.00  WARN   by day it is brighter than the street (60.6 over 47.5)
+  bank_branch_a04__teller_line                   interior ROW      36.6   40   0.00  PASS   p50 40 at or over 10
+  bank_branch_a04__vault_antechamber             interior MOODY    56.7   49   0.00  WARN   by day it is brighter than the street (56.7 over 47.5)
+  bank_branch_a04__vault_room                    interior MOODY    53.6   53   0.00  WARN   by day it is brighter than the street (53.6 over 47.5)
+  casino_a03__gaming_floor                       interior ROW      40.6   39   0.00  PASS   p50 39 at or over 10
+  casino_a03__high_roller_suite                  interior MOODY    52.5   49   0.00  WARN   by day it is brighter than the street (52.5 over 47.5)
+  casino_a03__pit_corridor                       interior ROW      72.8   77   0.00  WARN   by day it is brighter than the street (72.8 over 47.5)
+  casino_a03__upper_ring                         interior ROW      71.8   64   0.00  WARN   by day it is brighter than the street (71.8 over 47.5)
+  casino_a03__upper_west                         interior ROW      67.4   64   0.00  WARN   by day it is brighter than the street (67.4 over 47.5)
+  objective                                      interior MOODY    67.7   60   0.00  WARN   by day it is brighter than the street (67.7 over 47.5)
+  strip_retail_a02__showroom                     interior ROW      37.9   35   0.00  PASS   p50 35 at or over 10
+  strip_retail_a02__stone_vault                  interior MOODY    50.8   50   0.00  WARN   by day it is brighter than the street (50.8 over 47.5)
+  strip_retail_a02__workshop                     interior ROW      83.8   85   0.00  WARN   by day it is brighter than the street (83.8 over 47.5)
+  extraction                                     street   -        41.5   34   0.00  PASS   p50 34, near-clip 0.0%
+  spawn                                          street   -        53.4   44   0.00  PASS   p50 44, near-clip 0.0%
+  elev_E                                         facade   -        70.2   76   0.00  PASS   p95 98
+  elev_N                                         facade   -        96.7   96   0.00  PASS   p95 114
+  elev_S                                         facade   -        76.5   87   0.00  PASS   p95 99
+  elev_W                                         facade   -        88.4   88   0.00  PASS   p95 99
+  overview                                       context  -        95.2   93   0.00  REPORT context
+
+SLOT night: delco_night (re-baked), not day; the street's median 47.9
+  FAIL 2  PASS 19  REPORT 1  WARN 1
+  station                                        region   kind     mean  p50  near%         rule
+  bank_branch_a04__boardroom                     interior ROW      36.8   36   0.16  PASS   p50 36 at or over 10
+  bank_branch_a04__grand_lobby                   interior ROW      10.8    9   0.00  FAIL   p50 9 under the ROW floor 10
+  bank_branch_a04__mezzanine                     interior ROW      54.8   52   0.16  PASS   p50 52 at or over 10
+  bank_branch_a04__security_office               interior ROW      32.3   29   0.09  PASS   p50 29 at or over 10
+  bank_branch_a04__teller_line                   interior ROW      30.8   25   0.00  PASS   p50 25 at or over 10
+  bank_branch_a04__vault_antechamber             interior MOODY    14.3    9   0.02  PASS   p50 9 at or over 5
+  bank_branch_a04__vault_room                    interior MOODY    14.6   12   0.02  PASS   p50 12 at or over 5
+  casino_a03__gaming_floor                       interior ROW      15.9    9   0.17  FAIL   p50 9 under the ROW floor 10
+  casino_a03__high_roller_suite                  interior MOODY    18.1   19   0.01  PASS   p50 19 at or over 5
+  casino_a03__pit_corridor                       interior ROW      39.9   34   0.17  PASS   p50 34 at or over 10
+  casino_a03__upper_ring                         interior ROW      46.2   45   0.17  PASS   p50 45 at or over 10
+  casino_a03__upper_west                         interior ROW      37.0   39   0.03  PASS   p50 39 at or over 10
+  objective                                      interior MOODY    28.0   22   0.00  PASS   p50 22 at or over 5
+  strip_retail_a02__showroom                     interior ROW      22.9   19   0.33  PASS   p50 19 at or over 10
+  strip_retail_a02__stone_vault                  interior MOODY    12.9    8   0.00  PASS   p50 8 at or over 5
+  strip_retail_a02__workshop                     interior ROW      71.8   64   0.24  PASS   p50 64 at or over 10
+  extraction                                     street   -        38.7   30   0.01  PASS   p50 30, near-clip 0.0%
+  spawn                                          street   -        57.1   47   0.32  PASS   p50 47, near-clip 0.3%
+  elev_E                                         facade   -         6.6    2   0.00  PASS   p95 24
+  elev_N                                         facade   -         1.2    0   0.00  WARN   nothing on it reaches the floor 10: p95 3
+  elev_S                                         facade   -        23.3    2   0.08  PASS   p95 95
+  elev_W                                         facade   -        47.6   30   0.00  PASS   p95 125
+  overview                                       context  -         7.4    1   0.00  REPORT context

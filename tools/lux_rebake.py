@@ -1,6 +1,7 @@
 """Re-bake a copy of a baked level with Level Factory's own bake, under another Lux preset or without its room fills.
 
-    python tools/lux_rebake.py <walk project> <dest> [--preset NAME] [--no-fills]
+    python tools/lux_rebake.py <walk project> <dest> [--preset NAME] [--no-fills] [--set FIELD=VALUE ...]
+                               [--bake-environment none|scene]
 
 WHAT IT DOES, in order, on a copy (the source is only read):
 1. Copies the project to `dest`.
@@ -13,10 +14,20 @@ WHAT IT DOES, in order, on a copy (the source is only read):
    `runtime/lux/presets/NAME.tres` as its `active_preset`. Every package
    carries every preset Lux ships.
 4. `--no-fills`: the preset in force gets `bake_room_fill = 0.0`, so
-   `LuxLightLoader.add_bake_fills` lays none.
+   `LuxLightLoader.add_bake_fills` lays none. `--set FIELD=VALUE` sets any
+   field on the preset in force the same way: `street_lamps_lit=true` bakes
+   a day level with its street lamps on, the way every one was before Lux
+   0.71.0.
 5. Bakes with `light_bake.bake()`, exactly as the export runs it. It passes
    the shipped bake's `spawned` set, the responders' cars, which the
    package's own `light_bake.json` records.
+6. `--bake-environment scene`: the bake's `LightmapGI` takes
+   `environment_mode = 1` (the scene's environment, which LuxRoot builds in
+   the editor too) in place of Level Factory's `0` (none). Everything else
+   in the bake scene is Level Factory's own text. An experiment, not a
+   release: Level Factory 0.131.0 shipped `0` with no reason recorded, so a
+   shipped lightmap holds no sky light, and a lightmapped surface takes no
+   ambient at run time either (`docs/findings/light_breakdown/`).
 
 MEASURED. A re-bake with no change reproduces the shipped frames exactly,
 0.0 at every camera, on cold run 9213's walk copy
@@ -116,29 +127,54 @@ def set_preset(dest, name):
     return was, rel
 
 
-def zero_fills(dest):
-    """`bake_room_fill = 0.0` in the copy's preset in force. Returns the
-    preset's path and the value it had (None: no line, the class default)."""
+def set_preset_field(dest, key, value):
+    """`key = value` (GDScript literal text) in the copy's preset in force.
+    Returns the preset's path and the text the field had (None: no line, the
+    class default)."""
+    if not re.fullmatch(r"[a-z_][a-z0-9_]*", key):
+        raise SystemExit("not a preset field name: %r" % key)
     rel = active_preset(dest)
     path = os.path.join(dest, rel)
     t = _read(path)
-    had = re.search(r"^bake_room_fill = (.+)$", t, re.M)
+    line = re.compile(r"^%s = (.+)$" % re.escape(key), re.M)
+    had = line.search(t)
     if had:
-        t = re.sub(r"^bake_room_fill = .+$", "bake_room_fill = 0.0", t, flags=re.M)
+        t = line.sub(lambda _m: "%s = %s" % (key, value), t, count=1)
     else:
         head = re.search(r"^\[resource\]\n(script = .+\n)", t, re.M)
         if not head:
             raise SystemExit(path + ": no [resource] section opening with its script")
-        t = t[:head.end()] + "bake_room_fill = 0.0\n" + t[head.end():]
+        t = t[:head.end()] + "%s = %s\n" % (key, value) + t[head.end():]
     _write(path, t)
     return rel, (had.group(1) if had else None)
 
 
-def rebake(project, dest, godot, preset=None, fills=True, log=print):
+def zero_fills(dest):
+    """`bake_room_fill = 0.0` in the copy's preset in force."""
+    return set_preset_field(dest, "bake_room_fill", "0.0")
+
+
+#: `--bake-environment`: the LightmapGI `environment_mode` each name sets.
+BAKE_ENVIRONMENTS = {"none": 0, "scene": 1}
+
+
+def _bake_environment(lb, mode):
+    """Level Factory's bake scene text with `environment_mode` set to `mode`.
+    Refuses unless its template carries the line exactly once."""
+    line = re.compile(r"^environment_mode = \d+$", re.M)
+    if len(line.findall(lb.BAKE_TSCN)) != 1:
+        raise SystemExit("Level Factory's BAKE_TSCN does not carry one environment_mode line")
+    return line.sub("environment_mode = %d" % mode, lb.BAKE_TSCN)
+
+
+def rebake(project, dest, godot, preset=None, fills=True, log=print, fields=None,
+           environment=None):
     """Copy `project` to `dest` and bake it with Level Factory's own `bake()`,
-    under `preset` (a name in runtime/lux/presets, None for the level's own)
-    and with the room fills on or off. Returns the bake's report, with what
-    was done under "rebake"."""
+    under `preset` (a name in runtime/lux/presets, None for the level's own),
+    with the room fills on or off, with `fields` ({name: GDScript literal})
+    set on the preset in force, and with the bake's `environment_mode` taken
+    from `BAKE_ENVIRONMENTS[environment]` (None: Level Factory's own). Returns
+    the bake's report, with what was done under "rebake"."""
     lb = _light_bake()
     spawned = []
     shipped = os.path.join(project, lb.REPORT)
@@ -154,7 +190,16 @@ def rebake(project, dest, godot, preset=None, fills=True, log=print):
         note["preset_was"], note["preset"] = set_preset(dest, preset)
     if not fills:
         note["fill_preset"], note["bake_room_fill_was"] = zero_fills(dest)
-    report = lb.bake(dest, godot, log=log, spawned=spawned)
+    for key, value in (fields or {}).items():
+        note.setdefault("fields", {})[key] = {"set": value, "was": set_preset_field(dest, key, value)[1]}
+    template = lb.BAKE_TSCN
+    if environment is not None:
+        lb.BAKE_TSCN = _bake_environment(lb, BAKE_ENVIRONMENTS[environment])
+        note["bake_environment"] = environment
+    try:
+        report = lb.bake(dest, godot, log=log, spawned=spawned)
+    finally:
+        lb.BAKE_TSCN = template
     report["rebake"] = note
     return report
 
@@ -165,11 +210,23 @@ def main(argv=None):
     ap.add_argument("dest")
     ap.add_argument("--preset", default=None, help="a preset's name in runtime/lux/presets")
     ap.add_argument("--no-fills", action="store_true")
+    ap.add_argument("--set", action="append", default=[], metavar="FIELD=VALUE",
+                    help="a field on the preset in force, as GDScript literal text, repeatable "
+                         "(street_lamps_lit=true)")
+    ap.add_argument("--bake-environment", choices=sorted(BAKE_ENVIRONMENTS), default=None,
+                    help="the bake's LightmapGI environment_mode (default: Level Factory's own)")
     ap.add_argument("--godot", default=None)
     a = ap.parse_args(argv)
+    fields = {}
+    for s in a.set:
+        k, sep, v = s.partition("=")
+        if not sep or not v.strip():
+            raise SystemExit("--set wants FIELD=VALUE, got %r" % s)
+        fields[k.strip()] = v.strip()
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from godot_probe import require_godot
-    rep = rebake(a.project, a.dest, a.godot or require_godot(), a.preset, not a.no_fills)
+    rep = rebake(a.project, a.dest, a.godot or require_godot(), a.preset, not a.no_fills, fields=fields,
+                 environment=a.bake_environment)
     print(json.dumps({k: rep.get(k) for k in ("ok", "reason", "editor_s", "room_fills", "rebake")}, indent=1))
     return 0 if rep.get("ok") else 1
 

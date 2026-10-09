@@ -1,0 +1,68 @@
+light breakdown: C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_bank_block_001
+luma 0-255 after the grade; each column one configuration, `-x` with x alone off
+
+the control, `all` against `all_control`: frame means differ by at most 0.04, centre by 0.13
+
+what each switch found and turned off (the first run that used it):
+  lightmap  {"first": ["/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood_dup2/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_001/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_003/Fluoro_0"], "lightmaps_cleared": 1, "static_lamps_hidden": 66}
+  live      {"first": ["/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_002/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_005/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_008/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_011/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_015/Fluoro_0"], "lamps_hidden": 16}
+  sun       {"first": ["/root/_walk/Mission/Bake/Site/LuxRoot/LuxSun"], "lamps_hidden": 1}
+  ambient   {"before": [{"ambient_light_energy": 1.0, "ambient_light_sky_contribution": 1.0, "ambient_light_source": 3, "reflected_light_source": 0}], "environments": 1}
+  probes    {"first": ["/root/_walk/Mission/Bake/Site/LuxClub/b0_grand_lobby_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_teller_line_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_security_office_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_mezzanine_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_boardroom_ambient"], "probes_hidden": 15}
+  emission  {"emission_switched": 75, "materials_seen": 1053, "shader_materials_left": 9, "unshaded_materials_left": 0}
+  sky       {"before": [{"ambient_light_source": 3, "background_mode": 2, "reflected_light_source": 0}], "environments": 1}
+  fog       {"before": [{"fog_enabled": true}], "environments": 1}
+  left on by every switch: 9 ShaderMaterial(s) and 0 unshaded material(s)
+
+FRAME MEAN
+  station                       all  all_control  -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog    none
+  overview                     95.2         95.2       95.2    95.1    94.9      95.2     95.1       95.1    95.2    32.6     1.9
+  elev_N                       96.7         96.7       97.7    96.7    85.4      96.7     96.7       96.7    96.7    52.6     1.9
+  elev_S                       76.5         76.4       78.6    76.5    76.5      76.5     76.5       76.0    76.5    21.9     1.9
+  elev_E                       70.2         70.2       69.5    70.2    70.1      70.2     70.1       70.2    70.2    21.7     1.8
+  elev_W                       88.4         88.4       89.4    88.4    80.2      88.4     88.4       88.3    88.4    39.3     2.4
+  in_concrete_delco_1997        1.6          1.6       11.0     1.6     1.6       1.6      1.5        1.6     1.6     1.1     1.1
+  in_drywall_delco_1997        57.5         57.5       47.0    57.5    35.5      57.4     57.3       57.5    57.5    53.9     1.1
+  in_concrete_delco_1997_2      5.6          5.6       11.0     5.6     5.6       5.6      5.4        5.6     5.6     2.9     1.1
+  in_drywall_delco_1997_2      60.8         60.8       35.3    60.7    53.8      60.7     60.4       60.8    60.8    55.8     1.1
+  in_concrete_delco_1997_3      7.6          7.6       10.8     7.5     7.6       7.6      7.1        7.5     7.5     5.1     1.1
+  in_drywall_delco_1997_3      78.2         78.2       38.1    78.0    73.0      78.2     77.9       78.2    78.2    74.3     1.1
+  spawn                        53.5         53.5       45.0    53.5    47.1      53.1     53.4       50.4    53.5    31.4     1.6
+  objective                    67.8         67.8       64.0    65.4    39.9      67.7     67.7       67.8    67.8    60.0     1.1
+  extraction                   41.3         41.3       42.4    41.5    31.3      41.2     41.4       41.4    41.3    20.8     1.6
+
+CENTRE MEAN
+  station                       all  all_control  -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog    none
+  overview                    110.4        110.3      110.4   110.4   109.4     110.5    110.2      110.4   110.3    31.4     2.2
+  elev_N                       98.3         98.4       98.8    98.3    93.8      98.4     98.4       98.4    98.4    45.5     2.9
+  elev_S                       84.0         83.8       85.1    83.9    83.9      84.0     83.9       82.6    83.8    28.2     2.9
+  elev_E                       64.7         64.7       63.0    64.7    64.5      64.7     64.5       64.7    64.7    20.5     1.6
+  elev_W                       89.5         89.6       90.1    89.6    82.7      89.6     89.5       89.6    89.5    36.4     2.8
+  in_concrete_delco_1997        1.4          1.4       11.2     1.4     1.4       1.4      1.3        1.4     1.4     1.1     1.1
+  in_drywall_delco_1997        40.3         40.3       32.3    40.3    33.6      40.1     40.3       40.3    40.3    35.0     1.1
+  in_concrete_delco_1997_2      5.4          5.4       11.2     5.4     5.4       5.4      5.3        5.4     5.4     3.2     1.1
+  in_drywall_delco_1997_2      56.6         56.6       31.4    56.6    56.6      56.6     56.1       56.6    56.6    52.6     1.1
+  in_concrete_delco_1997_3      7.5          7.5       11.6     7.5     7.5       7.5      7.3        7.5     7.5     5.9     1.1
+  in_drywall_delco_1997_3      88.8         88.8       31.6    88.8    88.8      88.7     88.3       88.8    88.8    86.9     1.1
+  spawn                        28.0         27.9       26.2    27.5    27.3      27.3     27.7       27.2    27.9     9.3     1.2
+  objective                    80.7         80.7       79.6    80.2    38.0      80.6     80.7       80.7    80.7    73.3     1.1
+  extraction                   61.9         61.8       56.6    61.9    55.8      61.6     61.8       61.8    61.9    28.6     2.3
+
+THE DROP, frame mean: `all` less each configuration
+  station                    -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog    none
+  overview                         0.0     0.0     0.3      -0.0      0.1        0.1    -0.0    62.5    93.2
+  elev_N                          -1.0    -0.0    11.3      -0.0      0.0        0.0    -0.0    44.1    94.7
+  elev_S                          -2.2     0.0     0.0       0.0      0.0        0.5     0.0    54.6    74.6
+  elev_E                           0.6     0.0     0.1      -0.0      0.1        0.0    -0.0    48.4    68.3
+  elev_W                          -1.0    -0.0     8.1      -0.0     -0.0        0.0     0.0    49.1    86.0
+  in_concrete_delco_1997          -9.4    -0.0    -0.0       0.0      0.1        0.0    -0.0     0.5     0.5
+  in_drywall_delco_1997           10.5    -0.0    22.0       0.1      0.2       -0.0    -0.0     3.6    56.4
+  in_concrete_delco_1997_2        -5.4     0.0     0.0       0.0      0.3       -0.0     0.0     2.8     4.6
+  in_drywall_delco_1997_2         25.5     0.1     7.0       0.1      0.4        0.0     0.0     5.0    59.7
+  in_concrete_delco_1997_3        -3.3     0.0    -0.0      -0.0      0.5        0.0     0.0     2.4     6.5
+  in_drywall_delco_1997_3         40.1     0.2     5.2       0.0      0.3        0.0     0.0     4.0    77.2
+  spawn                            8.5    -0.0     6.4       0.4      0.0        3.1    -0.0    22.0    51.9
+  objective                        3.7     2.3    27.8       0.1      0.1        0.0    -0.0     7.7    66.6
+  extraction                      -1.2    -0.2    10.0       0.1     -0.1       -0.1    -0.1    20.5    39.7
+
+sheets in C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\breakdown\sheets

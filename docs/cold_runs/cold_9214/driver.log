@@ -1,0 +1,27 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9214\journal.md
+== batch
+created batch 'cold_9214' with 1 mission(s): bank_block_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 54)
+  bank_block_001.lot_assemble.candidate.seed_9054: bank_branch_a04.glb casino_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_retail_a02.glb 
+  bank_block_001.lot_assemble.candidate.seed_9155: bank_tower_a01.glb freight_terminal_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a01.glb 
+  bank_block_001.lot_assemble.candidate.seed_9256: bank_branch_a04.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb parking_garage.glb rail_station_a03.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9054: 0 major, route completion 1.00, out for nothing
+  seed 9155: 0 major, route completion 0.88, out for nothing
+  seed 9256: 1 major, route completion 0.84, out for nothing
+  picked seed_9054 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 74)
+  exit 1
+== export
+internal error: the Empties' merge failed and this build had a Godot to run it with: merge failed: 12 scene(s) failed
+  exit 5
+STOPPED: export

@@ -1,0 +1,60 @@
+light breakdown: C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\rebake_sunshadow
+luma 0-255 after the grade; each column one configuration, `-x` with x alone off
+
+the control, `all` against `all_control`: frame means differ by at most 0.18, centre by 0.90
+
+what each switch found and turned off (the first run that used it):
+  sun       {"first": ["/root/_walk/Mission/Bake/Site/LuxRoot/LuxSun"], "lamps_hidden": 1}
+
+FRAME MEAN
+  station                       all  all_control    -sun    none
+  overview                     96.7         96.7    94.9    94.9
+  elev_N                      111.6        111.6    85.5    85.4
+  elev_S                       76.5         76.5    76.5    76.5
+  elev_E                       70.3         70.3    70.2    70.2
+  elev_W                      105.4        105.4    80.2    80.2
+  in_concrete_delco_1997        1.7          1.7     1.7     1.7
+  in_drywall_delco_1997        35.5         35.5    35.5    35.5
+  in_concrete_delco_1997_2      6.1          6.1     6.1     6.1
+  in_drywall_delco_1997_2      53.7         53.7    53.7    53.7
+  in_concrete_delco_1997_3      8.2          8.2     8.2     8.2
+  in_drywall_delco_1997_3      72.9         72.9    72.9    72.9
+  spawn                        47.2         47.4    47.0    47.0
+  objective                    40.2         40.2    40.1    40.1
+  extraction                   34.6         34.6    31.3    31.2
+
+CENTRE MEAN
+  station                       all  all_control    -sun    none
+  overview                    117.4        117.5   109.4   109.4
+  elev_N                      108.7        108.6    93.8    93.7
+  elev_S                       83.9         83.9    83.9    83.9
+  elev_E                       64.8         64.7    64.5    64.4
+  elev_W                      109.7        109.6    82.7    82.7
+  in_concrete_delco_1997        1.5          1.5     1.5     1.5
+  in_drywall_delco_1997        33.6         33.6    33.6    33.6
+  in_concrete_delco_1997_2      5.9          5.9     5.9     5.9
+  in_drywall_delco_1997_2      56.4         56.4    56.4    56.4
+  in_concrete_delco_1997_3      8.3          8.3     8.3     8.3
+  in_drywall_delco_1997_3      88.6         88.6    88.6    88.6
+  spawn                        26.9         27.8    27.3    27.2
+  objective                    38.1         38.1    38.1    38.1
+  extraction                   58.4         58.0    55.6    56.2
+
+THE DROP, frame mean: `all` less each configuration
+  station                      -sun    none
+  overview                      1.8     1.8
+  elev_N                       26.2    26.2
+  elev_S                        0.0     0.0
+  elev_E                        0.1     0.1
+  elev_W                       25.2    25.2
+  in_concrete_delco_1997       -0.0    -0.0
+  in_drywall_delco_1997        -0.0     0.0
+  in_concrete_delco_1997_2      0.0     0.0
+  in_drywall_delco_1997_2      -0.0    -0.0
+  in_concrete_delco_1997_3     -0.0    -0.0
+  in_drywall_delco_1997_3       0.0    -0.0
+  spawn                         0.2     0.2
+  objective                     0.1     0.1
+  extraction                    3.3     3.3
+
+sheets in C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\breakdown_sunshadow\sheets

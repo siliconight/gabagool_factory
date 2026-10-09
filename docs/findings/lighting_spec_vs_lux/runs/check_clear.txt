@@ -1,0 +1,29 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\rebake_clear
+own preset runtime/lux/presets/delco_summer_afternoon.tres; 15 rooms; dens of sin: none; no room list (not judged): none
+
+SLOT own: delco_summer_afternoon (as shipped), day; the street's median 64.9
+  PASS 20  REPORT 1  WARN 2
+  station                                        region   kind     mean  p50  near%         rule
+  bank_branch_a04__boardroom                     interior ROW      59.0   57   0.21  PASS   p50 57 at or over 10
+  bank_branch_a04__grand_lobby                   interior ROW      36.4   34   0.00  PASS   p50 34 at or over 10
+  bank_branch_a04__mezzanine                     interior ROW      74.3   74   0.21  WARN   by day it is brighter than the street (74.3 over 64.9)
+  bank_branch_a04__security_office               interior ROW      49.6   51   0.10  PASS   p50 51 at or over 10
+  bank_branch_a04__teller_line                   interior ROW      20.8   22   0.00  PASS   p50 22 at or over 10
+  bank_branch_a04__vault_antechamber             interior MOODY    35.5   42   0.02  PASS   p50 42 at or over 5
+  bank_branch_a04__vault_room                    interior MOODY    42.8   43   0.02  PASS   p50 43 at or over 5
+  casino_a03__gaming_floor                       interior ROW      39.1   45   0.20  PASS   p50 45 at or over 10
+  casino_a03__high_roller_suite                  interior MOODY    46.7   47   0.01  PASS   p50 47 at or over 5
+  casino_a03__pit_corridor                       interior ROW      60.8   60   0.20  PASS   p50 60 at or over 10
+  casino_a03__upper_ring                         interior ROW      67.9   70   0.20  WARN   by day it is brighter than the street (67.9 over 64.9)
+  casino_a03__upper_west                         interior ROW      56.8   56   0.04  PASS   p50 56 at or over 10
+  objective                                      interior MOODY    52.6   48   0.00  PASS   p50 48 at or over 5
+  strip_retail_a02__showroom                     interior ROW      40.3   40   0.36  PASS   p50 40 at or over 10
+  strip_retail_a02__stone_vault                  interior MOODY    40.9   31   0.03  PASS   p50 31 at or over 5
+  strip_retail_a02__workshop                     interior ROW      56.6   56   0.26  PASS   p50 56 at or over 10
+  extraction                                     street   -        60.9   29   0.00  PASS   p50 29, near-clip 0.0%
+  spawn                                          street   -        68.9   47   0.00  PASS   p50 47, near-clip 0.0%
+  elev_E                                         facade   -       108.8   89   0.01  PASS   p95 179
+  elev_N                                         facade   -       176.6  174   0.00  PASS   p95 215
+  elev_S                                         facade   -       117.5  148   0.00  PASS   p95 188
+  elev_W                                         facade   -       170.9  173   0.00  PASS   p95 198
+  overview                                       context  -       135.8  119   0.00  REPORT context

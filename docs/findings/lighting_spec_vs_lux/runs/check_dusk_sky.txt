@@ -1,0 +1,29 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\rebake_dusk_sky
+own preset runtime/lux/presets/blue_hour.tres; 15 rooms; dens of sin: none; no room list (not judged): none
+
+SLOT own: blue_hour (as shipped), not day; the street's median 25.4
+  FAIL 3  PASS 19  REPORT 1
+  station                                        region   kind     mean  p50  near%         rule
+  bank_branch_a04__boardroom                     interior ROW      38.7   38   0.18  PASS   p50 38 at or over 10
+  bank_branch_a04__grand_lobby                   interior ROW      12.1    3   0.00  FAIL   p50 3 under the ROW floor 10
+  bank_branch_a04__mezzanine                     interior ROW      58.9   58   0.18  PASS   p50 58 at or over 10
+  bank_branch_a04__security_office               interior ROW      31.5   30   0.09  PASS   p50 30 at or over 10
+  bank_branch_a04__teller_line                   interior ROW      16.5   12   0.00  PASS   p50 12 at or over 10
+  bank_branch_a04__vault_antechamber             interior MOODY    15.0   11   0.02  PASS   p50 11 at or over 5
+  bank_branch_a04__vault_room                    interior MOODY    14.9   13   0.02  PASS   p50 13 at or over 5
+  casino_a03__gaming_floor                       interior ROW      17.8   18   0.17  PASS   p50 18 at or over 10
+  casino_a03__high_roller_suite                  interior MOODY    19.9   19   0.01  PASS   p50 19 at or over 5
+  casino_a03__pit_corridor                       interior ROW      43.4   39   0.18  PASS   p50 39 at or over 10
+  casino_a03__upper_ring                         interior ROW      50.2   51   0.18  PASS   p50 51 at or over 10
+  casino_a03__upper_west                         interior ROW      39.9   41   0.03  PASS   p50 41 at or over 10
+  objective                                      interior MOODY    30.4   23   0.00  PASS   p50 23 at or over 5
+  strip_retail_a02__showroom                     interior ROW      22.0   17   0.34  PASS   p50 17 at or over 10
+  strip_retail_a02__stone_vault                  interior MOODY    11.1    2   0.01  FAIL   p50 2 under the MOODY floor 5
+  strip_retail_a02__workshop                     interior ROW      63.4   56   0.24  PASS   p50 56 at or over 10
+  extraction                                     street   -        17.6    1   0.02  FAIL   collapsed to black: p50 1
+  spawn                                          street   -        33.1   11   0.66  PASS   p50 11, near-clip 0.7%
+  elev_E                                         facade   -        44.1   52   0.01  PASS   p95 78
+  elev_N                                         facade   -       103.1   78   0.00  PASS   p95 181
+  elev_S                                         facade   -        51.3   60   0.06  PASS   p95 91
+  elev_W                                         facade   -       131.4  105   0.00  PASS   p95 223
+  overview                                       context  -        75.1   64   0.00  REPORT context

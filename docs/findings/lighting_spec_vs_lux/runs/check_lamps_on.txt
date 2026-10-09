@@ -1,0 +1,29 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\day_lamps_9214\rebake_lamps_on
+own preset runtime/lux/presets/heavy_rain.tres; 15 rooms; dens of sin: none; no room list (not judged): none
+
+SLOT own: heavy_rain (as shipped), day; the street's median 47.5
+  PASS 10  REPORT 1  WARN 12
+  station                                        region   kind     mean  p50  near%         rule
+  bank_branch_a04__boardroom                     interior ROW      69.2   65   0.00  WARN   by day it is brighter than the street (69.2 over 47.5)
+  bank_branch_a04__grand_lobby                   interior ROW      41.7   38   0.00  PASS   p50 38 at or over 10
+  bank_branch_a04__mezzanine                     interior ROW      80.6   82   0.00  WARN   by day it is brighter than the street (80.6 over 47.5)
+  bank_branch_a04__security_office               interior ROW      60.6   62   0.00  WARN   by day it is brighter than the street (60.6 over 47.5)
+  bank_branch_a04__teller_line                   interior ROW      36.6   40   0.00  PASS   p50 40 at or over 10
+  bank_branch_a04__vault_antechamber             interior MOODY    56.7   49   0.00  WARN   by day it is brighter than the street (56.7 over 47.5)
+  bank_branch_a04__vault_room                    interior MOODY    53.6   53   0.00  WARN   by day it is brighter than the street (53.6 over 47.5)
+  casino_a03__gaming_floor                       interior ROW      40.8   39   0.00  PASS   p50 39 at or over 10
+  casino_a03__high_roller_suite                  interior MOODY    52.5   49   0.00  WARN   by day it is brighter than the street (52.5 over 47.5)
+  casino_a03__pit_corridor                       interior ROW      72.7   77   0.00  WARN   by day it is brighter than the street (72.7 over 47.5)
+  casino_a03__upper_ring                         interior ROW      71.6   64   0.00  WARN   by day it is brighter than the street (71.6 over 47.5)
+  casino_a03__upper_west                         interior ROW      67.3   64   0.00  WARN   by day it is brighter than the street (67.3 over 47.5)
+  objective                                      interior MOODY    67.7   60   0.00  WARN   by day it is brighter than the street (67.7 over 47.5)
+  strip_retail_a02__showroom                     interior ROW      37.9   35   0.00  PASS   p50 35 at or over 10
+  strip_retail_a02__stone_vault                  interior MOODY    50.8   50   0.00  WARN   by day it is brighter than the street (50.8 over 47.5)
+  strip_retail_a02__workshop                     interior ROW      83.8   85   0.00  WARN   by day it is brighter than the street (83.8 over 47.5)
+  extraction                                     street   -        41.4   33   0.00  PASS   p50 33, near-clip 0.0%
+  spawn                                          street   -        53.6   44   0.00  PASS   p50 44, near-clip 0.0%
+  elev_E                                         facade   -        70.1   76   0.00  PASS   p95 98
+  elev_N                                         facade   -        96.7   96   0.00  PASS   p95 114
+  elev_S                                         facade   -        76.5   87   0.00  PASS   p95 99
+  elev_W                                         facade   -        88.4   88   0.00  PASS   p95 99
+  overview                                       context  -        95.2   93   0.00  REPORT context
