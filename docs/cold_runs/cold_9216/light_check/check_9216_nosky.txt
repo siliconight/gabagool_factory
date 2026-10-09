@@ -1,0 +1,26 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\sky_proof\rebake_9216_nosky
+own preset runtime/lux/presets/delco_summer_afternoon.tres; 12 rooms; dens of sin: none; no room list (not judged): none
+
+SLOT own: delco_summer_afternoon (as shipped), day; the street's median 80.5
+  PASS 19  REPORT 1
+  station                                        region   kind     mean  p50  near%         rule
+  card_shop_a01__apartment                       interior ROW      65.1   67   0.16  PASS   p50 67 at or over 10
+  card_shop_a01__play_area                       interior ROW      19.0   14   0.05  PASS   p50 14 at or over 10
+  card_shop_a01__sales_floor                     interior ROW      66.5   67   0.12  PASS   p50 67 at or over 10
+  card_shop_a01__stockroom                       interior MOODY    32.7   26   0.02  PASS   p50 26 at or over 5
+  card_shop_a01__upper_storage                   interior ROW      45.4   47   0.16  PASS   p50 47 at or over 10
+  country_club_a01__cellar_hall                  interior MOODY    54.8   53   0.05  PASS   p50 53 at or over 5
+  country_club_a01__dining_wing                  interior ROW      62.9   63   0.21  PASS   p50 63 at or over 10
+  country_club_a01__grand_lounge                 interior ROW      41.3   43   0.21  PASS   p50 43 at or over 10
+  country_club_a01__wine_cellar                  interior MOODY    44.9   44   0.05  PASS   p50 44 at or over 5
+  objective                                      interior MOODY    40.9   40   0.01  PASS   p50 40 at or over 5
+  video_store_a01__back_room                     interior ROW      47.6   48   0.14  PASS   p50 48 at or over 10
+  video_store_a01__sales_floor                   interior ROW      23.9   19   0.34  PASS   p50 19 at or over 10
+  video_store_a01__stockroom                     interior MOODY    55.0   50   0.01  PASS   p50 50 at or over 5
+  extraction                                     street   -        65.6   52   0.00  PASS   p50 52, near-clip 0.0%
+  spawn                                          street   -        95.3   69   0.00  PASS   p50 69, near-clip 0.0%
+  elev_E                                         facade   -        84.7   68   0.00  PASS   p95 165
+  elev_N                                         facade   -       159.8  154   0.00  PASS   p95 220
+  elev_S                                         facade   -        61.2   37   0.00  PASS   p95 160
+  elev_W                                         facade   -       138.0  133   0.00  PASS   p95 186
+  overview                                       context  -       136.3  119   0.00  REPORT context
