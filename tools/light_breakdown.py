@@ -69,91 +69,16 @@ Prints the tables and stops.
 import argparse
 import json
 import os
-import re
 import shutil
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import look_shots                                    # noqa: E402
+import lux_rebake                                    # noqa: E402
 from godot_probe import ProbeFailed, require_godot   # noqa: E402
 
 #: look_shots.gd's SWITCHES, in the order the table prints them.
 SOURCES = ["lightmap", "live", "sun", "ambient", "probes", "emission", "sky", "fog"]
-FACTORY = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PRESENTATION = "presentation/lux.applied.tscn"
-
-
-def unbake(dest):
-    """Remove a copy's bake and point its entry back at the presentation
-    scene, so Level Factory's `bake()` takes it for an unbaked package."""
-    from packages.exporting import light_bake
-    for f in light_bake.BAKE_FILES:
-        p = os.path.join(dest, f)
-        if os.path.exists(p):
-            os.remove(p)
-    entry = os.path.join(dest, "mission.tscn")
-    with open(entry, encoding="utf-8") as fh:
-        t = fh.read()
-    old, new = "load('res://bake.tscn')", "load('res://%s')" % light_bake.PRESENTATION
-    if t.count(old) != 1:
-        raise SystemExit("%s: loads bake.tscn %d times, not once" % (entry, t.count(old)))
-    with open(entry, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write(t.replace(old, new))
-
-
-def zero_fills(dest):
-    """Set the level's preset's `bake_room_fill` to 0 in a copy. The preset is
-    the one the presentation scene's LuxRoot names as `active_preset`.
-    Returns the preset's path and the value it had (None when it had no
-    line, which is the preset class's default)."""
-    with open(os.path.join(dest, PRESENTATION), encoding="utf-8") as fh:
-        pres = fh.read()
-    m = re.search(r'^\[node name="LuxRoot"[^\]]*\]\n(?:[^\[\n].*\n)*?active_preset = ExtResource\("([^"]+)"\)',
-                  pres, re.M)
-    if not m:
-        raise SystemExit("no LuxRoot with an active_preset in " + PRESENTATION)
-    r = re.search(r'^\[ext_resource [^\]]*path="res://([^"]+)" id="%s"\]' % re.escape(m.group(1)), pres, re.M)
-    if not r:
-        raise SystemExit("the active preset's ext_resource is not in " + PRESENTATION)
-    path = os.path.join(dest, r.group(1))
-    with open(path, encoding="utf-8") as fh:
-        t = fh.read()
-    had = re.search(r"^bake_room_fill = (.+)$", t, re.M)
-    if had:
-        t = re.sub(r"^bake_room_fill = .+$", "bake_room_fill = 0.0", t, flags=re.M)
-    else:
-        head = re.search(r"^\[resource\]\n(script = .+\n)", t, re.M)
-        if not head:
-            raise SystemExit(path + ": no [resource] section opening with its script")
-        t = t[:head.end()] + "bake_room_fill = 0.0\n" + t[head.end():]
-    with open(path, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write(t)
-    return r.group(1), (had.group(1) if had else None)
-
-
-def rebake(project, dest, fills, godot):
-    """Copy `project` to `dest` and bake it with Level Factory's own `bake()`,
-    the room fills on or off. Returns the bake's report, with what was done."""
-    sys.path.insert(0, os.path.join(FACTORY, "level_factory"))
-    from packages.exporting import light_bake
-    # THE SAME MODELS SET DYNAMIC AS THE SHIPPED BAKE: the export passes the
-    # responders' cars as `spawned` (Level Factory 0.162.1), and the package's
-    # own `light_bake.json` records which they were
-    spawned = []
-    shipped = os.path.join(project, light_bake.REPORT)
-    if os.path.isfile(shipped):
-        with open(shipped, encoding="utf-8") as fh:
-            spawned = list((json.load(fh).get("imports") or {}).get("spawned") or [])
-    if os.path.exists(dest):
-        shutil.rmtree(dest)
-    shutil.copytree(project, dest)
-    unbake(dest)
-    note = {"fills": fills, "spawned": spawned}
-    if not fills:
-        note["preset"], note["bake_room_fill_was"] = zero_fills(dest)
-    report = light_bake.bake(dest, godot, log=lambda s: print("    " + s), spawned=spawned)
-    report["breakdown"] = note
-    return report
 
 
 def configs(sources, also=()):
@@ -269,8 +194,8 @@ def main(argv=None):
             dest = os.path.join(out, cfg + "_project")
             print("[light_breakdown] %-16s re-baking a copy, the room fills %s" % (cfg, "on" if fills else "off"),
                   flush=True)
-            rep = rebake(a.project, dest, fills, godot)
-            rebakes[cfg] = {k: rep.get(k) for k in ("ok", "reason", "editor_s", "room_fills", "rigs", "breakdown")}
+            rep = lux_rebake.rebake(a.project, dest, godot, fills=fills, log=lambda s: print("    " + s))
+            rebakes[cfg] = {k: rep.get(k) for k in ("ok", "reason", "editor_s", "room_fills", "rigs", "rebake")}
             if rep.get("ok"):
                 r = run(dest, out, cfg, [], a.interiors, a.station, a.timeout)
                 results[cfg] = {"error": r.get("error"), "switched_off": {},

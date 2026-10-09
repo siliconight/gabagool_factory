@@ -782,6 +782,25 @@ the shop; by night the lit shop window is the beacon. Lux 0.55.0 scales the
 fixtures by preset for it. Whether each slot's frames read that way is
 **EYE**.
 
+**A standing check of the floor under it (2026-10-09).**
+- **What it is:** `tools/light_check.py`, the walker's ask: "make sure
+  levels look good in both interiors and exteriors for both day and night".
+- **What it holds:**
+  - every room, to the night census's floor;
+  - the street, against collapse to black and blowing to white;
+  - by day, the street over the shop.
+- **When:** at the level's own slot, and at any other built slot, re-baked
+  under that slot's preset (`tools/lux_rebake.py`, exact against a shipped
+  bake).
+- **Its targets** name their sources; two are PROVISIONAL.
+- **The day inversion** is now **MEASURED**. The night beacon is still
+  **EYE**.
+- **What a frame is made of** -- the moon, the bake, the fills, the live
+  lamps -- is `tools/light_breakdown.py` (`docs/findings/light_breakdown/`).
+- **First run:** cold run 9213 (`docs/findings/light_check/`). At midnight,
+  1 room under the floor and the north facade black; in the afternoon,
+  everything passes.
+
 **v0's lighting table for MacDade** (Part II §12) is per use: bank lobby,
 pharmacy, laundromat, homes. Today the factory lights by room KIND, not by
 use: a fluorescent row, moody pendants, the club set, a counter accent, heat

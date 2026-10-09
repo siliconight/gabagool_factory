@@ -1,0 +1,52 @@
+[light_check] own: shooting 11 rooms and the exterior under delco_night
+[light_check] afternoon: re-baking a copy under delco_summer_afternoon
+    [export] light bake: 432 model(s) and 0 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 79 steady rig(s) baked, 13 failing and 2 cycling left live; 172 room fill(s); 3895 users, 82.0 s in the editor
+[light_check] afternoon: shooting 11 rooms and the exterior under delco_summer_afternoon
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_club_block_014
+own preset runtime/lux/presets/delco_night.tres; 11 rooms; dens of sin: strip_club_a01; no room list (not judged): none
+
+SLOT own: delco_night (as shipped), not day; the street's median 38.3
+  EXEMPT 4  FAIL 1  PASS 12  REPORT 1  WARN 1
+  station                                        region   kind     mean  p50  near%         rule
+  airport_terminal_a02__baggage_band             interior ROW      29.9   27   0.01  PASS   p50 27 at or over 10
+  airport_terminal_a02__bond_store               interior MOODY    13.5   12   0.00  PASS   p50 12 at or over 5
+  airport_terminal_a02__checkin_hall             interior ROW      13.9    8   0.01  FAIL   p50 8 under the ROW floor 10
+  airport_terminal_a02__under_hall               interior MOODY    22.3   22   0.00  PASS   p50 22 at or over 5
+  funeral_home_a03__columbarium_vault            interior MOODY    13.9   12   0.05  PASS   p50 12 at or over 5
+  funeral_home_a03__crematory_wing               interior ROW      55.1   48   0.25  PASS   p50 48 at or over 10
+  funeral_home_a03__lower_hall                   interior MOODY    29.5   24   0.06  PASS   p50 24 at or over 5
+  funeral_home_a03__reception                    interior ROW      19.6   19   0.25  PASS   p50 19 at or over 10
+  objective                                      interior DEN       1.3    0   0.00  EXEMPT a den of sin, dark by design
+  strip_club_a01__cash_office                    interior DEN       2.7    1   0.01  EXEMPT a den of sin, dark by design
+  strip_club_a01__main_floor                     interior DEN       3.7    1   0.00  EXEMPT a den of sin, dark by design
+  strip_club_a01__vip_wing                       interior DEN       2.2    0   0.00  EXEMPT a den of sin, dark by design
+  extraction                                     street   -        29.2   22   0.00  PASS   p50 22, near-clip 0.0%
+  spawn                                          street   -        47.4   24   0.42  PASS   p50 24, near-clip 0.4%
+  elev_E                                         facade   -         2.8    0   0.00  PASS   p95 17
+  elev_N                                         facade   -         1.4    0   0.00  WARN   nothing on it reaches the floor 10: p95 3
+  elev_S                                         facade   -        17.4    1   0.01  PASS   p95 92
+  elev_W                                         facade   -        15.3    1   0.01  PASS   p95 85
+  overview                                       context  -         7.1    1   0.00  REPORT context
+
+SLOT afternoon: delco_summer_afternoon (re-baked), day; the street's median 101.7
+  EXEMPT 4  PASS 14  REPORT 1
+  station                                        region   kind     mean  p50  near%         rule
+  airport_terminal_a02__baggage_band             interior ROW      54.4   54   0.01  PASS   p50 54 at or over 10
+  airport_terminal_a02__bond_store               interior MOODY    47.9   50   0.00  PASS   p50 50 at or over 5
+  airport_terminal_a02__checkin_hall             interior ROW      43.3   51   0.01  PASS   p50 51 at or over 10
+  airport_terminal_a02__under_hall               interior MOODY    56.5   56   0.01  PASS   p50 56 at or over 5
+  funeral_home_a03__columbarium_vault            interior MOODY    40.7   38   0.06  PASS   p50 38 at or over 5
+  funeral_home_a03__crematory_wing               interior ROW      62.5   62   0.28  PASS   p50 62 at or over 10
+  funeral_home_a03__lower_hall                   interior MOODY    57.1   54   0.06  PASS   p50 54 at or over 5
+  funeral_home_a03__reception                    interior ROW      43.0   44   0.27  PASS   p50 44 at or over 10
+  objective                                      interior DEN      17.4   17   0.00  EXEMPT a den of sin, dark by design
+  strip_club_a01__cash_office                    interior DEN      22.2   20   0.01  EXEMPT a den of sin, dark by design
+  strip_club_a01__main_floor                     interior DEN      24.5   20   0.00  EXEMPT a den of sin, dark by design
+  strip_club_a01__vip_wing                       interior DEN      20.0   18   0.00  EXEMPT a den of sin, dark by design
+  extraction                                     street   -        84.3   43   0.02  PASS   p50 43, near-clip 0.0%
+  spawn                                          street   -       119.1  133   0.01  PASS   p50 133, near-clip 0.0%
+  elev_E                                         facade   -       129.6  148   0.00  PASS   p95 188
+  elev_N                                         facade   -       167.2  162   0.09  PASS   p95 222
+  elev_S                                         facade   -       130.0  148   0.00  PASS   p95 187
+  elev_W                                         facade   -       143.5  158   0.00  PASS   p95 190
+  overview                                       context  -       135.8  119   0.01  REPORT context
