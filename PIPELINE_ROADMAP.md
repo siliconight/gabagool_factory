@@ -19489,7 +19489,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - **Lot's slot is still hand-set.** `site_responders.VEHICLE` is 2.0 x 5.4 x 1.5 m, "not derived: Zoo has no cruiser species yet" (`lot/site_responders.py:59`). Derived from the genome's default, the stop needs 0.196 m more width and 0.145 m more length, so stops that fit today may not. Its comment calls 2.0 m the width to the mirrors; the published 1.99-2.0 m it cites is the body's, and the cruiser's mirror heads stand 2.196 m apart.
   - **The asset is not in a package.** Responders are the gameplay layer's to spawn, so the car has to ship beside `responder_arrivals.json` rather than stand in the scene.
   - **Not priced in a frame.**
-  - **The livery is the walker's to choose.** Both are shown in the finding's frames.
+  - **The livery is the walker's to choose.** Both are shown in the finding's frames. *Chosen 2026-10-09: "black and white", already the default.*
 
 **LOT 0.100.0 AND 0.100.1, LEVEL FACTORY 0.161.0, DONE: THE VEHICLE IS ZOO'S AND THE LANE STEERS (2026-10-08)** (`patches/patch_lot_responder_lane.py`, `patch_lot_responder_precision.py`, `patch_lf_lane_boxes.py`).
 - **The vehicle.** `site_responders.VEHICLE` is the cruiser genome's defaults, 2.196 x 5.545 x 1.578, pinned with a test that reads Zoo's genome when Zoo is beside Lot. `MIRROR_OUT` (0.105) separates the two widths: the stop's door room is measured from the 1.986 m body, the lane from the mirrors.

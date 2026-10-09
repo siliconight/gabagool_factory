@@ -175,6 +175,9 @@ rather than assumed:**
 
 **The light bar is red on the driver's side from every angle.** Which
 livery is the default is the walker's to choose.
+- *Chosen 2026-10-09:* "black and white". It was already the default
+  (`cruiser_forms.DEFAULT_LIVERY`), so no code moved; `white_blue` stays
+  a form a slot can ask for.
 
 ## Not settled
 
