@@ -143,6 +143,10 @@ the drywall room's 26.0.
   `environment_mode = 0`). Lux 0.68.0 puts a room's floor back as bake-only
   fills over each untinted room probe. Whether these two rooms get any is
   the fill re-bake's question, below.
+  - *Since Level Factory 0.164.0 the bake holds the sky*
+    (`environment_mode = 1`, the walker's call after
+    `docs/findings/lighting_spec_vs_lux/`). The numbers here are from 9213's
+    package, baked without it.
 
 **The fills carry the lit rooms.** `--fills` re-baked two copies with Level
 Factory's own `bake()`:

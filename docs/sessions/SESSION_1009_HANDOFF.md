@@ -50,8 +50,9 @@ Cold runs 9210 to 9214, 0 interventions each. 9214 also took 1 retry.
 
 ## The walker's calls, open
 
-- **217, the sky in the bake.** Level Factory's `environment_mode` 0 to 1 is
-  one line, recommended.
+- **217, the sky in the bake: ANSWERED after this handoff,** "yes bake the
+  sky in". Level Factory 0.164.0 bakes `environment_mode = 1`, and cold run
+  9215 carries it. The measurements below are why.
   - On a clear afternoon it lifts the street +15 to +21, and shade goes from
     near black to daylight.
   - At night and dusk it adds +0.5 to +4.4 outside.

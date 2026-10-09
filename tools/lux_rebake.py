@@ -21,13 +21,16 @@ WHAT IT DOES, in order, on a copy (the source is only read):
 5. Bakes with `light_bake.bake()`, exactly as the export runs it. It passes
    the shipped bake's `spawned` set, the responders' cars, which the
    package's own `light_bake.json` records.
-6. `--bake-environment scene`: the bake's `LightmapGI` takes
-   `environment_mode = 1` (the scene's environment, which LuxRoot builds in
-   the editor too) in place of Level Factory's `0` (none). Everything else
-   in the bake scene is Level Factory's own text. An experiment, not a
-   release: Level Factory 0.131.0 shipped `0` with no reason recorded, so a
-   shipped lightmap holds no sky light, and a lightmapped surface takes no
-   ambient at run time either (`docs/findings/light_breakdown/`).
+6. `--bake-environment none|scene`: the bake's `LightmapGI` takes
+   `environment_mode = 0` (none) or `1` (the scene's environment, which
+   LuxRoot builds in the editor too) in place of Level Factory's own.
+   Everything else in the bake scene is Level Factory's own text.
+   - **Level Factory 0.131.0 to 0.163.1 baked `0`,** so their lightmaps
+     hold no sky light, and a lightmapped surface takes no ambient at run
+     time either (`docs/findings/light_breakdown/`).
+   - **Since 0.164.0 it bakes `1`,** the walker's call after
+     `docs/findings/lighting_spec_vs_lux/` measured it with this option.
+   - `none` is the control against a package from before.
 
 MEASURED. A re-bake with no change reproduces the shipped frames exactly,
 0.0 at every camera, on cold run 9213's walk copy

@@ -90,9 +90,9 @@ grain, glow and a vignette.
 
 ## What it asks of the walker
 
-- **The sky in the bake.** It is measured below at four slots. It costs
-  nothing at run time, and the rooms do not move. Recommended; the look is
-  the call.
+- **The sky in the bake: ANSWERED 2026-10-09, "yes bake the sky in".**
+  Level Factory 0.164.0 bakes `environment_mode = 1`
+  (`patches/patch_lf_bake_sky.py`). Its cold run is next.
 - **Heavy Rain's sun.** Three ways:
   - re-price its shadow on today's package;
   - build the free cull-mask split, which needs interiors on a layer of
