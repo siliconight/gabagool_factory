@@ -19421,7 +19421,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - The changelog corrects "two checks" to one, and `place_enemies`' comment now says the single-file account held on two sites of three.
 - Cold run 9200's Lot logs carry no `S_NAKED_ANCHOR`, as 9199's did not.
 
-*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Zoo 1.86.0 builds the cruiser the walker asked for, a 1990s Crown Victoria lettered DELCO COUNTY POLICE in two liveries: 0 coincident pairs at the genome's three corners and over 51 swept sizes, five meshes and 3,476 triangles a car, and `simple_car`'s own cars unchanged, 200 meshes hashed (`docs/findings/cruiser_build/`). Open: the cruiser into a level -- Lot's responder slot derived from it, the asset in the package for the gameplay layer to spawn, and a price; `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective; and the getaway van closing every lane that has to pass it, which cost cold run 9204 one arrival of three.*
+*STATUS: NARROWED 2026-10-08 -- the arrivals are planned, kept clear and in the package. Lot 0.99.0 plans an arrival per open road end and reserves its lane and stop (cold run 9200: three on each of three candidates, a bot from every stop reaching the nearest crew point). Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201: three), and 0.157.0 ships how each arrives, `responder_arrivals.json`: cold run 9202's package carries it, three arrivals each naming a `responder` anchor at its own stop, listed in the resource manifest, the closure scan clean. Zoo 1.86.0 builds the cruiser the walker asked for, a 1990s Crown Victoria lettered DELCO COUNTY POLICE in two liveries: 0 coincident pairs at the genome's three corners and over 51 swept sizes, five meshes and 3,476 triangles a car, and `simple_car`'s own cars unchanged, 200 meshes hashed (`docs/findings/cruiser_build/`). Lot 0.100.0 and 0.100.1 size the arrivals for that cruiser and steer a lane round what stands in it, and Level Factory 0.161.0 ships the steered lanes: cold runs 9206 and 9207 (club_block_014, 0 interventions each) took `LOT_RESPONDER_ENTRY_NO_STOP` 2 to 0, three arrivals on every candidate, each candidate one lane steered 0.649 m round the getaway van, every stop walked by Lot's nav QA. Open: the cruiser itself in the package for the gameplay layer to spawn, and a price; `S_RESPONDER_ARC` firing where a site's roads lie to one side of the objective.*
 
 **212. Responders arrive on the way back.** The walker, 2026-10-08, answering item 206's question of what makes the walk back to the van dangerous: "have responders show up after the job, on the way back (and this would be on the gameplay layer, but we can make thee assets and ensure there is clearance and routes for their arrival)".
 
@@ -19464,7 +19464,7 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
 - **The package** marks them, with the pose and the routes, so the game layer can find them -- *done*: Level Factory 0.156.0 puts each stop in `gameplay_anchors.json` as an `ai_spawn` tagged `responder` (cold run 9201), and 0.157.0 ships how each arrives in `responder_arrivals.json` (cold run 9202). Item 204 has the detail.
 - **Zoo: the responder vehicle.** A 1990s cruiser from `simple_car`'s police style: a light bar, a push bar, an A-pillar spotlight, and an invented department's markings on one texture. The walker's comps come first, as for the van.
 - **Price** the cruiser the way the van was priced.
-- **Lot: let the lane steer round the van.** Cold run 9204's club_block_014 lost one arrival of three to the getaway van (`docs/findings/responder_entry_no_stop/`, which replays Lot's planner on the job's inputs and reproduces its record).
+- **Lot: let the lane steer round the van.** *Done, below: Lot 0.100.0 and 0.100.1, cold runs 9206 and 9207.* Cold run 9204's club_block_014 lost one arrival of three to the getaway van (`docs/findings/responder_entry_no_stop/`, which replays Lot's planner on the job's inputs and reproduces its record).
   - **The van overhangs its bay, by design.** Its body is 2.30 m and stands 0.20 m off the kerb, so in a 2.2 m parking lane the body overhangs 0.30 m and the mirrors 0.45 m.
   - **The lane cannot pass it.** The planner's lane is a 3.0 m box at the lane's centre, in a 2.8 m driving half. It overlaps the van by 0.55 m, and the cruiser alone would by 0.05 m. So every lane that has to pass the van is refused, and every stop short of it is within `CAMP_RADIUS` of the crew.
   - **It recurs** wherever an open road end's inbound lane runs along the van's kerb toward it. `LOT_RESPONDER_ENTRY_NO_STOP` counted it twice on 9204, once from the candidate's assemble and once from the themed site's: one road end.
@@ -19489,6 +19489,30 @@ The control reproduces cold run 9194's own reports exactly, so the evaluation is
   - **The asset is not in a package.** Responders are the gameplay layer's to spawn, so the car has to ship beside `responder_arrivals.json` rather than stand in the scene.
   - **Not priced in a frame.**
   - **The livery is the walker's to choose.** Both are shown in the finding's frames.
+
+**LOT 0.100.0 AND 0.100.1, LEVEL FACTORY 0.161.0, DONE: THE VEHICLE IS ZOO'S AND THE LANE STEERS (2026-10-08)** (`patches/patch_lot_responder_lane.py`, `patch_lot_responder_precision.py`, `patch_lf_lane_boxes.py`).
+- **The vehicle.** `site_responders.VEHICLE` is the cruiser genome's defaults, 2.196 x 5.545 x 1.578, pinned with a test that reads Zoo's genome when Zoo is beside Lot. `MIRROR_OUT` (0.105) separates the two widths: the stop's door room is measured from the 1.986 m body, the lane from the mirrors.
+  - 0.99.0's 2.0 m, which it called a width "to the mirrors", was the body's published width.
+- **Why the lane had to steer in the same change.** The mirror width widens the lane box to 3.196 m. On 9204's site that box would overlap the van by 0.648 m, where the 3.0 m box overlapped it by 0.55.
+- **How it steers.** The lane is 1 m slices.
+  - **The shift.** Each slice moves toward and across the centre line by the least shift that clears what stands there.
+  - **The bound.** It may go as far as the oncoming driving half's outer edge.
+  - **The taper.** MUTCD 6C.08's shifting-taper rate: 120/S^2 across per metre along, 0.192 at a stated 25 mph.
+  - **The return.** It is back in its own half by the stop.
+  - **The record.** `lane_boxes` with `lane_shift`; Level Factory 0.161.0 ships them as `responder_arrivals.json` schema v2.
+- **Cold run 9206** (`docs/cold_runs/cold_9206/NOTES.md`, 0 interventions):
+  - `LOT_RESPONDER_ENTRY_NO_STOP` 2 to 0;
+  - three arrivals in the package, the east end's lane steered 0.648 m in nine boxes;
+  - six bot spawns in Lot's nav QA, the three stops among them, and all 20 walkers `ok`.
+- **Found by 9206, a phantom.** It carried a new major on seed_9080, `LOT_RESPONDER_BLOCKED`: the van in a lane.
+  - **What happened.** The planner had cleared the van by 1e-6 m and checked the unrounded box. The record rounded the box's edge onto the van's: -28.22 against -26.92 - 1.3 = -28.220000000000002.
+  - **What the read-back saw.** It checks recorded boxes, and found 3.6e-15 m of overlap.
+  - **The fix, Lot 0.100.1.** The planner rounds each box once, checks it and records it, and clears by 1 mm.
+- **Cold run 9207** (`docs/cold_runs/cold_9207/NOTES.md`, 0 interventions): `LOT_RESPONDER_BLOCKED` 1 to 0. Every candidate gets three arrivals and no responder finding, and each steers one lane, 0.649 m round its van.
+- **The van's lane is the same on every site.** The van's 0.45 m overhang is fixed by design, so each site's van lane needs the same shift.
+- **Not done: the cruiser in the package.** The gameplay layer spawns responders, so the car must ship beside `responder_arrivals.json`, not stand in the scene.
+  - **The route.** Lot gives the arrivals kit slots, so Zoo's site kit builds the car. The themed assembly copies the module to a new `vehicles/` sibling without standing it, and writes which file it is. Level Factory adds `vehicles` to its sibling list and names the car in `responder_arrivals.json`.
+  - **Not built yet.** Then a price.
 
 *STATUS: CLOSED 2026-10-08 -- the stage ships live, brighter, and cycling. Lux 0.69.0 lights it at `CLUB_STAGE_LEVEL` 24, eight times the old level, and a cycling lamp bakes no bounce; Level Factory 0.160.0's bake leaves a cycling rig live. Cold run 9205 (club_block_014, 0 interventions): "76 steady rig(s) baked, 13 failing and 2 cycling left live", the two cycling being the two stages; the stage top reads 22.2 and the pole 56.5 (luminance, 8-bit codes) against 9.5 and 2.5 as 9204 shipped, within 0.1 codes of the 8x hand copy the call was made from; the lamp housings' frozen first colours are gone, brightest pixel 640-644 to 9; paired census still 0 over 8, worst 6 (`docs/cold_runs/cold_9205/NOTES.md`). Not this item's: a lens that follows the lamp's colour, unbuilt and unpriced.*
 
