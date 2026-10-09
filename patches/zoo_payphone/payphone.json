@@ -1,0 +1,111 @@
+{
+  "species": "payphone",
+  "version": 2,
+  "license": {
+    "construction_knowledge": "CC0",
+    "notes": "The 1990s American street kit (roadmap 153), redrawn in Zoo 1.88.0 (roadmap 210). REFERENCE: the walker's three photographs, format only (docs/reference/PAYPHONE_COMPS.md), and the modern low-poly standard's payphone example. A stainless coin phone -- twelve keys, the coin slot in a raised bezel, the coin-return recess, the vault door, the instruction card, the hook-switch cradle with the handset hung in it on an armoured steel cord -- in one of three enclosures: a booth on a post with a PHONE header (the default), a pedestal shroud with handset pictograms, or a wall unit with a phone-book binder. The phone company, YOUSETEL, is invented. BUILT: one atlas, one material, 980 to 1,098 tris over its forms and the genome's corners, 1,046 as a booth at the default slot (2026-10-09); 308 tris and three materials before."
+  },
+  "dimensions": {
+    "width": {
+      "min": 0.525,
+      "max": 1.05,
+      "default": 0.75
+    },
+    "depth": {
+      "min": 0.35,
+      "max": 0.7,
+      "default": 0.5
+    },
+    "height": {
+      "min": 1.61,
+      "max": 3.22,
+      "default": 2.3
+    }
+  },
+  "parts": [
+    "Payphone_Art"
+  ],
+  "params": {
+    "form": [
+      "auto",
+      "booth",
+      "pedestal",
+      "wall"
+    ]
+  },
+  "materials": {
+    "default": "metal_painted",
+    "options": [
+      "metal_painted",
+      "plastic"
+    ]
+  },
+  "styles": {
+    "default": {
+      "material": "metal_painted",
+      "color": [
+        0.22,
+        0.26,
+        0.32
+      ],
+      "wear": 0.15,
+      "bevel": 0.006
+    },
+    "delco": {
+      "material": "metal_painted",
+      "color": [
+        0.22,
+        0.26,
+        0.32
+      ],
+      "wear": 0.35,
+      "bevel": 0.006,
+      "ambient": 0.35
+    },
+    "center_city": {
+      "material": "metal_painted",
+      "color": [
+        0.22,
+        0.26,
+        0.32
+      ],
+      "wear": 0.122,
+      "bevel": 0.006,
+      "ambient": 0.15
+    },
+    "industrial_flats": {
+      "material": "metal_painted",
+      "color": [
+        0.22,
+        0.26,
+        0.32
+      ],
+      "wear": 0.57,
+      "bevel": 0.006,
+      "ambient": 0.45
+    },
+    "rockay": {
+      "material": "metal_painted",
+      "color": [
+        0.22,
+        0.26,
+        0.32
+      ],
+      "wear": 0.29,
+      "bevel": 0.006,
+      "ambient": 0.05
+    }
+  },
+  "budgets": {
+    "tris_lod0": 1400
+  },
+  "attachments": [],
+  "collision": true,
+  "match_priority": 0,
+  "keywords": [
+    "payphone",
+    "pay phone",
+    "phone booth",
+    "telephone"
+  ]
+}
