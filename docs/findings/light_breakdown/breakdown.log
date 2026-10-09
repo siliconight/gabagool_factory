@@ -1,0 +1,143 @@
+[light_breakdown] all            (nothing off)
+[light_breakdown] all_control    (nothing off)
+[light_breakdown] off_lightmap   lightmap
+[light_breakdown] off_live       live
+[light_breakdown] off_sun        sun
+[light_breakdown] off_ambient    ambient
+[light_breakdown] off_probes     probes
+[light_breakdown] off_emission   emission
+[light_breakdown] off_sky        sky
+[light_breakdown] off_fog        fog
+[light_breakdown] off_ambient+probes ambient,probes
+[light_breakdown] off_lightmap+ambient+probes lightmap,ambient,probes
+[light_breakdown] none           lightmap,live,sun,ambient,probes,emission,sky,fog
+[light_breakdown] rebake_fills_on  re-baking a copy, the room fills on
+    [export] light bake: 432 model(s) and 0 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 79 steady rig(s) baked, 13 failing and 2 cycling left live; 172 room fill(s); 3895 users, 84.4 s in the editor
+[light_breakdown] rebake_fills_off re-baking a copy, the room fills off
+    [export] light bake: 432 model(s) and 0 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 79 steady rig(s) baked, 13 failing and 2 cycling left live; 0 room fill(s); 3895 users, 89.0 s in the editor
+light breakdown: C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_club_block_014
+luma 0-255 after the grade; each column one configuration, `-x` with x alone off
+
+the control, `all` against `all_control`: frame means differ by at most 0.00, centre by 0.01
+
+what each switch found and turned off (the first run that used it):
+  lightmap  {"first": ["/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_001/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_sign/AreaPanel_Omni", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack/Street_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack_001/Street_0"], "lightmaps_cleared": 1, "static_lamps_hidden": 81}
+  live      {"first": ["/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_004/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_005/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_003/Fluoro_0", "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_009/Fluoro_0"], "lamps_hidden": 17}
+  sun       {"first": ["/root/_walk/Mission/Bake/Site/LuxRoot/LuxSun"], "lamps_hidden": 1}
+  ambient   {"before": [{"ambient_light_energy": 0.550000011920929, "ambient_light_sky_contribution": 1.0, "ambient_light_source": 3, "reflected_light_source": 0}], "environments": 1}
+  probes    {"first": ["/root/_walk/Mission/Bake/Site/LuxClub/b0_main_floor_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_vip_wing_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b0_cash_office_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b1_checkin_hall_ambient", "/root/_walk/Mission/Bake/Site/LuxClub/b1_baggage_band_ambient"], "probes_hidden": 11}
+  emission  {"emission_switched": 97, "materials_seen": 1221, "shader_materials_left": 7, "unshaded_materials_left": 0}
+  sky       {"before": [{"ambient_light_source": 3, "background_mode": 2, "reflected_light_source": 0}], "environments": 1}
+  fog       {"before": [{"fog_enabled": true}], "environments": 1}
+  left on by every switch: 7 ShaderMaterial(s) and 0 unshaded material(s)
+
+FRAME MEAN
+  station                           all  all_control  -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog  -ambient+probes  -lightmap+ambient+probes    none  rebake_fills_on  rebake_fills_off
+  overview                          7.1          7.1        7.0     7.1     3.7       7.1      7.1        7.1     7.1     6.9              7.1                       6.9     0.8              7.1               7.1
+  elev_N                            1.4          1.4        1.2     1.4     1.4       1.4      1.4        1.1     1.4     1.3              1.4                       1.1     0.8              1.4               1.4
+  elev_S                           17.4         17.4       16.4    17.4     1.6      17.4     17.4       17.0    17.4    17.2             17.4                      16.4     0.8             17.4              17.4
+  elev_E                            2.8          2.8        2.1     2.7     2.7       2.8      2.6        2.8     2.8     2.8              2.6                       1.0     0.8              2.8               1.5
+  elev_W                           15.3         15.3       13.6    15.3     1.6      15.3     15.3       15.1    15.3    16.3             15.3                      13.3     0.8             15.3              15.3
+  in_concrete_delco_1997            1.7          1.7        6.8     1.7     1.7       1.7      1.6        1.7     1.7     1.7              1.6                       0.8     0.8              1.7               0.8
+  in_drywall_delco_1997            26.0         26.0       19.8    26.0    26.0      26.0     23.6       26.0    26.0    26.2             23.6                       0.8     0.8             26.0               0.8
+  in_wallpaper_club_delco_1997      0.8          0.8        0.8     0.8     0.8       0.8      0.8        0.8     0.8     0.8              0.8                       0.8     0.8              0.8               0.8
+  in_concrete_delco_1997_2          2.5          2.5        9.8     2.5     2.5       2.5      2.2        2.5     2.5     2.4              2.2                       0.8     0.8              2.5               0.8
+  booth_caller                     45.4         45.4       12.4    39.6    37.2      45.4     45.4       45.4    45.4    45.7             45.4                      12.4     0.8             45.5              45.4
+  wall_a_room                      16.2         16.2        8.0    16.2    16.2      16.2     15.6       15.6    16.3    16.3             15.6                       1.4     0.8             16.2               6.5
+  wall_b_room                      17.8         17.8        9.5    17.8    17.8      17.8     17.0       17.1    17.8    17.8             17.0                       1.4     0.8             17.8               6.7
+  spawn                            47.4         47.4       26.0    47.4    16.5      47.4     47.3       44.9    47.4    48.0             47.3                      25.2     0.8             47.4              46.2
+  objective                         1.3          1.3        2.8     0.8     1.3       1.3      1.3        1.3     1.3     1.3              1.3                       1.1     0.8              1.3               1.3
+  extraction                       29.2         29.2       19.8    29.2     2.7      29.2     29.2       28.7    29.2    29.3             29.2                      19.8     0.8             29.2              29.2
+
+CENTRE MEAN
+  station                           all  all_control  -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog  -ambient+probes  -lightmap+ambient+probes    none  rebake_fills_on  rebake_fills_off
+  overview                         21.0         21.0       20.2    20.8     3.8      21.0     21.0       20.9    21.0    21.0             21.0                      20.2     0.8             21.0              21.0
+  elev_N                            0.9          0.9        0.9     0.9     0.9       0.9      0.9        0.9     0.9     0.9              0.9                       0.9     0.8              0.9               0.9
+  elev_S                            2.8          2.8        2.8     2.8     2.7       2.8      2.8        2.8     2.8     2.9              2.8                       2.8     0.8              2.8               2.8
+  elev_E                            0.9          0.9        0.9     0.9     0.9       0.9      0.9        0.9     0.9     0.9              0.9                       0.9     0.8              0.9               0.9
+  elev_W                            1.7          1.7        1.7     1.7     1.7       1.7      1.7        1.7     1.7     1.8              1.7                       1.7     0.8              1.7               1.7
+  in_concrete_delco_1997            1.6          1.6        9.5     1.6     1.6       1.6      1.4        1.6     1.6     1.5              1.4                       0.8     0.8              1.6               0.8
+  in_drywall_delco_1997            29.5         29.5       24.9    29.5    29.5      29.5     27.4       29.5    29.5    29.7             27.4                       0.8     0.8             29.5               0.8
+  in_wallpaper_club_delco_1997      0.8          0.8        0.8     0.8     0.8       0.8      0.8        0.8     0.8     0.8              0.8                       0.8     0.8              0.8               0.8
+  in_concrete_delco_1997_2          3.6          3.6       10.1     3.6     3.6       3.6      3.2        3.6     3.6     3.4              3.2                       0.8     0.8              3.6               0.8
+  booth_caller                     95.8         95.8       11.9    89.8    87.1      95.8     95.8       95.8    95.8    96.3             95.7                      11.9     0.8             95.9              95.7
+  wall_a_room                      52.0         52.0        9.2    52.0    52.0      52.0     51.2       52.0    52.0    52.2             51.1                       0.8     0.8             52.0              42.1
+  wall_b_room                      54.8         54.8       10.0    54.8    54.8      54.8     53.5       54.8    54.8    55.1             53.5                       0.8     0.8             54.8              42.8
+  spawn                            79.8         79.8       29.9    79.8    30.8      79.8     79.7       79.7    79.8    81.5             79.7                      29.7     0.8             79.7              79.7
+  objective                         1.2          1.2        0.9     1.2     1.2       1.2      1.2        1.2     1.2     1.2              1.2                       0.8     0.8              1.2               1.2
+  extraction                       29.9         29.9       21.0    29.7     3.8      29.8     29.8       29.8    29.8    29.9             29.8                      20.9     0.8             29.9              29.9
+
+THE DROP, frame mean: `all` less each configuration
+  station                        -lightmap   -live    -sun  -ambient  -probes  -emission    -sky    -fog  -ambient+probes  -lightmap+ambient+probes    none
+  overview                             0.2     0.0     3.4       0.0      0.0        0.0     0.0     0.2              0.0                       0.2     6.4
+  elev_N                               0.2     0.0     0.0      -0.0     -0.0        0.3     0.0     0.1             -0.0                       0.3     0.7
+  elev_S                               1.1     0.0    15.8       0.0      0.0        0.4    -0.0     0.2             -0.0                       1.1    16.7
+  elev_E                               0.7     0.1     0.1       0.0      0.3        0.0     0.0     0.1              0.3                       1.8     2.1
+  elev_W                               1.7     0.0    13.8      -0.0      0.0        0.2    -0.0    -0.9              0.0                       2.1    14.6
+  in_concrete_delco_1997              -5.1     0.0    -0.0      -0.0      0.2       -0.0    -0.0     0.1              0.2                       1.0     1.0
+  in_drywall_delco_1997                6.2     0.0    -0.0      -0.0      2.4       -0.0    -0.0    -0.2              2.4                      25.2    25.2
+  in_wallpaper_club_delco_1997        -0.1     0.0     0.0       0.0      0.0        0.0     0.0     0.0              0.0                       0.0     0.0
+  in_concrete_delco_1997_2            -7.3     0.0    -0.0      -0.0      0.3       -0.0    -0.0     0.1              0.3                       1.8     1.8
+  booth_caller                        33.1     5.9     8.2       0.0     -0.0        0.0    -0.0    -0.3              0.0                      33.1    44.7
+  wall_a_room                          8.2    -0.0     0.0       0.0      0.6        0.6    -0.0    -0.1              0.7                      14.8    15.5
+  wall_b_room                          8.2     0.0     0.0       0.0      0.8        0.6     0.0    -0.1              0.8                      16.4    17.0
+  spawn                               21.4     0.0    30.9      -0.0      0.1        2.5    -0.0    -0.6              0.1                      22.3    46.7
+  objective                           -1.5     0.5     0.0       0.0      0.0        0.0     0.0     0.0              0.0                       0.1     0.5
+  extraction                           9.5     0.0    26.5       0.0      0.0        0.6     0.0    -0.1              0.0                       9.5    28.5
+
+THE RE-BAKES (Level Factory's own bake on a copy):
+  rebake_fills_on   ok True, 172 room fill(s), 84.4 s in the editor
+  rebake_fills_off  ok True, 0 room fill(s), 89.0 s in the editor
+
+THE FILLS, FRAME: rebake_fills_on less rebake_fills_off
+  overview                       -0.0
+  elev_N                         +0.0
+  elev_S                         -0.0
+  elev_E                         +1.3
+  elev_W                         +0.0
+  in_concrete_delco_1997         +1.0
+  in_drywall_delco_1997          +25.2
+  in_wallpaper_club_delco_1997   +0.0
+  in_concrete_delco_1997_2       +1.7
+  booth_caller                   +0.0
+  wall_a_room                    +9.7
+  wall_b_room                    +11.1
+  spawn                          +1.3
+  objective                      +0.0
+  extraction                     -0.0
+
+THE FILLS, CENTRE: rebake_fills_on less rebake_fills_off
+  overview                       -0.0
+  elev_N                         +0.0
+  elev_S                         -0.0
+  elev_E                         +0.0
+  elev_W                         -0.0
+  in_concrete_delco_1997         +0.8
+  in_drywall_delco_1997          +28.7
+  in_wallpaper_club_delco_1997   +0.0
+  in_concrete_delco_1997_2       +2.9
+  booth_caller                   +0.1
+  wall_a_room                    +9.9
+  wall_b_room                    +12.0
+  spawn                          +0.1
+  objective                      +0.0
+  extraction                     +0.0
+
+THE RE-BAKE AGAINST THE SHIPPED BAKE, FRAME: all less rebake_fills_on
+  overview                       +0.0
+  elev_N                         -0.0
+  elev_S                         +0.0
+  elev_E                         -0.0
+  elev_W                         +0.0
+  in_concrete_delco_1997         -0.0
+  in_drywall_delco_1997          +0.0
+  in_wallpaper_club_delco_1997   -0.0
+  in_concrete_delco_1997_2       +0.0
+  booth_caller                   -0.0
+  wall_a_room                    -0.0
+  wall_b_room                    +0.0
+  spawn                          -0.0
+  objective                      -0.0
+  extraction                     +0.0
+
+sheets in C:\Projects\gabagool_studios\gabagool_factory\_runs\light_breakdown_9213\sheets

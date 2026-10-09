@@ -48,11 +48,42 @@ const LUMA_B := 0.0722
 ## finish before placing the camera, and refuse to measure if it does not.
 const WARMUP_MAX_FRAMES := 5000
 
+## THE LIGHT BREAKDOWN'S SWITCHES (`tools/light_breakdown.py`, 2026-10-09).
+## `look_shots/switch_off` names sources of light to turn off in the running
+## level before every shot, comma-separated. Empty, the default, touches
+## nothing, so every run before it shoots as it did. Each switch uses the
+## level's own mechanism where it has one:
+##   lightmap   every LightmapGI's light_data set to null -- Lux's own power-cut
+##              switch (`LuxLighting._sync_lightmaps`) -- and every visible
+##              static lamp hidden, so its live light on moving bodies goes
+##              too. Lux 0.66.0 measured that in GL Compatibility a static lamp
+##              stays unpaired from the surfaces its lightmap covered, so this
+##              removes the bake rather than handing it back to real time. The
+##              room fills are inside it: they exist only while the
+##              lightmapper runs.
+##   live       every visible lamp that is neither static nor directional: the
+##              failing and cycling fixtures, and anything the bake left live.
+##   sun        every visible DirectionalLight3D, the sun or the moon.
+##   ambient    each Environment's ambient light and reflected light.
+##   probes     every visible ReflectionProbe: the rooms' ambient boxes.
+##   emission   emission_energy_multiplier 0 on every BaseMaterial3D drawn with
+##              emission on. A ShaderMaterial or an unshaded material is left
+##              alone and counted, because neither has that knob.
+##   sky        each Environment's background to black. An ambient or a
+##              reflection that read the background is pointed at the sky, so
+##              this switches the sky's own pixels and nothing the sky lights.
+##   fog        each Environment's depth fog.
+## An unknown name refuses the run. The report carries what each switch found
+## and turned off: a switch that found nothing has no effect, and a reader
+## must see "nothing here" rather than "no contribution".
+const SWITCHES := ["lightmap", "live", "sun", "ambient", "probes", "emission", "sky", "fog"]
+
 var _out_dir: String = ""
 var _shots: Array = []
 var _hidden_layers: Array = []
 var _centre_frac: float = 0.0
 var _notes: Array = []
+var _switched: Dictionary = {}
 
 
 func _ready() -> void:
@@ -71,6 +102,13 @@ func _ready() -> void:
 	# the third can set look_shots/centre_fraction and get a labelled answer.
 	_centre_frac = clampf(float(ProjectSettings.get_setting(
 		"look_shots/centre_fraction", 1.0 / 3.0)), 0.05, 1.0)
+	var off: PackedStringArray = PackedStringArray()
+	for s in String(ProjectSettings.get_setting("look_shots/switch_off", "")).split(",", false):
+		var sw: String = s.strip_edges()
+		if not SWITCHES.has(sw):
+			_emit({"error": "no light switch %s; the switches are %s" % [sw, ", ".join(SWITCHES)]})
+			return
+		off.append(sw)
 
 	for _i in range(settle):
 		await get_tree().process_frame
@@ -90,6 +128,13 @@ func _ready() -> void:
 
 	if hide_hud:
 		_hide_non_lux_canvas(scene)
+
+	# the switches after the warm-up, which sweeps the level with everything
+	# on, and the settle again so the renderer has drawn the level without them
+	if not off.is_empty():
+		_switched = _switch_off(off)
+		for _i in range(settle):
+			await get_tree().process_frame
 
 	var cams: Array = _derive_cameras(scene)
 	if cams.is_empty():
@@ -127,6 +172,10 @@ func _ready() -> void:
 		var target: Vector3 = d["target"]
 		if not target.is_equal_approx(cam.global_position):
 			cam.look_at(target, Vector3.UP)
+		# again before every shot: anything that turned a source back on since
+		# (a power state, a preset re-applied) is turned off again
+		if not off.is_empty():
+			_switch_off(off)
 		var gpu: Array[float] = []
 		for _i in range(per_shot):
 			await RenderingServer.frame_post_draw
@@ -154,6 +203,7 @@ func _ready() -> void:
 		"adapter_vendor": RenderingServer.get_video_adapter_vendor(),
 		"viewport": [get_viewport().size.x, get_viewport().size.y],
 		"hidden_canvas_layers": _hidden_layers,
+		"switched_off": _switched,
 		"notes": _notes,
 		"shots": _shots,
 	})
@@ -225,6 +275,161 @@ func _under_lux_root(node: Node) -> bool:
 			return true
 		p = p.get_parent()
 	return false
+
+
+## Turn the named sources off (see SWITCHES), over the whole tree: Lux's
+## lamps, environment and probes need not be under the current scene. Returns
+## what each switch changed on this call, so the first call is the record and
+## the re-assertion before each shot reports only what had come back on.
+func _switch_off(names: PackedStringArray) -> Dictionary:
+	var root: Node = get_tree().root
+	var out: Dictionary = {}
+	for sw in names:
+		var got: Dictionary = {}
+		match sw:
+			"lightmap":
+				var cleared: int = 0
+				for n in root.find_children("*", "LightmapGI", true, false):
+					var lm: LightmapGI = n as LightmapGI
+					if lm != null and lm.light_data != null:
+						lm.light_data = null
+						cleared += 1
+				var hid: Array = _hide_lights(root, "static")
+				got = {"lightmaps_cleared": cleared, "static_lamps_hidden": hid.size(),
+					"first": hid.slice(0, 5)}
+			"live", "sun":
+				var hid: Array = _hide_lights(root, sw)
+				got = {"lamps_hidden": hid.size(), "first": hid.slice(0, 5)}
+			"probes":
+				var hid: Array = []
+				for n in root.find_children("*", "ReflectionProbe", true, false):
+					var p: ReflectionProbe = n as ReflectionProbe
+					if p != null and p.is_visible_in_tree():
+						p.visible = false
+						hid.append(String(p.get_path()))
+				got = {"probes_hidden": hid.size(), "first": hid.slice(0, 5)}
+			"ambient", "sky", "fog":
+				var envs: Array = _environments(root)
+				var was: Array = []
+				for e in envs:
+					var env: Environment = e
+					was.append(_switch_environment(env, sw))
+				got = {"environments": envs.size(), "before": was}
+			"emission":
+				got = _switch_emission(root)
+		out[sw] = got
+	return out
+
+
+## Hide the visible lamps of one kind: "static" (baked, not directional),
+## "live" (neither static nor directional) or "sun" (directional). Returns
+## their paths.
+func _hide_lights(root: Node, kind: String) -> Array:
+	var hid: Array = []
+	for n in root.find_children("*", "Light3D", true, false):
+		var l: Light3D = n as Light3D
+		if l == null or not l.is_visible_in_tree():
+			continue
+		var directional: bool = l is DirectionalLight3D
+		var is_static: bool = l.light_bake_mode == Light3D.BAKE_STATIC
+		var take: bool = false
+		if kind == "static":
+			take = is_static and not directional
+		elif kind == "live":
+			take = not is_static and not directional
+		elif kind == "sun":
+			take = directional
+		if take:
+			l.visible = false
+			hid.append(String(l.get_path()))
+	return hid
+
+
+## Every Environment drawing this viewport: each WorldEnvironment's, and the
+## world's own, once each.
+func _environments(root: Node) -> Array:
+	var envs: Array = []
+	for n in root.find_children("*", "WorldEnvironment", true, false):
+		var we: WorldEnvironment = n as WorldEnvironment
+		if we != null and we.environment != null and not envs.has(we.environment):
+			envs.append(we.environment)
+	var world: World3D = get_viewport().find_world_3d()
+	if world != null and world.environment != null and not envs.has(world.environment):
+		envs.append(world.environment)
+	return envs
+
+
+## One environment switch. Returns the values it found, which on the first
+## call are the level's own.
+func _switch_environment(env: Environment, which: String) -> Dictionary:
+	var was: Dictionary = {}
+	if which == "ambient":
+		was = {"ambient_light_source": env.ambient_light_source,
+			"ambient_light_energy": env.ambient_light_energy,
+			"ambient_light_sky_contribution": env.ambient_light_sky_contribution,
+			"reflected_light_source": env.reflected_light_source}
+		env.ambient_light_source = Environment.AMBIENT_SOURCE_DISABLED
+		env.ambient_light_energy = 0.0
+		env.ambient_light_sky_contribution = 0.0
+		env.reflected_light_source = Environment.REFLECTION_SOURCE_DISABLED
+	elif which == "sky":
+		was = {"background_mode": env.background_mode,
+			"ambient_light_source": env.ambient_light_source,
+			"reflected_light_source": env.reflected_light_source}
+		if env.ambient_light_source == Environment.AMBIENT_SOURCE_BG:
+			env.ambient_light_source = Environment.AMBIENT_SOURCE_SKY
+		if env.reflected_light_source == Environment.REFLECTION_SOURCE_BG:
+			env.reflected_light_source = Environment.REFLECTION_SOURCE_SKY
+		env.background_mode = Environment.BG_COLOR
+		env.background_color = Color(0.0, 0.0, 0.0)
+	elif which == "fog":
+		was = {"fog_enabled": env.fog_enabled}
+		env.fog_enabled = false
+	return was
+
+
+## Emission off on every lit BaseMaterial3D drawn in the tree, by its
+## multiplier. Counts the materials it could not switch: a ShaderMaterial
+## (its emission, if any, is the shader's) and an unshaded material (it is
+## its own light without emission at all).
+func _switch_emission(root: Node) -> Dictionary:
+	var seen: Dictionary = {}
+	var switched: int = 0
+	var shader: int = 0
+	var unshaded: int = 0
+	var mats: Array = []
+	for n in root.find_children("*", "GeometryInstance3D", true, false):
+		var gi: GeometryInstance3D = n as GeometryInstance3D
+		if gi == null or not gi.is_visible_in_tree():
+			continue
+		mats.append(gi.material_override)
+		mats.append(gi.material_overlay)
+		var mi: MeshInstance3D = gi as MeshInstance3D
+		if mi != null and mi.mesh != null:
+			for i in range(mi.mesh.get_surface_count()):
+				mats.append(mi.get_active_material(i))
+		var mmi: MultiMeshInstance3D = gi as MultiMeshInstance3D
+		if mmi != null and mmi.multimesh != null and mmi.multimesh.mesh != null:
+			for i in range(mmi.multimesh.mesh.get_surface_count()):
+				mats.append(mmi.multimesh.mesh.surface_get_material(i))
+	for m in mats:
+		var mat: Material = m as Material
+		if mat == null or seen.has(mat):
+			continue
+		seen[mat] = true
+		if mat is ShaderMaterial:
+			shader += 1
+			continue
+		var bm: BaseMaterial3D = mat as BaseMaterial3D
+		if bm == null:
+			continue
+		if bm.shading_mode == BaseMaterial3D.SHADING_MODE_UNSHADED:
+			unshaded += 1
+		if bm.emission_enabled and bm.emission_energy_multiplier > 0.0:
+			bm.emission_energy_multiplier = 0.0
+			switched += 1
+	return {"materials_seen": seen.size(), "emission_switched": switched,
+		"shader_materials_left": shader, "unshaded_materials_left": unshaded}
 
 
 ## Cameras derived from the scene rather than chosen.

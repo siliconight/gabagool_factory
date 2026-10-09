@@ -31,6 +31,12 @@ one this tool actually produces.
 
     python tools\\look_shots.py <project_dir> [--out shots/] [--scene X.tscn]
 
+SOURCES OF LIGHT CAN BE SWITCHED OFF before every shot (2026-10-09):
+`--switch-off lightmap,live,sun,ambient,probes,emission,sky,fog`, any of
+them. `look_shots.gd`'s SWITCHES says what each does, and the report says what
+each found and turned off. Empty, the default, touches nothing.
+`tools/light_breakdown.py` drives it, one configuration a run.
+
 THE CAMERAS ARE DERIVED, NOT CHOSEN. Eye-level shots stand on the walk scene's
 own exported spawn_pos / objective_pos / extraction_pos, at the height of the
 Player's own Camera3D, facing the next leg of the spine. The overview is framed
@@ -68,7 +74,7 @@ MARK_END = "LOOK_SHOTS_JSON>>>"
 
 def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
           settle=10, frames_per_shot=6, keep_hud=False, rendering_driver=None,
-          timeout=900, verbose=False, interiors=0, stations=None):
+          timeout=900, verbose=False, interiors=0, stations=None, switch_off=None):
     scene = scene or default_scene(project_dir)
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
@@ -98,6 +104,11 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
             "hide_non_lux_canvas": not keep_hud,
             "interiors": int(interiors),
             "stations": json.dumps(given),
+            # SOURCES OF LIGHT TO TURN OFF before every shot
+            # (`tools/light_breakdown.py`; the switches are look_shots.gd's
+            # SWITCHES, and an unknown one refuses the run). Empty touches
+            # nothing.
+            "switch_off": ",".join(switch_off or []),
         },
         "display": {
             "window/size/viewport_width": width,
@@ -160,6 +171,8 @@ def report(r):
         print("  hidden non-Lux CanvasLayers: " + ", ".join(hidden))
     else:
         print("  hidden non-Lux CanvasLayers: none")
+    for sw, got in (r.get("switched_off") or {}).items():
+        print("  switched off: %-9s %s" % (sw, json.dumps(got)))
     print("")
     header = ("  %-12s %8s %6s %6s %6s %9s %9s %9s %8s"
               % ("shot", "mean", "p05", "p50", "p95", "clipped", "near-clip",
@@ -221,6 +234,11 @@ def main(argv=None):
     ap.add_argument("--rendering-driver", default=None,
                     help="passed straight to Godot, e.g. opengl3. Leave unset "
                          "to use the project's own, which is what ships")
+    ap.add_argument(
+        "--switch-off", default="", metavar="SOURCE[,SOURCE]",
+        help="turn these sources of light off before every shot: lightmap, "
+             "live, sun, ambient, probes, emission, sky, fog (look_shots.gd's "
+             "SWITCHES). For tools/light_breakdown.py; empty touches nothing")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--timeout", type=int, default=900)
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -230,7 +248,8 @@ def main(argv=None):
         r = shoot(a.project, a.out, a.scene, a.godot, a.width, a.height,
                   a.settle, a.frames_per_shot, a.keep_hud, a.rendering_driver,
                   a.timeout, a.verbose, interiors=a.interiors,
-                  stations=a.station)
+                  stations=a.station,
+                  switch_off=[s for s in a.switch_off.split(",") if s.strip()])
     except ProbeFailed as e:
         print("[look_shots] NOT MEASURED: " + str(e))
         return 1

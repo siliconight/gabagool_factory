@@ -1,0 +1,801 @@
+{
+ "project": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_runs\\walk_export_club_block_014",
+ "package": {
+  "mission": "club_block_014",
+  "candidate": "club_block_014.candidate.seed_9181",
+  "built_utc": "2026-10-09T16:55:31.202634+00:00",
+  "factory_version": "1.34.1"
+ },
+ "sources": [
+  "lightmap",
+  "live",
+  "sun",
+  "ambient",
+  "probes",
+  "emission",
+  "sky",
+  "fog"
+ ],
+ "control_max_moved": {
+  "frame": 0.0038444444444003523,
+  "centre": 0.009987492182602864
+ },
+ "switched_off": {
+  "all": {},
+  "all_control": {},
+  "off_lightmap": {
+   "lightmap": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_001/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_sign/AreaPanel_Omni",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack/Street_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack_001/Street_0"
+    ],
+    "lightmaps_cleared": 1,
+    "static_lamps_hidden": 81
+   }
+  },
+  "off_live": {
+   "live": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_004/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_005/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_003/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_009/Fluoro_0"
+    ],
+    "lamps_hidden": 17
+   }
+  },
+  "off_sun": {
+   "sun": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxRoot/LuxSun"
+    ],
+    "lamps_hidden": 1
+   }
+  },
+  "off_ambient": {
+   "ambient": {
+    "before": [
+     {
+      "ambient_light_energy": 0.550000011920929,
+      "ambient_light_sky_contribution": 1.0,
+      "ambient_light_source": 3,
+      "reflected_light_source": 0
+     }
+    ],
+    "environments": 1
+   }
+  },
+  "off_probes": {
+   "probes": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_main_floor_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_vip_wing_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_cash_office_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_checkin_hall_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_baggage_band_ambient"
+    ],
+    "probes_hidden": 11
+   }
+  },
+  "off_emission": {
+   "emission": {
+    "emission_switched": 97,
+    "materials_seen": 1221,
+    "shader_materials_left": 7,
+    "unshaded_materials_left": 0
+   }
+  },
+  "off_sky": {
+   "sky": {
+    "before": [
+     {
+      "ambient_light_source": 3,
+      "background_mode": 2,
+      "reflected_light_source": 0
+     }
+    ],
+    "environments": 1
+   }
+  },
+  "off_fog": {
+   "fog": {
+    "before": [
+     {
+      "fog_enabled": true
+     }
+    ],
+    "environments": 1
+   }
+  },
+  "off_ambient+probes": {
+   "ambient": {
+    "before": [
+     {
+      "ambient_light_energy": 0.550000011920929,
+      "ambient_light_sky_contribution": 1.0,
+      "ambient_light_source": 3,
+      "reflected_light_source": 0
+     }
+    ],
+    "environments": 1
+   },
+   "probes": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_main_floor_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_vip_wing_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_cash_office_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_checkin_hall_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_baggage_band_ambient"
+    ],
+    "probes_hidden": 11
+   }
+  },
+  "off_lightmap+ambient+probes": {
+   "ambient": {
+    "before": [
+     {
+      "ambient_light_energy": 0.550000011920929,
+      "ambient_light_sky_contribution": 1.0,
+      "ambient_light_source": 3,
+      "reflected_light_source": 0
+     }
+    ],
+    "environments": 1
+   },
+   "lightmap": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_001/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_sign/AreaPanel_Omni",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack/Street_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack_001/Street_0"
+    ],
+    "lightmaps_cleared": 1,
+    "static_lamps_hidden": 81
+   },
+   "probes": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_main_floor_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_vip_wing_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_cash_office_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_checkin_hall_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_baggage_band_ambient"
+    ],
+    "probes_hidden": 11
+   }
+  },
+  "none": {
+   "ambient": {
+    "before": [
+     {
+      "ambient_light_energy": 0.550000011920929,
+      "ambient_light_sky_contribution": 1.0,
+      "ambient_light_source": 3,
+      "reflected_light_source": 0
+     }
+    ],
+    "environments": 1
+   },
+   "emission": {
+    "emission_switched": 97,
+    "materials_seen": 1221,
+    "shader_materials_left": 7,
+    "unshaded_materials_left": 0
+   },
+   "fog": {
+    "before": [
+     {
+      "fog_enabled": true
+     }
+    ],
+    "environments": 1
+   },
+   "lightmap": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_payphone_hood/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_001/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_sign/AreaPanel_Omni",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack/Street_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_wall_pack_001/Street_0"
+    ],
+    "lightmaps_cleared": 1,
+    "static_lamps_hidden": 81
+   },
+   "live": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_004/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_fluorescent_005/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_003/Fluoro_0",
+     "/root/_walk/Mission/Bake/Site/LuxFixtureLights/Spawned_pendant_009/Fluoro_0"
+    ],
+    "lamps_hidden": 17
+   },
+   "probes": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_main_floor_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_vip_wing_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b0_cash_office_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_checkin_hall_ambient",
+     "/root/_walk/Mission/Bake/Site/LuxClub/b1_baggage_band_ambient"
+    ],
+    "probes_hidden": 11
+   },
+   "sky": {
+    "before": [
+     {
+      "ambient_light_source": 1,
+      "background_mode": 2,
+      "reflected_light_source": 1
+     }
+    ],
+    "environments": 1
+   },
+   "sun": {
+    "first": [
+     "/root/_walk/Mission/Bake/Site/LuxRoot/LuxSun"
+    ],
+    "lamps_hidden": 1
+   }
+  },
+  "rebake_fills_on": {},
+  "rebake_fills_off": {}
+ },
+ "rebakes": {
+  "rebake_fills_on": {
+   "ok": true,
+   "reason": null,
+   "editor_s": 84.4,
+   "room_fills": 172,
+   "rigs": {
+    "static": 79,
+    "live": 13,
+    "cycling": 2
+   },
+   "breakdown": {
+    "fills": true,
+    "spawned": [
+     "cover/prop_cruiser_delco_1997_01_w220_d554_h158.glb"
+    ]
+   }
+  },
+  "rebake_fills_off": {
+   "ok": true,
+   "reason": null,
+   "editor_s": 89.0,
+   "room_fills": 0,
+   "rigs": {
+    "static": 79,
+    "live": 13,
+    "cycling": 2
+   },
+   "breakdown": {
+    "fills": false,
+    "spawned": [
+     "cover/prop_cruiser_delco_1997_01_w220_d554_h158.glb"
+    ],
+    "preset": "runtime/lux/presets/delco_night.tres",
+    "bake_room_fill_was": null
+   }
+  }
+ },
+ "refused": {},
+ "frame": {
+  "all": {
+   "overview": 7.12375555555556,
+   "elev_N": 1.41526527777778,
+   "elev_S": 17.4391375,
+   "elev_E": 2.83574236111111,
+   "elev_W": 15.3313402777778,
+   "in_concrete_delco_1997": 1.74510763888889,
+   "in_drywall_delco_1997": 25.9779340277778,
+   "in_wallpaper_club_delco_1997": 0.757716666666667,
+   "in_concrete_delco_1997_2": 2.51026041666667,
+   "booth_caller": 45.44110625,
+   "wall_a_room": 16.2486479166667,
+   "wall_b_room": 17.7575722222222,
+   "spawn": 47.4416583333333,
+   "objective": 1.27473888888889,
+   "extraction": 29.2336826388889
+  },
+  "all_control": {
+   "overview": 7.12346319444444,
+   "elev_N": 1.41502708333333,
+   "elev_S": 17.4394680555556,
+   "elev_E": 2.83446458333333,
+   "elev_W": 15.3293965277778,
+   "in_concrete_delco_1997": 1.74655416666667,
+   "in_drywall_delco_1997": 25.9794784722222,
+   "in_wallpaper_club_delco_1997": 0.756572916666667,
+   "in_concrete_delco_1997_2": 2.50945972222222,
+   "booth_caller": 45.44093125,
+   "wall_a_room": 16.2456861111111,
+   "wall_b_room": 17.7537277777778,
+   "spawn": 47.4420645833333,
+   "objective": 1.2731875,
+   "extraction": 29.2307833333333
+  },
+  "off_lightmap": {
+   "overview": 6.95314583333333,
+   "elev_N": 1.16536388888889,
+   "elev_S": 16.3805416666667,
+   "elev_E": 2.12158194444444,
+   "elev_W": 13.6179229166667,
+   "in_concrete_delco_1997": 6.83489513888889,
+   "in_drywall_delco_1997": 19.8047076388889,
+   "in_wallpaper_club_delco_1997": 0.809197916666667,
+   "in_concrete_delco_1997_2": 9.84626180555555,
+   "booth_caller": 12.3732680555556,
+   "wall_a_room": 8.02258819444445,
+   "wall_b_room": 9.53928055555556,
+   "spawn": 26.0072513888889,
+   "objective": 2.76283819444444,
+   "extraction": 19.76850625
+  },
+  "off_live": {
+   "overview": 7.10013888888889,
+   "elev_N": 1.41469930555556,
+   "elev_S": 17.4384972222222,
+   "elev_E": 2.72419166666667,
+   "elev_W": 15.32773125,
+   "in_concrete_delco_1997": 1.73778541666667,
+   "in_drywall_delco_1997": 25.9773645833333,
+   "in_wallpaper_club_delco_1997": 0.757109722222222,
+   "in_concrete_delco_1997_2": 2.49948263888889,
+   "booth_caller": 39.5828333333333,
+   "wall_a_room": 16.2497368055556,
+   "wall_b_room": 17.7566326388889,
+   "spawn": 47.4361319444444,
+   "objective": 0.82081875,
+   "extraction": 29.2184604166667
+  },
+  "off_sun": {
+   "overview": 3.74647361111111,
+   "elev_N": 1.39083472222222,
+   "elev_S": 1.63334791666667,
+   "elev_E": 2.70374375,
+   "elev_W": 1.55729305555556,
+   "in_concrete_delco_1997": 1.74653263888889,
+   "in_drywall_delco_1997": 25.9802638888889,
+   "in_wallpaper_club_delco_1997": 0.757700694444444,
+   "in_concrete_delco_1997_2": 2.51117361111111,
+   "booth_caller": 37.2201458333333,
+   "wall_a_room": 16.2480472222222,
+   "wall_b_room": 17.7553854166667,
+   "spawn": 16.5116604166667,
+   "objective": 1.27428194444444,
+   "extraction": 2.70642638888889
+  },
+  "off_ambient": {
+   "overview": 7.12351805555556,
+   "elev_N": 1.41650416666667,
+   "elev_S": 17.4383923611111,
+   "elev_E": 2.82015625,
+   "elev_W": 15.3328645833333,
+   "in_concrete_delco_1997": 1.74572916666667,
+   "in_drywall_delco_1997": 25.9793,
+   "in_wallpaper_club_delco_1997": 0.756353472222222,
+   "in_concrete_delco_1997_2": 2.51194652777778,
+   "booth_caller": 45.4320847222222,
+   "wall_a_room": 16.2464604166667,
+   "wall_b_room": 17.7550097222222,
+   "spawn": 47.4419,
+   "objective": 1.27429444444444,
+   "extraction": 29.2291319444444
+  },
+  "off_probes": {
+   "overview": 7.12173680555556,
+   "elev_N": 1.41847638888889,
+   "elev_S": 17.4376763888889,
+   "elev_E": 2.58466666666667,
+   "elev_W": 15.3032027777778,
+   "in_concrete_delco_1997": 1.58389722222222,
+   "in_drywall_delco_1997": 23.6183854166667,
+   "in_wallpaper_club_delco_1997": 0.756805555555556,
+   "in_concrete_delco_1997_2": 2.24055625,
+   "booth_caller": 45.4427659722222,
+   "wall_a_room": 15.6081847222222,
+   "wall_b_room": 16.9992291666667,
+   "spawn": 47.3176097222222,
+   "objective": 1.27125,
+   "extraction": 29.2268506944444
+  },
+  "off_emission": {
+   "overview": 7.10506319444444,
+   "elev_N": 1.14406458333333,
+   "elev_S": 17.04911875,
+   "elev_E": 2.83337013888889,
+   "elev_W": 15.1490743055556,
+   "in_concrete_delco_1997": 1.74724652777778,
+   "in_drywall_delco_1997": 25.9820340277778,
+   "in_wallpaper_club_delco_1997": 0.757527083333333,
+   "in_concrete_delco_1997_2": 2.51145138888889,
+   "booth_caller": 45.4116875,
+   "wall_a_room": 15.6205479166667,
+   "wall_b_room": 17.1404715277778,
+   "spawn": 44.9428895833333,
+   "objective": 1.27303680555556,
+   "extraction": 28.6668118055556
+  },
+  "off_sky": {
+   "overview": 7.12111458333333,
+   "elev_N": 1.41521875,
+   "elev_S": 17.4416708333333,
+   "elev_E": 2.83428888888889,
+   "elev_W": 15.3321118055556,
+   "in_concrete_delco_1997": 1.74692430555556,
+   "in_drywall_delco_1997": 25.9785270833333,
+   "in_wallpaper_club_delco_1997": 0.756731944444444,
+   "in_concrete_delco_1997_2": 2.5119125,
+   "booth_caller": 45.4456986111111,
+   "wall_a_room": 16.2504611111111,
+   "wall_b_room": 17.7531222222222,
+   "spawn": 47.4417784722222,
+   "objective": 1.27294791666667,
+   "extraction": 29.2277236111111
+  },
+  "off_fog": {
+   "overview": 6.89046319444444,
+   "elev_N": 1.32175555555556,
+   "elev_S": 17.1952034722222,
+   "elev_E": 2.78063055555556,
+   "elev_W": 16.2686736111111,
+   "in_concrete_delco_1997": 1.65280416666667,
+   "in_drywall_delco_1997": 26.1916284722222,
+   "in_wallpaper_club_delco_1997": 0.75681875,
+   "in_concrete_delco_1997_2": 2.40270416666667,
+   "booth_caller": 45.7245770833333,
+   "wall_a_room": 16.3335868055556,
+   "wall_b_room": 17.8498666666667,
+   "spawn": 48.0242583333333,
+   "objective": 1.27254583333333,
+   "extraction": 29.2988277777778
+  },
+  "off_ambient+probes": {
+   "overview": 7.12135416666667,
+   "elev_N": 1.41545486111111,
+   "elev_S": 17.4394284722222,
+   "elev_E": 2.57814166666667,
+   "elev_W": 15.3034673611111,
+   "in_concrete_delco_1997": 1.57925625,
+   "in_drywall_delco_1997": 23.6080256944444,
+   "in_wallpaper_club_delco_1997": 0.756679861111111,
+   "in_concrete_delco_1997_2": 2.22936875,
+   "booth_caller": 45.4295152777778,
+   "wall_a_room": 15.5811583333333,
+   "wall_b_room": 16.9944409722222,
+   "spawn": 47.3150402777778,
+   "objective": 1.27078611111111,
+   "extraction": 29.2281451388889
+  },
+  "off_lightmap+ambient+probes": {
+   "overview": 6.94939236111111,
+   "elev_N": 1.13837986111111,
+   "elev_S": 16.3727944444444,
+   "elev_E": 1.04650833333333,
+   "elev_W": 13.2501111111111,
+   "in_concrete_delco_1997": 0.756504861111111,
+   "in_drywall_delco_1997": 0.756308333333333,
+   "in_wallpaper_club_delco_1997": 0.757282638888889,
+   "in_concrete_delco_1997_2": 0.758086805555556,
+   "booth_caller": 12.3640340277778,
+   "wall_a_room": 1.40620625,
+   "wall_b_room": 1.40649583333333,
+   "spawn": 25.1524694444444,
+   "objective": 1.13863472222222,
+   "extraction": 19.760375
+  },
+  "none": {
+   "overview": 0.756079861111111,
+   "elev_N": 0.757647222222222,
+   "elev_S": 0.757938194444444,
+   "elev_E": 0.761397222222222,
+   "elev_W": 0.756685416666667,
+   "in_concrete_delco_1997": 0.757249305555556,
+   "in_drywall_delco_1997": 0.757269444444444,
+   "in_wallpaper_club_delco_1997": 0.757055555555556,
+   "in_concrete_delco_1997_2": 0.757557638888889,
+   "booth_caller": 0.757090972222222,
+   "wall_a_room": 0.758085416666667,
+   "wall_b_room": 0.756755555555556,
+   "spawn": 0.758364583333333,
+   "objective": 0.756039583333333,
+   "extraction": 0.756738888888889
+  },
+  "rebake_fills_on": {
+   "overview": 7.12019236111111,
+   "elev_N": 1.42273958333333,
+   "elev_S": 17.4376652777778,
+   "elev_E": 2.84724236111111,
+   "elev_W": 15.3306805555556,
+   "in_concrete_delco_1997": 1.74754722222222,
+   "in_drywall_delco_1997": 25.9712111111111,
+   "in_wallpaper_club_delco_1997": 0.758152777777778,
+   "in_concrete_delco_1997_2": 2.50886944444444,
+   "booth_caller": 45.4753270833333,
+   "wall_a_room": 16.2492506944444,
+   "wall_b_room": 17.7565833333333,
+   "spawn": 47.4431736111111,
+   "objective": 1.27590416666667,
+   "extraction": 29.2324104166667
+  },
+  "rebake_fills_off": {
+   "overview": 7.12503125,
+   "elev_N": 1.41632291666667,
+   "elev_S": 17.4391152777778,
+   "elev_E": 1.53679513888889,
+   "elev_W": 15.2816840277778,
+   "in_concrete_delco_1997": 0.7561875,
+   "in_drywall_delco_1997": 0.774161805555556,
+   "in_wallpaper_club_delco_1997": 0.757134027777778,
+   "in_concrete_delco_1997_2": 0.783536805555556,
+   "booth_caller": 45.4420625,
+   "wall_a_room": 6.54440277777778,
+   "wall_b_room": 6.67483958333333,
+   "spawn": 46.1837402777778,
+   "objective": 1.27262430555556,
+   "extraction": 29.2369479166667
+  }
+ },
+ "centre": {
+  "all": {
+   "overview": 20.9960662914321,
+   "elev_N": 0.902570356472795,
+   "elev_S": 2.81640400250156,
+   "elev_E": 0.886222639149468,
+   "elev_W": 1.73048155096936,
+   "in_concrete_delco_1997": 1.56188242651657,
+   "in_drywall_delco_1997": 29.4922951844903,
+   "in_wallpaper_club_delco_1997": 0.757929956222639,
+   "in_concrete_delco_1997_2": 3.60851156973108,
+   "booth_caller": 95.7937711069418,
+   "wall_a_room": 51.9613508442777,
+   "wall_b_room": 54.807779862414,
+   "spawn": 79.7509193245779,
+   "objective": 1.206904315197,
+   "extraction": 29.8577736085053
+  },
+  "all_control": {
+   "overview": 20.9947217010632,
+   "elev_N": 0.901688555347092,
+   "elev_S": 2.81762351469669,
+   "elev_E": 0.888361475922452,
+   "elev_W": 1.72177611006879,
+   "in_concrete_delco_1997": 1.56512195121951,
+   "in_drywall_delco_1997": 29.491181988743,
+   "in_wallpaper_club_delco_1997": 0.761069418386492,
+   "in_concrete_delco_1997_2": 3.61148217636023,
+   "booth_caller": 95.8033833646029,
+   "wall_a_room": 51.9513633520951,
+   "wall_b_room": 54.8120825515947,
+   "spawn": 79.7511944965603,
+   "objective": 1.20730456535335,
+   "extraction": 29.8525328330206
+  },
+  "off_lightmap": {
+   "overview": 20.1878674171357,
+   "elev_N": 0.884402751719825,
+   "elev_S": 2.78388367729831,
+   "elev_E": 0.890744215134459,
+   "elev_W": 1.72525953721076,
+   "in_concrete_delco_1997": 9.51970606629143,
+   "in_drywall_delco_1997": 24.8666166353971,
+   "in_wallpaper_club_delco_1997": 0.757435897435897,
+   "in_concrete_delco_1997_2": 10.1262789243277,
+   "booth_caller": 11.8875046904315,
+   "wall_a_room": 9.23860537836148,
+   "wall_b_room": 9.97712945590994,
+   "spawn": 29.9143151969981,
+   "objective": 0.907560975609756,
+   "extraction": 20.9804565353346
+  },
+  "off_live": {
+   "overview": 20.7754471544715,
+   "elev_N": 0.90098186366479,
+   "elev_S": 2.81712945590994,
+   "elev_E": 0.887454659161976,
+   "elev_W": 1.72683552220138,
+   "in_concrete_delco_1997": 1.56392745465916,
+   "in_drywall_delco_1997": 29.4938461538462,
+   "in_wallpaper_club_delco_1997": 0.75791119449656,
+   "in_concrete_delco_1997_2": 3.61045653533458,
+   "booth_caller": 89.8407442151345,
+   "wall_a_room": 51.9568918073796,
+   "wall_b_room": 54.8192432770482,
+   "spawn": 79.8104252657911,
+   "objective": 1.20981238273921,
+   "extraction": 29.7461976235147
+  },
+  "off_sun": {
+   "overview": 3.76166979362101,
+   "elev_N": 0.887742338961851,
+   "elev_S": 2.71838649155722,
+   "elev_E": 0.886235146966854,
+   "elev_W": 1.72299562226391,
+   "in_concrete_delco_1997": 1.56128830519074,
+   "in_drywall_delco_1997": 29.4929518449031,
+   "in_wallpaper_club_delco_1997": 0.760944340212633,
+   "in_concrete_delco_1997_2": 3.61908067542214,
+   "booth_caller": 87.1312945590994,
+   "wall_a_room": 51.9536647904941,
+   "wall_b_room": 54.8158724202627,
+   "spawn": 30.7556848030019,
+   "objective": 1.20509068167605,
+   "extraction": 3.75465916197624
+  },
+  "off_ambient": {
+   "overview": 21.0013821138211,
+   "elev_N": 0.901200750469043,
+   "elev_S": 2.81151344590369,
+   "elev_E": 0.885453408380238,
+   "elev_W": 1.71836772983114,
+   "in_concrete_delco_1997": 1.56527829893684,
+   "in_drywall_delco_1997": 29.4913946216385,
+   "in_wallpaper_club_delco_1997": 0.753577235772358,
+   "in_concrete_delco_1997_2": 3.61453408380238,
+   "booth_caller": 95.7605065666041,
+   "wall_a_room": 51.9565603502189,
+   "wall_b_room": 54.8115697310819,
+   "spawn": 79.7510694183865,
+   "objective": 1.20806754221388,
+   "extraction": 29.8321575984991
+  },
+  "off_probes": {
+   "overview": 20.9932395247029,
+   "elev_N": 0.895666041275797,
+   "elev_S": 2.81544715447154,
+   "elev_E": 0.886479049405879,
+   "elev_W": 1.73006253908693,
+   "in_concrete_delco_1997": 1.44834271419637,
+   "in_drywall_delco_1997": 27.4278861788618,
+   "in_wallpaper_club_delco_1997": 0.755722326454034,
+   "in_concrete_delco_1997_2": 3.2117698561601,
+   "booth_caller": 95.8069293308318,
+   "wall_a_room": 51.1816948092558,
+   "wall_b_room": 53.4646529080675,
+   "spawn": 79.7412320200125,
+   "objective": 1.19947467166979,
+   "extraction": 29.8425641025641
+  },
+  "off_emission": {
+   "overview": 20.8654596622889,
+   "elev_N": 0.89906191369606,
+   "elev_S": 2.81170106316448,
+   "elev_E": 0.886153846153846,
+   "elev_W": 1.72651031894934,
+   "in_concrete_delco_1997": 1.5642464040025,
+   "in_drywall_delco_1997": 29.4920075046904,
+   "in_wallpaper_club_delco_1997": 0.755071919949969,
+   "in_concrete_delco_1997_2": 3.61250156347717,
+   "booth_caller": 95.7986178861789,
+   "wall_a_room": 51.9505065666041,
+   "wall_b_room": 54.817454659162,
+   "spawn": 79.7314571607255,
+   "objective": 1.20820512820513,
+   "extraction": 29.7537648530331
+  },
+  "off_sky": {
+   "overview": 20.9943777360851,
+   "elev_N": 0.899387116948093,
+   "elev_S": 2.81761726078799,
+   "elev_E": 0.883233270794246,
+   "elev_W": 1.73063164477799,
+   "in_concrete_delco_1997": 1.5621263289556,
+   "in_drywall_delco_1997": 29.4930268918074,
+   "in_wallpaper_club_delco_1997": 0.758223889931207,
+   "in_concrete_delco_1997_2": 3.62154471544715,
+   "booth_caller": 95.7946216385241,
+   "wall_a_room": 51.9578986866792,
+   "wall_b_room": 54.8100625390869,
+   "spawn": 79.7501500938086,
+   "objective": 1.20866166353971,
+   "extraction": 29.848799249531
+  },
+  "off_fog": {
+   "overview": 21.039837398374,
+   "elev_N": 0.909499687304565,
+   "elev_S": 2.90985616010006,
+   "elev_E": 0.895916197623515,
+   "elev_W": 1.77093183239525,
+   "in_concrete_delco_1997": 1.49621013133208,
+   "in_drywall_delco_1997": 29.660550343965,
+   "in_wallpaper_club_delco_1997": 0.754396497811132,
+   "in_concrete_delco_1997_2": 3.43322076297686,
+   "booth_caller": 96.2631644777986,
+   "wall_a_room": 52.2056285178236,
+   "wall_b_room": 55.112689180738,
+   "spawn": 81.5356910569106,
+   "objective": 1.2009693558474,
+   "extraction": 29.9035897435897
+  },
+  "off_ambient+probes": {
+   "overview": 20.9916635397123,
+   "elev_N": 0.901063164477799,
+   "elev_S": 2.8188492808005,
+   "elev_E": 0.886754221388368,
+   "elev_W": 1.72348968105066,
+   "in_concrete_delco_1997": 1.4391181988743,
+   "in_drywall_delco_1997": 27.4290118824265,
+   "in_wallpaper_club_delco_1997": 0.758517823639775,
+   "in_concrete_delco_1997_2": 3.18971857410882,
+   "booth_caller": 95.7338586616635,
+   "wall_a_room": 51.1445403377111,
+   "wall_b_room": 53.4653470919325,
+   "spawn": 79.7347342088806,
+   "objective": 1.19797373358349,
+   "extraction": 29.849124452783
+  },
+  "off_lightmap+ambient+probes": {
+   "overview": 20.1630769230769,
+   "elev_N": 0.884634146341463,
+   "elev_S": 2.78298311444653,
+   "elev_E": 0.887148217636022,
+   "elev_W": 1.72523452157599,
+   "in_concrete_delco_1997": 0.757385866166354,
+   "in_drywall_delco_1997": 0.756166353971232,
+   "in_wallpaper_club_delco_1997": 0.755409631019387,
+   "in_concrete_delco_1997_2": 0.759649781113196,
+   "booth_caller": 11.8831144465291,
+   "wall_a_room": 0.758223889931207,
+   "wall_b_room": 0.75808005003127,
+   "spawn": 29.7239587242026,
+   "objective": 0.750037523452158,
+   "extraction": 20.9073671044403
+  },
+  "none": {
+   "overview": 0.754202626641651,
+   "elev_N": 0.758943089430894,
+   "elev_S": 0.759005628517824,
+   "elev_E": 0.756991869918699,
+   "elev_W": 0.757329580988118,
+   "in_concrete_delco_1997": 0.757423389618512,
+   "in_drywall_delco_1997": 0.756291432145091,
+   "in_wallpaper_club_delco_1997": 0.762032520325203,
+   "in_concrete_delco_1997_2": 0.757492182614134,
+   "booth_caller": 0.755540963101939,
+   "wall_a_room": 0.7558411507192,
+   "wall_b_room": 0.75526579111945,
+   "spawn": 0.75390243902439,
+   "objective": 0.75509693558474,
+   "extraction": 0.758461538461538
+  },
+  "rebake_fills_on": {
+   "overview": 20.9899437148218,
+   "elev_N": 0.903833646028768,
+   "elev_S": 2.8154909318324,
+   "elev_E": 0.887992495309568,
+   "elev_W": 1.7233646028768,
+   "in_concrete_delco_1997": 1.56158849280801,
+   "in_drywall_delco_1997": 29.4691432145091,
+   "in_wallpaper_club_delco_1997": 0.760431519699812,
+   "in_concrete_delco_1997_2": 3.61101938711695,
+   "booth_caller": 95.856741713571,
+   "wall_a_room": 51.9568605378362,
+   "wall_b_room": 54.8146466541589,
+   "spawn": 79.7473671044403,
+   "objective": 1.21140087554722,
+   "extraction": 29.8703752345216
+  },
+  "rebake_fills_off": {
+   "overview": 20.9932082551595,
+   "elev_N": 0.896335209505941,
+   "elev_S": 2.8166353971232,
+   "elev_E": 0.87995622263915,
+   "elev_W": 1.72574108818011,
+   "in_concrete_delco_1997": 0.755297060662914,
+   "in_drywall_delco_1997": 0.795547217010632,
+   "in_wallpaper_club_delco_1997": 0.756178861788618,
+   "in_concrete_delco_1997_2": 0.75989368355222,
+   "booth_caller": 95.7239774859287,
+   "wall_a_room": 42.0544903064415,
+   "wall_b_room": 42.7804377736085,
+   "spawn": 79.6813570981864,
+   "objective": 1.20731081926204,
+   "extraction": 29.8629393370857
+  }
+ }
+}
