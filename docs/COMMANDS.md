@@ -156,12 +156,24 @@ python tools/cold_run.py --end
 - **The export bakes the lights by default** (Level Factory 0.144.0).
   `EXPORT_FLAGS=--no-bake-lights` skips the bake. Runs before 0.144.0
   passed `EXPORT_FLAGS=--bake-lights`, which still parses.
+- **Once per machine: `python -m level_factory setup --blender <exe>
+  --godot <exe>`.** It writes `factory.local.json` at the root (ignored by
+  git). Since Level Factory 0.167.0 the driver's `init` fills each run's
+  `tools.local.json` from it. The driver then runs the doctor, and stops on
+  a FAIL or on anything NOT_CONFIGURED. It used to copy
+  `workspaces/cold-<PREV>-ws/tools.local.json`, and cold run 9194 stopped
+  when that workspace had been retired. Cold run 9223 was the first run
+  without the copy.
 - **A mission whose last run's workspace is gone.** `stage_batch.py`
   copies `batch.json` and `briefs/` out of `docs/cold_runs/cold_<PREV>`, so
-  stage from the mission's own last run. Then drive with `<PREV>` set to the
-  newest workspace that still exists. The driver copies
-  `workspaces/cold-<PREV>-ws/tools.local.json` and stops without it, and
-  its findings diff against a different mission reads as an empty count.
+  stage from the mission's own last run. `<PREV>` now matters to the
+  driver only for the findings diff. A diff against a different mission's
+  workspace reads as an empty count.
+- **The driver and `stage_batch.py` find the factory from their own path,**
+  so they run from wherever the factory is unpacked.
+- **One level without the clock:** `python -m level_factory -C <new folder>
+  make <batch.json>` runs the same legs and the same pick (Level Factory
+  0.169.0). It does not hash the repos, and it is not a cold run.
 - **What the driver does.** It stops at the first failing leg and keeps the
   art and export legs' full output beside the batch (`art.log`,
   `export.log`). A grep that kept only success lines once threw away the one
