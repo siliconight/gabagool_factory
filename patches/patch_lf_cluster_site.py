@@ -1,8 +1,9 @@
 """Level Factory 0.176.1: the site spec's draw takes the cluster template too (cold run 9231, roadmap 230).
 
 Anchored edits in `packages/pipeline/building_library.py` (`preferred_for_brief`, asked by
-`lot_for_brief`), `apps/cli/commands/__init__.py` (the site spec builder's `pick_lot` call) and
-`tests/unit/test_cluster.py` (two tests appended); each file pinned by hash and each anchor
+`lot_for_brief`), `apps/cli/commands/__init__.py` (the site spec builder's `pick_lot` call),
+`tests/unit/test_cluster.py` (two tests appended) and `tests/unit/test_site_audit_report.py` (Lot
+0.112.0's `S_TARGETS` lines beside the four codes it pins); each file pinned by hash and each anchor
 asserted once, nothing written on a miss; the file's own line endings kept. CHANGELOG and VERSION
 from `lf_cluster_site/CHANGELOG_0.176.1.md`; `--suite-pending` leaves RESULT_SUITE to `--fill`.
 
@@ -26,7 +27,39 @@ CHANGELOG_HEAD = ("## [0.176.0] - The buildings beside the objective are drawn b
                   "when the brief asks\n")
 SHA = {"packages/pipeline/building_library.py": "e32cedb701a9f59b",
        "apps/cli/commands/__init__.py": "0d384d3b80ea19a4",
-       "tests/unit/test_cluster.py": "f737a3d47ff0025c"}
+       "tests/unit/test_cluster.py": "f737a3d47ff0025c",
+       "tests/unit/test_site_audit_report.py": "e4a78a61023a063f"}
+
+# Lot 0.112.0 adds its `S_TARGETS` lines (the guide's gameplay targets, every one INFO) to every
+# audit, and this test pinned the exact list of 9209's four codes: it pins them BESIDE the targets
+# now, and proves every target line Lot keeps reaches the report as info.
+REPORT_OLD = (
+    '    kept = sorted((f["severity"], f["code"]) for f in block["findings"])\n'
+    '    assert kept == [("INFO", "S_GETAWAY_AT_SPAWN"), ("INFO", "S_STREET_CROSS"),\n'
+    '                    ("INFO", "S_STREET_CROSS"), ("MED", "S_RESPONDER_ARC")], kept\n'
+    '    got = _issues(tmp_path, {"site_audit": block})\n'
+    '    assert sorted((i["severity"], i["code"]) for i in got) == [\n'
+    '        ("info", "S_GETAWAY_AT_SPAWN"), ("info", "S_STREET_CROSS"),\n'
+    '        ("info", "S_STREET_CROSS"), ("moderate", "S_RESPONDER_ARC")], got\n'
+    '    assert not any(i["blocking"] for i in got)\n'
+)
+REPORT_NEW = (
+    '    # Lot 0.112.0 says the guide\'s gameplay targets on every audit (`S_TARGETS`,\n'
+    '    # every line INFO): 9209\'s four codes stand beside them, and every target\n'
+    '    # line Lot keeps reaches the report as info, never blocking\n'
+    '    kept = sorted((f["severity"], f["code"]) for f in block["findings"]\n'
+    '                  if f["code"] != "S_TARGETS")\n'
+    '    assert kept == [("INFO", "S_GETAWAY_AT_SPAWN"), ("INFO", "S_STREET_CROSS"),\n'
+    '                    ("INFO", "S_STREET_CROSS"), ("MED", "S_RESPONDER_ARC")], kept\n'
+    '    got = _issues(tmp_path, {"site_audit": block})\n'
+    '    assert sorted((i["severity"], i["code"]) for i in got if i["code"] != "S_TARGETS") == [\n'
+    '        ("info", "S_GETAWAY_AT_SPAWN"), ("info", "S_STREET_CROSS"),\n'
+    '        ("info", "S_STREET_CROSS"), ("moderate", "S_RESPONDER_ARC")], got\n'
+    '    n_targets = sum(1 for f in block["findings"] if f["code"] == "S_TARGETS")\n'
+    '    targets = [i for i in got if i["code"] == "S_TARGETS"]\n'
+    '    assert len(targets) == n_targets and all(i["severity"] == "info" for i in targets), got\n'
+    '    assert not any(i["blocking"] for i in got)\n'
+)
 
 LIB_OLD = (
     "def lot_for_brief(model, candidate_id, *, themed: bool = False):\n"
@@ -153,6 +186,9 @@ def main():
     assert tests.count(TEST_TAIL_MARK) == 1 and tests.endswith("\n")
     tests = tests.rstrip("\n") + "\n" + _src("test_cluster_site.py.txt")
 
+    rp, r_eol, report = _read("tests/unit/test_site_audit_report.py")
+    report = _once(report, REPORT_OLD, REPORT_NEW, "the report test's pinned list")
+
     cl = LF / "CHANGELOG.md"
     cl_raw = cl.read_bytes()
     cl_eol = _eol(cl_raw, "CHANGELOG.md")
@@ -162,6 +198,7 @@ def main():
     lp.write_bytes(lib.replace("\n", l_eol.decode()).encode("utf-8"))
     cp.write_bytes(cmd.replace("\n", c_eol.decode()).encode("utf-8"))
     tp.write_bytes(tests.replace("\n", t_eol.decode()).encode("utf-8"))
+    rp.write_bytes(report.replace("\n", r_eol.decode()).encode("utf-8"))
     cl.write_bytes((entry.rstrip("\n") + "\n\n" + cl_text).replace("\n", cl_eol.decode()).encode("utf-8"))
     (LF / "VERSION").write_bytes(VERSION)
     print("Level Factory 0.176.0 -> 0.176.1" + (" (DRAFT)" if DRAFT else ""))

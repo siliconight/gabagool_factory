@@ -21,5 +21,8 @@ nothing before the export could see it.
 - Every brief that names no cluster keeps its draw byte for byte, as
   before; 9231's lot with the fix is deli, pharmacy and office in every
   stage, which cold run 9232 shows.
+- **Beside it, Lot 0.112.0's `S_TARGETS`** (the guide's gameplay targets,
+  every line INFO) reach the report as info, never blocking; the report
+  test pins 9209's four codes beside them rather than instead of them.
 
 **Suite:** RESULT_SUITE.
