@@ -906,8 +906,9 @@ work of adopting this.
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
 | 225 | **NARROWED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells them apart (Level Factory 0.172.0): a fight is a sampled pixe |
+| 226 | **NARROWED** | A street lamp stood in front of a shop band | 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop |
 
-**227 items: 40 open, 104 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 11 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**228 items: 40 open, 104 closed, 3 retracted, 74 narrowed, 1 superseded, 6 analysis.** 11 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20068,3 +20069,13 @@ Owner: Level Factory for the gate; whoever owns the ceiling's texture for the se
 - **Refuted:** moving the near plane instead of the camera. No texture sample moves, so no sparkle, but the control flipped 0 samples too.
 - **Kept, the size of a flip.** The control's flips are all 255 of 255. 9222's four interiors flip by a median of 16 to 19, at most 7.6% of their flips over 64. Counted over 64 as a share of the frame: the control 2.02%, 9222 0.00% to 0.12%, and the gate sits at 0.5%. Run as the verdict, the control fails and all of 9222's stations pass.
 - **What it gives up:** a fight between two surfaces within 64 of each other, which a person can barely see.
+
+*STATUS: NARROWED 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop band's span on the kerb it faces and steps to the nearer end of it. Replayed on cold run 9222's drawn site, one piece of 107 moves, Lamp_2 from station 30.00 to 25.05. Next: a cold run of restaurant_row_001, framed at the band.*
+
+**226. A street lamp stood in front of a shop band.** `docs/cold_runs/cold_9222/` (`band_evening.png`). deli_a01's band read SCRAPPLE & SONS DELI, and a lamp's pole stood in front of it and hid the E.
+- **Measured** with Lot's own `sign_placement` and `sign_size` on 9222's drawn site: the band spans stations 26 to 35 of road 0's left kerb; Lamp_2 stands at 30, 2.46 m in front of the facade.
+- **Why:** `site_furniture.plan_furniture` stands a lamp every 25 m and steps it 2 or 4 m around a marker, and never knew a band was there; the band is hung later, from the spec. A lamp (6 m) or a tree's crown reaches a band (centre 3.6 m); a hydrant, a post, a meter or a shelter does not.
+
+**Fixed, Lot 0.106.0** (`patches/patch_lot_band_clear.py`): `lot.sign_bands` gives every dealt band's span from the scene writer's own placement, and the planner keeps lamps and trees out of each one on the kerb it faces, widened 0.5 m at each end, stepping a piece to the nearer end and saying `LOT_BAND_KEPT_CLEAR`. With no band it is unchanged piece for piece. 7 tests, all failing on 0.105.0.
+
+Owner: Lot.
