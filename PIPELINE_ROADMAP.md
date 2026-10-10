@@ -904,9 +904,9 @@ work of adopting this.
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
 | 225 | **CLOSED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fi |
-| 226 | **NARROWED** | A street lamp stood in front of a shop band | 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop |
+| 226 | **CLOSED** | A street lamp stood in front of a shop band | 2026-10-10 -- proven in cold run 9223 (restaurant_row_001, 0 interventions, 0 retries, fin |
 
-**226 items: 38 open, 105 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**226 items: 38 open, 106 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20070,7 +20070,7 @@ Owner: Level Factory for the gate; whoever owns the ceiling's texture for the se
 
 **Step 2 ANSWERED, read off 9222's package:** the drop ceiling's tiles are `M_Skin_ceiling_tile_delco_1997` (Zoo's `ceiling_delco_1997_13_*`), a 256 x 256 skin, mipmapped and lossless, sampled magFilter NEAREST and minFilter NEAREST_MIPMAP_NEAREST -- the drywall ceilings sample the same way. Nearest sampling takes one texel a pixel, so any sub-pixel camera motion swaps whole texels on a fine-grained skin: the speckle in the maps, and the shimmer a moving camera sees. It is the pixel skins' look, which Pixelcoat asks for and Zoo honours, not this ceiling's defect. Filtering skins `linear`, as the business signs have been since Pixelcoat 0.62.0, is the realism direction and the walker's call to make and price.
 
-*STATUS: NARROWED 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop band's span on the kerb it faces and steps to the nearer end of it. Replayed on cold run 9222's drawn site, one piece of 107 moves, Lamp_2 from station 30.00 to 25.05. Next: a cold run of restaurant_row_001, framed at the band.*
+*STATUS: CLOSED 2026-10-10 -- proven in cold run 9223 (restaurant_row_001, 0 interventions, 0 retries, findings 74 to 74): Lot said `LOT_BAND_KEPT_CLEAR: Lamp_2 would have stood at station 30.00, in front of a shop band; it stands at 25.05`, the replay's prediction, and the frame from 9222's station reads SCRAPPLE & SONS DELI whole with the lamp beside the band (`docs/cold_runs/cold_9223/band_evening.png`).*
 
 **226. A street lamp stood in front of a shop band.** `docs/cold_runs/cold_9222/` (`band_evening.png`). deli_a01's band read SCRAPPLE & SONS DELI, and a lamp's pole stood in front of it and hid the E.
 - **Measured** with Lot's own `sign_placement` and `sign_size` on 9222's drawn site: the band spans stations 26 to 35 of road 0's left kerb; Lamp_2 stands at 30, 2.46 m in front of the facade.
@@ -20079,3 +20079,5 @@ Owner: Level Factory for the gate; whoever owns the ceiling's texture for the se
 **Fixed, Lot 0.106.0** (`patches/patch_lot_band_clear.py`): `lot.sign_bands` gives every dealt band's span from the scene writer's own placement, and the planner keeps lamps and trees out of each one on the kerb it faces, widened 0.5 m at each end, stepping a piece to the nearer end and saying `LOT_BAND_KEPT_CLEAR`. With no band it is unchanged piece for piece. 7 tests, all failing on 0.105.0.
 
 Owner: Lot.
+
+**PROVEN, cold run 9223** (`docs/cold_runs/cold_9223/NOTES.md`), the first run under the reworked driver: Lot 0.106.0 moved the one lamp the replay said it would and nothing else (shell 0 of 52, art 0 of 74, findings 74 to 74). The facade right of the band is darker, its lamp now 5 m left; whether that stretch wants another light is a taste call.
