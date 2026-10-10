@@ -21,10 +21,32 @@
 #   - UNCOMMITTED work does not travel. Commit first, or it is not in the zip.
 #   - tracked-but-scratchy files DO travel (anything committed by accident).
 #     If the zip looks fat, `git ls-files` in the offending repo names them.
-param([switch]$WithRecord)
+#   -Tag factory-vX.Y.Z (roadmap 202, the GitHub release): package the CERTIFIED set rather than
+#   the checkouts' HEADs. The root is archived at that tag, and each tool at the tag the
+#   manifest AT THAT TAG names for it, so the zip is the set verify-manifest read all OK and
+#   the install test ran, whatever has been committed since. A tag that does not exist refuses,
+#   and so does a Deli Counter whose HEAD is not its tag, since the library beside the code is
+#   built from HEAD and would not match. The zip is named by the tag.
+param([switch]$WithRecord, [string]$Tag = "")
 $ErrorActionPreference = "Stop"
 $root = Split-Path -Parent $PSScriptRoot
 $stamp = Get-Date -Format "yyyyMMdd_HHmm"
+$tagged = @{}
+if ($Tag) {
+  $null = git -C $root rev-parse -q --verify "refs/tags/$Tag"
+  if ($LASTEXITCODE -ne 0) { throw "no tag $Tag on the factory root" }
+  $manifestText = git -C $root show "${Tag}:factory.manifest.json" | Out-String
+  $manifest = $manifestText | ConvertFrom-Json
+  $tagged["."] = $Tag
+  foreach ($prop in $manifest.tools.PSObject.Properties) {
+    $folder = if ($prop.Value.path) { $prop.Value.path } else { $prop.Name }
+    $toolTag = $prop.Value.tag
+    $null = git -C (Join-Path $root $folder) rev-parse -q --verify "refs/tags/$toolTag"
+    if ($LASTEXITCODE -ne 0) { throw "no tag $toolTag in $folder (named by the manifest at $Tag)" }
+    $tagged[$folder] = $toolTag
+  }
+  Write-Host ("packaging the certified set {0} (factory {1})" -f $Tag, $manifest.factory_version)
+}
 $stage = Join-Path ([System.IO.Path]::GetTempPath()) "gabagool_pkg_$stamp"
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
 # The run record. `_runs` and `workspaces` hold 48 tracked files (5.2 MB on 2026-10-10):
@@ -49,10 +71,16 @@ Write-Host ("packaging {0} repo(s) from {1}{2}" -f $repos.Count, $root,
 foreach ($r in $repos) {
   $dest = if ($r.name -eq ".") { $stage } else { Join-Path $stage $r.name }
   New-Item -ItemType Directory -Force -Path $dest | Out-Null
-  $head = git -C $r.path rev-parse --short HEAD
+  # the tree to archive: HEAD, or the certified tag when -Tag names the set
+  $ref = "HEAD"
+  if ($Tag) {
+    if (-not $tagged.ContainsKey($r.name)) { throw "the manifest at $Tag names no tag for $($r.name)" }
+    $ref = $tagged[$r.name]
+  }
+  $head = git -C $r.path rev-parse --short $ref
   $dirty = git -C $r.path status --porcelain
-  $flag = if ($dirty) { "  (UNCOMMITTED CHANGES NOT INCLUDED)" } else { "" }
-  Write-Host ("  {0,-16} @ {1}{2}" -f $r.name, $head, $flag)
+  $flag = if ($dirty -and -not $Tag) { "  (UNCOMMITTED CHANGES NOT INCLUDED)" } else { "" }
+  Write-Host ("  {0,-16} @ {1} ({2}){3}" -f $r.name, $head, $ref, $flag)
   # ARCHIVE TO A FILE, NEVER THROUGH A PIPE: PowerShell pipes are text
   # pipes, and binary tar data through one arrives mangled. This script's
   # first run did exactly that -- eleven "Unrecognized archive format"
@@ -60,9 +88,9 @@ foreach ($r in $repos) {
   # code. Both lessons are below.
   if ($r.name -eq "." -and -not $WithRecord) {
     $paths = @(".") + ($record | ForEach-Object { ":(exclude)$_" })
-    git -C $r.path archive --format=tar -o $tmp HEAD -- @paths
+    git -C $r.path archive --format=tar -o $tmp $ref -- @paths
   } else {
-    git -C $r.path archive --format=tar -o $tmp HEAD
+    git -C $r.path archive --format=tar -o $tmp $ref
   }
   if ($LASTEXITCODE -ne 0) { throw "git archive failed for $($r.name)" }
   # WINDOWS' OWN tar, by path: from a shell that puts Git's /usr/bin first,
@@ -78,6 +106,9 @@ foreach ($r in $repos) {
 $dc = Join-Path $root "deli_counter"
 if (git -C $dc status --porcelain) {
   throw "deli_counter has uncommitted changes: the library may not match the code that travels"
+}
+if ($Tag -and (git -C $dc rev-parse HEAD) -ne (git -C $dc rev-parse "refs/tags/$($tagged['deli_counter'])^{commit}")) {
+  throw "deli_counter's HEAD is not its certified tag $($tagged['deli_counter']): the library beside it is built from HEAD and would not match the code that travels"
 }
 python (Join-Path $dc "build_freshness.py")
 if ($LASTEXITCODE -ne 0) {
@@ -99,7 +130,8 @@ Write-Host ("library: {0} files, {1} shells, stamped {2}" -f $lib.Count, $shells
 $n = (Get-ChildItem -Recurse -File $stage).Count
 if ($n -lt 50) { throw "staging holds only $n file(s) -- refusing to zip a hollow package" }
 Write-Host ("staged {0} files" -f $n)
-$zip = Join-Path (Split-Path -Parent $root) "gabagool_factory_package_$stamp.zip"
+$zipName = if ($Tag) { "gabagool_factory_package_$Tag.zip" } else { "gabagool_factory_package_$stamp.zip" }
+$zip = Join-Path (Split-Path -Parent $root) $zipName
 Compress-Archive -Path (Join-Path $stage "*") -DestinationPath $zip -Force
 Write-Host "package: $zip"
 Write-Host "point the recipient at START_HERE.md first."

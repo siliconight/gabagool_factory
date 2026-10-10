@@ -26,6 +26,7 @@ followed.
 | a perf price copy | `_runs/perf_inner/<name>/` until `<name>.json` exists, then deleted | no | `tools/factory_retire.py` does the deleting |
 | a walk export | `_runs/walk_export_<mission>/` | no | the newest per mission is kept, older ones retired |
 | the front door: what a stranger opens first | `START_HERE.md`, `factory.cmd` and `factory.sh` at the root; the example batch in `docs/first_level/` | yes | roadmap 202. The page is a stranger's whole install; anything it does not say is an intervention. The launchers are CRLF and LF by `.gitattributes`. |
+| a release: the package a stranger downloads | `docs/releases/factory-vX.Y.Z.md`, the notes; the zip itself on GitHub Releases (github.com/siliconight/gabagool_factory), built by `tools/make_factory_package.ps1 -Tag factory-vX.Y.Z` into `C:\Projects\gabagool_studios\` | the notes, yes; the zip, never | the zip is the certified set at its tags, with its sha256 in the notes; a zip built from HEADs is an install test's, not a release |
 | this machine's tool paths, and the tools' own Python | `factory.local.json` and `.venv/` at the root, written by `level-factory setup` | no, ignored | never committed: they name one machine's Blender, Godot and Python |
 
 What a tool repo's root holds: the generator, its gates, its tests where
