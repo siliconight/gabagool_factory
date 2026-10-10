@@ -1,0 +1,21 @@
+[export] surface dressing: gas_stop_001_dressing.tscn -- 6165 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 258 instances of 6 module(s) on their sides, 21 draw calls (N 0, S 0, E 0, W 0; 0 tower)
+[export] 1751 occluder(s) from 1755 solid module(s); 29 glass, 326 porous and 1100 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1751 occluder node(s) in a tree of 31624
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] light bake: 401 model(s) and 2254 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 82 steady rig(s) baked, 20 failing and 0 cycling left live; 144 room fill(s); 4069 users, 114.4 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1751 occluder node(s) reachable from res://mission.tscn (1751 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 33 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 409 GLB(s), 1563 external reference(s): 1563 resolve to 407 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 81 resource(s) in a package of 2748 file(s)
+[export] manifest: 2752 file(s) listed + 2 declared unlisted = 2754 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported gas_stop_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9228-ws\.level_factory\exports\LF_gas_stop_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9228-ws walk gas_stop_001 --play   (a copy with a player at the package's player_start; the package stays untouched)

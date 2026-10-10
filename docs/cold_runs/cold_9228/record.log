@@ -1,0 +1,19 @@
+package: workspaces/cold-9228-ws/.level_factory/exports/LF_gas_stop_001.portable-godot
+drawn:   workspaces/cold-9228-ws/.level_factory/jobs/gas_stop_001.themed_site_assemble/1/out/site.site.drawn.json
+backdrop off in _scratch\price_9228\control\mission.tscn: removed the block loading site_backdrop.tscn (packed_2); 1225 bytes -> 1102
+# road0_a_W: eye at plan (-75.0, -33.6), 45 m inside the edge, looking at (-120.0, -33.6)
+# road0_b_E: eye at plan (75.0, -33.6), 45 m inside the edge, looking at (120.0, -33.6)
+--station road0_a_W:-75,1.7,33.58,-120,2.2,33.58 --station road0_b_E:75,1.7,33.58,120,2.2,33.58
+control shots exit 0
+subject shots exit 0
+docs/cold_runs/cold_9228/edge_before_after.png (1600, 2904)
+sheet: docs/cold_runs/cold_9228/edge_before_after.png
+price exit 0
+measured control_1  53 headings  draws mean 1230 worst 3862  p95 median 4.73 ms
+measured glow       53 headings  draws mean 1253 worst 3896  p95 median 5.18 ms
+measured control_2  53 headings  draws mean 1230 worst 3862  p95 median 4.94 ms
+controls' spread, median over 53 headings: p95 0.09 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0             0.03         0.32
+glow              23.2            0           36             0.20         0.73
+control_2          0.0            0            0            -0.03         0.18
