@@ -680,6 +680,7 @@ work of adopting this.
 | # | status | item | evidence |
 |---|---|---|---|
 | 1 | **CLOSED** | Cover is exonerated — the trap is somewhere else | 2026-07-27 -- as the body records: "Closed 2026-07-27". Cover is exonerated; the trap is s |
+| 1 | **OPEN** *(inferred)* | MEASURED 2026-10-10: the quality does not move them | — |
 | 2 | **CLOSED** | `walktest.py` into the DAG | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Lot 0.x", `walktest.py` into the  |
 | 3 | **CLOSED** | Lot places enemies twice, and nothing checks the two agree | 2026-08-16 -- PLACED ONCE AND THREADED THROUGH, which is the first of the two remedies thi |
 | 4 | **CLOSED** | Lot emits absolute `res://` paths at source | 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Le |
@@ -902,9 +903,9 @@ work of adopting this.
 | 221 | **CLOSED** | Patina's wall covers face into the building | 2026-10-10 -- proven in cold run 9221 (club_block_014, seed 9181; 0 interventions, 0 retri |
 | 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
-| 224 | **OPEN** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carr |
+| 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
 
-**224 items: 41 open, 104 closed, 3 retracted, 69 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**225 items: 41 open, 104 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20003,7 +20004,7 @@ Found alongside: Pixelcoat's `test_the_kinds_zoo_knows_are_the_kinds_zoo_knows` 
 
 Observed in the frames, and left for the walker: a lamp pole stands in front of the band and hides the E of SCRAPPLE (no rule in Lot keeps a pole out of a band's sightline from the street), and the door box reads brighter than the band (its face emits at Zoo's strength; the band's multiplier is 0.65).
 
-*STATUS: OPEN 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carries blotches. The box truck's side at midnight, in the moon's shadow, runs from luma 1 to 6 (p5 to p95 after an 8 px blur, median 2), and with the lightmap switched off it is black all over, so the blotches are the bake's. Not yet measured: the bake at a higher quality.*
+*STATUS: NARROWED 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Medium and High (`docs/findings/bake_quality/`): the box's face reads p95 6, 5 and 5 of 255, and the brightened crops show the same blotches in the same places at all three, for +24% and +137% of the editor's bake time (94.1, 117.0, 222.7 s). Level Factory keeps Low. Next: the truck's lightmap texel density, then the denoiser off.*
 
 **224. Blotches in the bake's bounce on a large pale face.** `docs/cold_runs/cold_9219/box_side_bake.png`. Cold run 9219's box truck (Zoo 1.92.0, fleet 2) stands with its box's sides away from the moon. In its shadow the sides are lit by the bake's bounce alone, and the bounce lies on them in light and dark blotches about half a metre across.
 - **Measured** on `look_shots`' frame from 8 m, the walk copy at midnight: over the box's face, after an 8 px blur, luma p5 1, p50 2, p95 6 of 255.
@@ -20018,3 +20019,11 @@ Observed in the frames, and left for the walker: a lamp pole stands in front of 
 3. **Whether every pale face in shadow does it:** a white wall in the moon's shadow would show the same, and a census by surface would say.
 
 Owner: Level Factory for the bake's settings and the import. Nothing changes until one of these has been measured.
+
+**1. MEASURED 2026-10-10: the quality does not move them** (`docs/findings/bake_quality/`).
+- **The re-bakes:** cold run 9221's walk copy of the same level, re-baked through `tools/lux_rebake.py --bake-quality Q` (Level Factory's own `light_bake.bake()`, only `QUALITY` changed). Each report records the dial it set, and the editor's time rose with each step.
+- **The control:** quality 0, Level Factory's own, reproduces 9219's face, p5 1 and p95 6.
+- **The result:** Low, Medium and High read p95 6, 5 and 5, with p5 and p50 at 1 throughout. The editor's bake took 94.1, 117.0 and 222.7 s.
+- **The look:** `truck_side_by_quality.png` brightens the face 20 times. The same blobs stand in the same places at all three qualities, so they are not sampling noise that more rays would clear.
+
+So 2 is next: the truck's texel density (`lightmap_size_hint`, or `LightmapGI.texel_scale`). Large texels, interpolated and denoised, draw exactly this kind of blob, and it is priced in lightmap memory rather than in draw calls. After it, the denoiser off.

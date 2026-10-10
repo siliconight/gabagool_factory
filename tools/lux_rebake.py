@@ -1,7 +1,7 @@
 """Re-bake a copy of a baked level with Level Factory's own bake, under another Lux preset or without its room fills.
 
     python tools/lux_rebake.py <walk project> <dest> [--preset NAME] [--no-fills] [--set FIELD=VALUE ...]
-                               [--bake-environment none|scene]
+                               [--bake-environment none|scene] [--bake-quality 0|1|2|3]
 
 WHAT IT DOES, in order, on a copy (the source is only read):
 1. Copies the project to `dest`.
@@ -31,6 +31,10 @@ WHAT IT DOES, in order, on a copy (the source is only read):
    - **Since 0.164.0 it bakes `1`,** the walker's call after
      `docs/findings/lighting_spec_vs_lux/` measured it with this option.
    - `none` is the control against a package from before.
+7. `--bake-quality 0|1|2|3`: the bake's `LightmapGI` `quality`, Low to Ultra, in
+   place of Level Factory's `QUALITY` (0, Low: "baked the lot in 22 s and is what
+   was priced"). Roadmap 224 asks what a higher one buys the blotches a large pale
+   face takes from a bounce-only bake, and what it costs in the editor's seconds.
 
 MEASURED. A re-bake with no change reproduces the shipped frames exactly,
 0.0 at every camera, on cold run 9213's walk copy
@@ -171,7 +175,7 @@ def _bake_environment(lb, mode):
 
 
 def rebake(project, dest, godot, preset=None, fills=True, log=print, fields=None,
-           environment=None):
+           environment=None, quality=None):
     """Copy `project` to `dest` and bake it with Level Factory's own `bake()`,
     under `preset` (a name in runtime/lux/presets, None for the level's own),
     with the room fills on or off, with `fields` ({name: GDScript literal})
@@ -195,14 +199,17 @@ def rebake(project, dest, godot, preset=None, fills=True, log=print, fields=None
         note["fill_preset"], note["bake_room_fill_was"] = zero_fills(dest)
     for key, value in (fields or {}).items():
         note.setdefault("fields", {})[key] = {"set": value, "was": set_preset_field(dest, key, value)[1]}
-    template = lb.BAKE_TSCN
+    template, quality_was = lb.BAKE_TSCN, lb.QUALITY
     if environment is not None:
         lb.BAKE_TSCN = _bake_environment(lb, BAKE_ENVIRONMENTS[environment])
         note["bake_environment"] = environment
+    if quality is not None:
+        lb.QUALITY = int(quality)
+        note["bake_quality"] = {"set": int(quality), "was": quality_was}
     try:
         report = lb.bake(dest, godot, log=log, spawned=spawned)
     finally:
-        lb.BAKE_TSCN = template
+        lb.BAKE_TSCN, lb.QUALITY = template, quality_was
     report["rebake"] = note
     return report
 
@@ -218,6 +225,9 @@ def main(argv=None):
                          "(street_lamps_lit=true)")
     ap.add_argument("--bake-environment", choices=sorted(BAKE_ENVIRONMENTS), default=None,
                     help="the bake's LightmapGI environment_mode (default: Level Factory's own)")
+    ap.add_argument("--bake-quality", type=int, choices=(0, 1, 2, 3), default=None,
+                    help="the bake's LightmapGI quality, Low (0) to Ultra (3) (default: Level "
+                         "Factory's QUALITY)")
     ap.add_argument("--godot", default=None)
     a = ap.parse_args(argv)
     fields = {}
@@ -229,7 +239,7 @@ def main(argv=None):
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from godot_probe import require_godot
     rep = rebake(a.project, a.dest, a.godot or require_godot(), a.preset, not a.no_fills, fields=fields,
-                 environment=a.bake_environment)
+                 environment=a.bake_environment, quality=a.bake_quality)
     print(json.dumps({k: rep.get(k) for k in ("ok", "reason", "editor_s", "room_fills", "rebake")}, indent=1))
     return 0 if rep.get("ok") else 1
 
