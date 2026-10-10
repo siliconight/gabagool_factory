@@ -51,5 +51,7 @@ belong to the fix, not to this census.
 - `row_census.txt`: the run above, 2026-10-10.
 - `row_census_0206.txt`: the library rebuilt on Deli Counter 0.206.0 (the rows laid to the work): 1,156 rows, 4,217 lamps.
 - `row_census_0206_1.txt`: the library rebuilt on Deli Counter 0.206.1 (the home rule keyed on the room's words): 1,140 rows, 4,133 lamps; ten more rooms take the home's one fixture.
+- `aisle_census.py`, `aisle_census_0206_1.txt`: the AISLES the rows could follow, from the furnished specs (step 2 of the fix): 514 of 702 rooms carry a shelf volume, 293 of them with two or more lanes at least an aisle (1.25 m) wide across the room's long axis; the lane widths and what 0.206.1 lays in those rooms.
+- `aisle_rows_diff.py`, `aisle_rows_diff_0207_draft.txt`: the rows two Deli Counter trees derive for the same furnished library, 0.206.1 against the 0.207.0 draft (`patches/patch_dc_aisle_rows.py`): 426 rooms identical, 61 changed, and the 61 are exactly the rooms the draft lays over their aisles (rows moved 136, added 12, removed 19). Derived with a flat cap and no partitions, so its lamp totals are not the library's; its deltas are.
 - The references the walker supplied are digested in
   `docs/reference/INDOOR_FIXTURE_PLACEMENT_GUIDE.md`.
