@@ -901,10 +901,10 @@ work of adopting this.
 | 220 | **CLOSED** | A bar down the middle of the door sign | 2026-10-10 -- proven in cold run 9218 (club_block_014, seed 9181, night; 0 interventions,  |
 | 221 | **CLOSED** | Patina's wall covers face into the building | 2026-10-10 -- proven in cold run 9221 (club_block_014, seed 9181; 0 interventions, 0 retri |
 | 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
-| 223 | **NARROWED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- fixed in four repos, not yet run cold. Pixelcoat 0.62.0 letters a business's |
+| 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **OPEN** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carr |
 
-**224 items: 41 open, 103 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**224 items: 41 open, 104 closed, 3 retracted, 69 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19972,7 +19972,7 @@ Measured 2026-10-10, ground under the pole 9 m off, the test's own figures: plac
 
 So the code under test did not change, and the result did. Not yet looked at: the NVIDIA driver (look_shots' manifests read 616.56 tonight), the window's state when the test opens it, and whether the pole the test builds still matches the Zoo streetlight it was written against. Until it is settled, this test's PLACED result -- the pool keeps 0.8 of itself -- stands on a control that cannot currently fail the way it is meant to: the slab control still proves shadows draw, but not that the cap's 5 mm can be seen.
 
-*STATUS: NARROWED 2026-10-10 -- fixed in four repos, not yet run cold. Pixelcoat 0.62.0 letters a business's sign in Blue Highway Condensed, smooth, at the band's 6:1 (1536 x 256), and asks for `linear` and mips; every one of the delco profile's 47 names sets, caps 112 to 137 px. Zoo 1.94.0's door box samples as the pack asks and keeps the art's shape. Lot 0.105.0 carries the pack's manifest beside its maps, and Level Factory 0.166.0 pins the sign maps' import from it (compressed, mipped). Next: a cold run of restaurant_row_001, which deals its businesses packs.*
+*STATUS: CLOSED 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): deli_a01's band and its door box read SCRAPPLE & SONS DELI in Blue Highway Condensed, smooth. Read off the walk copy: the pack is 1536 x 256 asking `linear` and mips; its manifest is in `signs/`; the band samples filtered, where 9185's was nearest; both maps import at `compress/mode=2` with mips; the door box samples LINEAR with mips and shows the art at 6.0:1 on its 2.05 x 0.6 m face. Frames: `docs/cold_runs/cold_9222/`.*
 
 **223. The street band: Pixel Operator, and stretched.** `docs/findings/street_band_type/`. A dealt business shows its Pixelcoat pack twice: on the band Lot hangs across its frontage, and on Zoo's door box, which wears the pack instead of painting a name (Level Factory 0.148.0, Zoo 1.79.0). Measured, nothing changed:
 - **The pack is a 4:1 cabinet, sampled nearest:** `theme-signs` renders `(size // 4, size)`; cold run 9217's `sign_flappahs` is 512 x 128 with `interpolation: nearest`.
@@ -19994,6 +19994,14 @@ Found alongside: Pixelcoat's `test_the_kinds_zoo_knows_are_the_kinds_zoo_knows` 
 4. **Level Factory 0.166.0** pins each sign map's import as its manifest asks: `compress/mode=2` for `linear`, `mipmaps/generate=true` for mips. A shipped package had left them at mode 0 with no mips.
 
 **The price, by arithmetic:** a sign's three maps were 0.20 MB compressed at 512 x 128; they are 1.6 MB compressed with mips at 1536 x 256, and a level carries a few.
+
+**PROVEN, cold run 9222** (`docs/cold_runs/cold_9222/NOTES.md`). restaurant_row_001, seed_9104, evening; the deal is `b0=scrapple_sons_deli`, as in 9185. What each release asked for is in the walk copy:
+- **Pixelcoat 0.62.0:** albedo and emissive 1,536 x 256; `import_hints` asks `interpolation: linear` and `generate_mipmaps: true`.
+- **Lot 0.105.0:** `signs/sign_scrapple_sons_deli.pack.json` beside its maps. The band's material carries no `texture_filter`, so it samples filtered; 9185's carried `texture_filter = 2`.
+- **Level Factory 0.166.0:** both maps' `.import` read `compress/mode=2` and `mipmaps/generate=true`.
+- **Zoo 1.94.0:** `M_SignBox_sign_scrapple_sons_deli_Face` samples magFilter 9729 and minFilter 9987, clamped. Its face is 2.05 x 0.60 m with UV v from -0.378 to 1.378, so the art lies on it at 6.0:1, its own shape.
+
+Observed in the frames, and left for the walker: a lamp pole stands in front of the band and hides the E of SCRAPPLE (no rule in Lot keeps a pole out of a band's sightline from the street), and the door box reads brighter than the band (its face emits at Zoo's strength; the band's multiplier is 0.65).
 
 *STATUS: OPEN 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carries blotches. The box truck's side at midnight, in the moon's shadow, runs from luma 1 to 6 (p5 to p95 after an 8 px blur, median 2), and with the lightmap switched off it is black all over, so the blotches are the bake's. Not yet measured: the bake at a higher quality.*
 

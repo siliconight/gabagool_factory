@@ -46,7 +46,23 @@ wide.** Measured 2026-10-10, nothing changed:
   the same bytes come out on every machine. A font drawn at build time would
   not give that.
 
-## What the change needs (proposed, not done)
+## Shipped 2026-10-10, as proposed below, in four releases
+
+- **Pixelcoat 0.62.0:** `core/smooth_type.py` and its minted table (this
+  folder's groundwork); `theme-signs` at 1536 x 256, with packs asking for
+  `linear` and mips; `paint_matte`.
+- **Zoo 1.94.0:** `load_pack` returns `interpolation` and `art_aspect`; the
+  sign material samples as the pack asks; `fit_uv` keeps the art's shape on
+  the door box. The library's 95 door signs are 0.6 m tall and 3.33 to
+  8.33:1, 4.67 at the median.
+- **Lot 0.105.0:** the pack's manifest is copied beside its maps.
+- **Level Factory 0.166.0:** the export pins a sign map's import from that
+  manifest, `compress/mode=2` and mips for a smooth pack. A shipped
+  package's sign maps were lossless with no mips.
+
+Proof: cold run 9222, restaurant_row_001.
+
+## What the change needed (proposed 2026-10-10, kept)
 
 1. **Pixelcoat renders the business signs smooth, at the band's shape.**
    Blue Highway Condensed, Zoo's shop voice, at 6:1, at about Zoo's 240 px
