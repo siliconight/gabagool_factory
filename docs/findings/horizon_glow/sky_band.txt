@@ -1,0 +1,17 @@
+C:\Projects\gabagool_studios\gabagool_factory\docs\findings\horizon_glow\sky_band.py:28: DeprecationWarning: Image.Image.getdata is deprecated and will be removed in Pillow 14 (2027-10-15). Use get_flattened_data instead.
+  px = list(im.crop((0, y0, FRAME[0], y1)).getdata())
+station      luma ctl luma glo     diff | warm ctl warm glo     diff
+east_end         1.53     3.00    +1.47 |    -1.46     0.07    +1.53
+elev_E           0.87    26.94   +26.07 |    -0.30    26.34   +26.64
+elev_N           0.87    25.39   +24.52 |    -0.28    28.56   +28.84
+elev_S           0.88    25.48   +24.60 |    -0.33    28.28   +28.61
+elev_W           0.88    26.94   +26.06 |    -0.32    26.30   +26.62
+extraction      18.61    18.72    +0.11 |     5.16     5.27    +0.11
+north_lot        0.94     5.46    +4.52 |    -0.53     4.24    +4.77
+north_road1      4.25     6.95    +2.70 |     0.85     3.69    +2.84
+objective        4.86     4.86    +0.00 |     4.78     4.78    -0.00
+overview         3.71     2.06    -1.65 |    -2.96     0.41    +3.37
+south_rows       6.20     6.21    +0.00 |     2.80     2.80    -0.00
+spawn           40.90    41.13    +0.23 |     9.72     9.98    +0.26
+west_end         2.73     5.49    +2.76 |     0.43     3.34    +2.91
+wrote _scratch/horizon_glow/glow_vs_control.png: 13 stations

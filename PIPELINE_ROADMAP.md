@@ -906,9 +906,9 @@ work of adopting this.
 | 225 | **CLOSED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fi |
 | 226 | **CLOSED** | A street lamp stood in front of a shop band | 2026-10-10 -- proven in cold run 9223 (restaurant_row_001, 0 interventions, 0 retries, fin |
 | 227 | **CLOSED** | The doctor's long-paths WARN is a constant, and the depth it warns abo | 2026-10-10 -- Level Factory 0.173.0 (`patches/patch_lf_long_paths.py`): the row reads `Lon |
-| 228 | **OPEN** | The edge of the plate: E, varied by level | 2026-10-10 -- the walker's call recorded and the arc designed; nothing built. Ships in fiv |
+| 228 | **NARROWED** | The edge of the plate: E, varied by level | 2026-10-10 -- step A shipped: Lux 0.73.0's `LuxHorizonGlow`, a ring every preset tunes (so |
 
-**228 items: 39 open, 107 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**228 items: 38 open, 107 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20103,7 +20103,7 @@ Owner: Lot.
 
 Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-10 -- the walker's call recorded and the arc designed; nothing built. Ships in five steps, each priced as the menu was: the glow (Lux), the fence at the plate's edge (Lot, Zoo), a backdrop rowhome kit and a water tower (Zoo), the bands beyond the plate by a per-level recipe (Lot), and their composition and the beacon (Level Factory, Lux).*
+*STATUS: NARROWED 2026-10-10 -- step A shipped: Lux 0.73.0's `LuxHorizonGlow`, a ring every preset tunes (sodium at night, a haze by day; energy 0 draws nothing), seen on cold run 9221's walk copy at the menu's stations (an orange band over the wall at eye level; from the elevated cameras the whole sky above the roofline goes sodium, the walker's dial) and priced at Level Factory's fixed stations against two controls: +1.0 draw, p95 +0.19 ms median inside the controls' 0.23 ms spread, 8 of 53 headings over it, the worst +1.81 ms on the level's heaviest frame, fill rate where the sky fills the view (`docs/findings/horizon_glow/`). Next: step B, the fence at the plate's edge (Lot, Zoo), priced with the glow standing; then the rowhome kit and the tower (Zoo), the bands by recipe (Lot), composition and the beacon (Level Factory, Lux).*
 
 **228. The edge of the plate: E, varied by level.** The walker, 2026-10-10, on the six-option menu in `docs/findings/edge_menu/` (roadmap 219, notes 8 and 12): "I prefer E, but we should have multiple different versions depending on the level". E is `fence` + `glow` + `houses` + `tower`: a fenced lot backing onto rows of rowhomes with lit windows, a sodium sky-glow over them and a water tower as the landmark. The recommendation had been D, the tree belt; the menu's own reading stands and is overruled: at the mockup's fidelity the houses read as blocks with windows and need a real kit, which is the work.
 
@@ -20131,3 +20131,8 @@ Owner: Level Factory.
 **NOT DECIDED, the walker's:** the rowhome kit's look once it is built (a sheet at the menu's stations); whether `borough` wants the tree belt in front of its far bands (F); what the other three recipes show, beyond what is named here.
 
 Owners: Lux (A, E's beacon); Lot (B, D); Zoo (B, C); Level Factory (D's field, E).
+
+**STEP A SHIPPED, Lux 0.73.0** (`patches/patch_lux_horizon_glow.py`, `docs/findings/horizon_glow/`). `LuxHorizonGlow`: six rows of 65 vertices at `horizon_glow_radius_m` (380), opaque dark land below the horizon, `horizon_glow_color` at a standing eye's height fading to nothing by `horizon_glow_top_deg` (20), the alphas scaled by `horizon_glow_energy`; unshaded, blended, fog ignored, no GI, no shadow; one draw; the four fields blend. Every preset carries one by its character: sodium for the night skies (Delco Night 1.0, three at 0.8, PS1 Storm Night 0.5), a warm dusk haze for Blue Hour, grey for Heavy Rain, a pale day haze for the three day skies at 0.35. Selftest `tools/horizon_glow_selftest.gd`, 30 checks.
+- **Seen:** at eye level an orange band over the pale wall, fading up into the stars (the sky band's luma 0.9 to 5.5 across the open lot, warmth -0.5 to +4.2); from look_shots' elevated cameras the whole sky above the rowhome roofline goes sodium (0.9 to 25 to 27). Interiors and the stations facing in do not move. The strength at the elevated views is the walker's call; `horizon_glow_energy` is the dial.
+- **Priced:** +1.0 draw a heading; p95 +0.19 ms median over 53 headings, inside the controls' own 0.23 ms spread; 8 headings over it by more than 0.5 ms, the worst +1.81 ms at `extraction_4` facing 270 (11.8 to 13.6 ms). A blended surface pays fill rate wherever the sky fills the view. The cheaper form, the glow in the sky's own shader, costs nothing a frame and waits on a provider whose shader Lux may write; reopen it when real sessions' data says the fill matters on the low-end target.
+- **Two refutations while writing it, kept:** a LuxRoot added under a SceneTree script's `_initialize` is not ready until the next frame (the selftest's first run found no glow); and a mesh stores its vertex colours in 8 bits, so a read-back is within 1/255 of what was written, not within 1/1000.
