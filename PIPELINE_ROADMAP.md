@@ -901,11 +901,11 @@ work of adopting this.
 | 219 | **NARROWED** | The walk of 2026-10-09: twelve notes | 2026-10-10 -- nine of the twelve notes fixed and PROVEN on the walked level, club_block_01 |
 | 220 | **CLOSED** | A bar down the middle of the door sign | 2026-10-10 -- proven in cold run 9218 (club_block_014, seed 9181, night; 0 interventions,  |
 | 221 | **CLOSED** | Patina's wall covers face into the building | 2026-10-10 -- proven in cold run 9221 (club_block_014, seed 9181; 0 interventions, 0 retri |
-| 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
+| 222 | **NARROWED** | A shadow control that stopped seeing its shadow | 2026-10-10 -- it does not fail now: seven runs from 04:30 the same night, six on a copy of |
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
 
-**225 items: 41 open, 104 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**225 items: 40 open, 104 closed, 3 retracted, 71 narrowed, 1 superseded, 6 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19963,7 +19963,7 @@ The four painted-metal meshes each lie on their own face only. Not priced: what 
 
 **Still to do:** a cold run, and step 3 above, the merge's price at stations that face one side of a building.
 
-*STATUS: OPEN 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0.71.0 and 0.72.0 alike, run alone with the GPU idle: the cap 5 mm under an on-axis lamp leaves the pool at 0.447 against 0.459 unshadowed, where the control wants under a tenth. 0.71.0's record (2026-10-09) has the test passing. Cause not established.*
+*STATUS: NARROWED 2026-10-10 -- it does not fail now: seven runs from 04:30 the same night, six on a copy of Lux 0.72.0 and one in the repo, all read the cap control at 0.001 against 0.459 and PASS, on the same binary and driver (`docs/findings/streetlight_shadow_control/`). Two probes over a bare shaft show the control's own setting (5 mm, bias 0.03) blacks the pool on its first read after the shadow is switched on. What differed during the two failing runs is not known; next time it fails, keep the frame and the window's state.*
 
 **222. A shadow control that stopped seeing its shadow.** `lux/tools/streetlight_shadow_selftest.gd` holds the streetlight's lamp beside its pole (Lux 0.65.0). Its two controls prove the instrument sees a shadow at all:
 - **a slab a metre under the lamp blacks the pool.** It still does: 0.000.
@@ -19972,6 +19972,13 @@ The four painted-metal meshes each lie on their own face only. Not priced: what 
 Measured 2026-10-10, ground under the pole 9 m off, the test's own figures: placed 0.453, unshadowed 0.459, on the axis at the lens 0.447, under a slab 0.000. The same numbers came back on Lux 0.71.0 HEAD and on 0.72.0's draft, the GPU idle both times. 0.71.0's changelog says all 20 selftests passed when it shipped, this one windowed among them.
 
 So the code under test did not change, and the result did. Not yet looked at: the NVIDIA driver (look_shots' manifests read 616.56 tonight), the window's state when the test opens it, and whether the pole the test builds still matches the Zoo streetlight it was written against. Until it is settled, this test's PLACED result -- the pool keeps 0.8 of itself -- stands on a control that cannot currently fail the way it is meant to: the slab control still proves shadows draw, but not that the cap's 5 mm can be seen.
+
+**MEASURED, 2026-10-10 from 04:30** (`docs/findings/streetlight_shadow_control/`).
+- **The selftest, unchanged, seven times:** five in a row and one more on a working-tree copy of Lux 0.72.0, and one in the Lux repo, clean before and after. Every run printed `placed 0.453 unshadowed 0.459 on the axis at the lens 0.001 under a slab 0.000` and PASS, with Godot 4.7 stable and NVIDIA 616.56.
+- **`shadow_gap_probe.gd`:** the selftest's lamp from Lux's own loader over a bare 0.06 m shaft, its cap 5 mm to 30 cm under the lamp, at biases 0 to 0.10. At 5 mm and bias 0.03, the control's own setting, the pool reads 0.001. At 10 and 30 cm the pool is partly lit at every bias (0.185, 0.419), as the narrowing cone says it should be. At bias 0.00 and gaps of 2 cm or less no shadow is drawn at all (0.447), and at the pole's 0.10 a 5 mm cap lets 0.081 through, which is why the control runs at 0.03.
+- **`shadow_gap_probe2.gd`, refuting a staleness reading.** The control is the selftest's first read after `shadow_enabled = true`, so the probe read twice at each setting. Bias 0.03 is black on its first read after switching on, and bias 0.00's lost shadow is lost on both reads. The bias decides, not the order.
+
+So the control can fail the way it is meant to, and today it passes. Why it read 0.447 twice earlier that night, on unchanged code, is not established. Not recorded then, and worth keeping the next time: the frame, and whether the window was covered, minimised or on a sleeping display.
 
 *STATUS: CLOSED 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): deli_a01's band and its door box read SCRAPPLE & SONS DELI in Blue Highway Condensed, smooth. Read off the walk copy: the pack is 1536 x 256 asking `linear` and mips; its manifest is in `signs/`; the band samples filtered, where 9185's was nearest; both maps import at `compress/mode=2` with mips; the door box samples LINEAR with mips and shows the art at 6.0:1 on its 2.05 x 0.6 m face. Frames: `docs/cold_runs/cold_9222/`.*
 
