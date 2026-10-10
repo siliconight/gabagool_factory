@@ -899,12 +899,12 @@ work of adopting this.
 | 218 | **CLOSED** | The export's import pass checked nothing | 2026-10-09 -- the import pass checks its own work, proven cold. Level Factory 0.163.1 coun |
 | 219 | **NARROWED** | The walk of 2026-10-09: twelve notes | 2026-10-10 -- nine of the twelve notes fixed and PROVEN on the walked level, club_block_01 |
 | 220 | **CLOSED** | A bar down the middle of the door sign | 2026-10-10 -- proven in cold run 9218 (club_block_014, seed 9181, night; 0 interventions,  |
-| 221 | **OPEN** | Patina's wall covers face into the building | 2026-10-09 -- found while tracing 220: Patina's anchor-derived wall covers face INTO the b |
+| 221 | **NARROWED** | Patina's wall covers face into the building | 2026-10-10 -- the cause verified and fixed in Patina 0.30.0, not yet run cold. `_up_to_z`  |
 | 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
 | 223 | **OPEN** | The street band: Pixel Operator, and stretched | 2026-10-10 -- note 10 generalised (item 219): a business Level Factory deals a Pixelcoat s |
 | 224 | **OPEN** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carr |
 
-**224 items: 43 open, 102 closed, 3 retracted, 69 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**224 items: 42 open, 102 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19930,7 +19930,7 @@ Corrections to the list above, kept beside it:
 
 **The fix is Patina 0.29.2.** `conduit_targets` runs conduit to wall packs only. A cabinet sign is fed through the wall behind it. Its test fails on 0.29.1, and a kept instrument test rebuilds 0.29.1's order through the opening pass: the 0.27 m stub on the face plane.
 
-*STATUS: OPEN 2026-10-09 -- found while tracing 220: Patina's anchor-derived wall covers face INTO the building, so Zoo merges base courses and conduits with the opposite face's covers. On 9217's strip_club_a01 each concrete merge group spans two faces (CoverN 2,544 north-face vertices and 480 south-face), and the painted-metal groups do not. 22 of the club's 51 base courses stand on a wall's centre line, buried. Not priced; cause not verified.*
+*STATUS: NARROWED 2026-10-10 -- the cause verified and fixed in Patina 0.30.0, not yet run cold. `_up_to_z` swaps two axes, a reflection, and the anchor pass took its wall normals from cross products in that view: all 10 of strip_club_a01's segments pointed into the building. The floor and roof slabs' edges on each wall's centre line were exterior-wall segments too. Replayed through Zoo's `plan_dressing`, the club's 51 base courses went from 0 facing out, 0 on their own side and 28 inside the wall to 45 of 45 out, on their side, on the face; its curbs from 52 of 57 inside to none; its 2 conduits onto the wall, facing out (`docs/findings/patina_cover_normals/`). Not yet: a cold run, and the merge's price.*
 
 **221. Patina's wall covers face into the building.** Found in cold run 9217's orders for strip_club_a01 while tracing 220 (`docs/findings/sign_bar/README.md`). In the spec frame:
 - **The anchor-derived covers face in.** The south door's conduit carries normal +y, and all 51 base courses carry inward normals, for example +x on the west face.
@@ -19955,6 +19955,12 @@ The four painted-metal meshes each lie on their own face only. Not priced: what 
 1. print one segment's normal against its wall's known facing, before believing this;
 2. then fix the normal once, where it is derived, and put the wall packs' conduits on the wall;
 3. then price the merge before and after, at stations that face one side of a building.
+
+**The cause, verified 2026-10-10** (`docs/findings/patina_cover_normals/`). Loaded the way `patina.cli.run` loads it, strip_club_a01's shell has 10 wall segments, and every derived normal points at the building's centre, dot -1.00; the same faces' normals with the winding taken before the permutation all point out. Nothing downstream compensates: Zoo's `_orient_matrix` turns a cover along the normal and `cover_side` files it by the normal. The 22 buried base courses (28 on the shell as built today) were a second defect: `surfaces.classify` accepts an outward face within `_BOUNDARY_TOL`, 0.25 m, of the bounds, and the floor slab under each wall and the roof slab over it end on the wall's centre line, 0.15 m in. *RETRACTED, kept:* the probe's first run skipped `bake_visual_transforms` and measured one slab tile's frame, 7 x 3.3 x 4.8 m; and the fix's first draft dropped whole segments a face covered, which no centre-line segment was, since the slabs run 0.3 m below and above each face.
+
+**The fix, Patina 0.30.0:** `_exterior_wall_faces` negates its product in a mirrored view; `_buried` skips any point with a face of the same facing in front of it, within 0.5 m, across its run and height (asked per point, so a roofline on the roof slab's exposed edge stays); a conduit takes its wall's plane. `tests/test_anchor_normals.py`: four of its six fail on 0.29.2. Suite 393 passed, 1 skipped (0.29.2: 387 and 1).
+
+**Still to do:** a cold run, and step 3 above, the merge's price at stations that face one side of a building.
 
 *STATUS: OPEN 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0.71.0 and 0.72.0 alike, run alone with the GPU idle: the cap 5 mm under an on-axis lamp leaves the pool at 0.447 against 0.459 unshadowed, where the control wants under a tenth. 0.71.0's record (2026-10-09) has the test passing. Cause not established.*
 
