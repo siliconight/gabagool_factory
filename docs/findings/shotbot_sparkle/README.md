@@ -65,11 +65,67 @@ comment beside `JITTER_FAIL_PCT`.
 - **Whether any coplanar pair hides inside the speckle.** The maps show none,
   but they were read by eye.
 
-## What would separate the two (proposed)
+## What would separate the two (proposed first, refuted, kept)
 
-Judge connected regions, not a count. A z-fight is a contiguous region, many
-pixels across. Sparkle is single pixels and short runs. The gate could
-measure, for example, the largest connected region of changed pixels, or
-the share of changed pixels that sit in regions above some size. It would
-FAIL on that, and report the scattered remainder as sparkle, a finding of
-its own rather than a verdict of z-fighting.
+*As first proposed:* "Judge connected regions, not a count. A z-fight is a
+contiguous region, many pixels across. Sparkle is single pixels and short
+runs."
+
+## A control, and what it refuted (2026-10-10, before 06:10)
+
+**The control.** `zfight_control.tscn` is two 8 m quads, red and blue,
+0.01 mm apart. That is inside the depth buffer's precision, the textbook
+fighting pair. It was run through the shot bot in 9222's preview project.
+- The first version used `PlaneMesh`, which lies flat. The exterior station
+  stands at 0.6 of the scene's height, which is 0, so it saw the planes edge
+  on and failed for "a single colour".
+- `QuadMesh` stands upright and faces the station.
+
+All the numbers below are in `measured.txt`.
+
+**Refuted: judge the largest connected region.** `regions.py` joins changed
+samples on the gate's grid:
+
+| | largest region (samples) | share of changes in regions of 16 or more |
+|---|---|---|
+| the control | 54 | 54.5% |
+| 9222's worst station | 28 | 3.8% |
+
+- A gate at 64 samples, a 16 x 16 px patch, was written into `shot_bot.gd`
+  and run. It **passed the control** at region 54.
+- A precision-level fight breaks into stripes and fragments, not one block.
+  Region size separates it from sparkle by less than two times, in the wrong
+  place.
+
+**Refuted: move the near plane instead of the camera.** This is
+`make_near_probe.py`, near times 1.02.
+- It leaves every pixel's position and texture sample where it was, so
+  sparkle cannot appear. 9222's stations read 0.00% to 0.02%.
+- But it flipped **0** samples on the control as well. A pure depth
+  requantization keeps the two quads' order.
+
+**Kept: the size of each flip.** `deltas.py` measures how far each changed
+sample moves:
+
+| | median change (of 255) | changes over 64 |
+|---|---|---|
+| the control | 255 | 100% |
+| 9222's four interior stations | 16 to 19 | 0.8% to 7.6% of their changes |
+| 9222's exterior (7 changed samples in all) | 42 | 1 of the 7 |
+
+- A pixel that z-fights swaps between two surfaces' colours. One that
+  sparkles shifts by a blend of one texture.
+- Counting changes over 64 as a share of the frame gives 2.02% on the
+  control and 0.00% to 0.12% on 9222's stations.
+- A gate at 0.5% sits about four times from each.
+- Run as `shot_bot.gd`'s verdict: **the control fails (fighting 2.02%), and
+  all five of 9222's stations pass**, the two former failures noted as
+  sparkle.
+
+That is Level Factory 0.172.0.
+
+**What it gives up: a fight between two surfaces whose colours are within
+64 of each other.** A person can barely see that fight.
+
+**Still open (roadmap 225):** whether the ceiling's sparkle shows in play,
+moving at full resolution.
