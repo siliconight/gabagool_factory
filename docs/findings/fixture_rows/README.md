@@ -49,5 +49,7 @@ belong to the fix, not to this census.
 - `row_census.py`: reads `*.lights.json` and the `.gameplay.json` beside
   each for the room bounds; prints what it counted and stops.
 - `row_census.txt`: the run above, 2026-10-10.
+- `row_census_0206.txt`: the library rebuilt on Deli Counter 0.206.0 (the rows laid to the work): 1,156 rows, 4,217 lamps.
+- `row_census_0206_1.txt`: the library rebuilt on Deli Counter 0.206.1 (the home rule keyed on the room's words): 1,140 rows, 4,133 lamps; ten more rooms take the home's one fixture.
 - The references the walker supplied are digested in
   `docs/reference/INDOOR_FIXTURE_PLACEMENT_GUIDE.md`.
