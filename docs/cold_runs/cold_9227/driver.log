@@ -1,0 +1,56 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9227\journal.md
+== batch
+created batch 'cold_9227' with 1 mission(s): county_hospital_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 51)
+  county_hospital_001.lot_assemble.candidate.seed_9006: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9107: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9208: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9006: 1 major, route completion 0.60, out for nothing
+  seed 9107: 1 major, route completion 1.00, out for nothing
+  seed 9208: 1 major, route completion 1.00, out for nothing
+  picked seed_9107 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 67)
+  exit 1
+== export
+[export] light bake: 115 model(s) and 776 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 44 steady rig(s) baked, 24 failing and 0 cycling left live; 119 room fill(s); 1638 users, 49.8 s in the editor
+exported county_hospital_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9227-ws\.level_factory\exports\LF_county_hospital_001.portable-godot
+  exit 0
+== findings
+findings 0 -> 67
+   DISPATCH_FINDING 0 -> 4
+   LOT_DESTINATION_ABOVE_FLOOR 0 -> 4
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 4
+   LOT_GROUND_EXTENDED 0 -> 4
+   LOT_PACING_OUTSIDE_TARGET 0 -> 4
+   LOT_RESPONDER_ENTRY_NO_STOP 0 -> 4
+   LT_MAP_BLIND_MAP 0 -> 2
+   LT_MAP_ENEMY_STUCK 0 -> 3
+   LT_MAP_INSTANT_CONTACT 0 -> 3
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 3
+   LT_MAP_PLAYER_STUCK 0 -> 3
+   LT_MAP_TRAVERSAL 0 -> 1
+   LT_MARKER_OFF_FLOOR 0 -> 3
+   LT_OPENING_STANDOFF 0 -> 3
+   LT_STOREY_UNSEEN 0 -> 3
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_CIRCULATION 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   S_GETAWAY_AT_SPAWN 0 -> 4
+   S_RESPONDER_ARC 0 -> 4
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE

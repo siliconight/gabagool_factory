@@ -1,0 +1,20 @@
+package: workspaces/cold-9227-ws/.level_factory/exports/LF_county_hospital_001.portable-godot
+drawn:   workspaces/cold-9227-ws/.level_factory/jobs/county_hospital_001.themed_site_assemble/1/out/site.site.drawn.json
+backdrop off in _scratch\price_9227\control\mission.tscn: removed the block loading site_backdrop.tscn (packed_2); 1232 bytes -> 1109
+# road0_a_W: eye at plan (1.5, -25.1), 45 m inside the edge, looking at (-43.5, -25.1)
+# road0_b_E: eye at plan (-1.5, -25.1), 45 m inside the edge, looking at (43.5, -25.1)
+# road1_b_N: eye at plan (-33.2, -11.5), 45 m inside the edge, looking at (-33.2, 33.5)
+--station road0_a_W:1.5,1.7,25.15,-43.5,2.2,25.15 --station road0_b_E:-1.5,1.7,25.15,43.5,2.2,25.15 --station road1_b_N:-33.15,1.7,11.5,-33.15,2.2,-33.5
+control shots exit 0
+subject shots exit 0
+docs/cold_runs/cold_9227/edge_before_after.png (1600, 3388)
+sheet: docs/cold_runs/cold_9227/edge_before_after.png
+price exit 0
+measured control_1  25 headings  draws mean 335 worst 723  p95 median 2.55 ms
+measured glow       25 headings  draws mean 367 worst 1183  p95 median 2.58 ms
+measured control_2  25 headings  draws mean 335 worst 723  p95 median 2.52 ms
+controls' spread, median over 25 headings: p95 0.16 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0             0.03         2.01
+glow              31.8            4          484            -0.01         2.30
+control_2          0.0            0            0            -0.03         0.29
