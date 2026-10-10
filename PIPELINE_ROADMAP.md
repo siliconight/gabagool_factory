@@ -680,9 +680,10 @@ work of adopting this.
 | # | status | item | evidence |
 |---|---|---|---|
 | 1 | **CLOSED** | Cover is exonerated — the trap is somewhere else | 2026-07-27 -- as the body records: "Closed 2026-07-27". Cover is exonerated; the trap is s |
-| 1 | **OPEN** *(inferred)* | MEASURED 2026-10-10: the quality does not move them | — |
+| 1 | **CLOSED** *(inferred)* | MEASURED 2026-10-10: the quality does not move them | CLOSED 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0 |
 | 1 | **OPEN** *(inferred)* | DONE, Level Factory 0.172.0 | — |
 | 2 | **CLOSED** | `walktest.py` into the DAG | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Lot 0.x", `walktest.py` into the  |
+| 2 | **OPEN** *(inferred)* | ANSWERED, read off 9222's package: | — |
 | 3 | **CLOSED** | Lot places enemies twice, and nothing checks the two agree | 2026-08-16 -- PLACED ONCE AND THREADED THROUGH, which is the first of the two remedies thi |
 | 4 | **CLOSED** | Lot emits absolute `res://` paths at source | 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Le |
 | 5 | **CLOSED** | A run that evaluated nothing reported a clean pass | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Level Factory 0.14.0", the resume |
@@ -905,10 +906,10 @@ work of adopting this.
 | 222 | **NARROWED** | A shadow control that stopped seeing its shadow | 2026-10-10 -- it does not fail now: seven runs from 04:30 the same night, six on a copy of |
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
-| 225 | **NARROWED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells them apart (Level Factory 0.172.0): a fight is a sampled pixe |
+| 225 | **CLOSED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fi |
 | 226 | **NARROWED** | A street lamp stood in front of a shop band | 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop |
 
-**228 items: 40 open, 104 closed, 3 retracted, 74 narrowed, 1 superseded, 6 analysis.** 11 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**229 items: 40 open, 106 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 12 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20051,7 +20052,7 @@ Owner: Level Factory for the bake's settings and the import. Nothing changes unt
 
 So 2 is next: the truck's texel density (`lightmap_size_hint`, or `LightmapGI.texel_scale`). Large texels, interpolated and denoised, draw exactly this kind of blob, and it is priced in lightmap memory rather than in draw calls. After it, the denoiser off.
 
-*STATUS: NARROWED 2026-10-10 -- the gate tells them apart (Level Factory 0.172.0): a fight is a sampled pixel that changes by more than 64 of 255, and a station fails past 0.5% of the frame. A control of two quads 0.01 mm apart fails at 2.02%; 9222's five stations pass at 0.00% to 0.12%, the two sparkling ones noted as sparkle. Two designs were refuted against the control first (largest connected region; moving the near plane). Left: whether the ceiling's sparkle shows in play.*
+*STATUS: CLOSED 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fight fails at 2.02%, 9222's stations pass at 0.00% to 0.12%), and the sparkle is the skins' own sampling: the acoustic ceiling tile is a 256 x 256 skin sampled NEAREST / NEAREST_MIPMAP_NEAREST, as Pixelcoat's pixel skins are by design, so it swaps whole texels under any motion in play too. Filtering skins linear is a look call for the walker, not a defect here.*
 
 **225. The walk's jitter gate reads texture sparkle as z-fighting.** `docs/findings/shotbot_sparkle/`. The shot bot renders each station twice, 1 mm apart, and fails a station when more than 2.0% of sampled pixels change by more than 12 of 255. It was calibrated in August on a package whose worst honest station was 0.68% ("edge aliasing along a ladder's rungs") and whose real double-wall z-fight was 30.67%. It was then blind from Level Factory 0.100.0 to 0.170.0, photographing under the shader warm-up's black cover (roadmap 202's install test; 0.171.0 holds the warm-up).
 - **What it now fails:** Ladder_ladder_0_base 3.60% and Ladder_ladder_1_top 2.33% on 9222's preview, both interiors under a drop ceiling.
@@ -20069,6 +20070,8 @@ Owner: Level Factory for the gate; whoever owns the ceiling's texture for the se
 - **Refuted:** moving the near plane instead of the camera. No texture sample moves, so no sparkle, but the control flipped 0 samples too.
 - **Kept, the size of a flip.** The control's flips are all 255 of 255. 9222's four interiors flip by a median of 16 to 19, at most 7.6% of their flips over 64. Counted over 64 as a share of the frame: the control 2.02%, 9222 0.00% to 0.12%, and the gate sits at 0.5%. Run as the verdict, the control fails and all of 9222's stations pass.
 - **What it gives up:** a fight between two surfaces within 64 of each other, which a person can barely see.
+
+**2. ANSWERED, read off 9222's package:** the drop ceiling's tiles are `M_Skin_ceiling_tile_delco_1997` (Zoo's `ceiling_delco_1997_13_*`), a 256 x 256 skin, mipmapped and lossless, sampled magFilter NEAREST and minFilter NEAREST_MIPMAP_NEAREST -- the drywall ceilings sample the same way. Nearest sampling takes one texel a pixel, so any sub-pixel camera motion swaps whole texels on a fine-grained skin: the speckle in the maps, and the shimmer a moving camera sees. It is the pixel skins' look, which Pixelcoat asks for and Zoo honours, not this ceiling's defect. Filtering skins `linear`, as the business signs have been since Pixelcoat 0.62.0, is the realism direction and the walker's call to make and price.
 
 *STATUS: NARROWED 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop band's span on the kerb it faces and steps to the nearer end of it. Replayed on cold run 9222's drawn site, one piece of 107 moves, Lamp_2 from station 30.00 to 25.05. Next: a cold run of restaurant_row_001, framed at the band.*
 

@@ -127,5 +127,23 @@ That is Level Factory 0.172.0.
 **What it gives up: a fight between two surfaces whose colours are within
 64 of each other.** A person can barely see that fight.
 
-**Still open (roadmap 225):** whether the ceiling's sparkle shows in play,
-moving at full resolution.
+## Does the ceiling sparkle in play? Read off 9222's package, 2026-10-10
+
+**Yes, and it is the look's own sampling, not a defect of this ceiling.**
+- **The tiles:** `M_Skin_ceiling_tile_delco_1997` in Zoo's `ceiling_delco_1997_13_*`
+  models, a 256 x 256 skin
+  (`lot/deli_a01/art/zoo/_tex/ceiling_tile_delco_albedo_5bdf9004.png`).
+- **Its sampler:** magFilter 9728, NEAREST, and minFilter 9984,
+  NEAREST_MIPMAP_NEAREST. The drywall skin of the other ceilings samples
+  the same way.
+- **Its import:** mipmaps generated, lossless (`compress/mode=0`).
+- **What follows from nearest sampling.** Each pixel takes one texel, so
+  any sub-pixel camera motion swaps whole texels on a fine-grained skin.
+  That is the speckle in the maps, and a camera moving at full resolution
+  makes the same swaps every frame.
+- **Why it samples that way.** Pixelcoat's pixel skins ask for `nearest`,
+  and Zoo samples them so by design.
+- **What would change it:** filtering the skins `linear`, as the business
+  signs have done since Pixelcoat 0.62.0. That is a look decision, in the
+  direction of "Realism replaces the retro look". It is the walker's to
+  make and to price, not a fix to land here.
