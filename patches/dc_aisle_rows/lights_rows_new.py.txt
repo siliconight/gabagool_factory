@@ -100,8 +100,10 @@ def _lanes_for_room(r, bounds, floor_z, volumes, aisle):
     shelves' spans across the room's long axis are clipped to the bounds and
     merged, and every gap between them and the bounds at least `aisle` wide
     is a lane. Shelving that leaves no lane returns [], and the room is laid
-    across as before. `volumes` are the room's visible volumes on its
-    storey (`_volumes_in`)."""
+    across as before; so is a room whose merged spans are wider than a run
+    is deep (`_SHELF_SPAN_MAX`), a field of staggered islands rather than
+    parallel runs, which returns None. `volumes` are the room's visible
+    volumes on its storey (`_volumes_in`)."""
     key = ((r.get("role") or "") + " " + (r.get("id") or "")).lower()
     if not any(w in key for w in _AISLE_ROOM_WORDS):
         return None
@@ -132,6 +134,14 @@ def _lanes_for_room(r, bounds, floor_z, volumes, aisle):
             merged[-1] = (merged[-1][0], max(merged[-1][1], b))
         else:
             merged.append((a, b))
+    # A FIELD OF ISLANDS IS NOT A RUN. The furnish stands a selling room's
+    # islands down its middle band at shuffled positions along it, so their
+    # spans across the room overlap into one band wider than any shelf is
+    # deep; a row kept off that band would leave the middle of the floor
+    # dark (the gas station's sales floor, 14 m between rows on the first
+    # build). Past `_SHELF_SPAN_MAX` the room is laid across as before.
+    if max(b - a for a, b in merged) > _SHELF_SPAN_MAX:
+        return None
     edges = [lo] + [e for a, b in merged for e in (a, b)] + [hi]
     gaps = [(edges[k], edges[k + 1]) for k in range(0, len(edges), 2)]
     return [(round(a, 3), round(b, 3)) for a, b in gaps if b - a >= aisle - 1e-6]

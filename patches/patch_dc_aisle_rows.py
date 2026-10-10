@@ -2,8 +2,9 @@
 
 Anchored edits in `lights.py` (the constants, `_rows_for_room` replaced and `_lanes_for_room`
 added from `dc_aisle_rows/lights_rows_new.py.txt`, the room loop and the report), one in
-`deli_counter.py` (the manifest line), seven tests appended to `test_fixture_rows.py` and the
-partition test's report dict given the new count; each file pinned by hash and each anchor
+`deli_counter.py` (the manifest line), eight tests appended to `test_fixture_rows.py`, the
+partition test's report dict given the new count and the gas station's storefront reach test
+asserting the shape rather than three pinned numbers; each file pinned by hash and each anchor
 asserted once, nothing written on a miss; the file's own line
 endings kept. CHANGELOG and VERSION from `dc_aisle_rows/CHANGELOG_0.207.0.md`. Then, chained:
 
@@ -22,7 +23,30 @@ SRC = HERE / "dc_aisle_rows"
 DRAFT = "--draft" in sys.argv
 SUITE_PENDING = "--suite-pending" in sys.argv
 SHA = {"lights.py": "5d5235fc80c9b77b", "test_fixture_rows.py": "86565578d5c84445",
-       "deli_counter.py": "8ce639cb9ccc8168", "test_lights_partitions.py": "8dcef3220c15ffc2"}
+       "deli_counter.py": "8ce639cb9ccc8168", "test_lights_partitions.py": "8dcef3220c15ffc2",
+       "test_storefront_reach.py": "2ce94fb056e98975"}
+
+# the gas station's library test pinned three reach values from a sales floor laid across;
+# the built floor is laid to its gondolas now, so it asserts the shape instead
+REACH_OLD = (
+    '    # three rows since 0.206.0, each reaching the glass from its own line; the built\n'
+    '    # manifest (`build.py --all`) agrees with the pure case above to the centimetre\n'
+    '    a = {x["id"]: x for x in _lights("gas_station_a02")}\n'
+    '    assert [a[k]["reach"] for k in ("sales_floor_ceiling", "sales_floor_ceiling_r1",\n'
+    '                                    "sales_floor_ceiling_r2")] == [2.0, 6.2, 9.8]\n'
+)
+REACH_NEW = (
+    '    # since 0.207.0 the built sales floor is laid to its gondolas and the cap\'s trade\n'
+    '    # (the pure case above has no shelves and keeps its three rows), so the shape is\n'
+    '    # asserted: every row reaches the glass from its own line, the nearer the shorter,\n'
+    '    # and the first row keeps the original id\n'
+    '    a = {x["id"]: x for x in _lights("gas_station_a02")}\n'
+    '    rows = sorted((x["pos"][1], x["reach"]) for x in a.values()\n'
+    '                  if x["type"] == "fluorescent" and x.get("room") == "sales_floor")\n'
+    '    assert len(rows) >= 2 and "sales_floor_ceiling" in a\n'
+    '    assert all(r > 0.0 for _y, r in rows)\n'
+    '    assert [r for _y, r in rows] == sorted(r for _y, r in rows)\n'
+)
 VERSION_WAS, VERSION = b"Deli Counter 0.206.1", b"Deli Counter 0.207.0"
 CHANGELOG_HEAD = "## [0.206.1] - a home's room in any building takes the home rule\n"
 
@@ -50,7 +74,16 @@ HOME_NEW = HOME_OLD + (
     "#: `clearances.min_door_width_m`, the number `island_aisle_width` returns.\n"
     "_AISLE_MIN_FALLBACK = 1.25\n"
     "#: A shelf stands on the floor; a sign hung over an aisle does not.\n"
-    "_SHELF_FOOT_MAX = 0.5\n")
+    "_SHELF_FOOT_MAX = 0.5\n"
+    "#: A merged shelf span wider than this is a FIELD of islands, not a run: the\n"
+    "#: deepest run in `level_design._PIECES` is 0.6 m and a twin island, two\n"
+    "#: backs meeting, 1.2 m (`level_design.island_depth`); the furnish stands a\n"
+    "#: selling room's islands down its middle band at shuffled positions along\n"
+    "#: it, and their spans overlap into a band 2 to 10 m wide (66 of the 98\n"
+    "#: shelved selling and storage rooms in the library; 32 have runs). A row\n"
+    "#: kept off such a band leaves the middle of the floor dark, so past this\n"
+    "#: the room is laid across as before.\n"
+    "_SHELF_SPAN_MAX = 2.0\n")
 REP_OLD = "    rep.setdefault(\"rows_laid\", 0)\n"
 REP_NEW = REP_OLD + "    rep.setdefault(\"rows_over_aisles\", 0)\n"
 TRY_OLD = (
@@ -143,6 +176,9 @@ def main():
     pp, p_eol, part = _read("test_lights_partitions.py")
     part = _once(part, PART_OLD, PART_NEW, "the partition report")
 
+    sp, s_eol, reach = _read("test_storefront_reach.py")
+    reach = _once(reach, REACH_OLD, REACH_NEW, "the gas station's reach")
+
     cl = DC / "CHANGELOG.md"
     cl_raw = cl.read_bytes()
     cl_eol = _eol(cl_raw, "CHANGELOG.md")
@@ -153,6 +189,7 @@ def main():
     dp.write_bytes(dc.replace("\n", d_eol.decode()).encode("utf-8"))
     tp.write_bytes(tests.replace("\n", t_eol.decode()).encode("utf-8"))
     pp.write_bytes(part.replace("\n", p_eol.decode()).encode("utf-8"))
+    sp.write_bytes(reach.replace("\n", s_eol.decode()).encode("utf-8"))
     cl.write_bytes((entry.rstrip("\n") + "\n\n" + cl_text).replace("\n", cl_eol.decode()).encode("utf-8"))
     (DC / "VERSION").write_bytes(VERSION)
     print("Deli Counter 0.206.1 -> 0.207.0" + (" (DRAFT)" if DRAFT else ""))

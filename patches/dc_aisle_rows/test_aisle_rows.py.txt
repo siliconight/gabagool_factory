@@ -73,6 +73,20 @@ def test_shelves_that_leave_no_lane_lay_the_room_as_before():
     assert rep["rows_over_aisles"] == 0
 
 
+def test_a_field_of_staggered_islands_is_laid_as_before():
+    # two gondolas standing at different places ALONG the room whose spans across it overlap
+    # into a 2.2 m band (4.5 and 5.5, each 1.2 deep): not parallel runs but a field, and a row
+    # kept off the band would leave the middle dark, so the room keeps 0.206.1's grid
+    r = {"id": "sales_floor", "story": 0, "bounds": [0.0, 0.0, 20.0, 12.0], "role": "sales",
+         "center": [10.0, 6.0, 0.0]}
+    field = [_gondola("gondola_aisle_1", 5.0, 4.5, sx=4.0, sy=1.2), _gondola("gondola_aisle_2", 14.0, 5.5, sx=4.0, sy=1.2)]
+    bare = _rows(_derive([r]), "sales_floor")
+    rep = {}
+    got = _rows(_derive([r], volumes=field, report=rep), "sales_floor")
+    assert [a["pos"] for a in got] == [a["pos"] for a in bare] and len(got) == 3
+    assert rep["rows_over_aisles"] == 0
+
+
 def test_a_long_hall_favours_lamps_along_over_rows_across():
     # 58 x 20 m on the floor plane (B = 4.65): WOOD asks 3 rows of 12; the cap allowed 3 rows of
     # 4 at 14.5 m along, where 2 rows of 5 at 11.6 m along and 10 m across is the smaller worst
