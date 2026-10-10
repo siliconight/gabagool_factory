@@ -1,0 +1,4048 @@
+"""
+lot.py  --  site assembler for Deli Counter buildings (Phase 1)
+==============================================================
+Deli Counter makes one monolithic, deterministic building per spec. A
+PAYDAY-scale heist is several buildings with space between them. Lot is the
+sibling tool that COMPOSES already-built Deli Counter buildings into a site:
+it places each building on a shared ground, merges their gameplay data into one
+site-level file, and emits a Godot scene that instances them.
+
+It never re-generates or edits the buildings. Each building stays an untouched,
+independently-rebuildable .glb (the disposable-.glb / iterate-the-spec loop keeps
+working per building). Lot is a composition layer ABOVE the buildings, consuming
+their public contract (.glb + .gameplay.json) — never their internals.
+
+PHASE 1 (this file): deterministic placement + ground slab manifest + merged,
+world-offset, namespaced gameplay.json + a generated Godot .tscn that instances
+each building at its placement. No geometry merging — buildings stay separate
+files, composed at load time.
+
+PHASE 2 (later): box-vocabulary outdoor — paths, courtyards, perimeter walls,
+cover — generated as the same axis-aligned blockout geometry Deli Counter uses.
+
+A site spec (JSON):
+{
+  "name": "big_oil",
+  "ground": {"size_x": 120, "size_y": 80},
+  "buildings": [
+    {"id": "bank", "glb": "bank.glb", "gameplay": "bank.gameplay.json",
+     "at": [0, 0], "rot": 0},
+    {"id": "warehouse", "glb": "warehouse.glb", "gameplay": "warehouse.gameplay.json",
+     "at": [45, 10], "rot": 90}
+  ],
+  "site_markers": [
+     {"type": "extraction", "at": [60, -30]}
+  ]
+}
+"""
+
+import hashlib
+import json
+import math
+import os
+import shutil
+
+
+#: What a MISSING contract file falls back to. These must track the ratified
+#: values in deli_counter/agent_contract.json -- they had drifted, still saying
+#: agent_max_climb_m 0.5 and cell_size_m 0.15 after both were changed, so a
+#: build with no contract present would have silently used the numbers that let
+#: the bake promise a 0.49 m climb and then severed every stair over 45 deg.
+_AGENT_DEFAULTS = {"nav_bake": {"agent_radius_m": 0.4, "agent_height_m": 1.8,
+                                "agent_max_climb_m": 0.15,
+                                "agent_max_slope_deg": 55.0,
+                                "cell_size_m": 0.10, "cell_height_m": 0.15},
+                   "characters": {"player": {"radius_m": 0.35,
+                                             "height_m": 1.8,
+                                             "eye_height_m": 1.6,
+                                             "crouch_height_m": 1.2,
+                                             "max_step_up_m": 0.5,
+                                             "walk_speed_mps": 4.0},
+                                  "npc_standard": {"radius_m": 0.35,
+                                                   "height_m": 1.8}},
+                   "clearances": {"min_door_width_m": 1.25,
+                                  "min_corridor_width_m": 1.1,
+                                  "min_headroom_m": 2.0,
+                                  "unassisted_step_max_m": 0.1025},
+                   "qa": {"arrive_dist_m": 1.5, "stuck_seconds": 4.0,
+                          "snap_max_m": 2.0}}
+_agent_cache = None
+
+
+def _agent():
+    """The shared agent contract (deli_counter/agent_contract.json -- ONE
+    source of truth for character metrics and derived clearances; the
+    body-metrics sibling of COORDINATE_CONTRACT.md). Search order:
+    $DC_AGENT_CONTRACT, then the deli_counter sibling repo. Fallbacks equal
+    the ratified values, so a missing file degrades gracefully."""
+    global _agent_cache
+    if _agent_cache is not None:
+        return _agent_cache
+    here = os.path.dirname(os.path.abspath(__file__))
+    candidates = []
+    if os.environ.get("DC_AGENT_CONTRACT"):
+        candidates.append(os.environ["DC_AGENT_CONTRACT"])
+    candidates.append(os.path.join(os.path.dirname(here), "deli_counter",
+                                   "agent_contract.json"))
+    merged = {k: dict(v) for k, v in _AGENT_DEFAULTS.items()}
+    for c in candidates:
+        try:
+            with open(c, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            # Merge what the FILE has, not what the defaults happen to
+            # list. This iterated over `merged` -- the defaults' keys -- so any
+            # contract section absent from _AGENT_DEFAULTS was read off disk and
+            # discarded. `characters` and `clearances` were both dropped, which
+            # is why the step gate died on KeyError: 'characters' and why the
+            # walk-scene player had to be a literal. The contract is
+            # authoritative; defaults only survive a missing file.
+            for sec, val in data.items():
+                if isinstance(val, dict) and isinstance(merged.get(sec), dict):
+                    merged[sec].update(val)
+                else:
+                    merged[sec] = val
+            break
+        except (OSError, json.JSONDecodeError):
+            continue
+    _agent_cache = merged
+    return merged
+
+
+# Re-coupled to the release number at 0.49.0 (it had sat at 0.17.2 while the
+# VERSION file reached 0.48.0, and version.py said 0.18.0 -- three answers to
+# one question). Nothing imports this one, but a wrong constant is a lie at
+# rest; version.py is the copy package.py stamps with.
+LOT_VERSION = "0.49.0"
+
+
+# ---------------------------------------------------------------------------
+# placement math
+# ---------------------------------------------------------------------------
+def _rotate_xy(x, y, deg):
+    """Rotate a point about the origin in the XY (ground) plane, deterministic."""
+    r = math.radians(deg)
+    c, s = math.cos(r), math.sin(r)
+    return (x * c - y * s, x * s + y * c)
+
+
+def _place_point(local_x, local_y, local_z, placement):
+    """Transform a building-local marker position into world space: rotate about
+    the building origin (Z-up yaw), then translate to the building's site
+    position. Z (height) is unchanged — buildings sit on the shared ground."""
+    rx, ry = _rotate_xy(local_x, local_y, placement["rot"])
+    return [rx + placement["at"][0], ry + placement["at"][1], local_z]
+
+
+#: Every position in a Deli Counter ladder record, by path. Listed rather than
+#: discovered, because a blind walk over the record would also rewrite anything
+#: that merely looks like a point, and because an explicit list is auditable
+#: against `ladder.py`. `_ladder_to_site` REFUSES on a numeric triple it does
+#: not find here, so a field added upstream cannot ride into site space
+#: untransformed -- the failure would be a nav link and a route node
+#: disagreeing about where the same ladder is.
+_LADDER_POINTS_3 = (
+    ("lower_anchor",),
+    ("upper_anchor",),
+    ("route_nodes", "lower_approach"),
+    ("route_nodes", "lower_mount"),
+    ("route_nodes", "climb_start"),
+    ("route_nodes", "climb_end"),
+    ("route_nodes", "upper_dismount"),
+    ("route_nodes", "upper_route"),
+    ("nav_link", "start_position"),
+    ("nav_link", "end_position"),
+)
+#: Lists OF points rather than single points.
+_LADDER_POINT_LISTS_3 = (
+    ("traversal_component", "climb_axis"),
+)
+#: Plan polygons: (x, y) pairs, no height.
+_LADDER_POINT_LISTS_2 = (
+    ("geometry", "climb_rect"),
+)
+
+
+def _dig(rec, path):
+    """The container holding `path`'s last key, and that key -- or (None, None)
+    when the path is absent. Absent is fine: a ladder without a nav link is a
+    ladder, and `ladder.py` omits blocks it has nothing to say about."""
+    cur = rec
+    for key in path[:-1]:
+        if not isinstance(cur, dict) or key not in cur:
+            return None, None
+        cur = cur[key]
+    if not isinstance(cur, dict) or path[-1] not in cur:
+        return None, None
+    return cur, path[-1]
+
+
+def _ladder_to_site(lad, placement):
+    """A ladder record with every position moved into site space.
+
+    Deep-copied, so the building's own gameplay.json is untouched -- it is read
+    again by other passes and a shared nested dict would put site coordinates
+    into the building's file.
+    """
+    import copy as _copy
+
+    out = _copy.deepcopy(lad)
+    seen = set()
+    for path in _LADDER_POINTS_3:
+        owner, key = _dig(out, path)
+        if owner is None:
+            continue
+        p = owner[key]
+        if isinstance(p, (list, tuple)) and len(p) == 3:
+            owner[key] = _place_point(p[0], p[1], p[2], placement)
+            seen.add("/".join(path))
+    for path in _LADDER_POINT_LISTS_3:
+        owner, key = _dig(out, path)
+        if owner is None:
+            continue
+        pts = owner[key]
+        if isinstance(pts, list):
+            owner[key] = [_place_point(p[0], p[1], p[2], placement)
+                          if isinstance(p, (list, tuple)) and len(p) == 3
+                          else p for p in pts]
+            seen.add("/".join(path))
+    for path in _LADDER_POINT_LISTS_2:
+        owner, key = _dig(out, path)
+        if owner is None:
+            continue
+        pts = owner[key]
+        if isinstance(pts, list):
+            owner[key] = [list(_rotate_xy(p[0], p[1], placement["rot"]))
+                          if isinstance(p, (list, tuple)) and len(p) == 2
+                          else p for p in pts]
+            # translate after rotating, same order as `_place_point`
+            owner[key] = [[p[0] + placement["at"][0], p[1] + placement["at"][1]]
+                          if isinstance(p, (list, tuple)) and len(p) == 2
+                          else p for p in owner[key]]
+            seen.add("/".join(path))
+
+    # AN UNRECOGNISED POSITION IS A REFUSAL, not a shrug. Anything that looks
+    # like a point and was not transformed above would reach the site still in
+    # building coordinates, and the only symptom would be an AI pathing to the
+    # wrong place in one building out of several.
+    missed = []
+
+    def _scan(node, path):
+        if isinstance(node, dict):
+            for k, v in node.items():
+                _scan(v, path + "/" + str(k))
+        elif isinstance(node, list):
+            if node and all(isinstance(x, (int, float)) for x in node) \
+                    and len(node) in (2, 3):
+                stem = path.rsplit("[", 1)[0]
+                if not any(stem.endswith(s) for s in seen):
+                    missed.append(path)
+            else:
+                for i, v in enumerate(node):
+                    _scan(v, "%s[%d]" % (path, i))
+
+    _scan(out, "")
+    if missed:
+        raise ValueError(
+            "lot: ladder %r carries position(s) this pass does not know how to "
+            "move into site space: %s -- add them to _LADDER_POINTS_* rather "
+            "than shipping them in building coordinates"
+            % (lad.get("id", "?"), ", ".join(sorted(missed))))
+    return out
+
+
+# ---------------------------------------------------------------------------
+# building geometry source: .tscn (preferred) or .glb
+# ---------------------------------------------------------------------------
+def _building_source(b):
+    """Resolve a building record's geometry file. A building may reference a
+    Godot scene (`scene`: a .tscn that instances shared modules) or a baked
+    `glb` -- `scene` wins when both are present. Deli Counter's primary output
+    is the .tscn; the baked .glb is the self-contained special case. Both are
+    instanced the same way (a PackedScene ExtResource), so this is the only
+    place the distinction lives. Returns the file path string."""
+    scene = b.get("scene")
+    glb = b.get("glb")
+    if scene and glb:
+        print(f"[lot] building '{b.get('id', '?')}' has both scene and glb; "
+              f"using scene ({scene}), ignoring glb")
+    src = scene or glb
+    if not src:
+        raise ValueError(
+            f"building '{b.get('id', '?')}' has no geometry: set 'scene' "
+            f"(a .tscn) or 'glb' (a baked .glb)")
+    if not (src.endswith(".tscn") or src.endswith(".glb")):
+        print(f"[lot] building '{b.get('id', '?')}' geometry '{src}' is not a "
+              f".tscn or .glb -- instancing it anyway")
+    return src
+
+
+# ---------------------------------------------------------------------------
+# gameplay.json merge  (the high-value, fiddly-by-hand core of Phase 1)
+# ---------------------------------------------------------------------------
+def merge_gameplay(site_spec, base_dir):
+    """Merge every building's gameplay.json into one site-level file, with all
+    positions offset to world space and all ids namespaced by building id so
+    nothing collides. Deterministic: same inputs -> identical output."""
+    site = {
+        "site": site_spec["name"],
+        "ground": site_spec.get("ground", {}),
+        "buildings": [],
+        "markers": [],
+        "rooms": [],
+        "objectives": [],
+        "loot": [],
+        "zones": [],
+        "vertical_links": [],
+        "openings": [],
+        "interactives": [],
+        # LADDERS, for the same reason interactives are here: Deli Counter
+        # emits them per building and the site is what Dispatch reads. Without
+        # this a package ships a climb marker and no off-mesh nav link, so a
+        # player climbs a ladder an AI cannot path up (roadmap 172, falsified
+        # on cold run 9075).
+        "ladders": [],
+        "surfaces": [],
+        "surface_roles": {},
+        "site_markers": site_spec.get("site_markers", []),
+    }
+
+    for b in site_spec["buildings"]:
+        bid = b["id"]
+        placement = {"at": b["at"], "rot": b.get("rot", 0)}
+        record = {
+            "id": bid, "source": _building_source(b),
+            "at": b["at"], "rot": b.get("rot", 0),
+        }
+        if "glb" in b:
+            record["glb"] = b["glb"]      # preserved for back-compat readers
+        if "scene" in b:
+            record["scene"] = b["scene"]
+        gp_ref = b.get("gameplay")
+        gp_path = os.path.join(base_dir, gp_ref) if gp_ref else None
+        if not gp_path or not os.path.exists(gp_path):
+            # a building with no gameplay ref/file still places fine; skip its data
+            site["buildings"].append(record)
+            continue
+        with open(gp_path, encoding="utf-8") as f:
+            gp = json.load(f)
+
+        # carry the building's rarity onto its site record so the compound has a
+        # clean per-building rarity index (every building has its own hidden
+        # rarity -- the door reveal reads it). Breachable openings already carry
+        # the same colour and pass through the openings merge below untouched.
+        if gp.get("rarity") is not None:
+            record["rarity"] = gp.get("rarity")
+            record["rarity_color"] = gp.get("rarity_color")
+        if gp.get("footprint") is not None:
+            record["footprint"] = gp.get("footprint")
+            # annotate the SPEC's building entry too: the scene builder cuts
+            # the ground slab around footprints (a solid ground box through a
+            # building seals its basement stairwell -- Phase 1 site walktests
+            # proved basements bake as disjoint islands otherwise)
+            b["_footprint"] = gp.get("footprint")
+        site["buildings"].append(record)
+
+        def ns(name):
+            return f"{bid}/{name}"
+
+        # markers: offset position to world, namespace name, tag origin building
+        for m in gp.get("markers", []):
+            wm = dict(m)
+            wm["name"] = ns(m.get("name", m.get("type", "marker")))
+            wm["building"] = bid
+            x, y, z = m.get("x", 0.0), m.get("y", 0.0), m.get("z", 0.0)
+            wx, wy, wz = _place_point(x, y, z, placement)
+            wm["x"], wm["y"], wm["z"] = wx, wy, wz
+            if "rot_z" in m:
+                wm["rot_z"] = (m["rot_z"] + placement["rot"]) % 360
+            site["markers"].append(wm)
+
+        # rooms: namespace id, offset bounds corners to world
+        for r in gp.get("rooms", []):
+            wr = dict(r)
+            wr["id"] = ns(r["id"])
+            wr["building"] = bid
+            if "bounds" in r and len(r["bounds"]) == 4:
+                x0, y0, x1, y1 = r["bounds"]
+                # rotate all four corners, take the world AABB (axis-aligned)
+                corners = [_rotate_xy(cx, cy, placement["rot"])
+                           for cx, cy in [(x0, y0), (x1, y0), (x1, y1), (x0, y1)]]
+                xs = [c[0] + placement["at"][0] for c in corners]
+                ys = [c[1] + placement["at"][1] for c in corners]
+                wr["bounds"] = [min(xs), min(ys), max(xs), max(ys)]
+            site["rooms"].append(wr)
+
+        # objectives / loot / zones: namespace any id/room refs, carry through
+        for key in ("objectives", "loot", "zones"):
+            for item in gp.get(key, []):
+                wi = dict(item)
+                wi["building"] = bid
+                for ref in ("id", "room", "name"):
+                    if ref in wi and isinstance(wi[ref], str):
+                        wi[ref] = ns(wi[ref])
+                site[key].append(wi)
+
+        # vertical_links / openings: carry through, tag building (positions are
+        # descriptive; markers already carry the authoritative world coords)
+        for key in ("vertical_links", "openings"):
+            for item in gp.get(key, []):
+                wi = dict(item)
+                wi["building"] = bid
+                site[key].append(wi)
+
+        # interactives: the replicable state machines DC emits (one per
+        # interactive fixture, docs/INTERACTIVES.md). Ids are already globally
+        # unique ("<building>:if:<hash>") and are the network handle every
+        # client, snapshot and saved game references -- so they are carried
+        # VERBATIM (a concatenation, not a merge; namespacing them would break
+        # the correlation with slots.json and the composed scene's
+        # metadata/interactive_id). slot_ref stays building-local for the same
+        # reason; the building tag says whose slots.json it names. Transforms
+        # are offset to world space exactly like markers: Z-up yaw + translate.
+        for item in gp.get("interactives", []):
+            wi = dict(item)
+            wi["building"] = bid
+            tf = dict(wi.get("transform") or {})
+            if tf.get("translation"):
+                tr = tf["translation"]
+                tf["translation"] = _place_point(tr[0], tr[1], tr[2], placement)
+                if "rot_y" in tf:
+                    tf["rot_y"] = (tf["rot_y"] + placement["rot"]) % 360
+                wi["transform"] = tf
+            site["interactives"].append(wi)
+
+        # ladders: carried like interactives -- verbatim but for the frame.
+        # Ids are already building-scoped, and every POSITION is moved into
+        # site space by `_ladder_to_site`, which refuses rather than carrying
+        # a field it does not recognise.
+        for lad in gp.get("ladders", []) or []:
+            wl = _ladder_to_site(lad, placement)
+            wl["building"] = bid
+            site["ladders"].append(wl)
+
+        # surfaces (acoustic) + surface_roles: namespace node names so the
+        # site-wide maps stay unambiguous across buildings
+        for s in gp.get("surfaces", []):
+            ws = dict(s)
+            if "node" in ws:
+                ws["node"] = ns(ws["node"])
+            site["surfaces"].append(ws)
+        for node, role in gp.get("surface_roles", {}).items():
+            site["surface_roles"][ns(node)] = role
+
+    return site
+
+
+# ---------------------------------------------------------------------------
+# lights.json merge  (compose each building's baked light anchors + exterior)
+# ---------------------------------------------------------------------------
+#: How far the lamp POINT sits below the top of a streetlight slot module,
+#: in metres. Derived from `zoo/zoo_keeper/recipes/streetlight.py`, which
+#: builds the species centred and takes two placements: at an ANCHOR the
+#: pole top is the anchor and the head floats above it, but in a SLOT
+#: (`fit_exact`, which is how the site kit stands these poles) the module is
+#: exactly `h` tall -- the pole top is at local `h/2 - 0.18`, the shoebox
+#: head fills the last 0.18 to the module's top, and the emissive lens
+#: protrudes to local `h/2 - 0.175`. A light at the module top would be
+#: inside the head, and the head would shadow its own spot.
+#:
+#: Zoo's `tests/test_streetlight_lens_drop.py` asserts the recipe still puts
+#: the lens there, so moving it fails Zoo's suite rather than silently
+#: burying this site's street lighting inside 48 shoeboxes.
+STREETLIGHT_LENS_DROP = 0.175
+
+
+def _lights_ref_for(b):
+    """The building's <name>.lights.json: an explicit 'lights' field, else
+    derived from its gameplay/glb reference."""
+    if b.get("lights"):
+        return b["lights"]
+    ref = b.get("gameplay") or b.get("glb") or ""
+    if ref.endswith(".gameplay.json"):
+        return ref[:-len(".gameplay.json")] + ".lights.json"
+    if ref.endswith(".glb"):
+        return ref[:-len(".glb")] + ".lights.json"
+    return None
+
+
+def _streetlight_anchors(site_spec):
+    """One exterior light per streetlight POLE the site actually stands.
+
+    LIGHT COMES FROM A LAMP, and until 0.79.0 none of this site's did. Two
+    functions in this one repo put streetlights on a site and neither read
+    the other: `site_furniture.plan_furniture` stands `streetlight` cover
+    pieces along the kerb bands, nudged clear of the dropped kerbs and the
+    mission markers, while this function derived light ROWS from the path
+    graph and from a ring 2 m inside the ground rect. Measured on cold run
+    9087's walk copy with `pole_vs_light.gd`:
+
+        54 streetlight lights, 48 streetlight props; nearest pole to a
+        light min 3.50 m, median 24.93 m, mean 30.62 m, max 93.68 m --
+        0 of 54 lights had a pole within 1.0 m.
+
+    The walker, standing at the map edge in a cone of it: "a reminder that
+    light should comes from light sources, i don't know where this light is
+    coming from".
+
+    So the poles ARE the anchors. `merge_lights` runs after
+    `plan_furniture` has extended `site_spec["cover"]` (see the build order
+    in `write_site`), and each lamp piece carries its plan point, its yaw
+    and its height -- so pole and light are coincident by construction
+    rather than by two formulas happening to agree.
+
+    WHAT WENT AWAY WITH THE ROWS, said rather than discovered later:
+
+    * the perimeter ring lit the boundary wall from nothing, which is the
+      frame the walker was standing in. The map edge is now lit by the moon
+      alone. Standing poles out there is a placement decision for
+      `site_furniture`, not something to fake from the light side.
+    * the path rows lit the path GRAPH, which is not where the street
+      furniture is -- that is the 24.93 m median above.
+    * a site whose roads carry no sidewalk stands no lamps, so it now gets
+      no exterior lights at all. `write_site` says that out loud
+      (`LOT_NO_EXTERIOR_LIGHTS`) instead of papering over it with a row,
+      because the row is the defect.
+    """
+    anchors = []
+    for i, cv in enumerate(site_spec.get("cover") or []):
+        if cv.get("species") != "streetlight":
+            continue
+        dims = cv.get("dims") or []
+        if len(dims) < 3:
+            continue
+        h = float(dims[2])
+        # the same base `write_site_slots` stands the module on, so the
+        # light is placed against the pole as built and not against grade
+        base = SIDEWALK_H if cv.get("base") == "sidewalk" else 0.0
+        x, y = cv["at"]
+        anchors.append({
+            # the pole's own name, so an id names a thing in the scene and
+            # Lux's every-third-pole ballast buzz keys to a real lamp
+            "id": "site/%s" % str(cv.get("name") or ("lamp_%d" % i)).lower(),
+            "type": "streetlight",
+            "source": "site_furniture",
+            "building": None,
+            # THE LENS, NOT THE POLE TOP. Lux reads `pos[2]` as the lamp's
+            # height above the road to derive its energy, and that is still
+            # what this is -- 0.175 m less than it was, which is the head.
+            "pos": [round(float(x), 3), round(float(y), 3),
+                    round(base + h - STREETLIGHT_LENS_DROP, 3)],
+            "rot_y": round(float(cv.get("yaw") or 0.0) % 360.0, 3),
+            # ONE LAMP, ONE LIGHT. A row cannot describe these: `_nudged`
+            # moves a pole clear of a kerb cut or a marker, so the spacing
+            # along a kerb is not constant and a {count, spacing} pair
+            # would put most of the lights back off the poles again.
+            "row": {"count": 1, "spacing": 0.0},
+            # THE HARDWARE ALREADY STANDS, and names which slot stands it.
+            # Zoo's fixture pass builds a pole at every `streetlight`
+            # anchor it is given (`core/fixtures.py`); without this it
+            # would stand a second pole inside this one the day a
+            # site-level fixture job exists. `plan_fixtures` skips an
+            # anchor carrying this field and records the reason.
+            "hardware": "slot:cover_%d" % i,
+            "reacts_to_alarm": False,
+        })
+    return anchors
+
+
+def forecourts(site_spec, base_dir):
+    """``[(building id, (x, y))]``: every building whose lights manifest
+    carries a `canopy_lights` anchor -- Deli Counter's own gas-station test
+    (a `canopy_roof` volume derives one) -- with the canopy's centre in site
+    space. Read from the JSON both the greybox and the themed runs share, not
+    from the GLB solids, which the two read differently."""
+    out = []
+    for b in site_spec.get("buildings") or []:
+        ref = _lights_ref_for(b)
+        if not ref:
+            continue
+        lp = os.path.join(base_dir, ref)
+        if not os.path.exists(lp):
+            continue
+        with open(lp, encoding="utf-8") as f:
+            lm = json.load(f)
+        placement = {"at": b["at"], "rot": b.get("rot", 0)}
+        for a in lm.get("anchors", []):
+            if a.get("type") == "canopy_lights":
+                x, y, z = a.get("pos", [0.0, 0.0, 0.0])
+                wx, wy, _wz = _place_point(x, y, z, placement)
+                out.append((b["id"], (round(wx, 4), round(wy, 4))))
+                break
+    return out
+
+
+#: Every POINT a light anchor carries, each moved into site space with its
+#: building (0.99.1, roadmap 207). `target` is the stage light's aim, Deli
+#: Counter's club rig. Copied verbatim it stayed in the building's frame,
+#: so a club standing off the site's origin aimed its two stages 73-74 m
+#: away, past the 12 m Lux clamps a stage light's range to, and Lux refused
+#: both (`LUX_CLUB_REFUSED`: cold runs 9060, 9167, 9197). Listed rather
+#: than discovered, as `_LADDER_POINTS_3` is.
+_LIGHT_POINTS = ("pos", "target")
+#: Numeric triples a light anchor carries that are NOT points: `size` is an
+#: extent in the light's own frame, which Lux turns with `rot_y`; a colour
+#: is never a point, whatever its shape.
+_LIGHT_NOT_POINTS = ("size", "color")
+
+
+def _refuse_unknown_light_points(anchor, bid, ref):
+    """Refuse a light anchor carrying a numeric triple this module has not
+    classed as a point or a non-point: a field added upstream must not ride
+    into site space in the building's frame unnoticed -- the rule
+    `_ladder_to_site` keeps, and the defect `target` was (0.99.1)."""
+    for k, v in anchor.items():
+        if k in _LIGHT_POINTS or k in _LIGHT_NOT_POINTS:
+            continue
+        if (isinstance(v, (list, tuple)) and len(v) == 3
+                and all(isinstance(c, (int, float)) and not isinstance(c, bool)
+                        for c in v)):
+            raise ValueError(
+                f"{ref}: light anchor {anchor.get('id', '?')!r} of {bid} carries a "
+                f"numeric triple {k!r} that merge_lights has not classed as a point "
+                f"(_LIGHT_POINTS, placed) or not (_LIGHT_NOT_POINTS, kept); refusing "
+                f"rather than shipping it in the building's frame")
+
+
+def merge_lights(site_spec, base_dir):
+    """Merge every building's <name>.lights.json into one site-level lighting
+    manifest: each anchor offset to world space and id-namespaced by building
+    (mirrors merge_gameplay), plus the exterior streetlights Lot derives.
+    Deterministic. Consumed by Lux's light-anchor loader."""
+    site = {
+        # STAMPED FROM THE FILES BEING MERGED, not a literal (roadmap 95).
+        # This was "1.0.0" written by hand while Deli Counter's lights.py
+        # stamped 1.1.0 on every building manifest, and the anchors were
+        # copied wholesale -- so the site file declared one contract and
+        # satisfied a later one (`drop` on 28 of 28 ceiling anchors, a 1.1.0
+        # field). Nothing read the envelope, which is why it drifted; the
+        # `--art --unlit` handoff is documented as "a contract another
+        # lighting system can read", and the version is the field that makes
+        # that safe. Set below once the merged versions are known.
+        "light_manifest_version": "1.0.0",
+        "site": site_spec["name"],
+        "space": ("Blender Z-up, meters; rot_y = degrees about up; "
+                  "pos is the fixture location"),
+        "rig_library": "lux",
+        "anchors": [],
+    }
+    merged_versions = []
+    for b in site_spec["buildings"]:
+        bid = b["id"]
+        placement = {"at": b["at"], "rot": b.get("rot", 0)}
+        ref = _lights_ref_for(b)
+        if not ref:
+            continue
+        lp = os.path.join(base_dir, ref)
+        if not os.path.exists(lp):
+            continue
+        with open(lp, encoding="utf-8") as f:
+            lm = json.load(f)
+        # A file with no version predates the field and is 1.0.0 by
+        # definition -- that was the only contract when the field was absent.
+        merged_versions.append(str(lm.get("light_manifest_version") or "1.0.0"))
+        for a in lm.get("anchors", []):
+            wa = dict(a)
+            wa["id"] = f"{bid}/{a.get('id', 'light')}"
+            wa["building"] = bid
+            # EVERY POINT, NOT ONLY `pos` (0.99.1, roadmap 207): a stage
+            # light's `target` rode in the copy in the building's frame.
+            _refuse_unknown_light_points(a, bid, ref)
+            for key in _LIGHT_POINTS:
+                if key != "pos" and key not in a:
+                    continue
+                x, y, z = a.get(key, [0.0, 0.0, 0.0])
+                wx, wy, wz = _place_point(x, y, z, placement)
+                wa[key] = [round(wx, 4), round(wy, 4), round(wz, 4)]
+            if "rot_y" in a:
+                wa["rot_y"] = (a["rot_y"] + placement["rot"]) % 360
+            if isinstance(a.get("room"), str):
+                wa["room"] = f"{bid}/{a['room']}"
+            site["anchors"].append(wa)
+
+    site["anchors"].extend(_streetlight_anchors(site_spec))
+    # THE HIGHEST VERSION MERGED, because that is the contract the anchors
+    # actually need: a 1.1.0 anchor carries fields a 1.0.0 reader does not
+    # know, and an envelope claiming 1.0.0 over it promises a consumer more
+    # than the file keeps. A site with no building manifests at all is Lot's
+    # streetlights alone, which carry nothing past 1.0.0. The full set is
+    # recorded beside it so a MIX is visible rather than averaged away.
+    if merged_versions:
+        site["light_manifest_version"] = max(merged_versions, key=_version_key)
+    site["light_manifest_versions_merged"] = sorted(set(merged_versions))
+    return site
+
+
+def _version_key(v):
+    """'1.1.0' -> (1, 1, 0), so 1.10.0 sorts above 1.9.0 and a stray suffix
+    does not raise."""
+    out = []
+    for part in str(v).split("."):
+        digits = "".join(ch for ch in part if ch.isdigit())
+        out.append(int(digits) if digits else 0)
+    return tuple(out)
+
+
+# ---------------------------------------------------------------------------
+# Godot scene generation
+# ---------------------------------------------------------------------------
+def _godot_transform(at, rot, z=0.0):
+    """Godot Transform3D basis+origin string for a Y-up yaw rotation. Deli
+    Counter is Z-up/metres; Godot is Y-up. We map site XY ground -> Godot XZ,
+    site Z height -> Godot Y. Yaw (about site Z) becomes yaw about Godot Y."""
+    r = math.radians(rot)
+    c, s = math.cos(r), math.sin(r)
+    # Godot Basis ROWS (Godot 4.7 reads the nine numbers row-major, see
+    # `yaw_basis_text`) for a rotation about Godot +Y by +rot: local +X lands
+    # on Godot (c, 0, -s), plan (c, s), the counterclockwise turn
+    # `_place_point` gives the markers. origin: site (x,y) -> Godot
+    # (x, z_height, -y). Until 0.72.1 this comment said "by -rot", which is
+    # what the numbers mean read as columns; the numbers were right.
+    bx = (c, 0.0, s)
+    by = (0.0, 1.0, 0.0)
+    bz = (-s, 0.0, c)
+    ox, oy, oz = at[0], z, -at[1]
+    nums = [bx[0], bx[1], bx[2], by[0], by[1], by[2], bz[0], bz[1], bz[2], ox, oy, oz]
+    return ", ".join(f"{n:g}" for n in nums)
+
+
+# ---------------------------------------------------------------------------
+# Phase 2 — box-vocabulary outdoor as Godot scene nodes
+# ---------------------------------------------------------------------------
+# Outdoor is generated as Godot primitive nodes (BoxMesh + box collision), NOT a
+# baked .glb — keeps Lot offline (no Blender) and blockout-honest. Strictly
+# axis-aligned boxes / flat regions: paths, courtyards, perimeter walls, cover.
+# No terrain, no organic shapes (that would break the thesis). Site coords (x,y)
+# map to Godot (x, height, -y); thickness/height is Godot-Y.
+
+# Outdoor surface heights are DERIVED, and the derivation changed once the kerb
+# probe measured what the previous one cost.
+#
+# THE OLD SHAPE. SIDEWALK_H was a picked 0.16 carrying the comment "a kerb is
+# MEANT to be a wall". A capsule walks up a step only while the contact normal
+# stays inside floor_max_angle, so it clears STEP_MAX and no more -- 0.16 sits
+# above that, making the kerb unclimbable from bare ground by design. Slabs then
+# had to live in [SIDEWALK_H - step, step] so they could serve as a half-step
+# onto it, which is why paths stood 0.08 proud of the ground with roads and
+# courtyards 1.6 cm either side.
+#
+# WHY THAT WAS WRONG, measured rather than argued. lot_player.gd implements
+# step-up, so the kerb never walled OUR player. It walled a stock
+# CharacterBody3D -- which is what every recipient of a site pack has. The wall
+# only ever stopped the person we ship to. coldrun_kerb_probe made it explicit:
+# LOT_STEP_NEEDS_ASSIST on ground -> sidewalk, 0.16 m against a 0.1025 m
+# ceiling, on a level that walks perfectly inside this repo.
+#
+# THE NEW SHAPE. Put the kerb under the step ceiling and the stack collapses:
+# bare ground mounts the kerb, so slabs stop being a half-step to anything and
+# can lie flat. Every outdoor surface becomes reachable by a stock controller
+# with no step-up code -- which is what the standalone contract needs -- and
+# every lip on the site goes, including the 1.6 cm path-over-road lip that no
+# traversal gate could see.
+GROUND_THICK = 0.5
+WALL_THICK = 0.3
+COVER = (1.0, 1.0, 1.0)
+#: The site's greybox palette. Everything below except the two street colours
+#: was emitting NO material at all: a generated spec produces ground, paths, a
+#: perimeter and cover, and not one of those was a coloured caller.
+#:
+#: Value carries the read that matters outdoors -- can I stand here, or is this
+#: in my way -- and the surfaces answering it are held 0.15 apart in relative
+#: luminance:
+#:
+#:     road 0.131 < ground 0.317 < path 0.478 < DC wall 0.710 < perimeter 0.879
+#:
+#: Anything answering a DIFFERENT question is a marker carried by chroma
+#: instead, which is the convention Deli Counter's palette already uses for
+#: stairs, ladders, doorways and breaches. Value is one-dimensional: solving the
+#: full co-read graph for the largest gap that satisfies every pair returns
+#: 0.140, below the floor, so not every surface can have one. Spending it on the
+#: walk/block question and marking the rest is a choice, and this is where it is
+#: written down. `patch_lot_greybox_palette.py --palette` re-checks these
+#: numbers and refuses to write them if they stop holding.
+#:
+#: The perimeter is bright rather than dark for a reason that is arithmetic
+#: before it is taste: dark would have to clear road's 0.131 by 0.15, which is
+#: below zero. Bright is also the better read -- a uniform chalky boundary is
+#: never mistaken for floor.
+ROAD_COLOR = (0.13, 0.13, 0.14)        # 0.131 -- asphalt
+SIDEWALK_COLOR = (0.55, 0.55, 0.57)    # 0.551 -- concrete, raised curb
+GROUND_COLOR = (0.30, 0.32, 0.34)      # 0.317 -- the plate everything is read against
+PATH_COLOR = (0.53, 0.47, 0.40)        # 0.478 -- a walked surface; warm cast names it
+COURT_COLOR = (0.48, 0.52, 0.55)       # 0.514 -- path's band, cool cast names it apart
+#: A service pad (`site_yards`): plain concrete, greyer than the walk.
+YARD_COLOR = (0.50, 0.50, 0.48)
+#: A parking field (`site_fields`): the lot's asphalt, a shade off the road.
+FIELD_COLOR = (0.30, 0.30, 0.31)
+PERIM_COLOR = (0.87, 0.88, 0.90)       # 0.879 -- the edge of the world: bright, flat, dead
+COVER_COLOR = (0.18, 0.55, 0.22)       # 0.448 -- a MARKER: chroma finds it, value is free
+
+#: Warm massing -- reads as a building you can't enter. MOVED from
+#: (0.38, 0.34, 0.30): against the new plate that was 0.03 apart in luminance
+#: and 0.09 in saturation, which is the flat-grey complaint in miniature. Same
+#: intent, enough chroma to carry it.
+BLOCKER_COLOR = (0.46, 0.28, 0.16)     # 0.310
+
+#: The tallest step the contract player walks up with no step-up code.
+STEP_MAX = float(_agent()["clearances"]["unassisted_step_max_m"])
+
+#: A kerb the contract body mounts from bare ground, with margin rather than at
+#: the limit: a rise exactly equal to STEP_MAX puts the contact normal exactly
+#: on floor_max_angle, and shipping physics that sits on a boundary is how a
+#: thing works on one machine and not the next.
+KERB_FRACTION = 0.95
+SIDEWALK_H = round(STEP_MAX * KERB_FRACTION, 4)
+
+#: Flush -- but not zero. Two coplanar faces z-fight where a path crosses a
+#: road, so these tiers exist to separate them and for no other reason. 2 mm
+#: against a ~103 mm step ceiling is not a step, and check_steps will not see
+#: it. The ordering (road lowest, frontage highest) is kept so overlaps
+#: resolve the way a reader expects.
+SURFACE_BASE = 0.010
+SURFACE_TIER = 0.002
+ROAD_THICK = SURFACE_BASE
+PATH_THICK = SURFACE_BASE + SURFACE_TIER
+COURT_THICK = SURFACE_BASE + 2 * SURFACE_TIER
+#: A service pad under a dumpster (`site_yards`, 0.93.0). It shares the
+#: courtyard's tier because `plan_yards` never lets a pad overlap any
+#: other drawn surface, so there is no coplanar face for a tier to part.
+YARD_THICK = COURT_THICK
+#: A parking field (`site_fields`, 0.94.0): at the road's own height, so the
+#: asphalt runs on from the carriageway through the driveway's dropped
+#: kerb into the field, and the bay lines sit at `MARKING_Y` over it as
+#: the road's paint does over the road. `plan_fields` never lets a field
+#: overlap another drawn surface, so the shared tier makes no coplanar face.
+FIELD_THICK = ROAD_THICK
+#: The walk carried to a building's face (`site_streets.frontages`). Above
+#: the path, because a door spur lies inside it and the frontage is the
+#: surface that should be seen there.
+FRONTAGE_THICK = SURFACE_BASE + 3 * SURFACE_TIER
+
+#: The rung below the ladder, for the one surface Lot does not own.
+#:
+#: A building's ground-floor slab tops out at y = 0 -- that is Deli Counter's
+#: coordinate contract, not a choice made here -- and `GROUND_HOLE_INSET` cuts
+#: the ground hole INSIDE the footprint on purpose, so the plate and the slab
+#: overlap in a 0.45 m ring around every building. With the plate topping out
+#: at 0 as well, that ring is two coplanar up-facing faces: roughly 59 m^2 of
+#: z-fight per 38 x 28 building, hugging the inside of every exterior wall.
+#:
+#: No per-building gate could see it. One solid is Deli Counter's, the other is
+#: Lot's, and they first share a scene after cater composes them.
+#:
+#: Sinking the plate rather than raising the building is deliberate: y = 0 is
+#: read by slot transforms, opening heights, marker Z and the nav bake, while
+#: nothing anywhere measures against the plate's top face.
+GROUND_SINK = SURFACE_TIER
+# BLOCKER_COLOR moved up into the palette block above, where the numbers that
+# constrain it are written down.
+
+
+#: Largest edge a Lot-drawn VISUAL mesh may have, in metres (roadmap item 54).
+#: Godot's GL Compatibility renderer budgets positional lights PER MESH
+#: (`max_lights_per_object`, engine default 8), and the first honest per-mesh
+#: census (2026-08-23, lot_demo_001's walk preview) put `path_0/mesh` -- one
+#: 65 x 8 m BoxMesh -- under 58 lights, with `path_1` at 52 and `path_3` at
+#: 44. Ground plates, paths, roads and perimeter walls are exactly the
+#: room-spanning plates that item names, drawn by Lot instead of Zoo or Deli
+#: Counter. Same law as zoo `core.arch.PLATE_TILE` and deli_counter
+#: `floors.SLAB_TILE`; duplicated deliberately across repos (each is pure and
+#: imports none of the others) and cross-named so the trio is findable if any
+#: of them changes. COLLISION IS NOT TILED: the BoxShape3D stays one shape,
+#: because a collider has no light budget and every height/step check reads
+#: the shape, not the mesh.
+MESH_TILE = 8.0
+
+
+def _mesh_tiles(sx, sz, tile=MESH_TILE):
+    """Cut an sx (local x) by sz (local z) mesh footprint into <=tile cells.
+
+    Returns ``[(suffix, dx, dz, tx, tz)]`` -- child-node suffix, LOCAL offset
+    from the body's origin, cell size. A footprint inside the tile on both
+    axes is the single ``("", 0, 0, sx, sz)`` entry, so the emitted node is
+    byte-identical to what these writers always produced -- every kerb, cover
+    box and crossing is untouched. Equal division per axis (``ceil`` cells,
+    never fixed strides), so there is no sliver cell at an edge -- item 41's
+    fragmentation counter-pressure, answered rather than traded into.
+    Interior cut lines snap to whole millimetres so abutting cells meet at
+    the same coordinate.
+    """
+    eps = 1e-6
+    nx = int((sx - eps) // tile) + 1 if sx > tile + eps else 1
+    nz = int((sz - eps) // tile) + 1 if sz > tile + eps else 1
+    if nx == 1 and nz == 1:
+        return [("", 0.0, 0.0, sx, sz)]
+
+    def edges(extent, n):
+        lo = -extent / 2.0
+        return ([lo] + [round(lo + extent * k / n, 3) for k in range(1, n)]
+                + [lo + extent])
+
+    xe, ze = edges(sx, nx), edges(sz, nz)
+    out = []
+    for j in range(nz):
+        for i in range(nx):
+            out.append((f"_t{j}_{i}",
+                        round((xe[i] + xe[i + 1]) / 2.0, 6),
+                        round((ze[j] + ze[j + 1]) / 2.0, 6),
+                        round(xe[i + 1] - xe[i], 6),
+                        round(ze[j + 1] - ze[j], 6)))
+    return out
+
+
+def _mesh_child_lines(name, size, color, skin=None):
+    """The MeshInstance3D children and their BoxMesh sub_resources for one
+    StaticBody3D, tiled to MESH_TILE. Shared by `_box_node` and
+    `_yaw_box_node` so the law cannot drift between them. Children sit in the
+    body's LOCAL frame, so the yaw'd writer needs no rotation math here --
+    the parent's transform carries it."""
+    sx, sy, sz = size
+    body, sub = [], []
+    for suffix, dx, dz, tx, tz in _mesh_tiles(sx, sz):
+        body.append(f'[node name="mesh{suffix}" type="MeshInstance3D" '
+                    f'parent="./{name}"]')
+        if suffix:
+            body.append('transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, '
+                        f'{dx:g}, 0, {dz:g})')
+        body.append(f'mesh = SubResource("BoxMesh_{name}{suffix}")')
+        if color or skin:
+            body.append(f'material_override = SubResource("Mat_{name}")')
+        body.append('')
+        sub += [
+            f'[sub_resource type="BoxMesh" id="BoxMesh_{name}{suffix}"]',
+            f'size = Vector3({tx:g}, {sy:g}, {tz:g})', '',
+        ]
+    return body, sub
+
+
+def _wall_seen(site_spec) -> bool:
+    """Whether the perimeter wall draws its tiles (0.107.0, roadmap 228): not
+    once `site_fences.plan_perimeter` stood runs along it (`perimeter.
+    fenced_runs`), when it keeps its collision and shows nothing behind the
+    fence. A plate with no run standing keeps its wall as it was."""
+    per = site_spec.get("perimeter") or {}
+    return not per.get("fenced_runs")
+
+
+def _box_node(name, size, at_xyz, color=None, skin=None, visual=True):
+    """(body_lines, subres_lines) for an axis-aligned StaticBody3D box with a
+    BoxMesh + BoxShape3D, at Godot-frame (x, y_height, z). color: optional
+    (r,g,b[,a]) -> a StandardMaterial3D override; skin: a `ground_skins`
+    record, which wins over the colour. The VISUAL is tiled to
+    MESH_TILE (see `_mesh_tiles`); the shape is one box, as it always was.
+    `visual` False (0.107.0) writes the body and its shape alone: the
+    perimeter wall behind the fence keeps its collision and draws nothing."""
+    sx, sy, sz = size
+    x, yh, z = at_xyz
+    mesh_body, mesh_sub = _mesh_child_lines(name, size, color, skin) if visual else ([], [])
+    body = [
+        f'[node name="{name}" type="StaticBody3D" parent="."]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, {x:g}, {yh:g}, {z:g})',
+        '',
+    ]
+    body += mesh_body
+    body += [
+        f'[node name="col" type="CollisionShape3D" parent="./{name}"]',
+        f'shape = SubResource("BoxShape_{name}")',
+        '',
+    ]
+    sub = list(mesh_sub) + [
+        f'[sub_resource type="BoxShape3D" id="BoxShape_{name}"]',
+        f'size = Vector3({sx:g}, {sy:g}, {sz:g})', '',
+    ]
+    sub += _mat_sub(name, color, skin) if visual else []
+    return body, sub
+
+
+def yaw_basis_text(yaw_deg):
+    """The nine basis numbers of a `Transform3D(...)` literal for a turn of
+    `yaw_deg` about Godot +Y, as every yawed node here writes them.
+
+    WHAT THE NUMBERS MEAN, measured rather than recalled: Godot 4.7 reads the
+    nine as basis ROWS. `str_to_var` on cold run 9052's `path_0` literal
+    `Transform3D(0.898768, 0, -0.438424, 0, 1, 0, 0.438424, 0, 0.898768, ...)`
+    gives `basis.x = (0.898768, 0, 0.438424)`, and the same scene instantiated
+    headless gives that `global_transform` (2026-09-13). So local +X lands on
+    Godot `(cos r, 0, -sin r)`, which is plan `(cos r, sin r)`: `yaw_deg` is a
+    COUNTERCLOCKWISE PLAN ANGLE, and a slab whose length runs along plan
+    angle `a` is written with `yaw_deg = a`, not `-a`.
+
+    Read as columns the same numbers turn the other way, and for a yaw off the
+    right angles that is a mirror image. Lot drew every diagonal path, road,
+    sidewalk band and marking that way until 0.72.1 (see `path_slabs`)."""
+    r = math.radians(yaw_deg)
+    c, s = math.cos(r), math.sin(r)
+    return f"{c:g}, 0, {s:g}, 0, 1, 0, {-s:g}, 0, {c:g}"
+
+
+def _yaw_box_node(name, size, center_godot, yaw_deg, color=None, skin=None):
+    """Like _box_node but yaw'd about Godot-Y (for paths/roads between buildings).
+    `yaw_deg` is the plan angle, counterclockwise from +x, that the box's
+    local x (`size[0]`) runs along (`yaw_basis_text` says why that is the
+    number to pass). color: optional (r,g,b[,a]) -> a StandardMaterial3D
+    override. The VISUAL
+    is tiled to MESH_TILE in the body's LOCAL frame -- the parent transform
+    carries the yaw, so the tiles need no rotation math and a 65 m path
+    becomes nine ~7 m meshes lying exactly where the one mesh lay."""
+    sx, sy, sz = size
+    x, yh, z = center_godot
+    xform = f"{yaw_basis_text(yaw_deg)}, {x:g}, {yh:g}, {z:g}"
+    mesh_body, mesh_sub = _mesh_child_lines(name, size, color, skin)
+    body = [
+        f'[node name="{name}" type="StaticBody3D" parent="."]',
+        f'transform = Transform3D({xform})',
+        '',
+    ]
+    body += mesh_body
+    body += [
+        f'[node name="col" type="CollisionShape3D" parent="./{name}"]',
+        f'shape = SubResource("BoxShape_{name}")',
+        '',
+    ]
+    sub = list(mesh_sub) + [
+        f'[sub_resource type="BoxShape3D" id="BoxShape_{name}"]',
+        f'size = Vector3({sx:g}, {sy:g}, {sz:g})', '',
+    ]
+    sub += _mat_sub(name, color, skin)
+    return body, sub
+
+
+#: Where paint sits: on the road's top face, one surface tier up, so it
+#: draws over the asphalt without a collider and without a z-fight.
+MARKING_Y = ROAD_THICK + SURFACE_TIER / 2.0 + 0.001
+
+
+def paint_offset(key: str) -> tuple:
+    """A fixed (u, v, w) in [0, 1) for one marking's paint, from ``key``.
+
+    WHY. Paint is projected in WORLD space (`_mat_sub`), so two bars a whole
+    number of tiles apart wear the same scuffs whatever the tile size:
+    measured on cold run 9044's `site.markings.json`, 5 of 210 bar pairs
+    still matched after the road-paint pack went to an 8 m tile (Pixelcoat
+    0.39.0), 4 of them exactly, every pair in a different crosswalk. Each
+    marking already has its own material, so a per-marking offset costs
+    nothing.
+
+    WHICH COMPONENTS. Godot 4.7's generated shader (read from the binary's
+    template) is `uv1_triplanar_pos = world * uv1_scale + uv1_offset`, then
+    `*= (1, -1, 1)`, and a face whose normal is up samples `pos.xz`. So a
+    flat marking's two texture axes are shifted by the offset's X and Z --
+    its Y moves only the side faces -- and all three are set.
+
+    DETERMINISTIC: SHA-1 of the key, not Python's `hash()`, which is salted
+    per process and would re-roll the wear on every build."""
+    d = hashlib.sha1(key.encode("utf-8")).digest()
+    return tuple(int.from_bytes(d[i:i + 4], "big") / 4294967296.0 for i in (0, 4, 8))
+
+
+def _yaw_quad_node(name, size, center_godot, yaw_deg, color, skin=None,
+                   uv_offset=None):
+    """(body_lines, subres_lines) for a flat painted rectangle: a Node3D
+    carrying the tiled meshes `_mesh_child_lines` makes, one shared
+    material, and NO body -- markings have no collision. ``size`` is
+    (along, across) in the plan; the quad is `SURFACE_TIER` thick. With a
+    `paint` skin the quad wears the pack, tinted by the marking's own
+    colour, and the pack's cutout is where the paint has worn through;
+    ``uv_offset`` (see `paint_offset`) shifts that pack's projection.
+    ``yaw_deg`` is the plan angle the quad's `along` runs at, as for
+    `_yaw_box_node`."""
+    along, across = size
+    x, yh, z = center_godot
+    xform = f"{yaw_basis_text(yaw_deg)}, {x:g}, {yh:g}, {z:g}"
+    mesh_body, mesh_sub = _mesh_child_lines(name, (along, SURFACE_TIER, across), color, skin)
+    body = [f'[node name="{name}" type="Node3D" parent="."]',
+            f'transform = Transform3D({xform})', '']
+    body += mesh_body
+    return body, list(mesh_sub) + _mat_sub(name, color, skin, tint=color if skin else None,
+                                           uv_offset=uv_offset)
+
+
+def _mat_sub(name, color, skin=None, tint=None, uv_offset=None):
+    """The one StandardMaterial3D a body's tiles share. `color` alone is the
+    flat greybox read; with a `skin` (see `ground_skins`) the material carries
+    the Pixelcoat maps, projected in WORLD space so a plate tiled into 8 m
+    meshes and a path yawed to its buildings read as one continuous surface
+    -- the same projection `zoo_worldskin.gd` gives the kit at import. The
+    tile period is the pack's `meters_per_tile`, not a number chosen here."""
+    if not color and not skin:
+        return []
+    lines = [f'[sub_resource type="StandardMaterial3D" id="Mat_{name}"]']
+    if skin:
+        rid = skin["id"]
+        lines.append(f'albedo_texture = ExtResource("{rid}_albedo")')
+        if skin.get("roughness"):
+            lines.append(f'roughness_texture = ExtResource("{rid}_roughness")')
+        if skin.get("normal"):
+            lines.append('normal_enabled = true')
+            lines.append(f'normal_texture = ExtResource("{rid}_normal")')
+        if skin.get("nearest"):
+            lines.append('texture_filter = 2')      # nearest, with mipmaps
+        s = 1.0 / float(skin["meters_per_tile"])
+        lines.append('uv1_triplanar = true')
+        lines.append('uv1_world_triplanar = true')
+        lines.append(f'uv1_scale = Vector3({s:g}, {s:g}, {s:g})')
+        if uv_offset is not None:
+            u, v, w = uv_offset
+            lines.append(f'uv1_offset = Vector3({u:.6g}, {v:.6g}, {w:.6g})')
+        if skin.get("alpha_mode") == "scissor":
+            # the pack's alpha is a cutout: tested, never blended, so the
+            # quad stays in the opaque pass and needs no sorting
+            lines.append('transparency = 2')
+            lines.append('alpha_scissor_threshold = 0.5')
+        if tint:
+            r, g, b = tint[:3]
+            lines.append(f'albedo_color = Color({r:g}, {g:g}, {b:g}, 1)')
+        lines.append('')
+        return lines
+    if len(color) == 3:
+        color = color + (1.0,)
+    r, g, b, a = color
+    if a < 1.0:
+        lines.append('transparency = 1')
+    lines.append(f'albedo_color = Color({r:g}, {g:g}, {b:g}, {a:g})')
+    lines.append('')
+    return lines
+
+
+CODE_GROUND_SKIN_MISSING = "LOT_GROUND_SKIN_MISSING"
+CODE_SIGN_PACK_MISSING = "LOT_SIGN_PACK_MISSING"
+
+#: A SHOP SIGN IS A BAND ACROSS ITS FRONTAGE, not a plaque on a wall. The
+#: walker's reference frames (docs/SET_DRESSING_REFERENCES.md, the Call of
+#: Duty forecourt): the store's name runs the full width of the storefront
+#: above the glazing. So the band is sized from the facade it hangs on --
+#: `SIGN_SPAN` of it, within these bounds -- and its face is six times as
+#: wide as it is tall, which is the shape Pixelcoat renders a sign pack at.
+SIGN_SPAN = 0.72          # of the facade's width
+SIGN_MIN_W = 2.4
+SIGN_MAX_W = 9.0
+#: Width over height. TRUE SINCE PIXELCOAT 0.62.0, which draws a business's
+#: pack at 6:1. Its comment said "matching the pack" while Pixelcoat drew a
+#: 4:1 cabinet, so every band's letters stood 1.5x too wide (roadmap 223).
+SIGN_ASPECT = 6.0
+SIGN_D = 0.22
+SIGN_Z = 3.6              # the band's centre, above grade
+SIGN_PROUD = 0.06         # how far its back sits off the facade
+SIGNS_DIR = "signs"
+
+
+def sign_size(facade_w: float):
+    """(w, h) of the band on a facade ``facade_w`` wide."""
+    w = max(SIGN_MIN_W, min(SIGN_MAX_W, facade_w * SIGN_SPAN))
+    return w, w / SIGN_ASPECT
+
+#: Outdoor families a site spec may skin, and the ext_resource id stem each
+#: gets. The spec names a Pixelcoat PACK DIRECTORY per family
+#: (`"ground_skins": {"ground": "<dir>", "path": "<dir>", "courtyard": "<dir>"}`);
+#: which material kind a family wears is the caller's decision (Level Factory
+#: maps ground -> asphalt, path -> sidewalk), because Lot does not know the
+#: theme and does not read Pixelcoat's profiles -- only the pack it was handed.
+SKIN_FAMILIES = ("ground", "path", "courtyard", "road", "sidewalk", "paint", "yard",
+                 "parking")
+
+#: The wet variant Pixelcoat >= 0.47.0 writes beside the dry maps, and which
+#: map each stands in for. Resolved only when the spec asks; a pack without
+#: them is read exactly as before.
+#:
+#: THE SAME TABLE ZOO CARRIES, and the duplication is deliberate rather than
+#: careless: Lot reads a pack manifest directly and imports nothing of Zoo's,
+#: so a shared constant would mean one tool depending on the other for a
+#: two-entry dict. What must not drift is the NAMES Pixelcoat writes, and
+#: those are the pack contract.
+WET_SUBSTITUTIONS = {"albedo": "wet_albedo", "roughness": "wet_roughness"}
+
+
+def ground_skins(site_spec):
+    """Resolve the spec's `ground_skins` pack directories into skin records.
+
+    Returns (skins, findings). A family whose pack cannot be read is REPORTED
+    and left flat -- the plate ships in its greybox colour and the finding
+    says why -- never silently skipped: an unskinned plate and a plate nobody
+    asked to skin look identical from the walker's side, and the difference
+    is the whole answer to "why is the ground grey".
+
+    Measured need (roadmap 152, cold run 9014): the exterior ground was one
+    untextured 0.52 grey, so the only detail outdoors was the clutter on it,
+    and 2,708 pieces of clutter read as defects in a texture that was not
+    there.
+    """
+    raw = site_spec.get("ground_skins") or {}
+    # WET WHEN THE SPEC ASKS. Cold run 9079 shipped a level whose brief said
+    # `weather: rain`, whose sky rained, and whose road was dry -- the chooser
+    # had been wired into Zoo, which does not skin the ground. This is the
+    # tool that does.
+    want_wet = bool(site_spec.get("wet_ground"))
+    wet_used = []
+    skins, findings = {}, []
+    for fam, pack_dir in raw.items():
+        if fam not in SKIN_FAMILIES:
+            findings.append((CODE_GROUND_SKIN_MISSING,
+                             f"{fam!r} is not an outdoor family "
+                             f"({', '.join(SKIN_FAMILIES)}); ignored"))
+            continue
+        pack_dir = str(pack_dir)
+        packs = sorted(f for f in (os.listdir(pack_dir) if os.path.isdir(pack_dir) else [])
+                       if f.endswith(".pack.json"))
+        if not packs:
+            findings.append((CODE_GROUND_SKIN_MISSING,
+                             f"{fam}: no *.pack.json in {pack_dir}; the "
+                             f"{fam} stays flat"))
+            continue
+        with open(os.path.join(pack_dir, packs[0]), encoding="utf-8") as fh:
+            pk = json.load(fh)
+        maps = pk.get("maps") or {}
+        if not maps.get("albedo"):
+            findings.append((CODE_GROUND_SKIN_MISSING,
+                             f"{fam}: {packs[0]} names no albedo map; the "
+                             f"{fam} stays flat"))
+            continue
+        mpt = float(pk.get("meters_per_tile") or 0.0)
+        if mpt <= 0.0:
+            findings.append((CODE_GROUND_SKIN_MISSING,
+                             f"{fam}: {packs[0]} has no meters_per_tile; a "
+                             f"period nobody chose would be invented, so the "
+                             f"{fam} stays flat"))
+            continue
+
+        def _abs(fname):
+            return os.path.abspath(os.path.join(pack_dir, fname)).replace("\\", "/")
+
+        if want_wet:
+            # Point `albedo` and `roughness` at the wet files, where the pack
+            # has them AND the file is on disk -- the same guard the dry maps
+            # get above, for the same reason: a named map that was never
+            # written should fall back to what exists rather than resolve to a
+            # missing path. `_copy_maps` then copies whatever the record
+            # names, so the wet PNG lands in `skins/` and the material samples
+            # it. No extra texture, no extra material, no extra draw call.
+            for dry_key, wet_key in WET_SUBSTITUTIONS.items():
+                fname = maps.get(wet_key)
+                if fname and os.path.isfile(os.path.join(pack_dir, str(fname))):
+                    maps[dry_key] = fname
+                    wet_used.append(f"{fam}.{dry_key}")
+
+        hints = pk.get("import_hints") or {}
+        skins[fam] = {
+            "id": f"skin_{fam}",
+            "profile": pk.get("material_profile") or packs[0][:-len(".pack.json")],
+            "albedo": _abs(maps["albedo"]),
+            "roughness": _abs(maps["roughness"]) if maps.get("roughness") else None,
+            "normal": _abs(maps["normal"]) if maps.get("normal") else None,
+            "meters_per_tile": mpt,
+            "nearest": hints.get("interpolation") == "nearest",
+            # a cutout pack (road paint worn through to the road) asks for
+            # alpha scissor; anything else is opaque
+            "alpha_mode": (hints.get("transparency") or {}).get("alpha_mode"),
+        }
+    # SAID OUT LOUD, either way. A site that asked for wet ground and got none
+    # is a level that rains on a dry road, and that shipped once already
+    # without a word -- so a request that matched nothing is a finding, and a
+    # request that matched is printed with what it moved.
+    if want_wet:
+        if wet_used:
+            findings.append((CODE_GROUND_SKIN_WET,
+                             "wet ground: " + ", ".join(sorted(wet_used))))
+        else:
+            findings.append((CODE_GROUND_SKIN_WET,
+                             "wet ground asked for and NO pack carried a wet "
+                             "map; every outdoor family ships dry"))
+    return skins, findings
+
+
+#: Reported when a spec asks for wet ground -- with what moved, or with the
+#: fact that nothing did. INFO rather than a warning: a dry site is not
+#: broken, and a site whose packs carry no wet maps is the ordinary case for
+#: every theme but the ones Pixelcoat has authored.
+CODE_GROUND_SKIN_WET = "LOT_GROUND_SKIN_WET"
+
+SKINS_DIR = "skins"
+
+
+def building_signs(site_spec):
+    """(signs, findings): the sign pack each building wears, read the way a
+    ground skin is (`ground_skins`) -- a pack DIRECTORY per building id,
+    named by the spec, resolved here into the maps a material needs.
+
+    The spec says `{"signs": {"b0": "<pack dir>", ...}}`. A building with
+    no entry has no sign, which is the ordinary case for a warehouse or a
+    blocker; a building whose pack cannot be READ is reported and left
+    bare, never silently skipped -- a strip with no signs and a strip
+    whose signs failed to load look identical from the sidewalk.
+    """
+    raw = site_spec.get("signs") or {}
+    known = {b["id"] for b in site_spec.get("buildings", []) or []}
+    signs, findings = {}, []
+    for bid, pack_dir in sorted(raw.items()):
+        if bid not in known:
+            findings.append((CODE_SIGN_PACK_MISSING,
+                             f"{bid!r} names a sign and is not a building on "
+                             f"this site; ignored"))
+            continue
+        pack_dir = str(pack_dir)
+        packs = sorted(f for f in (os.listdir(pack_dir) if os.path.isdir(pack_dir) else [])
+                       if f.endswith(".pack.json"))
+        if not packs:
+            findings.append((CODE_SIGN_PACK_MISSING,
+                             f"{bid}: no *.pack.json in {pack_dir}; the shop "
+                             f"stands with no sign over its door"))
+            continue
+        with open(os.path.join(pack_dir, packs[0]), encoding="utf-8") as fh:
+            pk = json.load(fh)
+        maps = pk.get("maps") or {}
+        if not maps.get("albedo"):
+            findings.append((CODE_SIGN_PACK_MISSING,
+                             f"{bid}: {packs[0]} names no albedo map; no sign"))
+            continue
+
+        def _abs(fname):
+            return os.path.abspath(os.path.join(pack_dir, fname)).replace("\\", "/")
+
+        hints = pk.get("import_hints") or {}
+        signs[bid] = {
+            "id": f"sign_{bid}",
+            "profile": pk.get("material_profile") or packs[0][:-len(".pack.json")],
+            "albedo": _abs(maps["albedo"]),
+            "emissive": _abs(maps["emissive"]) if maps.get("emissive") else None,
+            "nearest": hints.get("interpolation") == "nearest",
+            # the manifest itself, copied beside the maps (0.105.0): the
+            # export reads how each map asks to be imported from it
+            "manifest": _abs(packs[0]),
+        }
+    return signs, findings
+
+
+def _sign_ext_lines(signs, out_dir, prefix):
+    """One Texture2D ext_resource per sign map, the map COPIED beside the
+    scene like a ground skin's -- Godot has no loader for a png outside the
+    project, and everything that loads a Lot scene copies its siblings."""
+    lines = []
+    dest = os.path.join(out_dir, SIGNS_DIR)
+    for bid in sorted(signs):
+        sk = signs[bid]
+        for m in ("albedo", "emissive"):
+            src = sk.get(m)
+            if not src:
+                continue
+            os.makedirs(dest, exist_ok=True)
+            name = os.path.basename(src)
+            target = os.path.join(dest, name)
+            if not (os.path.exists(target) and _same_bytes(src, target)):
+                shutil.copyfile(src, target)
+            lines.append(f'[ext_resource type="Texture2D" '
+                         f'path="{prefix}{SIGNS_DIR}/{name}" '
+                         f'id="{sk["id"]}_{m}"]')
+        # THE PACK'S MANIFEST TRAVELS WITH ITS MAPS (0.105.0, roadmap 223).
+        # A smooth sign (Pixelcoat 0.62.0) asks to be filtered and mipped, a
+        # pixel one does not, and the maps alone cannot say which: Level
+        # Factory's export reads `import_hints` here and pins each map's
+        # import to match. No scene names it, so it is a sibling, not a
+        # resource.
+        if sk.get("manifest"):
+            os.makedirs(dest, exist_ok=True)
+            target = os.path.join(dest, os.path.basename(sk["manifest"]))
+            if not (os.path.exists(target) and _same_bytes(sk["manifest"], target)):
+                shutil.copyfile(sk["manifest"], target)
+    return lines
+
+
+def sign_placement(bdef, roads_list):
+    """(x, y, yaw) for a building's sign: centred on the facade that faces
+    the street, a hand proud of it, looking at the road.
+
+    The facade is chosen by which of the footprint's four sides the nearest
+    road lies off -- the side whose outward normal points most nearly at
+    the road's closest point. A site with no roads hangs the sign on the
+    side facing the plate's centre, which is where a lot's own frontage is.
+    """
+    import site_spawns
+    rect = site_spawns.footprint_rect(bdef, 0.0)
+    if not rect:
+        return None
+    x0, y0, x1, y1 = rect
+    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
+    target = None
+    best = None
+    for road in roads_list or []:
+        dx, dy = cx - road.a[0], cy - road.a[1]
+        t = max(0.0, min(road.length, dx * road.along[0] + dy * road.along[1]))
+        p = road.point(t)
+        d = math.hypot(p[0] - cx, p[1] - cy)
+        if best is None or d < best:
+            best, target = d, p
+    if target is None:
+        target = (0.0, 0.0)
+    vx, vy = target[0] - cx, target[1] - cy
+    sides = (("S", 0.0, -1.0, (cx, y0), 270.0),
+             ("N", 0.0, 1.0, (cx, y1), 90.0),
+             ("W", -1.0, 0.0, (x0, cy), 180.0),
+             ("E", 1.0, 0.0, (x1, cy), 0.0))
+    _side, nx, ny, at, yaw = max(sides, key=lambda s: s[1] * vx + s[2] * vy)
+    facade = (y1 - y0) if abs(nx) > abs(ny) else (x1 - x0)
+    return (at[0] + nx * (SIGN_D / 2.0 + SIGN_PROUD),
+            at[1] + ny * (SIGN_D / 2.0 + SIGN_PROUD), yaw, facade)
+
+
+def sign_bands(site_spec, roads_list, signs=None):
+    """The shop bands this site hangs, for `site_furniture.plan_furniture`
+    to keep its lamps and trees out of (0.106.0): ``[{"building", "at",
+    "half", "axis"}]`` in plan metres -- the band's centre, half its width,
+    and the plan axis it runs along. The same placement and size the scene
+    writer gives each band (`sign_placement`, `sign_size`), so the span a
+    pole keeps out of is the span that is drawn. A facade with its normal on
+    y (yaw 90 or 270) runs along x."""
+    if signs is None:
+        signs, _findings = building_signs(site_spec)
+    out = []
+    for b in site_spec.get("buildings", []) or []:
+        if b["id"] not in signs:
+            continue
+        spot = sign_placement(b, roads_list)
+        if spot is None:
+            continue
+        x, y, yaw, facade = spot
+        w, _h = sign_size(facade)
+        out.append({"building": b["id"], "at": (x, y), "half": w / 2.0,
+                    "axis": "x" if int(round(yaw)) % 180 == 90 else "y"})
+    return out
+
+
+def sign_facing(yaw_plan: float) -> float:
+    """The Godot rotation about Y, in degrees, that turns a sign cabinet's
+    face along a facade whose outward normal lies at `yaw_plan` degrees
+    counterclockwise from plan +x.
+
+    THE DERIVATION, because a bare `- 90` here is how this went wrong twice
+    already. `_sign_node` writes the text
+    `Transform3D(c, 0, s, 0, 1, 0, -s, 0, c, ...)`, and Godot reads those
+    nine numbers as the basis ROWS -- measured in Godot 4.7 with
+    `str_to_var` on this writer's own text, not recalled. The lit face is a
+    QuadMesh whose own normal is local +Z (also measured), carried to world
+    `(s, 0, c)`: the third COLUMN. Plan maps to Godot as `(x, -y)`, so the
+    face points plan `(sin r, -cos r)`, and an outward normal
+    `(nx, ny) = (cos t, sin t)` wants `sin r = cos t` and `cos r = -sin t`:
+    `r = t + 90` is the only angle satisfying both.
+
+    Cold run 9041 shipped `r = -t`, a quarter turn off on every side, so the
+    signs stood edge-on to their road. 0.69.2 then shipped `r = -(t + 90)`,
+    derived by reading the numbers as COLUMNS: that equals `t + 90` modulo
+    360 for a north or south facade and is its half turn for an east or
+    west one, which put the lit face against the wall and the dark can
+    toward the street. Its test read the numbers the same wrong way and
+    passed. Both caught by measuring, neither by a gate.
+    """
+    return (yaw_plan + 90.0) % 360.0
+
+
+#: How far the lit face stands off the cabinet's front. Two millimetres:
+#: enough that no depth test can flip them, small enough that the face and
+#: the body read as one object from the sidewalk.
+SIGN_FACE_PROUD = 0.002
+#: The cabinet body's colour. A sign box is a dark painted can and the
+#: interesting surface is the face; a body wearing the pack was how the
+#: pack came to be shown on six sides at once.
+SIGN_BODY_RGBA = "0.12, 0.12, 0.13, 1"
+
+
+def _sign_node(name, center_godot, yaw_deg, sign, size):
+    """(body, subres) for a lit cabinet: a Node3D holding a BOX (the can) and
+    a QUAD (the lit face) 2 mm proud of it. No collision -- nothing 3.6 m
+    over a sidewalk needs it -- and no triplanar: a sign's face is its
+    texture once across, not a tiled surface.
+
+    WHY TWO MESHES. A BoxMesh does not map a texture 1:1 onto any of its
+    sides: its unwrap's extents are proportional to the box's dimensions, so
+    the face shows a sub-rectangle whose size depends on the other two axes.
+    Measured on cold run 9042's frames -- a 9 x 1.5 x 0.22 cabinet showed
+    about u in [0, 0.90] and v in [0, 0.62] of a centred 512 x 128 pack, and
+    "KEYSTONE SAVINGS" was cut off below the letter tops. A QuadMesh spans
+    the full 0..1 across its one face by construction. No `uv1_scale` could
+    have fixed the box, because the correction would differ per sign size.
+    """
+    x, yh, z = center_godot
+    xform = f"{yaw_basis_text(yaw_deg)}, {x:g}, {yh:g}, {z:g}"
+    face_z = SIGN_D / 2.0 + SIGN_FACE_PROUD
+    body = [f'[node name="{name}" type="Node3D" parent="."]',
+            f'transform = Transform3D({xform})', '',
+            f'[node name="mesh" type="MeshInstance3D" parent="./{name}"]',
+            f'mesh = SubResource("BoxMesh_{name}")',
+            f'material_override = SubResource("Body_{name}")', '',
+            f'[node name="face" type="MeshInstance3D" parent="./{name}"]',
+            f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, '
+            f'{face_z:g})',
+            f'mesh = SubResource("Quad_{name}")',
+            f'material_override = SubResource("Mat_{name}")', '']
+    sw, sh = size
+    sub = [f'[sub_resource type="BoxMesh" id="BoxMesh_{name}"]',
+           f'size = Vector3({sw:g}, {sh:g}, {SIGN_D:g})', '',
+           f'[sub_resource type="StandardMaterial3D" id="Body_{name}"]',
+           f'albedo_color = Color({SIGN_BODY_RGBA})', '',
+           f'[sub_resource type="QuadMesh" id="Quad_{name}"]',
+           f'size = Vector2({sw:g}, {sh:g})', '',
+           f'[sub_resource type="StandardMaterial3D" id="Mat_{name}"]',
+           f'albedo_texture = ExtResource("{sign["id"]}_albedo")']
+    if sign.get("emissive"):
+        sub += ['emission_enabled = true',
+                f'emission_texture = ExtResource("{sign["id"]}_emissive")',
+                # 1.6 blew the face to white on cold run 9040's frames -- a
+                # band that cannot be read is a band nobody put a name on.
+                # A lit cabinet is brighter than its wall and no brighter.
+                'emission_energy_multiplier = 0.65']
+    if sign.get("nearest"):
+        sub.append('texture_filter = 2')
+    sub += ['cull_mode = 2', '']          # a cabinet reads from both sides
+    return body, sub
+
+
+def _skin_ext_lines(skins, out_dir, prefix):
+    """One Texture2D ext_resource per map, the map COPIED to `<out_dir>/skins/`
+    and referenced beside the scene the way a staged building is
+    (`skins/<file>` in portable mode, `res://skins/<file>` otherwise).
+
+    0.57.0 wrote the pack's absolute path and copied nothing, on the theory
+    that a consumer bundles what a scene references. Level Factory's export
+    does; Godot does not: a `.png` outside the project has no importer, so
+    the scene's first loader -- the Lux stage, which stages the scene into a
+    throwaway project -- failed to parse it ("No loader found for resource
+    ... expected type: Texture2D"), the stage exited 2, and cold run 9015
+    shipped a package with no lighting at all. Everything that loads a Lot
+    scene copies the scene's siblings (Lux's staging does, the export does
+    for `lot/`), so the maps live as siblings.
+    """
+    lines = []
+    dest = os.path.join(out_dir, SKINS_DIR)
+    for fam in SKIN_FAMILIES:
+        sk = skins.get(fam)
+        if not sk:
+            continue
+        for m in ("albedo", "roughness", "normal"):
+            src = sk.get(m)
+            if not src:
+                continue
+            os.makedirs(dest, exist_ok=True)
+            name = os.path.basename(src)
+            target = os.path.join(dest, name)
+            if not (os.path.exists(target) and _same_bytes(src, target)):
+                shutil.copyfile(src, target)
+            lines.append(f'[ext_resource type="Texture2D" '
+                         f'path="{prefix}{SKINS_DIR}/{name}" '
+                         f'id="{sk["id"]}_{m}"]')
+    return lines
+
+
+def _same_bytes(a, b):
+    try:
+        with open(a, "rb") as fa, open(b, "rb") as fb:
+            return fa.read() == fb.read()
+    except OSError:
+        return False
+
+
+# ---------------------------------------------------------------------------
+# the site's slot manifest: its cover pieces as prop slots Zoo can build to
+# (roadmap 22 -- outdoor props had no swap contract, so cover stayed boxes)
+# ---------------------------------------------------------------------------
+
+CODE_COVER_MODULE_MISSING = "LOT_COVER_MODULE_MISSING"
+CODE_COVER_MODULE_FAILED = "LOT_COVER_MODULE_FAILED"
+
+
+def _kit_index(module_dir: str) -> dict:
+    """stem -> row of the Zoo kit index in ``module_dir`` (`*_kit.built.json`),
+    or {} when there is none -- then every module that exists is stood, as
+    before the index was read."""
+    out = {}
+    try:
+        names = [n for n in os.listdir(module_dir) if n.endswith("_kit.built.json")]
+    except OSError:
+        return out
+    for n in sorted(names):
+        try:
+            with open(os.path.join(module_dir, n), encoding="utf-8") as fh:
+                doc = json.load(fh)
+        except (OSError, ValueError):
+            continue
+        for row in doc.get("modules", []) or []:
+            if row.get("stem"):
+                out[row["stem"]] = row
+    return out
+
+
+def cover_module_stem(species: str, theme: str, style: int,
+                      dims, form: str = None, variant: int = None) -> str:
+    """The file Zoo builds for a prop slot with a species hint, by NAME.
+
+    THE THIRD COPY OF ONE RULE. `deli_counter/themed_tscn.module_stem` and
+    `zoo_keeper/core/kit.module_stem` construct this same name from the same
+    slot, and neither parses; they agree by being kept identical and each
+    pins the other with literals (`test_themed_stem`, Zoo's
+    `test_openings`). This mirror is pinned the same way in
+    `tests/test_site_cover_slots.py`, and it exists because Lot resolves the
+    site's cover the way Deli Counter resolves a building's props: a prop
+    slot with dims (w, d, h) in centimetres and a species becomes
+    `prop_<species>_<theme>_<style:02d>_w<w>_d<d>_h<h>`.
+
+    ``form`` (0.74.0) is the slot's dressing, spelled `_f<form>` exactly as
+    the other two mirrors spell it. THEY DID NOT HAVE TO CHANGE: both
+    `kit.module_stem` and `themed_tscn.module_stem` have written `_f<form>`
+    since Zoo 0.84.0, and this was the only one of the three that never
+    grew it. 0.73.0 held it back because spelling it against a genome
+    listing no forms would have resolved a name Zoo had not built; what the
+    changelog did not say is that landing Zoo's half FIRST breaks it the
+    other way round, because `plan_kit` then builds only the dressed name
+    and this asked only for the plain one. `cover_module_refs` climbs the
+    dressed-then-plain ladder for that reason -- the same one
+    `deli_counter.themed_tscn.resolve_slot_choice` already climbs -- so this
+    side is safe against either Zoo and the order stops mattering.
+    """
+    w, d, h = (int(round(float(v) * 100)) for v in dims)
+    base = f"prop_{species}_{theme}_{int(style):02d}_w{w}_d{d}_h{h}"
+    # ``variant`` (0.84.0) is Zoo's `_n<variant>`, after the form and added
+    # only when non-zero -- `kit.module_stem`'s own rule -- so no name built
+    # before it moves. First caller: the hung posters (`site_posters`).
+    stem = base + (f"_f{form}" if form else "")
+    return stem + (f"_n{int(variant)}" if variant else "")
+
+
+def write_site_slots(site_spec, out_path):
+    """The site's `<name>.slots.json`: one prop slot per species cover piece,
+    in Deli Counter's slot-manifest shape (`slot_manifest_version` 1.2.0),
+    so the SAME Zoo kit build that dresses a building dresses the street.
+
+    Only species pieces are slots; a square 0.58-form piece has no species
+    and stays the box it was. A piece's own ``style`` (a parked car's,
+    `site_parking.car_for_bay`) is the slot's; a piece with none is style 1,
+    as every slot was until 0.70.0. Zoo's `plan_kit` reads the slot's style
+    into the stem, so two styles of one shape are two modules. Returns the
+    number of slots written."""
+    slots = []
+    for i, cv in enumerate(site_spec.get("cover", []) or []):
+        sp = cv.get("species")
+        dims = cv.get("dims")
+        if not sp or not dims or len(dims) < 3:
+            continue
+        cx, cy = cv["at"]
+        base = SIDEWALK_H if cv.get("base") == "sidewalk" else 0.0
+        slots.append({
+            "slot_id": f"cover_{i}", "role": "prop", "size_mod": "full",
+            "style": int(cv.get("style") or 1),
+            "material": COVER_MATERIALS.get(sp, "metal_painted"),
+            "current_ref": "prop_greybox_01", "kit_axis": "theme",
+            "species": sp,
+            "transform": {"translation": [round(cx, 4), round(cy, 4),
+                                          round(base + float(dims[2]) / 2.0, 4)],
+                          "rot_y": float(cv.get("yaw") or 0.0),
+                          "scale": [1.0, 1.0, 1.0]},
+            "fit": {"dims": [float(dims[0]), float(dims[1]), float(dims[2])],
+                    "pivot": "center", "openings": [], "collision": "convex"},
+            "breaks": cv.get("breaks", ""),
+        })
+        # THE BLADE A POST CARRIES, as Zoo's dressing `form` (0.84.0):
+        # `site_furniture` names one on every `sign_post` it stands, Zoo
+        # 0.96.0's genome lists the three, and `cover_module_stem` spells
+        # `_f<form>` (0.74.0). A form no genome lists is still dropped by
+        # Zoo's `honour_dressing` and still lands in its `dressing_fallbacks`
+        # report, and `cover_module_refs` falls back to the undressed name,
+        # so a street-name blade nobody has drawn costs a bare pole rather
+        # than a greybox.
+        if cv.get("blade"):
+            slots[-1]["form"] = str(cv["blade"])
+        # A PIECE'S OWN VARIANT (0.90.0): a dumpster's hauler, which is its
+        # paint. Zoo reads the slot's `variant` into the stem as `_n<v>`,
+        # non-zero only, so no slot written before this moves.
+        if cv.get("variant"):
+            slots[-1]["variant"] = int(cv["variant"])
+    n_cover = len(slots)
+    # THE HUNG PIECES (0.84.0, `site_posters`): paper on an alley wall or a
+    # pole. Not cover -- they live in their own list so nothing that reads
+    # cover as cover ever sees them -- but slots all the same, so the kit
+    # build that makes the street makes them. The slot stands at the
+    # record's own mount height, with no collision, and carries Zoo's
+    # dressing: the family as `form`, the sheet order as `variant`.
+    for i, hv in enumerate(site_spec.get("hung", []) or []):
+        sp, dims = hv.get("species"), hv.get("dims")
+        if not sp or not dims or len(dims) < 3:
+            continue
+        cx, cy = hv["at"]
+        base = SIDEWALK_H if hv.get("base") == "sidewalk" else 0.0
+        slot = {
+            "slot_id": f"hung_{i}", "role": "prop", "size_mod": "full",
+            "style": int(hv.get("style") or 1),
+            "material": COVER_MATERIALS.get(sp, "metal_painted"),
+            "current_ref": "prop_greybox_01", "kit_axis": "theme",
+            "species": sp,
+            "transform": {"translation": [round(cx, 4), round(cy, 4),
+                                          round(base + float(hv["z"]), 4)],
+                          "rot_y": float(hv.get("yaw") or 0.0),
+                          "scale": [1.0, 1.0, 1.0]},
+            "fit": {"dims": [float(dims[0]), float(dims[1]), float(dims[2])],
+                    "pivot": "center", "openings": [], "collision": "none"},
+        }
+        if hv.get("form"):
+            slot["form"] = str(hv["form"])
+        if hv.get("variant"):
+            slot["variant"] = int(hv["variant"])
+        slots.append(slot)
+    n_hung = len(slots) - n_cover
+    # THE RESPONDERS' CAR (0.101.0): a slot an arrival, so the site kit
+    # builds it. Nothing stands it -- the gameplay layer spawns responders --
+    # so the slot's transform says where the car would stop, and only
+    # `write_responder_vehicles` reads what Zoo built.
+    for i, rv in enumerate(site_spec.get("responders", []) or []):
+        sp, dims = rv.get("species"), rv.get("dims")
+        if not sp or not dims or len(dims) < 3:
+            continue
+        cx, cy = rv["at"][:2]
+        slots.append({
+            "slot_id": f"responder_{i}", "role": "prop", "size_mod": "full",
+            "style": int(rv.get("style") or 1),
+            "material": COVER_MATERIALS.get(sp, "metal_painted"),
+            "current_ref": "prop_greybox_01", "kit_axis": "theme",
+            "species": sp,
+            "transform": {"translation": [round(cx, 4), round(cy, 4),
+                                          round(float(dims[2]) / 2.0, 4)],
+                          "rot_y": float(rv.get("yaw") or 0.0),
+                          "scale": [1.0, 1.0, 1.0]},
+            "fit": {"dims": [float(dims[0]), float(dims[1]), float(dims[2])],
+                    "pivot": "center", "openings": [], "collision": "convex"},
+        })
+    n_resp = len(slots) - n_cover - n_hung
+    # THE BACKDROP BEYOND THE PLATE'S EDGE (0.108.0, `site_backdrop`): rows
+    # of rowhomes and a water tower in their own list, never cover. A slot
+    # each, with no collision, so the kit build makes the modules; the
+    # drawn scene writes no node for them -- Level Factory composes them
+    # as MultiMeshes (roadmap 228, step E).
+    for i, bp in enumerate(site_spec.get("backdrop", []) or []):
+        sp, dims = bp.get("species"), bp.get("dims")
+        if not sp or not dims or len(dims) < 3:
+            continue
+        cx, cy = bp["at"][:2]
+        slots.append({
+            "slot_id": f"backdrop_{i}", "role": "prop", "size_mod": "full",
+            "style": int(bp.get("style") or 1),
+            "material": COVER_MATERIALS.get(sp, "metal_painted"),
+            "current_ref": "prop_greybox_01", "kit_axis": "theme",
+            "species": sp,
+            "transform": {"translation": [round(cx, 4), round(cy, 4),
+                                          round(float(dims[2]) / 2.0, 4)],
+                          "rot_y": float(bp.get("yaw") or 0.0),
+                          "scale": [1.0, 1.0, 1.0]},
+            "fit": {"dims": [float(dims[0]), float(dims[1]), float(dims[2])],
+                    "pivot": "center", "openings": [], "collision": "none"},
+            "source": "site_backdrop",
+        })
+    n_backdrop = len(slots) - n_cover - n_hung - n_resp
+    coverage = {"prop/site_cover": n_cover}
+    if n_hung:
+        coverage["prop/site_hung"] = n_hung
+    if n_resp:
+        coverage["prop/site_responders"] = n_resp
+    if n_backdrop:
+        coverage["prop/site_backdrop"] = n_backdrop
+    doc = {
+        "slot_manifest_version": "1.2.0",
+        "building_id": "site",
+        "theme": "greybox",
+        "module_library": "art/zoo",
+        "module_size": 2.0,
+        "space": "spec/Blender Z-up raw coords; rot_y = degrees about up",
+        "coverage": coverage,
+        "slots": slots,
+    }
+    with open(out_path, "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=2)
+    return len(slots)
+
+
+#: The material a cover species is built in, as Deli Counter names one on a
+#: prop slot (the Zoo genome's default). Named here so the slot Lot writes
+#: says what Zoo will read, rather than leaving the field empty.
+COVER_MATERIALS = {"box_truck": "metal_painted", "cargo_container": "metal_painted",
+                   # the crew's getaway van is flat black paint gone chalky,
+                   # Zoo's one option for it (0.98.0)
+                   "step_van": "paint_matte",
+                   "simple_car": "metal_painted",
+                   # the responders' car (0.101.0), Zoo 1.86.0's one option
+                   "cruiser": "metal_painted",
+                   # the kerb line (site_furniture)
+                   "streetlight": "metal", "fire_hydrant": "metal_painted",
+                   "litter_bin": "metal_painted", "sign_post": "metal_bare",
+                   # the waiting places (site_furniture)
+                   "bus_shelter": "metal_painted", "bench": "wood",
+                   # the five street trees and the generic one
+                   "street_tree": "wood", "red_maple": "wood",
+                   "pin_oak": "wood", "honey_locust": "wood",
+                   "london_plane": "wood", "callery_pear": "wood",
+                   # the 1990s street kit (site_furniture)
+                   "stop_sign": "metal_bare", "traffic_signal": "metal_painted",
+                   "mailbox": "metal_painted", "newspaper_box": "metal_painted",
+                   "parking_meter": "metal_painted", "payphone": "metal_painted",
+                   # the gas station's price pylon (site_furniture.plan_pylons)
+                   "price_pylon": "metal_painted",
+                   # the dumpster at a building's service side (site_dumpsters)
+                   "dumpster": "metal_painted",
+                   # the bags beside it (site_dumpsters.plan_bags, 0.104.0):
+                   # Zoo 1.93.0's one option, each bag's colour in its Wear
+                   "trash_bags": "plastic",
+                   # the handbills (site_posters): paper, the genome's own kind
+                   "poster_wall": "paper", "pole_flyers": "paper",
+                   # the fence at the playable edge (site_fences, 0.97.0):
+                   # galvanised steel; the fabric is its own kind in Zoo
+                   "chain_link_fence": "metal_bare",
+                   # the backdrop beyond the plate's edge (site_backdrop,
+                   # 0.108.0): a painted rowhome and a painted-steel tower
+                   "backdrop_rowhome": "brick", "water_tower": "metal_painted"}
+
+
+COVER_DIR = "cover"
+
+
+def cover_module_refs(site_spec, prefix, out_dir=None, key="cover"):
+    """Which cover pieces have a built module to stand in for the box.
+
+    The spec's ``cover_modules`` names the Zoo kit build's directory, theme
+    and style; each species piece resolves to `<dir>/<stem>.glb` by
+    `cover_module_stem`. Returns (refs, ext_lines, findings): ``refs`` maps a
+    cover INDEX to its ext_resource id, ``ext_lines`` declare the GLBs, and
+    each piece whose module is not there is a `LOT_COVER_MODULE_MISSING`
+    finding with the stem it looked for -- the box stays, the art pass is
+    progressive, and nothing is quiet about it.
+
+    The modules are COPIED to `<out_dir>/cover/` and referenced as siblings
+    of the scene (`cover/<stem>.glb`, or `res://cover/...` off portable
+    mode), exactly as the ground's skins are. 0.59.0 referenced them by
+    absolute path; cold run 9019 showed what that costs one stage on: the
+    Lux stage stages the scene into a throwaway project, Godot has no
+    loader for a glb outside it ("No loader found for resource"), and the
+    applied scene the package ships came back with every cover node gone
+    -- three modules built, three boxes replaced, nothing in the level.
+    Every stage that loads a Lot scene copies its siblings.
+    """
+    cm = site_spec.get("cover_modules") or {}
+    refs, ext, findings = {}, [], []
+    if not cm.get("dir"):
+        return refs, ext, findings
+    theme, style = str(cm.get("theme", "")), int(cm.get("style", 1))
+    if not theme:
+        findings.append((CODE_COVER_MODULE_MISSING,
+                         "cover_modules names no theme; every piece stays a box"))
+        return refs, ext, findings
+    index = _kit_index(str(cm["dir"]))
+    seen = {}
+    # ``key`` (0.84.0): "cover", or "hung" for `site_posters`' pieces --
+    # the same resolution, a list of its own, refs keyed by its own index.
+    for i, cv in enumerate(site_spec.get(key, []) or []):
+        sp, dims = cv.get("species"), cv.get("dims")
+        if not sp or not dims:
+            continue
+        # The piece's own style when it carries one, as `write_site_slots`
+        # wrote it on the slot Zoo built from; the site's style otherwise.
+        # At the site's one style a style-2 car would ask for the style-1
+        # file, which is another car or no file at all.
+        # THE DRESSED NAME, THEN THE PLAIN ONE. A post carrying a blade
+        # asks for `..._fno_parking` and falls back to the module a Zoo
+        # that cannot draw the blade still builds -- the bare pole, which is
+        # what stood here before 0.74.0. Without the ladder this file and
+        # Zoo's genome would have to land in the same instant or every post
+        # on the site goes to greybox, in whichever order they landed.
+        st = int(cv.get("style") or style)
+        form = cv.get("blade") or cv.get("form")
+        tried = []
+        if form and cv.get("variant"):
+            tried.append(cover_module_stem(sp, theme, st, dims, form=form,
+                                           variant=cv["variant"]))
+        if form:
+            tried.append(cover_module_stem(sp, theme, st, dims, form=form))
+        # A HUNG PIECE STOPS AT ITS FORM. A poster run's plain name is
+        # another family's art (Zoo draws `poster_wall` with no form as the
+        # club's), so an alley slot with no alley module is drawn as nothing,
+        # and said, rather than as a strip club's poster in an alley.
+        # ...and a piece with a variant and no form asks for its own
+        # module before the plain one (0.90.0): the second hauler's
+        # dumpster, falling back to the first's rather than to a box.
+        if not form and cv.get("variant"):
+            tried.append(cover_module_stem(sp, theme, st, dims,
+                                           variant=cv["variant"]))
+        if key == "cover" or not form:
+            tried.append(cover_module_stem(sp, theme, st, dims))
+        stem, glb = None, None
+        for cand in tried:
+            path = os.path.abspath(os.path.join(str(cm["dir"]),
+                                                cand + ".glb")).replace("\\", "/")
+            if os.path.isfile(path):
+                stem, glb = cand, path
+                break
+        if stem is None:
+            findings.append((CODE_COVER_MODULE_MISSING,
+                             f"{key}_{i} ({sp}): no {' or '.join(tried)}.glb "
+                             f"in {cm['dir']}; the box stays"))
+            continue
+        # THE INDEX'S VERDICT, READ. Zoo writes `site_kit.built.json` beside
+        # the modules with a `status` per row; a module that failed exact
+        # fit (cold run 9024: the lamp 6.18 m against 6.00, the car 4.36
+        # against 4.30) was stood anyway because this resolved by file. A
+        # failed module keeps its box, and says which check it failed. A
+        # `warn` row is a built module with an advisory against it (a tri
+        # budget, a dim range Zoo marks advisory under exact fit) and
+        # stands; only `fail` -- or a status nobody named -- keeps the box.
+        verdict = index.get(stem)
+        if verdict is not None and verdict.get("status") not in ("pass", "warn"):
+            findings.append((CODE_COVER_MODULE_FAILED,
+                             f"{key}_{i} ({sp}): {stem} built with status "
+                             f"{verdict.get('status')!r}; the box stays"))
+            continue
+        if stem not in seen:
+            seen[stem] = f"cover_{stem}"
+            ref_path = glb
+            if out_dir:
+                import glb_deps
+                dest = os.path.join(out_dir, COVER_DIR)
+                os.makedirs(dest, exist_ok=True)
+                target = os.path.join(dest, stem + ".glb")
+                # AND WHATEVER THE MODULE NAMES BESIDE ITSELF. The docstring
+                # above already states the rule this copy exists to satisfy --
+                # every stage that loads a Lot scene copies its siblings -- and
+                # a GLB's siblings grew: Zoo 1.2.0 writes a module's textures
+                # beside it under a relative glTF `uri` instead of inside its
+                # binary chunk. `copyfile` on the .glb alone left every cover
+                # piece in cold runs 9067-9069 naming a texture the package did
+                # not carry, 128 dead references on 9068 from this line.
+                #
+                # `_same_bytes` is not the skip test any more: the .glb can be
+                # byte-identical while a texture beside it is absent, which is
+                # exactly the state those three packages shipped in.
+                # `copy_with_deps` does its own per-file skip, by the hash Zoo
+                # already put in each texture's name.
+                glb_deps.copy_with_deps(glb, target)
+                ref_path = f"{prefix}{COVER_DIR}/{stem}.glb"
+            ext.append(f'[ext_resource type="PackedScene" path="{ref_path}" '
+                       f'id="{seen[stem]}"]')
+        refs[i] = seen[stem]
+    return refs, ext, findings
+
+
+#: What `write_responder_vehicles` writes beside a themed site scene.
+RESPONDERS_NAME = "responders.json"
+
+
+def write_responder_vehicles(site_spec, refs, scene_dir):
+    """`responders.json` beside the scene (0.101.0, roadmap 212): for each
+    arrival's car, the module Zoo built and `cover_module_refs` copied --
+    its path relative to the scene -- with the stop and the slot it was
+    built for. The gameplay layer spawns responders; the package names the
+    car it spawns (Level Factory's `responder_arrivals.json`). A car with no
+    module is listed under `missing`, not dropped. Returns the document, or
+    None, writing nothing, on a site with no arrivals."""
+    cars = site_spec.get("responders") or []
+    if not cars:
+        return None
+    vehicles, missing = [], []
+    for i, rv in enumerate(cars):
+        ref = refs.get(i)
+        if ref is None:
+            missing.append(i)
+            continue
+        assert ref.startswith("cover_"), ref        # `cover_module_refs`' own ids
+        vehicles.append({"arrival": i, "species": rv["species"],
+                         "scene": f"{COVER_DIR}/{ref[len('cover_'):]}.glb",
+                         "stop": list(rv["at"]), "yaw": rv.get("yaw"),
+                         "dims": list(rv["dims"])})
+    doc = {"schema": "lot.responder_vehicles.v1",
+           "what": ("The car each responder arrival brings: built by Zoo's site kit, "
+                    "copied beside this scene, stood nowhere. Spawning it is the "
+                    "gameplay layer's."),
+           "vehicles": vehicles, "missing": missing}
+    with open(os.path.join(scene_dir, RESPONDERS_NAME), "w", encoding="utf-8") as fh:
+        json.dump(doc, fh, indent=2)
+    return doc
+
+
+def _blocker_source(bk):
+    """Optional facade-shell geometry for a blocker (.tscn wins over .glb), or
+    None to fall back to a plain box."""
+    return bk.get("scene") or bk.get("glb")
+
+
+def _ground_tiles(rect, holes):
+    """Axis-aligned decomposition of the ground rect minus hole rects.
+
+    `rect` is the resolved (x0, y0, x1, y1) plate from `site_extent.resolve` --
+    not a size, because a plate is not necessarily centred on the origin and
+    assuming it was is what put a building's ground hole off the edge of the
+    world. Band split on hole y-edges, then per-band x-interval subtraction.
+    Deterministic; returns (x0, y0, x1, y1) site-space tiles.
+
+    A hole outside the plate is dropped and a hole straddling the rim is
+    trimmed, exactly as before -- but by this point `site_extent.resolve` has
+    grown the plate to contain every hole, and `site_extent.hole_findings`
+    reports any that it could not. The clipping here is arithmetic, no longer
+    a decision taken in silence."""
+    x_min, y_min, x_max, y_max = rect
+    holes = [(max(x_min, h[0]), max(y_min, h[1]),
+              min(x_max, h[2]), min(y_max, h[3])) for h in holes
+             if h[0] < x_max and h[2] > x_min and h[1] < y_max and h[3] > y_min]
+    if not holes:
+        return [(x_min, y_min, x_max, y_max)]
+    ys = sorted({y_min, y_max} | {v for h in holes for v in (h[1], h[3])
+                                  if y_min < v < y_max})
+    tiles = []
+    for y0, y1 in zip(ys, ys[1:]):
+        mid = (y0 + y1) / 2
+        cuts = sorted({x_min, x_max} | {v for h in holes
+                                        if h[1] < mid < h[3]
+                                        for v in (h[0], h[2])
+                                        if x_min < v < x_max})
+        for x0, x1 in zip(cuts, cuts[1:]):
+            cxm = (x0 + x1) / 2
+            if any(h[0] < cxm < h[2] and h[1] < mid < h[3] for h in holes):
+                continue
+            tiles.append((x0, y0, x1, y1))
+    return tiles
+
+
+#: How far inside a footprint the ground hole is cut. The overlap keeps the
+#: building's exterior walls seated on ground with no gap at the threshold.
+GROUND_HOLE_INSET = 0.45
+
+
+def ground_holes(site_spec, self_flooring=None):
+    """The rects cut out of the ground plate, in site space.
+
+    Shared by the scene builder and by the gate that checks the plate contains
+    them, so the two cannot disagree about which holes were cut. `self_flooring`
+    is the set of building ids whose geometry demonstrably brings collision
+    (see `site_ground.audit`); None means nothing was checked, so nothing is
+    cut -- an unchecked assumption must not be able to open a void.
+    """
+    import site_extent
+    floors = set() if self_flooring is None else set(self_flooring)
+    holes = []
+    for bdef in site_spec.get("buildings") or []:
+        if str(bdef.get("id", "?")) not in floors:
+            continue
+        # `_footprint` specifically: the annotation `merge_gameplay` writes from
+        # the building's own gameplay file. A footprint recovered from anywhere
+        # else is fine for sizing the ground and not authority enough to cut a
+        # hole in it.
+        if not bdef.get("_footprint"):
+            continue
+        rect = site_extent.rotated_footprint(bdef)
+        if rect is None:
+            continue
+        hole = site_extent.grow(rect, -GROUND_HOLE_INSET)
+        if hole[2] > hole[0] and hole[3] > hole[1]:
+            holes.append(hole)
+    return holes
+
+
+# ---------------------------------------------------------------------------
+# The flat slabs a body walks on, as data
+# ---------------------------------------------------------------------------
+# Shared by the scene builder and by `site_surfaces.tops`, which tells the
+# dressing planner how high the surface is under a point. Cold run 9052 is why
+# that second reader exists: `site_surfaces` declared every zone at z 0, the
+# planner placed every one of 4,909 instances at z 0, and read off the shipped
+# scene 2,500 of them stood inside a slab -- 1,648 inside a 0.0974 m sidewalk
+# band, 739 in the road, 64 in a path, 49 in a kerb cut. A zone's own height
+# could not have fixed that: zones are boxes that overlap surfaces they do not
+# name. On the same run 627 instances stood on a different family's slab from
+# the one their zone names, and placing each at its zone's own surface would
+# still have left 618 more than 5 mm off. So the height comes from the slabs,
+# and the slabs come from the one function that draws them.
+#
+# Each slab is `{name, family, size, centre, yaw_deg, top}` in the GODOT frame
+# the box nodes take: `size` (x, y, z) and `centre` (x, y_height, z) exactly as
+# `_yaw_box_node` / `_box_node` are called, `yaw_deg` as passed to
+# `_yaw_box_node` (None for an axis-aligned `_box_node`), `top` the height of
+# the up face. The drawing reads the slab, so the drawing and the declaration
+# cannot drift apart without a test noticing.
+
+def _surface_slab(name, family, size, centre, yaw_deg, top):
+    return {"name": name, "family": family, "size": size, "centre": centre,
+            "yaw_deg": yaw_deg, "top": top}
+
+
+def path_slabs(site_spec):
+    """One slab per declared path, `path_<i>`, top at PATH_THICK."""
+    import site_paths
+    bld = {b["id"]: b for b in site_spec["buildings"]}
+    out = []
+    # what is drawn (0.91.0): a walk to a door, a landing at one
+    for i, p in enumerate(site_paths.drawn(site_spec)):
+        w = p.get("width", 3.0)
+        # the resolved ends (0.88.0): a door, where the facade has one
+        a, b2 = site_paths.endpoints(p, bld)
+        ax, ay = a
+        bx_, by_ = b2
+        cx, cy = (ax + bx_) / 2, (ay + by_) / 2
+        dx, dy = bx_ - ax, by_ - ay
+        length = math.hypot(dx, dy)
+        ang = math.degrees(math.atan2(dy, dx))
+        # path lies along its length (x), width across (z), thin (y), and
+        # its x runs at plan angle `ang` -- which is the yaw to write
+        # (`yaw_basis_text`). Until 0.72.1 this passed `-ang`, and every
+        # diagonal path was drawn mirrored across its own centre line:
+        # cold run 9052's b1 -> b2 path ended at plan (45, -10), 20 m from
+        # the building at (45, 10) it was drawn to reach.
+        # Extended DOWN by GROUND_SINK so it stays buried in the plate; the
+        # top face does not move, so every height check reads the same number.
+        out.append(_surface_slab(f"path_{i}", "path",
+                                 (length, PATH_THICK + GROUND_SINK, w),
+                                 (cx, (PATH_THICK - GROUND_SINK) / 2, -cy),
+                                 ang, PATH_THICK))
+    return out
+
+
+def courtyard_slabs(site_spec):
+    """One axis-aligned slab per courtyard, top at COURT_THICK."""
+    out = []
+    for i, cdef in enumerate(site_spec.get("courtyards", [])):
+        cx, cy = cdef["at"]
+        sx, sy = cdef.get("size_x", 10), cdef.get("size_y", 10)
+        out.append(_surface_slab(f"courtyard_{i}", "courtyard",
+                                 (sx, COURT_THICK + GROUND_SINK, sy),
+                                 (cx, (COURT_THICK - GROUND_SINK) / 2, -cy),
+                                 None, COURT_THICK))
+    return out
+
+
+def yard_slabs(site_spec):
+    """One axis-aligned slab per service pad (`site_yards`, 0.93.0),
+    `yard_<i>`, top at YARD_THICK -- a courtyard's shape."""
+    out = []
+    for i, y in enumerate(site_spec.get("yards", []) or []):
+        cx, cy = y["at"]
+        sx, sy = y["size_x"], y["size_y"]
+        out.append(_surface_slab(f"yard_{i}", "yard",
+                                 (sx, YARD_THICK + GROUND_SINK, sy),
+                                 (cx, (YARD_THICK - GROUND_SINK) / 2, -cy),
+                                 None, YARD_THICK))
+    return out
+
+
+def field_slabs(site_spec):
+    """One slab per parking field (`site_fields`, 0.94.0), `field_<i>`, top
+    at FIELD_THICK, turned to its road: local x runs along the road."""
+    out = []
+    for i, f in enumerate(site_spec.get("fields", []) or []):
+        cx, cy = f["at"]
+        sx, sy = f["size"]
+        out.append(_surface_slab(f"field_{i}", "parking",
+                                 (sx, FIELD_THICK + GROUND_SINK, sy),
+                                 (cx, (FIELD_THICK - GROUND_SINK) / 2, -cy),
+                                 f["yaw_deg"], FIELD_THICK))
+    return out
+
+
+def street_slabs(street_roads):
+    """Per road, in draw order: its slab spans (`road`), then each kerb's
+    band pieces -- `sidewalk` at SIDEWALK_H, `kerbcut` at ROAD_THICK where
+    the kerb is dropped for a crossing."""
+    import site_streets
+    out = []
+    for road in street_roads:
+        i, w, ang = road.index, road.width, road.angle_deg
+        # the slab: the whole road, or from the far edge of the band of a
+        # road it ends on (`site_streets._slab`) -- two slabs lying
+        # coplanar over a junction's mouth would z-fight, and the other
+        # road's dropped kerb is that mouth's surface
+        # ... and less the boxes a lower-index road owns where it crosses
+        # through (an X): the slab and the band pieces stop at the box's
+        # edges and resume past them (`site_streets.drawn_spans`).
+        spans = site_streets.drawn_spans(road)
+        for k, (s0, s1) in enumerate(spans):
+            cx, cy = road.point((s0 + s1) / 2.0)
+            nm = f"road_{i}" if len(spans) == 1 else f"road_{i}_{k}"
+            out.append(_surface_slab(nm, "road",
+                                     (s1 - s0, ROAD_THICK + GROUND_SINK, w),
+                                     (cx, (ROAD_THICK - GROUND_SINK) / 2, -cy),
+                                     ang, ROAD_THICK))
+        for kerb in road.kerbs:
+            pieces = [(t0, t1, is_cut, j) for j, (t0, t1, is_cut) in enumerate(kerb.spans)]
+            for t0, t1, is_cut, j in pieces:
+                t0, t1 = max(t0, road.slab[0]), min(t1, road.slab[1])
+                parts = site_streets._outside(t0, t1, road.gaps) if t1 > t0 else []
+                for kk, (p0, p1) in enumerate(parts):
+                    seg = p1 - p0
+                    if seg <= 0.05:
+                        continue
+                    scx, scy = road.point((p0 + p1) / 2.0, kerb.offset)
+                    h = ROAD_THICK if is_cut else SIDEWALK_H
+                    tag = f"{j}" if len(parts) == 1 else f"{j}_{kk}"
+                    nm = (f"kerbcut_{i}{kerb.side}_{tag}" if is_cut
+                          else f"sidewalk_{i}{kerb.side}_{tag}")
+                    out.append(_surface_slab(
+                        nm, "kerbcut" if is_cut else "sidewalk",
+                        (seg, h, road.sidewalk), (scx, h / 2, -scy), ang, h))
+    return out
+
+
+def frontage_slabs(site_spec, street_roads, findings=None):
+    """One flush slab per `site_streets.frontages` strip, top at
+    FRONTAGE_THICK. `findings` receives what `frontages` reports."""
+    import site_streets
+    out = []
+    for n, fr in enumerate(site_streets.frontages(site_spec, street_roads,
+                                                  findings)):
+        road = next(r for r in street_roads if r.index == fr.road)
+        fcx, fcy = fr.centre(road)
+        out.append(_surface_slab(
+            f"frontage_{fr.road}{fr.side}_{n}", "frontage",
+            (fr.length, FRONTAGE_THICK + GROUND_SINK, fr.depth),
+            (fcx, (FRONTAGE_THICK - GROUND_SINK) / 2, -fcy), road.angle_deg,
+            FRONTAGE_THICK))
+    return out
+
+
+#: The ground plate's up face (see GROUND_SINK). Outside every slab above,
+#: and inside the plate's rect, this is the surface.
+PLATE_TOP = -GROUND_SINK
+
+
+def _outdoor_nodes(site_spec, preview=False, self_flooring=None, skins=None,
+                   cover_refs=None, signs=None, hung_refs=None):
+    """(body_lines, subres_lines) for all Phase-2 outdoor geometry.
+
+    `self_flooring` is the set of building ids whose geometry demonstrably
+    brings collision (see site_ground.audit). Only those get a hole cut in the
+    ground beneath them. Passing None means nothing has been checked, so no
+    holes are cut -- an unchecked assumption must not be able to open a void.
+
+    `skins` is `ground_skins(site_spec)[0]`: per outdoor family, the
+    Pixelcoat maps its material wears. Absent, every family keeps its flat
+    greybox colour, byte for byte.
+    """
+    body, sub = [], []
+    skins = skins or {}
+    if SIDEWALK_H > STEP_MAX:
+        # RE-AIMED, not deleted. The old test asked whether the half-step band
+        # had collapsed, which a kerb under the step ceiling makes unreachable
+        # -- and a check that cannot fail is indistinguishable from one that
+        # passed. This is the invariant
+        # the flat surfaces above actually rest on: if the kerb ever climbs back
+        # over the step ceiling, they become unreachable and nothing else here
+        # would notice.
+        print(f"[lot] LOT_KERB_ABOVE_STEP: the {SIDEWALK_H:.4f} m kerb is taller "
+              f"than the {STEP_MAX:.4f} m a contract body walks up unassisted, "
+              f"so a stock CharacterBody3D cannot leave the road except at a "
+              f"crossing. The flat surfaces assume it can. Lower SIDEWALK_H, or "
+              f"put the slabs back on a half-step band.")
+    # preview massing boxes are Lot's own StaticBody3D geometry, but they are
+    # solid blocks rather than floored interiors, so the ground stays under
+    # them too and the site remains walkable up to the massing.
+    floors = set() if self_flooring is None else set(self_flooring)
+
+    import site_extent
+    ground = site_extent.resolve(site_spec)
+    g = site_spec.get("ground")
+    if g and ground.rect:
+        # NOT one solid box: a ground slab running through a building
+        # footprint seals its basement stairwell (Phase 1 site walktests:
+        # basements bake as disjoint islands). Cut an inset hole per
+        # footprint -- the inset keeps exterior walls seated on ground with
+        # no exterior gap; the building's own slabs floor the interior.
+        #
+        # "The building's own slabs floor the interior" is a premise, not a
+        # fact: a plain shell.glb imports as MeshInstance3D with no collision
+        # at all. Cutting under one of those leaves a hole nothing fills, and
+        # four adjacent footprints merge into a void big enough to swallow the
+        # spawn, the objective and every enemy. Cut only where checked.
+        holes = ground_holes(site_spec, floors)
+        for j, (x0, y0, x1, y1) in enumerate(_ground_tiles(ground.rect, holes)):
+            # Top at -GROUND_SINK, bottom where it always was: the plate
+            # gets thicker rather than moving, so nothing below it shifts.
+            bl, sr = _box_node("Ground" if j == 0 else f"Ground_{j}",
+                               (x1 - x0, GROUND_THICK - GROUND_SINK, y1 - y0),
+                               ((x0 + x1) / 2,
+                                -(GROUND_THICK + GROUND_SINK) / 2,
+                                -(y0 + y1) / 2),
+                               GROUND_COLOR, skin=skins.get("ground"))
+            body += bl
+            sub += sr
+
+    # paths and courtyards: `path_slabs` / `courtyard_slabs` hold the geometry
+    for s in path_slabs(site_spec):
+        bl, sr = _yaw_box_node(s["name"], s["size"], s["centre"], s["yaw_deg"],
+                               PATH_COLOR, skin=skins.get("path"))
+        body += bl
+        sub += sr
+
+    for s in courtyard_slabs(site_spec):
+        bl, sr = _box_node(s["name"], s["size"], s["centre"],
+                           COURT_COLOR, skin=skins.get("courtyard"))
+        body += bl
+        sub += sr
+
+    # the parking fields in the gaps (`site_fields`, 0.94.0)
+    for s in field_slabs(site_spec):
+        bl, sr = _yaw_box_node(s["name"], s["size"], s["centre"], s["yaw_deg"],
+                               FIELD_COLOR, skin=skins.get("parking"))
+        body += bl
+        sub += sr
+
+    # the service pads under the dumpsters (`site_yards`, 0.93.0)
+    for s in yard_slabs(site_spec):
+        bl, sr = _box_node(s["name"], s["size"], s["centre"],
+                           YARD_COLOR, skin=skins.get("yard"))
+        body += bl
+        sub += sr
+
+    per = site_spec.get("perimeter")
+    if per and ground.rect:
+        h = per.get("height", 3.0)
+        # The wall rings the ground that was actually built, not a rect derived
+        # a second time from the declared size: a perimeter around a plate that
+        # has been extended would otherwise cut straight through the site.
+        x0, y0, x1, y1 = ground.rect
+        gx, gy = x1 - x0, y1 - y0
+        cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+        # THE WALL BEHIND THE FENCE (0.107.0, roadmap 228): with the plate's
+        # edge fenced (`site_fences.plan_perimeter`), the wall keeps its
+        # collision and shows nothing -- the fence, the glow and the backdrop
+        # are what a player sees at the edge, not "the brightest thing in the
+        # frame". 78 lightmapped tiles stop being drawn on cold run 9219's plate.
+        seen = _wall_seen(site_spec)
+        for name, size, at_xyz in [
+            ("perim_N", (gx, h, WALL_THICK), (cx, h / 2, -y1)),
+            ("perim_S", (gx, h, WALL_THICK), (cx, h / 2, -y0)),
+            ("perim_E", (WALL_THICK, h, gy), (x1, h / 2, -cy)),
+            ("perim_W", (WALL_THICK, h, gy), (x0, h / 2, -cy)),
+        ]:
+            bl, sr = _box_node(name, size, at_xyz, PERIM_COLOR, visual=seen)
+            body += bl
+            sub += sr
+
+    cover_refs = cover_refs or {}
+    for i, cv in enumerate(site_spec.get("cover", [])):
+        cx, cy = cv["at"]
+        sx, sy, sz = cv.get("size", COVER)
+        # Where the piece's underside sits: the plate, or the top of a
+        # sidewalk band for kerb-line furniture (roadmap 153).
+        base = SIDEWALK_H if cv.get("base") == "sidewalk" else 0.0
+        if i in cover_refs:
+            # The module Zoo built for this slot, standing where the box
+            # stood: same centre, same yaw, its own collision (roadmap 22).
+            # The module is centre-pivot at the slot's dims, so its origin
+            # is the box's centre.
+            xform = _godot_transform((cx, cy), float(cv.get("yaw") or 0.0),
+                                     z=base + sy / 2)
+            body += [f'[node name="cover_{i}" parent="." '
+                     f'instance=ExtResource("{cover_refs[i]}")]',
+                     f'transform = Transform3D({xform})', '']
+            continue
+        bl, sr = _box_node(f"cover_{i}", (sx, sy, sz), (cx, base + sy / 2, -cy),
+                           COVER_COLOR)
+        body += bl
+        sub += sr
+
+    # THE HUNG PIECES (0.84.0, `site_posters`): the module Zoo built, at the
+    # record's own height. One with no module is not drawn -- a centimetre
+    # box on a wall stands in for nothing -- and the resolver has said so.
+    hung_refs = hung_refs or {}
+    for i, hv in enumerate(site_spec.get("hung", []) or []):
+        if i not in hung_refs:
+            continue
+        base = SIDEWALK_H if hv.get("base") == "sidewalk" else 0.0
+        xform = _godot_transform(tuple(hv["at"]), float(hv.get("yaw") or 0.0),
+                                 z=base + float(hv["z"]))
+        body += [f'[node name="hung_{i}" parent="." '
+                 f'instance=ExtResource("{hung_refs[i]}")]',
+                 f'transform = Transform3D({xform})', '']
+
+    # roads: the street grid the block is built on (DELCO/Philly grain). A road
+    # is a flat asphalt strip between two points, optionally with raised concrete
+    # sidewalks running alongside. Buildings + blockers front onto it.
+    # THE STREET, from its model (site_streets, roadmap 153): the strip, a
+    # sidewalk band each side split at the crossings, and the paint. A kerb
+    # is SUPPOSED to be a wall -- 0.16 m against an unassisted step limit of
+    # 0.117 -- and the answer is not to flatten it but to drop it where
+    # people are meant to cross, exactly as a real street does. Anything the
+    # model does not cut is still a wall, and site_steps.py says so rather
+    # than leaving it to be discovered in play.
+    import site_streets
+    street_findings = []
+    street_roads = site_streets.roads(site_spec, street_findings)
+    for f_ in street_findings:
+        print(f"[lot] {f_}")
+    # the slabs and band pieces: `street_slabs` holds the geometry and says
+    # why each piece is where it is
+    for s in street_slabs(street_roads):
+        bl, sr = _yaw_box_node(
+            s["name"], s["size"], s["centre"], s["yaw_deg"],
+            ROAD_COLOR if s["family"] == "road" else SIDEWALK_COLOR,
+            skin=skins.get("sidewalk" if s["family"] == "sidewalk" else "road"))
+        body += bl
+        sub += sr
+    # THE FRONTAGE: the walk carried on, flush, from a sidewalk's back edge
+    # to the face of a building standing too close to it for the strip to be
+    # a lot (`site_streets.frontages`). Flush rather than at kerb height, so
+    # every door threshold stays where the building put it; it wears the
+    # sidewalk's skin, so the paved edge runs along the building and steps,
+    # square, only at its corners.
+    frontage_findings = []
+    for s in frontage_slabs(site_spec, street_roads, frontage_findings):
+        bl, sr = _yaw_box_node(s["name"], s["size"], s["centre"], s["yaw_deg"],
+                               SIDEWALK_COLOR, skin=skins.get("sidewalk"))
+        body += bl
+        sub += sr
+    for f_ in frontage_findings:
+        print(f"[lot] {f_}")
+    # THE PAINT. Flat quads a hair above the road, tiled like every other
+    # surface and with NO collision -- a marking is not a thing a body meets.
+    # The quad is the decal's shape and place; with a `paint` skin (a
+    # Pixelcoat road-paint pack, cutout where the paint has worn through)
+    # it is the decal layer of item 152, and without one it is the
+    # greybox's flat read.
+    # Each marking's paint is offset by a hash of what the marking IS --
+    # its road, kind and plan position -- rather than its index, so a
+    # marking added elsewhere on the site does not re-roll every other
+    # marking's wear (`paint_offset`).
+    for n, m in enumerate(site_streets.markings(street_roads)):
+        along, across = m["size"]
+        paint = skins.get("paint")
+        offset = (paint_offset(f"{m['road']}|{m['kind']}|{m['at'][0]:.3f}|{m['at'][1]:.3f}")
+                  if paint else None)
+        bl, sr = _yaw_quad_node(f"mark_{n}_{m['kind']}", (along, across),
+                                (m["at"][0], MARKING_Y, -m["at"][1]),
+                                m["yaw"], tuple(m["color"]), skin=paint,
+                                uv_offset=offset)
+        body += bl
+        sub += sr
+
+    # THE FIELDS' BAY LINES (`site_fields`, 0.94.0): the road's paint, the
+    # road's quads, at the road's height -- a field sits at it.
+    import site_fields as _site_fields
+    for n, m in enumerate(_site_fields.markings(site_spec.get("fields") or [], street_roads)):
+        along, across = m["size"]
+        paint = skins.get("paint")
+        offset = (paint_offset(f"{m['field']}|{m['kind']}|{m['at'][0]:.3f}|{m['at'][1]:.3f}")
+                  if paint else None)
+        bl, sr = _yaw_quad_node(f"fmark_{n}_{m['kind']}", (along, across),
+                                (m["at"][0], MARKING_Y, -m["at"][1]),
+                                m["yaw"], tuple(m["color"]), skin=paint,
+                                uv_offset=offset)
+        body += bl
+        sub += sr
+
+    # THE SHOP SIGNS. A lit cabinet over each door, on the facade that
+    # faces the street (`sign_placement`), drawn here rather than as a
+    # prop slot because it hangs on a wall: it has no footprint on the
+    # ground, no collision, and nothing for the navmesh to carve.
+    # resolved by the caller when there is one (`write_godot_scene`), and
+    # read here when a probe calls this writer directly
+    if signs is None:
+        signs, _sign_findings = building_signs(site_spec)
+    for b in site_spec.get("buildings", []) or []:
+        sign = signs.get(b["id"])
+        if not sign:
+            continue
+        spot = sign_placement(b, street_roads)
+        if spot is None:
+            continue
+        sx, sy, yaw, facade = spot
+        bl, sr = _sign_node(f"sign_{b['id']}", (sx, SIGN_Z, -sy),
+                            sign_facing(yaw), sign, sign_size(facade))
+        body += bl
+        sub += sr
+
+    # blockers: non-interactable filler buildings -- SOLID collision massing you
+    # cannot enter. They wall the street and channel the player toward the real
+    # (enterable) heist buildings. The opposite of the see-through preview boxes.
+    for i, bk in enumerate(site_spec.get("blockers", [])):
+        # a blocker with a facade-shell ref is instanced in write_godot_scene
+        # (like a real building); in preview, ignore the shell and box it.
+        if _blocker_source(bk) and not preview:
+            continue
+        ax, ay = bk["at"]
+        sx = bk.get("size_x", 12.0)
+        sy = bk.get("size_y", 12.0)
+        h = bk.get("height", 8.0)
+        rot = bk.get("rot", 0)
+        col = tuple(bk.get("color", BLOCKER_COLOR))
+        if rot:
+            bl, sr = _yaw_box_node(f"blocker_{i}", (sx, h, sy),
+                                   (ax, h / 2, -ay), rot, col)
+        else:
+            bl, sr = _box_node(f"blocker_{i}", (sx, h, sy), (ax, h / 2, -ay), col)
+        body += bl
+        sub += sr
+
+    return body, sub
+
+
+def _preview_building_nodes(b, height):
+    """Greybox massing for a building with no .glb yet: a walkable footprint pad,
+    a see-through massing box you walk through (no collision), and a floating id
+    label. Lets you walk the LEVEL (placement / routes / scale) before any
+    Blender build. Returns (body_lines, sub_lines)."""
+    bid = b["id"]
+    fx, fy = b.get("footprint", [20.0, 20.0])
+    h = max(3.0, float(height or 6.0))
+    xform = _godot_transform(b["at"], b.get("rot", 0))
+    body = [
+        f'[node name="{bid}" type="Node3D" parent="."]',
+        f'transform = Transform3D({xform})', '',
+        f'[node name="pad" type="StaticBody3D" parent="./{bid}"]',
+        'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06, 0)', '',
+        f'[node name="mesh" type="MeshInstance3D" parent="./{bid}/pad"]',
+        f'mesh = SubResource("PadMesh_{bid}")', '',
+        f'[node name="col" type="CollisionShape3D" parent="./{bid}/pad"]',
+        f'shape = SubResource("PadShape_{bid}")', '',
+        f'[node name="massing" type="MeshInstance3D" parent="./{bid}"]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, {h/2:g}, 0)',
+        f'mesh = SubResource("MassMesh_{bid}")',
+        f'material_override = SubResource("MassMat_{bid}")', '',
+        f'[node name="label" type="Label3D" parent="./{bid}"]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, {h+1.0:g}, 0)',
+        f'text = "{bid}"',
+        'font_size = 200',
+        'billboard = 1', '',
+    ]
+    sub = [
+        f'[sub_resource type="BoxMesh" id="PadMesh_{bid}"]',
+        f'size = Vector3({fx:g}, 0.12, {fy:g})', '',
+        f'[sub_resource type="BoxShape3D" id="PadShape_{bid}"]',
+        f'size = Vector3({fx:g}, 0.12, {fy:g})', '',
+        f'[sub_resource type="BoxMesh" id="MassMesh_{bid}"]',
+        f'size = Vector3({fx:g}, {h:g}, {fy:g})', '',
+        f'[sub_resource type="StandardMaterial3D" id="MassMat_{bid}"]',
+        'transparency = 1',
+        'albedo_color = Color(0.45, 0.55, 0.7, 0.28)', '',
+    ]
+    return body, sub
+
+
+def write_godot_scene(site_spec, merged, out_path, glb_dir=".", preview=False,
+                      portable=False, self_flooring=None):
+    """Emit a .tscn that instances each building (a .tscn scene or a baked .glb)
+    at its placement, plus Phase-2 outdoor geometry. With preview=True, buildings
+    are emitted as greybox massing boxes instead (no .glb needed) so the level is
+    walkable before any Blender build. With portable=True, ext_resource paths
+    are emitted RELATIVE to the scene file (no res:// prefix) so the scene +
+    its siblings form a drop-anywhere folder (a shareable site pack)."""
+    prefix = "" if portable else "res://"
+    res_ids = {}
+    res_lines = []
+    next_id = 1
+    if not preview:
+        for b in site_spec["buildings"]:
+            src = _building_source(b)
+            if src not in res_ids:
+                rid = f"b{next_id}"
+                res_ids[src] = rid
+                next_id += 1
+                rel = os.path.join(glb_dir, src).replace("\\", "/")
+                rel = rel[2:] if rel.startswith("./") else rel
+                res_lines.append(
+                    f'[ext_resource type="PackedScene" path="{prefix}{rel}" id="{rid}"]')
+        # facade-shell blockers (optional .glb/.tscn) instance like buildings
+        for bk in site_spec.get("blockers", []):
+            src = _blocker_source(bk)
+            if src and src not in res_ids:
+                rid = f"b{next_id}"
+                res_ids[src] = rid
+                next_id += 1
+                rel = os.path.join(glb_dir, src).replace("\\", "/")
+                rel = rel[2:] if rel.startswith("./") else rel
+                res_lines.append(
+                    f'[ext_resource type="PackedScene" path="{prefix}{rel}" id="{rid}"]')
+
+    # Outdoor skins: the spec names a Pixelcoat pack per family, and a pack
+    # that cannot be read is said out loud and left flat (roadmap 152).
+    skins, skin_findings = ground_skins(site_spec)
+    for code, msg in skin_findings:
+        print(f"[lot] {code}: {msg}")
+    # Declare only the maps a body will reference: a spec with no courtyard
+    # gets no courtyard textures in its header.
+    present = {"ground": bool(site_spec.get("ground")),
+               "path": bool(site_spec.get("paths")),
+               "courtyard": bool(site_spec.get("courtyards")),
+               "yard": bool(site_spec.get("yards")),
+               "parking": bool(site_spec.get("fields")),
+               "road": bool(site_spec.get("roads")),
+               "sidewalk": any(r.get("sidewalk") for r in site_spec.get("roads") or []),
+               # the markings' paint: wherever there is a road to paint.
+               # Cold run 9028 named the pack and shipped flat markings,
+               # because this table did not know the family and the
+               # filter below dropped it in silence.
+               "paint": bool(site_spec.get("roads"))}
+    skins = {fam: sk for fam, sk in skins.items() if present.get(fam)}
+    res_lines += _skin_ext_lines(skins, os.path.dirname(os.path.abspath(out_path)),
+                                 prefix)
+    # THE SHOP SIGNS (roadmap 153): one pack per building, hung on the
+    # facade that faces the street.
+    signs, sign_findings = building_signs(site_spec)
+    for code, msg in sign_findings:
+        print(f"[lot] {code}: {msg}")
+    res_lines += _sign_ext_lines(signs, os.path.dirname(os.path.abspath(out_path)),
+                                 prefix)
+    # Cover modules (roadmap 22): the pieces Zoo built stand in for their
+    # boxes; a piece with no module keeps its box and says so.
+    cover_refs, cover_ext, cover_findings = cover_module_refs(
+        site_spec, prefix, os.path.dirname(os.path.abspath(out_path)))
+    for code, msg in cover_findings:
+        print(f"[lot] {code}: {msg}")
+    res_lines += cover_ext
+    hung_refs, hung_ext, hung_findings = cover_module_refs(
+        site_spec, prefix, os.path.dirname(os.path.abspath(out_path)), key="hung")
+    for code, msg in hung_findings:
+        print(f"[lot] {code}: {msg}")
+    # a module both lists use is declared once
+    res_lines += [ln for ln in hung_ext if ln not in res_lines]
+    # THE RESPONDERS' CAR (0.101.0): resolved and copied beside the scene the
+    # way a cover piece is -- the module and the textures beside it -- but
+    # declared nowhere in it: a resource the scene names, it would load.
+    # `responders.json` names the file for the package.
+    resp_refs, _resp_ext, resp_findings = cover_module_refs(
+        site_spec, prefix, os.path.dirname(os.path.abspath(out_path)), key="responders")
+    for code, msg in resp_findings:
+        print(f"[lot] {code}: {msg}")
+    write_responder_vehicles(site_spec, resp_refs, os.path.dirname(os.path.abspath(out_path)))
+
+    outdoor_body, outdoor_sub = _outdoor_nodes(
+        site_spec, preview=preview, self_flooring=self_flooring, skins=skins,
+        cover_refs=cover_refs, signs=signs, hung_refs=hung_refs)
+
+    building_body, building_sub = [], []
+    if preview:
+        for b in site_spec["buildings"]:
+            bb, bs = _preview_building_nodes(b, b.get("_preview_height"))
+            building_body += bb
+            building_sub += bs
+
+    n_sub = sum(1 for ln in (outdoor_sub + building_sub) if ln.startswith("[sub_resource"))
+    load_steps = len(res_lines) + n_sub + 1
+
+    lines = [f'[gd_scene load_steps={load_steps} format=3]', '']
+    lines += res_lines + ['']
+    lines += outdoor_sub + building_sub
+    lines += ['[node name="Site" type="Node3D"]', '']
+    lines += outdoor_body
+    lines += building_body
+    if not preview:
+        for b in site_spec["buildings"]:
+            rid = res_ids[_building_source(b)]
+            xform = _godot_transform(b["at"], b.get("rot", 0))
+            lines.append(
+                f'[node name="{b["id"]}" parent="." '
+                f'instance=ExtResource("{rid}")]')
+            lines.append(f'transform = Transform3D({xform})')
+            lines.append('')
+        for i, bk in enumerate(site_spec.get("blockers", [])):
+            src = _blocker_source(bk)
+            if not src:
+                continue
+            rid = res_ids[src]
+            xform = _godot_transform(bk["at"], bk.get("rot", 0))
+            lines.append(
+                f'[node name="blocker_{i}" parent="." '
+                f'instance=ExtResource("{rid}")]')
+            lines.append(f'transform = Transform3D({xform})')
+            lines.append('')
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+
+# ---------------------------------------------------------------------------
+# walkable scene (--walkable): a *_walk.tscn that drops a player at the crew
+# spawn, bakes site nav, and beacons the objective + extraction. Pairs with the
+# lot addon scripts (godot/addons/lot/). Buildings still come from the site.tscn.
+# ---------------------------------------------------------------------------
+def _building_at(site_spec, bid):
+    for b in site_spec.get("buildings", []):
+        if b.get("id") == bid:
+            return b.get("at", [0.0, 0.0])
+    return [0.0, 0.0]
+
+
+def _room_bounds_at(merged, point):
+    """The bounds of the smallest merged room containing `point`, or None.
+
+    A nav hook that has to be moved off a prop should not leave the room it
+    was placed in: the mission is designed around where it happens, and a
+    hook that wanders into the corridor is a different level. Smallest-wins so
+    a room nested inside a hall keeps the tighter bound.
+    """
+    x, y = point[0], point[1]
+    best = None
+    for r in merged.get("rooms", []) or []:
+        b = r.get("bounds")
+        if not b or len(b) != 4:
+            continue
+        if b[0] <= x <= b[2] and b[1] <= y <= b[3]:
+            area = abs(b[2] - b[0]) * abs(b[3] - b[1])
+            if best is None or area < best[0]:
+                best = (area, (b[0], b[1], b[2], b[3]))
+    return best[1] if best else None
+
+
+def _destination_bounds(merged, positions):
+    """key -> room rect, for the mission points that stand in a room."""
+    out = {}
+    for key in ("spawn", "objective", "extraction"):
+        point = positions.get(key)
+        if point is None:
+            continue
+        rect = _room_bounds_at(merged, point)
+        if rect:
+            out[key] = rect
+    return out
+
+
+def _walk_positions(site_spec, merged):
+    """Resolve crew-spawn / objective / extraction world (site) coords for the
+    walk scene, robust to heist branches that emit only arrays (no objective
+    marker). Returns dict of (x, y, z) site-space tuples."""
+    markers = merged.get("markers", [])
+
+    def first_marker(types, building=None):
+        for m in markers:
+            if m.get("type") in types and (building is None or m.get("building") == building):
+                return (m.get("x", 0.0), m.get("y", 0.0), m.get("z", 0.0))
+        return None
+
+    spawn_b = site_spec.get("spawn")
+    obj_b = site_spec.get("objective")
+    extr_b = site_spec.get("extraction")
+
+    # a site-level crew_spawn marker wins (symmetric with the site-level
+    # extraction marker below): where the crew stages is a SITE concern —
+    # across the street, down the block — not something a building's own
+    # spec should have to know about.
+    spawn = None
+    for sm in merged.get("site_markers", []):
+        if sm.get("type") == "crew_spawn":
+            a = sm.get("at", [0.0, 0.0])
+            spawn = (a[0], a[1], 0.0)
+            break
+    if spawn is None:
+        spawn = first_marker(("crew_spawn", "attacker_spawn"), spawn_b) \
+            or first_marker(("crew_spawn", "attacker_spawn"))
+    if spawn is None:
+        at = _building_at(site_spec, spawn_b) if spawn_b else [0.0, 0.0]
+        spawn = (at[0], at[1], 0.0)
+
+    objective = first_marker(("objective",), obj_b)
+    if objective is None and obj_b:
+        at = _building_at(site_spec, obj_b)
+        for o in merged.get("objectives", []):
+            if str(o.get("id", "")).startswith(obj_b + "/"):
+                objective = (o.get("x", 0.0) + at[0], o.get("y", 0.0) + at[1], o.get("z", 0.0))
+                break
+        if objective is None:
+            objective = (at[0], at[1], 0.0)
+    objective = objective or (0.0, 0.0, 0.0)
+
+    extraction = None
+    for sm in merged.get("site_markers", []):
+        if sm.get("type") == "extraction":
+            a = sm.get("at", [0.0, 0.0])
+            extraction = (a[0], a[1], 0.0)
+            break
+    if extraction is None:
+        extraction = first_marker(("extraction",), extr_b) or first_marker(("extraction",))
+    if extraction is None and extr_b:
+        at = _building_at(site_spec, extr_b)
+        extraction = (at[0], at[1], 0.0)
+    extraction = extraction or (0.0, 0.0, 0.0)
+
+    return {"spawn": tuple(spawn), "objective": tuple(objective),
+            "extraction": tuple(extraction)}
+
+
+def _v3(world_xyz, lift=0.0):
+    """Site (x, y, z) -> Godot Vector3 string (x, z+lift, -y)."""
+    x, y, z = world_xyz
+    return f"Vector3({x:g}, {z + lift:g}, {-y:g})"
+
+
+# Godot 4: String::invalid_node_name_characters. set_name() rewrites each of
+# these to "_" when a scene loads, so a name written with one in it does not
+# survive -- and every `parent="..."` string still pointing at the original is
+# then parsed as a PATH, finds nothing, and the child node is dropped. Marker
+# names are building-namespaced ("b0/LADDER_0"), so every ladder volume Lot
+# emitted arrived in the engine with no CollisionShape3D and nothing could
+# climb it. Apply Godot's own rule at write time so name and parent agree.
+_GODOT_BAD_NAME_CHARS = '.:@/"%'
+
+
+def _node_name(raw):
+    return "".join("_" if c in _GODOT_BAD_NAME_CHARS else c for c in str(raw))
+
+
+def _lasertag_hook_plan(pos, site_spec=None, enemy_count=6, lateral=1.5,
+                        solids=None, bounds=None, enemies=None) -> dict:
+    """The positions the walk scene will be written from, before it is written.
+
+    `_lasertag_hook_nodes` does not place anything where its caller pointed. It
+    seats the nav hooks onto floor, clears the crew spawn off the wall it is
+    standing against, and only then spreads the enemies along the route those
+    two steps produced. That is correct and stays. What was wrong is that it
+    returned only the scene body, so the one question worth asking of it --
+    "are the positions in the scene the positions that were planned" -- could
+    be asked only by re-running the derivation by hand.
+
+    `tests/test_site_spawns.py` did exactly that and drifted. It planned from
+    the RAW route dict, and on `BAIE_DORE`, whose crew spawn sits at the dead
+    centre of a 44 x 44 shell, `clear_crew_spawn` moves the spawn 23.5 m and
+    every enemy spread along the route with it -- 19.242 planned against 37.735
+    written on the first pair, all six disagreeing. Read as the scene losing
+    the plan, filed as roadmap 48's family. The scene carried its own plan to
+    0 of 18 failing pairs at `abs_tol=1e-3`; the plan the test held was of a
+    route this tool never uses.
+
+    Returning the resolved values is what stops that recurring: a caller
+    checking the scene against the plan asks which plan was used instead of
+    reproducing how it was derived, so a THIRD preprocessing step added here
+    cannot silently desync anybody.
+    """
+    import site_spawns
+
+    # The nav hooks first: a destination on top of a counter has no route to
+    # it, and every point below is derived from these three. `solids` is the
+    # site's collision reading when the caller has one -- without it the hook
+    # is only floored, not moved off whatever it is standing in.
+    pos = site_spawns.seat_destinations(
+        pos, solids=solids, bounds=bounds)[0]
+    # And then off the wall it is standing against. Seating answers "is there
+    # floor under this point"; this answers "will the bake leave a polygon on
+    # it", which is a different question and the one the bot actually needs.
+    pos = site_spawns.clear_crew_spawn(site_spec or {}, pos)[0]
+    # PLACED ONCE, HERE OR ABOVE, NEVER BOTH. `assemble` places the enemies
+    # before its site report closes -- a placement Lot could not honour has to
+    # travel with the site rather than sit in a .tscn nobody diffs -- and then
+    # hands the result down. Roadmap 3 asked for exactly this: "place once,
+    # thread the result through, or assert the two agree". An assertion would
+    # detect a disagreement; threading makes one impossible to express, because
+    # there is no second call left to drift.
+    #
+    # `enemies=None` still places, so the standalone callers in
+    # `tests/test_site_spawns.py` behave as they always have.
+    #
+    # `solids` matters for the same reason `seat_destinations` gets it above:
+    # a placement that judged cover differently from the one in the site report
+    # would make the report describe a map nobody plays. Threading removes that
+    # risk rather than managing it.
+    if enemies is None:
+        enemies = site_spawns.place_enemies(
+            site_spec or {}, pos, enemy_count=enemy_count,
+            lateral=lateral, solids=solids).positions
+    enemies = [tuple(e) for e in enemies]
+    return {"positions": pos,
+            "route": [pos["spawn"], pos["objective"], pos["extraction"]],
+            "enemies": enemies}
+
+
+def _lasertag_hook_nodes(pos, site_spec=None, enemy_count=6, lateral=1.5,
+                         solids=None, bounds=None, enemies=None):
+    """Lot's half of the LaserTag map contract (LaserTag TDD 8).
+
+    LaserTag's evaluator discovers its fixtures by node name -- LT_PlayerSpawn,
+    LT_EnemySpawnPoints, LT_ObjectivePoint, and the optional LT_PlayerRoutePoints
+    / LT_CoverTestPoints -- and short-circuits before a single run if the
+    required three are absent. A walk scene that carries spawn/objective/
+    extraction only as script properties reads to the evaluator as an empty map:
+    it reports a grade for a match it never played. Emit the nodes so the
+    positions Lot already knows are the positions LaserTag actually reads.
+
+    Enemies are still an engagement sequence spread along the spawn ->
+    objective -> extraction route, but where each one lands is decided by
+    `site_spawns` against the footprints and ground rect this site was built
+    from. The arithmetic that used to place them knew only the route, so on any
+    site whose buildings straddle it the whole sequence went indoors and
+    LaserTag refused the map. `site_spawns.place_enemies` returns the findings
+    for anything it could not honour; `_lasertag_hook_nodes` returns only the
+    body, and the caller that has somewhere to put findings asks for them.
+    """
+    import site_spawns
+
+    # Every position this scene is written from, resolved by the tool rather
+    # than by whoever is reading it afterwards. `_lasertag_hook_plan` carries
+    # why that distinction is worth a function.
+    _plan = _lasertag_hook_plan(pos, site_spec, enemy_count=enemy_count,
+                                lateral=lateral, solids=solids, bounds=bounds,
+                                enemies=enemies)
+    pos = _plan["positions"]
+    route = _plan["route"]
+    enemies = _plan["enemies"]
+
+    def _hook(name, parent, world, lift=0.0):
+        return [f'[node name="{name}" type="Node3D" parent="{parent}"]',
+                f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, '
+                f'{_v3(world, lift)[8:-1]})', '']
+
+    # ONE NODE PER CREW MEMBER. This wrote a single `LT_PlayerSpawn` and
+    # `LT_MapEvalHarness.spawn_players` puts every crew member on
+    # `player_spawns[i % size()]` -- so a crew of four landed four capsules on
+    # one coordinate, interpenetrating, and `lot_demo_001` graded 10/BROKEN with
+    # 116 stuck events and not one shot fired in 25 runs.
+    #
+    # The harness matches these with `begins_with`, so the suffixed names are
+    # found with no change to Laser Tag. Index 0 keeps the bare name and the
+    # position `clear_crew_spawn` chose: `_sort_by_name` puts it first, and it
+    # is still the mission's spawn.
+    crew = site_spawns.crew_spawns(
+        site_spec or {}, pos["spawn"],
+        int((site_spec or {}).get("crew_size", 1) or 1))
+    body = []
+    for i, member in enumerate(crew):
+        body += _hook("LT_PlayerSpawn" if i == 0 else f"LT_PlayerSpawn_{i}",
+                      ".", member, 1.0)
+    body += ['[node name="LT_EnemySpawnPoints" type="Node3D" parent="."]', '']
+    for i, e in enumerate(enemies):
+        body += _hook(f"Enemy_{i}", "LT_EnemySpawnPoints", e, 1.0)
+    body += _hook("LT_ObjectivePoint", ".", pos["objective"])
+    body += ['[node name="LT_PlayerRoutePoints" type="Node3D" parent="."]', '']
+    for i, r in enumerate(route):
+        body += _hook(f"Route_{i}", "LT_PlayerRoutePoints", r)
+    body += ['[node name="LT_CoverTestPoints" type="Node3D" parent="."]', '']
+    ox, oy, oz = pos["objective"]
+    # The cover the crew can actually hide behind, which until now this never
+    # named. These four points were a hardcoded rosette 5 m around the
+    # objective, unrelated to any cover the site had -- so
+    # `LT_BotPlayerController._on_damaged` seeking "nearest cover" was always
+    # seeking the objective, whatever `site_cover` had placed and wherever it
+    # had placed it. On seed 5017 that meant a crew taking fire 69 m out broke
+    # off its route to walk toward four imaginary points sitting 10.8-19.4 m
+    # from an enemy spawn. It never arrived; it died at 11.9 s having fired
+    # twice.
+    #
+    # `assemble` extends `site_spec["cover"]` from the cover plan before the
+    # walk scene is written, so the real positions are here to be read. A site
+    # with no planned cover keeps the rosette: the hook is optional to Laser
+    # Tag, but an empty node reads as "this map has no cover" when what is true
+    # is "nothing was planned", and those want different answers.
+    placed = [c for c in (site_spec or {}).get("cover", [])
+              if isinstance(c, dict) and len(c.get("at", ())) >= 2]
+    if placed:
+        for i, piece in enumerate(placed):
+            cx, cy = piece["at"][0], piece["at"][1]
+            # THE COVER'S OWN ELEVATION, not the objective's. `at` is a
+            # ground-plan XY and carries no height, and this used to fill the
+            # third component with `oz` -- so every cover test point inherited
+            # whatever height the OBJECTIVE happened to sit at.
+            #
+            # It is invisible while the objective is at grade and wrong the
+            # moment it is not. Measured on a five-building street whose
+            # objective sits in a basement at -3.10: the eight cover BODIES
+            # were written at y 1.00, standing on the street, and their eight
+            # test points at y -3.10, three metres under it. Level Factory's
+            # ground-contact preflight refused the map -- correctly -- with
+            # "8 of 19 mission point(s) have no ground beneath them", and no
+            # firefight was ever evaluated.
+            #
+            # The BODY has always taken its height from its own size
+            # (`_box_node(..., (cx, sy / 2, -cy))` above). Reading the same
+            # size here is what makes the two agree; two writers of one thing
+            # disagreeing is what produced this.
+            # `size` is written in the GODOT frame -- (x, height, y) -- which
+            # `site_cover.Cover.as_spec` states explicitly, so the height is
+            # the SECOND component and not the third.
+            size = piece.get("size") or ()
+            if len(size) >= 2:
+                height = float(size[1])
+            else:
+                import site_cover
+                height = site_cover.COVER_HEIGHT
+            # A BODY'S CENTRE, NOT THE COVER'S (0.82.0). Laser Tag's bot walks
+            # to the nearest of these under fire (`LT_BotPlayerController`,
+            # by 3-D distance from its body), so a cover point is where a body
+            # takes cover -- half the height of what shelters a body, never
+            # higher. It was half the COVER's height, which agreed with the
+            # body `_box_node` writes and was a body-height point for every
+            # cover under ~2 m. The 9 m price pylon (0.81.0) put its point
+            # 4.5 m up, over Level Factory's MAX_DROP of 4.0: cold run 9109's
+            # pre-flight refused the map (JOB_PREFLIGHT_REFUSED, Cover_147).
+            height = min(height, _player_metric("height_m", 1.8))
+            body += _hook(f"Cover_{i}", "LT_CoverTestPoints",
+                          (cx, cy, height / 2.0))
+    else:
+        for i, (cx, cy) in enumerate(((5.0, 0.0), (-5.0, 0.0),
+                                      (0.0, 5.0), (0.0, -5.0))):
+            body += _hook(f"Cover_{i}", "LT_CoverTestPoints",
+                          (ox + cx, oy + cy, oz))
+    return body
+
+
+def _ladder_volume_nodes(merged):
+    """Area3D climb volumes (group "ladder") from the site's gameplay ladder
+    markers -- Lot's half of the DC ladder contract. DC bakes the LADDER_
+    anchor + climb metadata into the glb/gameplay; something import- or
+    scene-side must build the volume (in a DC project the post-import plugin
+    does it; in a Lot walk scene, this does). Sizing mirrors
+    deli_counter_postimport.gd: +1 m dismount lip over the top, generous
+    square footprint so building rotation can't turn the volume edge-on."""
+    body, subs = [], []
+    for i, m in enumerate(merged.get("markers", [])):
+        if m.get("type") != "ladder":
+            continue
+        ch = float(m.get("climb_height", 3.0))
+        w = max(float(m.get("width", 0.5)) + 0.8, 1.0)
+        d = float(m.get("depth", 0.15)) + 1.0
+        fp = max(w, d)
+        gx, gy, gz = m["x"], m["z"], -m["y"]          # site -> Godot
+        sid = f"LadderBox_{i}"
+        subs += [f'[sub_resource type="BoxShape3D" id="{sid}"]',
+                 f'size = Vector3({fp}, {ch + 1.0}, {fp})', '']
+        nm = _node_name(m.get("name", f"LADDER_{i}"))
+        body += [
+            f'[node name="{nm}_climb" type="Area3D" parent="." groups=["ladder"]]',
+            f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, '
+            f'{gx}, {gy}, {gz})',
+            'monitoring = true',
+            'monitorable = true', '',
+            f'[node name="shape" type="CollisionShape3D" parent="{nm}_climb"]',
+            f'shape = SubResource("{sid}")',
+            f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, '
+            f'0, {ch * 0.5}, 0)', '',
+        ]
+    return body, subs
+
+
+def _player_metric(key, fallback):
+    """One body metric from the contract, for the walk scene's Player node.
+
+    Exists so the walk scene cannot carry a second opinion about the body. Each
+    of these was a literal in the emitted .tscn, and lot_player.gd carried a
+    third copy of the step height as an export default.
+    """
+    try:
+        return float(_agent()["characters"]["player"][key])
+    except (KeyError, TypeError, ValueError):
+        return fallback
+
+
+def write_walk_scene(site_spec, merged, walk_out, site_tscn_base,
+                     addon_dir="addons/lot", portable=False, solids=None,
+                     enemies=None):
+    """Emit <name>_walk.tscn: instances the composed site under a baked
+    NavigationRegion3D, spawns a first-person player at the crew start, and
+    beacons the objective + extraction. Reuses godot/addons/lot scripts."""
+    import site_spawns
+
+    raw = _walk_positions(site_spec, merged)
+    # Seat the mission points here, once, and write the seated ones everywhere.
+    # The scene used to carry two different answers for the same destination --
+    # `objective_pos` took the marker's z verbatim while LT_ObjectivePoint was
+    # floored -- so the beacon the player walks to and the point the bot paths
+    # to were metres apart in a scene that looked internally consistent.
+    # Findings are dropped here on purpose: `assemble` runs the same call on
+    # the same inputs and reports them, and a finding raised twice reads as two
+    # problems.
+    pos = site_spawns.seat_destinations(
+        raw, solids=solids, bounds=_destination_bounds(merged, raw))[0]
+    # Same push the hook nodes get, on the same inputs, so the walk scene and
+    # the evaluated scene put the crew in the same place. Two answers for one
+    # spawn is the defect the comment above this one is about.
+    pos = site_spawns.clear_crew_spawn(site_spec or {}, pos)[0]
+    _p = "" if portable else "res://"
+    _a = "" if portable else addon_dir + "/"
+    ladder_body, ladder_subs = _ladder_volume_nodes(merged)
+    lt_body = _lasertag_hook_nodes(
+        pos, site_spec, solids=solids,
+        bounds=_destination_bounds(merged, pos), enemies=enemies)
+    sx, sy, sz = pos["spawn"]
+    player_godot = f"{sx:g}, {sz + 1.0:g}, {-sy:g}"   # eye/capsule lift
+
+    lines = [
+        f'[gd_scene load_steps={9 + sum(1 for l in ladder_subs if l.startswith("[sub_resource"))} format=3]', '',
+        f'[ext_resource type="PackedScene" path="{_p}{site_tscn_base}.tscn" id="site"]',
+        f'[ext_resource type="Script" path="{_p}{_a}lot_site_walk.gd" id="walk"]',
+        f'[ext_resource type="Script" path="{_p}{_a}lot_player.gd" id="player"]', '',
+        '[sub_resource type="NavigationMesh" id="NavMesh"]',
+        'geometry_parsed_geometry_type = 2',
+        # 0.15 m cells + 0.4 m agent: voxel erosion is per-cell, so coarser
+        # bakes eat legal doorways and fragment interiors into islands
+        f'cell_size = {_agent()["nav_bake"]["cell_size_m"]}',
+        f'cell_height = {_agent()["nav_bake"]["cell_height_m"]}',
+        f'agent_radius = {_agent()["nav_bake"]["agent_radius_m"]}',
+        f'agent_height = {_agent()["nav_bake"]["agent_height_m"]}',
+        # stairs bake as ~42 deg collision ramps; the default 45 deg slope
+        # limit quantizes them into disjoint islands (same fix as nav_gate)
+        f'agent_max_slope = {_agent()["nav_bake"]["agent_max_slope_deg"]}',
+        f'agent_max_climb = {_agent()["nav_bake"]["agent_max_climb_m"]}', '',
+        # The body a human walks in the preview scene. These two were fixed
+        # string literals -- 0.4 radius and 1.8 height -- sitting three lines
+        # under an agent_radius and agent_height that both read the contract.
+        # So the shipped capsule was wider than the contract player every
+        # clearance had been derived for. Deliberately not quoting the old
+        # values in a way a search could match: a comment mentioning
+        # `site_steps.py` is what made this patch's own idempotency guard
+        # report success while skipping the wiring. Godot's `height` is the
+        # FULL height including both hemispheres.
+        '[sub_resource type="CapsuleShape3D" id="PlayerCol"]',
+        f'radius = {_agent()["characters"]["player"]["radius_m"]}',
+        f'height = {_agent()["characters"]["player"]["height_m"]}', '',
+        # sun + sky + ambient: mirrors Deli Counter's walk harness
+        # (godot/addon/deli_counter/template/level_test.tscn) so a Lot site
+        # walk lights identically to a DC building walk. Without this the
+        # runtime scene renders unlit (the editor's preview sun hides it).
+        '[sub_resource type="ProceduralSkyMaterial" id="Sky_mat"]', '',
+        '[sub_resource type="Sky" id="Sky_res"]',
+        'sky_material = SubResource("Sky_mat")', '',
+        '[sub_resource type="Environment" id="Env_res"]',
+        'background_mode = 2',
+        'sky = SubResource("Sky_res")',
+        'ambient_light_source = 3',
+        'ambient_light_color = Color(0.6, 0.62, 0.68, 1)',
+        'ambient_light_energy = 0.6',
+        'tonemap_mode = 2', '',
+        *ladder_subs,
+        f'[node name="{site_spec["name"]}_walk" type="Node3D"]',
+        'script = ExtResource("walk")',
+        f'spawn_pos = {_v3(pos["spawn"], 1.0)}',
+        f'objective_pos = {_v3(pos["objective"])}',
+        f'extraction_pos = {_v3(pos["extraction"])}',
+        f'site_title = "{site_spec["name"].upper()}"', '',
+        '[node name="WorldEnvironment" type="WorldEnvironment" parent="."]',
+        'environment = SubResource("Env_res")', '',
+        '[node name="Sun" type="DirectionalLight3D" parent="."]',
+        'transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, '
+        '-0.707107, -0.5, 0.5, 0, 20, 0)',
+        'shadow_enabled = true', '',
+        *ladder_body,
+        *lt_body,
+        '[node name="Nav" type="NavigationRegion3D" parent="."]',
+        'navigation_mesh = SubResource("NavMesh")', '',
+        '[node name="Site" parent="./Nav" instance=ExtResource("site")]', '',
+        # Every body metric on this node comes from the contract. The capsule
+        # already did; the step-up ceiling, the head-clearance height, the
+        # collision offset and the eye height were literals, and lot_player.gd's
+        # own default step height (0.45) had already drifted from the contract's
+        # max_step_up_m (0.5). The collision shape sits half the body height up
+        # because the node origin is at the FEET.
+        '[node name="Player" type="CharacterBody3D" parent="."]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, {player_godot})',
+        'script = ExtResource("player")',
+        f'max_step_height = {_player_metric("max_step_up_m", 0.5)}',
+        f'body_height = {_player_metric("height_m", 1.8)}', '',
+        '[node name="col" type="CollisionShape3D" parent="Player"]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, '
+        f'{_player_metric("height_m", 1.8) / 2.0}, 0)',
+        'shape = SubResource("PlayerCol")', '',
+        '[node name="Camera" type="Camera3D" parent="Player"]',
+        f'transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, '
+        f'{_player_metric("eye_height_m", 1.6)}, 0)', '',
+    ]
+    with open(walk_out, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    return pos
+
+
+# ---------------------------------------------------------------------------
+# nav-QA scene (--navqa): feed the Heist Nav QA addon the heist's real anchors
+# (crew/objective/loot/extraction as player proxies, cover, cop spawns) on the
+# composed + nav-baked site, so 16 bots stress-test it with zero hand-placement.
+# ---------------------------------------------------------------------------
+_PROXY_TYPES = ("crew_spawn", "attacker_spawn", "objective", "loot", "extraction")
+_COVER_TYPES = ("cover_low", "cover_high")
+_BOT_TYPES = ("responder_spawn", "horde_spawn", "defender_spawn")
+
+
+def _pv3_array(world_pts, lift=0.0):
+    """PackedVector3Array literal from site-space (x,y,z) points -> Godot."""
+    nums = []
+    for (x, y, z) in world_pts:
+        nums += [f"{x:g}", f"{z + lift:g}", f"{-y:g}"]
+    return "PackedVector3Array(" + ", ".join(nums) + ")"
+
+
+def _floor_index(merged):
+    """room id -> that room's floor elevation, from the merged gameplay file.
+
+    Deli Counter writes one room record per room per storey, and `center[2]` is
+    the storey's floor height (story -1/0/1 -> -4.0/0.0/4.0 for a 4 m storey).
+    Read the elevation rather than multiplying `story` by an assumed height:
+    the storey height is Deli Counter's to choose and it is not in this file."""
+    idx = {}
+    for r in merged.get("rooms", []):
+        c = r.get("center")
+        if r.get("id") and isinstance(c, (list, tuple)) and len(c) >= 3:
+            idx[r["id"]] = float(c[2])
+    return idx
+
+
+def _floor_of(marker, floors, merged):
+    """The elevation of the floor this marker stands on, or None.
+
+    Markers name their room unnamespaced (`"vault"`); the merged room ids are
+    namespaced by building (`"b0/vault"`). If the room is missing or unknown,
+    fall back to the highest floor in the same building at or below the marker
+    -- a marker is on the storey it sits above, never the one over its head."""
+    bid = marker.get("building")
+    room = marker.get("room")
+    if bid and room:
+        z = floors.get(f"{bid}/{room}")
+        if z is not None:
+            return z
+    z_marker = float(marker.get("z", 0.0))
+    below = [z for rid, z in floors.items()
+             if (not bid or rid.startswith(f"{bid}/")) and z <= z_marker + 0.01]
+    return max(below) if below else None
+
+
+def _navqa_anchors(site_spec, merged):
+    """The heist's own markers, as STANDING POSITIONS for the nav QA.
+
+    A marker is where a thing IS. An anchor is where a body has to be able to
+    stand to use it, and those are not the same point. Deli Counter puts
+    OBJECTIVE_CAGE at the cashier counter, LOOT_VAULT_CASH on the vault block:
+    marker heights of 0.9 and -2.8 sit ON the prop, and the floor directly
+    under them is inside a solid box. Emitted at marker height, every one of
+    them snapped to the prop's own tabletop -- a 1.0 m surface no body can
+    climb to, which bakes as an isolated navmesh island. Sixteen of twenty-one
+    anchors in the first honest walktest were standing on furniture, and the
+    report read as a severed navmesh.
+
+    So anchors are emitted at their room's FLOOR, keeping x/y. From there the
+    nav QA looks for standing room on that storey plane and finds the floor
+    beside the counter, which is where a player actually stands to use it."""
+    markers = merged.get("markers", [])
+    floors = _floor_index(merged)
+    unresolved = []
+
+    def pts(types):
+        out = []
+        for m in markers:
+            if m.get("type") not in types:
+                continue
+            z = _floor_of(m, floors, merged)
+            if z is None:
+                unresolved.append(m.get("name", m.get("type", "?")))
+                z = float(m.get("z", 0.0))
+            out.append((m.get("x", 0.0), m.get("y", 0.0), z))
+        return out
+
+    proxies = pts(_PROXY_TYPES)
+    bots = pts(_BOT_TYPES)
+    for sm in merged.get("site_markers", []):
+        t = sm.get("type")
+        a = sm.get("at", [0.0, 0.0])
+        if t in ("extraction", "crew_spawn"):
+            proxies.append((a[0], a[1], 0.0))
+        elif t in _BOT_TYPES:
+            # cop pressure arrives from the STREET — road ends, alleys — which
+            # is site geography, not any one building's spec.
+            bots.append((a[0], a[1], 0.0))
+    # Dropping markers onto their floor makes stacked markers coincide: Deli
+    # Counter puts the vault objective and the vault loot at one XY, 0.2 m
+    # apart in Z. Two anchors on one point are not two tests, and they hid a
+    # stranded anchor once already -- it "reached" its own twin and passed.
+    proxies, merged_pairs = _dedupe_anchors(proxies)
+    bots, _ = _dedupe_anchors(bots)
+    return {"player_proxies": proxies, "cover": pts(_COVER_TYPES),
+            "bot_spawns": bots, "unresolved": unresolved,
+            "merged_pairs": merged_pairs}
+
+
+def _dedupe_anchors(points, tol=0.01):
+    """Collapse anchors that land on the same point; return (kept, dropped)."""
+    kept, seen = [], set()
+    dropped = 0
+    for p in points:
+        key = tuple(round(v / tol) for v in p)
+        if key in seen:
+            dropped += 1
+            continue
+        seen.add(key)
+        kept.append(p)
+    return kept, dropped
+
+
+def write_navqa_scene(site_spec, merged, navqa_out, site_tscn_base,
+                      addon_dir="addons/lot", portable=False):
+    """Emit <name>_navqa.tscn: the composed site under a baked NavigationRegion3D
+    plus a NavQASetup node that tags the heist's anchors into the addon groups
+    and runs the bot QA (if the Heist Nav QA addon is installed)."""
+    anc = _navqa_anchors(site_spec, merged)
+    _p = "" if portable else "res://"
+    _a = "" if portable else addon_dir + "/"
+    crew = _walk_positions(site_spec, merged)["spawn"]
+    lines = [
+        '[gd_scene load_steps=7 format=3]', '',
+        f'[ext_resource type="PackedScene" path="{_p}{site_tscn_base}.tscn" id="site"]',
+        f'[ext_resource type="Script" path="{_p}{_a}lot_navqa_setup.gd" id="setup"]', '',
+        '[sub_resource type="NavigationMesh" id="NavMesh"]',
+        'geometry_parsed_geometry_type = 2',
+        # 0.15 m cells + 0.4 m agent: voxel erosion is per-cell, so coarser
+        # bakes eat legal doorways and fragment interiors into islands
+        f'cell_size = {_agent()["nav_bake"]["cell_size_m"]}',
+        f'cell_height = {_agent()["nav_bake"]["cell_height_m"]}',
+        f'agent_radius = {_agent()["nav_bake"]["agent_radius_m"]}',
+        f'agent_height = {_agent()["nav_bake"]["agent_height_m"]}',
+        # stairs bake as ~42 deg collision ramps; the default 45 deg slope
+        # limit quantizes them into disjoint islands (same fix as nav_gate)
+        f'agent_max_slope = {_agent()["nav_bake"]["agent_max_slope_deg"]}',
+        f'agent_max_climb = {_agent()["nav_bake"]["agent_max_climb_m"]}', '',
+        '[sub_resource type="ProceduralSkyMaterial" id="Sky_mat"]', '',
+        '[sub_resource type="Sky" id="Sky_res"]',
+        'sky_material = SubResource("Sky_mat")', '',
+        '[sub_resource type="Environment" id="Env_res"]',
+        'background_mode = 2',
+        'sky = SubResource("Sky_res")',
+        'ambient_light_source = 3',
+        'ambient_light_color = Color(0.6, 0.62, 0.68, 1)',
+        'ambient_light_energy = 0.6',
+        'tonemap_mode = 2', '',
+        f'[node name="{site_spec["name"]}_navqa" type="Node3D"]', '',
+        '[node name="WorldEnvironment" type="WorldEnvironment" parent="."]',
+        'environment = SubResource("Env_res")', '',
+        '[node name="Sun" type="DirectionalLight3D" parent="."]',
+        'transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, '
+        '-0.707107, -0.5, 0.5, 0, 20, 0)',
+        'shadow_enabled = true', '',
+        '[node name="Nav" type="NavigationRegion3D" parent="."]',
+        'navigation_mesh = SubResource("NavMesh")', '',
+        '[node name="Site" parent="./Nav" instance=ExtResource("site")]', '',
+        '[node name="NavQASetup" type="Node3D" parent="."]',
+        'script = ExtResource("setup")',
+        # NO LIFT. _navqa_anchors already put these on their room's floor, which
+        # is the only height a standing position can have. Two earlier versions
+        # got this wrong in opposite directions: one added a metre to markers
+        # that already carried body height, the other trusted the marker height
+        # itself -- and a marker height is the height of the counter the loot is
+        # lying on. crew_home keeps its lift: it comes from _walk_positions at
+        # z 0, so it needs raising off the floor rather than lowering onto it.
+        f'player_proxies = {_pv3_array(anc["player_proxies"])}',
+        f'cover_points = {_pv3_array(anc["cover"])}',
+        f'bot_spawns = {_pv3_array(anc["bot_spawns"])}',
+        f'crew_home = {_v3(crew, 1.0)}', '',
+    ]
+    with open(navqa_out, "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+    if anc.get("unresolved"):
+        names = ", ".join(anc["unresolved"][:4])
+        print(f"[lot] navqa: {len(anc['unresolved'])} marker(s) name no room this "
+              f"site knows the floor of ({names}) -- emitted at marker height, "
+              f"so the nav QA may snap them onto whatever they are sitting on")
+    if anc.get("merged_pairs"):
+        print(f"[lot] navqa: {anc['merged_pairs']} anchor(s) coincided once "
+              f"dropped to their floor (stacked markers) and were merged")
+    return {"player_proxies": len(anc["player_proxies"]),
+            "cover": len(anc["cover"]), "bot_spawns": len(anc["bot_spawns"]),
+            "unresolved": len(anc.get("unresolved", [])),
+            "merged_pairs": anc.get("merged_pairs", 0)}
+
+
+# ---------------------------------------------------------------------------
+# top-level assemble
+# ---------------------------------------------------------------------------
+def assemble(site_spec_path, out_dir=None, walkable=False, navqa=False,
+             preview=False, portable=False):
+    """Read a site spec, write <name>.site.gameplay.json and <name>.tscn.
+
+    With portable=True the SHIPPED scenes (the site scene and, with
+    --walkable, the walk scene) reference their contents relative to
+    themselves rather than through res://, so the out dir is a folder a
+    consumer can drop anywhere in their own project. res:// is rooted at
+    the project directory, so a res:// ref only resolves for a consumer
+    who reproduces this layout at their own root -- and an ABSOLUTE path
+    behind res:// (res://C:/...) asks for a folder named 'C:' inside the
+    project and resolves nowhere at all.
+
+    The nav-QA scene is deliberately excluded: it is consumed by Lot's
+    own walktest harness, which supplies addons/lot/ and resolves the
+    res:// form today.
+    """
+    base_dir = os.path.dirname(os.path.abspath(site_spec_path))
+    out_dir = out_dir or base_dir
+    os.makedirs(out_dir, exist_ok=True)
+    with open(site_spec_path, encoding="utf-8") as f:
+        site_spec = json.load(f)
+
+    # preview: no .glb / no Blender. For each building, synthesize its gameplay
+    # from its Deli Counter `spec` (the JSON new_level writes without Blender),
+    # write it next to the spec so the merge reads it normally, and record the
+    # footprint/height so the scene can box it.
+    if preview:
+        import preview as _preview
+        for b in site_spec["buildings"]:
+            spec_ref = b.get("spec")
+            if not spec_ref:
+                continue
+            with open(os.path.join(base_dir, spec_ref), encoding="utf-8") as sf:
+                bspec = json.load(sf)
+            gp = _preview.gameplay_from_spec(bspec)
+            # write a clearly-named preview file next to the spec; never clobber a
+            # real .gameplay.json from a Blender build
+            spec_dir = os.path.dirname(spec_ref)
+            gp_name = os.path.join(spec_dir, f"{b['id']}.preview.gameplay.json")
+            with open(os.path.join(base_dir, gp_name), "w", encoding="utf-8") as gf:
+                json.dump(gp, gf, indent=2)
+            b["gameplay"] = gp_name
+            b.setdefault("footprint", _preview.footprint_of(bspec))
+            b["_preview_height"] = _preview.height_of(bspec)
+
+    # site-level tactical: gate first (raises if a declared mode's hard needs
+    # aren't met — the site echo of Deli Counter's per-mode gates), then attach
+    # the intel report (connectivity / approaches / distances — never fails).
+    import site_tactical
+    site_tactical.gate(site_spec)
+    tactical_report = site_tactical.analyze(site_spec)
+
+    merged = merge_gameplay(site_spec, base_dir)
+    merged["tactical"] = tactical_report
+
+    # Every path end that belongs to a building meets one of its doors
+    # (0.88.0). Here, after the merge that knows the doors and before
+    # anything reads a path: the slabs, the surface zones, the step and
+    # kerb gates, the plate extent and the enterability route check all
+    # read the same resolved ends from the spec's own path records.
+    import site_paths
+    for f_ in site_paths.snap_to_doors(site_spec, merged):
+        tactical_report.setdefault("findings", []).append(f_)
+        print(f"[lot] {f_['code']}: {f_['message']}")
+
+    # Ground policy: a hole is cut under a building only where its geometry is
+    # known to bring collision. A plain shell.glb brings none, and cutting
+    # under it opens a void the site never fills -- which downstream reads as
+    # NO_WORLD_COLLISION and zero evaluated runs, four steps and fifteen
+    # minutes away from the cause. Decide here, before the gameplay file is
+    # written, so the reason travels with the site.
+    # How big the ground is and where it sits, decided from the content before
+    # anything is placed against it. This runs ahead of the hole policy because
+    # a hole is cut in a plate, and a plate in the wrong place turns the cut
+    # into a clip nobody sees.
+    import site_extent
+    extent = site_extent.resolve(site_spec)
+    if extent.rect:
+        merged["ground_extent"] = {
+            "rect": [round(v, 3) for v in extent.rect],
+            "declared": [round(v, 3) for v in extent.declared] if extent.declared else None,
+            "required": [round(v, 3) for v in extent.required] if extent.required else None,
+            "extended": extent.extended,
+        }
+    for f_ in extent.findings:
+        tactical_report.setdefault("findings", []).append(f_)
+        print(f"[lot] {f_['code']}: {f_['message']}")
+
+    import site_ground
+    ground_reports = site_ground.audit(site_spec, [base_dir, out_dir])
+    self_flooring = site_ground.self_flooring_ids(ground_reports)
+    merged["ground"] = {bid: rep.as_dict() for bid, rep in
+                        sorted(ground_reports.items())}
+    ground_findings = site_ground.findings(ground_reports)
+    # Every hole that will be cut, checked against the plate it is cut from.
+    # `_ground_tiles` trims a hole to the plate as arithmetic; before the extent
+    # was resolved from the content that trim was also the only record that a
+    # building had fallen off the edge of the world, and it left none.
+    ground_findings = list(ground_findings) + site_extent.hole_findings(
+        extent.rect, ground_holes(site_spec, self_flooring))
+    # ...and every shell checked against its neighbours. Nothing compared two
+    # footprints to each other until now, so a row spaced narrower than the
+    # buildings standing in it assembled interpenetrating shells and reported a
+    # clean site.
+    ground_findings += site_extent.overlap_findings(site_spec)
+    tactical_report.setdefault("findings", []).extend(ground_findings)
+    for f_ in ground_findings:
+        print(f"[lot] {f_['code']}: {f_['message']}")
+
+    # Where the enemies can stand, decided against the footprints and ground
+    # rect above rather than by arithmetic on the route. Run here as well as in
+    # write_walk_scene -- same inputs, same answer -- because the walk scene is
+    # written after this report closes and a placement Lot could not honour has
+    # to travel with the site, not sit silently in a .tscn nobody diffs.
+    # What the shells are actually solid at. `site_ground` above answers "does
+    # this building bring collision at all"; this answers "and where", which is
+    # the question a nav hook standing inside a counter needs asked. Read once
+    # and shared with the walk scene so the site report and the scene cannot
+    # disagree about which prop was in the way.
+    import site_collision
+    solids = site_collision.read_site(site_spec, [base_dir, out_dir])
+    merged["collision"] = {
+        "colliders": len(solids.boxes),
+        "complete": solids.complete,
+        "unread": list(solids.unread),
+        "detail": solids.detail,
+    }
+
+    # THE GETAWAY VAN (0.98.0, roadmap 206), before anything reads where
+    # the crew stands: its door's spawn is the site's `crew_spawn` and its
+    # `extraction`, both site-level, so `_walk_positions` takes them over
+    # the buildings' own, and the van joins the cover every later planner
+    # stands round -- the parked cars, the furniture, the fences, the
+    # cover. The walker: "you spawn, do the job, then return to the car".
+    import site_getaway
+    getaway_findings = []
+    getaway = site_getaway.plan(site_spec, merged, getaway_findings)
+    if getaway is not None:
+        site_spec.setdefault("cover", []).append(getaway["van"])
+        declared = site_spec.setdefault("site_markers", [])
+        declared.extend(getaway["markers"])
+        if merged.get("site_markers") is not declared:
+            merged.setdefault("site_markers", []).extend(getaway["markers"])
+        print(f"[lot] LOT_GETAWAY_PLACED: the {getaway['van']['species']} at "
+              f"{tuple(getaway['van']['at'])} ({getaway['van']['breaks']}), the crew's "
+              f"spawn and extraction at {tuple(getaway['markers'][0]['at'])}, "
+              f"{getaway['reach']:.1f} m from the spawn building's door")
+    for f_ in getaway_findings:
+        print(f"[lot] {f_}")
+    merged["getaway_plan"] = {"placed": getaway, "findings": getaway_findings}
+
+    import site_spawns
+    raw_pos = _walk_positions(site_spec, merged)
+    walk_pos, seat_findings = site_spawns.seat_destinations(
+        raw_pos, solids=solids,
+        bounds=_destination_bounds(merged, raw_pos))
+    # ...and then off the wall, BEFORE anything is planned against where the
+    # crew stands. `write_walk_scene` clears the crew spawn and ships the
+    # cleared one; this did not, so the cover was planned for a crew standing
+    # where the scene does not put it. On the `test_site_cover` fixture that is
+    # (-70.0, 30.0), the dead centre of `b0` -- from inside a shell almost every
+    # sightline reads as already broken, `plan_cover` returned open_lines=0,
+    # and the shipped scene still opened with 51.9 m of clear ground to
+    # Enemy_5. `clear_crew_spawn` returns a new dict and leaves its input
+    # alone, and seat+clear is idempotent, so the shipped spawn does not move --
+    # only what gets planned against it.
+    #
+    # The findings ARE reported here: `write_walk_scene` drops them on the
+    # stated grounds that "assemble runs the same call on the same inputs and
+    # reports them", and until this line existed assemble did not make the
+    # call, so a pushed crew spawn was reported by nobody.
+    walk_pos, clear_findings = site_spawns.clear_crew_spawn(site_spec, walk_pos)
+    # The collision reading read four lines up. It was already going to
+    # `seat_destinations`; the enemies are placed against sightlines and had
+    # been getting declared footprints instead.
+    spawn_plan = site_spawns.place_enemies(site_spec, walk_pos, solids=solids)
+
+    # WHERE RESPONDERS ARRIVE (0.99.0, roadmap 212), before anything is
+    # parked or stood in the street, so every later planner keeps out of
+    # the lanes and the stops. The walker: "have responders show up after
+    # the job, on the way back (and this would be on the gameplay layer,
+    # but we can make thee assets and ensure there is clearance and routes
+    # for their arrival)". Spawning them is the gameplay layer's. Each
+    # arrival is written as a `responder_spawn` site marker, which the
+    # audit judges and the nav QA spawns a bot at and walks to the crew.
+    import site_responders
+    responder_findings = []
+    arrivals = site_responders.plan(site_spec, walk_pos, findings=responder_findings)
+    responder_keep_out = site_responders.keep_out(arrivals)
+    # THE CAR THEY ARRIVE IN (0.101.0): one record a stop, in a list of its
+    # own -- not cover, so no planner stands round it and the scene stands
+    # nothing for it. `write_site_slots` gives each a slot, so Zoo's site
+    # kit builds the car; the themed assembly copies the module beside its
+    # scene and names it in `responders.json` (`write_responder_vehicles`),
+    # which the package reads.
+    site_spec["responders"] = [site_responders.vehicle_record(a) for a in arrivals]
+    if arrivals:
+        _arrival_markers = [site_responders.marker(a) for a in arrivals]
+        _declared = site_spec.setdefault("site_markers", [])
+        _declared.extend(_arrival_markers)
+        if merged.get("site_markers") is not _declared:
+            merged.setdefault("site_markers", []).extend(_arrival_markers)
+        print(f"[lot] LOT_RESPONDERS_PLACED: {len(arrivals)} arrival(s), "
+              + "; ".join(f"road {a['road']} from ({a['entry'][0]:.1f}, "
+                          f"{a['entry'][1]:.1f}) to a stop at ({a['stop'][0]:.1f}, "
+                          f"{a['stop'][1]:.1f}), {a['to_way_back']:.1f} m off the way back"
+                          for a in arrivals))
+
+    # Something to hide behind, before the scene is written.
+    #
+    # Moving an enemy is what Lot used to do about an unfair opening, and it
+    # only ever traded one bad grade for another: the ground between the two
+    # markers was still empty. Laser Tag is a soft gate -- it grades a map, it
+    # never refuses one -- so its finding is answered by changing what gets
+    # built rather than by blocking the build, and the thing to change is the
+    # floor. `site_cover` decides where; the existing `cover` emitter in
+    # `_outdoor_nodes` builds it, so the pieces land in the site scene, are
+    # instanced under the walk scene's NavigationRegion3D, and are parsed by
+    # the same bake that carves the buildings out. Cover the navmesh cannot see
+    # is cover the bots walk into and stick on.
+    import site_cover
+    cover_points = {"LT_PlayerSpawn": tuple(walk_pos["spawn"][:2]),
+                    "LT_ObjectivePoint": tuple(walk_pos["objective"][:2]),
+                    "LT_ExtractionPoint": tuple(walk_pos["extraction"][:2])}
+    for i, (ex, ey, _ez) in enumerate(spawn_plan.positions):
+        cover_points[f"Enemy_{i}"] = (ex, ey)
+    # THE STREET FIRST (roadmap 153): the kerb line and the parked cars are
+    # planned before the cover planner runs, and stand in its measurement,
+    # so a truck in the road is the exception -- a line nothing on the
+    # street could break -- rather than the rule.
+    # A PARKING FIELD IN A GAP BETWEEN BUILDINGS (site_fields, 0.94.0),
+    # BEFORE the street's furniture: its driveway is a kerb cut, and the
+    # lamps, the trees and the kerb lane's bays already step round a cut.
+    # The pylons, dumpsters and pads planned after it keep off it.
+    import site_enterability as _fe
+    import site_extent as _fx
+    import site_fields
+    import site_streets as _fs
+    import site_surfaces as _fsurf
+    _rects_f = {}
+    for _b in site_spec.get("buildings", []) or []:
+        _r = _fx.rotated_footprint(_b)
+        if _r is not None:
+            _rects_f[_b["id"]] = _r
+    _standing_f = []
+    for cv in site_spec.get("cover", []) or []:
+        sx, _sy, sz = cv.get("size", COVER)
+        _standing_f.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                            cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+    fields = site_fields.plan_fields(site_spec, _fs.roads(site_spec),
+                                     _fsurf.tops(site_spec, ground=extent), _rects_f,
+                                     standing=_standing_f, ground=extent.rect)
+    site_spec["fields"] = fields
+    site_spec["driveways"] = [f["driveway"] for f in fields]
+    _aps = [ap for rows in _fe._approach_points(site_spec, merged).values() for (_e, ap, _w) in rows]
+    field_cars = site_fields.plan_cars(fields, _fs.roads(site_spec), list(cover_points.values()),
+                                       _aps, standing=_standing_f,
+                                       enemies=[p for n, p in cover_points.items()
+                                                if n.startswith("Enemy_")])
+    _c0 = len(site_spec.setdefault("cover", []))
+    site_spec["cover"].extend(field_cars)
+    # the cars and the scene nodes they become (`cover_<i>`), so a probe can
+    # find them in a built package
+    merged["field_plan"] = {"placed": fields, "cars": field_cars,
+                           "cover_index": list(range(_c0, _c0 + len(field_cars)))}
+    for _f in fields:
+        print(f"[lot] LOT_FIELD_PLACED: {_f['name']} on road {_f['road']} kerb {_f['side']}, "
+              f"{_f['bays']} bay(s) a side, {sum(1 for c in field_cars if c['field'] == _f['name'])} car(s)")
+    _field_rects = [tuple(f["rect"]) for f in fields]
+    import site_furniture
+    import site_parking
+    import site_streets
+    furniture_findings = []
+    _furniture_roads = site_streets.roads(site_spec)
+    furniture = site_furniture.plan_furniture(_furniture_roads,
+                                              site_spec.get("buildings") or [],
+                                              list(cover_points.values()),
+                                              furniture_findings,
+                                              sign_bands=sign_bands(site_spec,
+                                                                    _furniture_roads))
+    site_spec.setdefault("cover", []).extend(furniture)
+    # THE GAS STATION'S PRICE PYLON (site_furniture.plan_pylons): at each
+    # forecourt's road frontage, behind the band, facing along the road,
+    # clear of paths, footprints, what already stands and the markers
+    _standing0 = []
+    for cv in site_spec["cover"]:
+        sx, _sy, sz = cv.get("size", COVER)
+        _standing0.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                           cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+    import site_spawns as _site_spawns
+    pylons = site_furniture.plan_pylons(
+        site_streets.roads(site_spec), forecourts(site_spec, base_dir),
+        list(cover_points.values()), standing=_standing0,
+        keep_out=site_furniture.path_corridors(site_spec) + _site_spawns.footprints(site_spec, margin=0.5)
+        + _field_rects,
+        findings=furniture_findings)
+    site_spec["cover"].extend(pylons)
+    furniture = furniture + pylons
+    # A DUMPSTER AT EACH BUILDING'S SERVICE SIDE (site_dumpsters, 0.90.0):
+    # against the back or a side, never a street face, clear of every
+    # way in, of the paths and walks, of what already stands, of the
+    # markers, and on the plate. After the street and the pylons so it
+    # yields to them; before the cover planner so it stands in its
+    # measurement, as the street does.
+    import site_dumpsters
+    dumpsters = site_dumpsters.plan_dumpsters(
+        site_spec, merged, site_streets.roads(site_spec), list(cover_points.values()),
+        standing=_standing0 + [site_furniture._piece_rect(_p) for _p in pylons],
+        keep_out=site_furniture.path_corridors(site_spec) + _field_rects,
+        ground=extent.rect, findings=furniture_findings)
+    site_spec["cover"].extend(dumpsters)
+    furniture = furniture + dumpsters
+    for _p in dumpsters:
+        print(f"[lot] LOT_DUMPSTER_PLACED: {_p['name']} at ({_p['at'][0]}, {_p['at'][1]}) "
+              f"yaw {_p['yaw']} against {_p['building']}'s {_p['wall']} wall, hauler {_p['variant']}")
+    # ...ON A CONCRETE PAD (site_yards, 0.93.0): the ground under and in
+    # front of each dumpster, clear of every surface already drawn, of
+    # the neighbours, of what stands and of the plate's edge. Drawn as
+    # `yard` slabs; the plate under them stops being remainder.
+    import site_surfaces as _yard_surfaces
+    import site_yards
+    _yard_findings = []
+    _standing_y = []
+    for cv in site_spec["cover"]:
+        sx, _sy, sz = cv.get("size", COVER)
+        _standing_y.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                            cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+    yards = site_yards.plan_yards(
+        site_spec, dumpsters, _yard_surfaces.tops(site_spec, ground=extent),
+        standing=_standing_y, ground=extent.rect, findings=_yard_findings)
+    site_spec["yards"] = list(site_spec.get("yards") or []) + yards
+    merged["yard_plan"] = {"placed": yards, "findings": _yard_findings}
+    for _y in yards:
+        print(f"[lot] LOT_YARD_PLACED: pad {_y['size_x']} x {_y['size_y']} m at "
+              f"({_y['at'][0]}, {_y['at'][1]}) under {_y['dumpster']}, apron {_y['apron']} m")
+    for f_ in _yard_findings:
+        print(f"[lot] {f_}")
+    # THE BAGS BESIDE EACH DUMPSTER (site_dumpsters.plan_bags, 0.104.0):
+    # a heap of filled garbage bags against the same wall, on its pad
+    # where the pad has room, clear of every way in, of the paths and
+    # walks, of what stands and of the markers. After the pads, so the
+    # heap stands on one rather than shrinking it; before the parking and
+    # the cover planner, so both see it standing. What stood when the
+    # pads were laid is what stands now: `_standing_y`.
+    bags = site_dumpsters.plan_bags(
+        site_spec, merged, site_streets.roads(site_spec), dumpsters, yards,
+        list(cover_points.values()), standing=_standing_y,
+        keep_out=site_furniture.path_corridors(site_spec) + _field_rects,
+        ground=extent.rect, findings=furniture_findings)
+    site_spec["cover"].extend(bags)
+    furniture = furniture + bags
+    for _p in bags:
+        print(f"[lot] LOT_BAGS_PLACED: {_p['name']} at ({_p['at'][0]}, {_p['at'][1]}) "
+              f"yaw {_p['yaw']} beside {_p['dumpster']}, heap {_p['variant']}, "
+              + ("on its pad" if _p["on_pad"] else "off its pad"))
+    for _p in pylons:
+        print(f"[lot] LOT_PYLON_PLACED: {_p['name']} at ({_p['at'][0]}, {_p['at'][1]}) "
+              f"yaw {_p['yaw']} on road {_p['road']} kerb {_p['kerb']}")
+    merged["furniture_plan"] = {"placed": furniture, "findings": furniture_findings}
+    # a junction approach whose control could not be stood by the street
+    # rules (docs/STREET_RULES.md) is said, not silently left bare
+    for f_ in furniture_findings:
+        print(f"[lot] {f_}")
+    standing = []
+    for cv in site_spec["cover"]:
+        sx, _sy, sz = cv.get("size", COVER)
+        standing.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                         cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+    # the responders' stops and lanes are not standing, so they reach the
+    # parking alone: a bay beside a stop holds no car to block a door
+    parked = site_parking.plan_parking(site_streets.roads(site_spec),
+                                       standing + list(responder_keep_out),
+                                       list(cover_points.values()))
+    site_spec["cover"].extend(parked)
+    merged["parking_plan"] = {"placed": parked}
+    for cv in parked:
+        sx, _sy, sz = cv["size"]
+        standing.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                         cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+    if parked:
+        print(f"[lot] LOT_PARKING_PLACED: {len(parked)} car(s) parked in the "
+              f"kerb lanes' bays")
+    # THE FENCE AT THE PLAYABLE EDGE (site_fences, 0.97.0): every gap a
+    # player fits through in an Empty row, and each row's ends out to the
+    # plate, closed by Zoo's chain-link fence along the row's front line.
+    # After the street, the furniture and the cars, so it stands clear of
+    # them; before the cover planner, which measures with it standing.
+    import site_fences
+    fence_findings = []
+    fences = site_fences.plan_fences(
+        site_spec, site_streets.roads(site_spec), extent.rect,
+        2.0 * float(_agent()["characters"]["player"]["radius_m"]),
+        keep_out=(site_furniture.path_corridors(site_spec)
+                  + _site_spawns.footprints(site_spec, margin=0.0) + _field_rects),
+        markers=list(cover_points.values()), findings=fence_findings)
+    site_spec["cover"].extend(fences)
+    merged["fence_plan"] = {"placed": fences, "findings": fence_findings}
+    for cv in fences:
+        sx, _sy, sz = cv["size"]
+        standing.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                         cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+        print(f"[lot] LOT_FENCE_PLACED: {cv['name']} {cv['dims'][0]} m at "
+              f"({cv['at'][0]}, {cv['at'][1]}) yaw {cv['yaw']}, {cv['breaks']}")
+    for f_ in fence_findings:
+        print(f"[lot] {f_}")
+    # THE FENCE AT THE PLATE'S EDGE (site_fences.plan_perimeter, 0.107.0,
+    # roadmap 228 step B): one chain-link run a side inside the wall, which
+    # then keeps its collision and shows nothing (`_wall_seen`). Read:
+    # `perimeter.fence` false keeps the wall; nothing writes it yet.
+    per = site_spec.get("perimeter")
+    perim, perim_findings = [], []
+    if per and per.get("fence", True) and extent.rect:
+        perim = site_fences.plan_perimeter(extent.rect, markers=list(cover_points.values()),
+                                           findings=perim_findings)
+        site_spec["cover"].extend(perim)
+        per["fenced_runs"] = len(perim)
+        for cv in perim:
+            sx, _sy, sz = cv["size"]
+            standing.append((cv["at"][0] - sx / 2.0, cv["at"][1] - sz / 2.0,
+                             cv["at"][0] + sx / 2.0, cv["at"][1] + sz / 2.0))
+        if perim:
+            print(f"[lot] LOT_PERIMETER_FENCED: {len(perim)} run(s), "
+                  f"{sum(p['dims'][0] for p in perim):.1f} m of chain-link "
+                  f"{site_fences.PERIM_INSET} m inside the wall, which keeps its collision "
+                  f"and shows nothing")
+    merged["fence_plan"]["perimeter"] = {"placed": perim, "findings": perim_findings}
+    for f_ in perim_findings:
+        print(f"[lot] {f_}")
+    # THE BACKDROP BEYOND THE PLATE'S EDGE (site_backdrop, 0.108.0, roadmap
+    # 228 step D): rows of rowhomes and a water tower by the spec's recipe,
+    # in their own list, never cover; Level Factory composes them (step E).
+    import site_backdrop
+    backdrop_findings = []
+    site_spec["backdrop"] = site_backdrop.plan(
+        site_spec, extent.rect, seed=site_spec.get("candidate_seed") or 0,
+        findings=backdrop_findings)
+    merged["backdrop_plan"] = {"recipe": site_backdrop.surroundings(site_spec),
+                               "summary": site_backdrop.summary(site_spec["backdrop"]),
+                               "findings": backdrop_findings}
+    if site_spec["backdrop"]:
+        _bs = merged["backdrop_plan"]["summary"]
+        print(f"[lot] LOT_BACKDROP_PLACED: recipe {merged['backdrop_plan']['recipe']}, "
+              f"{_bs['houses']} rowhome(s) in {len(site_backdrop.BANDS)} bands a side "
+              f"({', '.join(f'{k} {v}' for k, v in _bs['by_side'].items())}), "
+              f"{_bs['modules']} module(s), {_bs['towers']} water tower(s)")
+    for f_ in backdrop_findings:
+        print(f"[lot] {f_}")
+    if furniture:
+        from collections import Counter as _Counter
+        _by = _Counter(f["species"] for f in furniture)
+        print("[lot] LOT_FURNITURE_PLACED: " + ", ".join(
+            f"{n} {s}" for s, n in sorted(_by.items())) + " along the kerb line")
+    cover_plan = site_cover.plan_cover(
+        cover_points,
+        # The footprints as built. `plan_cover` measures sightlines against
+        # these and adds a piece's own clearance itself -- passing pre-grown
+        # rects makes a marker standing legally clear of a wall read as indoors
+        # and silently deletes that building from the measurement.
+        site_spawns.footprints(site_spec, margin=0.0),
+        site_spawns.ground_rect(site_spec),
+        opening_range=site_spawns.OPENING_RANGE,
+        # The bake's own numbers, so the room a cover piece needs beside a wall
+        # is derived from the agent contract rather than guessed.
+        nav_bake=_agent().get("nav_bake"),
+        # The crew's actual path, so cover can be placed on the ground it
+        # crosses and not only between the markers at either end of it.
+        route=[cover_points["LT_PlayerSpawn"],
+               cover_points["LT_ObjectivePoint"],
+               cover_points["LT_ExtractionPoint"]],
+        # Species-shaped pieces, largest first (roadmap 22): a box truck, a
+        # container, a car -- turned across the line they break -- instead
+        # of a 3 m cube. Each is a slot the site's manifest carries.
+        species=site_cover.COVER_SPECIES,
+        # the kerb line and the parked cars, already standing
+        standing=standing,
+        # the responders' lanes and stops (0.99.0): nothing stands in them,
+        # and they hide nobody
+        keep_out=responder_keep_out)
+    site_spec["cover"].extend(c.as_site_cover() for c in cover_plan.cover)
+    # THE RESERVATION, READ BACK (0.99.0): every piece every planner stood,
+    # against every arrival's stop and lane. Empty when it held.
+    responder_findings += site_responders.blocked(arrivals, site_spec["cover"])
+    merged["responder_plan"] = {"arrivals": arrivals, "findings": responder_findings}
+    merged["cover_plan"] = {
+        "placed": [c.as_dict() for c in cover_plan.cover],
+        "still_open": [f"{a} -> {b} ({d:.1f} m)"
+                       for a, b, _pa, _pb, d in cover_plan.open_lines],
+        "unbreakable": [f"{a} -> {b} ({d:.1f} m)"
+                        for a, b, _pa, _pb, d in cover_plan.unbreakable],
+        "route_open": [f"{a} -> {b} ({d:.1f} m)"
+                       for a, b, _pa, _pb, d in cover_plan.route_open],
+        "pinches": [f"{n} vs {w} ({g:g} m)" for n, w, g in cover_plan.pinches],
+    }
+
+    cover_findings = site_cover.findings(
+        cover_plan, opening_range=site_spawns.OPENING_RANGE)
+    for f_ in (seat_findings + clear_findings + spawn_plan.findings
+               + cover_findings + responder_findings):
+        tactical_report.setdefault("findings", []).append(f_)
+        print(f"[lot] {f_['code']}: {f_['message']}")
+
+    # pvp_heist post-merge gates: defender spawns live inside the buildings'
+    # gameplay.json files, so they can only be validated after the merge.
+    pvp_report = site_tactical.gate_merged(site_spec, merged)
+    if pvp_report is not None:
+        merged["pvp_heist"] = pvp_report
+
+    # site enterability: can you actually REACH each building's entries once
+    # they're placed? Gate the clear-cut walled-in case (needs merged openings +
+    # footprints), then attach the per-building approach report.
+    import site_enterability
+    enter_report = site_enterability.gate(site_spec, merged)
+    merged["enterability"] = enter_report
+
+    # pacing estimate + structural encounter intel (both offline, structural,
+    # never a fun-score). Pacing needs the merged markers (objective/loot counts).
+    import site_pacing
+    adj = site_tactical.build_graph(site_spec)
+    merged["pacing"] = site_pacing.estimate_pacing(site_spec, merged)
+
+    # site-level design grammar (report-only, like DC's combat_audit):
+    # exfil shape, responder pressure, safe anchors, leg rhythm, crossings
+    import site_audit
+    audit_result = site_audit.audit(site_spec)
+    print(site_audit.format_report(audit_result))
+    # KEPT, NOT ONLY PRINTED (0.102.0, roadmap 215): the report went to the
+    # job log and nowhere else, so no validation report ever counted a
+    # finding it raised. Level Factory reads this block into its report.
+    merged["site_audit"] = site_audit.record(audit_result)
+    merged["encounters"] = site_pacing.encounter_intel(site_spec, adj)
+
+    gp_out = os.path.join(out_dir, f"{site_spec['name']}.site.gameplay.json")
+    with open(gp_out, "w", encoding="utf-8") as f:
+        json.dump(merged, f, indent=2)
+
+    # site-level lighting contract: every building's baked light anchors merged
+    # to world space + namespaced, plus Lot's exterior streetlights. Lux's light
+    # loader bakes this the same way it bakes a single building's .lights.json.
+    lights_out = os.path.join(out_dir, f"{site_spec['name']}.site.lights.json")
+    merged_lights = merge_lights(site_spec, base_dir)
+    with open(lights_out, "w", encoding="utf-8") as f:
+        json.dump(merged_lights, f, indent=2)
+    print(f"[lot] site lights -> {lights_out} "
+          f"({len(merged_lights['anchors'])} anchors)")
+    # EVERY EXTERIOR LIGHT STANDS ON A LAMP, or the site has none and says
+    # so. `_streetlight_anchors` derives these from the poles
+    # `plan_furniture` placed, so a site whose roads carry no sidewalk band
+    # carries no street lighting -- which is a real state worth printing,
+    # not one to fill in with a row of lights from nowhere (0.79.0).
+    _lamps = [a for a in merged_lights["anchors"]
+              if a.get("type") == "streetlight"]
+    if _lamps:
+        print(f"[lot] LOT_STREETLIGHTS_LIT: {len(_lamps)} lamp(s), "
+              f"each on the pole its slot stands")
+    else:
+        print("[lot] LOT_NO_EXTERIOR_LIGHTS: no streetlight pole on this "
+              "site, so nothing lights the street; the moon and the "
+              "buildings' own facade lights are all there is")
+
+    # THE HANDBILLS (0.84.0, `site_posters`): on the alley walls and the
+    # poles, once the street's poles stand and the buildings' openings are
+    # merged. Their own list, never `cover`.
+    import site_posters
+    import site_streets as _poster_streets
+    poster_findings = []
+    site_spec["hung"] = site_posters.plan(site_spec, merged,
+                                          _poster_streets.roads(site_spec),
+                                          poster_findings)
+    merged["poster_plan"] = {"placed": site_spec["hung"]}
+    for f_ in poster_findings:
+        print(f"[lot] {f_}")
+
+    tscn_out = os.path.join(out_dir, f"{site_spec['name']}.tscn")
+    write_godot_scene(site_spec, merged, tscn_out, preview=preview,
+                      portable=portable, self_flooring=self_flooring)
+    # THE SPEC AS DRAWN (0.95.0): walks resolved to their doors, the pads,
+    # the fields and their driveways, the cover -- what the scene above
+    # holds, which the authored spec does not. `site_surfaces.py` reads it
+    # from here, so the dressing is planned on the ground that exists.
+    drawn_out = os.path.join(out_dir, f"{site_spec['name']}.site.drawn.json")
+    with open(drawn_out, "w", encoding="utf-8") as f:
+        json.dump(site_spec, f, indent=1)
+    # The site's own slot manifest: its cover, as prop slots Zoo builds to
+    # (roadmap 22). Written beside the scene the way Deli Counter writes a
+    # building's, so the same kit build serves both.
+    slots_out = os.path.join(out_dir, f"{site_spec['name']}.slots.json")
+    n_slots = write_site_slots(site_spec, slots_out)
+    print(f"[lot] site slots -> {slots_out} ({n_slots} cover slot(s))")
+    # The street's paint, as data (roadmap 153): the same rectangles the
+    # scene draws as quads, for the decal layer to carry as decals when it
+    # can, and for anything that wants to know where a crosswalk is.
+    import site_streets
+    marks = site_streets.manifest(site_spec)
+    marks_out = os.path.join(out_dir, f"{site_spec['name']}.markings.json")
+    with open(marks_out, "w", encoding="utf-8") as fh:
+        json.dump(marks, fh, indent=2)
+    print(f"[lot] site markings -> {marks_out} ({len(marks['roads'])} road(s), "
+          f"{len(marks['markings'])} marking(s))")
+
+    # Site-level step gate, read back off the scene just WRITTEN rather than
+    # re-derived from the constants that produced it. A capsule walks up a step
+    # only while the contact normal stays inside floor_max_angle, which for the
+    # contract player is clearances.unassisted_step_max_m -- and SIDEWALK_H is
+    # 0.16, so a kerb away from a crossing is a wall to anything without
+    # step-up code. Two codes: BLOCKS_A_ROUTE is major and fires when a designed
+    # route crosses the rise; NEEDS_ASSIST is minor and fires off-route, which
+    # is what a kerb correctly is. Never allowed to break a build -- but note
+    # that a check which cannot fail is also a check that can go silent, so the
+    # unavailable branch says so loudly.
+    result_steps = []
+    try:
+        import site_steps as _steps
+        _a = _agent()
+        result_steps = _steps.findings(
+            tscn_out,
+            radius_m=float(_a["characters"]["player"]["radius_m"]),
+            floor_max_angle_deg=45.0,
+            assist_m=float(_a["characters"]["player"]["max_step_up_m"]),
+            site_spec=site_spec)
+        for _i in result_steps:
+            # Column zero, and the prefix library_walk.py filters on. Its
+            # forwarder does `if line.startswith("[lot]")` and adds the indent
+            # itself, so a leading space here means the line is dropped -- which
+            # silently hid this gate's first live run, findings and failures
+            # alike.
+            print(f"[lot] {_i['code']}: {_i['message']}")
+        # This gate necessarily runs AFTER the gameplay contract was written,
+        # because it reads back the .tscn emitted above. Fold its findings in and
+        # rewrite, so <site>.site.gameplay.json carries EVERY finding with the
+        # severity its emitter gave it. Anything downstream can then read one
+        # file instead of re-deriving severity from printed text -- which is what
+        # library_walk was doing, with a hardcoded lookup table that was already
+        # missing a severity level the emitters use.
+        if result_steps:
+            tactical_report.setdefault("findings", []).extend(result_steps)
+            with open(gp_out, "w", encoding="utf-8") as _gf:
+                json.dump(merged, _gf, indent=2)
+    except Exception as _e:
+        print(f"[lot] STEP GATE DID NOT RUN ({type(_e).__name__}: {_e}) -- "
+              f"a silent check is not a passing one")
+
+    result = {
+        "gameplay": gp_out, "scene": tscn_out, "lights": lights_out,
+        "buildings": len(site_spec["buildings"]),
+        "markers": len(merged["markers"]),
+        "rooms": len(merged["rooms"]),
+        "interactives": len(merged["interactives"]),
+        "tactical": tactical_report,
+        "steps": result_steps,
+        "pacing": merged["pacing"],
+    }
+
+    if walkable:
+        walk_out = os.path.join(out_dir, f"{site_spec['name']}_walk.tscn")
+        # The enemies this report already carries. Placing them again here
+        # would be a second answer to a question already answered, which is
+        # roadmap 3 and which cost a whole level's cover being planned against
+        # a set the scene did not contain.
+        result["walk_positions"] = write_walk_scene(
+            site_spec, merged, walk_out, site_spec["name"], solids=solids,
+            portable=portable, enemies=spawn_plan.positions)
+        result["walk_scene"] = walk_out
+
+    if navqa:
+        navqa_out = os.path.join(out_dir, f"{site_spec['name']}_navqa.tscn")
+        result["navqa_counts"] = write_navqa_scene(
+            site_spec, merged, navqa_out, site_spec["name"])
+        result["navqa_scene"] = navqa_out
+
+    return result
+
+
+if __name__ == "__main__":
+    import sys
+    args = [a for a in sys.argv[1:] if not a.startswith("--")]
+    walkable = "--walkable" in sys.argv
+    navqa = "--navqa" in sys.argv
+    preview = "--preview" in sys.argv
+    portable = "--portable" in sys.argv
+    if not args:
+        print("usage: python lot.py <site_spec.json> [out_dir] "
+              "[--walkable] [--navqa] [--preview] [--portable]")
+        raise SystemExit(2)
+    out = args[1] if len(args) > 1 else None
+    try:
+        r = assemble(args[0], out, walkable=walkable, navqa=navqa,
+                     preview=preview, portable=portable)
+    except Exception as e:
+        # site_tactical.SiteTacticalError and friends: fail loudly, like a gate
+        print(f"[lot] BUILD FAILED: {e}")
+        raise SystemExit(1)
+    print(f"[lot] assembled '{os.path.basename(args[0])}': "
+          f"{r['buildings']} buildings, {r['markers']} markers, "
+          f"{r['rooms']} rooms, {r['interactives']} interactives")
+    t = r["tactical"]
+    if t.get("mode"):
+        print(f"[lot]   mode: {t['mode']} (gates passed)")
+    iso = t["intel"].get("isolated_buildings")
+    if iso:
+        print(f"[lot]   WARNING: isolated buildings: {', '.join(iso)}")
+    if "objective_approaches" in t["intel"]:
+        print(f"[lot]   objective approaches: {t['intel']['objective_approaches']}")
+    p = r.get("pacing", {})
+    if p.get("mode"):
+        print(f"[lot]   pacing: ~{p['estimate_expected_min']} min "
+              f"(range {p['range_min']}, target {p['target_min']}) "
+              f"-> {p['status']}")
+    print(f"[lot]   -> {os.path.basename(r['gameplay'])}")
+    print(f"[lot]   -> {os.path.basename(r['scene'])}")
+    if r.get("walk_scene"):
+        wp = r["walk_positions"]
+        print(f"[lot]   -> {os.path.basename(r['walk_scene'])}  (walkable: "
+              f"spawn {tuple(round(v,1) for v in wp['spawn'])} -> "
+              f"objective {tuple(round(v,1) for v in wp['objective'])} -> "
+              f"extraction {tuple(round(v,1) for v in wp['extraction'])})")
+    if r.get("navqa_scene"):
+        nc = r["navqa_counts"]
+        print(f"[lot]   -> {os.path.basename(r['navqa_scene'])}  (nav-QA: "
+              f"{nc['player_proxies']} player proxies, {nc['cover']} cover, "
+              f"{nc['bot_spawns']} cop spawns -> needs the heist_nav_qa addon)")
