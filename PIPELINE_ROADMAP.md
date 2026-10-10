@@ -680,10 +680,7 @@ work of adopting this.
 | # | status | item | evidence |
 |---|---|---|---|
 | 1 | **CLOSED** | Cover is exonerated — the trap is somewhere else | 2026-07-27 -- as the body records: "Closed 2026-07-27". Cover is exonerated; the trap is s |
-| 1 | **CLOSED** *(inferred)* | MEASURED 2026-10-10: the quality does not move them | CLOSED 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0 |
-| 1 | **OPEN** *(inferred)* | DONE, Level Factory 0.172.0 | — |
 | 2 | **CLOSED** | `walktest.py` into the DAG | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Lot 0.x", `walktest.py` into the  |
-| 2 | **OPEN** *(inferred)* | ANSWERED, read off 9222's package: | — |
 | 3 | **CLOSED** | Lot places enemies twice, and nothing checks the two agree | 2026-08-16 -- PLACED ONCE AND THREADED THROUGH, which is the first of the two remedies thi |
 | 4 | **CLOSED** | Lot emits absolute `res://` paths at source | 2026-09-11 -- FIXED WHERE THE PATH IS WRITTEN, AND MEASURED ACROSS EVERY SCENE ON DISK. Le |
 | 5 | **CLOSED** | A run that evaluated nothing reported a clean pass | 2026-07-27 -- as the body records: "Closed 2026-07-27 as Level Factory 0.14.0", the resume |
@@ -909,7 +906,7 @@ work of adopting this.
 | 225 | **CLOSED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fi |
 | 226 | **NARROWED** | A street lamp stood in front of a shop band | 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop |
 
-**229 items: 40 open, 106 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 12 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**226 items: 38 open, 105 closed, 3 retracted, 73 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20044,7 +20041,7 @@ Observed in the frames, and left for the walker: a lamp pole stands in front of 
 
 Owner: Level Factory for the bake's settings and the import. Nothing changes until one of these has been measured.
 
-**1. MEASURED 2026-10-10: the quality does not move them** (`docs/findings/bake_quality/`).
+**Step 1, MEASURED 2026-10-10: the quality does not move them** (`docs/findings/bake_quality/`).
 - **The re-bakes:** cold run 9221's walk copy of the same level, re-baked through `tools/lux_rebake.py --bake-quality Q` (Level Factory's own `light_bake.bake()`, only `QUALITY` changed). Each report records the dial it set, and the editor's time rose with each step.
 - **The control:** quality 0, Level Factory's own, reproduces 9219's face, p5 1 and p95 6.
 - **The result:** Low, Medium and High read p95 6, 5 and 5, with p5 and p50 at 1 throughout. The editor's bake took 94.1, 117.0 and 222.7 s.
@@ -20065,13 +20062,13 @@ Not yet looked at, in this order:
 
 Owner: Level Factory for the gate; whoever owns the ceiling's texture for the second.
 
-**1. DONE, Level Factory 0.172.0** (`docs/findings/shotbot_sparkle/`, `measured.txt`). A control was built first, `zfight_control.tscn`: two quads, red and blue, 0.01 mm apart.
+**Step 1 DONE, Level Factory 0.172.0** (`docs/findings/shotbot_sparkle/`, `measured.txt`). A control was built first, `zfight_control.tscn`: two quads, red and blue, 0.01 mm apart.
 - **Refuted, the proposal above:** judging the largest connected region. The control's fight broke into regions of at most 54 samples, the sparkle's of 28, and a gate at 64 written into the shot bot passed the control.
 - **Refuted:** moving the near plane instead of the camera. No texture sample moves, so no sparkle, but the control flipped 0 samples too.
 - **Kept, the size of a flip.** The control's flips are all 255 of 255. 9222's four interiors flip by a median of 16 to 19, at most 7.6% of their flips over 64. Counted over 64 as a share of the frame: the control 2.02%, 9222 0.00% to 0.12%, and the gate sits at 0.5%. Run as the verdict, the control fails and all of 9222's stations pass.
 - **What it gives up:** a fight between two surfaces within 64 of each other, which a person can barely see.
 
-**2. ANSWERED, read off 9222's package:** the drop ceiling's tiles are `M_Skin_ceiling_tile_delco_1997` (Zoo's `ceiling_delco_1997_13_*`), a 256 x 256 skin, mipmapped and lossless, sampled magFilter NEAREST and minFilter NEAREST_MIPMAP_NEAREST -- the drywall ceilings sample the same way. Nearest sampling takes one texel a pixel, so any sub-pixel camera motion swaps whole texels on a fine-grained skin: the speckle in the maps, and the shimmer a moving camera sees. It is the pixel skins' look, which Pixelcoat asks for and Zoo honours, not this ceiling's defect. Filtering skins `linear`, as the business signs have been since Pixelcoat 0.62.0, is the realism direction and the walker's call to make and price.
+**Step 2 ANSWERED, read off 9222's package:** the drop ceiling's tiles are `M_Skin_ceiling_tile_delco_1997` (Zoo's `ceiling_delco_1997_13_*`), a 256 x 256 skin, mipmapped and lossless, sampled magFilter NEAREST and minFilter NEAREST_MIPMAP_NEAREST -- the drywall ceilings sample the same way. Nearest sampling takes one texel a pixel, so any sub-pixel camera motion swaps whole texels on a fine-grained skin: the speckle in the maps, and the shimmer a moving camera sees. It is the pixel skins' look, which Pixelcoat asks for and Zoo honours, not this ceiling's defect. Filtering skins `linear`, as the business signs have been since Pixelcoat 0.62.0, is the realism direction and the walker's call to make and price.
 
 *STATUS: NARROWED 2026-10-10 -- fixed in Lot 0.106.0, not yet run cold: a lamp or a tree keeps out of a shop band's span on the kerb it faces and steps to the nearer end of it. Replayed on cold run 9222's drawn site, one piece of 107 moves, Lamp_2 from station 30.00 to 25.05. Next: a cold run of restaurant_row_001, framed at the band.*
 
