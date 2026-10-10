@@ -11,7 +11,10 @@ import pathlib
 
 ROADMAP = pathlib.Path(__file__).resolve().parent.parent / "PIPELINE_ROADMAP.md"
 
-RESULT_CENSUS = "RESULT_CENSUS"
+RESULT_CENSUS = ("reads 1,048 rows and 3,933 lamps where 0.206.1 read 1,140 and 4,133, 15 rooms in 13 "
+                 "buildings laid over their aisles, the deli's market aisles three rows over their three lanes "
+                 "(`docs/findings/fixture_rows/row_census_0207.txt`); suite 1,387 passed, 2 skipped, before and "
+                 "after the rebuild")
 
 OLD_A = "(`docs/findings/fixture_rows/row_census_0206_1.txt`); cold run 9231 shows it. "
 NEW_A = (
