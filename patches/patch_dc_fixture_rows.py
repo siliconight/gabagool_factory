@@ -163,6 +163,17 @@ REACH_NEW_2 = (
     "    assert [a[\"reach\"] for a in _all_rows([food], south)[\"food_service\"]] == [2.0, 2.0]\n"
     "    # the largest of the glass lines each faces\n"
     "    assert [a[\"reach\"] for a in _all_rows([food], south + east)[\"food_service\"]] == [7.0, 2.2]\n")
+REACH_OLD_3 = (
+    "def test_the_gas_stations_sales_floor_reaches_its_glass():\n"
+    "    a = {x[\"id\"]: x for x in _lights(\"gas_station_a02\")}\n"
+    "    assert a[\"sales_floor_ceiling\"][\"reach\"] == 6.0\n")
+REACH_NEW_3 = (
+    "def test_the_gas_stations_sales_floor_reaches_its_glass():\n"
+    "    # three rows since 0.206.0, each reaching the glass from its own line; the built\n"
+    "    # manifest (`build.py --all`) agrees with the pure case above to the centimetre\n"
+    "    a = {x[\"id\"]: x for x in _lights(\"gas_station_a02\")}\n"
+    "    assert [a[k][\"reach\"] for k in (\"sales_floor_ceiling\", \"sales_floor_ceiling_r1\",\n"
+    "                                    \"sales_floor_ceiling_r2\")] == [2.0, 6.2, 9.8]\n")
 SPILL_OLD_1 = "    row = next(x for x in a if x[\"id\"] == \"sales_floor_ceiling\")\n"
 SPILL_NEW_1 = (
     "    rows = [x for x in a if x[\"type\"] == \"fluorescent\" and x[\"room\"] == \"sales_floor\"]\n"
@@ -226,7 +237,8 @@ def _edits():
         "docs/LIGHT_MANIFEST.md": [(DOC_OLD, DOC_NEW, 1)],
         "test_lights_voids.py": [(VOIDS_OLD, VOIDS_NEW, 1)],
         "test_lights_partitions.py": [(PART_OLD, PART_NEW, 1), (PART_REP_OLD, PART_REP_NEW, 1)],
-        "test_storefront_reach.py": [(REACH_OLD_1, REACH_NEW_1, 1), (REACH_OLD_2, REACH_NEW_2, 1)],
+        "test_storefront_reach.py": [(REACH_OLD_1, REACH_NEW_1, 1), (REACH_OLD_2, REACH_NEW_2, 1),
+                                     (REACH_OLD_3, REACH_NEW_3, 1)],
         "test_storefront_spill.py": [(SPILL_OLD_1, SPILL_NEW_1, 1), (SPILL_OLD_2, SPILL_NEW_2, 1)],
         "test_club_rooms.py": [(CLUB_OLD_1, CLUB_NEW_1, 1), (CLUB_OLD_2, CLUB_NEW_2, 1)],
     }

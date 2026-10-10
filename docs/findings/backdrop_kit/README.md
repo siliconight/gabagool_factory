@@ -58,6 +58,26 @@ build on a draft of 1.96.0, theme delco, style 1:
   trunk ends inside the crown, and the monitors stand INSET into the roof
   from the start, the lesson the first kit paid for.
 
+## The tree redrawn (Zoo 1.97.0, roadmap 228 step F)
+
+The walker, on cold run 9227's parkland: "those trees in the distance are
+a little lazy imo (giant lolipops vs. trees)". `tree_forms_1_97_0.png` is
+the redraw rendered by `tools/preview_specimen.py` at four slots: a trunk
+that flares at the foot and forks into three limbs under ten overlapping
+lobes, the form by the slot's proportions -- a low oak at 8 x 8 x 8 and
+11 x 11 x 12, a round maple at 7 x 7 x 10, a narrow elm at 4 x 4 x 9 --
+548 triangles of 800, bark and vegetation still two materials.
+
+**The first draft was refuted by its own render, kept here in words:** four
+lobes at the limb tips plus three low fillers read as balloons on sticks,
+the limbs visible between them. The second draft pulls the limb lobes a
+tenth toward the axis, adds fillers at their height and a lower ring under
+them (so the limbs vanish into the crown and its foot keeps daylight above
+the fork), and displaces each lobe by a sixth of its radius; that reads as
+a crown. The second kit rebuilt PASS and census-clean (`result_*.txt` in
+`patches/zoo_backdrop_3/`); Lot 0.110.0 lays the belt in clusters of mixed
+forms. The walker's eye on a level is the gate that remains.
+
 ## Instruments
 
 - `backdrop_slots.json`: the manifest.

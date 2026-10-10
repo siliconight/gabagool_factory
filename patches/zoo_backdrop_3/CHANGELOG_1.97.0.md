@@ -28,12 +28,12 @@ ninety metres.
   MultiMesh a module a side does not notice: the parkland cost 14 draws a
   heading and no frame time in cold run 9227.
 
-**Built in Blender:** RESULT_BUILD
+**Built in Blender:** the second kit (`docs/findings/backdrop_kit/backdrop_slots_2.json`, two trees at 4 x 4 x 6 and 7 x 7 x 10 m and the warehouse) rebuilt in Blender 5.1.1 on a draft of 1.97.0, theme delco: all three PASS, the trees at 548 triangles of 800 (the estimate said 672; the lobes' uv-spheres share their poles), bark and vegetation two materials, two objects. The renders (`docs/findings/backdrop_kit/tree_forms_1_97_0.png`): the first draft's four balls on sticks read as balloons, and the second's ten overlapping lobes with a lower ring read as a crown over a forking trunk -- a low oak, a round maple, a narrow elm
 
-**The census:** RESULT_CENSUS
+**The census:** `tools/coplanar_census.py --species backdrop_tree` on the draft: "3 builds, 0 with coincident pairs, 0 that did not build", 548 triangles at the default and the maximum dims; the limbs end inside their lobes and the lobes overlap as ellipsoids, so no face lies in another's plane
 
 **Tests:** 6 pure in `tests/test_backdrop_3.py`: the form by proportion,
 the foot on the ground and the top lobe at the top, every limb ending inside
 a lobe and every lobe above the fork, the lobes' reach within a fifth of
 the width before the fit, the seed turning the limbs alone, the estimate
-within the budget. **Suite:** RESULT_SUITE.
+within the budget. **Suite:** 4,147 passed, 424 skipped (the builds that need bpy), 1 xfailed, exit 0 on the repo (4,141 as 1.96.0 and the 6 new cases).

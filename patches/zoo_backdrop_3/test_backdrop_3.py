@@ -41,7 +41,7 @@ def test_every_limb_ends_inside_a_lobe_and_every_lobe_is_above_the_fork():
             assert any(_inside(tip, c, r) for c, r in p["lobes"]), (w, h, tip)
         for c, r in p["lobes"]:
             assert c[2] - r[2] > fork_z - 1e-9, "daylight under the crown: no lobe reaches the fork"
-        assert len(p["lobes"]) == BF.TREE_LIMBS * 2 + 1
+        assert len(p["lobes"]) == BF.TREE_LIMBS * 3 + 1
 
 
 def test_the_lobes_reach_about_the_width_and_the_fit_does_the_rest():

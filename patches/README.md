@@ -14,7 +14,7 @@
 - `dc_empty_door_leaf/` -- 2 file(s); [0.186.0] - an Empty's door is shut to a ray as well as a body
 - `dc_empty_roof/` -- 2 file(s); [0.175.0] - An Empty is exterior plus roof
 - `dc_empty_walls/` -- 2 file(s); [0.175.2] - An Empty's walls run the full storey
-- `dc_fixture_rows/` -- 6 file(s); [0.206.0] - ceiling rows laid to the work, on the ceiling's grid
+- `dc_fixture_rows/` -- 8 file(s); [0.206.0] - ceiling rows laid to the work, on the ceiling's grid
 - `dc_front_doors/` -- 2 file(s); [0.182.0] - An Empty's front door: a painted finish per house, and two iron security doors
 - `dc_house_bricks/` -- 2 file(s); [0.183.0] - A house's own brick
 - `dc_key_height/` -- 2 file(s); [0.176.0] - One module name, one geometry, in every building
@@ -30,7 +30,7 @@
 - `dc_window_panes/` -- 3 file(s); [0.179.0] - An Empty's windows carry a painted state
 - `lasertag_event_position/` -- 2 file(s); [0.23.2] - a named event is logged at the position it carries
 - `lf_backdrop/` -- 6 file(s); [0.174.0] - The backdrop beyond the plate's edge ships as MultiMeshes
-- `lf_backdrop_tally/` -- 1 file(s); [0.175.1] - The backdrop's by-side count counts every piece
+- `lf_backdrop_tally/` -- 2 file(s); [0.175.1] - The backdrop's by-side count counts every piece
 - `lf_bake_cycling_live/` -- 2 file(s); [0.160.0] - The light bake keeps a cycling rig live
 - `lf_bake_sky/` -- 1 file(s); [0.164.0] - The sky is in the bake
 - `lf_bake_spawned/` -- 1 file(s); [0.162.1] - The light bake keeps the responders' car dynamic
@@ -92,7 +92,7 @@
 - `lot_site_audit_record/` -- 2 file(s); 0.102.0 - the site audit is kept in the gameplay manifest, not only printed
 - `lot_stop_on_band/` -- 1 file(s); 0.102.1 - the bus stop stands on its band before the corner is spaced against it
 - `lot_trash_bags/` -- 3 file(s); 0.104.0 - a heap of filled garbage bags beside each dumpster
-- `lot_tree_belt/` -- 1 file(s); 0.110.0 - the tree belt in clusters, in three forms
+- `lot_tree_belt/` -- 2 file(s); 0.110.0 - the tree belt in clusters, in three forms
 - `lot_walk_legs/` -- 2 file(s); 0.89.0 - a walk between two doors is drawn square to the buildings
 - `lot_walks_to_doors/` -- 4 file(s); 0.91.0 - a walk leads to a door, and a side door gets a landing
 - `lot_yards/` -- 4 file(s); 0.93.0 - a concrete pad under each dumpster
@@ -124,7 +124,7 @@
 - `tools_census_pairs/` -- 1 file(s); mesh_light_census counts what the engine pairs, beside what reaches (2026-10-08).
 - `zoo_backdrop/` -- 13 file(s); [1.95.0] - the backdrop beyond the plate's edge: a rowhome and a water tower
 - `zoo_backdrop_2/` -- 13 file(s); [1.96.0] - the backdrop's tree and warehouse
-- `zoo_backdrop_3/` -- 5 file(s); [1.97.0] - the backdrop tree with a silhouette
+- `zoo_backdrop_3/` -- 8 file(s); [1.97.0] - the backdrop tree with a silhouette
 - `zoo_box_truck_litter_bin/` -- 9 file(s); [1.92.0] - the box truck and the litter bin, drawn
 - `zoo_bucket_cm/` -- 2 file(s); [1.63.0] - a module is grouped no finer than the name it is given
 - `zoo_candy/` -- 8 file(s); Record a Zoo working tree as `manifest.json` + `files/` for
