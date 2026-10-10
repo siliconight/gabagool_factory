@@ -1,0 +1,76 @@
+
+
+## Lay DEN_WASH_LEVEL's washers along every wall of the den room `p` stands
+## for (0.72.0) into `container`, and return how many. `room` is the probe's
+## box less its margin. Each washer hangs DEN_WASH_INSET_M in from its wall,
+## DEN_WASH_DROP_M under the ceiling, the wall's washers spaced evenly at
+## about DEN_WASH_PITCH_M, and aims at the wall DEN_WASH_AIM_M over the
+## floor. It takes the colour of the nearest club wash standing in the room
+## (`washes`, [position, colour] pairs), or the room's own tint when none
+## does. Static and owned, like the fills: the bake keeps their light, and
+## frees them before it saves.
+##
+## THE ENERGY PUTS THE LEVEL ON THE WALL, NOT ON THE AXIS. The ray to the aim
+## point meets the wall's horizontal normal at cos = inset / d, so the value
+## asked of `energy_for` (which solves on the axis) is the level over that
+## cosine. RETRACTED, kept: the trials that chose the level
+## (`docs/findings/club_light_trials/` at the factory root) took the cosine
+## as the ray's VERTICAL share, drop / d, and so labelled every washer 2.56x
+## brighter than it put on the wall. Their energies were exact; the level
+## below is theirs, re-derived with the right cosine.
+static func _lay_den_washers(container: Node3D, p: ReflectionProbe, room: Vector3,
+		washes: Array, owner_node: Node) -> int:
+	var xf := p.global_transform
+	var inv := xf.affine_inverse()
+	var head := room.y * 0.5 - DEN_WASH_DROP_M
+	var aim_y := -room.y * 0.5 + minf(DEN_WASH_AIM_M, room.y * 0.5)
+	var dx := minf(DEN_WASH_INSET_M, minf(room.x, room.z) * 0.25)
+	var dy := head - aim_y
+	if dx <= 0.0 or dy <= 0.0:
+		return 0
+	var d := sqrt(dx * dx + dy * dy)
+	var energy := energy_for(DEN_WASH_LEVEL * REFERENCE_POOL * d / dx, d,
+		DEN_WASH_RANGE_M, String(p.name))
+	var laid := 0
+	for side in 4:
+		# sides 0 and 1 are the walls at +x and -x, which run along z;
+		# 2 and 3 the walls at +z and -z, which run along x
+		var on_x := side < 2
+		var sgn := 1.0 if side % 2 == 0 else -1.0
+		var length := room.z if on_x else room.x
+		var half := (room.x if on_x else room.z) * 0.5
+		var count := maxi(1, int(round(length / DEN_WASH_PITCH_M)))
+		for i in count:
+			var along := length * ((float(i) + 0.5) / float(count) - 0.5)
+			var at := Vector3(along, head, sgn * (half - dx))
+			var aim := Vector3(along, aim_y, sgn * half)
+			if on_x:
+				at = Vector3(sgn * (half - dx), head, along)
+				aim = Vector3(sgn * half, aim_y, along)
+			var gpos: Vector3 = xf * at
+			var col := p.ambient_color
+			var best := INF
+			for w in washes:
+				var wp: Vector3 = w[0]
+				var lw: Vector3 = inv * wp
+				if absf(lw.x) > p.size.x * 0.5 or absf(lw.z) > p.size.z * 0.5:
+					continue
+				var dd := Vector2(wp.x - gpos.x, wp.z - gpos.z).length()
+				if dd < best:
+					best = dd
+					col = w[1]
+			var spot := SpotLight3D.new()
+			spot.name = "%s_%s_%d_%d" % [DEN_WASH_PREFIX, String(p.name), side, i]
+			spot.light_color = col
+			spot.light_energy = energy
+			spot.light_bake_mode = Light3D.BAKE_STATIC
+			spot.spot_range = DEN_WASH_RANGE_M
+			spot.spot_attenuation = 2.0
+			spot.spot_angle = DEN_WASH_ANGLE_DEG
+			spot.spot_angle_attenuation = 0.5
+			container.add_child(spot)
+			spot.owner = owner_node
+			spot.global_position = gpos
+			spot.look_at(xf * aim, Vector3.UP)
+			laid += 1
+	return laid

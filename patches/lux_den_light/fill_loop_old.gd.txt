@@ -1,0 +1,39 @@
+	var container: Node3D = null
+	for p in probes:
+		if not p.ambient_color.is_equal_approx(ROOM_AMBIENT_DERIVED_COLOR) \
+				or dens.has(_probe_building(p)):
+			continue
+		var room := p.size - Vector3.ONE * 2.0 * ROOM_AMBIENT_MARGIN
+		if room.x <= 0.0 or room.y <= 0.0 or room.z <= 0.0:
+			continue
+		var xf := p.global_transform
+		var inv := xf.affine_inverse()
+		var share := 1.0
+		for b in bulbs:
+			var l: Vector3 = inv * b
+			if absf(l.x) <= p.size.x * 0.5 and absf(l.y) <= p.size.y * 0.5 \
+					and absf(l.z) <= p.size.z * 0.5:
+				share = BAKE_FILL_BULB_SHARE
+				break
+		var nx := maxi(1, ceili(room.x / BAKE_FILL_CELL_M))
+		var nz := maxi(1, ceili(room.z / BAKE_FILL_CELL_M))
+		var y := -room.y * 0.5 + minf(BAKE_FILL_HEIGHT_M, room.y * 0.6)
+		if container == null:
+			container = Node3D.new()
+			container.name = BAKE_FILL_CONTAINER
+			scene_root.add_child(container)
+			container.owner = owner_node
+		for i in nx:
+			for k in nz:
+				var local := Vector3(room.x * ((i + 0.5) / float(nx) - 0.5), y,
+					room.z * ((k + 0.5) / float(nz) - 0.5))
+				var omni := OmniLight3D.new()
+				omni.name = "%s_%d" % [String(p.name), i * nz + k]
+				omni.light_energy = energy * share
+				omni.light_bake_mode = Light3D.BAKE_STATIC
+				omni.omni_range = BAKE_FILL_REACH_CELLS * BAKE_FILL_CELL_M
+				omni.omni_attenuation = 0.0
+				container.add_child(omni)
+				omni.owner = owner_node
+				omni.global_position = xf * local
+	return container

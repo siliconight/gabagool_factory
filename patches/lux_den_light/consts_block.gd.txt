@@ -1,0 +1,79 @@
+
+
+## A DEN IS LIT AT ITS WALLS, AND IN ITS OWN COLOUR (0.72.0, roadmap 219
+## note 1). The walker, 2026-10-09, walking club_block_014's strip club at
+## midnight (cold run 9213): "still a tad too dark... still be dark and moody,
+## but lit enough for a player to see and experience it". Their comps -- a
+## VtMB bar and the Asylum's hall, a KOTOR 2 cantina -- measured a median
+## luma of 15 to 39, with 19 to 40% of each frame under 10. The club measured
+## a median of 1, 98% of the frame under 10.
+##
+## WHY IT WAS DARK, MEASURED on cold run 9217's walk copy (the factory root's
+## docs/findings/club_light_trials/):
+## - the club's light was almost all baked -- frame mean 3.7 on the main
+##   floor, 1.6 with the bake off -- and 0.68.2 laid no fill in a den;
+## - its carpet's albedo is 0.036 linear, so the washes' pools land on black;
+## - its ceiling is the office tile, 0.545, so anything that throws light up
+##   lights the ceiling: the stage lip's and the back bar's omnis made the
+##   only bright pools in the room, overhead.
+## Neither a fill nor brighter pools got there alone: a white den fill at the
+## bulb share reached a median of 3, the washes x3 a median of 1.
+##
+## WHAT THE COMPS DO, and what a den's bake now does: coloured washes on the
+## walls, and a room whose ceiling and floor carry its colour. Both are laid
+## by `add_bake_fills` and freed before the save, like the room fills, so a
+## level carries nothing of them at run time:
+## - every wall of a TINTED den room takes a row of washers, about
+##   DEN_WASH_PITCH_M apart, each in the colour of the nearest club wash in
+##   the room (`_lay_den_washers`);
+## - the tinted room is filled at DEN_FILL_SHARE of the preset's room fill,
+##   in its probe's own colour. A WHITE fill was tried first and refused on
+##   the frames: it turned the office tile overhead into a grey grid and read
+##   as a hall. Tinted, the ceiling carries the room's colour instead;
+## - an untinted room in a den -- a back room, the cash office -- is filled
+##   white at DEN_BACK_SHARE, the bulb rooms' share: 0.68.2 kept dens unfilled
+##   after strip_club_a02's back rooms became the brightest room in a level
+##   (52.3) at a full share.
+##
+## CHOSEN AGAINST FRAMES, not derived (re-baked copies of 9217's walk copy,
+## light_check's room stations, mean / p50 of 255, Delco Night):
+##
+##     what one washer puts on the wall,    main floor   VIP wing
+##     x REFERENCE_POOL; the fill's share
+##     0.71.0                                  3.7 / 1      2.2 / 0
+##     no washers, white fill 0.5              7.5 / 3      4.6 / 1
+##     washers 1.56, no fill                   6.9 / 2      7.9 / 2
+##     washers 3.12, no fill                   9.4 / 3     12.6 / 4
+##     washers 1.56, white fill 2             24.9 / 11    21.3 / 8
+##     washers 1.56, tinted fill 2            13.2 / 7     10.5 / 5
+##     washers 2.34, tinted fill 2            14.5 / 8     13.0 / 7
+##     washers 2.34, tinted fill 4            21.3 / 10    15.2 / 9
+##
+## So washers at 2.34 and a tinted fill at 2: in the frames the club reads as
+## coloured walls over dark furniture, under an amber or pink ceiling, and
+## half of each frame stays under 10. The fill at 4 is brighter and shows
+## more of the office grid overhead -- the walker's call, framed in the
+## findings. Not the comps' median yet: the carpet and the ceiling are
+## Deli Counter's, not light's.
+const DEN_WASH_LEVEL := 2.34
+const DEN_FILL_SHARE := 2.0
+const DEN_BACK_SHARE := BAKE_FILL_BULB_SHARE
+## THE WASHER'S GEOMETRY, as the trials laid it -- chosen, not derived; the
+## level above was set against frames of exactly this. A washer every
+## DEN_WASH_PITCH_M of wall, the wall's spaced evenly; DEN_WASH_INSET_M in
+## from it, about a quarter of a 3.3 m storey, close enough that each leaves
+## a scallop on the wall rather than an even wash, which is the comps'
+## look; DEN_WASH_DROP_M under the ceiling, a tube's hang. A room narrower
+## than four insets takes a quarter of its width instead.
+const DEN_WASH_PITCH_M := 3.0
+const DEN_WASH_INSET_M := 0.8
+const DEN_WASH_DROP_M := 0.25
+## Where on the wall it aims, over the floor, and its cone's half-angle.
+const DEN_WASH_AIM_M := 1.0
+const DEN_WASH_ANGLE_DEG := 50.0
+## Its reach: the foot of a 3.3 m storey's wall is 3.15 m from a washer, and
+## the range window is 0.38 there, so the pool's tail reaches the floor.
+const DEN_WASH_RANGE_M := 4.0
+## The washers' names begin with this, so a fill's count by probe name never
+## takes them in.
+const DEN_WASH_PREFIX := "DenWash"

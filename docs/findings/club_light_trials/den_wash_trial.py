@@ -22,7 +22,8 @@ Each washer:
 `<wall level>` 0 lays none: the control, which must reproduce the shipped numbers.
 
 `--fill SHARE` also fills the den rooms at SHARE of the preset's room fill, white, the way
-`den_fill_trial.py` does. `--rooms all` washes a den's untinted back rooms too.
+`den_fill_trial.py` does; with `--tint`, a tinted room's fill takes the room's own colour (its
+probe's). `--rooms all` washes a den's untinted back rooms too.
 
 Writes under <work>: `baked/` (the re-baked copy, deleted unless --keep), `light/` (light_check's
 report), `shots/` (look_shots at the club's two stations, PNG + JSON). Prints the trial's
@@ -48,6 +49,7 @@ ap.add_argument("walk")
 ap.add_argument("work")
 ap.add_argument("level", type=float)
 ap.add_argument("--fill", type=float, default=0.0)
+ap.add_argument("--tint", action="store_true")
 ap.add_argument("--rooms", choices=("tinted", "all"), default="tinted")
 ap.add_argument("--pitch", type=float, default=3.0)
 ap.add_argument("--inset", type=float, default=0.8)
@@ -88,6 +90,10 @@ if args.fill > 0.0:
          "\t\t\tcontinue\n")
     nx = "\t\tvar nx := maxi(1, ceili(room.x / BAKE_FILL_CELL_M))\n"
     swap(nx, "\t\tif den:\n\t\t\tshare = %r\n" % args.fill + nx)
+    if args.tint:
+        # a tinted den room's fill in the room's own colour, as den_fill_trial.py's `tinted`
+        att = "\t\t\t\tomni.omni_attenuation = 0.0\n"
+        swap(att, att + "\t\t\t\tif den and tinted:\n\t\t\t\t\tomni.light_color = p.ambient_color\n")
 
 # ---- the wall washers, laid in the fill's container so the bake frees them ------------------
 WASHERS = """\
@@ -184,10 +190,10 @@ head_minus_aim = (3.3 * 0.5 - args.drop) - (-3.3 * 0.5 + args.aim_h)
 d = (args.inset ** 2 + head_minus_aim ** 2) ** 0.5
 win = 1.0 - (d / args.range) ** 4
 e = args.level * REFERENCE_POOL * d * d / (win * win * (head_minus_aim / d)) if args.level > 0 else 0.0
-print("trial: wall level %.2f x %.3f, fill %.2f, rooms %s, pitch %.1f, inset %.2f, aim %.2f m, "
+print("trial: wall level %.2f x %.3f, fill %.2f %s, rooms %s, pitch %.1f, inset %.2f, aim %.2f m, "
       "angle %.0f; on a 3.3 m room each washer %.2f (d %.2f m)"
-      % (args.level, REFERENCE_POOL, args.fill, args.rooms, args.pitch, args.inset, args.aim_h,
-         args.angle, e, d))
+      % (args.level, REFERENCE_POOL, args.fill, "tinted" if args.tint else "white", args.rooms,
+         args.pitch, args.inset, args.aim_h, args.angle, e, d))
 
 chk = subprocess.run([sys.executable, os.path.join(FACTORY, "tools", "gdcheck.py"), loader],
                      capture_output=True, text=True)
