@@ -905,10 +905,10 @@ work of adopting this.
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
 | 225 | **CLOSED** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- the gate tells a fight from a sparkle (Level Factory 0.172.0: a control z-fi |
 | 226 | **CLOSED** | A street lamp stood in front of a shop band | 2026-10-10 -- proven in cold run 9223 (restaurant_row_001, 0 interventions, 0 retries, fin |
-| 227 | **OPEN** | The doctor's long-paths WARN is a constant, and the depth it warns abo | 2026-10-10 -- measured, and the fix drafted: Level Factory 0.173.0 (`patches/patch_lf_long |
+| 227 | **CLOSED** | The doctor's long-paths WARN is a constant, and the depth it warns abo | 2026-10-10 -- Level Factory 0.173.0 (`patches/patch_lf_long_paths.py`): the row reads `Lon |
 | 228 | **OPEN** | The edge of the plate: E, varied by level | 2026-10-10 -- the walker's call recorded and the arc designed; nothing built. Ships in fiv |
 
-**228 items: 40 open, 106 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**228 items: 39 open, 107 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20092,7 +20092,7 @@ Owner: Lot.
 
 **PROVEN, cold run 9223** (`docs/cold_runs/cold_9223/NOTES.md`), the first run under the reworked driver: Lot 0.106.0 moved the one lamp the replay said it would and nothing else (shell 0 of 52, art 0 of 74, findings 74 to 74). The facade right of the band is darker, its lamp now 5 m left; whether that stretch wants another light is a taste call.
 
-*STATUS: OPEN 2026-10-10 -- measured, and the fix drafted: Level Factory 0.173.0 (`patches/patch_lf_long_paths.py`, 9 tests failing on 0.172.1) reads the flag, weighs the workspace's depth against the 217 a level writes, and PASSes where either is fine. Applied after factory 1.36.0's tags, not before: it would have moved the set the install test certified.*
+*STATUS: CLOSED 2026-10-10 -- Level Factory 0.173.0 (`patches/patch_lf_long_paths.py`): the row reads `LongPathsEnabled` and weighs the workspace's path against the 217 characters a level writes below it; PASS with the flag on, PASS within 260 naming the reach, WARN past it naming the reach, the 42-character budget and the two remedies; `setup` weighs `<factory>\levels`, `doctor` its own. 9 tests, all failing on 0.172.1; suite 2,163 passed. Applied after factory 1.36.0's tags, so the certified set is not the one carrying it. Left in the body, not closed by this: what actually fails with the flag off, unmeasured because this machine's flag is 1.*
 
 **227. The doctor's long-paths WARN is a constant, and the depth it warns about is real.** `docs/findings/long_paths/`. The one WARN left on a stranger's first `setup` (install tests 2 and 3) is `windows_long_paths: verify LongPathsEnabled registry flag for deep asset paths`. `level_factory/packages/tools/doctor.py:202` prints it on every Windows machine and reads nothing, so it cannot PASS where long paths are on, and where they are off it cannot say whether this workspace is deep enough to matter.
 - **Measured on cold runs 9222 and 9223** (`depth.py`): a level writes files 217 characters below its workspace, a Godot editor-state file in the lux_apply staging copy; the pipeline's own deepest output, a texture's provenance file, is 193 below. Those workspaces sit 69 characters deep and held 725 and 440 files past Windows' 260. The longest single name is 151, under Linux's 255.
