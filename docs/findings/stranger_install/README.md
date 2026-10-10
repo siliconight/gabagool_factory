@@ -322,6 +322,57 @@ paid for in questions, and each is fixed in the release named.
   exist there, and developer tools.
 - **A second install test,** at the releases above, from a new package.
 
+## Install test 2, 2026-10-10, 05:53 to 06:30
+
+**The test.** The same, at the releases install test 1's findings produced.
+- **The package:** made from root `67a75ec` and Level Factory `bb8ccfd`
+  (0.171.0), as `gabagool_factory_package_20261010_0553.zip`.
+- **The unpack:** into a new folder, `C:\stranger_202b\gabagool`.
+- **What was typed:** the same `install_test.cmd`, through
+  `install_test_2.sh`, which also builds and unpacks the package. Logs are
+  in `install_test_2/`.
+- **The same counted deviation:** `setup --python` for `--venv`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | every tool PASS (they were eight WARNs); the only WARN is Windows' long-paths reminder; `then run: .\factory -C ... doctor` |
+| `make` | 0 | 31.5 minutes; 0 of 52 and 0 of 74 blockers; seed_9104; `b0=scrapple_sons_deli`; 479 models and 4,259 users baked, 96.2 s; the export's hint `.\factory -C ... walk restaurant_row_001 --play` |
+| `walk` | 1 | the player at `anchor:player_start (...getaway_van_crew_spawn_0) (x=53.85, y=0.6, z=16.965)`; walk bot climbed both ladders; shot bot frames carry a picture (void 60.66% on the exterior); two ladder stations FAIL on jitter, 3.64% and 2.32% |
+
+**What each fix did:**
+- **Level Factory 0.170.0 held.** It put every tool through the doctor at
+  PASS and named `.\factory`.
+- **0.171.0 held.** It put the player at the van, gave the review frames a
+  picture, and named `walk` in every hint.
+- **Walk's exit 1 is roadmap 225.** These are the same two stations, and the
+  same texture sparkle, that the gate reads as a fight. A stranger would
+  have read "this level does not pass its own traversal/visual check" as a
+  broken level. Level Factory 0.172.0, released after this test, notes them
+  as sparkle and passes them. A control z-fight still fails it.
+
+**The count:** 1, the stand-in for the download, as before. The walk's
+false failure is the one finding, fixed after the test.
+
+**What it certified: factory 1.35.0.** `factory.manifest.json` names the set
+this test ran, and `verify-manifest` reads all ten OK; it had read eight DRIFT
+and one INCOMPATIBLE that morning:
+
+| tool | version |
+|---|---|
+| Deli Counter | 0.205.0 |
+| Dispatch | 0.5.2 |
+| Laser Tag | 0.25.0 |
+| Level Factory | 0.171.0 |
+| Lot | 0.105.0 |
+| Lux | 0.72.0 |
+| Patina | 0.30.0 |
+| Pipeline | 0.6.0 |
+| Pixelcoat | 0.62.0 |
+| Zoo | 1.94.0 |
+
+Each tool is tagged at the commit tested, and the factory at
+`factory-v1.35.0`. Level Factory 0.172.0 is not in this set.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.

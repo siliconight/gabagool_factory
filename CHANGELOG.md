@@ -3,6 +3,28 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.35.0] - 2026-10-10
+
+Nine of the ten tools move, pipeline alone staying at 0.6.0; it is the first
+certification since 1.34.1 (2026-08-22):
+- deli_counter: 0.94.0 -> 0.205.0
+- dispatch: 0.4.2 -> 0.5.2
+- laser_tag: 0.9.0 -> 0.25.0
+- level_factory: 0.48.0 -> 0.171.0
+- lot: 0.48.0 -> 0.105.0
+- lux: 0.16.0 -> 0.72.0
+- patina: 0.21.0 -> 0.30.0
+- pipeline: 0.6.0 -> 0.6.0
+- pixelcoat: 0.16.0 -> 0.62.0
+- zoo: 0.48.0 -> 1.94.0
+
+Certified by install test 2 rather than by docs/CERTIFY.md's legs: the set's
+package, unzipped into a fresh folder, made restaurant_row_001 with
+START_HERE.md's commands. setup exited 0 with all eight tools passing the doctor; make exited 0 in 31.5 minutes and built cold run 9222's level figure for figure (0 of 52 and 0 of 74 blockers, seed_9104 picked on the same three lines, the same business dealt, 479 models and 4,259 users baked); walk exited 1, its preview standing at the package's player_start and its visual check, seeing for the first time since Level Factory 0.100.0, failing two ladder stations on texture sparkle (roadmap 225, fixed in Level Factory 0.172.0, which this set does not include). One deviation, counted: setup --python stood in for setup --venv.
+
+Not certified: setup --venv's download (a stand-in interpreter ran the
+tools), Linux, and the walk preview's jitter gate (roadmap 225).
+
 ## [factory-v1.34.1] - 2026-08-22
 
 One pin: dispatch 0.4.1 -> 0.4.2, no code change. verify-manifest's staleness
