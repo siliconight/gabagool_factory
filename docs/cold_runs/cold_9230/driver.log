@@ -1,0 +1,34 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9230\journal.md
+== batch
+created batch 'cold_9230' with 1 mission(s): county_hospital_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 51)
+  county_hospital_001.lot_assemble.candidate.seed_9006: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9107: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9208: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9006: 1 major, route completion 0.60, out for nothing
+  seed 9107: 1 major, route completion 1.00, out for nothing
+  seed 9208: 1 major, route completion 1.00, out for nothing
+  picked seed_9107 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 67)
+  exit 1
+== export
+[export] light bake: 115 model(s) and 776 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 98 steady rig(s) baked, 12 failing and 0 cycling left live; 119 room fill(s); 1722 users, 48.0 s in the editor
+exported county_hospital_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9230-ws\.level_factory\exports\LF_county_hospital_001.portable-godot
+  exit 0
+== findings
+findings 67 -> 67
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE
