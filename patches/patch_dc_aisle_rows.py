@@ -2,7 +2,7 @@
 
 Anchored edits in `lights.py` (the constants, `_rows_for_room` replaced and `_lanes_for_room`
 added from `dc_aisle_rows/lights_rows_new.py.txt`, the room loop and the report), one in
-`deli_counter.py` (the manifest line), six tests appended to `test_fixture_rows.py` and the
+`deli_counter.py` (the manifest line), seven tests appended to `test_fixture_rows.py` and the
 partition test's report dict given the new count; each file pinned by hash and each anchor
 asserted once, nothing written on a miss; the file's own line
 endings kept. CHANGELOG and VERSION from `dc_aisle_rows/CHANGELOG_0.207.0.md`. Then, chained:

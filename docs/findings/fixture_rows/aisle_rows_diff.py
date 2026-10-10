@@ -79,7 +79,7 @@ def main():
         rooms, sh = _rooms(spec)
         rows_b[name] = _rows(before["lights"], before["level_design"], spec, rooms, sh)[0]
     after = _load(after_root, ("build", "level_design", "lights", "agent_contract"))
-    same = changed = moved = added = removed = over = 0
+    same = changed = moved = added = removed = over = fewer = 0
     lamps_b = lamps_a = 0
     examples = []
     for name, spec in specs:
@@ -98,12 +98,16 @@ def main():
             moved += len(lb - la)
             added += max(0, len(a) - len(b))
             removed += max(0, len(b) - len(a))
+            # fewer rows and more lamps a row: the long hall's trade, not an aisle
+            if len(a) < len(b) and a and b and a[0][3] > b[0][3]:
+                fewer += 1
             if len(examples) < 10:
                 examples.append((name, room, [x[1][:2] for x in b], [x[1][:2] for x in a]))
     print("specs: %d; rooms identical: %d; rooms changed: %d (rows moved %d, added %d, removed %d)"
           % (len(specs), same, changed, moved, added, removed))
-    print("lamps: %d before, %d after; rooms the after tree laid over their aisles: %d"
-          % (lamps_b, lamps_a, over))
+    print("lamps: %d before, %d after; rooms the after tree laid over their aisles: %d; "
+          "rooms with fewer rows and more lamps a row (the long hall's trade): %d"
+          % (lamps_b, lamps_a, over, fewer))
     print("examples (spec, room, before lines, after lines):")
     for e in examples:
         print("  ", e)

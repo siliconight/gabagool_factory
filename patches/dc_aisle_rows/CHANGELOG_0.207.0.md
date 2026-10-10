@@ -23,8 +23,17 @@ the aisle beside it to spill.
   are laid exactly as 0.206.1 laid them: the default band is the room's
   width and the arithmetic is the same, which the library diff below
   proves.
+- **The long hall:** where the room's twelve-lamp cap binds, WOOD's rule
+  cannot hold in both directions at once, and 0.206.0 kept the rows across
+  and thinned the lamps along, so a 58 x 20 m hall stood three rows of four
+  with 14.5 m between lamps. Now rows across are traded for lamps along
+  while the larger of the two spacings shrinks, a row at a time from the
+  band that loses least: that hall is two rows of five at 11.6 m along and
+  10 m across; a 12 x 11 m office keeps its three of four, whose across
+  spacing is the larger and would only grow. Nothing changes where the cap
+  does not bind.
 - The light manifest line counts the rooms laid over their aisles
   (`rows_over_aisles`).
 
-**Tests:** 6 in `test_fixture_rows.py`. **Suite:** RESULT_SUITE. **The
+**Tests:** 7 in `test_fixture_rows.py`. **Suite:** RESULT_SUITE. **The
 library rebuilt:** RESULT_CENSUS.

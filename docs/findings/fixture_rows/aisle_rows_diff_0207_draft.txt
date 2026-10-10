@@ -1,13 +1,13 @@
-specs: 146; rooms identical: 426; rooms changed: 61 (rows moved 136, added 12, removed 19)
-lamps: 4374 before, 4311 after; rooms the after tree laid over their aisles: 61
+specs: 146; rooms identical: 322; rooms changed: 165 (rows moved 448, added 4, removed 125)
+lamps: 4374 before, 4099 after; rooms the after tree laid over their aisles: 61; rooms with fewer rows and more lamps a row (the long hall's trade): 114
 examples (spec, room, before lines, after lines):
+   ('07_police_station.json', 'detective_offices', [(0.0, -10.8), (0.0, -6.6), (0.0, -2.4)], [(-0.0, -9.6), (-0.0, -3.0)])
+   ('airport_terminal_a01.json', 'checkin_hall', [(0.0, -11.6), (0.0, -4.8), (0.0, 2.0)], [(-0.0, -10.0), (-0.0, 0.0)])
+   ('airport_terminal_a02.json', 'checkin_hall', [(0.0, -12.4), (0.0, -5.2), (0.0, 2.0)], [(0.0, -10.8), (0.0, 0.4)])
+   ('airport_terminal_a03.json', 'concourse', [(0.0, -10.8), (0.0, -4.4), (0.0, 1.6)], [(0.0, -9.2), (0.0, 0.0)])
+   ('arena_a01.json', 'event_floor', [(0.0, -14.0), (0.0, -6.0), (0.0, 2.4)], [(0.0, -12.0), (0.0, 0.4)])
+   ('arena_a02.json', 'event_floor', [(0.0, -13.2), (0.0, -5.6), (0.0, 2.0)], [(0.0, -11.2), (0.0, 0.0)])
+   ('arena_a03.json', 'event_floor', [(0.0, -12.4), (0.0, -5.2), (0.0, 2.0)], [(0.0, -10.8), (0.0, 0.4)])
    ('auto_shop_a01.json', 'upper_storage', [(0.0, -6.4), (0.0, -0.8)], [(0.0, -7.2), (0.0, -0.8)])
    ('auto_shop_a02.json', 'upper_storage', [(0.0, -6.4), (0.0, -0.8)], [(0.0, -7.2), (0.0, -0.8)])
-   ('brewery_a02.json', 'north_stock', [(0.0, 7.6), (0.0, 12.4)], [(0.0, 11.6)])
-   ('card_shop_a01.json', 'upper_storage', [(0.0, 3.6), (0.0, 7.2)], [(0.0, 2.8), (0.0, 7.6)])
-   ('card_shop_a01.json', 'sales_floor', [(0.0, -7.2), (0.0, -3.6), (0.0, 0.0)], [(0.0, -6.0), (0.0, -3.0)])
-   ('convenience_store_a01.json', 'stockroom', [(-1.5, 5.6)], [(-1.5, 4.4)])
-   ('convenience_store_a01.json', 'sales_floor', [(0.0, -6.0), (0.0, -2.4), (0.0, 1.8)], [(0.0, -3.6), (0.0, -0.6), (0.0, 2.4)])
-   ('corner_deli_heist_01.json', 'stockroom_loading', [(5.5, 8.0), (5.5, 12.0)], [(5.5, 6.8)])
-   ('corner_deli_heist_01.json', 'market_aisles', [(-5.6, -4.0), (-0.4, -4.0), (4.4, -4.0)], [(-5.2, -4.0), (0.4, -4.0), (4.8, -4.0)])
-   ('cr_deli.json', 'stockroom_loading', [(5.5, 8.0), (5.5, 12.0)], [(5.5, 6.8)])
+   ('bank_branch_a02.json', 'lobby', [(0.0, -8.8), (0.0, -4.4), (0.0, 0.0)], [(0.0, -7.6), (0.0, -1.2)])
