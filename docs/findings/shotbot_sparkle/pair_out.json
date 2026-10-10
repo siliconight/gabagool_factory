@@ -1,0 +1,69 @@
+{
+  "error": "",
+  "ok": false,
+  "stations": [
+    {
+      "interior": false,
+      "jitter_pct": 0.01,
+      "jitter_worst_px": [
+        372,
+        178
+      ],
+      "ok": true,
+      "png": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/exterior.png",
+      "station": "exterior",
+      "void_pct": 60.65
+    },
+    {
+      "interior": true,
+      "jitter_pct": 3.6,
+      "jitter_worst_px": [
+        348,
+        330
+      ],
+      "ok": false,
+      "png": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_0_base.png",
+      "reason": "3.60% of pixels flip when the camera moves 1 mm -- coplanar surfaces are fighting for the depth test here; open C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_0_base.png and look for a shimmering face",
+      "station": "Ladder_ladder_0_base",
+      "void_pct": 0.0
+    },
+    {
+      "interior": true,
+      "jitter_pct": 0.9,
+      "jitter_worst_px": [
+        450,
+        186
+      ],
+      "ok": true,
+      "png": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_0_top.png",
+      "station": "Ladder_ladder_0_top",
+      "void_pct": 32.71
+    },
+    {
+      "interior": true,
+      "jitter_pct": 1.33,
+      "jitter_worst_px": [
+        342,
+        204
+      ],
+      "ok": true,
+      "png": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_1_base.png",
+      "station": "Ladder_ladder_1_base",
+      "void_pct": 0.0
+    },
+    {
+      "interior": true,
+      "jitter_pct": 2.35,
+      "jitter_worst_px": [
+        88,
+        210
+      ],
+      "ok": false,
+      "png": "C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_1_top.png",
+      "reason": "2.35% of pixels flip when the camera moves 1 mm -- coplanar surfaces are fighting for the depth test here; open C:\\Projects\\gabagool_studios\\gabagool_factory\\_scratch\\jitter_pairs\\shots/Ladder_ladder_1_top.png and look for a shimmering face",
+      "station": "Ladder_ladder_1_top",
+      "void_pct": 0.0
+    }
+  ],
+  "warmups_held": 1
+}

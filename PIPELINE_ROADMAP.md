@@ -904,8 +904,9 @@ work of adopting this.
 | 222 | **NARROWED** | A shadow control that stopped seeing its shadow | 2026-10-10 -- it does not fail now: seven runs from 04:30 the same night, six on a copy of |
 | 223 | **CLOSED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- proven in cold run 9222 (restaurant_row_001, 0 interventions, 0 retries): de |
 | 224 | **NARROWED** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- the bake's quality is not the lever. 9221's walk copy re-baked at Low, Mediu |
+| 225 | **OPEN** | The walk's jitter gate reads texture sparkle as z-fighting | 2026-10-10 -- found the moment the walk's shot bot could see again (Level Factory 0.171.0) |
 
-**225 items: 39 open, 104 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**226 items: 40 open, 104 closed, 3 retracted, 72 narrowed, 1 superseded, 6 analysis.** 10 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20043,3 +20044,16 @@ Owner: Level Factory for the bake's settings and the import. Nothing changes unt
 - **The look:** `truck_side_by_quality.png` brightens the face 20 times. The same blobs stand in the same places at all three qualities, so they are not sampling noise that more rays would clear.
 
 So 2 is next: the truck's texel density (`lightmap_size_hint`, or `LightmapGI.texel_scale`). Large texels, interpolated and denoised, draw exactly this kind of blob, and it is priced in lightmap memory rather than in draw calls. After it, the denoiser off.
+
+*STATUS: OPEN 2026-10-10 -- found the moment the walk's shot bot could see again (Level Factory 0.171.0): it FAILS two of cold run 9222's ladder stations on jitter, 3.60% and 2.33% over a 2.0% gate, and says coplanar surfaces are fighting. Mapped pixel by pixel, every change is scattered speckle over the drop ceiling's acoustic tiles, a wall and the floor, and no surface flips as a block: texture sparkle, which the gate's one number cannot tell from z-fighting. Not known: whether the sparkle shows in play.*
+
+**225. The walk's jitter gate reads texture sparkle as z-fighting.** `docs/findings/shotbot_sparkle/`. The shot bot renders each station twice, 1 mm apart, and fails a station when more than 2.0% of sampled pixels change by more than 12 of 255. It was calibrated in August on a package whose worst honest station was 0.68% ("edge aliasing along a ladder's rungs") and whose real double-wall z-fight was 30.67%. It was then blind from Level Factory 0.100.0 to 0.170.0, photographing under the shader warm-up's black cover (roadmap 202's install test; 0.171.0 holds the warm-up).
+- **What it now fails:** Ladder_ladder_0_base 3.60% and Ladder_ladder_1_top 2.33% on 9222's preview, both interiors under a drop ceiling.
+- **What the changed pixels are:** `jitter_map.py` over both frames of each station puts 49% and 51% of them in the frame's top fifth, the ceiling, as fine speckle and short streaks, with the rest on a wall, the floor and rung edges. No region is solid.
+- **Why, read rather than measured:** 1 mm at 1.5 to 3 m moves the image by a fraction of a pixel, and under bilinear filtering a fine high-contrast texture at a grazing angle changes by more than 12 of 255 across that fraction.
+
+Not yet looked at, in this order:
+1. **Separate the two in the gate:** judge connected regions of changed pixels (a z-fight is a block; sparkle is single pixels), fail on regions, and report the scattered remainder as sparkle.
+2. **Whether the ceiling shimmers in play:** its texture's mips and the renderer's anisotropic filtering, seen moving at full resolution.
+
+Owner: Level Factory for the gate; whoever owns the ceiling's texture for the second.
