@@ -65,7 +65,7 @@
 - `look_shots.py` -- Photograph a generated level and put a number on how it is exposed.
 - `lux_inject.py` -- Put a configured LuxRoot into a walk scene, so F6 is the only click left.
 - `lux_rebake.py` -- Re-bake a copy of a baked level with Level Factory's own bake, under another Lux preset or without its room fills.
-- `make_factory_package.ps1` -- make_factory_package.ps1 -- one zip of every TRACKED file in every factory
+- `make_factory_package.ps1` -- make_factory_package.ps1 -- one zip a stranger can make levels with: every TRACKED file of
 - `marker_meta_probe.gd` -- One question, asked of the RUNNING tree: do the LuxEmit_* fixture markers
 - `marker_meta_probe.py` -- Do the LuxEmit_* markers carry their glTF-extras payload at runtime?
 - `marker_scope_census.py` -- Which unreachable markers are real defects, and which are out of scope.
