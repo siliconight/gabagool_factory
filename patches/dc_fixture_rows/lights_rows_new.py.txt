@@ -1,0 +1,53 @@
+        # THE ROWS (0.206.0, roadmap 229): along the room's longer axis as
+        # before, and across it as many as its work plane asks, each on the
+        # ceiling's grid -- `_rows_for_room`. Below grade, or guarding the
+        # take: bare bulbs on one centre row instead, unchanged -- the same
+        # run machinery (a stairwell still splits a line around its hole),
+        # different type, density and hang; see _PENDANT_AREA.
+        moody = story < 0 or (bool(r.get("objective")) and r.get("role") not in _LIT_ROLES)
+        if moody:
+            rot, count, spacing = _row_for_bounds(bounds)
+            w = bounds[2] - bounds[0]
+            d = bounds[3] - bounds[1]
+            long_axis = max(w, d)
+            count = max(1, min(int(round((w * d) / _PENDANT_AREA)),
+                               _PENDANT_MAX,
+                               int(long_axis / _PENDANT_MIN_SPACING) or 1))
+            spacing = round(long_axis / count, 3)
+            rows = [(rot, c[0], c[1], count, spacing)]
+        else:
+            rows = _rows_for_room(bounds, ceiling_z, c[2],
+                                  _work_plane(r, residence), residence)
+            rep["rows_laid"] += len(rows)
+        lamp_z = round(ceiling_z - _PENDANT_CORD, 3) if moody else ceiling_z
+        base_id = ("%s_bulbs" if moody else "%s_ceiling") % r.get("id", "room")
+        # Each row is laid across the whole room; a stairwell punched through
+        # the ceiling is a hole in the middle of it. Split around the holes on
+        # this storey -- see `_row_runs`. A partition ALONG a row (the hospital
+        # roof's y = 0 spine under a row laid at y = 0) is not a crossing: the
+        # row moves to the larger side of it before any point is judged.
+        runs = []
+        for k, (rot, rx, ry, count, spacing) in enumerate(rows):
+            shifted = _colinear_shift(bounds, rot, walls, clear,
+                                      line=ry if abs(rot) < 45.0 else rx)
+            if shifted is not None:
+                if abs(rot) < 45.0:
+                    ry = shifted
+                else:
+                    rx = shifted
+                rep["rows_shifted"] += 1
+            got = _row_runs([rx, ry, lamp_z], rot, count, spacing, rects,
+                            walls=walls, clear=clear, report=rep)
+            # The first row's one run keeps the ORIGINAL id: a split and a
+            # second row are the exceptions, and a room that has neither must
+            # not get a renamed anchor (ids are how authored overrides bind).
+            # A split run is `<id>_<i>` as before; a further row is
+            # `<id>_r<k>`, and its split runs `<id>_r<k>_<i>`.
+            row_id = base_id if k == 0 else "%s_r%d" % (base_id, k)
+            for i, (pos, n, sp) in enumerate(got):
+                runs.append((pos, n, sp, rot,
+                             row_id if len(got) == 1 else "%s_%d" % (row_id, i)))
+        room_reach = 0.0
+        for pos, n, sp, rot, rid in runs:
+            anchors.append({
+                "id": rid,

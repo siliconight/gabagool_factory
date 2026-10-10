@@ -1,0 +1,46 @@
+_FIXTURE_GAP = _CEILING_GAP
+
+#: ROWS LAID TO THE WORK, ON THE CEILING'S GRID (0.206.0, roadmap 229). The
+#: walker, 2026-10-10: fixtures should "not always be in a perfect line, so
+#: it looks a little less robotic". Counted over the 131 shipped manifests,
+#: 513 of 513 fluorescent rows stood on their room's centreline along its
+#: longer axis, 303 of them at the five-lamp cap with lamps 3.0 to 11.6 m
+#: apart, because one rule lit every room from its bounds alone. A real
+#: ceiling is laid to what is under it. WOOD's shop rule (the walker's
+#: references, `docs/reference/INDOOR_FIXTURE_PLACEMENT_GUIDE.md` in the
+#: factory): with A the height from the work surface to the fixture, rows
+#: stand at most 1.5 x A apart and the outer row within half of that of the
+#: wall -- so a room wider than 1.5 x A takes a second row, and a 24 x 24 ft
+#: shop under a 9 ft ceiling takes three. The work surface is the room's: a
+#: desk where the furnish seeds desks, a counter or a shelf where it sells
+#: or serves, the floor in a hall, a stockroom, a bay or a home. Words from
+#: the furnish's own archetypes (`level_design._SEED_ARCHETYPES`), matched
+#: on the room's role and id.
+_WORK_PLANE = (
+    (("office", "manager", "exec", "admin", "suite", "booking", "clinic",
+      "exam", "reception", "teller"), 0.75),
+    (("sales", "retail", "shop_floor", "counter", "kitchen", "food", "bar",
+      "lounge", "cafe", "diner", "deli"), 1.0),
+)
+_WORK_PLANE_FLOOR = 0.0
+#: WOOD: rows at most this times A apart.
+_ROW_SPACING_OVER_A = 1.5
+#: A room up to (1 + this) x B wide keeps one row: WOOD's half-spacing to the
+#: wall is a shop's shadow-free bench rule, and a 4 m office under one row
+#: of troffers is what an office is. The slack is taken off the row count's
+#: fraction before it is rounded up.
+_ROW_SLACK = 0.3
+#: A room's rows across its width and its lamps are capped: the lamp count
+#: was a budget number before the bake (`_TARGET_SPACING`, above), and the
+#: cap keeps a 20 x 58 m hall at twelve lamps rather than forty until the
+#: price of more is measured (roadmap 229). The row cap, `_MAX_FIXTURES`,
+#: is unchanged.
+_MAX_ROWS = 3
+_MAX_LAMPS_ROOM = 12
+#: THE CEILING'S GRID. A fixture hangs from a joist or sits in a tile, so a
+#: row's line is a multiple of the pitch from the building's origin, not
+#: the room's centre: 0.6 m tiles over a desk or a counter, 0.4 m joists
+#: everywhere else. The snap moves a line by half a pitch at most, and it
+#: is the same in every build of a spec.
+_CEILING_PITCH_TILE = 0.6
+_CEILING_PITCH_JOIST = 0.4

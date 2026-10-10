@@ -1,0 +1,84 @@
+                r, c[2], ceiling_z, _club_colour(_club_colour_start(r.get("id")), 0)))
+            continue
+        rot, count, spacing = _row_for_bounds(bounds)
+        # Below grade, or guarding the take: bare bulbs instead of the office
+        # row. Same run machinery (a stairwell still splits the line around
+        # its hole), different type, density and hang -- see _PENDANT_AREA.
+        moody = story < 0 or (bool(r.get("objective")) and r.get("role") not in _LIT_ROLES)
+        if moody:
+            w = bounds[2] - bounds[0]
+            d = bounds[3] - bounds[1]
+            long_axis = max(w, d)
+            count = max(1, min(int(round((w * d) / _PENDANT_AREA)),
+                               _PENDANT_MAX,
+                               int(long_axis / _PENDANT_MIN_SPACING) or 1))
+            spacing = round(long_axis / count, 3)
+        lamp_z = round(ceiling_z - _PENDANT_CORD, 3) if moody else ceiling_z
+        # A row is laid across the whole room; a stairwell punched through the
+        # ceiling is a hole in the middle of it. Split around the holes on this
+        # storey -- see `_row_runs`.
+        # A partition ALONG the row (the hospital roof's y = 0 spine under a
+        # row laid at y = 0) is not a crossing: the row moves to the larger
+        # side of it before any point is judged.
+        rx, ry = c[0], c[1]
+        shifted = _colinear_shift(bounds, rot, walls, clear)
+        if shifted is not None:
+            if abs(rot) < 45.0:
+                ry = shifted
+            else:
+                rx = shifted
+            rep["rows_shifted"] += 1
+        runs = _row_runs([rx, ry, lamp_z], rot, count, spacing, rects,
+                         walls=walls, clear=clear, report=rep)
+        base_id = ("%s_bulbs" if moody else "%s_ceiling") % r.get("id", "room")
+        room_reach = 0.0
+        for i, (pos, n, sp) in enumerate(runs):
+            anchors.append({
+                # A single surviving run keeps the ORIGINAL id: splitting is
+                # the exception, and a room that never had a hole must not get
+                # a renamed anchor (ids are how authored overrides bind).
+                "id": base_id if len(runs) == 1 else "%s_%d" % (base_id, i),
+                "type": "pendant" if moody else "fluorescent",
+                "source": "derived",
+                "pos": pos,
+                "rot_y": rot,
+                "room": r.get("id"),
+                "row": {"count": n, "spacing": sp},
+                # DROP: metres from this lamp down to its own room's floor.
+                # Lux derives the omni RANGE from it (>= 0.19), because a
+                # flat range is wrong at both ends: at 8.0 a lamp claimed a
+                # per-mesh light-budget slot on tiles two rooms away through
+                # the walls (roadmap 54's brightness grid), and at a flat
+                # 4.5 the arena's ~5.7 m hall had lit ceilings over a
+                # PITCH-BLACK floor -- attenuation reaches hard zero at the
+                # range, so no energy value lights a floor the range does
+                # not reach. Only this kit knows the room's height; the
+                # anchor carries it so the rig never has to guess. A pendant
+                # hangs on its cord, so its drop is measured from the BULB.
+                "drop": round(lamp_z - c[2], 3),
+                "reacts_to_alarm": True,
+            })
+            # A ROW WALLED BY A STOREFRONT reaches the glass (0.155.0): the
+            # walker, 2026-09-28, "do the glass first then the troffer reach".
+            # Only a fluorescent -- a bulb's pool is moody on purpose -- and
+            # only when there is glass to reach, so every other anchor is
+            # byte-identical to 0.154.0's.
+            if not moody:
+                reach = _storefront_reach(bounds, story, pos, rot, n, sp,
+                                          storefronts, wall_thick)
+                if reach > 0.0:
+                    anchors[-1]["reach"] = reach
+                    rep["storefront_rows"] += 1
+                    room_reach = max(room_reach, reach)
+        # THE STORE'S LIGHT ON THE PAVEMENT (0.156.0): a room whose row
+        # reaches its storefront throws that light back out through the
+        # glass. Collected here and appended LAST, so every anchor before it
+        # keeps its place in the list.
+        if room_reach > 0.0:
+            head = min(_SPILL_HEAD, round(float(story_height) - _SF_HEAD_MIN, 3))
+            got = _spill_anchors(r.get("id", "room"), bounds, story, c[2],
+                                 storefronts, wall_thick, head,
+                                 round(lamp_z - c[2], 3), room_reach)
+            spills += got
+            rep["storefront_spills"] += len(got)
+        # THE COUNTER'S WARM ACCENT (0.160.0): one bulb over each register
