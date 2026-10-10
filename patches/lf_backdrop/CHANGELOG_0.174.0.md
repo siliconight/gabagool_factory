@@ -26,8 +26,8 @@ dressing layer's own road (`extract_meshes`, `dressing_scene`) puts
 `site.site.drawn.json`; a mission whose Lot laid no backdrop, or whose
 export is a pure shell, ships exactly as before.
 
-**Seen:** in cold run 9225, the first to carry Zoo 1.95.0, Lot 0.108.0 and this release together (`docs/cold_runs/cold_9225/` at the factory root); until that run this layer is exercised by its tests alone, and the entry is corrected with the frames afterwards.
+**Seen,** cold run 9225 (`docs/cold_runs/cold_9225/` at the factory root): `[export] backdrop: site_backdrop.tscn -- 277 instances of 19 module(s) on their sides, 69 draw calls`, and at the edge stations the road ends at the fence with a skyline of rowhome blocks, lit windows and the water tower behind it; the paint travels inside each extracted mesh (`embedded_textures: 2`). The 19 modules are Lot 0.108.0's three band depths making three modules of each pair; Lot 0.109.0 gives every band one depth.
 
-**Priced:** cold run 9225's package against 9224's at Level Factory's fixed stations, control, subject, control, as every step of roadmap 228 is priced; the figures land in that run's notes and in this entry afterwards.
+**Priced,** 9225's package against 9224's at the fixed stations, control, subject, control: +43 draws a heading median (+17 to +91), the 69 MultiMeshes; p95 frame time +0.02 ms median, inside the controls' own 0.67 ms spread, 7 of 53 headings over +0.5 ms, the worst +1.25.
 
 **Tests:** 8, `tests/unit/test_backdrop_layer.py`. **Suite:** 2,173 passed, 14 skipped, 1 xfailed, exit 0 (2,163 as 0.173.0, the 8 new tests and the sibling guard's two cases for the new files).
