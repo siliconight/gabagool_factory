@@ -1,0 +1,9 @@
+measured control_1  53 headings  draws mean 2914 worst 7023  p95 median 6.59 ms
+measured glow       53 headings  draws mean 2966 worst 7109  p95 median 6.98 ms
+measured control_2  53 headings  draws mean 2914 worst 7023  p95 median 7.41 ms
+controls' spread, median over 53 headings: p95 0.67 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0            -0.34         0.17
+glow              51.8           17           91             0.02         1.25
+control_2          0.0            0            0             0.33         2.99
+exit 0

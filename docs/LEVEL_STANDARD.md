@@ -1032,6 +1032,7 @@ notes:        anything else, in plain words
 | fantasy | -- (`display_name`, `notes`) | nothing | GAP: Level Factory, a `fantasy` field the review reads back |
 | location / district | `theme` (`delco_1997`), `site_shape`, `road_grammar` (T, or `crossroads`) | Lot, Pixelcoat | BUILT for the street; GAP for the district story (land use by zone: Lot, roadmap 199) |
 | scale | `building_count`, `lot_library`, `empties` (`across` by default) | Level Factory, Lot | BUILT |
+| what stands beyond the edge | `surroundings` (`borough`, `none`, `yards`, `parkland`, `roadside`); unnamed, the archetype and `site_shape` decide (Level Factory 0.175.0) | Lot's `site_backdrop` lays the recipe's bands past the fence, Zoo's kit makes the modules, Level Factory composes them as MultiMeshes (roadmap 228) | BUILT for `borough` (rowhomes and a water tower) and `none`; the other three lay the borough with `LOT_BACKDROP_RECIPE_PENDING` until their kits exist |
 | density / land pressure | -- | nothing | GAP: Lot (`docs/reference/LAND_PRESSURE_AND_SPATIAL_LOGIC.md` §4) |
 | time | `time_of_day` | Level Factory `_preset_for` -> a Lux preset | BUILT for afternoon, evening, night; GAP for morning, high noon (§17) |
 | weather | `weather` | `_preset_for`: rain becomes Heavy Rain and overrides the slot. Rain also sets Pixelcoat's wet maps, Lot's wet ground and the wind that sways trees (`lf_wind`) | BUILT, with that trade; fog, snow and overcast read as clear |

@@ -34,6 +34,30 @@ holds it at four dims.
 them and Level Factory composes them (step E). The look at the menu's
 stations, and the price, come with those.
 
+## The second kit: the tree and the warehouse (Zoo 1.96.0)
+
+The other recipes' species, from `backdrop_slots_2.json` through the same
+build on a draft of 1.96.0, theme delco, style 1:
+
+| module | status | tris | materials | primitives |
+|---|---|---|---|---|
+| `prop_backdrop_tree_delco_01_w700_d700_h1000` | PASS | 132 of 180 | 2 (bark, vegetation) | 2 |
+| `prop_backdrop_tree_delco_01_w400_d400_h600` | PASS | 132 of 180 | 2 | 2 |
+| `prop_backdrop_warehouse_delco_01_w3000_d1600_h800` | PASS | 48 of 120 | 1 (`M_BackdropWarehouse_..._Face`) | 1 |
+
+- **The tree** is a trunk box and a twelve-by-six faceted crown; twelve
+  around because a fourteen-gon's extents are not its radius (the rooftop
+  `water_tank` learned that at exact fit). Two materials, so a belt is two
+  draws a module a side.
+- **The warehouse,** `warehouse_x6.png`: siding with its seams, the dark
+  roll-up door in the left third, the strip of high windows along the top,
+  two of the six lit cool white in the emission for this stem. In this sheet
+  the lit panes' daytime colour is the rowhome's warm brown; 1.96.0 ships
+  them in the cool white's own tint, the one change after the sheet.
+- **The census** found no coincident pair on the first run (6 builds): the
+  trunk ends inside the crown, and the monitors stand INSET into the roof
+  from the start, the lesson the first kit paid for.
+
 ## Instruments
 
 - `backdrop_slots.json`: the manifest.
