@@ -899,12 +899,12 @@ work of adopting this.
 | 218 | **CLOSED** | The export's import pass checked nothing | 2026-10-09 -- the import pass checks its own work, proven cold. Level Factory 0.163.1 coun |
 | 219 | **NARROWED** | The walk of 2026-10-09: twelve notes | 2026-10-10 -- nine of the twelve notes fixed and PROVEN on the walked level, club_block_01 |
 | 220 | **CLOSED** | A bar down the middle of the door sign | 2026-10-10 -- proven in cold run 9218 (club_block_014, seed 9181, night; 0 interventions,  |
-| 221 | **NARROWED** | Patina's wall covers face into the building | 2026-10-10 -- the cause verified and fixed in Patina 0.30.0, not yet run cold. `_up_to_z`  |
+| 221 | **CLOSED** | Patina's wall covers face into the building | 2026-10-10 -- proven in cold run 9221 (club_block_014, seed 9181; 0 interventions, 0 retri |
 | 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
-| 223 | **OPEN** | The street band: Pixel Operator, and stretched | 2026-10-10 -- note 10 generalised (item 219): a business Level Factory deals a Pixelcoat s |
+| 223 | **NARROWED** | The street band: Pixel Operator, and stretched | 2026-10-10 -- fixed in four repos, not yet run cold. Pixelcoat 0.62.0 letters a business's |
 | 224 | **OPEN** | Blotches in the bake's bounce on a large pale face | 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carr |
 
-**224 items: 42 open, 102 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**224 items: 41 open, 103 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19930,7 +19930,7 @@ Corrections to the list above, kept beside it:
 
 **The fix is Patina 0.29.2.** `conduit_targets` runs conduit to wall packs only. A cabinet sign is fed through the wall behind it. Its test fails on 0.29.1, and a kept instrument test rebuilds 0.29.1's order through the opening pass: the 0.27 m stub on the face plane.
 
-*STATUS: NARROWED 2026-10-10 -- the cause verified and fixed in Patina 0.30.0, not yet run cold. `_up_to_z` swaps two axes, a reflection, and the anchor pass took its wall normals from cross products in that view: all 10 of strip_club_a01's segments pointed into the building. The floor and roof slabs' edges on each wall's centre line were exterior-wall segments too. Replayed through Zoo's `plan_dressing`, the club's 51 base courses went from 0 facing out, 0 on their own side and 28 inside the wall to 45 of 45 out, on their side, on the face; its curbs from 52 of 57 inside to none; its 2 conduits onto the wall, facing out (`docs/findings/patina_cover_normals/`). Not yet: a cold run, and the merge's price.*
+*STATUS: CLOSED 2026-10-10 -- proven in cold run 9221 (club_block_014, seed 9181; 0 interventions, 0 retries, findings 71 to 71), only Patina changed, to 0.30.0. On all three signed buildings every base course, conduit, gutter and downspout faces out on its own side and none stands in the wall; the club's base courses were 0 of 51 out and 28 inside on 9220. Each concrete side merge lies on its own face: the club's CoverN_concrete went from 1,760 north and 432 south vertices to 2,960 north. Priced against 9220 on both sides: 9.4 fewer draws a heading on about 1,150, and p95 inside the controls' 1.50 ms spread (`docs/cold_runs/cold_9221/`). Not claimed: the empty rowhomes' slot-derived painted metal, which nearest-edge still reads as mixed.*
 
 **221. Patina's wall covers face into the building.** Found in cold run 9217's orders for strip_club_a01 while tracing 220 (`docs/findings/sign_bar/README.md`). In the spec frame:
 - **The anchor-derived covers face in.** The south door's conduit carries normal +y, and all 51 base courses carry inward normals, for example +x on the west face.
@@ -19972,7 +19972,7 @@ Measured 2026-10-10, ground under the pole 9 m off, the test's own figures: plac
 
 So the code under test did not change, and the result did. Not yet looked at: the NVIDIA driver (look_shots' manifests read 616.56 tonight), the window's state when the test opens it, and whether the pole the test builds still matches the Zoo streetlight it was written against. Until it is settled, this test's PLACED result -- the pool keeps 0.8 of itself -- stands on a control that cannot currently fail the way it is meant to: the slab control still proves shadows draw, but not that the cap's 5 mm can be seen.
 
-*STATUS: OPEN 2026-10-10 -- note 10 generalised (item 219): a business Level Factory deals a Pixelcoat sign pack still letters its street band and its door box in Pixel Operator, sampled nearest; and the band is drawn 1.5x too wide, a 512 x 128 pack (4:1) on Lot's 6:1 quad. Groundwork kept: a Pixelcoat mint of Blue Highway Condensed byte-identical to Zoo's. Not started in a repo.*
+*STATUS: NARROWED 2026-10-10 -- fixed in four repos, not yet run cold. Pixelcoat 0.62.0 letters a business's sign in Blue Highway Condensed, smooth, at the band's 6:1 (1536 x 256), and asks for `linear` and mips; every one of the delco profile's 47 names sets, caps 112 to 137 px. Zoo 1.94.0's door box samples as the pack asks and keeps the art's shape. Lot 0.105.0 carries the pack's manifest beside its maps, and Level Factory 0.166.0 pins the sign maps' import from it (compressed, mipped). Next: a cold run of restaurant_row_001, which deals its businesses packs.*
 
 **223. The street band: Pixel Operator, and stretched.** `docs/findings/street_band_type/`. A dealt business shows its Pixelcoat pack twice: on the band Lot hangs across its frontage, and on Zoo's door box, which wears the pack instead of painting a name (Level Factory 0.148.0, Zoo 1.79.0). Measured, nothing changed:
 - **The pack is a 4:1 cabinet, sampled nearest:** `theme-signs` renders `(size // 4, size)`; cold run 9217's `sign_flappahs` is 512 x 128 with `interpolation: nearest`.
@@ -19986,6 +19986,14 @@ A smooth face stretched 1.5x reads worse than a pixel one, so the font alone is 
 3. Proven on a level with dealt businesses: club_block_014 has none.
 
 Found alongside: Pixelcoat's `test_the_kinds_zoo_knows_are_the_kinds_zoo_knows` fails today. `paint_matte` (Zoo 1.82.0) is missing from `cli._ZOO_KINDS`. It is a one-word fix with the next Pixelcoat release.
+
+**Fixed, 2026-10-10, as proposed, in four releases:**
+1. **Pixelcoat 0.62.0.** `core/smooth_type.py` and a minted Blue Highway Condensed table, byte-identical to Zoo's (162,355 bytes): the band and the door are one face at one em. `theme-signs` draws a business at 1536 x 256, 6:1, set as large as it fits, and its pack asks for `linear` and `generate_mipmaps`; a price board keeps its pixel figures. `paint_matte` joins `_ZOO_KINDS`.
+2. **Zoo 1.94.0.** `load_pack` returns the pack's `interpolation` and `art_aspect`; the sign material samples `Linear` for a smooth pack; `fit_uv` shows the art at its own shape. Across the library's 95 door signs (0.6 m tall, 3.33 to 8.33:1, 4.67 at the median), a 6:1 band on the median door is 78% of its height, its edge EXTENDed above and below.
+3. **Lot 0.105.0** copies the pack's manifest beside its maps, and `SIGN_ASPECT`'s comment is true at last.
+4. **Level Factory 0.166.0** pins each sign map's import as its manifest asks: `compress/mode=2` for `linear`, `mipmaps/generate=true` for mips. A shipped package had left them at mode 0 with no mips.
+
+**The price, by arithmetic:** a sign's three maps were 0.20 MB compressed at 512 x 128; they are 1.6 MB compressed with mips at 1536 x 256, and a level carries a few.
 
 *STATUS: OPEN 2026-10-10 -- found in cold run 9219: a large pale face lit only by the bake's bounce carries blotches. The box truck's side at midnight, in the moon's shadow, runs from luma 1 to 6 (p5 to p95 after an 8 px blur, median 2), and with the lightmap switched off it is black all over, so the blotches are the bake's. Not yet measured: the bake at a higher quality.*
 

@@ -114,5 +114,17 @@ The "inside" column measures against the orders' own footprint. On 0.29.2
 that footprint is the pack-proud conduits' box, which is why a gutter there
 reads as inside.
 
-**Not yet measured: the merge's price.** It needs a cold run, at stations
-that face one side of a building.
+**Proven and priced in cold run 9221** (`docs/cold_runs/cold_9221/`), where
+only Patina changed:
+- **The orders:** on all three signed buildings, every wall-facing cover
+  faces out on its own side, and none stands inside the wall.
+- **The merges:** each concrete side mesh lies on its own face
+  (`merge_faces.py`).
+- **The price** (`price_merge.py`, `price_9220_9221.txt`): 9.4 fewer
+  draws a heading on about 1,150, against 9220 run on both sides as the
+  control. The p95 is inside the controls' 1.50 ms spread.
+- **Not attributed:** two headings drew about 148 more objects, the same
+  size as a jump the two controls show between themselves at a third.
+- **On the empty rowhomes,** vertices on another face fell from 12.4% to
+  5.1%. The painted metal there comes from their slots, not from these
+  anchors, and nearest-edge cannot judge it on a 6.3 m house.

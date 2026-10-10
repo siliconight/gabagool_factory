@@ -1,0 +1,546 @@
+"""Emissive signage / screen / label decals — the FPS "focal layer".
+
+Neon signs, backlit panels (EXIT and friends), CRT/LCD screens, hazard stripes,
+and directional arrows — the placed, often-glowing art that makes an
+environment read as a *place* rather than a textured greybox. These are decals
+(nearest-filtered, EXTEND, never tiled), packaged exactly like the traffic
+lenses so Zoo's emissive-face path consumes them.
+
+Text is drawn from a **built-in 5x7 pixel font** (below), so signage is
+byte-deterministic and crisp with no system-font dependency — and the blocky
+look is era-appropriate. SINCE 0.62.0 a business's name on its street band is
+SMOOTH instead: Blue Highway Condensed from `smooth_type`'s minted table, the
+face Zoo paints the same name in over the door, byte-deterministic the same
+way and sampled filtered (roadmap 223). Which sign is powered / how bright it glows is Lux's
+call at runtime (emissive_energy); this module only authors the lit (and, where
+useful, unpowered) art.
+"""
+
+from __future__ import annotations
+
+import json
+import os
+
+import functools
+
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont
+
+from . import procedural_surface as ps
+from ..version import __version__, DEFAULT_SEED
+from . import pack as pack_meta
+
+__all__ = ["neon_sign", "panel_sign", "screen", "hazard_stripes", "arrow",
+           "render_text", "build_sign_pack"]
+
+# --------------------------------------------------------------------------- #
+# Built-in 5x7 uppercase pixel font
+# --------------------------------------------------------------------------- #
+
+_FONT = {
+    "A": ["01110", "10001", "10001", "11111", "10001", "10001", "10001"],
+    "B": ["11110", "10001", "10001", "11110", "10001", "10001", "11110"],
+    "C": ["01110", "10001", "10000", "10000", "10000", "10001", "01110"],
+    "D": ["11110", "10001", "10001", "10001", "10001", "10001", "11110"],
+    "E": ["11111", "10000", "10000", "11110", "10000", "10000", "11111"],
+    "F": ["11111", "10000", "10000", "11110", "10000", "10000", "10000"],
+    "G": ["01110", "10001", "10000", "10111", "10001", "10001", "01110"],
+    "H": ["10001", "10001", "10001", "11111", "10001", "10001", "10001"],
+    "I": ["11111", "00100", "00100", "00100", "00100", "00100", "11111"],
+    "J": ["11111", "00001", "00001", "00001", "10001", "10001", "01110"],
+    "K": ["10001", "10010", "10100", "11000", "10100", "10010", "10001"],
+    "L": ["10000", "10000", "10000", "10000", "10000", "10000", "11111"],
+    "M": ["10001", "11011", "10101", "10101", "10001", "10001", "10001"],
+    "N": ["10001", "11001", "10101", "10101", "10011", "10001", "10001"],
+    "O": ["01110", "10001", "10001", "10001", "10001", "10001", "01110"],
+    "P": ["11110", "10001", "10001", "11110", "10000", "10000", "10000"],
+    "Q": ["01110", "10001", "10001", "10001", "10101", "10010", "01101"],
+    "R": ["11110", "10001", "10001", "11110", "10100", "10010", "10001"],
+    "S": ["01111", "10000", "10000", "01110", "00001", "00001", "11110"],
+    "T": ["11111", "00100", "00100", "00100", "00100", "00100", "00100"],
+    "U": ["10001", "10001", "10001", "10001", "10001", "10001", "01110"],
+    "V": ["10001", "10001", "10001", "10001", "10001", "01010", "00100"],
+    "W": ["10001", "10001", "10001", "10101", "10101", "11011", "10001"],
+    "X": ["10001", "10001", "01010", "00100", "01010", "10001", "10001"],
+    "Y": ["10001", "10001", "01010", "00100", "00100", "00100", "00100"],
+    "Z": ["11111", "00001", "00010", "00100", "01000", "10000", "11111"],
+    "0": ["01110", "10001", "10011", "10101", "11001", "10001", "01110"],
+    "1": ["00100", "01100", "00100", "00100", "00100", "00100", "11111"],
+    "2": ["01110", "10001", "00001", "00110", "01000", "10000", "11111"],
+    "3": ["11111", "00010", "00100", "00010", "00001", "10001", "01110"],
+    "4": ["00010", "00110", "01010", "10010", "11111", "00010", "00010"],
+    "5": ["11111", "10000", "11110", "00001", "00001", "10001", "01110"],
+    "6": ["01110", "10000", "10000", "11110", "10001", "10001", "01110"],
+    "7": ["11111", "00001", "00010", "00100", "01000", "01000", "01000"],
+    "8": ["01110", "10001", "10001", "01110", "10001", "10001", "01110"],
+    "9": ["01110", "10001", "10001", "01111", "00001", "00001", "01110"],
+    " ": ["00000", "00000", "00000", "00000", "00000", "00000", "00000"],
+    "-": ["00000", "00000", "00000", "11111", "00000", "00000", "00000"],
+    "!": ["00100", "00100", "00100", "00100", "00100", "00000", "00100"],
+    ".": ["00000", "00000", "00000", "00000", "00000", "00000", "00100"],
+    ":": ["00000", "00100", "00100", "00000", "00100", "00100", "00000"],
+    "/": ["00001", "00001", "00010", "00100", "01000", "10000", "10000"],
+    "+": ["00000", "00100", "00100", "11111", "00100", "00100", "00000"],
+    "'": ["00100", "00100", "00000", "00000", "00000", "00000", "00000"],
+    # 0.61.0: WOODER ICE & HOAGIES and SCRAPPLE & SONS DELI, Zoo's door names
+    "&": ["01100", "10010", "10100", "01000", "10101", "10010", "01101"],
+}
+_GW, _GH = 5, 7
+
+
+#: THE TYPEFACE, and why it is vendored rather than named. `assets/fonts/
+#: pixel_operator/` holds Pixel Operator by Jayvee Enaguas, CC0 1.0 -- see
+#: the README beside it for what was fetched and why. A font resolved from
+#: the host's installed set would make a sign that renders differently on
+#: two machines, which is the one thing a deterministic pipeline cannot
+#: have; a font under a licence that asks for attribution would put a
+#: condition on every level this factory ships.
+#:
+#: Pixel Operator is drawn on a 16 px grid, so text set at a multiple of
+#: `FONT_GRID` lands on whole pixels and stays crisp under the nearest
+#: -neighbour filter every Pixelcoat pack asks for.
+FONT_DIR = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__)))), "assets", "fonts",
+    "pixel_operator")
+FONT_FILES = {"regular": "PixelOperator.ttf", "bold": "PixelOperator-Bold.ttf",
+              "small_caps": "PixelOperatorSC.ttf",
+              "small_caps_bold": "PixelOperatorSC-Bold.ttf",
+              "mono": "PixelOperatorMono.ttf"}
+FONT_GRID = 16
+DEFAULT_FACE = "bold"
+
+
+def _snap(px: int) -> int:
+    """The nearest multiple of the font's own grid, at least one grid.
+
+    A PIXEL FACE IS ONLY CRISP ON ITS GRID. Pixel Operator is drawn at 16
+    px; asked for 21 it comes back antialiased, which under a pack's
+    nearest-neighbour filter is a soft grey fringe on every letter -- the
+    exact thing this pipeline chose a pixel typeface to avoid. Measured:
+    `render_text("EXIT", scale=3)` had 18 distinct ink values at 21 px and
+    2 at 16.
+    """
+    return max(FONT_GRID, int(round(px / FONT_GRID)) * FONT_GRID)
+
+
+@functools.lru_cache(maxsize=32)
+def _face(weight: str, px: int):
+    """A PIL font at ``px``, or None when the vendored file is missing --
+    in which case `render_text` falls back to the built-in bitmap and says
+    nothing, because a sign that silently changes typeface is worse than
+    one that is merely plainer."""
+    path = os.path.join(FONT_DIR, FONT_FILES.get(weight, FONT_FILES["regular"]))
+    if not os.path.isfile(path):
+        return None
+    try:
+        return ImageFont.truetype(path, px)
+    except Exception:
+        return None
+
+
+def render_text(text: str, *, scale: int = 4, spacing: int = 1,
+                weight: str = None) -> np.ndarray:
+    """Rasterise ``text`` → a float mask (1 = ink).
+
+    ``scale`` is in units of the built-in bitmap's 7-pixel cap height, kept
+    so every caller's sizes mean what they meant before the typeface
+    changed: Pixel Operator is set at ``scale * _GH`` pixels, which is the
+    same block height the bitmap drew.
+    """
+    face = _face(weight or DEFAULT_FACE, _snap(int(scale) * _GH))
+    if face is not None:
+        return _render_ttf(text, face)
+    return _render_bitmap(text, scale=scale, spacing=spacing)
+
+
+def _render_ttf(text: str, face) -> np.ndarray:
+    """The typeface's own raster, trimmed to its ink."""
+    text = text.upper()
+    box = face.getbbox(text)
+    if not box:
+        return np.zeros((1, 1), np.float32)
+    w = max(1, int(box[2] - box[0]) + 2)
+    h = max(1, int(box[3] - box[1]) + 2)
+    img = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(img).text((-box[0] + 1, -box[1] + 1), text, fill=255, font=face)
+    a = np.asarray(img, np.float32) / 255.0
+    # ink or nothing: a sign's letter has an edge, and a half-lit texel
+    # under a nearest filter is a grey fringe
+    a = (a >= 0.5).astype(np.float32)
+    rows = np.where(a.max(axis=1) > 0.25)[0]
+    cols = np.where(a.max(axis=0) > 0.25)[0]
+    if len(rows) == 0 or len(cols) == 0:
+        return np.zeros((1, 1), np.float32)
+    return a[rows[0]:rows[-1] + 1, cols[0]:cols[-1] + 1]
+
+
+def _render_bitmap(text: str, *, scale: int = 4, spacing: int = 1) -> np.ndarray:
+    """Rasterise ``text`` from the built-in font → a float mask (1 = ink).
+
+    THE FALLBACK, and the only thing that still uses `_FONT`. It drew every
+    sign this pipeline made through 2026-09-13; the walker that day: "the
+    fonts are lazy for now".
+    """
+    text = text.upper()
+    glyphs = [_FONT.get(c, _FONT[" "]) for c in text]
+    cols = len(glyphs) * (_GW + spacing) - spacing if glyphs else 0
+    m = np.zeros((_GH, max(cols, 1)), np.float32)
+    x = 0
+    for g in glyphs:
+        for r in range(_GH):
+            row = g[r]
+            for c in range(_GW):
+                if row[c] == "1":
+                    m[r, x + c] = 1.0
+        x += _GW + spacing
+    if scale > 1:
+        m = np.repeat(np.repeat(m, scale, 0), scale, 1)
+    return m
+
+
+def fit_scale(text: str, canvas_hw, *, spacing: int = 1, margin: float = 0.86,
+              weight: str = None) -> int:
+    """The largest glyph scale that fits ``text`` inside ``canvas_hw``.
+
+    Measured against the TYPEFACE when one is vendored, because Pixel
+    Operator's advance widths are proportional and the bitmap's were not:
+    a scale derived from five-pixel cells overflows on a wide word and
+    wastes half the panel on a narrow one.
+
+    A SIGN THAT DOES NOT FIT IS A DIFFERENT SIGN. `panel_sign`'s default
+    scale of 6 puts a ten-character name 360 px wide on a 256 px tile, and
+    `_place_text` clips what hangs over the edge: the first build of the
+    delco street's signs read GOOSE MART as "OOSE MAR" and CORNER TAP as
+    "ORNER TA" (2026-09-13). Fitting is arithmetic nobody has to remember,
+    so it is the default; an explicit scale still wins.
+    """
+    h, w = canvas_hw
+    if _face(weight or DEFAULT_FACE, FONT_GRID) is not None:
+        best = 1
+        for s in range(1, 65):
+            ink = _render_ttf(text, _face(weight or DEFAULT_FACE, _snap(s * _GH)))
+            if ink.shape[1] > w * margin or ink.shape[0] > h * margin:
+                break
+            best = s
+        return best
+    n = max(1, len(text))
+    per = _GW + spacing
+    by_w = int((w * margin) // (n * per))
+    by_h = int((h * margin) // _GH)
+    return max(1, min(by_w, by_h))
+
+
+def _place_text(canvas_hw, text, scale, *, cx=0.5, cy=0.5):
+    """Return a full-canvas mask with the text block centred at (cx, cy).
+    ``scale`` of None fits the text to the canvas (`fit_scale`)."""
+    if scale is None:
+        scale = fit_scale(text, canvas_hw)
+    return _centred(canvas_hw, render_text(text, scale=scale), cx=cx, cy=cy)
+
+
+#: How much of a smooth sign its lettering may fill: the width a sign painter
+#: leaves either side of a name, and the cap height a cabinet's face carries.
+#: A name is set as large as it fits inside both, so a short name stops at the
+#: height and a long one at the width.
+SMOOTH_MARGIN_W = 0.86
+SMOOTH_MARGIN_H = 0.56
+
+
+def _place_smooth(canvas_hw, text, face, *, cx=0.5, cy=0.5):
+    """``text`` in the smooth ``face`` (`smooth_type`), as large as it fits, on a full canvas:
+    COVERAGE 0..1, anti-aliased, and the cap height chosen. A name that does not set even at a
+    4 px cap raises rather than crop: a sign that lost a letter is a different sign."""
+    from . import smooth_type
+    h, w = canvas_hw
+    cap = smooth_type.fit_cap(text, w * SMOOTH_MARGIN_W, h * SMOOTH_MARGIN_H, face)
+    if cap is None:
+        raise ValueError(f"{text!r} does not set on a {w} x {h} sign in {face}")
+    return _centred(canvas_hw, smooth_type.coverage(text, cap, face), cx=cx, cy=cy), cap
+
+
+def _centred(canvas_hw, ink, *, cx=0.5, cy=0.5):
+    h, w = canvas_hw
+    th, tw = ink.shape
+    out = np.zeros((h, w), np.float32)
+    y0 = int(round(cy * h - th / 2)); x0 = int(round(cx * w - tw / 2))
+    ys0, xs0 = max(0, y0), max(0, x0)
+    ye, xe = min(h, y0 + th), min(w, x0 + tw)
+    if ye > ys0 and xe > xs0:
+        out[ys0:ye, xs0:xe] = ink[ys0 - y0:ye - y0, xs0 - x0:xe - x0]
+    return out
+
+
+# --------------------------------------------------------------------------- #
+# Effects
+# --------------------------------------------------------------------------- #
+
+def _blur(a: np.ndarray, radius: int) -> np.ndarray:
+    if radius < 1:
+        return a
+    out = a.astype(np.float32)
+    for _ in range(2):
+        pad = np.pad(out, ((radius, radius), (radius, radius)), mode="edge")
+        cs = np.cumsum(np.cumsum(pad, 0), 1)
+        cs = np.pad(cs, ((1, 0), (1, 0)), mode="constant")
+        k = 2 * radius + 1
+        h, w = a.shape
+        out = (cs[k:k + h, k:k + w] - cs[0:h, k:k + w]
+               - cs[k:k + h, 0:w] + cs[0:h, 0:w]) / (k * k)
+    return out
+
+
+def _hw(size):
+    return ps._as_hw(size)
+
+
+# --------------------------------------------------------------------------- #
+# Generators
+# --------------------------------------------------------------------------- #
+
+def neon_sign(text: str, size=128, *, color: str = "#ff2a6d",
+              backer: str = "#0b0b10", scale: int | None = None, glow: float = 0.6,
+              powered: bool = True, face: str | None = None) -> dict:
+    """Glowing neon tube text on a dark backer. ``face`` sets it in a smooth face
+    (`smooth_type`) instead of the pixel one: a business's name on its street band (0.62.0)."""
+    h, w = _hw(size)
+    if face:
+        ink, cap = _place_smooth((h, w), text, face)
+        radius = max(2, cap // 6)
+    else:
+        ink = _place_text((h, w), text, scale)
+        radius = max(2, scale if scale else fit_scale(text, (h, w)))
+    tube = ps.hex_to_rgb(color)
+    back = ps.hex_to_rgb(backer)
+    halo = _blur(ink, radius) * glow
+    if powered:
+        emis = tube[None, None] * (ink[..., None] + 0.5 * halo[..., None])
+        alb = back[None, None] * (1 - ink[..., None]) + tube[None, None] * ink[..., None]
+        alb = alb + tube[None, None] * 0.25 * halo[..., None]
+    else:                                   # unpowered: dark grey tube, no glow
+        grey = tube * 0.18
+        emis = np.zeros((h, w, 3), np.float32)
+        alb = back[None, None] * (1 - ink[..., None]) + grey[None, None] * ink[..., None]
+    return _pack_arrays(alb, emis, glass=ink)
+
+
+def panel_sign(text: str, size=128, *, panel: str = "#12351f",
+               text_color: str = "#4dff8a", scale: int | None = None,
+               powered: bool = True, border: str | None = None,
+               face: str | None = None) -> dict:
+    """Backlit panel sign — glowing letters on a lit panel (EXIT, OPEN, ...). ``face`` sets it
+    in a smooth face (`smooth_type`) instead of the pixel one (0.62.0)."""
+    h, w = _hw(size)
+    if face:
+        ink, _cap = _place_smooth((h, w), text, face)
+    else:
+        ink = _place_text((h, w), text, scale)
+    pan = ps.hex_to_rgb(panel)
+    txt = ps.hex_to_rgb(text_color)
+    field = pan[None, None] * np.ones((h, w, 1), np.float32)
+    if border:
+        b = ps.hex_to_rgb(border)
+        edge = np.ones((h, w), np.float32)
+        m = max(2, h // 16)
+        edge[m:-m, m:-m] = 0.0
+        field = field * (1 - edge[..., None]) + b[None, None] * edge[..., None]
+    alb = field * (1 - ink[..., None]) + txt[None, None] * ink[..., None]
+    if powered:
+        emis = txt[None, None] * ink[..., None] + pan[None, None] * 0.5 * (1 - ink[..., None])
+    else:
+        alb = alb * 0.4
+        emis = np.zeros((h, w, 3), np.float32)
+    return _pack_arrays(alb, emis)
+
+
+#: WHY A PUMP PRICE ENDS IN NINE TENTHS OF A CENT. States began taxing
+#: gasoline in tenths of a cent (the federal tax of the Revenue Act of 1932
+#: was set that way), and with gas near ten cents a gallon a whole cent was
+#: a ten percent rise -- so a station added the fraction instead. By the
+#: 1950s the fraction had settled on 9/10 and stayed there. A 1997 price
+#: board without it is the wrong decade.
+PRICE_FRACTION = "9"
+
+
+def fuel_price_sign(rows, size=(256, 192), *, panel: str = "#f2f2ee",
+                    text_color: str = "#1a1a1a", grade_color: str = "#c8102e",
+                    border: str | None = "#c8102e", powered: bool = True) -> dict:
+    """A price board: one row per grade, the grade's name on the left and its
+    price on the right with the 9/10 raised small.
+
+    ``rows`` is [(grade, "1.21"), ...] -- the dollars-and-cents part only;
+    the fraction is this function's business, because it is a property of
+    how a pump price is written and not of any one price.
+    """
+    h, w = _hw(size)
+    pan = ps.hex_to_rgb(panel)
+    field = pan[None, None] * np.ones((h, w, 1), np.float32)
+    if border:
+        b = ps.hex_to_rgb(border)
+        edge = np.ones((h, w), np.float32)
+        m = max(2, h // 18)
+        edge[m:-m, m:-m] = 0.0
+        field = field * (1 - edge[..., None]) + b[None, None] * edge[..., None]
+    rows = list(rows)
+    n = max(1, len(rows))
+    grade_ink = np.zeros((h, w), np.float32)
+    price_ink = np.zeros((h, w), np.float32)
+    # one scale for every row, from the widest line, so the board reads as
+    # one board rather than as rows that each found their own size
+    g_scale = min(fit_scale(g, (h / n * 0.42, w * 0.46)) for g, _p in rows)
+    p_scale = min(fit_scale(p + PRICE_FRACTION, (h / n * 0.62, w * 0.48))
+                  for _g, p in rows)
+    for i, (grade, price) in enumerate(rows):
+        cy = (i + 0.5) / n
+        grade_ink = np.maximum(grade_ink, _place_text(
+            (h, w), grade, g_scale, cx=0.27, cy=cy - 0.5 / n * 0.30))
+        price_ink = np.maximum(price_ink, _place_text(
+            (h, w), price, p_scale, cx=0.63, cy=cy))
+        # the fraction: half height, raised to the top of the digits
+        price_ink = np.maximum(price_ink, _place_text(
+            (h, w), PRICE_FRACTION, max(1, p_scale // 2), cx=0.87,
+            cy=cy - 0.5 / n * 0.34))
+    txt = ps.hex_to_rgb(text_color)
+    grd = ps.hex_to_rgb(grade_color)
+    alb = field * (1 - np.maximum(grade_ink, price_ink)[..., None])
+    alb = alb + grd[None, None] * grade_ink[..., None]
+    alb = alb + txt[None, None] * price_ink[..., None]
+    if powered:
+        emis = pan[None, None] * 0.55 * np.ones((h, w, 1), np.float32)
+    else:
+        alb = alb * 0.4
+        emis = np.zeros((h, w, 3), np.float32)
+    return _pack_arrays(alb, emis)
+
+
+def screen(mode: str = "bars", size=128, *, seed: int = DEFAULT_SEED,
+           tint: str = "#39ff88", powered: bool = True,
+           scanlines: bool = True) -> dict:
+    """CRT/LCD screen content. mode: bars | static | terminal | off."""
+    h, w = _hw(size)
+    if not powered or mode == "off":
+        base = np.tile(ps.hex_to_rgb("#0a0d0a"), (h, w, 1))
+        return _pack_arrays(base, base * 0.15)
+    if mode == "bars":                      # SMPTE-ish vertical colour bars
+        cols = ["#c0c0c0", "#c0c000", "#00c0c0", "#00c000",
+                "#c000c0", "#c00000", "#0000c0", "#101010"]
+        idx = (np.arange(w) / w * len(cols)).astype(int).clip(0, len(cols) - 1)
+        row = np.stack([ps.hex_to_rgb(cols[i]) for i in idx], 0)   # (w,3)
+        img = np.broadcast_to(row[None], (h, w, 3)).copy()
+    elif mode == "static":                  # RGB snow
+        img = ps.rng(seed, "static").random((h, w, 3)).astype(np.float32)
+        img = ps.posterize(img, 6)
+    elif mode == "terminal":                # dark screen, lines of glyph text
+        img = np.tile(ps.hex_to_rgb("#04120a"), (h, w, 1))
+        t = ps.hex_to_rgb(tint)
+        lines = ["READY.", "RUN", "LOADING", "OK 100%", "> _"]
+        sc = max(1, h // 48)
+        y = int(h * 0.12)
+        for i, ln in enumerate(lines):
+            ink = _place_text((h, w), ln, sc, cx=0.30, cy=(y + i * sc * 11) / h)
+            img = img * (1 - ink[..., None]) + t[None, None] * ink[..., None]
+    else:
+        raise ValueError(f"unknown screen mode {mode!r}")
+    if scanlines:
+        sl = np.ones(h, np.float32)
+        sl[::2] = 0.72
+        img = img * sl[:, None, None]
+    return _pack_arrays(img, img * 0.9)     # a screen is its own light
+
+
+def hazard_stripes(size=128, *, colors=("#f2c00e", "#141414"), stripes: int = 6,
+                   powered: bool = False, tint: str = "#f2c00e") -> dict:
+    """Diagonal hazard chevrons (warning border / kick-plate)."""
+    h, w = _hw(size)
+    a = ps.hex_to_rgb(colors[0]); b = ps.hex_to_rgb(colors[1])
+    yy, xx = np.mgrid[0:h, 0:w].astype(np.float32)
+    band = np.floor(((xx + yy) / (h + w) * stripes * 2) % 2)
+    alb = np.where(band[..., None] > 0, a[None, None], b[None, None]).astype(np.float32)
+    emis = alb * 0.6 if powered else np.zeros((h, w, 3), np.float32)
+    return _pack_arrays(alb, emis)
+
+
+def arrow(size=128, *, direction: str = "right", color: str = "#f5f5f5",
+          backer: str = "#101216", powered: bool = False) -> dict:
+    """A directional chevron arrow decal."""
+    h, w = _hw(size)
+    yy, xx = (np.mgrid[0:h, 0:w].astype(np.float32) + 0.5)
+    u, v = xx / w - 0.5, yy / h - 0.5
+    if direction in ("left", "right"):
+        p = -u if direction == "right" else u    # vertex points toward `direction`
+        chev = (np.abs(v) <= (p + 0.25)) & (np.abs(v) >= (p - 0.02)) & (p <= 0.3) & (p >= -0.3)
+    elif direction in ("up", "down"):
+        p = v if direction == "up" else -v
+        chev = (np.abs(u) <= (p + 0.25)) & (np.abs(u) >= (p - 0.02)) & (p <= 0.3) & (p >= -0.3)
+    else:
+        raise ValueError("direction must be left/right/up/down")
+    m = chev.astype(np.float32)
+    col = ps.hex_to_rgb(color); back = ps.hex_to_rgb(backer)
+    alb = back[None, None] * (1 - m[..., None]) + col[None, None] * m[..., None]
+    emis = col[None, None] * m[..., None] if powered else np.zeros((h, w, 3), np.float32)
+    return _pack_arrays(alb, emis)
+
+
+# --------------------------------------------------------------------------- #
+# Packaging
+# --------------------------------------------------------------------------- #
+
+def _pack_arrays(albedo, emissive, glass=None) -> dict:
+    out = {"albedo": _u8(np.clip(albedo, 0, 1)),
+           "emissive": _u8(np.clip(emissive, 0, 1))}
+    # Emissive faces read smooth; a glass mask (neon tube) is glossier.
+    if glass is not None:
+        rough = np.where(glass > 0, 0.2, 0.6).astype(np.float32)
+    else:
+        rough = np.full(albedo.shape[:2], 0.5, np.float32)
+    out["roughness"] = _u8(rough)
+    return out
+
+
+def build_sign_pack(pack_dir: str, arrays: dict, asset_id: str,
+                    *, meters_per_tile: float = 1.0, interpolation: str = "nearest",
+                    mipmaps: bool = False) -> dict:
+    """Write a signage decal pack (albedo + emissive + roughness) for Zoo.
+
+    ``interpolation`` is how the pack asks to be sampled: ``"nearest"`` for pixel lettering,
+    whose every texel is meant to be seen, ``"linear"`` for smooth lettering, whose edge IS the
+    partial pixel (0.62.0). A filtered sign seen across a street is minified several times, so
+    one also asks for ``mipmaps``: without the chain, its letters shimmer."""
+    if interpolation not in ("nearest", "linear"):
+        raise ValueError(f"interpolation is nearest or linear, not {interpolation!r}")
+    os.makedirs(pack_dir, exist_ok=True)
+    maps: dict[str, str] = {}
+    for key, arr in arrays.items():
+        fname = f"{asset_id}_{key}.png"
+        _write_png(arr, os.path.join(pack_dir, fname))
+        maps[key] = fname
+    manifest = {
+        "schema": "pixelcoat-pack/2",
+        "tool_version": __version__,
+        "asset_id": asset_id,
+        "processing_mode": "decal",
+        "source_kind": "procedural",
+        "maps": maps,
+        "map_sha256": pack_meta.map_sha256(pack_dir, maps),
+        "tileable": None,
+        "meters_per_tile": float(meters_per_tile),
+        "import_hints": {
+            "color_space": {k: ("srgb" if k in ("albedo", "emissive") else "linear")
+                            for k in maps},
+            "interpolation": interpolation, "extension": "extend", "emissive": True,
+        },
+    }
+    if mipmaps:
+        manifest["import_hints"]["generate_mipmaps"] = True
+    with open(os.path.join(pack_dir, f"{asset_id}.pack.json"), "w",
+              encoding="utf-8") as f:
+        json.dump(manifest, f, indent=2, sort_keys=True)
+    return manifest
+
+
+def _u8(a):
+    return np.rint(np.clip(a, 0, 1) * 255).astype(np.uint8)
+
+
+def _write_png(u8, path):
+    mode = "L" if u8.ndim == 2 else ("RGBA" if u8.shape[-1] == 4 else "RGB")
+    Image.fromarray(u8, mode).save(path, optimize=False)
