@@ -197,6 +197,31 @@ zoo`. Editing `CLAUDE.md`, `docs/` or `PIPELINE_ROADMAP.md` at the root cannot
 change the count — editing anything inside those ten can, whether or not
 anybody writes it down.
 
+## Recording a run's edge, and pricing a package against itself
+
+A run whose level has no earlier run to compare with (the recipe runs 9226
+to 9228) is priced against its own package with the backdrop scene not
+loaded, and shot at the road ends its drawn spec reaches the plate's edge by:
+
+```bash
+bash tools/recipe_run_record.sh <N> <mission>        # copies, control, stations, frames, sheet, price -> docs/cold_runs/cold_<N>/
+python tools/edge_stations.py <site.site.drawn.json>  # the --station arguments it derives, one a road end at the edge
+python tools/backdrop_off.py <package copy>           # the control: the entry scene's three-line load of <site>_backdrop.tscn removed
+python tools/room_stations.py workspaces/<ws> <mission> <building id>   # interior stations, the ceiling in frame (roadmap 229)
+```
+
+- The package is `workspaces/cold-<N>-ws/.level_factory/exports/LF_<mission>.portable-godot`;
+  the themed drawn spec is under `jobs/<mission>.themed_site_assemble/1/out/`.
+- **Delete `_scratch/price_<N>/{control,subject}` once `price/*.json` exist**
+  (about 250 MB each; forty-two of them filled the disk once).
+- **Read `split_perturbed` before quoting a heading's draws:** a heading whose
+  own two passes differ by hundreds of draws is an occlusion edge at that
+  camera, not the subject (9227: 699 against 1,165 on the control). Quote
+  the median over headings against the controls' mean, and the controls'
+  own spread as the floor.
+- **Nothing else runs beside a price.** A suite or a render on the same
+  machine moves the frame time; the shots are fine, the perf passes are not.
+
 ## Health and grading
 
 ```bash
