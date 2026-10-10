@@ -29,4 +29,14 @@ echo "== test $(date +%H:%M:%S)"
 cmd.exe //c "$(cygpath -w "$F/docs/findings/stranger_install/install_test.cmd")" "$DEST_WIN" "$(cygpath -w "$LOG")" > "$LOG/steps.txt" 2>&1
 echo "test exit $?"
 cat "$LOG/steps.txt"
+# What a stranger's first doctor says. Cold run 9223's notes named one of its two WARNs and the
+# other, a grounded-table drift, would have shipped in the package: every row that is not PASS is
+# printed here, and a setup.txt with no doctor rows is a shape this cannot read.
+echo "== the doctor's rows in setup.txt that are not PASS"
+ROWS=$(grep -a -E '^ *\[[A-Z_]+ *\] ' "$LOG/setup.txt" | tr -d '\r')
+if [ -z "$ROWS" ]; then
+  echo "setup.txt holds no doctor rows: nothing read"
+  exit 4
+fi
+echo "$ROWS" | grep -v -E '^ *\[PASS +\] ' || echo "  none: every row PASS"
 echo "== done $(date +%H:%M:%S)"

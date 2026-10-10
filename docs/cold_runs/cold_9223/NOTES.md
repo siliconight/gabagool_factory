@@ -28,8 +28,15 @@ to 0.106.0.
 
 **`INTERVENTIONS: 0`** (journal 0, unattributed files 0), **retries 0.**
 - **The driver's new steps.** `init` filled every tool path, the doctor
-  passed with worst WARN (Windows' long-paths reminder) and nothing
-  unconfigured, and no file was copied from 9222's workspace.
+  passed with worst WARN and nothing unconfigured, and no file was copied
+  from 9222's workspace.
+  - **The WARNs were two** (`workspaces/cold-9223-ws/doctor.txt`):
+    - Windows' long-paths reminder;
+    - `tool:lot vLot 0.106.0 @ e3b8b468 — drift vs certified 0.105.0
+      (grounded); re-certify`. Level Factory's grounded table still named
+      the Lot before this run's.
+  - *Corrected 2026-10-10:* these notes first named only the long-paths
+    reminder. Level Factory 0.172.1 re-grounds the row.
 - **Picked: seed_9104,** on the same three lines as 9222.
 - **The shell leg:** 0 blockers of 52. **The art leg:** 0 blockers of 74.
 - **Findings 74 to 74.**
