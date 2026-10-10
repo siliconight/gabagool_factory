@@ -30,3 +30,8 @@
 *.png binary
 *.jpg binary
 *.zip binary
+
+# A batch file is CRLF: cmd.exe misreads labels and long lines in an LF one. A shell
+# script stays LF, or Linux reads its first line as `/bin/sh\r` (roadmap 202).
+*.cmd text eol=crlf
+*.sh text eol=lf

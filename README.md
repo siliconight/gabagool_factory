@@ -8,6 +8,10 @@ maintained by hand is a count that goes stale.
 
 ## Start here
 
+**Making levels, not changing the tools? [`START_HERE.md`](START_HERE.md)** —
+install Blender and Godot, set up once, and make your first level with one
+command. Everything below is for working on the tools themselves.
+
 **[`PIPELINE_MAP.md`](PIPELINE_MAP.md)** — what each repo does, the job DAG,
 where artifacts land, the contracts, and the traps. Read it before changing
 anything in a tool repo. It opens with the two rules everything else follows

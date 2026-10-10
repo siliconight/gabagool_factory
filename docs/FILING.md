@@ -25,6 +25,8 @@ followed.
 | a report from a phase that is over | `docs/history/` | yes | |
 | a perf price copy | `_runs/perf_inner/<name>/` until `<name>.json` exists, then deleted | no | `tools/factory_retire.py` does the deleting |
 | a walk export | `_runs/walk_export_<mission>/` | no | the newest per mission is kept, older ones retired |
+| the front door: what a stranger opens first | `START_HERE.md`, `factory.cmd` and `factory.sh` at the root; the example batch in `docs/first_level/` | yes | roadmap 202. The page is a stranger's whole install; anything it does not say is an intervention. The launchers are CRLF and LF by `.gitattributes`. |
+| this machine's tool paths, and the tools' own Python | `factory.local.json` and `.venv/` at the root, written by `level-factory setup` | no, ignored | never committed: they name one machine's Blender, Godot and Python |
 
 What a tool repo's root holds: the generator, its gates, its tests where
 the repo's `check.py` collects them, `README.md`, `CHANGELOG.md`,

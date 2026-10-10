@@ -1,0 +1,27 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "restaurant_row_001",
+  "display_name": "Restaurant Row",
+  "archetype": "corner_deli",
+  "building_count": 3,
+  "site_shape": "strip",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_kitchen",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "alley_backtrack",
+  "verticality": "low",
+  "landmark": "neon_sign",
+  "time_of_day": "evening",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "notes": "Your first level: a strip of three buildings anchored on a corner deli, in the evening. To make your own, change mission_id, archetype, building_count, time_of_day and the rest; docs/LEVEL_STANDARD.md, Appendix A, describes every field. This brief is the one cold run 9222 built, with nobody touching anything, on 2026-10-10."
+}
