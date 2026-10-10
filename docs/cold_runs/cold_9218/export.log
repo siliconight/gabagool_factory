@@ -1,0 +1,20 @@
+[export] surface dressing: club_block_014_dressing.tscn -- 3769 instances of 4 meshes, 4 draw calls
+[export] 1494 occluder(s) from 1500 solid module(s); 0 glass, 254 porous and 870 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1494 occluder node(s) in a tree of 27321
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] light bake: 433 model(s) and 1528 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 78 steady rig(s) baked, 13 failing and 2 cycling left live; 256 room fill(s); 3890 users, 95.5 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1494 occluder node(s) reachable from res://mission.tscn (1494 in the package, 20 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 31 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 441 GLB(s), 1850 external reference(s): 1850 resolve to 414 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 79 resource(s) in a package of 2838 file(s)
+[export] manifest: 2842 file(s) listed + 2 declared unlisted = 2844 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported club_block_014 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9218-ws\.level_factory\exports\LF_club_block_014.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9218-ws\.level_factory club_block_014 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
