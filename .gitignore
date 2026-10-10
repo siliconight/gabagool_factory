@@ -11,6 +11,12 @@ pixelcoat/
 pipeline/
 zoo/
 
+# This machine's Blender, Godot and tools' Python, written by
+# `level-factory setup` (Level Factory 0.167.0); read by every `init`.
+factory.local.json
+# The tools' own Python, made by `level-factory setup --venv`.
+.venv/
+
 # Run artifacts (walkabout / headless gates / screenshot passes)
 walkabout_*/
 headless_*/

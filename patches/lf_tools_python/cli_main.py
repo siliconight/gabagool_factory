@@ -1,0 +1,291 @@
+"""Level Factory CLI (TDD 28).
+
+Phase-1 headless orchestration entrypoint. Exit codes (TDD 28.1):
+  0 success | 1 non-blocking findings | 2 blocked by validation/approval
+  3 configuration error | 4 tool execution failure | 5 internal error | 130 cancelled
+"""
+from __future__ import annotations
+
+import argparse
+import sys
+from pathlib import Path
+
+# Make the repo root importable (packages/, adapters/, apps/) when run directly.
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+if str(_REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(_REPO_ROOT))
+
+from apps.cli.commands import (  # noqa: E402
+    cmd_accept_exception, cmd_approve, cmd_batch_create, cmd_batch_report,
+    cmd_batch_run, cmd_cache, cmd_certify, cmd_ci_init, cmd_diagnostics,
+    cmd_doctor, cmd_export, cmd_init, cmd_plan, cmd_portability_test, cmd_reject,
+    cmd_release, cmd_review, cmd_run, cmd_setup, cmd_status, cmd_team_sign,
+    cmd_team_status, cmd_validate, cmd_verify_contracts, cmd_verify_manifest,
+    cmd_walk,
+)
+
+EXIT_OK = 0
+EXIT_FINDINGS = 1
+EXIT_BLOCKED = 2
+EXIT_CONFIG = 3
+EXIT_TOOL = 4
+EXIT_INTERNAL = 5
+EXIT_CANCELLED = 130
+
+
+def _tool_path_flags(sp: argparse.ArgumentParser) -> None:
+    sp.add_argument("--blender", default="", help="Blender's executable, if not found")
+    sp.add_argument("--godot", default="", help="Godot 4.7's executable, if not found")
+    sp.add_argument("--python", default="",
+                    help="the interpreter the tools run under (default: this one)")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    p = argparse.ArgumentParser(prog="level-factory",
+                                description="Level Factory orchestration CLI")
+    p.add_argument("-C", "--chdir", default=".", help="workspace directory")
+    sub = p.add_subparsers(dest="command", required=True)
+
+    sp = sub.add_parser("init", help="initialize a workspace")
+    sp.add_argument("path")
+    sp.add_argument("--name", default="")
+    sp.add_argument("--project-id", default="")
+    _tool_path_flags(sp)
+    sp.set_defaults(func=cmd_init)
+
+    sp = sub.add_parser("setup", help="record where Blender, Godot and the tools' "
+                                      "Python are, then run the doctor")
+    sp.add_argument("--factory", default="",
+                    help="the factory root (default: the one holding this Level Factory)")
+    _tool_path_flags(sp)
+    sp.set_defaults(func=cmd_setup)
+
+    sp = sub.add_parser("doctor", help="check tools and environment")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_doctor)
+
+    sp = sub.add_parser("batch", help="batch operations")
+    bsub = sp.add_subparsers(dest="batch_command", required=True)
+    bc = bsub.add_parser("create", help="create a batch from batch.json")
+    bc.add_argument("batch_json")
+    bc.set_defaults(func=cmd_batch_create)
+
+    br = bsub.add_parser("run", help="run a whole batch as one parallel DAG")
+    br.add_argument("batch_id")
+    br.add_argument("--art", action="store_true",
+                    help="add the Art layer AND the Light layer "
+                         "(Zoo/Pixelcoat/Patina + Lux)")
+    br.add_argument("--unlit", action="store_true",
+                    help="with --art: drop the Light layer (Lux). Fixtures "
+                         "and their gate still ship.")
+    br.add_argument("--gameplay", action="store_true", help="add the Gameplay-suggestion layer (Dispatch)")
+    br.add_argument("--target", default=None,
+                    choices=["functional-lock", "dispatch-handoff", "presentation"],
+                    help="legacy alias for a layer set; --art/--gameplay take precedence")
+    br.set_defaults(func=cmd_batch_run)
+
+    brp = bsub.add_parser("report", help="write mission + batch summary reports")
+    brp.add_argument("batch_id")
+    brp.add_argument("--json", action="store_true")
+    brp.set_defaults(func=cmd_batch_report)
+
+    sp = sub.add_parser("plan", help="plan a mission pipeline")
+    sp.add_argument("mission_id")
+    sp.add_argument("--art", action="store_true",
+                    help="add the Art layer AND the Light layer")
+    sp.add_argument("--unlit", action="store_true",
+                    help="with --art: drop the Light layer (Lux)")
+    sp.add_argument("--gameplay", action="store_true", help="add the Gameplay-suggestion layer")
+    sp.add_argument("--target", default=None,
+                    choices=["functional-lock", "dispatch-handoff", "presentation"],
+                    help="legacy alias for a layer set; --art/--gameplay take precedence")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_plan)
+
+    sp = sub.add_parser("run", help="run a mission pipeline (graybox base + optional layers)")
+    sp.add_argument("mission_id")
+    sp.add_argument("--art", action="store_true",
+                    help="add the Art layer (Zoo swaps + props/dressing + light "
+                         "fixtures, Pixelcoat, Patina) AND the Light layer (Lux)")
+    sp.add_argument("--unlit", action="store_true",
+                    help="with --art: drop the Light layer. The level is themed "
+                         "and dressed, its light fixtures are baked and gated, and "
+                         "no Lux render is applied -- for a team bringing its own.")
+    sp.add_argument("--gameplay", action="store_true",
+                    help="add the Gameplay-suggestion layer (Dispatch objective/nav/spawn hints)")
+    sp.add_argument("--target", default=None,
+                    choices=["functional-lock", "dispatch-handoff", "presentation"],
+                    help="legacy alias for a layer set; --art/--gameplay take precedence")
+    sp.add_argument("--force", action="store_true",
+                    help="forget every planned job's cached answer before "
+                         "running, so each stage re-runs its tool once. "
+                         "Without it, unchanged stages cache-hit and replay "
+                         "their findings -- which is right, and is also why "
+                         "editing a tool that is not in a stage's fingerprint "
+                         "used to serve the old package and say 'cache'")
+    sp.set_defaults(func=cmd_run)
+
+    sp = sub.add_parser("status", help="show mission/job status")
+    sp.add_argument("mission_id", nargs="?")
+    sp.set_defaults(func=cmd_status)
+
+    sp = sub.add_parser("validate", help="show normalized validation for a mission")
+    sp.add_argument("mission_id")
+    sp.add_argument("--json", action="store_true",
+                    help="machine output: the aggregate plus every finding")
+    sp.set_defaults(func=cmd_validate)
+
+    sp = sub.add_parser("approve", help="approve a gate")
+    sp.add_argument("mission_id")
+    sp.add_argument("gate")
+    sp.add_argument("--note", default="")
+    sp.add_argument("--by", default="cli-user")
+    sp.add_argument("--candidate", default="", help="candidate id for candidate_selected")
+    sp.set_defaults(func=cmd_approve)
+
+    sp = sub.add_parser("reject", help="reject a gate")
+    sp.add_argument("mission_id")
+    sp.add_argument("gate")
+    sp.add_argument("--reason", default="")
+    sp.add_argument("--by", default="cli-user")
+    sp.set_defaults(func=cmd_reject)
+
+    sp = sub.add_parser("walk", help="build a dev-only first-person walk preview "
+                                     "that wraps the portable export (the "
+                                     "preview project itself is never exported)")
+    sp.add_argument("mission_id")
+    sp.add_argument("--open", action="store_true",
+                    help="launch Godot editor on the preview project")
+    sp.add_argument("--play", action="store_true",
+                    help="launch Godot and run the preview (walk immediately)")
+    sp.add_argument("--no-bot", action="store_true",
+                    help="skip the headless traversal+visual self-check")
+    sp.add_argument("--no-shots", action="store_true",
+                    help="run the traversal check but skip the visual pass "
+                         "(the visual pass needs a display)")
+    sp.set_defaults(func=cmd_walk)
+
+    sp = sub.add_parser("export", help="export a portable mission package")
+    sp.add_argument("mission_id")
+    sp.add_argument("--mode", default="portable-godot",
+                    choices=["portable-godot", "art-unlit", "pure-shell",
+                             "source-authoring"],
+                    help="art-unlit: the full art pass with no Lux result, "
+                         "for a team bringing its own lighting")
+    sp.add_argument("--format", default="folder", choices=["folder", "zip"])
+    sp.add_argument("--include-walk", action="store_true",
+                    help="localize walk scenes (runtime scripts bundled) instead of stripping them")
+    # ON BY DEFAULT since 0.144.0 (the walker, 2026-10-05). `--bake-lights`
+    # still parses, for the commands already written with it; a bake that
+    # cannot run ships the package unbaked and says why in light_bake.json.
+    sp.add_argument("--bake-lights", action=argparse.BooleanOptionalAction, default=True,
+                    help="bake the steady lights into a lightmap -- the default. It needs "
+                         "a GPU and a display, opens the Godot editor for about a minute, "
+                         "and ships the package unbaked when it cannot; "
+                         "--no-bake-lights skips it")
+    sp.set_defaults(func=cmd_export)
+
+    sp = sub.add_parser("portability-test", help="clean-project portability test")
+    sp.add_argument("mission_id")
+    sp.add_argument("--mode", default="portable-godot",
+                    choices=["portable-godot", "art-unlit", "pure-shell",
+                             "source-authoring"])
+    sp.set_defaults(func=cmd_portability_test)
+
+    sp = sub.add_parser("team-sign", help="record one approver's sign-off on a gate")
+    sp.add_argument("mission_id")
+    sp.add_argument("gate")
+    sp.add_argument("--by", required=True)
+    sp.add_argument("--note", default="")
+    sp.set_defaults(func=cmd_team_sign)
+
+    sp = sub.add_parser("team-status", help="show a gate's quorum status")
+    sp.add_argument("mission_id")
+    sp.add_argument("gate")
+    sp.set_defaults(func=cmd_team_status)
+
+    sp = sub.add_parser("accept-exception", help="accept a non-blocking issue with a reason")
+    sp.add_argument("mission_id")
+    sp.add_argument("--issue", required=True, help="issue code or id")
+    sp.add_argument("--by", required=True)
+    sp.add_argument("--reason", required=True)
+    sp.add_argument("--expires", default=None, help="ISO expiration date")
+    sp.add_argument("--ticket", default=None, help="follow-up ticket id")
+    sp.set_defaults(func=cmd_accept_exception)
+
+    sp = sub.add_parser("review", help="visual before/after comparison of presentation states")
+    sp.add_argument("mission_id")
+    sp.set_defaults(func=cmd_review)
+
+    sp = sub.add_parser("verify-manifest",
+                        help="check every tool's VERSION against the factory manifest pin set")
+    sp.add_argument("--factory", default=".",
+                    help="factory root containing factory.manifest.json (default: cwd)")
+    sp.add_argument("--json", action="store_true")
+    sp.add_argument("--strict", action="store_true",
+                    help="treat DRIFT as a config error (exit 3)")
+    sp.set_defaults(func=cmd_verify_manifest)
+
+    sp = sub.add_parser("verify-contracts",
+                        help="check installed tool versions against the certified baseline")
+    sp.add_argument("--strict", action="store_true",
+                    help="treat drift/unknown as a hard failure (for CI gates)")
+    sp.add_argument("--json", action="store_true")
+    sp.set_defaults(func=cmd_verify_contracts)
+
+    sp = sub.add_parser("certify",
+                        help="record installed tool versions as certified in tools.lock.json")
+    sp.set_defaults(func=cmd_certify)
+
+    sp = sub.add_parser("ci-init", help="write CI templates into the workspace/repo")
+    sp.add_argument("--dest", default=None, help="destination root (default: workspace)")
+    sp.set_defaults(func=cmd_ci_init)
+
+    sp = sub.add_parser("release", help="tag a batch release in git (local only, no push)")
+    sp.add_argument("batch_id")
+    sp.add_argument("--tag", required=True)
+    sp.add_argument("--message", default="")
+    sp.add_argument("--allow-dirty", action="store_true")
+    sp.set_defaults(func=cmd_release)
+
+    sp = sub.add_parser("cache", help="cache maintenance")
+    sp.add_argument("action", choices=["inspect", "prune", "forget"])
+    sp.add_argument("job_id", nargs="?",
+                    help="for 'forget': the job whose cached answer to drop, "
+                         "read from its own fingerprint receipt")
+    sp.set_defaults(func=cmd_cache)
+
+    sp = sub.add_parser("diagnostics", help="show a job diagnostic bundle")
+    sp.add_argument("job_id")
+    sp.set_defaults(func=cmd_diagnostics)
+
+    return p
+
+
+def main(argv: list[str] | None = None) -> int:
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        return int(args.func(args))
+    except KeyboardInterrupt:
+        print("cancelled", file=sys.stderr)
+        return EXIT_CANCELLED
+    except Exception as exc:  # noqa: BLE001 - top-level guard maps to exit codes
+        from packages.core.errors import (
+            ApprovalBlockedError, ConfigurationError, LevelFactoryError,
+        )
+        if isinstance(exc, ApprovalBlockedError):
+            print(f"blocked: {exc}", file=sys.stderr)
+            return EXIT_BLOCKED
+        if isinstance(exc, ConfigurationError):
+            print(f"configuration error: {exc}", file=sys.stderr)
+            return EXIT_CONFIG
+        if isinstance(exc, LevelFactoryError):
+            print(f"error: {exc}", file=sys.stderr)
+            return EXIT_CONFIG
+        print(f"internal error: {exc}", file=sys.stderr)
+        return EXIT_INTERNAL
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

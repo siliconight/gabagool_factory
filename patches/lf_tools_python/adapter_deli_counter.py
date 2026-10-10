@@ -1,0 +1,309 @@
+"""Deli Counter adapter (TDD 24.1) — bound to the REAL Deli Counter 0.74.2 CLI.
+
+Real invocation is TWO steps (verified against the uploaded repo):
+
+    python new_level.py --preset <preset> --name <level> --mode <mode> [--floors N]
+                        [--basement|--no-basement] [--vertex-nuance]
+                        [--rarity <tier>] --force        # -> specs/<level>.json (headless)
+
+    python build.py specs/<level>.json --out <work>/shell.glb --blender <exe>
+        # -> <work>/shell.glb + shell.{gameplay,slots,lights,manifest}.json (BLENDER)
+
+``new_level`` writes its spec into the repo's ``specs/`` dir (path is relative to
+the script, not cwd), so each job uses a unique level name to avoid collisions.
+``new_level`` takes ``--seed``, which overrides the recipe's authored seed (every
+preset pins one — casino_tower 1989, bank 1999 — so without the flag every
+candidate of a mission gets the same building). It varies seeded cover and the
+markers derived from it; it does NOT vary the shell, rooms, partitions, stairs
+or ladders, so it is only part of the candidate variety roadmap item 69 asks
+for. The archetype maps to one of DC's named presets.
+"""
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Iterable, Mapping, Sequence
+
+from packages.adapters.sdk import BaseAdapter, PlannedCommand, ToolProbe
+from packages.core.hashing import hash_file
+from packages.tools.interpreter import tools_python
+
+# DC intel codes that must block (HARD errors in the stair/ladder specs).
+_DC_HARD_CODES = {
+    "LADDER_NO_ROLE", "ROOF_HATCH_BLOCKED", "LOCKED_EGRESS_DOOR",
+    "EXTERIOR_TOWER_NO_DOOR", "VEHICLE_CONFLICT",
+    "DROP_LADDER_NO_DEPLOYMENT_CLEARANCE", "LADDER_TO_NOWHERE",
+    "STAIR_VOLUME_INVADED",
+}
+
+# Real DC presets (new_level.py --list; the keys of `presets.REGISTRY`).
+#
+# A COPY OF ANOTHER REPO'S LIST, AND IT DRIFTED. Deli Counter added `twin`
+# and then `strip_club` (0.133.0) and this set learned neither: cold runs
+# 9055 and 9056 were refused at graybox with "brief archetype 'strip_club'
+# matches no DC preset" while `new_level.py --list` printed it. The keyword
+# fallback below searches THIS set, so it could not rescue a name the set did
+# not hold -- the claim that it would was made without re-reading it.
+# `tests/unit/test_dc_preset_registry.py` now compares this set with the
+# registry whenever Deli Counter sits beside this repo.
+_VALID_PRESETS = {
+    "auto_shop", "bank", "card_shop", "casino_tower", "compound",
+    "convenience_store",
+    "corner_deli", "empty_rowhome", "facade_industrial", "facade_rowhome",
+    "facade_storefront", "gas_station", "hospital", "office",
+    "parking_garage", "pawn_shop", "police_station", "rowhome",
+    "strip_club", "suburban_safehouse", "twin", "video_store", "warehouse",
+}
+# LF archetype -> DC preset aliases (extend as briefs introduce new archetypes).
+_ARCHETYPE_ALIASES = {
+    "urban_bank": "bank", "bank_branch": "bank",
+    "corporate_office": "office", "office_tower": "office",
+    "industrial_warehouse": "warehouse", "storage_warehouse": "warehouse",
+    # `convenience_store` is a preset of its own since Deli Counter 0.188.0
+    # (the Flappahs store, the station's shop without the forecourt); until
+    # then it aliased here to the forecourt `gas_station`.
+    "highway_stop": "gas_station",
+    # The walker's three kinds (0.146.0), in the words a brief reaches for.
+    # Each was refused, so the level never reached the recipe. Left refused
+    # on purpose: `corner_store` (in Philadelphia as often the deli as the
+    # Flappahs store), `nightclub` (not a strip club, and no dance-club
+    # recipe), `truck_stop` (a diesel plaza, not the corner station) --
+    # `test_dc_preset_registry.py` records each.
+    "gas": "gas_station", "fuel_station": "gas_station",
+    "filling_station": "gas_station", "service_station": "gas_station",
+    "petrol_station": "gas_station",
+    "convenience": "convenience_store", "c_store": "convenience_store",
+    "mini_mart": "convenience_store", "minimart": "convenience_store",
+    "gentlemens_club": "strip_club", "go_go_bar": "strip_club",
+    "gogo_bar": "strip_club", "topless_bar": "strip_club",
+    "strip_joint": "strip_club",
+    "precinct": "police_station", "fortified_compound": "compound",
+    "rowhouse": "rowhome", "safehouse": "suburban_safehouse",
+    # The card shop (Deli Counter 0.139.0). A brief is as likely to call it
+    # a hobby shop or a comic shop as a card shop, and `_preset_for`'s
+    # keyword fallback only fires when the archetype literally CONTAINS a
+    # preset's name -- "hobby_shop" contains none of them, so without these
+    # rows it raises. `trading_card_shop` resolves on the leading-qualifier
+    # rule already and is here anyway, because a reader looking for it
+    # should find it beside the others rather than have to derive it.
+    "trading_card_shop": "card_shop", "hobby_shop": "card_shop",
+    "comic_shop": "card_shop", "collectibles_shop": "card_shop",
+    # The video store (Deli Counter 0.171.0). `video_store_*` resolves on
+    # the keyword rule; these contain no preset's name and would raise.
+    "video_rental": "video_store", "video_rental_store": "video_store",
+    "vhs_store": "video_store", "vhs_rental": "video_store",
+    "movie_rental": "video_store",
+    # THE CORNER DELI (0.150.0). Refused from 0.146.0 while the delis lacked
+    # the store's detail; Deli Counter 0.199.0-0.201.0 stop the case at its
+    # wall, build it as Zoo 1.81.0's `deli_case` and hang a beer sign and
+    # posters in the window, generated and drawn alike. `stop_n_go` is the
+    # library's Flappahs store by another name (0.147.0 dresses it in
+    # FLAPPAHS). `corner_store` stays refused, above: as often the deli as
+    # the Flappahs store.
+    "deli": "corner_deli", "delicatessen": "corner_deli",
+    "night_deli": "corner_deli",
+    "stop_n_go": "convenience_store",
+}
+
+
+class UnknownArchetype(ValueError):
+    """A brief named an archetype no DC preset answers to."""
+
+
+def _preset_for(archetype: str) -> str:
+    """Resolve a brief's archetype to a real DC preset, or refuse.
+
+    NO SILENT FALLBACK. This used to end in ``return "bank"``, and the cost
+    was measured: every mission in the lot demo carries
+    ``archetype: "mixed_block"`` -- not a preset, not an alias, no keyword
+    match -- so all of them silently built BANKS. Nobody knew, because a
+    fallback that reports nothing is indistinguishable from a match. It only
+    surfaced because `bank`'s vault sits at a hardcoded corner offset that
+    collides with a stairwell, and a player walked into it.
+
+    A wrong-but-plausible building is the worst failure this adapter can
+    produce: the pipeline succeeds, every gate passes, and the deliverable is
+    the wrong archetype. Raising is the whole point -- the fix is one line in
+    ``_ARCHETYPE_ALIASES`` or one word in the brief, and both are cheap. A
+    silent guess is not.
+    """
+    a = (archetype or "").strip().lower()
+    if a in _VALID_PRESETS:
+        return a
+    if a in _ARCHETYPE_ALIASES:
+        return _ARCHETYPE_ALIASES[a]
+    # Strip a leading qualifier (urban_/downtown_/...), then re-check.
+    if "_" in a and a.split("_", 1)[1] in _VALID_PRESETS:
+        return a.split("_", 1)[1]
+    # Keyword fallback -- still a guess, but a justified one: the archetype
+    # literally contains a preset's name.
+    for key in sorted(_VALID_PRESETS):
+        if key in a:
+            return key
+    raise UnknownArchetype(
+        f"brief archetype {archetype!r} matches no DC preset. "
+        f"Add it to _ARCHETYPE_ALIASES or use one of: "
+        f"{', '.join(sorted(_VALID_PRESETS))}. "
+        f"(aliases: {', '.join(sorted(_ARCHETYPE_ALIASES))})")
+
+
+def _preset_or_raw(job_spec) -> str:
+    """The resolved preset, or the raw archetype when it will not resolve.
+
+    For HASHING only -- see `fingerprint_inputs`. Never use this to decide what
+    to build.
+    """
+    raw = str(job_spec.get("archetype", ""))
+    try:
+        return _preset_for(raw)
+    except UnknownArchetype:
+        return f"<unresolved:{raw}>"
+
+
+class DeliCounterAdapter(BaseAdapter):
+    adapter_id = "deli_counter"
+    adapter_version = "0.3.0"
+    capabilities = frozenset(
+        {"generate_spec", "generate_building", "validate_building",
+         "combat_audit", "slot_contract", "deterministic_build"}
+    )
+    output_contract_version = "deli.gameplay.1.21.0"
+
+    def _level_name(self, job_spec) -> str:
+        # Unique per job so parallel builds don't clash in the repo's specs/.
+        base = str(job_spec.get("level_name") or "lf_shell")
+        seed = job_spec.get("seed")
+        return f"{base}_{seed}" if seed is not None else base
+
+    def probe(self, installation: Mapping[str, str]) -> ToolProbe:
+        base = super().probe(installation)
+        if not base.available:
+            return base
+        repo = Path(str(installation["repository"]))
+        py = tools_python(installation)
+        contract = self.run_contract_probe([py, "-m", "deli_counter", "contract"], cwd=repo)
+        caps = base.capabilities
+        if contract and isinstance(contract.get("capabilities"), list):
+            caps = frozenset(contract["capabilities"])
+        return ToolProbe(
+            available=True,
+            tool_version=(contract or {}).get("version",
+                          (contract or {}).get("tool_version", base.tool_version)),
+            repository_commit=base.repository_commit,
+            executable_versions=base.executable_versions,
+            capabilities=caps,
+        )
+
+    def validate_configuration(self, job_spec, context) -> Sequence[str]:
+        problems: list[str] = []
+        if not context.get("blender_executable"):
+            problems.append("blender_executable is not configured (Deli build needs Blender)")
+        return problems
+
+    def fingerprint_inputs(self, job_spec, context) -> Mapping[str, object]:
+        # The seed IS part of the build. It was excluded here on the claim that
+        # "DC is deterministic per preset; the seed drives Lot's site variation
+        # only", and that claim was false: `presets.make` injects it before the
+        # seed-consuming passes, and `level_design.seed_cover` rolls each room's
+        # cover on `f"{seed}:{room_id}:seed_cover"`. Measured across seven
+        # presets, two seeds each, level name held constant — 8 of 14 cover
+        # volumes move on casino_tower, 8 of 11 on bank, 7 of 13 on warehouse,
+        # 8 of 18 on hospital, 2 of 6 on pawn_shop, and NOTHING on office or
+        # parking_garage. Stairs and ladders do not move on any of them.
+        #
+        # It must be fingerprinted or the fix is inert: five candidates that
+        # differ only by seed would hash identically and cache-hit to one
+        # build, which is the state this adapter was already in.
+        return {
+            "seed": job_spec.get("seed"),
+            # Fingerprinting must not VALIDATE. A hash only has to be stable
+            # and distinguishing, and this runs on specs that legitimately
+            # carry no archetype at all (the adapter-contract suite fingerprints
+            # a minimal spec). So an unresolvable archetype hashes as its raw
+            # string -- distinct configs still get distinct fingerprints -- and
+            # `plan_commands` is where naming a preset that does not exist
+            # becomes an error, because that is where a preset is actually used.
+            "preset": _preset_or_raw(job_spec),
+            "mode": job_spec.get("mode", "heist"),
+            "floors": job_spec.get("floors"),
+            "basement": job_spec.get("basement"),
+            "vertex_nuance": bool(job_spec.get("vertex_nuance")),
+            "rarity": job_spec.get("rarity"),
+        }
+
+    def plan_commands(self, job_spec, context) -> Sequence[PlannedCommand]:
+        repo = Path(str(context["repository"]))
+        work = Path(str(context["work_dir"]))
+        py = context.get("python_executable") or "python"
+        blender = str(context.get("blender_executable") or "blender")
+        preset = _preset_for(str(job_spec.get("archetype", "")))
+        mode = str(job_spec.get("mode", "heist"))
+        level = self._level_name(job_spec)
+        spec_path = repo / "specs" / f"{level}.json"
+        out_glb = work / "shell.glb"
+
+        # Step 1: generate the spec (headless).
+        new_args = [str(repo / "new_level.py"), "--preset", preset,
+                    "--name", level, "--mode", mode, "--force"]
+        if job_spec.get("floors") is not None:
+            new_args += ["--floors", str(job_spec["floors"])]
+        if job_spec.get("basement") is True:
+            new_args.append("--basement")
+        elif job_spec.get("basement") is False:
+            new_args.append("--no-basement")
+        if job_spec.get("vertex_nuance"):
+            new_args.append("--vertex-nuance")
+        if job_spec.get("rarity"):
+            new_args += ["--rarity", str(job_spec["rarity"])]
+        if job_spec.get("seed") is not None:
+            new_args += ["--seed", str(int(job_spec["seed"]))]
+
+        # Step 2: build the shell into the job's work dir (Blender).
+        build_args = [str(repo / "build.py"), str(spec_path),
+                      "--out", str(out_glb), "--blender", blender]
+
+        # The output-contract check runs after BOTH commands, against work_dir,
+        # so the final build outputs live on the first command's declared set.
+        return [
+            PlannedCommand(
+                executable=Path(str(py)), arguments=tuple(new_args),
+                working_directory=repo,
+                expected_outputs=("shell.glb", "shell.gameplay.json",
+                                  "shell.slots.json", "shell.lights.json"),
+                resource_class="python_cpu", timeout_seconds=300,
+            ),
+            PlannedCommand(
+                executable=Path(str(py)), arguments=tuple(build_args),
+                working_directory=repo,
+                expected_outputs=(),
+                resource_class="blender", timeout_seconds=900,
+            ),
+        ]
+
+    def collect_outputs(self, job_spec, context) -> Iterable[Path]:
+        work = Path(str(context["work_dir"]))
+        wanted = (".glb", ".json", ".svg", ".png")
+        return sorted(p for p in work.rglob("*") if p.is_file() and p.suffix in wanted)
+
+    def normalize_validation(self, output_paths) -> Sequence[Mapping[str, object]]:
+        import json
+        issues: list[dict] = []
+        for p in output_paths:
+            name = p.name.lower()
+            if not (name.endswith("gameplay.json") or name.endswith("audit.json")):
+                continue
+            try:
+                data = json.loads(p.read_text(encoding="utf-8"))
+            except (OSError, json.JSONDecodeError):
+                continue
+            intel = data.get("intel", []) if isinstance(data, dict) else []
+            for raw in intel:
+                code = raw.get("code", "UNSPECIFIED")
+                sev = raw.get("severity") or ("blocker" if code in _DC_HARD_CODES else "moderate")
+                issues.append({
+                    "code": code, "severity": sev,
+                    "category": raw.get("category", "geometry"),
+                    "message": raw.get("message", ""),
+                    "blocking": code in _DC_HARD_CODES or sev == "blocker",
+                    "raw_source_path": str(p),
+                })
+        return issues

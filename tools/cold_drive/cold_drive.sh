@@ -16,7 +16,9 @@
 # somebody ends the run on purpose, and the count is read after that.
 set -u
 N="$1"; PREV="$2"
-cd /c/Projects/gabagool_studios/gabagool_factory
+# The factory is two directories above this script, wherever it was unpacked
+# (roadmap 202). It was written in, as /c/Projects/....
+cd "$(dirname "$0")/../.." || exit 2
 WS=workspaces/cold-$N-ws
 M="${3:-club_block_014}"
 SEED="${4:-9181}"
@@ -25,8 +27,14 @@ die() { echo "STOPPED: $1"; exit 2; }
 step selftest; python tools/cold_run.py --selftest 2>&1 | tail -1 || die selftest
 step begin; python tools/cold_run.py --begin cold_$N 2>&1 | tail -2
 [ -f _runs/cold/ACTIVE ] || die "no ACTIVE after begin"
+# `init` fills tools.local.json from factory.local.json, which `level-factory
+# setup` writes once per machine (Level Factory 0.167.0). It used to be copied
+# from run PREV's workspace, and cold run 9194 stopped when that workspace had
+# been retired. The doctor stops the run here if a tool cannot be reached.
 python -m level_factory init "$WS" --name "Cold run $N" >/dev/null 2>&1 || die init
-cp workspaces/cold-$PREV-ws/tools.local.json "$WS/tools.local.json" || die tools.local
+python -m level_factory -C "$WS" doctor > "$WS/doctor.txt" 2>&1 || { tail -5 "$WS/doctor.txt"; die "doctor (run level-factory setup)"; }
+# NOT_CONFIGURED passes the doctor (it is information there) and fails a run later.
+! grep -q "NOT_CONFIGURED" "$WS/doctor.txt" || { grep "NOT_CONFIGURED" "$WS/doctor.txt"; die "a tool is not configured (run level-factory setup)"; }
 step batch; python -m level_factory -C "$WS" batch create docs/cold_runs/cold_$N/batch.json 2>&1 | tail -1
 step plan; python -m level_factory -C "$WS" plan $M >/dev/null 2>&1 || die plan
 step shell; python -m level_factory -C "$WS" run $M 2>&1 | grep -E "candidates:|blockers open" | tee /tmp/cold_leg.txt; for s_ in "$WS"/.level_factory/jobs/$M.lot_assemble.candidate.seed_*; do echo "  $(basename $s_): $(ls $s_/*/out/buildings/*.glb 2>/dev/null | xargs -n1 basename | tr "

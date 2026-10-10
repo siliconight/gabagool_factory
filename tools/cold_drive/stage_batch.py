@@ -9,7 +9,8 @@ import pathlib
 import shutil
 import sys
 
-F = pathlib.Path("C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs")
+# the factory is two directories above this file, wherever it was unpacked (roadmap 202)
+F = pathlib.Path(__file__).resolve().parents[2] / "docs" / "cold_runs"
 n, prev, desc = sys.argv[1], sys.argv[2], sys.argv[3]
 src, dst = F / f"cold_{prev}", F / f"cold_{n}"
 assert not (dst / "batch.json").exists(), f"{dst} already staged"
