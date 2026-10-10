@@ -1,0 +1,57 @@
+
+
+## Every surface wearing one of Zoo's signal lens materials gets the lens
+## clock. Its material is REPLACED by the lit shader, carrying the flat
+## material's own numbers: its colour, its lamp and that lamp's energy, its
+## roughness. A colour with no window, or a lens exported with no emission,
+## is left as Zoo made it and said -- never guessed at.
+##
+## IDEMPOTENT on a re-import: a surface already wearing the shader is left.
+func _signal_lenses(n: Node) -> int:
+	var count: int = 0
+	var mi: MeshInstance3D = n as MeshInstance3D
+	if mi != null and mi.mesh != null:
+		for i in range(mi.mesh.get_surface_count()):
+			var mat: Material = mi.mesh.surface_get_material(i)
+			if mat == null or not String(mat.resource_name).begins_with(SIGNAL_LENS_PREFIX):
+				continue
+			var bm: BaseMaterial3D = mat as BaseMaterial3D
+			if bm == null:
+				continue                      # already the shader: a re-import
+			var colour: String = String(bm.resource_name).substr(SIGNAL_LENS_PREFIX.length())
+			if not SIGNAL_WINDOWS_S.has(colour):
+				push_warning("[worldskin] %s names no signal window (the windows are %s); left alone"
+					% [bm.resource_name, ", ".join(PackedStringArray(SIGNAL_WINDOWS_S.keys()))])
+				continue
+			if not bm.emission_enabled:
+				push_warning("[worldskin] %s has no emission to cycle; left alone" % [bm.resource_name])
+				continue
+			mi.mesh.surface_set_material(i, _signal_lens_material(bm, colour))
+			count += 1
+	for c in n.get_children():
+		count += _signal_lenses(c)
+	return count
+
+
+func _signal_lens_material(bm: BaseMaterial3D, colour: String) -> ShaderMaterial:
+	var key: int = bm.get_instance_id()
+	if _signal_lens_materials.has(key):
+		return _signal_lens_materials[key] as ShaderMaterial
+	if _signal_lens_shader == null:
+		_signal_lens_shader = Shader.new()
+		_signal_lens_shader.code = SIGNAL_LENS_SHADER
+	var sm: ShaderMaterial = ShaderMaterial.new()
+	sm.shader = _signal_lens_shader
+	sm.resource_name = String(bm.resource_name)
+	var c: Color = bm.albedo_color
+	sm.set_shader_parameter("glass", Color(c.r * SIGNAL_GLASS, c.g * SIGNAL_GLASS, c.b * SIGNAL_GLASS, 1.0))
+	var e: Color = bm.emission
+	sm.set_shader_parameter("lamp", Color(e.r, e.g, e.b, 1.0))
+	sm.set_shader_parameter("energy", bm.emission_energy_multiplier)
+	sm.set_shader_parameter("roughness", bm.roughness)
+	sm.set_shader_parameter("cycle_s", SIGNAL_CYCLE_S)
+	var w: Array = SIGNAL_WINDOWS_S[colour]
+	sm.set_shader_parameter("lit_from_s", float(w[0]))
+	sm.set_shader_parameter("lit_to_s", float(w[1]))
+	_signal_lens_materials[key] = sm
+	return sm

@@ -1,0 +1,13 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+OpenGL API 3.3.0 NVIDIA 616.56 - Compatibility - Using Device: NVIDIA - NVIDIA GeForce RTX 2060
+
+PROBE lens TrafficSignal_Lens_Red surface 0: ShaderMaterial M_TrafficSignal_Lens_Red window 37.0-60.0 s, energy 1.44
+PROBE lens TrafficSignal_Lens_Amber surface 0: ShaderMaterial M_TrafficSignal_Lens_Amber window 33.0-37.0 s, energy 1.57
+PROBE lens TrafficSignal_Lens_Green surface 0: ShaderMaterial M_TrafficSignal_Lens_Green window 0.0-33.0 s, energy 1.31
+ERROR: Node not inside tree. Use look_at_from_position() instead.
+   at: look_at (scene/3d/node_3d.cpp:1253)
+   GDScript backtrace (most recent call first):
+       [0] _initialize (res://probe.gd:43)
+PROBE t 8.0 s (process time 8.00): near head rgb(0.49, 0.60, 0.60) G/R 1.23 | mast head rgb(0.48, 0.59, 0.59) G/R 1.23
+PROBE t 35.0 s (process time 35.00): near head rgb(0.60, 0.48, 0.45) G/R 0.79 | mast head rgb(0.59, 0.47, 0.45) G/R 0.79
+PROBE t 47.0 s (process time 47.00): near head rgb(0.60, 0.48, 0.45) G/R 0.79 | mast head rgb(0.59, 0.47, 0.45) G/R 0.79

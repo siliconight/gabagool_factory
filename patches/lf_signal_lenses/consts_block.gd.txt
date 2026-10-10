@@ -1,0 +1,60 @@
+
+
+## SIGNAL LENSES (0.165.0) -- one lit at a time. The walker, 2026-10-09,
+## walking club_block_014 (roadmap 219, note 9): "stop lights are only bright
+## for 1 color at a time, and if you have 2 here, they need to be the same".
+## Zoo's `traffic_signal` lights all three of its lenses at a low strength on
+## purpose -- "Which lens is LIT is not baked ... A signal whose state is
+## baked is a signal that is wrong half the time" -- and leaves the state to
+## whoever runs the level. This is that: each lens material is lit while
+## mod(TIME, SIGNAL_CYCLE_S) is in its colour's window, and is its own glass,
+## dark, otherwise.
+##
+## ONE CLOCK FOR EVERY SIGNAL: no instance term, where the shutters and the
+## turning parts have one. Lot stands a signal only on a yielding leg's
+## corner, its heads facing the through road -- both directions of it at a
+## crossroads, measured on Lot's tee and cross junctions -- so every head at a
+## junction serves the same traffic and must show the same lens. Two heads on
+## one pole share one lens mesh a colour, and agree whatever the clock. Every
+## junction in a level runs in step, as a coordinated arterial does.
+##
+## A LIT SHADER, not an unshaded one: the lens keeps its lightmap and the
+## street's light, so an unlit lens is glass in that light. The model keeps
+## its bake: the clock is in the material, not in a second UV set, which
+## would leave the whole signal unbaked (`light_bake.py`). The lenses are not
+## Lux's: its binder takes `_Lens`, `_Diffuser` and `_Face` endings, and these
+## end in their colour.
+const SIGNAL_LENS_PREFIX: String = "M_TrafficSignal_Lens_"
+const SIGNAL_CYCLE_S: float = 60.0
+## Each colour's window, seconds into the cycle, tiling it: green 33 s, amber
+## 4 s (MUTCD's yellow change interval is 3 to 6 s), red 23 s. Whole seconds,
+## so the boundary two windows share is one float in both.
+const SIGNAL_WINDOWS_S: Dictionary = {"Green": [0.0, 33.0], "Amber": [33.0, 37.0], "Red": [37.0, 60.0]}
+## Unlit glass: the lens's own colour at this fraction. A coloured lens with
+## no lamp behind it reads as dark glass, not as a painted disc.
+const SIGNAL_GLASS: float = 0.12
+
+const SIGNAL_LENS_SHADER: String = """
+shader_type spatial;
+render_mode cull_back, depth_draw_opaque;
+
+uniform vec4 glass : source_color = vec4(0.1, 0.1, 0.1, 1.0);
+uniform vec4 lamp : source_color = vec4(1.0);
+uniform float energy = 1.0;
+uniform float roughness : hint_range(0.0, 1.0) = 0.35;
+uniform float cycle_s = 60.0;
+uniform float lit_from_s = 0.0;
+uniform float lit_to_s = 0.0;
+
+void fragment() {
+	// one clock for every signal: no instance term (the pass's notes)
+	float t = mod(TIME, cycle_s);
+	float on = step(lit_from_s, t) * (1.0 - step(lit_to_s, t));
+	ALBEDO = glass.rgb;
+	ROUGHNESS = roughness;
+	EMISSION = lamp.rgb * energy * on;
+}
+"""
+
+var _signal_lens_shader: Shader = null
+var _signal_lens_materials: Dictionary = {}
