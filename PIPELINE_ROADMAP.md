@@ -898,9 +898,10 @@ work of adopting this.
 | 217 | **NARROWED** | Levels read by day and by night | 2026-10-09 -- the instruments exist, the street lamps are dark by day, and the sky is in t |
 | 218 | **CLOSED** | The export's import pass checked nothing | 2026-10-09 -- the import pass checks its own work, proven cold. Level Factory 0.163.1 coun |
 | 219 | **NARROWED** | The walk of 2026-10-09: twelve notes | 2026-10-09 -- six of the twelve notes fixed and PROVEN together in cold run 9217, club_blo |
-| 220 | **OPEN** | A bar down the middle of the door sign | 2026-10-09 -- found in cold run 9217's frames and older than them: a thin light vertical b |
+| 220 | **NARROWED** | A bar down the middle of the door sign | 2026-10-09 -- cause found and fixed, not yet run cold. The bar is Patina's conduit run to  |
+| 221 | **OPEN** | Patina's wall covers face into the building | 2026-10-09 -- found while tracing 220: Patina's anchor-derived wall covers face INTO the b |
 
-**220 items: 40 open, 101 closed, 3 retracted, 69 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**221 items: 40 open, 101 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19900,7 +19901,7 @@ Item 198 found the dark rooms at night. This item is the standing check, and wha
 | 11 | filled black garbage bags stacked by the bins | Zoo, Lot | A new species and its placement beside the dumpsters (one a building) and the cans. |
 | 12 | something past the sky's horizon, "to make the level not look like it's literally floating in space" | Lot, Zoo | Nothing stands beyond the perimeter. `docs/reference/PENNSYLVANIA_BACKDROP_WORLDS_GUIDE.md` was filed for this. Goes with 8. |
 
-*STATUS: OPEN 2026-10-09 -- found in cold run 9217's frames and older than them: a thin light vertical bar on the lit door sign at its centre, from about mid-text to the bottom rule, in 9213 (Zoo 1.89.0) and 9217 (1.90.0) alike. Not the texture, not a thing standing off the face, not Lux's preview quad. Cause not established.*
+*STATUS: NARROWED 2026-10-09 -- cause found and fixed, not yet run cold. The bar is Patina's conduit run to the sign: a 0.05 x 0.04 x 0.27 m box on the sign's face plane, from the door head (2.28 m) to the face's middle (2.55 m). `anchors.conduit_targets` took Deli Counter's sign anchor -- the face itself, `_SIGN_OUT` 0.2 m proud of the wall -- as a fixture to run conduit to, and `openings.apply` started the run above the door the sign hangs over. Found by hiding, one at a time in the walked level, each of the 19 meshes within 2 m of the bar: `b0/Dressing/CoverN_concrete` alone took it from luma 243 to 90, against the face's 122. All three signed buildings of 9217 ordered one. Patina 0.29.2 stops running conduit to a sign (`docs/findings/sign_bar/`). Owed: a cold run framing those doors. Item 221 filed on the way.*
 
 **220. A bar down the middle of the door sign.** `docs/cold_runs/cold_9217/sign_bar_9213_9217.png`: strip_club_a01's door sign, framed close at midnight in both runs, carries a thin, light vertical bar at its centre. It runs from about the text's middle to the bottom rule, over 1.89.0's pixel lettering and 1.90.0's Blue Highway alike, so no release in 9217 made it.
 
@@ -19910,3 +19911,44 @@ What it is not, measured:
 - **Lux's emissive preview quad:** both paths turn it off (`lux_fixture_spawner.gd` 106, `lux_light_loader.gd` 1396).
 
 Next: frame `sign_box` alone, in a probe the drape's way (`docs/findings/den_drapes/probe.gd`). A bar there is Zoo's; none there is the level's -- the bake, or the rig standing 0.29 m off the face.
+
+**Found, 2026-10-09** (`docs/findings/sign_bar/`). The probe above was not needed.
+- **`light_breakdown` with the bake switched off left the bar standing,** dark against the emissive face. So it was a lit object, not the face's texture or emission.
+- **`hide_and_seek.gd` hid each drawn thing within 2 m of the bar,** in the walked level, and measured the bar's strip of screen against the face beside it:
+  - one of 19 moved it, `b0/Dressing/CoverN_concrete_delco_1997`: 243 to 90, against the face's 122;
+  - hiding the sign's own face left the bar standing (242.3).
+- **That merged mesh holds a box** at building-local x -5.025..-4.975, y 2.28..2.55, z 12.33..12.37. The face is the plane z = 12.35, centred at x = -5.0.
+- **The box is Patina's order** `conduit_run` at spec (-5.0, -12.35, 2.415), size 0.27, `clipped_by` `ext_0_S_open0`. The sign's anchor stands at (-5.0, -12.35, 2.55).
+- **airport_terminal_a02 and funeral_home_a03 ordered the same stub.** Deli Counter's `_storefront_sign` hangs every sign it derives over a door.
+
+Corrections to the list above, kept beside it:
+- **"Geometry standing off the face"** read the parallax right: the bar keeps its place between the letters. But it straddles the face plane, 2 cm either way. So it is geometry ON the plane, not the face's own.
+- **An AABB census of the sign's surroundings DID list the mesh:** `CoverN_concrete`'s box reached z 14.37, in front of the face at 14.35. It was set aside because a merged mesh's box spans its building, and its name says north while the sign faces south. A census can say a merged mesh reaches a point; it cannot say which part does.
+
+**The fix is Patina 0.29.2.** `conduit_targets` runs conduit to wall packs only. A cabinet sign is fed through the wall behind it. Its test fails on 0.29.1, and a kept instrument test rebuilds 0.29.1's order through the opening pass: the 0.27 m stub on the face plane.
+
+*STATUS: OPEN 2026-10-09 -- found while tracing 220: Patina's anchor-derived wall covers face INTO the building, so Zoo merges base courses and conduits with the opposite face's covers. On 9217's strip_club_a01 each concrete merge group spans two faces (CoverN 2,544 north-face vertices and 480 south-face), and the painted-metal groups do not. 22 of the club's 51 base courses stand on a wall's centre line, buried. Not priced; cause not verified.*
+
+**221. Patina's wall covers face into the building.** Found in cold run 9217's orders for strip_club_a01 while tracing 220 (`docs/findings/sign_bar/README.md`). In the spec frame:
+- **The anchor-derived covers face in.** The south door's conduit carries normal +y, and all 51 base courses carry inward normals, for example +x on the west face.
+- **The slot-derived ones face out,** as they should: the gutters and downspouts from `framing.py`.
+
+**What it costs: the per-side merge stops culling by side.** Zoo's `dressing.cover_side` puts a wall-facing cover on the side its normal leaves, so base courses and conduits join the opposite face's group. Roadmap 180 merged covers per side because a side enters and leaves view together. The club's dressing GLB, vertices by the face they lie on:
+
+| mesh | its own face | the opposite face |
+|---|---|---|
+| CoverN_concrete | N 2,544 | S 480 |
+| CoverS_concrete | S 1,344 | N 1,008 |
+| CoverE_concrete | E 912 | W 672 |
+| CoverW_concrete | W 1,008 | E 432 |
+
+The four painted-metal meshes each lie on their own face only. Not priced: what a building in view pays for its back's concrete has not been measured.
+
+**Two smaller things in the same orders:**
+- **22 of the 51 base courses stand on a wall's centre line,** buried in a 0.3 m wall: 9 on the south face at y -12.000, 7 west, 6 north. The other 29 stand on the outer face.
+- **The wall packs' conduits stand at the pack,** 0.15 m proud of the wall (Deli Counter's `_WALL_PACK_OUT`). Each is a 0.17 m stub from the door head to the pack's housing, off the wall. 220's rule was the same, for the sign.
+
+**The likely cause, NOT verified.** For a Y-up shell, `anchors._up_to_z` permutes positions (x, y, z) to (x, z, y). That swap is a reflection. `_exterior_wall_faces` takes each triangle's normal from a cross product of the permuted positions, so the mirrored winding would invert every normal it derives. The slot path never takes a cross product. Next:
+1. print one segment's normal against its wall's known facing, before believing this;
+2. then fix the normal once, where it is derived, and put the wall packs' conduits on the wall;
+3. then price the merge before and after, at stations that face one side of a building.
