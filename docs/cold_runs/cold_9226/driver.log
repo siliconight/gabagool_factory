@@ -1,0 +1,57 @@
+== selftest
+  a tool source file, a shipped spec, or another repo
+== begin
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9226\journal.md
+== batch
+created batch 'cold_9226' with 1 mission(s): warehouse_yard_001
+== plan
+== shell
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 57)
+  warehouse_yard_001.lot_assemble.candidate.seed_9004: gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb pawn_shop_a02.glb warehouse_a02.glb 
+  warehouse_yard_001.lot_assemble.candidate.seed_9105: gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb twin_a01.glb warehouse_a01.glb 
+  warehouse_yard_001.lot_assemble.candidate.seed_9206: casino_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb warehouse_a01.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9004: 1 major, route completion 0.92, out for nothing
+  seed 9105: 0 major, route completion 1.00, out for nothing
+  seed 9206: 1 major, route completion 0.80, out for nothing
+  picked seed_9105 on the walktest and Laser Tag's route findings
+== approvals
+== art
+Structural checks passed  (blockers open: 0, total findings: 80)
+  exit 1
+== export
+[export] light bake: 318 model(s) and 996 primitive mesh(es) lightmapped, 2 kept dynamic, 1 spawned set dynamic; 47 steady rig(s) baked, 14 failing and 0 cycling left live; 56 room fill(s); 1937 users, 70.0 s in the editor
+exported warehouse_yard_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9226-ws\.level_factory\exports\LF_warehouse_yard_001.portable-godot
+  exit 0
+== findings
+findings 60 -> 80
+   LOT_COVER_PLACED 1 -> 2
+   LOT_PACING_OUTSIDE_TARGET 0 -> 4
+   LOT_PATH_END_OFF_DOOR 5 -> 8
+   LOT_ROUTE_COVER_PLACED 1 -> 0
+   LT_LOW_READINESS 1 -> 0
+   LT_MAP_BLIND_MAP 0 -> 1
+   LT_MAP_ENEMY_PATHING_BROKEN 1 -> 0
+   LT_MAP_ENEMY_STUCK 0 -> 2
+   LT_MAP_INSTANT_CONTACT 2 -> 3
+   LT_MAP_NO_CONTACT 1 -> 0
+   LT_MAP_NO_ENGAGEMENT 1 -> 0
+   LT_MAP_OVEREXPOSED_ZONE 2 -> 3
+   LT_MAP_PLAYER_STUCK 3 -> 2
+   LT_MAP_TRAVERSAL 3 -> 0
+   LT_MAP_TRIVIAL_ENCOUNTER 1 -> 0
+   LT_OPEN_SIGHTLINE 2 -> 0
+   LT_ROUTE_NEVER_COMPLETED 1 -> 0
+   LT_STOREY_UNSEEN 2 -> 1
+   PRESENTATION_CIRCULATION 0 -> 1
+   S_GETAWAY_AT_SPAWN 0 -> 4
+   S_ONE_APPROACH 0 -> 4
+   S_RESPONDER_ARC 0 -> 4
+   S_STREET_CROSS 0 -> 8
+== walk
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+DONE

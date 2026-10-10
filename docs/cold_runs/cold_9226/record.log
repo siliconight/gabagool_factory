@@ -1,0 +1,19 @@
+package: workspaces/cold-9226-ws/.level_factory/exports/LF_warehouse_yard_001.portable-godot
+drawn:   workspaces/cold-9226-ws/.level_factory/jobs/warehouse_yard_001.themed_site_assemble/1/out/site.site.drawn.json
+backdrop off in _scratch\price_9226\control\mission.tscn: removed the block loading site_backdrop.tscn (packed_2); 1231 bytes -> 1108
+# road0_a_W: eye at plan (-7.5, -23.6), 45 m inside the edge, looking at (-52.5, -23.6)
+# road0_b_E: eye at plan (7.5, -23.6), 45 m inside the edge, looking at (52.5, -23.6)
+--station road0_a_W:-7.5,1.7,23.63,-52.5,2.2,23.63 --station road0_b_E:7.5,1.7,23.63,52.5,2.2,23.63
+control shots exit 0
+subject shots exit 0
+docs/cold_runs/cold_9226/edge_before_after.png (1600, 2904)
+sheet: docs/cold_runs/cold_9226/edge_before_after.png
+price exit 0
+measured control_1  45 headings  draws mean 305 worst 1006  p95 median 2.62 ms
+measured glow       45 headings  draws mean 333 worst 1043  p95 median 2.53 ms
+measured control_2  45 headings  draws mean 305 worst 1006  p95 median 2.61 ms
+controls' spread, median over 45 headings: p95 0.12 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0            -0.04         0.18
+glow              27.7           15           37            -0.01         0.53
+control_2          0.0            0            0             0.04         0.22
