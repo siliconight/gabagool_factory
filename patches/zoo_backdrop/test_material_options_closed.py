@@ -1,0 +1,240 @@
+"""The material-options invariant, and the metal split by batch.
+
+`dna.resolve_plan` and `dna.resolve_module_plan` both do this, silently:
+
+    if material not in genome["materials"]["options"]:
+        material = genome["materials"]["default"]
+
+A style block naming a kind that is missing from `options` is DISCARDED, and
+the species quietly renders in its default material. Nothing logs. The render
+looks plausible. That is the trap the metal split walks into once per species,
+and it is why these tests sweep every genome rather than only the ones a given
+batch touched.
+"""
+
+import glob
+import json
+import os
+
+import pytest
+
+from zoo_keeper.core import skins
+
+SPECIES_DIR = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "zoo_keeper", "genome", "species")
+
+# Batch 1 (0.44.0) and batch 2 (0.45.0). Split painted/bare because METALLIC
+# is a per-kind lookup: paint is a dielectric, bare metal a conductor.
+PAINTED = ("vending_machine", "simple_car", "box_truck", "cargo_container",
+           "fire_hydrant", "litter_bin", "bus_shelter",
+           "helmet", "queue_stanchion",
+           "chair", "filing_cabinet", "atm",
+           # the 1990s street kit (roadmap 153): painted steel, every one
+           "traffic_signal", "mailbox", "newspaper_box", "parking_meter",
+           "payphone",
+           # the landmark beyond the plate's edge (1.95.0): painted steel
+           "water_tower",
+           # the forecourt clutter (roadmap 153): a bollard is painted steel
+           "bollard",
+           # a furnace cabinet and a water heater's jacket are enamelled
+           # sheet steel (0.84.0)
+           "furnace",
+           # a vault door is painted plate; its wheel, dial and bolts are
+           # bare, a constant in the recipe as the hydrant's chains are
+           # (0.86.0)
+           "vault_door",
+           # a neon sign's backer is a painted sheet-metal box (0.87.0)
+           "neon_sign",
+           # a black dartboard cabinet is painted, and a cigarette machine's
+           # body is enamelled sheet steel; their chrome and brass trim is a
+           # constant in each recipe (0.91.0)
+           "dartboard", "cigarette_machine",
+           # a reach-in cooler's cabinet, frames, shelves and handles are
+           # enamelled steel, their colours in the vertex (1.12.0)
+           "cooler_run",
+           # a snack gondola's frame, shelves and price strips are enamelled
+           # steel, their colours in the vertex (1.13.0)
+           "snack_gondola",
+           # a slush station's stand, machine, taps and pumps are enamelled
+           # steel and plastic, their colours in the vertex (1.15.0)
+           "slush_machine",
+           # a deli case's base, bumper, top and rail are enamelled and
+           # stainless steel, their colours in the vertex (1.81.0)
+           "deli_case",
+           # a price pylon's cabinets and posts are painted steel, its
+           # plinth a painted tint of the same (1.19.0)
+           "price_pylon",
+           # a gas pump's body, panels and base frame are enamelled steel,
+           # its colours in the painted atlas (1.36.0, redrawn from the
+           # minted placeholder box)
+           "pump",
+           # a video-poker cabinet is enamelled sheet steel, its belly glass,
+           # deck and marquee in the painted atlas (1.39.0)
+           "video_poker",
+           # a video rack's frame, shelves and lips are enamelled steel,
+           # their colours in the vertex (1.43.0)
+           "video_rack",
+           # the card shop (0.95.0): a gondola's uprights and shelves are
+           # painted steel, a folding table's leg frame is, a folding chair
+           # is a painted frame under a moulded pan, and a showcase counter
+           # may have a painted body. The case's own frame is mill-finish
+           # aluminium -- `metal_bare` as a CONSTANT in the recipe, the way
+           # the dartboard's chrome and the hydrant's chains are, so it is
+           # not an option a slot can ask for and the species sits here
+           "display_case", "pack_wall", "folding_table", "folding_chair",
+           # the flat art (0.98.0): a ceiling hanger's board and an aisle
+           # sign's may be painted sheet rather than card or plywood. In
+           # both it is an OPTION and not the default -- the hanger defaults
+           # to `paper` and the sign to `wood` -- so a slot has to ask.
+           # Their drop chains are a `metal_bare` CONSTANT in each recipe,
+           # the way the display case's aluminium frame is, and the banner
+           # has no metal option at all for the same reason: its rod is one
+           "ceiling_hanger", "aisle_sign",
+           # the till (1.0.0): a register's body is moulded plastic by
+           # default and enamelled sheet steel in the `industrial_flats`
+           # style. Its drawer lock is `metal_bare` as a CONSTANT in the
+           # recipe, the way the display case's aluminium frame is, so
+           # bare metal is not an option a slot can ask for and the
+           # species sits here rather than in BARE
+           "cash_register",
+           # a dumpster is painted plate, its fleet colour in the
+           # painted atlas; its lids are plastic in the same image
+           # (1.58.0)
+           "dumpster",
+           # a cruiser is simple_car's painted body under its livery's
+           # image, its kit enamelled steel coloured in the vertex
+           # (1.86.0)
+           "cruiser",
+           # a cover's metal is painted flashing, and a gutter and its
+           # downspout are painted aluminium (1.67.0): `metal_painted` is
+           # what METAL_COVERS ask for, and the two styles whose every cover
+           # was raw `metal` moved with them
+           "dress_cover")
+BARE = ("gold_bar", "flat_top_grill",
+        # a roller grill offers chrome; its painted cabinet and dogs are a
+        # constant kind in the recipe, as a counter's brass is (1.17.0)
+        "roller_grill", "water_tank", "shelving",
+        # a poster's frame is mill-finish aluminium -- the reference's
+        # SILVER frame -- so the mesh supplies the hue. `metal` would have
+        # been theme-owned and the building's pack would have repainted it
+        "poster",
+        # a u-channel post and a stop sign's post are galvanised, not painted
+        "sign_post", "stop_sign",
+        # a bar stool's column, footring and base are chrome (0.87.0)
+        "bar_stool",
+        # a chain-link fence's posts, rail and wire are galvanised (1.77.0);
+        # its fabric is a kind of its own, `chain_link`
+        "chain_link_fence")
+MOVED = PAINTED + BARE
+
+
+def _genomes():
+    out = []
+    for p in sorted(glob.glob(os.path.join(SPECIES_DIR, "*.json"))):
+        out.append(json.load(open(p, encoding="utf-8")))
+    return out
+
+
+def test_the_sweep_is_actually_reading_genomes():
+    """Guard the guard: every assertion below is a loop, and a loop over an
+    empty directory passes vacuously."""
+    g = _genomes()
+    assert len(g) >= 50, "only %d genomes found" % len(g)
+    assert any(x["species"] == "vending_machine" for x in g)
+
+
+@pytest.mark.parametrize("g", _genomes(), ids=lambda g: g["species"])
+def test_every_style_material_is_in_options(g):
+    opts = set(g["materials"].get("options", []))
+    for name, style in g.get("styles", {}).items():
+        if not isinstance(style, dict) or "material" not in style:
+            continue
+        assert style["material"] in opts, (
+            "%s style %r names %r, which is not in materials.options %s. "
+            "resolve_plan will discard it and silently use %r."
+            % (g["species"], name, style["material"], sorted(opts),
+               g["materials"].get("default")))
+
+
+@pytest.mark.parametrize("g", _genomes(), ids=lambda g: g["species"])
+def test_default_material_is_in_options(g):
+    opts = set(g["materials"].get("options", []))
+    assert g["materials"]["default"] in opts, (
+        "%s default %r is not in its own options -- the fallback target is "
+        "itself unreachable" % (g["species"], g["materials"]["default"]))
+
+
+@pytest.mark.parametrize("g", _genomes(), ids=lambda g: g["species"])
+def test_every_named_kind_is_in_the_vocabulary(g):
+    """A kind nothing knows takes the 0.6 default roughness and resolves no
+    pack. This is the check that would have caught `tar` on day one."""
+    named = set(g["materials"].get("options", []))
+    named.add(g["materials"]["default"])
+    for style in g.get("styles", {}).values():
+        if isinstance(style, dict) and "material" in style:
+            named.add(style["material"])
+    unknown = named - set(skins.KNOWN_KINDS)
+    assert not unknown, "%s names unknown kinds: %s" % (g["species"],
+                                                        sorted(unknown))
+
+
+@pytest.mark.parametrize("sp", MOVED)
+def test_moved_species_no_longer_offer_raw_metal(sp):
+    g = json.load(open(os.path.join(SPECIES_DIR, sp + ".json"),
+                       encoding="utf-8"))
+    opts = g["materials"]["options"]
+    assert "metal" not in opts, (
+        "%s still offers raw `metal`; a prompt naming it would resolve the "
+        "theme-owned pack and ignore the genome colour" % sp)
+    for name, style in g.get("styles", {}).items():
+        assert style.get("material") != "metal", \
+            "%s style %r was left on raw metal" % (sp, name)
+
+
+@pytest.mark.parametrize("sp", PAINTED)
+def test_painted_species_are_on_metal_painted(sp):
+    g = json.load(open(os.path.join(SPECIES_DIR, sp + ".json"),
+                       encoding="utf-8"))
+    assert "metal_painted" in g["materials"]["options"], sp
+
+
+@pytest.mark.parametrize("sp", BARE)
+def test_bare_species_are_on_metal_bare(sp):
+    g = json.load(open(os.path.join(SPECIES_DIR, sp + ".json"),
+                       encoding="utf-8"))
+    assert "metal_bare" in g["materials"]["options"], sp
+
+
+def test_nothing_else_moved():
+    """The remaining 41 genomes stay on plain `metal`. When batch 3 lands this
+    list changes deliberately, not by surprise."""
+    moved = [g["species"] for g in _genomes()
+             if {"metal_painted", "metal_bare"} & set(
+                 g["materials"].get("options", []))]
+    assert sorted(moved) == sorted(MOVED), (
+        "on a split kind: %s\nexpected: %s" % (sorted(moved), sorted(MOVED)))
+
+
+def test_no_species_is_both_painted_and_bare():
+    """One object, one metal. A species offering both would let a prompt pick
+    the conductor value for a painted surface."""
+    for g in _genomes():
+        opts = set(g["materials"].get("options", []))
+        assert not ({"metal_painted", "metal_bare"} <= opts), \
+            "%s offers BOTH metal_painted and metal_bare" % g["species"]
+
+
+RECIPE_DIR = os.path.join(os.path.dirname(os.path.dirname(
+    os.path.abspath(__file__))), "zoo_keeper", "recipes")
+
+
+@pytest.mark.parametrize("sp", ("flat_top_grill", "vault_door"))
+def test_recipes_no_longer_hardcode_the_kind(sp):
+    """THE DEFECT THAT MADE A GENOME EDIT INERT. flat_top_grill passed the
+    literal "metal" to all three of its make_material calls, so editing its
+    genome changed nothing at all -- silently. vault_door hard-coded only its
+    hub, which would have split one door across two kinds."""
+    src = open(os.path.join(RECIPE_DIR, sp + ".py"), encoding="utf-8").read()
+    assert '"metal")' not in src, (
+        "%s.py still passes the literal \"metal\" to make_material; its "
+        "genome would be ignored" % sp)
