@@ -41,4 +41,6 @@ if [ -z "$PY" ]; then
   echo "factory: no Python found. Install Blender from blender.org, or set BLENDER to its blender." >&2
   exit 3
 fi
+# Level Factory names this command in its hints (0.170.0), as it was typed here.
+export LEVEL_FACTORY_COMMAND="sh $0"
 exec "$PY" "$ROOT/level_factory/apps/cli/main.py" "$@"

@@ -32,5 +32,7 @@ if not defined PY (
   echo factory: no Python found. Install Blender from blender.org, or set BLENDER to its blender.exe. 1>&2
   exit /b 3
 )
+rem Level Factory names this command in its hints (0.170.0), as it was typed here.
+set "LEVEL_FACTORY_COMMAND=%~0"
 "%PY%" "%ROOT%level_factory\apps\cli\main.py" %*
 exit /b %ERRORLEVEL%

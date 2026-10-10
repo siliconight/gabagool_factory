@@ -21,7 +21,7 @@ open a terminal in that folder:
 Windows:
 
 ```
-factory setup --venv --godot C:\Godot\Godot_v4.7-stable_win64.exe
+.\factory setup --venv --godot C:\Godot\Godot_v4.7-stable_win64.exe
 ```
 
 Linux:
@@ -32,7 +32,7 @@ sh factory.sh setup --venv --godot ~/Godot/Godot_v4.7-stable_linux.x86_64
 
 Point `--godot` at your own Godot. Then:
 
-- **How `factory` runs.** `factory` (`sh factory.sh` on Linux) finds the
+- **How `.\factory` runs.** `.\factory` (`sh factory.sh` on Linux) finds the
   Python that ships inside Blender, and runs the factory with it.
 - **If Blender is not where its installer puts it,** say where it is first:
   - Windows: `set BLENDER=D:\Apps\Blender\blender.exe`
@@ -43,16 +43,18 @@ Point `--godot` at your own Godot. Then:
   step that touches the network, and it changes nothing in Blender.
 - **Setup ends with the doctor.** `worst: PASS` or `worst: WARN` means you are
   ready. Any `FAIL` line says what is missing and how to fix it.
-- **In PowerShell** rather than cmd, type `.\factory` wherever this page says
-  `factory`: PowerShell does not run commands from the current folder by
-  name.
+- **Why `.\factory` and not `factory`:** it is the launcher in this folder,
+  and the leading `.\` makes both cmd and PowerShell run it from here.
+  PowerShell never runs a command from the current folder by name, and cmd
+  does not either when `NoDefaultCurrentDirectoryInExePath` is set, as
+  Git's bash sets it.
 
 ## 3. Make a level
 
 Windows:
 
 ```
-factory -C levels make docs\first_level\batch.json
+.\factory -C levels make docs\first_level\batch.json
 ```
 
 Linux:
@@ -77,7 +79,7 @@ fails, it stops with `STOPPED at <step>` and the reason.
 ## 4. Walk it
 
 ```
-factory -C levels walk restaurant_row_001 --play
+.\factory -C levels walk restaurant_row_001 --play
 ```
 
 On Linux, `sh factory.sh -C levels walk restaurant_row_001 --play`.
@@ -109,9 +111,9 @@ from, and which fields the factory reads today.
 
 ## When something goes wrong
 
-- **`factory -C levels doctor`** checks every tool and says what it cannot
+- **`.\factory -C levels doctor`** checks every tool and says what it cannot
   reach.
-- **`factory -C levels pick restaurant_row_001`** shows why the candidate
+- **`.\factory -C levels pick restaurant_row_001`** shows why the candidate
   `make` chose was chosen.
 - **`USING_THE_FACTORY.md`** is the operators' guide: which tool owns what,
   and what to do when a brief asks for something no tool makes yet.

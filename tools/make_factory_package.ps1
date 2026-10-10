@@ -14,8 +14,8 @@
 #     Counter has no uncommitted change and its own `build_freshness.py` calls it up to date,
 #     and it is stamped later than the sources: `git archive` stamps every tracked file with its
 #     commit's time, and Level Factory's freshness check compares times.
-#   - Not the run record -- docs\cold_runs, docs\findings and patches, 824 of 987 MB on
-#     2026-10-07 -- which a level maker never reads. -WithRecord includes it.
+#   - Not the run record -- docs\cold_runs, docs\findings, patches, _runs and workspaces,
+#     824 of 987 MB on 2026-10-07 -- which a level maker never reads. -WithRecord includes it.
 #
 # Two caveats, stated so nobody learns them from the recipient:
 #   - UNCOMMITTED work does not travel. Commit first, or it is not in the zip.
@@ -27,7 +27,9 @@ $root = Split-Path -Parent $PSScriptRoot
 $stamp = Get-Date -Format "yyyyMMdd_HHmm"
 $stage = Join-Path ([System.IO.Path]::GetTempPath()) "gabagool_pkg_$stamp"
 New-Item -ItemType Directory -Force -Path $stage | Out-Null
-$record = @("docs/cold_runs", "docs/findings", "patches")
+# The run record. `_runs` and `workspaces` hold 48 tracked files (5.2 MB on 2026-10-10):
+# measurements, an attic, and three old workspaces' files, none of which a level reads.
+$record = @("docs/cold_runs", "docs/findings", "patches", "_runs", "workspaces")
 $tar = Join-Path $env:SystemRoot "System32\tar.exe"
 if (-not (Test-Path $tar)) { throw "no ${tar}: this script packages with Windows' own tar" }
 $tmp = Join-Path ([System.IO.Path]::GetTempPath()) "gabagool_repo_$stamp.tar"

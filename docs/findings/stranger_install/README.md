@@ -221,7 +221,108 @@ loaded under both interpreters, isolated (`-I`) and writing no bytecode
 - With `BLENDER` unset, it fell through to PATH's 3.14.4.
 - With `FACTORY_PYTHON` set, it ran that.
 
-## Design, proposed 2026-10-10 (nothing built yet)
+**Then the rest of the design, the same night.**
+- **Level Factory 0.169.0:** `make`, one level from a batch start to finish,
+  and `pick`, which moves the cold driver's candidate rule into Level Factory.
+  `pick` agrees with the root script on all 46 cold workspaces.
+- **The front door:** `START_HERE.md`, `factory.cmd` and `factory.sh`, and
+  `docs/first_level/`, which holds cold run 9222's batch.
+- **The package:** `tools/make_factory_package.ps1` carries Deli Counter's
+  library, stamped later than its sources, and leaves the run record out. The
+  first lean package was 72.1 MB, against about 987 MB with the record.
+
+## Install test 1, 2026-10-10, 04:53 to 05:29
+
+**The test.**
+- **The package:** `gabagool_factory_package_20261010_0450.zip`, at root
+  `e8a8938` and Level Factory `fc5600e` (0.169.0).
+- **The unpack:** `Expand-Archive` into a folder that had never held a
+  factory, `C:\stranger_202\gabagool`.
+- **What was typed:** `START_HERE.md`'s commands, into cmd.exe there, by
+  `install_test.cmd`. The logs are in `install_test_1/`.
+
+**The one deviation, counted: `setup --venv` was not run.** It downloads
+Pillow, pygltflib and jsonschema from PyPI, and downloads on this machine
+wait for the walker's yes.
+- `setup --python <this machine's 3.14.4>` stood in for it. That Python
+  carries the three packages.
+- Level Factory itself still ran under Blender's own 3.13.9, which the
+  launcher found through `$BLENDER`.
+- So the real install of the three packages into Blender's Python is
+  unproven.
+
+**What the unpack did, nothing else touched:**
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | every repository found under `C:/stranger_202/gabagool`; Blender from `$BLENDER`; `tools_python` PASS; worst WARN, all eight WARNs the stale certified table |
+| `make` | 0 | 31.8 minutes; `init` filled every path from `factory.local.json`; the batch drew from `C:\stranger_202\gabagool\deli_counter\build`, where a tracked-files package would have drawn nothing; no `STALE LIBRARY` line |
+| `walk` | 0 | preview built; walk bot climbed both ladders; shot bot five stations OK |
+
+**The level is cold run 9222's, figure for figure.** The same brief, seed
+base, tools and machine, from a different folder:
+
+| | cold run 9222 | install test 1 |
+|---|---|---|
+| shell leg | 3 distinct, 0 blockers of 52 | 3 distinct, 0 blockers of 52 |
+| pick | seed_9104, the same three lines | seed_9104, the same three lines |
+| art leg | 0 blockers of 74 | 0 blockers of 74 |
+| deal | `b0=scrapple_sons_deli` | `b0=scrapple_sons_deli` |
+| bake | 479 models, 4,259 users, 100.5 s | 479 models, 4,259 users, 100.2 s |
+
+**What it found. Each item would have been a stranger's question:**
+- **`factory` was "not recognized".**
+  - Git's bash sets `NoDefaultCurrentDirectoryInExePath=1`, and a cmd.exe it
+    starts does not run commands from the current folder.
+  - A cmd window opened from Explorer does not have that variable. PowerShell
+    never runs a command from the current folder by name, and some hardened
+    setups set the variable.
+  - So the page now says `.\factory` everywhere on Windows, and the counted
+    run typed that.
+- **Eight `drift vs certified` WARNs on `setup`'s doctor,** for exactly the
+  tools the package carries. Level Factory 0.170.0 re-grounds the table, with
+  the real-tool smoke licensing it, and the stand-in repos with it.
+- **Hints named `level-factory`, which an unpacked factory does not have.**
+  0.170.0 makes them say what the launcher says was typed.
+- **The walk preview put the player at (0, 1.5, 3)**, "default (no
+  markers)". An export's `mission.tscn` loads its content at runtime, so its
+  text has no markers. 0.171.0 spawns at the package's own `player_start`:
+  the getaway van, (53.85, 0, 16.965).
+- **The shot bot's five frames were 100% black, and all five read OK.**
+  - It photographed during the shader warm-up's black cover (Level Factory
+    0.100.0).
+  - Its two measures, void (magenta) and jitter (a frame against its twin),
+    cannot see a frame that shows nothing.
+  - The same `walk` on 9222's own workspace did the same.
+  - August's `lot_demo_001` preview still rendered with the same script, and
+    9222's rendered with `site.tscn` but not `mission.tscn`.
+  - 0.171.0 holds the warm-up and fails a one-colour frame. On 9222's preview
+    the five frames then read mean luma 100.9 to 191.3, and **two stations
+    FAIL on jitter**: Ladder_ladder_0_base at 3.60% and Ladder_ladder_1_top at
+    2.33%, against a 2.0% gate. Their cause is not established.
+- **Hints named commands a stranger lacks:**
+  - the walk's `& "<godot>" ...` is PowerShell's call operator, an error in
+    cmd;
+  - the export's `godot --headless ...` and `python tools/walk_export.py
+    ...`;
+  - `HANDOFF.md`'s walk instruction.
+
+  0.171.0 points every one at `walk`.
+
+**The count.** Everything in the test was typed from the page. That makes 1
+intervention, the stand-in for the download, and 0 otherwise. The findings
+above are the page's and the tools' defects, which a stranger would have
+paid for in questions, and each is fixed in the release named.
+
+**Not yet tested:**
+- **the real `setup --venv`,** which needs the walker's yes for a download;
+- **Linux,** which needs a Linux machine. Read for it instead: Level
+  Factory's job runner already gives a POSIX child its own session. The
+  Windows-only lines on the level path are install paths that will simply not
+  exist there, and developer tools.
+- **A second install test,** at the releases above, from a new package.
+
+## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
 

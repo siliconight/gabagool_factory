@@ -1,0 +1,36 @@
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 3850 instances of 4 meshes, 4 draw calls
+[export] 1523 occluder(s) from 1541 solid module(s); 103 glass, 253 porous and 827 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1523 occluder node(s) in a tree of 28214
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1523 occluder node(s) reachable from res://mission.tscn (1523 in the package, 19 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 484 GLB(s), 1900 external reference(s): 1900 resolve to 401 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 78 resource(s) in a package of 2477 file(s)
+[export] manifest: 2481 file(s) listed + 2 declared unlisted = 2483 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\stranger_202\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   godot --headless --path <dir> --import   (once; it ships sidecars, not the cache)
+  to walk it yourself:             python tools/walk_export.py C:\stranger_202\gabagool\levels\.level_factory restaurant_row_001 [--at x,y,z]   (a copy with Lot's body at the spawn; the package stays untouched)
+  imported: resources ready (headless --import pass)
+walk preview: C:\stranger_202\gabagool\levels\.level_factory\preview\restaurant_row_001_walk
+  source: export (portable-godot)
+  wraps mission.tscn + player at default (no markers) (x=0.0, y=1.5, z=3.0)
+  content: sha256:d63cf7bf5b26859a (2432 file(s)) built 2026-10-10T09:28:06.016151+00:00
+  recorded in C:\stranger_202\gabagool\levels\.level_factory\preview\restaurant_row_001_walk\walk.source.json
+self-check:
+  walk bot [OK]   Ladder_ladder_0: climbed to 6.6 m and stood up
+  walk bot [OK]   Ladder_ladder_1: climbed to 3.3 m and stood up
+  shot bot [OK] exterior: jitter 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_0_base: jitter 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_0_top: jitter 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_base: jitter 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_top: jitter 0.0%, void 0.0%
+  frames written for review (5 stations)
+  open:  & "C:\Godot\4.7\Godot_v4.7-stable_win64.exe" --path "C:\stranger_202\gabagool\levels\.level_factory\preview\restaurant_row_001_walk" -e
+  play:  & "C:\Godot\4.7\Godot_v4.7-stable_win64.exe" --path "C:\stranger_202\gabagool\levels\.level_factory\preview\restaurant_row_001_walk"
