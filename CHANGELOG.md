@@ -3,6 +3,24 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.36.0] - 2026-10-10
+
+Two tools move:
+- level_factory: 0.171.0 -> 0.172.1
+- lot: 0.105.0 -> 0.106.0
+
+- **level_factory:** the walk preview's visual check fails a fight, not a
+  sparkle (0.172.0, roadmap 225), and the grounded table names Lot
+  0.106.0 (0.172.1).
+- **lot:** a lamp or a tree keeps out of a shop band's span (0.106.0,
+  roadmap 226, proven by cold run 9223).
+
+Certified by install test 3: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands. setup exited 0 with every tool passing the doctor, its one WARN Windows' long-paths reminder; make exited 0 in 32.1 minutes and built cold run 9223's level figure for figure (0 of 52 and 0 of 74 blockers, seed_9104 picked, the same business dealt, 479 models and 4,259 users baked); walk exited 0, the player at the package's player_start, both ladders climbed, and all five stations passing the visual check at 0.00% to 0.12% fighting, the two ladder stations' sparkle (3.61% and 2.35%) noted rather than failed. One deviation, counted: setup --python stood in for setup --venv.
+
+Not certified: setup --venv's download (a stand-in interpreter ran the
+tools) and Linux.
+
 ## [factory-v1.35.0] - 2026-10-10
 
 Nine of the ten tools move, pipeline alone staying at 0.6.0; it is the first

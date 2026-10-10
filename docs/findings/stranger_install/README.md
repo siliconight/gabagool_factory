@@ -373,6 +373,66 @@ and one INCOMPATIBLE that morning:
 Each tool is tagged at the commit tested, and the factory at
 `factory-v1.35.0`. Level Factory 0.172.0 is not in this set.
 
+## Install test 3, 2026-10-10, 07:49 to 08:27
+
+**The test.** The same, at the releases install test 2's one finding and
+cold run 9223 produced.
+- **The package:** made from root `ebfaf4d`, Level Factory `8a35490`
+  (0.172.1) and Lot `e3b8b46` (0.106.0), as
+  `gabagool_factory_package_20261010_0749.zip`, 71.7 MB.
+- **The unpack:** into a new folder, `C:\stranger_202_3\gabagool`.
+- **What was typed:** the same `install_test.cmd`, through
+  `install_test.sh 3`, which also builds and unpacks the package and, new,
+  prints every doctor row of `setup` that is not PASS. Logs are in
+  `install_test_3/`.
+- **The same counted deviation:** `setup --python` for `--venv`.
+
+**A first attempt was stopped at its unpack,** before `setup` ran. Cold run
+9223's doctor had WARNed `tool:lot ... drift vs certified 0.105.0`, and its
+notes had named only the long-paths WARN beside it. A package at Level
+Factory 0.172.0 would have printed that advice to a stranger. Level Factory
+0.172.1 re-grounds the row; the attempt's folder and zip were removed and
+nothing from it counts.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | every tool PASS, `tool:lot vLot 0.106.0`; the only WARN is Windows' long-paths reminder |
+| `make` | 0 | 32.1 minutes; 0 of 52 and 0 of 74 blockers; seed_9104; `b0=scrapple_sons_deli`; 479 models and 4,259 users baked, 102.2 s; the export's hint `.\factory -C ... walk restaurant_row_001 --play` |
+| `walk` | 0 | the player at `anchor:player_start (...getaway_van_crew_spawn_0) (x=53.85, y=0.6, z=16.965)`; walk bot climbed both ladders; shot bot five stations OK, fighting 0.00% to 0.12%, `Ladder_ladder_0_base` and `Ladder_ladder_1_top` noted `sparkle: small flips of one texture, not a fight` at jitter 3.61% and 2.35% |
+
+**What each fix did:**
+- **Level Factory 0.172.0 held.** The two stations that failed test 2's
+  walk on sparkle pass, named as sparkle. The exterior reads fighting
+  0.0%.
+- **0.172.1 held.** `tool:lot` reads PASS at 0.106.0.
+- **Lot 0.106.0 is in the set.** The level is 9223's: the same seed, deal
+  and bake figures as 9222's, with the lamp clear of the band.
+
+**The count:** 1, the stand-in for the download, as before. No finding.
+
+**What is left on a stranger's first `setup`:** one WARN,
+`windows_long_paths`, which the doctor prints on every Windows machine
+without reading the flag (roadmap 227, `docs/findings/long_paths/`).
+
+**What it certified: factory 1.36.0.** `factory.manifest.json` names the set
+this test ran, and `verify-manifest` reads all ten OK:
+
+| tool | version |
+|---|---|
+| Deli Counter | 0.205.0 |
+| Dispatch | 0.5.2 |
+| Laser Tag | 0.25.0 |
+| Level Factory | 0.172.1 |
+| Lot | 0.106.0 |
+| Lux | 0.72.0 |
+| Patina | 0.30.0 |
+| Pipeline | 0.6.0 |
+| Pixelcoat | 0.62.0 |
+| Zoo | 1.94.0 |
+
+Level Factory and Lot are tagged at the commits tested, and the factory at
+`factory-v1.36.0`; the other eight repos' tags from 1.35.0 stand.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
