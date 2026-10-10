@@ -901,8 +901,9 @@ work of adopting this.
 | 220 | **NARROWED** | A bar down the middle of the door sign | 2026-10-09 -- cause found and fixed, not yet run cold. The bar is Patina's conduit run to  |
 | 221 | **OPEN** | Patina's wall covers face into the building | 2026-10-09 -- found while tracing 220: Patina's anchor-derived wall covers face INTO the b |
 | 222 | **OPEN** | A shadow control that stopped seeing its shadow | 2026-10-10 -- Lux's windowed `streetlight_shadow_selftest` fails its on-axis control on 0. |
+| 223 | **OPEN** | The street band: Pixel Operator, and stretched | 2026-10-10 -- note 10 generalised (item 219): a business Level Factory deals a Pixelcoat s |
 
-**222 items: 41 open, 101 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**223 items: 42 open, 101 closed, 3 retracted, 70 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -19963,3 +19964,18 @@ The four painted-metal meshes each lie on their own face only. Not priced: what 
 Measured 2026-10-10, ground under the pole 9 m off, the test's own figures: placed 0.453, unshadowed 0.459, on the axis at the lens 0.447, under a slab 0.000. The same numbers came back on Lux 0.71.0 HEAD and on 0.72.0's draft, the GPU idle both times. 0.71.0's changelog says all 20 selftests passed when it shipped, this one windowed among them.
 
 So the code under test did not change, and the result did. Not yet looked at: the NVIDIA driver (look_shots' manifests read 616.56 tonight), the window's state when the test opens it, and whether the pole the test builds still matches the Zoo streetlight it was written against. Until it is settled, this test's PLACED result -- the pool keeps 0.8 of itself -- stands on a control that cannot currently fail the way it is meant to: the slab control still proves shadows draw, but not that the cap's 5 mm can be seen.
+
+*STATUS: OPEN 2026-10-10 -- note 10 generalised (item 219): a business Level Factory deals a Pixelcoat sign pack still letters its street band and its door box in Pixel Operator, sampled nearest; and the band is drawn 1.5x too wide, a 512 x 128 pack (4:1) on Lot's 6:1 quad. Groundwork kept: a Pixelcoat mint of Blue Highway Condensed byte-identical to Zoo's. Not started in a repo.*
+
+**223. The street band: Pixel Operator, and stretched.** `docs/findings/street_band_type/`. A dealt business shows its Pixelcoat pack twice: on the band Lot hangs across its frontage, and on Zoo's door box, which wears the pack instead of painting a name (Level Factory 0.148.0, Zoo 1.79.0). Measured, nothing changed:
+- **The pack is a 4:1 cabinet, sampled nearest:** `theme-signs` renders `(size // 4, size)`; cold run 9217's `sign_flappahs` is 512 x 128 with `interpolation: nearest`.
+- **Lot hangs it on a 6:1 band:** `SIGN_ASPECT = 6.0  # width : height, matching the pack`. The comment is false, and every band's letters are 1.5x too wide.
+- **Zoo's door box samples every pack `Closest`:** `materials.make_emissive_textured_material`. `skins.load_pack` drops the hint. Lot honours it.
+- **Pixelcoat thresholds Pixel Operator to ink or none,** which is what keeps a pack byte-deterministic.
+
+A smooth face stretched 1.5x reads worse than a pixel one, so the font alone is not the change. Proposed:
+1. Pixelcoat renders the business signs smooth, from its own minted table, at the band's 6:1 and about 240 px a metre, and marks the packs `linear`.
+2. Zoo's door box fits a pack's art without stretching it, and samples it as the pack asks.
+3. Proven on a level with dealt businesses: club_block_014 has none.
+
+Found alongside: Pixelcoat's `test_the_kinds_zoo_knows_are_the_kinds_zoo_knows` fails today. `paint_matte` (Zoo 1.82.0) is missing from `cli._ZOO_KINDS`. It is a one-word fix with the next Pixelcoat release.
