@@ -27,13 +27,13 @@ factory setup --venv --godot C:\Godot\Godot_v4.7-stable_win64.exe
 Linux:
 
 ```
-./factory.sh setup --venv --godot ~/Godot/Godot_v4.7-stable_linux.x86_64
+sh factory.sh setup --venv --godot ~/Godot/Godot_v4.7-stable_linux.x86_64
 ```
 
 Point `--godot` at your own Godot. Then:
 
-- **How `factory` runs.** `factory` (`factory.sh` on Linux) finds the Python
-  that ships inside Blender, and runs the factory with it.
+- **How `factory` runs.** `factory` (`sh factory.sh` on Linux) finds the
+  Python that ships inside Blender, and runs the factory with it.
 - **If Blender is not where its installer puts it,** say where it is first:
   - Windows: `set BLENDER=D:\Apps\Blender\blender.exe`
   - Linux: `export BLENDER=~/blender-5.1.1-linux-x64/blender`
@@ -58,7 +58,7 @@ factory -C levels make docs\first_level\batch.json
 Linux:
 
 ```
-./factory.sh -C levels make docs/first_level/batch.json
+sh factory.sh -C levels make docs/first_level/batch.json
 ```
 
 That one command does the following, and says which step it is on as it
@@ -79,6 +79,8 @@ fails, it stops with `STOPPED at <step>` and the reason.
 ```
 factory -C levels walk restaurant_row_001 --play
 ```
+
+On Linux, `sh factory.sh -C levels walk restaurant_row_001 --play`.
 
 That opens Godot on a first-person preview of what was exported:
 - **Move:** WASD, with Shift to sprint.

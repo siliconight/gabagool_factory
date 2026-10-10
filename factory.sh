@@ -2,8 +2,11 @@
 # The factory's front door on Linux: runs Level Factory with a Python it finds, so that Blender
 # and Godot are all a machine needs (roadmap 202). Every argument goes to Level Factory unchanged:
 #
-#     ./factory.sh setup --venv --godot ~/Godot_v4.7-stable_linux.x86_64
-#     ./factory.sh init levels
+#     sh factory.sh setup --venv --godot ~/Godot_v4.7-stable_linux.x86_64
+#     sh factory.sh -C levels make docs/first_level/batch.json
+#
+# `sh factory.sh`, not `./factory.sh`: a zip keeps no Unix permissions, so an unpacked
+# factory.sh is not executable until somebody runs chmod, and sh does not ask.
 #
 # The Python, first found wins:
 #   1. $FACTORY_PYTHON, when set;
