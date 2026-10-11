@@ -24,9 +24,9 @@ SRC = HERE / "lf_render_in_site_spec"
 DRAFT = "--draft" in sys.argv
 PENDING = "--suite-pending" in sys.argv
 FILL = "--fill" in sys.argv
-VERSION_WAS, VERSION = b"0.177.2", b"0.178.0"
-CHANGELOG_HEAD = "## [0.177.2] - The Lot adapter publishes the paint meshes\n"
-SHA = {"packages/exporting/export.py": "863215629b169131",
+VERSION_WAS, VERSION = b"0.177.3", b"0.178.0"
+CHANGELOG_HEAD = "## [0.177.3] - The export carries the paint meshes beside the assembly scene\n"
+SHA = {"packages/exporting/export.py": "d9cfa85d787310be",
        "apps/cli/main.py": "81a7277813e26ef8",
        "apps/cli/commands/__init__.py": "d1f152d36c65bf98"}
 NEW_TEST = "tests/unit/test_render_in_site_spec.py"
@@ -159,7 +159,7 @@ def main():
     (LF / NEW_TEST).write_bytes(test.replace("\n", c_eol.decode()).encode("utf-8"))
     cl.write_bytes((entry.rstrip("\n") + "\n\n" + cl_text).replace("\n", cl_eol.decode()).encode("utf-8"))
     (LF / "VERSION").write_bytes(VERSION)
-    print("Level Factory 0.177.1 -> 0.178.0" + (" (DRAFT)" if DRAFT else ""))
+    print("Level Factory 0.177.3 -> 0.178.0" + (" (DRAFT)" if DRAFT else ""))
 
 
 if __name__ == "__main__":
