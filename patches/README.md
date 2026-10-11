@@ -61,7 +61,7 @@
 - `lf_pixelcoat_locator/` -- 2 file(s); [0.138.1] - The drip's tools find Pixelcoat by searching
 - `lf_reground/` -- 16 file(s); [0.170.0] - Re-grounded to the tools of 2026-10-10; a hint names the command that was typed
 - `lf_reground_172_1/` -- 3 file(s); [0.172.1] - Re-grounded to Lot 0.106.0
-- `lf_render_in_site_spec/` -- 2 file(s); [0.178.0] - The site spec tells Lot the package will bake its lights
+- `lf_render_in_site_spec/` -- 3 file(s); [0.178.0] - The site spec tells Lot the package will bake its lights
 - `lf_responder_arrivals_sidecar/` -- 2 file(s); [0.157.0] - The package says how responders arrive
 - `lf_responder_vehicle/` -- 1 file(s); [0.162.0] - Each responder arrival names the car it brings
 - `lf_setup_venv/` -- 6 file(s); [0.168.0] - setup --venv gives the tools a Python of their own
