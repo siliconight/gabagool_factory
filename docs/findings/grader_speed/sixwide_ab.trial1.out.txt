@@ -1,0 +1,13 @@
+walk test 9292: exit 0 at 61.7 s
+walk test 9393: exit 0 at 63.1 s
+walk test 9191: exit 0 at 69.5 s
+laser tag 9292: exit 0 at 78.0 s
+laser tag 9191: exit 1 at 109.9 s
+laser tag 9393: exit 1 at 190.2 s
+all six done, wall 190.4 s
+laser tag 9191: 1943 events vs the job's 1943; every field identical True
+walk test 9191: ok True vs the job's True; every field identical True
+laser tag 9292: 1418 events vs the job's 1418; every field identical False (differ: ['events'])
+walk test 9292: ok True vs the job's True; every field identical True
+laser tag 9393: 1882 events vs the job's 1882; every field identical True
+walk test 9393: ok True vs the job's True; every field identical True

@@ -1,0 +1,23 @@
+walk test 9292: exit 0 at 60.2 s
+walk test 9393: exit 0 at 61.6 s
+walk test 9191: exit 0 at 68.0 s
+laser tag 9292: exit 0 at 77.4 s
+laser tag 9191: exit 1 at 109.4 s
+laser tag 9393: exit 1 at 189.4 s
+all six done, wall 189.6 s
+laser tag 9191: 1943 events vs the job's 1943; every field identical False (differ: ['events'])
+    3 events differ (first at [995, 997, 998]); the same events in another order: False
+      job  995 {"event": "ShotHitEnemy", "metadata": {}, "position": [-4.3, 1.1, -14.5], "run_id": 14, "source": "LT_Player_01", "time": 9.47}
+      new  995 {"event": "ShotHitEnemy", "metadata": {}, "position": [-4.3, 1.1, -14.49], "run_id": 14, "source": "LT_Player_01", "time": 9.47}
+      job  997 {"event": "ShotBlocked", "metadata": {"collider": "cover_75", "hit_type": "WORLD_BLOCKED"}, "position": [4.7, 0.06, -41.72], "run_id": 14, "source": "LT_Player_04", "time": 9.67}
+      new  997 {"event": "ShotBlocked", "metadata": {"collider": "cover_75", "hit_type": "WORLD_BLOCKED"}, "position": [4.71, 0.06, -41.72], "run_id": 14, "source": "LT_Player_04", "time": 9.67}
+      job  998 {"event": "ShotBlocked", "metadata": {"collider": "cover_75", "hit_type": "WORLD_BLOCKED"}, "position": [4.5, 1.61, -41.72], "run_id": 14, "source": "LT_Player_01", "time": 10.2}
+      new  998 {"event": "ShotBlocked", "metadata": {"collider": "cover_75", "hit_type": "WORLD_BLOCKED"}, "position": [4.51, 1.61, -41.72], "run_id": 14, "source": "LT_Player_01", "time": 10.2}
+walk test 9191: ok True vs the job's True; every field identical True
+laser tag 9292: 1418 events vs the job's 1418; every field identical False (differ: ['events'])
+    1 events differ (first at [244]); the same events in another order: False
+      job  244 {"event": "ShotHitEnemy", "metadata": {}, "position": [-10.24, 1.23, -1.04], "run_id": 4, "source": "LT_Player_01", "time": 8.93}
+      new  244 {"event": "ShotHitEnemy", "metadata": {}, "position": [-10.24, 1.23, -1.03], "run_id": 4, "source": "LT_Player_01", "time": 8.93}
+walk test 9292: ok True vs the job's True; every field identical True
+laser tag 9393: 1882 events vs the job's 1882; every field identical True
+walk test 9393: ok True vs the job's True; every field identical True

@@ -1,0 +1,125 @@
+# Grader speed: where a cold run's time goes, and what may be cut without changing a result
+
+**Question.** The walker, 2026-10-11: "is there anything intelligent we can
+do to make our coldruns faster without losing any certainty of quality or
+introducing regressions? Im thinking this is the most time consuming part of
+our iteration process". The constraint sets the test: a speedup is accepted
+only if every report it touches comes out byte-identical.
+
+## Where the time goes (cold runs 9245 and 9246, every job's own `duration=`)
+
+    cold-9245-ws (restaurant_row_001, 16 buildings), 90 jobs:
+      job time summed 31.6 min; first job start to last job end 20.5 min;
+      the whole drive 32 min (the rest: export, light bake, walk copy, findings)
+      laser_tag_evaluate     3 jobs   20.6 min   65.4 %
+      walktest_navqa         3 jobs    7.1 min   22.5 %
+      zoo_kit_build         16 jobs    1.0 min    3.1 %
+      everything else       68 jobs    2.9 min    9.0 %
+    cold-9246-ws (deli_001, 1 building), 28 jobs: 11.2 min summed, 7.8 span;
+      laser_tag_evaluate 55.8 %, walktest_navqa 27.8 %
+
+**The graders are 88 % of job time, and they queue.** `scheduler.DEFAULT_
+CONCURRENCY` caps `godot_headless` at 2, so on 9245 the three candidates'
+Laser Tag and walk-test jobs ran two at a time: the shell leg spans 15.7 min
+(Laser Tag seed_9003 0.4 -> 6.8, seed_9104 2.9 -> 13.2, seed_9205 9.1 -> 13.1;
+the walk tests 0.3 -> 2.8, 6.9 -> 8.9, 13.2 -> 15.7) on a machine with 8
+cores, 16 logical, 16 GB.
+
+## Laser Tag's evaluation is deterministic (`timescale_ab.sh`, `ab_9246`)
+
+Cold run 9246's seed_9191 evaluation rerun from a copy of its staged project
+with the job's exact command, twice on a quiet machine: **identical to the
+job's own report in every field, all 1,943 events** -- the job ran beside a
+walk test, so across processes and across load.
+
+## Lever 1, REFUSED: a faster simulation clock
+
+`run_map_eval.gd` takes `--time-scale` (default 4). Measured on the same
+evaluation:
+
+    time-scale  wall      events  identical to the job  enemy stuck  grade
+     4          108.7 s   1,943   yes                   49           WARN 68
+     8           46.5 s   1,498   no, from event 0        2           WARN 70
+    16           30.9 s     777   no, from event 0        0           WARN 63
+
+Godot scales the PHYSICS STEP by `Engine.time_scale` (4x simulates at 1/15 s
+steps, 8x at 2/15), so a faster clock is a coarser simulation, not the same
+one sooner. Refused. It also shows that the shipped 4x is a modelling choice
+the findings move with: the game steps at 1/60 s (`realtime_ab.sh` measures
+the evaluation there).
+
+## Lever 2: the candidates' graders side by side (`concurrency_ab.sh`, `sixwide_ab.sh`)
+
+Copies of cold run 9246's staged projects, each job's exact command, every
+report compared with the job's own:
+
+    width  what ran at once                          reports identical to their jobs'
+    3      the three Laser Tag evaluations           3 of 3, every field  (trial 1)
+           (each no slower than alone: 109.2 s against the job's 109.0; all three in
+           189.5 s where one after another took 375)
+    6      three evaluations + three walk tests      5 of 6   (trial 1: seed_9292's events)
+    6      the same, again                           4 of 6   (trial 2: seed_9191's, seed_9292's)
+    3      the three evaluations, trial 2            1 of 3   (seed_9191's, seed_9292's events)
+    3      the three evaluations, trial 3            2 of 3   (seed_9292's events)
+    1      seed_9292 alone, twice                    2 of 2, every field (event 244 at -1.04)
+
+**Two at a time is bit-exact; three is verdict-exact.** Alone and at the old
+cap of two, every report matched its job's in every field (seed_9191 three
+times, seed_9292 twice). From three up, the verdicts never moved -- grade,
+score, every summary figure, every finding, every event's count, time, source
+and collider -- but some reports recorded one to three event positions one
+rounding step apart, the SAME values each time (seed_9292's run-4
+`ShotHitEnemy` at z -1.04 recorded -1.03 in four of the wider runs): numbers
+sitting on a rounding boundary, nudged across it by a sub-millimetre
+difference under load. **The walker's call, 2026-10-11: adopt three and note
+the noise** (asked with the numbers above; "Adopt 3, note the noise").
+
+**What differed at six.** In the reports that were not identical, every
+outcome, total, grade and finding was: the difference is one to three events
+whose recorded position moved by one rounding step, 0.01 m (seed_9191 run 14:
+`ShotHitEnemy` at x -14.5 recorded as -14.49, two `ShotBlocked` at 4.7 and 4.5
+as 4.71 and 4.51; seed_9292 run 4: one `ShotHitEnemy` z -1.04 as -1.03), the
+same event, time, source and collider. So something in the simulation is not
+bit-exact under six-wide load -- a sub-millimetre difference that surfaces only
+where a value sits on a rounding boundary. The cause is not established:
+gameplay runs on fixed physics ticks (the run state, the enemy brain and
+movement, the bot), and Laser Tag's frame-paced code (the harness's trace
+print, a destructible's debris timer) records no event; Godot's own threaded
+physics or navigation under contention is the remaining suspect, unmeasured.
+
+**REFUTED, KEPT: the first six-wide run's evidence was deleted by the script
+that produced it.** Its cleanup ran `rm -rf "$X"/lt_9*` to remove the copied
+project directories, and the glob matched the report `lt_9292.json` beside
+them -- the one report that differed. The script now removes the directories
+by name and prints the differing events itself; the second run is the one
+quoted above.
+
+**The cap that follows.** The longest single evaluation bounds a shell leg at
+any width (9245's seed_9104 took 10.25 of its 15.7 minutes), so three recovers
+nearly everything six would: `GODOT_PROVEN_WIDTH` = 3 in Level Factory
+0.179.1 (`scheduler.godot_cap`: the smaller of half the logical CPUs, never
+below 2, and that width), raised only on a measurement at the wider load.
+
+**Open:** the noise's cause. The settings a staged evaluation runs with
+(`engine_settings_probe.gd`): physics engine DEFAULT, not on a separate
+thread, 60 ticks, jitter fix 0.5, the worker pool at all 16 logical CPUs, and
+`navigation/world/map_use_async_iterations` and `region_use_async_iterations`
+both TRUE -- the navigation map updates on worker threads, so when an
+iteration lands can move with contention. Unmeasured; any setting that pins it
+would move every grader's results once, and would need its own A/B.
+
+## Lever 3: one import of a package, not several
+
+The export imports its package to bake it, the bake's work copy is a copy,
+the walk copy imports again from scratch (`walk_export`), and each walk test
+imports its staged project first (`walktest.py import_pass`, up to 600 s
+allowed). Godot re-verifies an import cache against each source's hash, so a
+reused cache is safe by construction where the sources are the same files.
+Not yet measured.
+
+## What is evidence of what
+
+- The time split: every job's own `duration=` in its `job.log`; the spans
+  from the logs' modification times less their durations.
+- Determinism: one candidate of one mission, three runs. A broader claim
+  needs the wider run each lever is accepted on.
