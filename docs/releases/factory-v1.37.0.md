@@ -6,8 +6,8 @@ Godot 4.7, and follow `START_HERE.md` inside it: `.\factory setup --venv`,
 one `.\factory -C levels make`, and `walk` to play what came out. Windows and
 Linux (`sh factory.sh`); Linux has not yet been run by anyone.
 
-**Asset:** `gabagool_factory_package_factory-v1.37.0.zip`, ASSET_BYTES bytes,
-sha256 `ASSET_SHA256`.
+**Asset:** `gabagool_factory_package_factory-v1.37.0.zip`, 71,993,074 bytes,
+sha256 `1bef210373da15b002307c4db2bec31194448760380bbb6c2aa0e2e0cae0d294`.
 
 **What is in it.** The tracked files of the factory root at `factory-v1.37.0`
 and of each tool at the tag `factory.manifest.json` names, plus Deli
@@ -20,7 +20,7 @@ the run record (cold runs, findings, patches) travels.
 | Deli Counter | 0.207.1 | was 0.205.0 |
 | Dispatch | 0.5.2 | |
 | Laser Tag | 0.25.0 | |
-| Level Factory | 0.178.2 | was 0.172.1 |
+| Level Factory | 0.178.3 | was 0.172.1 |
 | Lot | 0.115.0 | was 0.106.0 |
 | Lux | 0.74.0 | was 0.72.0 |
 | Patina | 0.30.0 | |
@@ -61,7 +61,11 @@ flicker.
 into a folder that had never held a factory, and typed `START_HERE.md`'s
 commands into a terminal -- `setup --venv` and its download of Pillow,
 pygltflib and jsonschema included, for the first time with no stand-in.
-RESULT_INSTALL_6
+`setup` exited 0 with every doctor row passing; `make` exited 0 in 32.3
+minutes and built the same level install tests 3 to 5 had built (0 of 79
+and 0 of 111 blockers, baked, the closure clean); `walk` exited 0 with all
+five review stations passing, and the package was still baked after it.
+No deviation from the page.
 
 **What this set does not certify.** Linux, which nobody has run; and every
 item the roadmap names as open.
