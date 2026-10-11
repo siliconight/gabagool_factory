@@ -24,7 +24,7 @@ over a stairwell on a floor the stair does not serve; the roof does.
   keep-out (0.209.0), as before.
 
 **Re-gated on 9245's composed buildings** (`docs/findings/roof_props/regate_9245.py`,
-the patched module against the old packages): RESULT_PACKAGE
+the patched module against the old packages): on 0.209.0 the probe reproduces the run's own count exactly -- shell 0, dressing 0, roofprops 8 (the office's seven HVAC parts into `office_stair_0`, the deli's dish into `deli_stair_down`), the pharmacy clean; on 0.209.1, roofprops 0 with shell and dressing still 0 across every building and every volume count the same (`regate_9245_0_209_0.txt`, `regate_9245_0_209_1.txt`): the fix owns the eight and nothing else moved
 
 ### Tests
 
@@ -33,4 +33,4 @@ landing (fails on 0.209.0); a roof prop over a stair two slabs down is not in
 its column while a table in the well is; a stair without endpoints keeps the
 full column.
 
-**Suite:** RESULT_SUITE
+**Suite:** 1,398 passed, 2 skipped, exit 0 on the repo: 0.209.0's 1,395 and the three new tests; `test_circulation.py` 28 passed, its 0.209.0 column tests untouched (they pass explicit z)

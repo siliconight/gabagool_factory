@@ -1,0 +1,18 @@
+anchors 9244 34 9245 34 identical
+measured control_1  53 headings  draws mean 2502 worst 5219  p95 median 8.56 ms
+measured glow       53 headings  draws mean 2515 worst 5243  p95 median 6.39 ms
+measured control_2  53 headings  draws mean 2502 worst 5219  p95 median 6.37 ms
+controls' spread, median over 53 headings: p95 1.11 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0             0.55         7.96
+glow              12.7            0           33            -0.46         0.59
+control_2          0.0            0            0            -0.55         0.20
+player_start_19        yaw  90.0  draws c  5219  5219 s  5243   +24.0   p95 c 29.59 19.36 s 18.95 -5.52   passes s [5243, 5243] c1 [5219, 5219] c2 [5219, 5219]
+player_start_19        yaw 180.0  draws c  2948  2948 s  2958   +10.0   p95 c 8.76 6.82 s 6.35 -1.44   passes s [2958, 2958] c1 [2948, 2948] c2 [2948, 2948]
+player_start_19        yaw 270.0  draws c  4099  4099 s  4117   +18.0   p95 c 12.97 8.88 s 9.09 -1.84   passes s [4117, 4117] c1 [4099, 4099] c2 [4099, 4099]
+draws vs controls' mean: median 13.0  min 0.0  max 33.0
+p95 ms vs controls' mean: median -0.46  min -7.79  max +0.59
+controls between themselves, p95 |c1-c2|: median 1.11  max 15.91
+frame p95 at the controls' mean, median over headings: 7.61 ms
+headings with p95 delta over the controls' 1.11 ms spread: 0 of 53; over 0.10 ms: 8
+copies removed
