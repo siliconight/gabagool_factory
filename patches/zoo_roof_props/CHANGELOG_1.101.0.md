@@ -38,7 +38,7 @@ the library's 145 built shells carry a roof ladder.
   material (an HVAC is five parts, a dish four, a tank, a fan and a stack
   three each). `merge_parts` False is the one-build control, reached by
   `--no-merge-parts`; the index and the CLI's summary carry the merge's
-  stats. RESULT_BPY
+  stats. Measured 2026-10-11 on Blender 5.1.1, flat materials, deli_a01's roof as the 0.208.0 library shipped it (38 x 28 m, top at 6.6 m, one hatch hole and no landings yet): 17 props -- 4 HVAC units, 6 vent stacks, 3 exhaust fans, 2 skylights, 2 dishes, no tank below 12 m -- 59 parts merged into 6 meshes, one a species family (the 15 collider proxies kept as themselves), 4,392 triangles both ways; 59 submissions to 6 by `docs/findings/fixture_merge/layer_count.py` on the merged and the `--no-merge-parts` GLB (`docs/findings/roof_props/`)
 
 ### Tests
 
@@ -51,4 +51,4 @@ margin and overlap tests now judge the yawed box (the margin one fails on
 seed, since the yaw is drawn first; no level has had a roof prop, so nothing
 shipped moves.
 
-**Suite:** RESULT_SUITE
+**Suite:** 4,163 passed, 438 skipped, 1 xfailed, exit 0 (5:45): 1.100.0's 4,157 and the six tests `tests/test_roofprops.py` grew; eight of its thirteen fail on 1.100.0, run against it first

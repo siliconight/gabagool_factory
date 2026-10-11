@@ -48,4 +48,4 @@ fake Zoo answers `--roof-props` with the index and GLB the adapter expects,
 the stub composer takes the third layer, and the integration run asserts
 the stage succeeded.
 
-**Suite:** RESULT_SUITE
+**Suite:** 2,241 passed, 16 skipped (one xfail among them), 0 failed, exit 0, counted from JUnit output since the conftest prints no summary: 0.178.6's suite and the ten tests `tests/unit/test_roof_props_stage.py` grew, the integration run asserting `zoo_roof_props_build` succeeded against the fake Zoo. The real-tool smoke (`LF_TOOLS_DIR=<factory>`) then read DRIFT on exactly two grounded rows -- deli_counter 0.209.0 and zoo 1.101.0 installed against 0.208.0 and 1.100.0 pinned -- and licensed re-grounding both (`patches/patch_lf_reground_0_179_0.py`, in this release): all green after, the dispatch example skipped as always

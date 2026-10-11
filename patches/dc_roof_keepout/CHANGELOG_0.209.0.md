@@ -38,6 +38,6 @@ roof's centred coords and dropped off it (two fail on 0.208.0);
 `test_circulation_arms.py`: one arm is itself, two keep 0.208.0's shape,
 three add the roof, none is None.
 
-**Suite:** RESULT_SUITE
+**Suite:** 1,395 passed, 2 skipped, exit 0 on the repo before the library rebuild: 0.208.0's 1,389 and the six new tests; on a clone, the one test that reads the built library fails as it does unpatched (no `build/` there)
 
-**Library:** RESULT_LIBRARY
+**Library:** rebuilt (`python build.py --all`, 145 shells, 2026-10-11, about 18 minutes): 52 of the 133 roof slots carry `keep_out`, one landing each (the ladders that top out on their roof -- deli_a01's at x 6.5..9.5, y -13.5..-10.5 around `night_deli_ladder_0`, its hatch's hole inside it), and with the key removed every one of the 145 slot manifests is identical to the 0.208.0 library's as the factory 1.38.0 package shipped it, which carried the key nowhere
