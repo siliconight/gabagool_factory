@@ -208,6 +208,7 @@ bash tools/recipe_run_record.sh <N> <mission>        # copies, control, stations
 python tools/edge_stations.py <site.site.drawn.json>  # the --station arguments it derives, one a road end at the edge
 python tools/backdrop_off.py <package copy>           # the control: the entry scene's three-line load of <site>_backdrop.tscn removed
 python tools/room_stations.py workspaces/<ws> <mission> <building id>   # interior stations, the ceiling in frame (roadmap 229)
+python tools/lane_stations.py <site.site.drawn.json>   # two stations along each service lane (the block grammar, roadmap 199/230)
 ```
 
 - The package is `workspaces/cold-<N>-ws/.level_factory/exports/LF_<mission>.portable-godot`;
