@@ -80,6 +80,15 @@ and look_shots' four elevated views. In heavy rain at night:
   walker's eye:** whether the near band's container tops want a darker,
   dirtier roof (Zoo's `cargo_container`), or the near band wants to stand
   further off at a yard.
+  **RETRACTED 2026-10-11 by cold run 9240** (`docs/cold_runs/cold_9240/`,
+  `slab_ray.py`): the slab is not a top face and not a container. `elev_W`
+  is an orthographic camera looking level, which sees no horizontal face;
+  its rays through the slab meet one backdrop box, the warehouse
+  `backdrop_117` 91 m off, and land in its third high window, which Zoo
+  paints lit cool white -- its top at 6.20 m is the slab's top edge, its
+  bottom behind the storefront's roofline. The orthographic camera draws
+  it at full size. Zoo 1.99.0 darkened the container's roof on this
+  reading, and 9240's frames show the slab unchanged.
 
 ## Priced
 
