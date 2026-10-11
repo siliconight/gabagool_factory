@@ -96,7 +96,7 @@
 - `lot_fields/` -- 9 file(s); 0.94.0 - a parking field in a gap between buildings
 - `lot_getaway/` -- 3 file(s); 0.98.0 - the getaway van at the spawn: the crew starts at it and the job ends at it
 - `lot_lane_control/` -- 3 file(s); 0.113.0 - a lane stops at a street, and the audit counts it
-- `lot_lane_lamps/` -- 3 file(s); 0.116.0 - a lane lights its own length
+- `lot_lane_lamps/` -- 4 file(s); 0.116.0 - a lane lights its own length
 - `lot_light_targets/` -- 3 file(s); 0.99.1 - a stage light's aim moves with its club
 - `lot_marks_obj/` -- 4 file(s); 0.114.0 - the road paint as one mesh per colour, beside the scene
 - `lot_mesh_tile/` -- 3 file(s); 0.115.0 - the plate tile follows the bake
