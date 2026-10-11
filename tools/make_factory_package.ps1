@@ -77,7 +77,11 @@ foreach ($r in $repos) {
     if (-not $tagged.ContainsKey($r.name)) { throw "the manifest at $Tag names no tag for $($r.name)" }
     $ref = $tagged[$r.name]
   }
-  $head = git -C $r.path rev-parse --short $ref
+  # THE COMMIT, not the ref's own object: an annotated tag's object id is not the
+  # commit it names, and 1.37.0's package printed pipeline's v0.6.0 as 6e5aed0 (the
+  # tag) against the 1084ded (the commit) install test 6 had packaged -- the same
+  # tree, read as two.
+  $head = git -C $r.path rev-parse --short "$ref^{commit}"
   $dirty = git -C $r.path status --porcelain
   $flag = if ($dirty -and -not $Tag) { "  (UNCOMMITTED CHANGES NOT INCLUDED)" } else { "" }
   Write-Host ("  {0,-16} @ {1} ({2}){3}" -f $r.name, $head, $ref, $flag)
