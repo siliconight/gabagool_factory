@@ -14,7 +14,7 @@ cool fluorescent row behind it.
 - A shop's own rooms keep their troffers, and the below-grade and objective
   rooms their bare bulbs: the bulb branch says it is no home.
 
-**Library:** RESULT_LIBRARY.
+**Library:** rebuilt (`python build.py --all`, 146 shells), the 131 lights manifests read 67 `dome` anchors carrying 213 lamps in 18 buildings, and 1,004 `fluorescent` anchors carrying 3,889 where 0.207.1's read 1,071 and 4,102 (`docs/findings/fixture_rows/type_census.py` in the factory) -- the home rows moved type one for one, every other type unchanged; the manifests changed by their build stamp alone.
 
 **Tests:** 1 in `test_fixture_rows.py`; its row helper reads a dome as a
-row. **Suite:** RESULT_SUITE.
+row. **Suite:** 1,389 passed, 2 skipped, exit 0 on the repo before the library rebuild and after it (1,388 as 0.207.1 and the new test); on a clone, 22 environmental failures that read the built library, the same 22 an unpatched clone fails.
