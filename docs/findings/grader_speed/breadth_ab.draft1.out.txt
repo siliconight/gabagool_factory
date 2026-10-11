@@ -1,0 +1,35 @@
+workspace     mission              seed  exit       job     fixed  against the job's report
+cold-9247-ws  restaurant_row_001   9003     0   398.8 s    22.9 s  identical in every field (1351 events)
+cold-9247-ws  restaurant_row_001   9205     0   256.6 s    21.1 s  identical in every field (1594 events)
+cold-9246-ws  deli_001             9191     1   109.0 s    18.0 s  DIFFER in ['events']; events 1943 vs 1943, first at 995
+cold-9246-ws  deli_001             9292     0    76.8 s    12.7 s  DIFFER in ['events']; events 1418 vs 1418, first at 651
+cold-9246-ws  deli_001             9393     1   188.8 s    15.1 s  DIFFER in ['categories', 'coop', 'events', 'findings', 'overall_score', 'summary']; events 1903 vs 1882, first at 75
+Traceback (most recent call last):
+  File "C:\Projects\gabagool_studios\gabagool_factory\docs\findings\grader_speed\breadth_ab.py", line 108, in <module>
+    main()
+    ~~~~^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\docs\findings\grader_speed\breadth_ab.py", line 90, in main
+    for case, rc, wall, job_wall, differ, pair in pool.map(run, CASES):
+                                                  ~~~~~~~~^^^^^^^^^^^^
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 639, in result_iterator
+    yield _result_or_cancel(fs.pop())
+          ~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 311, in _result_or_cancel
+    return fut.result(timeout)
+           ~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 443, in result
+    return self.__get_result()
+           ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\_base.py", line 395, in __get_result
+    raise self._exception
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 86, in run
+    result = ctx.run(self.task)
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\concurrent\futures\thread.py", line 73, in run
+    return fn(*args, **kwargs)
+  File "C:\Projects\gabagool_studios\gabagool_factory\docs\findings\grader_speed\breadth_ab.py", line 58, in run
+    staging, user, report, job_wall = job_of(ws, mission, seed)
+                                      ~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\docs\findings\grader_speed\breadth_ab.py", line 41, in job_of
+    assert reports, ("no report for", ws, name)
+           ^^^^^^^
+AssertionError: ('no report for', 'cold-9240-ws', 'warehouse_yard_001.laser_tag_evaluate.candidate.seed_9003')

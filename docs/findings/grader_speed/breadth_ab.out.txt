@@ -1,0 +1,103 @@
+Each candidate: the job's report against the first fixed-clock run, and the second run
+against the first. Walls: the job's (synchronised, from its log) and each fixed run's.
+
+cold-9247-ws restaurant_row_001 seed 9003: 1351 events; job 398.8 s, fixed 17.3 s and 17.9 s (exit 0, 0)
+    against the job:   identical in every field
+    second against first: identical in every field
+cold-9247-ws restaurant_row_001 seed 9205: 1594 events; job 256.6 s, fixed 15.9 s and 18.3 s (exit 0, 0)
+    against the job:   identical in every field
+    second against first: identical in every field
+cold-9246-ws deli_001 seed 9191: 1943 events; job 109.0 s, fixed 14.4 s and 14.8 s (exit 1, 1)
+    against the job:   DIFFER in ['events'] (1 events)
+        #995 run 14 ShotHitEnemy {'position': ([-4.3, 1.1, -14.5], [-4.3, 1.1, -14.49])}
+    second against first: identical in every field
+cold-9246-ws deli_001 seed 9292: 1418 events; job 76.8 s, fixed 11.1 s and 11.0 s (exit 0, 0)
+    against the job:   DIFFER in ['events'] (4 events)
+        #651 run 11 ShotHitEnemy {'position': ([-10.66, 1.09, -1.71], [-10.66, 1.09, -1.72])}
+        #653 run 11 ShotHitEnemy {'position': ([-10.24, 1.22, -1.03], [-10.24, 1.22, -1.04])}
+        #754 run 13 ShotHitEnemy {'position': ([-10.53, 1.18, -1.48], [-10.53, 1.18, -1.49])}
+        #906 run 16 ShotHitEnemy {'position': ([-13.54, 1.15, -7.02], [-13.54, 1.16, -7.02])}
+    second against first: identical in every field
+cold-9246-ws deli_001 seed 9393: 1882 events; job 188.8 s, fixed 15.0 s and 14.6 s (exit 1, 1)
+    against the job:   DIFFER in ['categories', 'coop', 'events', 'findings', 'overall_score', 'summary'] (1798 events, events 1903 vs 1882)
+        #75 run 1 ShotBlocked {'position': ([-13.18, 0.93, -13.43], [-13.17, 0.94, -13.33])}
+        #78 run 1 ShotHitEnemy {'position': ([-13.12, 1.13, -14.44], [-13.11, 1.13, -14.44])}
+        #80 run 1 RouteProgress {'time': (19.07, 19.2)}
+        #81 run 1 ObjectiveReached {'time': (19.07, 19.2)}
+        #88 run 2 RouteProgress {'source': ('LT_Player_01', 'LT_Enemy_05'), 'time': (0.13, 25.4), 'run_id': (2, 1), 'event': ('RouteProgress', 'LineOfSightGained'), 'metadata': ({'reached': 0, 'source': 'LT_Player_01', 'total': 2}, {'source': 'LT_Enemy_05', 'target': 'LT_Player_01'})}
+        #89 run 2 RouteProgress {'source': ('LT_Player_02', 'LT_Enemy_05'), 'position': ([0.0, 0.0, 0.0], [-16.62, 1.17, -7.2]), 'time': (0.6, 25.87), 'run_id': (2, 1), 'event': ('RouteProgress', 'ShotHitPlayer'), 'metadata': ({'reached': 1, 'source': 'LT_Player_02', 'total': 3}, {})}
+    second against first: identical in every field
+cold-9240-ws warehouse_yard_001 seed 9004: 1925 events; job 444.0 s, fixed 16.8 s and 16.9 s (exit 0, 0)
+    against the job:   DIFFER in ['events'] (3 events)
+        #728 run 10 ShotHitPlayer {'position': ([8.45, 1.14, 15.27], [8.46, 1.13, 15.27])}
+        #756 run 10 PlayerStuck {'position': ([2.99, 0.01, 15.99], [3.0, 0.01, 15.99]), 'metadata': ({'position': [2.99249529838562, 0.00909393280744553, 15.9859619140625], 'source': 'LT_Player_01'}, {'position': [2.99728441238403, 0.0094013586640358, 15.9855480194092], 'source': 'LT_Player_01'})}
+        #757 run 10 PlayerStuck {'metadata': ({'position': [2.32065200805664, 0.0100974664092064, 17.1603717803955], 'source': 'LT_Player_02'}, {'position': [2.32107043266296, 0.0103548839688301, 17.16037940979], 'source': 'LT_Player_02'})}
+    second against first: identical in every field
+cold-9240-ws warehouse_yard_001 seed 9105: 1552 events; job 256.6 s, fixed 15.3 s and 15.5 s (exit 0, 0)
+    against the job:   DIFFER in ['events', 'summary'] (948 events, events 1550 vs 1552)
+        #602 run 10 LineOfSightLost {'position': ([0.0, 0.0, 0.0], [-3.97, 1.11, 16.5]), 'time': (14.33, 14.47), 'event': ('LineOfSightLost', 'ShotHitPlayer'), 'metadata': ({'source': 'LT_Enemy_06', 'target': 'LT_Player_01'}, {})}
+        #603 run 10 LineOfSightGained {'source': ('LT_Enemy_06', 'LT_Player_03'), 'position': ([0.0, 0.0, 0.0], [12.53, 0.0, -1.06]), 'time': (14.4, 14.8), 'event': ('LineOfSightGained', 'ShotBlocked'), 'metadata': ({'source': 'LT_Enemy_06', 'target': 'LT_Player_02'}, {'collider': 'Ground_4', 'hit_type': 'WORLD_BLOCKED'})}
+        #604 run 10 ShotBlocked {'source': ('LT_Player_02', 'LT_Player_04'), 'position': ([15.85, 1.46, -1.24], [15.85, 1.23, -1.63]), 'time': (14.8, 14.93)}
+        #605 run 10 ShotHitPlayer {'source': ('LT_Enemy_06', 'LT_Player_01'), 'position': ([-4.06, 1.1, 16.61], [14.03, 1.1, -0.8]), 'time': (14.8, 15.0), 'event': ('ShotHitPlayer', 'ShotHitEnemy')}
+        #606 run 10 ShotHitEnemy {'source': ('LT_Player_04', 'LT_Enemy_06'), 'position': ([13.66, 0.24, -0.81], [0.0, 0.0, 0.0]), 'time': (14.93, 15.53), 'event': ('ShotHitEnemy', 'EnemyKilled'), 'metadata': ({}, {'source': 'LT_Enemy_06'})}
+        #607 run 10 ShotBlocked {'source': ('LT_Player_01', 'LT_Player_03'), 'position': ([30.27, 0.0, -19.45], [14.08, 1.26, -0.79]), 'time': (15.0, 15.53), 'event': ('ShotBlocked', 'ShotHitEnemy'), 'metadata': ({'collider': 'Ground_7', 'hit_type': 'WORLD_BLOCKED'}, {})}
+    second against first: identical in every field
+cold-9240-ws warehouse_yard_001 seed 9206: 1975 events; job 406.9 s, fixed 17.9 s and 19.4 s (exit 1, 1)
+    against the job:   DIFFER in ['events'] (11 events)
+        #135 run 2 ShotBlocked {'position': ([14.52, 1.89, 19.38], [14.53, 1.88, 19.38])}
+        #136 run 2 ShotBlocked {'position': ([24.28, 1.46, 19.25], [24.25, 1.46, 19.25])}
+        #141 run 2 ShotBlocked {'position': ([23.36, 1.43, 19.25], [23.35, 1.42, 19.25])}
+        #144 run 2 ShotHitEnemy {'position': ([7.14, 0.97, 19.21], [7.14, 0.97, 19.2])}
+        #145 run 2 ShotBlocked {'position': ([-7.67, 0.01, 17.67], [-7.67, 0.01, 17.68])}
+        #146 run 2 ShotBlocked {'position': ([3.6, 1.56, 19.27], [3.6, 1.56, 19.28])}
+    second against first: identical in every field
+cold-9214-ws bank_block_001 seed 9054: 1513 events; job 377.4 s, fixed 17.5 s and 16.6 s (exit 0, 0)
+    against the job:   DIFFER in ['events'] (4 events)
+        #1380 run 23 ShotHitEnemy {'position': ([-19.73, 0.64, 8.52], [-19.75, 0.64, 8.5])}
+        #1386 run 23 ShotBlocked {'position': ([-26.97, 0.01, 3.36], [-26.99, 0.01, 3.35])}
+        #1388 run 23 ShotHitEnemy {'position': ([-18.95, 0.57, 8.49], [-18.97, 0.57, 8.48])}
+        #1390 run 23 ShotBlocked {'position': ([-32.18, 0.01, -10.03], [-32.17, 0.01, -10.02])}
+    second against first: identical in every field
+cold-9214-ws bank_block_001 seed 9155: 3881 events; job 583.0 s, fixed 29.5 s and 38.7 s (exit 1, 1)
+    against the job:   DIFFER in ['events'] (20 events)
+        #84 run 1 ShotBlocked {'position': ([32.8, 1.56, 15.54], [32.8, 1.56, 15.5]), 'time': (12.93, 13.0)}
+        #85 run 1 ShotBlocked {'position': ([9.24, 0.02, 15.0], [9.21, 0.02, 14.99])}
+        #88 run 1 ShotBlocked {'position': ([5.27, 2.56, 13.65], [5.39, 2.56, 13.65]), 'time': (13.67, 13.73)}
+        #90 run 1 ShotBlocked {'position': ([6.13, 0.02, 14.74], [6.11, 0.02, 14.74])}
+        #92 run 1 ShotBlocked {'position': ([-1.21, 1.25, 13.65], [-1.16, 1.25, 13.65]), 'time': (14.4, 14.47)}
+        #93 run 1 ShotBlocked {'position': ([12.57, 0.1, 16.62], [12.59, 0.1, 16.62])}
+    second against first: identical in every field
+cold-9214-ws bank_block_001 seed 9256: 2398 events; job 578.2 s, fixed 38.4 s and 34.3 s (exit 1, 1)
+    against the job:   DIFFER in ['events'] (4 events)
+        #1382 run 15 ShotBlocked {'metadata': ({'collider': 'StaticBody3D', 'hit_type': 'WORLD_BLOCKED'}, {'collider': 'col_0_11_col', 'hit_type': 'WORLD_BLOCKED'})}
+        #1387 run 15 ShotBlocked {'metadata': ({'collider': 'StaticBody3D', 'hit_type': 'WORLD_BLOCKED'}, {'collider': 'col_0_21_col', 'hit_type': 'WORLD_BLOCKED'})}
+        #1388 run 15 ShotBlocked {'metadata': ({'collider': 'StaticBody3D', 'hit_type': 'WORLD_BLOCKED'}, {'collider': 'col_0_21_col', 'hit_type': 'WORLD_BLOCKED'})}
+        #1394 run 15 ShotBlocked {'metadata': ({'collider': 'col_0_11_col', 'hit_type': 'WORLD_BLOCKED'}, {'collider': 'StaticBody3D', 'hit_type': 'WORLD_BLOCKED'})}
+    second against first: identical in every field
+cold-9209-ws club_block_014 seed 9080: 1792 events; job 293.0 s, fixed 28.8 s and 26.5 s (exit 1, 1)
+    against the job:   DIFFER in ['events', 'summary'] (1370 events, events 1793 vs 1792)
+        #422 run 6 PlayerKilled {'source': ('LT_Player_03', 'LT_Enemy_01'), 'time': (7.07, 6.6), 'event': ('PlayerKilled', 'LineOfSightLost'), 'metadata': ({'source': 'LT_Player_03'}, {'source': 'LT_Enemy_01', 'target': 'LT_Player_01'})}
+        #423 run 6 ShotHitPlayer {'source': ('LT_Enemy_02', 'LT_Enemy_01'), 'position': ([-19.05, 1.09, 22.11], [0.0, 0.0, 0.0]), 'time': (7.07, 6.67), 'event': ('ShotHitPlayer', 'LineOfSightGained'), 'metadata': ({}, {'source': 'LT_Enemy_01', 'target': 'LT_Player_03'})}
+        #424 run 6 LineOfSightLost {'source': ('LT_Enemy_01', 'LT_Player_03'), 'time': (7.13, 7.07), 'event': ('LineOfSightLost', 'PlayerKilled'), 'metadata': ({'source': 'LT_Enemy_01', 'target': 'LT_Player_01'}, {'source': 'LT_Player_03'})}
+        #425 run 6 LineOfSightLost {'position': ([0.0, 0.0, 0.0], [-19.05, 1.09, 22.11]), 'time': (7.13, 7.07), 'event': ('LineOfSightLost', 'ShotHitPlayer'), 'metadata': ({'source': 'LT_Enemy_02', 'target': 'LT_Player_01'}, {})}
+        #426 run 6 LineOfSightGained {'source': ('LT_Enemy_02', 'LT_Enemy_01'), 'time': (7.27, 7.13), 'event': ('LineOfSightGained', 'LineOfSightLost'), 'metadata': ({'source': 'LT_Enemy_02', 'target': 'LT_Player_04'}, {'source': 'LT_Enemy_01', 'target': 'LT_Player_01'})}
+        #427 run 6 LineOfSightLost {'time': (7.4, 7.13)}
+    second against first: identical in every field
+cold-9209-ws club_block_014 seed 9181: 1866 events; job 453.4 s, fixed 22.8 s and 22.6 s (exit 0, 0)
+    against the job:   DIFFER in ['events'] (4 events)
+        #44 run 1 ShotHitPlayer {'position': ([29.06, 1.02, 14.94], [29.05, 1.02, 14.94])}
+        #66 run 1 ShotHitEnemy {'position': ([24.03, 1.17, 18.46], [24.05, 1.17, 18.46])}
+        #194 run 3 ShotBlocked {'position': ([26.65, 1.33, 19.46], [26.65, 1.33, 19.47])}
+        #202 run 3 ShotBlocked {'position': ([18.57, 1.42, 18.73], [18.57, 1.41, 18.73])}
+    second against first: identical in every field
+cold-9209-ws club_block_014 seed 9282: 1958 events; job 590.5 s, fixed 30.8 s and 27.4 s (exit 0, 0)
+    against the job:   DIFFER in ['events'] (8 events)
+        #44 run 1 ShotBlocked {'position': ([4.73, 0.01, 22.2], [4.73, 0.01, 22.19])}
+        #47 run 1 ShotBlocked {'position': ([32.62, 1.54, 21.15], [32.63, 1.54, 21.15])}
+        #48 run 1 ShotBlocked {'position': ([32.5, 1.1, 21.15], [32.51, 1.1, 21.15])}
+        #50 run 1 ShotHitEnemy {'position': ([9.02, 0.37, 21.23], [9.02, 0.37, 21.22])}
+        #51 run 1 EnemyStuck {'metadata': ({'position': [-5.30093622207642, 0.0108095966279507, 20.9009418487549], 'source': 'LT_Enemy_03', 'stuck_count': 1}, {'position': [-5.300940990448, 0.0108282957226038, 20.8981781005859], 'source': 'LT_Enemy_03', 'stuck_count': 1})}
+        #69 run 1 ShotHitEnemy {'position': ([-4.96, 1.23, 21.14], [-4.96, 1.23, 21.13])}
+    second against first: identical in every field
+
+2 of 14 identical to their jobs' reports; 14 of 14 identical to themselves run again

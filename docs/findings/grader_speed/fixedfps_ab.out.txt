@@ -1,0 +1,18 @@
+B: exit 0, wall 21.2 s
+C: exit 0, wall 63.2 s
+A: exit 0, wall 593.4 s
+job grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  simulated 39.20 min  wall (the job's)  ratio -
+      against A: every field identical True
+A   grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  simulated 39.20 min  wall 593.4 s  ratio 3.96
+B   grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck  21  player deaths  29  simulated 39.19 min  wall 21.2 s  ratio 110.91
+      against A: every field identical False (differ: ['events', 'findings', 'summary'])
+      events 2214 vs A's 2196, first difference at 195:
+        A: {'event': 'PlayerStuck', 'metadata': {'position': [-66.3500900268555, 0.000943743565585464, 4.94044542312622], 'source': 'LT_Player_02'}, 'position': [-66.35, 0.0, 4.94], 'run_id': 2, 'source': 'LT_Player_02', 'time': 72.0}
+        B: {'event': 'PlayerStuck', 'metadata': {'position': [-66.3500900268555, 0.000942915095947683, 4.94039821624756], 'source': 'LT_Player_02'}, 'position': [-66.35, 0.0, 4.94], 'run_id': 2, 'source': 'LT_Player_02', 'time': 72.0}
+      summary fields that moved: {'avg_engagement_distance': (22.87, 22.88), 'player_stuck_events': (9, 21), 'player_stuck_per_player_run': (0.09, 0.21), 'shots_blocked': (903, 901), 'shots_fired': (1678, 1676)}
+C   grade PASS_WITH_TUNING score  80  enemy stuck   1  player stuck   7  player deaths  25  simulated 38.97 min  wall 63.2 s  ratio 37.00
+      against A: every field identical False (differ: ['events', 'findings', 'summary'])
+      events 2711 vs A's 2196, first difference at 0:
+        A: {'event': 'RouteProgress', 'metadata': {'reached': 0, 'source': 'LT_Player_01', 'total': 2}, 'position': [0.0, 0.0, 0.0], 'run_id': 1, 'source': 'LT_Player_01', 'time': 0.13}
+        C: {'event': 'RouteProgress', 'metadata': {'reached': 0, 'source': 'LT_Player_01', 'total': 2}, 'position': [0.0, 0.0, 0.0], 'run_id': 1, 'source': 'LT_Player_01', 'time': 0.03}
+      summary fields that moved: {'avg_engagement_distance': (22.87, 22.67), 'avg_player_survival_seconds': (16.2, 19.86), 'avg_time_to_first_contact': (1.6, 1.53), 'avg_time_to_first_enemy_shot': (1.93, 1.88), 'avg_time_to_first_player_shot': (1.6, 1.53), 'enemy_stuck_events': (3, 1), 'enemy_stuck_per_enemy_run': (0.02, 0.01), 'first_contact_max': (1.6, 1.53), 'first_contact_min': (1.6, 1.53), 'first_enemy_shot_max': (2.13, 2.1), 'first_enemy_shot_min': (1.73, 1.77), 'first_enemy_shot_stddev': (0.1, 0.09), 'player_deaths': (29, 25), 'player_stuck_events': (9, 7), 'player_stuck_per_player_run': (0.09, 0.07), 'shots_blocked': (903, 1088), 'shots_blocked_by_collision_percent': (0.54, 0.62), 'shots_fired': (1678, 1754), 'shots_hit': (481, 488), 'shots_missed': (294, 178), 'survival_max': (89.67, 91.62), 'survival_min': (7.6, 7.68), 'survival_stddev': (21.45, 25.62)}

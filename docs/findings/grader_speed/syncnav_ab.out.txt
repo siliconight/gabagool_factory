@@ -1,0 +1,31 @@
+[settings] navigation/world/map_use_async_iterations = false
+[settings] navigation/world/region_use_async_iterations = false
+D1: exit 0, wall 21.1 s
+D2: exit 0, wall 23.0 s
+L3: exit 0, wall 22.8 s
+L1: exit 0, wall 22.9 s
+L2: exit 0, wall 22.9 s
+G1: exit 0, wall 62.1 s
+G2: exit 0, wall 61.7 s
+E: exit 0, wall 593.1 s
+job                    grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+A (async, 4x synced)   grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+B (async, fixed-fps)   grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck  21  player deaths  29  shots 1676  events 2214
+C (async, fixed-fps, 1x) grade PASS_WITH_TUNING score  80  enemy stuck   1  player stuck   7  player deaths  25  shots 1754  events 2711
+D1                     grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+D2                     grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+L1                     grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+L2                     grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+L3                     grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+E                      grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  shots 1678  events 2196
+G1                     grade PASS_WITH_TUNING score  80  enemy stuck   1  player stuck   7  player deaths  25  shots 1754  events 2711
+G2                     grade PASS_WITH_TUNING score  80  enemy stuck   1  player stuck   7  player deaths  25  shots 1754  events 2711
+D1 vs D2: identical in every field
+D1 vs L1: identical in every field
+D1 vs L2: identical in every field
+D1 vs L3: identical in every field
+D1 vs E: identical in every field
+G1 vs G2: identical in every field
+E vs A (async, 4x synced): identical in every field
+A (async, 4x synced) vs job: identical in every field
+G1 vs C (async, fixed-fps, 1x): differ in ['events']

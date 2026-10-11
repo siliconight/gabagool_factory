@@ -4,7 +4,11 @@
 do to make our coldruns faster without losing any certainty of quality or
 introducing regressions? Im thinking this is the most time consuming part of
 our iteration process". The constraint sets the test: a speedup is accepted
-only if every report it touches comes out byte-identical.
+only if every report it touches comes out byte-identical. Lever 4 is the one
+place that bar moved, and why is recorded there: the old reports were
+themselves wall-time-dependent, so "identical to the job" was a comparison
+with a reading that could not repeat under load; the new one repeats under
+any clock and load, and against the old jobs every grade and finding held.
 
 ## Where the time goes (cold runs 9245 and 9246, every job's own `duration=`)
 
@@ -100,13 +104,82 @@ nearly everything six would: `GODOT_PROVEN_WIDTH` = 3 in Level Factory
 0.179.1 (`scheduler.godot_cap`: the smaller of half the logical CPUs, never
 below 2, and that width), raised only on a measurement at the wider load.
 
-**Open:** the noise's cause. The settings a staged evaluation runs with
-(`engine_settings_probe.gd`): physics engine DEFAULT, not on a separate
-thread, 60 ticks, jitter fix 0.5, the worker pool at all 16 logical CPUs, and
-`navigation/world/map_use_async_iterations` and `region_use_async_iterations`
-both TRUE -- the navigation map updates on worker threads, so when an
-iteration lands can move with contention. Unmeasured; any setting that pins it
-would move every grader's results once, and would need its own A/B.
+**Open, then ANSWERED below (Lever 4):** the noise's cause. The settings a
+staged evaluation runs with (`engine_settings_probe.gd`): physics engine
+DEFAULT, not on a separate thread, 60 ticks, jitter fix 0.5, the worker pool at
+all 16 logical CPUs, and `navigation/world/map_use_async_iterations` and
+`region_use_async_iterations` both TRUE -- the navigation map updates on worker
+threads, so when an iteration lands can move with contention. It was the
+navigation: synchronous, three at once read identical to one (Lever 4).
+
+**Measured on cold run 9247** (restaurant_row_001 on 9245's lot, its lots and
+walk tests byte-identical to 9245's): the shell leg 15.7 -> 10.4 minutes, the
+drive 30.4 -> 24.3, ending with its longest evaluation as predicted
+(`docs/cold_runs/cold_9247/NOTES.md`).
+
+## Lever 4, ADOPTED: a clock that does not wait, with the navigation on the evaluation's thread
+
+**Every evaluation waited on real seconds.** Simulated time (the sum of a
+report's run durations) against its job's wall time, cold runs 9245 (two at
+once) and 9247 (three at once): 3.93, 3.97, 3.91 and 3.94, 3.96, 3.92 -- the
+4x clock less the import and the nav bake. Godot keeps physics in step with
+real time at whatever `Engine.time_scale` says; `run_map_eval.gd`'s comment
+"Headless evaluation shouldn't wait on real-world seconds" stated an intent
+the engine did not honour. It is also why three side by side ran no slower:
+each process mostly slept.
+
+**`--fixed-fps 60` alone (`fixedfps_ab.sh`, 9247's seed_9104, the job 593 s):**
+
+    arm                                   wall      against the job
+    A  the job's command, alone           593.4 s   identical in every field
+    B  --fixed-fps 60, the 4x step         21.2 s   same grade and score; crew stuck 21 against 9,
+                                                    from run 2's 72nd second, 0.05 mm apart
+    C  --fixed-fps 60, time scale 1        63.2 s   the game's 1/60 s step: a different simulation
+                                                    (first event 0.03 s against 0.13), grade held
+
+**With the navigation synchronous (`syncnav_ab.sh`, both settings in the
+copies' project.godot, read back by `engine_settings_probe.gd` first):**
+
+    arm                                   wall      result
+    D1, D2  --fixed-fps 60                 21.1, 23.0 s   identical to A and the job in every field,
+                                                          2,196 events, and to each other
+    L1-L3   the same, three at once        22.8-22.9 s    identical to D1
+    E       the job's synchronised clock   593 s          identical to D1
+    G1, G2  --fixed-fps 60, time scale 1   62.1, 61.7 s   identical to each other
+
+**Fourteen more candidates over five missions (`breadth_ab.py`, each run
+twice under the fixed clock with synchronous navigation):** 14 of 14 read the
+same twice, in 11.0 to 38.7 s against jobs of 76.8 to 590.5 s. Against their
+jobs: restaurant_row_001's two matched in every field (the staged Laser Tag
+0.26.0); nine moved one to twenty events (a position by up to 0.12 m, or
+which of two coincident colliders a shot named); three diverged far enough to
+move secondary figures. **Every grade and every finding held on all fifteen;
+one score moved a point** (deli_001 seed_9393, WARN 66 -> 67, crew stuck 6 ->
+3; `breadth_verdicts.out.txt`). REFUTED, KEPT: the script's first draft guessed
+the seeds and stopped on the fifth case (`breadth_ab.draft1.out.txt`).
+
+**The clock or the navigation? (`clock_or_nav_ab.sh`, deli_001 seed_9393):**
+the job's own command alone reproduced the job in every field; the
+synchronised clock with synchronous navigation read exactly what the fixed
+clock did. The difference from the job is the navigation setting -- when a
+worker thread's update landed -- and the clock adds none. With the setting on
+the evaluation's thread the report no longer depends on wall time at all:
+not on the clock, not on load.
+
+**Shipped:** Laser Tag 0.27.0 (`LT_Const.synchronous_navigation`, called by
+`run_map_eval.gd` before the bake and read back after a frame -- the setters
+are deferred server commands; `runtime_setters_ab.sh` showed them reading
+identical to the project-setting arm, against an asynchronous control that
+differs) and Level Factory 0.180.0 (`LaserTagAdapter.fixed_fps` 60, passed to
+the engine before `--`). The engine hides `--fixed-fps` from scripts
+(`OS.get_cmdline_args`, probed), so the command is the one place the clock is
+chosen.
+
+**Not changed, and the walker's call:** the step. Laser Tag still steps at 4x
+(1/15 s). At the game's own 1/60 s an evaluation now costs about a minute
+(G1, G2), not the 40 the synchronised clock would take, and reads the same
+twice; `realtime_ab.sh`, written to measure 1x on the synchronised clock, is
+superseded by those arms and was never run.
 
 ## Lever 3: one import of a package, not several
 
@@ -123,3 +196,10 @@ Not yet measured.
   from the logs' modification times less their durations.
 - Determinism: one candidate of one mission, three runs. A broader claim
   needs the wider run each lever is accepted on.
+- Lever 4: fifteen candidates over five missions, each run twice; the older
+  staged projects carry the Laser Tag of their day, so "every grade held" is
+  a statement about those versions under the two configurations, and only
+  restaurant_row_001's three ran Laser Tag 0.26.0. The next cold runs grade
+  0.27.0 itself.
+- Which clock a job ran on: its own command line, the first line of its
+  `job.log` (Level Factory 0.180.0 adds `--fixed-fps 60` there).

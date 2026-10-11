@@ -1,0 +1,16 @@
+seed 9003
+  D: exit 0, wall 4.3 s, ok=True; against C identical; the job differs in ['map_iteration']
+  D2: exit 0, wall 4.3 s, ok=True; against C identical; the job differs in ['map_iteration']; D identical
+seed 9104
+  D: exit 0, wall 4.2 s, ok=True; against C identical; the job differs in ['map_iteration']
+  D2: exit 0, wall 4.2 s, ok=True; against C identical; the job differs in ['map_iteration']; D identical
+seed 9205
+  D: exit 0, wall 4.7 s, ok=True; against C identical; the job differs in ['map_iteration']
+  D2: exit 0, wall 4.7 s, ok=True; against C identical; the job differs in ['map_iteration']; D identical
+all three at once
+seed 9003
+  L: exit 0, wall 4.9 s, ok=True; against D identical
+seed 9104
+  L: exit 0, wall 4.9 s, ok=True; against D identical
+seed 9205
+  L: exit 0, wall 5.3 s, ok=True; against D identical

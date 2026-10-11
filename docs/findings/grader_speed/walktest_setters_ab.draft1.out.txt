@@ -1,0 +1,21 @@
+REFUTED, KEPT: this run patched the setup script at the staged project's ROOT, which the scene does
+not load (site_navqa.tscn loads res://addons/lot/lot_navqa_setup.gd), so every arm below ran the
+UNPATCHED setup and failed as the asynchronous control did. The patch's staged mode now edits the
+addon's copy; walktest_setters_ab.out.txt is the rerun.
+
+seed 9003
+  D: exit 1, wall 2.2 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']
+  D2: exit 1, wall 2.2 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; D identical
+seed 9104
+  D: exit 1, wall 2.1 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']
+  D2: exit 1, wall 2.1 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; D identical
+seed 9205
+  D: exit 1, wall 2.2 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']
+  D2: exit 1, wall 2.2 s, ok=False; against C differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; the job differs in ['_proof_failures', 'anchors', 'anchors_behind_a_barrier', 'anchors_without_standing_room', 'bot_spawns', 'error', 'map_iteration', 'ok', 'path_proofs', 'proxies', 'regions', 'sim_seconds', 'stranded_anchors', 'walkers']; D identical
+all three at once
+seed 9003
+  L: exit 1, wall 2.6 s, ok=False; against D identical
+seed 9104
+  L: exit 1, wall 2.4 s, ok=False; against D identical
+seed 9205
+  L: exit 1, wall 2.6 s, ok=False; against D identical

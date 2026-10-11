@@ -1,0 +1,12 @@
+c: exit 1, wall 12.6 s; [LT] navigation ready after 4 ms (520 frames)
+a: exit 1, wall 12.7 s; no navigation line
+b: exit 1, wall 12.7 s; [LT] navigation: the map and 1 region(s) update on this thread
+r: exit 0, wall 19.6 s; [LT] navigation: the map and 1 region(s) update on this thread
+c         grade WARN             score  74  enemy stuck  44  player stuck   0  player deaths  34  events 1894
+a         grade WARN             score  74  enemy stuck  44  player stuck   0  player deaths  34  events 1894
+b         grade WARN             score  74  enemy stuck  44  player stuck   0  player deaths  34  events 1894
+r         grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  events 2196
+job_9104  grade PASS_WITH_TUNING score  80  enemy stuck   3  player stuck   9  player deaths  29  events 2196
+b vs a (want identical): identical in every field
+a vs c (want different (the control)): differ in ['events']
+r vs job_9104 (want identical): identical in every field
