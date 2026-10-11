@@ -1,0 +1,20 @@
+internal error: EXPORT_CLOSURE_BROKEN: 0 unresolved res:// reference(s), 0 misrooted, 2 unresolved relative, 0 absolute path(s), 0 external reference(s), 0 required plugin(s), 0 required autoload(s)
+  site.tscn: relative ext_resource resolves to nothing: site_marks_090_075_020.obj (from ./)
+  site.tscn: relative ext_resource resolves to nothing: site_marks_090_090_088.obj (from ./)
+  full verdict: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9234-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot\export_closure_scan.json
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4285 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 269 instances of 7 module(s) on their sides, 25 draw calls (N 94, S 95, E 42, W 37; 1 tower)
+[export] 1370 occluder(s) from 1385 solid module(s); 118 glass, 241 porous and 779 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1370 occluder node(s) in a tree of 26319
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] light bake: 472 model(s) and 1136 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 29 failing and 0 cycling left live; 215 room fill(s); 3951 users, 97.4 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1370 occluder node(s) reachable from res://mission.tscn (1370 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 479 GLB(s), 1851 external reference(s): 1851 resolve to 406 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
