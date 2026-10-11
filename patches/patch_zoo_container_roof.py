@@ -3,7 +3,7 @@
 Anchored edits in `zoo_keeper/recipes/cargo_container.py` (`_Wall.sheet` takes an optional fixed
 shade; the roof sheet passes the valley shade) and a test appended to
 `tests/test_cargo_container.py`; each file pinned by hash and each anchor asserted once, nothing
-written on a miss; the files' own line endings kept. Applies on Zoo 1.98.0. CHANGELOG and VERSION
+written on a miss; the files' own line endings kept. Applies on Zoo 1.98.1. CHANGELOG and VERSION
 from `zoo_container_roof/CHANGELOG_1.99.0.md`; `--results-pending` leaves RESULT_SUITE and
 RESULT_CENSUS to `--fill`.
 
@@ -23,8 +23,8 @@ DRAFT = "--draft" in sys.argv
 PENDING = "--results-pending" in sys.argv
 FILL = "--fill" in sys.argv
 RESULTS = {"RESULT_SUITE": "result_suite.txt", "RESULT_CENSUS": "result_census.txt"}
-VERSION_WAS, VERSION = b"1.98.0", b"1.99.0"
-CHANGELOG_HEAD = "## [1.98.0] - the dome a home's room hangs\n"
+VERSION_WAS, VERSION = b"1.98.1", b"1.99.0"
+CHANGELOG_HEAD = "## [1.98.1] - the dome's glass hangs, and the dome is two meshes\n"
 RECIPE = "zoo_keeper/recipes/cargo_container.py"
 TESTS = "tests/test_cargo_container.py"
 SHA = {RECIPE: "c3add958dd1d9ace", TESTS: "ede08e137a577cdb"}
@@ -160,7 +160,7 @@ def main():
     tp.write_bytes(tests.replace("\n", t_eol.decode()).encode("utf-8"))
     cl.write_bytes((entry.rstrip("\n") + "\n\n" + cl_text).replace("\n", cl_eol.decode()).encode("utf-8"))
     (ZOO / "VERSION").write_bytes(VERSION)
-    print("Zoo 1.98.0 -> 1.99.0" + (" (DRAFT)" if DRAFT else ""))
+    print("Zoo 1.98.1 -> 1.99.0" + (" (DRAFT)" if DRAFT else ""))
 
 
 if __name__ == "__main__":
