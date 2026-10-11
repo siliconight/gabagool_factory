@@ -49,6 +49,13 @@ python -m level_factory -C "$WS" approve $M candidate_selected --candidate $M.ca
 python -m level_factory -C "$WS" approve $M functional_shell_locked >/dev/null || die approve3
 step art; python -m level_factory -C "$WS" run $M --art --gameplay 2>&1 | tee docs/cold_runs/cold_$N/art.log | grep -E "blockers open" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "art leg"
 step export; python -m level_factory -C "$WS" export $M --mode portable-godot ${EXPORT_FLAGS:-} 2>&1 | tee docs/cold_runs/cold_$N/export.log | grep -E "^exported|CLOSURE|light bake|error" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "^exported" /tmp/cold_leg.txt || die export
+# A package asked to bake that ships unbaked STOPS the run (cold run 9242: the export
+# warned, the drive went on, and the run counted zero). The bake's own report decides.
+if [[ "${EXPORT_FLAGS:-}" != *--no-bake-lights* ]]; then
+  python -c "import json,sys; sys.exit(0 if json.load(open(sys.argv[1], encoding='utf-8')).get('ok') else 1)" \
+    "$WS/.level_factory/exports/LF_$M.portable-godot/light_bake.json" 2>/dev/null \
+    || die "light bake: the package ships unbaked (light_bake.json ok is not true)"
+fi
 step findings
 python - "$N" "$PREV" "$M" <<'PY'
 import collections, json, sys

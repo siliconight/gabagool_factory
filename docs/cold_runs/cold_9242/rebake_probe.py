@@ -24,7 +24,9 @@ F = Path(__file__).resolve().parents[3]
 sys.path.insert(0, os.environ.get("LF_ROOT") or str(F / "level_factory"))
 from packages.exporting import light_bake  # noqa: E402
 
-SRC = F / "workspaces" / "cold-9242-ws" / ".level_factory" / "exports" / "LF_restaurant_row_001.portable-godot"
+#: REBAKE_RUN names another run of the same lot to copy (9243 re-ran 9242 on Level Factory 0.178.5)
+SRC = (F / "workspaces" / ("cold-%s-ws" % os.environ.get("REBAKE_RUN", "9242")) / ".level_factory"
+       / "exports" / "LF_restaurant_row_001.portable-godot")
 SPAWNED_FROM = (F / "workspaces" / "cold-9241-ws" / ".level_factory" / "exports"
                 / "LF_restaurant_row_001.portable-godot" / "light_bake.json")
 GODOT = r"C:\Godot\4.7\Godot_v4.7-stable_win64_console.exe"
