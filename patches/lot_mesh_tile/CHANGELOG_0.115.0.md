@@ -19,10 +19,18 @@ through the lights left live.
 - `_mesh_child_lines`, `_box_node` and `_yaw_box_node` take `tile`;
   `_outdoor_nodes` passes the site's to the plate families and says the
   tile it took. Covers and blockers keep the 8 m law, being under it.
+- **The paint is cut into cells** (`PAINT_CELL_M`, 32 m): `_marking_meshes`
+  writes one mesh a colour a cell, by each marking's centre, the colour's
+  one material shared. Cold run 9236 shipped 0.114.0's one mesh a colour
+  and its paired census put each under 21 live lights against the cap of
+  8 -- a mesh whose box is the plate reaches the failing tube behind every
+  storefront, and the engine binds the first 8 it finds. A cell keeps each
+  piece under the lights within its reach and culls as a piece.
 - `_yaw_quad_node` is removed: 0.114.0 left it with no caller, and
   `_mat_sub` loses the `uv_offset` only it passed.
-- The number's proof is the paired census on the first package built with
-  it -- no mesh over 8 live lights -- recorded under the factory's roadmap
-  231, where the price is.
+- Both numbers' proof is the paired census on the first package built with
+  them -- no mesh over 8 live lights -- recorded under the factory's
+  roadmap 231, where the price is.
 
-**Tests:** 6 in `tests/test_mesh_tile_render.py`. **Suite:** RESULT_SUITE.
+**Tests:** 6 in `tests/test_mesh_tile_render.py`, 1 more and 3 adapted in
+`tests/test_marking_meshes.py`. **Suite:** RESULT_SUITE.
