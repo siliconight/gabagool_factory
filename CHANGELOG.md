@@ -3,6 +3,32 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.37.0] - 2026-10-11
+
+Five tools move:
+- deli_counter: 0.205.0 -> 0.207.1
+- level_factory: 0.172.1 -> 0.178.3
+- lot: 0.106.0 -> 0.115.0
+- lux: 0.72.0 -> 0.74.0
+- zoo: 1.94.0 -> 1.97.0
+
+- **level_factory:** the cluster-template draw, the `block` grammar's
+  service lane and loop, the backdrop as MultiMeshes, the road paint's
+  meshes baked and carried, the site spec telling Lot the lights bake,
+  a clean venv from Blender's Python, the grounded table for this set, and
+  a walk that keeps the bake and tells a flickering tube from a fight.
+- **lot:** the fence and the backdrop by recipe, the adjacency and target
+  audits, the lane, and the street's draws (roadmap 231).
+- **deli_counter:** ceiling rows to the work (roadmap 229).
+- **zoo:** the backdrop's pieces and a tree with a silhouette.
+- **lux:** the horizon glow, and one bad tube a room.
+
+Certified by install test 6: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands, the
+PyPI download included. setup exited 0 with every doctor row PASS and no sitecustomize error; make exited 0 in 32.3 minutes and built the level install tests 3 to 5 built (0 of 79 and 0 of 111 blockers, seed_9104, b0=scrapple_sons_deli, 495 models and 196 primitives lightmapped, the closure ok over 81 resources); walk exited 0 with its export baked as make's was and all five stations passing, and after it the package still carried its bake (3,014 files, bake.exr, light_bake.json ok), which every walk since Level Factory 0.144.0 had stripped. No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.36.0] - 2026-10-10
 
 Two tools move:

@@ -554,6 +554,62 @@ the export, so the package stays baked and the walk shows what ships.
 test does not certify: install test 6 runs the same set at Level Factory
 0.178.3.
 
+## Install test 6, 2026-10-11, 03:08 to 03:52: the 1.37.0 set, certified
+
+**The test.** Install test 5's set with Level Factory 0.178.3, its two
+findings fixed, typed with the page's own `setup --venv`.
+- **The package:** made from root `72b3860`, Deli Counter `0167a331`
+  (0.207.1), Level Factory `65565f4` (0.178.3), Lot `03f50cc` (0.115.0), Lux
+  `74c6fa4` (0.74.0), Zoo `92bc031` (1.97.0) and the other five repos at
+  their 1.36.0 tags, as `gabagool_factory_package_20261011_0308.zip`.
+- **The unpack:** into a new folder, `C:\stranger_202_6\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_6.sh`,
+  which also counts Blender's sitecustomize error in every log and reads
+  the package's bake after the walk. Logs are in `install_test_6/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | the venv from Blender's Python with the three pins; every doctor row PASS, `worst: PASS`; 0 sitecustomize errors |
+| `make` | 0 | 32.3 minutes; 0 of 79 and 0 of 111 blockers; seed_9104; `b0=scrapple_sons_deli`; 495 models and 196 primitives lightmapped; closure `ok=true` over 81 resources in a package of 3,008 files |
+| `walk` | 0 | its export baked as `make`'s did (495 models, the same closure); the walk bot climbed both ladders; the shot bot passed all five stations, `Ladder_ladder_0_base` at 0.10% fighting, `Ladder_ladder_1_top` reporting 0.02% animated |
+
+**After the walk, the package still carries its bake:** 3,014 files,
+`bake.exr` present, `light_bake.json` `ok: true`. Install test 5's package
+after its walk had 2,526 files and neither. 0 sitecustomize errors in all
+three logs.
+
+**What each fix did:**
+- **Level Factory 0.178.1 held.** No `Error in sitecustomize` anywhere.
+- **0.178.2 held.** Every tool PASS at the new versions.
+- **0.178.3 held, both halves.** The walk baked and left the package
+  baked; the shot bot judged only what moved with the camera. The baked
+  walk preview reads lower jitter than the unbaked one did on the same
+  station (1.54% against 3.65%), and its ladder base 0.10% fighting.
+
+**The count:** 0 deviations from the page, 0 findings.
+
+**What it certified: factory 1.37.0.** `factory.manifest.json` names the
+set this test ran:
+
+| tool | version | since 1.36.0 |
+|---|---|---|
+| Deli Counter | 0.207.1 | was 0.205.0 |
+| Dispatch | 0.5.2 | |
+| Laser Tag | 0.25.0 | |
+| Level Factory | 0.178.3 | was 0.172.1 |
+| Lot | 0.115.0 | was 0.106.0 |
+| Lux | 0.74.0 | was 0.72.0 |
+| Patina | 0.30.0 | |
+| Pipeline | 0.6.0 | |
+| Pixelcoat | 0.62.0 | |
+| Zoo | 1.97.0 | was 1.94.0 |
+
+The five that moved are tagged at the commits tested, and the factory at
+`factory-v1.37.0`; the other five repos' tags from 1.36.0 stand.
+
+**What is left of roadmap 202:** Linux. The walker has no Linux machine, so
+`factory.sh` and the Linux lines of START_HERE.md are written and unproven.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.

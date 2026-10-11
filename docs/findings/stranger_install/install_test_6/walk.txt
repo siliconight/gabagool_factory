@@ -1,0 +1,38 @@
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4032 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 277 instances of 7 module(s) on their sides, 25 draw calls (N 96, S 101, E 41, W 38; 1 tower)
+[export] 1523 occluder(s) from 1541 solid module(s); 103 glass, 253 porous and 827 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1523 occluder node(s) in a tree of 27988
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 236 merged mesh(es), 962 collider(s) kept
+[export] light bake: 495 model(s) and 196 primitive mesh(es) lightmapped, 4 kept dynamic, 1 spawned set dynamic; 212 steady rig(s) baked, 29 failing and 0 cycling left live; 267 room fill(s); 3822 users, 95.7 s in the editor
+[export] import cache removed; the package ships sidecars, not .godot
+[export] occlusion: use_occlusion_culling=true with 1523 occluder node(s) reachable from res://mission.tscn (1523 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 486 GLB(s), 1908 external reference(s): 1908 resolve to 401 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
+[export] closure verdict: ok=true, 0 issue(s) over 81 resource(s) in a package of 3008 file(s)
+[export] manifest: 3012 file(s) listed + 2 declared unlisted = 3014 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\stranger_202_6\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             .\factory -C C:\stranger_202_6\gabagool\levels walk restaurant_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
+  imported: resources ready (headless --import pass)
+walk preview: C:\stranger_202_6\gabagool\levels\.level_factory\preview\restaurant_row_001_walk
+  source: export (portable-godot)
+  wraps mission.tscn + player at anchor:player_start (Functional/GameplayAnchors/PlayerStarts/lot:getaway_van_crew_spawn_0) (x=53.85, y=0.6, z=16.965)
+  content: sha256:4424c7801c35dd8c (2962 file(s)) built 2026-10-11T07:49:49.354673+00:00
+  recorded in C:\stranger_202_6\gabagool\levels\.level_factory\preview\restaurant_row_001_walk\walk.source.json
+self-check:
+  walk bot [OK]   Ladder_ladder_0: climbed to 6.6 m and stood up
+  walk bot [OK]   Ladder_ladder_1: climbed to 3.3 m and stood up
+  shot bot [OK] exterior: jitter 0.0%, fighting 0.0%, void 62.03%
+  shot bot [OK] Ladder_ladder_0_base: jitter 1.54%, fighting 0.1%, void 0.0%
+  shot bot [OK] Ladder_ladder_0_top: jitter 0.57%, fighting 0.07%, void 28.86%
+  shot bot [OK] Ladder_ladder_1_base: jitter 0.31%, fighting 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_top: jitter 1.06%, fighting 0.05%, void 0.0%, animated 0.02% (changed with the camera still; not judged)
+  frames written for review (5 stations)
+  open:  .\factory -C C:\stranger_202_6\gabagool\levels walk restaurant_row_001 --open
+  play:  .\factory -C C:\stranger_202_6\gabagool\levels walk restaurant_row_001 --play
