@@ -495,6 +495,65 @@ came out with nine control characters (`\b` from `\blender`, `\f` from
 `factory.sh` and the Linux lines of START_HERE.md are written and unproven,
 and the handoff says so.
 
+## Install test 5, 2026-10-11, 02:14 to 02:52: the 1.37.0 set, and the walk failed
+
+**The test.** The set factory 1.37.0 was to certify, packaged at its heads
+and typed with the page's own `setup --venv`.
+- **The package:** made from root `568081b`, Deli Counter `0167a331`
+  (0.207.1), Level Factory `53d6f01` (0.178.2), Lot `03f50cc` (0.115.0), Lux
+  `74c6fa4` (0.74.0), Zoo `92bc031` (1.97.0) and the other five repos at
+  their 1.36.0 tags, as `gabagool_factory_package_20261011_0214.zip`.
+- **The unpack:** into a new folder, `C:\stranger_202_5\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_5.sh`,
+  which also counts Blender's sitecustomize error in every log. Logs and
+  the probes below are in `install_test_5/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | the venv made from Blender's Python with the three pins; every doctor row PASS, `worst: PASS` -- the first time, the long-paths row reading the flag (Level Factory 0.173.0) -- and 0 sitecustomize errors (0.178.1 held) |
+| `make` | 0 | 0 of 111 blockers on the art leg; 495 models and 196 primitives lightmapped; closure `ok=true` over 81 resources in a package of 3,008 files; 0 sitecustomize errors |
+| `walk` | 1 | the walk bot climbed both ladders; the shot bot FAILED `Ladder_ladder_0_base` at 1.38% fighting (install test 4's same station: 0.12%) |
+
+**Finding 1: the walk counted a flickering tube as z-fighting.** The shot
+bot takes two frames 1 mm apart and counts every pixel that swaps by more
+than 64 of 255 as a fight. The frame is indoors: a drop ceiling, two
+troffers, the ladder up through its hatch. Measured on the stranger's own
+walk preview (`still_probe.sh`, `still_probe.txt`): the shipped bot twice,
+and the same bot with the 1 mm move set to 0.
+
+| run | ladder 0 base, fighting | every other station |
+|---|---|---|
+| camera moved 1 mm, twice | 1.39%, 1.39% | 0.00% to 0.12% |
+| camera STILL, twice | 1.27%, 1.27% | 0.00% |
+
+A still camera cannot z-fight, so 1.27 of the 1.39 points is the scene
+changing between two frames. Lux 0.74.0 puts one failing tube in a room,
+and this room has one. The depth signal left over is 0.12%, install test
+4's figure: the level's geometry at that station did not move. **Fixed in
+Level Factory 0.178.3:** the bot takes two still frames bracketing the
+moved one and judges only the pixels they agree on, reporting the rest as
+`animated_pct`. Proven on the same preview and on the bot's own control
+(`masked_probe.sh`, `masked_probe.txt`): all five stations pass,
+`Ladder_ladder_0_base` at 0.12% fighting and 1.44% animated; the two-quad
+z-fight control still fails at 2.02% fighting and 0.00% animated, the
+figure the shipped bot reads on it.
+
+**Finding 2: `walk` replaced the baked package with an unbaked one.** The
+walk's output carried Level Factory 0.178.0's note, `lights NOT baked: the
+site was drawn for a bake`. Read off the code and the folder: `walk`
+re-exports before it wraps, by calling `export` with the walk's own
+arguments, which carried no bake, into the folder `make` had shipped to.
+After `walk` the stranger's package held 2,526 files with no `bake.exr`
+and no `light_bake.json`, where `make` had left 3,008 and a bake. Every
+walk since Level Factory 0.144.0 did this, in every install test; nothing
+said so until that note. **Fixed in Level Factory 0.178.3:** the walk's
+parser carries `--bake-lights` at the export's own default and hands it to
+the export, so the package stays baked and the walk shows what ships.
+
+**The count:** 0 deviations from the page, 2 findings, both fixed. This
+test does not certify: install test 6 runs the same set at Level Factory
+0.178.3.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
