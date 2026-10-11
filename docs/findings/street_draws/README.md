@@ -88,6 +88,45 @@ same lot and grammar rebuilt on the changed Lot as the subject, a control
 run bracketing it. The pool's count is the cheap check that the merge
 happened; the frame time is the price.
 
+## The path for the markings, settled 2026-10-12 after reading the bake
+
+A MultiMesh is NOT lightmapped: `light_bake.py` bakes inline primitive
+meshes (`add_uv2 = true` on every BoxMesh) and imported models (the
+sidecar's `meshes/light_baking=2`), and a `MultiMeshInstance3D` is neither,
+so merged markings in that form would lose the baked lamp pools and read
+flat under every street lamp at night -- a look change, not only a price.
+An inline `ArrayMesh` in scene text needs Godot's packed vertex layout and
+its own UV2, which nothing here writes. The form that keeps the bake is
+the one the buildings use: a model file beside the scene, imported once
+through the sidecar pass. So:
+
+- **Lot writes one OBJ per paint colour** (`site_marks_<colour>.obj`,
+  text: `v`, `vt`, `vn`, `f`), every marking a quad in it, and one
+  `MeshInstance3D` per colour in `site.tscn` with `material_override` the
+  one paint material. 9233's 125 markings (227 tiled boxes, 125
+  materials) become 2 meshes and 2 materials.
+- **The wear offset survives.** Today's material projects the paint in
+  world space with a per-marking `uv1_offset`; the OBJ carries each
+  quad's UVs computed the same way -- world position times the pack's
+  tile scale, plus `paint_offset`'s hash for that marking -- and the
+  material maps by UV1 instead of triplanar. Same scuffs on every bar,
+  one material.
+- **The lightmap UV comes from the import.** Measured on Godot 4.7 by
+  importing a one-quad OBJ headless and reading the sidecar it wrote: the
+  importer is `wavefront_obj`, the type `Mesh`, and its params are
+  `generate_tangents`, `generate_lods`, `generate_shadow_mesh`,
+  `generate_lightmap_uv2=false`, `generate_lightmap_uv2_texel_size=0.2`,
+  `scale_mesh`, `offset_mesh`, `force_disable_mesh_compression`. Level
+  Factory's `mark_imports` sets `generate_lightmap_uv2=true` on
+  `.obj.import` sidecars as it sets `meshes/light_baking` on the GLBs' (a
+  Level Factory point release), and the texel size is the bake's to
+  choose.
+- **The 8-light cap still applies to the merged mesh**, so the paired
+  census gates it the same way as the bigger tile.
+- Lot's tests that pin `mark_<n>_<kind>` nodes and their per-marking
+  materials move to the OBJ's quads and the one material; the markings
+  manifest (`site.markings.json`) is unchanged.
+
 ## What this does not measure
 
 Which of the 795 boxes a given heading sees (the harness's per-heading
