@@ -114,16 +114,20 @@ def test_block_spellings_and_the_rest_unchanged():
 @pytest.mark.skipif(not os.path.isdir(LOT), reason="lot repo not beside this one")
 def test_lot_reads_the_lane_as_two_stems_that_stop_at_the_streets():
     """Lot draws the junctions, so Lot has to believe them: the lane ENDS on both
-    side streets (terminal crossings on the lane, a gap on each street), and a
-    lane without a sidewalk STOPS at a street and never gets a signal (Lot
-    0.113.0's rule; against an older Lot every leg of an arterial's junction
-    was signalised)."""
+    side streets -- `terminal` is recorded on the road that is crossed, as the
+    T test above reads it off the front road, and the stem's slab is clipped at
+    its mouths -- and a lane without a sidewalk STOPS at a street and never
+    gets a signal (Lot 0.113.0's rule; against an older Lot every leg of an
+    arterial's junction was signalised)."""
     b, fp = _buildings()
     roads, _d, sx, sy = rg.roads_for("block", b, fp, 200, 120)
     resolved = _lot_roads(roads, sx, sy)
     lane = resolved[3]
-    hits = [c for c in lane.crossings if c.kind == "road"]
-    assert len(hits) == 2 and all(c.terminal for c in hits), "the lane should end on both streets"
+    for street in (resolved[1], resolved[2]):
+        hits = [c for c in street.crossings if c.kind == "road" and c.crosser == 3]
+        assert len(hits) == 1 and hits[0].terminal, "the lane should end on this street"
+    assert len([c for c in lane.crossings if c.kind == "road"]) == 2
+    assert 0.0 < lane.slab[0] < lane.slab[1] < lane.length, "the lane's slab is clipped at both mouths"
     sys.path.insert(0, LOT)
     import site_streets
     legs = [a for a in site_streets.approaches(resolved) if a.road == 3]
