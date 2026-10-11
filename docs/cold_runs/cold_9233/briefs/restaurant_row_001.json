@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "restaurant_row_001",
+  "display_name": "Restaurant Row",
+  "archetype": "corner_deli",
+  "building_count": 3,
+  "site_shape": "strip",
+  "road_grammar": "block",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_kitchen",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "alley_backtrack",
+  "verticality": "low",
+  "landmark": "neon_sign",
+  "time_of_day": "evening",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "cluster": "auto",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "notes": "COLD RUN 9233. 9232's brief with road_grammar: block. WHAT THIS RUN TESTS: Level Factory 0.177.0's block grammar (a second side street past the row's far end, a 5 m service lane behind the row between the two: one loop) and Lot 0.113.0 (the lane stops at the streets, S_TARGETS counts the lane and the loop); the first level with a return loop."
+}
