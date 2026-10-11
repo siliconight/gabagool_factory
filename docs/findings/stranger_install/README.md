@@ -433,6 +433,68 @@ this test ran, and `verify-manifest` reads all ten OK:
 Level Factory and Lot are tagged at the commits tested, and the factory at
 `factory-v1.36.0`; the other eight repos' tags from 1.35.0 stand.
 
+## Install test 4, 2026-10-11, 01:11 to 01:48: the page's own `setup --venv`
+
+**The test.** The released package, and for the first time no deviation from
+the page. The walker said yes to the PyPI download on 2026-10-11; tests 1 to
+3 had typed `setup --python <this machine's 3.14>` in its place.
+- **The package:** `gabagool_factory_package_factory-v1.36.0.zip`, the zip
+  on GitHub Releases, built at the certified tags. Nothing was packaged for
+  the test.
+- **The unpack:** into a new folder, `C:\stranger_202_4\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_4.sh`:
+  START_HERE.md's `.\factory setup --venv --godot ...`, then `make` and
+  `walk` as before. Logs are in `install_test_4/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | `making ...\.venv from C:\blender\5.1\python\bin\python.exe, with pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0`; pip downloaded Pillow, rpds-py, deprecated and wrapt and took the rest from its cache, attrs, packaging and typing-extensions from Blender's own site-packages; `python_executable ...\.venv\Scripts\python.exe (setup --venv)`; every doctor row PASS but Windows' long-paths reminder |
+| `make` | 0 | 32 minutes; 0 of 52 and 0 of 74 blockers; seed_9104; `b0=scrapple_sons_deli`; 479 models and 4,259 users baked, 96.4 s; the closure `ok=true` over 79 resources |
+| `walk` | 0 | the player at the getaway van's crew spawn; walk bot climbed both ladders; shot bot five stations OK |
+
+The level is install test 3's, figure for figure: the same certified set
+made it. The environment answered `3.13.9 12.3.0 1.16.5 4.26.0` -- Blender's
+Python with the three pins.
+
+**One finding: every tool the environment started printed an error.**
+
+    Error in sitecustomize; set PYTHONVERBOSE for traceback:
+    FileNotFoundError: [WinError 2] The system cannot find the file specified: 'C:\stranger_202_4\blender.shared'
+
+Twelve times on the way to one first level: once in `setup` (pip's start),
+ten in `make`, once in `walk`. Nothing failed, and every exit was 0. Read off
+the files: Blender 5.1.1's `python/lib/site-packages/sitecustomize.py` adds
+the DLL directory `blender.shared` three folders above `sys.executable`.
+Blender's own Python is `C:\blender\5.1\python\bin\python.exe`, three
+folders below `C:\blender`, where that folder is. The environment's is
+`<factory>\.venv\Scripts\python.exe`, three folders below the folder ABOVE
+the factory, where it is not, and `os.add_dll_directory` raises. The
+environment runs Blender's file because `make_venv` keeps the base's
+packages (`--system-site-packages`, for numpy). A stranger told "Error" at
+every step either stops to ask, which is an intervention, or learns to read
+past the word, which is worse.
+
+**Fixed in Level Factory 0.178.1** (`patches/patch_lf_venv_site_shim.py`):
+`make_venv` writes the environment its own `sitecustomize.py` when the base
+is Blender's Python on Windows, found first and doing what Blender's does
+from the folder Blender's names for Blender's own interpreter, before pip
+runs. Its test makes a real environment from Blender's Python and starts it:
+clean with the file, and -- the control -- Blender's error without it.
+Linux was read and not run: there Blender's file adds no DLL directory and
+raises nothing.
+
+**The count:** 0 deviations from the page, 1 finding, fixed. The package
+that carries the fix is the next certified one; 1.36.0 prints the error.
+
+**Also found while recording this: the heredoc trap, again.** The first
+write of this section went through a shell heredoc and its Windows paths
+came out with nine control characters (`\b` from `\blender`, `\f` from
+`\factory`, an octal escape from `\5.1`). Rewritten from a file.
+
+**What is left of roadmap 202:** Linux. The walker has no Linux machine, so
+`factory.sh` and the Linux lines of START_HERE.md are written and unproven,
+and the handoff says so.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
