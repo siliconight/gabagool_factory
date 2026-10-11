@@ -1,0 +1,87 @@
+def _marking_quad(m):
+    """The four plan corners of marking ``m``, in order round the quad: its
+    `along` runs at its yaw (the first edge, corner 0 to corner 1), its
+    `across` square to it."""
+    along, across = m["size"]
+    r = math.radians(float(m["yaw"]))
+    c, s = math.cos(r), math.sin(r)
+    x, y = float(m["at"][0]), float(m["at"][1])
+    ha, hc = along / 2.0, across / 2.0
+    return [(x + a * ha * c - b * hc * s, y + a * ha * s + b * hc * c)
+            for a, b in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+
+
+def _marking_key(m):
+    """What a marking IS, for `paint_offset`: its road (or field), kind and
+    plan position -- the key the per-marking materials hashed."""
+    owner = m["road"] if "road" in m else m.get("field")
+    return f"{owner}|{m['kind']}|{m['at'][0]:.3f}|{m['at'][1]:.3f}"
+
+
+def _colour_slug(color):
+    return "_".join(f"{int(round(float(v) * 100)):03d}" for v in tuple(color)[:3])
+
+
+def _marking_meshes(marks, skins):
+    """(body_lines, sub_lines, files) for a site's road paint (0.114.0,
+    roadmap 231): ONE mesh per paint colour, every marking a flat quad in it
+    on the paint's top face, written as an OBJ beside the scene (``files``:
+    file name -> text) and stood by one MeshInstance3D with one material.
+
+    WHY A FILE. Cold run 9233 priced a street at +107 draws a heading median
+    (`docs/findings/street_draws/` in the factory): every marking was its
+    own node and its own material, identical but for the wear offset, 227
+    submissions and 125 materials on one level. A MultiMesh would merge them
+    and is not lightmapped, and the bake is what lights a street at night; a
+    model beside the scene imports through the same pass as the buildings
+    and bakes like them (Level Factory sets the sidecar's lightmap UV). So
+    the quads travel as an OBJ and the engine's importer makes the mesh.
+
+    THE WEAR OFFSET SURVIVES. Each quad's UVs are what the per-marking
+    material's world projection gave it -- plan x and Godot z times the
+    pack's tile scale, plus `paint_offset`'s hash of the marking -- so one
+    material maps by UV1 and every bar still wears its own scuffs
+    (`_mat_sub(..., triplanar=False)`). The greybox (no paint pack) writes
+    the same UVs under a flat colour.
+
+    THE FACE IS DOUBLE-SIDED (`cull_mode = 2`) and carries an up normal, so
+    the winding the importer reads cannot hide a marking; the quad has no
+    collision, as the markings never had.
+    """
+    paint = (skins or {}).get("paint")
+    scale = 1.0 / float(paint["meters_per_tile"]) if paint else 1.0
+    top = MARKING_Y + SURFACE_TIER / 2.0
+    groups = {}
+    for m in marks:
+        groups.setdefault(tuple(float(v) for v in m["color"]), []).append(m)
+    body, sub, files = [], [], {}
+    for color in sorted(groups):
+        name = f"site_marks_{_colour_slug(color)}"
+        verts, uvs, faces = [], [], []
+        for m in groups[color]:
+            off = paint_offset(_marking_key(m)) if paint else (0.0, 0.0, 0.0)
+            base = len(verts)
+            for px, py in _marking_quad(m):
+                gx, gz = px, -py
+                verts.append((gx, top, gz))
+                uvs.append((gx * scale + off[0], gz * scale + off[2]))
+            faces.append((base + 1, base + 2, base + 3))
+            faces.append((base + 1, base + 3, base + 4))
+        lines = [f"# Lot: the site's road paint, colour {_colour_slug(color)}, "
+                 f"{len(groups[color])} marking(s), a quad each", f"o {name}"]
+        # six decimals: a bay tick is 0.3 m long and its direction is read off
+        # its two corners, which four decimals turned by 3e-4 on a diagonal road
+        lines += [f"v {x:.6f} {y:.6f} {z:.6f}" for x, y, z in verts]
+        lines += [f"vt {u:.6f} {v:.6f}" for u, v in uvs]
+        lines.append("vn 0 1 0")
+        lines += [f"f {a}/{a}/1 {b}/{b}/1 {c}/{c}/1" for a, b, c in faces]
+        files[f"{name}.obj"] = "\n".join(lines) + "\n"
+        body += [f'[node name="{name}" type="MeshInstance3D" parent="."]',
+                 f'mesh = ExtResource("{name}")',
+                 f'material_override = SubResource("Mat_{name}")', '']
+        mat = _mat_sub(name, color, paint, tint=color if paint else None, triplanar=False)
+        mat.insert(len(mat) - 1, 'cull_mode = 2')
+        sub += mat
+    return body, sub, files
+
+
