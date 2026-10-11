@@ -20,6 +20,21 @@ records. THE RULES, each from docs/FILING.md:
                  that still reads one keeps it). Regenerable from
                  docs/cold_runs/cold_N/.
 
+VERIFIED MEANS PUSHED (2026-10-11, the walker: "a package clean job so we
+don't accrue GBs of packages that have already been pushed and verified as
+known good"). Once a record is in the branch the root pushes to, what it
+describes can be made again from it. None of these fires without an upstream:
+
+  pushed runs    a cold-run workspace beyond the newest KEEP_PUSHED whose
+                 docs/cold_runs/cold_N/NOTES.md is pushed (a price takes the
+                 previous run's package as its control, so four stay).
+  release zips   ../gabagool_factory_package_factory-vX.Y.Z.zip whose
+                 docs/releases/factory-vX.Y.Z.md is pushed, but not the newest.
+  test zips      ../gabagool_factory_package_<stamp>.zip a pushed record names.
+  test unpacks   an install test's unpack (its script's DEST) whose
+                 docs/findings/stranger_install/install_test_N/ is pushed, but
+                 not the newest.
+
 Everything else under _runs/ is left alone: `_runs/cold/` is the clock's
 journal, `_runs/measurements/` is tracked, and the loose probe outputs at its
 top are somebody's, to be archived by hand under _scratch/.
@@ -34,6 +49,10 @@ KEEP_WORKSPACES = 12
 #: the files a reference scan reads: records, and the scripts a record carries
 _SCANNED = (".md", ".py", ".txt", ".json", ".sh", ".ps1", ".cmd", ".bat", ".gd")
 WALK_EXPORT_DAYS = 30
+#: Pushed runs' workspaces kept, newest first: a price's control is the run before.
+KEEP_PUSHED = 4
+_TAGGED = re.compile(r"gabagool_factory_package_(factory-v(\d+)\.(\d+)\.(\d+))\.zip")
+_STAMPED = re.compile(r"gabagool_factory_package_\d{8}_\d{4}\.zip")
 
 
 def _size(path):
@@ -73,7 +92,48 @@ def _tracked(root, rel):
     return bool(r.stdout.strip())
 
 
-def plan(root, keep=KEEP_WORKSPACES):
+def _upstream(root):
+    """The branch the root pushes to (`origin/main`), or None: then nothing is pushed."""
+    r = subprocess.run(["git", "-C", root, "rev-parse", "--abbrev-ref",
+                        "--symbolic-full-name", "@{u}"], capture_output=True, text=True)
+    return (r.stdout.strip() or None) if r.returncode == 0 else None
+
+
+def _pushed(root, upstream, rel):
+    """Whether ``rel`` -- a file or a folder -- is in the pushed branch."""
+    r = subprocess.run(["git", "-C", root, "cat-file", "-e", "%s:%s" % (upstream, rel)],
+                       capture_output=True)
+    return r.returncode == 0
+
+
+def _pushed_mentions(root, upstream, needle):
+    """Whether a pushed file under docs/ names ``needle``."""
+    r = subprocess.run(["git", "-C", root, "grep", "-l", "-F", needle, upstream, "--", "docs"],
+                       capture_output=True, text=True)
+    return r.returncode == 0 and bool(r.stdout.strip())
+
+
+def _stranger_installs(root):
+    """``[(N, folder)]``: each install test's unpack, from its own script's DEST."""
+    out = []
+    d = os.path.join(root, "docs", "findings", "stranger_install")
+    if not os.path.isdir(d):
+        return out
+    for f in sorted(os.listdir(d)):
+        m = re.fullmatch(r"install_test_(\d+)\.sh", f)
+        if not m:
+            continue
+        text = open(os.path.join(d, f), encoding="utf-8", errors="replace").read()
+        dm = re.search(r"^DEST='([^']+)'", text, re.M)
+        if not dm:
+            continue
+        folder = os.path.dirname(dm.group(1).rstrip("\\/"))
+        if re.fullmatch(r"stranger_202_\d+", os.path.basename(folder)):
+            out.append((int(m.group(1)), folder))
+    return out
+
+
+def plan(root, keep=KEEP_WORKSPACES, keep_pushed=KEEP_PUSHED, package_dir=None):
     """``[{path, why, bytes}]`` the rules would remove, newest-first within a rule."""
     out = []
     perf = os.path.join(root, "_runs", "perf_inner")
@@ -105,6 +165,36 @@ def plan(root, keep=KEEP_WORKSPACES):
                 continue
             p = os.path.join(ws, d)
             out.append({"path": p, "why": "cold-run workspace beyond the newest %d, unreferenced" % keep, "bytes": _size(p)})
+    upstream = _upstream(root)
+    if not upstream:
+        return out
+    already = {o["path"] for o in out}
+    if os.path.isdir(ws):
+        for d in cold[keep_pushed:]:
+            p = os.path.join(ws, d)
+            if p in already or d in named or _tracked(root, "workspaces/" + d):
+                continue
+            n = d.split("-")[1]
+            if _pushed(root, upstream, "docs/cold_runs/cold_%s/NOTES.md" % n):
+                out.append({"path": p, "why": "cold-run workspace beyond the newest %d whose record is pushed" % keep_pushed, "bytes": _size(p)})
+    pdir = package_dir or os.path.dirname(os.path.abspath(root))
+    if os.path.isdir(pdir):
+        zips = sorted(f for f in os.listdir(pdir) if f.startswith("gabagool_factory_package_") and f.endswith(".zip"))
+        tagged = sorted((f for f in zips if _TAGGED.fullmatch(f)),
+                        key=lambda f: tuple(int(x) for x in _TAGGED.fullmatch(f).group(2, 3, 4)))
+        for f in zips:
+            p = os.path.join(pdir, f)
+            m = _TAGGED.fullmatch(f)
+            if m:
+                if f != tagged[-1] and _pushed(root, upstream, "docs/releases/%s.md" % m.group(1)):
+                    out.append({"path": p, "why": "release package whose notes are pushed, not the newest release", "bytes": os.path.getsize(p)})
+            elif _STAMPED.fullmatch(f) and _pushed_mentions(root, upstream, f):
+                out.append({"path": p, "why": "install-test package a pushed record names", "bytes": os.path.getsize(p)})
+    live = [(n, d) for n, d in _stranger_installs(root) if os.path.isdir(d)]
+    newest = max((n for n, _d in live), default=None)
+    for n, d in live:
+        if n != newest and _pushed(root, upstream, "docs/findings/stranger_install/install_test_%d" % n):
+            out.append({"path": d, "why": "install-test unpack whose record is pushed, not the newest", "bytes": _size(d)})
     return out
 
 
@@ -138,7 +228,60 @@ def selftest():
     assert any(w.startswith("walk_export_m2") for w in whys), whys
     assert not any(w.startswith("walk_export_m1") for w in whys), "a fresh walk copy stays"
     shutil.rmtree(root, ignore_errors=True)
+    _selftest_pushed()
     print("selftest ok")
+
+
+def _selftest_pushed():
+    """The pushed rules, on a tree with a bare upstream (2026-10-11)."""
+    import tempfile
+    base = tempfile.mkdtemp(prefix="factory_retire_pushed_")
+    up, root, pkgs = (os.path.join(base, x) for x in ("up.git", "factory", "pkgs"))
+    os.makedirs(pkgs)
+
+    def git(*a):
+        subprocess.run(["git", "-C", root, "-c", "user.name=t", "-c", "user.email=t@t"] + list(a),
+                       check=True, capture_output=True)
+
+    def write(rel, text):
+        p = os.path.join(root, *rel.split("/"))
+        os.makedirs(os.path.dirname(p), exist_ok=True)
+        open(p, "w", encoding="utf-8").write(text)
+    subprocess.run(["git", "init", "-q", "--bare", up], check=True, capture_output=True)
+    os.makedirs(root)
+    git("init", "-q")
+    git("checkout", "-q", "-b", "main")
+    write("docs/cold_runs/cold_1/NOTES.md", "run 1\n")
+    write("docs/releases/factory-v1.0.0.md", "notes\n")
+    write("docs/releases/factory-v1.1.0.md", "notes\n")
+    write("docs/findings/stranger_install/README.md", "made gabagool_factory_package_20260101_0000.zip\n")
+    for n in (1, 2):
+        os.makedirs(os.path.join(base, "stranger_202_%d" % n, "gabagool"))
+        write("docs/findings/stranger_install/install_test_%d.sh" % n,
+              "DEST='%s'\n" % os.path.join(base, "stranger_202_%d" % n, "gabagool"))
+    write("docs/findings/stranger_install/install_test_1/steps.txt", "ok\n")
+    git("add", "-A")
+    git("commit", "-q", "-m", "records")
+    git("remote", "add", "origin", up)
+    git("push", "-q", "-u", "origin", "main")
+    # committed after the push, so NOT pushed: run 2's record and test 2's
+    write("docs/cold_runs/cold_2/NOTES.md", "run 2\n")
+    write("docs/findings/stranger_install/install_test_2/steps.txt", "ok\n")
+    git("add", "-A")
+    git("commit", "-q", "-m", "later")
+    for n in range(1, 7):
+        os.makedirs(os.path.join(root, "workspaces", "cold-%d-ws" % n))
+    for f in ("factory-v1.0.0", "factory-v1.1.0", "20260101_0000", "20260202_0000"):
+        open(os.path.join(pkgs, "gabagool_factory_package_%s.zip" % f), "wb").write(b"z")
+    open(os.path.join(pkgs, "someone_else.zip"), "wb").write(b"z")
+    got = sorted(os.path.basename(p["path"]) for p in plan(root, keep=12, keep_pushed=2, package_dir=pkgs))
+    want = ["cold-1-ws", "gabagool_factory_package_20260101_0000.zip",
+            "gabagool_factory_package_factory-v1.0.0.zip", "stranger_202_1"]
+    assert got == want, got
+    # with no upstream the pushed rules say nothing
+    git("branch", "--unset-upstream")
+    assert plan(root, keep=12, keep_pushed=2, package_dir=pkgs) == []
+    shutil.rmtree(base, ignore_errors=True)
 
 
 def main():
@@ -155,7 +298,10 @@ def main():
     print("  %d item(s), %.1f GB %s" % (len(items), total / 1e9, "removed" if "--apply" in argv else "retirable (dry run; --apply removes)"))
     if "--apply" in argv:
         for p in items:
-            shutil.rmtree(p["path"], ignore_errors=False)
+            if os.path.isdir(p["path"]):
+                shutil.rmtree(p["path"], ignore_errors=False)
+            else:
+                os.remove(p["path"])
 
 
 if __name__ == "__main__":

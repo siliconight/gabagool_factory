@@ -85,4 +85,8 @@ for k in sorted(set(a) | set(b)):
 PY
 step walk; python tools/walk_export.py "$WS/.level_factory" $M 2>&1 | tail -2
 python tools/cold_drive/wire_sky.py _runs/walk_export_$M 2>&1 | tail -1
+# THE PACKAGE CLEAN JOB (2026-10-11): what a pushed record makes regenerable goes --
+# workspaces beyond the newest four, release and test zips, test unpacks. This run's
+# own workspace stays: its record is not pushed yet. Never fatal to the run.
+step retire; python tools/factory_retire.py --apply 2>&1 | tail -1 || true
 echo DONE

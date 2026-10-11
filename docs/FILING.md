@@ -53,7 +53,14 @@ them there, and COMMANDS.md says so.
 4. **Regenerable output is retired, not kept.** `tools/factory_retire.py`
    (dry-run by default, `--apply` to act) retires perf copies that have
    their JSON, walk exports older than a mission's newest, and cold-run
-   workspaces older than the last twelve that no finding reads.
+   workspaces older than the last twelve that no finding reads. **What a
+   PUSHED record makes regenerable goes too** (2026-10-11): a cold-run
+   workspace beyond the newest four whose `NOTES.md` is in the branch the
+   root pushes to, a release zip whose notes are pushed (never the newest),
+   an install-test zip a pushed record names, and an install test's unpack
+   whose record is pushed (never the newest). Every cold run ends by
+   applying it (`tools/cold_drive/cold_drive.sh`'s last step), so the disk
+   does not wait for somebody to remember.
 
 ## The checks
 
