@@ -16,7 +16,7 @@ records. THE RULES, each from docs/FILING.md:
                  the newest" never applies: the first rule here said that and
                  its selftest refuted it. 4.4 GB in 28 on 2026-10-06.
   workspaces     workspaces/cold-N-ws/ beyond the newest KEEP_WORKSPACES, unless
-                 a file under docs/ or a tool repo's tests names it (a finding
+                 a file under docs/ -- a record or its script -- or a tool repo's tests names it (a finding
                  that still reads one keeps it). Regenerable from
                  docs/cold_runs/cold_N/.
 
@@ -31,6 +31,8 @@ import subprocess
 import sys
 
 KEEP_WORKSPACES = 12
+#: the files a reference scan reads: records, and the scripts a record carries
+_SCANNED = (".md", ".py", ".txt", ".json", ".sh", ".ps1", ".cmd", ".bat", ".gd")
 WALK_EXPORT_DAYS = 30
 
 
@@ -55,7 +57,9 @@ def _referenced_workspaces(root):
     for d in dirs:
         paths = [d] if os.path.isfile(d) else [os.path.join(dp, f) for dp, _s, fs in os.walk(d) for f in fs]
         for p in paths:
-            if os.path.splitext(p)[1].lower() not in (".md", ".py", ".txt", ".json"):
+            # a record's scripts name workspaces too: 9240's roof_frames.sh names
+            # its control package, and a scan of .md/.py/.txt/.json missed it
+            if os.path.splitext(p)[1].lower() not in _SCANNED:
                 continue
             try:
                 names.update(pat.findall(open(p, encoding="utf-8", errors="replace").read()))
@@ -117,13 +121,18 @@ def selftest():
         os.utime(p, (time.time() - age * 86400, time.time() - age * 86400))
     os.makedirs(os.path.join(root, "docs"))
     open(os.path.join(root, "docs", "f.md"), "w").write("see workspaces/cold-3-ws\n")
+    # a record's script names cold-2-ws as its control package
+    os.makedirs(os.path.join(root, "docs", "cold_runs", "cold_6"))
+    open(os.path.join(root, "docs", "cold_runs", "cold_6", "frames.sh"), "w").write(
+        'PKG_C="workspaces/cold-2-ws/.level_factory/exports/LF_x.portable-godot"\n')
     for n in range(1, 6):
         os.makedirs(os.path.join(root, "workspaces", "cold-%d-ws" % n))
     subprocess.run(["git", "-C", root, "init", "-q"])
     got = plan(root, keep=2)
     whys = sorted(os.path.basename(p["path"]) + ": " + p["why"].split(",")[0].split(" older")[0].split(" beyond")[0] for p in got)
     assert "a: perf copy" in whys and not any(w.startswith("b:") for w in whys), whys
-    assert "cold-1-ws: cold-run workspace" in whys and "cold-2-ws: cold-run workspace" in whys, whys
+    assert "cold-1-ws: cold-run workspace" in whys, whys
+    assert not any(w.startswith("cold-2-ws") for w in whys), "a workspace a script names stays"
     assert not any(w.startswith("cold-3-ws") for w in whys), "a referenced workspace stays"
     assert not any(w.startswith("cold-4-ws") or w.startswith("cold-5-ws") for w in whys), "the newest stay"
     assert any(w.startswith("walk_export_m2") for w in whys), whys

@@ -7,10 +7,10 @@ fixture species carry two or more parts in one material, and how many draws
 does one placement of each shed if its parts merge inside it and never
 across two?
 
-**IN PROGRESS.** The patch is drafted as Zoo 1.100.0
-(`patches/patch_zoo_fixture_merge.py`): `merge.pack_by_material` takes each
-part's placement as a unit, and `build.build_fixtures` exports merged by
-it. Not yet built, proven or priced.
+**DRAFTED AND MEASURED ON A CLONE, NOT YET LANDED OR PRICED.** The patch is
+Zoo 1.100.0 (`patches/patch_zoo_fixture_merge.py`): `merge.pack_by_material`
+takes each part's placement as a unit, and `build.build_fixtures` exports
+merged by it. A cold run prices it in a level.
 
 ## Measured on Zoo 1.99.0 (`parts_probe.py`, `parts_1.99.0.txt`)
 
@@ -25,6 +25,29 @@ material:
 | sign_box | 3 (arms, cabinet in one metal; face) | 2 | 1 |
 | wall_pack | 3 (arm, body in one metal; lens) | 2 | 1 |
 | canopy_lights, club_fixture, dome_fixture, fluorescent_fixture | one mesh a material | -- | 0 |
+
+## The layer, merged and not (`layer_count.py`, `layer_merge_off.txt`, `layer_merge_on.txt`)
+
+Cold run 9239's three buildings on restaurant_row_001, built on a clone of
+Zoo 1.100.0 from Deli Counter's own lights manifests with each job's sign
+pack (theme delco_1997), once merged and once with `--no-merge-parts`.
+A submission is one primitive of one visual mesh node:
+
+| layer | fixtures | unmerged | merged | shed | LuxEmit markers, both |
+|---|---|---|---|---|---|
+| deli_a01 | 116 | 257 | 232 | 25 | 116 |
+| office | 61 | 128 | 122 | 6 | 61 |
+| pharmacy_a01 | 24 | 52 | 48 | 4 | 24 |
+
+35 fewer, the count the census above predicts: 27 pendants, 3 sign boxes
+and 5 wall packs, one each. In the deli the pendants' metal is 23 meshes
+where it was 46, the sign box's and the wall pack's 1 where each was 2;
+every lens, the domes, the troffers and the sign's face count the same
+both ways. No streetlight is in the figure: Lot places a street's lamps as
+site furniture (`lot/site_furniture.py`'s `_piece`, species `streetlight`),
+which Zoo builds as a module through the kit path, and a module's parts
+already merge by material. A streetlight reaches this layer only through
+a lights manifest that asks for one.
 
 What a merge must keep, read off the consumers: Lux finds a failing
 fixture's lens by MATERIAL name (`M_*_Lens`, `_Diffuser`, `_Face`) and by the
