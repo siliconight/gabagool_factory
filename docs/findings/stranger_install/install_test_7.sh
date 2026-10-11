@@ -1,6 +1,6 @@
 #!/bin/bash
 # Roadmap 202, install test 7: package the factory at its current HEADs (the set factory 1.38.0
-# would certify: Deli Counter 0.208.0, Level Factory 0.178.4, Lot 0.116.0, Lux 0.75.0, Zoo
+# would certify: Deli Counter 0.208.0, Level Factory 0.178.6, Lot 0.116.0, Lux 0.75.0, Zoo
 # 1.100.0), unpack it fresh, and type START_HERE.md's commands into cmd.exe there with the page's
 # own `setup --venv` and its PyPI download (docs/findings/stranger_install/install_test_venv.cmd),
 # as install test 6 did. Beside test 6's checks it counts the doctor's `drift vs certified` lines

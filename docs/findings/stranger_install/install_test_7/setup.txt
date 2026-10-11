@@ -1,0 +1,74 @@
+Collecting pillow==12.3.0
+  Using cached pillow-12.3.0-cp313-cp313-win_amd64.whl.metadata (9.3 kB)
+Collecting pygltflib==1.16.5
+  Using cached pygltflib-1.16.5-py3-none-any.whl.metadata (33 kB)
+Collecting jsonschema==4.26.0
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting dataclasses-json>=0.0.25 (from pygltflib==1.16.5)
+  Using cached dataclasses_json-0.6.7-py3-none-any.whl.metadata (25 kB)
+Collecting deprecated (from pygltflib==1.16.5)
+  Using cached deprecated-3.0.0-py3-none-any.whl.metadata (6.5 kB)
+Requirement already satisfied: attrs>=22.2.0 in c:\blender\5.1\python\lib\site-packages (from jsonschema==4.26.0) (25.3.0)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema==4.26.0)
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema==4.26.0)
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema==4.26.0)
+  Using cached rpds_py-2026.9.1-cp313-cp313-win_amd64.whl.metadata (4.2 kB)
+Collecting marshmallow<4.0.0,>=3.18.0 (from dataclasses-json>=0.0.25->pygltflib==1.16.5)
+  Using cached marshmallow-3.26.2-py3-none-any.whl.metadata (7.3 kB)
+Collecting typing-inspect<1,>=0.4.0 (from dataclasses-json>=0.0.25->pygltflib==1.16.5)
+  Using cached typing_inspect-0.9.0-py3-none-any.whl.metadata (1.5 kB)
+Requirement already satisfied: packaging>=17.0 in c:\blender\5.1\python\lib\site-packages (from marshmallow<4.0.0,>=3.18.0->dataclasses-json>=0.0.25->pygltflib==1.16.5) (25.0)
+Collecting mypy-extensions>=0.3.0 (from typing-inspect<1,>=0.4.0->dataclasses-json>=0.0.25->pygltflib==1.16.5)
+  Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Requirement already satisfied: typing-extensions>=3.7.4 in c:\blender\5.1\python\lib\site-packages (from typing-inspect<1,>=0.4.0->dataclasses-json>=0.0.25->pygltflib==1.16.5) (4.14.1)
+Collecting wrapt<3,>=1.16 (from deprecated->pygltflib==1.16.5)
+  Using cached wrapt-2.5.0-cp313-cp313-win_amd64.whl.metadata (7.7 kB)
+Using cached pillow-12.3.0-cp313-cp313-win_amd64.whl (7.2 MB)
+Using cached pygltflib-1.16.5-py3-none-any.whl (27 kB)
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached dataclasses_json-0.6.7-py3-none-any.whl (28 kB)
+Using cached marshmallow-3.26.2-py3-none-any.whl (50 kB)
+Using cached typing_inspect-0.9.0-py3-none-any.whl (8.8 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Using cached rpds_py-2026.9.1-cp313-cp313-win_amd64.whl (222 kB)
+Using cached deprecated-3.0.0-py3-none-any.whl (21 kB)
+Using cached wrapt-2.5.0-cp313-cp313-win_amd64.whl (105 kB)
+Installing collected packages: wrapt, rpds-py, pillow, mypy-extensions, marshmallow, typing-inspect, referencing, deprecated, jsonschema-specifications, dataclasses-json, pygltflib, jsonschema
+
+Successfully installed dataclasses-json-0.6.7 deprecated-3.0.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 marshmallow-3.26.2 mypy-extensions-1.1.0 pillow-12.3.0 pygltflib-1.16.5 referencing-0.37.0 rpds-py-2026.9.1 typing-inspect-0.9.0 wrapt-2.5.0
+making C:\stranger_202_7\gabagool\.venv from C:\blender\5.1\python\bin\python.exe, with pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0
+wrote C:\stranger_202_7\gabagool\factory.local.json
+  blender_executable   C:\blender\blender.exe  ($BLENDER)
+  godot_executable     C:\Godot\4.7\Godot_v4.7-stable_win64.exe  (given)
+  python_executable    C:\stranger_202_7\gabagool\.venv\Scripts\python.exe  (setup --venv)
+  deli_counter         C:/stranger_202_7/gabagool/deli_counter
+  lot                  C:/stranger_202_7/gabagool/lot
+  laser_tag            C:/stranger_202_7/gabagool/lasertag
+  pixelcoat            C:/stranger_202_7/gabagool/pixelcoat
+  zoo                  C:/stranger_202_7/gabagool/zoo
+  patina               C:/stranger_202_7/gabagool/patina
+  lux                  C:/stranger_202_7/gabagool/lux
+  dispatch             C:/stranger_202_7/gabagool/dispatch
+doctor:
+  [PASS          ] python                 3.13.9
+  [PASS          ] tools_python           3.13.9 at C:\stranger_202_7\gabagool\.venv\Scripts\python.exe
+  [PASS          ] git                    found
+  [PASS          ] godot                  4.7.stable.official.5b4e0cb0f
+  [PASS          ] blender                Blender 5.1.1
+  [PASS          ] tool:deli_counter      vDeli Counter 0.208.0
+  [PASS          ] tool:lot               vLot 0.116.0
+  [PASS          ] tool:laser_tag         vLaser Tag 0.25.0
+  [PASS          ] tool:pixelcoat         vPixelcoat 0.62.0
+  [PASS          ] tool:zoo               v1.100.0
+  [PASS          ] tool:patina            vPatina 0.30.0
+  [PASS          ] tool:lux               vLux 0.75.0
+  [PASS          ] tool:dispatch          v0.5.2
+  [PASS          ] themes                 pixelcoat: bank, card_shop, casino, center_city, delco, delco_1997, industrial_flats, rockay, rockay_civic, rockay_retail, rockay_service, stadium, street | zoo (129 species): default | zoo partial: 1970s (18/129), 1980s (18/129), 1990s (51/129), acoustic (1/129), aluminum (1/129), blue (1/129), bodega (1/129), carpet (1/129), center_city (122/129), clean (2/129), combat (1/129), construction (1/129), delco (115/129), diner (3/129), dirt (1/129), drywall (1/129), greasy (1/129), hiking (1/129), industrial_flats (122/129), military (1/129), modern (20/129), motorcycle (1/129), office (16/129), police (1/129), racing (1/129), rockay (124/129), school (1/129), snack (1/129), sports (1/129), tiled (1/129), toasted (1/129), wood (2/129), work (1/129)
+  [PASS          ] workspace_writable     writable
+  [PASS          ] windows_long_paths     LongPathsEnabled is 1: a path may run past 260 characters
+
+worst: PASS

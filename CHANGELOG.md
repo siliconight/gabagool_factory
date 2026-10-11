@@ -3,6 +3,30 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.38.0] - 2026-10-11
+
+Five tools move:
+- deli_counter: 0.207.1 -> 0.208.0
+- level_factory: 0.178.3 -> 0.178.6
+- lot: 0.115.0 -> 0.116.0
+- lux: 0.74.0 -> 0.75.0
+- zoo: 1.97.0 -> 1.100.0
+
+- **deli_counter:** a home's room hangs a dome (roadmap 229).
+- **lux:** the dome's rig.
+- **zoo:** the dome and its fix; a container's roof at the valley shade;
+  the hemisphere's upper half, four props' caps on top (roadmap 232); a
+  fixture's same-material parts one mesh inside it (roadmap 233).
+- **lot:** a service lane lights its own length (roadmap 199).
+- **level_factory:** the grounded table for this set, and a light bake
+  that survives an unfocused editor (cold run 9242).
+
+Certified by install test 7: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands, the
+PyPI download included. setup exited 0 with every doctor row PASS at this set's versions, 0 `drift vs certified` lines and no sitecustomize error (the three pins from pip's cache, which test 6's download filled); make exited 0 in 34.1 minutes and built the level install tests 3 to 6 built (0 of 79 and 0 of 111 blockers, seed_9104, 495 models and 196 primitives lightmapped on the bake's first attempt, 3,780 lightmap users, the closure ok over 81 resources); walk exited 0 in 10.9 minutes with its export baked as make's was, both ladders climbed and all five stations passing, and after it the package still carried its bake (3,014 files, bake.exr, light_bake.json ok); and the package's fixture layers carry Zoo 1.100.0's merge, the deli's 23 pendants 23 metal meshes. No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.37.0] - 2026-10-11
 
 Five tools move:

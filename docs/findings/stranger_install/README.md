@@ -610,6 +610,82 @@ The five that moved are tagged at the commits tested, and the factory at
 **What is left of roadmap 202:** Linux. The walker has no Linux machine, so
 `factory.sh` and the Linux lines of START_HERE.md are written and unproven.
 
+## Install test 7, 2026-10-11, 10:50 to 11:37: the 1.38.0 set, certified
+
+**The test.** The set factory 1.38.0 certifies, typed with the page's own
+`setup --venv` as test 6 was. Five tools moved since test 6: a home's rooms
+hang a dome (Deli Counter 0.208.0, Zoo 1.98.x, Lux 0.75.0), a service lane
+lights its own length (Lot 0.116.0), a fixture's same-material parts are one
+mesh (Zoo 1.100.0), and the light bake keeps its editor awake and tries a
+failed bake once more (Level Factory 0.178.5 and 0.178.6, after 0.178.4
+re-grounded the doctor's table to this set).
+- **The package:** made from root `6b3d6e2`, Deli Counter `4ccfd257`
+  (0.208.0), Level Factory `f3db025` (0.178.6), Lot `2082ea9` (0.116.0),
+  Lux `1a6e160` (0.75.0), Zoo `8fad702` (1.100.0) and the other five repos
+  at their 1.36.0 tags, as `gabagool_factory_package_20261011_1050.zip`
+  (4,770 files; 146 shells checked fresh and stamped 10:50:18).
+- **The unpack:** into a new folder, `C:\stranger_202_7\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_7.sh`,
+  which beside test 6's checks counts the doctor's `drift vs certified`
+  lines at setup (0.178.4's claim is 0) and reads the package's fixture
+  layers after the walk (1.100.0's claim: a pendant's metal one mesh). Logs
+  are in `install_test_7/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | the venv from Blender 5.1.1's Python with the three pins (pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0 -- every wheel from pip's cache, which test 6's download filled); every doctor row PASS at the new versions, `worst: PASS`; 0 WARN rows, 0 `drift vs certified` lines, 0 sitecustomize errors |
+| `make` | 0 | 34.1 minutes (10:52:12 to 11:26:20); 0 of 79 and 0 of 111 blockers; seed_9104 picked as in tests 3 to 6 (0 major, the others 1); the light bake on its first attempt: 495 models and 196 primitives lightmapped, 4 kept dynamic and the responders' car set dynamic, 213 steady rigs baked and 28 failing left live, 267 room fills, 3,780 lightmap users, 127.7 s in the editor; closure `ok=true` over 81 resources in a package of 3,008 files |
+| `walk` | 0 | 10.9 minutes (11:26:20 to 11:37:12); its export baked as `make`'s did (495 models, 3,780 users, the same closure); the walk bot climbed both ladders (`Ladder_ladder_0` to 6.6 m, `Ladder_ladder_1` to 3.3 m); the shot bot passed all five stations -- exterior 0.0% jitter and fighting, `Ladder_ladder_0_base` 1.53% / 0.09%, `_top` 0.58% / 0.07%, `Ladder_ladder_1_base` 0.34% / 0.0%, `_top` 1.02% / 0.05% with 0.02% animated, not judged |
+
+**After the walk, the package still carries its bake:** 3,014 files,
+`bake.exr` present, `light_bake.json` `ok: true` -- as test 6's did. 0
+sitecustomize errors in all three logs (74, 228 and 38 lines); the venv's
+Python 3.13.9 imports pillow 12.3.0, pygltflib 1.16.5 and jsonschema
+4.26.0.
+
+**What each moved tool did here:**
+- **Level Factory 0.178.4 held:** 0 `drift vs certified` lines; the doctor
+  read every tool PASS at this set's versions.
+- **Zoo 1.100.0 reached the package:** the lot's three fixture layers --
+  deli_a01 232 visual meshes for 232 submissions and 116 `LuxEmit` markers,
+  `M_Pendant_metal` 23 meshes for its 23 pendants where 1.97.0 shipped 46
+  (cold run 9239's count); office 122 meshes, 2 pendants, 2 metal; the
+  rail station 52 meshes, 8 pendants, 8 metal.
+- **Level Factory 0.178.5 and 0.178.6 were not needed:** the bake opened
+  and baked on its first attempt, in 127.7 s. (9242 and 9243 were the
+  failures they answer; this machine's editor opened on its first ask
+  here.)
+- **The dome, the lane lamps and the merge** are in this package by the
+  versions the doctor read; this test exercises that the set installs,
+  makes and walks, not how each looks -- cold runs 9238 to 9244 did that.
+
+**The count:** 0 deviations from the page, 0 findings. The four minutes
+over test 6's `make` (32.3) were spent beside three test suites and three
+repo clones this machine ran at the same time.
+
+**What it certified: factory 1.38.0.** `factory.manifest.json` names the
+set this test ran:
+
+| tool | version | since 1.37.0 |
+|---|---|---|
+| Deli Counter | 0.208.0 | was 0.207.1 |
+| Dispatch | 0.5.2 | |
+| Laser Tag | 0.25.0 | |
+| Level Factory | 0.178.6 | was 0.178.3 |
+| Lot | 0.116.0 | was 0.115.0 |
+| Lux | 0.75.0 | was 0.74.0 |
+| Patina | 0.30.0 | |
+| Pipeline | 0.6.0 | |
+| Pixelcoat | 0.62.0 | |
+| Zoo | 1.100.0 | was 1.97.0 |
+
+The five that moved are tagged at the commits tested, and the factory at
+`factory-v1.38.0`; the other five repos' tags from 1.36.0 stand.
+
+**What is left of roadmap 202:** Linux, as before. The walker has no Linux
+machine, so `factory.sh` and the Linux lines of START_HERE.md are written
+and unproven.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
