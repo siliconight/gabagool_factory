@@ -30,7 +30,9 @@ import sys
 
 F = pathlib.Path(__file__).resolve().parents[3]
 GODOT = "C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe"
-LT_ADDON = F / "lasertag" / "addons" / "laser_tag_tool"
+#: the Laser Tag addon dropped into each copy: the repository's, or another one named by `LT_ADDON`
+#: (how Laser Tag 0.28.0's draft was measured before its release)
+LT_ADDON = pathlib.Path(__import__("os").environ.get("LT_ADDON") or F / "lasertag" / "addons" / "laser_tag_tool")
 SCR = F / "_scratch" / "engine_breadth"
 LOTS = [  # (workspace, mission, seed): the newest staged lots of each family, 2026-10-12
     ("cold-9264-ws", "restaurant_row_001", "seed_9003"),
@@ -87,6 +89,9 @@ def _seed(job_log):
 def main():
     if not (LT_ADDON / "runners" / "run_map_eval.gd").exists():
         sys.exit("no Laser Tag addon at %s" % LT_ADDON)
+    version = LT_ADDON.parent.parent / "VERSION"
+    print("Laser Tag addon: %s (%s)" % (LT_ADDON, version.read_text().strip() if version.exists() else "?"),
+          flush=True)
     if SCR.exists():
         shutil.rmtree(SCR)
     SCR.mkdir(parents=True)

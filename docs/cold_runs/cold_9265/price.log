@@ -1,0 +1,36 @@
+control import exit 0
+control sun_state exit 0
+vendored lux_lighting.gd: 14282 bytes, carries _apply_sun_mode: false
+frame 5      sun dynamic, shadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+frame 35     sun dynamic, shadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+power cut    sun dynamic, shadowed, visible true; lightmaps with data 0 of 1; baked_lighting true, fixtures_powered false
+power back   sun dynamic, shadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+subject import exit 0
+subject sun_state exit 0
+vendored lux_lighting.gd: 16281 bytes, carries _apply_sun_mode: true
+frame 5      sun static, unshadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+frame 35     sun static, unshadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+power cut    sun dynamic, shadowed, visible true; lightmaps with data 0 of 1; baked_lighting true, fixtures_powered false
+power back   sun static, unshadowed, visible true; lightmaps with data 1 of 1; baked_lighting true, fixtures_powered true
+control shots exit 0
+subject shots exit 0
+luma exit 0
+mean luma 0-255; in brackets the mean absolute difference from 9265's frame
+station            9264 live        9265 baked                B2        rebake ctl
+line            37.4 ( 10.8)      33.0 (  0.0)      33.0 (  1.9)      37.4 ( 10.8)
+corner          51.8 (  7.2)      51.6 (  0.0)      51.6 (  2.4)      51.9 (  7.2)
+up              52.9 ( 13.4)      47.2 (  0.0)      47.1 (  2.4)      52.9 ( 13.4)
+spawn           20.7 (  4.5)      18.1 (  0.0)      18.1 (  1.6)      20.6 (  4.5)
+objective        6.5 (  1.7)       6.5 (  0.0)       6.5 (  1.7)       6.5 (  1.8)
+elev_N          57.3 ( 13.8)      63.9 (  0.0)      63.9 (  2.5)      57.3 ( 13.8)
+docs/cold_runs/cold_9265/sun_baked.png (1600, 2904)
+sheet: docs/cold_runs/cold_9265/sun_baked.png
+price exit 0
+measured control_1  53 headings  draws mean 2642 worst 5740  p95 median 7.62 ms
+measured glow       53 headings  draws mean 788 worst 2805  p95 median 4.20 ms
+measured control_2  53 headings  draws mean 2642 worst 5740  p95 median 7.09 ms
+controls' spread, median over 53 headings: p95 0.24 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0            -0.03         0.68
+glow           -1854.4        -3472          -30            -3.03         0.37
+control_2          0.0            0            0             0.03         0.54

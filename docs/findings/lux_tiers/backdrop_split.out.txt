@@ -1,0 +1,10 @@
+backdrop pixels: 9265's frame moves more than 8 levels when the backdrop is hidden
+luma 0-255 as live / arm / no spec / baked; |live - baked| split, adding to the whole
+  live: 9264 as shipped; arm: 9264, the backdrop casting no shadow; no spec: the arm, the sun's specular 0; baked: 9265
+station     backdrop  on the backdrop                    on the level                         |diff|  backdrop    level
+line            0.1%  141.8 / 141.9 / 128.2 / 103.9       37.2 /  44.1 /  42.8 /  32.9          10.8       0.0     10.7
+corner         14.3%   60.5 /  61.1 /  56.0 /  66.2       50.4 /  50.4 /  50.0 /  49.2           7.2       3.6      3.5
+up              0.5%  119.8 / 119.7 / 109.9 /  92.5       52.6 /  59.1 /  57.5 /  46.9          13.4       0.1     13.3
+spawn           0.2%   93.6 /  93.1 /  87.4 /  92.4       20.5 /  20.5 /  19.2 /  17.9           4.5       0.0      4.5
+objective       0.0%    nan /   nan /   nan /   nan        6.5 /   6.5 /   6.5 /   6.5           1.7       0.0      1.7
+elev_N         34.4%   15.6 /  57.8 /  39.5 /  36.5       79.2 /  86.9 /  83.3 /  78.3          13.8       7.3      6.5

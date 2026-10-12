@@ -100,3 +100,27 @@ Jolt (`modules/jolt_physics/`), both in the stock binary. Nothing above favours 
 sake; the grader should run whatever the game ships, and until that is chosen the default stands. Not
 measured: a human-driven body, the enemies' own pins, and the second place 242 named (beside a meter
 at (35, -17): 8 of 9263's 72 events, the same mechanism unproven).
+
+## Laser Tag 0.28.0, drafted and HELD: the bot keeps to the mesh (`engine_breadth_028.out.txt`)
+
+The fix the section above points at, drafted as `patches/patch_lt_keep_on_mesh.py`: `_advance_route`
+reads its `delta`, and `_velocity_on_mesh` turns a step that would leave the navigation mesh by more than
+`MESH_TOLERANCE_M` (0.01 m) back toward the mesh's closest point, at the same speed, on the same level
+(`MESH_LEVEL_M` 0.5 m). Its own test (`lt_keep_on_mesh/test_bot_keeps_to_the_mesh.gd.txt`) passes on the
+draft. Measured as above -- the same 16 lots and three runs a lot, the draft's addon dropped into each
+copy (`LT_ADDON=_scratch/lt_draft/addons/laser_tag_tool python docs/findings/route_snag/engine_breadth.py`),
+the two Godot Physics passes identical on all 16:
+
+                      0.27.0 Godot   0.28.0 Godot   0.27.0 Jolt   0.28.0 Jolt
+    player stuck            108             45            60            44
+    pinned                   74              9            25            14
+
+Where it helps, it helps a lot: restaurant_row_001 seed_9104 under Godot Physics 72 stuck and 66
+pinned -> 7 and 0, route 0.72 -> 0.92; crossroads_9600 seed_9600 pinned 6 -> 2 under both; Jolt's new
+pins at club_block_014 seed_9282 (5) and crossroads_9600 seed_9701 (8) gone. **Where it hurts, which is
+why it is held:** bank_block_001 seed_9256 pinned 2 -> 7 under Godot Physics and 0 -> 7 under Jolt (its
+Jolt route 0.92 -> 0.76); deli_001 seed_9191 under Godot Physics and seed_9393 under both score 10 lower
+(76 -> 66, 74 -> 64), each with 0 -> 3 stuck events; gas_block_001 seed_9282 under Jolt 100 -> 90;
+warehouse_yard_001 seed_9206 under Jolt pinned 4 -> 5, route 0.84 -> 0.76. Not attributed: where the
+bank's seven pins stand, and what the deli's three new stuck events are. The patch refuses to write the
+repository until they are; `--draft` on a copy still works.
