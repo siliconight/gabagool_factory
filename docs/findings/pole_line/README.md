@@ -210,6 +210,34 @@ for steady street lights only -- they are baked, so past the distance their
 real-time light shades only what moves, and a culled light samples no map.
 Measure it before believing it.
 
+**What the shadow maps buy, seen on bodies** (`shadow_options.py`, `shadow_options.png`,
+`shadow_options_luma.py` and `.out.txt`; the walker, 2026-10-12: "What helps us learn?"). Two grey
+capsules the crew body's size stand in the road under two STEADY lights of cold run 9264's package --
+pole 22 (shadowed as built; the first to lose its map at a budget of 4) and pole 24, 60 m from the far
+camera -- in four arms: as built, a budget of 4, a budget of 0, and every steady street light faded out
+whole past 30 m. Mean luma, 0-255:
+
+    region                        built  budget4  budget0   fade30
+    near: the body                30.70    28.26    28.24    30.70
+    near: the road around it     104.01   104.04   104.04   104.01
+    far: the centre crop's road   14.58    10.84    10.87    14.59
+
+- **Under a steady light the body casts no shadow on the road in any arm.** The road is lightmapped,
+  and nothing at runtime darkens a lightmapped surface: a steady street light's shadow map can shade
+  only what moves, never cast its shadow on the ground. The near frames read the same.
+- **Cutting the budget darkens what moves:** the body 8 % darker, the far crop's road band -- the parked
+  cars and what stands among them -- 26 %. Fewer shadow maps, less light on bodies. The likely
+  mechanism, unmeasured: GL Compatibility draws a shadowed light in a pass of its own, while unshadowed
+  lights share each object's list of `max_lights_per_object` (8), so taking street lights' maps away
+  puts them in that list, and where many lights meet some are dropped. The light-pair census on a
+  budget-0 copy would say.
+- **The whole-light fade changed nothing measured** -- including the far crop, where the pole-24 body
+  60 m off should have lost that light. Either nothing in the crop is lit by pole 24 in real time, or
+  the edit did not take: a knob with no visible effect, so not yet a result.
+
+So each cheap lever on the shadow maps costs light on players and enemies at night, which in a shooter
+is visibility. Not applied.
+
 **Found on the way: a package runs Lux's High tier.** `LuxRoot.quality_tier`
 defaults to 0 (High: 12 shadow casters, sun shadows, post-fx, glow) and no tool
 sets it -- only a Lux self-test does -- so every package runs High on the GL

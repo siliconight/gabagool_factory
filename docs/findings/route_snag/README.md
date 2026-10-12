@@ -65,11 +65,38 @@ The route still reads 1.00, 0.76, 0.84: what is left tracks the fights (deaths 2
 So most of 242's swing was the engine pinning a body on a corner the furniture's navmesh happened to
 send it past -- not the furniture, and not the lot's geometry.
 
+## Across mission families: the engine is not the fix (`engine_breadth.py`, `engine_breadth.out.txt`)
+
+**RETRACTED, KEPT: "choose Jolt".** On restaurant_row_001 alone (above) Jolt looked like the cure, and
+the recommendation given the walker the same afternoon was to standardise on it. The other families'
+staged lots say otherwise. Sixteen lots of seven families -- restaurant_row_001 (3), deli_001 (3),
+warehouse_yard_001 (3), bank_block_001, club_block_014, gas_block_001 (2), crossroads_9600 (3) -- each
+copied with TODAY's Laser Tag dropped in (their jobs ran before the fixed clock and cannot be
+reproduced), run under Godot Physics twice and Jolt once, 25 runs each from the job's own seed. Every
+lot's two Godot Physics passes read identically (the control: 16 of 16).
+
+                                     Godot Physics   Jolt
+    all 16 lots       player stuck        108          60
+                      pinned               74          25    (in 3 lots / in 5 lots)
+    without the       player stuck         36          53
+    counter's lot     pinned                8          23    (in 2 lots / in 4 lots)
+                      enemy stuck         178         143
+                      score, summed      1198        1172
+
+66 of Godot Physics' 74 pinned events are the one counter in restaurant_row_001 seed_9104. Elsewhere
+Jolt pins MORE: club_block_014 seed_9282 0 -> 5 at 2 places, crossroads_9600 seed_9701 0 -> 8 at one,
+warehouse_yard_001 seed_9206 0 -> 4 at 2 places; and grades move both ways (gas_block_001 seed_9181
+PASS_WITH_TUNING 75 -> WARN 65, warehouse_yard_001 seed_9206 68 -> 62). Each engine pins bodies at
+different corners; neither is the fix. What both share is the bot cutting corners into geometry --
+its 0.44 m arrival radius against 5 cm of clearance -- which is Laser Tag's, and the fix belongs there
+whichever engine the game ships.
+
 ## What is not decided, and whose it is
 
-**Which physics engine the grader runs is the game's question.** A package names no engine; the
-game's own project does, and the gameplay layer is outside the factory. If the game ships Jolt, Laser
-Tag grading under Godot Physics measures a pin no player meets; if it ships Godot Physics, AI bodies
-following navigation (the game's enemies) can pin the same way, and a human pushing a stick into a
-corner might. Not measured: a human-driven body, the enemies' own pins, and the second place 242 named
-(beside a meter at (35, -17): 8 of 9263's 72 events, the same mechanism unproven).
+**Which physics engine the game ships is the game's question**, and the walker does not know yet
+(2026-10-12: "we are going to use Godot"). `engine_probe.gd` read it off Godot 4.7 itself: a project
+that names no engine runs Godot Physics (`modules/godot_physics_3d/`), one naming "Jolt Physics" runs
+Jolt (`modules/jolt_physics/`), both in the stock binary. Nothing above favours either for the factory's
+sake; the grader should run whatever the game ships, and until that is chosen the default stands. Not
+measured: a human-driven body, the enemies' own pins, and the second place 242 named (beside a meter
+at (35, -17): 8 of 9263's 72 events, the same mechanism unproven).
