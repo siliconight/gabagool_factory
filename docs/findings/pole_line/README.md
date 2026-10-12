@@ -16,7 +16,11 @@ Built in three steps, each its own release:
 2. **Lot 0.118.0, the line** (`patches/patch_lot_pole_line.py`): one kerb of
    every street, poles at the kerb no more than 36 m apart, every pole's light
    at its lens, a can every third or fourth pole by the buildings it serves.
-3. **The wires**, between the poles -- next.
+3. **Lot 0.119.0, the wires** (`patches/patch_lot_pole_wires.py`, with Level
+   Factory 0.194.0 keeping them out of the lightmap): the full set along every
+   line and tied across each junction, unshaded, shadowless, in the themed
+   site only; **0.119.1** (`patches/patch_lot_wires_pixel.py`) holds a far
+   wire to a pixel and fades it by what it covers.
 
 ## The census (`pole_census.py`, `pole_census.out.txt`)
 
@@ -89,3 +93,101 @@ The same three stations in 9261's package and 9262's, at the level's evening
 light: the line along the kerb, a can's pole from across the street, the
 corner. For the walker's eye: the darker gaps between the pools (the "every
 pole" call) and the wood's colour under sodium light.
+
+## The wires in a real drive: cold run 9263 (`docs/cold_runs/cold_9263/`)
+
+0 interventions. The run's own drawn spec through Lot's own functions
+(`wire_spans.py`): 12 poles, 11 spans -- 9 along the lines and a tie across
+each side street's mouth -- 7 cells and 7,392 triangles, the lowest cable 5.43 m
+over the road; the wires in the themed scene and in none of the three graded
+lots. Priced within the run's own package against a copy with the 7 wire nodes
+hidden: +2.2 draws a heading (0 to +6, one a cell in view), p95 +0.05 ms at the
+median inside the controls' 0.09 ms. The frames found what the price could not:
+past about 60 m a 2.4 to 4.4 cm tube is under a pixel and drew as a dotted line.
+
+## A far wire held to a pixel: Lot 0.119.1 (`wire_pixel_splice.py`, `wire_pixel.png`)
+
+Each vertex carries its wire's drawn radius as its u; the material's vertex
+shader finds the wire's centre from it, widens a wire thinner than a pixel to
+one and fades it by the share it covers. Before the release the draft's output
+for 9263's own cover was spliced into a copy of 9263's package and shot at the
+same five stations (`wire_pixel_splice.sh`): the far dashes became faint
+continuous lines and the near wires read the same. **Found on the way:**
+`_tube`'s quads ran round each ring against their normals, so every face of
+0.119.0 was wound inward and drawn from both sides; with a fade, two layers
+would have drawn a far wire nearly twice as dark as it covers. 0.119.1 winds
+them outward and culls the back.
+
+## The price of the pole line: 9261's lamps against 9262's poles (`poles_price.sh`, `price_9261_9262/`)
+
+Builds 1 and 2 shipped without a price at the stations. Priced afterwards,
+9261's package as the control (twice) and 9262's as the subject, the same lot
+and byte-identical `gameplay_anchors.json`, 53 headings, GL Compatibility on
+the RTX 2060:
+
+    controls' spread, median over 53 headings: p95 0.16 ms, draws 0.0
+    9262 against 9261: draws +170.3 a heading (median +135, -114 to +783),
+                       p95 +0.39 ms at the median, +4.72 at the worst heading
+
+48 of 53 headings gain draws, by 270 to 783 wherever the view runs along the
+main road. The worst frame-time heading (`defender_spawn_9` facing 90) is a
+hitch: `highest_vantage`, standing at the same draws, read -1.44. The first try
+of this price was stopped and re-run: a file search ran beside its subject pass.
+
+**Where the 170 come from** (`pole_cost_ab.sh`, `pole_cost_arms.py`: arms of
+both packages, one station pass each; draws repeat exactly between passes, so
+one pass attributes draws):
+
+    9262 as built - 9261 as built                  +170.3 a heading
+    9262's street lights' shadows (budget 0)       +300.1
+    9261's street lights' shadows (budget 0)       +133.4
+    with no shadows in either, 9262 - 9261           +3.5
+    9262's 11 poles themselves (hidden)             +29.6
+
+Lux shadows 12 lights in both runs -- the quality tier's `max_shadow_casters`,
+street lights ranked first -- so the pole line did not add shadow maps; it moved
+them. A cobra-head's lamp hangs at 7.50 m where a steel lamp's hung at 5.92 (the
+light anchors of `site.site.lights.json`, 11 against 17 on the band roads), both
+pointing down with the rig's 55-degree spot angle, so its cone reaches further
+across the street and its shadow pass draws more than twice what the lamps'
+did (300 against 133 a heading, twelve lights each). The poles' own meshes (four
+draws a pole) are nearly paid for by the lamps they replaced. The live
+light-pair census (`tools/mesh_light_census.py --json` on the price's two
+copies, `price_9261_9262/light_pairs_926{1,2}.json`) says the same
+from the other side: 1,950 pairs in 9261 against 1,272 in 9262, fewer lights
+reaching fewer meshes -- the passes did not grow, the shadow maps did.
+
+**REFUTED, KEPT -- two knobs with no effect.** The first shadows arm wrote
+`shadow_enabled = false` on the 12 street lights in the scene and moved the
+draws by exactly 0: Lux's `apply_shadow_policy` sets `shadow_enabled` at
+runtime, so the scene's value is never read (`perf_9262_shadow_enabled_edit_REFUTED.json`);
+Lux's own dial, `LuxRoot.shadow_caster_budget`, moved them by 300. The first
+fade arm wrote Godot's `distance_fade_*` on the same nodes and moved them by
+exactly 0 as well: `lux_streetlight_rig.gd`'s `_rebuild()` frees every saved
+SpotLight3D and builds its lamps anew at runtime (`perf_9262_fade_30_scene_edit_REFUTED.json`).
+
+**The levers, measured on 9262** (draws a heading saved, and where that leaves
+it against 9261's lamps):
+
+    shadow budget 8 (the Medium tier)      -118.2   +52.1 over the lamps
+    shadow budget 4 (Low, Compatibility)   -240.9   -70.6 under the lamps
+    street-light shadow cut beyond 30 m    -154.0   +16.2 over the lamps
+
+The last is Godot's own `distance_fade_shadow` (the light kept, its shadow
+faded out over 5 m past 30 m from the camera), set in the vendored rig where
+the lamps are built (`rigfade_30`); the engine honours it on GL Compatibility.
+It keeps all twelve shadow maps for the lights near the player and drops the
+far ones -- the cheapest of the three in look, since what it removes is the
+shadow in pools 30 m and more away. 30 m is one span of 9262's main line (31.2
+to 33.2 m): the light overhead and the next each way; a line spaced otherwise
+would want it derived again. None of the three is applied: the fade is a Lux
+change to price with frames beside it, and the budgets are the tier question
+below.
+
+**Found on the way: a package runs Lux's High tier.** `LuxRoot.quality_tier`
+defaults to 0 (High: 12 shadow casters, sun shadows, post-fx, glow) and no tool
+sets it -- only a Lux self-test does -- so every package runs High on the GL
+Compatibility renderer that is its low-end target. Roadmap 60 priced the tiers
+and built a Compatibility tier (4 casters, no sun shadows, no post-fx, no glow)
+that no package has run. Which tier a package ships at is a look and a price
+for the walker, not a default to change in passing.

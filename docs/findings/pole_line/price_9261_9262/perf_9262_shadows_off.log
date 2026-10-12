@@ -1,0 +1,74 @@
+$ C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe --path C:\Projects\gabagool_studios\gabagool_factory\_scratch\pole_arm_9262_shadows_off --script res://perf_stations.gd -- --out res://perf_stations.json
+[perf] longest sightline: 145.7 m from attacker_spawn_11 at yaw 270  (4 ray(s) left the map)
+[perf] geometry: 3394 MeshInstance3D, 29 MultiMeshInstance3D, 22337 nodes
+[perf] warmed 14 station(s); worst frame while warming 71.5 ms
+[perf] 14 station(s) x 4 heading(s) x 2 pass(es), 60 frames each after 30 warmup
+  attacker_spawn_3       worst yaw 270  p95   4.60 ms  draws  2052  prim   1435114  gpu  0.93  rcpu  3.26
+  camera_socket_0        worst yaw  90  p95  15.59 ms  draws  3781  prim   1745720  gpu  5.82  rcpu 12.79
+  defender_spawn_9       worst yaw  90  p95  19.10 ms  draws  4368  prim   1863860  gpu  6.28  rcpu 13.20
+  extraction_15          worst yaw 270  p95  13.63 ms  draws  3666  prim   1858442  gpu  4.45  rcpu 11.64
+  objective_2            worst yaw 270  p95   7.85 ms  draws  2812  prim   1586870  gpu  1.25  rcpu  6.33
+  patrol_point_13        worst yaw 270  p95  13.34 ms  draws  3540  prim   1746310  gpu  4.37  rcpu 11.33
+  player_start_19        worst yaw  90  p95  16.36 ms  draws  4426  prim   1964640  gpu  8.42  rcpu 14.29
+  attacker_spawn_5       worst yaw  90  p95  12.05 ms  draws  3526  prim   1863370  gpu  3.74  rcpu  9.37
+  camera_socket_1        worst yaw 270  p95  11.01 ms  draws  4239  prim   1890146  gpu  4.82  rcpu  9.84
+  defender_spawn_17      worst yaw 270  p95   9.22 ms  draws  2808  prim   1605444  gpu  2.86  rcpu  7.28
+  extraction_16          worst yaw  90  p95  12.74 ms  draws  3113  prim   1683530  gpu  3.74  rcpu  8.91
+  objective_4            worst yaw 180  p95   9.26 ms  draws  2901  prim   1739700  gpu  1.25  rcpu  5.68
+  highest_vantage        worst yaw  90  p95  18.68 ms  draws  4368  prim   1863860  gpu  6.59  rcpu 13.70
+  longest_sightline      worst yaw 270  p95  16.17 ms  draws  3476  prim   1823896  gpu  4.00  rcpu 11.18
+[perf] lights per object: cap 8; by reach 159 of 3394 mesh(es) over it, worst 236 (LuxHorizonGlow); paired 2 over it, worst 236 (LuxHorizonGlow)
+[perf] wrote C:/Projects/gabagool_studios/gabagool_factory/_scratch/pole_arm_9262_shadows_off/perf_stations.json
+
+  station                     yaw   p95 ms    worst   gpu ms    rcpu   draws primitives
+  defender_spawn_9             90    19.10    21.98     6.28   13.20    4368    1863860  DRAWS MS
+  highest_vantage              90    18.68    22.85     6.59   13.70    4368    1863860  DRAWS MS
+  player_start_19              90    16.36    16.99     8.42   14.29    4426    1964640  DRAWS MS
+  longest_sightline           270    16.17    16.54     4.00   11.18    3476    1823896  DRAWS MS
+  camera_socket_0              90    15.59    21.14     5.82   12.79    3781    1745720  DRAWS MS
+  extraction_15               270    13.63    13.91     4.45   11.64    3666    1858442  DRAWS MS
+  patrol_point_13             270    13.34    13.56     4.37   11.33    3540    1746310  DRAWS MS
+  extraction_16                90    12.74    15.89     3.74    8.91    3113    1683530  DRAWS MS
+  attacker_spawn_5             90    12.05    13.31     3.74    9.37    3526    1863370  DRAWS MS
+  camera_socket_1             270    11.01    11.97     4.82    9.84    4239    1890146  DRAWS MS
+  objective_4                 180     9.26    10.90     1.25    5.68    2901    1739700  DRAWS
+  defender_spawn_17           270     9.22     9.90     2.86    7.28    2808    1605444  DRAWS
+  objective_2                 270     7.85     8.19     1.25    6.33    2812    1586870  DRAWS
+  attacker_spawn_3            270     4.60     4.96     0.93    3.26    2052    1435114  DRAWS
+
+  passes: 2 per heading, the lower p95 kept; 42 of 53 heading(s) differed by more than 1.0 ms p95 (largest 24.60 ms); 0 drew a different count
+
+  lights per object, by reach: cap 8, 159 of 3394 mesh(es) over it, worst 236 (LuxHorizonGlow); 11111 light-mesh pair(s)
+    236 lights  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+    100 lights  /root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997
+     71 lights  /root/Mission/Bake/Site/b2/ceiling_floor_1/Ceiling_ceiling_tile_delco_1997
+     44 lights  /root/Mission/Bake/Site/b0/ceiling_market_aisles/Ceiling_ceiling_tile_delco_1997
+     44 lights  /root/Mission/Bake/Site/b2/floor_floor_1/Floor_tile_delco_1997
+  lights per object, paired: 2 of 3394 mesh(es) over the cap, worst 236 (LuxHorizonGlow); 1575 light-mesh pair(s); 3333 lightmap user(s), 210 of 236 light(s) baked
+    236 lights  (236 by reach)  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+      9 lights  (100 by reach)  /root/Mission/Bake/Site/b0/roof_footprint/Roof_brick_delco_1997
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> docs\findings\pole_line\price_9261_9262\perf_9262_shadows_off.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: defender_spawn_9 at yaw 90 -- 19.10 ms p95, 4368 draws
+
+PERF_STATION_OVER_BUDGET: 14 of 14 station(s)
+  defender_spawn_9         DRAWS+MS (19.10 ms p95, 4368 draws)
+  highest_vantage          DRAWS+MS (18.68 ms p95, 4368 draws)
+  player_start_19          DRAWS+MS (16.36 ms p95, 4426 draws)
+  longest_sightline        DRAWS+MS (16.17 ms p95, 3476 draws)
+  camera_socket_0          DRAWS+MS (15.59 ms p95, 3781 draws)
+  extraction_15            DRAWS+MS (13.63 ms p95, 3666 draws)
+  patrol_point_13          DRAWS+MS (13.34 ms p95, 3540 draws)
+  extraction_16            DRAWS+MS (12.74 ms p95, 3113 draws)
+  attacker_spawn_5         DRAWS+MS (12.05 ms p95, 3526 draws)
+  camera_socket_1          DRAWS+MS (11.01 ms p95, 4239 draws)
+  objective_4              DRAWS (9.26 ms p95, 2901 draws)
+  defender_spawn_17        DRAWS (9.22 ms p95, 2808 draws)
+  objective_2              DRAWS (7.85 ms p95, 2812 draws)
+  attacker_spawn_3         DRAWS (4.60 ms p95, 2052 draws)
