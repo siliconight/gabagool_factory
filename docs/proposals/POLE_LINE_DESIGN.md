@@ -81,9 +81,20 @@ pole, every sign its own post, and there is not one wire.
 - Sag: a few percent of the span at mid-span.
 - A cobra-head usually sits 25 to 30 ft up (7.5 to 9 m) on a 4 to 8 ft arm.
 
-## Open, for the walker
+## Decided by the walker, 2026-10-12
 
-- Which side, and every street or residential ones only?
-- How many wires: the comps' tangle, or a cleaner two or three?
-- Transformers: how often (a can every few poles is typical)?
-- Lamps on every pole or every other, given Lux's 14 m reach?
+The four questions this proposal left open, asked and answered:
+
+- **Which side:** ONE SIDE, EVERY STREET -- one line per street, on the kerb
+  with fewer kerb cuts, driveways and shop bands, chosen by cause; that
+  side's lamps move onto the poles. (Not residential-only, not both sides.)
+- **How many wires:** THE FULL SET, NO HOUSE DROPS -- three primaries on the
+  crossarm, a neutral, a secondary, one or two communication cables,
+  crossing the street at junctions. Service drops to the rowhome fronts are
+  not part of this build (they need facade attachment points).
+- **Transformers:** A CAN EVERY THIRD OR FOURTH POLE, placed by cause
+  (nearest the buildings it would serve), never by jitter.
+- **Lamps:** EVERY POLE carries a cobra-head -- pools of light with dark
+  between, about a span apart on one side, fewer lights than today's lamps
+  every 25 m on both kerbs. (Not every other pole; the far kerb does not
+  keep its lamps.)
