@@ -1,0 +1,81 @@
+    # THREE PASSES OVER THREE SETS, EVERY MODEL IMPORTED ONCE (0.189.0).
+    # The step imported the package twice: a first pass with Godot's
+    # defaults, then -- embedded images, the pins and the bake's marks
+    # (0.187.0) written into the sidecars, what extract wrote deleted, the
+    # cache wiped -- every file again: 86 s of a 238 s re-export of cold run
+    # 9254. With its final settings asked for up front, a model's first
+    # import is its only one, and a first import has hazards, each measured
+    # by re-exporting 9254 against itself and digesting every model as Godot
+    # loads it (the factory's docs/findings/grader_speed/sidecar_once_probe.py
+    # and import_digest.gd):
+    #
+    #   * a model imported before the shared textures it names embeds a copy
+    #     of each instead of naming the file -- 1,463 surfaces in 461 models,
+    #     and every gate passed -- so the textures go first, every model held;
+    #   * a worldskin base skins its slabs from a sibling module it `load()`s
+    #     (`WORLDSKIN_BASE_PREFIX`), which a first import cannot promise is
+    #     there -- 105 slab meshes greybox -- so the bases go last;
+    #   * a model imported twice, its textures already imported, is the race
+    #     0.182.0 backstops -- re-importing six models to set their light
+    #     baking back reset two textures' pins and embedded a copy in three --
+    #     so a model whose light baking is its own is held with the bases and
+    #     imported once, from a whole sidecar (`_own_light_baking_sidecars`);
+    #   * the filtered-texture set is read off the models' glTF, and read
+    #     while they were held it was empty: 26 textures went lossless until
+    #     the read-back after the last import. It is read before.
+    #
+    # Measured against the export as it was: the sidecar step 86.1 -> 62.2 s,
+    # the export 238.1 -> 214.8 s; every model loading the same (501 of 501),
+    # every gate the same, no pin lost, and the two packages differing only
+    # where two exports of the same code always do.
+    from packages.exporting.light_bake import DYNAMIC, glb_has_uv2, mark_imports
+    lightmaps = bake_spawned is not None
+    models = [p for p in sorted(export_dir.rglob("*.glb")) if ".godot" not in p.parts]
+    own = {}
+    if lightmaps:
+        spawned = set(bake_spawned)
+        for p in models:
+            if p.relative_to(export_dir).as_posix() in spawned:
+                own[p] = DYNAMIC
+            elif glb_has_uv2(p):
+                own[p] = MODEL_STATIC
+    late = {p for p in models if p.name.startswith(WORLDSKIN_BASE_PREFIX)}
+    if any(p not in late and p not in own for p in models):
+        late |= set(own)   # a model the second pass imports, to copy a whole sidecar from
+    filtered = _filtered_shared_textures(export_dir)   # off the models, while they are here
+    proj = export_dir / "project.godot"
+    kept_project = proj.read_bytes() if proj.is_file() else None
+    held = {}
+    try:
+        project_text = (kept_project or b"").decode("utf-8")
+        p_eol = "\r\n" if "\r\n" in project_text else "\n"
+        proj.write_bytes(_model_import_defaults(
+            project_text.replace("\r\n", "\n"), lightmaps
+        ).replace("\n", p_eol).encode("utf-8"))
+        for p in models:
+            q = p.with_name(p.name + HELD_SUFFIX)
+            p.rename(q)
+            held[p] = q
+        _import_pass_verified()      # 1: the textures, and everything not a model
+        _pin_shared_texture_imports(export_dir, filtered)
+        _pin_sign_texture_imports(export_dir)
+        for p in models:
+            if p not in late:
+                held.pop(p).rename(p)
+        _import_pass_verified()      # 2: every model but the late ones
+        for p in models:
+            if p in held:
+                held.pop(p).rename(p)
+        _own_light_baking_sidecars(models, late, own)
+        if lightmaps:
+            # the paint's meshes: every model already carries its light baking
+            mark_imports(export_dir, bake_spawned)
+        _import_pass_verified()      # 3: the bases, and the models with a light baking of their own
+    finally:
+        for p, q in held.items():
+            if q.exists():
+                q.rename(p)
+        if kept_project is None:
+            proj.unlink(missing_ok=True)
+        else:
+            proj.write_bytes(kept_project)

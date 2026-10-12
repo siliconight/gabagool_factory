@@ -1,0 +1,9 @@
+
+    THREE PASSES OVER THREE SETS, EVERY MODEL IMPORTED ONCE (0.189.0). What
+    the two passes above did by rewriting sidecars and importing again, a
+    model's first import now does with its final settings: the textures go
+    first (a model imported before them embeds a copy of each), the worldskin
+    bases last (they `load()` a sibling module), and a model whose light
+    baking is its own goes last from a whole sidecar. The comment at the
+    passes says what each of those cost when it was got wrong. Mode 3 and
+    the shared textures' pins above still say why those settings are these.

@@ -1,0 +1,76 @@
+#: Where a model waits while an import pass runs without it (0.189.0): an
+#: extension Godot does not import, beside the model it holds.
+HELD_SUFFIX = ".held"
+#: The worldskin's bases (`zoo_worldskin.gd`'s `BASE_PREFIX`): a base skins
+#: its slabs, stairs and ladders from sibling modules it `load()`s, so it is
+#: imported after every other model (0.189.0).
+WORLDSKIN_BASE_PREFIX = "site_base"
+#: `meshes/light_baking` Static: what a model whose own second UV set is
+#: shader data has always shipped with, written for it now that the models'
+#: defaults are Static Lightmaps when the export bakes (0.189.0).
+MODEL_STATIC = 1
+_SCENE_SIDECAR_HEAD = ('[remap]\n\nimporter="scene"\nimporter_version=1\n'
+                       'type="PackedScene"\n\n')
+
+
+def _model_import_defaults(text: str, lightmaps: bool) -> str:
+    """`project.godot`'s text with the models' final settings as its
+    `[importer_defaults] scene` (0.189.0): images embedded uncompressed, and
+    Static Lightmaps when the export bakes. Merged into the block the
+    worldskin's declaration starts, or a new one."""
+    from packages.exporting.light_bake import STATIC_LIGHTMAPS
+    keys = {"gltf/embedded_image_handling": 3}
+    if lightmaps:
+        keys["meshes/light_baking"] = STATIC_LIGHTMAPS
+    lines = ",\n".join('"%s": %s' % (k, v) for k, v in keys.items())
+    section, head = "[importer_defaults]\n", "scene={\n"
+    if section in text and head in text[text.index(section):]:
+        i = text.index(head, text.index(section)) + len(head)
+        j = text.index("}", i)
+        body = text[i:j].rstrip("\n")
+        return (text[:i] + (body + ",\n" if body.strip() else "") + lines + "\n"
+                + text[j:])
+    if section in text:
+        k = text.index(section) + len(section)
+        return text[:k] + "\n" + head + lines + "\n}\n" + text[k:]
+    return text.rstrip("\n") + "\n\n" + section + "\n" + head + lines + "\n}\n"
+
+
+def _own_light_baking_sidecars(models, late, own) -> int:
+    """Write the light baking of every model whose light baking is its own
+    (0.189.0). One held to the last pass gets a WHOLE sidecar -- every
+    `[params]` line of a model the second pass imported, its light baking
+    set -- because a sidecar written by hand is not a new import: the
+    project's defaults reach only a file with no sidecar, and a key the
+    sidecar lacks takes the value an import from before the key existed would
+    have had (`gltf/texture_map_mode=0`, measured, where every new import
+    reads 1). One the second pass imported, there being no other model to
+    copy, has its own sidecar's line set and is imported again. Returns how
+    many it wrote."""
+    donor = next((p for p in models if p not in late and p not in own), None)
+    params = None
+    if donor is not None:
+        text = Path(str(donor) + ".import").read_text(encoding="utf-8")
+        if "[params]" in text and "meshes/light_baking=" in text:
+            params = text[text.index("[params]"):]
+    written = 0
+    for p, value in own.items():
+        side = Path(str(p) + ".import")
+        line = "meshes/light_baking=%d" % value
+        if p in late:
+            if params is None:
+                raise ExportImportError(
+                    "no imported model's sidecar to copy for %s, whose light "
+                    "baking is its own" % p.name)
+            text = _SCENE_SIDECAR_HEAD + re.sub(
+                r"^meshes/light_baking=\d+$", line, params, flags=re.M)
+        elif side.is_file():
+            text = re.sub(r"^meshes/light_baking=\d+$", line,
+                          side.read_text(encoding="utf-8"), flags=re.M)
+        else:
+            continue
+        side.write_text(text, encoding="utf-8", newline="\n")
+        written += 1
+    return written
+
+

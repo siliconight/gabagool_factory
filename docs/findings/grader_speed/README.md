@@ -382,6 +382,55 @@ Level Factory 0.188.0 keeps the cache beside the package
 copied, so it costs no disk, and a second walk copy imports from scratch as
 before. A cold run is the drive's measurement.
 
+## The sidecar step: every model imported once (Level Factory 0.189.0)
+
+Cold run 9254's export was 48 % of its drive, and its sidecar step imported
+the package twice: a first pass with Godot's defaults, then -- the sidecars
+rewritten, what extract wrote deleted, the cache wiped -- everything again,
+86 s. `sidecar_once_probe.py` re-exports 9254's mission in its workspace, an
+arm a process, and judges each on the gates, the pin census and the digest
+of every model as Godot loads it from the arm's kept cache (`import_digest.gd
+-- --full`, which says for each differing surface whether its texture alone
+moved). Each arm's failure is what made the next one; every file is kept.
+
+| arm | what it did | sidecar step | what was wrong |
+|---|---|---|---|
+| A | as it was | 86.0 to 86.8 s | -- |
+| B | models' final settings as the project's defaults, bases held to a second pass | 60.4 s | 461 models embedded a copy of their shared textures, 1,463 surfaces: imported before the textures were (`draft1`) |
+| C | three passes: textures, models, bases | 62.1 s | 26 textures re-pinned at the end (`arms_A_C`) |
+| E | C with the pinned textures imported alone first, the pins counted every pass | 66.4 s | the same 26 -- and none lost inside the step (`arms_A_E`, `phases_E`) |
+| F | C with the filtered set read before the models were held | 62.8 s | 2 pins reset, 3 surfaces embedded: six models imported twice, their light baking set back (`arms_A_F`) |
+| G1 | F with those models held to the last pass, from written sidecars | 62.2 s | 3 models without the worldskin: a written sidecar does not get the project's defaults (`arms_A_G1`) |
+| G2 | G1 with the import script written in | 62.1 s | 7 sidecars `gltf/texture_map_mode=0` where every new import reads 1 (`arms_A_G2`) |
+| G3 | G2 with whole sidecars copied off an imported model | 62.2 s | nothing: 501 of 501 models the same, every gate, no pin lost, the packages differing only where two exports of the same code do (`arms_A_G3`) |
+
+What each taught, each now a line of the step's comment:
+
+- **A model imported before its shared textures embeds a copy of each** --
+  and every gate passed B, because none checks texture sharing. Only the
+  digest saw it.
+- **E's 26 were not a race.** The census after every pass read 415 of 415
+  pinned; the 26 were `_filtered_shared_textures` reading the models' glTF
+  while every model was renamed `.glb.held`, finding none filtered, and
+  pinning 26 VRAM textures lossless until the read-back after the last
+  import corrected them.
+- **A model imported twice, its textures already imported, is the race
+  0.182.0 backstops** -- F re-imported six models to set their light baking
+  back and reset two pins and embedded three copies.
+- **A sidecar written by hand is not a new import**: the project's defaults
+  reach only a file with no sidecar (G1), and a key it lacks takes the value
+  an import from before the key existed would have had (G2).
+- **The digest's counter.** Its first reading (`draft1`) found 463 models
+  different; two were Godot's made-up names for unnamed nodes,
+  `@StaticBody3D@19801` against `@19798`, a counter that runs across
+  everything loaded before. `import_digest.gd` sets the counter aside, and
+  `import_describe.gd` prints what a digest digests, for reading one.
+
+**Level Factory 0.189.0** is G3, applied. Re-exported against the step as
+0.188.0 had it, read from its commit (`sidecar_once_probe.0189.out.txt`; the
+first try, `0189.draft1`, failed to load the old module): the sidecar step
+85.8 -> 61.5 s, the export 235.9 -> 212.2 s, everything else as G3.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the

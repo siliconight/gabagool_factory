@@ -11,6 +11,12 @@ extends SceneTree
 ## prints; names no cause.
 
 var _unloadable: int = 0
+## A node the scene leaves unnamed gets a name Godot makes up, `@StaticBody3D@19801`, from a
+## counter that runs across everything loaded before it -- so the same model loaded after a
+## different one reads differently. The counter is set aside; the class it names is kept.
+## (Found comparing two exports whose models differed elsewhere: lot.glb's unnamed bodies read
+## @19801 in one and @19798 in the other.)
+var _auto_name: RegEx = RegEx.create_from_string("@([A-Za-z0-9_]+)@[0-9]+")
 
 
 func _initialize() -> void:
@@ -33,6 +39,10 @@ func _initialize() -> void:
 		else:
 			text = res.get_class()
 		print("DIGEST %s %s" % [f, text.md5_text()])
+		# `-- --full` prints what was digested too, a line at a time, for reading a difference.
+		if OS.get_cmdline_user_args().has("--full"):
+			for ln in text.split("\n", false):
+				print("LINE %s %s" % [f, ln])
 	print("DIGESTS %d unloadable=%d" % [files.size(), _unloadable])
 	quit(0)
 
@@ -59,7 +69,8 @@ func _describe(n: Node, root: Node) -> String:
 		var o: Vector3 = n3.transform.origin
 		xf = "%.4f,%.4f,%.4f|%.4f,%.4f,%.4f|%.4f,%.4f,%.4f|%.4f,%.4f,%.4f" % [
 			b.x.x, b.x.y, b.x.z, b.y.x, b.y.y, b.y.z, b.z.x, b.z.y, b.z.z, o.x, o.y, o.z]
-	t += "%s:%s:%s\n" % [String(root.get_path_to(n)), n.get_class(), xf]
+	var node_path: String = _auto_name.sub(String(root.get_path_to(n)), "@$1@", true)
+	t += "%s:%s:%s\n" % [node_path, n.get_class(), xf]
 	var mi: MeshInstance3D = n as MeshInstance3D
 	if mi != null and mi.mesh != null:
 		t += _mesh_text(mi.mesh)
