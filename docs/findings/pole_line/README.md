@@ -36,6 +36,25 @@ they did: its first kerb now takes every corner hydrant the site's spacing
 allows, its lamps having refused two of them (four across both kerbs became
 three on one) -- the hydrant rule working alone, recorded rather than undone.
 
+## In a real drive: cold run 9262 (`docs/cold_runs/cold_9262/`)
+
+0 interventions; the picked lot stands 11 poles (4 with cans), every pole a
+module and its light at the lens. Its Laser Tag route read 0.64 where 9261's
+read 1.00 -- and `lt_pole_ab.py` (`lt_pole_ab.out.txt`), the job's command on
+copies of both runs' staged projects, says the poles are not the snag:
+
+    9262 as built (poles, no lamps)        route 0.64   player stuck 29   76
+    9262 with its 11 poles removed         route 0.72   player stuck 45   78
+    9261 as built (lamps on both kerbs)    route 1.00   player stuck  9   80
+    9261 with its 19 lamps removed         route 0.88   player stuck 50   79
+
+Both controls read their jobs in every field. No stuck event stood within
+1.5 m of a pole; they stand at a kerb face (-66, -5) and beside a meter
+between two parked cars (35, -17), where 9261's bot stuck too. The route on
+this lot swings with any change to its furniture -- the navmesh it reshapes
+decides which way the bot walks into two snags that were already there --
+filed as roadmap 242.
+
 ## Found on the way (Lot 0.118.0's drafts)
 
 - **A lost station doubles a span.** The first draft stepped a pole only up to
