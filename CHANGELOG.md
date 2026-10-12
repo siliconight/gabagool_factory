@@ -3,6 +3,36 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.39.0] - 2026-10-12
+
+Five tools move:
+- deli_counter: 0.208.0 -> 0.209.1
+- laser_tag: 0.25.0 -> 0.27.0
+- level_factory: 0.178.6 -> 0.193.1
+- lot: 0.116.0 -> 0.117.0
+- zoo: 1.100.0 -> 1.103.0
+
+- **level_factory, laser_tag, lot:** roadmap 239's cold-run speed work --
+  the graders on a clock that does not wait on real seconds, three at a
+  time; Blender jobs three at a time and a job's commands side by side;
+  every model imported once and the import cache kept for the walk copy;
+  the bake's editor given its scene groups, its clock and its drawing
+  stopped: one level's end-to-end run 30.4 -> 6.9 minutes, no cut
+  moving a finding. Every texture VRAM-compressed as an editor leaves it
+  (the walker's call); roof props reach a level.
+- **laser_tag:** an enemy is the agent contract's body too (roadmap 197).
+- **zoo:** a roof's props keep off its hatches and landings and follow
+  what the building is (roadmap 181); every mesh's faces in one order, so
+  two cold runs bake one lightmap.
+- **deli_counter:** a roof slot says where a body steps off a ladder; a
+  stair's column ends at the ceiling of the top floor it serves.
+
+Certified by install test 8: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands, the
+PyPI download included. setup exited 0 with every doctor row PASS at this set's versions, 0 `drift vs certified` lines and no sitecustomize error (the three pins from pip's cache); make exited 0 in 7.9 minutes where 1.38.0's took 34.1 and built the level install tests 3 to 7 built (0 of 81 and 0 of 113 blockers, seed_9104, three roof-props layers, 498 models and 196 primitives lightmapped on the bake's first attempt in 60.6 s, 3,614 lightmap users, the closure ok over 81 resources); walk exited 0 in 5.6 minutes where 1.38.0's took 10.9, with its export baked as make's was, both ladders climbed and all five stations passing, and after it the package still carried its bake (2,956 files, bake.exr, light_bake.json ok); and the package's fixture layers are 1.38.0's, the deli's 23 pendants 23 metal meshes. The two findings over test 7 are both seed_9205's, which was not picked: Laser Tag reads its crew dying in 7.0 s on average where 1.38.0's read 75.7, on a scene the same byte for byte -- 0.26.0's enemy body, measured: 0.25.0's body under the new clock reads test 7's report (docs/findings/grader_speed/body_or_clock_ab.sh). No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.38.0] - 2026-10-11
 
 Five tools move:

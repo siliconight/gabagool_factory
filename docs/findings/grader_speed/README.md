@@ -181,6 +181,53 @@ chosen.
 twice; `realtime_ab.sh`, written to measure 1x on the synchronised clock, is
 superseded by those arms and was never run.
 
+## Lever 4 on a stranger's level: the body moved seed_9205, not the clock (install test 8)
+
+Install test 8 (factory 1.39.0, `docs/findings/stranger_install/`) read the
+candidate it passed over, seed_9205, WARN 70 where install test 7 had read
+PASS_WITH_TUNING 82: the crew dying in 7.0 s on average and 25 deaths in 25
+runs, against 75.66 s and 2. The scene Laser Tag evaluated is the same byte
+for byte in the two tests (`scene_hash` bd08d17d56c6 in both fingerprints;
+level.tscn, site.tscn, the walk scripts and every building GLB the same in
+the two staged projects, which differ in the addon, Lot 0.117.0's
+`lot_navqa_setup.gd` that only the walk test's scene loads, the drawn JSON's
+absolute paths and the import cache's `.scn` files). Laser Tag moved twice
+between them: 0.26.0, the enemy's body, and 0.27.0, this lever.
+`body_or_clock_ab.sh` ran the job's own command on copies of test 8's staged
+project, the addon's files swapped for each commit's (the staged addon is
+the commit's files and Godot's `.uid` files, checked):
+
+    arm     body    clock, navigation           grade                survival  deaths  enemy stuck  events
+    f27     0.27.0  fixed, its own setters      WARN 70              7.0 s     25      36           1,981
+    f26     0.26.0  fixed, project settings     WARN 70              7.0 s     25      36           1,981
+    f25     0.25.0  fixed, project settings     PASS_WITH_TUNING 82  75.66 s   2       57           1,726
+
+f27 reads test 8's job in every field (the control: the instrument
+reproduces the job); f26 reads f27 in every field (0.27.0's setters are
+0.26.0 with the settings, as `runtime_setters_ab.sh` found on the deli); and
+f25 -- the old body under the new clock, in test 8's project -- reads test
+7's job in every field, all 1,726 events. **So the body moved it and the
+clock did not**, and the import cache's differences moved nothing. On the
+jobs' own waiting clock, the navigation asynchronous, the same both ways:
+
+    arm     body    clock, navigation                           wall      reads
+    w25_7   0.25.0  waiting, asynchronous, test 7's project     515.8 s   test 7's job in every field (the control)
+    w25     0.25.0  waiting, asynchronous                       515.9 s   w25_7 in every field, and f25
+    w26     0.26.0  waiting, asynchronous                       526.8 s   test 8's job in every field, and f26
+
+against 22.9 to 23.9 s for each fixed arm. On this candidate neither the
+clock nor the navigation setting moves a field for either body; the body
+moves the grade on both clocks, the event logs apart (1,726 events against
+1,981, 1,722 of the first 1,726 different; `body_or_clock_ab.out.txt`). With the pill scene's 0.40 m capsule seed_9205's enemies
+jammed 57 times and seldom reached the crew (first contact 2.6 s); with the
+contract's 0.35 m one they jam 36 times, reach it in 1.67 s and kill it in
+every run. What the evaluation now reads is what an npc_standard body does
+(`agent_contract.json`), so the WARN is the truer reading of that layout.
+0.26.0's own measurement (deli_001 seed_9191) moved the other way -- a
+grade up, 49 -> 28 stuck -- which is the point: freeing a jammed enemy can
+make a map read safer or deadlier, and only the body the game will use can
+say which.
+
 ## The constraint moved: the export (cold run 9248)
 
 With the graders on the fixed clock, cold run 9248's drive took 14.3 minutes

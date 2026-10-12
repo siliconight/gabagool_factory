@@ -1,0 +1,39 @@
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4032 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 277 instances of 7 module(s) on their sides, 25 draw calls (N 96, S 101, E 41, W 38; 1 tower)
+[export] 1523 occluder(s) from 1541 solid module(s); 103 glass, 253 porous and 827 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1523 occluder node(s) in a tree of 27993
+[export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 148 merged mesh(es), 962 collider(s) kept
+[export] light bake: 498 model(s) and 196 primitive mesh(es) lightmapped, 4 kept dynamic, 1 spawned set dynamic; 213 steady rig(s) baked, 28 failing and 0 cycling left live; 267 room fill(s); 3614 users, 78.9 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1523 occluder node(s) reachable from res://mission.tscn (1523 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 489 GLB(s), 1919 external reference(s): 1919 resolve to 412 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
+[export] import cache moved beside the package (LF_restaurant_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 412 of 412 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 81 resource(s) in a package of 2950 file(s)
+[export] manifest: 2954 file(s) listed + 2 declared unlisted = 2956 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\stranger_202_8\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             .\factory -C C:\stranger_202_8\gabagool\levels walk restaurant_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
+  imported: resources ready (headless --import pass)
+walk preview: C:\stranger_202_8\gabagool\levels\.level_factory\preview\restaurant_row_001_walk
+  source: export (portable-godot)
+  wraps mission.tscn + player at anchor:player_start (Functional/GameplayAnchors/PlayerStarts/lot:getaway_van_crew_spawn_0) (x=53.85, y=0.6, z=16.965)
+  content: sha256:ab5e4377f0b5710b (2905 file(s)) built 2026-10-12T13:22:50.249897+00:00
+  recorded in C:\stranger_202_8\gabagool\levels\.level_factory\preview\restaurant_row_001_walk\walk.source.json
+self-check:
+  walk bot [OK]   Ladder_ladder_0: climbed to 6.6 m and stood up
+  walk bot [OK]   Ladder_ladder_1: climbed to 3.3 m and stood up
+  shot bot [OK] exterior: jitter 0.0%, fighting 0.0%, void 62.07%
+  shot bot [OK] Ladder_ladder_0_base: jitter 1.72%, fighting 0.09%, void 0.0%
+  shot bot [OK] Ladder_ladder_0_top: jitter 0.64%, fighting 0.08%, void 28.79%
+  shot bot [OK] Ladder_ladder_1_base: jitter 0.39%, fighting 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_top: jitter 1.31%, fighting 0.04%, void 0.0%, animated 0.02% (changed with the camera still; not judged)
+  frames written for review (5 stations)
+  open:  .\factory -C C:\stranger_202_8\gabagool\levels walk restaurant_row_001 --open
+  play:  .\factory -C C:\stranger_202_8\gabagool\levels walk restaurant_row_001 --play

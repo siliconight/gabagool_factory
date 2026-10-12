@@ -1,0 +1,22 @@
+f27: exit 1, wall 23.9 s; [LT] navigation: the map and 1 region(s) update on this thread
+f26: exit 1, wall 23.4 s; [LT] navigation ready after 1 ms (0 frames)
+f25: exit 0, wall 22.9 s; 
+w25_7: exit 0, wall 515.8 s; [LT] navigation ready after 21 ms (23 frames)
+w26: exit 1, wall 526.8 s; [LT] navigation ready after 22 ms (23 frames)
+w25: exit 0, wall 515.9 s; [LT] navigation ready after 22 ms (23 frames)
+j7     PASS_WITH_TUNING  82  survival  75.66 s  deaths  2  contact   2.6 s  enemy stuck  57  player stuck  0  route  1.0  events 1726
+j8     WARN              70  survival    7.0 s  deaths 25  contact  1.67 s  enemy stuck  36  player stuck  1  route 0.96  events 1981
+w25_7  PASS_WITH_TUNING  82  survival  75.66 s  deaths  2  contact   2.6 s  enemy stuck  57  player stuck  0  route  1.0  events 1726
+w25    PASS_WITH_TUNING  82  survival  75.66 s  deaths  2  contact   2.6 s  enemy stuck  57  player stuck  0  route  1.0  events 1726
+w26    WARN              70  survival    7.0 s  deaths 25  contact  1.67 s  enemy stuck  36  player stuck  1  route 0.96  events 1981
+f25    PASS_WITH_TUNING  82  survival  75.66 s  deaths  2  contact   2.6 s  enemy stuck  57  player stuck  0  route  1.0  events 1726
+f26    WARN              70  survival    7.0 s  deaths 25  contact  1.67 s  enemy stuck  36  player stuck  1  route 0.96  events 1981
+f27    WARN              70  survival    7.0 s  deaths 25  contact  1.67 s  enemy stuck  36  player stuck  1  route 0.96  events 1981
+w25_7 vs j7    control: the waiting clock reproduces test 7's job: identical in every field
+f27   vs j8    control: the fixed clock reproduces test 8's job: identical in every field
+w25   vs w25_7 the import cache (test 8's against test 7's): identical in every field
+f26   vs f27   0.27.0's setters against 0.26.0 with the settings: identical in every field
+w26   vs w25   THE BODY on the waiting clock: differ in ['categories', 'events', 'findings', 'grade', 'overall_score', 'summary'] (1977 events), grade PASS_WITH_TUNING -> WARN
+f26   vs f25   the body on the fixed clock: differ in ['categories', 'events', 'findings', 'grade', 'overall_score', 'summary'] (1977 events), grade PASS_WITH_TUNING -> WARN
+f25   vs w25   THE SPEED CUT on 0.25.0's body: identical in every field
+f26   vs w26   the speed cut on 0.26.0's body: identical in every field

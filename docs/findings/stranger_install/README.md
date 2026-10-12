@@ -686,6 +686,116 @@ The five that moved are tagged at the commits tested, and the factory at
 machine, so `factory.sh` and the Linux lines of START_HERE.md are written
 and unproven.
 
+## Install test 8, 2026-10-12, 09:09 to 09:25: the 1.39.0 set, certified
+
+**The test.** The set factory 1.39.0 certifies, typed with the page's own
+`setup --venv` as tests 6 and 7 were. Five tools moved since test 7, most of
+it roadmap 239's cold-run speed work: the graders on a clock that does not
+wait on real seconds, three at a time (Laser Tag 0.27.0, Lot 0.117.0, Level
+Factory 0.179.1 to 0.180.1); Blender three at a time, a job's commands side
+by side, every model imported once, the export's import cache kept for the
+walk copy, the bake's editor given its scene groups with its clock and its
+drawing stopped (Level Factory 0.181.0 to 0.193.0). Beside it: an enemy is
+the agent contract's body (Laser Tag 0.26.0), roofs carry props (Level
+Factory 0.179.0, Zoo 1.101.0 and 1.102.0, Deli Counter 0.209.0 and 0.209.1),
+every mesh leaves Zoo with its faces in one order (1.103.0), and Level
+Factory 0.193.1 re-grounded the doctor's table to this set.
+- **The package:** made from root `0ea54c9`, Deli Counter `9b107bd4`
+  (0.209.1), Laser Tag `f5f47ad` (0.27.0), Level Factory `78bce91`
+  (0.193.1), Lot `b9f7f39` (0.117.0), Zoo `53adeae` (1.103.0) and the other
+  five repos at their tags, as `gabagool_factory_package_20261012_0909.zip`
+  (72,207,315 bytes, 4,800 files; 146 shells checked fresh and stamped
+  09:09:23).
+- **The unpack:** into a new folder, `C:\stranger_202_8\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_8.sh`,
+  which counts what test 7's did -- the doctor's `drift vs certified` lines
+  at setup (0.193.1's claim is 0) and the package's fixture layers after the
+  walk -- and times `make` against test 7's 34.1 minutes. Logs are in
+  `install_test_8/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | 12.9 s; the venv from Blender 5.1.1's Python with the three pins (pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0 -- every wheel from pip's cache); every doctor row PASS at the new versions (Deli Counter 0.209.1, Laser Tag 0.27.0, Lot 0.117.0, Zoo 1.103.0), `worst: PASS`; 0 WARN rows, 0 `drift vs certified` lines, 0 sitecustomize errors |
+| `make` | 0 | 7.9 minutes (09:11:19 to 09:19:11) against test 7's 34.1; 0 of 81 and 0 of 113 blockers; seed_9104 picked as in tests 3 to 7 (0 major; seed_9003 1, seed_9205 2 with route completion 0.96, where test 7 read 1 and 1.00 -- below); three roof-props layers built (deli_a01, office, rail_station_a02), the first install test to carry any; the light bake on its first attempt: 498 models and 196 primitives lightmapped, 4 kept dynamic and the responders' car set dynamic, 213 steady rigs baked and 28 failing left live, 267 room fills, 3,614 lightmap users, 60.6 s in the editor; closure `ok=true` over 81 resources in a package of 2,950 files |
+| `walk` | 0 | 5.6 minutes (09:19:11 to 09:24:47) against test 7's 10.9; its export baked as `make`'s did (498 models, 3,614 users, 78.9 s in the editor, the same closure); the walk bot climbed both ladders (`Ladder_ladder_0` to 6.6 m, `Ladder_ladder_1` to 3.3 m); the shot bot passed all five stations -- exterior 0.0% jitter and fighting, `Ladder_ladder_0_base` 1.72% / 0.09%, `_top` 0.64% / 0.08%, `Ladder_ladder_1_base` 0.39% / 0.0%, `_top` 1.31% / 0.04% with 0.02% animated, not judged |
+
+**After the walk, the package still carries its bake:** 2,956 files,
+`bake.exr` present, `light_bake.json` `ok: true`. 0 sitecustomize errors in
+all three logs (74, 232 and 39 lines); the venv's Python 3.13.9 imports
+pillow 12.3.0, pygltflib 1.16.5 and jsonschema 4.26.0. The fixture layers
+read as test 7's: deli_a01 232 visual meshes for 232 submissions and 116
+`LuxEmit` markers, `M_Pendant_metal` 23 for its 23 pendants; office 122
+meshes, 2 pendants, 2 metal; the rail station 52, 8, 8.
+
+**What moved against test 7, each item accounted for:**
+- **The time:** `make` 34.1 -> 7.9 minutes and `walk` 10.9 -> 5.6 --
+  roadmap 239's cuts, measured here on the path a stranger types rather
+  than the factory's own drive (cold runs 9245 to 9259, 30.4 -> 6.9 minutes).
+  The bake in `make`'s editor 127.7 -> 60.6 s, roadmap 239's bake cuts
+  among the causes (not split here).
+- **Lightmapped models 495 -> 498, GLBs 486 -> 489 and the files they
+  reference 401 -> 412:** the three roof-props layers, as cold run 9245 read
+  491 -> 494 models for the same reason.
+- **Lightmap users 3,780 -> 3,614 and package files 3,008 -> 2,950:** the
+  twelve Empties' 1,061 meshes merged into 148 where test 7's export made
+  236 -- Level Factory 0.187.0's merge, one mesh a side per material, which
+  it measured on cold run 9252's workspace as 3,491 -> 3,320 users, every
+  one of the 171 a merged mesh of an Empty placed across the street, and
+  cold run 9253 as 3,041 -> 2,953 files. Here the same cause on another
+  lot, not re-attributed user by user. The files, by name after the walk
+  (3,014 -> 2,956): 88 fewer merged-mesh resources (184 of test 7's gone,
+  96 new, 52 kept -- 148), the roof props' 31 files, and test 7's lone
+  `warmup.gd.uid`.
+- **Findings 79 -> 81 and 111 -> 113:** every other item in the 111 is test
+  7's by candidate and code; the two added are both seed_9205's, which was
+  not picked -- `LT_MAP_NO_REACTION_TIME` and `LT_MAP_PLAYER_STUCK`. Its
+  evaluated scene is test 7's byte for byte (`scene_hash` bd08d17d56c6 in
+  both jobs' fingerprints; level.tscn, site.tscn, the walk scripts and every
+  building GLB the same in the two staged projects), and Laser Tag read it
+  PASS_WITH_TUNING 82, player survival 75.66 s and 2 player deaths in 25
+  runs at 0.25.0, WARN 70, 7.0 s and 25 deaths at 0.27.0. Laser Tag moved
+  twice between the tests: 0.26.0 gave the enemy the contract's body, and
+  0.27.0 is a speed cut. `docs/findings/grader_speed/body_or_clock_ab.sh`
+  ran the job's own command on copies of the staged project with only the
+  addon swapped: 0.27.0 under the fixed clock reads test 8's job in every
+  field (the control); 0.26.0 under the fixed clock with the navigation
+  synchronous reads 0.27.0 in every field; and 0.25.0's body under that
+  same clock reads PASS_WITH_TUNING 82, 75.66 s, 2 deaths, first contact
+  2.6 s and 57 enemy-stuck events -- test 7's report in every field, all
+  1,726 events. On the jobs' own waiting clock the same both ways: 0.25.0
+  reads test 7's job in every field in test 7's project and in test 8's
+  (so the import cache's differences moved nothing), and 0.26.0's body
+  reads test 8's job in every field (`body_or_clock_ab.out.txt`).
+  So the body moved it and the clock did not: with the pill scene's 0.40 m
+  capsule seed_9205's enemies jammed 57 times and seldom reached the crew;
+  with the contract's 0.35 m one they jam 36 times and reach it in 1.7 s.
+  What a seed_9205 enemy now does is what an npc_standard body does
+  (`agent_contract.json`), so the WARN is the more truthful reading; the
+  picker had already passed the candidate over in test 7.
+
+**The count:** 0 deviations from the page, 0 findings.
+
+**What it certified: factory 1.39.0.** `factory.manifest.json` names the
+set this test ran:
+
+| tool | version | since 1.38.0 |
+|---|---|---|
+| Deli Counter | 0.209.1 | was 0.208.0 |
+| Dispatch | 0.5.2 | |
+| Laser Tag | 0.27.0 | was 0.25.0 |
+| Level Factory | 0.193.1 | was 0.178.6 |
+| Lot | 0.117.0 | was 0.116.0 |
+| Lux | 0.75.0 | |
+| Patina | 0.30.0 | |
+| Pipeline | 0.6.0 | |
+| Pixelcoat | 0.62.0 | |
+| Zoo | 1.103.0 | was 1.100.0 |
+
+The five that moved are tagged at the commits tested, and the factory at
+`factory-v1.39.0`; the other five repos' tags stand.
+
+**What is left of roadmap 202:** Linux, as before.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
