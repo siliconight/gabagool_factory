@@ -1,0 +1,1 @@
+All three fail on 0.193.1 (two with no walk to call, one with no cache); given the old walk under the new names, two fail on its behaviour -- the spy saw it list `_runs/x` and the other skipped directories, and it walked twice -- and the identity passes, as a guard should

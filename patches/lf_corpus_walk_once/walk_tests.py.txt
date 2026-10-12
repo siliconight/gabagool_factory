@@ -1,0 +1,76 @@
+
+
+# ---- the walk ----------------------------------------------------------------
+#
+# 0.193.2 walks the corpus once a session and never into a directory it
+# discards. These hold it to what `rglob` found, to not looking where the
+# predicate would refuse anyway, and to walking once.
+
+
+def _tree(root):
+    """A small factory: briefs where the corpus keeps them, a brief under each
+    skipped directory, a `briefs` directory under one, JSON that is not a
+    brief, and a directory named like one in a `briefs` directory."""
+    for rel in ("level_factory/examples/a/brief.json",
+                "docs/cold_runs/cold_1/briefs/mission_one.json",
+                "docs/cold_runs/cold_1/briefs/notes.txt",
+                "workspaces/w-ws/briefs/m.json",
+                "workspaces/w-ws/missions/m/brief.json",
+                "workspaces/w-ws/missions/m/other.json",
+                "_runs/x/brief.json",
+                "_runs/briefs/y.json",
+                "deli_counter/build/briefs/z.json",
+                "zoo/node_modules/p/brief.json",
+                ".git/briefs/q.json",
+                "lot/.git/objects/brief.json"):
+        p = root / rel
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_text('{"archetype": "bank"}', encoding="utf-8")
+    (root / "docs" / "briefs" / "folder.json").mkdir(parents=True)
+    return root
+
+
+def test_the_walk_finds_what_rglob_found(tmp_path):
+    root = _tree(tmp_path / "factory")
+    got = _corpus_walk(root)
+    assert got == sorted(p for p in root.rglob("*.json") if _keep(p))
+    assert [p.relative_to(root).as_posix() for p in got] == [
+        "docs/briefs/folder.json",
+        "docs/cold_runs/cold_1/briefs/mission_one.json",
+        "level_factory/examples/a/brief.json",
+        "workspaces/w-ws/briefs/m.json",
+        "workspaces/w-ws/missions/m/brief.json",
+    ]
+
+
+def test_the_walk_never_enters_a_directory_it_discards(tmp_path, monkeypatch):
+    root = _tree(tmp_path / "factory")
+    real = os.scandir
+    listed = []
+
+    def spy(path=".", *args, **kwargs):
+        listed.append(Path(os.fspath(path)))
+        return real(path, *args, **kwargs)
+
+    monkeypatch.setattr(os, "scandir", spy)
+    _corpus_walk(root)
+    assert root in listed, "the walk listed nothing, so this test proves nothing"
+    entered = [p for p in listed if _SKIP_DIRS & set(p.relative_to(root).parts)]
+    assert not entered, entered
+
+
+def test_the_corpus_is_walked_once_a_session(monkeypatch):
+    walks = []
+
+    def counting(root):
+        walks.append(root)
+        return [Path("briefs", "a.json")]
+
+    monkeypatch.setitem(globals(), "_corpus_walk", counting)
+    _brief_paths.cache_clear()
+    try:
+        first, second = _brief_paths(), _brief_paths()
+    finally:
+        _brief_paths.cache_clear()
+    assert walks == [_ROOT]
+    assert first is second and isinstance(first, tuple)

@@ -1,0 +1,54 @@
+def _keep(path):
+    """The corpus predicate, asked of a whole path: a brief is `brief.json` or
+    any JSON in a `briefs` directory, and nothing under `_SKIP_DIRS` is one."""
+    if _SKIP_DIRS & set(path.parts):
+        return False
+    return path.name == "brief.json" or path.parent.name == "briefs"
+
+
+def _corpus_walk(root):
+    """Every path `root.rglob("*.json")` yields that `_keep` keeps -- found
+    without entering a directory in `_SKIP_DIRS`.
+
+    THE SAME LIST, BY CONSTRUCTION. A path below a skipped directory carries
+    that directory's name in its parts, so `_keep` refuses it whether or not
+    the walk went in. `os.walk` neither follows a link into a directory nor
+    stops at one it cannot read, as `rglob` does not; `normcase` gives the
+    extension the platform's case rule, as `rglob`'s match does; and a
+    directory whose name matches is a match, as it is to `rglob`. On the
+    factory (docs/findings/lf_suite_time/, 2026-10-12): 487 briefs both ways,
+    in the same order, 29.95 s against 18.85 s warm -- the skipped directories
+    held 384,372 of the tree's 1,524,870 entries.
+    """
+    out = []
+    for d, dirs, files in os.walk(root):
+        dirs[:] = [x for x in dirs if x not in _SKIP_DIRS]
+        for name in dirs + files:
+            if os.path.normcase(name).endswith(".json"):
+                p = Path(d, name)
+                if _keep(p):
+                    out.append(p)
+    return sorted(out)
+
+
+@functools.lru_cache(maxsize=None)
+def _brief_paths():
+    """Every brief in the repo: examples, recorded cold runs, workspaces.
+
+    A PREDICATE RATHER THAN A LIST OF PATTERNS, deliberately. The first
+    version of this spelled four globs and missed `level_factory/examples/`
+    entirely -- it found 19 of 21 briefs and reported the corpus clean of a
+    defect that was sitting in one of the 2. A walk cannot miss a directory
+    shape nobody thought of.
+
+    ONCE A SESSION (0.193.2). The three tests below each walked the whole
+    factory: 58.3, 30.4 and 30.1 s of a 443.1 s suite (0.193.1's own run), for
+    487 briefs in a tree of 1.5 million entries that grows with every cold
+    run. The list is read once and shared, as a tuple, so no test can change
+    what the next one reads.
+    """
+    assert _ROOT is not None, (
+        "the factory root is not above %s -- set LF_DC_ROOT. A corpus sweep "
+        "with no corpus passes and proves nothing."
+        % Path(__file__).resolve().parent)
+    return tuple(_corpus_walk(_ROOT))
