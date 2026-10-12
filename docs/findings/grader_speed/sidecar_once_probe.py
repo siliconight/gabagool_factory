@@ -528,6 +528,10 @@ def run_arm(arm, ws, mission, exports):
         export._write_import_sidecars = sidecars_g
     if arm == "O":   # the step as Level Factory 0.188.0 had it (commit 157d50e)
         export._write_import_sidecars = step_of("157d50e")
+    if arm == "D":
+        # the shared textures' 3D detection pinned off: the bake's editor re-encodes every one
+        # it finds used in 3D when it opens the scene (its own log), lossless pins included
+        export.SHARED_TEX_PINS = dict(export.SHARED_TEX_PINS, **{"detect_3d/compress_to": "0"})
     timed(export, "_write_import_sidecars", "sidecar step")
     timed(light_bake, "_import", "light-bake --import")
     if "--phases" in sys.argv:
@@ -572,6 +576,14 @@ def run_arm(arm, ws, mission, exports):
           flush=True)
     for k, v in reports(pkg).items():
         print("[once] %s: %-9s %s" % (arm, k, v), flush=True)
+    log = pkg + ".lightbake.log"
+    if os.path.exists(log):
+        text = open(log, encoding="utf-8", errors="replace").read()
+        opened = re.search(r"BAKE the scene opened after (\d+) ms", text)
+        print("[once] %s: the bake's editor opened the scene after %s ms; textures it re-encoded as "
+              "used in 3D %d, as normal maps %d"
+              % (arm, opened.group(1) if opened else "?", text.count("detected as used in 3D. Enabling"),
+                 text.count("detected as used as a normal map")), flush=True)
     dst = os.path.join(X, arm)
     shutil.rmtree(dst, ignore_errors=True)
     os.makedirs(dst)

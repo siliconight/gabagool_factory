@@ -431,6 +431,36 @@ What each taught, each now a line of the step's comment:
 first try, `0189.draft1`, failed to load the old module): the sidecar step
 85.8 -> 61.5 s, the export 235.9 -> 212.2 s, everything else as G3.
 
+## Found on the way: the lossless pins do not survive an editor (the walker's call)
+
+Reading why the bake's editor takes 20 s to open the scene: its own log
+(`<package>.lightbake.log`) says, texture by texture, "Texture detected as
+used in 3D. Enabling mipmap generation and setting the texture compression
+mode to VRAM Compressed (S3TC/ETC/BPTC)" -- 426 of them in 9255's re-export,
+the shared textures the export pins LOSSLESS (`SHARED_TEX_PINS`,
+`compress/mode=0`, roadmap 89's reason) among them, and 22 normal maps
+"detected as used as a normal map", set to red-green compression. Every
+shipped `_tex/` sidecar keeps `detect_3d/compress_to=1`. So the pins hold in
+a headless import -- the export's own, the walk copy's -- and in no editor:
+the bake's, the walk copy opened to be walked, a recipient's. What anyone
+has looked at in an editor has been the VRAM-compressed textures.
+
+Priced (`sidecar_once_probe.py`, arm D: `detect_3d/compress_to=0` added to
+the pins, `detect3d.out.txt`): the bake's editor re-encoded 12 textures
+where it had 426 (the 22 normal maps as before: a different detection), the
+scene opened in 16.4 s against 20.3, the export 209.1 s against 213.8;
+every model loading the same. About 5 s; the question is not speed. The
+choice is the walker's, because it is a look and a memory trade, and not
+changed here:
+
+- **Lossless everywhere** (detection pinned off): what the pins were written
+  for; more texture memory than the compressed textures every editor has
+  shown; the look changes from what has been seen.
+- **VRAM everywhere** (the pins say mode 2): what every editor has shown;
+  less memory; roadmap 89's reason for lossless set aside on the record.
+- **As it is**: a package whose textures depend on whether it was ever
+  opened in an editor.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the
