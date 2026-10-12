@@ -1,0 +1,19 @@
+            wear_colors(bm, rng, wear, ambient=ambient)
+    # FACES IN ONE ORDER (1.103.0). Blender's own BMesh operators lay faces in
+    # an order that changes from one process to the next: in four fresh
+    # Blender 5.1 processes `create_uvsphere` kept its vertices' order and not
+    # its faces', and `bisect_plane` neither (the factory's
+    # docs/findings/grader_speed/uvsphere_order_probe.py). A GLB's triangles
+    # follow the faces and Godot's lightmap unwrap follows the triangles: cold
+    # runs 9256 to 9259 packed the deli's lightmap three ways because one dome
+    # came out with a different chart. The vertices' order holds, so the faces
+    # sorted by their vertices (`in_one_order`) leave in one order every build;
+    # the faces, and each face's corners, are the ones the recipe made.
+    # (`BMElemSeq.sort` takes a number for its key: each face's rank.)
+    bm.faces.index_update()
+    rank = [0] * len(bm.faces)
+    for i, f in enumerate(in_one_order(bm, bm.faces)):
+        rank[f.index] = i
+    bm.faces.sort(key=lambda f: rank[f.index])
+    mesh = bpy.data.meshes.new(name)
+    bm.to_mesh(mesh)

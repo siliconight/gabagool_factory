@@ -744,6 +744,75 @@ against 5.1; the bake files byte for byte the run's own, the package
 differing in the 18 files two exports differ in, and no work copy left
 beside it.
 
+## Two cold runs, one lightmap: Zoo's faces in one order (Zoo 1.103.0)
+
+Since Level Factory 0.192.0 two exports of one workspace bake the same bytes.
+Two cold runs did not: 9256 to 9259 packed the deli's lightmap three ways,
+each time because one deli dome glass came out of Blender with a different
+chart in Godot's lightmap unwrap and some 2,860 users moved with it
+(`docs/cold_runs/cold_9257/` to `cold_9259/`).
+
+**Where it entered.** The deli fixtures job (`zoo_fixtures_build.deli_a01`) had
+the same inputs in 9258 and 9259 -- its fingerprints differ in their time
+stamp alone -- and wrote two GLBs. `zoo_repro_probe.py` replays a Zoo build N
+times against a chosen Zoo and compares every output, mesh by mesh, array by
+array: built twice (`zoo_repro_probe.before.out.txt`), every dome glass and
+every pendant bulb had the same vertices, normals, UVs and colours, and its
+triangles in another order, or some of them other triangles, a few normals
+1e-4 apart with them. What it was not: Python's hash seeds (Zoo's random
+streams are seeded from digests), Blender's threads (`--threads 1`,
+`zoo_repro_probe.t1.out.txt`, still differs), Zoo's weighted normals alone
+(off, `zoo_repro_probe.nown.out.txt`: the domes matched once, every bulb still
+differed). Read off the two builds' .blend (`blend_mesh_dump.py`): each bulb's
+vertices the same, in the same order; 54 of its 60 faces at other places.
+
+**Blender's own operators.** `uvsphere_order_probe.py`, in fresh Blender 5.1
+processes with no Zoo code: `bmesh.ops.create_uvsphere` laid its vertices in
+one order and its faces in two orders across four processes, and a sphere
+through `bisect_plane` as Zoo's `add_hemisphere` cuts it came out with its
+faces in four orders -- the same faces every time, sorted. And an operator
+that makes a face starts it where it likes: the dome's 20-cornered cap
+(`holes_fill`) started at one of two neighbouring corners, dome by dome across
+four builds, with its rim given in one order or not; the exhaust fan's hood,
+cut at an odd ring count, had 11 of its 48 faces start at another corner. A
+GLB's triangles follow the faces, and a face is triangulated from its first
+corner. Zoo's own `add_hemisphere` also handed its bisect `list(set(geom))`.
+
+**Zoo 1.103.0.** `in_one_order` (elements sorted by kind, then by their
+vertices' indices) for every operator input that had none; `start_at_lowest`
+(a face remade to start at its lowest vertex, refused if corner data exists)
+for the faces `holes_fill`, `contextual_create` and the hemisphere's bisect
+make; and `bm_to_object` sorts every mesh's faces before writing it. The
+faces, their corners and windings are the recipes'; what changes is their
+order, where a filled or split face starts, and so every Zoo model's bytes,
+once.
+
+**Measured** (`zoo_repro_probe.py --jobs`: cold run 9259's 38 Zoo jobs, each
+replayed twice from its own command): on 1.102.0, 31 of 38 built the same
+bytes both times and seven did not -- the deli's and the office's fixtures,
+the deli's and the pharmacy's roof props, a rowhome's dressing, the site
+kit's trash bags and the clutter's pebble
+(`zoo_repro_probe.jobs_before.out.txt`); on 1.103.0, all 38
+(`zoo_repro_probe.jobs_after.out.txt`), every output but the .blend. Which
+jobs differ is a run's draw -- the pharmacy's fixtures matched in that
+control and differed between cold runs -- so the control is a floor, not a
+census. The deli's fixtures built four times on 1.103.0: one GLB
+(`zoo_repro_probe.after.out.txt`).
+
+**In cold runs** (`docs/cold_runs/cold_9260/`, `cold_9261/`): two runs of
+one set, Level Factory 0.193.0 and Zoo 1.103.0, placed all 3,320 lightmap
+users the same, and their lightmaps are bit for bit the same in all but 15
+of 16,777,216 texels, those under 0.00005 apart. What still differs between
+the two packages: the 18 files any two exports differ in; the bake files
+those 15 texels live in; one rowhome's dressing model -- its merged covers'
+triangles in another order from the same Patina plan, a Zoo residue two
+replays had not caught -- and the files that hash it; and Lux's applied
+scene's resource ids, which Godot draws anew at every save. The atlas is 16
+slices where it was 15 (about a megabyte of BPTC): the unwrap packs the
+reordered triangles' charts differently. Zoo's own cost, timed on cold run
+9261's 16 kit builds alternated (`zoo_repro_probe.time_ab.out.txt`): 55.7
+and 56.4 s on 1.102.0, 55.4 and 58.7 s on 1.103.0.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the

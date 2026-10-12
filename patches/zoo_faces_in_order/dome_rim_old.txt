@@ -1,0 +1,2 @@
+    rim = [e for e in bm.edges if e.is_boundary]
+    bmesh.ops.holes_fill(bm, edges=rim, sides=0)

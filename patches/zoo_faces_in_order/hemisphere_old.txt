@@ -1,0 +1,6 @@
+    verts = ret["verts"]
+    geom = (verts + [e for v in verts for e in v.link_edges]
+            + [f for v in verts for f in v.link_faces])
+    cut = bmesh.ops.bisect_plane(
+        bm, geom=list(set(geom)), dist=1e-5,
+        plane_co=(0, 0, 0), plane_no=(0, 0, 1), clear_inner=True)

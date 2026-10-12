@@ -1,0 +1,8 @@
+    bmesh.ops.transform(bm, matrix=mat, verts=keep)
+    # The faces the bisect split start at a corner each process picks: the
+    # exhaust fan's hood, built twice, had 11 of its 48 faces start at another
+    # corner (1.103.0). A sphere's quads are flat, so starting each at its
+    # lowest vertex changes the hemisphere's triangles' order, not its shape.
+    own = set(keep)
+    start_at_lowest(bm, [f for f in bm.faces if all(v in own for v in f.verts)])
+    return keep

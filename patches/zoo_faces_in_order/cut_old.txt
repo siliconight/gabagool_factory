@@ -1,0 +1,3 @@
+        cut = [g for g in res.get("geom_cut", []) if g.is_valid]
+        if cut:
+            bmesh.ops.contextual_create(bm, geom=cut)

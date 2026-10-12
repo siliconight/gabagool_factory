@@ -1,0 +1,7 @@
+        cut = [g for g in res.get("geom_cut", []) if g.is_valid]
+        if cut:
+            # the cut in one order, and the face it closes started at its
+            # lowest vertex: the operator's own start changes from one
+            # process to the next (1.103.0)
+            made = bmesh.ops.contextual_create(bm, geom=in_one_order(bm, cut))
+            start_at_lowest(bm, made.get("faces", []))

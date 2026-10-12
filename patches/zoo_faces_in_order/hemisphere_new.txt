@@ -1,0 +1,11 @@
+    verts = ret["verts"]
+    # The sphere's geometry in one order (1.103.0, `in_one_order`). It was a
+    # set of BMesh elements, which iterates in the order of their addresses,
+    # and no two processes share those.
+    own = set(verts)
+    geom = in_one_order(bm, list(own)
+                        + [e for e in bm.edges if e.verts[0] in own and e.verts[1] in own]
+                        + [f for f in bm.faces if all(v in own for v in f.verts)])
+    cut = bmesh.ops.bisect_plane(
+        bm, geom=geom, dist=1e-5,
+        plane_co=(0, 0, 0), plane_no=(0, 0, 1), clear_inner=True)

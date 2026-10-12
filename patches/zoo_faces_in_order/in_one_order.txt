@@ -1,0 +1,54 @@
+def in_one_order(bm, elems):
+    """``elems`` -- BMesh vertices, edges or faces, mixed -- as a list in one
+    order, the same in every process (1.103.0): by kind, vertices first, then
+    by their vertices' indices.
+
+    A list of BMesh elements built from a set comes in the order of their
+    addresses, and an operator handed it works through it in that order; no
+    two processes share the addresses (the factory's
+    docs/findings/grader_speed/uvsphere_order_probe.py).
+    """
+    bm.verts.index_update()
+
+    def key(e):
+        if isinstance(e, bmesh.types.BMVert):
+            return (0, (e.index,))
+        if isinstance(e, bmesh.types.BMEdge):
+            return (1, tuple(sorted(v.index for v in e.verts)))
+        return (2, tuple(v.index for v in e.verts))
+    return sorted(elems, key=key)
+
+
+def start_at_lowest(bm, faces):
+    """Each of ``faces`` remade to start at its lowest-index vertex, its
+    winding and its material kept (1.103.0). Returns the faces as they stand.
+
+    An operator that makes a face (`holes_fill`, `contextual_create`) starts
+    it at a corner of its own choosing, and the choice changes from one
+    process to the next even with its input in one order: across four builds
+    of the deli's fixtures, each dome's 20-cornered cap started at one of two
+    neighbouring corners, dome by dome. A GLB triangulates a face from its
+    first corner, so the two starts are two sets of triangles and two
+    lightmap charts. Remade before the face carries corner data -- refused if
+    the bmesh has any, rather than losing it.
+    """
+    layers = bm.loops.layers
+    for kind in ("uv", "color", "float_color", "float", "int"):
+        if len(getattr(layers, kind, ())):
+            raise ValueError("start_at_lowest: the bmesh carries %s corner data" % kind)
+    bm.verts.index_update()
+    out = []
+    for f in faces:
+        vs = list(f.verts)
+        k = min(range(len(vs)), key=lambda i: vs[i].index)
+        if k == 0:
+            out.append(f)
+            continue
+        mat, smooth = f.material_index, f.smooth
+        bm.faces.remove(f)
+        nf = bm.faces.new(vs[k:] + vs[:k])
+        nf.material_index, nf.smooth = mat, smooth
+        out.append(nf)
+    return out
+
+
