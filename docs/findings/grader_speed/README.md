@@ -607,6 +607,100 @@ its own log over the same file; they rest on that reading and on the scan
 samples kept in `bake_phases_probe.scan.out.txt`. The probe now keeps each
 arm's log, and its lightmap, under the arm's name.
 
+## The export, process by process; the bake's clock (Level Factory 0.192.0)
+
+After 0.191.0 the export was still the drive's longest leg (cold run 9257:
+187 s of 433). `export_timeline_probe.py` re-exports a workspace's mission
+with every process the export starts timed -- its start since the export
+began, how long it ran, a short form of its command -- and every line the
+export prints stamped; `--profile` runs it under cProfile as well. On 9257's
+workspace, 182.8 s (`export_timeline_probe.9257.out.txt`):
+
+| part | seconds |
+|---|---|
+| the sidecar step's three imports (textures and the rest; the models; the bases and own-light-baking models) | 17.8, 32.1, 7.0 |
+| the bake's editor | 68.0 |
+| the bake's two imports (its UV2 pass, the one after) | 5.0, 4.2 |
+| the dressing's and the backdrop's extraction (an import and a script each) | 7.5 |
+| the occluders' bake and count, the Empties' merge, the greybox census | 6.5, 2.2, 3.2 |
+| the export's own Python, between the processes | 29.3 |
+
+By the profile (`export_timeline_probe.9257.profile.out.txt`), the largest
+parts of the Python are the localizer (9.1 s under the profiler, 7.9 of it
+rewriting text), the light bake's own steps around its editor (7.2 s under
+the profiler: the timeline's 4.9 s gap before the editor is the work copy
+being made; the 2.6 s after the bake's log line, by the code's order, its
+removal -- not timed apart), and the manifest and closure verdict (about
+4 s).
+
+**The open's floor.** The bake's plugin asks for the scene once the file
+system is idle and looks for it 240 frames later. Cold runs 9254 to 9257
+each logged it open at frame 240, the floor itself: the scene was open at
+the first look. With the floor at one frame (`bake_phases_probe.py
+--open-floor 1`, `bake_phases_probe.openfloor.out.txt`; change, control,
+control, change on 9257's workspace) the plugin saw it open at frame 1, 9.8
+and 10.0 s after asking -- the editor's first frame of the opened level --
+and the editor took 64.1 and 64.4 s against 67.9 and 68.4.
+
+**The bake's clock.** The two floor-1 lightmaps were nearer each other than
+the two controls were (`lightmap_compare.openfloor.out.txt`, by layout: a
+mean difference of 0.000001 against 0.000032), and each was further from
+its control than the controls from each other (0.000051, 0.000061), the
+users most apart outdoor props by the streetlights. Lux's failing fixtures
+keep a clock in the bake's editor too (`lux_streetlight_rig.gd`,
+`lux_fluorescent_rig.gd`: `_fail_t += delta`, the lens's
+`emission_energy_multiplier` following the lamp), and a lens's emission is
+baked, though the failing lamps themselves are left live: every bake kept
+each failing lens at the level it had when Bake was pressed. The test
+(`--freeze-time`: `Engine.time_scale` 0 as the plugin starts, so every such
+clock stays at 0; `bake_phases_probe.freeze.out.txt`,
+`lightmap_compare.freeze.out.txt`): two bakes, one pressed 4.4 s after the
+other, came out with every user's light the same to the last bit, and
+`bake.exr`, `bake.lmbake` and `bake.exr.import` byte for byte the same; each
+against its running-clock arm 0.000093 and 0.000133 apart, the users most
+apart the streetlights' metal, the newspaper boxes and the parking meters
+by them. So the lightmap differences every comparison above was measured
+against were never the bake's: they were the failing lenses, caught at a
+different moment each time.
+
+What the stopped clock bakes a failing lens at is the level of its curve at
+0: a stuttering tube at full, a filament at about 0.97, and a cycling
+streetlight -- every third one -- wherever its own seed puts it in its
+cycle. Fixed for a level now, where it was drawn anew every bake; which
+level a failing lens SHOULD bake at (dark like its lamp, full, or its
+cycle's mean) is a look, and the walker's.
+
+**The localizer.** `_rewrite_text` pulls a tool's script into the package
+when a localized `.gd` names its global class, and asked that of every class
+name the tools declare (68), each with its own pattern over the whole
+script: one pass over 9257's 76 text files took 1.69 s, 1.67 of it in 1,804
+searches over the 44 scripts, twelve of them a 95 KB `zoo_worldskin.gd`.
+The export runs about three passes. A name the text does not contain cannot
+match, so a substring test now comes first.
+
+**Level Factory 0.192.0** ships all three: the plugin stops the engine's
+clock as it starts, looks for the scene from frame 1, and the localizer's
+scan skips names a script does not contain. Measured as shipped on 9257's
+workspace (`bake_phases_probe.0192.out.txt`,
+`export_timeline_probe.0192.out.txt`): exports of 172.5, 172.0 and 171.4 s
+against 182.9 and 184.7 on 0.191.0; the editor 64.6, 64.2 and 63.8 s; the
+export's own Python 22.3 s against 29.3, its first import at 11.7 s against
+18.8; the localizer's pass over the 76 text files 1.69 -> 0.079 s. The two
+shipped bakes are byte for byte the same as each other and as the
+stopped-clock bakes of an hour before, so two exports of one level now
+differ in 18 files where they differed in 21: `light_bake.json` (its
+timings), four manifests, `bake.tscn` and the twelve rowhome Empties'
+`site.tscn` -- the last thirteen not yet asked why. Against a 0.191.0
+export the package differs in its 21 files alone and in none of its 378
+scripts.
+
+**SUPERSEDED, KEPT: "byte identity cannot be asked of the bake."** The
+0.191.0 section above says two exports of the same code differ in the
+bake's five files, and set the bar at the control's noise. Three of the
+five were never the bake's: with the clock stopped they are byte for byte
+the same, so since 0.192.0 a change to the bake's editor is held to
+identical `bake.exr`, `bake.lmbake` and `bake.exr.import`.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the
@@ -699,7 +793,9 @@ Not yet measured.
 - A lightmap: Godot's own reading of its EXR (`exr_dump.gd`), compared in
   numpy. 9256's against itself is 100 % the same, and two exports of one
   version differ in about a tenth of their texels, so a difference no
-  larger than that says nothing about a change. Texel by texel holds only
+  larger than that says nothing about a change -- to 0.191.0. Since
+  0.192.0 the bake's editor stops its clock and two exports bake the same
+  bytes; the tenth was the failing lenses. Texel by texel holds only
   while the atlas is packed alike: cold run 9257's was not -- three dome
   glasses came out of Blender with different charts and 2,858 of 3,320 users
   moved -- and read texel by texel it looked twelve times further from

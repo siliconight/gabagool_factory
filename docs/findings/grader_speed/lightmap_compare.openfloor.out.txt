@@ -1,0 +1,20 @@
+[lm] === floor1a against control240a
+[lm] layout floor1a: 3320 users; control240a: 3320 users; in both 3320, only in floor1a 0, only in control240a 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000051, 99.9th percentile 0.01468, max 0.8086; apart by more than 0.01: 21236, by more than 0.1: 160
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000051, apart by more than 0.01: 21236 (0.19 %); signed mean floor1a - control240a -0.000013 against their mean 0.03546
+[lm] === control240a against control240b
+[lm] layout control240a: 3320 users; control240b: 3320 users; in both 3320, only in control240a 0, only in control240b 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000032, 99.9th percentile 0.01080, max 0.3589; apart by more than 0.01: 12790, by more than 0.1: 195
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000032, apart by more than 0.01: 12790 (0.11 %); signed mean control240a - control240b +0.000004 against their mean 0.03548
+[lm] === floor1b against control240b
+[lm] layout floor1b: 3320 users; control240b: 3320 users; in both 3320, only in floor1b 0, only in control240b 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000061, 99.9th percentile 0.01721, max 0.7715; apart by more than 0.01: 27332, by more than 0.1: 351
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000061, apart by more than 0.01: 27332 (0.24 %); signed mean floor1b - control240b -0.000008 against their mean 0.03546
+[lm] === floor1a against floor1b
+[lm] layout floor1a: 3320 users; floor1b: 3320 users; in both 3320, only in floor1a 0, only in floor1b 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000001, 99.9th percentile 0.00021, max 0.0078; apart by more than 0.01: 0, by more than 0.1: 0
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000001, apart by more than 0.01: 0 (0.00 %); signed mean floor1a - floor1b -0.000000 against their mean 0.03546

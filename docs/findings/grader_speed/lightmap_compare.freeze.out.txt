@@ -1,0 +1,39 @@
+[lm] === freeze_floor1 against freeze_floor240
+[lm] layout freeze_floor1: 3320 users; freeze_floor240: 3320 users; in both 3320, only in freeze_floor1 0, only in freeze_floor240 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000000, 99.9th percentile 0.00000, max 0.0000; apart by more than 0.01: 0, by more than 0.1: 0
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000000, apart by more than 0.01: 0 (0.00 %); signed mean freeze_floor1 - freeze_floor240 +0.000000 against their mean 0.03545
+[lm]   the most apart: ../Site/yard_2/mesh [-1]: mean |diff| 0.00000, its own mean 0.01735
+[lm]   the most apart: ../Site/yard_1/mesh [-1]: mean |diff| 0.00000, its own mean 0.01253
+[lm]   the most apart: ../Site/yard_0/mesh [-1]: mean |diff| 0.00000, its own mean 0.01029
+[lm]   the most apart: ../Site/site_marks_090_090_088_c502_500 [-1]: mean |diff| 0.00000, its own mean 0.03885
+[lm]   the most apart: ../Site/site_marks_090_090_088_c502_499 [-1]: mean |diff| 0.00000, its own mean 0.03004
+[lm]   the most apart: ../Site/site_marks_090_090_088_c501_499 [-1]: mean |diff| 0.00000, its own mean 0.09152
+[lm]   the most apart: ../Site/site_marks_090_090_088_c500_500 [-1]: mean |diff| 0.00000, its own mean 0.06983
+[lm]   the most apart: ../Site/site_marks_090_090_088_c500_499 [-1]: mean |diff| 0.00000, its own mean 0.05394
+[lm] === freeze_floor1 against floor1a
+[lm] layout freeze_floor1: 3320 users; floor1a: 3320 users; in both 3320, only in freeze_floor1 0, only in floor1a 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000093, 99.9th percentile 0.03448, max 0.7957; apart by more than 0.01: 57014, by more than 0.1: 578
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000093, apart by more than 0.01: 57014 (0.50 %); signed mean freeze_floor1 - floor1a -0.000013 against their mean 0.03545
+[lm]   the most apart: ../Site/cover_95/Streetlight_metal_delco_1997 [-1]: mean |diff| 0.06003, its own mean 0.04475
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_metal_bare_delco_1997_29292b [-1]: mean |diff| 0.05158, its own mean 0.03334
+[lm]   the most apart: ../Site/cover_27/Streetlight_metal_delco_1997 [-1]: mean |diff| 0.04320, its own mean 0.06840
+[lm]   the most apart: ../Site/cover_111/ParkingMeter_Body [-1]: mean |diff| 0.04008, its own mean 0.05315
+[lm]   the most apart: ../Site/cover_49/ParkingMeter_Body [-1]: mean |diff| 0.03910, its own mean 0.03133
+[lm]   the most apart: ../Site/cover_22/NewspaperBox_metal_bare_delco_1997_29292b [-1]: mean |diff| 0.03812, its own mean 0.02763
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_Body [-1]: mean |diff| 0.03774, its own mean 0.03346
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_Window [-1]: mean |diff| 0.03436, its own mean 0.02300
+[lm] === freeze_floor240 against control240a
+[lm] layout freeze_floor240: 3320 users; control240a: 3320 users; in both 3320, only in freeze_floor240 0, only in control240a 0
+[lm] layout: of the 3320 in both, 3320 placed the same, 0 moved with the same size, 0 resized
+[lm] the light inside the 3320 same-size rectangles, each against its own: 11329158 texels; |diff| over RGB mean 0.000133, 99.9th percentile 0.04413, max 1.1812; apart by more than 0.01: 75751, by more than 0.1: 1483
+[lm]   placed the same: 3320 users, 11329158 texels; |diff| mean 0.000133, apart by more than 0.01: 75751 (0.67 %); signed mean freeze_floor240 - control240a -0.000026 against their mean 0.03545
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_metal_bare_delco_1997_29292b [-1]: mean |diff| 0.08616, its own mean 0.03334
+[lm]   the most apart: ../Site/cover_27/Streetlight_metal_delco_1997 [-1]: mean |diff| 0.07868, its own mean 0.06840
+[lm]   the most apart: ../Site/cover_8/Streetlight_metal_delco_1997 [-1]: mean |diff| 0.06750, its own mean 0.05176
+[lm]   the most apart: ../Site/cover_49/ParkingMeter_Body [-1]: mean |diff| 0.06550, its own mean 0.03133
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_Body [-1]: mean |diff| 0.06391, its own mean 0.03346
+[lm]   the most apart: ../Site/cover_22/NewspaperBox_metal_bare_delco_1997_29292b [-1]: mean |diff| 0.06388, its own mean 0.02763
+[lm]   the most apart: ../Site/cover_95/Streetlight_metal_delco_1997 [-1]: mean |diff| 0.06003, its own mean 0.04475
+[lm]   the most apart: ../Site/cover_23/NewspaperBox_Window [-1]: mean |diff| 0.05764, its own mean 0.02300

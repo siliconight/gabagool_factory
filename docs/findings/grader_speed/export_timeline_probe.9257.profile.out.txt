@@ -1,0 +1,110 @@
+[tl] the run's package restored
+[tl] the export 185.6 s; 14 process(es); 23 line(s) printed
+[tl]     1.6  P  godot --import     3.3 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]     4.9  P  godot --script     0.3 s  godot_v4.7-stable_win64_console.exe --headless --script extract_meshes.gd (exit 0)
+[tl]     5.3     [export] surface dressing: restaurant_row_001_dressing.tscn -- 4285 instances of 4 meshes, 4 draw calls
+[tl]     5.3  P  godot --import     3.5 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]     8.8  P  godot --script     0.3 s  godot_v4.7-stable_win64_console.exe --headless --script extract_meshes.gd (exit 0)
+[tl]     9.2     [export] backdrop: site_backdrop.tscn -- 269 instances of 7 module(s) on their sides, 25 draw calls (N 94, S 95, E 42, W 37; 1 tower)
+[tl]    19.3  P  godot --import    17.8 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]    38.2  P  godot --import    31.7 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]    70.7  P  godot --import     7.0 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]    78.6  P  godot --script     3.2 s  godot_v4.7-stable_win64_console.exe --headless --script bake_occluders.gd -- (exit 0)
+[tl]    82.3  P  godot --script     3.2 s  godot_v4.7-stable_win64_console.exe --headless --script count_occluders.gd -- (exit 0)
+[tl]    85.5     [export] 1370 occluder(s) from 1385 solid module(s); 118 glass, 241 porous and 779 filler left open
+[tl]    85.5     [export]   res://mission.tscn loaded by Godot holds 1370 occluder node(s) in a tree of 25888
+[tl]    86.0  P  godot --script     2.2 s  godot_v4.7-stable_win64_console.exe --headless --script merge_empties.gd -- (exit 0)
+[tl]    88.2     [export] Empties merged: 12 scene(s), 1061 mesh(es) of 1660 surface(s) -> 148 merged mesh(es), 962 collider(s) kept
+[tl]    88.7  P  godot --import     5.1 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]    99.0  P  godot --editor    68.2 s  godot_v4.7-stable_win64_console.exe --editor (exit 0)
+[tl]   167.3  P  godot --import     4.2 s  godot_v4.7-stable_win64_console.exe --headless --import (exit 0)
+[tl]   171.5     [export] light bake: 494 model(s) and 224 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 213 steady rig(s) baked, 29 failing a
+[tl]   174.0     [export] occlusion: use_occlusion_culling=true with 1370 occluder node(s) reachable from res://mission.tscn (1370 in the package, 21 scene(s) walked)
+[tl]   174.0     [export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[tl]   174.0     [export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[tl]   174.0     [export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[tl]   174.0     [export] warm-up verdict: 1 node, script shipped=true
+[tl]   174.0     [export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[tl]   174.0     [export] responder arrivals: 3, in responder_arrivals.json
+[tl]   175.0     [export] glb references: 482 GLB(s), 1860 external reference(s): 1860 resolve to 415 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB
+[tl]   175.4  P  godot --script     3.2 s  godot_v4.7-stable_win64_console.exe --headless --script greybox_census.gd -- (exit 0)
+[tl]   178.6     [export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
+[tl]   178.6     [export] import cache moved beside the package (LF_restaurant_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[tl]   179.8     [export] import pins: 415 of 415 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 sk
+[tl]   181.6     [export] closure verdict: ok=true, 0 issue(s) over 81 resource(s) in a package of 2953 file(s)
+[tl]   185.6     [export] manifest: 2957 file(s) listed + 2 declared unlisted = 2959 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+[tl]   185.6     exported restaurant_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9257-ws\.level_factory\exports\LF_restau
+[tl]   185.6       to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+[tl]   185.6       to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9257-ws walk restaurant_row_001 --pl
+[tl]   185.6     export exit 0
+[tl] by kind: godot --import    7 process(es)    72.5 s
+[tl] by kind: godot --editor    1 process(es)    68.2 s
+[tl] by kind: godot --script    6 process(es)    12.5 s
+[tl] processes running 153.2 s of the 185.6; the export's own Python 32.4 s
+[tl] no process from     9.1 to    19.3:  10.2 s
+[tl] no process from   178.6 to   185.6:   7.0 s
+[tl] no process from    93.8 to    99.0:   5.1 s
+[tl] no process from   171.5 to   175.4:   3.9 s
+[tl] no process from     0.0 to     1.6:   1.6 s
+[tl] no process from    37.1 to    38.2:   1.0 s
+[tl] no process from    77.7 to    78.6:   0.9 s
+[tl] no process from    69.9 to    70.7:   0.8 s
+[tl] no process from    88.2 to    88.7:   0.5 s
+[tl] no process from    81.8 to    82.3:   0.5 s
+[tl] profile, the export's functions by cumulative time (cumulative includes the processes they waited on):
+[tl]   cum   185.6 s  own    0.0 s  calls      1  __main__.py:1 <module>
+[tl]   cum   185.4 s  own    0.0 s  calls      1  apps/cli/main.py:297 main
+[tl]   cum   185.4 s  own    0.0 s  calls      1  apps/cli/commands/__init__.py:3775 cmd_export
+[tl]   cum   185.3 s  own    0.0 s  calls      1  packages/exporting/export.py:1735 export_mission
+[tl]   cum    85.5 s  own    0.0 s  calls      1  packages/exporting/light_bake.py:460 bake
+[tl]   cum    68.2 s  own    0.0 s  calls      1  packages/exporting/light_bake.py:329 _run
+[tl]   cum    59.8 s  own    0.0 s  calls      1  packages/exporting/export.py:789 _write_import_sidecars
+[tl]   cum    57.4 s  own    0.0 s  calls      3  packages/exporting/export.py:955 _import_pass_verified
+[tl]   cum    56.4 s  own    0.0 s  calls      3  packages/exporting/export.py:936 _import_pass
+[tl]   cum     9.3 s  own    0.0 s  calls      2  packages/exporting/light_bake.py:387 _import
+[tl]   cum     9.1 s  own    0.0 s  calls      1  packages/exporting/localize.py:342 localize_export
+[tl]   cum     7.9 s  own    0.0 s  calls    221  packages/exporting/localize.py:148 _rewrite_text
+[tl]   cum     7.4 s  own    0.0 s  calls      1  packages/exporting/occluders.py:923 emit
+[tl]   cum     7.4 s  own    0.0 s  calls      2  packages/exporting/dressing_layer.py:99 extract_meshes
+[tl]   cum     3.8 s  own    0.0 s  calls      1  packages/exporting/backdrop_layer.py:111 ship_backdrop
+[tl]   cum     3.7 s  own    0.0 s  calls      1  packages/exporting/dressing_layer.py:179 ship_dressing
+[tl]   cum     3.7 s  own    0.0 s  calls      1  packages/exporting/occluders.py:299 measure
+[tl]   cum     3.7 s  own    0.0 s  calls      1  packages/exporting/occluders.py:866 count_at_runtime
+[tl]   cum     3.6 s  own    0.0 s  calls      1  packages/exporting/greybox_skin.py:89 measure
+[tl]   cum     2.7 s  own    0.0 s  calls      1  packages/exporting/merge_empties.py:122 merge
+[tl]   cum     2.6 s  own    0.0 s  calls      7  packages/exporting/occluders.py:152 unimported_models
+[tl]   cum     2.4 s  own    0.0 s  calls      1  packages/exporting/export.py:1694 build_resource_manifest
+[tl]   cum     1.8 s  own    0.1 s  calls      7  packages/exporting/occluders.py:132 package_models
+[tl]   cum     1.8 s  own    0.0 s  calls      1  packages/exporting/export.py:1224 _closure_verdict
+[tl]   cum     1.8 s  own    0.1 s  calls      1  packages/exporting/closure.py:298 scan_closure
+[tl]   cum     1.7 s  own    0.0 s  calls      4  packages/exporting/occluders.py:184 ensure_imported
+[tl]   cum     1.6 s  own    0.0 s  calls   2957  packages/core/hashing.py:30 hash_file
+[tl]   cum     1.2 s  own    0.0 s  calls      1  packages/exporting/export.py:602 _repin_after_imports
+[tl]   cum     1.2 s  own    0.0 s  calls      3  packages/exporting/export.py:306 _copy_tree
+[tl]   cum     1.1 s  own    0.0 s  calls      2  packages/exporting/closure.py:242 _digest_inputs
+[tl]   cum     1.1 s  own    0.0 s  calls      1  packages/exporting/export.py:1313 _guard_verdict_is_about_the_package
+[tl]   cum     1.1 s  own    0.0 s  calls      1  packages/exporting/closure.py:256 verify_verdict_describes_package
+[tl]   cum     1.0 s  own    0.0 s  calls      2  packages/exporting/export.py:560 _pin_shared_texture_imports
+[tl]   cum     0.9 s  own    0.0 s  calls      3  packages/exporting/closure.py:220 _scanned_files
+[tl]   cum     0.9 s  own    0.0 s  calls      1  packages/exporting/glb_refs.py:210 scan
+[tl]   cum     0.9 s  own    0.0 s  calls   3552  packages/exporting/closure.py:228 <genexpr>
+[tl]   cum     0.8 s  own    0.0 s  calls      2  packages/exporting/light_bake.py:148 mark_imports
+[tl]   cum     0.8 s  own    0.0 s  calls      3  packages/exporting/export.py:488 _normal_map_shared_textures
+[tl]   cum     0.6 s  own    0.0 s  calls      2  packages/exporting/closure.py:232 _verdict_inputs
+[tl]   cum     0.5 s  own    0.0 s  calls      1  packages/exporting/export.py:580 _shared_texture_pins_missing
+[tl] profile, by own time:
+[tl]   own    0.1 s  cum     1.8 s  calls      1  packages/exporting/closure.py:298 scan_closure
+[tl]   own    0.1 s  cum     1.8 s  calls      7  packages/exporting/occluders.py:132 package_models
+[tl]   own    0.0 s  cum     1.6 s  calls   2957  packages/core/hashing.py:30 hash_file
+[tl]   own    0.0 s  cum     0.8 s  calls      3  packages/exporting/export.py:488 _normal_map_shared_textures
+[tl]   own    0.0 s  cum     7.9 s  calls    221  packages/exporting/localize.py:148 _rewrite_text
+[tl]   own    0.0 s  cum     0.4 s  calls    846  packages/exporting/export.py:522 _apply_pins
+[tl]   own    0.0 s  cum     0.0 s  calls  54648  packages/exporting/dressing_scene.py:108 _g
+[tl]   own    0.0 s  cum     0.9 s  calls      1  packages/exporting/glb_refs.py:210 scan
+[tl]   own    0.0 s  cum     2.6 s  calls      7  packages/exporting/occluders.py:152 unimported_models
+[tl]   own    0.0 s  cum     0.8 s  calls      2  packages/exporting/light_bake.py:148 mark_imports
+[tl]   own    0.0 s  cum     0.0 s  calls  24660  packages/exporting/occluders.py:402 _fmt
+[tl]   own    0.0 s  cum     0.9 s  calls   3552  packages/exporting/closure.py:228 <genexpr>
+[tl]   own    0.0 s  cum     9.1 s  calls      1  packages/exporting/localize.py:342 localize_export
+[tl]   own    0.0 s  cum     0.5 s  calls   1428  packages/exporting/light_bake.py:137 glb_has_uv2
+[tl]   own    0.0 s  cum     0.0 s  calls  54677  packages/exporting/dressing_scene.py:247 <genexpr>

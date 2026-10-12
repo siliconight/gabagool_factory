@@ -20,6 +20,13 @@ prints; the plugin in Level Factory is not touched.
   --no-groups-cache  Level Factory 0.191.0's `write_scene_groups_cache` made a no-op: the control
                      arm, the bake as 0.190.0 ran it
   --arm NAME         names the kept editor log and the package digest (default "run")
+  --open-floor N     the frames the plugin waits after asking for the scene before it looks
+                     whether it opened (the plugin's own 240 replaced by N)
+  --freeze-time      Engine.time_scale = 0 as the plugin starts: scripts that keep a clock from
+                     their frame deltas keep it at 0 (the instrument that found it; 0.192.0's
+                     plugin does it itself)
+  --clock-runs       0.192.0's own `Engine.time_scale = 0.0` taken out: the clock runs, as it
+                     did to 0.191.0
 
 Since 0.191.0 it also times each of the bake's import passes, says what the bake wrote as the
 scene groups cache and whether the cache kept beside the package still holds it, and compares the
@@ -63,6 +70,25 @@ def instrumented(src):
     done = "func _done(result: Dictionary) -> void:\n"
     assert out.count(done) == 1
     out = out.replace(done, done + '\tprint("BAKE_T quit asked ", Time.get_ticks_msec())\n')
+    if "--freeze-time" in sys.argv:
+        # the engine's clock stopped as the plugin starts: every script's `_process` delta is 0,
+        # so a clock a script keeps from its deltas (Lux's failing fixtures' `_fail_t`) stays at 0
+        start = "\tset_process(true)\n"
+        assert out.count(start) == 1
+        out = out.replace(start, start + "\tEngine.time_scale = 0.0\n\tprint(\"BAKE_FREEZE time_scale 0\")\n")
+    if "--clock-runs" in sys.argv:
+        # 0.192.0's plugin stops the engine's clock as it starts; this takes that line out
+        stop = "\tEngine.time_scale = 0.0\n"
+        assert out.count(stop) == 1, out.count(stop)
+        out = out.replace(stop, "")
+    if "--open-floor" in sys.argv:
+        # the frames the plugin waits after asking for the scene before it looks whether the
+        # scene opened (240 in 0.191.0's plugin, OPEN_FLOOR_FRAMES = 1 since 0.192.0)
+        floor = int(sys.argv[sys.argv.index("--open-floor") + 1])
+        lines = [ln for ln in ("\t\t\tif _frames < 240:\n", "\t\t\tif _frames < OPEN_FLOOR_FRAMES:\n")
+                 if out.count(ln) == 1]
+        assert len(lines) == 1, "the open's floor is not where this was written against"
+        out = out.replace(lines[0], "\t\t\tif _frames < %d:\n" % floor)
     if "--scan" in sys.argv:
         # while the plugin waits to ask for the scene: every 30 frames, the clock, the frame, and
         # whether the editor's file system is scanning and how far along
@@ -225,8 +251,13 @@ def main():
             for f in light_bake.BAKE_FILES + (light_bake.REPORT, "mission.tscn"):
                 print("[bake]     %-18s %s" % (f, "absent" if f not in mine or f not in ref else
                                                 ("the same" if mine[f] == ref[f] else "different")), flush=True)
-        # the lightmap itself, kept for lightmap_compare.py (the package goes when this ends)
+        # the lightmap itself, kept for lightmap_compare.py (the package goes when this ends); and
+        # the bake's data beside it, so --layout can read where each user was put
         shutil.copy(os.path.join(pkg, "bake.exr"), os.path.join(X, "bake.%s.exr" % arm))
+        keep_pkg = os.path.join(X, "pkg.%s" % arm)
+        os.makedirs(keep_pkg, exist_ok=True)
+        for f in ("bake.exr", "bake.exr.import", "bake.lmbake"):
+            shutil.copy(os.path.join(pkg, f), os.path.join(keep_pkg, f))
         if os.path.isfile(os.path.join(ref_pkg, "bake.exr")) and not os.path.isfile(os.path.join(X, "bake.ref.exr")):
             shutil.copy(os.path.join(ref_pkg, "bake.exr"), os.path.join(X, "bake.ref.exr"))
         keep = os.path.join(X, "lightbake.%s.log" % arm)

@@ -1,0 +1,6 @@
+    if class_map and path.suffix == ".gd":
+        for cname, (tool, rest) in class_map.items():
+            target = export_dir / _RUNTIME_DIR / tool / rest
+            if target.exists():
+                continue
+            if re.search(r"\b" + re.escape(cname) + r"\b", new):
