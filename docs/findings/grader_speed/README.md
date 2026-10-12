@@ -382,6 +382,31 @@ Level Factory 0.188.0 keeps the cache beside the package
 copied, so it costs no disk, and a second walk copy imports from scratch as
 before. A cold run is the drive's measurement.
 
+## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
+
+Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the
+scheduler staging a project of the whole themed site and importing it. The
+staged project sets no importer defaults, so the guess was Godot compressing
+textures it detects in 3D and building level-of-detail meshes, neither of
+which Lux reads. `lux_staging_probe.py` stages 9254's Lux project the way the
+job does (`stage_godot_project`), times a fresh import and the job's own
+command on each copy, and compares what Lux writes:
+
+| | S0 | S0b | S1, no 3D texture compression | S2, and no detail meshes |
+|---|---|---|---|---|
+| the import | 24.7 s | 24.0 s | 24.0 s | 23.5 s |
+| the apply | 3.7 s | 3.6 s | 3.6 s | 3.6 s |
+
+**The knobs were read**: S2's model sidecars carry `generate_lods=false`;
+every arm's texture sidecars carry `compress/mode=0` and
+`detect_3d/compress_to=0` -- the staged import never compressed a texture
+for 3D, so S1 had nothing to turn off. Lux's quality and validation reports
+are identical in all four; its applied scene differs between any two runs,
+the control included, in the same 14 light energies alone (the control's
+pair up to 0.023 apart: lamps whose energy varies at save time). The 24 s is
+480 models and 428 textures imported; where it goes inside Godot's import is
+not measured.
+
 ## REFUTED, KEPT: one import pass with the models' final settings as defaults
 
 `import_plan_probe.py` timed the export's import plan on stripped copies of
