@@ -335,6 +335,53 @@ of every model 5.0 s, no pin lost, every gate as above; the two re-exports
 differ only in the bake's three files, the Empties' scenes, five manifests
 and one sidecar's uid -- no texture sidecar, now that no import resets them.
 
+## The walk copy: the export's own import, kept (Level Factory 0.188.0)
+
+Cold run 9253's step stamps: the walk step 88 s of a 580 s drive, 15 %.
+`tools/walk_export.py` copies the package and imports it from scratch, a
+minute after the export imported the same files and deleted the cache.
+
+`walk_cache_probe.py` re-exports 9253's mission with the cache moved beside
+the package (`<package>.import_cache`) instead of deleted, then makes three
+walk copies with the real tool: two as the drive does (the control: what an
+import changes on its own) and one with the kept cache copied in as its
+`.godot` before the same import pass.
+
+| | W0, scratch | W0b, scratch | W1, the kept cache |
+|---|---|---|---|
+| the walk copy | 86.4 s | 88.2 s | 11.5 s (5.1 + 2.2 + 4.2) |
+| imported files differing from W0 | -- | 482 scenes + their 482 checksums | the same, + 1 checksum and the lightmap texture |
+| models digested, differing from W0 | -- | 0 of 501 | 0 of 501 |
+| the level loaded | 20,954 nodes, 3,380 meshes, 242 lights, 3,320 users | the same | the same |
+
+The probe's first run read 85.6, 86.2 and 9.6 s
+(`walk_cache_probe.draft1.out.txt`).
+
+- **An import is not byte-deterministic**: two imports of the same files from
+  scratch differ in 482 scene files and their checksums. A file comparison
+  cannot say whether W1's scenes are W0's, so `import_digest.gd` loads every
+  model the way the level does and digests what loads -- each node, transform,
+  mesh surface, vertex and index count, second UV set, material and texture.
+  **Its positive control**: one model's sidecar changed in W1 (light baking 2
+  -> 1) and imported again moved that model's digest and no other; undoing it
+  moved it back. It also shows a sidecar changed after the cache was made is
+  imported again by the copy's own pass.
+- **The lightmap texture** in W1 is the editor's encoding: the export's cache
+  has carried the bake editor's import of `bake.exr` since 0.183.0, and the
+  copy's headless import encodes it otherwise. Both are the same lightmap at
+  the same settings.
+- **REFUTED, KEPT: the first census** (`walk_cache_probe.draft1.out.txt`)
+  instantiated the walk scene and counted 1,380 nodes, no mesh and no light in
+  every copy. `mission.tscn` loads its content in `_ready`, which a scene
+  instantiated outside the tree never runs, so it counted the frame and could
+  not have failed. `walk_copy_census.gd` now loads the scenes the entry script
+  loads.
+
+Level Factory 0.188.0 keeps the cache beside the package
+(`occluders.keep_cache`) and `walk_export.py` moves it in -- moved, not
+copied, so it costs no disk, and a second walk copy imports from scratch as
+before. A cold run is the drive's measurement.
+
 ## REFUTED, KEPT: one import pass with the models' final settings as defaults
 
 `import_plan_probe.py` timed the export's import plan on stripped copies of

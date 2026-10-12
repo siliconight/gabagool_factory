@@ -12,14 +12,22 @@ not a machine's cache. So this:
        W0, W0b  as the drive does: copy, then a full `--import` (W0b is the control: two imports
                 from scratch, to see what an import changes on its own)
        W1       copy, the kept cache copied in as `.godot`, then the same `--import`
-  3. compares each copy's `.godot/imported/` file by file, and loads each copy's walk scene
-     headless (`walk_copy_census.gd`): nodes, meshes, meshes with no mesh, lights.
+  3. compares each copy's `.godot/imported/` file by file; digests every model each copy imported,
+     as Godot loads it (`import_digest.gd`), and compares the digests -- with a positive control,
+     one model's sidecar changed in W1 and imported again, which must move that model's digest
+     and no other; and loads the content each copy's level loads (`walk_copy_census.gd`): scenes,
+     nodes, meshes, meshes with no mesh, lights, lightmap users.
+
+REFUTED, KEPT (`walk_cache_probe.draft1.out.txt`): the first census instantiated the walk scene,
+whose mission loads its content in `_ready`, and counted the same 1,380 nodes and no mesh in every
+copy -- blind; `walk_copy_census.gd` says how it was fixed.
 
 It prints each step's wall time and the comparisons. It measures and prints.
 
     python docs/findings/grader_speed/walk_cache_probe.py <workspace> <mission>
 """
 import collections
+import glob
 import hashlib
 import os
 import runpy
@@ -33,6 +41,7 @@ sys.path.insert(0, os.path.join(F, "level_factory"))
 sys.path.insert(0, F)
 X = os.path.join(F, "_scratch", "walk_cache")
 CENSUS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "walk_copy_census.gd")
+DIGEST = os.path.join(os.path.dirname(os.path.abspath(__file__)), "import_digest.gd")
 GODOT = "C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe"
 
 
@@ -105,6 +114,38 @@ def compare(a, b, label):
                                      dict(diff), dict(only_a), dict(only_b)), flush=True)
 
 
+def digests(root):
+    p = subprocess.run([GODOT, "--headless", "--path", root, "-s", DIGEST], capture_output=True,
+                       text=True, timeout=900)
+    out = {}
+    for ln in p.stdout.splitlines():
+        if ln.startswith("DIGEST "):
+            _, path, h = ln.split(" ", 2)
+            out[path] = h
+    return out
+
+
+def compare_digests(a, b, label):
+    diff = sorted(k for k in set(a) | set(b) if a.get(k) != b.get(k))
+    print("[walk] %s: %d and %d models digested; unloadable %d and %d; digests differing %d %s"
+          % (label, len(a), len(b), sum(v == "UNLOADABLE" for v in a.values()),
+             sum(v == "UNLOADABLE" for v in b.values()), len(diff), diff[:3]), flush=True)
+
+
+def positive_control(w1, before):
+    sidecars = sorted(glob.glob(os.path.join(w1, "lot", "*", "art", "zoo", "*.glb.import")))
+    side = sidecars[0]
+    raw = open(side, "rb").read()
+    assert b"meshes/light_baking=2" in raw, side
+    open(side, "wb").write(raw.replace(b"meshes/light_baking=2", b"meshes/light_baking=1"))
+    subprocess.run([GODOT, "--headless", "--path", w1, "--import"], capture_output=True, timeout=900)
+    compare_digests(before, digests(w1), "positive control, W1 with %s's light baking 2 -> 1"
+                    % os.path.basename(side)[:-7])
+    open(side, "wb").write(raw)
+    subprocess.run([GODOT, "--headless", "--path", w1, "--import"], capture_output=True, timeout=900)
+    compare_digests(before, digests(w1), "the control undone, W1 against itself before")
+
+
 def census(root):
     p = subprocess.run([GODOT, "--headless", "--path", root, "-s", CENSUS], capture_output=True,
                        text=True, timeout=600)
@@ -138,6 +179,10 @@ def main():
         walk_copy(ws, mission, w1, cache=cache)
         compare(w0, w0b, "control W0 against W0b")
         compare(w0, w1, "change  W0 against W1 ")
+        d0, d0b, d1 = digests(w0), digests(w0b), digests(w1)
+        compare_digests(d0, d0b, "control W0 against W0b")
+        compare_digests(d0, d1, "change  W0 against W1 ")
+        positive_control(w1, d1)
         for w in (w0, w0b, w1):
             census(w)
     finally:

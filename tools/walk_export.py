@@ -212,6 +212,29 @@ def _find_godot(explicit):
     return None, ""
 
 
+def _take_kept_cache(export_dir, out):
+    """Move the export's kept import cache into the copy as its `.godot`.
+    True if it did.
+
+    Level Factory 0.188.0 keeps the export's import cache beside the package
+    (`<package>.import_cache`, `occluders.keep_cache`) instead of deleting
+    it. It is the export's own import of the files this copy carries, so the
+    import pass that follows only checks it -- measured on cold run 9253's
+    package (docs/findings/grader_speed/walk_cache_probe.py): 9.6 s against
+    85.6 and 86.2 s from scratch, every model it imports loading the same and
+    the level the same. A sidecar changed after the cache was made is
+    imported again by that pass. MOVED, NOT COPIED: this copy is the cache's
+    only reader, and a second walk copy imports from scratch, as every one
+    did before. A copy that already has a `.godot` keeps its own.
+    """
+    kept = export_dir.rstrip("\\/") + ".import_cache"
+    dst = os.path.join(out, ".godot")
+    if not os.path.isdir(kept) or os.path.exists(dst):
+        return False
+    shutil.move(kept, dst)
+    return True
+
+
 def player_start(export_dir):
     """The package's own player_start anchor, or None."""
     path = os.path.join(export_dir, "gameplay_anchors.json")
@@ -422,6 +445,8 @@ def main(argv=None):
               newline="") as fh:
         fh.write(scene)
 
+    # The export's own import, moved in when it kept one (`_take_kept_cache`).
+    took_cache = (not args.no_import) and _take_kept_cache(export_dir, out)
     imported = None
     godot, how = (None, "") if args.no_import else _find_godot(args.godot)
     if godot:
@@ -435,7 +460,7 @@ def main(argv=None):
                                  "in the editor before walking.\n" % imported)
         except (OSError, subprocess.SubprocessError) as exc:
             sys.stderr.write("import pass did not run: %s\n" % exc)
-    elif not args.no_import:
+    elif not args.no_import and not took_cache:
         sys.stderr.write(_NO_GODOT % out)
 
     budget = ""
@@ -461,7 +486,11 @@ def main(argv=None):
         print("             THE PACKAGE HAS NO DRIPS. This is staged into the "
               "copy to be looked at.")
     if imported is not None:
-        print("  import   : exit %d  (%s)" % (imported, how))
+        print("  import   : exit %d  (%s)%s" % (
+            imported, how, ", from the export's own cache" if took_cache else ""))
+    elif took_cache:
+        print("  import   : the export's own cache, moved in and not checked "
+              "(no Godot binary found)")
     elif args.no_import:
         print("  import   : SKIPPED (--no-import). This copy will not load "
               "until\n  something builds its .godot cache.")
