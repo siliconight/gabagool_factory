@@ -1,0 +1,283 @@
+THE COUNTER ARM: the front register counter's collision disabled after five pinned frames
+[LT trace] t=60.0s run=1 physics_ticks=904 nav=true
+[LT trace]   bot LT_Player_01 pos=(-59.4,-3.3,-10.5) vel=(-3.5,0.0,-1.9) completed=false route=2/3 nav_fin=false next=(-61.6,-3.2,-11.6)
+[LT trace]     path index 24 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.02 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.05 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.15 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]   bot LT_Player_02 pos=(30.5,0.0,19.1) vel=(0.0,0.0,0.0) completed=false route=1/3 nav_fin=false next=(31.3,0.2,19.1)
+[LT trace]     path index 1 of 3, target (31.5, 0.71, 17.765): (30.45,0.30,19.07) (31.35,0.30,19.05) (31.50,0.30,19.05)
+[LT trace]   bot LT_Player_03 pos=(-59.2,-3.3,-10.4) vel=(-3.5,0.0,-1.9) completed=false route=2/3 nav_fin=false next=(-61.6,-3.2,-11.6)
+[LT trace]     path index 24 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.02 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.05 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]     lifted 0.15 m, 0.3 m along (-0.88267, 0.0, -0.469993): free
+[LT trace]   bot LT_Player_04 pos=(-65.5,-3.3,-13.7) vel=(-3.5,0.0,-1.9) completed=false route=2/3 nav_fin=false next=(-66.2,-3.2,-13.9)
+[LT trace]     path index 31 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     slab_col_0 shape ConcavePolygonShape3D, (-51.0, -0.15, -2.51)
+[LT trace]       tri (-65.6, -0.3, -13.81) (-70.0, -0.3, -16.51) (-68.0, -0.3, -13.81)
+[LT trace]       tri (-65.6, -0.3, -13.81) (-32.0, -0.3, -16.51) (-70.0, -0.3, -16.51)
+[LT trace]       tri (-65.6, -0.3, -8.71) (-32.0, -0.3, -16.51) (-65.6, -0.3, -13.81)
+[LT trace]       tri (-70.0, -0.3, 11.49) (-32.0, -0.3, -16.51) (-65.6, -0.3, -8.71)
+[LT trace]       tri (-32.0, -0.3, -16.51) (-70.0, -0.3, 11.49) (-58.55, -0.3, 9.390001)
+[LT trace]       tri (-32.0, 0.0, -16.51) (-68.0, 0.0, -13.81) (-70.0, 0.0, -16.51)
+[LT trace]       tri (-32.0, 0.0, -16.51) (-65.6, 0.0, -13.81) (-68.0, 0.0, -13.81)
+[LT trace]       tri (-32.0, 0.0, -16.51) (-65.6, 0.0, -8.71) (-65.6, 0.0, -13.81)
+[LT trace]       tri (-70.0, 0.0, 11.49) (-32.0, 0.0, -16.51) (-58.55, 0.0, 9.390001)
+[LT trace]       tri (-32.0, 0.0, -16.51) (-70.0, 0.0, 11.49) (-65.6, 0.0, -8.71)
+[LT trace]       tri (-68.0, 0.0, -13.81) (-65.6, -0.3, -13.81) (-68.0, -0.3, -13.81)
+[LT trace]       tri (-68.0, 0.0, -13.81) (-65.6, 0.0, -13.81) (-65.6, -0.3, -13.81)
+[LT trace]       tri (-65.6, -0.3, -13.81) (-65.6, 0.0, -8.71) (-65.6, -0.3, -8.71)
+[LT trace]       tri (-65.6, -0.3, -13.81) (-65.6, 0.0, -13.81) (-65.6, 0.0, -8.71)
+[LT trace]     slab_col_0: 52 triangles, 14 within 0.6 m of the body
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/b0/stair0ramp_-1 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/b0/slab_col_-1 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/b0/stair0col_under_-1_2 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/b0/stair0col_under_-1_1 shape 0
+[LT trace]     lifted 0.00 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]     lifted 0.02 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]     lifted 0.05 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]     lifted 0.15 m, 0.3 m along (-0.882666, 0.0, -0.470002): free
+[LT trace]   enemy LT_Enemy_01 pos=(30.5,-0.0,11.6) state=DEAD target=LT_Player_01 dist=92.6 los=true fire_t=-1.53
+[LT trace]   enemy LT_Enemy_02 pos=(7.2,0.0,13.3) state=DEAD target=LT_Player_04 dist=77.7 los=true fire_t=0.65
+[LT trace]   enemy LT_Enemy_03 pos=(23.1,-0.0,8.9) state=DEAD target=LT_Player_01 dist=84.8 los=true fire_t=0.12
+[LT trace]   enemy LT_Enemy_04 pos=(6.3,0.0,13.2) state=DEAD target=LT_Player_02 dist=24.8 los=true fire_t=0.38
+[LT trace]   enemy LT_Enemy_05 pos=(-7.5,0.0,12.0) state=DEAD target=LT_Player_02 dist=38.6 los=false fire_t=-4.07
+[LT trace]   enemy LT_Enemy_06 pos=(29.1,-0.0,9.7) state=DEAD target=LT_Player_03 dist=90.6 los=true fire_t=0.98
+[LT slide] tick 986 before (-66.35094, 0.000902, 4.938468) vel (1.581137, 0.0, 3.674235) -> after (-66.35009, 0.000944, 4.940451) real (0.012703, 0.000631, 0.029747) floor true wall false slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35007, 0.0, 4.940501) normal (0.0, 1.0, 0.0) travel (0.000719, 0.0, 0.001672) remainder (0.10469, 0.0, 0.243277)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35004, 0.0, 4.940556) normal (0.0, 1.0, 0.0) travel (0.000102, 0.000042, 0.000238) remainder (0.104588, 0.0, 0.24304)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35006, 0.0, 4.940526) normal (0.0, 1.0, 0.0) travel (0.000026, 0.0, 0.000059) remainder (0.104562, 0.0, 0.24298)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35007, 0.0, 4.940495) normal (0.0, 1.0, 0.0) travel (0.000006, 0.0, 0.000015) remainder (0.104556, 0.0, 0.242966)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.104556, 0.0, 0.242966)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.104556, 0.0, 0.242966)
+[LT slide] tick 987 before (-66.35009, 0.000944, 4.940451) vel (1.581184, 0.0, 3.674215) -> after (-66.35009, 0.000944, 4.940451) real (0.0, 0.0, 0.0) floor true wall false slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide] tick 988 before (-66.35009, 0.000944, 4.940451) vel (1.581184, 0.0, 3.674215) -> after (-66.35009, 0.000944, 4.940451) real (0.0, 0.0, 0.0) floor true wall false slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide] tick 989 before (-66.35009, 0.000944, 4.940451) vel (1.581184, 0.0, 3.674215) -> after (-66.35009, 0.000944, 4.940451) real (0.0, 0.0, 0.0) floor true wall false slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35009, 0.0, 4.940451) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide] tick 990 before (-66.35009, 0.000944, 4.940451) vel (1.581184, 0.0, 3.674215) -> after (-66.35009, 0.000944, 4.940451) real (0.0, 0.0, 0.0) floor true wall false slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 at (-66.35008, 0.0, 4.940466) normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0) remainder (0.105412, 0.0, 0.244948)
+[LT slide] DISABLED /root/site_walk/Nav/Site/b0/front_register_counter_col/CollisionShape3D, a ConvexPolygonShape3D at (-63.0, 0.55, 4.49)
+[LT slide] counter off, tick 990: before (-66.35009, 0.000944, 4.940451) -> after (-66.35009, 0.000944, 4.940451), real (0.0, 0.0, 0.0), slides 6
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.0, 0.0, 0.0)
+[LT slide] counter off, tick 991: before (-66.35009, 0.000944, 4.940451) -> after (-66.24467, 0.000944, 5.185399), real (1.58123, 0.0, 3.674218), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.105412, 0.0, 0.244948)
+[LT slide] counter off, tick 992: before (-66.24467, 0.000944, 5.185399) -> after (-66.07296, 0.000944, 5.389423), real (2.575722, 0.0, 3.060357), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.171713, 0.0, 0.204024)
+[LT slide] counter off, tick 993: before (-66.07296, 0.000944, 5.389423) -> after (-65.90125, 0.000944, 5.593447), real (2.575722, 0.0, 3.060357), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.171713, 0.0, 0.204024)
+[LT slide] counter off, tick 994: before (-65.90125, 0.000944, 5.593447) -> after (-65.72953, 0.000944, 5.797471), real (2.575722, 0.0, 3.060357), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.171713, 0.0, 0.204024)
+[LT trace] t=66.0s run=1 physics_ticks=994 nav=true
+[LT trace]   bot LT_Player_01 pos=(-66.4,0.0,0.4) vel=(-0.1,0.0,4.0) completed=false route=2/3 nav_fin=false next=(-66.4,0.2,1.1)
+[LT trace]     path index 58 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.02 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.05 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.15 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]   bot LT_Player_02 pos=(30.5,0.0,19.1) vel=(0.0,0.0,0.0) completed=false route=1/3 nav_fin=false next=(31.3,0.2,19.1)
+[LT trace]     path index 1 of 3, target (31.5, 0.71, 17.765): (30.45,0.30,19.07) (31.35,0.30,19.05) (31.50,0.30,19.05)
+[LT trace]   bot LT_Player_03 pos=(-66.4,0.0,0.2) vel=(-0.1,0.0,4.0) completed=false route=2/3 nav_fin=false next=(-66.4,0.2,1.1)
+[LT trace]     path index 58 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.01 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.02 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.05 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]     lifted 0.15 m, 0.3 m along (-0.025966, 0.0, 0.999663): free
+[LT trace]   bot LT_Player_04 pos=(-65.7,0.0,5.8) vel=(2.6,0.0,3.1) completed=false route=2/3 nav_fin=false next=(-64.7,0.2,7.0)
+[LT trace]     path index 65 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     slab_col_0 shape ConcavePolygonShape3D, (-51.0, -0.15, -2.51)
+[LT trace]       tri (-70.0, -0.3, 11.49) (-65.6, -0.3, -8.71) (-68.0, -0.3, -8.71)
+[LT trace]       tri (-70.0, -0.3, 11.49) (-32.0, -0.3, -16.51) (-65.6, -0.3, -8.71)
+[LT trace]       tri (-32.0, -0.3, -16.51) (-70.0, -0.3, 11.49) (-58.55, -0.3, 9.390001)
+[LT trace]       tri (-65.6, 0.0, -8.71) (-70.0, 0.0, 11.49) (-68.0, 0.0, -8.71)
+[LT trace]       tri (-70.0, 0.0, 11.49) (-32.0, 0.0, -16.51) (-58.55, 0.0, 9.390001)
+[LT trace]       tri (-32.0, 0.0, -16.51) (-70.0, 0.0, 11.49) (-65.6, 0.0, -8.71)
+[LT trace]     slab_col_0: 52 triangles, 6 within 0.6 m of the body
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/b0/slab_col_0 shape 0
+[LT trace]     lifted 0.00 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.643924, 0.0, 0.76509): free
+[LT trace]   enemy LT_Enemy_01 pos=(30.5,-0.0,11.6) state=DEAD target=LT_Player_01 dist=97.5 los=true fire_t=-1.53
+[LT trace]   enemy LT_Enemy_02 pos=(7.2,0.0,13.3) state=DEAD target=LT_Player_04 dist=73.3 los=true fire_t=0.65
+[LT trace]   enemy LT_Enemy_03 pos=(23.1,-0.0,8.9) state=DEAD target=LT_Player_01 dist=89.9 los=true fire_t=0.12
+[LT trace]   enemy LT_Enemy_04 pos=(6.3,0.0,13.2) state=DEAD target=LT_Player_02 dist=24.8 los=true fire_t=0.38
+[LT trace]   enemy LT_Enemy_05 pos=(-7.5,0.0,12.0) state=DEAD target=LT_Player_02 dist=38.6 los=false fire_t=-4.07
+[LT trace]   enemy LT_Enemy_06 pos=(29.1,-0.0,9.7) state=DEAD target=LT_Player_03 dist=96.0 los=true fire_t=0.98
+[LT slide] counter off, tick 995: before (-65.72953, 0.000944, 5.797471) -> after (-65.55782, 0.000944, 6.001495), real (2.575722, 0.0, 3.060364), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.171713, 0.0, 0.204024)
+[LT slide] counter off, tick 996: before (-65.55782, 0.000944, 6.001495) -> after (-65.3861, 0.000944, 6.205519), real (2.575722, 0.0, 3.060364), slides 1
+[LT slide]   /root/site_walk/Nav/Site/b0/slab_col_0 normal (0.0, 1.0, 0.0) travel (0.171713, 0.0, 0.204024)
+[LT trace] t=70.0s run=1 physics_ticks=1054 nav=true
+[LT trace]   bot LT_Player_01 pos=(-60.1,0.1,14.4) vel=(1.8,0.0,3.6) completed=false route=2/3 nav_fin=false next=(-59.2,0.2,16.1)
+[LT trace]     path index 81 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.454197, 0.0, 0.890901): free
+[LT trace]   bot LT_Player_02 pos=(30.5,0.0,19.1) vel=(0.0,0.0,0.0) completed=false route=1/3 nav_fin=false next=(31.3,0.2,19.1)
+[LT trace]     path index 1 of 3, target (31.5, 0.71, 17.765): (30.45,0.30,19.07) (31.35,0.30,19.05) (31.50,0.30,19.05)
+[LT trace]   bot LT_Player_03 pos=(-60.2,0.1,14.1) vel=(1.8,0.0,3.6) completed=false route=2/3 nav_fin=false next=(-59.2,0.2,16.1)
+[LT trace]     path index 81 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.452882, 0.0, 0.89157): free
+[LT trace]   bot LT_Player_04 pos=(-56.4,0.0,18.2) vel=(3.4,0.0,2.1) completed=false route=2/3 nav_fin=false next=(-54.9,0.2,19.2)
+[LT trace]     path index 84 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     slab_col_0 shape ConcavePolygonShape3D, (-51.0, -0.15, -2.51)
+[LT trace]     slab_col_0: 52 triangles, 0 within 0.6 m of the body
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/road_0 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/Ground shape 0
+[LT trace]     lifted 0.00 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.856233, 0.0, 0.51659): free
+[LT trace]   enemy LT_Enemy_01 pos=(30.5,-0.0,11.6) state=DEAD target=LT_Player_01 dist=90.6 los=true fire_t=-1.53
+[LT trace]   enemy LT_Enemy_02 pos=(7.2,0.0,13.3) state=DEAD target=LT_Player_04 dist=63.8 los=true fire_t=0.65
+[LT trace]   enemy LT_Enemy_03 pos=(23.1,-0.0,8.9) state=DEAD target=LT_Player_01 dist=83.4 los=true fire_t=0.12
+[LT trace]   enemy LT_Enemy_04 pos=(6.3,0.0,13.2) state=DEAD target=LT_Player_02 dist=24.8 los=true fire_t=0.38
+[LT trace]   enemy LT_Enemy_05 pos=(-7.5,0.0,12.0) state=DEAD target=LT_Player_02 dist=38.6 los=false fire_t=-4.07
+[LT trace]   enemy LT_Enemy_06 pos=(29.1,-0.0,9.7) state=DEAD target=LT_Player_03 dist=89.4 los=true fire_t=0.98
+[LT trace] t=71.5s run=1 physics_ticks=1077 nav=true
+[LT trace]   bot LT_Player_01 pos=(-55.9,0.0,18.5) vel=(3.4,0.0,2.1) completed=false route=2/3 nav_fin=false next=(-54.9,0.2,19.2)
+[LT trace]     path index 84 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.855247, 0.0, 0.51822): free
+[LT trace]   bot LT_Player_02 pos=(30.5,0.0,19.1) vel=(0.0,0.0,0.0) completed=false route=1/3 nav_fin=false next=(31.3,0.2,19.1)
+[LT trace]     path index 1 of 3, target (31.5, 0.71, 17.765): (30.45,0.30,19.07) (31.35,0.30,19.05) (31.50,0.30,19.05)
+[LT trace]   bot LT_Player_03 pos=(-56.1,0.0,18.4) vel=(3.4,0.0,2.1) completed=false route=2/3 nav_fin=false next=(-54.9,0.2,19.2)
+[LT trace]     path index 84 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.855663, 0.0, 0.517534): free
+[LT trace]   bot LT_Player_04 pos=(-50.5,0.0,19.1) vel=(4.0,0.0,0.1) completed=false route=2/3 nav_fin=false next=(-50.0,0.2,19.2)
+[LT trace]     path index 85 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     slab_col_0 shape ConcavePolygonShape3D, (-51.0, -0.15, -2.51)
+[LT trace]     slab_col_0: 52 triangles, 0 within 0.6 m of the body
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/road_0 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/Ground shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/cover_121 shape 0
+[LT trace]     lifted 0.00 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.999826, 0.0, 0.018645): free
+[LT trace]   enemy LT_Enemy_01 pos=(30.5,-0.0,11.6) state=DEAD target=LT_Player_01 dist=86.7 los=true fire_t=-1.53
+[LT trace]   enemy LT_Enemy_02 pos=(7.2,0.0,13.3) state=DEAD target=LT_Player_04 dist=58.0 los=true fire_t=0.65
+[LT trace]   enemy LT_Enemy_03 pos=(23.1,-0.0,8.9) state=DEAD target=LT_Player_01 dist=79.6 los=true fire_t=0.12
+[LT trace]   enemy LT_Enemy_04 pos=(6.3,0.0,13.2) state=DEAD target=LT_Player_02 dist=24.8 los=true fire_t=0.38
+[LT trace]   enemy LT_Enemy_05 pos=(-7.5,0.0,12.0) state=DEAD target=LT_Player_02 dist=38.6 los=false fire_t=-4.07
+[LT trace]   enemy LT_Enemy_06 pos=(29.1,-0.0,9.7) state=DEAD target=LT_Player_03 dist=85.7 los=true fire_t=0.98
+[LT trace] t=73.0s run=1 physics_ticks=1099 nav=true
+[LT trace]   bot LT_Player_01 pos=(-50.2,0.0,19.1) vel=(4.0,0.0,0.1) completed=false route=2/3 nav_fin=false next=(-49.6,0.2,19.2)
+[LT trace]     path index 86 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.999792, 0.0, 0.020416): free
+[LT trace]   bot LT_Player_02 pos=(30.5,0.0,19.1) vel=(0.0,0.0,0.0) completed=false route=1/3 nav_fin=false next=(31.3,0.2,19.1)
+[LT trace]     path index 1 of 3, target (31.5, 0.71, 17.765): (30.45,0.30,19.07) (31.35,0.30,19.05) (31.50,0.30,19.05)
+[LT trace]   bot LT_Player_03 pos=(-50.5,0.0,19.1) vel=(4.0,0.0,0.1) completed=false route=2/3 nav_fin=false next=(-50.0,0.2,19.2)
+[LT trace]     path index 85 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     lifted 0.00 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]     lifted 0.01 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]     lifted 0.02 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]     lifted 0.05 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]     lifted 0.15 m, 0.3 m along (0.999836, 0.0, 0.0181): free
+[LT trace]   bot LT_Player_04 pos=(-44.6,0.0,19.1) vel=(4.0,0.0,0.0) completed=false route=2/3 nav_fin=false next=(-43.3,0.2,19.2)
+[LT trace]     path index 88 of 178, target (44.85, 0.0, 15.465): (-43.00,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.05,-3.00,-11.45) (-46.45,-3.00,-11.15) (-46.75,-3.00,-8.00) (-46.79,-3.00,-7.55) (-46.85,-3.00,-6.95) (-47.15,-3.00,-6.65)
+[LT trace]     on floor true, floor normal (0.0, 1.0, 0.0), wall false
+[LT trace]     slab_col_0 shape ConcavePolygonShape3D, (-51.0, -0.15, -2.51)
+[LT trace]     slab_col_0: 52 triangles, 0 within 0.6 m of the body
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/road_0 shape 0
+[LT trace]     at the feet (1.6 x 0.06 x 1.6 m): /root/site_walk/Nav/Site/Ground shape 0
+[LT trace]     lifted 0.00 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]     lifted 0.01 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]     lifted 0.01 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]     lifted 0.02 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]     lifted 0.05 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]     lifted 0.15 m, 0.3 m along (1.0, 0.0, 0.000061): free
+[LT trace]   enemy LT_Enemy_01 pos=(30.5,-0.0,11.6) state=DEAD target=LT_Player_01 dist=81.0 los=true fire_t=-1.53
+[LT trace]   enemy LT_Enemy_02 pos=(7.2,0.0,13.3) state=DEAD target=LT_Player_04 dist=52.1 los=true fire_t=0.65
+[LT trace]   enemy LT_Enemy_03 pos=(23.1,-0.0,8.9) state=DEAD target=LT_Player_01 dist=74.1 los=true fire_t=0.12
+[LT trace]   enemy LT_Enemy_04 pos=(6.3,0.0,13.2) state=DEAD target=LT_Player_02 dist=24.8 los=true fire_t=0.38
+[LT trace]   enemy LT_Enemy_05 pos=(-7.5,0.0,12.0) state=DEAD target=LT_Player_02 dist=38.6 los=false fire_t=-4.07
+[LT trace]   enemy LT_Enemy_06 pos=(29.1,-0.0,9.7) state=DEAD target=LT_Player_03 dist=80.2 los=true fire_t=0.98
+[LT] run 1/1 ended: OBJECTIVE (95.8s)
+stuck events, run 1: this copy 0, the job 7
+  first here:   None
+  first in job: (72.0, 'LT_Player_04', [-66.35, 0.0, 4.94])
+THIS ARM changes the run after its change, so it is not the job's from there; the control is the plain run's

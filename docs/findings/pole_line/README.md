@@ -118,6 +118,16 @@ continuous lines and the near wires read the same. **Found on the way:**
 would have drawn a far wire nearly twice as dark as it covers. 0.119.1 winds
 them outward and culls the back.
 
+**In a real drive: cold run 9264** (`docs/cold_runs/cold_9264/`), 0 interventions: the generator's
+own 0.119.1 wires, shot beside 9263's at the same stations (`against_9263.png`) -- the far dashes
+faint continuous lines, the near wires the same -- and priced in the run's own package at +2.2 draws a
+heading and p95 -0.02 ms, inside the noise: the transparent pass and the vertex shader cost what the
+opaque wires did. **Found in it:** Lux's re-save carried `shader_parameter/min_px = null`. Lot wrote
+`= 1`, an integer literal for the float uniform, and Godot reads that as no value
+(`min_px_resave.gd`, `min_px_resave.out.txt`: written `1` or `2` it loads and re-saves null, `1.0` or
+`2.0` it keeps); the shader's default being 1.0 too hid it. **Lot 0.119.2**
+(`patches/patch_lot_wires_float.py`) writes the float.
+
 ## The price of the pole line: 9261's lamps against 9262's poles (`poles_price.sh`, `price_9261_9262/`)
 
 Builds 1 and 2 shipped without a price at the stations. Priced afterwards,

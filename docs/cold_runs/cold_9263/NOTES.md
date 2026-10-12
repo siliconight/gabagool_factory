@@ -40,6 +40,13 @@ match). 64 of the 72 events stand at one place, plan (-68, -4) at the road's hei
 roadmap 242 names, where 9261's bot stuck 6 times and 9262's 18. The furniture 40 m away rolls how
 often the bot walks into it; the snag is the defect (roadmap 242).
 
+**CORRECTED, the same day** (`docs/findings/route_snag/`): not a kerb face. The 64 stand at one point
+to fifteen digits, plan (-66.35, -4.94), INSIDE the deli on its ground floor at the front register
+counter's south-west corner, where the bot -- cutting the corner by its arrival radius -- touches the
+counter and Godot Physics' `move_and_slide` takes the floor as every slide's collision and never turns
+along it. Under Jolt the same three lots read 1, 7 and 7 player-stuck events where Godot Physics read
+9, 29 and 72, and none at the counter.
+
 ## The price
 
 `wires_price.sh`: the run's own package against a copy with every wire node hidden

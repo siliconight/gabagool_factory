@@ -1,0 +1,1 @@
+The shader test now asks for `shader_parameter/min_px = 1.0`; `test_a_float_uniform_is_written_as_a_float` sets WIRE_MIN_PX to 1, 2 and 1.5 and asks each line for a decimal point and its value. On 0.119.1 both fail: `min_px = 1`, no decimal point

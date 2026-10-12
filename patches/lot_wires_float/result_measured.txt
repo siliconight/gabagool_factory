@@ -1,0 +1,1 @@
+`docs/findings/pole_line/min_px_resave.gd`, Godot 4.7 headless: a scene written `shader_parameter/min_px = 1` or `= 2` loads the parameter null and saves it again as `null`; written `1.0` or `2.0` it loads, saves and reads back as written. Cold run 9264's package carried the null in Lux's re-saved scene; its frames drew right only because the shader's default is the same 1.0
