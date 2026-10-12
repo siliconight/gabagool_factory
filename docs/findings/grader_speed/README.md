@@ -181,6 +181,28 @@ chosen.
 twice; `realtime_ab.sh`, written to measure 1x on the synchronised clock, is
 superseded by those arms and was never run.
 
+## The constraint moved: the export (cold run 9248)
+
+With the graders on the fixed clock, cold run 9248's drive took 14.3 minutes
+and its export 7.0 of them. Profiled (`python -m cProfile` over a re-export of
+9248 in its own workspace, the run's package held aside and put back), 430.7 s:
+
+    step                                         seconds   what it is
+    the light bake                                 208.8   two --imports 112.1, the editor 88.3
+    the greybox census                             100.4   one full --import, then the census
+    the sidecar step                                81.9   two --import passes 78.0
+    localize, dressing, occluders, merge, ...       ~40
+
+**Importing was 65 % of the export: the same files five times.** The census's
+import was pure waste -- the cache had been dropped straight after the bake and
+the census, three steps later, needs one. Level Factory 0.181.0 drops it after
+the census instead: the export 340.1 s, the census 4.2 s, its report identical.
+
+The control that measured it (the run's own export against a re-export of the
+same code) found a defect of its own: the shared textures' import pins, lost in
+a random sixth of every export by the light bake's first import. Level Factory
+0.182.0 reads them back off what ships (`docs/findings/texture_pins/`).
+
 ## Lever 3: one import of a package, not several
 
 The export imports its package to bake it, the bake's work copy is a copy,
