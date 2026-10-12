@@ -699,4 +699,11 @@ Not yet measured.
 - A lightmap: Godot's own reading of its EXR (`exr_dump.gd`), compared in
   numpy. 9256's against itself is 100 % the same, and two exports of one
   version differ in about a tenth of their texels, so a difference no
-  larger than that says nothing about a change.
+  larger than that says nothing about a change. Texel by texel holds only
+  while the atlas is packed alike: cold run 9257's was not -- three dome
+  glasses came out of Blender with different charts and 2,858 of 3,320 users
+  moved -- and read texel by texel it looked twelve times further from
+  9256's than it is user by user (a mean difference of 0.0246 against
+  0.0021). `lightmap_compare.py --layout` reads each bake's layout
+  (`lightmap_layout.gd`) and compares every user's own light wherever the
+  atlas put it (`docs/cold_runs/cold_9257/NOTES.md`).
