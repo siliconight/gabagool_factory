@@ -174,15 +174,31 @@ it against 9261's lamps):
     street-light shadow cut beyond 30 m    -154.0   +16.2 over the lamps
 
 The last is Godot's own `distance_fade_shadow` (the light kept, its shadow
-faded out over 5 m past 30 m from the camera), set in the vendored rig where
-the lamps are built (`rigfade_30`); the engine honours it on GL Compatibility.
-It keeps all twelve shadow maps for the lights near the player and drops the
-far ones -- the cheapest of the three in look, since what it removes is the
-shadow in pools 30 m and more away. 30 m is one span of 9262's main line (31.2
-to 33.2 m): the light overhead and the next each way; a line spaced otherwise
-would want it derived again. None of the three is applied: the fade is a Lux
-change to price with frames beside it, and the budgets are the tier question
-below.
+meant to fade out over 5 m past 30 m from the camera), set in the vendored rig
+where the lamps are built (`rigfade_30`). 30 m is one span of 9262's main line
+(31.2 to 33.2 m): the light overhead, and both when between two.
+
+**REFUTED AS A FREE SAVING, KEPT: what the fade does on GL Compatibility.** The
+draws drop because the engine stops re-drawing a far light's shadow map -- not
+because the shadow goes. Drafted as Lux 0.76.0 (`patches/patch_lux_street_shadow_fade.py`,
+now refusing) with a windowed self-test, every control held and one case
+failed: a slab's shadow seen from 44 m stayed black (0.000 against 0.499
+unshadowed). `fade_order_probe.gd` (`fade_order_probe.out.txt`) read far FIRST
+and the pool was lit (0.499); read far after a near look, black (0.000). Past
+the distance the light keeps sampling its last map: a far shadow FREEZES as it
+was last drawn, and a light never seen up close casts none. In a level, a stale
+or missing shadow on anything moving through a far pool, and a failing (live)
+light first seen from afar lighting through the walls beside it. Two instruments
+disagreed -- the draws said the fade worked, the frame said it did not -- and
+both were right about different things.
+
+None of the three levers is applied. Each costs something a player can see on
+the target renderer: the fade a frozen or missing far shadow, the budgets
+twelve shadows cut to eight or four chosen by rank, not by nearness (243). The
+untried shape that might cost neither: fade the whole LIGHT, not its shadow,
+for steady street lights only -- they are baked, so past the distance their
+real-time light shades only what moves, and a culled light samples no map.
+Measure it before believing it.
 
 **Found on the way: a package runs Lux's High tier.** `LuxRoot.quality_tier`
 defaults to 0 (High: 12 shadow casters, sun shadows, post-fx, glow) and no tool

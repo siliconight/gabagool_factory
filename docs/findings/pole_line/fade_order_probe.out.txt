@@ -1,0 +1,19 @@
+street shadow fade selftest
+  ok   the pole's lamp fades by distance: true
+  ok   ...its shadow ending STREET_SHADOW_FADE_M from the camera: 30.0000
+  ok   ...over SHADOW_FADE_LENGTH_M: 5.0000
+  ok   ...and the light itself not before LIGHT_FADE_NEVER_M: 4096.0000
+  ORDER PROBE far first, fade on: 0.499
+  ORDER PROBE far again after the toggles, fade on: 0.000
+  camera to lamp: near 11.4 m, far 44.0 m (the shadow ends at 30.0 + 5.0)
+  the pool under the slab:  near  faded 0.000  no fade 0.000  unshadowed 0.510
+                            far   faded 0.000  no fade 0.000  unshadowed 0.499
+  ok   the near camera stands inside the fade: true
+  ok   the far camera stands past the fade and its length: true
+  ok   the unshadowed pool is lit from both: true
+  ok   control: with no fade the slab blacks the pool from near: true
+  ok   control: with no fade the slab blacks the pool from far: true
+  ok   near, the fade keeps the shadow: true
+  FAIL far, the fade ends the shadow: the pool keeps 0.8 of its unshadowed self: false   (wanted true)
+  ok   a wall pack's lamp does not fade: false
+FAIL (1 failed)
