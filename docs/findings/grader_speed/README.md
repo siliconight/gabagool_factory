@@ -203,6 +203,27 @@ same code) found a defect of its own: the shared textures' import pins, lost in
 a random sixth of every export by the light bake's first import. Level Factory
 0.182.0 reads them back off what ships (`docs/findings/texture_pins/`).
 
+## Then the art leg: Blender one at a time (cold runs 9250, 9251)
+
+After the export cuts (9249: the drive 12.1 minutes, the export 4.7) the
+shell and art legs were the larger part. Cold run 9250 ran its legs under
+cProfile (`PROFILE_LEGS=1`); its job records put about 102 s of the art leg
+in Blender jobs one after another, `blender` capped at 1 since TDD 19.2 and
+never measured. Cold run 9251 ran at three (`LF_CONCURRENCY`, Level Factory
+0.184.0): the Blender window 114.0 -> 45.7 s, the art leg's jobs 251.7 ->
+177.1 s, the drive 10.8 minutes. `blender_width_compare.py` classed every
+file the Blender jobs built against two controls at one, since two runs at
+one already differ (triangle and merged-vertex order, weighted normals a few
+1e-4 apart, a manifest); nothing new beyond the same normal drift across
+the comparison's tolerance. Level Factory 0.185.0 makes three the default
+where the machine allows.
+
+**REFUTED, KEPT:** cold run 9249's note said the compose job spent 62 s of
+its 63.7 outside its command. `job.log` holds only the last of the job's
+sixteen commands; the 63.7 s is sixteen buildings composed in turn -- the
+next candidate, with the work the scheduler does for a cache hit (staging,
+the git probe) before it asks the cache.
+
 ## Lever 3: one import of a package, not several
 
 The export imports its package to bake it, the bake's work copy is a copy,

@@ -29,7 +29,9 @@ die() { echo "STOPPED: $1"; exit 2; }
 # A leg's in-process time is covered by no job's `duration=`: cold run 9248's
 # presentation_compose took 63.7 s of which its command was 1.6 s, and only a
 # profile says where the rest went. Off, the legs run exactly as before.
-lf() { if [ -n "${PROFILE_LEGS:-}" ]; then python -m cProfile -o "_runs/cold/cold_$N/$1.prof" -m level_factory "${@:2}"; else python -m level_factory "${@:2}"; fi; }
+# (`profile_leg.py`, not `python -m cProfile`, which swallows the leg's exit code:
+# 9250's art leg printed exit 0 where it exits 1 at the approval gate.)
+lf() { if [ -n "${PROFILE_LEGS:-}" ]; then python tools/cold_drive/profile_leg.py "_runs/cold/cold_$N/$1.prof" "${@:2}"; else python -m level_factory "${@:2}"; fi; }
 step selftest; python tools/cold_run.py --selftest 2>&1 | tail -1 || die selftest
 step begin; python tools/cold_run.py --begin cold_$N 2>&1 | tail -2
 [ -f _runs/cold/ACTIVE ] || die "no ACTIVE after begin"

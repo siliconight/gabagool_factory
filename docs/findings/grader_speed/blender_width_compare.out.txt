@@ -1,0 +1,32 @@
+control 9248 against 9249
+    zoo_clutter_build      equivalent 1, identical 15
+    zoo_fixtures_build     DIFFERENT 3, blend, not compared 3, identical 8
+    zoo_kit_build          DIFFERENT 1, blend, not compared 451, equivalent 2, identical 1244
+    zoo_roof_props_build   DIFFERENT 2, identical 13
+    zoo_dressing_build     DIFFERENT 1, blend, not compared 15, identical 113
+    deli_generate          DIFFERENT 3, identical 21
+control 9249 against 9250
+    zoo_clutter_build      equivalent 1, identical 15
+    zoo_fixtures_build     blend, not compared 3, equivalent 2, identical 9
+    zoo_kit_build          DIFFERENT 1, blend, not compared 451, equivalent 2, identical 1244
+    zoo_roof_props_build   DIFFERENT 2, identical 13
+    zoo_dressing_build     DIFFERENT 1, blend, not compared 15, identical 113
+    deli_generate          DIFFERENT 3, identical 21
+CHANGE 9250 against 9251
+    zoo_clutter_build      equivalent 1, identical 15
+    zoo_fixtures_build     DIFFERENT 2, blend, not compared 3, equivalent 1, identical 8
+    zoo_kit_build          DIFFERENT 2, blend, not compared 451, equivalent 1, identical 1244
+    zoo_roof_props_build   DIFFERENT 2, identical 13
+    zoo_dressing_build     DIFFERENT 1, blend, not compared 15, identical 113
+    deli_generate          DIFFERENT 3, identical 21
+
+files different in some control: 10; different in the change: 10; in the change and in no control: 1
+    NEW: restaurant_row_001.zoo_kit_build.site/prop_trash_bags_delco_1997_01_w140_d80_h75_n1.glb
+
+the trash bags' normals, largest component difference and how many components exceed 0.0001:
+    n1  9248 against 9249: largest 0.000100, 0 over
+    n1  9249 against 9250: largest 0.000100, 0 over
+    n1  9250 against 9251: largest 0.000108, 4 over
+    n3  9248 against 9249: largest 0.000203, 12 over
+    n3  9249 against 9250: largest 0.000203, 5 over
+    n3  9250 against 9251: largest 0.000299, 9 over

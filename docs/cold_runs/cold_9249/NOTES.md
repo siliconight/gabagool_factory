@@ -34,13 +34,15 @@ The export's own log says what 0.181.0 to 0.183.0 did:
 
 The shell and the art legs together (5.8 minutes) are now more of the drive
 than the export (4.7). Read off 9248's jobs: the art leg spans about 249 s
-but its 78 jobs add up to 186 s, run one Blender job at a time, and the
-gaps between them are not idle -- the workspace index records each job's own
-start and finish, and `presentation_compose` took 63.7 s of which its
-command was 1.6 s. Where the other 62 s go (hashing every building's modules
-to fingerprint the inputs, collecting and storing the outputs, staging)
-needs a profile of the leg, which the drive can now take
-(`PROFILE_LEGS=1`, below).
+but its 78 jobs add up to 186 s, run one Blender job at a time. The drive
+can now profile its legs (`PROFILE_LEGS=1`); cold run 9250 did.
+
+**REFUTED, KEPT:** this note first said `presentation_compose` took 63.7 s
+"of which its command was 1.6 s", from the job's `job.log`. The compose job
+runs one command per building, sixteen of them, and `job.log` is rewritten
+by each, so it holds the last building's 1.6 s alone -- the factory had
+already recorded that `job.log` shows only the last building. The 63.7 s is
+the sixteen commands one after another (cold run 9250's notes).
 
 ## What is evidence of what
 
