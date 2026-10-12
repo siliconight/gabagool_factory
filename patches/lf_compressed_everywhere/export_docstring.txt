@@ -1,0 +1,8 @@
+
+    BOTH SUPERSEDED (0.190.0, the walker's call of 2026-10-12): every shared
+    texture is pinned VRAM compressed, Godot's 3D detection off. The lossless
+    pin held only in a headless import -- every editor that opened the
+    package re-encoded the textures it saw in use as VRAM compressed -- so
+    what anyone looked at in an editor was compressed all along, and the
+    package's textures depended on whether it had been opened.
+    `SHARED_TEX_PINS` says how it was found.

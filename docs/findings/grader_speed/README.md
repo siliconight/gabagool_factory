@@ -461,6 +461,23 @@ changed here:
 - **As it is**: a package whose textures depend on whether it was ever
   opened in an editor.
 
+**DECIDED, the walker, 2026-10-12: "go with compressed everywhere"** --
+Level Factory 0.190.0. `editor_texture_probe.py` re-exports a workspace with
+the light bake's work copy -- the project its editor opened -- kept, and
+compares every texture sidecar in it with the package's, key by key. On
+0.189.0 (`editor_texture_probe.0189.out.txt`) the editor changed 426: on
+every texture it found in use the detection 1 -> 0, `compress/mode` 0 -> 2
+and a mip chain (the 8 skins); on the 22 normal maps -- exactly the 22 the
+models' glTF names as `normalTexture` -- red-green compression and a
+roughness limiter Godot points at the map itself; on nothing else (the
+runtime's and the validation overlays' images, the lightmap, and the
+cruiser's livery, which only spawns at run time). 0.190.0 pins those
+decisions before any import (shared, skins, every sign whatever its pack
+asks, the normal maps read off the glTF). Re-exported on it
+(`editor_texture_probe.0190.out.txt`): the editor logged nothing detected
+and left all 572 texture sidecars as they ship; it opened the scene in
+14.7 s against 20.3; the export 200.3 s.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the

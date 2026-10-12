@@ -1,0 +1,72 @@
+#: And on the ones the models' glTF names as a NORMAL map (0.190.0): what the
+#: editor writes when it finds one in use -- red-green compression, and the
+#: roughness limiter Godot 4.7 sets on a normal map, pointed at that map
+#: itself (`roughness/src_normal`, written per file by `_shared_pins_for`).
+#: Read off the editor's sidecars for all 22 of cold run 9255's normal maps,
+#: which are exactly the 22 its models' glTF names as `normalTexture`.
+NORMAL_TEX_PINS = {"compress/normal_map": "1", "roughness/mode": "1"}
+#: On the site's skins and the businesses' signs (0.190.0): what the editor
+#: does to each one it finds in use -- VRAM compression and a mip chain, the
+#: detection then off. `process/fix_alpha_border` stays as Godot writes it,
+#: as the editor leaves it.
+SURFACE_TEX_PINS = {
+    "compress/mode": "2",
+    "mipmaps/generate": "true",
+    "detect_3d/compress_to": "0",
+}
+#: REPLACED (0.190.0): `FILTERED_TEX_PINS` pinned VRAM compression only on a
+#: shared texture every sampler FILTERED (0.128.0, `_filtered_shared_textures`
+#: reading the models' samplers off their glTF), the rest lossless for pixel
+#: art shown at its own size: 7,304,813 B lossless against 1,374,528 B
+#: compressed, for three props. Every shared texture is compressed now, and
+#: no sampler decides.
+
+
+def _glb_json(path: Path):
+    """The JSON chunk of a binary glTF, or None when the file is not one."""
+    import json as _json
+    import struct as _struct
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(20)
+            if len(head) < 20 or head[:4] != b"glTF" or head[16:20] != b"JSON":
+                return None
+            return _json.loads(fh.read(_struct.unpack("<I", head[12:16])[0]))
+    except (OSError, ValueError):
+        return None
+
+
+def _normal_map_shared_textures(export_dir: Path) -> set:
+    """Every shared texture a model's glTF names as a material's
+    `normalTexture` (0.190.0): the textures an editor detects as normal maps,
+    22 of 22 on cold run 9255's package.
+
+    Read off the GLBs, as the samplers were before it; a GLB this cannot read
+    names none. The sidecar step reads it before it holds the models, for the
+    reason it had to read the samplers so (0.189.0).
+    """
+    out = set()
+    for glb in export_dir.rglob("*.glb"):
+        doc = _glb_json(glb)
+        if not isinstance(doc, dict):
+            continue
+        images = doc.get("images") or []
+        textures = doc.get("textures") or []
+        for mat in doc.get("materials") or []:
+            if not isinstance(mat, dict):
+                continue
+            ti = (mat.get("normalTexture") or {}).get("index")
+            if not isinstance(ti, int) or not 0 <= ti < len(textures):
+                continue
+            src = textures[ti].get("source")
+            if not isinstance(src, int) or not 0 <= src < len(images):
+                continue
+            uri = images[src].get("uri")
+            if not uri:
+                continue
+            png = (glb.parent / uri).resolve()
+            if png.parent.name == SHARED_TEX_DIR:
+                out.add(png)
+    return out
+
+

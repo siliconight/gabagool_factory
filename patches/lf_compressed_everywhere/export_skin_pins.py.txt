@@ -1,0 +1,24 @@
+#: REPLACED (0.190.0): `_sign_pins` read a pack's `import_hints` (0.166.0) and
+#: compressed and mipped a smooth pack's maps -- `linear` sampling and a mip
+#: chain asked for -- and left a pixel pack's as Godot wrote them, the 3D
+#: detection on in both. Every editor that opened the package compressed and
+#: mipped every sign it saw in use, pixel or smooth. Since the walker's call,
+#: compressed everywhere, every sign map takes `SURFACE_TEX_PINS`, whatever
+#: its pack asks.
+
+
+def _pin_skin_texture_imports(export_dir: Path) -> int:
+    """Pin the site's skins (`SKINS_DIR`) as an editor leaves them (0.190.0):
+    `SURFACE_TEX_PINS`. Unpinned before, they kept Godot's defaults --
+    lossless, no mip chain, the 3D detection on -- and the editor compressed
+    and mipped all eight of cold run 9255's. Returns how many sidecars changed
+    (`_apply_pins`' rule: a key a sidecar does not carry is not given one)."""
+    changed = 0
+    for sidecar in sorted(export_dir.rglob("*.png.import")):
+        if sidecar.parent.name != SKINS_DIR or ".godot" in sidecar.parts:
+            continue
+        if _apply_pins(sidecar, SURFACE_TEX_PINS):
+            changed += 1
+    return changed
+
+

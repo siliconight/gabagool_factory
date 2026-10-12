@@ -1,0 +1,20 @@
+#:
+#: COMPRESSED, AS EVERY EDITOR LEAVES THEM (0.190.0, the walker's call of
+#: 2026-10-12). These were pinned lossless (`compress/mode=0`, the measurement
+#: in `_write_import_sidecars`' docstring) with Godot's 3D detection left on,
+#: and every editor that opened the package -- the light bake's, the walk copy
+#: opened to be walked, a recipient's -- re-encoded each one it saw in use as
+#: VRAM compressed (the factory's docs/findings/grader_speed/
+#: editor_texture_probe.py: the bake's editor changed 426 texture sidecars of
+#: cold run 9255's package). The lossless pin held only in a headless import,
+#: and a package's textures depended on whether anyone had opened it. Offered
+#: lossless everywhere or VRAM everywhere, the walker chose VRAM: what every
+#: editor had shown, and less texture memory. So these are the editor's own
+#: decisions, read off its sidecars, pinned before any import, the detection
+#: off because nothing is left for it to decide.
+SHARED_TEX_PINS = {
+    "compress/mode": "2",
+    "process/fix_alpha_border": "false",
+    "mipmaps/generate": "true",
+    "detect_3d/compress_to": "0",
+}

@@ -35,6 +35,10 @@ each other's, saying for each differing surface whether its texture alone moved.
 own package is held aside and put back. It measures and prints.
 
     python docs/findings/grader_speed/sidecar_once_probe.py <workspace> <mission> [--arms A,C]
+
+Arms F and G call Level Factory 0.189.0's `_filtered_shared_textures`, which 0.190.0 replaced
+(compressed everywhere: `_normal_map_shared_textures`); they ran on 0.189.0 and are kept as the
+record, and fail on anything after it. Arms A, O and D read nothing it removed.
 """
 import collections
 import json

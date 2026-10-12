@@ -1,0 +1,5 @@
+    print("[export] import pins: %d of %d shared-texture sidecar(s) carry their "
+          "pins; %d re-pinned after an import reset them, %d sign sidecar(s) "
+          "re-pinned, %d skin sidecar(s) re-pinned"
+          % (pins["shared_sidecars"], pins["shared_sidecars"],
+             pins["shared_repinned"], pins["sign_repinned"], pins["skin_repinned"]))

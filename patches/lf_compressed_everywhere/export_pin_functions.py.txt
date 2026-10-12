@@ -1,0 +1,80 @@
+def _apply_pins(sidecar: Path, pins: dict) -> bool:
+    """Write `pins` on a sidecar's own lines; True when anything changed
+    (0.190.0, the rule the pin functions shared, now one function).
+
+    A sidecar missing a key is not written to. The key set is Godot's, read
+    off what Godot wrote on the first pass; a file that does not carry one is
+    a file these were not shown, and adding the line would be guessing at a
+    schema."""
+    try:
+        lines = sidecar.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return False
+    out, hit = [], False
+    for ln in lines:
+        key = ln.split("=", 1)[0]
+        want = pins.get(key)
+        if want is not None and ln != f"{key}={want}":
+            out.append(f"{key}={want}")
+            hit = True
+        else:
+            out.append(ln)
+    if hit:
+        sidecar.write_text("\n".join(out) + "\n", encoding="utf-8")
+    return hit
+
+
+def _shared_pins_for(sidecar: Path, export_dir: Path, normals) -> dict:
+    """The pins a shared texture's sidecar takes: `SHARED_TEX_PINS`, and on a
+    normal map `NORMAL_TEX_PINS` with its own path as `roughness/src_normal`,
+    as the editor writes it (0.190.0)."""
+    pins = dict(SHARED_TEX_PINS)
+    png = sidecar.with_name(sidecar.name[:-len(".import")])
+    if png.resolve() in normals:
+        pins.update(NORMAL_TEX_PINS)
+        pins["roughness/src_normal"] = '"res://%s"' % png.relative_to(export_dir).as_posix()
+    return pins
+
+
+def _pin_shared_texture_imports(export_dir: Path, normals=None) -> int:
+    """Pin the shared textures' sidecars (`_shared_pins_for`, `_apply_pins`).
+
+    Returns how many files were changed, so the caller's next import pass
+    runs when this alone had something to do.
+
+    The normal maps are read off the models (`_normal_map_shared_textures`);
+    the sidecar step reads them before it holds the models (0.189.0).
+    """
+    changed = 0
+    if normals is None:
+        normals = _normal_map_shared_textures(export_dir)
+    for sidecar in export_dir.rglob("*.png.import"):
+        if sidecar.parent.name != SHARED_TEX_DIR:
+            continue
+        if _apply_pins(sidecar, _shared_pins_for(sidecar, export_dir, normals)):
+            changed += 1
+    return changed
+
+
+def _shared_texture_pins_missing(export_dir: Path) -> list:
+    """Every `SHARED_TEX_DIR` sidecar not carrying its pins, as ``(path, key,
+    value found)`` with the first key that is off or absent -- what the
+    package would ship wrong. The cache is not the package and is skipped."""
+    normals = _normal_map_shared_textures(export_dir)
+    out = []
+    for sidecar in sorted(export_dir.rglob("*.png.import")):
+        if sidecar.parent.name != SHARED_TEX_DIR or ".godot" in sidecar.parts:
+            continue
+        pins = _shared_pins_for(sidecar, export_dir, normals)
+        have = {}
+        for ln in sidecar.read_text(encoding="utf-8").splitlines():
+            key, eq, value = ln.partition("=")
+            if eq:
+                have.setdefault(key, value)
+        for key, want in pins.items():
+            if have.get(key) != want:
+                out.append((sidecar.relative_to(export_dir).as_posix(), key, have.get(key)))
+                break
+    return out
+
+
