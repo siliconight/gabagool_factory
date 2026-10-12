@@ -1,0 +1,1 @@
+On 0.193.2 both fail: a wire's sidecar is asked for a lightmap UV and listed under `baked`, and there is no `UNLIT_PREFIXES`. The test pinning `mark_imports`' whole report (`test_static_lightmaps_on_every_model_but_those_whose_uv2_is_shader_data`) gains `unlit`: the first application missed it, and the suite's one failure said so
