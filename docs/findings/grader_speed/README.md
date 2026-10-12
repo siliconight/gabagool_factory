@@ -275,6 +275,66 @@ the whole themed site, 2,040 files, and a full Godot `--import` of it
 scene and reads the fixtures' mesh bounds. Unsplit between the copy and the
 import.
 
+## The export again: the bake's lightmap requests in the second pass (Level Factory 0.187.0)
+
+Cold run 9252 stamped its steps: the export was 284 s of a 615 s drive. It
+imports the package three times over -- the sidecar step's first pass (no
+sidecars yet), its second (sidecars rewritten, the cache dropped,
+everything again), and the light bake's, which asks every model for a
+lightmap UV (`light_bake.mark_imports`) and imports again for it.
+
+Why the one-import plan below failed is in cold run 9251's own import log,
+which keeps every pass's output. The worldskin skins a building's slabs by
+`load()`ing one of its floor modules. In pass one, a model's first import,
+one base left 105 slab meshes greybox and two took their reveal from roof
+modules: the floor module was not imported yet. In pass two, its sidecars
+present, all three took a floor module and skinned every slab. The second
+pass is not a first import.
+
+`uv_second_pass_probe.py` exports 9252's mission twice in its workspace,
+each arm in its own process, the run's package held aside and put back: A
+as it was, B with `mark_imports` applied once just before the second pass.
+
+| | A | B |
+|---|---|---|
+| the export | 277.6 s | 238.4 s |
+| the sidecar step | 76.0 s | 86.1 s |
+| the bake's imports | 55.0 + 4.3 s | 5.0 + 4.3 s |
+| pins re-pinned after the last import | 74 | 0 |
+| greybox census | 3 surfaces, 49.7 m2 | the same |
+| Empties' merged meshes | 236 | 148 |
+| the bake's users | 3,491 | 3,320 |
+| occluders | 1,370 | 1,370 |
+| closure verdict | ok | ok |
+
+**The merge, read** (`merged_materials.py`). Both packages carry the same
+148 (Empty, side, material) groups. A splits them into 236 meshes, up to
+four in one; B makes exactly one each -- what the merge's own docstring says
+it makes, "one mesh a side per material". The merge keys a group on the side,
+the material's name, its uv1 flags and the surface format; the names are the
+same, so A splits on a flag or the format, which one not measured. The 962
+colliders and the 24 dropped doors are the same in both.
+
+**The users, read** (`lightmap_users.gd`, each package's `bake.lmbake`
+loaded in a scratch project holding only it and its lightmap). 3,135 users
+in both; every one that differs is a merged mesh of an Empty placed across
+the street -- 356 in A, 185 in B, the twelve Empty scenes placed 26 times.
+B's lightmap needs 15 slices where A's needs 16.
+
+**The control.** The run's own package against A, the same code: 62 files
+differ -- the bake's three, the twelve Empties' scenes (their node ids),
+five manifests, and 42 texture sidecars, because which textures the bake's
+import resets changes from run to run. A against B: those classes, the
+merged meshes, and 74 texture sidecars that A's re-pin rewrote with a new
+uid and B never reset.
+
+**Level Factory 0.187.0** makes B the export (`_write_import_sidecars`'
+`bake_spawned`). Re-exported twice on it
+(`uv_second_pass_probe.0187.out.txt`): 243.3 and 238.6 s, the bake's import
+of every model 5.0 s, no pin lost, every gate as above; the two re-exports
+differ only in the bake's three files, the Empties' scenes, five manifests
+and one sidecar's uid -- no texture sidecar, now that no import resets them.
+
 ## REFUTED, KEPT: one import pass with the models' final settings as defaults
 
 `import_plan_probe.py` timed the export's import plan on stripped copies of
@@ -299,6 +359,16 @@ sidecar does not record what an import script did; the patch refuses to run
 and says so. What would make one import enough: a worldskin that finds its
 packs without the textures imported first (Zoo), measured on the gate and the
 merge, not on sidecars.
+
+**CORRECTED, KEPT (the section above, 9251's import log).** Two parts of
+this were wrong. The worldskin does not need the texture packs imported
+first; it needs a building's floor module imported before its base, which a
+model's first import cannot promise and the second pass can. And the 148
+merged meshes were not a failure: models that carry their lightmap UV when
+the Empties merge make one mesh a side per material, as the merge was
+written to (`merged_materials.py`); the 3,320 users are the same merge seen
+by the bake. Only the greybox gate was a real failure, and it was the first
+import's.
 
 ## Lever 3: one import of a package, not several
 

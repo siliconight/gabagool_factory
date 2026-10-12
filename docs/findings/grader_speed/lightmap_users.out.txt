@@ -1,0 +1,13 @@
+lightmap_users.gd on the probe's two packages (cold run 9252's workspace), each bake.lmbake loaded in a scratch project holding only it, its bake.exr and the project file, imported first:
+A as it is: 3491 users; B marks before the second pass: 3320 users; in both: 3135
+only in A, by path shape (digits as N):
+    128 ../Site/blocker_N/MergedS_N
+     97 ../Site/blocker_N/MergedN_N
+     75 ../Site/blocker_N/MergedW_N
+     33 ../Site/blocker_N/MergedE_N
+     23 ../Site/blocker_N/MergedR_N
+only in B, by path shape (digits as N):
+     87 ../Site/blocker_N/MergedS_N
+     42 ../Site/blocker_N/MergedW_N
+     33 ../Site/blocker_N/MergedN_N
+     23 ../Site/blocker_N/MergedR_N
