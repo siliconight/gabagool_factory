@@ -1,0 +1,12 @@
+##
+## THE EDITOR STOPS DRAWING FOR THE BAKE, AND ONLY FOR THE BAKE (0.193.0).
+## The bake's progress bar pumps the editor's main loop, and with its 3D
+## viewports drawing every pump drew the whole level again. Stopped as Bake is
+## pressed (`_stop_drawing`), cold run 9258's level baked in 31.4 and 31.5 s
+## where it took about 35.8, and byte for byte the same `bake.exr`,
+## `bake.lmbake` and `bake.exr.import` (the factory's
+## docs/findings/grader_speed/README.md). NOT FROM THE START: stopped before
+## the opened scene had ever been drawn, the same level baked 17.5 % darker on
+## average, the outdoor ground most -- the bake reads something only a drawn
+## frame makes (the sky's light is the likely one; not shown). The opened
+## level's first frame is drawn either way.

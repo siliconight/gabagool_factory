@@ -27,6 +27,7 @@ prints; the plugin in Level Factory is not touched.
                      plugin does it itself)
   --clock-runs       0.192.0's own `Engine.time_scale = 0.0` taken out: the clock runs, as it
                      did to 0.191.0
+  --no-viewport      the editor's four 3D viewports set not to update as the plugin starts
 
 Since 0.191.0 it also times each of the bake's import passes, says what the bake wrote as the
 scene groups cache and whether the cache kept beside the package still holds it, and compares the
@@ -76,6 +77,33 @@ def instrumented(src):
         start = "\tset_process(true)\n"
         assert out.count(start) == 1
         out = out.replace(start, start + "\tEngine.time_scale = 0.0\n\tprint(\"BAKE_FREEZE time_scale 0\")\n")
+    if "--no-viewport" in sys.argv:
+        # the editor's 3D viewports stop drawing as the plugin starts: does the bake need the
+        # editor to have drawn the opened level?
+        # REFUTED, KEPT (bake_phases_probe.noviewport.draft1.out.txt): the first version set
+        # `update_mode`, which a Godot 4 SubViewport does not have; the editor logged a script
+        # error and stopped _enter_tree there, so no viewport was stopped and its "no change" was
+        # a dial never turned. The property is `render_target_update_mode`.
+        start = "\tset_process(true)\n"
+        assert out.count(start) == 1
+        out = out.replace(start, start + (
+            "\tfor i in 4:\n"
+            "\t\tvar vp: SubViewport = EditorInterface.get_editor_viewport_3d(i)\n"
+            "\t\tif vp != null:\n"
+            "\t\t\tvp.render_target_update_mode = SubViewport.UPDATE_DISABLED\n"
+            "\tprint(\"BAKE_NOVIEWPORT the editor's 3D viewports stopped\")\n"))
+    if "--no-viewport-at-bake" in sys.argv:
+        # the same stop, made just before Bake is pressed: the editor has drawn the opened
+        # level (REFUTED, KEPT for --no-viewport from the start: its bakes came out 17.5 % darker
+        # on average, the outdoor ground most, lightmap_compare.noviewport.out.txt)
+        press = "\t\t\tb.pressed.emit()\n"
+        assert out.count(press) == 1
+        out = out.replace(press, (
+            "\t\t\tfor i in 4:\n"
+            "\t\t\t\tvar vp: SubViewport = EditorInterface.get_editor_viewport_3d(i)\n"
+            "\t\t\t\tif vp != null:\n"
+            "\t\t\t\t\tvp.render_target_update_mode = SubViewport.UPDATE_DISABLED\n"
+            "\t\t\tprint(\"BAKE_NOVIEWPORT the editor's 3D viewports stopped at the press\")\n") + press)
     if "--clock-runs" in sys.argv:
         # 0.192.0's plugin stops the engine's clock as it starts; this takes that line out
         stop = "\tEngine.time_scale = 0.0\n"

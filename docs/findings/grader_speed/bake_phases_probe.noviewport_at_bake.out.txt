@@ -1,0 +1,67 @@
+[bake] === arm novpbake_a (06:59:35)
+[bake] export exit 0
+[bake] arm novpbake_a: the export 167.5 s; the editor 59.3 s in all (light_bake.json); bake_ms 31351
+[bake]        4.9 s  the plugin entered the tree    +4.9 s
+[bake]       13.1 s  the scene asked for            +8.1 s
+[bake]       23.4 s  the scene open                 +10.3 s
+[bake]       25.3 s  Bake pressed                   +1.9 s
+[bake]       25.3 s  the press returned             +0.0 s
+[bake]       56.7 s  the light data read            +31.4 s
+[bake]       57.4 s  the scene saved                +0.7 s
+[bake]       57.4 s  quit asked                     +0.0 s
+[bake]   after the last step to the editor's exit: 1.9 s (the editor's whole time less its clock at the last step)
+[bake]   scan      5.9 s  frame   30  scanning false  progress 1.0
+[bake]   scan      6.5 s  frame   60  scanning false  progress 1.0
+[bake]   scan      7.0 s  frame   90  scanning false  progress 1.0
+[bake]   scan      7.5 s  frame  120  scanning false  progress 1.0
+[bake]   scan      8.0 s  frame  150  scanning false  progress 1.0
+[bake]   scan      8.5 s  frame  180  scanning false  progress 1.0
+[bake]   the bake's import passes: [5.1, 4.3] s (the UV2 pass, then the one after the bake)
+[bake]   light_bake.json: ok True, users 3320, imports {'baked': 494, 'dynamic': 6, 'spawned': 1, 'spawned_unmatched': 0, 'unreadable': 0}, primitives 224, rigs {'static': 213, 'live': 29, 'cycling': 0}, room_fills 215, scene_groups_cached 3
+[bake]   the groups cache written: 3 scene(s), 548 bytes; in the cache kept beside the package: the same bytes
+[bake]   the package against the workspace's own: 2959 and 2959 files; the same 2941; differing {'.json': 5, '.tscn': 13}; only in this []; only in the workspace's []
+[bake]     bake.tscn          different
+[bake]     bake.lmbake        the same
+[bake]     bake.exr           the same
+[bake]     bake.exr.import    the same
+[bake]     light_bake.json    different
+[bake]     mission.tscn       the same
+[bake]   the editor's log kept at C:\Projects\gabagool_studios\gabagool_factory\_scratch\bake_phases\lightbake.novpbake_a.log (28 lines)
+[bake] the run's package restored
+[bake]   log: BAKE asked to open the scene at frame 180
+[bake]   log: BAKE the scene opened after 10293 ms, frame 1
+[bake]   log: BAKE_NOVIEWPORT the editor's 3D viewports stopped at the press
+[bake] === arm novpbake_b (07:02:29)
+[bake] export exit 0
+[bake] arm novpbake_b: the export 169.0 s; the editor 60.2 s in all (light_bake.json); bake_ms 31458
+[bake]        5.0 s  the plugin entered the tree    +5.0 s
+[bake]       13.1 s  the scene asked for            +8.2 s
+[bake]       23.4 s  the scene open                 +10.3 s
+[bake]       25.3 s  Bake pressed                   +1.9 s
+[bake]       25.3 s  the press returned             +0.0 s
+[bake]       56.8 s  the light data read            +31.5 s
+[bake]       57.6 s  the scene saved                +0.7 s
+[bake]       57.6 s  quit asked                     +0.0 s
+[bake]   after the last step to the editor's exit: 2.6 s (the editor's whole time less its clock at the last step)
+[bake]   scan      6.0 s  frame   30  scanning false  progress 1.0
+[bake]   scan      6.6 s  frame   60  scanning false  progress 1.0
+[bake]   scan      7.1 s  frame   90  scanning false  progress 1.0
+[bake]   scan      7.6 s  frame  120  scanning false  progress 1.0
+[bake]   scan      8.2 s  frame  150  scanning false  progress 1.0
+[bake]   scan      8.7 s  frame  180  scanning false  progress 1.0
+[bake]   the bake's import passes: [5.1, 4.2] s (the UV2 pass, then the one after the bake)
+[bake]   light_bake.json: ok True, users 3320, imports {'baked': 494, 'dynamic': 6, 'spawned': 1, 'spawned_unmatched': 0, 'unreadable': 0}, primitives 224, rigs {'static': 213, 'live': 29, 'cycling': 0}, room_fills 215, scene_groups_cached 3
+[bake]   the groups cache written: 3 scene(s), 548 bytes; in the cache kept beside the package: the same bytes
+[bake]   the package against the workspace's own: 2959 and 2959 files; the same 2941; differing {'.json': 5, '.tscn': 13}; only in this []; only in the workspace's []
+[bake]     bake.tscn          different
+[bake]     bake.lmbake        the same
+[bake]     bake.exr           the same
+[bake]     bake.exr.import    the same
+[bake]     light_bake.json    different
+[bake]     mission.tscn       the same
+[bake]   the editor's log kept at C:\Projects\gabagool_studios\gabagool_factory\_scratch\bake_phases\lightbake.novpbake_b.log (28 lines)
+[bake] the run's package restored
+[bake]   log: BAKE asked to open the scene at frame 180
+[bake]   log: BAKE the scene opened after 10287 ms, frame 1
+[bake]   log: BAKE_NOVIEWPORT the editor's 3D viewports stopped at the press
+[bake] === done (07:05:25)

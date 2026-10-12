@@ -1,0 +1,10 @@
+## The editor's 3D viewports stop drawing for the bake (0.193.0): the bake's
+## progress bar pumps the main loop, and every pump drew the whole level again.
+## Called as Bake is pressed and never before -- the header says why.
+func _stop_drawing() -> void:
+	for i in 4:
+		var vp: SubViewport = EditorInterface.get_editor_viewport_3d(i)
+		if vp != null:
+			vp.render_target_update_mode = SubViewport.UPDATE_DISABLED
+
+

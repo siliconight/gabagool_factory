@@ -701,6 +701,49 @@ five were never the bake's: with the clock stopped they are byte for byte
 the same, so since 0.192.0 a change to the bake's editor is held to
 identical `bake.exr`, `bake.lmbake` and `bake.exr.import`.
 
+## The bake draws nothing while it bakes; the work copy (Level Factory 0.193.0)
+
+With two exports of one level baking the same bytes since 0.192.0, a change
+to the bake's editor is held to identical `bake.exr`, `bake.lmbake` and
+`bake.exr.import`, and nothing looser.
+
+**The editor drew the level while it baked.** The bake's progress bar pumps
+the editor's main loop, and with its 3D viewports drawing, every pump drew
+the whole level again. `bake_phases_probe.py --no-viewport-at-bake` sets the
+four viewports' render targets not to update as Bake is pressed: on cold run
+9258's workspace two bakes of 31.4 and 31.5 s and the editor 59.3 and 60.2 s,
+against the run's own bake of 35.7 s, with the run's bytes
+(`bake_phases_probe.noviewport_at_bake.out.txt`).
+
+**REFUTED, KEPT: stopping the drawing from the start.** The first try
+(`bake_phases_probe.noviewport.draft1.out.txt`) set `update_mode`, which a
+Godot 4 `SubViewport` does not have; the editor logged a script error,
+`_enter_tree` stopped there, and no viewport was stopped -- its "no change"
+was a dial never turned, found by the missing line in the editor's log, not
+by the timings. Set right (`render_target_update_mode`,
+`bake_phases_probe.noviewport.out.txt`), the stop from the start gave two
+bakes byte for byte the same as each other and 17.5 % darker than the run's
+on average, the outdoor ground most (`lightmap_compare.noviewport.out.txt`):
+the bake reads something only a drawn frame makes; the sky's light is the
+likely one, not shown. And the opened level's first frame took about 10 s
+with nothing drawn, so that frame's time is not the viewport's -- what it is
+remains unmeasured.
+
+**The work copy.** The bake copies the package and its import cache before
+its editor opens them and removes the copy after. Timed on 9258's walk copy,
+6,058 files and 252 MB: `copytree` 4.7 and 5.3 s, the same files across
+eight threads 2.1 and 2.0 s, `rmtree` 2.1 to 2.8 s. 0.193.0 copies across
+eight threads and renames the copy aside to be removed on a thread while the
+export goes on.
+
+**As shipped** (`bake_phases_probe.0193.out.txt`,
+`export_timeline_probe.0193.out.txt`): exports of 162.4, 164.3 and 163.8 s
+against 171.4 to 173.2 on 0.192.0; the editor 59.4, 60.7 and 60.4 s; the
+export's own Python 17.2 s against 22.3, the gap before the editor 2.0 s
+against 5.1; the bake files byte for byte the run's own, the package
+differing in the 18 files two exports differ in, and no work copy left
+beside it.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the
