@@ -24,6 +24,12 @@ M="${3:-club_block_014}"
 SEED="${4:-9181}"
 step() { echo "== $1"; }
 die() { echo "STOPPED: $1"; exit 2; }
+# PROFILE_LEGS=1 runs the shell, art and export legs under cProfile and keeps each
+# profile beside the run's journal (_runs/cold/cold_N/<leg>.prof, not in the record).
+# A leg's in-process time is covered by no job's `duration=`: cold run 9248's
+# presentation_compose took 63.7 s of which its command was 1.6 s, and only a
+# profile says where the rest went. Off, the legs run exactly as before.
+lf() { if [ -n "${PROFILE_LEGS:-}" ]; then python -m cProfile -o "_runs/cold/cold_$N/$1.prof" -m level_factory "${@:2}"; else python -m level_factory "${@:2}"; fi; }
 step selftest; python tools/cold_run.py --selftest 2>&1 | tail -1 || die selftest
 step begin; python tools/cold_run.py --begin cold_$N 2>&1 | tail -2
 [ -f _runs/cold/ACTIVE ] || die "no ACTIVE after begin"
@@ -37,7 +43,7 @@ python -m level_factory -C "$WS" doctor > "$WS/doctor.txt" 2>&1 || { tail -5 "$W
 ! grep -q "NOT_CONFIGURED" "$WS/doctor.txt" || { grep "NOT_CONFIGURED" "$WS/doctor.txt"; die "a tool is not configured (run level-factory setup)"; }
 step batch; python -m level_factory -C "$WS" batch create docs/cold_runs/cold_$N/batch.json 2>&1 | tail -1
 step plan; python -m level_factory -C "$WS" plan $M >/dev/null 2>&1 || die plan
-step shell; python -m level_factory -C "$WS" run $M 2>&1 | grep -E "candidates:|blockers open" | tee /tmp/cold_leg.txt; for s_ in "$WS"/.level_factory/jobs/$M.lot_assemble.candidate.seed_*; do echo "  $(basename $s_): $(ls $s_/*/out/buildings/*.glb 2>/dev/null | xargs -n1 basename | tr "
+step shell; lf shell -C "$WS" run $M 2>&1 | grep -E "candidates:|blockers open" | tee /tmp/cold_leg.txt; for s_ in "$WS"/.level_factory/jobs/$M.lot_assemble.candidate.seed_*; do echo "  $(basename $s_): $(ls $s_/*/out/buildings/*.glb 2>/dev/null | xargs -n1 basename | tr "
 " " ")"; done; echo "  exit ${PIPESTATUS[0]} (non-zero at an approval gate is the pipeline waiting)"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "shell leg"
 if [ "$SEED" = "auto" ]; then
   SEED=$(python tools/cold_drive/pick_candidate.py "$WS" "$M") || die "no candidate could be picked"
@@ -47,8 +53,8 @@ step approvals
 python -m level_factory -C "$WS" approve $M brief_approved >/dev/null || die approve1
 python -m level_factory -C "$WS" approve $M candidate_selected --candidate $M.candidate.seed_$SEED >/dev/null || die approve2
 python -m level_factory -C "$WS" approve $M functional_shell_locked >/dev/null || die approve3
-step art; python -m level_factory -C "$WS" run $M --art --gameplay 2>&1 | tee docs/cold_runs/cold_$N/art.log | grep -E "blockers open" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "art leg"
-step export; python -m level_factory -C "$WS" export $M --mode portable-godot ${EXPORT_FLAGS:-} 2>&1 | tee docs/cold_runs/cold_$N/export.log | grep -E "^exported|CLOSURE|light bake|error" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "^exported" /tmp/cold_leg.txt || die export
+step art; lf art -C "$WS" run $M --art --gameplay 2>&1 | tee docs/cold_runs/cold_$N/art.log | grep -E "blockers open" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "art leg"
+step export; lf export -C "$WS" export $M --mode portable-godot ${EXPORT_FLAGS:-} 2>&1 | tee docs/cold_runs/cold_$N/export.log | grep -E "^exported|CLOSURE|light bake|error" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "^exported" /tmp/cold_leg.txt || die export
 # A package asked to bake that ships unbaked STOPS the run (cold run 9242: the export
 # warned, the drive went on, and the run counted zero). The bake's own report decides.
 if [[ "${EXPORT_FLAGS:-}" != *--no-bake-lights* ]]; then
