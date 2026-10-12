@@ -1,0 +1,8 @@
+[lm] layout r9257: 3320 users; r9258: 3320 users; in both 3320, only in r9257 0, only in r9258 0
+[lm] layout: of the 3320 in both, 459 placed the same, 2858 moved with the same size, 3 resized
+[lm] the light inside the 3317 same-size rectangles, each against its own: 11328794 texels; |diff| over RGB mean 0.002218, 99.9th percentile 0.28584, max 12.5020; apart by more than 0.01: 540001, by more than 0.1: 37968
+[lm]   placed the same: 459 users, 4189000 texels; |diff| mean 0.000329, apart by more than 0.01: 52901 (1.26 %); signed mean r9257 - r9258 +0.000012 against their mean 0.02989
+[lm]   moved: 2858 users, 7139794 texels; |diff| mean 0.003327, apart by more than 0.01: 487100 (6.82 %); signed mean r9257 - r9258 -0.000002 against their mean 0.03874
+[lm]   resized: ../Site/b0/Fixtures/Dome_Glass_001 [-1]: (14, 10) -> (14, 6) texels
+[lm]   resized: ../Site/b0/Fixtures/Dome_Glass_003 [-1]: (14, 6) -> (14, 10) texels
+[lm]   resized: ../Site/b0/Fixtures/Dome_Glass_005 [-1]: (14, 10) -> (14, 6) texels
