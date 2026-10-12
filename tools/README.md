@@ -7,7 +7,7 @@
 
 ### Folders
 
-- `cold_drive/` -- 5 file(s); !/usr/bin/env bash
+- `cold_drive/` -- 6 file(s); !/usr/bin/env bash
 
 ### Files
 

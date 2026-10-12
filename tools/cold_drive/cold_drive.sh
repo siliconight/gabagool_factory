@@ -22,7 +22,10 @@ cd "$(dirname "$0")/../.." || exit 2
 WS=workspaces/cold-$N-ws
 M="${3:-club_block_014}"
 SEED="${4:-9181}"
-step() { echo "== $1"; }
+# Each step's line carries the clock time it began, and DONE the time the drive ended,
+# so a run's record says where its minutes went: the legs had no time of their own
+# anywhere (the journal holds the start, the index the jobs, not the legs).
+step() { echo "== $1 ($(date +%H:%M:%S))"; }
 die() { echo "STOPPED: $1"; exit 2; }
 # PROFILE_LEGS=1 runs the shell, art and export legs under cProfile and keeps each
 # profile beside the run's journal (_runs/cold/cold_N/<leg>.prof, not in the record).
@@ -97,4 +100,4 @@ python tools/cold_drive/wire_sky.py _runs/walk_export_$M 2>&1 | tail -1
 # workspaces beyond the newest four, release and test zips, test unpacks. This run's
 # own workspace stays: its record is not pushed yet. Never fatal to the run.
 step retire; python tools/factory_retire.py --apply 2>&1 | tail -1 || true
-echo DONE
+echo "DONE ($(date +%H:%M:%S))"

@@ -224,6 +224,57 @@ sixteen commands; the 63.7 s is sixteen buildings composed in turn -- the
 next candidate, with the work the scheduler does for a cache hit (staging,
 the git probe) before it asks the cache.
 
+## Then the compose: sixteen commands in turn (Level Factory 0.186.0)
+
+With Blender at three, cold run 9251's largest block in the art leg was one
+job, the compose: 64 s, the mission shell's compose and then one per
+building, one after another. The buildings do not depend on each other --
+each command clears and writes only its own folder under
+`presentation/lot/` -- but the shell's must go first, because Deli Counter's
+`build_package` clears its output folder and that folder holds theirs.
+
+`compose_replay_ab.py` replays the job's own sixteen commands, read from
+9251's workspace index, every input the run's own job outputs, into scratch
+folders three ways: in turn twice (the control), and the shell's first and
+alone with the buildings four at a time (`python_cpu`'s width):
+
+| arm | wall | files | differ from SEQ1 |
+|---|---|---|---|
+| SEQ1, in turn | 58.3 s | 928 | -- |
+| SEQ2, in turn | 58.2 s | 928 | 0 |
+| PAR, the shell then four at a time | 25.4 s | 928 | 0 |
+
+The first run (`compose_replay_ab.draft1.out.txt`) read 59.2, 58.5 and
+25.5 s with the same zeros. The replay is the job: against the run's own
+output folder, 928 of 928 files are identical, and that folder's other 928
+are the scheduler's provenance sidecars. In every arm, and in the run, the
+deli and the office exit 3 -- Deli Counter's z-fight gate, two coplanar
+pairs each, which the compose job treats as advisory (`exit_advisory`; the
+finding is `PRESENTATION_ZFIGHT`, moderate) -- so the job carried on past
+them before the change and still does.
+
+Level Factory 0.186.0 lets a planned command say it may run beside its
+neighbours (`PlannedCommand.parallel`), runs a run of them up to the job's
+class width with the results in plan order, and marks the per-building
+composes. `job.log` now holds every command of a job, the defect behind
+9249's refuted note above. Not measured here: the compose beside the other
+jobs a real drive runs at the same time. A cold run is that measurement.
+
+**What the art leg waits on** (`leg_spans.py`, from a workspace index: the
+critical chain, from the job that finished last back through whichever
+dependency finished last, and each job's wait between that dependency and
+its own start). It reproduces 9250's and 9251's figures (251.7 and 177.1 s,
+Blender windows 114.0 and 45.7 s). 9251's chain: Pixelcoat 16.6 s, a wait of
+22.2 s for a Blender slot, the office's kit 9.6 s, a wait of 11.9 s, its
+dressing 2.2 s, the compose 64.1 s, the themed site 8.3 s, a wait of 26.8 s,
+Lux 3.7 s. Nothing else ran during that last wait: the Lux job's receipt
+(written after planning, before the cache is asked) is stamped at its start,
+so the 26.8 s is the scheduler's own work for the job -- staging a project of
+the whole themed site, 2,040 files, and a full Godot `--import` of it
+(`stage_godot_project`), which the driver needs, since it instantiates the
+scene and reads the fixtures' mesh bounds. Unsplit between the copy and the
+import.
+
 ## REFUTED, KEPT: one import pass with the models' final settings as defaults
 
 `import_plan_probe.py` timed the export's import plan on stripped copies of
@@ -271,3 +322,6 @@ Not yet measured.
   0.27.0 itself.
 - Which clock a job ran on: its own command line, the first line of its
   `job.log` (Level Factory 0.180.0 adds `--fixed-fps 60` there).
+- The compose replay: the job's commands as the workspace index recorded
+  them, against the job's own output folder file by file. A replay that
+  matched nothing of the run would be timing some other job.
