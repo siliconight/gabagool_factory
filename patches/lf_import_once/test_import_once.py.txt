@@ -1,0 +1,106 @@
+"""The export's first import pass imports the models as they ship (0.186.0, factory roadmap 239).
+
+Measured on cold run 9251's package (the factory's `docs/findings/grader_speed/import_plan_probe.py`):
+the sidecar step's two passes and the light bake's first import took 121.6 s, and the bake's import
+reset 62 shared textures' pins; with embedded images and lightmap UVs as the first pass's model
+defaults, a second pass over only the pinned textures, and the bake's import left with seven models,
+53.6 s and every pin kept.
+"""
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(ROOT))
+
+from packages.exporting import export as E  # noqa: E402
+from packages.exporting import light_bake as LB  # noqa: E402
+from tests.unit.glb_fixture import pack_glb  # noqa: E402
+
+PROJECT = ('config_version=5\n\n[application]\n\nconfig/name="x"\n\n'
+           '[importer_defaults]\n\nscene={\n"import_script/path": "res://zoo_worldskin.gd"\n}\n\n'
+           '[debug]\n\nsettings/x=1\n')
+
+
+def test_the_first_pass_defaults_join_the_model_defaults():
+    got = E._first_pass_defaults(PROJECT, lightmaps=True)
+    assert ('scene={\n"import_script/path": "res://zoo_worldskin.gd",\n'
+            '"gltf/embedded_image_handling": 3,\n"meshes/light_baking": 2\n}') in got
+    assert got.count("[importer_defaults]") == 1 and got.endswith("[debug]\n\nsettings/x=1\n")
+
+
+def test_without_a_bake_no_lightmap_uvs():
+    got = E._first_pass_defaults(PROJECT, lightmaps=False)
+    assert '"gltf/embedded_image_handling": 3' in got and "light_baking" not in got
+
+
+def test_a_project_without_model_defaults_gets_them():
+    bare = 'config_version=5\n\n[application]\n\nconfig/name="x"\n'
+    got = E._first_pass_defaults(bare, lightmaps=True)
+    assert got.count("[importer_defaults]") == 1
+    assert '"gltf/embedded_image_handling": 3,\n"meshes/light_baking": 2\n}' in got
+    other = bare + '\n[importer_defaults]\n\ntexture={\n"compress/mode": 0\n}\n'
+    got = E._first_pass_defaults(other, lightmaps=False)
+    assert got.count("[importer_defaults]") == 1 and "scene={" in got and "texture={" in got
+
+
+class _Done:
+    returncode = 0
+    stdout = b""
+    stderr = b""
+
+
+def test_the_first_pass_sees_them_and_the_package_ships_the_file_it_had(tmp_path, monkeypatch):
+    proj = tmp_path / "project.godot"
+    proj.write_bytes(PROJECT.replace("\n", "\r\n").encode("utf-8"))
+    original = proj.read_bytes()
+    seen = []
+
+    def fake_run(cmd, **kw):
+        seen.append(proj.read_text(encoding="utf-8"))
+        return _Done()
+
+    import subprocess
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    E._write_import_sidecars(tmp_path, "godot", lightmaps=True)
+    assert seen and '"meshes/light_baking": 2' in seen[0], "the first pass ran with the defaults"
+    assert proj.read_bytes() == original, "and the file is back byte for byte, its line endings too"
+
+
+def test_pins_alone_reimport_without_wiping_the_cache(tmp_path, monkeypatch):
+    (tmp_path / "project.godot").write_text(PROJECT, encoding="utf-8")
+    tex = tmp_path / "lot" / "x" / E.SHARED_TEX_DIR
+    tex.mkdir(parents=True)
+    (tex / "a.png").write_bytes(b"")
+    (tex / "a.png.import").write_text('[remap]\n\nimporter="texture"\n\n[params]\n\ncompress/mode=0\n'
+                                      'mipmaps/generate=false\nprocess/fix_alpha_border=true\n',
+                                      encoding="utf-8")
+    cache = tmp_path / ".godot" / "imported"
+    cache.mkdir(parents=True)
+    calls = []
+
+    def fake_run(cmd, **kw):
+        calls.append(cmd)
+        return _Done()
+
+    import subprocess
+    monkeypatch.setattr(subprocess, "run", fake_run)
+    E._write_import_sidecars(tmp_path, "godot", lightmaps=False)
+    assert len(calls) == 2, "a second pass for the pins"
+    assert cache.is_dir(), "without the cache wiped: only what the pins changed re-imports"
+
+
+def test_a_shader_uv2_model_is_written_static_whatever_the_first_pass_gave_it(tmp_path):
+    doc = {"asset": {"version": "2.0"},
+           "meshes": [{"primitives": [{"attributes": {"POSITION": 0, "NORMAL": 1, "TEXCOORD_1": 2}}]}]}
+    (tmp_path / "atm.glb").write_bytes(pack_glb(doc))
+    (tmp_path / "atm.glb.import").write_text('[remap]\n\nimporter="scene"\n\n[params]\n\n'
+                                             'meshes/light_baking=2\n', encoding="utf-8")
+    got = LB.mark_imports(tmp_path)
+    assert got["dynamic"] == ["atm.glb"]
+    assert "meshes/light_baking=1" in (tmp_path / "atm.glb.import").read_text(encoding="utf-8")
+    assert LB.STATIC == 1
+
+
+def test_the_export_asks_for_lightmap_uvs_when_it_bakes():
+    text = (ROOT / "packages" / "exporting" / "export.py").read_text(encoding="utf-8")
+    assert "_write_import_sidecars(export_dir, godot_executable, lightmaps=profile.bake_lights)" in text

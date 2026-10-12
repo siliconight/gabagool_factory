@@ -224,6 +224,31 @@ sixteen commands; the 63.7 s is sixteen buildings composed in turn -- the
 next candidate, with the work the scheduler does for a cache hit (staging,
 the git probe) before it asks the cache.
 
+## REFUTED, KEPT: one import pass with the models' final settings as defaults
+
+`import_plan_probe.py` timed the export's import plan on stripped copies of
+cold run 9251's package: as it was, the two sidecar passes and the light
+bake's re-import of every model took 121.6 s; with embedded images and
+lightmap UVs as the FIRST pass's model defaults (`project.godot`'s
+`[importer_defaults] scene`), a second pass over only the pinned textures and
+a bake import of the seven models it changes, 53.6 s -- and the sidecars the
+two would ship matched once uids were set aside. A patch was written
+(`patches/patch_lf_import_once.py`, Level Factory "0.186.0") and the real
+export said no: re-exporting 9251 with it FAILED the greybox-skin gate, 105
+slab surfaces on a greybox material (good exports: 3), the Empties merged to
+148 meshes instead of 236, the bake lit 3,320 users instead of 3,491.
+
+**Why it was wrong.** The light bake's re-import of every model is
+load-bearing. It is the import in which `zoo_worldskin.gd` -- the models'
+import script -- skins them with the texture packs already imported; that is
+also why that pass imports the shared textures 1,843 times. Asked for in the
+first, cold pass, lightmap UVs made that pass the models' last import, and the
+worldskin found no pack for the slabs. The probe compared sidecars, and a
+sidecar does not record what an import script did; the patch refuses to run
+and says so. What would make one import enough: a worldskin that finds its
+packs without the textures imported first (Zoo), measured on the gate and the
+merge, not on sidecars.
+
 ## Lever 3: one import of a package, not several
 
 The export imports its package to bake it, the bake's work copy is a copy,
