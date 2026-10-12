@@ -68,3 +68,24 @@ filed as roadmap 242.
   crown's spread and a signal 5 m.
 - **A band on one kerb moves the whole line.** `pole_kerb` takes the kerb with
   less to dodge, so the band tests put a matching band behind both kerbs.
+
+## Found by the first cold run (Lot 0.118.1)
+
+Cold run 9262's west side street stood 2 poles for 3 stations: no corner pole
+at its T, so its first pole stood 35.7 m from the main road's nearest -- past
+the reach a junction's wires take. Re-planned from the run's drawn spec, step
+by step: `_runs` trimmed a road crossing by the cut's WIDTH where the kerb's
+span reaches `site_streets.CUT_MARGIN` (0.6 m) further, so every run's first
+station stood in the cut's clearance; and 0.118.0's 5 m circle round a signal
+refused every step off it, though the signal stands on the furniture line and a
+pole on its own line clears its arms by 1.63 m (REFUTED, KEPT in `site_poles`).
+Lot 0.118.1 breaks runs at the kerb's spans, asks a signal's arm box, and reads
+every road's pieces at a corner: the west street stands 3 poles, the first 7.05
+from the crossing, and the fixtures' census 8/9/9/9 poles became 9/10/9/9.
+
+## Frames (`docs/cold_runs/cold_9262/poles.png`, `pole_frames.sh`)
+
+The same three stations in 9261's package and 9262's, at the level's evening
+light: the line along the kerb, a can's pole from across the street, the
+corner. For the walker's eye: the darker gaps between the pools (the "every
+pole" call) and the wood's colour under sodium light.
