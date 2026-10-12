@@ -478,6 +478,135 @@ asks, the normal maps read off the glTF). Re-exported on it
 and left all 572 texture sidecars as they ship; it opened the scene in
 14.7 s against 20.3; the export 200.3 s.
 
+## The bake's editor: twenty seconds reading the scenes' groups (Level Factory 0.191.0)
+
+After 0.190.0 the export was still the longest leg (cold run 9256: 204 s of
+a 452 s drive) and the light bake's editor the longest part of it (88.1 s).
+The run records the editor's whole time and two of its parts -- the scene's
+opening and the bake -- and nothing of the rest. `bake_phases_probe.py`
+re-exports a workspace's mission with the bake's plugin swapped for a copy
+that prints the engine's own clock at each of its steps (`BAKE_T`), holding
+the workspace's package aside while it does. On 9256's workspace
+(`bake_phases_probe.out.txt`):
+
+| the engine's clock | step | since the step before |
+|---|---|---|
+| 4.9 s | the plugin entered the tree | |
+| 32.4 s | the scene asked for | 27.5 s |
+| 47.1 s | the scene open | 14.7 s |
+| 48.7 s | Bake pressed | 1.6 s |
+| 84.5 s | the light data read | 35.7 s (`bake_ms` 35,676) |
+| 85.2 s | the scene saved | 0.7 s; the editor exits 2.8 s later, 88.0 s in all |
+
+The plugin asks for the scene once 180 frames have passed and the editor's
+file system has stopped scanning, and marks the ask when
+`open_scene_from_path` returns. Run again with Godot's `--verbose` and the
+scan sampled every 30 frames (`--verbose --scan`,
+`bake_phases_probe.scan.out.txt`; everything slower under the logging, the
+editor 128.7 s): the file system said it was scanning at every sample from
+8.4 s to 47.0 s, at four frames a second, and between the plugin's start and
+the bake scene's load the log records the load of every one of the package's
+482 models -- 438 under `lot/`, 42 under `cover/`, 2 under `assets/`, each
+through its imported `.scn` -- and 1,870 texture loads, with the shader
+variants they compile. The work copy's `.godot` held no
+`scene_groups_cache.cfg`: the export's imports are headless, and none of
+them writes one.
+
+Given one -- the cache an editor had written for the same scenes, from the
+work copy `editor_texture_probe.py` kept on its re-export of 9255
+(`--groups-cache`, `bake_phases_probe.groups.out.txt`) -- the file system
+said it was not scanning at the first sample (6.0 s, frame 30), the scene
+was asked for at 13.1 s and the editor took 68.0 s in all; the opening
+(14.5 s) and the bake (`bake_ms` 35,147) as before; the export 182.1 s
+against 202.9.
+
+The cache's content is in the scenes. It lists each scene whose nodes are
+put in any group, with the groups (`[res://<path>]`, `groups=[&"a", ...]`):
+the editor's own lists 3 of the package's 22 scenes -- the `site.tscn` of
+`lot/deli_a01`, `lot/office` and `lot/pharmacy_a01` -- and the `groups=[...]`
+of each scene's `[node ...]` headers, parsed, give exactly those 3 with
+exactly those groups, the order within a scene aside.
+
+**Level Factory 0.191.0** writes it: `light_bake.write_scene_groups_cache`,
+into the package's `.godot` after the bake's import pass and before its work
+copy, so the work copy starts with it; `occluders.keep_cache` moves it with
+the rest of that `.godot` to the walk copy, and the package ships none, as
+before. Measured on 9256's workspace, four re-exports in the order change,
+control, control, change (`bake_phases_probe.0191.out.txt` and
+`.0191b.out.txt`; the control, `--no-groups-cache`, is the same code with the
+write made a no-op -- the bake as 0.190.0 ran it):
+
+| | 0.191.0 | control | control | 0.191.0 |
+|---|---|---|---|---|
+| the arm | `groups0191` | `control0190` | `control0190b` | `groups0191b` |
+| the scene asked for | 13.6 s | 32.5 s | 33.8 s | 13.1 s |
+| scanning at a sample | at none | frames 30-90 | frames 30-90 | at none |
+| the scene open, after the ask | 14.8 s | 14.7 s | 14.8 s | 14.5 s |
+| the bake (`bake_ms`) | 35,727 | 35,127 | 38,775 | 35,473 |
+| the editor in all | 69.3 s | 87.6 s | 92.6 s | 67.5 s |
+| the bake's two imports | 5.1, 4.2 s | 5.1, 4.2 s | 5.1, 4.5 s | 5.1, 4.3 s |
+| the export | 184.1 s | 202.5 s | 212.5 s (*) | 183.2 s |
+
+(*) The second control's first 25 s shared the disk with a `du` left running
+by another command; it was stopped at 05:00:30, about two minutes before
+that arm's editor started.
+
+`light_bake.json` is the same in every count in all four (3,320 users; 494
+models baked, 6 dynamic, 1 spawned; 224 primitive meshes; 213 steady rigs,
+29 live; 215 room fills); each changed arm wrote 3 scenes, 548 bytes, and
+the cache kept beside its package carried the same bytes. Every package
+differs from 9256's own in the same 21 files -- the five bake files, the
+twelve rowhome Empties' `site.tscn`, `LF_MANIFEST.json`, `LICENSES.json`,
+`export_closure_scan.json` and `portable_resource_manifest.json` -- and the
+change from the control in those 21 too: the files any two exports differ
+in. Byte identity, the bar this README sets, cannot be asked of the bake --
+two exports of the same code differ in its five files -- so the bar here is
+the control's: nothing differs that two exports do not, and in the lightmap,
+which they do, no more than they do.
+
+**The lightmap, texel by texel.** `lightmap_compare.py` has Godot read each
+`bake.exr` (`exr_dump.gd`, headless; 1024 x 15,360 half-float texels) and
+compares every pair over the colour channels (`lightmap_compare.0191.out.txt`;
+its null control first, in `lightmap_compare.controls.out.txt`: 9256's
+lightmap against itself, 100 % the same). The lightmap's mean is 0.031:
+
+| pair | texels the same | mean difference | largest | texels apart by > 0.01 |
+|---|---|---|---|---|
+| 0.191.0 against the control (`groups0191b`, `control0190b`) | 93.44 % | 0.000002 | 0.0103 | 1 |
+| 0.191.0 against 9256's own | 90.96 % | 0.000028 | 1.127 | 11,257 |
+| the control against 9256's own | 90.84 % | 0.000030 | 1.127 | 12,184 |
+
+The change's lightmap is nearer the control's than two exports of 0.190.0
+are to each other.
+
+**Found on the way: compressed everywhere moved the baked light.** The same
+instrument on cold runs 9254, 9255 and 9256 -- one level, one lot, one seed
+-- reads 9255 against 9254 (0.189.0 against 0.188.0; in both the bake's
+editor re-encoded the shared textures it found in use) at 89.76 % of texels
+the same and a mean difference of 0.000141, and 9256 against 9255 (0.190.0,
+every texture compressed before any import) at 29.53 % the same, 0.000613 on
+average -- 2 % of the lightmap's mean, about four times what two exports
+differ by -- 0.066 at the 99.9th percentile and 2.95 at most. The control
+and 0.191.0 against 9255 read as 9256 does (`lightmap_compare.controls.out.txt`,
+`lightmap_compare.0191.out.txt`).
+Whether a 2 % shift in bounced light shows is a question for frames, not for
+this instrument; it is part of what the walker's call of 2026-10-12 bought.
+
+**What is left of the editor** after 0.191.0, from the same clock: its own
+start to the plugin (5.0 s); the plugin's 180-frame floor (frame 180 at
+8.7-8.8 s, 55 frames a second once nothing scans); `open_scene_from_path`
+until it returns (4.4-4.8 s, where the control's took 3.3-3.4 s -- part of
+what the groups pass had loaded is loaded here instead); the scene's opening
+after it (14.5-14.8 s: the bake scene loads the level, every model again,
+and compiles its shaders into a fresh copy's empty shader cache); the press
+(1.6 s); the bake (35.5-35.7 s); the save and the exit (2.7-3.5 s).
+
+**Residual.** The verbose log's counts (482 models, 1,870 texture loads)
+were read in the session that ran it, and the next run of the probe wrote
+its own log over the same file; they rest on that reading and on the scan
+samples kept in `bake_phases_probe.scan.out.txt`. The probe now keeps each
+arm's log, and its lightmap, under the arm's name.
+
 ## REFUTED, KEPT: the Lux staging's import is not texture compression or detail meshes
 
 Cold runs 9251 to 9254 wait about 26.7 s before the Lux job's command, the
@@ -563,3 +692,11 @@ Not yet measured.
 - The compose replay: the job's commands as the workspace index recorded
   them, against the job's own output folder file by file. A replay that
   matched nothing of the run would be timing some other job.
+- The bake editor's steps: the plugin's own clock (`BAKE_T`, the engine's
+  milliseconds since it started), printed into the editor's log beside the
+  package; the editor's whole time from `light_bake.json`. The probe swaps
+  the plugin in its own process; Level Factory's is never touched.
+- A lightmap: Godot's own reading of its EXR (`exr_dump.gd`), compared in
+  numpy. 9256's against itself is 100 % the same, and two exports of one
+  version differ in about a tenth of their texels, so a difference no
+  larger than that says nothing about a change.

@@ -1,0 +1,62 @@
+[bake] === arm groups0191 (04:43:46)
+[bake] export exit 0
+[bake] arm groups0191: the export 184.1 s; the editor 69.3 s in all (light_bake.json); bake_ms 35727
+[bake]        5.0 s  the plugin entered the tree    +5.0 s
+[bake]       13.6 s  the scene asked for            +8.6 s
+[bake]       28.4 s  the scene open                 +14.8 s
+[bake]       30.0 s  Bake pressed                   +1.6 s
+[bake]       30.0 s  the press returned             +0.0 s
+[bake]       65.8 s  the light data read            +35.8 s
+[bake]       66.6 s  the scene saved                +0.8 s
+[bake]       66.6 s  quit asked                     +0.0 s
+[bake]   after the last step to the editor's exit: 2.7 s (the editor's whole time less its clock at the last step)
+[bake]   scan      6.0 s  frame   30  scanning false  progress 1.0
+[bake]   scan      6.6 s  frame   60  scanning false  progress 1.0
+[bake]   scan      7.2 s  frame   90  scanning false  progress 1.0
+[bake]   scan      7.7 s  frame  120  scanning false  progress 1.0
+[bake]   scan      8.2 s  frame  150  scanning false  progress 1.0
+[bake]   scan      8.8 s  frame  180  scanning false  progress 1.0
+[bake]   the bake's import passes: [5.1, 4.2] s (the UV2 pass, then the one after the bake)
+[bake]   light_bake.json: ok True, users 3320, imports {'baked': 494, 'dynamic': 6, 'spawned': 1, 'spawned_unmatched': 0, 'unreadable': 0}, primitives 224, rigs {'static': 213, 'live': 29, 'cycling': 0}, room_fills 215, scene_groups_cached 3
+[bake]   the groups cache written: 3 scene(s), 548 bytes; in the cache kept beside the package: the same bytes
+[bake]   the package against the workspace's own: 2959 and 2959 files; the same 2938; differing {'.exr': 1, '.import': 1, '.json': 5, '.lmbake': 1, '.tscn': 13}; only in this []; only in the workspace's []
+[bake]     bake.tscn          different
+[bake]     bake.lmbake        different
+[bake]     bake.exr           different
+[bake]     bake.exr.import    different
+[bake]     light_bake.json    different
+[bake]     mission.tscn       the same
+[bake]   the editor's log kept at C:\Projects\gabagool_studios\gabagool_factory\_scratch\bake_phases\lightbake.groups0191.log (27 lines)
+[bake] the run's package restored
+[bake] === arm control0190 (04:46:57)
+[bake] the scene groups cache NOT written (the control arm)
+[bake] export exit 0
+[bake] arm control0190: the export 202.5 s; the editor 87.6 s in all (light_bake.json); bake_ms 35127
+[bake]        5.0 s  the plugin entered the tree    +5.0 s
+[bake]       32.5 s  the scene asked for            +27.5 s
+[bake]       47.2 s  the scene open                 +14.7 s
+[bake]       48.9 s  Bake pressed                   +1.6 s
+[bake]       48.9 s  the press returned             +0.0 s
+[bake]       84.1 s  the light data read            +35.2 s
+[bake]       84.8 s  the scene saved                +0.7 s
+[bake]       84.8 s  quit asked                     +0.0 s
+[bake]   after the last step to the editor's exit: 2.8 s (the editor's whole time less its clock at the last step)
+[bake]   scan      7.5 s  frame   30  scanning true   progress 1.0
+[bake]   scan     14.5 s  frame   60  scanning true   progress 1.0
+[bake]   scan     21.3 s  frame   90  scanning true   progress 1.0
+[bake]   scan     28.0 s  frame  120  scanning false  progress 1.0
+[bake]   scan     28.7 s  frame  150  scanning false  progress 1.0
+[bake]   scan     29.2 s  frame  180  scanning false  progress 1.0
+[bake]   the bake's import passes: [5.1, 4.2] s (the UV2 pass, then the one after the bake)
+[bake]   light_bake.json: ok True, users 3320, imports {'baked': 494, 'dynamic': 6, 'spawned': 1, 'spawned_unmatched': 0, 'unreadable': 0}, primitives 224, rigs {'static': 213, 'live': 29, 'cycling': 0}, room_fills 215, scene_groups_cached 0
+[bake]   the groups cache written: none; in the cache kept beside the package: absent
+[bake]   the package against the workspace's own: 2959 and 2959 files; the same 2938; differing {'.exr': 1, '.import': 1, '.json': 5, '.lmbake': 1, '.tscn': 13}; only in this []; only in the workspace's []
+[bake]     bake.tscn          different
+[bake]     bake.lmbake        different
+[bake]     bake.exr           different
+[bake]     bake.exr.import    different
+[bake]     light_bake.json    different
+[bake]     mission.tscn       the same
+[bake]   the editor's log kept at C:\Projects\gabagool_studios\gabagool_factory\_scratch\bake_phases\lightbake.control0190.log (29 lines)
+[bake] the run's package restored
+[bake] === done (04:50:26)
