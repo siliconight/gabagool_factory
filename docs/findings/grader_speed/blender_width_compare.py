@@ -16,6 +16,9 @@ It prints the classes for the control (9249 against 9250) and for the change (92
 side by side, per job kind. It measures and prints.
 
     python docs/findings/grader_speed/blender_width_compare.py 9249 9250 9251
+
+That run read workspaces/cold-9249-ws, workspaces/cold-9250-ws and workspaces/cold-9251-ws, named in
+full here so tools/factory_retire.py sees them. On 2026-10-13 only cold-9251-ws is on disk.
 """
 import collections
 import glob

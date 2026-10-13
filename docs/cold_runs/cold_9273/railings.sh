@@ -22,10 +22,12 @@ PKG="LF_restaurant_row_001.portable-godot"
 mkdir -p "$FR" "$OUT/price" "$SCR"
 
 # 1. the walk, on each package
-for run in 9272 9273; do
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9272-ws cold-9273-ws; do
+  run=${ws#cold-}; run=${run%-ws}
   rm -rf "$SCR/walk"
   mkdir -p "$SCR/walk"
-  cp -r "workspaces/cold-$run-ws/.level_factory/exports/$PKG" "$SCR/walk/$PKG" || exit 1
+  cp -r "workspaces/$ws/.level_factory/exports/$PKG" "$SCR/walk/$PKG" || exit 1
   cp "$OUT/rail_walk.gd" "$SCR/walk/$PKG/rail_walk.gd"
   timeout 1800 "$G" --headless --path "$SCR/walk/$PKG" --import < /dev/null > "$FR/walk_import_$run.log" 2>&1
   echo "walk import $run exit $?"
@@ -40,8 +42,10 @@ done
 S="--station stoop:-8.6,1.6,28.4,-11.35,0.35,30.9 --station side:-13.9,0.8,30.7,-11.35,0.3,30.7"
 S="$S --station row:-24.0,1.7,28.2,-4.0,0.9,31.2 --station hatch:-43,8.2,9.49,-51,6.6,-2.51"
 S="$S --station front:-9.6,1.55,27.6,-11.35,0.75,30.6"
-for run in 9272 9273; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/$PKG"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9272-ws cold-9273-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/$PKG"
   [ -f "$pkg/mission.tscn" ] || { echo "no package at $pkg"; exit 1; }
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$FR/shots_$run" --json $S \
     > "$FR/shots_$run.json" 2> "$FR/shots_$run.err" < /dev/null

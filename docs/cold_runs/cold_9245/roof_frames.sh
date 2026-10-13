@@ -14,8 +14,10 @@ cd "$F" || exit 1
 OUT="_scratch/frames_9245_roofs"
 mkdir -p "$OUT"
 S="--station hatch:-43,8.2,9.49,-51,6.6,-2.51 --station street:-45,1.6,30,-51,7.0,11.5"
-for run in 9244 9245; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9244-ws cold-9245-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$OUT/shots_$run" --json $S \
     > "$OUT/shots_$run.json" 2> "$OUT/shots_$run.err" < /dev/null
   echo "shots $run exit $?"

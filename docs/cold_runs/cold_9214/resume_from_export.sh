@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 # Cold run 9214 resumed at its export leg after a recorded --retry: the driver's
-# own commands from `== export` on (tools/cold_drive/cold_drive.sh), unchanged.
+# own commands from `== export` on (tools/cold_drive/cold_drive.sh), unchanged but
+# for the workspaces, named in full (2026-10-13) so tools/factory_retire.py sees
+# what this reads: cold-9214-ws, and cold-9203-ws for the findings' baseline --
+# not on disk on 2026-10-13, so its count would read 0.
 set -u
-N=9214; PREV=9203
+N=9214
 cd /c/Projects/gabagool_studios/gabagool_factory
-WS=workspaces/cold-$N-ws
+WS=workspaces/cold-9214-ws
 M=bank_block_001
 step() { echo "== $1"; }
 die() { echo "STOPPED: $1"; exit 2; }
 step export; python -m level_factory -C "$WS" export $M --mode portable-godot ${EXPORT_FLAGS:-} 2>&1 | tee docs/cold_runs/cold_$N/export.log | grep -E "^exported|CLOSURE|light bake|error" | tee /tmp/cold_leg.txt; echo "  exit ${PIPESTATUS[0]}"; grep -q "^exported" /tmp/cold_leg.txt || die export
 step findings
-python - "$N" "$PREV" "$M" <<'PY'
+python - cold-9214-ws cold-9203-ws "$M" <<'PY'
 import collections, json, sys
 def codes(n):
     import os
-    p = f"workspaces/cold-{n}-ws/.level_factory/validation/{sys.argv[3]}.json"
+    p = f"workspaces/{n}/.level_factory/validation/{sys.argv[3]}.json"
     if not os.path.exists(p):
         return collections.Counter()
     d = json.load(open(p, encoding="utf-8"))

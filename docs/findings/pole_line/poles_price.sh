@@ -14,15 +14,20 @@
 # Nothing else runs beside a price.
 #
 #     bash docs/findings/pole_line/poles_price.sh
+#
+# CANNOT RUN AGAIN AS WRITTEN (2026-10-13): workspaces/cold-9261-ws and workspaces/cold-9262-ws were
+# retired on 2026-10-12, when this loop built their names and nothing named them in a form
+# tools/factory_retire.py could see. price_9261_9262/ is the record, kept as measured.
 F=$(cd "$(dirname "$0")/../../.." && pwd)
 cd "$F" || exit 1
 OUT="docs/findings/pole_line/price_9261_9262"
 SCR="_scratch/price_poles"
 mkdir -p "$OUT" "$SCR"
 rm -rf "$SCR/control" "$SCR/subject"
-for pair in control:9261 subject:9262; do
-  name="${pair%%:*}"; run="${pair##*:}"
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for pair in control:cold-9261-ws subject:cold-9262-ws; do
+  name="${pair%%:*}"; ws="${pair##*:}"
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   [ -f "$pkg/mission.tscn" ] || { echo "no package at $pkg"; exit 1; }
   cp -r "$pkg" "$SCR/$name" || exit 1
 done

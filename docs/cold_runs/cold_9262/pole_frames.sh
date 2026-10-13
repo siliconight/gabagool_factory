@@ -10,13 +10,19 @@
 #
 # Run AFTER the drive (nothing else runs beside a frame):
 #     bash docs/cold_runs/cold_9262/pole_frames.sh
+#
+# CANNOT RUN AGAIN AS WRITTEN (2026-10-13): workspaces/cold-9261-ws and workspaces/cold-9262-ws were
+# retired on 2026-10-12, when this loop built their names and nothing named them in a form
+# tools/factory_retire.py could see. poles.png is the record, kept as shot.
 F=$(cd "$(dirname "$0")/../../.." && pwd)
 cd "$F" || exit 1
 OUT="_scratch/frames_9262_poles"
 mkdir -p "$OUT"
 S="--station line:-60,1.8,25.5,20,6.0,26.0 --station across:-40,1.8,15.5,-48.3,7.0,27.27 --station corner:65,1.8,16,80.6,6.0,20"
-for run in 9261 9262; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9261-ws cold-9262-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$OUT/shots_$run" --json $S \
     > "$OUT/shots_$run.json" 2> "$OUT/shots_$run.err" < /dev/null
   echo "shots $run exit $?"

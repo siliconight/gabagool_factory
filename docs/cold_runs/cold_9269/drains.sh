@@ -22,8 +22,10 @@ mkdir -p "$FR" "$OUT/price" "$SCR"
 S="--station corner:-31.5,1.7,20.5,-25.0,0.0,16.5 --station junction:-26.0,1.7,26.5,-20.0,0.0,21.67"
 S="$S --station lane:-10.5,1.7,-19.0,-15.5,0.0,-24.0"
 S="$S --station up:-31.7,1.8,25.5,-15.1,9.0,27.27 --station hatch:-43,8.2,9.49,-51,6.6,-2.51"
-for run in 9268 9269; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9268-ws cold-9269-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   [ -f "$pkg/mission.tscn" ] || { echo "no package at $pkg"; exit 1; }
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$FR/shots_$run" --json $S \
     > "$FR/shots_$run.json" 2> "$FR/shots_$run.err" < /dev/null

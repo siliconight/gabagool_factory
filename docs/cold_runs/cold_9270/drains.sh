@@ -21,8 +21,10 @@ echo "drain_paint exit $?"
 tail -3 "$OUT/drain_paint.out.txt"
 S="--station corner:-31.5,1.7,20.5,-25.0,0.0,16.5"
 S="$S --station up:-31.7,1.8,25.5,-15.1,9.0,27.27 --station hatch:-43,8.2,9.49,-51,6.6,-2.51"
-for run in 9269 9270; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9269-ws cold-9270-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   [ -f "$pkg/mission.tscn" ] || { echo "no package at $pkg"; exit 1; }
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$FR/shots_$run" --json $S \
     > "$FR/shots_$run.json" 2> "$FR/shots_$run.err" < /dev/null

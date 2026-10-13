@@ -18,8 +18,10 @@ mkdir -p "$OUT"
 S=$(python tools/fixture_stations.py "$LIGHTS" --type pendant --max 6 2> "$OUT/stations.txt")
 cat "$OUT/stations.txt"
 [ -n "$S" ] || { echo "no pendant station"; exit 2; }
-for run in 9241 9242; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9241-ws cold-9242-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --out "$OUT/shots_$run" --json $S \
     > "$OUT/shots_$run.json" 2> "$OUT/shots_$run.err" < /dev/null
   echo "shots $run exit $?"

@@ -14,6 +14,11 @@ cover within 5 m of each the same in both runs. Four arms, each the job's own co
 It measures and prints.
 
     python docs/findings/pole_line/lt_pole_ab.py
+
+CANNOT RUN AGAIN AS WRITTEN (2026-10-13): workspaces/cold-9261-ws and workspaces/cold-9262-ws were
+retired on 2026-10-12, when `_ws` built their names and nothing named them in a form
+tools/factory_retire.py could see, so every arm has no project to copy. `lt_pole_ab.out.txt` is the
+record, kept as measured.
 """
 import glob
 import json
@@ -30,10 +35,12 @@ GODOT = r"C:\Godot\4.7\Godot_v4.7-stable_win64_console.exe"
 JOB = "restaurant_row_001.laser_tag_evaluate.candidate.seed_9104"
 LOT = "restaurant_row_001.lot_assemble.candidate.seed_9104"
 X = F / "_scratch" / "pole_line" / "lt_pole_ab"
+#: the runs' workspaces, named in full so tools/factory_retire.py sees what this reads
+WORKSPACES = {9261: "cold-9261-ws", 9262: "cold-9262-ws"}
 
 
 def _ws(n):
-    return F / "workspaces" / f"cold-{n}-ws" / ".level_factory"
+    return F / "workspaces" / WORKSPACES[n] / ".level_factory"
 
 
 def _slots(n, species):

@@ -15,6 +15,12 @@ run's workspace, `workspaces/cold-N-ws/.level_factory/`:
   drive        the clock from the driver's first step to DONE
 
 A run whose log lacks a field says so in its cell -- never a blank and never a zero. Prints the table and stops.
+
+WHAT IT KEEPS (2026-10-13). The sweep ran it on cold runs 9278 to 9284 (README.md's table). It reads each
+run's workspace for the grade and stuck cells alone and names none of the seven in full, so
+`tools/factory_retire.py` keeps them by count only: once one is retired its row reads "(no Laser Tag report)"
+there, and README.md's table stays the record. Writing the seven names out here would keep them -- 4.8 GB on
+a disk 95% full on 2026-10-13 -- so they are left to the retire.
 """
 import json
 import pathlib

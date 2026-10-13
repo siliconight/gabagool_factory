@@ -6,6 +6,11 @@ diff line counts can be attributed before anything is patched against it.
 
 Reads `workspaces/cold-<N>-ws/.level_factory/validation/<mission>.json`, the
 file the driver's findings step counts. Prints what it found and stops.
+
+This record's comparison ("Findings against 9197", NOTES.md) is
+`findings_by_code.py 9198 9197 bank_block_001`: it read workspaces/cold-9198-ws
+and workspaces/cold-9197-ws, named in full here so tools/factory_retire.py sees
+them. Neither is on disk on 2026-10-13.
 """
 import collections
 import json

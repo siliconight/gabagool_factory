@@ -36,8 +36,10 @@ grep "^\[split\]" "$OUT/memory.txt"
 rm -rf "$SCR/mem"
 
 # 3. the frames
-for run in 9273 9274; do
-  pkg="workspaces/cold-$run-ws/.level_factory/exports/$PKG"
+# the workspaces named in full, so tools/factory_retire.py sees which ones this reads
+for ws in cold-9273-ws cold-9274-ws; do
+  run=${ws#cold-}; run=${run%-ws}
+  pkg="workspaces/$ws/.level_factory/exports/$PKG"
   timeout 900 python tools/look_shots.py "$pkg" --scene mission.tscn --interiors 12 --out "$FR/shots_$run" --json \
     > "$FR/shots_$run.json" 2> "$FR/shots_$run.err" < /dev/null
   echo "shots $run exit $?"

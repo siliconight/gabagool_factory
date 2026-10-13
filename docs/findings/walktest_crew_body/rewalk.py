@@ -8,6 +8,9 @@ content -- the navqa scene, the site scene, the director script and the
 building files' names and sizes -- because cold runs 9196 to 9203 repeat
 missions and seeds byte for byte. Each distinct one is labelled by its first
 occurrence, `<run>_<mission>_<seed>`.
+On 2026-10-13 only cold-9194-ws and cold-9204-ws of the twelve are on disk: a
+re-walk finds the others' staging folders absent, walks what is left and labels
+it by those two runs, so its labels need not match the results kept here.
 
 HOW. Each walk is a COPY of the staging folder under `_scratch/`, with its
 own `addons/heist_nav_qa/nav_qa_director.gd` patched for the variant, run
@@ -65,7 +68,10 @@ import time
 ROOT = pathlib.Path(__file__).resolve().parents[3]
 HERE = pathlib.Path(__file__).resolve().parent
 SCRATCH = ROOT / "_scratch" / "2026-10-08_walktest_body"
-RUNS = range(9193, 9205)
+#: (run, its workspace), named in full so tools/factory_retire.py sees what this reads
+RUNS = ((9193, "cold-9193-ws"), (9194, "cold-9194-ws"), (9195, "cold-9195-ws"), (9196, "cold-9196-ws"),
+        (9197, "cold-9197-ws"), (9198, "cold-9198-ws"), (9199, "cold-9199-ws"), (9200, "cold-9200-ws"),
+        (9201, "cold-9201-ws"), (9202, "cold-9202-ws"), (9203, "cold-9203-ws"), (9204, "cold-9204-ws"))
 DIRECTOR = pathlib.Path("addons") / "heist_nav_qa" / "nav_qa_director.gd"
 RADIUS_LINE = "capsule.radius = AGENT_RADIUS * 0.7"
 FLOOR_LINE = 'body.floor_max_angle = deg_to_rad(_envf("DC_NAV_SLOPE", 55.0) + 1.0)'
@@ -183,8 +189,8 @@ STEP_NEW = "\n".join([
 
 def distinct_walks():
     seen, out = {}, []
-    for n in RUNS:
-        staging = ROOT / "workspaces" / f"cold-{n}-ws" / ".level_factory" / "staging"
+    for n, ws in RUNS:
+        staging = ROOT / "workspaces" / ws / ".level_factory" / "staging"
         for d in sorted(staging.glob("*.walktest_navqa.candidate.*")):
             h = hashlib.sha256()
             for rel in ("site_navqa.tscn", "site.tscn", str(DIRECTOR)):
