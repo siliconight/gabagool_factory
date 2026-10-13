@@ -28,12 +28,19 @@ def census(path):
             out["meshes"][(typ, owner)] += 1
         elif typ.endswith("Material3D"):
             out["materials"][(typ, owner)] += 1
-    for name, typ, instance in re.findall(
-            r'^\[node name="([^"]+)"(?: type="([^"]+)")?[^\n]*?(instance=ExtResource)?', text, re.M):
+    # Each node's header line whole, its type and its instance asked of the line (2026-10-13).
+    # RETRACTED, KEPT: the pattern here was a lazy `[^\n]*?` and an OPTIONAL
+    # `(instance=ExtResource)?`, which the engine satisfies with the empty match every time --
+    # "instances total 0" on cold run 9272's site.tscn, which holds 193 of them. The records that
+    # cite this tool (cold runs 9234-9237, docs/findings/street_draws) used its other counts.
+    for line in re.findall(r'^\[node [^\n]*', text, re.M):
+        named = re.search(r' name="([^"]+)"', line)
+        typed = re.search(r' type="([^"]+)"', line)
+        typ = typed.group(1) if typed else ""
         if typ in ("MeshInstance3D", "MultiMeshInstance3D"):
             out["nodes"][typ] += 1
-        elif instance:
-            out["instances"][re.sub(r"[_-]?\d+$", "", name)] += 1
+        elif "instance=ExtResource" in line and named:
+            out["instances"][re.sub(r"[_-]?\d+$", "", named.group(1))] += 1
     return out
 
 
