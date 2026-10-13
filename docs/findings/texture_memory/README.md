@@ -56,3 +56,70 @@ block artefacts on Pixelcoat's pixel-art packs (4 x 4 blocks over Closest-
 sampled texels), to be judged on frames at the fixed stations before it
 ships. (2) The sky: only the slot's panorama resident, the rest loaded when
 the cycle reaches them. Roadmap 238.
+
+## RETRACTED, KEPT ABOVE: the attribution. Measured 2026-10-13 on cold run 9273's package
+
+**What was wrong.**
+
+- **The sky is not resident.** At scene load the resource cache holds 457 of the package's 602 image
+  files, and **none of the 140 under `runtime/skymint`** (`resident_9273.txt`). SkyMint loads two
+  skyboxes, the day's and the night's, builds each into a Cubemap from its faces' images, and lets the
+  face textures go (`skymint.gd`, `_assign_textures` and `_load_cube`).
+- **The census counted the lightmap as nothing.** Pillow cannot open `bake.exr`, so it is a row of 0 x 0.
+- **The two totals matched by accident.** The census's sky-inclusive estimate came out beside the engine's
+  total, but it counted textures that are not resident and missed the largest one that is.
+
+**The instruments.**
+
+- `texture_resident_probe.gd` frees parts of a loaded level and reads the monitor after each.
+  - The monitor does not come down with them: 314.7 MiB loaded, and 266.9 MiB with the whole scene freed
+    and no image file left in the cache. Shrinking either shadow atlas afterwards moves nothing.
+  - So a free is not a measurement here.
+- `texture_split_probe.gd` builds the mission as its entry script builds it, in a fresh process an arm,
+  with one part left out before it enters the tree.
+  - It reads once the Warmup has finished; read mid-sweep, a monitor is the sweep's.
+  - THE CONTROL: the package's own `mission.tscn` and the rebuild read the same 314.6 MiB, and the mission
+    read the same twice.
+
+The arms, verbatim in `split_9273.txt`:
+
+    arm                                       texture   the part's share
+    empty (no scene: the window's floor)        5.7
+    mission (the package as it runs)          314.6
+    full (rebuilt, the control)               314.6
+    -bake (the lit site: Lux, the lightmap)     7.8     306.8
+    -restaurant_row_001_dressing              313.3       1.3
+    -site_backdrop                            313.9       0.7
+    -lightmap (its LightmapGI only)           293.3      21.3
+    -warmup (no sweep: nothing renders)        57.3     257.3
+    -patlas / -datlas / -shadows              314.6       0
+    mission, reflection_size 64 (override)     73.5     241.1
+
+**The reflection atlas is 82 % of it.**
+
+- **What forces it:** the Warmup's sweep, and in play the player's camera, renders the level's 23
+  ReflectionProbes. Every one is Lux's, an interior room's ambient, updating once.
+- **The default atlas:** Godot's project default holds 64 probes of 256 x 256 x 6 faces in half-float.
+  That is 192 MiB, 256 with mips: the warm-up's 257.3, and the 241.1 the 64-pixel override takes away
+  (64 x 6 x 64^2 half-float with mips is 16 MiB).
+- **How it acts:** the atlas belongs to the window, not the level, which is why it outlived the freed
+  scene. The shadow atlases are none of it.
+- **What is left:** the lightmap is 21.3 MiB (1024 x 1024 x 16 layers, BC6H), and the level's own
+  textures about 30 MiB. The `-warmup` reading is that, plus the lightmap, plus the 5.7 MiB floor.
+
+**What it does not say.**
+
+- **Fewer slots than probes is not a lever:** at 4 slots for 23 probes the engine raised
+  `Condition "rpi->atlas_index < 0"` 113,494 times and the run never finished its warm-up in 600 s
+  (`split_9273.txt`, its last lines). The atlas must hold every probe.
+- **Nothing here judges the look:** a probe's resolution is the sharpness of a room's reflections and
+  ambient, to be seen in frames before the atlas shrinks.
+
+**The levers, revised.**
+
+1. **The reflection atlas, sized to the level.** The package's `project.godot` already carries one
+   setting derived from its own content -- `max_renderable_lights`, the package's light count. The atlas
+   count is the same kind of number: the probe count, rounded up. Its size is a look to price at
+   interior stations: 32 slots of 256 are 128 MiB, of 128 32 MiB, and of 64 8 MiB.
+2. **Compression of the level's own textures:** now a lever on about 30 MiB, not on half a gigabyte.
+3. **The sky lever is withdrawn:** the sky is not resident.

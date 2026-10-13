@@ -1,0 +1,55 @@
+# texture_split_probe.gd on cold run 9273's package (restaurant_row_001; Level Factory 0.197.0, Lux 0.76.1), an imported copy,
+# GL Compatibility, NVIDIA GeForce RTX 2060, 2026-10-13. One process an arm; the [split] lines verbatim.
+## split_empty
+[split] arm empty; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[split] empty        texture 5.7 MiB, buffers 6.2 MiB, draws 0, frame 300 (no warm-up)
+## split_mission
+[split] arm mission; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 6010 ms
+[split] mission      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_full
+[split] arm full; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 5987 ms
+[split] full         texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_-bake
+[split] arm -bake; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 378 frame(s) in 621 ms
+[split] -bake        texture 7.8 MiB, buffers 12.6 MiB, draws 0, frame 439 (after the warm-up)
+## split_-restaurant_row_001_dressing
+[split] arm -restaurant_row_001_dressing; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 5907 ms
+[split] -restaurant_row_001_dressing texture 313.3 MiB, buffers 47.7 MiB, draws 1, frame 637 (after the warm-up)
+## split_-site_backdrop
+[split] arm -site_backdrop; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 5899 ms
+[split] -site_backdrop texture 313.9 MiB, buffers 47.9 MiB, draws 1, frame 637 (after the warm-up)
+## split_-lightmap
+[split] arm -lightmap; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 36538 ms
+[split] -lightmap    texture 293.3 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_-warmup
+[split] arm -warmup; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[split] -warmup      texture 57.3 MiB, buffers 45.9 MiB, draws 1, frame 300 (no warm-up)
+## split_-patlas
+[split] arm -patlas; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 7671 ms
+[split] -patlas      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_-datlas
+[split] arm -datlas; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 6455 ms
+[split] -datlas      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_-shadows
+[split] arm -shadows; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 5793 ms
+[split] -shadows     texture 314.6 MiB, buffers 54.1 MiB, draws 1, frame 637 (after the warm-up)
+## split_mission_size64
+[split] arm mission; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 6657 ms
+[split] mission      texture 73.5 MiB, buffers 52.0 MiB, draws 1, frame 637 (after the warm-up)
+## split_mission_probes
+[split] arm mission; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[warmup] 576 frame(s) in 6409 ms
+[split] mission      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+[split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 64 x 256
+## split_mission_count4 (override.cfg reflection_count=4): no reading -- killed at 600 s, its log 17.7 MB of
+## 'Condition "rpi->atlas_index < 0" is true' (113494 of them) after '[warmup] 96 station(s), 64 on a 97.7 m grid, 576 frame(s) (cluster radius 12.0 m)'

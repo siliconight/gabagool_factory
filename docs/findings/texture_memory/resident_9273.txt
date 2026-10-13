@@ -1,0 +1,26 @@
+# texture_resident_probe.gd on cold run 9273's package, an imported copy, 2026-10-13: two runs, then the --empty floor.
+## resident
+[resident] scene res://mission.tscn; 602 image files under res://; waiting 90 frames a state
+[resident] loaded    texture 314.7 MiB, buffers 41.9 MiB
+[resident] loaded    457 of 602 image files cached: { "bake.exr": 1, "cover": 38, "lot": 405, "runtime/lux/resources": 1, "signs": 4, "skins": 8 }
+[resident] lightmap  Lightmap: 1024 x 1024 x 16 layers, format 24, path res://bake.exr
+[resident] no_lmap   texture 314.7 MiB, buffers 48.0 MiB
+[resident] no_sky    texture 314.0 MiB, buffers 48.0 MiB
+[resident] no_scene  texture 266.9 MiB, buffers 18.4 MiB
+[resident] no_scene  0 of 602 image files cached: {  }
+## resident2
+[resident] window positional shadow atlas 4096, directional shadow size 4096 (project setting)
+[resident] scene res://mission.tscn; 602 image files under res://; waiting 90 frames a state
+[resident] loaded    texture 314.7 MiB, buffers 41.9 MiB
+[resident] loaded    457 of 602 image files cached: { "bake.exr": 1, "cover": 38, "lot": 405, "runtime/lux/resources": 1, "signs": 4, "skins": 8 }
+[resident] lightmap  Lightmap: 1024 x 1024 x 16 layers, format 24, path res://bake.exr
+[resident] no_lmap   texture 314.7 MiB, buffers 54.1 MiB
+[resident] no_sky    texture 314.0 MiB, buffers 54.1 MiB
+[resident] no_scene  texture 266.9 MiB, buffers 24.5 MiB
+[resident] no_scene  0 of 602 image files cached: {  }
+[resident] no_patlas texture 266.9 MiB, buffers 24.5 MiB
+[resident] no_datlas texture 266.9 MiB, buffers 24.5 MiB
+## empty
+[resident] window positional shadow atlas 4096, directional shadow size 4096 (project setting)
+[resident] --empty: no scene; waiting 90 frames
+[resident] empty     texture 5.7 MiB, buffers 6.2 MiB
