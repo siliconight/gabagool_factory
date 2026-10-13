@@ -80,9 +80,28 @@ stuck event in run 15.
 
 Laser Tag counts an enemy stuck when it still has a destination and has moved less than its threshold over
 the window (`LT_EnemyMovement._update_stuck`), with no test for what it is doing. LT_Enemy_02 stops at the
-same place at the same time (t 9.07) in two runs, before any contact. That reads as a destination the body
-cannot reach -- for example, one behind b1's wall, with the path ending at the wall. **That is a hypothesis,
-not a measurement.** The enemy's destination at that moment is the next instrument. This is Laser Tag's
-(roadmap 242), not the level's.
+same place at the same time (t 9.07) in two runs, before any contact. That read as a destination the body cannot reach -- for example, one behind b1's wall, with the path ending at
+the wall.
+
+**RETRACTED, KEPT ABOVE: the unreachable destination.** `enemy_stop_trace.py` measured it
+(`enemy_stop_trace.out.txt`). It patches a copy's `LT_EnemyBrain._on_stuck` only and runs the job's 25 runs.
+THE CONTROL: the copy's summary and its three EnemyStuck events are the job's.
+
+- **Each stuck enemy's target is reachable.** It is the crew member it seeks, about 36 m east. The path has
+  49 points, and the enemy is at index 1, whose corner lies 1.84 m (or 2.55 m) east on flat ground. It is
+  not finished and not reached.
+- **Its velocity after `move_and_slide` is zero.**
+- **That frame's one slide collision is another enemy.** LT_Enemy_02, in runs 10 and 15, is pressed against
+  LT_Enemy_06, standing just east of it in its way. LT_Enemy_04, in run 10, is pressed against LT_Enemy_02.
+
+So three enemies queue single file on one path along b1's south wall. In the SEEK state the brain re-sets the
+destination every physics frame. Laser Tag's enemies steer with no avoidance, so a body pushes straight into
+the one ahead, and `_update_stuck` counts a body held by a teammate as stuck.
+
+**The 0 -> 3 is congestion, not geometry.** It is the stoops' navmesh change lining three enemies up on one
+path -- the same class of count Laser Tag 0.28.0 and 0.28.1 took out of the crew's.
+
+**Unmeasured:** how much of other lots' enemy-stuck counts is congestion -- the WARN lots carry 51
+(warehouse_yard_001 seed_9206) and 23 (bank_block_001 seed_9256). This is Laser Tag's (roadmap 242).
 
 **Retracted, kept:** `stoop_breadth_walk_staged_director_RETRACTED.out.txt`. The first walk walked each copy's staged director. The first lot it reached that was staged before Lot 0.117.0 was warehouse_yard_001 seed_9004. There it failed in the `flat` arm, with no stoop in it, on "navigation map is EMPTY at QA time", and the run stopped (the docstring of `stoop_breadth.py` has the measurement). The walk now gets today's director, as `walktest.py`'s `main()` gives every run.
