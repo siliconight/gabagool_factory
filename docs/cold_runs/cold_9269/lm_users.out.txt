@@ -1,0 +1,30 @@
+# lm_users.gd on each package's bake.lmbake, then lm_users.py on the dumps (2026-10-12).
+# Each probe run also printed, as expected: an 'invalid UID' warning for the data's external texture and
+# 'Resource file not found: res://bake.exr' -- the texture is not loaded, only user_data is read.
+# users: 9268 3338, 9269 3346, 9270 3346
+
+$ lm_users.py users_9268.txt users_9269.txt   (9269 adds the 8 drain meshes)
+users: 3338 in users_9268.txt, 3346 in users_9269.txt; 3338 in both
+of those in both: 127 kept rect and slice, 567 moved slice, 2644 kept the slice and moved the rect
+only in the first: 0; only in the second: 8
+  + ../Site/site_drains_iron_c499_499 -1 ((0.90332, 0.620117, 0.087891, 0.091797), 8)
+  + ../Site/site_drains_iron_c499_500 -1 ((0.305664, 0.620117, 0.087891, 0.091797), 8)
+  + ../Site/site_drains_iron_c502_499 -1 ((0.610352, 0.620117, 0.087891, 0.091797), 8)
+  + ../Site/site_drains_iron_c502_500 -1 ((0.805664, 0.620117, 0.087891, 0.091797), 8)
+  + ../Site/site_drains_void_c499_499 -1 ((0.868164, 0.000977, 0.013672, 0.009766), 15)
+  + ../Site/site_drains_void_c499_500 -1 ((0.891602, 0.000977, 0.013672, 0.009766), 15)
+  + ../Site/site_drains_void_c502_499 -1 ((0.915039, 0.000977, 0.013672, 0.009766), 15)
+  + ../Site/site_drains_void_c502_500 -1 ((0.938477, 0.000977, 0.013672, 0.009766), 15)
+  moved ../Site/Ground/mesh_t0_5 -1 ((0.251953, 0.15918, 0.241211, 0.148438), 3) -> ((0.408203, 0.807617, 0.241211, 0.148438), 2)
+  moved ../Site/Ground/mesh_t0_6 -1 ((0.50293, 0.15918, 0.241211, 0.148438), 3) -> ((0.157227, 0.649414, 0.241211, 0.148438), 2)
+  moved ../Site/Ground/mesh_t1_2 -1 ((0.50293, 0.317383, 0.241211, 0.148438), 3) -> ((0.157227, 0.807617, 0.241211, 0.148438), 2)
+  moved ../Site/Ground/mesh_t1_4 -1 ((0.65918, 0.807617, 0.241211, 0.148438), 2) -> ((0.251953, 0.317383, 0.241211, 0.148438), 3)
+  moved ../Site/Ground/mesh_t1_5 -1 ((0.408203, 0.807617, 0.241211, 0.148438), 2) -> ((0.50293, 0.317383, 0.241211, 0.148438), 3)
+  moved ../Site/Ground/mesh_t1_6 -1 ((0.157227, 0.807617, 0.241211, 0.148438), 2) -> ((0.000977, 0.475586, 0.241211, 0.148438), 3)
+  moved ../Site/Ground_1/mesh_t0_1 -1 ((0.176758, 0.555664, 0.152344, 0.15918), 1) -> ((0.383789, 0.829102, 0.152344, 0.15918), 0)
+  moved ../Site/Ground_1/mesh_t0_2 -1 ((0.383789, 0.829102, 0.152344, 0.15918), 0) -> ((0.000977, 0.563477, 0.152344, 0.15918), 1)
+
+$ lm_users.py users_9269.txt users_9270.txt   (9270 moves 4 grates and 2 lids 2.15 m; the same meshes)
+users: 3346 in users_9269.txt, 3346 in users_9270.txt; 3346 in both
+of those in both: 3346 kept rect and slice, 0 moved slice, 0 kept the slice and moved the rect
+only in the first: 0; only in the second: 0

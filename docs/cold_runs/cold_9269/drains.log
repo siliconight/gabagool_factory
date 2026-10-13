@@ -1,0 +1,18 @@
+shots 9268 exit 0
+shots 9269 exit 0
+[diff] corner.png vs shots_9269: mean |d| (2.30, 2.17, 2.14); >8 codes 2.044 %, >32 codes 0.138 %, box over 32 [0, 13, 1598, 490]
+[diff] junction.png vs shots_9269: mean |d| (2.60, 2.31, 2.16); >8 codes 3.104 %, >32 codes 0.232 %, box over 32 [0, 0, 1598, 502]
+[diff] lane.png vs shots_9269: mean |d| (1.83, 1.73, 1.82); >8 codes 1.127 %, >32 codes 0.122 %, box over 32 [0, 0, 1234, 408]
+[diff] up.png vs shots_9269: mean |d| (2.78, 2.45, 2.65); >8 codes 2.684 %, >32 codes 0.260 %, box over 32 [1, 38, 1597, 825]
+[diff] hatch.png vs shots_9269: mean |d| (2.34, 1.93, 2.08); >8 codes 0.051 %, >32 codes 0.002 %, box over 32 [88, 394, 1439, 404]
+docs/cold_runs/cold_9269/drains.png (1600, 2420)
+sheet: docs/cold_runs/cold_9269/drains.png
+price exit 0
+measured control_1  53 headings  draws mean 788 worst 2805  p95 median 2.94 ms
+measured glow       53 headings  draws mean 789 worst 2807  p95 median 2.95 ms
+measured control_2  53 headings  draws mean 788 worst 2805  p95 median 2.81 ms
+controls' spread, median over 53 headings: p95 0.05 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0             0.02         0.33
+glow               1.2            0            5             0.03         1.14
+control_2          0.0            0            0            -0.02         0.17
