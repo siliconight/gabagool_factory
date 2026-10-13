@@ -43,7 +43,16 @@ cell size are ONE decision, not three.
 
 - **deli_counter**: `agent_contract.py` (loader) → `navigability.py` door/agent
   thresholds; `nav_gate.py` passes `DC_NAV_*`/`DC_QA_*` env into
-  `nav_gate.gd` (which falls back to ratified constants).
+  `nav_gate.gd` (which falls back to ratified constants). Geometry built from
+  the contract (0.215.0), each a function in the loader:
+  - `stair_flight_width()` is the flight a generator draws and the depth of
+    every stair landing (`presets.STAIR_FLIGHT_WIDTH`,
+    `stairwell.LANDING_DEPTH`);
+  - `vault_aperture()` is the round vault door's opening, which Zoo builds the
+    door to (`vault_room.APERTURE`, `spec_types`' vault default).
+
+  Their rules are in `clearances.stair_landing_derivation` and
+  `vault_aperture_derivation`.
 - **lot**: `lot.py::_agent()` (searches `$DC_AGENT_CONTRACT`, then the
   deli_counter sibling repo) → walk + nav-QA scene bake parameters;
   `walktest.py` bridges the env into `nav_qa_director.gd`.
