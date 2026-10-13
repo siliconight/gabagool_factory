@@ -94,10 +94,13 @@ narrower terrace cannot silently push a ramp onto the sidewalk.
    - check the ramp against the contract with Deli Counter's own stair gates.
 2. **The patch:** suite, `build.py --all`, a cold run, frames at the far row, and the graders'
    breadth. Built as Deli Counter 0.211.0/0.211.1 and Level Factory 0.195.0/0.196.0 (cold runs 9271
-   and 9272). **The graders' breadth was not run**, for the stoops or for the railings after them:
-   `engine_breadth.py` stages lots that predate both (its newest are cold run 9264's). Each cold run
-   graded restaurant_row_001's three candidates alike, and no other family's lots have been graded
-   with a stoop in them.
+   and 9272). **The graders' breadth was not run before shipping**, for the stoops or the railings:
+   `engine_breadth.py` stages lots that predate both (its newest are cold run 9264's). It was run
+   afterwards, on 2026-10-13 (`docs/findings/stoop_breadth/`). On the 8 of its lots with rowhomes,
+   the same Deli Counter with and without stoops was swapped in, and the controls held:
+   - the walk test is unchanged on all eight;
+   - no Laser Tag stuck event falls within 10.9 m of a stoop (229 events);
+   - the fights move both ways.
 3. **Zoo's railing**, then a cold run and frames. Built as Zoo 1.105.0's `stoop_railing`, Deli
    Counter 0.212.0 and Level Factory 0.197.0 (cold run 9273): one railing each side, in two sections,
    5 cm inside the stoop's side; its colliders Deli Counter's.
