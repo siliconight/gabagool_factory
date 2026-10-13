@@ -255,3 +255,11 @@ candidates PASS 90, route 1.00, no stuck event; findings 118 -> 117, the last LT
 -- reads PASS 90, route 1.00, none under 0.29.0 (`pin_9263_029.out.txt`); 9261's and 9262's lots were
 retired before they could be read again (`engine_ab.py` builds their names, which the retire step's
 protection cannot see -- filed separately).
+
+**The two shorter routes, attributed** (`pin_trace.py census` under 0.29.0, the repository's Laser
+Tag, each reproducing the breadth's row: warehouse_yard_001 seed_9004 under Godot Physics PASS_WITH_TUNING
+89 at route 0.96, seed_9206 under Jolt WARN 72 at 0.88). Every run that ended short ended in a TEAM
+WIPE, all four crew killed early -- seed_9004's run 7 at t 22.4; seed_9206's runs 4, 6 and 8 at 21.3,
+16.0 and 15.9 -- with no stuck event and no timeout on either lot. Keeping to the mesh moves where
+crews meet guards, and on these two lots one more fight went the guards' way: the encounter, not the
+traversal.
