@@ -1,0 +1,19 @@
+# census --why, the draft
+Laser Tag addon: _scratch\lt_draft\addons\laser_tag_tool (Laser Tag 0.28.0)
+the control: the instrumented census's stuck events ARE the plain census's (7 against 7)
+  run  6 t  12.0 LT_Player_02 at (11.70, 0.00, -0.92): moved 0.000 m, an enemy in sight 60 of 60 frames
+  run  6 t  12.0 LT_Player_03 at (12.01, 0.00, -0.66): moved 0.267 m, an enemy in sight 59 of 60 frames
+  run 10 t  12.0 LT_Player_02 at (11.70, 0.00, -0.92): moved 0.000 m, an enemy in sight 60 of 60 frames
+  run 10 t  12.0 LT_Player_03 at (12.01, 0.00, -0.66): moved 0.267 m, an enemy in sight 59 of 60 frames
+  run 11 t  12.0 LT_Player_02 at (11.70, 0.00, -0.92): moved 0.000 m, an enemy in sight 60 of 60 frames
+  run 11 t  12.0 LT_Player_03 at (12.01, 0.00, -0.66): moved 0.267 m, an enemy in sight 59 of 60 frames
+  run 20 t  12.0 LT_Player_02 at (11.70, 0.00, -0.92): moved 0.000 m, an enemy in sight 60 of 60 frames
+7 stuck events; 7 of them closed a window the bot spent at least half in sight of an enemy
+
+# census --why, 0.27.0
+Laser Tag addon: lasertag\addons\laser_tag_tool (Laser Tag 0.27.0)
+the control: the instrumented census's stuck events ARE the plain census's (3 against 3)
+  run 12 t  16.0 LT_Player_01 at (11.94, 0.00, -0.74): moved 0.100 m, an enemy in sight 7 of 60 frames
+  run 22 t  16.0 LT_Player_01 at (11.95, 0.00, -0.73): moved 0.111 m, an enemy in sight 7 of 60 frames
+  run 25 t  16.0 LT_Player_01 at (11.94, 0.00, -0.74): moved 0.100 m, an enemy in sight 7 of 60 frames
+3 stuck events; 0 of them closed a window the bot spent at least half in sight of an enemy

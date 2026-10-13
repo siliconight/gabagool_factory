@@ -1,4 +1,4 @@
-"""Laser Tag 0.28.0: the bot keeps to the mesh it plans on, so it stops meeting the corners it is routed
+"""Laser Tag 0.29.0: the bot keeps to the mesh it plans on, so it stops meeting the corners it is routed
 round (factory roadmap 242; docs/findings/route_snag/).
 
 Anchored edits, each asserted once, nothing written until all of them matched:
@@ -7,7 +7,7 @@ Anchored edits, each asserted once, nothing written until all of them matched:
       `delta` and moves at `_velocity_on_mesh`'s velocity; `_velocity_on_mesh` before the route-walked
       rule
   addons/laser_tag_tool/runners/tests/test_bot_keeps_to_the_mesh.gd   NEW
-CHANGELOG and VERSION from `lt_keep_on_mesh/CHANGELOG_0.28.0.md`; `--results-pending` leaves the
+CHANGELOG and VERSION from `lt_keep_on_mesh/CHANGELOG_0.29.0.md`; `--results-pending` leaves the
 RESULT_ keys to `--fill`.
 
 Read before it was written: `_advance_route` (the movement at its end, the `_delta` it never read),
@@ -34,19 +34,18 @@ PENDING = "--results-pending" in sys.argv
 FILL = "--fill" in sys.argv
 RESULTS = {"RESULT_MEASURED": "result_measured.txt", "RESULT_TESTS": "result_tests.txt",
            "RESULT_SUITE": "result_suite.txt"}
-VERSION_WAS, VERSION = b"Laser Tag 0.27.0", b"Laser Tag 0.28.0"
-CHANGELOG_HEAD = ("# Changelog\n\n## [0.27.0] - the navigation map updates on the evaluation's thread, so "
-                  "the clock need not wait\n")
+VERSION_WAS, VERSION = b"Laser Tag 0.28.1", b"Laser Tag 0.29.0"
+CHANGELOG_HEAD = "# Changelog\n\n## [0.28.1] - a bot that reaches where it was going is not stuck\n"
 BOT = "addons/laser_tag_tool/scripts/player/LT_BotPlayerController.gd"
 TEST = "addons/laser_tag_tool/runners/tests/test_bot_keeps_to_the_mesh.gd"
-SHA = {BOT: "ce35a0c24574ddc8"}
+SHA = {BOT: "507a48aa5202915b"}
 
 CONST_OLD = ("## How squarely the wall must face the walk (cos of 72.5 deg). A wall the bot\n"
              "## slides along at a shallower angle is not in its way.\n"
              "const STEP_FACING_DOT: float = 0.3\n")
 CONST_NEW = (CONST_OLD +
              "\n"
-             "## THE BODY KEEPS TO THE MESH IT PLANS ON (0.28.0, factory roadmap 242).\n"
+             "## THE BODY KEEPS TO THE MESH IT PLANS ON (0.29.0, factory roadmap 242).\n"
              "## How far the end of a step may sit from the mesh before it is turned back\n"
              "## onto it: a centimetre, against the 5 cm the contract's bake (0.4 m) leaves\n"
              "## the 0.35 m body. A tolerance for the closest-point query's own rounding,\n"
@@ -78,7 +77,7 @@ MOVE_NEW = ("\tif flat.length() > 0.05:\n"
             "\telse:\n"
             "\t\t_stop_horizontal()\n"
             "\n"
-            "## THE BODY KEEPS TO THE MESH IT PLANS ON (0.28.0, factory roadmap 242).\n"
+            "## THE BODY KEEPS TO THE MESH IT PLANS ON (0.29.0, factory roadmap 242).\n"
             "## The bot turns toward its next path point once within its arrival radius,\n"
             "## about 0.44 m (`LT_Const.arrival_radius`), and the straight line from there\n"
             "## to a point round a corner cuts the corner: off the mesh, into the 0.4 m the\n"
@@ -138,7 +137,7 @@ def fill():
         assert value and "RESULT_" not in value and not value.endswith("."), (name, value[-40:])
         results[key] = value
     writes = {}
-    for path, rel in [(LT / "CHANGELOG.md", "CHANGELOG.md"), (SRC / "CHANGELOG_0.28.0.md", "the entry")]:
+    for path, rel in [(LT / "CHANGELOG.md", "CHANGELOG.md"), (SRC / "CHANGELOG_0.29.0.md", "the entry")]:
         raw = path.read_bytes()
         eol = _eol(raw, rel)
         text = raw.decode("utf-8").replace("\r\n", "\n")
@@ -148,14 +147,20 @@ def fill():
         writes[path] = text.encode("utf-8").replace(b"\n", eol)
     for path, data in writes.items():
         path.write_bytes(data)
-    print("Laser Tag 0.28.0: results filled")
+    print("Laser Tag 0.29.0: results filled")
 
 
 #: HELD 2026-10-12 (`docs/findings/route_snag/README.md`, "Laser Tag 0.28.0, drafted and HELD"): over 16
 #: lots the draft cut player-stuck 108 -> 45 under Godot Physics and 60 -> 44 under Jolt, and made
-#: bank_block_001 seed_9256 pin 7 times under each and three deli and gas lots score 10 lower. It writes
-#: the repository only once those are attributed and this line is removed; a draft copy is always fine.
-HELD = True
+#: bank_block_001 seed_9256 pin 7 times under each and three deli and gas lots score 10 lower.
+#: ATTRIBUTED the same night ("The stuck detector counts fights"): 18 of those 21 events were bots standing
+#: to fight, which Laser Tag 0.28.0 stopped counting, and its own warehouse and basement "pins" were round
+#: trips to a route point, which 0.28.1 stopped counting; this draft is now 0.29.0 on top of 0.28.1. It
+#: writes the repository once it is measured again over the 16 lots on 0.28.1 and this line is removed; a
+#: draft copy is always fine.
+#: RELEASED 2026-10-12, measured on 0.28.1 (`docs/findings/route_snag/engine_breadth_029.out.txt`): over the
+#: 16 lots player-stuck 70 -> 0 and 3 -> 0, scores up on 4 rows, down a point on 3, the rest the same.
+HELD = False
 
 
 def main():
@@ -164,10 +169,10 @@ def main():
     if DRAFT and not os.environ.get("LT_ROOT"):
         sys.exit("refusing: --draft is for an LT_ROOT copy, never the repo")
     if HELD and not DRAFT:
-        sys.exit("refusing: Laser Tag 0.28.0 is HELD (see HELD above); LT_ROOT=<copy> ... --draft only")
+        sys.exit("refusing: Laser Tag 0.29.0 is HELD (see HELD above); LT_ROOT=<copy> ... --draft only")
     assert (LT / "VERSION").read_bytes().strip() == VERSION_WAS, (LT / "VERSION").read_bytes()
-    entry = _src("CHANGELOG_0.28.0.md")
-    assert entry.startswith("## [0.28.0] - "), entry[:40]
+    entry = _src("CHANGELOG_0.29.0.md")
+    assert entry.startswith("## [0.29.0] - "), entry[:40]
     if not DRAFT:
         left = entry
         for key in RESULTS if PENDING else ():
@@ -195,7 +200,7 @@ def main():
     (LT / TEST).write_bytes(test.encode("utf-8"))
     cl.write_bytes(cl_new.replace("\n", cl_eol.decode()).encode("utf-8"))
     (LT / "VERSION").write_bytes(VERSION)
-    print("Laser Tag 0.27.0 -> 0.28.0" + (" (DRAFT)" if DRAFT else ""))
+    print("Laser Tag 0.28.1 -> 0.29.0" + (" (DRAFT)" if DRAFT else ""))
 
 
 if __name__ == "__main__":

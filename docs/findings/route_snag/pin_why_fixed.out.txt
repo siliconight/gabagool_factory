@@ -1,0 +1,17 @@
+# plain census then census --why under Laser Tag 0.28.0's draft (the fixed detector)
+=== line-after-gas_block_001-ws gas_block_001 seed_9282 (the fixed detector)
+gas_block_001_seed_9282, 25 runs from seed 9282: PASS 90, route 1.0, player stuck 1, enemy stuck 0, deaths 2
+  once  (8.359, 3.401, 6.078): 1 events in runs [15], first at t 30.27 r15 by LT_Player_02
+census report kept: _scratch\pin_trace\gas_block_001_seed_9282_godot_addon.census.json
+the control: the instrumented census's stuck events ARE the plain census's (1 against 1)
+  run 15 t  30.3 LT_Player_02 at (8.36, 3.40, 6.08): moved 0.006 m, an enemy in sight 0 of 60 frames
+1 stuck events; 0 of them closed a window the bot spent at least half in sight of an enemy
+=== cold-9240-ws warehouse_yard_001 seed_9206 (the fixed detector)
+warehouse_yard_001_seed_9206, 25 runs from seed 9206: WARN 58, route 1.0, player stuck 2, enemy stuck 51, deaths 51
+  once  (-31.809, 0.001, 11.911): 1 events in runs [16], first at t 34.0 r16 by LT_Player_02
+  once  (-31.677, 0.001, 11.559): 1 events in runs [18], first at t 35.6 r18 by LT_Player_03
+census report kept: _scratch\pin_trace\warehouse_yard_001_seed_9206_godot_addon.census.json
+the control: the instrumented census's stuck events ARE the plain census's (2 against 2)
+  run 16 t  34.0 LT_Player_02 at (-31.81, 0.00, 11.91): moved 0.463 m, an enemy in sight 0 of 60 frames
+  run 18 t  35.6 LT_Player_03 at (-31.68, 0.00, 11.56): moved 0.029 m, an enemy in sight 0 of 60 frames
+2 stuck events; 0 of them closed a window the bot spent at least half in sight of an enemy

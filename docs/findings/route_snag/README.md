@@ -124,3 +124,134 @@ Jolt route 0.92 -> 0.76); deli_001 seed_9191 under Godot Physics and seed_9393 u
 warehouse_yard_001 seed_9206 under Jolt pinned 4 -> 5, route 0.84 -> 0.76. Not attributed: where the
 bank's seven pins stand, and what the deli's three new stuck events are. The patch refuses to write the
 repository until they are; `--draft` on a copy still works.
+
+## The stuck detector counts fights (`pin_trace.py`, `why_breadth.py`)
+
+**The draft's bank "pins" are not pins.** `pin_trace.py census` on bank_block_001 seed_9256 under the
+draft: its 7 stuck events are two bodies at one spot, LT_Player_02 at (11.697, 0, -0.918) in runs 6,
+10, 11 and 20 and LT_Player_03 0.40 m from it in runs 6, 10 and 11, every one at t 12.0
+(`pin_census_bank.out.txt`). `pin_trace.py trace` on run 6, its control held (the copy's first stuck
+event the census's, time, body and position): the body's velocity is ZERO, on the floor, touching no
+wall, its two teammates within 1.2 m, `_velocity_on_mesh` never reached -- the bot was not asking to
+move (`pin_trace_bank.out.txt`). `_physics_process` stops a bot that sees an enemy
+(`advance_while_engaging` off, the factory's setting), and `_update_stuck` closes its 4 s window and
+records PlayerStuck when the body moved less than 0.5 m and no enemy is in sight AT THAT INSTANT. So
+`census --why`: every bot counts, since its window last closed, its frames and those it had an enemy in
+sight; THE CONTROL, the instrumented run's stuck events the plain census's, held. All 7 closed windows
+with an enemy in sight in 59 or 60 of their 60 frames (`pin_why_bank.out.txt`): bots standing to fight,
+counted as their enemy left their sight on the window's last frame. The spot pinned under 0.27.0 too,
+3 events, with an enemy in sight 7 of 60 frames: those are not fights. (0.27.0's trace of run 12 FAILED
+its control -- run 12 alone put the body 1 cm from where run 12 of the 25-run process did -- and is kept,
+unused.)
+
+**Across the draft's regressions, 18 of 21** (`pin_why_regressed.out.txt`, each control held): deli_001
+seed_9191's and seed_9393's three each are fights, warehouse_yard_001 seed_9206's five of six under
+Jolt, the bank's seven; the three left are real -- two bodies 0.11 m apart 3.4 m up on gas_block_001
+seed_9282 under Jolt, no enemy in sight in any frame, and one on warehouse_yard_001 seed_9206.
+
+**Under the shipped grader** (`why_breadth.py`, Laser Tag 0.27.0, the 16 lots as `engine_breadth.py`
+ran them, each lot's row the same as `engine_breadth.out.txt`'s in every field -- 32 of 32 controls
+held; `why_breadth.out.txt`): of 108 player-stuck events under Godot Physics 23 are fights, of 60 under
+Jolt 28. `_score_traversal` takes 10 points for ANY player-stuck event, and 7 of the 32 lot-engine rows
+owe the whole of theirs to fights: restaurant_row_001 seed_9003 under both engines (PASS_WITH_TUNING
+80), deli_001 seed_9292 under both (80), deli_001 seed_9191 under Jolt (WARN 66), gas_block_001
+seed_9181 under both (75, and WARN 65 under Jolt). And each false stuck event skips its bot a route
+point, which a route then cannot be walked past (`route_walked`).
+
+**The fix is Laser Tag's** (`patches/patch_lt_fight_not_stuck.py`, Laser Tag 0.28.0): a frame on which
+the bot stands to fight restarts the window, so stuck means four seconds with no stand to fight in
+which the body moved less than 0.5 m -- the rule `LT_EnemyMovement` already keeps for a guard not trying
+to move, narrowed for the crew to a stand to fight so a bot hung on a path point under its feet still
+counts. Its test, `test_a_fight_is_not_stuck.gd`, fails on 0.27.0 in 3 of 6 checks and passes on the
+draft; the other 21 exit on the draft as on 0.27.0 (20 exit 0; `test_nav_bake_is_the_contract` cannot
+run from a copy on either, and runs in the repository). The held keep-on-mesh draft is to be measured
+again on top of it: its bank and deli regressions were this detector.
+
+## Laser Tag 0.28.0, measured and shipped (`engine_breadth_fight.out.txt`, cold run 9266)
+
+The fix's own breadth, `engine_breadth.py` with the draft's addon: every lot's two Godot Physics passes
+identical (16 of 16). Against 0.27.0's rows: player-stuck 108 -> 92 under Godot Physics and 60 -> 24
+under Jolt; pinned 74 -> 78 and 25 -> 14; scores up on 18 of the 32 lot-engine rows, the same on 11,
+down on 3. Routes are walked further where false events had skipped route points: restaurant_row_001
+seed_9104 under Godot Physics 0.72 -> 1.00, its 74 events all at the deli counter's corner,
+(-66.350, 0.001, 4.940/4.941), where 0.27.0 read 72 events, 66 of them there -- the false events had
+been skipping its crew past route points.
+
+**RETRACTED, KEPT -- the next paragraph's verdict.** It called the three rows down "real non-progress".
+`pin_trace.py trace --wide`, every third tick within 4 m (`pin_wide.out.txt`, each control held), shows
+otherwise: on gas_block_001 seed_9282 the body walks east along the upper floor to its route point,
+reaches it (route 1 -> 2), turns and walks back west through the same spot; on warehouse_yard_001
+seed_9206 the same out and back to its route point; each round trip took about one window, so the
+body ended near where the window began, and the detector, which measures net displacement, read a
+completed leg as stuck. A second false positive, not non-progress.
+
+**The three rows down are real non-progress 0.27.0 did not count.** gas_block_001 seed_9282 under both
+engines (PASS 100 -> 90) and warehouse_yard_001 seed_9206 under Godot Physics (WARN 68 -> 58) gained
+stuck events where 0.27.0 had none (`pin_why_fixed.out.txt`, `pin_trace_fixed.out.txt`, each control
+held): no enemy in sight in the window, and the body back within 0.006 to 0.46 m of where it began --
+traced, it crosses its spot going toward its next path point and, four seconds later, going back. The
+detector moves a bot only when it fires, and 0.27.0 fired on neither lot, so up to those events the runs
+are 0.27.0's: its crews went back and forth there too, and its fixed four-second grid did not count it.
+The gas spot is the one the keep-on-mesh draft's two Jolt bodies stood at, 3.4 m up; the warehouse spot
+its one. What drives the back and forth is not measured.
+
+**In a real drive** (cold run 9266, 0 interventions): the generator's three candidates graded as the
+breadth graded them -- seed_9003 PASS_WITH_TUNING 80 -> PASS 90 (its PLAYER_STUCK finding gone),
+seed_9104 78 -> 80 at route 1.00, seed_9205 PASS 90 -- findings 119 -> 118, the pick seed_9104 still,
+on Lot's majors against the other two.
+
+## Laser Tag 0.28.1: a bot that reaches where it was going is not stuck (`engine_breadth_0281.out.txt`)
+
+The round trips above are the detector's second false positive, and the fix is the first one's shape:
+`_restart_stuck_window()` is now the one place the window restarts -- on a stand to fight (0.28.0), on
+a route point reached and on a cover point reached. An arrival is progress; a jam after it still counts
+a window later, and route points are finite and each reached once, so arrivals cannot hold a window
+open (`patches/patch_lt_arrival_not_stuck.py`; `test_an_arrival_is_not_stuck.gd`, 8 checks, three
+failing on 0.28.0 -- [1], its control, a round trip reaching nothing, still counts).
+
+Its breadth, each lot's two Godot Physics passes identical on all 16: against 0.28.0, scores up on 11 of
+the 32 lot-engine rows and down on NONE; player-stuck 92 -> 70 under Godot Physics and 24 -> 3 under
+Jolt. What is left is real: 67 events at restaurant_row_001 seed_9104's deli counter, the one pin, and
+three on crossroads_9600 seed_9600 under each engine. The three rows 0.28.0 lowered are back (gas_block_001
+seed_9282 PASS 100 under both engines, warehouse_yard_001 seed_9206 WARN 68). Against this morning's
+0.27.0: up on 22 rows, the same on 10, down on none; player-stuck 108 -> 70 and 60 -> 3.
+
+## The keep-on-mesh draft on 0.28.0 (`engine_breadth_029_on_0280.out.txt`, `pin_mesh_9004.out.txt`)
+
+Rebased onto 0.28.0 as 0.29.0 and measured before 0.28.1 existed: player-stuck 92 -> 17 under Godot
+Physics and 24 -> 14 under Jolt, the deli counter's 74 pins gone; scores up on 7 rows and down on 7.
+The downs were new "pins" -- events recurring to the millimetre across runs -- on warehouse_yard_001
+seed_9004 (4 and 5) and crossroads_9600 seed_9701 (2 and 3), and one in seed_9104's basement under Jolt.
+Traced (`pin_trace.py census --why`, `trace --wide`, each control held): seed_9004's seven events are a
+body that "moved 0.000 m" -- passing the same spot heading south at 4 m/s toward its route point, and
+sixty ticks later heading north from it; seed_9104's basement events the same out and back to the
+objective. Round trips again, timed so exactly by the bot's fixed speed that they recur to the
+millimetre and read as pins: **the breadth's pinned count cannot tell a deterministic round trip from a
+body held by geometry**. 0.28.1 excuses the round trips found here, each to a destination; one that
+turns without arriving anywhere (a re-plan, say) it would still count. The draft moves paths a little,
+and which round trips line up with a window moves with them.
+
+## Laser Tag 0.29.0: the keep-on-mesh draft on 0.28.1, shipped (`engine_breadth_029.out.txt`)
+
+With both of the detector's false positives gone, the draft measured as what it is. Over the 16 lots,
+each lot's two Godot Physics passes identical on all 16: **player-stuck 70 -> 0 under Godot Physics and
+3 -> 0 under Jolt, pinned 69 -> 0 and 2 -> 0** -- restaurant_row_001 seed_9104's 67 events at the deli
+register counter and crossroads_9600 seed_9600's three under each engine gone. Scores up on 4 of the 32
+lot-engine rows (crossroads_9600 seed_9600 77 -> 88 under both engines, its route 0.88 and 0.92 -> 1.00;
+restaurant_row_001 seed_9104 PASS_WITH_TUNING 80 -> PASS 90 under Godot Physics), down a point on 3
+(deli_001 seed_9191 under Jolt; warehouse_yard_001 seed_9004 under Godot Physics, route 1.00 -> 0.96,
+PASS -> PASS_WITH_TUNING; seed_9206 under Jolt, route 0.92 -> 0.88), the same on 25. Keeping to the mesh
+moves where crews meet guards, and deaths moved both ways (warehouse_yard_001 seed_9004 28 -> 35 under
+Godot Physics). **Not attributed:** the two routes a run shorter.
+
+Across the day, this morning's 0.27.0 against 0.29.0 on the same 32 rows: player-stuck 108 -> 0 under
+Godot Physics and 60 -> 0 under Jolt. The engine question this item began with no longer moves the
+stuck count -- both engines read zero -- though scores still differ between them on some lots through
+the encounter (gas_block_001 seed_9181 86 under Godot Physics against 76 under Jolt).
+
+**In a real drive** (cold run 9267, 0 interventions; 0.28.1 and 0.29.0): restaurant_row_001's three
+candidates PASS 90, route 1.00, no stuck event; findings 118 -> 117, the last LT_MAP_PLAYER_STUCK gone.
+**The swing this item began with:** cold run 9263's lot -- route 0.72 and 72 stuck events under 0.27.0
+-- reads PASS 90, route 1.00, none under 0.29.0 (`pin_9263_029.out.txt`); 9261's and 9262's lots were
+retired before they could be read again (`engine_ab.py` builds their names, which the retire step's
+protection cannot see -- filed separately).

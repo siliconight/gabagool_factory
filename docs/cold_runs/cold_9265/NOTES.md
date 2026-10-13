@@ -13,8 +13,9 @@ Laser Tag route completion 0.72.
 
 - **The export:** 497 models and 224 primitive meshes lightmapped, 6 kept dynamic, 1 spawned set
   dynamic, 210 steady rigs baked and 27 failing left live, 215 room fills, 3,338 lightmap users -- as
-  in 9264; the bake 32.7 s against 29.0 and the editor 60.9 s against 56.8, the sun's shadows now
-  traced. Findings 119 -> 119.
+  in 9264; the bake 32.7 s against 29.0 and the editor 60.9 s against 56.8. Findings 119 -> 119.
+  **RETRACTED, KEPT:** this line said the extra seconds were "the sun's shadows now traced". Cold run
+  9266 baked the same sun the same way in 28.9 s and 55.8 s, under 9264's: run-to-run variation.
 - **Lux:** the package's vendored `runtime/lux/runtime/lux_lighting.gd` is 0.76.0's, byte for byte
   but its line endings.
 - **Lot 0.119.2:** `shader_parameter/min_px = 1.0` in `site.tscn` and in Lux's re-saved
@@ -99,8 +100,8 @@ this run ended; the run carries 0.76.0.
     9264   86 s    182 s   173 s    10 s   18 s     8.2 min (493 s)
     9265   88 s    200 s   181 s    12 s   18 s     8.7 min (524 s)
 
-The export's 8 s is the bake's (32.7 against 29.0 s) and its editor's. The retire step removed one
-workspace (0.9 GB).
+The export's 8 s is the bake's (32.7 against 29.0 s) and its editor's -- not the sun's (9266, the same
+Lux behaviour: 28.9 s). The retire step removed one workspace (0.9 GB).
 
 ## What is evidence of what
 

@@ -33,7 +33,9 @@ GODOT = "C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe"
 #: the Laser Tag addon dropped into each copy: the repository's, or another one named by `LT_ADDON`
 #: (how Laser Tag 0.28.0's draft was measured before its release)
 LT_ADDON = pathlib.Path(__import__("os").environ.get("LT_ADDON") or F / "lasertag" / "addons" / "laser_tag_tool")
-SCR = F / "_scratch" / "engine_breadth"
+#: the copies' folder, removed at the start and the end of a run: `BREADTH_TAG` gives a second run its own,
+#: so two breadths at once do not remove each other's copies
+SCR = F / "_scratch" / ("engine_breadth" + __import__("os").environ.get("BREADTH_TAG", ""))
 LOTS = [  # (workspace, mission, seed): the newest staged lots of each family, 2026-10-12
     ("cold-9264-ws", "restaurant_row_001", "seed_9003"),
     ("cold-9264-ws", "restaurant_row_001", "seed_9104"),

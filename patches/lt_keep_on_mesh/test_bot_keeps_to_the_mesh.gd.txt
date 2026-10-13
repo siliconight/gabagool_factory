@@ -1,5 +1,5 @@
 extends SceneTree
-## The bot keeps to the mesh it plans on (0.28.0, factory roadmap 242).
+## The bot keeps to the mesh it plans on (0.29.0, factory roadmap 242).
 ##
 ## The bot turns toward its next path point once within its arrival radius,
 ## about 0.44 m (`LT_Const.arrival_radius`), and the straight line from there
@@ -17,7 +17,7 @@ extends SceneTree
 ##   [1] the box's corner, the route turning round it: the axis keeps within
 ##       2 cm of the clearance the mesh keeps (NAV_AGENT_RADIUS, 0.4 m) -- the
 ##       body stays on the mesh it planned on and never nears what the mesh
-##       was eroded from. FAILS ON 0.27.0: its axis came 0.359 m from the box,
+##       was eroded from. FAILS ON 0.28.1: its axis came 0.359 m from the box,
 ##       4 cm into the 5 cm the mesh leaves the 0.35 m body.
 ##   [2] the CONTROL: the same route with the box moved 5 m aside, nothing to
 ##       turn round -- the body arrives either way, so the scene, the bake and
