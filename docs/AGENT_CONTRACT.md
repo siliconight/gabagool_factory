@@ -48,9 +48,16 @@ cell size are ONE decision, not three.
   deli_counter sibling repo) → walk + nav-QA scene bake parameters;
   `walktest.py` bridges the env into `nav_qa_director.gd`.
 - **review/renders**: character reference + eye heights.
-- **Deli Counter specs**: authors own their door widths, but the validator
-  enforces `clearances.min_door_width_m` — the reference spec's 1.25 m doors
-  came from this contract.
+- **Deli Counter's doors** (0.214.0): every walkable door its code writes
+  reads `clearances.min_door_width_m` — the presets (`presets.DOOR_W`), a
+  width-less door's default, the staff door — and the library's specs were
+  widened to it by `migrate_door_width.py`; `test_door_width.py` holds them.
+  The stairs-first landing door reads `min_corridor_width_m`, and one library
+  door is kept narrow by name; `clearances.min_door_width_note` says why for
+  both. The offline validator (`navigability.py`) only WARNS on a narrower
+  door in a spec somebody else authored.
+  *Until 2026-10-13 this line said the validator enforces the minimum. It
+  warned, and 200 library doors stood under it.*
 
 ## Changing a character size — the checklist
 
@@ -59,8 +66,13 @@ cell size are ONE decision, not three.
    here first, as offline findings.
 3. Rebuild affected shells, then the engine gates: `nav_gate.py --all`,
    `godot_gate.py --all`, `walktest.py`, `mp_smoke.py`.
-4. If doors had to widen: fix the SPECS (the offline validator names them),
-   never the tolerance.
+4. If doors had to widen: fix the SPECS, never the tolerance.
+   `python deli_counter/migrate_door_width.py` widens every authored library
+   door under the minimum it reads from the contract; the presets, the
+   width-less default and the staff door already follow it; `layout_lint.py
+   --all` names any widened door that no longer fits. The contract's
+   `clearances.re_derive_when` lists what one change to a body moves on its
+   own and what does not follow yet.
 5. Re-certify the factory set and bump pins as usual.
 
 Distinct NPC classes larger than the player (heavies, dozers) get their own

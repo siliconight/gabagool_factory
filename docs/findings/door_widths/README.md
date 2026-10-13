@@ -122,11 +122,65 @@ it is 0.213.0 untouched (`git archive HEAD`), the control. The drafts are in `dr
   reached one. One test moved with it: `test_site_cover_slots`' too-tight lane was a literal 11.0 sized
   at the fallback's 2.7 m clearance, and at 2.5 m a truck fit exactly.
 
-## What is left
+## Shipped: Deli Counter 0.214.0 (2879716a)
 
-The anchored patch: `spec_types`'s default at the contract's number; `stair_core`'s resolved width; the
-presets; the migration and the 29 specs; `agent_contract.json`'s `clearances.derivation` rewritten at the
-0.1 cell with 1.25 called a DESIGN MINIMUM, and a `min_door_width_note` recording what widened and the
-two doors that did not; `test_door_width.py`; the changelog. Then `build.py --all`, the gate, and cold
-runs on the missions whose buildings change. The draft test reads every file in `build/` and must read
-the library's shells instead (the orphans above).
+The walker, after the pause: "yes, widen the doors and keep 1.25". Then, mid-patch: "remember to continue to
+update the agent contract file so we can make singular changes when we know the size of characters in the
+game". That second ask widened the patch past the plan above, in three places:
+
+- **The two literals became contract reads.** The staff door (`level_design._STAFF_DOOR_WIDTH`, 1.25) now
+  asks for `min_door_width_m`. Its sibling `staff_aisle_width`'s docstring already said it did. The
+  stairs-first landing door (`stair_core._PUNCH_DOOR_W`, 1.1) asks for `min_corridor_width_m`. Same
+  numbers, so nothing built moves (the stairs-first digest below).
+- **What sizes a stairs-first crossing, measured at the producer.** A probe printed `repr(ov1 - ov0)` at
+  the punch:
+  - 18 of the 20 crossings are 1.2 m. A flight's width (the corridor plus a cell) and
+    `stairwell.LANDING_DEPTH` are both 1.2, so which one it is was not settled.
+  - 2 are 1.1000000000000014, against a 1.1 m door. They were punched by 1.4e-15. Spelt `6.1 - 5.0`, the
+    same crossing is 1.0999999999999996 and was refused.
+
+  `_punch_door` now punches a crossing exactly the door's width (a 1e-9 tolerance).
+- **`clearances.re_derive_when`, new.** It says what a change to the body or the bake's cell starts, what
+  follows on its own, and what needs `migrate_door_width.py` re-run. It also names the body-sized literals
+  that do not follow yet:
+  - `stairwell.LANDING_DEPTH`;
+  - the vault's 1.3 x 2.1 m aperture, spelt three times across Deli Counter and Zoo. That one was found
+    reading the other tools' uses of `min_door_width_m`, and named by the release's second edit.
+
+**The furnish fixed point.** The first full suite failed `test_wall_backing` and `test_club_fixtures` on
+`cr_gas`: the library is held to be a fixed point of the furnishing pass, and a wider door moves what
+furnish puts beside it.
+- `refurnish_delta.py` attributed it: a refurnish moves 8 specs, every one door-changed.
+  - 5 move pieces and lose none.
+  - `cr_pawn` loses a cartons stack and a floor safe.
+  - `stop_n_go` loses its back-room cigarette rack, which stood 0.96 m from `rear_service` (1.0 -> 1.25).
+  - `rowhouse_raid` gains four chair sets.
+- The library was refurnished, the 8 shells were rebuilt, and the cigarette pin moved 119 -> 118 (the
+  release's third edit).
+- `migrate_furnish_recipes.py --check`'s summary was not the measure. It reads -7,923 / +7,819 on 0.213.0,
+  where the library IS a fixed point. Its two counters count different things, and reading them as "103
+  pieces lost" would have been wrong. The control said so before anything was written.
+
+**Proven:**
+- `build.py --all`: 152 shells in 388 s. 34 manifests move in content, the 34 shells the doors change, and
+  118 only by `built_utc`.
+- `door_fit.py` over the 132 built shells: no door under 1.25 m but the KEPT one.
+- `layout_lint --all`: 0 FAIL, 391 WARN, as before.
+- The presets: 304 and 432 variants, the same FAILs by preset and rule, narrow doors 1,568 and 2,148 -> 0.
+- Stairs-first: sha256 35e2a857... with the old literals, with the resolved width, and with every change.
+- `test_door_width.py`: 31 checks, 26 failing on 0.213.0.
+- The suite: 1,480 passed, 2 skipped.
+- The pre-commit gate passed, nav gate included.
+
+**Found while shipping, not changed:** a breach overlap in `auto_shop_a02`'s north wall (8.30..9.70 against
+8.35..9.65). 0.213.0's tracked build carries it too; it is a breach, not a door.
+
+**In a level** (roadmap 197, CLOSED):
+- **Cold run 9285** (restaurant_row_001, 0 interventions). The widened library buildings reached the lots:
+  seed_9104's `deli_a01.glb` and `office.glb` changed. Every Laser Tag summary field matches 9277's on all
+  three candidates, and findings are 117 -> 117.
+- **Cold run 9286** (deli_001, this item's own, 0 interventions). The generated deli's six 1.1 m doors and
+  its 1.2 m front are 1.25. Enemy stuck is 0 on every candidate (9246: 49 / 0 / 19), and seed_9292 was
+  picked at PASS 90. seed_9191 reads what roadmap 242 measured on 9246's narrow-door copy under the same
+  grader: PASS_WITH_TUNING 80, stuck 0, blocked 29. The other candidates' gains are not separated from
+  the grader's, Lot's and Level Factory's changes since 9246.

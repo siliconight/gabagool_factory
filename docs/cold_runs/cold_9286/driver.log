@@ -1,0 +1,60 @@
+== selftest (19:11:33)
+  a tool source file, a shipped spec, or another repo
+== begin (19:11:34)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9286\journal.md
+== batch (19:11:43)
+created batch 'cold_9286' with 1 mission(s): deli_001
+== plan (19:11:44)
+== shell (19:11:44)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 69)
+  deli_001.lot_assemble.candidate.seed_9191: shell.glb 
+  deli_001.lot_assemble.candidate.seed_9292: shell.glb 
+  deli_001.lot_assemble.candidate.seed_9393: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9191: 2 major, route completion 1.00, out for nothing
+  seed 9292: 1 major, route completion 1.00, out for nothing
+  seed 9393: 2 major, route completion 1.00, out for nothing
+  picked seed_9292 on the walktest and Laser Tag's route findings
+== approvals (19:12:40)
+== art (19:12:41)
+Structural checks passed  (blockers open: 0, total findings: 94)
+  exit 1
+== export (19:13:57)
+[export] light bake: 182 model(s) and 74 primitive mesh(es) lightmapped, 4 kept dynamic, 1 spawned set dynamic; 99 steady rig(s) baked, 15 failing and 0 cycling left live; 119 room fill(s); 1632 users, 38.2 s in the editor
+exported deli_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9286-ws\.level_factory\exports\LF_deli_001.portable-godot
+  exit 0
+== findings (19:15:39)
+findings 0 -> 94
+   DISPATCH_FINDING 0 -> 6
+   LOT_DESTINATION_RESEATED 0 -> 4
+   LOT_DESTINATION_RESOLVED 0 -> 4
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 2
+   LOT_GROUND_EXTENDED 0 -> 4
+   LOT_PACING_OUTSIDE_TARGET 0 -> 4
+   LOT_RESPONDER_ENTRY_NO_STOP 0 -> 4
+   LT_MAP_BLIND_MAP 0 -> 3
+   LT_MAP_NO_REACTION_TIME 0 -> 2
+   LT_MAP_OVEREXPOSED 0 -> 3
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 3
+   LT_OPENING_STANDOFF 0 -> 3
+   LT_SEAL_UNVERIFIED 0 -> 3
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   PRESENTATION_ZFIGHT 0 -> 1
+   S_GETAWAY_AT_SPAWN 0 -> 4
+   S_RESPONDER_ARC 0 -> 4
+   S_TARGETS 0 -> 24
+   WALKTEST_ANCHOR_ISOLATED 0 -> 3
+   WALKTEST_MARKER_BURIED 0 -> 3
+== walk (19:15:39)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (19:15:45)
+  0 item(s), 0.0 GB removed
+DONE (19:15:49)
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
