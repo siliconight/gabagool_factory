@@ -1,0 +1,7 @@
+Measured by the factory's `docs/findings/door_widths/cover_fallback_ab.py` on cold run 9284's
+`club_block_014` seed_9080 Lot job, replayed from the two commands its own `job.log` records (the job's
+interpreter and working directories, its out dir swapped for one scratch path): on 0.120.1 the replay
+matched the cold run's own out dir in all 53 files, and a second replay matched the first (53 of 53, its
+log 85 of 85 lines); on 0.120.2 all 53 files match both, byte for byte, and the log every line.
+`plan_cover` was called once, with the contract's bake, on arguments equal before and after. The site
+places two pieces and reports no pinch, so the message is not in it.

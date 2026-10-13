@@ -110,6 +110,17 @@ it is 0.213.0 untouched (`git archive HEAD`), the control. The drafts are in `dr
   docstring derives 1.2 from it. Lot passes the contract's bake to `plan_cover`, so the pinch threshold is
   the contract's 1.00 -- but `LOT_COVER_PINCH`'s message calls `min_passable_gap()` with no bake and
   prints 1.2 m.
+  **Fixed in Lot 0.120.2** (9be94e0, `patches/patch_lot_cover_fallback.py`): the fallback is the
+  contract's 0.1; `CoverPlan.passable_gap` carries the threshold `plan_cover` derives from the bake it
+  gives `pinches`, and `findings` states it; `lot/tests/test_cover_fallback.py` holds both copies Lot
+  carries (`lot._AGENT_DEFAULTS` as well, 21 shared keys, no drift) equal to the contract, the shape of
+  Deli Counter's `test_every_fallback_equals_the_ratified_value`. The comment's claim that Level
+  Factory's `lasertag_contract` reported drift was false: it never reads `nav_bake`. Built sites do not
+  move -- `cover_fallback_ab.py` (`cover_fallback_ab.out.txt`) replays cold run 9284's club_block_014
+  seed_9080 Lot job from its `job.log`: 53 of 53 files identical before and after, and to the cold run's
+  own. None of the 261 Lot job logs on this disk carries a `LOT_COVER_PINCH`, so the stale 1.2 m never
+  reached one. One test moved with it: `test_site_cover_slots`' too-tight lane was a literal 11.0 sized
+  at the fallback's 2.7 m clearance, and at 2.5 m a truck fit exactly.
 
 ## What is left
 

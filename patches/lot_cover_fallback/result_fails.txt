@@ -1,0 +1,8 @@
+with both halves withheld (0.120.1's source) 5 of the 6 fail -- the guard
+(`site_cover._NAV_BAKE_FALLBACK cell_size_m: fallback 0.15, contract 0.1`), the no-bake gap (1.2 against
+1.0), both messages (1.2 stated against 1.5, and against 1.0) and the refusal (did not raise); with the
+fallback alone withheld, the guard and the no-bake gap; with the message alone withheld, the 0.25 m
+cell's message (1.0 stated against 1.5) and the refusal. The contract-bake message passes with either
+half, as it must: there the two numbers agree once the fallback does. The sixth test pins the shared
+keys (21 and 2) and passes on all four. `tests/test_site_cover_slots.py`'s derived lane passes at both
+clearances.

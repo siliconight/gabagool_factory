@@ -1,0 +1,53 @@
+cover_fallback_ab.py, 2026-10-13. Lot 0.120.1 (b4f2d06) for the 'before' tags, Lot 0.120.2 (9be94e0,
+site_cover.py sha256 8a792099...) for 'after'; the same interpreter as the job (Python 3.14.4).
+Order: replay before_1, replay before_2, capture before -- patch applied -- replay after, capture after.
+
+replay before_1: 53 files; replay before_2: 53 files; replay after: 53 files
+capture before: call 0: 9 points, 3 rects, keywords ['keep_out', 'nav_bake', 'opening_range', 'route', 'species', 'standing'], nav_bake {'agent_radius_m': 0.4, 'agent_height_m': 1.8, 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, 'cell_size_m': 0.1, 'cell_height_m': 0.15}  (1 call(s))
+capture after: call 0: 9 points, 3 rects, keywords ['keep_out', 'nav_bake', 'opening_range', 'route', 'species', 'standing'], nav_bake {'agent_radius_m': 0.4, 'agent_height_m': 1.8, 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, 'cell_size_m': 0.1, 'cell_height_m': 0.15}  (1 call(s))
+plan_cover inputs before == after: True
+
+diff before_1 before_2: 53 files / 53 files; identical 53; differing 0; only in before_1 0; only in before_2 0
+  replay.log: 85 / 85 lines, 0 differing
+diff job before_1: 53 files / 53 files; identical 53; differing 0; only in job 0; only in before_1 0
+diff before_1 after: 53 files / 53 files; identical 53; differing 0; only in before_1 0; only in after 0
+  replay.log: 85 / 85 lines, 0 differing
+diff job after: 53 files / 53 files; identical 53; differing 0; only in job 0; only in after 0
+
+a = _scratch/2026-10-13_cover_fallback/site_cover_0.120.1.py
+b = lot/site_cover.py
+
+call 0: nav_bake {'agent_radius_m': 0.4, 'agent_height_m': 1.8, 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, 'cell_size_m': 0.1, 'cell_height_m': 0.15}
+  a: _NAV_BAKE_FALLBACK {'agent_radius_m': 0.4, 'cell_size_m': 0.15}; min_passable_gap() 1.2; min_passable_gap(bake) 1.0; BUILDING_CLEARANCE 2.7; building_clearance(3, bake) 2.5
+  b: _NAV_BAKE_FALLBACK {'agent_radius_m': 0.4, 'cell_size_m': 0.1}; min_passable_gap() 1.0; min_passable_gap(bake) 1.0; BUILDING_CLEARANCE 2.5; building_clearance(3, bake) 2.5
+  as the job asked: a 2 pieces 0 pinches; b 2 pieces 0 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+  clearance forced to 2 m: a 2 pieces 0 pinches; b 2 pieces 0 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+  clearance forced to 1.5 m: a 2 pieces 0 pinches; b 2 pieces 0 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+  clearance forced to 1 m: a 2 pieces 0 pinches; b 2 pieces 0 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+
+fixture: LT_PlayerSpawn (0, 0), Enemy_0 (100, 0), one wall a lane off a 3 m piece at (35, 0)
+  the job's bake {'agent_radius_m': 0.4, 'agent_height_m': 1.8, 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, 'cell_size_m': 0.1, 'cell_height_m': 0.15}: a derives 1.0, b derives 1.0
+  lane 0.5 m: a 1 pieces 1 pinches; b 1 pieces 1 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states 1.2; pinch gaps [0.5]; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states 1.0; pinch gaps [0.5]; gaps at or over the stated number []
+  the job's bake {'agent_radius_m': 0.4, 'agent_height_m': 1.8, 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, 'cell_size_m': 0.1, 'cell_height_m': 0.15}: a derives 1.0, b derives 1.0
+  lane 1.1 m: a 1 pieces 0 pinches; b 1 pieces 0 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+    b: LOT_COVER_PINCH states None; pinch gaps []; gaps at or over the stated number []
+  a 0.25 m cell {'agent_radius_m': 0.4, 'cell_size_m': 0.25}: a derives 1.5, b derives 1.5
+  lane 1.3 m: a 1 pieces 1 pinches; b 1 pieces 1 pinches; fields differing none; fields in one only ['passable_gap']
+    a: LOT_COVER_PINCH states 1.2; pinch gaps [1.3]; gaps at or over the stated number [1.3]
+    b: LOT_COVER_PINCH states 1.5; pinch gaps [1.3]; gaps at or over the stated number []
+
+The pinch finding in every Lot job log on this disk (grep over workspaces/*/.level_factory/jobs/
+*lot_assemble*/*/job.log, run 2026-10-13 before the patch):
+  job logs 261; carrying LOT_COVER_PLACED 154, LOT_ROUTE_COVER_PLACED 146, LOT_SIGHTLINE_UNBREAKABLE 47,
+  LOT_ROUTE_EXPOSED 3, LOT_COVER_PINCH 0
