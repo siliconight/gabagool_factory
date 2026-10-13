@@ -63,4 +63,26 @@ The only other change is the simulated walk, -0.4 to +0.9 s.
 
 What is measured: the stoops change the navmesh, and the 25 seeded runs play their fights differently. What is not: whether any other geometry change of that size would move them as much. No null perturbation was run, so these moves are reported, not attributed to cover or sightlines. Roadmap 242 records the same swing from street furniture ("Laser Tag's route on a lot swings with any change to its street furniture"), and its body now carries this run as the swing measured again under Laser Tag 0.29.0.
 
+## The seed_9104 enemies, looked at (`enemy_pin_probe.gd`, `enemy_pin.txt`)
+
+What stands where the two enemies stop, on cold run 9274's staged Laser Tag level, loaded headless:
+
+- **Nothing touches them.** A capsule of the contract's player size (0.35 m) on either point overlaps
+  nothing. At 0.65 m it reaches building b1's south wall (`ext_col_0_S_seg2`, `seg3`).
+- **The wall is the only solid near.** Eight rays at waist height find it 0.58 m to the south, which leaves
+  a body 0.23 m clear. Every other way is open for 6 m, but one ray finds a cover piece 5.85 m off.
+
+So **the stop is not geometry**.
+
+Nor is it a fight: in the six seconds before each stuck event, the report has no sighting and no shot from
+either enemy (cold run 9274's job, runs 10 and 15). LT_Enemy_02 sights a player only 0.33 s after its own
+stuck event in run 15.
+
+Laser Tag counts an enemy stuck when it still has a destination and has moved less than its threshold over
+the window (`LT_EnemyMovement._update_stuck`), with no test for what it is doing. LT_Enemy_02 stops at the
+same place at the same time (t 9.07) in two runs, before any contact. That reads as a destination the body
+cannot reach -- for example, one behind b1's wall, with the path ending at the wall. **That is a hypothesis,
+not a measurement.** The enemy's destination at that moment is the next instrument. This is Laser Tag's
+(roadmap 242), not the level's.
+
 **Retracted, kept:** `stoop_breadth_walk_staged_director_RETRACTED.out.txt`. The first walk walked each copy's staged director. The first lot it reached that was staged before Lot 0.117.0 was warehouse_yard_001 seed_9004. There it failed in the `flat` arm, with no stoop in it, on "navigation map is EMPTY at QA time", and the run stopped (the docstring of `stoop_breadth.py` has the measurement). The walk now gets today's director, as `walktest.py`'s `main()` gives every run.
