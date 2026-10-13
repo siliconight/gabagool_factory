@@ -1,0 +1,30 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "bank_block_001",
+  "display_name": "Bank Block",
+  "archetype": "urban_bank",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_bank",
+    "reach_vault",
+    "hold_vault",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "bank_clock",
+  "time_of_day": "afternoon",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9197. 9194's brief and seeds. WHAT THIS RUN TESTS: Laser Tag 0.24.0 and Level Factory 0.154.0 -- the crew bot takes the agent contract's step-up (max_step_up_m 0.5, onto a top it can stand on), so on bank_branch_a04 (seeds 9054 and 9256) it leaves the basement vault past the service stair's open side (0.118 m) where 9194's crew wedged at 8% and 0% route completion (roadmap 203). Also Deli Counter 0.203.0 and the picker reading route completion.",
+  "crew_size": 4
+}

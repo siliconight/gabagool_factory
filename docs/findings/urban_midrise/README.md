@@ -56,7 +56,15 @@ look a level gives the blocks.
   window's material too, so whole columns went dark. The node names are what tell a pane from the wall
   around it.
 
-## What the walker is asked
+## What the walker said, 2026-10-13
+
+Shown both frames and asked what they could judge, the walker saw "very simple boxes with black boxes
+for windows" and answered the one question they can settle: "general scale looks fine for that
+specific building type". The heights (5 to 12 storeys) and widths stand. The window rhythm, the look --
+a themed render, as a level would dress them -- and the detail (cornice, storefronts, fire escapes,
+bays) are still open.
+
+## What the walker was asked
 
 - **The windows:** one 1.1 x 1.6 m window a bay, about 3 m apart. Do they read as apartments, or should they
   be larger, paired, or set in a rhythm?

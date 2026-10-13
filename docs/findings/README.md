@@ -12,7 +12,7 @@
 - `bake_quality/` -- The bake's quality, and the box truck's blotches (roadmap 224)
 - `bake_texel/` -- The bake's texel density and denoiser, and the box truck's blotches (roadmap 224, step 2)
 - `breadth_sweep_2026-10-06/` -- The breadth sweep, 2026-10-05/06: ten missions, cold
-- `breadth_sweep_2026-10-13/` -- The breadth sweep, 2026-10-13: paused after one mission, on the disk
+- `breadth_sweep_2026-10-13/` -- The breadth sweep, 2026-10-13: seven missions, seven zeros
 - `brief_pacing_mode/` -- The brief's pacing never reached Lot (roadmap 200)
 - `cars_price/` -- 3 file(s), no README
 - `claude_outputs_2026-09/` -- Frames saved outside the findings, September 2026

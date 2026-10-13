@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "card_block_001",
+  "display_name": "Card Shop Block",
+  "archetype": "card_shop",
+  "building_count": 3,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_shop",
+    "reach_stockroom",
+    "carry_loot",
+    "return_to_vehicle"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "medium",
+  "landmark": "storefront",
+  "time_of_day": "afternoon",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    25,
+    35
+  ],
+  "lot_library": "C:\\Projects\\gabagool_studios\\gabagool_factory\\deli_counter\\build",
+  "notes": "COLD RUN 9061. WHAT THIS RUN TESTS, and neither has ever been in a generated package: (1) the card shop -- Deli Counter 0.139.0's preset and room kind standing Zoo 0.95.0's display case, pack wall, pennant row, folding table and chair on Pixelcoat 0.44.0's wood panelling, slatwall and tournament carpet, with the 1.25 m staff aisle behind each counter; and (2) the street signs -- Zoo 0.96.0's blades on Lot 0.74.0's posts, where 9060 stood bare poles. Clear afternoon on purpose: rain has been walked three times and neither of these has been seen at all. Watch for the display case reading as an opaque box, which is the missing delco_1997 glass pack rather than the case.",
+  "crew_size": 4
+}
