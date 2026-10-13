@@ -369,3 +369,23 @@ so the fights move: every one of the 16 lots has shot and survival fields that m
 three candidates PASS 90 at route 1.00 with no stuck event, as in 9275; seed_9104 picked, findings
 117 -> 117. The fights moved on all three, as the breadth's did, and seed_9104's guards are held by one
 another 6 times where 9275's were 3.
+
+## The wall's end where the guards are held holds no lone body (`corner_hold_probe.gd`, `corner_hold_probe.out.txt`)
+
+Laser Tag 0.31.0's 14 on warehouse_yard_001 seed_9206 stand at building b1's wall end, the face at x 1.85
+made of two convex boxes -- `ext_col_0_W_seg0` (z 14.85 to 16.85) and the corner block `ext_col_0_S_seg22`
+(z 16.85 to 17.15) -- with their seam under the guards. Is that a place that holds any body, a player's
+included? The probe puts a fresh capsule of the contract's size, colliding with the world only, at the held
+guards' place, centre (1.500122, 16.87095), on a copy of the lot's staged evaluation. It drives it with
+`move_and_slide` at 4 m/s for 20 frames in ten directions, five ways: the level as built; the corner block's
+shape off; the wall segment's off; both off with two boxes at their extents (the seam kept); and one box
+where the two stood.
+
+At the engine's 1/60 s step, at the grader's 1/15 s (`run_map_eval.gd`'s `time_scale` 4), and starting at
+-6.5 m/s as four of the five held guards were falling, the capsule goes the whole way, or slides most of it,
+in every direction but straight into the wall, where it moves 0.001 m. That holds in all five arms: the
+seam changes nothing. THE CONTROL: started 0.30 m further west, it moves 0.300 m into the wall and stops,
+and goes the whole way elsewhere.
+
+So the place holds no lone body. What holds the guards there is their own state as they arrive -- their
+history or their crowd -- and not the level's geometry; it is not measured further.
