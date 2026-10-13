@@ -1,0 +1,52 @@
+contract: min_door_width_m 1.25; its formula at nav_bake.cell_size_m 0.10 and agent_radius_m 0.40 gives 1.00
+library specs 152, 132 enterable; doors in them 999, shut doors in Empties 36
+enterable doors by width (m: count):
+  1.00: 13   under the contract's 1.25
+  1.10: 74   under the contract's 1.25
+  1.20: 113   under the contract's 1.25
+  1.25: 418
+  1.30: 4
+  1.40: 106
+  1.50: 6
+  1.60: 40
+  1.80: 136
+  2.00: 17
+  2.20: 11
+  2.40: 59
+  2.60: 1
+  2.80: 1
+enterable doors under 1.25: 200, in 32 of 132 buildings; at or over the formula's 1.00: 200
+  foundry_heist_vertical                       24
+  final_stand                                  18
+  cbp_town_finale_midbalanced_schemafixed      13
+  corner_deli_heist_01                         12
+  07_police_station                            8
+  bank                                         7
+  cr_deli                                      7
+  night_deli                                   7
+  primos_pizza                                 7
+  bank_job                                     6
+  gs_corner_station                            6
+  parking_garage                               6
+  stop_n_go                                    6
+  twin_a01                                     6
+  cr_garage                                    5
+  cr_gas                                       5
+  fuel_stop_heist                              5
+  gas_station                                  5
+  gas_street                                   5
+  gs_auto_shop                                 5
+  harbor_score                                 5
+  night_auto                                   5
+  warehouse                                    5
+  cr_pawn                                      4
+  night_pawn                                   4
+  office                                       4
+  rowhouse_raid                                3
+  office_stepped                               2
+  survival_demo                                2
+  deli_a01                                     1
+  deli_a02                                     1
+  deli_a03                                     1
+width-less doors left uncounted, the shell not accounting for them: kitbash_demo, rarity_demo
+EXIT 0
