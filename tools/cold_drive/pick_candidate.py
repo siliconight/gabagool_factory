@@ -6,7 +6,8 @@ Prints the seed to select. A candidate is out when its nav walktest is not
 ok, or when Laser Tag raised a MAJOR route or pathing finding against it
 (LT_ROUTE_NEVER_COMPLETED, LT_MAP_ENEMY_PATHING_BROKEN). Among the rest the
 fewest major findings wins, then the highest route completion Laser Tag
-measured, then the lowest seed. If every candidate is out, the one with the
+measured, then the higher Laser Tag score, then the lowest seed. If every
+candidate is out, the one with the
 fewest major findings is printed and the reason goes to stderr: the run still
 needs a selection, and a pick that says it is the least bad is better than one
 that says nothing.
@@ -18,6 +19,14 @@ LT_ROUTE_NEVER_COMPLETED only at 0%, and the tie went to the lower seed.
 Completion is read from each candidate's `lasertag.report.json`
 (`summary.route_completion_rate`); a candidate without one sorts last and
 says so.
+
+THE GRADE (2026-10-13, the walker: "ties should go to the higher grade").
+Cold run 9283 picked card_block_001's seed_9061 at PASS_WITH_TUNING 77 over
+seed_9263 at 89: one major each, completion 1.00 each, and the lower seed
+won. The report's `overall_score` now breaks that tie before the seed.
+Laser Tag's grade is a pure function of it (`GRADE_BANDS`; the trivial-
+encounter cap lowers the score itself), so the higher score is the higher
+grade. A report without one sorts last among its ties and says so.
 """
 import collections
 import glob
@@ -55,22 +64,36 @@ for seed in seeds:
         if not json.load(f).get("ok"):
             out[seed].append("walktest not ok")
 completion = {}
+score = {}
+grade = {}
 for seed in seeds:
     rep = glob.glob(os.path.join(lf, "jobs", f"{mission}.laser_tag_evaluate.candidate.seed_{seed}", "*", "out",
                                  "lasertag.report.json"))
     try:
         with open(rep[-1], encoding="utf-8") as f:
-            completion[seed] = float(json.load(f)["summary"]["route_completion_rate"])
+            report = json.load(f)
+        completion[seed] = float(report["summary"]["route_completion_rate"])
     except (IndexError, OSError, ValueError, KeyError, TypeError) as exc:
         completion[seed] = None
+        report = None
         print(f"  seed {seed}: no route completion read ({type(exc).__name__}); it sorts last",
+              file=sys.stderr)
+    try:
+        score[seed] = int(report["overall_score"])
+        grade[seed] = str(report["grade"])
+    except (ValueError, KeyError, TypeError) as exc:
+        score[seed] = None
+        grade[seed] = "?"
+        print(f"  seed {seed}: no grade read ({type(exc).__name__}); it sorts last among its ties",
               file=sys.stderr)
 for seed in seeds:
     rc = "?" if completion[seed] is None else f"{completion[seed]:.2f}"
-    print(f"  seed {seed}: {major[seed]} major, route completion {rc}, out for {out[seed] or 'nothing'}",
-          file=sys.stderr)
+    sc = "?" if score[seed] is None else score[seed]
+    print(f"  seed {seed}: {major[seed]} major, route completion {rc}, grade {grade[seed]} {sc}, "
+          f"out for {out[seed] or 'nothing'}", file=sys.stderr)
 good = [s for s in seeds if not out[s]]
 pool = good or seeds
 if not good:
     print("  every candidate is out; taking the fewest major findings", file=sys.stderr)
-print(sorted(pool, key=lambda s: (major[s], -(completion[s] if completion[s] is not None else -1.0), s))[0])
+print(sorted(pool, key=lambda s: (major[s], -(completion[s] if completion[s] is not None else -1.0),
+                                  -(score[s] if score[s] is not None else -1), s))[0])

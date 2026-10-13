@@ -72,6 +72,22 @@ Both picks follow the rule as written. Whether a tie should go to the higher sco
 and whether `TRIVIAL_ENCOUNTER` should count as a major against a candidate at all, are questions about the
 picker, not about these levels -- measured here, not changed.
 
+**The walker's answer, 2026-10-13: "yes, ties should go to the higher grade."**
+`patches/patch_pick_candidate_grade.py` changes the sort key to fewest majors, then completion, then the
+report's `overall_score`, then the seed. Laser Tag's grade is a pure function of that score, and the
+trivial-encounter cap lowers the score itself. A report without a score sorts last among its ties and
+says so.
+
+`pick_replay.py` ran the picker before and after on every cold workspace on this disk
+(`pick_replay.out.txt`): 59 workspace missions, 3 picks changed, each to a higher grade:
+
+    cold-9246-ws  deli_001            seed_9191 WARN 68              -> seed_9292 PASS_WITH_TUNING 80
+    cold-9279-ws  precinct_yard_001   seed_9001 PASS 90              -> seed_9203 PASS 100
+    cold-9283-ws  card_block_001      seed_9061 PASS_WITH_TUNING 77  -> seed_9263 PASS_WITH_TUNING 89
+
+9284's pick does not move: its PASS 90 carries a major (`LOT_DESTINATION_ABOVE_FLOOR`), so it is not a
+tie. Majors still come first. `TRIVIAL_ENCOUNTER` counting as a major was not asked, and is unchanged.
+
 ## The pause, and the clean
 
 The sweep paused after 9278: `sweep_one.sh` refuses a run below 8 GB free on C:, the rule since cold run
