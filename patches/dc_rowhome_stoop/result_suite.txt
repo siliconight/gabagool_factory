@@ -1,0 +1,1 @@
+1,407 passed; `test_stoop.py`, 9 checks, 8 of them failing on 0.210.0's houses with `stoop.py` beside them (the ninth holds only the code's limits). The suite caught `test_empty_door_leaf._doors` reading a sill as a window -- the raised front door has one -- and it now takes a door as an opening with a lintel and no pane (`patches/patch_dc_door_leaf_raised.py`)

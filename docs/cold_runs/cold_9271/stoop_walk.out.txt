@@ -1,0 +1,16 @@
+# RETRACTED, KEPT: the 'loaded' lines read global_position in _initialize, before the scene was
+# inside the tree (Godot: Condition "!is_inside_tree()", walk.log), so every one prints the origin;
+# they place nothing. The four arms' numbers are read in _physics_process, inside the tree, and stand.
+loaded stoop_landing at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_1 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_2 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_landing_col at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_under_1_col at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_ramp at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_landing at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_1 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_2 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+stoop  start z 10.000  end z   6.500  feet  0.534 (highest  0.536)  on floor true
+flat   start z 10.000  end z  -1.933  feet  0.001 (highest  0.020)  on floor true
+block  start z 10.000  end z   7.959  feet  0.001 (highest  0.020)  on floor true
+riser  start z 10.000  end z   7.913  feet -0.000 (highest  0.020)  on floor true

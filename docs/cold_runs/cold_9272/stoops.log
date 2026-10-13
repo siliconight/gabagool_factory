@@ -1,0 +1,29 @@
+walk import exit 0
+walk exit 0
+loaded stoop_landing at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_1 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_tread_2 at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_landing_col at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_under_1_col at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+loaded stoop_ramp at (0.0, 0.0, 0.0) rot (0.0, 0.0, 0.0)
+stoop  start z 10.000  end z   6.500  feet  0.534 (highest  0.536)  on floor true
+flat   start z 10.000  end z  -1.933  feet  0.001 (highest  0.020)  on floor true
+block  start z 10.000  end z   7.959  feet  0.001 (highest  0.020)  on floor true
+riser  start z 10.000  end z   7.913  feet -0.000 (highest  0.020)  on floor true
+shots 9271 exit 0
+shots 9272 exit 0
+[diff] stoop.png vs shots_9272: mean |d| (2.44, 1.97, 1.81); >8 codes 4.625 %, >32 codes 0.276 %, box over 32 [267, 0, 1598, 855]
+[diff] side.png vs shots_9272: mean |d| (2.62, 1.85, 1.66); >8 codes 2.917 %, >32 codes 0.101 %, box over 32 [2, 54, 910, 602]
+[diff] row.png vs shots_9272: mean |d| (2.76, 2.50, 2.32); >8 codes 4.045 %, >32 codes 0.252 %, box over 32 [203, 0, 1356, 774]
+[diff] hatch.png vs shots_9272: mean |d| (2.34, 1.94, 2.09); >8 codes 0.044 %, >32 codes 0.002 %, box over 32 [83, 394, 1015, 405]
+docs/cold_runs/cold_9272/stoops.png (1600, 1936)
+sheet: docs/cold_runs/cold_9272/stoops.png
+price exit 0
+measured control_1  53 headings  draws mean 790 worst 2807  p95 median 2.85 ms
+measured glow       53 headings  draws mean 796 worst 2836  p95 median 2.84 ms
+measured control_2  53 headings  draws mean 790 worst 2807  p95 median 2.78 ms
+controls' spread, median over 53 headings: p95 0.06 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0             0.01         0.42
+glow               6.5           -1           29             0.04         0.54
+control_2          0.0            0            0            -0.01         0.27
