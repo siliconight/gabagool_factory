@@ -17,8 +17,12 @@ records. THE RULES, each from docs/FILING.md:
                  its selftest refuted it. 4.4 GB in 28 on 2026-10-06.
   workspaces     workspaces/cold-N-ws/ beyond the newest KEEP_WORKSPACES, unless
                  a file under docs/ -- a record or its script -- or a tool repo's tests names it (a finding
-                 that still reads one keeps it). Regenerable from
-                 docs/cold_runs/cold_N/.
+                 that still reads one keeps it) -- by path, or by the bare name of a
+                 directory under workspaces/ standing as a word. A name a script
+                 BUILDS (`"cold-%d-ws" % run`) is no name, so a record writes its
+                 names out: on 2026-10-12 the retire took cold-9261-ws and
+                 cold-9262-ws from under docs/findings/route_snag/engine_ab.py that
+                 way. Regenerable from docs/cold_runs/cold_N/.
 
 VERIFIED MEANS PUSHED (2026-10-11, the walker: "a package clean job so we
 don't accrue GBs of packages that have already been pushed and verified as
@@ -67,9 +71,18 @@ def _size(path):
 
 
 def _referenced_workspaces(root):
-    """Every `workspaces/<name>-ws` a doc or a test names."""
+    """Every workspace a doc or a test names: `workspaces/<name>-ws`, or the bare
+    name of a directory under workspaces/ standing as a word."""
     names = set()
     pat = re.compile(r"workspaces[/\\\\]([A-Za-z0-9_.-]+-ws)")
+    # a bare name is a name too: engine_breadth.py lists its lots as "cold-9264-ws",
+    # and a pathlib join (`F / "workspaces" / "cold-9241-ws"`) never writes the slash
+    # the pattern wants. Only names on disk are asked for, each on its own and as a
+    # word: `"cold-%d-ws"` names nothing, and `after-cold-9264-ws` still names 9264
+    # (a token taken whole and then looked up on disk would drop that one)
+    ws = os.path.join(root, "workspaces")
+    bare = {n: re.compile(r"\b%s\b" % re.escape(n)) for n in (os.listdir(ws) if os.path.isdir(ws) else ())
+            if n.endswith("-ws") and os.path.isdir(os.path.join(ws, n))}
     dirs = [os.path.join(root, "docs"), os.path.join(root, "PIPELINE_ROADMAP.md")]
     dirs += [os.path.join(root, t, "tests") for t in os.listdir(root)
              if os.path.isdir(os.path.join(root, t, "tests"))]
@@ -81,9 +94,15 @@ def _referenced_workspaces(root):
             if os.path.splitext(p)[1].lower() not in _SCANNED:
                 continue
             try:
-                names.update(pat.findall(open(p, encoding="utf-8", errors="replace").read()))
+                text = open(p, encoding="utf-8", errors="replace").read()
             except OSError:
-                pass
+                continue
+            names.update(pat.findall(text))
+            if "-ws" not in text:  # every name ends so; 163 of 2,684 files held one, 2026-10-12
+                continue
+            for n, rx in bare.items():
+                if n not in names and n in text and rx.search(text):
+                    names.add(n)
     return names
 
 
@@ -215,7 +234,12 @@ def selftest():
     os.makedirs(os.path.join(root, "docs", "cold_runs", "cold_6"))
     open(os.path.join(root, "docs", "cold_runs", "cold_6", "frames.sh"), "w").write(
         'PKG_C="workspaces/cold-2-ws/.level_factory/exports/LF_x.portable-godot"\n')
-    for n in range(1, 6):
+    # a finding's script lists its lot bare and joins the path itself (engine_breadth.py)
+    os.makedirs(os.path.join(root, "docs", "findings", "ab"))
+    open(os.path.join(root, "docs", "findings", "ab", "ab.py"), "w").write(
+        'LOTS = [("cold-0-ws", "deli_001", "seed_9191")]\n'
+        'lf = F / "workspaces" / LOTS[0][0] / ".level_factory"\n')
+    for n in range(0, 6):
         os.makedirs(os.path.join(root, "workspaces", "cold-%d-ws" % n))
     subprocess.run(["git", "-C", root, "init", "-q"])
     got = plan(root, keep=2)
@@ -224,6 +248,7 @@ def selftest():
     assert "cold-1-ws: cold-run workspace" in whys, whys
     assert not any(w.startswith("cold-2-ws") for w in whys), "a workspace a script names stays"
     assert not any(w.startswith("cold-3-ws") for w in whys), "a referenced workspace stays"
+    assert not any(w.startswith("cold-0-ws") for w in whys), "a workspace a script names bare stays"
     assert not any(w.startswith("cold-4-ws") or w.startswith("cold-5-ws") for w in whys), "the newest stay"
     assert any(w.startswith("walk_export_m2") for w in whys), whys
     assert not any(w.startswith("walk_export_m1") for w in whys), "a fresh walk copy stays"
