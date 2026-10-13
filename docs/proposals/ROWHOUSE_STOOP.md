@@ -93,13 +93,21 @@ narrower terrace cannot silently push a ramp onto the sidewalk.
    - build one Empty and read its manifest and collision;
    - check the ramp against the contract with Deli Counter's own stair gates.
 2. **The patch:** suite, `build.py --all`, a cold run, frames at the far row, and the graders'
-   breadth.
-3. **Zoo's railing**, then a cold run and frames.
-4. **The walker's eye.**
+   breadth. Built as Deli Counter 0.211.0/0.211.1 and Level Factory 0.195.0/0.196.0 (cold runs 9271
+   and 9272). **The graders' breadth was not run**, for the stoops or for the railings after them:
+   `engine_breadth.py` stages lots that predate both (its newest are cold run 9264's). Each cold run
+   graded restaurant_row_001's three candidates alike, and no other family's lots have been graded
+   with a stoop in them.
+3. **Zoo's railing**, then a cold run and frames. Built as Zoo 1.105.0's `stoop_railing`, Deli
+   Counter 0.212.0 and Level Factory 0.197.0 (cold run 9273): one railing each side, in two sections,
+   5 cm inside the stoop's side; its colliders Deli Counter's.
+4. **The walker's eye:** `docs/cold_runs/cold_9273/railings.png`.
 
-## Taste calls, queued and not decided here
+## Taste calls, answered
 
-- Three risers or four (the strip says three unless the landing shrinks).
+The walker, 2026-10-13: "3 risers, concrete, railings both sides -- build the railings".
+
+- Three risers or four (the strip says three unless the landing shrinks): **three**.
 - The treads: concrete as on the twin, marble, or brick. No source here says which Philadelphia's
-  were.
-- A railing on one side or both (the manual asks at least one).
+  were: **concrete**.
+- A railing on one side or both (the manual asks at least one): **both**.
