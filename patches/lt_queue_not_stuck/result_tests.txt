@@ -1,0 +1,3 @@
+`runners/tests/test_a_queue_is_not_stuck.gd`, real physics with the engine stepping, 10 checks: [1] nothing in a guard's way, the control that it moves (14.60 m), neither stuck nor blocked; [2] a wall 0.45 m off, held at 0.099 m, stuck once and not blocked, as before; [3] another bot's body, held at 0.199 m, blocked once and not stuck; [4] the collector counts `EnemyBlocked` in `enemy_blocked_events` and `EnemyStuck` as before. PASS on 0.30.0; on an export of 0.29.0 it runs to its end and fails three -- the guard behind a bot is counted stuck, never blocked, and nothing counts `EnemyBlocked` -- the two controls passing there too.
+
+All 25 tests in `runners/tests` and `runners` exit 0 in the repository on 0.30.0, headless under Godot 4.7

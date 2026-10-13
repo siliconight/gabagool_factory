@@ -111,13 +111,56 @@ every lot. Each event is classed by what this frame's move met:
     club_block_014 seed_9282         PASS 90        1         1 the level (static)
     restaurant_row_001 seed_9104     PASS 90        0         -   (9264's lot, before the stoops)
 
-**73 of 75 are a body held by another body**, and one is the level.
+**RETRACTED, KEPT: "73 of 75 are a body held by another body".** The sum is 74 -- 51 + 22 another guard,
+1 a crew member -- and the class asked whether ANY of the frame's contacts was another body, not whether
+a body was all that held it: Laser Tag 0.30.0, which asks the second (every contact but the floor a
+body), still counts 13 of seed_9206's 51 as stuck, so those 13 had another guard and a part of the
+level in the same frame (`docs/findings/route_snag/blocked_breadth.out.txt`). **74 of 75 had another body
+among their contacts**, and one had only the level.
 
 **The arithmetic of the score** (`LT_ScoreCalculator._score_pathing`): past 0.25 events a run, NPC Pathing
 loses `round(20 x stuck per enemy per run)` of its 20. With six enemies that is 7 points for seed_9206's 51
 and 3 for seed_9256's 23. Both WARN grades would read 75 -- PASS_WITH_TUNING's line -- without the
 congestion. That is the arithmetic, not a run.
 
+**Run, under 0.30.0** (`docs/findings/route_snag/blocked_breadth.py`): seed_9256 reads 75, as the
+arithmetic said; seed_9206 reads 73, WARN, because 13 of its 51 are still counted -- 2 points.
+
 This is Laser Tag's (roadmap 242): the class of count 0.28.0 took out of the crew's.
 
 **Retracted, kept:** `stoop_breadth_walk_staged_director_RETRACTED.out.txt`. The first walk walked each copy's staged director. The first lot it reached that was staged before Lot 0.117.0 was warehouse_yard_001 seed_9004. There it failed in the `flat` arm, with no stoop in it, on "navigation map is EMPTY at QA time", and the run stopped (the docstring of `stoop_breadth.py` has the measurement). The walk now gets today's director, as `walktest.py`'s `main()` gives every run.
+
+## The 23 Laser Tag 0.30.0 still counts (`enemy_stop_trace.py --lot --contacts --raw`)
+
+`enemy_stop_residue.out.txt` on the four lots with any left, `enemy_stop_residue_raw.out.txt` with every
+trace line on the two that hold 21 of them. Under 0.30.0 only a guard it still counts stuck reaches
+`_on_stuck`, so each traced event is one of the 23; on each lot the trace's count equals the breadth's,
+and its two runs read identically (THE CONTROL). Each is classed as 0.30.0 asks, the floor left out:
+
+    lot                            stuck   as 0.30.0 asks     where
+    warehouse_yard_001 seed_9206      13   13 level+body      all within 0.06 m of (1.50, 16.86)
+    crossroads_9600 seed_9600          8    8 level           all within 1 mm of (44.41, 0.00, -6.63)
+    deli_001 seed_9191                 1    1 none            (-2.85, 0.00, -14.80), nothing but the floor
+    club_block_014 seed_9282           1    1 level           (-11.21, 0.01, 21.30), against Site/cover_142
+
+**warehouse_yard_001 seed_9206, a wall's end and a guard ahead.** Each guard touches building b1's wall
+where its south and west runs meet (`ext_col_0_S_seg22` or `ext_col_0_W_seg0`, the face at x 1.85,
+normal -x) and another guard. The path's first point, the mesh under the body, is at x 1.45 -- the mesh's
+edge, 0.40 m from the face -- so the guard stands 5 cm off the mesh. The next point is round the wall's
+end, (1.75, 17.65), 0.83 m away, and the heading to it runs into both contacts: 48 degrees off the other
+guard's normal and 72 off the wall's (the first event; the twelve others stand within 0.06 m of it).
+
+**crossroads_9600 seed_9600, a stair ramp's low side.** Each guard's capsule rests on the long side edge
+of building b2's stair ramp `stair0ramp_0`, 0.18 m above the floor (contact at (44.54, 0.18, -6.90),
+normal (-0.38, 0.50, 0.78), 60 degrees from up). The collider is a box pitched 37.5 degrees, 1.6 m wide
+(its corners from `pvp_station_ref.glb`); from the box, a 0.35 m sphere at the guard's place touches that
+edge at that point with that normal, to two decimals. The path runs from the floor beside the ramp,
+(44.35, -6.65), to a point on its top, (44.55, -7.25), crossing the side edge: the bake joins the floor to
+the ramp across its side near the foot. The body walks up 0.1025 m with no step-up
+(`clearances.unassisted_step_max_m`); the bake climbs one 0.15 m voxel; `agent_contract.json`'s
+`agent_max_climb_derivation` names that band and leaves a rise in it to the consumer's step-up. Laser
+Tag's crew bot steps up to the contract's 0.5 m (`LT_BotPlayerController._try_step_up`); its guards'
+`LT_EnemyMovement` steers straight at the next path point, with no step-up and no keep-on-mesh.
+
+Not measured: whether either place holds a guard that keeps to the mesh and steps up -- that is the next
+change's breadth.

@@ -26,8 +26,21 @@ collisions:
 - `crew`: an `LT_Player_*`;
 - `static`: anything else, the level;
 - `none`: no collision -- standing for some other reason.
+
+    python docs/findings/stoop_breadth/enemy_stop_trace.py --lot --contacts <workspace> <mission> <seed> [...]
+
+THE CONTACTS (2026-10-13, for Laser Tag 0.30.0's residue). The class above asks whether ANY contact is
+another body; Laser Tag 0.30.0 asks whether every contact but the floor is one, and counts a guard stuck
+otherwise. `--contacts` prints each traced event's place, its class as 0.30.0 asks it, and each contact of
+the level by its node path's last two parts and its normal. Under 0.30.0 only the guards it still counts
+stuck are traced -- a blocked guard goes through `_on_blocked` -- so every traced event should class
+`level`, `level+body` or `none`; a `body` there is the trace disagreeing with the rule, and it says so by
+printing it. The census reads the trace's names, `LT_Enemy_*` and `LT_Player_*`, where 0.30.0 reads the
+class, CharacterBody3D. `--raw` also prints every `[enemy trace]` line of the first run: each event's agent
+state, its path's head and its contacts, as the job mode does.
 """
 import json
+import math
 import pathlib
 import re
 import shutil
@@ -74,6 +87,7 @@ STUCK_NEW = STUCK_OLD + (
     "\t\t# right after it in the movement's `_physics_process`\n"
     "\t\tvar dbg_n: int = _body.get_slide_collision_count()\n"
     "\t\tprint(\"[enemy trace]   this frame's slide collisions: %d\" % dbg_n)\n"
+    "\t\tprint(\"[enemy trace]   floor_max_angle %.4f\" % _body.floor_max_angle)\n"
     "\t\tfor dbg_c in range(dbg_n):\n"
     "\t\t\tvar dbg_sc: KinematicCollision3D = _body.get_slide_collision(dbg_c)\n"
     "\t\t\tvar dbg_o: Object = dbg_sc.get_collider()\n"
@@ -82,6 +96,24 @@ STUCK_NEW = STUCK_OLD + (
     "\t\t\t\tdbg_on = str((dbg_o as Node).get_path())\n"
     "\t\t\tvar dbg_cfmt: String = \"[enemy trace]     %s at %s, normal %s, travel %s\"\n"
     "\t\t\tprint(dbg_cfmt % [dbg_on, str(dbg_sc.get_position()), str(dbg_sc.get_normal()), str(dbg_sc.get_travel())])\n")
+
+#: Laser Tag 0.30.0 moved `_on_stuck`'s body into `_held`, which `_on_blocked` shares, so a stuck guard is traced
+#: at `_on_stuck`'s head, before `_held` records it and sets its jitter -- the agent's state as the 0.29.0 trace
+#: read it -- and a BLOCKED guard is not traced at all
+STUCK_OLD_030 = ("func _on_stuck(position: Vector3) -> void:\n"
+                 "\t_held(position, \"EnemyStuck\")\n")
+STUCK_NEW_030 = ("func _on_stuck(position: Vector3) -> void:\n" + STUCK_NEW[len(STUCK_OLD):]
+                 + "\t_held(position, \"EnemyStuck\")\n")
+
+
+def _traced(text):
+    """The brain's text with `_on_stuck` traced, on 0.29.0's shape or 0.30.0's; any other shape refuses."""
+    n29, n30 = text.count(STUCK_OLD), text.count(STUCK_OLD_030)
+    if (n29, n30) == (1, 0):
+        return text.replace(STUCK_OLD, STUCK_NEW)
+    if (n29, n30) == (0, 1):
+        return text.replace(STUCK_OLD_030, STUCK_NEW_030)
+    sys.exit("UNKNOWN SHAPE: `_on_stuck`'s head %d times as 0.29.0 wrote it, %d as 0.30.0" % (n29, n30))
 
 
 def _seed(job_log):
@@ -100,20 +132,45 @@ def _stuck(d):
 LT_ADDON = F / "lasertag" / "addons" / "laser_tag_tool"
 
 
+_AT = re.compile(r"^\[enemy trace\] (LT_\S+) at \(([^)]*)\)")
+_HIT = re.compile(r"^\[enemy trace\]     (\S+) at \(([^)]*)\), normal \(([^)]*)\)")
+_FMA = re.compile(r"^\[enemy trace\]   floor_max_angle ([0-9.]+)")
+
+
+def _vec(s):
+    return tuple(float(v) for v in s.split(","))
+
+
 def _classify(stdout):
-    """Each `[enemy trace]` block's class, from its slide collisions, in event order."""
+    """Each `[enemy trace]` block's class, from its slide collisions, in event order.
+
+    `class` is the question the four-lot census asked: is ANY contact another body (a teammate first, then a
+    crew member), else the level, else none. `class30` is the question Laser Tag 0.30.0 asks: leaving out
+    each contact under the feet (its normal within the body's `floor_max_angle` of up), are all the rest
+    bodies (`body`), all the level (`level`), both (`level+body`), or is there nothing (`none`). A bot is a
+    body by its name, `LT_Enemy_*` or `LT_Player_*`, where 0.30.0 asks `is CharacterBody3D`.
+    """
     out, cur = [], None
     for line in stdout.splitlines():
-        if line.startswith("[enemy trace] LT_"):
+        m = _AT.match(line)
+        if m:
             if cur is not None:
                 out.append(cur)
-            cur = {"who": line.split()[2], "hits": []}
-        elif line.startswith("[enemy trace]     /") and cur is not None:
-            cur["hits"].append(line.split()[2])
+            cur = {"who": m.group(1), "at": _vec(m.group(2)), "hits": [], "fma": None}
+            continue
+        if cur is None:
+            continue
+        m = _HIT.match(line)
+        if m:
+            cur["hits"].append((m.group(1), _vec(m.group(2)), _vec(m.group(3))))
+            continue
+        m = _FMA.match(line)
+        if m:
+            cur["fma"] = float(m.group(1))
     if cur is not None:
         out.append(cur)
     for c in out:
-        names = [h.rsplit("/", 1)[-1] for h in c["hits"]]
+        names = [h[0].rsplit("/", 1)[-1] for h in c["hits"]]
         if not names:
             c["class"] = "none"
         elif any(n.startswith("LT_Enemy_") for n in names):
@@ -122,10 +179,28 @@ def _classify(stdout):
             c["class"] = "crew"
         else:
             c["class"] = "static"
+        c["level"], c["bodies"] = [], []
+        for path, at, n in c["hits"]:
+            if c["fma"] is not None:
+                length = math.sqrt(sum(v * v for v in n)) or 1.0
+                if math.acos(max(-1.0, min(1.0, n[1] / length))) <= c["fma"]:
+                    continue
+            leaf = path.rsplit("/", 1)[-1]
+            (c["bodies"] if leaf.startswith(("LT_Enemy_", "LT_Player_")) else c["level"]).append((path, at, n))
+        if c["fma"] is None:
+            c["class30"] = "unknown"
+        elif c["level"] and c["bodies"]:
+            c["class30"] = "level+body"
+        elif c["level"]:
+            c["class30"] = "level"
+        elif c["bodies"]:
+            c["class30"] = "body"
+        else:
+            c["class30"] = "none"
     return out
 
 
-def lot_mode(ws, mission, seed_name):
+def lot_mode(ws, mission, seed_name, contacts=False, raw=False):
     lf = F / "workspaces" / ws / ".level_factory"
     name = "%s.laser_tag_evaluate.candidate.%s" % (mission, seed_name)
     seed = _seed(lf / "jobs" / name / "1" / "job.log")
@@ -139,9 +214,7 @@ def lot_mode(ws, mission, seed_name):
     raw = b.read_bytes()
     eol = b"\r\n" if b"\r\n" in raw else b"\n"
     text = raw.decode("utf-8").replace("\r\n", "\n")
-    if text.count(STUCK_OLD) != 1:
-        sys.exit("UNKNOWN SHAPE: %d of `_on_stuck`'s head in today's enemy brain" % text.count(STUCK_OLD))
-    b.write_bytes(text.replace(STUCK_OLD, STUCK_NEW).encode("utf-8").replace(b"\n", eol))
+    b.write_bytes(_traced(text).encode("utf-8").replace(b"\n", eol))
     subprocess.run([GODOT, "--headless", "--path", str(dst), "--import"], cwd=str(dst), capture_output=True,
                    text=True, timeout=900, stdin=subprocess.DEVNULL)
     reports, outs = [], []
@@ -167,6 +240,22 @@ def lot_mode(ws, mission, seed_name):
         mission, seed_name, seed, ws, a["grade"], a["overall_score"], a["summary"]["enemy_stuck_events"],
         len(classes), json.dumps(dict(sorted(counts.items()))),
         "" if same else "   CONTROL FAILED: the two runs differ"))
+    if contacts:
+        c30 = {}
+        for c in classes:
+            c30[c["class30"]] = c30.get(c["class30"], 0) + 1
+        print("  as 0.30.0 asks (the floor left out): %s; blocked in the report %s" % (
+            json.dumps(dict(sorted(c30.items()))), a["summary"].get("enemy_blocked_events", "(no field)")))
+        for c in classes:
+            print("  %-12s at (%7.2f, %5.2f, %7.2f)  %-10s  %s" % (
+                c["who"], c["at"][0], c["at"][1], c["at"][2], c["class30"],
+                "; ".join(["%s n (%.2f, %.2f, %.2f)" % ("/".join(p.split("/")[-2:]), n[0], n[1], n[2])
+                           for p, _at, n in c["level"]]
+                          + ["%s (a body)" % p.rsplit("/", 1)[-1] for p, _at, _n in c["bodies"]]) or "-"))
+    if raw:
+        for line in outs[0].splitlines():
+            if line.startswith("[enemy trace]"):
+                print(line)
     if same:
         shutil.rmtree(dst)
     return 0 if same else 1
@@ -174,12 +263,13 @@ def lot_mode(ws, mission, seed_name):
 
 def main():
     if "--lot" in sys.argv:
-        args = sys.argv[sys.argv.index("--lot") + 1:]
+        contacts, raw = "--contacts" in sys.argv, "--raw" in sys.argv
+        args = [a for a in sys.argv[sys.argv.index("--lot") + 1:] if a not in ("--contacts", "--raw")]
         if len(args) % 3 != 0 or not args:
-            sys.exit("usage: --lot <workspace> <mission> <seed> [<workspace> <mission> <seed> ...]")
+            sys.exit("usage: --lot [--contacts] [--raw] <workspace> <mission> <seed> [<workspace> <mission> <seed> ...]")
         worst = 0
         for i in range(0, len(args), 3):
-            worst = max(worst, lot_mode(*args[i:i + 3]))
+            worst = max(worst, lot_mode(*args[i:i + 3], contacts=contacts, raw=raw))
         return worst
     seed = _seed(JOB / "job.log")
     job = json.loads((JOB / "out" / "lasertag.report.json").read_text(encoding="utf-8"))
@@ -190,9 +280,7 @@ def main():
     raw = b.read_bytes()
     eol = b"\r\n" if b"\r\n" in raw else b"\n"
     text = raw.decode("utf-8").replace("\r\n", "\n")
-    if text.count(STUCK_OLD) != 1:
-        sys.exit("UNKNOWN SHAPE: %d of `_on_stuck`'s head in the copy's enemy brain" % text.count(STUCK_OLD))
-    b.write_bytes(text.replace(STUCK_OLD, STUCK_NEW).encode("utf-8").replace(b"\n", eol))
+    b.write_bytes(_traced(text).encode("utf-8").replace(b"\n", eol))
     out = DST / "report.json"
     subprocess.run([GODOT, "--headless", "--path", str(DST), "--import"], cwd=str(DST), capture_output=True,
                    text=True, timeout=900, stdin=subprocess.DEVNULL)

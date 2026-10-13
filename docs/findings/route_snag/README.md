@@ -263,3 +263,55 @@ WIPE, all four crew killed early -- seed_9004's run 7 at t 22.4; seed_9206's run
 16.0 and 15.9 -- with no stuck event and no timeout on either lot. Keeping to the mesh moves where
 crews meet guards, and on these two lots one more fight went the guards' way: the encounter, not the
 traversal.
+
+## Laser Tag 0.30.0: a guard held by another bot is blocked, not stuck (`blocked_breadth.py`, `blocked_breadth.out.txt`)
+
+The enemies' stuck count had the blind spot 0.28.0 and 0.28.1 took out of the crew's.
+`LT_EnemyMovement._update_stuck` closes a 3 s window and records EnemyStuck when a guard trying to move
+has moved under 0.5 m, whatever holds it. Traced on four lots, each event's own frame of slide
+collisions (`docs/findings/stoop_breadth/enemy_stop_trace.py --lot`), 74 of 75 events had another body
+among that frame's contacts, 73 another guard and one a crew member: in SEEK every guard re-sets its destination to the same crew member every
+frame and none steers round another, so they queue through the same corners.
+
+0.30.0 asks, as the window closes on a held guard, what this frame's move met
+(`LT_EnemyMovement._held_by_a_body`): a contact under the feet -- its normal within `floor_max_angle`
+of up -- is skipped; if every other contact is a CharacterBody3D, a guard or a crew member, the guard is
+BLOCKED and records EnemyBlocked; any other contact and it is stuck, as before. A blocked guard is
+handled as a stuck one -- the same state, jitter and random draws -- so the fights play as they did, and
+the score does not read the new count (`enemy_blocked_events`).
+
+`blocked_breadth.py` grades `engine_breadth.py`'s 16 lots twice under Godot Physics with today's
+command, 25 runs from each job's seed: 0.29.0 exported from the repository's HEAD, and 0.30.0. **The
+controls:** every summary field but the ones the change is about reads identically on all 16, and on
+every lot 0.30.0's stuck and blocked add up to 0.29.0's stuck -- the same events, split.
+
+    lot                            0.29.0                  0.30.0                  stuck -> stuck, blocked
+    deli_001 seed_9191             PASS_WITH_TUNING 76     PASS_WITH_TUNING 80     30 -> 1, 29
+    deli_001 seed_9393             WARN 74                 PASS_WITH_TUNING 80     45 -> 0, 45
+    warehouse_yard_001 seed_9206   WARN 68                 WARN 73                 51 -> 13, 38
+    bank_block_001 seed_9256       WARN 72                 PASS_WITH_TUNING 75     23 -> 0, 23
+    gas_block_001 seed_9181        PASS_WITH_TUNING 86     PASS_WITH_TUNING 88     13 -> 0, 13
+    crossroads_9600 seed_9600      PASS_WITH_TUNING 88     PASS_WITH_TUNING 89     13 -> 8, 5
+    crossroads_9600 seed_9701      PASS 100                PASS 100                 6 -> 0, 6
+    club_block_014 seed_9282       PASS 90                 PASS 90                  1 -> 1, 0
+
+The other eight read 0 under both, their grades unchanged. **Enemy stuck 182 -> 23, 159 blocked;** six
+scores up, none down; two WARN lots become PASS_WITH_TUNING. Each score moves by exactly what
+`LT_ScoreCalculator._score_pathing` charges for the events taken out: past 0.25 events a run, round(20
+x stuck per enemy per run) -- seed_9206's 51 cost 7 points and its 13 cost 2, so 68 -> 73, not the 75
+the four-lot arithmetic gave for all 51; crossroads_9600 seed_9701's 6 were under the 0.25 line and
+cost nothing.
+
+**The 23 left are not attributed.** Each has a contact in its closing frame that is neither the floor
+nor a body. The four-lot trace classed all 51 of warehouse_yard_001 seed_9206's events "teammate"
+because it asked whether ANY contact was another guard; 0.30.0 still counts 13 of them, so those 13 had
+another guard and a part of the level in the same frame. Whether the level holds those guards or a
+queue presses them against it is the next instrument's question, and that lot stays WARN at 73.
+Laser Tag 0.30.0's changelog calls the 23 "held by the level -- a wall": that is the rule's reading,
+not a measurement -- no contact was named.
+
+**In a real drive** (cold run 9275, 0 interventions, `docs/cold_runs/cold_9275/NOTES.md`): restaurant_row_001's
+three candidates PASS 90 as in 9274, seed_9104 picked, findings 117 -> 117. seed_9104's three EnemyStuck --
+the guards queued behind guards that `enemy_stop_trace.py` traced -- are 9275's three EnemyBlocked, the same
+runs, times, guards and positions; every other summary field and every other event (1,331, 2,181 and 1,554
+on the three candidates) read the same.

@@ -1,0 +1,13 @@
+Over the factory's 16 lots in seven mission families (its `docs/findings/route_snag/blocked_breadth.py`: each lot under Godot Physics with today's command, once with 0.29.0 exported from this repository's HEAD and once with 0.30.0). THE CONTROL: the two read identically in every summary field but the ones the change is about -- enemy stuck, its per-enemy rate, blocked, and the grade and score they feed -- on all 16, so every fight plays as it did. Enemy stuck 182 -> 23, and 159 now `enemy_blocked_events`:
+
+    lot                            0.29.0                  0.30.0                  stuck -> stuck, blocked
+    deli_001 seed_9191             PASS_WITH_TUNING 76     PASS_WITH_TUNING 80     30 -> 1, 29
+    deli_001 seed_9393             WARN 74                 PASS_WITH_TUNING 80     45 -> 0, 45
+    warehouse_yard_001 seed_9206   WARN 68                 WARN 73                 51 -> 13, 38
+    bank_block_001 seed_9256       WARN 72                 PASS_WITH_TUNING 75     23 -> 0, 23
+    gas_block_001 seed_9181        PASS_WITH_TUNING 86     PASS_WITH_TUNING 88     13 -> 0, 13
+    crossroads_9600 seed_9600      PASS_WITH_TUNING 88     PASS_WITH_TUNING 89     13 -> 8, 5
+    crossroads_9600 seed_9701      PASS 100                PASS 100                 6 -> 0, 6
+    club_block_014 seed_9282       PASS 90                 PASS 90                  1 -> 1, 0
+
+and the other eight read 0 stuck under both, their grades unchanged. Two WARN lots become PASS_WITH_TUNING. The 23 left are guards held by the level -- a wall in the closing frame's contacts, with or without a body -- and NPC Pathing still charges them: warehouse_yard_001 seed_9206 keeps 13 and its WARN, crossroads_9600 seed_9600 8
