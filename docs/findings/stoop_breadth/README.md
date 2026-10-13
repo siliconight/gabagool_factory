@@ -101,7 +101,23 @@ the one ahead, and `_update_stuck` counts a body held by a teammate as stuck.
 **The 0 -> 3 is congestion, not geometry.** It is the stoops' navmesh change lining three enemies up on one
 path -- the same class of count Laser Tag 0.28.0 and 0.28.1 took out of the crew's.
 
-**Unmeasured:** how much of other lots' enemy-stuck counts is congestion -- the WARN lots carry 51
-(warehouse_yard_001 seed_9206) and 23 (bank_block_001 seed_9256). This is Laser Tag's (roadmap 242).
+**Measured on the other lots** (`enemy_stop_trace.py --lot`, `enemy_stop_lots.out.txt`). Each lot as staged,
+graded by today's Laser Tag with `_on_stuck` traced. THE CONTROL: two runs read identically, and they did on
+every lot. Each event is classed by what this frame's move met:
+
+    lot                              grade     enemy stuck   held by
+    warehouse_yard_001 seed_9206     WARN 68       51        51 a teammate
+    bank_block_001 seed_9256         WARN 72       23        22 a teammate, 1 a crew member
+    club_block_014 seed_9282         PASS 90        1         1 the level (static)
+    restaurant_row_001 seed_9104     PASS 90        0         -   (9264's lot, before the stoops)
+
+**73 of 75 are a body held by another body**, and one is the level.
+
+**The arithmetic of the score** (`LT_ScoreCalculator._score_pathing`): past 0.25 events a run, NPC Pathing
+loses `round(20 x stuck per enemy per run)` of its 20. With six enemies that is 7 points for seed_9206's 51
+and 3 for seed_9256's 23. Both WARN grades would read 75 -- PASS_WITH_TUNING's line -- without the
+congestion. That is the arithmetic, not a run.
+
+This is Laser Tag's (roadmap 242): the class of count 0.28.0 took out of the crew's.
 
 **Retracted, kept:** `stoop_breadth_walk_staged_director_RETRACTED.out.txt`. The first walk walked each copy's staged director. The first lot it reached that was staged before Lot 0.117.0 was warehouse_yard_001 seed_9004. There it failed in the `flat` arm, with no stoop in it, on "navigation map is EMPTY at QA time", and the run stopped (the docstring of `stoop_breadth.py` has the measurement). The walk now gets today's director, as `walktest.py`'s `main()` gives every run.

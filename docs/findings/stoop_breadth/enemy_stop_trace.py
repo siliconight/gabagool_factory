@@ -14,6 +14,18 @@ function that moves the path on -- and runs the job's own command: 25 runs from 
 THE CONTROL: the copy's report must equal the job's in every summary field and in its EnemyStuck events
 (run, time, source, position). If it does not, the copy is not the job, or the trace moved it, and what it
 prints says nothing about the job; it says so and stops. It prints what it measured and stops.
+
+    python docs/findings/stoop_breadth/enemy_stop_trace.py --lot <workspace> <mission> <seed> [...]
+
+THE LOT MODE: any staged lot, graded by TODAY's Laser Tag (the `lasertag` repo's addon, its `_on_stuck`
+traced), because a lot staged before Laser Tag 0.27.0's fixed clock cannot reproduce its own job
+(`docs/findings/route_snag/engine_breadth.py`). THE CONTROL there is two runs of the copy reading
+identically in every summary field and stuck event. Each EnemyStuck is CLASSED by this frame's slide
+collisions:
+- `teammate`: another enemy, `LT_Enemy_*`;
+- `crew`: an `LT_Player_*`;
+- `static`: anything else, the level;
+- `none`: no collision -- standing for some other reason.
 """
 import json
 import pathlib
@@ -85,7 +97,90 @@ def _stuck(d):
                   for e in d["events"] if e["event"] == "EnemyStuck")
 
 
+LT_ADDON = F / "lasertag" / "addons" / "laser_tag_tool"
+
+
+def _classify(stdout):
+    """Each `[enemy trace]` block's class, from its slide collisions, in event order."""
+    out, cur = [], None
+    for line in stdout.splitlines():
+        if line.startswith("[enemy trace] LT_"):
+            if cur is not None:
+                out.append(cur)
+            cur = {"who": line.split()[2], "hits": []}
+        elif line.startswith("[enemy trace]     /") and cur is not None:
+            cur["hits"].append(line.split()[2])
+    if cur is not None:
+        out.append(cur)
+    for c in out:
+        names = [h.rsplit("/", 1)[-1] for h in c["hits"]]
+        if not names:
+            c["class"] = "none"
+        elif any(n.startswith("LT_Enemy_") for n in names):
+            c["class"] = "teammate"
+        elif any(n.startswith("LT_Player_") for n in names):
+            c["class"] = "crew"
+        else:
+            c["class"] = "static"
+    return out
+
+
+def lot_mode(ws, mission, seed_name):
+    lf = F / "workspaces" / ws / ".level_factory"
+    name = "%s.laser_tag_evaluate.candidate.%s" % (mission, seed_name)
+    seed = _seed(lf / "jobs" / name / "1" / "job.log")
+    dst = F / "_scratch" / ("enemy_trace_%s_%s" % (mission, seed_name))
+    if dst.exists():
+        shutil.rmtree(dst)
+    shutil.copytree(lf / "staging" / name, dst)
+    shutil.rmtree(dst / "addons" / "laser_tag_tool")
+    shutil.copytree(LT_ADDON, dst / "addons" / "laser_tag_tool")
+    b = dst / BRAIN
+    raw = b.read_bytes()
+    eol = b"\r\n" if b"\r\n" in raw else b"\n"
+    text = raw.decode("utf-8").replace("\r\n", "\n")
+    if text.count(STUCK_OLD) != 1:
+        sys.exit("UNKNOWN SHAPE: %d of `_on_stuck`'s head in today's enemy brain" % text.count(STUCK_OLD))
+    b.write_bytes(text.replace(STUCK_OLD, STUCK_NEW).encode("utf-8").replace(b"\n", eol))
+    subprocess.run([GODOT, "--headless", "--path", str(dst), "--import"], cwd=str(dst), capture_output=True,
+                   text=True, timeout=900, stdin=subprocess.DEVNULL)
+    reports, outs = [], []
+    for k in (1, 2):
+        out = dst / ("report_%d.json" % k)
+        r = subprocess.run([GODOT, "--headless", "--fixed-fps", "60", "--path", str(dst), "-s",
+                            "res://addons/laser_tag_tool/runners/run_map_eval.gd", "--", "--bake-nav",
+                            "--map", "res://level.tscn", "--scenario", "res://mission_scenario.tres",
+                            "--runs", "25", "--seed", seed, "--output", str(out)],
+                           cwd=str(dst), capture_output=True, text=True, timeout=1800, stdin=subprocess.DEVNULL)
+        if not out.exists():
+            print("%s %s: NO REPORT (exit %d)" % (mission, seed_name, r.returncode))
+            return 1
+        reports.append(json.loads(out.read_text(encoding="utf-8")))
+        outs.append(r.stdout)
+    a, b2 = reports
+    same = a["summary"] == b2["summary"] and _stuck(a) == _stuck(b2) and a["grade"] == b2["grade"]
+    classes = _classify(outs[0])
+    counts = {}
+    for c in classes:
+        counts[c["class"]] = counts.get(c["class"], 0) + 1
+    print("%s %s (seed %s, %s): %s %s, enemy stuck %d, traced %d: %s%s" % (
+        mission, seed_name, seed, ws, a["grade"], a["overall_score"], a["summary"]["enemy_stuck_events"],
+        len(classes), json.dumps(dict(sorted(counts.items()))),
+        "" if same else "   CONTROL FAILED: the two runs differ"))
+    if same:
+        shutil.rmtree(dst)
+    return 0 if same else 1
+
+
 def main():
+    if "--lot" in sys.argv:
+        args = sys.argv[sys.argv.index("--lot") + 1:]
+        if len(args) % 3 != 0 or not args:
+            sys.exit("usage: --lot <workspace> <mission> <seed> [<workspace> <mission> <seed> ...]")
+        worst = 0
+        for i in range(0, len(args), 3):
+            worst = max(worst, lot_mode(*args[i:i + 3]))
+        return worst
     seed = _seed(JOB / "job.log")
     job = json.loads((JOB / "out" / "lasertag.report.json").read_text(encoding="utf-8"))
     if DST.exists():
