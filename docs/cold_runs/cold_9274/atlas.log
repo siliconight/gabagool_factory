@@ -1,0 +1,44 @@
+project.godot [rendering] reflection lines:
+20:; REFLECTION ATLAS -- sized to this package's reflection probes. Godot's
+26:reflections/reflection_atlas/reflection_count=32
+27:reflections/reflection_atlas/reflection_size=64
+ReflectionProbe nodes in the package's scene text: 23
+memory import exit 0
+memory exit 0
+[split] arm mission; the entry's parts: bake, restaurant_row_001_dressing, site_backdrop
+[split] mission      texture 65.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up)
+[split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 32 x 64
+shots 9273 exit 0
+shots 9274 exit 0
+[diff] elev_E.png vs shots_9274: mean |d| (2.37, 2.45, 2.53); >8 codes 0.060 %, >32 codes 0.005 %, box over 32 [28, 465, 667, 654]
+[diff] elev_N.png vs shots_9274: mean |d| (2.52, 2.42, 2.50); >8 codes 0.001 %, >32 codes 0.000 %, box over 32 none
+[diff] elev_S.png vs shots_9274: mean |d| (2.06, 2.16, 2.42); >8 codes 0.016 %, >32 codes 0.000 %, box over 32 none
+[diff] elev_W.png vs shots_9274: mean |d| (2.43, 2.44, 2.52); >8 codes 0.228 %, >32 codes 0.000 %, box over 32 [1587, 612, 1597, 640]
+[diff] extraction.png vs shots_9274: mean |d| (1.49, 1.46, 1.47); >8 codes 0.017 %, >32 codes 0.006 %, box over 32 [555, 7, 1216, 432]
+[diff] in_brick_delco_1997.png vs shots_9274: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+[diff] in_brick_delco_1997_2.png vs shots_9274: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+[diff] in_brick_delco_1997_3.png vs shots_9274: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+[diff] in_brick_delco_1997_4.png vs shots_9274: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+[diff] in_concrete_delco_1997.png vs shots_9274: mean |d| (2.56, 2.56, 2.56); >8 codes 0.349 %, >32 codes 0.000 %, box over 32 none
+[diff] in_concrete_delco_1997_2.png vs shots_9274: mean |d| (2.53, 2.53, 2.55); >8 codes 0.304 %, >32 codes 0.000 %, box over 32 none
+[diff] in_concrete_delco_1997_3.png vs shots_9274: mean |d| (2.56, 2.56, 2.57); >8 codes 0.180 %, >32 codes 0.000 %, box over 32 none
+[diff] in_concrete_delco_1997_4.png vs shots_9274: mean |d| (2.56, 2.56, 2.57); >8 codes 0.177 %, >32 codes 0.000 %, box over 32 none
+[diff] in_drywall_delco_1997.png vs shots_9274: mean |d| (2.53, 2.34, 2.45); >8 codes 0.321 %, >32 codes 0.000 %, box over 32 none
+[diff] in_drywall_delco_1997_2.png vs shots_9274: mean |d| (2.66, 2.67, 2.70); >8 codes 2.675 %, >32 codes 0.002 %, box over 32 [1117, 177, 1190, 754]
+[diff] in_drywall_delco_1997_3.png vs shots_9274: mean |d| (2.45, 2.45, 2.45); >8 codes 0.288 %, >32 codes 0.000 %, box over 32 none
+[diff] in_drywall_delco_1997_4.png vs shots_9274: mean |d| (2.56, 2.56, 2.57); >8 codes 0.167 %, >32 codes 0.000 %, box over 32 none
+[diff] objective.png vs shots_9274: mean |d| (1.93, 1.62, 1.68); >8 codes 0.042 %, >32 codes 0.000 %, box over 32 none
+[diff] overview.png vs shots_9274: mean |d| (2.54, 2.53, 2.54); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+[diff] spawn.png vs shots_9274: mean |d| (1.55, 1.59, 1.81); >8 codes 0.179 %, >32 codes 0.020 %, box over 32 [346, 195, 863, 412]
+docs/cold_runs/cold_9274/atlas.png (1600, 1452)
+sheet: docs/cold_runs/cold_9274/atlas.png
+price exit 0
+measured control_1  53 headings  draws mean 804 worst 2867  p95 median 2.83 ms
+measured glow       53 headings  draws mean 804 worst 2867  p95 median 2.85 ms
+measured control_2  53 headings  draws mean 804 worst 2867  p95 median 2.94 ms
+controls' spread, median over 53 headings: p95 0.07 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            0            -0.01         0.70
+glow               0.0            0            0            -0.02         0.90
+control_2          0.0            0            0             0.01         0.24
+ATLAS EXIT 0

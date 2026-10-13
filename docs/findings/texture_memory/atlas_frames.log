@@ -1,0 +1,75 @@
+import s256 exit 0
+shots s256 exit 0
+memory s256: [split] mission      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up) [split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 64 x 256 
+import s256b exit 0
+shots s256b exit 0
+memory s256b: [split] mission      texture 314.6 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up) [split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 64 x 256 
+import s128 exit 0
+shots s128 exit 0
+memory s128: [split] mission      texture 121.8 MiB, buffers 50.0 MiB, draws 1, frame 637 (after the warm-up) [split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 64 x 128 
+import s64 exit 0
+shots s64 exit 0
+memory s64: [split] mission      texture 73.5 MiB, buffers 48.0 MiB, draws 1, frame 637 (after the warm-up) [split] mission      reflection probes 23 (by update_mode { 0: 23 }); atlas setting 64 x 64 
+s256b [diff] elev_E.png vs shots_s256b: mean |d| (2.37, 2.45, 2.53); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] elev_E.png vs shots_s128: mean |d| (2.37, 2.45, 2.53); >8 codes 0.024 %, >32 codes 0.001 %, box over 32 [388, 465, 603, 644]
+s64 [diff] elev_E.png vs shots_s64: mean |d| (2.37, 2.45, 2.53); >8 codes 0.041 %, >32 codes 0.002 %, box over 32 [375, 465, 649, 728]
+s256b [diff] elev_N.png vs shots_s256b: mean |d| (2.52, 2.42, 2.49); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] elev_N.png vs shots_s128: mean |d| (2.52, 2.42, 2.49); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] elev_N.png vs shots_s64: mean |d| (2.52, 2.42, 2.49); >8 codes 0.001 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] elev_S.png vs shots_s256b: mean |d| (0.00, 0.00, 0.00); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] elev_S.png vs shots_s128: mean |d| (2.07, 2.17, 2.42); >8 codes 0.011 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] elev_S.png vs shots_s64: mean |d| (2.06, 2.16, 2.42); >8 codes 0.016 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] elev_W.png vs shots_s256b: mean |d| (2.42, 2.43, 2.51); >8 codes 0.001 %, >32 codes 0.000 %, box over 32 [1571, 630, 1571, 630]
+s128 [diff] elev_W.png vs shots_s128: mean |d| (2.42, 2.44, 2.52); >8 codes 0.130 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] elev_W.png vs shots_s64: mean |d| (2.43, 2.44, 2.52); >8 codes 0.222 %, >32 codes 0.000 %, box over 32 [1571, 612, 1597, 640]
+s256b [diff] extraction.png vs shots_s256b: mean |d| (1.49, 1.46, 1.47); >8 codes 0.021 %, >32 codes 0.009 %, box over 32 [555, 6, 1216, 432]
+s128 [diff] extraction.png vs shots_s128: mean |d| (1.48, 1.45, 1.47); >8 codes 0.001 %, >32 codes 0.000 %, box over 32 [786, 38, 1108, 431]
+s64 [diff] extraction.png vs shots_s64: mean |d| (1.49, 1.46, 1.47); >8 codes 0.019 %, >32 codes 0.008 %, box over 32 [555, 1, 1216, 432]
+s256b [diff] in_brick_delco_1997.png vs shots_s256b: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_brick_delco_1997.png vs shots_s128: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_brick_delco_1997.png vs shots_s64: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_brick_delco_1997_2.png vs shots_s256b: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_brick_delco_1997_2.png vs shots_s128: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_brick_delco_1997_2.png vs shots_s64: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_brick_delco_1997_3.png vs shots_s256b: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_brick_delco_1997_3.png vs shots_s128: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_brick_delco_1997_3.png vs shots_s64: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_brick_delco_1997_4.png vs shots_s256b: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_brick_delco_1997_4.png vs shots_s128: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_brick_delco_1997_4.png vs shots_s64: mean |d| (1.06, 1.06, 1.06); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_concrete_delco_1997.png vs shots_s256b: mean |d| (2.55, 2.54, 2.54); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_concrete_delco_1997.png vs shots_s128: mean |d| (2.56, 2.55, 2.56); >8 codes 0.202 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_concrete_delco_1997.png vs shots_s64: mean |d| (2.56, 2.56, 2.56); >8 codes 0.347 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_concrete_delco_1997_2.png vs shots_s256b: mean |d| (2.52, 2.52, 2.53); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_concrete_delco_1997_2.png vs shots_s128: mean |d| (2.53, 2.53, 2.54); >8 codes 0.180 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_concrete_delco_1997_2.png vs shots_s64: mean |d| (2.53, 2.53, 2.55); >8 codes 0.309 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_concrete_delco_1997_3.png vs shots_s256b: mean |d| (2.56, 2.56, 2.56); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_concrete_delco_1997_3.png vs shots_s128: mean |d| (2.56, 2.56, 2.56); >8 codes 0.111 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_concrete_delco_1997_3.png vs shots_s64: mean |d| (2.56, 2.56, 2.57); >8 codes 0.182 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_concrete_delco_1997_4.png vs shots_s256b: mean |d| (2.56, 2.56, 2.56); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_concrete_delco_1997_4.png vs shots_s128: mean |d| (2.56, 2.56, 2.56); >8 codes 0.110 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_concrete_delco_1997_4.png vs shots_s64: mean |d| (2.56, 2.56, 2.56); >8 codes 0.179 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_drywall_delco_1997.png vs shots_s256b: mean |d| (0.00, 0.00, 0.00); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_drywall_delco_1997.png vs shots_s128: mean |d| (2.52, 2.33, 2.44); >8 codes 0.182 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_drywall_delco_1997.png vs shots_s64: mean |d| (2.53, 2.34, 2.45); >8 codes 0.322 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_drywall_delco_1997_2.png vs shots_s256b: mean |d| (2.53, 2.53, 2.55); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_drywall_delco_1997_2.png vs shots_s128: mean |d| (2.60, 2.60, 2.63); >8 codes 1.565 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_drywall_delco_1997_2.png vs shots_s64: mean |d| (2.66, 2.67, 2.70); >8 codes 2.680 %, >32 codes 0.001 %, box over 32 [1118, 348, 1435, 754]
+s256b [diff] in_drywall_delco_1997_3.png vs shots_s256b: mean |d| (2.44, 2.44, 2.44); >8 codes 0.005 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_drywall_delco_1997_3.png vs shots_s128: mean |d| (2.45, 2.44, 2.44); >8 codes 0.139 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_drywall_delco_1997_3.png vs shots_s64: mean |d| (2.45, 2.45, 2.45); >8 codes 0.282 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] in_drywall_delco_1997_4.png vs shots_s256b: mean |d| (2.55, 2.56, 2.56); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] in_drywall_delco_1997_4.png vs shots_s128: mean |d| (2.56, 2.56, 2.57); >8 codes 0.133 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] in_drywall_delco_1997_4.png vs shots_s64: mean |d| (2.56, 2.56, 2.57); >8 codes 0.166 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] objective.png vs shots_s256b: mean |d| (1.93, 1.62, 1.68); >8 codes 0.007 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] objective.png vs shots_s128: mean |d| (1.93, 1.62, 1.68); >8 codes 0.016 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] objective.png vs shots_s64: mean |d| (1.93, 1.62, 1.68); >8 codes 0.036 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] overview.png vs shots_s256b: mean |d| (2.53, 2.53, 2.54); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s128 [diff] overview.png vs shots_s128: mean |d| (2.54, 2.53, 2.54); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s64 [diff] overview.png vs shots_s64: mean |d| (2.54, 2.53, 2.54); >8 codes 0.000 %, >32 codes 0.000 %, box over 32 none
+s256b [diff] spawn.png vs shots_s256b: mean |d| (1.55, 1.58, 1.80); >8 codes 0.064 %, >32 codes 0.015 %, box over 32 [338, 195, 781, 412]
+s128 [diff] spawn.png vs shots_s128: mean |d| (1.54, 1.58, 1.79); >8 codes 0.051 %, >32 codes 0.001 %, box over 32 [351, 219, 716, 378]
+s64 [diff] spawn.png vs shots_s64: mean |d| (1.55, 1.59, 1.80); >8 codes 0.166 %, >32 codes 0.019 %, box over 32 [338, 195, 863, 412]
+docs/findings/texture_memory/atlas_frames.png (2400, 5808)
+sheet: docs/findings/texture_memory/atlas_frames.png
+EXIT 0

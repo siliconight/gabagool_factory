@@ -123,3 +123,39 @@ The arms, verbatim in `split_9273.txt`:
    interior stations: 32 slots of 256 are 128 MiB, of 128 32 MiB, and of 64 8 MiB.
 2. **Compression of the level's own textures:** now a lever on about 30 MiB, not on half a gigabyte.
 3. **The sky lever is withdrawn:** the sky is not resident.
+
+## The face size, priced (2026-10-13, `atlas_frames.sh`)
+
+Cold run 9273's package was rendered four times, each a copy with the atlas's face size set in an
+`override.cfg`. The count stayed at the default 64, which holds the 23 probes. The four copies:
+
+- `s256`: the package as it ships.
+- `s256b`: the package again. This is THE CONTROL, the floor every difference is read against.
+- `s128`: a 128-pixel face.
+- `s64`: a 64-pixel face.
+
+Each was shot by `look_shots.py` at its derived stations and twelve interiors (`in_<skin>`, rooms facing
+an interior wall, where the probes are), then read by `texture_split_probe.gd -- mission`. All twenty
+shots' diffs against `s256` are in `atlas_frames.log`.
+
+    texture memory after the warm-up:   256: 314.6   256b: 314.6   128: 121.8   64: 73.5   (MiB)
+    pixels moved, of each frame:        past 8 codes            past 32 codes
+      control (256b)                    0.000 - 0.064 %         at most 0.015 %
+      128                               0 - 1.565 %             at most 0.001 %
+      64                                0 - 2.680 %             at most 0.019 % (spawn; control 0.015)
+
+The largest move at either size is one drywall room, `in_drywall_delco_1997_2`. Brick rooms do not move
+at all, and concrete and drywall rooms move 0.11 to 0.35 %. `atlas_frames.png` is that room and the
+most-moved concrete room at 256, 128 and 64; side by side they read the same. The full twelve-interior
+sheet is 17 MB and is not kept.
+
+**Shipped as Level Factory 0.198.0:**
+
+- the atlas's count is the package's probe count, rounded up to a power of two;
+- its face size is 64.
+
+For 9273's 23 probes that is 32 x 64, an 8 MiB atlas. **What 128 or 256 would buy back:** a sharper
+reflection on a glossy surface. The interiors measured are rough. The face size is one constant,
+`godot_project.REFLECTION_ATLAS_SIZE`.
+
+The first cold run after it reads its own package with `texture_split_probe.gd`.
