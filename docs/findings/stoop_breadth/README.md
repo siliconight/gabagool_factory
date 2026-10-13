@@ -164,3 +164,9 @@ Tag's crew bot steps up to the contract's 0.5 m (`LT_BotPlayerController._try_st
 
 Not measured: whether either place holds a guard that keeps to the mesh and steps up -- that is the next
 change's breadth.
+
+**Measured under Laser Tag 0.31.0** (the guards keep to the mesh and step up;
+`docs/findings/route_snag/README.md`, "Laser Tag 0.31.0"): crossroads_9600 seed_9600's 8 are gone, and
+warehouse_yard_001 seed_9206's are not -- 14 at the same wall's end (`enemy_stop_residue_0310.out.txt`,
+the same trace with 0.31.0's addon), five of them touching only that wall and the floor, their velocity
+pointing away from it, not moving.

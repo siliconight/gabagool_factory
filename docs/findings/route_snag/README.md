@@ -315,3 +315,57 @@ three candidates PASS 90 as in 9274, seed_9104 picked, findings 117 -> 117. seed
 the guards queued behind guards that `enemy_stop_trace.py` traced -- are 9275's three EnemyBlocked, the same
 runs, times, guards and positions; every other summary field and every other event (1,331, 2,181 and 1,554
 on the three candidates) read the same.
+
+## Laser Tag 0.31.0: the guards walk as the crew does (`guard_steer_breadth.py`, `guard_steer_breadth.out.txt`)
+
+0.30.0's 23 left, placed (`docs/findings/stoop_breadth/`, "The 23 Laser Tag 0.30.0 still counts"), stood
+where the crew bot had stopped standing: off the mesh at a wall's end, and against a stair ramp's open
+side. The crew steps up as the contract's player does (0.24.0) and keeps to the mesh it plans on (0.29.0);
+the guards' `LT_EnemyMovement` did neither, though `agent_contract.json` says npc_standard shares the
+player's metrics until a distinct class ships. 0.31.0 moves the crew's two routines into `LT_Steering`,
+static functions both bodies call, and the guards call them: each step kept on the mesh (`keep_to_mesh`),
+a step-up after the slide (`max_step_up`, the scenario's `player_max_step_up_m`, 0.5).
+
+`guard_steer_breadth.py` grades the 16 lots three ways under Godot Physics: 0.30.0 (Laser Tag af09e20),
+0.31.0, and 0.31.0 with the guards' steering switched off in the copy. **THE CONTROL:** switched off,
+0.31.0 reads 0.30.0 exactly -- every summary field, the grade and the score -- on all 16, so the move
+changed nothing the crew does, and every difference is the guards' steering.
+
+    lot                            0.30.0                  0.31.0                  enemy stuck, blocked
+    crossroads_9600 seed_9600      PASS_WITH_TUNING 89     PASS 90                  8 -> 0, 5 -> 3
+    warehouse_yard_001 seed_9206   WARN 73                 PASS_WITH_TUNING 83     13 -> 14, 38 -> 36
+    warehouse_yard_001 seed_9004   PASS_WITH_TUNING 89     PASS 90                  0 -> 0, 0 -> 0
+    gas_block_001 seed_9181        PASS_WITH_TUNING 88     PASS_WITH_TUNING 87      0 -> 0, 13 -> 11
+    deli_001 seed_9191             PASS_WITH_TUNING 80     PASS_WITH_TUNING 80      1 -> 0, 29 -> 29
+    club_block_014 seed_9282       PASS 90                 PASS 90                  1 -> 0, 0 -> 1
+
+The other ten read their grades as before. **Enemy stuck 23 -> 14, blocked 159 -> 143.** The guards move,
+so the fights move: every one of the 16 lots has shot and survival fields that moved.
+
+- **crossroads_9600 seed_9600's 8, at the stair ramp's open side, are gone.** The step-up the contract
+  leaves to the consumer is the step-up the guards now take.
+- **warehouse_yard_001 seed_9206's are not.** All 14 stand where the 13 stood, a guard 5 cm off the mesh
+  at b1's wall end (`enemy_stop_residue_0310.out.txt`). Five touch nothing but that wall and the floor,
+  their velocity after the slide pointing away from the wall -- keep-to-the-mesh's correction,
+  (-0.75, 3.81) in plan -- and no slide travelled 0.1 mm; four of the five are off the floor with their
+  fall speed growing, down to -8.49 m/s, and do not fall. A body the physics holds there, as Godot
+  Physics held the crew at restaurant_row_001's deli counter before 0.29.0. How a guard gets 5 cm off the
+  mesh with keep-to-the-mesh on is not measured; nine of the fourteen also touch another guard.
+- **The score's moves are the encounter's.** warehouse_yard_001 seed_9206's +10 is OVEREXPOSED's line
+  (`LT_ScoreCalculator`: the crew's mean survival less the enemy's first shot under 5 s costs 10): mean
+  survival 5.77 -> 7.34 s, one run's crew lasting 46.7 s where none had lasted 7.5. seed_9004's +1 is a
+  team wipe gone, route 0.96 -> 1.00. gas_block_001 seed_9181's -1 is its route, 0.88 -> 0.80, with a
+  team wipe more and two crew-stuck events where there were none.
+- **gas_block_001 seed_9181's crew events, placed** (`pin_trace.py census`, `trace --run 12`;
+  `pin_census_gas9181_0310.out.txt`, `pin_trace_gas9181_r12_0310.out.txt`, its control the census's run
+  12). Two events in two runs, 0.26 m apart, by LT_Player_02 at t 29 to 31 s. Traced in run 12, the
+  crew member moves 0.267 m west one tick and back the next, between (44.07, 24.45) and (43.80, 24.45), at its
+  path's last point (44.00, 24.45); its route point stands at (44.0, 25.03), 0.58 m past where the path
+  ends. That route point and the mesh are the lot's, the same under 0.30.0; whether a crew member
+  reached it before is not measured. That trace was run before `pin_trace.py` learned that 0.31.0's
+  `_velocity_on_mesh` calls `LT_Steering`, so its header reads "this addon has no _velocity_on_mesh".
+
+**In a real drive** (cold run 9276, 0 interventions, `docs/cold_runs/cold_9276/NOTES.md`): restaurant_row_001's
+three candidates PASS 90 at route 1.00 with no stuck event, as in 9275; seed_9104 picked, findings
+117 -> 117. The fights moved on all three, as the breadth's did, and seed_9104's guards are held by one
+another 6 times where 9275's were 3.

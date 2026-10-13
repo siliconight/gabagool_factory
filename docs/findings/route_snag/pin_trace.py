@@ -304,6 +304,10 @@ def trace(o, name, src, n):
     if text.count(MESH_OLD) == 1:
         text = text.replace(MESH_OLD, MESH_NEW.replace("__WHO__", o["who"]).replace("__AT__", at))
         print("instrumented: the slide and _velocity_on_mesh")
+    elif (dst / "addons/laser_tag_tool/scripts/core/LT_Steering.gd").exists():
+        # Laser Tag 0.31.0 moved the step's body into `LT_Steering`, a static function with no node of its
+        # own to ask `get_meta`, so the mesh step is not instrumented there
+        print("instrumented: the slide (this addon's _velocity_on_mesh calls LT_Steering, not instrumented)")
     else:
         print("instrumented: the slide (this addon has no _velocity_on_mesh)")
     b.write_bytes(text.encode("utf-8").replace(b"\n", eol))
