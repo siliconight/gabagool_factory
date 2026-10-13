@@ -159,3 +159,34 @@ reflection on a glossy surface. The interiors measured are rough. The face size 
 `godot_project.REFLECTION_ATLAS_SIZE`.
 
 The first cold run after it reads its own package with `texture_split_probe.gd`.
+
+## In the price (2026-10-13, Level Factory 0.199.0; `perf_memprobe.py`)
+
+Level Factory 0.199.0's fixed-station harness reads the engine's texture, buffer and video memory once
+every station is warm, and its runner prints them beside the passes, so every price carries the package's
+memory. On an imported copy of cold run 9276's package:
+
+    instrument                                         when it reads                          textures   buffers
+    perf_stations_run.py (perf_9276_runner.txt)        every station warm                     76.0 MiB   48.0 MiB
+    texture_split_probe.gd mission (split_9276_mission.txt)   after the package's own warm-up, 1 draw   65.6 MiB   48.0 MiB
+
+**When two instruments disagree, one is wrong or they read different things.** These read different
+moments. `perf_memprobe.py` writes a copy of the harness's probe that prints at three points
+(`perf_memprobe_9276.out.txt`, and two runs before it kept in the 0.199.0 entry):
+
+    the main scene in, 60 frames on                   67.9 MiB
+    the probe's camera at the first station, drawn    67.9 MiB
+    every station warm                                76.0 MiB
+
+The figures are the same in every run, as built and with the positional shadow atlas at 0 and the
+directional at 256 (`--no-shadow-atlases`), so the shadow atlases are not the gap. The window accounts for
+about 1.3 MiB: the harness draws 1280 x 720 and `texture_split_probe.gd` Godot's default 1152 x 648, whose
+empty window is 5.7 MiB. The rest grows while a camera stands at the stations, and is not attributed.
+Buffers are not steady from run to run at one moment: 48.0, 52.0 and 56.1 MiB have all been read after the
+warm-up. **The price's figure is the level in play** -- after a camera has stood everywhere a station
+stands -- and it is the one to compare between prices.
+
+Found on the way, not fixed: the harness sets `current_scene` before it adds the scene to the tree, and
+the engine refuses it (`set_current_scene: Condition "p_scene && p_scene->get_parent() != root"`), so
+that line does nothing. Fixing it may change what the package's own scripts see, so it waits for a
+change that is priced on its own.

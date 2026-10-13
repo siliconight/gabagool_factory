@@ -9,7 +9,8 @@ Runs `level_factory/tools/perf_stations_run.py` in this order: control_1 (the co
 The comparison is the edge menu's (`docs/findings/edge_menu/price_edge.py`): per heading, matched by
 (station, yaw), draw calls and p95 frame time against the two controls' mean; the controls' own
 spread is the noise floor, and a difference inside it is not a difference. A report in a shape this
-does not know stops the run. It measures and prints; what the numbers mean belongs in the README.
+does not know stops the run. Since Level Factory 0.199.0 each run's memory after the warm-up follows the
+table (`_memory`). It measures and prints; what the numbers mean belongs in the README.
 """
 import json
 import statistics as st
@@ -62,16 +63,36 @@ def _compare(got):
     return 0
 
 
+MEMORY_KEYS = ("texture_mem_bytes", "buffer_mem_bytes", "video_mem_bytes")
+
+
+def _memory(docs):
+    """Each run's memory after the warm-up, as Level Factory 0.199.0's harness reads it (roadmap 238): the
+    level in play, the figure to compare between prices. Buffers are not steady from run to run
+    (`docs/findings/texture_memory/`, "In the price"); textures have been. A report without the three says
+    so -- never a zero."""
+    print("memory after the warm-up, MiB:")
+    for name in ORDER:
+        g = docs[name].get("geometry") or {}
+        if all(k in g for k in MEMORY_KEYS):
+            print("  %-9s textures %6.1f  buffers %6.1f  video %6.1f"
+                  % ((name,) + tuple(int(g[k]) / 1048576.0 for k in MEMORY_KEYS)))
+        else:
+            print("  %-9s none in this report (a harness from before Level Factory 0.199.0)" % name)
+
+
 def main():
     if sys.argv[1] == "--compare":
         out = Path(sys.argv[2])
-        got = {name: _headings(json.loads((out / ("perf_%s.json" % name)).read_text(encoding="utf-8")))
-               for name in ORDER}
-        return _compare(got)
+        docs = {name: json.loads((out / ("perf_%s.json" % name)).read_text(encoding="utf-8")) for name in ORDER}
+        rc = _compare({name: _headings(doc) for name, doc in docs.items()})
+        _memory(docs)
+        return rc
     control, glow, out = Path(sys.argv[1]), Path(sys.argv[2]), Path(sys.argv[3])
     out.mkdir(parents=True, exist_ok=True)
     pkgs = {"control_1": control, "glow": glow, "control_2": control}
     got = {}
+    docs = {}
     for name in ORDER:
         dest = out / ("perf_%s.json" % name)
         proc = subprocess.run([sys.executable, str(HARNESS), str(pkgs[name]), "--json", str(dest)],
@@ -81,12 +102,15 @@ def main():
             for line in (proc.stdout or "").splitlines()[-8:]:
                 print(line)
             return 2
-        got[name] = _headings(json.loads(dest.read_text(encoding="utf-8")))
+        docs[name] = json.loads(dest.read_text(encoding="utf-8"))
+        got[name] = _headings(docs[name])
         h = got[name]
         print("measured %-9s %3d headings  draws mean %.0f worst %d  p95 median %.2f ms"
               % (name, len(h), st.mean(x[2] for x in h), max(x[2] for x in h),
                  st.median(x[3] for x in h)), flush=True)
-    return _compare(got)
+    rc = _compare(got)
+    _memory(docs)
+    return rc
 
 
 if __name__ == "__main__":
