@@ -74,7 +74,11 @@ Zoo's species list, Deli Counter's presets and Lot).
    height step for gameplay, so the contract decides its riser.
 3. **The silver roofs.** The aerial frame is mostly silver and white roofs;
    ours are concrete-grey. A pack and a material choice -- and since roof
-   props arrived, players see roofs.
+   props arrived, players see roofs. GROUNDED 2026-10-12 at the walker's
+   asking (`ROWHOUSE_ROOFS.md`): "silver" is an aluminum coating over a tar
+   membrane, and white roofs are mostly after Philadelphia's 2010 cool-roof
+   law; the walker's call, tar now (Deli Counter 0.210.0) and the coating
+   when a 1990s source says how common it was.
 
 Each is a level-creation change (the walker's priority, 2026-10-11) and each
 is a generator rule, never a placement in a workspace.
