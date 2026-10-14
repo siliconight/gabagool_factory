@@ -1,0 +1,128 @@
+agent_contract.py:30  _DEFAULTS = { "characters": {"player": {"radius_m":   [body,contract,navmesh,walkers; = bake radius,= body height,= body radius,= corridor minimum,= door minimum,= eye height]  THESE MUST EQUAL agent_contract.json, and twice they did not. `agent_max_climb_m` stood at 0.5 and `cell_size_
+circulation.py:56  LADDER_CATCH_MARGIN = 0.6  [contract]  climb-contract box (mirrors portable_building._ladder_climb_nodes) extra clear width across the ladder
+circulation.py:57  LADDER_HEADROOM = 1.0  [headroom]  mount headroom above the climb height
+circulation.py:59  LADDER_STANDOFF = 0.05  [standoff]  volume starts just off the ladder face
+circulation.py:61  DOOR_CLEARANCE = 0.6  [clearance,door,doorway]  clear approach depth on each side of a doorway
+circulation.py:72  DOOR_TRIM_PEN = 0.12  [door,doorways,standing,walk]  Doorways get a deeper tolerance: Patina legitimately dresses the aperture PERIMETER (door frames, pilasters, l
+combat_audit.py:53  WIDE_DOOR = 1.4  [door]  >= passes two agents / a loot carry comfortably
+combat_audit.py:54  KIND_DEFAULT_W = {"door": 1.2, "window": 1.6, "garage": 3  [= eye height,= flight width / crouch]  
+combat_audit.py:62  KILLBOX_AREA = 35.0  [cover]  combat room bigger than this with no cover = flag
+combat_audit.py:63  COVER_MIN_H = 0.6  [cover]  >= waist high: furniture rather than a kerb
+deli_counter.py:3352  _LAMP_SOLID_REACH = 1.0  [reach]  A solid whose top comes this close to its storey's ceiling blocks a lamp.
+deli_counter.py:3354  _LAMP_SOLID_CLEAR = 0.35  [= body radius]  Air kept between a lamp and the side of such a solid.
+enterability.py:35  MIN_PASS_WIDTH = 0.7  [body,capsule]  --- body-fit thresholds (m), from docs/scale_guidelines.md -------------- below this, the default capsule can'
+enterability.py:36  CLEAN_WIDTH = 0.9  [doorway]  doc's minimum doorway width; below = a tight squeeze
+enterability.py:37  MIN_PASS_HEIGHT = 1.1  [crouch; = corridor minimum]  below this, you can't even crouch through
+enterability.py:38  STAND_HEIGHT = 1.8  [crouch,stand,standing,walk; = body height]  at/above = walk in standing; between = crouch-only
+enterability.py:39  VAULT_SILL_MAX = 1.2  [= flight width / crouch]  a bottom edge within this is vault-up reachable
+floors.py:316  SLAB_TILE = 5.0  [headroom]  Largest edge a slab's VISUAL mesh may have, in metres (roadmap 54). Godot's GL Compatibility renderer lights a
+guards.py:108  MAX_STEP_UP = 0.5  [player,step]  --------------------------------------------------------------------------- STEP-RISE BUDGET (model integrity)
+guards.py:109  STEP_RISE_WARN = 0.4  [step; = bake radius]  m — approaching the budget; worth a heads-up
+guards.py:112  DEFAULT_STEP_RISE = 0.2  [step]  default target rise the builder aims for (mirrors spec_types default)
+ladder.py:54  LOWER_CLEAR_W = 1.20  [= flight width / crouch]  
+ladder.py:55  LOWER_CLEAR_D = 1.20  [= flight width / crouch]  
+ladder.py:75  HATCH_CLEAR_RADIUS = 0.9  [radius]  m; clear dismount disc above the hatch (s8.3)
+ladder.py:76  HATCH_SWING = 0.9  [cover]  m; hatch cover swing/lift envelope (s8.3)
+ladder_geom.py:25  CLIMB_STANDOFF = 0.5  [capsule,contract,standoff,walk]  The climb volume holds the capsule this far off the face (LF walk preview and the climb contract, docs/LADDER_
+ladder_geom.py:28  HOLE_ALONG = 1.3  [body,capsule,clearance,radius,standoff; = cover break / vault width]  Body clearance the through-hole provides along the approach direction: standoff + capsule radius + margin. Bia
+ladder_place.py:103  _WALL_INSET = 0.35  [= body radius]  ladder rail sits this far off the facade plane
+layout_lint.py:29  COVER_REPEAT_MAX = 3  [cover]  identical cover volumes in a row (D2)
+layout_lint.py:30  LEAF_MARGIN = 0.3  [clearance,door]  clearance a door leaf + jamb needs past the
+layout_lint.py:353  ARRIVAL_WALKOFF_M = 0.8  [walk,walkoff]  The walk-off margin past the top of a flight: `flight_rect`'s `clear`.
+layout_lint.py:512  STALE_TOL_M = 0.02  [stands,walk]  A piece this far into a hole or a stair's walk on BOTH axes is in it; less is a touch at an edge, where a guar
+layout_lint.py:514  STAND_TOL_M = 0.25  [stand,stands]  A base this close to a floor line stands on that floor: a slab's thickness.
+level_design.py:94  _COVER_MIN_Z = 0.6  [body,cover,crouch]  TWO DIFFERENT QUESTIONS, SO TWO DIFFERENT NUMBERS, and asking one of them for both is how 75% of the cover in 
+level_design.py:95  _COVER_MAX_Z = 2.4  [cover]  above this it's a wall, not furniture
+level_design.py:136  _COVER_MAX_FOOTPRINT = 7.0  [cover]  if BOTH plan dims exceed this it's massing, not cover
+level_design.py:137  _COVER_DEDUPE_R = 1.6  [cover; = eye height]  don't add a cover marker within this of an existing one
+level_design.py:138  _COVER_PER_ROOM_CAP = 5  [cover]  readability ceiling (thesis: don't over-cover)
+level_design.py:139  _COVER_PER_ROOM_FLOOR = 2  [cover]  a contested room wants at least this many
+level_design.py:330  _SEED_MAX_PIECES = 4  [cover]  thesis: don't over-cover
+level_design.py:460  _HUNG_MIN = 1.8  [stands; = body height]  A collision-free volume whose bottom is this far above its room's floor is HUNG -- a neon sign, a bracket TV -
+level_design.py:1114  _CEILING_AIR = 0.05  [body,cover,walker]  FURNITURE: what a room gets, as a RECIPE per room KIND (0.131.0).  WHAT THIS REPLACED, kept because each part 
+level_design.py:1166  _CARD_SHOP_ROOM_TRIS = 25008  [walked,walker]  THE CARD SHOP'S ROOM BUDGET, in triangles, and where it comes from -- because the number it replaces was not a
+level_design.py:1910  _SEAT = (0.5, 0.5)  [stand]  The chairs a host brings: a table's go round it, a desk's sits at its front, a bar's stand along the room side
+level_design.py:2376  _CLUSTER_GAP = (0.3, 0.8)  [body,navmesh,radius]  Gap between members of a cluster, edge to edge (the proposal's 0.3-0.8 m). Below the 0.8 m a 0.4 m-radius body
+level_design.py:2380  _CLUSTER_MAX_H = 1.5  [stands]  A cluster member's height ceiling: every cluster stands mid-floor.
+level_design.py:2398  _FURNISH_MAX = 10  [walkable]  past this a room stops being walkable
+level_design.py:2832  _FURNISH_OPENING_CLEAR = 0.9  [clearance,door,doorway]  Clearance either side of an exterior opening, beyond its half width. A door needs its approach and a window it
+level_design.py:2880  _EDGE_WALL_TOL = 0.10  [stand]  A WALL PIECE NEEDS A WALL BEHIND IT (0.202.0). How close a built wall's centreline must lie to a room edge to 
+level_design.py:3613  _FIXTURE_ROUNDS = 6  [door]  How many draws of `_wall_slots` a fixture takes before a room goes without one. MEASURED on the library: at 1 
+level_design.py:3616  _FIXTURE_SEAT_GAP = 0.12  [stands]  A fixture's stool stands this far off its host's face: knees under the button deck's lip, a hand's width of fl
+level_design.py:3853  BACK_BAR_W = (1.6, 6.0)  [= eye height]  
+level_design.py:3857  _STAFF_MARKER_IN = 0.8  [aisle,body,doorway,radius,stands]  How much of the aisle's length the bartender marker stands in from the mouth: a body's radius and a little, so
+level_design.py:4624  _CUSTOMER_LANE = 2.0  [body,stand]  A customer needs somewhere to stand in front of a bar: a stool's depth and a body, which is `_SEAT` plus two r
+level_design.py:5173  _STAFF_MIN_DEPTH = 1.85  [body,door,person]  How deep the staff side may be, counter face to back wall. Shallower than a body plus a door leaf cannot hold 
+lights.py:36  _CANOPY_DROP = 0.02  [stands]  The lamp grid hangs this far below the soffit. Zoo's `canopy_lights` stands its lenses proud of the deck by th
+lights.py:52  _CLUB_WASH_BASE = 3  [radius]  Washes per club room: three, plus one per this much floor, to five. A wash pools on the floor under it (Lux: r
+lights.py:58  _STAGE_SPOTS = 2  [body]  A stage light is two spots a stage-width apart at the ceiling, thrown at the dancer's body over the platform, 
+lights.py:59  _STAGE_SPOT_SPACING = 1.2  [= flight width / crouch]  
+lights.py:61  _STAGE_TARGET_RISE = 0.5  [body]  above the platform: a body, not the boards
+lights.py:62  _STAGE_THROW_BACK = 1.5  [stand]  the spots stand this far past the stage edge
+lights.py:63  _STAGE_SPOT_RADIUS = 1.5  [radius]  
+lights.py:71  _NEON_OUT = 0.15  [stands]  A neon's spill source stands this far proud of the sign's FACE, in free air: Lux's omni sits AT the anchor and
+lights.py:74  _ROPE_OVER_DECK = 0.35  [= body radius]  The rope light's spill: over a bar stage's deck, off the pole; just past a round stage's lip at the rope's hei
+lights.py:88  _TV_SCREEN_OUT = 0.25  [stands,walker]  A TV THAT IS ON (Zoo 0.90.0). The walker, after cold run 9057's club: the CRTs should "have a light/glow from 
+lights.py:104  _BACKBAR_OUT = 0.15  [aisle,stands]  THE BACK BAR'S PRACTICAL (Lux 0.39.0). Zoo 0.92.0 paints the bulbs behind the glass shelves and the porthole's
+lights.py:193  _FIXTURE_DEPTH = 0.3  [clearance,walked]  A ceiling row must not put a lamp INSIDE a partition. Walked 2026-09-11 on cold run 9005's hospital as "light 
+lights.py:251  _AISLE_MIN_FALLBACK = 1.25  [aisle,contract; = door minimum]  The aisle's width when `level_design` cannot be asked: the contract's `clearances.min_door_width_m`, the numbe
+lights.py:253  _SHELF_FOOT_MAX = 0.5  [aisle,stands]  A shelf stands on the floor; a sign hung over an aisle does not.
+lights.py:262  _SHELF_SPAN_MAX = 2.0  [stands]  A merged shelf span wider than this is a FIELD of islands, not a run: the deepest run in `level_design._PIECES
+lights.py:283  _CEILING_PITCH_JOIST = 0.4  [= bake radius]  
+lights.py:413  _WALL_PACK_OUT = 0.15  [body,clearance,doors]  v1.1 facade lights. Emitters sit PROUD of the wall, in free air, so the lamp Lux spawns is never inside the ha
+lights.py:414  _WALL_PACK_RISE = 0.25  [door]  emitter above the door head
+lights.py:416  _SIGN_RISE = 0.35  [door; = body radius]  sign centre above the door head
+lights.py:417  _SIGN_PAD = 0.8  [door]  sign width beyond the door width
+lights.py:910  _SPILL_HEAD = 3.0  [walker]  THE STOREFRONT SPILL (0.156.0). The walker, 2026-09-29: "do the outward spill next". A lamp's height over the 
+lights.py:911  _SF_HEAD_MIN = 0.4  [= bake radius]  
+lights.py:914  _SPILL_OUT = 0.20  [standoff,stands]  How far out of the wall's face the source stands: a panel's standoff, the window's (`_WALL_PACK_OUT` is the pa
+meshlib_kit.py:20  DOOR_H = 2.2  [door]  
+meshlib_kit.py:21  DOOR_W = 1.2  [door; = flight width / crouch]  
+migrate_cooler_wall.py:70  DOOR_CLEAR = 0.35  [door; = body radius]  
+migrate_cooler_wall.py:71  AISLE = 0.9  [aisle]  
+migrate_cooler_wall.py:73  MIN_RUN = 1.6  [= eye height]  
+migrate_door_width.py:42  NUDGES = {("final_stand", "west_entry"): -0.1333}  [door]  A DOOR SLID ALONG ITS WALL, by (spec, door tag): its new `pos`. Widened where it stood, `final_stand`'s `west_
+migrate_roller_grill.py:44  AHEAD = 1.5  [stands]  Where a customer stands at the till: 1.5 m in front of the counter's face.
+migrate_slush_machine.py:77  PAD_AREA = 400.0  [stands]  The site pads a building stands on are not furniture (the cooler wall's).
+migrate_slush_machine.py:81  NEIGHBOUR_TOL = 0.05  [stands]  A neighbour against the same wall: its back this close to where a piece's back stands, and the air kept betwee
+migrate_slush_machine.py:85  STAFF_DEPTH = 3.0  [aisle,stands]  How far behind a counter its staff aisle reaches: no piece placed with ``ahead`` stands in it (0.152.0).
+migrate_wall_crossing.py:53  ROUNDS = 64  [stands]  Cuts one spec may take before it stands clear: one per piece and wall.
+migrate_window_poster.py:57  GAP = 0.3  [door]  to a door's sign box, and to the window sign
+migrate_window_poster.py:142  WINDOW_FOOT = 0.10  [door]  -------------------------------------------------------------------------- THE DELI'S WINDOW (0.201.0, the sig
+migrate_window_sign.py:57  SIZE = (1.2, 0.06, 0.6)  [= flight width / crouch]  w, d, h: the genome's least depth. 1.2 x 0.6 letters every beer at 15.5 cm or more; 1.0 x 0.5, the genome's le
+migrate_window_sign.py:58  GAP = 0.3  [door]  between the door's jamb and the sign
+migrate_window_sign.py:61  HEAD_MIN = 0.4  [= bake radius]  Zoo `arch.SF_HEAD_MIN`
+roofs.py:31  LANDING_HALF_M = 1.5  [body,landing]  Half-size of the square a body needs where it steps off a ladder onto the roof (0.209.0): the hatch cut for it
+sightlines.py:42  EYE = 1.6  [eye,standing; = eye height]  ---- tunables (meters) ---------------------------------------------------- standing eye height (volume must c
+sightlines.py:43  SIGHT_BLOCK_H = 1.6  [standing; = eye height]  a volume taller than this blocks standing sight
+sightlines.py:44  COVER_R = 2.5  [cover,radius]  a cover marker covers points within this radius
+sightlines.py:49  ROUTE_STEP = 0.5  [step]  exposed-run march step
+stair_pitch.py:34  MAX_WALKABLE_PITCH_DEG = 40.0  [walkable]  
+stair_pitch.py:119  WIDE_SHIFT_STEP = 0.5  [step]  
+stair_place.py:145  _ANCHOR_FIT_RADIUS = 3.0  [radius]  stairwell.py archetype-fit test uses this too
+stairwell.py:81  _TREAD_MARGIN = 0.6  [door]  m shaved off each run end for the door test
+stairwell.py:91  EXIT_STEP_OFF = 0.8  [step]  m the builder's slab hole extends past the
+stairwell.py:93  _SOLID_BAND = 0.45  [landing]  top flight; the upper landing starts after it a wall this close to the entry/exit edge =
+stairwell.py:714  GUARD_THICK = 0.1  [body,stands]  A guard's thickness. It stands OUTSIDE the stair's reserved rectangle, so it never enters the ground `flight_r
+stairwell.py:716  _GUARD_COVER_TOL = 0.25  [cover]  An existing wall this close to a guard's line already does the guard's job.
+stairwell.py:719  SIDE_MARGIN = 0.4  [= bake radius]  The reserved rectangle's lateral margin beside a flight (`flight_rect`'s `clear / 2`), which a `side` guard fi
+stairwell.py:731  WALKOFF_CLEAR = 0.8  [body,landing,walk,walkoff]  The walk-off depth past the top landing, along the flight's TRAVEL axis. `flight_rect` reserves it so a body h
+stairwell.py:752  RAIL_OPEN_MIN = 1.4  [clearance,contract,landing,radius]  The narrowest opening a stair rail can leave and still have the bake connect the landing to the floor beside i
+stairwell.py:1451  LATERAL_ENVELOPE = 0.5  [capsule]  m; capsule + push/network margin. A barrier
+stairwell.py:1759  _AGENT_PASS_WIDTH = 0.7  [agent,capsule]  capsule pass band (docs/scale_guidelines.md)
+stairwell.py:2526  CONTRACT_VERSION = 1  [contract]  
+stoop.py:46  RISERS = 3  [landing]  the comps' "three or four"; three is what the terrace's 2.0 m holds with a 0.9 m landing
+stoop.py:48  LANDING = 0.9  [door,landing]  the landing in front of the door, and the stoop's width across the front
+stoop.py:66  RAIL_INSET = 0.05  [riser,stands,step]  and how far inside the stoop's side it stands. Flush, a flight's box shares the middle tread's side plane, fac
+tactical.py:27  MIN_OPENING_WIDTH = 0.8  [passage]  m; below this a passage is too tight
+vault_room.py:62  DOOR_GAP = 0.012  [door,door_gap]  vault_forms.DOOR_GAP
+vault_room.py:72  SLOT_STEP = 0.1  [door,step]  A slot's width is the module's required width rounded UP to this. Zoo builds the door unshrunk in any slot at 
+vault_room.py:77  SWING_STEP_DEG = 1.0  [step]  The sweep step, in degrees, when bounding the swinging leaf. A corner on a 2.8 m leaf strays at most L * (1 - 
+vault_room.py:572  VAULT_MIN_HEIGHT = 2.0  [body,crouch,door,stand,walk]  ---------------------------------------------------------------- generator A vault VOLUME: a solid a body coul
+vault_room.py:575  PAD = 0.5  [stands]  The room stands this far past the vault box's edges.
+vault_room.py:579  MAX_SIDE = 9.0  [reach]  The longest side a vault room is given. The three library banks need 8 m to reach their host room's corner fro
+vault_room.py:581  LEAF_MARGIN = 0.3  [door]  layout_lint.LEAF_MARGIN: a door leaf and jamb past the aperture.
+vault_room.py:583  DOOR_WIDTH = 1.25  [door; = door minimum]  `agent_contract.min_door_width_m`.
+vault_room.py:589  APPROACH = 1.0  [body,door,door_approach_m,player,radius]  Floor a body needs in front of a door (layout_lint.DOOR_APPROACH_M: 2 x player radius + 0.3).
+zfight_gate.py:48  OCCLUDE_MARGIN = 0.003  [reach]  how far past the plane a covering solid must reach
+317 module-level numeric constant(s) in 88 module(s); 127 flagged
