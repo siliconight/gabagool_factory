@@ -1,0 +1,56 @@
+== selftest (23:34:51)
+  a tool source file, a shipped spec, or another repo
+== begin (23:34:52)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9290\journal.md
+== batch (23:35:06)
+created batch 'cold_9290' with 1 mission(s): urban_row_001
+== plan (23:35:06)
+== shell (23:35:08)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 80)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9205: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9003 on the walktest and Laser Tag's route findings
+== approvals (23:36:52)
+== art (23:36:53)
+Structural checks passed  (blockers open: 0, total findings: 109)
+  exit 1
+== export (23:39:50)
+[export] light bake: 574 model(s) and 232 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 209 steady rig(s) baked, 28 failing and 0 cycling left live; 215 room fill(s); 3159 users, 78.3 s in the editor
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9290-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  exit 0
+== findings (23:43:11)
+findings 108 -> 109
+   LOT_COVER_PLACED 2 -> 1
+   LOT_DESTINATION_ABOVE_FLOOR 2 -> 3
+   LOT_ENEMY_SPAWN_CLOSE 1 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 3 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 2 -> 4
+   LOT_ENEMY_SPAWN_UNPLACEABLE 1 -> 0
+   LOT_PATH_END_OFF_DOOR 14 -> 11
+   LOT_ROUTE_COVER_PLACED 2 -> 1
+   LOT_SIGHTLINE_UNBREAKABLE 0 -> 1
+   LT_MAP_BLIND_MAP 2 -> 3
+   LT_MAP_INSTANT_CONTACT 0 -> 3
+   LT_MAP_MISSING_ENEMY_SPAWNS 1 -> 0
+   LT_MAP_OVEREXPOSED_ZONE 2 -> 3
+   LT_MARKER_OFF_FLOOR 1 -> 2
+   LT_NOT_EVALUATED 1 -> 0
+   LT_OPENING_STANDOFF 1 -> 3
+   LT_OPEN_SIGHTLINE 6 -> 0
+   LT_STOREY_UNSEEN 2 -> 3
+   S_STREET_CROSS 6 -> 4
+== walk (23:43:11)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (23:43:21)
+  0 item(s), 0.0 GB removed
+DONE (23:43:25)
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)

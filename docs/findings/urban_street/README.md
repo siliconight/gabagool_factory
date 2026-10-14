@@ -97,3 +97,101 @@ grades PASS 100. Against the strip (`ab_9289/`), over the 52 headings that stood
   provisional.
 - **A 6.70 m room stayed open.** The deal had already spent its one narrow block; a fresh bag when nothing
   left fits is the refinement.
+
+## The starved candidate, traced: Lot 0.122.0
+
+**The instrument.** `spawn_filters.py` reruns a candidate's own `lot_assemble` job, as its `job.log` records it,
+into `_scratch/`. It wraps `site_spawns.place_enemies` so that every spot asked of `outdoors` and of the fairness
+test is recorded with its answer, and classes each refusal by Lot's own rects:
+- off the plate;
+- in a building or an Empty;
+- in a shut band alone;
+- on the standoff or the separation;
+- an unfair opening.
+
+**Its control:** the rerun must reproduce the job's `Enemy_N` transforms and spawn findings. It held on all three
+of 9289's candidates (`spawn_filters.out.txt`).
+
+**Corrected once, kept.** The probe's first run read -6 for "standoff or separation" on every candidate's last
+enemy. After the last enemy's loop, `_findings` asks the fairness test again of every enemy placed
+(`site_spawns.py:1312`), and the probe had charged those six questions to the last enemy. It now stops counting
+there, and both outputs here come from the corrected probe.
+
+**What it measured on Lot 0.121.0** (`spawn_filters.out.txt`). Every Empty row's band is kept out of enemy
+placement: the ground behind the row's front line, across the plate's whole width (`site_fences.shut_bands`).
+- **seed_9205.** The near-side block is a row of its own. Its band runs from y = -12.2 to the plate's north edge:
+  the mission's own half of the plate, with the objective in it. The far row's band shuts y < -32.2. What is left
+  is the 20 m street, open and within 45 m of the crew's path, so all six enemies were dropped. For the first
+  enemy alone, 5,724 spots were tried:
+  - 2,044 off the plate;
+  - 1,035 in a building or an Empty;
+  - 1,994 in a band alone;
+  - 644 an unfair opening.
+- **seed_9104.** The same band; all six enemies stood in the street (y -12.7 to -22.6).
+- **seed_9003.** Two blocks make one row, and its front was judged to be its north edge. Its band covers the
+  plate south of y = 3.6: the street, and the crew's whole route.
+
+**Why that was wrong.** The fences already knew. `plan_fences` leaves a row open, unfenced, when a mission marker
+stands behind it, and on all three candidates it did (`LOT_FENCE_SKIPPED`). Enemy placement kept out of the band
+of a row that nothing shut. Of the 276 `lot_assemble` job logs on this disk, a row was left open in 3, and they
+are these.
+
+**Lot 0.122.0 (030901f).** `site_fences.markers_behind` is now the one question, asked by both:
+- `plan_fences` asks it in place of its own copy;
+- `shut_bands` leaves out any row it finds a marker behind;
+- `place_enemies` passes its spawn, objective and extraction.
+
+**After** (`spawn_filters_0122.out.txt`):
+- seed_9205 places all six enemies, between b0 and b1;
+- seed_9104's six stand between the buildings, found after 1 to 80 spots each, where 0.121.0 needed 133 to
+  1,357;
+- seed_9003 moves three of its six.
+
+**Strip levels do not move.** The picked jobs of cold runs 9278 to 9287 were replayed on both versions
+(`lot_replay.py`): 10 jobs, 420 files, 0 differ.
+
+**Proven in the pipeline: cold run 9290** (`docs/cold_runs/cold_9290/`), 0 interventions.
+- **Every candidate was graded,** all PASS 90, route completion 1.00, no guard stuck. seed_9205 stood all
+  six of its enemies.
+- **The fights moved with the enemies.** They now stand between the buildings, near the crew's route. The
+  enemy's first shot averaged 1.93 to 2.65 s, under Laser Tag's 3 s minimum and above Lot's 1 s reaction
+  contract, so every candidate's `combat_pacing` fell from 15 to 5 (`INSTANT_CONTACT`), and seed_9003 and
+  seed_9104 fell from PASS 100 to 90.
+  - Recorded, not tuned: enemy placement is provisional, and those are encounter categories.
+- **The pick** was a three-way tie, so the lowest seed: seed_9003 (Level Factory 0.202.0, roadmap 245).
+
+**What it does not settle.**
+- **The band itself.** It spans the plate's whole width. That is right for a terrace whose end fences run to the
+  plate's edge, and wrong for a row that is not one. Today it never reaches one: a near-side row's band holds the
+  objective or the street, so the row is left open.
+- **A near-side row with no mission point behind it** would be fenced, and its end runs would close the
+  passages Level Factory keeps beside each building. Not seen; not built for.
+- **Where an urban street's enemies should stand** is the gameplay layer's to decide; Lot's placement is
+  provisional.
+
+## The spent deal: Level Factory 0.203.0
+
+**The defect.** `empties.infill` deals the near side's blocks as the far side deals them: every design once,
+then a new bag. A room stayed open whenever what was left in the bag was too wide for it, even though the next
+bag held a design that fits. Cold run 9289's seed_9104 kept a 6.70 m room that its 6.6 m block fits, because
+that block had been dealt already.
+
+**Its size.** On the test street of `level_factory/tests/unit/test_near_side_fresh_deal.py` (rooms of 42, 22
+and 32 m; designs of 15, 24 and 6.6 m; forty seeds), 0.202.0 left 58 of the 120 rooms with a design's width or
+more standing empty, some of them whole.
+
+**Level Factory 0.203.0 (c132c30).** Where nothing left in the bag fits the room and some design does, a fresh
+deal goes behind the remainder, which still shows first where it fits. A remainder no design fits asks nothing
+of the stream.
+
+**On urban_row_001** (`near_blocks.py`, `near_room.py`, cold runs 9289 to 9291):
+
+    seed_9003   2 blocks in 9289, 9290, 9291: the 12.67 m room holds the 12.30 m block, the 11.35 m room a 6.6 m one
+    seed_9104   1 -> 2: the 7.33 m room and now the 6.70 m room between b1 and b2, a 6.6 m block in each
+    seed_9205   1 -> 2: the same two rooms, the same two blocks
+
+**Cold run 9291** (`docs/cold_runs/cold_9291/`, 0 interventions): every near-side room on the three candidates now holds a block, each left with less than 6.6 m. The pick went to the higher grade, seed_9104 at PASS 100. Its new block covers the spot where one
+enemy stood, and that enemy now stands 5 m away; the first enemy shot came at 6.62 s, not 1.93, and crew
+deaths fell from 31 to 8. One residue is
+by the deal, not a defect: seed_9003's 11.35 m room took the 6.6 m block where the 10.30 m one would have left
+0.05 m, so 4.75 m stays open.
