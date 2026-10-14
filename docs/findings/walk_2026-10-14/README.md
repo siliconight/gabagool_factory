@@ -89,6 +89,38 @@ front where the two stack.
 `deli_a01`, story -1, the walker at (-68.8, -1.7, 1.1). The basement's two partitions each carry a 1.25 m door and a
 1.4 m `breach` opening. Not yet traced: whether what the walker saw is a breach and how one is built.
 
+**Traced, 2026-10-14 19:30: not the breach. The partition stops 7 m short of the outside wall at both ends.**
+The spec, in its own metres (`deli_counter/specs/deli_a01.json`):
+- The basement is 38 x 28 m, x -19..19. Four rooms divide it: `basement_corridor` and `cold_storage` west of x 1.0,
+  `utility_room` and `basement_vault` east of it, one pair either side of y 1.0.
+- So the wall along X at y 1.0 divides rooms that meet across the full width, x -19..19. It is built x -12..12.
+- That leaves 7.00 m open at each end. On the west, `basement_corridor` opens into `cold_storage`. On the east,
+  `utility_room` opens into `basement_vault`, the objective room, marked `fortifiable`, beside the 1.4 m
+  `vault_side_breach` that was meant to be its way in.
+- 9308's `site.tscn` stands the deli at Godot (-51, 0, -2.51), unrotated. So the walker at (-68.8, -1.7, 1.1)
+  stood at plan (-17.8, -3.6), in `basement_corridor`, 4.6 m south of the partition with its west end 5.8 m to
+  the east. That is the west gap. The door they outlined fits the corridor door, at x -8.4, 3.6 m along the wall
+  from its end.
+
+**Authored so from the first version:** Deli Counter 0.80.0 (f54ebfee, 2026-07-19, the pvp_heist configs) wrote this
+partition at -12..12. The other basement partition overshot the footprint at -16..16 and was clamped by 0.83.3
+(1c344a8d, "clamp interior partitions to footprint"). Nothing extended this one.
+
+**How far it reaches** (`partition_gaps.py`, `partition_gaps.out.txt`): open stretches over 1 m, where two rooms meet
+past a partition's end, number 59 in 31 of the 446 specs.
+- The same two 7 m gaps stand in every deli: deli_a01, a02, a03, cr_deli, night_deli, corner_deli_heist_01, and
+  Level Factory's per-candidate copies.
+- Others read as designed openness and are for a person to sort: the parking garages' decks, the warehouses'
+  north aisles, office's executive lobby.
+- The census names no cause.
+
+- **Proposed, Deli Counter's:**
+  - Run the deli family's partition to the walls, so the vault is entered by its door and its breach.
+  - Add a check that refuses a partition stopping short of where its rooms meet, unless the spec names the gap as an
+    opening. That is the part that generalises.
+  - Both move the navmesh and the fights, so they go out through the graders with the moved fields read.
+- **The walker's call first:** whether the deli basement was meant to be open at its ends.
+
 ## 6. The hole in the deli's ceiling (frame with the taskbar at 17:25)
 
 `deli_a01`, the walker at (-43, 1.6, 3.6) looking up. Authored: `vertical_links` carries a `floor_hole` on story 1 at
