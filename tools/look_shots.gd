@@ -78,12 +78,49 @@ const WARMUP_MAX_FRAMES := 5000
 ## must see "nothing here" rather than "no contribution".
 const SWITCHES := ["lightmap", "live", "sun", "ambient", "probes", "emission", "sky", "fog"]
 
+## THE INSPECTION LIGHT (2026-10-14). The walker: "a tool to make the area
+## brighter for checking things so it's not too dark and you get mistaken...
+## just for visual checks". The cubicles' computers had been turned that day,
+## and every frame of the dark office read a CRT's screen and its back alike,
+## so the check was left to the walker's eye. `look_shots/inspect` draws every
+## shot in a light that shows what is THERE, never how the level LOOKS:
+##   studio      a white key light riding over the camera's shoulder, no
+##               shadow, and a flat white ambient: forms read as they do in a
+##               modelling viewport, and since nothing casts, a room is lit as
+##               if its roof were off. Answers "which way does this face" and
+##               "is this step there".
+## It takes every Environment's fog, glow and colour adjustment off and sets
+## its tonemap linear at exposure 1, and hides every CanvasLayer, Lux's grade
+## among them, so the level's night grade cannot darken the check. It is
+## asserted again before every frame of every shot, because Lux may set its
+## environment back.
+## REFUTED AND REMOVED, kept: a second mode, `fullbright`, set the viewport's
+## DEBUG_DRAW_UNSHADED to draw every surface at its own colour. On cold run
+## 9308's package under GL Compatibility (NVIDIA, GL 3.3) it drew the office
+## DARKER than studio -- mean 44-59 against 100-152 at four cubicle stations --
+## and the floor's tiles came out one flat grey. It did not show what it
+## promised, so it is gone rather than kept as a second answer that disagrees
+## with the first. A frame drawn in the inspection light is evidence about geometry and
+## surfaces ONLY: its exposure figures describe the inspection light, not the
+## level. The report and every shot carry "inspect", and each PNG is named
+## INSPECT_<mode>_<shot>.png, so none is ever read as the level's look. Empty,
+## the default, touches nothing. An unknown mode refuses the run.
+const INSPECT_MODES := ["studio"]
+## CHOSEN, not derived: legible on the grey and brown of a greybox office and
+## a street at once. Nothing measured depends on them, because nothing drawn in
+## this light is a measurement of the level.
+const STUDIO_KEY_ENERGY := 1.2
+const STUDIO_KEY_TILT_DEG := Vector3(-35.0, -25.0, 0.0)
+const STUDIO_AMBIENT := 0.5
+
 var _out_dir: String = ""
 var _shots: Array = []
 var _hidden_layers: Array = []
 var _centre_frac: float = 0.0
 var _notes: Array = []
 var _switched: Dictionary = {}
+var _inspect: String = ""
+var _inspected: Dictionary = {}
 
 
 func _ready() -> void:
@@ -109,6 +146,10 @@ func _ready() -> void:
 			_emit({"error": "no light switch %s; the switches are %s" % [sw, ", ".join(SWITCHES)]})
 			return
 		off.append(sw)
+	_inspect = String(ProjectSettings.get_setting("look_shots/inspect", "")).strip_edges()
+	if _inspect != "" and not INSPECT_MODES.has(_inspect):
+		_emit({"error": "no inspection light %s; the modes are %s" % [_inspect, ", ".join(INSPECT_MODES)]})
+		return
 
 	for _i in range(settle):
 		await get_tree().process_frame
@@ -146,6 +187,13 @@ func _ready() -> void:
 	scene.add_child(cam)
 	cam.make_current()
 
+	# THE INSPECTION LIGHT once the camera exists, since the studio key rides
+	# on it, and the settle again so the renderer has drawn the level in it
+	if _inspect != "":
+		_inspected = _inspect_setup(cam)
+		for _i in range(settle):
+			await get_tree().process_frame
+
 	# GPU TIME PER SHOT, from the engine's own timestamps (the film probe's
 	# reasoning: a wall clock around a draw measures submission, not
 	# execution). The frames a shot settles over are the frames that get
@@ -178,6 +226,8 @@ func _ready() -> void:
 			_switch_off(off)
 		var gpu: Array[float] = []
 		for _i in range(per_shot):
+			if _inspect != "":
+				_inspect_environments()
 			await RenderingServer.frame_post_draw
 			if _i > 0:
 				gpu.append(RenderingServer.viewport_get_measured_render_time_gpu(vp_rid))
@@ -204,6 +254,8 @@ func _ready() -> void:
 		"viewport": [get_viewport().size.x, get_viewport().size.y],
 		"hidden_canvas_layers": _hidden_layers,
 		"switched_off": _switched,
+		"inspect": _inspect,
+		"inspect_changed": _inspected,
 		"notes": _notes,
 		"shots": _shots,
 	})
@@ -275,6 +327,58 @@ func _under_lux_root(node: Node) -> bool:
 			return true
 		p = p.get_parent()
 	return false
+
+
+## Set up the inspection light (see INSPECT_MODES). Returns what it changed.
+func _inspect_setup(cam: Camera3D) -> Dictionary:
+	var out: Dictionary = {"mode": _inspect}
+	# every CanvasLayer, Lux's grade among them: a vignette or a night tint
+	# over the frame is the darkness this light exists to remove
+	var hid: Array = []
+	for n in get_tree().root.find_children("*", "CanvasLayer", true, false):
+		var layer: CanvasLayer = n
+		if layer.visible:
+			layer.visible = false
+			hid.append(String(layer.get_path()))
+	out["canvas_layers_hidden"] = hid
+	out["environments"] = _inspect_environments()
+	if _inspect == "studio":
+		var key := DirectionalLight3D.new()
+		key.name = "LookShotsStudioKey"
+		key.shadow_enabled = false
+		key.light_energy = STUDIO_KEY_ENERGY
+		key.light_bake_mode = Light3D.BAKE_DISABLED
+		cam.add_child(key)
+		key.rotation_degrees = STUDIO_KEY_TILT_DEG
+		out["key"] = {"energy": STUDIO_KEY_ENERGY, "tilt_deg": [STUDIO_KEY_TILT_DEG.x,
+			STUDIO_KEY_TILT_DEG.y, STUDIO_KEY_TILT_DEG.z], "ambient": STUDIO_AMBIENT}
+	return out
+
+
+## Every Environment's fog, glow and colour adjustment off, its tonemap linear
+## at exposure 1, and in studio a flat white ambient. Returns what it found,
+## which on the first call is the level's own.
+func _inspect_environments() -> Array:
+	var was: Array = []
+	for e in _environments(get_tree().root):
+		var env: Environment = e
+		was.append({"fog_enabled": env.fog_enabled, "glow_enabled": env.glow_enabled,
+			"adjustment_enabled": env.adjustment_enabled, "tonemap_mode": env.tonemap_mode,
+			"tonemap_exposure": env.tonemap_exposure,
+			"ambient_light_source": env.ambient_light_source,
+			"ambient_light_energy": env.ambient_light_energy})
+		env.fog_enabled = false
+		env.volumetric_fog_enabled = false
+		env.glow_enabled = false
+		env.adjustment_enabled = false
+		env.tonemap_mode = Environment.TONE_MAPPER_LINEAR
+		env.tonemap_exposure = 1.0
+		if _inspect == "studio":
+			env.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+			env.ambient_light_color = Color(1.0, 1.0, 1.0)
+			env.ambient_light_energy = STUDIO_AMBIENT
+			env.ambient_light_sky_contribution = 0.0
+	return was
 
 
 ## Turn the named sources off (see SWITCHES), over the whole tree: Lux's
@@ -965,7 +1069,8 @@ func _eye_height(scene: Node) -> float:
 func _capture(shot_name: String, spec: Dictionary) -> Dictionary:
 	var img: Image = get_viewport().get_texture().get_image()
 	img.convert(Image.FORMAT_RGB8)
-	var path: String = _out_dir.path_join(shot_name + ".png")
+	var stem: String = shot_name if _inspect == "" else "INSPECT_%s_%s" % [_inspect, shot_name]
+	var path: String = _out_dir.path_join(stem + ".png")
 	var err: int = img.save_png(path)
 	var stats: Dictionary = _exposure(img)
 	# The same statistics over the middle of the frame. A whole-frame mean
@@ -985,6 +1090,7 @@ func _capture(shot_name: String, spec: Dictionary) -> Dictionary:
 	stats["name"] = shot_name
 	stats["png"] = path
 	stats["png_error"] = err
+	stats["inspect"] = _inspect
 	stats["gpu_ms"] = _gpu_ms
 	stats["gpu_samples"] = _gpu_samples
 	stats["eye"] = [spec["eye"].x, spec["eye"].y, spec["eye"].z]

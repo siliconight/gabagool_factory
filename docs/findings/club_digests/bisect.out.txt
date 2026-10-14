@@ -1,0 +1,7 @@
+NOT MEASURED: 5b15338 (exit 0)
+    return genome.load_species(sp)
+           ~~~~~~~~~~~~~~~~~~~^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\club_digests\5b15338\zoo_keeper\core\genome.py", line 36, in load_species
+    raise FileNotFoundError(
+        f"No genome for species '{species}'. Known species: {known}")
+FileNotFoundError: No genome for species 'club_stage'. Known species: atm, bench, bollard, booth_seat, boots, box_truck, breach, briefcase, bus_shelter, callery_pear, cargo_container, carton_stack, cash_stack, ceiling, chair, cheesesteak, condiment_bottle, counter, crt_tv, desk, doorway, dress_cover, drop_safe, dust_sheet, exhaust_fan, filing_cabinet, fire_hydrant, flat_top_grill, floor, fluorescent_fixture, french_fries, furnace, glass_shard, gold_bar, helmet, honey_locust, hvac_unit, jersey_barrier, ladder, litter_bin, litter_scrap, london_plane, mailbox, newspaper_box, pallet_stack, parking_meter, payphone, pebble, pendant_fixture, pin_oak, pool_table, prop, pump, queue_stanchion, red_maple, roof, rubble_frag, safe_deposit_boxes, satellite_dish, security_camera, shelving, sign_box, sign_post, simple_car, skylight, soda_cup, stair_rail, stop_sign, street_tree, streetlight, table, teller_line, traffic_signal, vault_door, vending_machine, vent_stack, wall, wallCorner, wallEnd, wall_pack, water_barrel, water_tank, weed_tuft, window, window_broken

@@ -31,6 +31,14 @@ one this tool actually produces.
 
     python tools\\look_shots.py <project_dir> [--out shots/] [--scene X.tscn]
 
+AN INSPECTION LIGHT, for checking what is there rather than how it looks
+(2026-10-14): `--inspect studio` lights the level from over the camera's
+shoulder with no shadow, so forms and facings read even in a dark room. Each
+PNG is named INSPECT_<mode>_<shot>.png and the report carries the mode: a frame
+drawn this way says nothing about the level's lighting, and its exposure
+figures describe the inspection light. `look_shots.gd`'s INSPECT_MODES says
+what each changes. Empty, the default, touches nothing.
+
 SOURCES OF LIGHT CAN BE SWITCHED OFF before every shot (2026-10-09):
 `--switch-off lightmap,live,sun,ambient,probes,emission,sky,fog`, any of
 them. `look_shots.gd`'s SWITCHES says what each does, and the report says what
@@ -74,7 +82,8 @@ MARK_END = "LOOK_SHOTS_JSON>>>"
 
 def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
           settle=10, frames_per_shot=6, keep_hud=False, rendering_driver=None,
-          timeout=900, verbose=False, interiors=0, stations=None, switch_off=None):
+          timeout=900, verbose=False, interiors=0, stations=None, switch_off=None,
+          inspect=None):
     scene = scene or default_scene(project_dir)
     out_dir = os.path.abspath(out_dir)
     os.makedirs(out_dir, exist_ok=True)
@@ -109,6 +118,9 @@ def shoot(project_dir, out_dir, scene=None, godot=None, width=1600, height=900,
             # SWITCHES, and an unknown one refuses the run). Empty touches
             # nothing.
             "switch_off": ",".join(switch_off or []),
+            # THE INSPECTION LIGHT (look_shots.gd's INSPECT_MODES; an unknown
+            # one refuses the run). Empty touches nothing.
+            "inspect": inspect or "",
         },
         "display": {
             "window/size/viewport_width": width,
@@ -173,6 +185,9 @@ def report(r):
         print("  hidden non-Lux CanvasLayers: none")
     for sw, got in (r.get("switched_off") or {}).items():
         print("  switched off: %-9s %s" % (sw, json.dumps(got)))
+    if r.get("inspect"):
+        print("  INSPECTION LIGHT: %s -- these frames show what is there, not how the level looks;"
+              " their exposure figures describe the inspection light" % r["inspect"])
     print("")
     header = ("  %-12s %8s %6s %6s %6s %9s %9s %9s %8s"
               % ("shot", "mean", "p05", "p50", "p95", "clipped", "near-clip",
@@ -239,6 +254,12 @@ def main(argv=None):
         help="turn these sources of light off before every shot: lightmap, "
              "live, sun, ambient, probes, emission, sky, fog (look_shots.gd's "
              "SWITCHES). For tools/light_breakdown.py; empty touches nothing")
+    ap.add_argument(
+        "--inspect", default="", choices=["studio"],
+        help="draw every shot in an inspection light, for checking what is "
+             "there rather than how it looks: studio, a shadowless work light "
+             "over the camera's shoulder. PNGs are named "
+             "INSPECT_<mode>_<shot>.png")
     ap.add_argument("--json", action="store_true")
     ap.add_argument("--timeout", type=int, default=900)
     ap.add_argument("-v", "--verbose", action="store_true")
@@ -249,7 +270,8 @@ def main(argv=None):
                   a.settle, a.frames_per_shot, a.keep_hud, a.rendering_driver,
                   a.timeout, a.verbose, interiors=a.interiors,
                   stations=a.station,
-                  switch_off=[s for s in a.switch_off.split(",") if s.strip()])
+                  switch_off=[s for s in a.switch_off.split(",") if s.strip()],
+                  inspect=a.inspect)
     except ProbeFailed as e:
         print("[look_shots] NOT MEASURED: " + str(e))
         return 1
