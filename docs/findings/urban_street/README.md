@@ -294,3 +294,65 @@ sidewalks, but halfway between lamps 25 m apart, a Delco strip's spacing.
   extraction_16 -160 draws and -111 objects, camera_socket_0 -137 and -135, patrol_point_13 -126 and -77 at
   yaw 0 and -80 and -80 at yaw 90. Whether the census's move accounts for them, and which pairs went where, is
   not traced.
+
+## The corner shop: Zoo 1.107.0, Deli Counter 0.218.0, Level Factory 0.206.0 and 0.206.1
+
+**The gap.** The comps: "Corners carry the life. The corner building has the shop at grade (lit, awning), homes
+above. The middle of the block is residential." The urban wall stood homes from the pavement up. The design and
+its as-built record: `docs/proposals/CORNER_SHOP.md`.
+
+**What shipped:**
+- **Zoo 1.107.0 (fbbe818):** `shop_panes`, a second painted atlas beside `window_panes`. It has six states in
+  landscape cells -- a deli, a grocery, a bar, a laundromat, a roll-down gate, dark glass -- on
+  `M_Shop_pane_Face`.
+- **Deli Counter 0.218.0 (173c91b5):** four corner blocks, `gs_cornershop_a` to `_d`, mid-rises whose
+  ground-floor front is a shop.
+  - Every front bay at grade is a 2.4 m shop window but the door's, which is the shop's. The homes are above.
+  - The first build failed the specs' own schema gate: an opening could not carry `pane`. That was read off the
+    validation manifests before anything was committed.
+- **Level Factory 0.206.0 (e8bd89b):** each run of the urban wall opens and closes on a corner block. On
+  urban_row_001 no road crosses the far side, so the corners stand at the plate's ends.
+- **Level Factory 0.206.1 (c189baf):** the fill deals afresh before it gives up.
+  - Cold run 9295's seed_9003 had closed 12.70 m short of its run's end (`patches/lf_corner_fill/`, traced and
+    replayed).
+  - Over 600 walls at the built widths, the worst shortfall went 14.20 -> 4.10 m.
+  - The cost: 20 of the 600 stand a narrow block beside itself, every one where no other design fits.
+
+**Cold run 9295** (seed_9104 named against 9294's; `corner_stations.py`, `fight_fields_9295.out.txt`):
+- 0 interventions, and every candidate's wall opens and closes on a corner shop.
+- The pick held at PASS 100, every grade as 9294's.
+- The fights barely moved. seed_9205 read 9294's exactly; seed_9003 moved one field by 0.07 s; seed_9104 moved
+  11 fields by a little, its crew deaths unchanged.
+
+**Seen** (`ab_9295/corner_sheet.png`, from the near sidewalk straight across at each corner; `ab_9295/ab_sheet.png`):
+- **The laundromat at the west end** shows three lit storefronts with its white shop door, and the washers' round
+  doors read in the glass.
+- **The grocery at the east end** shows four, aisles of goods behind the glass, and a dark iron door.
+- **Two looks for the walker:**
+  - **Both cool shops glow nearly white** at the material's `EMISSION` 2.2, against a home window's 1.6.
+  - **The corners step the skyline down at the plate's ends.** seed_9104's are 5 and 7 storeys, where heights by
+    cause rises to 10 and 12 beside them.
+
+**Priced** (`ab_9295/price/price.txt`, 53 headings):
+- draws -4.0 a heading on the mean;
+- p95 +0.06 ms against a 0.11 ms floor;
+- video memory 147.2 -> 151.4 MiB (textures +0.7, buffers +3.4).
+
+The glow is emission paint and costs no light. The comps' table names Lux for "the shop's light"; a spill onto the
+pavement would be a light, the expensive version, not priced here.
+
+**Found and recorded, not fixed: the package carries every themed Empty, standing or not.**
+- 9295's carries all four corner blocks with two standing, and `gs_midrise_g`, which seed_9104 stands nowhere.
+- Its size went 194 -> 210 MB, and the light bake's model imports 581 -> 707.
+- Scenes nothing instances draw nothing. Their cost is disk and import time.
+
+**Cold run 9296** (Level Factory 0.206.1, the pick `auto`; `docs/cold_runs/cold_9296/`):
+- 0 interventions, and every wall closes within the narrowest design of its end, as the replay said: seed_9003
+  12.70 -> 1.90 m, seed_9205 4.70 -> 2.60, seed_9104 1.20 unchanged.
+- The pick is seed_9104 at PASS 100, and its package is 9295's: 24 of 3,676 files differ, by Godot's per-save
+  ids, timings and paths, and one more below.
+
+**Found, filed as roadmap 247, not traced: the pharmacy's roof props are not byte-stable from run to run.**
+- `pharmacy_a01_roofprops.glb` reads f8fd372b in 9294 and 9296 and 290b98f0 in 9295.
+- Its glTF JSON is identical; 2,569 bytes of its buffer differ.
+- Its job's command is the same in all three, `--seed` included.

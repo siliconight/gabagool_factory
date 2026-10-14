@@ -22,8 +22,8 @@ factory root's `docs/proposals/CORNER_SHOP.md`.
   - Both names end `_Face`: Lux's power cut darkens them, and Level Factory's world-skin pass leaves them on their
     own UVs.
 - **`core/kit.py`** honours a shop state on a facade window as it honours a window state: `_p<state>` in the
-  module's name. Deli Counter's `themed_tscn.module_stem` makes the same test against its own copy of the states,
+  module's name. Deli Counter's `themed_tscn.resolve_themed_stem` makes the same test against its own copy of the states,
   and learns the shop's when it authors one (the proposal's step 2).
 - **It costs no light,** and one material where a shop front stands. Nothing stands one yet.
-- **`tests/test_shop_panes.py`**: RESULT_TESTS
-- **The suite:** RESULT_SUITE
+- **`tests/test_shop_panes.py`**: 14 checks, 13 pure and 1 in Blender. Run against 1.106.0 with the module alone added, the module's name and its build plan fail and the other eleven pass; without the module the file fails to import. Inside Blender 5.1.1 (the command in its docstring), beside `tests/test_window_panes.py`: 24 passed, the shop pane wearing `M_Shop_pane_Face` and the window pane still `M_Window_pane_Face`.
+- **The suite:** `python -m pytest -q tests`: 4,627 passed, 456 skipped, 1 xfailed in 5 min 42 s, where 1.106.0 passed 4,614 and skipped 455: the new file's 13 pure checks, and its Blender check skipped outside Blender.

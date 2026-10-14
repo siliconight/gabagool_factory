@@ -2,7 +2,12 @@
 where the shop's light shows -- `window_panes`' machinery on a landscape cell.
 
 The pure half runs anywhere; the built half needs Blender, as `test_window_panes.py` does, and is skipped where
-bpy is absent.
+bpy is absent. It was run inside Blender for this change, from the repo root:
+
+    blender -b --factory-startup --python-expr "import sys, pytest; sys.path.insert(0, '.'); print('rc', int(pytest.main(['-q', '-p', 'no:cacheprovider', 'tests/test_shop_panes.py'])))"
+
+On 1.106.0 there is no `core.shop_panes`, so the module fails to import. With the module alone added, the
+module's name and its build plan fail; the ten atlas checks and the facade-only control pass.
 """
 import pytest
 
@@ -136,6 +141,7 @@ def test_a_shop_state_is_only_honoured_on_a_facade_window():
 
 
 def test_the_shop_state_reaches_the_build_plan():
+    """FAILS ON 1.106.0: the kit dropped the state, so the plan carried none."""
     _, plan = _stems([_window("shop_laundry")])
     built = dna.resolve_module_plan(plan["modules"][0], genome.load_species("window"), "delco_1997", 1,
                                     TOOL_VERSION)

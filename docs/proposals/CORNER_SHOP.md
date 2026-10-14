@@ -28,6 +28,48 @@ The builder's own comment lists the corner shop as a capability it does not have
 4. **Later steps:** a Zoo awning species over the shop (there is none), and the sign band (`neon_sign` and
    `sign_box` exist; the invented brands are the fake Delco names).
 
+## As built, 2026-10-14
+
+- **Step 1, Zoo 1.107.0 (fbbe818).** `core.shop_panes` as listed above, `M_Shop_pane_Face`. `recipes/_arch.py`'s
+  `PANE_ATLASES` picks the atlas by the state.
+- **Step 2, Deli Counter 0.218.0.** `empty_midrise(..., shop=...)` and `EMPTY_CORNERS`, four blocks:
+  - a deli, a bar, a laundromat and a grocery;
+  - 12 to 18 m wide and 5 to 8 storeys;
+  - every front bay at grade a 2.4 m `SHOP_WINDOW` but the door's.
+
+  Three decisions the list above left open:
+  - **The prefix is `gs_cornershop_`, not `gs_corner_`.** `gs_corner_station` is an enterable gas station that
+    Level Factory's clusters name as a corner store.
+  - **The shop's door is the block's front door,** centred, with the authored finish and, on two of the four, the
+    iron security door. The homes above keep the service door behind. A glazed shop door needs a painted leaf
+    Zoo does not have.
+  - **Built as their own archetypes,** no two alike, as proposed.
+- **Step 3, Level Factory 0.206.0.** Each run of the urban wall opens and closes on a corner block. A run lies
+  between two roads crossing the far side, or a road and the plate's end.
+  - **The plate's ends count as corners,** as proposed. A run is one block face, and its ends are the block's
+    corners.
+  - **On urban_row_001 no road crosses the far side.** Both side streets leave the through road northward, so
+    the wall is one run, and its corners stand at the plate's ends.
+  - **The near side's corners** (the side streets' T-junctions) are the mission's own buildings, so `infill`
+    stands no corner block.
+- **Level Factory 0.206.1 (c189baf).** Cold run 9295's seed_9003 closed its wall 12.70 m short of the run's end,
+  traced to a fill that stopped on a spent bag. The fill now deals afresh: over 600 walls the worst shortfall went
+  14.20 -> 4.10 m (`patches/lf_corner_fill/`).
+- **Proven:** cold runs 9295 and 9296, 0 interventions each.
+  - Every candidate's wall opens and closes on a lit shop, and the pick held at PASS 100.
+  - Priced at -4.0 draws a heading, a p95 within its floor and +4.2 MiB video memory.
+  - Seen: `docs/findings/urban_street/ab_9295/corner_sheet.png`.
+
+## Next
+
+- **The awning,** a Zoo species. There is none.
+- **The sign band** over the shopfront: `neon_sign` and `sign_box` exist, and the brands are the invented
+  Delco ones.
+- **The walker's calls:**
+  - the shops' glow, since the cool ones run nearly white;
+  - the corners' heights, since they step the skyline down at the plate's ends;
+  - the open questions below.
+
 ## Costs to price before it ships
 
 One more material per corner shop facade. The merged facade group then draws one more surface, and two or
