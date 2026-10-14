@@ -1,0 +1,1 @@
+`python -m pytest -q`: exit 0, 2,365 passed, 14 skipped (the real-tool smoke, needing `LF_TOOLS_DIR`), 1 xfail, counted off the progress marks. `test_streetscape_urban.py` fails to import on 0.199.0. `test_dc_preset_registry`, which failed on 0.199.0 beside Deli Counter 0.213.0 and later, passes
