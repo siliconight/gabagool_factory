@@ -60,9 +60,17 @@ The builder's own comment lists the corner shop as a capability it does not have
   - Priced at -4.0 draws a heading, a p95 within its floor and +4.2 MiB video memory.
   - Seen: `docs/findings/urban_street/ab_9295/corner_sheet.png`.
 
+- **Step 4's awning: Zoo 1.108.0 (b028d3d) and Deli Counter 0.219.0 (42fe102a).**
+  - Zoo's `shop_awning` is a canvas shed (a slope, a 10 in valance, closed ends) in four colours, as the form.
+  - Each corner block hangs one over its storefront in its shop's colour: a deli's red, a bar's black, a
+    laundromat's navy, a grocery's green.
+  - It is 1.2 m out, sunk 8 mm into the wall, its valance 0.1 m over the storefront's head. No collider.
+
 ## Next
 
-- **The awning,** a Zoo species. There is none.
+- **The awning is built and proven** (cold run 9297, 0 interventions, nothing the graders read moved). At night it
+  barely reads: unlit dark canvas over a glow that lights nothing. Brighter canvas or a light under it is the
+  walker's call, and its frame time is still to price on a quiet machine.
 - **The sign band** over the shopfront: `neon_sign` and `sign_box` exist, and the brands are the invented
   Delco ones.
 - **The walker's calls:**

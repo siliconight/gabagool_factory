@@ -356,3 +356,28 @@ pavement would be a light, the expensive version, not priced here.
 - `pharmacy_a01_roofprops.glb` reads f8fd372b in 9294 and 9296 and 290b98f0 in 9295.
 - Its glTF JSON is identical; 2,569 bytes of its buffer differ.
 - Its job's command is the same in all three, `--seed` included.
+
+## The corner shop's awning: Zoo 1.108.0 and Deli Counter 0.219.0
+
+**What shipped:**
+- **Zoo 1.108.0 (b028d3d):** `shop_awning`, a canvas shed in four colours as the form.
+  - A slope from the wall to a 10 in valance, closed at each end.
+  - 40 tris, one mesh, one material. The coplanar census reads it clean at three sizes.
+- **Deli Counter 0.219.0 (42fe102a):** each corner block hangs one over its storefront in its shop's colour.
+  - It is 1.2 m out, sunk 8 mm into the wall, its valance 0.1 m over the storefront's head. No collider.
+  - The suite found canvas missing from `material_kind` after the first build.
+
+**Cold run 9297** (seed_9104 named against 9296's; `fight_fields_9297.out.txt`):
+- 0 interventions, and both standing corners hang their awning in the package.
+- Nothing the graders read moved: 0 of 32 summary fields on any candidate, every spawn in place. The awning has no
+  collider.
+
+**Seen** (`ab_9297/corner_sheet.png`, `ab_9297/awning_zoom.png`): the awning is a band of dark canvas over the lit
+storefront, and at night it barely reads. The shop's glow is paint and casts no light, so the canvas stays unlit,
+where the comps' awning is lit from under it. For the walker: brighter canvas, or a light under it, the expensive
+version.
+
+**Priced:**
+- Draws +0.7 a heading, the same in two runs.
+- Frame time and memory were not priced: StarCraft II was running on the machine, and the controls disagreed with
+  themselves by 0.48 and 1.22 ms. To price again on a quiet machine.

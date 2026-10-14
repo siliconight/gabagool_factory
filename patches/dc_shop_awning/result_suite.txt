@@ -1,0 +1,1 @@
+1,516 passed, 2 skipped, exit 0: 0.218.0's 1,508 and `test_corner_awning.py`'s 8, which fails to import on 0.218.0 (no `shop_awning`). Its `test_every_built_corner_carries_its_awning_slot` reads all four built slots. The suite's `test_every_spec_material_has_a_kind` failed on the first run, canvas having no kind row, and passes with it.
