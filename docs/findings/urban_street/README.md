@@ -231,3 +231,66 @@ both ends.
 
 **Priced** (`ab_9292/price/price.txt`, 53 headings): draws -7.6 a heading on the mean, p95 +0.04 ms against a
 0.04 ms floor, memory identical. It is the same ten blocks, reordered.
+
+## Street trees: Lot 0.123.0 and Level Factory 0.205.0
+
+**The gap.** The comps show street trees in pits along both sidewalks. Lot already planted them in grates on both
+sidewalks, but halfway between lamps 25 m apart, a Delco strip's spacing.
+
+**Read at source** (`docs/reference/STREET_TREES.md`): Philadelphia's siting guidelines (PHS / TreeVitalize,
+2010) say 15 to 30 ft between trees and 30 ft from a corner.
+
+**What shipped:**
+- **Lot 0.123.0 (4e4859f)** plants an urban street's sidewalks every 30 ft (9.144 m), each block's row centred
+  between corners kept 30 ft clear.
+- **Level Factory 0.205.0 (e13306a)** tells Lot the street is urban (`streetscape` in the site spec).
+- **A strip plants as before:** the picked jobs of cold runs 9278 to 9287 replayed, 0 of 420 files moved.
+
+**Cold run 9294** (seed_9104 named against 9292's; `street_counts.py`, `street_counts.out.txt`):
+- **Trees 19 -> 46.** On the through road, one kerb went from 5 to 14 trees: the gaps are 9.14 m, 30 m across
+  a side street's corner, and 7.14 and 11.14 m where one tree stepped 2 m off its station (t 126.79 to
+  124.80). `_nudged` steps a tree for a piece already standing, a marker or a shop band; which one stood
+  here is not traced. A station within 0.8 m of a cut is not stepped but dropped (CORRECTED: this said a cut
+  steps a tree too). The other kerb went from 6 to 18, every gap 9.14 m.
+- **Poles 12, hydrants 2, bus shelters 3 and meters 47,** as before.
+- **The bus stop's kit moved with the row:** news racks 6 -> 4, payphones 2 -> 3. The stop's mailbox, racks and
+  payphone are laid out after the trees (`site_furniture.py:939` before `:1051`), each piece stepped up to 4 m
+  along the band past anything standing, and not placed where no step is free. So a new row can drop one
+  stop's rack and free another's payphone; which tree did which is not traced.
+- **The poles moved with the trees:** 4 of the 12 stand 1 or 2 m off 9292's stations (road 0, kerb R: 37.2 ->
+  38.2, 70.4 -> 69.4, 133.8 -> 132.8; road 2, kerb R: 27.86 -> 29.86), `POLE_STEPS`' first steps. The pole
+  line is planned after the trees, and `site_poles._room` keeps a pole out of a tree's crown. The wires hang
+  from the poles.
+
+**The fights moved; no spawn did** (`fight_fields.py`, `fight_fields.out.txt`, 9292 against 9294):
+- **The spawns stood still.** On all three candidates every enemy and crew spawn stands at 9292's transform, and
+  Laser Tag evaluated each under the same seed.
+- **Laser Tag 0.31.0 -> 0.32.0 cannot account for it.** It changes only a route point whose path stops short,
+  and says so with `RoutePointUnreachable`. That event goes through the same `_log_event` as RouteProgress,
+  which shows 208 to 225 times a report; RoutePointUnreachable shows 0 times in 9294's 75 runs.
+- **Shots blocked rose on all three**, 202 -> 267, 409 -> 501 and 211 -> 347. Crew deaths went 5 -> 0, 8 -> 13
+  and 1 -> 17. seed_9003 lost nobody, and Laser Tag held it below PASS on that alone (TRIVIAL_ENCOUNTER, 90 ->
+  89). The pick shows that verdict and does not count it; seed_9104 held at PASS 100. Recorded, not tuned.
+
+**Seen** (`ab_9294/ab_sheet.png`, 9292 left, 9294 right).
+- **Down the street and from the spawn,** the far sidewalk reads as a planted row running into the distance,
+  where 9292 stood two or three trees.
+- **Two looks for the walker:**
+  - **The crown from below.** From the spawn, a tree stands just ahead of the camera, and its crown, seen from
+    under it against the sky, reads as angular dark boards.
+  - **A warm square** at that tree's foot, its grate catching a light. Neither is traced.
+
+**Priced** (`ab_9294/price/price.txt`; 53 headings at 14 stations, the same in both, control-subject-control):
+- **Draws +28.6 a heading on the mean**, against the controls' 0.0: 39 headings up (at most +138), 9 down (as
+  far as -160), 5 the same.
+- **p95 +0.02 ms at the median**, against a 0.10 ms floor.
+- **Memory identical:** textures 78.9, buffers 68.4, video 147.2 against 147.3 MiB.
+- **The scene's light census moved:**
+  - lights 237 -> 238;
+  - live-light pairs 1,818 -> 1,675, and meshes with no live light 1,992 -> 2,178;
+  - `site_wires_c502_499`, over the 8-light cap at 49 lights, no longer over it.
+
+  Of the 9 headings that drew fewer, 6 look at yaw 0. At the four largest, object counts fell with the draws:
+  extraction_16 -160 draws and -111 objects, camera_socket_0 -137 and -135, patrol_point_13 -126 and -77 at
+  yaw 0 and -80 and -80 at yaw 90. Whether the census's move accounts for them, and which pairs went where, is
+  not traced.

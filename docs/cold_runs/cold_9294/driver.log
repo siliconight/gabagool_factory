@@ -1,0 +1,55 @@
+== selftest (07:34:59)
+  a tool source file, a shipped spec, or another repo
+== begin (07:35:00)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9294\journal.md
+== batch (07:35:14)
+created batch 'cold_9294' with 1 mission(s): urban_row_001
+== plan (07:35:15)
+== shell (07:35:17)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 76)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (07:37:11)
+== art (07:37:12)
+Structural checks passed  (blockers open: 0, total findings: 109)
+  exit 1
+== export (07:40:24)
+[export] light bake: 581 model(s) and 224 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3143 users, 91.9 s in the editor
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9294-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  exit 0
+== findings (07:44:04)
+findings 0 -> 109
+   DISPATCH_FINDING 0 -> 7
+   LOT_DESTINATION_ABOVE_FLOOR 0 -> 2
+   LOT_ENEMY_SPAWN_CLOSE 0 -> 4
+   LOT_ENEMY_SPAWN_PUSHED 0 -> 4
+   LOT_ENEMY_SPAWN_STANDOFF 0 -> 4
+   LOT_GROUND_EXTENDED 0 -> 4
+   LOT_PACING_OUTSIDE_TARGET 0 -> 4
+   LOT_PATH_END_OFF_DOOR 0 -> 14
+   LT_MAP_BLIND_MAP 0 -> 3
+   LT_MAP_INSTANT_CONTACT 0 -> 2
+   LT_MAP_OVEREXPOSED_ZONE 0 -> 2
+   LT_MAP_TRIVIAL_ENCOUNTER 0 -> 1
+   LT_MARKER_OFF_FLOOR 0 -> 2
+   LT_OPENING_STANDOFF 0 -> 3
+   LT_STOREY_UNSEEN 0 -> 3
+   LUX_NO_ROOM_PROBES 0 -> 1
+   PRESENTATION_TINT_MATERIALS 0 -> 1
+   PRESENTATION_ZFIGHT 0 -> 2
+   S_GETAWAY_AT_SPAWN 0 -> 4
+   S_RESPONDER_ARC 0 -> 4
+   S_STREET_CROSS 0 -> 6
+   S_TARGETS 0 -> 32
+== walk (07:44:04)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (07:44:16)
+  1 item(s), 1.2 GB removed
+DONE (07:44:35)
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
