@@ -1,0 +1,11 @@
+== 9294 against 9295
+JSON identical: True; binary 61836 vs 61836 bytes, 2569 differ
+accessor 14 VEC3 x357: 523 bytes differ; serves [('SatelliteDish_metal_delco_1997', 'POSITION')]; 180 of 1071 values moved, the largest by 0.748729
+accessor 15 VEC3 x357: 642 bytes differ; serves [('SatelliteDish_metal_delco_1997', 'NORMAL')]; 188 of 1071 values moved, the largest by 1.67415
+accessor 16 VEC2 x357: 468 bytes differ; serves [('SatelliteDish_metal_delco_1997', 'TEXCOORD_0')]; 130 of 714 values moved, the largest by 1.8329
+accessor 17 VEC3 x357: 558 bytes differ; serves [('SatelliteDish_metal_delco_1997', 'COLOR_0')]; 186 of 1071 values moved, the largest by 0.281149
+accessor 18 SCALAR x1128: 378 bytes differ; serves [('SatelliteDish_metal_delco_1997', 'indices')]
+mesh SatelliteDish_metal_delco_1997: 376 vs 376 triangles, the same set: True
+   64 of 357 vertices differ, in runs [(79, 100), (112, 112), (114, 114), (116, 151), (154, 154), (156, 156), (158, 158), (160, 160)]; the span 79-160 a permutation of the same positions: True
+== 9294 against 9296 (the control)
+JSON identical: True; binary 61836 vs 61836 bytes, 0 differ
