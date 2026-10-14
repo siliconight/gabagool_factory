@@ -2,98 +2,34 @@
 
     python tools/cold_drive/pick_candidate.py <workspace> <mission>
 
-Prints the seed to select. A candidate is out when its nav walktest is not
-ok, or when Laser Tag raised a MAJOR route or pathing finding against it
-(LT_ROUTE_NEVER_COMPLETED, LT_MAP_ENEMY_PATHING_BROKEN). Among the rest the
-fewest major findings wins, then the highest route completion Laser Tag
-measured, then the higher Laser Tag score, then the lowest seed. If every
-candidate is out, the one with the
-fewest major findings is printed and the reason goes to stderr: the run still
-needs a selection, and a pick that says it is the least bad is better than one
-that says nothing.
+Prints the seed to select, and each candidate's line to stderr. THE RULE IS LEVEL FACTORY'S:
+`level_factory/packages/pipeline/pick.py` (0.202.0), the one `level-factory pick` and
+`level-factory make` select by -- who is out, what counts as a major, and the order after that.
+This file reads it and spells none of it.
 
-ROUTE COMPLETION (2026-10-07, roadmap 203). Cold run 9194 picked seed_9054,
-whose crew finished the route in 8% of Laser Tag's runs, over seed_9155 at
-100%: both had zero major findings, because Laser Tag raises
-LT_ROUTE_NEVER_COMPLETED only at 0%, and the tie went to the lower seed.
-Completion is read from each candidate's `lasertag.report.json`
-(`summary.route_completion_rate`); a candidate without one sorts last and
-says so.
-
-THE GRADE (2026-10-13, the walker: "ties should go to the higher grade").
-Cold run 9283 picked card_block_001's seed_9061 at PASS_WITH_TUNING 77 over
-seed_9263 at 89: one major each, completion 1.00 each, and the lower seed
-won. The report's `overall_score` now breaks that tie before the seed.
-Laser Tag's grade is a pure function of it (`GRADE_BANDS`; the trivial-
-encounter cap lowers the score itself), so the higher score is the higher
-grade. A report without one sorts last among its ties and says so.
+It used to spell it. Level Factory 0.169.0 moved the rule into the tool so that somebody making
+a level picks by the rule the cold runs were graded under; this copy stayed for the driver, and
+on 2026-10-13 the grade tie-break (`patches/patch_pick_candidate_grade.py`, the walker: "ties
+should go to the higher grade") went into this copy and not into the tool, so for a day the
+cold runs and `level-factory pick` picked by two rules. Nothing kept the two together, so now
+there is one (`patches/patch_pick_candidate_reads_lf.py`). Where the tool refuses -- no
+candidate, no validation file -- this exits 1 with its reason rather than guessing.
 """
-import collections
-import glob
-import json
-import os
-import re
+import pathlib
 import sys
 
-ws, mission = sys.argv[1], sys.argv[2]
-lf = os.path.join(ws, ".level_factory")
-seeds = sorted(int(re.search(r"seed_(\d+)$", p).group(1))
-               for p in glob.glob(os.path.join(lf, "jobs", f"{mission}.lot_assemble.candidate.seed_*")))
-assert seeds, "no candidates"
-with open(os.path.join(lf, "validation", f"{mission}.json"), encoding="utf-8") as f:
-    issues = json.load(f)["issues"]
-major = collections.Counter()
-out = collections.defaultdict(list)
-for i in issues:
-    m = re.search(r"seed_(\d+)$", str(i.get("candidate_id") or ""))
-    if not m:
-        continue
-    seed = int(m.group(1))
-    if i.get("severity") in ("major", "critical", "blocker"):
-        major[seed] += 1
-    if i.get("code") in ("LT_ROUTE_NEVER_COMPLETED", "LT_MAP_ENEMY_PATHING_BROKEN") \
-            and i.get("severity") in ("major", "critical", "blocker"):
-        out[seed].append(i["code"])
-for seed in seeds:
-    wt = glob.glob(os.path.join(lf, "jobs", f"{mission}.walktest_navqa.candidate.seed_{seed}", "*", "out",
-                                "*.walktest.json"))
-    if not wt:
-        out[seed].append("no walktest")
-        continue
-    with open(wt[-1], encoding="utf-8") as f:
-        if not json.load(f).get("ok"):
-            out[seed].append("walktest not ok")
-completion = {}
-score = {}
-grade = {}
-for seed in seeds:
-    rep = glob.glob(os.path.join(lf, "jobs", f"{mission}.laser_tag_evaluate.candidate.seed_{seed}", "*", "out",
-                                 "lasertag.report.json"))
-    try:
-        with open(rep[-1], encoding="utf-8") as f:
-            report = json.load(f)
-        completion[seed] = float(report["summary"]["route_completion_rate"])
-    except (IndexError, OSError, ValueError, KeyError, TypeError) as exc:
-        completion[seed] = None
-        report = None
-        print(f"  seed {seed}: no route completion read ({type(exc).__name__}); it sorts last",
-              file=sys.stderr)
-    try:
-        score[seed] = int(report["overall_score"])
-        grade[seed] = str(report["grade"])
-    except (ValueError, KeyError, TypeError) as exc:
-        score[seed] = None
-        grade[seed] = "?"
-        print(f"  seed {seed}: no grade read ({type(exc).__name__}); it sorts last among its ties",
-              file=sys.stderr)
-for seed in seeds:
-    rc = "?" if completion[seed] is None else f"{completion[seed]:.2f}"
-    sc = "?" if score[seed] is None else score[seed]
-    print(f"  seed {seed}: {major[seed]} major, route completion {rc}, grade {grade[seed]} {sc}, "
-          f"out for {out[seed] or 'nothing'}", file=sys.stderr)
-good = [s for s in seeds if not out[s]]
-pool = good or seeds
-if not good:
+F = pathlib.Path(__file__).resolve().parents[2]
+sys.path.insert(0, str(F / "level_factory"))
+from packages.pipeline import pick  # noqa: E402  (Level Factory's rule)
+
+ws, mission = pathlib.Path(sys.argv[1]), sys.argv[2]
+try:
+    rows = pick.candidates(ws / ".level_factory", mission)
+except ValueError as exc:
+    sys.exit(f"pick_candidate: {exc}")
+best, every_out = pick.pick(rows)
+for row in rows:
+    print(f"  {row.line()}", file=sys.stderr)
+if every_out:
     print("  every candidate is out; taking the fewest major findings", file=sys.stderr)
-print(sorted(pool, key=lambda s: (major[s], -(completion[s] if completion[s] is not None else -1.0),
-                                  -(score[s] if score[s] is not None else -1), s))[0])
+print(best.seed)

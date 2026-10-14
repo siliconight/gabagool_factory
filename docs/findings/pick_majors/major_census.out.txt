@@ -1,0 +1,148 @@
+62 workspace missions, 186 candidates
+
+1. major codes: candidates carrying it, workspace missions, source tool
+   LOT_DESTINATION_ABOVE_FLOOR              96 candidates in  53 missions  lot 96
+   LT_MAP_NO_REACTION_TIME                  19 candidates in  15 missions  laser_tag 19
+   WALKTEST_ANCHOR_ISOLATED                  8 candidates in   3 missions  walktest 8
+   LT_MAP_TRIVIAL_ENCOUNTER                  2 candidates in   2 missions  laser_tag 2
+   LT_ROUTE_NEVER_COMPLETED                  2 candidates in   2 missions  laser_tag 2
+   LT_MAP_TRAVERSAL                          2 candidates in   2 missions  laser_tag 2
+   LT_MAP_ENEMY_PATHING_BROKEN               1 candidates in   1 missions  laser_tag 1
+   LT_MAP_NO_CONTACT                         1 candidates in   1 missions  laser_tag 1
+   LT_MAP_NO_ENGAGEMENT                      1 candidates in   1 missions  laser_tag 1
+   LOT_ENEMY_SPAWN_UNPLACEABLE               1 candidates in   1 missions  lot 1
+   LT_MAP_MISSING_ENEMY_SPAWNS               1 candidates in   1 missions  laser_tag 1
+   LT_NOT_EVALUATED                          1 candidates in   1 missions  laser_tag 1
+
+2. picks each code steers alone (the pick moves when that code stops counting)
+   LOT_DESTINATION_ABOVE_FLOOR             28: cold-9188-ws restaurant_row_001, cold-9204-ws club_block_014, cold-9222-ws restaurant_row_001, cold-9223-ws restaurant_row_001, cold-9225-ws restaurant_row_001, cold-9229-ws restaurant_row_001, cold-9233-ws restaurant_row_001, cold-9236-ws restaurant_row_001, cold-9237-ws restaurant_row_001, cold-9263-ws restaurant_row_001, cold-9264-ws restaurant_row_001, cold-9265-ws restaurant_row_001, cold-9267-ws restaurant_row_001, cold-9268-ws restaurant_row_001, cold-9269-ws restaurant_row_001, cold-9270-ws restaurant_row_001, cold-9271-ws restaurant_row_001, cold-9272-ws restaurant_row_001, cold-9273-ws restaurant_row_001, cold-9274-ws restaurant_row_001, cold-9275-ws restaurant_row_001, cold-9276-ws restaurant_row_001, cold-9277-ws restaurant_row_001, cold-9284-ws club_block_014, cold-9285-ws restaurant_row_001, cold-9287-ws urban_row_001, cold-9288-ws urban_row_001, cold-9289-ws urban_row_001
+   LT_MAP_NO_REACTION_TIME                  1: cold-9283-ws card_block_001
+   (codes not listed steer none)
+
+3. the set taken together: LT_MAP_TRIVIAL_ENCOUNTER, LT_MAP_NO_REACTION_TIME, LT_MAP_NO_ENGAGEMENT, LT_MAP_NO_CONTACT, LT_NO_SURVIVABLE_OPENING
+   0 of 62 picks move
+
+4. candidates carrying LT_MAP_TRAVERSAL: runs, timed out, wiped, completion, progress
+   cold-9180-ws warehouse_yard_001 seed_9105: runs 25, timeouts 0, wipes 20, completion 0.2, progress 0.45, WARN 51
+   cold-9282-ws bank_block_001 seed_9256: runs 25, timeouts 0, wipes 21, completion 0.16, progress 0.44, WARN 61
+
+5. three rules: today; LOT_DESTINATION_ABOVE_FLOOR counted only where the walktest did not walk every leg; and that with the ADVISORY set not counted
+   candidates carrying LOT_DESTINATION_ABOVE_FLOOR whose walktest walked every leg: 95
+   today -> answered: 28 of 62 picks move
+      cold-9188-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 79 majors []
+                                       -> seed_9003 completion 1.00 PASS_WITH_TUNING 79 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9204-ws club_block_014: seed_9181 completion 0.84 PASS_WITH_TUNING 79 majors []
+                                   -> seed_9282 completion 0.92 PASS_WITH_TUNING 76 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9222-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9223-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9225-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9229-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9233-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9236-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9237-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9263-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9264-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9265-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9267-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9268-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9269-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9270-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9271-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9272-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9273-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9274-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9275-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9276-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9277-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9284-ws club_block_014: seed_9181 completion 0.88 PASS_WITH_TUNING 79 majors []
+                                   -> seed_9282 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9285-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9287-ws urban_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                  -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9288-ws urban_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                  -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9289-ws urban_row_001: seed_9104 completion 1.00 PASS 100 majors []
+                                  -> seed_9003 completion 1.00 PASS 100 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      moved to a higher (completion, score): 12; to a lower: 0; equal: 16
+   answered -> answered+advisory: 0 of 62 picks move
+      moved to a higher (completion, score): 0; to a lower: 0; equal: 0
+   today -> answered+advisory: 28 of 62 picks move
+      cold-9188-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 79 majors []
+                                       -> seed_9003 completion 1.00 PASS_WITH_TUNING 79 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9204-ws club_block_014: seed_9181 completion 0.84 PASS_WITH_TUNING 79 majors []
+                                   -> seed_9282 completion 0.92 PASS_WITH_TUNING 76 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9222-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9223-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9225-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9229-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 80 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9233-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9236-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9237-ws restaurant_row_001: seed_9104 completion 1.00 PASS_WITH_TUNING 75 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9263-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9264-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9265-ws restaurant_row_001: seed_9104 completion 0.72 PASS_WITH_TUNING 78 majors []
+                                       -> seed_9205 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9267-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9268-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9269-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9270-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9271-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9272-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9273-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9274-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9275-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9276-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9277-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9284-ws club_block_014: seed_9181 completion 0.88 PASS_WITH_TUNING 79 majors []
+                                   -> seed_9282 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9285-ws restaurant_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                       -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9287-ws urban_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                  -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9288-ws urban_row_001: seed_9104 completion 1.00 PASS 90 majors []
+                                  -> seed_9003 completion 1.00 PASS 90 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      cold-9289-ws urban_row_001: seed_9104 completion 1.00 PASS 100 majors []
+                                  -> seed_9003 completion 1.00 PASS 100 majors ['LOT_DESTINATION_ABOVE_FLOOR']
+      moved to a higher (completion, score): 12; to a lower: 0; equal: 16
