@@ -1,0 +1,1 @@
+PASS on 0.32.0; on 0.31.0 it does not load (Godot: `path_reaches_point()` not found in `LT_BotPlayerController`). All 27 scripts in `runners/tests` and `runners` exit 0 on 0.32.0, headless under Godot 4.7, among them `test_route_progress.gd` and `test_a_skipped_route_is_not_walked.gd` beside the changed lines.
