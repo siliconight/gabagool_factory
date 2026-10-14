@@ -195,3 +195,39 @@ enemy stood, and that enemy now stands 5 m away; the first enemy shot came at 6.
 deaths fell from 31 to 8. One residue is
 by the deal, not a defect: seed_9003's 11.35 m room took the 6.6 m block where the 10.30 m one would have left
 0.05 m, so 4.75 m stays open.
+
+## Heights by cause: Level Factory 0.204.0
+
+**The rule.** The comps (`docs/reference/URBAN_MIDRISE_COMPS.md`) say "the tallest stand furthest away", the
+skyline stepping up with distance. The roadmap wrote it down: heights by cause, taller away from the action,
+never by jitter.
+
+**The defect.** Until 0.204.0 the wall's heights fell where the deal put them. 9291's seed_9104 stood 16.5,
+22.7, 16.5, 32.5, 26.2, 19.6, 13.2, 38.7, 19.8 and 26.2 m from west to east.
+
+**Level Factory 0.204.0 (065ab60).** On an urban wall each block is the one on the bag whose height is nearest
+the height a block standing there is drawn toward. That target is the shortest design's height across from the
+action's centre, rising with distance to the tallest's at the plate's farther end.
+- **The action's centre** is the middle of the span the spawn, objective and extraction buildings cover.
+- **The heights** are read off the shells' collider hulls (`street_line.shell_top`: 13.2 m at four storeys to
+  38.7 m at twelve).
+- **Every design is still dealt once a bag.**
+
+**Measured** (`wall_heights.py`, `wall_heights.out.txt`): the rank correlation of a block's distance from the
+action's centre with its top.
+
+    seed     action's centre    9291 (dealt)    9292 (by cause)
+    9003     x -28.5            +0.40           +0.93
+    9104     x  -2.5            -0.05           +0.92
+    9205     x -27.0            +0.03           +0.91
+
+On the test street of 120 walls: median +0.03 dealt, +0.82 by cause (`patches/lf_heights_by_cause/measure_rho.py`).
+
+**Cold run 9292** (0 interventions, seed_9104 named against 9291's). The grades and the findings are as 9291's.
+
+**Seen** (`ab_9292/skyline_sheet.png`). The standard sheet's elevations crop the wall, so the wall's skyline was
+shot from behind the near side and from the street, tilted up. It is low across from the action and rises to
+both ends.
+
+**Priced** (`ab_9292/price/price.txt`, 53 headings): draws -7.6 a heading on the mean, p95 +0.04 ms against a
+0.04 ms floor, memory identical. It is the same ten blocks, reordered.
