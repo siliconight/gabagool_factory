@@ -24,3 +24,17 @@ inside one part's build.
 
 **Why it matters, recorded and not fixed:** nothing a player sees moves. But a byte that changes without a cause
 defeats any comparison of packages by hash: cold run 9296's NOTES had to read both builds to set this one aside.
+
+## Lux's applied scene is not byte-stable either (found with cold run 9298)
+
+**Measured** (`lux_energy_pairs.py`, `lux_energy_pairs.out.txt`; urban_row_001's packaged
+`presentation/lux.applied.tscn`, 9295 to 9298, consecutive pairs, with node `unique_id`s and Godot's drawn
+resource ids masked):
+- The same ten lights' `light_energy` differ in every pair, by about one part in 10,000:
+  - seven fluoros under `LuxFixtureLights`, each a `Spawned_pendant_*`;
+  - `site_pole_43`, `site_pole_53` and `site_lamp_78` under `LuxClub`.
+- `Spawned_fluorescent_038_dup2` reads 2.618 in 9295, 9296 and 9298, and 3.7 in 9297.
+- Nothing else in the scene differs: 10 or 11 of its 9,581 lines a pair.
+
+**Not traced:** what sets those energies, and why they move. The level's Lux carries failing and cycling rigs
+(`light_bake.json`: 27 live in 9298), and whether these eleven are among them is not checked.

@@ -381,3 +381,25 @@ version.
 - Draws +0.7 a heading, the same in two runs.
 - Frame time and memory were not priced: StarCraft II was running on the machine, and the controls disagreed with
   themselves by 0.48 and 1.22 ms. To price again on a quiet machine.
+
+## A package carries the buildings its scene stands: Level Factory 0.207.0
+
+**The waste, recorded above with cold run 9295 and fixed here.** The compose stage themes every Empty the brief was
+given, a candidate stands some, and the export copied every composed `lot/<id>/` whether it stood or not. 9297's
+package carried sixteen while its assembly named thirteen.
+
+**What shipped: Level Factory 0.207.0 (dff4b8c).** The composed copy leaves out a `lot/<id>/` that no scene stands,
+and says which.
+- What stands is read off the assembly scene's own `lot/<id>/site.tscn` references.
+- A package is matched on a relative path's first two parts, never on a name.
+- Where no assembly scene can say, nothing is left out.
+
+**Cold run 9298** (seed_9104 named against 9297's; `docs/cold_runs/cold_9298/`,
+`patches/lf_standing_lot/package_trim.out.txt`):
+- 0 interventions. The export left out `gs_cornershop_a`, `gs_cornershop_b` and `gs_midrise_g`.
+- `lot/` packages 16 -> 13, files 3,704 -> 3,283, and 11.4 MB fewer of 210.7.
+- The light bake's model imports 711 -> 616, lightmap users 3,147 unchanged, and the closure clean.
+- Every other file is byte-identical but those any two exports differ in, each attributed in the run's NOTES.
+- Nothing the graders read moved (`fight_fields_9298.out.txt`).
+- Not priced: nothing left out was instanced, and StarCraft II was running. In this one run the editor's import and
+  the bake were not faster (75.4 s against 70.4, 38.7 s against 36.4).
