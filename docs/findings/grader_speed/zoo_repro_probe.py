@@ -79,6 +79,11 @@ def arrays(path):
 
 
 def how(x, y):
+    # A MAGNITUDE READ HERE CAN BE THE SORT'S, NOT THE MESH'S (roadmap 247, 2026-10-14). The rows are sorted
+    # each array alone, so a float wobbling by 1e-4 can swap two near-equal rows and line different vertices
+    # up: the satellite dish's normals read "values apart, max 1.67, 79 of 357 rows" where, paired by position
+    # and UV, they were 0.0044 degrees apart (docs/findings/roofprops_bytes/normal_shift.py). "The same rows in
+    # another order" stands; for how far apart, pair by vertex.
     if x.shape != y.shape:
         return "shapes %s and %s" % (x.shape, y.shape)
     if np.array_equal(x, y):
