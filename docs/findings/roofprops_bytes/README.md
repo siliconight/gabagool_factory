@@ -99,3 +99,44 @@ interventions each):
   standing Empties' `site.tscn`, Lux's applied scene): 0 lines once masked (`per_save_ids_9299_9300.out.txt`);
 - Lux's eleven light energies in `presentation/lux.applied.tscn` (`lux_energy_pairs_9297_9300.out.txt`);
 - the metadata that records times, paths and the hashes of the above (`metadata_9299_9300.out.txt`).
+
+## Lux's light energies, traced and fixed: Lux 0.77.0 and Level Factory 0.208.0 (2026-10-14)
+
+**Where they are written.** The eleven energies are already apart in the `lux_apply` job's own output, before the
+light bake touches the scene: 9299's and 9300's `jobs/urban_row_001.lux_apply/1/out/lux.applied.tscn` differ in the
+same 11 lines, at the same values, as their packages.
+
+**Why** (read off the source): the job runs `run_lux_apply.gd` as a headless `SceneTree` script, which awaits seven
+frames before it packs the scene. Lux's fluorescent and streetlight rigs animate a failing or flickering lamp from
+their own clocks (`_fail_t`, `_flicker_phase`) on every frame they process, by the frame's wall-clock `delta`, and
+the stage light cycles its colours on `_t`. `PackedScene.pack` saves the lamps wherever the clocks had reached.
+
+**The fix, in two places:**
+- **Lux 0.77.0** (4ce4c85; `patches/patch_lux_rig_rest.py`): the three rigs answer `rest()`, every lamp back at what
+  its rebuild gave it, a failing lens back at its own glow, every clock at zero. `tools/rig_rest_selftest.gd`, 24
+  checks, fails on 0.76.1 on its four `rest()` checks while its driven cases pass there.
+- **Level Factory 0.208.0** (b8fe4f7; `patches/patch_lf_rigs_rest.py`): `run_lux_apply.gd` rests every rig in
+  `lux_light_rig` after the last frame it awaits and before it packs, and logs how many.
+
+**Replayed before it shipped** (`lux_apply_replay.out.txt`): 9300's own `lux_apply` job, from a copy of its staging
+folder, twice as it ran and twice with both drafts.
+- Unpatched, the two applied scenes are 10 lines apart once the per-save ids are masked; patched, 0, each run
+  logging `[lux] 216 rig(s) at rest before the scene is packed`.
+- Patched against unpatched, 12 lines move: the 10 lights that wandered, and **two poles, `site_pole_46` and
+  `site_pole_76`, saved at 0.0 in every run** -- their failing cycle starts dark, so they never showed as run-to-run
+  noise -- now at the energy their rebuild gives.
+- **What a saved energy does at run time, read off the source, not measured:** a rig's `_rebuild` frees every lamp
+  the scene saved and builds its own at load, from the rig.
+
+**Cold runs 9301 and 9302** (`docs/cold_runs/cold_9301/`, `cold_9302/`; seed_9104 named, 0 interventions each, each
+Lux apply logging 216 rigs at rest):
+- 9301 against 9300 (`package_9300_9301.out.txt`, `lux_energy_pairs_9300_9301.out.txt`): 13 lights in the applied
+  scene move to their rest values, poles 46 and 76 among them; Lux's three changed rig scripts and their `.gd.uid`
+  files move with them; and the lightmap is 9300's byte for byte, though two poles now save at 34.12 where they saved
+  at 0.0. Nothing the graders read moved.
+- 9302 against 9301, the same command again (`package_9301_9302.out.txt`, `per_save_ids_9301_9302.out.txt`): 22 of
+  3,283 files differ, and all 12 scenes Godot saves -- Lux's applied scene among them -- read 0 lines different once
+  its per-save ids are masked.
+
+**What remains of 247:** Godot's per-save ids -- node `unique_id`s and drawn resource ids -- in the 12 scenes the
+pipeline has Godot save, and the metadata recording times, paths and the hashes of those.
