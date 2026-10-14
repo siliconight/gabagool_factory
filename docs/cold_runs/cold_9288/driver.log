@@ -1,0 +1,37 @@
+== selftest (21:57:39)
+  a tool source file, a shipped spec, or another repo
+== begin (21:57:39)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9288\journal.md
+== batch (21:57:49)
+created batch 'cold_9288' with 1 mission(s): urban_row_001
+== plan (21:57:49)
+== shell (21:57:51)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 82)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 1 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9205: 1 major, route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9104 on the walktest and Laser Tag's route findings
+== approvals (21:59:30)
+== art (21:59:31)
+Structural checks passed  (blockers open: 0, total findings: 118)
+  exit 1
+== export (22:02:10)
+[export] light bake: 506 model(s) and 224 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 210 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3037 users, 68.8 s in the editor
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9288-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  exit 0
+== findings (22:05:07)
+findings 118 -> 118
+== walk (22:05:07)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (22:05:17)
+  0 item(s), 0.0 GB removed
+DONE (22:05:20)
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)

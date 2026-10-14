@@ -16,7 +16,7 @@
 # (its own spawn, objective, extraction and elevated cameras as well), a sheet control-beside-subject, and
 # docs/findings/horizon_glow/price_glow.py (control, subject, control again) for draws, frame time and memory.
 #
-# Writes to docs/findings/urban_street/: stations.txt, ab_sheet.png, price/ (perf_control_1.json, perf_glow.json
+# Writes to docs/findings/urban_street/ab_<N subject>/: stations.txt, ab_sheet.png, price/ (perf_control_1.json, perf_glow.json
 # -- the SUBJECT, the harness's name for it --, perf_control_2.json, price.txt). The frames go to
 # _scratch/frames_urban_<N subject>/ and the copies to _scratch/price_urban_<N subject>/; delete the copies once
 # the JSONs exist (each about 250 MB). Nothing else may run beside the price.
@@ -26,7 +26,7 @@ NC="$1"; MC="$2"; NS="$3"; MS="$4"
 [ -n "$NS" ] && [ -n "$MS" ] || { echo "usage: ab_record.sh <N control> <mission> <N subject> <mission>"; exit 2; }
 PKG_C="workspaces/cold-$NC-ws/.level_factory/exports/LF_$MC.portable-godot"
 PKG_S="workspaces/cold-$NS-ws/.level_factory/exports/LF_$MS.portable-godot"
-OUT="docs/findings/urban_street"
+OUT="docs/findings/urban_street/ab_$NS"
 FR="_scratch/frames_urban_$NS"
 SCR="_scratch/price_urban_$NS"
 for p in "$PKG_C" "$PKG_S"; do [ -f "$p/mission.tscn" ] || { echo "no package at $p"; exit 1; }; done

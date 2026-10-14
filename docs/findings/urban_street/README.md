@@ -22,14 +22,14 @@ exactly, so this folder's A/B isolates the far side:
 
     bash docs/findings/urban_street/ab_record.sh 9285 restaurant_row_001 9287 urban_row_001
 
-**Seen** (`ab_sheet.png`, 9285 left, 9287 right):
+**Seen** (`ab_9287/ab_sheet.png`, 9285 left, 9287 right):
 - **The two road ends** look down the street, and the far side's three-storey rowhomes are now brick blocks
   that leave the frame's top.
 - **From the south** (orthographic, `elev_S`), the wall's backs are dark, with lit windows.
 - **From the north,** the wall stands taller than everything in front of it, at two heights.
 - **The near side** is still the strip's one-to-three-storey row.
 
-**Priced** (`price/price.txt`; Level Factory's fixed-station harness, 53 headings, control-subject-control):
+**Priced** (`ab_9287/price/price.txt`; Level Factory's fixed-station harness, 53 headings, control-subject-control):
 
     draws a heading     807 -> 736 on the mean (-71.6; -302 to +58)
     p95 frame time      -0.15 ms at the median (the controls' floor 0.03 ms)
@@ -64,3 +64,36 @@ exactly, so this folder's A/B isolates the far side:
   reading, and it is not measured. Enemy spawns are provisional until a gameplay layer owns them.
 - **The bake's 60 fewer models** (566 -> 506) and 355 fewer users are read as the shell count, eight or
   nine shells where there were about two dozen. They have not been counted shell by shell.
+
+## The near side: the second cut (cold runs 9288 and 9289)
+
+**Lot 0.121.0 (bb6011d).** The planners that keep clear of what stands -- fields, pylons, dumpsters, pads, cover --
+are handed every Empty as an obstacle. Until now they read only the mission's buildings, which was harmless
+while Empties stood only across the road. `lot_replay.py` replayed the picked `lot_assemble` jobs of cold runs
+9278 to 9287 from their own `job.log` before and after: 10 jobs, 0 files differ. The control, two replays
+before, was 0 too.
+
+**Level Factory 0.201.0 (27fc03d).** `empties.infill` stands Empties along the near building line between
+the mission's own buildings. Each building keeps a 4 m passage on both sides. Side streets and the service lane
+are never built over.
+
+**Cold run 9288: nothing stood.** `near_room.py` measured why. The library buildings, their passages and the
+block grammar's side streets leave rooms of 12.67, 11.35, 7.33 and 6.70 m, and the narrowest mid-rise
+measures 15.3.
+
+**Deli Counter 0.217.0 (b3c2354b): three narrow mid-rises,** 12.30, 10.30 and 6.60 m as built. Every other
+shell is byte-identical.
+
+**Cold run 9289:** one or two narrow blocks stand on the near side of each candidate, and the picked one
+grades PASS 100. Against the strip (`ab_9289/`), over the 52 headings that stood in the same place
+(`price_matched.py`; the geometry-derived `longest_sightline` station moved):
+- draws -38.5 a heading on the mean;
+- p95 -0.26 ms at the median, against a 0.12 ms floor;
+- video memory 123.9 -> 161.9 MiB, buffers 47.9 -> 83.0.
+
+**Found, not fixed:**
+- **One candidate's enemy spawns found no ground** (`LOT_ENEMY_SPAWN_UNPLACEABLE`), and Laser Tag refused
+  it. By elimination it is the near-side block and the far-side wall together. Enemy placement is
+  provisional.
+- **A 6.70 m room stayed open.** The deal had already spent its one narrow block; a fresh bag when nothing
+  left fits is the refinement.

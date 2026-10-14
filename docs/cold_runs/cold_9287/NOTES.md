@@ -27,8 +27,8 @@ the rowhome terrace is. On Deli Counter 0.216.0 and Lot 0.120.2; staged from col
 
 Same seed, same near side; the control is 9285's package, the subject 9287's.
 
-- **Frames:** `ab_sheet.png`, two road ends, the spawn, the objective and four elevated views.
-- **The price** (`price/price.txt`), 53 headings, Level Factory's fixed-station harness:
+- **Frames:** `ab_9287/ab_sheet.png`, two road ends, the spawn, the objective and four elevated views.
+- **The price** (`ab_9287/price/price.txt`), 53 headings, Level Factory's fixed-station harness:
   - draws -71.6 a heading on the mean (-302 to +58);
   - p95 -0.15 ms at the median, against a 0.03 ms floor between the two controls;
   - textures 76.0 -> 74.4 MiB;
