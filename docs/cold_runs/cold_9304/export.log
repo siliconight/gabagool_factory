@@ -1,0 +1,23 @@
+[export] 3 composed building(s) no scene stands, left out: gs_cornershop_a, gs_cornershop_b, gs_midrise_g
+[export] surface dressing: urban_row_001_dressing.tscn -- 4439 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 267 instances of 7 module(s) on their sides, 25 draw calls (N 94, S 95, E 41, W 36; 1 tower)
+[export] 1785 occluder(s) from 1800 solid module(s); 118 glass, 844 porous and 1494 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1785 occluder node(s) in a tree of 42933
+[export] Empties merged: 10 scene(s), 4086 mesh(es) of 6490 surface(s) -> 136 merged mesh(es), 3306 collider(s) kept
+[export] light bake: 632 model(s) and 224 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3153 users, 71.2 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1785 occluder node(s) reachable from res://mission.tscn (1785 in the package, 19 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 612 GLB(s), 2499 external reference(s): 2499 resolve to 401 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 3 surface(s) on a greybox material (gb_floor 3); slabs 0 -- the class this gate refuses on
+[export] import cache moved beside the package (LF_urban_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 401 of 401 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 77 resource(s) in a package of 3337 file(s)
+[export] manifest: 3341 file(s) listed + 2 declared unlisted = 3343 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9304-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9304-ws walk urban_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)

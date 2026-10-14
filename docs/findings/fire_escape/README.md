@@ -89,6 +89,35 @@ candidate. Every storey and the drop wear one material (`M_Skin_metal_painted_de
 four GLBs' glTF JSON), so merged they would be one more mesh a front. Level Factory 0.196.0 met the same with the
 rowhome's stoop.
 
+## Merged: Level Factory 0.209.0 (3ffe5c6), cold run 9304
+
+`_side` gives a `fire_escape_*` slot the front's side, S, as 0.196.0 did the stoop
+(`patches/patch_lf_merge_fire_escape.py` and `lf_merge_fire_escape/`). A test reads Deli Counter's schema, whose
+`fire_escape_stack` must name the front alone, so a back stack cannot be merged into the front's mesh unseen.
+
+- **Before shipping, on a mirror of 9303's package** (`merge_fire_escape.sh`, `merge_fire_escape.out.txt`):
+  - 0.208.0's script, the control, takes nothing from the four walk-ups;
+  - 0.209.0's takes each one's 5, 6, 5 and 4 storey meshes and makes one merged mesh of them, with no collider to
+    copy;
+  - and takes nothing from the six other Empties.
+- **Both new tests fail where they should** (`patches/lf_merge_fire_escape/prove_tests.out.txt`): the rule test
+  against 0.208.0's script, the schema test against a Deli Counter naming a second side or none.
+- **Cold run 9304** (0 interventions, seed_9104 named against 9303):
+  - each walk-up's front carries five merged meshes and no storey instance; gs_midrise_c, the control, four;
+  - lightmap users 3,175 -> 3,153;
+  - 0 of 32 fields moved on any candidate (`fight_fields_9304.out.txt`).
+- **Priced** against 9303 (`price_9304/`), 53 headings, 9303 the control twice: draws -3.7 a heading on the mean,
+  -24 at the most, none gained; p95 inside a 0.11 ms floor; memory flat.
+- **Against 9302, with no fire escape** (`draws_9302_9304.out.txt`): +2 draws at the worst heading and -0.4 on the
+  mean, where unmerged it was +26 and +3.3.
+  - Draw counts are exact and comparable across prices: 9303, measured in both, reads the same at all 53 headings.
+  - The headings that read below 9302 (to -4) are where Patina moved the front's dressing (below).
+- **Every differing file attributed** (`package_9303_9304.out.txt`, `per_save_ids_9303_9304.out.txt`). Found there:
+  289 of the package's 612 GLBs, 9.2 MB with their import files, are named by no scene, and 315 of the bake's 632
+  model imports are files no scene names (`unreferenced_glbs_9304.out.txt`; roadmap 249).
+  - Most are the modules the Empties were merged from, this stack's among them.
+  - A module checked by name appears only in `light_bake.json` and `portable_resource_manifest.json`.
+
 ## Found: the front's dressing moved onto the stack, and onto the stoop and the awning before it
 
 Attributing the package's differing files (`package_9302_9303.out.txt`) found every walk-up's dressing GLB
@@ -133,7 +162,11 @@ as a wall. Filed as roadmap 248.
   imports and users (`package_9302_9303.out.txt`); `per_save_ids.py` beside it for the scenes Godot saves
   (`per_save_ids_9302_9303.out.txt`).
 - `merge_fire_escape.sh`: Level Factory 0.209.0's merge rule on a mirror of 9303's package, 0.208.0's script the
-  control (the next block).
+  control.
+- `draws_across_prices.py`: draws per heading for 9302, 9303 and 9304 read across the two prices, after checking
+  that 9303, measured in both, reads the same.
+- `unreferenced_glbs.py <package>`: the GLBs no scene or resource names, and the bake imports among them (roadmap
+  249). Named by no scene is not unused: it says where to look.
 
 ## Open for the walker
 

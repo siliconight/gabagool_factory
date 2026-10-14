@@ -1,0 +1,5 @@
+rule test on 0.208.0's script: exit 1  FAILED tests/unit/test_merge_empties.py::test_a_walk_up_s_fire_escape_merges_with_its_front
+rule test on 0.209.0's script: exit 0  .                                                                        [100%]
+schema test, Deli Counter with enum front+back: exit 1  FAILED tests/unit/test_merge_empties.py::test_deli_counter_stands_a_fire_escape_only_on_the_front
+schema test, Deli Counter with no field       : exit 1  FAILED tests/unit/test_merge_empties.py::test_deli_counter_stands_a_fire_escape_only_on_the_front
+schema test, the real Deli Counter:          exit 0  .                                                                        [100%]
