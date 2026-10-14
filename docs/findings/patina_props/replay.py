@@ -1,6 +1,8 @@
 """Patina 0.30.0 against 0.31.0 over every Deli Counter shell, with the dressing job's own command (roadmap 248).
 
-    python docs/findings/patina_props/replay.py [--workers 6] [--only gs_midrise_a,gs_midrise_c]
+    python docs/findings/patina_props/replay.py [--workers 6] [--only gs_midrise_a,gs_midrise_c] [--compare]
+
+`--compare` reads the arms already under `_scratch/patina_replay/` and runs nothing.
 
 Every Level Factory `patina_dressing` job runs one command -- read off all 31 of cold runs 9303's and 9285's job
 logs, which differ only in the shell and the output path:
@@ -17,9 +19,11 @@ folder under `_scratch/patina_replay/`:
     b     the Patina working copy (0.31.0 once applied)
 
 Then, per shell, which of the six outputs (`.patina.glb`, `.anchors.json`, `.dressing.json`, `.json`,
-`.gameplay.json`, `.trim.png`) differ by bytes, a against b; and for a shell whose anchors moved, each kind's count
+`.gameplay.json`, `.trim.png`) differ by bytes, a against b -- an output no arm wrote is no difference: Patina
+writes `.gameplay.json` only for a shell that has one beside it. For a shell whose anchors moved, each kind's count
 in each arm and the anchors' least and greatest x and y (Blender Z-up metres, the sidecar's own space). The shell's
-prop slots that stand outside its other slots' extent in plan are named, read off its slots.json.
+prop slots whose plan box reaches past its other slots' are named, read off its slots.json, a slot turned 90 or 270
+degrees with its width and depth swapped: a rough label, not a measure of what moved.
 
 Prints what it measured and stops; writes the per-shell rows to `replay.out.json` beside itself.
 """
@@ -85,13 +89,18 @@ def _anchor_summary(path):
     return out
 
 
+def _box(s):
+    w, dp = s["fit"]["dims"][0], s["fit"]["dims"][1]
+    turned = round(float(s["transform"].get("rot_y", 0.0))) % 180 == 90       # degrees, as Deli Counter writes them
+    half = (dp, w) if turned else (w, dp)
+    t = s["transform"]["translation"]
+    return [(t[i] - half[i] / 2.0, t[i] + half[i] / 2.0) for i in (0, 1)]
+
+
 def _proud_props(slots_path):
     """Prop slots whose plan box reaches past every other slot's extent, from the slots.json alone."""
     d = json.loads(slots_path.read_text(encoding="utf-8"))
-    box = lambda s: [(s["transform"]["translation"][i] - s["fit"]["dims"][i] / 2.0,
-                      s["transform"]["translation"][i] + s["fit"]["dims"][i] / 2.0) for i in (0, 1)]
-    rest = [box(s) for s in d["slots"] if s.get("role") != "prop" and (s.get("fit") or {}).get("dims")
-            and abs(float(s["transform"].get("rot_y", 0.0))) < 1e-6]
+    rest = [_box(s) for s in d["slots"] if s.get("role") != "prop" and (s.get("fit") or {}).get("dims")]
     if not rest:
         return []
     lo = [min(b[i][0] for b in rest) for i in (0, 1)]
@@ -100,7 +109,7 @@ def _proud_props(slots_path):
     for s in d["slots"]:
         if s.get("role") != "prop" or not (s.get("fit") or {}).get("dims"):
             continue
-        b = box(s)
+        b = _box(s)
         if any(b[i][0] < lo[i] - 0.05 or b[i][1] > hi[i] + 0.05 for i in (0, 1)):
             out.append(s["slot_id"])
     return out
@@ -110,6 +119,7 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--only", default="")
+    ap.add_argument("--compare", action="store_true")
     args = ap.parse_args()
     shells = sorted(p for p in BUILD.glob("*.glb") if (BUILD / (p.stem + ".slots.json")).is_file())
     if args.only:
@@ -120,8 +130,11 @@ def main():
     old = _unpack_old()
     arms = {"a": old, "a2": old, "b": PATINA}
     jobs = [(arm, repo, glb) for glb in shells for arm, repo in arms.items()]
-    with ThreadPoolExecutor(max_workers=args.workers) as ex:
-        results = list(ex.map(lambda j: (j[0], j[2].stem, _run(j[1], j[2], SCR / j[0])), jobs))
+    if args.compare:
+        results = []
+    else:
+        with ThreadPoolExecutor(max_workers=args.workers) as ex:
+            results = list(ex.map(lambda j: (j[0], j[2].stem, _run(j[1], j[2], SCR / j[0])), jobs))
     failed = [(arm, name, rc, err) for arm, name, (rc, err) in results if rc != 0]
     for arm, name, rc, err in failed:
         print("RUN FAILED: %s %s exit %d: %s" % (arm, name, rc, err.strip().splitlines()[-1:] or ""))
@@ -130,20 +143,25 @@ def main():
     for glb in shells:
         n = glb.stem
         dig = {arm: {o: _digest(SCR / arm / (n + o)) for o in OUTS} for arm in arms}
-        if any(v is None for arm in arms for v in dig[arm].values()):
-            rows.append({"shell": n, "error": "an output is missing", "digests": dig})
+        absent = [o for o in OUTS if any(dig[arm][o] is None for arm in arms)]
+        if ".patina.glb" in absent or [o for o in absent if not all(dig[arm][o] is None for arm in arms)]:
+            rows.append({"shell": n, "error": "an output is missing in some arm: %s" % absent, "digests": dig})
             continue
         if dig["a"] != dig["a2"]:
             noisy.append(n)
         moved = [o for o in OUTS if dig["a"][o] != dig["b"][o]]
-        row = {"shell": n, "moved": moved, "proud_props": _proud_props(BUILD / (n + ".slots.json"))}
+        row = {"shell": n, "moved": moved, "absent_in_all": absent,
+               "proud_props": _proud_props(BUILD / (n + ".slots.json"))}
         if ".patina.anchors.json" in moved:
             row["anchors_a"] = _anchor_summary(SCR / "a" / (n + ".patina.anchors.json"))
             row["anchors_b"] = _anchor_summary(SCR / "b" / (n + ".patina.anchors.json"))
         rows.append(row)
     (HERE / "replay.out.json").write_text(json.dumps({"old": OLD, "shells": len(shells), "failed": len(failed),
-                                                      "noisy": noisy, "rows": rows}, indent=1), encoding="utf-8")
-    print("shells %d, runs %d, failed %d" % (len(shells), len(jobs), len(failed)))
+                                                      "compare_only": args.compare, "noisy": noisy, "rows": rows},
+                                                     indent=1), encoding="utf-8")
+    print("shells %d, runs %d%s, failed %d" % (len(shells), len(jobs),
+                                               " (compared only: the arms on disk)" if args.compare else "",
+                                               len(failed)))
     if noisy:
         print("THE CONTROL MOVED: 0.30.0 twice differs on %d shell(s): %s -- no difference below is evidence"
               % (len(noisy), ", ".join(noisy)))
@@ -152,7 +170,7 @@ def main():
     errs = [r for r in rows if r.get("error")]
     same = [r for r in rows if not r.get("error") and not r["moved"]]
     diff = [r for r in rows if not r.get("error") and r["moved"]]
-    print("0.30.0 against the working copy: %d shell(s) byte-identical in all six outputs, %d moved, %d errors"
+    print("0.30.0 against the working copy: %d shell(s) byte-identical in every output written, %d moved, %d errors"
           % (len(same), len(diff), len(errs)))
     for r in diff:
         print("  %-24s moved %s; props past the other slots: %s"
@@ -163,7 +181,8 @@ def main():
             print("      %-12s n %3s -> %3s   y %s -> %s   x %s -> %s"
                   % (kind, a.get("n"), b.get("n"), a.get("y"), b.get("y"), a.get("x"), b.get("x")))
     unmoved_proud = [r["shell"] for r in same if r["proud_props"]]
-    print("shells with props past their other slots that did NOT move: %s" % (", ".join(unmoved_proud) or "none"))
+    print("shells with a prop past their other slots whose outputs did NOT move: %d -- %s"
+          % (len(unmoved_proud), ", ".join(unmoved_proud) or "none"))
     for r in errs:
         print("  ERROR %s: %s" % (r["shell"], r["error"]))
     return 0

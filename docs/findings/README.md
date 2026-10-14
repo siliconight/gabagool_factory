@@ -79,7 +79,7 @@
 - `moving_parts/` -- 22 file(s); Small things that move, steps 1 and 2: measured
 - `night_interiors/` -- Night interiors: the light bake lost two things
 - `patina_cover_normals/` -- Patina's anchor normals point into the building (roadmap 221)
-- `patina_props/` -- 1 file(s); Patina 0.30.0 against 0.31.0 over every Deli Counter shell, with the dressing job's own command (roadmap 248).
+- `patina_props/` -- A prop is not the building: Patina's bounds (roadmap 248)
 - `payphone_light/` -- The payphone lit: where its lamp hangs, and how bright (Zoo 1.89.0, Lux 0.70.0, roadmap 210)
 - `payphone_redraw/` -- The payphone, redrawn: a coin phone in three enclosures, one draw (Zoo 1.88.0, roadmap 210)
 - `pick_majors/` -- What a pick counts: the majors that decide a candidate (Level Factory 0.202.0)

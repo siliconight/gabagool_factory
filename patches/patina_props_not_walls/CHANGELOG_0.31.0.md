@@ -26,7 +26,7 @@ Factory roadmap 248, found attributing cold run 9303's package against 9302's (t
   gs_empty_rowhome_a's stoop -- the anchors with the props named equal the anchors with the props taken out of the
   scene, and unnamed they do not.
 
-**Suite:** RESULT_SUITE
+**Suite:** python -m pytest -q tests: 401 passed, 1 skipped, exit 0 -- 0.30.0's 393 and the new file's 8. The new file on an archive of 0.30.0: 4 failed (no `props`, no `prop_ids`), the defect's own test passed, its 3 real-shell checks skipped with no Deli Counter beside the archive; on 0.31.0 all 8 pass (the factory's `patches/patina_props_not_walls/prove_tests_0300.out.txt`, `prove_tests_0310.out.txt`)
 
 **Replayed** (the factory's `docs/findings/patina_props/replay.py`, every Deli Counter shell with a slots.json, the
-dressing job's own command, 0.30.0 twice as the control): RESULT_REPLAY
+dressing job's own command, 0.30.0 twice as the control): 158 shells, 474 runs, none failed; the control read every output of every shell byte-identical. 118 shells byte-identical in every output; 40 moved. 29 moved their dressing, the output a package carries: the five walk-ups and four corner blocks (their front anchors back from y -8.842 to the wall at -7.65), the twelve rowhome Empties (from the stoop's -7.609 to -6.15), seven gas stations (from the forecourt's canopy and pad, out to y -32.0, to the building's +-11.15) and twin_a01 (from its porch's -9.1 to -6.65). 11 moved only the styled GLB, which no package carries (`glb_only_roles.py`): seven enterable buildings whose rooftop unit's top had read as roof, 2 faces each, now floor; three parking garages whose 12 columns' tops had, 24 faces; and harbor_score, whose 58 slots are all props and whose stair rails had stood over its roof, so 0.30.0 read no roof at all -- 45 of its slabs, 98 faces, now read as roof, and its manifest gains the role. No shell with a prop past its other slots went unmoved
