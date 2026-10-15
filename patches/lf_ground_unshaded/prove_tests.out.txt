@@ -1,0 +1,20 @@
+# prove_lf_ground.sh on a throwaway copy of level_factory at 775cac8 (0.212.0) with 0.213.0 and 0.214.0 applied, LF_ROOT pointing at it; the real repo untouched. 2026-10-15 07:43.
+copy at 775cac8, VERSION 0.212.0
+== 0.215.0's restated test against 0.214.0's backdrop_layer (must fail on the record)
+Level Factory 0.214.0 -> 0.215.0
+control (0.214.0's module, 0.215.0's tests): exit 1
+tally 4 {'F': 2, '.': 2}
+FAILED tests/unit/test_backdrop_ground.py::test_one_plane_spans_the_backdrop_and_its_margin_below_the_plate
+FAILED tests/unit/test_backdrop_ground.py::test_the_ground_takes_no_light - a...
+== apply 0.215.0's module again and run the ground tests (must pass)
+Level Factory 0.214.0 -> 0.215.0
+patched 0.215.0: exit 0
+tally 13 {'.': 13}
+== the material the patched module writes, against the priced unshaded arm's
+patched module writes: ['albedo_color = Color(0.045, 0.045, 0.05, 1)', 'shading_mode = 0', 'roughness = 1.0']
+priced arm carries:    ['albedo_color = Color(0.045, 0.045, 0.05, 1)', 'shading_mode = 0', 'roughness = 1.0']
+the same material, line for line: True | record: {'size': [60.0, 60.0], 'y': -0.1, 'centre': [0.0, 0.0], 'draw_calls': 1, 'shaded': False}
+== heads
+## [0.215.0] - The backdrop's ground is unshaded
+0.215.0
+copy removed

@@ -39,8 +39,10 @@ Point `--godot` at your own Godot. Then:
   - Linux: `export BLENDER=~/blender-5.1.1-linux-x64/blender`
 - **`--venv` uses the network, once.** It gives the factory a Python
   environment of its own, in `.venv`, and downloads the three packages
-  Blender's Python lacks: Pillow, pygltflib and jsonschema. It is the only
-  step that touches the network, and it changes nothing in Blender.
+  Blender's Python lacks -- Pillow, pygltflib and jsonschema -- and the nine
+  they need, every one at the version the factory was certified with
+  (`.venv/constraints.txt` holds them). It is the only step that touches the
+  network, and it changes nothing in Blender.
 - **Setup ends with the doctor.** `worst: PASS` or `worst: WARN` means you are
   ready. Any `FAIL` line says what is missing and how to fix it.
 - **Why `.\factory` and not `factory`:** it is the launcher in this folder,

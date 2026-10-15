@@ -66,6 +66,9 @@ The walker at (91.1, 1.6, -20.4) facing east, the fence (`cover_173`, Zoo's chai
   road the fence and the buildings hide it ("fine from a distance"); at the fence, one looks over it.
 - **Proposed:** Level Factory's backdrop (roadmap 228, step E) lays a ground under itself from the plate's edge out
   past its last row: one mesh, one draw, outside the bake like the rest of the backdrop.
+- **Shipped** in Level Factory 0.211.0 (cold run 9308), shaded, and **priced 2026-10-15** ("The ground's price"
+  below): the shaded plane cost up to +7 draws and +7.20 ms a heading; unshaded it costs one draw and reads the
+  same at this spot. Level Factory 0.215.0 ships it unshaded.
 
 ## 3. The cubicles' computers (`walker_73`)
 
@@ -264,12 +267,54 @@ loaded headless (`--quit-after 600`): exit 0, no engine error, the light's line 
 wired. The fallbacks in `_runs/demo_fallback_2026-10-14/` are as they were. Not seen in a window yet: the light's
 look on screen and the banner's place in the frame.
 
+## The ground's price (roadmap 252; `ground_price.sh`, `ground_headings.py`, `ground_frames/`)
+
+**The question.** 0.211.0's ground is one `PlaneMesh` with a near-black `StandardMaterial3D`, 422 x 338 m under
+urban_row_001, shipped as "one draw" off its scene and not priced -- a shaded plane every lamp on the level
+reaches, the shape this repo refuses on sight (more lights reaching one mesh than `max_lights_per_object`).
+
+**How it was priced** (`ground_price.sh`, 2026-10-15 07:25 to 07:37). Cold run 9308's package against itself:
+the control is the package with the ground removed (`ground_strip.py none`, which is 9305's backdrop scene byte for
+byte), the subject the package as shipped, bracketed by two runs of the control; then the same with the ground
+unshaded (`ground_strip.py unshaded`: `shading_mode = 0` on the material, nothing else). The arms differ in
+`site_backdrop.tscn` alone, checked before anything ran. Level Factory's fixed-station harness through
+`docs/findings/horizon_glow/price_glow.py`: 53 headings, draw calls and p95 frame time against the controls' mean,
+the controls' own spread the noise floor. Nothing ran beside it but file reads, a roadmap index regeneration and
+the writing of cold run 9313's notes; no engine, no suite.
+
+| arm | draws a heading | p95, median | p95, worst heading | noise floor (controls' spread) |
+|---|---|---|---|---|
+| shaded, as shipped | +1 to +7, +2.5 on the mean, +2 on the median | +0.07 ms | **+7.20 ms** at `camera_socket_0` yaw 90 (18.31 ms against controls of 11.82 and 10.40; +6 draws on 2,441) | 0.40 ms |
+| unshaded | +1 at every heading | +0.04 ms | +0.52 ms at `defender_spawn_9` yaw 90 (9.22 against 8.75 and 8.64) | 0.08 ms |
+
+Nine of the shaded arm's 53 headings sit beyond the controls' own spread at that heading, 24 of the unshaded arm's
+-- but the unshaded arm's floor is 0.08 ms and its excess 0.2 to 0.5 ms at the heaviest views, where one more plane
+fills the screen; the shaded arm's excess is 0.4 to 7.2 ms at the headings with the most draws
+(`ground_shaded/headings.txt`, `ground_unshaded/headings.txt`). Memory after the warm-up is the same in every run:
+textures 78.8 MiB, buffers 73.2, video 152.0.
+
+**The reading, not measured:** on GL Compatibility a mesh reached by more lights than one pass carries is drawn
+again for the rest, so a plane under the whole level pays a draw a light-batch at every heading that sees it, and
+the heaviest headings see the most lamps. Unshaded, the plane takes no light and is one draw of fill.
+
+**What the shaded ground would have bought** (`ground_frames/ground_sheet.png`: the walker's spot at the east
+fence, 26 m up looking east over the plate's edge, and look_shots' east elevation, each arm): at this level's
+evening, nothing the eye finds -- the fog and the sky colour own the ground past the fence in both arms, and the
+lamps' pools the shaded plane could carry are not visible at this exposure. By day it is unmeasured: 9308 is an
+evening level, and the sun is baked while the lightmap shows, so neither arm takes the sun; what the shaded plane
+would take by day is the environment's ambient alone.
+
+**The call, by the standing rule** (performance over look; ship the cheap version and say what the expensive one
+would have bought): Level Factory 0.215.0 writes the ground unshaded, byte for byte the priced arm's material
+(`patches/patch_lf_ground_unshaded.py`, proven on a copy before it was applied). The walker's call to spend the
+shaded ground on a level when runtime data says its frame can -- the frames above are what it buys here.
+
 ## Kept for what is left
 
 The demo's three levels are what findings 5-9 and roadmap 252's price are worked against. They are named here so
 the retire keeps them while this finding is open:
-- `workspaces/cold-9308-ws`, urban_row_001: the deli's basement (5) and ceiling (6), and the ground under the
-  backdrop (252);
+- `workspaces/cold-9308-ws`, urban_row_001: the deli's basement (5) and ceiling (6); the ground under the
+  backdrop (252) was priced on it and the price is filed, so 252 no longer keeps it;
 - `workspaces/cold-9309-ws`, gas_block_001;
 - `workspaces/cold-9310-ws`, restaurant_row_001: the office's stair core (7-9).
 
