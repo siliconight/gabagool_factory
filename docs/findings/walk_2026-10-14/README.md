@@ -140,6 +140,41 @@ at 3.60) ends in a level bottom edge in mid-air, over open floor -- the walker: 
 down all the way to the ground". Not yet traced. The three read as one finding: a stair core built from per-step
 boxes, with no enclosure, soffit or rail a person would expect.
 
+## The work light, L (the walker's ask, 20:10)
+
+After the inspection light settled finding 3 in frames (`tools/look_shots.py --inspect studio`), the walker asked for
+the same thing while walking: "yes add a work light key to the walk copies".
+- **`tools/walk_work_light.gd`:** L toggles it, off at start. A shadowless key light over the camera's shoulder and a
+  flat white ambient, the same constants as `--inspect studio`. The level's fog, glow, colour adjustment and
+  tonemap are set aside and Lux's grade layer is hidden; the debug overlay and the HUD stay. A banner across the top
+  says nothing on screen is the level's look. L again puts back every value it touched. Debug builds only.
+- **`tools/walk_export.py`** copies it into every walk copy it assembles. The scene's `load_steps` is now counted off
+  the scene by `_walk_scene`; it had been typed, under a comment saying "4 ext + 1 sub" while the scene loaded five.
+- **`tools/walk_add_work_light.py <walk copy> ...`** adds it to a copy assembled before, in place, with no new
+  import.
+
+**Proven:**
+- `tools/walk_work_light_selftest.gd`, headless: 31 checks on a night-graded environment, every value back on the
+  second L (`work_light_selftest.out.txt`). A mutant that forgets one value fails exactly that check, exit 1
+  (`work_light_selftest_mutant.out.txt`).
+- `tools/test_walk_export_work_light.py`: 6 fail on the walk_export.py committed before, 6 pass
+  (`work_light_wiring_prove.out.txt`).
+- In a real level (`work_light_probe.gd`, `work_light_probe_9308.out.txt`): a scratch walk copy of 9308's package,
+  headless, with the probe autoloaded into the scratch copy only. The light rode `/root/_walk/Player/Camera`, and
+  the level's one Environment went fog, glow and adjustment off, ACES at 1.05 to linear at 1.0, sky ambient at 0.9
+  to white at 0.5. The second L restored every value exactly. No engine error.
+
+**Found on the way:** `tools/cold_drive/wire_sky.py`, which the cold drive runs on every fresh walk copy, asserted
+the scene's head read `load_steps=7` and wrote 8. The work light made a fresh copy's 8, so it refused every copy --
+silently, since the drive pipes it through `tail`. It refused the scratch copy above, whose probe therefore ran
+without the sky cycle. It now counts too. `tools/test_walk_add_work_light.py` fails on the committed wire_sky.py
+with that assertion and passes on the patched one (`work_light_wire_sky_prove.out.txt`).
+
+**Not yet in tonight's copies, by design:** the demo's three walk copies and their fallbacks were not touched before
+the demo. After it: `python tools/walk_add_work_light.py _runs/walk_export_urban_row_001
+_runs/walk_export_gas_block_001 _runs/walk_export_restaurant_row_001`, then a headless load of each. Not seen in a
+window yet: the light's look on screen and the banner's place in the frame.
+
 ## Kept for what is left
 
 The demo's three levels are what findings 5-9 and roadmap 252's price are worked against. They are named here so

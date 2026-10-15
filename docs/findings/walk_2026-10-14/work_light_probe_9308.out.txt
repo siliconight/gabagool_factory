@@ -1,0 +1,21 @@
+# docs/findings/walk_2026-10-14/work_light_probe.gd, autoloaded into a scratch walk copy of cold run 9308's package (tools/walk_export.py --no-import, tools/cold_drive/wire_sky.py, the demo copy's .godot copied in), run headless
+[lux] Bound 60 fixture emissive material(s) (searched Site)
+scene instantiated ok
+[debug_overlay] F3 position/building/surface, F4 perf. urban_row_001 (shell)  gl_compatibility  light budget 239  vsync on  0x0
+[walk_flashlight] F toggles a flashlight. It starts OFF on purpose: a level too dark to walk IS a finding, and a lamp that is always on hides it.
+[walk_work_light] L toggles a work light: a shadowless light over your shoulder and a flat ambient, for checking what is there in a dark room. While it is on, nothing on screen is the level's look.
+[lux] baked lighting: 1 lightmap(s) bound under _walk
+[walk_ladders] 2 ladder climb volume(s)
+PROBE work light node: true
+PROBE current camera: /root/_walk/Player/Camera
+PROBE environments: 1
+PROBE before: [{"adjustment_enabled":true,"ambient_light_energy":0.899999976158142,"ambient_light_source":3,"fog_enabled":true,"glow_enabled":true,"tonemap_exposure":1.04999995231628,"tonemap_mode":3}]
+[walk_work_light] ON -- nothing on screen is the level's look
+PROBE on: true
+PROBE key light under the camera: true
+PROBE while on: [{"adjustment_enabled":false,"ambient_light_energy":0.5,"ambient_light_source":2,"fog_enabled":false,"glow_enabled":false,"tonemap_exposure":1.0,"tonemap_mode":0}]
+[walk_work_light] OFF
+PROBE off: true
+PROBE after: [{"adjustment_enabled":true,"ambient_light_energy":0.899999976158142,"ambient_light_source":3,"fog_enabled":true,"glow_enabled":true,"tonemap_exposure":1.04999995231628,"tonemap_mode":3}]
+PROBE restored exactly: true
+exit 0

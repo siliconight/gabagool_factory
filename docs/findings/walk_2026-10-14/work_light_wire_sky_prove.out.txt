@@ -1,0 +1,9 @@
+# tools/test_walk_add_work_light.py with cold_drive/wire_sky.py at HEAD (e344c8d), which expects load_steps=7; the mirror carries walk_export.py, walk_add_work_light.py, walk_work_light.gd and walk_sky_cycle.gd as patched
+E           AssertionError: 1 != 0 : Traceback (most recent call last):
+E           AssertionError: [gd_scene load_steps=8 format=3]
+test_walk_add_work_light.py:105: AssertionError
+FAILED test_walk_add_work_light.py::WireSky::test_a_fresh_copy_with_the_work_light_takes_the_sky
+1 failed, 4 passed in 0.35s
+
+# the same test with the patched wire_sky.py
+5 passed in 0.36s

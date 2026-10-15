@@ -1,0 +1,38 @@
+# godot --headless --path <scratch project> -s res://walk_work_light_selftest.gd, tools/walk_work_light.gd as res://_walk_work_light.gd
+[walk_work_light] L toggles a work light: a shadowless light over your shoulder and a flat ambient, for checking what is there in a dark room. While it is on, nothing on screen is the level's look.
+ok    starts off
+ok    no key light before L
+ok    a release and an echo do nothing
+[walk_work_light] ON -- nothing on screen is the level's look
+ok    L turns it on
+ok    a key light rides on the camera
+ok    the key casts no shadow
+ok    the key is look_shots' studio energy
+ok    the key is never baked
+ok    fog off
+ok    glow off
+ok    colour adjustment off
+ok    tonemap linear
+ok    exposure 1
+ok    ambient a flat colour
+ok    ambient white at 0.5
+ok    Lux's grade hidden
+ok    the overlay left on screen
+ok    the banner is up
+ok    re-asserted after Lux sets exposure back
+ok    re-asserted after Lux turns fog back on
+[walk_work_light] OFF
+ok    L again turns it off
+ok    the key light is gone
+ok    fog back on
+ok    glow back on
+ok    colour adjustment back on
+ok    tonemap back to filmic
+ok    exposure back to 0.3
+ok    ambient back to the sky
+ok    ambient colour and energy back
+ok    sky contribution back
+ok    Lux's grade back on screen
+ok    the banner is down
+selftest: 0 failed
+exit 0

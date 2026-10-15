@@ -1,0 +1,13 @@
+# tools/test_walk_export_work_light.py against walk_export.py at HEAD (e344c8d), before the work light
+=========================== short test summary info ===========================
+FAILED test_walk_export_work_light.py::WorkLight::test_every_resource_a_node_names_is_declared
+FAILED test_walk_export_work_light.py::WorkLight::test_the_script_it_copies_is_there
+FAILED test_walk_export_work_light.py::WorkLight::test_the_walk_scene_carries_the_work_light
+FAILED test_walk_export_work_light.py::LoadSteps::test_load_steps_counts_what_the_scene_loads
+FAILED test_walk_export_work_light.py::LoadSteps::test_the_counts_today - Att...
+FAILED test_walk_export_work_light.py::LoadSteps::test_the_spawn_lands_on_the_player
+6 failed in 0.11s
+
+# the same test against the patched walk_export.py
+......                                                                   [100%]
+6 passed in 0.04s

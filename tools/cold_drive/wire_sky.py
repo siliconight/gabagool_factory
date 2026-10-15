@@ -3,6 +3,7 @@
     python tools/cold_drive/wire_sky.py _runs/walk_export_<mission>
 """
 import pathlib
+import re
 import shutil
 
 import sys
@@ -16,9 +17,12 @@ eol = b"\r\n" if b"\r\n" in d else b"\n"
 s = d.decode("utf-8")
 n = eol.decode()
 assert "sky_cycle" not in s, "already wired"
-head = "[gd_scene load_steps=7 format=3]"
-assert s.count(head) == 1, s[:60]
-s = s.replace(head, "[gd_scene load_steps=8 format=3]", 1)
+# LOAD_STEPS IS COUNTED, NOT EXPECTED. This asserted the head read
+# `load_steps=7` and wrote 8; walk_export.py's work light (2026-10-14) made a
+# fresh copy's 8, and the assert refused every walk copy -- silently, as the
+# drive pipes this through `tail`. Counted off the scene after the insert.
+head = re.match(r"\[gd_scene load_steps=\d+ format=3\]", s)
+assert head, s[:60]
 fl = '[ext_resource type="Script" path="res://_walk_flashlight.gd" id="walk_flashlight"]'
 assert s.count(fl) == 1
 s = s.replace(fl, fl + n + '[ext_resource type="Script" path="res://_sky_cycle.gd" id="sky_cycle"]', 1)
@@ -26,6 +30,8 @@ node = '[node name="WalkFlashlight" type="Node" parent="."]' + n + 'script = Ext
 assert s.count(node) == 1
 s = s.replace(node, node + n + '[node name="SkyCycle" type="Node" parent="."]' + n
               + 'script = ExtResource("sky_cycle")' + n, 1)
+loads = len(re.findall(r"^\[(?:ext|sub)_resource ", s, flags=re.M))
+s = "[gd_scene load_steps=%d format=3]" % (loads + 1) + s[head.end():]
 t.write_bytes(s.encode("utf-8"))
 if not (W / "_sky_cycle.gd").exists():
     shutil.copy(SKY, W / "_sky_cycle.gd")

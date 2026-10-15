@@ -66,6 +66,7 @@ _WALK_SCENE = """[gd_scene load_steps={steps} format=3]
 [ext_resource type="Script" path="res://debug_overlay.gd" id="debug_overlay"]
 [ext_resource type="Script" path="res://_walk_ladders.gd" id="walk_ladders"]
 [ext_resource type="Script" path="res://_walk_flashlight.gd" id="walk_flashlight"]
+[ext_resource type="Script" path="res://_walk_work_light.gd" id="walk_work_light"]
 {drip_res}
 [sub_resource type="CapsuleShape3D" id="PlayerCol"]
 radius = 0.35
@@ -96,6 +97,9 @@ script = ExtResource("walk_ladders")
 
 [node name="WalkFlashlight" type="Node" parent="."]
 script = ExtResource("walk_flashlight")
+
+[node name="WalkWorkLight" type="Node" parent="."]
+script = ExtResource("walk_work_light")
 {drip_node}"""
 
 #: LADDER CLIMB VOLUMES for the walk copy (`tools/walk_ladders.gd`). The
@@ -114,6 +118,17 @@ _LADDERS_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 #: again to judge it. Always in the walk copy, never in the package.
 _FLASHLIGHT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                "walk_flashlight.gd")
+
+#: A WORK LIGHT, OFF BY DEFAULT AND TOGGLED WITH L (2026-10-14). The walker:
+#: "a tool to make the area brighter for checking things so its not too dark
+#: and you get mistaken... just for visual checks". The flashlight is one
+#: beam; this lights the whole view flat -- `look_shots.py --inspect studio`'s
+#: light on the walker's camera -- and sets the night grade aside, with a
+#: banner saying nothing on screen is the level's look. L again puts back
+#: every value it touched. `tools/walk_work_light_selftest.gd` proves it
+#: headless. Always in the walk copy, never in the package.
+_WORK_LIGHT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                               "walk_work_light.gd")
 
 #: LEVEL FACTORY'S debug overlay -- position, the building under the
 #: crosshair, the collider looked at and its distance; F3 toggles, on by
@@ -160,6 +175,24 @@ spot_angle = 55.0
 """
 
 _MAIN_SCENE = re.compile(r'\s*run/main_scene\s*=')
+
+
+def _walk_scene(pos, drip=False, headlamp=False):
+    """The walk scene's text for a spawn at `pos`, with `load_steps` counted
+    off the resources it declares, plus the scene itself.
+
+    The count used to be typed: `steps=8 if args.drip else 7`, under a comment
+    saying "4 ext + 1 sub" while the scene loaded five. It is a progress hint
+    rather than a contract, which is exactly why a stale one goes unnoticed --
+    so it is derived, and adding a script (the work light, 2026-10-14) cannot
+    leave it behind. `test_walk_export_work_light.py` pins the counts."""
+    parts = dict(x=pos[0], y=pos[1], z=pos[2],
+                 drip_res=_DRIP_RES if drip else "",
+                 drip_node=_DRIP_NODE if drip else "",
+                 headlamp=_HEADLAMP if headlamp else "")
+    body = _WALK_SCENE.format(steps=0, **parts)
+    loads = len(re.findall(r"^\[(?:ext|sub)_resource ", body, flags=re.M))
+    return _WALK_SCENE.format(steps=loads + 1, **parts)
 
 #: WHY THE IMPORT PASS IS NOT OPTIONAL, and why it used to be.
 #:
@@ -381,6 +414,7 @@ def main(argv=None):
     shutil.copy2(_OVERLAY_SRC, os.path.join(out, "debug_overlay.gd"))
     shutil.copy2(_LADDERS_SRC, os.path.join(out, "_walk_ladders.gd"))
     shutil.copy2(_FLASHLIGHT_SRC, os.path.join(out, "_walk_flashlight.gd"))
+    shutil.copy2(_WORK_LIGHT_SRC, os.path.join(out, "_walk_work_light.gd"))
 
     drip_staged = []
     if args.drip:
@@ -431,14 +465,7 @@ def main(argv=None):
 
     # The walk scene takes the package's line endings too, so a diff of this
     # directory against the export shows content and not whitespace.
-    # `load_steps` counts the resources the scene loads: 4 ext + 1 sub, and
-    # one more ext when the drip rides along. It is a progress hint rather
-    # than a contract, which is exactly why a stale one goes unnoticed.
-    scene = _WALK_SCENE.format(x=pos[0], y=pos[1], z=pos[2],
-                               steps=8 if args.drip else 7,
-                               drip_res=_DRIP_RES if args.drip else "",
-                               drip_node=_DRIP_NODE if args.drip else "",
-                               headlamp=_HEADLAMP if args.headlamp else "")
+    scene = _walk_scene(pos, drip=args.drip, headlamp=args.headlamp)
     if eol == "\r\n":
         scene = scene.replace("\n", "\r\n")
     with open(os.path.join(out, "_walk.tscn"), "w", encoding="utf-8",
@@ -473,6 +500,8 @@ def main(argv=None):
           % (pos[0], pos[1], pos[2], origin, args.lift))
     print("  flashlight: F toggles one, OFF at start -- a level too dark "
           "to walk IS a finding, and a lamp that is always on hides it")
+    print("  work light: L toggles one, OFF at start -- the whole view lit "
+          "flat for checking what is there; a banner says it is not the look")
     print("  overlay  : Level Factory's debug_overlay.gd (F3 toggles; position, "
           "building, surface)")
     print("  player   : Lot's lot_player.gd as _walk_player.gd  "
