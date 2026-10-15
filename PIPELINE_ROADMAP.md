@@ -758,7 +758,7 @@ work of adopting this.
 | 77 | **CLOSED** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-09-11 -- `--begin` RECORDS WHAT WAS ALREADY DIRTY AND `--end` READS IT BACK. `cold_ru |
 | 78 | **NARROWED** | Nothing measures how a level LOOKS -- only what it is made of | 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH WAS FALSE AND WAS WRITTEN WITH |
 | 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-09-06 -- INDEPENDENTLY NAMED A SECOND TIME, FROM THE ART SIDE, AND THE TWO DESCRIPTIO |
-| 80 | **OPEN** | Deli Counter's one-mesh-in-VRAM discipline is not carried any further  | 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS; THE STEP AFTER IT IS WRITTEN |
+| 80 | **CLOSED** | Deli Counter's one-mesh-in-VRAM discipline is not carried any further  | 2026-10-15 -- its first two moves shipped and the third it placed last, re-measured (`docs |
 | 81 | **NARROWED** | Zoo's wear noise runs at the mesh's vertex density, and a wall module  | 2026-08-29 -- THE MECHANISM IS REAL IN THE FILE AND INERT IN THE ENGINE. REMOVING THE WEAR |
 | 82 | **ANALYSIS** | Every tool's contract is about a piece. No contract is about the whole | 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF THIS ONE FACT, AND IT EXPLAINS W |
 | 83 | **NARROWED** | The renderer lights the wall per piece, so light draws the module grid | 2026-08-29 -- REFUTED AS THE CAUSE OF THE EXTERIOR BANDING, BY ABLATION, WITHIN THE HOUR I |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 31 open, 126 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 30 open, 127 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -9325,16 +9325,7 @@ the person who could not see the problem until it was pointed out. This item
 owns the MECHANISM: that there is nowhere to put a grammar. Evidence:
 `_runs/walk_wear0`, and the three walkthrough screenshots of 2026-08-29.
 
-*STATUS: OPEN 2026-08-29 -- DELI COUNTER'S GUARANTEE SURVIVES THE ART PASS;
-THE STEP AFTER IT IS WRITTEN IN TWO HALVES AND NEITHER IS WIRED. RAISED AS A
-PERFORMANCE CONSTRAINT ON 74 AND 79, AND IT DECIDES THE LAYER QUESTION 76
-DECLINED TO SETTLE. NOW WITH A REASON TO MOVE: WORLD-SPACE UVs ARE MEASURED
-AND CONFIRMED TO FIX BOTH THE PER-MODULE TEXTURE RESTART AND ITEM 88'S
-STRETCH IN ONE MECHANISM, AND THE ONLY THING BETWEEN THAT AND THE SHIPPED
-BUILD IS THAT `--triplanar` LIVES IN `walk_themed.py` AS A RUNTIME FLAG THAT
-PRINTS "NOT what ships". THE UNMEASURED BILL IS FILL RATE: TRIPLANAR SAMPLES
-THREE TIMES PER MAP, SO NINE SAMPLES ACROSS ALBEDO/ROUGHNESS/NORMAL, AND
-NOBODY HAS PUT A FRAME TIME ON IT*
+*STATUS: CLOSED 2026-10-15 -- its first two moves shipped and the third it placed last, re-measured (`docs/findings/open_items_remeasure/`). World-space UVs ship on every kit module: `zoo_worldskin.gd` is the modules' import script, applied at import and baked into the .scn, run by the package since Level Factory 0.57.0 and in all 13 building folders of cold run 9314's package; `walk_themed.py` and its runtime flag are gone. MultiMesh carries the dressing and the backdrop: `dressing_scene` is called by `dressing_layer.py` and `backdrop_layer.py`, 4,439 instances of 4 meshes in 4 draws and 297 backdrop instances in 25 on 9314. The walls were not MultiMeshed -- the light-budget tension this item named -- and went the other way: Level Factory 0.143.0 (roadmap 182) merges an Empty's modules one mesh a side per material, 686 draws and 0.88 ms on cold run 9162's level against a 816-draw ceiling, trading the shared datablock for submissions by the measured rule that draw calls are the budget; the mission's buildings keep their instanced modules, and the per-mesh budget is read by what the renderer pairs (147's record). `instances.json` is still read by nothing, which this item placed third once the other two existed; the per-instance channel is roadmap 76's question.*
 
 **80. Deli Counter's one-mesh-in-VRAM discipline is not carried any further
 than the export, and the two pieces that would carry it are both dead code.**

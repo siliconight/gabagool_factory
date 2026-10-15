@@ -194,3 +194,33 @@ candidate's drawn site spec.
 briefs; the seed moves the streets and the backdrop around it and never the row. The item's next step is its own
 -- a plan grammar that varies where the buildings stand and which faces address the street, measured against
 sightlines and cover before it ships. OPEN on the roadmap, measured.
+
+## 80. Deli Counter's one-mesh-in-VRAM discipline is not carried past the export; its two next pieces were dead
+
+**What it found (2026-08-29):** Deli Counter shares one mesh datablock across identical modules and the art pass
+keeps it (241 instances of 36 PackedScenes on bank_block_001), and the renderer still draws 241 instances; the
+MultiMesh exporter (`dressing_scene.py`) was called by nothing and Patina's `instances.json` was read by nothing.
+What would close it, in its own reordered list: world-space UVs on the kit materials first; MultiMesh second and
+only for dressing, the light budget measured before any wall follows; `instances.json` third, "still worth
+having, no longer the cheapest thing available". Its status said `--triplanar` lived in `walk_themed.py` as a
+runtime flag that printed "NOT what ships", with the fill rate unpriced.
+
+**What shipped since, each read off the checkouts and 9314's package:**
+- **World-space UVs ship on every kit module.** `zoo_worldskin.gd` is the modules' import script -- "World-space
+  UVs on kit modules, applied AT IMPORT and baked into the .scn" -- and the package runs it since Level Factory
+  0.57.0 ("the package runs the script it was already shipping"; 0.58.0 keeps the tile period). 9314's package
+  carries it in all 13 building folders; `walk_themed.py` and its runtime flag are gone.
+- **MultiMesh for the dressing and the backdrop.** `dressing_scene` is called by `dressing_layer.py` and
+  `backdrop_layer.py`: 9314's export log reads "surface dressing: 4,439 instances of 4 meshes, 4 draw calls" and
+  "backdrop: 297 instances of 7 module(s) ... 25 draw calls".
+- **The walls were not MultiMeshed, and the tension the item named was answered the other way.** Level Factory
+  0.143.0 (roadmap 182) merges an Empty's modules one mesh a side per material -- 686 draws and 0.88 ms saved on
+  cold run 9162's level, hiding all 25 Empties having bounded it at 816 and 1.87 ms -- which trades the shared
+  datablock for submissions, by the rule CLAUDE.md records from the 2026-09-16 measurement: draw calls are the
+  budget, not triangles. The mission's buildings keep their instanced modules. The per-mesh light budget the
+  item said had to be measured first is measured by what the renderer pairs (roadmap 147's record: no room tile
+  over 8 on 9308's package).
+- **`instances.json` is still read by nothing** (0 files in Level Factory's packages mention it), which the item
+  itself placed third and optional once the other two existed.
+
+CLOSED on the roadmap; the per-instance channel that remains unwired is roadmap 76's question, not this one's.
