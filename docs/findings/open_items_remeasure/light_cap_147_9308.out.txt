@@ -1,0 +1,9 @@
+# the per-mesh light cap census of a perf report on cold run 9308's package, the price's control (no backdrop ground), Level Factory's fixed-station harness, 2026-10-15; roadmap 147 found three room tiles over the cap of 8 on 2026-09-11
+# 'paired' is what the renderer pairs (a baked light on a lightmapped mesh is skipped, LF 0.159.0); 'reaches' is every light whose range reaches the mesh
+station attacker_spawn_3: paired over the cap 3 of 3275 meshes, histogram {'0': 2189, '1': 898, '2': 122, '3': 28, '4': 18, '5': 10, '6': 4, '7': 1, '8': 2, '9': 1, '32': 1, '238': 1}, lightmap users 3153, static lights 211
+station attacker_spawn_3: by reach over the cap 162 of 3275 meshes (cap 8)
+== meshes over the cap by PAIRING, the worst count over all 14 stations:
+  238  LuxRoot/LuxHorizonGlow
+   32  site_wires_c499_499
+    9  b0/roof_footprint/Roof_brick_delco_1997
+room floor or ceiling tiles over the cap by pairing: 0

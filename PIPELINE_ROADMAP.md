@@ -825,7 +825,7 @@ work of adopting this.
 | 144 | **NARROWED** | The stairs ship in the greybox's fallback yellow | 2026-09-11 (evening) -- 0.72.0 REFUTED ON THE FIRST COLD EXPORT AND REPLACED BY 0.72.1, ME |
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
-| 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
+| 147 | **CLOSED** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-10-15 -- the rows cover the room and the cap holds, re-measured (`docs/findings/open_ |
 | 148 | **NARROWED** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-10-15 -- re-measured on cold run 9314's package and Zoo's recipes (`docs/findings/ope |
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 33 open, 124 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 32 open, 125 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -15721,8 +15721,7 @@ all in the theme library) but no Zoo kit has been built from a 0.115.0
 manifest yet, so the new stems are unmeasured; the values in the maps are
 opinions with reasons, not derived, and the first re-walk judges them.
 
-*STATUS: OPEN 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S
-PRICE, NOW SEEN FROM THE FLOOR*
+*STATUS: CLOSED 2026-10-15 -- the rows cover the room and the cap holds, re-measured (`docs/findings/open_items_remeasure/`). Deli Counter 0.206.0 (roadmap 229) lays a room's rows by its work plane -- at most 1.5 x A apart across the shorter axis, A the lamp's height over the work surface, the outer row within half of that of its wall, 3 rows and 12 lamps a room at most -- 0.207.0 down a shop's aisles, 0.207.1 a fixture a bay in a home. Today's library: the rooms as this item measured them (714 in 130 built specs, median short side 12.0 m, p90 21.0, 80 % wider than 8.4 m) and 1,004 fluorescent rows, 957 off the centreline, 390 of 431 lit rooms with more than one run, where 0.206.0's census read 513 of 513 on the centreline (its own `row_census.py`, re-run). The budget, by what the renderer pairs (Level Factory 0.159.0; a baked light on a lightmapped mesh is skipped): on cold run 9308's package 3 of 3,275 meshes carry more than 8 -- the horizon glow at 238, a wires cell at 32, a roof at 9 -- and no room floor or ceiling tile; by reach alone 162 would, the number this item's instrument counted and not what is drawn. Kept: the spacing is derived from the work plane and Lux's range from the drop, two derivations and not the one formula this item proposed (rows at 2.7 to 6 m stand closer than twice the 4.0 m reach, which is why they cover); and cold run 9005's hospital was not re-walked.*
 
 **147. One centre row at a 4.0 m reach cannot light a room wider than 8 m,
 and the median room is 12 m.** Deli Counter lays ONE fluorescent row per

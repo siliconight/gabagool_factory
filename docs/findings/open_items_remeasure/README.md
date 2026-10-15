@@ -114,3 +114,31 @@ Level Factory's tree, so read from a bare Level Factory checkout the path resolv
 CERTIFY.md is written against zoo 0.34.0 and pixelcoat 0.10.0, while since factory 1.36.0 the set has been
 certified by an install test (roadmap 202) -- the runbook the remedy names is the older of the two proofs. The
 doctor's own row still says only "re-certify", which is terse and not wrong. CLOSED on the roadmap.
+
+## 147. One centre row at a 4.0 m reach cannot light a room wider than 8 m, and the median room is 12 m
+
+**What it found (2026-09-11):** Deli Counter laid ONE fluorescent row per room on its centreline and Lux ranged
+each lamp 4.0 m, so a 12 m room was lit in an 8 m band with its walls dark; over 692 rooms the median short
+side was 12.0 m, p90 21.0, 83 % wider than 8.4 m. What would close it: rows that cover the room by a derived
+spacing, and the per-mesh light census before and after, because item 54's cap of 8 lights a mesh was the ceiling
+a second row had to fit under -- three ward tiles were already at 9 and 10 by reach.
+
+**What shipped since:** Deli Counter 0.206.0 (roadmap 229) lays rows by the room's work plane -- with A the
+height from the work surface to the lamp, rows at most 1.5 x A apart across the shorter axis, the outer row within
+half of that of its wall, held to 3 rows and 12 lamps a room; 0.207.0 lays them down a shop's aisles; 0.207.1
+gives a home's room a fixture a bay. Level Factory 0.159.0 made the perf harness's light census count what the
+renderer PAIRS (a baked light on a lightmapped mesh is skipped) beside what reaches.
+
+**Measured** (`row_census_147_today.txt`, 0.206.0's own instrument re-run; `room_widths_147.out.txt`;
+`light_cap_147_9308.out.txt`): the rooms are what they were -- 714 in 130 built specs, median short side 12.0 m,
+p90 21.0, 80 % wider than 8.4 m -- and the lighting is not: 1,004 fluorescent rows, 957 of them off their room's
+centreline, 431 rooms with a row and 390 of those with more than one run (0.206.0's census read 513 of 513 on the
+centreline before it). On cold run 9308's package, by the renderer's pairing, 3 of 3,275 meshes carry more than 8
+lights -- the horizon glow (238), one wires cell (32), one roof (9) -- and no room floor or ceiling tile; by reach
+alone 162 do, which is the number 147's instrument would have counted and is not what is drawn (211 of the
+lights are baked into the lightmap's 3,153 users).
+
+**Two caveats:** the rows' spacing is derived from the work plane and the fixture guide's 1.5 x A, and Lux's range
+from the drop -- two derivations, deliberately, not the "one formula named in both places" this item proposed,
+and the rows at 2.7 to 6 m stand closer than twice Lux's 4.0 m reach, which is why they cover; and cold run
+9005's hospital, where the dark ward was walked, was not re-walked. CLOSED on the roadmap.
