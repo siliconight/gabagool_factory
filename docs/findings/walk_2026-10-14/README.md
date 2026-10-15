@@ -179,6 +179,16 @@ from Level Factory's per-candidate copies, that is 17 legs in 14 specs, 15 over 
     sloped soffit. Larger; it is the stair species roadmap 144 names as the dearer answer.
   - Either way, shown first in the inspection light at the walker's three stations, after the demo.
 
+**Seen, 21:22** (`core_9310_sheet.png`, `core_frames.sh`; 9310's package, each station in the level's own light
+and in the inspection light):
+- **core_gap**, walker_75's spot: the core reads as two wall slabs with a full-height slot between them. Through
+  it is the first flight's stepped side, and the landing and its rail above.
+- **core_mouth**, walker_76's spot: the first flight climbs away on the right, beside a wood guard rail seen from
+  below. The west wall stands alone on the left. Rails cross the void overhead.
+- **core_underside**, finding 9's spot: the second flight's solid block hangs over the slot with a flat bottom,
+  a rail crossing beneath it, and the first flight's stepped side on the right.
+- In the level's own light, the three read as dark masses. The inspection light is what shows them.
+
 ## The work light, L (the walker's ask, 20:10)
 
 After the inspection light settled finding 3 in frames (`tools/look_shots.py --inspect studio`), the walker asked for
@@ -209,10 +219,12 @@ silently, since the drive pipes it through `tail`. It refused the scratch copy a
 without the sky cycle. It now counts too. `tools/test_walk_add_work_light.py` fails on the committed wire_sky.py
 with that assertion and passes on the patched one (`work_light_wire_sky_prove.out.txt`).
 
-**Not yet in tonight's copies, by design:** the demo's three walk copies and their fallbacks were not touched before
-the demo. After it: `python tools/walk_add_work_light.py _runs/walk_export_urban_row_001
-_runs/walk_export_gas_block_001 _runs/walk_export_restaurant_row_001`, then a headless load of each. Not seen in a
-window yet: the light's look on screen and the banner's place in the frame.
+**Tonight's copies, after the demo (21:17):** the demo's walk copies were not touched before it. After it,
+`python tools/walk_add_work_light.py` added the light to `_runs/walk_export_urban_row_001`,
+`_runs/walk_export_gas_block_001` and `_runs/walk_export_restaurant_row_001`, `load_steps` 9 in each. Each then
+loaded headless (`--quit-after 600`): exit 0, no engine error, the light's line printed, the sky cycle still
+wired. The fallbacks in `_runs/demo_fallback_2026-10-14/` are as they were. Not seen in a window yet: the light's
+look on screen and the banner's place in the frame.
 
 ## Kept for what is left
 
