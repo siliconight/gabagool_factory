@@ -851,7 +851,7 @@ work of adopting this.
 | 170 | **NARROWED** | Every roof opening in the library is an open hole, and a building does | 2026-10-15 -- the lid shipped, the bulkhead is left (`docs/findings/roof_openings_170/`, ` |
 | 171 | **NARROWED** | Exterior access exists and almost never gets placed | 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `e |
 | 172 | **CLOSED** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 by cold run 9077 -- `links: 1`, `lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] t |
-| 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
+| 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-10-16 -- the instrument run on a current package and every edge it found put in a nam |
 | 174 | **NARROWED** | `interactive_state` means one thing on a breach and another on a door | 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED WRONG WITHIN THE HOUR. The scene a |
 | 175 | **CLOSED** | A hidden interactive state keeps its collider, so there is collision w | 2026-10-11 -- fixed by Deli Counter 0.144.0 (`319f25c2`, "a hidden interactive state keeps |
 | 176 | **CLOSED** | A stair regression hid behind a baseline that was doing its job | 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0. Attributed from the tracked `o |
@@ -17955,11 +17955,7 @@ asks every consumer to re-derive cost, direction, capability and access state
 that this pipeline has already computed, and `runtime_ownership_requirements`
 is where that division is supposed to be written down rather than assumed.
 
-*STATUS: OPEN 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE.
-`tools/walkable_edge.gd` finds the class (121 unguarded cells at the stairwell
-the walker stepped off, 2.90 m at floor level) and reports 5,897 drop edges on
-a clean package, of which 1,024 are the deliberately open sides of staircases.
-A declaration is what separates the two.*
+*STATUS: OPEN 2026-10-16 -- the instrument run on a current package and every edge it found put in a named class (`docs/findings/drop_edges_173/`, `sort_edges.py`). Cold run 9317's package (urban_row_001), a 0.5 m grid: 133,992 standable cells, 22,445 drop edges, 16,739 unguarded, 6,004 of them indoors. Sorted by what each stands beside: 3,753 the plate's rim (188's fence), 2,703 the INSTRUMENT'S OWN -- a cell on a footprint's wall line, where the headroom ray starts inside the exterior wall and sees nothing, so a slab's edge under a wall reads standable with a bottomless drop beyond (939 of those indoors; the fix is a shape test at the standing point, CLAUDE.md's ray-versus-shape rule); 278 inside a stair's footprint, the open side of a flight; 48 a hatch or ladder's own hole; 16 a `floor_hole` link, a drop the spec declared; 34 roof rims; 8,757 the tops of furniture and props (3,862 indoors: a body on a desk can walk off it, and that is not a level defect -- a gate must read what a surface IS, not its height); and 1,053 storey rims, 651 indoors, which is the item's class and the number left: edges at a floor's level inside a building with a full-storey drop and nothing above step-over height -- cut-slab collars (168), stair discharge voids, mezzanine lips, or holes nobody railed, not yet told apart. `walkable_edge.gd`'s MAX_ROWS was 4,000 and kept the deepest rows, the rim and not one indoor edge; it is 200,000. What would make the gate, in order: the instrument's blind spot closed; standable meaning floor-like; the declared set read off the package's own records and emitted as `walk_off_ledge` links in Dispatch's `navigation_hints`; the residue attributed to zero on one package and then frozen, failing on a new entrant (178's baseline pattern). Earlier status kept: 2026-09-23, the instrument exists and cannot yet be a gate -- 121 unguarded cells at the stairwell the walker stepped off, 2.90 m at floor level, and 5,897 drop edges on a clean package, 1,024 the deliberately open sides of staircases; a declaration is what separates the two.*
 
 **173. A drop is either guarded or declared, and today nothing declares one.**
 From van Waveren's Quake III Arena bot thesis (2001), chapter 6, read

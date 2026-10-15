@@ -42,8 +42,14 @@ const STAND_M := 1.80
 const BODY_R := 0.35
 #: Probe from this far above a surface so a ray does not start inside it.
 const EPS := 0.02
-#: Cap the report; the JSON is evidence, not a phone book.
-const MAX_ROWS := 4000
+#: Cap the report; the JSON is evidence, not a phone book. 4,000 until 2026-10-15,
+#: which on cold run 9317's package kept the deepest 4,000 of 16,739 unguarded
+#: edges -- the plate's rim and the backdrop's, not one of the 6,004 indoors --
+#: so a sort by what each edge stands beside (roadmap 173,
+#: docs/findings/drop_edges_173/sort_edges.py) read a sample of the wrong end.
+#: A 0.5 m grid over a level is a few hundred thousand cells and the rows are
+#: a few megabytes; the cap is against a runaway, not a budget.
+const MAX_ROWS := 200000
 
 
 func _initialize() -> void:
