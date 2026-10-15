@@ -91,3 +91,26 @@ now: Deli Counter 0.214.0 widens every walkable door to the agent contract's 1.2
 walks the crew's body over every leg of every candidate (roadmap 208), and cold run 9314's reads every path proof
 and every walker `ok` on all three candidates, with Laser Tag's crew at 0 player-stuck events on each
 (`cold_9314/fight_fields_9313_9314.out.txt`). SUPERSEDED on the roadmap by 197 and 208, with that figure.
+
+## 66. `verify-manifest` prescribes a remedy that under-proves what it certifies
+
+**What it found (2026-08-25):** every DRIFT line ended "re-run the real-tool smoke and re-certify" -- one suite,
+ten tests in five seconds that build no geometry -- where `docs/CERTIFY.md` requires three more legs; and six of
+the smoke's ten tests could skip on a missing fixture with the total never changing. What would close it: a
+remedy line that names the legs, and a smoke that prints what it ran and what it skipped.
+
+**What shipped since, read in Level Factory's CHANGELOG and code:** 0.67.1 (2026-09-11), "a DRIFT line names the
+runbook, and the smoke says what it ran" -- both asks, seventeen days after the item was filed, and never
+recorded against it. Today `ContractResult.message` (`packages/tools/contracts.py`) reads, for DRIFT: "re-certify
+per docs/CERTIFY.md: the real-tool smoke (adapters and contracts, no geometry), the zoo walkabout (Blender), the
+engine leg (Godot) and the lux visual leg, as the changed tool requires; then promote the manifest", pinned by
+`tests/unit/test_drift_remedy_names_the_legs.py`; `tests/real_tools/conftest.py` writes a coverage block after
+every run, each test by name as ran or skipped with the skip's reason. Seen in this repo's own record: the 1.40.0
+re-ground's smoke read "ran 10 of 12 real-tool tests, 1 skipped, 1 FAILED" before the table moved and "11 of
+12" after (`patches/lf_reground_1_40_0/smoke_before.out.txt`, `smoke_after.out.txt`).
+
+**Two caveats, neither this item's:** the `docs/CERTIFY.md` the line names lives at the factory root and not in
+Level Factory's tree, so read from a bare Level Factory checkout the path resolves to nothing (0.97.0's note); and
+CERTIFY.md is written against zoo 0.34.0 and pixelcoat 0.10.0, while since factory 1.36.0 the set has been
+certified by an install test (roadmap 202) -- the runbook the remedy names is the older of the two proofs. The
+doctor's own row still says only "re-certify", which is terse and not wrong. CLOSED on the roadmap.

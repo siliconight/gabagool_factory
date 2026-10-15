@@ -744,7 +744,7 @@ work of adopting this.
 | 63 | **SUPERSEDED** | Two coordinate frames share one `fit.dims` field, and nothing in a slo | 2026-09-11 -- BY ITEM 119, WHICH IS THIS ITEM FILED A SECOND TIME AND CLOSED IN DELI COUNT |
 | 64 | **NARROWED** | Zoo built the corner module forty-one days ago and nothing has ever as | 2026-09-11 -- THE THREE PRECONDITIONS ARE PAID; THE PROMOTION WAITS FOR ART, AS THE ITEM S |
 | 65 | **CLOSED** | The site copies go stale silently, and the detector that would say so  | 2026-09-11 -- THE GRADERS REFUSE A STALE SITE, WHICH IS THE SECOND OF THE TWO REMEDIES THI |
-| 66 | **OPEN** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG AND IS KEPT BELOW. The suite |
+| 66 | **CLOSED** | `verify-manifest` prescribes a remedy that under-proves what it certif | 2026-10-15 -- both asks were answered by Level Factory 0.67.1 on 2026-09-11 and never reco |
 | 67 | **CLOSED** | `promote_factory.ps1` is a frozen one-off wearing a reusable name | 2026-09-11 -- ARCHIVED, THE SECOND OF THE TWO ANSWERS THE ITEM ALLOWED. `scripts/promote_f |
 | 68 | **CLOSED** | A blocker on the candidate a human SELECTED is discounted because the  | 2026-08-27 -- FIXED IN LEVEL FACTORY 0.50.0 AND PROVEN ON THE RUN THAT FOUND IT. `aggregat |
 | 69 | **CLOSED** | Deli Counter's seed never varies, so every candidate is the same build | 2026-09-05 -- THIS ITEM'S OWN ACCEPTANCE TEST, MET ON A REAL RUN. It asked for distinct `s |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 34 open, 123 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 33 open, 124 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8312,9 +8312,7 @@ library. A walk, a nav-gate or a Laser Tag run against a site whose stamp
 predates the builder should stop, not produce a number.
 
 
-*STATUS: OPEN 2026-08-25 -- MEASURED, AND THE FIRST READING OF IT WAS WRONG
-AND IS KEPT BELOW. The suite is green and shallower than the sentence that
-recommends it*
+*STATUS: CLOSED 2026-10-15 -- both asks were answered by Level Factory 0.67.1 on 2026-09-11 and never recorded here (`docs/findings/open_items_remeasure/`). The DRIFT message (`packages/tools/contracts.py`, `ContractResult.message`) reads "re-certify per docs/CERTIFY.md: the real-tool smoke (adapters and contracts, no geometry), the zoo walkabout (Blender), the engine leg (Godot) and the lux visual leg, as the changed tool requires; then promote the manifest", pinned by `tests/unit/test_drift_remedy_names_the_legs.py`; `tests/real_tools/conftest.py` prints a coverage block after every run, each test by name as ran or skipped with the skip's reason -- the 1.40.0 re-ground's smoke read "ran 10 of 12 real-tool tests, 1 skipped, 1 FAILED" before the table moved and "11 of 12" after. Not this item's, kept in the record: the `docs/CERTIFY.md` the line names lives at the factory root and not in Level Factory's tree (0.97.0's note), and that runbook is written against zoo 0.34.0 and pixelcoat 0.10.0 while the set has been certified since factory 1.36.0 by an install test (roadmap 202); the doctor's own row says only "re-certify".*
 
 **66. `verify-manifest` prescribes a remedy that under-proves what it
 certifies.**
