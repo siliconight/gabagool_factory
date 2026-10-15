@@ -1,0 +1,14 @@
+# prove_apply_dc_0223.sh: the proof on a throwaway copy of deli_counter's python, schema and specs at 6c312336 (0.222.0), DC_ROOT pointing at it, before the patch was applied to the repo. 2026-10-15 08:33. The one failure on the patched copy is L24's own stale-baseline test, which reads build/ and the copy has none.
+copy at 6c312336, Deli Counter 0.222.0, 234 python files, 161 specs
+== 0.223.0's tests on the unpatched copy (the six that touch the code must fail)
+FAILED test_open_floor.py::test_the_schema_admits_open_to - KeyError: 'open_to'
+FAILED test_open_floor.py::test_the_search_leaves_the_spec_alone - AttributeE...
+7 failed, 2 passed in 0.45s
+== apply 0.223.0 to the copy
+Deli Counter 0.222.0 -> 0.223.0
+0 open floors nobody named, in 0 of 0 built specs -> open_floor_baseline.json
+== the patched copy: the new tests, L24's, the layout and tactical tests (must pass)
+=========================== short test summary info ===========================
+FAILED test_walk_reach.py::test_walk_baseline_has_not_gone_stale - AssertionE...
+1 failed, 35 passed in 0.71s
+{'type': 'array', 'items': {'type': 'string'}}
