@@ -71,5 +71,39 @@ same records the sorter reads plus the slab holes (`SlabHole`) `_stairs` and `_v
 4. The residue is attributed on one package until it reads zero, and then it is frozen (the baseline pattern
    178 names) and fails on a new entrant.
 
-None of that is built here. The number this leaves is 1,053 (651 indoors) on a package the pipeline called a
-zero, before furniture, slab collars and mezzanines are told apart.
+Steps 1 and 2 were then taken the same night, and measured; what follows supersedes the table above.
+
+## The instrument repaired, twice, on the same package
+
+**Second run** (`edges_9317_probe.json`, `sort_9317_probe.out.txt`): `_columns` keeps a surface only if a
+shin-high sphere over it (`PROBE_R` 0.20 m at `PROBE_H` 0.60 m, `intersect_shape`) overlaps nothing -- the
+"does a body fit" question asked with a shape. The wall-line class fell from 2,703 to 1,387 and its indoor part
+from 939 to 32; standable cells 133,992 -> 122,161. But the bottomless-neighbour class rose from 3,753 to 8,803,
+2,058 of them indoors: once the cells inside a wall are rejected, every floor cell beside a wall sees a column
+with no surface and reads a bottomless drop toward it -- 2,090 of them, at the foot of the Empties' walls and
+the office's, as `_nearest_below` returns -INF there. The repair had moved the artefact, not removed it.
+
+**Third run** (`edges_9317_probe2.json`, `sort_9317_probe2.out.txt`): in pass 2, a neighbour column with no
+surface is tested with the same sphere at its own standing point before it counts as a drop; inside something,
+it is a wall the body walks into, not an edge it walks off. Bottomless indoors 2,090 -> 191.
+
+    run                       drop edges   unguarded   indoors   wall_line (in)   bottomless (in)   storey_rim (in)
+    1  rays only                  22,445      16,739     6,004     2,703 (939)      3,753 (137)       1,053 (651)
+    2  + shin probe               24,121      16,493     4,897     1,387 (32)       8,803 (2,058)     1,622 (1,152)
+    3  + neighbour-solid test     13,618      11,798     2,998     1,357 (12)       4,138 (179)       1,622 (1,152)
+
+    third run, the classes:   site_edge 4,138 (179 in)   wall_line 1,357 (12 in)   stair 143 (121 in)
+                              hatch 59 (33 in)   floor_hole 16 (16 in)   roof_rim 266   storey_rim 1,622 (1,152 in)
+                              prop_top 4,140 (1,428 in)   ground 57 (57 in)   other 0
+
+The 1,357 wall-line edges left are outdoors: the tops of parapets and the sidewalk beside an exterior face, cells
+the sorter puts on a footprint's line by distance alone; the 179 bottomless indoors are the next thing to look
+at. The instrument's two tests are in `tools/walkable_edge.gd` with the counts above beside them.
+
+**The number this leaves: 1,622 storey rims, 1,152 of them indoors**, of which about 1,050 are full-storey
+drops (3.0-3.6 m) at a storey's level -- edges at a floor's level inside deli_a01, pharmacy_a01 and office with
+nothing above step-over height between them and the fall, not in a stair's footprint and not at a declared hole.
+Which are cut-slab collars (168), stair discharge voids, mezzanine lips somebody meant, or holes nobody railed
+is the attribution the next step owes, row by row, against the slab holes `_stairs` and `_vertical_links` cut.
+Then the furniture (1,428 prop tops indoors) by what a surface IS, the declared set emitted as links, and the
+freeze.

@@ -42,6 +42,18 @@ const STAND_M := 1.80
 const BODY_R := 0.35
 #: Probe from this far above a surface so a ray does not start inside it.
 const EPS := 0.02
+#: A SURFACE IS STANDABLE ONLY IF A BODY'S SHIN FITS OVER IT. The downward ray
+#: that finds surfaces also finds a floor slab's edge UNDER an exterior wall,
+#: and the headroom ray cast from there starts inside the wall, which Godot's
+#: `intersect_ray` reports as nothing -- so on cold run 9317's package 2,703 of
+#: 16,739 unguarded edges were cells on a footprint's own wall line, 939 of them
+#: "indoors" (the factory's docs/findings/drop_edges_173/). A ray answers "what
+#: is the floor here"; "does a body fit" wants a shape (the factory's CLAUDE.md).
+#: This sphere stands at shin height over each candidate surface; a candidate
+#: it overlaps anything from is inside something, and is not a surface.
+const PROBE_R := 0.20
+const PROBE_H := 0.60
+var _stand: PhysicsShapeQueryParameters3D
 #: Cap the report; the JSON is evidence, not a phone book. 4,000 until 2026-10-15,
 #: which on cold run 9317's package kept the deepest 4,000 of 16,739 unguarded
 #: edges -- the plate's rim and the backdrop's, not one of the 6,004 indoors --
@@ -85,7 +97,12 @@ func _columns(space: PhysicsDirectSpaceState3D, x: float, z: float,
 		var up := PhysicsRayQueryParameters3D.create(
 			Vector3(x, hy + EPS, z), Vector3(x, hy + STAND_M, z))
 		if space.intersect_ray(up).is_empty():
-			out.append(hy)
+			# ...and is the point itself in free space? A shin-high sphere
+			# that overlaps a wall says this "surface" is a slab's edge under
+			# the wall, which the rays alone cannot tell (PROBE_R above).
+			_stand.transform = Transform3D(Basis(), Vector3(x, hy + PROBE_H, z))
+			if space.intersect_shape(_stand, 1).is_empty():
+				out.append(hy)
 		y = hy - EPS * 2.0
 	return out
 
@@ -151,6 +168,14 @@ func _run(out_path: String, cell: float) -> void:
 		return
 
 	var space: PhysicsDirectSpaceState3D = root.world_3d.direct_space_state
+	var probe := SphereShape3D.new()
+	probe.radius = PROBE_R
+	_stand = PhysicsShapeQueryParameters3D.new()
+	_stand.shape = probe
+	_stand.collide_with_areas = false
+	_stand.collide_with_bodies = true
+	report["stand_probe_r"] = PROBE_R
+	report["stand_probe_h"] = PROBE_H
 	var top: float = box.position.y + box.size.y + 1.0
 	var bottom: float = box.position.y - 1.0
 	var nx: int = int(box.size.x / cell) + 1
@@ -192,6 +217,18 @@ func _run(out_path: String, cell: float) -> void:
 					var below: float = _nearest_below(there, y)
 					var drop: float = y - below
 					if below < -1e17:
+						# NO SURFACE IN THE NEXT COLUMN IS A WALL BEFORE IT IS A
+						# FALL. Once the shin probe above rejects the cells inside
+						# a wall, every floor cell beside one sees a bottomless
+						# neighbour: on cold run 9317's package that read 2,090
+						# indoor "drops" at the foot of the Empties' and the
+						# office's walls. If the neighbour's own standing point is
+						# inside something, the body walks into it, not off it.
+						_stand.transform = Transform3D(Basis(), Vector3(
+							box.position.x + float(jx) * cell, y + PROBE_H,
+							box.position.z + float(jz) * cell))
+						if not space.intersect_shape(_stand, 1).is_empty():
+							continue
 						drop = 1e9
 					if drop <= FALL_M:
 						continue
