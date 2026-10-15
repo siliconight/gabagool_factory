@@ -1,0 +1,34 @@
+# prove_lf_patches.sh on a throwaway copy of level_factory at 775cac8 (0.212.0), LF_ROOT pointing at it; the real repo untouched. 2026-10-15 07:24.
+copy at 775cac8, VERSION 0.212.0
+== 0.213.0's tests on the unpatched copy (must fail)
+unpatched, 0.213.0's tests: exit 1
+tally 4 {'F': 4}
+FAILED tests/unit/test_layers_shown.py::test_the_label_has_one_spelling_the_planners
+FAILED tests/unit/test_layers_shown.py::test_the_handoff_says_what_the_package_carries_and_keeps_the_light_apart
+FAILED tests/unit/test_layers_shown.py::test_the_export_writes_the_record_and_the_paragraph
+FAILED tests/unit/test_layers_shown.py::test_the_readme_and_the_design_doc_show_the_light_layer
+== apply 0.213.0
+Level Factory 0.212.0 -> 0.213.0
+export.py imports; helpers: True True
+== 0.213.0's tests on the patched copy (must pass), with the label, planner and manifest tests beside them
+patched 0.213.0: exit 0
+tally 49 {'.': 49}
+== a HANDOFF paragraph and a log line, as the export would write them for a lit full-stack package
+WHAT THIS PACKAGE IS MADE OF: the graybox base (Deli Counter's shells with their collision, assembled by Lot, with navigation); the ART layer (Zoo's themed modules, props and dressing, Pixelcoat's skins, Patina's cohesion -- and the light FIXTURES, which are geometry whoever lights them, with their `LuxEmit` markers); the LIGHT layer (Lux's applied scene and its baked lightmap: the render decisions); the GAMEPLAY layer (Dispatch's advisory objectives, spawns and navigation hints). THE LIGHT IS A LAYER OF ITS OWN, APART FROM THE ART. This package carries it. The same build exports without it as `--mode art-unlit` -- the art and its fixtures unchanged -- for a runtime that brings its own lighting. `output_layers.json` and `LF_MANIFEST.json` name the layers.
+
+{'schema': 'level_factory.output_layers.v0.1', 'layers': ['art', 'gameplay', 'light'], 'label': 'graybox+art+light+gameplay'}
+== apply 0.214.0 on top
+Level Factory 0.213.0 -> 0.214.0
+== 0.214.0's tests on the patched copy (must pass)
+patched 0.214.0: exit 0
+tally 14 {'.': 14}
+== the same tests against 0.213.0's interpreter.py and setup command (the restated test and the two new ones must fail, nothing else)
+control: exit 1
+tally 14 {'F': 3, '.': 11}
+FAILED tests/unit/test_setup_venv.py::test_the_environment_is_made_from_the_base_and_given_the_pins
+FAILED tests/unit/test_setup_venv.py::test_the_constraints_file_holds_every_distribution_setup_may_install
+FAILED tests/unit/test_setup_venv.py::test_what_the_pins_bring_is_the_set_install_test_9_installed
+== heads
+## [0.214.0] - What the three pins bring is held too
+0.214.0
+copy removed

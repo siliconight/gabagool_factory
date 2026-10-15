@@ -1,0 +1,37 @@
+== add_uv2 = true marks, per scene (every .tscn carrying any, in either package)
+  presentation/lux.applied.tscn        9312  112   9313  112
+  site.tscn                            9312  112   9313    0
+  site_backdrop.tscn                   9312    1   9313    0
+== light_bake.json
+  9312 ok=True primitives={"presentation/lux.applied.tscn": 112, "site.tscn": 112, "site_backdrop.tscn": 1} sum=225 baked_models=349 users=3160 attempts=1
+  9313 ok=True primitives={"presentation/lux.applied.tscn": 112} sum=112 baked_models=349 users=3160 attempts=1
+== the lightmap and the GLBs
+  bake.exr: the same bytes
+  GLBs: 329 in 9312, 329 in 9313, 329 shared, 0 differ
+== every file, by name
+  2490 files in 9312, 2490 in 9313; only in 9312: none; only in 9313: none
+  24 differ:
+    LF_MANIFEST.json
+    LICENSES.json
+    bake.tscn
+    build.lock.json
+    export_closure_scan.json
+    glb_reference_scan.json
+    light_bake.json
+    lot/gs_cornershop_c/site.tscn
+    lot/gs_cornershop_d/site.tscn
+    lot/gs_midrise_a/site.tscn
+    lot/gs_midrise_b/site.tscn
+    lot/gs_midrise_c/site.tscn
+    lot/gs_midrise_d/site.tscn
+    lot/gs_midrise_e/site.tscn
+    lot/gs_midrise_f/site.tscn
+    lot/gs_midrise_h/site.tscn
+    lot/gs_midrise_i/site.tscn
+    portable_resource_manifest.json
+    presentation/lux.applied.tscn
+    site.tscn
+    site_backdrop.tscn
+    validation/report.html
+    validation/report.json
+    validation/report.md

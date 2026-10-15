@@ -20,4 +20,4 @@ way.
 - **`tests/unit/test_bake_counts_what_it_bakes.py`:** what the bake draws, a nested instance among it; only those
   scenes written and counted; a package with no presentation bakes nothing; the call site. On 0.211.0 all four fail (proven on 0.211.0; 0.211.1 moved only the certified table).
 
-**Suite:** RESULT_SUITE
+**Suite:** exit 0, 2,442 by the progress tally (2,427 passed, 14 skipped, 1 xfail), 423 s: 0.211.1's 2,422 passed, the four new tests, and the sibling-locator guard's case over the new file (test_nothing_reaches_above_this_repo_by_counting_parents); the 14 skipped are the real-tool smoke, as before
