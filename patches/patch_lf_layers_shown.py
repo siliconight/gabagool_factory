@@ -9,8 +9,9 @@ the walker's ask of 2026-10-15).
 
 Every file's sha16 pinned and every anchor asserted once, nothing written until all matched. The README's em
 dashes (U+2014) and arrows (U+2192) are spelled as escapes here and asserted like any other anchor. CHANGELOG and
-VERSION from `lf_layers_shown/CHANGELOG_0.213.0.md`; `--results-pending` leaves RESULT_SUITE and RESULT_EXPORT
-to `--fill`.
+VERSION from `lf_layers_shown/CHANGELOG_0.213.0.md`; `--results-pending` leaves RESULT_SUITE to `--fill`. The
+package proof -- the two files that move, `output_layers.json` and `HANDOFF.md` -- is the next cold run's, in
+its NOTES at the factory root, as 0.211.0's ground was proven.
 
 Read before it was written, in this session: README.md 9-14 and 36-62 (the intro and the Output layers section,
 their non-ASCII codepoints printed); export.py 34-66 (the modes, `ships_lux`), 71-112 (`HANDOFF_LANGUAGE`),
@@ -33,7 +34,7 @@ LF = pathlib.Path(os.environ.get("LF_ROOT") or HERE.parent / "level_factory")
 SRC = HERE / "lf_layers_shown"
 PENDING = "--results-pending" in sys.argv
 FILL = "--fill" in sys.argv
-RESULTS = {"RESULT_SUITE": "result_suite.txt", "RESULT_EXPORT": "result_export.txt"}
+RESULTS = {"RESULT_SUITE": "result_suite.txt"}
 VERSION_WAS, VERSION = b"0.212.0", b"0.213.0"
 CHANGELOG_HEAD = "## [0.212.0] - The light bake counts what it bakes"
 SHA = {"README.md": "74941ad7ffec8235",

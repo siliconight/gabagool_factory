@@ -25,4 +25,4 @@ The factory's START_HERE.md said `--venv` "downloads the three packages Blender'
 nine they need come with them, at the versions the factory was certified with. Certified by the next install
 test, which is where this is proven: nothing built changes.
 
-**Suite:** RESULT_SUITE
+**Suite:** exit 0, 2,449 by the progress tally (2,434 passed, 14 skipped, 1 xfail): 0.213.0's 2,432 passed, the restated first test and the two new ones; the 14 skipped are the real-tool smoke, as before

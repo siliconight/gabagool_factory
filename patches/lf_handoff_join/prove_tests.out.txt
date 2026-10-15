@@ -1,0 +1,14 @@
+# prove_and_apply_0215_1.sh: the proof on a throwaway copy of level_factory at 56fd144 (0.215.0), LF_ROOT pointing at it, before the patch was applied to the repo. 2026-10-15 08:17.
+copy at 56fd144, VERSION 0.215.0
+== apply 0.215.1 to the copy, then run its tests against 0.215.0's export.py (the new test and the call-site test must fail)
+Level Factory 0.215.0 -> 0.215.1
+control: exit 1
+5 {'.': 3, 'F': 2}
+FAILED tests/unit/test_layers_shown.py::test_the_export_writes_the_record_and_the_paragraph
+FAILED tests/unit/test_layers_shown.py::test_the_layers_paragraph_stands_on_its_own
+== the patched module (must pass)
+Level Factory 0.215.0 -> 0.215.1
+patched: exit 0
+5 {'.': 5}
+' reconnection, and online correctness.\n\nWHAT THIS PACKAGE IS MADE OF: '
+ends: '.json` name the layers.\n'

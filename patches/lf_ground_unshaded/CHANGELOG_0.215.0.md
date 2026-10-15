@@ -19,4 +19,4 @@ reached by more lights than one pass takes draws again for the rest, and this pl
 - **`tests/unit/test_backdrop_ground.py`:** the material carries `shading_mode = 0` ahead of its roughness, and the
   record says so; the first test restated. Both fail on 0.214.0.
 
-**Suite:** RESULT_SUITE
+**Suite:** exit 0, 2,450 by the progress tally (2,435 passed, 14 skipped, 1 xfail): 0.214.0's 2,434 passed and the new test; the 14 skipped are the real-tool smoke, as before

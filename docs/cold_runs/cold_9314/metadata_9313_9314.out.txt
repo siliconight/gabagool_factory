@@ -1,0 +1,26 @@
+# the JSON files that differ between 9313 and 9314, leaf by leaf (cold run 9314; the scenes are in layers_ground.out.txt)
+output_layers.json           1 leaves differ: /label
+     /label: 'graybox+art+gameplay' -> 'graybox+art+light+gameplay'
+backdrop_layer.json          1 leaves differ: /ground/shaded
+     /ground/shaded: 'None' -> 'False'
+light_bake.json              6 leaves differ: /attempts[0]/editor_log, /attempts[0]/editor_s, /attempts[0]/result/bake_ms, /editor_log, /editor_s, /result/bake_ms
+     /attempts[0]/editor_log: 'C:\\Projects\\gabagool_studios\\gabagool_factory\\workspaces\\col' -> 'C:\\Projects\\gabagool_studios\\gabagool_factory\\workspaces\\col'
+     /attempts[0]/editor_s: '77.3' -> '81.4'
+     /attempts[0]/result/bake_ms: '41809' -> '46765'
+LF_MANIFEST.json             3 leaves differ: /archive_name, /built_utc, /verified/export_closure_package_fingerprint
+     /archive_name: 'LF_urban_row_001_s9104_20261015T111858Z_f1.40.0_portable-god' -> 'LF_urban_row_001_s9104_20261015T120932Z_f1.40.0_portable-god'
+     /built_utc: '2026-10-15T11:18:58.116987+00:00' -> '2026-10-15T12:09:32.268277+00:00'
+     /verified/export_closure_package_fingerprint: '1fd990591def1b1646e201f244cb64492201413d29ffaa8d96ab0efd1bc6' -> '58254133879c92743b48b0587064ac3f27c26bea6f3f8ae849b7f1ce83d7'
+build.lock.json              7 leaves differ: /created_at, /inputs[0]/sha256, /outputs[10]/sha256, /outputs[16]/sha256, /outputs[17]/sha256, /outputs[18]/sha256, /spec_sha256
+     /created_at: '2026-10-15T11:18:57+00:00' -> '2026-10-15T12:09:31+00:00'
+     /inputs[0]/sha256: '509a817d3fee61fae5b63c89621ff9f9345f10868bcd4da2127df90208eb' -> 'ad35bad3a76bff4ddbca0272527cb576e4785a231c4728647492ea911edc'
+     /outputs[10]/sha256: '8434b8195b61c987cf2116d8e4b1c832d1b65ee1572a5c6d90d5a892b3c0' -> 'df18d8a9c4f22f7aa02825c87b73320e93616029b9753dfe701bebce44d8'
+LICENSES.json                1 leaves differ: /created_at
+     /created_at: '2026-10-15T11:22:24.863389+00:00' -> '2026-10-15T12:13:00.792465+00:00'
+export_closure_scan.json     1 leaves differ: /package_fingerprint
+     /package_fingerprint: '1fd990591def1b1646e201f244cb64492201413d29ffaa8d96ab0efd1bc6' -> '58254133879c92743b48b0587064ac3f27c26bea6f3f8ae849b7f1ce83d7'
+glb_reference_scan.json      1 leaves differ: /root
+     /root: 'C:\\Projects\\gabagool_studios\\gabagool_factory\\workspaces\\col' -> 'C:\\Projects\\gabagool_studios\\gabagool_factory\\workspaces\\col'
+validation/report.json       1 leaves differ: /generated
+     /generated: '2026-10-15 11:18 UTC' -> '2026-10-15 12:09 UTC'
+portable_resource_manifest.json: 24 entries differ (the files above and the scenes), created_at '2026-10-15T11:22:27.253885+00:00' -> '2026-10-15T12:13:03.027318+00:00'

@@ -29,8 +29,7 @@ printed no layers line; `docs/RENDER_PASS_SPLIT.md` still opened "Not implemente
 - **`tests/unit/test_layers_shown.py`:** one spelling of the label; the HANDOFF paragraph in the three cases;
   the call sites; the README and the design doc. All four fail on 0.212.0.
 
-A doc-and-label change, no geometry: two files of a package move, `output_layers.json` and `HANDOFF.md`.
+A doc-and-label change, no geometry: two files of a package move, `output_layers.json` and `HANDOFF.md`, read in
+the factory's cold-run record.
 
-**Suite:** RESULT_SUITE
-
-**Export:** RESULT_EXPORT
+**Suite:** exit 0, 2,447 by the progress tally (2,432 passed, 14 skipped, 1 xfail), 447 s: 0.212.0's 2,427 passed, the four new tests, and the sibling-locator guard's case over the new file; the 14 skipped are the real-tool smoke, as before

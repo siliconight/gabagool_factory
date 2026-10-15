@@ -1,0 +1,44 @@
+== output_layers.json
+  9313  layers=['art', 'gameplay', 'light']  label='graybox+art+gameplay'
+  9314  layers=['art', 'gameplay', 'light']  label='graybox+art+light+gameplay'
+== HANDOFF.md
+  9313  17 lines, 3097 bytes; last paragraph: 'The production game runtime remains authoritative for mission progression, gameplay behavior, enemy AI, replication, per'
+  9314  18 lines, 3863 bytes; last paragraph: 'The production game runtime remains authoritative for mission progression, gameplay behavior, enemy AI, replication, per'
+== the ground's material, against the priced unshaded arm's
+  9313  ['albedo_color = Color(0.045, 0.045, 0.05, 1)', 'roughness = 1.0']
+  9314  ['albedo_color = Color(0.045, 0.045, 0.05, 1)', 'shading_mode = 0', 'roughness = 1.0']
+  priced arm  ['albedo_color = Color(0.045, 0.045, 0.05, 1)', 'shading_mode = 0', 'roughness = 1.0']
+== the lightmap and the GLBs
+  bake.exr: the same bytes
+  GLBs: 329 in 9313, 329 in 9314, 0 differ
+== the export log's layers line
+  [export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+== every file, by name
+  2490 files in 9313, 2490 in 9314; only in 9313: none; only in 9314: none
+  26 differ:
+    HANDOFF.md
+    LF_MANIFEST.json
+    LICENSES.json
+    backdrop_layer.json
+    bake.tscn  (Godot-saved: 3 lines differ, 0 after the per-save-id mask)
+    build.lock.json
+    export_closure_scan.json
+    glb_reference_scan.json
+    light_bake.json
+    lot/gs_cornershop_c/site.tscn  (Godot-saved: 425 lines differ, 0 after the per-save-id mask)
+    lot/gs_cornershop_d/site.tscn  (Godot-saved: 689 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_a/site.tscn  (Godot-saved: 464 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_b/site.tscn  (Godot-saved: 600 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_c/site.tscn  (Godot-saved: 751 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_d/site.tscn  (Godot-saved: 783 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_e/site.tscn  (Godot-saved: 1131 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_f/site.tscn  (Godot-saved: 1247 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_h/site.tscn  (Godot-saved: 420 lines differ, 0 after the per-save-id mask)
+    lot/gs_midrise_i/site.tscn  (Godot-saved: 280 lines differ, 0 after the per-save-id mask)
+    output_layers.json
+    portable_resource_manifest.json
+    presentation/lux.applied.tscn  (Godot-saved: 2169 lines differ, 0 after the per-save-id mask)
+    site_backdrop.tscn
+    validation/report.html
+    validation/report.json
+    validation/report.md
