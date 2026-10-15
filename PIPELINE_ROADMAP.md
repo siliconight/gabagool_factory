@@ -692,7 +692,7 @@ work of adopting this.
 | 11 | **RETRACTED** | The building interiors barely bake | 2026-07-28 -- as the body records: "Retracted 2026-07-28". Written into a status line 2026 |
 | 12 | **NARROWED** | Props bake as walkable navmesh, and nothing can reach them | 2026-08-14 -- the mechanism this item named is not misconfigured, it is ABSENT: `geometry_ |
 | 13 | **RETRACTED** | RETRACTED — seed 5320's vault was never broken; its walktest never ran | 2026-07-28 -- as the body records: seed 5320's vault was never broken; its walktest never  |
-| 14 | **OPEN** | Seed 5017 has a collision trap the path query cannot see | 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls |
+| 14 | **SUPERSEDED** | Seed 5017 has a collision trap the path query cannot see | 2026-10-15 by 197 and 208 -- the site cannot be re-read and its class is gated. Seed 5017  |
 | 15 | **CLOSED** | Fail-fast is mission-wide, but the failures are candidate-scoped | 2026-07-28 -- as the body records: "Closed 2026-07-28 as Level Factory 0.x", fail-fast mad |
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
 | 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-10-06 -- THE BREADTH SWEEP: TEN MISSIONS, EIGHT UNTOUCHED FIRST TIME AND TWO AFTER ON |
@@ -826,7 +826,7 @@ work of adopting this.
 | 145 | **NARROWED** | A window's light pools on the wall it sits in | 2026-09-11 -- FOUND BY A PERSON, FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED |
 | 146 | **NARROWED** | The floor, the walls and the ceiling of a room all wear the same skin | 2026-09-11 -- FOUND BY A PERSON, MEASURED, FIXED IN DELI COUNTER 0.115.0; NOT YET RUN THRO |
 | 147 | **OPEN** | One centre row at a 4.0 m reach cannot light a room wider than 8 m, an | 2026-09-11 -- MEASURED FROM ITEM 142'S BLACK PROP; ITEM 54'S PRICE, NOW SEEN FROM THE FLOO |
-| 148 | **OPEN** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE INTERIOR HALF OF LAYER 3, WHICH |
+| 148 | **NARROWED** | Nothing dresses the inside of a building: no posters, clocks, vents, s | 2026-10-15 -- re-measured on cold run 9314's package and Zoo's recipes (`docs/findings/ope |
 | 149 | **CLOSED** | The varied lot ignores the brief's archetype: a bank block had no bank | 2026-09-12 -- COLD RUN 9009 PLACED A BANK FIRST IN ALL THREE CANDIDATES' LOTS ON THE SAME  |
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 36 open, 123 closed, 3 retracted, 88 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 34 open, 123 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -1316,7 +1316,7 @@ proxies mistaken for the things they stand for. The instrument that produced the
 wrong reading was one I had built that morning. Check that the measurement in
 front of you was taken by the run in front of you.
 
-*STATUS: OPEN 2026-08-12 -- unchanged; re-measure after the first run on a level that has walls*
+*STATUS: SUPERSEDED 2026-10-15 by 197 and 208 -- the site cannot be re-read and its class is gated. Seed 5017 is in no cold run's batch and no record names it; the lot-demo-era generators that built it are gone. What catches the class it named: Deli Counter 0.214.0 widens every walkable door to the agent contract's 1.25 m (197), and the walk test walks the crew's body over every leg of every candidate (208) -- cold run 9314 reads every path proof and every walker ok on all three candidates and Laser Tag's crew at 0 player-stuck events on each (`docs/findings/open_items_remeasure/`, `docs/cold_runs/cold_9314/`).*
 
 **14. Seed 5017 has a collision trap the path query cannot see.** The first real
 find the walktest has produced on its own, and the first thing PASS 2 has ever
@@ -15765,8 +15765,7 @@ either the plate split (Zoo's tile to 5.0, item 54's own residue) or the
 range cut it prices, and the item is a budget question before it is a
 lighting one.
 
-*STATUS: OPEN 2026-09-11 -- RAISED BY THE WALKER BEFORE THE RE-WALK; THE
-INTERIOR HALF OF LAYER 3, WHICH TODAY HAS ONLY AN EXTERIOR*
+*STATUS: NARROWED 2026-10-15 -- re-measured on cold run 9314's package and Zoo's recipes (`docs/findings/open_items_remeasure/`, `interior_dressing_148.py`). Of the ask's seven kinds, two exist as species -- posters (`poster`, `poster_wall`, on four wall kinds since 2026-10-02) and garbage (`litter_bin`, `litter_scrap`, `trash_bags`) -- and they reach rooms by Deli Counter's furnish recipes, a slot at a time: 9314's deli carries 22 prop species including three poster walls and two litter bins, the pharmacy three poster walls and a bin, the office its desks, cabinets and machines and none of the asked kinds. Left: no species for a clock, a ceiling vent (`vent_stack` and `exhaust_fan` are roof pieces), a smoke detector, a light switch or an exit sign; interior litter is a bin, not a scatter; and the no-collision interior dressing LAYER this item names -- one MultiMesh over a room's walls and ceiling, placed by a rule on room roles -- is not built. Whether a room reads as inhabited is the walker's eye.*
 
 **148. Nothing dresses the inside of a building: no posters, clocks, vents,
 smoke detectors, garbage -- the non-collision layer that gives a room

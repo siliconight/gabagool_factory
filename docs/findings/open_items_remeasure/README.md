@@ -55,3 +55,39 @@ value is `"front"`, lowercase, as the schema's enum says. Read the schema before
 **What is left of 171:** the stack is visual only, so it is not an entry route and nothing has measured one; the
 rule is chosen, not derived from a building's stairs; the library's other walk-ups (`apartment_walkup_a01`,
 `rowhouse_raid`) carry the older assembly. NARROWED on the roadmap.
+
+## 148. Nothing dresses the inside of a building
+
+**What it found (2026-09-11):** the walker asked for "surface dressing on the walls and floor as extra
+non-collision layers ... posters, garbage, clocks, vents, smoke detectors"; Layer 3 scattered litter, weeds and
+pebbles over the site's ground as one MultiMesh and nothing walked an interior wall, ceiling or floor. What would
+close it: the interior surfaces reachable by the Layer 3 chain, one species placed by one rule, and a walk that
+finds a room reading as inhabited.
+
+**What shipped since, by another road:** not the Layer 3 chain but Deli Counter's furnish recipes placing Zoo
+species a slot at a time -- posters on four wall kinds (2026-10-02), litter bins, dust sheets, a neon sign, the
+desks' stock, the shop goods, the fixtures, the club's and the bar's dressing. **Measured** (`interior_dressing_148.py`,
+`interior_dressing_148_9314.out.txt`): of the ask's seven kinds, Zoo has species for two by name -- posters
+(`poster`, `poster_wall`) and garbage (`litter_bin`, `litter_scrap`, `trash_bags`) -- and `vent_stack` and
+`exhaust_fan` are roof pieces, not a ceiling grille; nothing for a clock, a smoke detector, a light switch or an
+exit sign. On 9314's package the deli carries 22 prop species including three poster walls and two litter bins,
+the pharmacy three poster walls and a litter bin, the office its desks, cabinets and machines and none of the
+asked kinds.
+
+**What is left of 148:** clocks, ceiling vents, smoke detectors, switches and exit signs do not exist as species;
+interior litter is a bin, not a scatter; and the no-collision interior dressing LAYER the item names -- one
+MultiMesh over a room's walls and ceiling, placed by a rule on room roles -- is not built: every interior piece is
+a furnish slot. NARROWED on the roadmap; the walker's eye on whether a room reads as inhabited is the last line.
+
+## 14. Seed 5017 has a collision trap the path query cannot see
+
+**What it found (2026-08-12):** four walkers stuck at one coordinate on seed 5017's site, a lot-demo-era level,
+with every path proof passing -- a lip, a doorway narrower than the capsule, or geometry the bake smoothed over.
+Its status asked for a re-measure "after the first run on a level that has walls".
+
+**Measured today:** seed 5017 is in no cold run's batch and no record names it; the generators that built that site
+are two months and several hundred releases gone, so the trap itself cannot be re-read. What catches its class
+now: Deli Counter 0.214.0 widens every walkable door to the agent contract's 1.25 m (roadmap 197); the walk test
+walks the crew's body over every leg of every candidate (roadmap 208), and cold run 9314's reads every path proof
+and every walker `ok` on all three candidates, with Laser Tag's crew at 0 player-stuck events on each
+(`cold_9314/fight_fields_9313_9314.out.txt`). SUPERSEDED on the roadmap by 197 and 208, with that figure.
