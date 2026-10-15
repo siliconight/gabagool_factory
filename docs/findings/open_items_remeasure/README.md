@@ -390,3 +390,158 @@ not N copies of one.
 
 NARROWED on the roadmap: 2 of 5 shipped, each judged by the walk; the three left are named with what stands in
 their place today.
+
+## The nine items that had no status line
+
+`roadmap_status.py` reported nine open items "resting on a sentence rather than a status line": 19, 20, 24, 28 and
+35 never had one (they predate the convention), and 44, 45, 153 and 154 have a status block the index cannot read
+because it runs to several paragraphs. Each was re-read 2026-10-15 against cold run 9314's package
+(`workspaces/cold-9314-ws/.level_factory/exports/LF_urban_row_001.portable-godot`), today's built library (158
+specs under `deli_counter/build/`) and the tool repos at their current versions, and given a dated status line.
+
+## 19. Every tool grew a Godot half before there was a DAG to say who owns what
+
+**What it said:** at least four editor/runtime addons across the toolchain, none of which survives a bare folder
+drop; the honest default is that one addon ships, and it is Lux; the lighting chain is the pattern done right.
+
+**Today's package:** no `addons/` directory and 0 `res://addons` references in any scene or resource. It carries
+`runtime/lux` (25 scripts, 4 shaders, 7 presets, referenced by `presentation/lux.applied.tscn`) and
+`runtime/skymint` (2 scripts, 1 shader -- the sky provider that arrives with Lux, Level Factory's changelog). Zoo's
+half is one import script at the root, `zoo_worldskin.gd`; Patina's, Pixelcoat's and Deli Counter's Godot halves
+ship nowhere in it; 0 `Decal` nodes, so the decal question the item left open is answered by absence (Patina's
+`decals.py` exists and reaches no package). The exterior half of the lighting chain, refuted in the body, was
+fixed by Lot 0.79.0 (the poles are the anchors, worst distance 0.0000 m), and the lights reach the package
+(`light_bake.json`, 238 lights in the applied scene -- 56's record).
+
+CLOSED: the rule the item proposed is the shipped package's state.
+
+## 20. Patina's Godot half is a renderer from before Lux was one
+
+**What it said:** retire `ps1.gdshader` and the Patina plugin so the vertex-colour channel means one thing
+everywhere; the texture-ownership question (Patina posterised sets against Pixelcoat) left open.
+
+**Today:** the files still exist in the repo -- `patina/godot/addon/patina/` (plugin, dock, apply script, shader)
+and `patina/godot/shaders/ps1.gdshader`, their README still saying the half "has not been walked in the editor
+yet" -- consumed by nothing in any tool repo (0 references outside that folder and the docs) and shipped in no
+package (9314: 0 addons; its 5 shaders are Lux's and SkyMint's). In every package COLOR_0 has one reader,
+`zoo_worldskin.gd`'s `_vertex_colour_albedo`, albedo on objects and off on tiles (84). The open question settled
+itself: `art_mode` is `vertex-color` on both branches (76), Patina's texture half never runs, and Pixelcoat is the
+skin. The "connects" half of the migration (a PS1 preset beside Lux's, `shell.patina.json` feeding Lux uniforms)
+was overtaken by the walker's realism call.
+
+NARROWED: the ambiguity is gone from every package; left is deleting the dead folder, a Patina release.
+
+## 24. Lux gives runtime scaffolding an `owner`, which is what bakes it into a saved scene
+
+**What it said:** owner is the whole difference between runtime scaffolding and a saveable member; nine
+assignment sites; the multiplication (four suns, three stacks) never isolated; a second WorldEnvironment in the
+editor.
+
+**Today:** 21 `owner =` sites across `lux/addons/lux/runtime/` (environment 1, fixture spawner 2, light loader
+12, lighting 1, post-FX 5); 18 of the runtime scripts are `@tool`, and 15 of those ship in the package under
+`runtime/lux`, so a package opened in the editor and saved still has the trap the item describes. The second
+WorldEnvironment is gone: `ensure_world_environment` searches the scene for an existing one before creating its
+own (Lux 0.49.0, for a sky provider). The multiplication is still not isolated, and the call-site rule the item
+asks for is not written.
+
+OPEN, re-read: what would close it is that rule, proven by loading a shipped `lux.applied.tscn` in the editor,
+saving, and diffing.
+
+## 28. The VRAM question is about zoo's GLB embedding, not about pixelcoat
+
+**What it said:** Deli Counter shares meshes (333 instances, 14 GLBs on rockay), Zoo shares materials, and the
+gap is `export_format="GLB"` embedding the same pack into every module file -- "14x, not 1x" -- a Zoo export
+change, read off the exporter and never counted.
+
+**Counted** (`embedded_textures_28.py`, `embedded_textures_28_9314.out.txt`): Zoo 1.2.0 (2026-09-21, "a pack
+texture is one file, not sixty copies", `share_textures`) writes a pack's images beside the GLB in `_tex/`, named
+by content hash, and the GLB references them by `uri`. On 9314's package: 329 GLBs, 0 embedded images; 314
+reference 1,250 images by uri, 277 distinct files, 8.9 MiB on disk, 0 missing, 4.51 references a file; 94
+distinct images by content, 45 of them written in more than one `lot/<id>/art/zoo/_tex/` folder, one in 17. The
+duplication left is per building folder, not per module. What the engine keeps resident is 238's question
+(`docs/findings/texture_memory/`: the reflection atlas was 82 % of it). The machinery the item pointed at --
+`pack_importer.gd`'s shared `.tres`, `atlas.py` -- is not what did it.
+
+CLOSED: the export change the item asked for shipped, and the count says so.
+
+## 35. The graybox/art relationship: it is a SWAP, and most of the recommended shape is already the contract. What is missing is the library
+
+**What it said:** the swap contract's five agreements already hold; the library lacks interior and exterior
+corners, columns, beams, stair flights and landings, parapets, thickness transitions and every seam-management
+piece; the material guidance is inapplicable to geometry with no UVs.
+
+**Today, on the 158 built specs:** the contract stands (slot manifest 1.3.0). Roles: wall 24,768, prop 9,947,
+window 1,453, doorway 1,001, floor and ceiling 586 each, breach 271, roof 146. Exterior corners: a `wallEnd` post
+at every corner (58: 988 -> 0 open; Zoo also carries a `wallCorner` species sized from 950 posts, which Deli
+Counter never emits). Parapets: 1,910 `parapet_*` slots. Stairs: 1,044 stair-named slots, `stair_rail` as a
+species. Columns: Lot's `col` nodes on the sites (239 on 9314's). Piers, plinth (0.45 m) and cornice (0.12 m) on
+every solid wall module (`relief_parts`, 75). Coping, base course and curbs as Patina dressing (248). UVs on
+every module, world-projected (88). No species or slot is named for a beam, a thickness transition, a baseboard,
+crown trim or a fascia.
+
+NARROWED: most of the list exists; the four pieces above do not.
+
+## 44. The green boxes could be cars, and the collision would not change
+
+**What it said (2026-09-11):** 721 of 1,443 placements name a species Zoo has and it fits 142; scope (1) Deli
+Counter stamps a species hint on each prop slot, (2) Zoo builds it at the slot's dims or the `prop` box and says
+which, (3) the run species gain a bays mode.
+
+**Today:** (1) shipped -- 8,458 of 9,947 prop slots across the 158 specs carry `species` (85 %); 9314's three:
+deli_a01 127 of 142 (22 species), office 60 of 73, pharmacy_a01 26 of 28. (2) shipped -- each `<id>_kit.built.json`
+records `species_fallbacks` with the reason: 9314's three builds record one (deli_a01's `loading_pallet_stack`,
+4.50 x 2.50 x 1.50 m outside the species' range, built as `prop`) and 0 missing; the stems carry the species
+(`prop_counter_delco_1997_05`, ...), and 9 of deli_a01's 75 prop modules are plain `prop_`. (3) partly --
+`counter` (`bay_max` 4.0), `shelving` (2.4) and `teller_line` (2.0) repeat by bays; `bench` has no bays and no
+`locker` species exists. The 2026-09-11 fit count is not re-run: the hint changed what it would mean, and today's
+figure is the fallback count.
+
+NARROWED: (1) and (2) shipped, (3) three of five; the species' look is the walker's.
+
+## 45. Large playable surfaces are visually flat, and the fix is not more grass
+
+**What it said:** a collisionless instanced dressing layer, its manifest the deliverable, with a field list and
+a definition of done.
+
+**Today:** the layer exists end to end. Patina's `surface_dressing.py` writes the manifest -- `surface_zone_id`,
+`asset_set`, `placement_mode` (scatter / seam / cluster / anchor), `density`, `scale_range`, `height_band`,
+`collision_policy`, `shadow_policy`, `seed`, `quality_tier`; not `yaw_range`, not `exclusion_tags` -- Lot's
+`site_surfaces.py` names the zones, Zoo builds the clutter species the asset-set file names, and Level Factory's
+`dressing_scene.py` ships it as MultiMesh in its own scene (9314: 4,439 instances in 4 draws,
+`urban_row_001_dressing.tscn`; the writer emits no collision node). The lock (LF 0.31.0) protects collision. The
+test the item names -- hide the layer and the level plays the same, Laser Tag the judge -- has not been run as
+an A/B, and "no visible uniform scatter from primary views" is the walker's.
+
+NARROWED: built and shipped; two manifest fields and the A/B are what is left.
+
+## 153. A street reads as ordered when its furniture says where cars and people go, and the lot has none of that furniture yet
+
+**What it said:** three layers (markings, the kerb line, waiting places) and the cars, with step zero being
+roads rather than paths; closed by a walker's eye-height judgement.
+
+**Today, 9314's seed_9104 site** (`site.slots.json`, `site.markings.json`): step zero shipped -- 4 roads, 10
+sidewalks, 4 kerb cuts, 6 frontages. Markings: crosswalk bars 34, stop bars 4, centre line 21, edge lines 12,
+bay ticks 54; no arrows, no yellow kerb face. The kerb line: streetlight 2, traffic signal 2, sign post 7,
+fire hydrant 2, parking meter 47, litter bin 4, newspaper box 4, mailbox 2, utility pole 12 with wires
+(`site_wires_*.obj`), pole flyers 10, payphone 3, chain-link fence 8; no bollards placed (the species exists),
+no utility cabinet, no bike rack. Waiting places: bus shelter 3, bench 3, 46 street trees in grates (honey
+locust 32, pin oak 7, London plane 7); no planters. Cars: 22 `simple_car` parked in the bays the ticks draw, 3
+cruisers, a step van. No walk note has judged the street as one to drive and cross.
+
+NARROWED: every layer has shipped pieces; the six absent ones and the judgement are what is left.
+
+## 154. The buildings are designed all at once, and Delco buildings are not
+
+**What it said:** the decade is a layer on older fabric; five asks routed to five tools, the two structural ones
+Deli Counter's (the twin, the accretion); closed by a walk that reads the place as built over time.
+
+**Today:** the twin exists as one archetype, `twin_a01` (whether its halves differ is unmeasured); the accretion
+has no vocabulary (0 hits). Surfaces: `siding_delco`, `shingle_delco` and `fieldstone_delco` grammars exist;
+glass block and EIFS do not. The objects: utility poles and wires shipped (240; 12 poles on 9314's site),
+`satellite_dish`, `shop_awning`, `security_camera` and `roller_grill` are species; window air conditioners and
+security bars are not. The corridor: 241's urban type stands buildings 2.0 m off the sidewalk among mid-rises;
+buildings at the road with parking beside or behind is still not a Lot plan. Patina's per-instance
+differentiation is unwired (76). The judgement is not recorded.
+
+NARROWED: one structural ask exists as an archetype, the other has no vocabulary; the surfaces and objects are
+half there.

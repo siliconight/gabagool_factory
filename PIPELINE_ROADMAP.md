@@ -697,23 +697,23 @@ work of adopting this.
 | 16 | **CLOSED** | The navmesh contains routes the collision geometry blocks | 2026-08-14 -- not a bake defect. Lot 0.40.0 fixed it as walker locomotion on 2026-08-02 (g |
 | 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-10-06 -- THE BREADTH SWEEP: TEN MISSIONS, EIGHT UNTOUCHED FIRST TIME AND TWO AFTER ON |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
-| 19 | **OPEN** *(inferred)* | Every tool grew a Godot half before there was a DAG to say who owns wh | — |
-| 20 | **OPEN** *(inferred)* | Patina's Godot half is a renderer from before Lux was one | — |
+| 19 | **CLOSED** | Every tool grew a Godot half before there was a DAG to say who owns wh | 2026-10-15 -- the rule the item proposed is the shipped package's state, re-read on cold r |
+| 20 | **NARROWED** | Patina's Godot half is a renderer from before Lux was one | 2026-10-15 -- the ambiguity is gone from every package and the files are still in the repo |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
 | 22 | **NARROWED** | Outdoor props have no swap contract, so cover stays boxes forever | 2026-09-12 (late night) -- THE SITE HAS A SLOT MANIFEST AND ITS COVER IS BUILT BY ZOO AND  |
 | 23 | **CLOSED** | A Node-typed export written by a tool is discarded in silence, and the | 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" wha |
-| 24 | **OPEN** *(inferred)* | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | — |
+| 24 | **OPEN** | Lux gives runtime scaffolding an `owner`, which is what bakes it into  | 2026-10-15 -- re-read at Lux 0.77.0 (`docs/findings/open_items_remeasure/`): 21 `owner =`  |
 | 25 | **CLOSED** | A project `cater` has SERVED does not run until the editor imports it | 2026-09-11 -- EVERYTHING AUTOMATED IMPORTS FIRST, AND THE LINE A PERSON READS NOW SAYS SO. |
 | 26 | **NARROWED** | Something finally looks at the picture | 2026-09-11 -- THE INSTRUMENT SHIPPED AND GREW; THE GATE WAITS ON A NUMBER NOBODY HAS CHOSE |
 | 27 | **CLOSED** | The portable export ships a scene without its geometry, and every gate | 2026-08-12 -- 36 resources, closure ok, portability PASS. SESSION_0812 |
-| 28 | **OPEN** *(inferred)* | The VRAM question is about zoo's GLB embedding, not about pixelcoat | — |
+| 28 | **CLOSED** | The VRAM question is about zoo's GLB embedding, not about pixelcoat | 2026-10-15 -- the Zoo export change the item asked for shipped, and it was counted (`docs/ |
 | 29 | **CLOSED** | The art path themes one building; the site is never themed, and the si | 2026-08-12 -- the export carries five archetypes plus site_base.glb, not one building |
 | 30 | **CLOSED** | Nothing instantiates the light loader, so shipping the anchors would n | 2026-08-12 -- 116 OmniLight3D + 11 SpotLight3D under LuxFixtureLights in the shipped scene |
 | 31 | **ANALYSIS** | Lighting: what the engine requires of the geometry, and what Lux can d | engine constraints, not a defect. Note project.godot writes gl_compatibility |
 | 32 | **ANALYSIS** | Two lighting systems, and none of the interior one is switched on | a working model plus an engine fact; the interior lights do now spawn (item 30) |
 | 33 | **CLOSED** | The export does not contain the level, and the closure judge said so o | 2026-08-12 -- 21 unresolved -> 0, 132 misrooted -> 0, engine parser_error_count 0 |
 | 34 | **CLOSED** | The greybox is a site; the themed export is a fragment of one | 2026-08-12 -- themed_site_assemble; the export is the whole site, five buildings |
-| 35 | **OPEN** *(inferred)* | The graybox/art relationship: it is a SWAP, and most of the recommende | — |
+| 35 | **NARROWED** | The graybox/art relationship: it is a SWAP, and most of the recommende | 2026-10-15 -- the contract stands (slot manifest 1.3.0) and most of the absent list exists |
 | 36 | **NARROWED** | Walking it. Zoo's inserts are exact; the layer with no slot is the one | 2026-08-12 -- walk plumbing superseded by cmd_walk wrapping the export; the nine findings  |
 | 37 | **CLOSED** | Every building on the site is the same building | 2026-09-05 -- BUILT, THEMED, AND SHIPPED IN A PACKAGE. The mechanism was already there and |
 | 38 | **CLOSED** | Light anchors hung below the slab, and four Deli Counter tests that we | 2026-08-02 -- cap_thick threaded into derive_light_anchors and build_light_manifest |
@@ -722,8 +722,8 @@ work of adopting this.
 | 41 | **NARROWED** | The dressing layer is STRUCTURAL ART routed through the decoration cha | 2026-08-18 -- THE ROUTING ARGUMENT STANDS AND EVERY NUMBER UNDER IT IS DEAD. Re-measured o |
 | 42 | **NARROWED** | A level leaves the factory with a name that does not say what it is | 2026-08-14 -- stage 1 SHIPPED and proven on a real package: level_factory 0.26.0 (build di |
 | 43 | **CLOSED** | A whole CLI spelling stopped working and nothing noticed | 2026-08-15 -- one failed stage, not nine failures, and not the cause written below. `prese |
-| 44 | **OPEN** *(inferred)* | The green boxes could be cars, and the collision would not change | — |
-| 45 | **OPEN** *(inferred)* | Large playable surfaces are visually flat, and the fix is not more gra | — |
+| 44 | **NARROWED** | The green boxes could be cars, and the collision would not change | 2026-10-15 -- (1) and (2) of the scope shipped, (3) three of five, re-read (`docs/findings |
+| 45 | **NARROWED** | Large playable surfaces are visually flat, and the fix is not more gra | 2026-10-15 -- the layer exists end to end, re-read (`docs/findings/open_items_remeasure/`; |
 | 46 | **NARROWED** | Forty-five state machines a run, reaching nobody | 2026-08-22 -- THE PIPE IS CONNECTED AND FED. Steps 1-3 shipped and proven end-to-end on cr |
 | 47 | **CLOSED** | A recipient with their own lighting has to take ours or take graybox | 2026-08-16 -- DELIVERED, and the cold package it was waiting on exists. All three shapes l |
 | 48 | **CLOSED** | The same job and the same seed draw a different building on the art pa | 2026-08-16 -- FIXED and re-measured on a cold workspace. level_factory 0.38.0 keys the nar |
@@ -831,8 +831,8 @@ work of adopting this.
 | 150 | **NARROWED** | A new person cannot yet ask the factory for a prop, a texture or a sty | 2026-09-12 (late) -- THE PAGE IS WRITTEN AND THE REFERENCE STEP IS IN THE TOOL; THE WORKED |
 | 151 | **CLOSED** | Outdoor ground clutter was scattered on interior floors, because nothi | 2026-09-12 (late) -- LOT 0.56.0 DECLARES THE SEAM AS A BAND AND THE FLOOR PLAN AS AN EXCLU |
 | 152 | **NARROWED** | The surface dressing reads as defects in the texture, not as things on | 2026-09-13 (night) -- STEP 2 HAS ITS FIRST DECAL IN A COLD PACKAGE (9029): THE ROAD PAINT. |
-| 153 | **OPEN** *(inferred)* | A street reads as ordered when its furniture says where cars and peopl | — |
-| 154 | **OPEN** *(inferred)* | The buildings are designed all at once, and Delco buildings are not | — |
+| 153 | **NARROWED** | A street reads as ordered when its furniture says where cars and peopl | 2026-10-15 -- every layer has shipped pieces, counted on cold run 9314's seed_9104 site (` |
+| 154 | **NARROWED** | The buildings are designed all at once, and Delco buildings are not | 2026-10-15 -- one structural ask exists as an archetype and the other has no vocabulary, r |
 | 155 | **NARROWED** | The walker played a generated level, and the list of what a person fin | 2026-09-14 (afternoon) -- EVERY RAIN-WALK FINDING HAS A SHIPPED FIX; COLD RUN 9054 CARRIES |
 | 156 | **NARROWED** | Fire escapes, brick walk-ups, and buildings that are not one box at on | 2026-10-14 -- A FIRE ESCAPE STANDS ON THE URBAN STREET'S WALK-UPS, TO BE SEEN AND NOT YET  |
 | 157 | **NARROWED** | Weather: rain and wetness on top of the level | 2026-09-24 -- SLICE 2 IS MEASURED AND THE ANSWER CHANGED THE DESIGN. A wet `next_pass` bil |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 26 open, 128 closed, 3 retracted, 92 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 18 open, 130 closed, 3 retracted, 98 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -2332,6 +2332,8 @@ perpendicular to its kerb, not diagonally; a flight of stairs should have a
 consistent pitch across a building. The parts that are not measurable stay a
 human's job, and saying which is which is itself work nobody has done.
 
+*STATUS: CLOSED 2026-10-15 -- the rule the item proposed is the shipped package's state, re-read on cold run 9314's package (`docs/findings/open_items_remeasure/`): no `addons/` directory and 0 `res://addons` references; `runtime/lux` (25 scripts, 4 shaders, 7 presets, referenced by `presentation/lux.applied.tscn`) and `runtime/skymint` (the sky provider that arrives with Lux) are the one runtime that ships; Zoo's half is the import script `zoo_worldskin.gd` at the root; Patina's, Pixelcoat's and Deli Counter's Godot halves ship nowhere in it; 0 `Decal` nodes, so the decal question is answered by absence. The exterior lighting half the body refuted was fixed by Lot 0.79.0 (the poles are the anchors, worst distance 0.0000 m) and the lights reach the package (`light_bake.json`; 238 lights in the applied scene, 56's record).*
+
 **19. Every tool grew a Godot half before there was a DAG to say who owns
 what.** The general form of items 20 and 21, and the one to keep if only one
 survives.
@@ -2443,6 +2445,8 @@ Unresolved under this rule: Patina's decal pass instantiates `Decal` nodes from
 `decals.instances[]`, and no shader change bakes that. Either the stamps composite
 into the texture set offline, or decals remain a runtime dependency whoever owns
 them. That is the single hardest case and it should be decided on its own.
+
+*STATUS: NARROWED 2026-10-15 -- the ambiguity is gone from every package and the files are still in the repo (`docs/findings/open_items_remeasure/`). `patina/godot/addon/patina/` (plugin, dock, apply script, `ps1.gdshader`) and `patina/godot/shaders/ps1.gdshader` exist, their README still saying the half has not been walked in the editor; they are consumed by nothing in any tool repo and shipped in no package (9314: 0 addons, its 5 shaders Lux's and SkyMint's). COLOR_0 has one reader in a package, `zoo_worldskin.gd`'s `_vertex_colour_albedo` (84). The open question settled itself: `art_mode` is `vertex-color` on both branches (76), Patina's texture half never runs, Pixelcoat is the skin; the PS1-preset half of the migration was overtaken by the walker's realism call. Left: deleting the dead folder, a Patina release.*
 
 **20. Patina's Godot half is a renderer from before Lux was one.** The specific
 case, with code behind it rather than inference.
@@ -2672,6 +2676,8 @@ for it. A `node_paths` assertion belongs next to
 `PRESENTATION_UNRESOLVED_REF` — it is the same class of guarantee, a reference
 that looks written and is not.
 
+*STATUS: OPEN 2026-10-15 -- re-read at Lux 0.77.0 (`docs/findings/open_items_remeasure/`): 21 `owner =` sites across `lux/addons/lux/runtime/` where the item counted nine (environment 1, fixture spawner 2, light loader 12, lighting 1, post-FX 5); 18 of the runtime scripts are `@tool` and 15 of those ship in every package under `runtime/lux`, so a package opened in the editor and saved still has the trap. The second WorldEnvironment is gone -- `ensure_world_environment` searches the scene for an existing one before creating its own (Lux 0.49.0). The multiplication (four suns, three stacks) is still not isolated and the call-site rule is not written; what would close it is that rule, proven by loading a shipped `lux.applied.tscn` in the editor, saving, and diffing.*
+
 **24. Lux gives runtime scaffolding an `owner`, which is what bakes it into a
 saved scene.** The mechanism behind the editor accumulation, confirmed
 2026-08-01. The multiplication is not.
@@ -2842,6 +2848,8 @@ the **zoo_kit_build** job's output at `res://art/zoo/` in the staged project.
 Neither copy brings them. The art pass runs, Zoo fills the slots, Pixelcoat
 skins them, Lux lights it -- and the export drops all of it. Fix the copy, then
 flipping `CLOSURE_ENFORCED` is a two-character change and the gate becomes real.
+
+*STATUS: CLOSED 2026-10-15 -- the Zoo export change the item asked for shipped, and it was counted (`docs/findings/open_items_remeasure/embedded_textures_28.py`). Zoo 1.2.0 (2026-09-21, `share_textures`) writes a pack's images beside the GLB in `_tex/`, named by content hash, and the GLB references them by `uri`. On cold run 9314's package: 329 GLBs, 0 embedded images; 314 reference 1,250 images by uri, 277 distinct files, 8.9 MiB on disk, 0 missing, 4.51 references a file; 94 distinct images by content, 45 written in more than one `lot/<id>/art/zoo/_tex/` folder, one in 17 -- the duplication left is per building folder, not per module. What the engine keeps resident is 238's question (the reflection atlas was 82 % of it). `pack_importer.gd`'s shared `.tres` and `atlas.py` were not what did it.*
 
 **28. The VRAM question is about zoo's GLB embedding, not about pixelcoat.**
 Raised as "we do resource/VRAM sharing for deli counter, can pixelcoat do it
@@ -3810,6 +3818,8 @@ stands at **y = 0.2**. The isolated endpoints are proxies 1, 5, 9 and 13 of 16
 times, on an upper floor with no route down at that slot, in a site whose
 walkers use ladders successfully elsewhere. Worth naming as its own item when
 someone picks it up; it is not a placement accident.
+
+*STATUS: NARROWED 2026-10-15 -- the contract stands (slot manifest 1.3.0) and most of the absent list exists, measured on the 158 built specs (`docs/findings/open_items_remeasure/`): roles wall 24,768, prop 9,947, window 1,453, doorway 1,001, floor and ceiling 586 each, breach 271, roof 146; exterior corners by a `wallEnd` post at every corner (58: 988 -> 0 open; Zoo's `wallCorner` species, sized from 950 posts, is never emitted by Deli Counter); parapets 1,910 `parapet_*` slots; stairs 1,044 stair-named slots and a `stair_rail` species; columns as Lot's `col` nodes (239 on 9314's site); piers, plinth 0.45 m and cornice 0.12 m on every solid wall module (`relief_parts`, 75); coping, base course and curbs as Patina dressing (248); UVs on every module, world-projected (88), so the no-UV clause is gone. No species or slot is named for a beam, a thickness transition, a baseboard, crown trim or a fascia.*
 
 **35. The graybox/art relationship: it is a SWAP, and most of the recommended
 shape is already the contract. What is missing is the library.** Guidance
@@ -5093,6 +5103,8 @@ mapping (placement-name keyword -> species, the way `level_design.py`
 already keys furniture archetypes on room role + id). EARLIER STATUS, KEPT
 VERBATIM: OPEN 2026-08-14 -- specified by `Semantic_Proxy_Replacement_Art_Pass` and `City Collision ArtPass Substitutes`; nothing built. The gate it needs was built today and works*
 
+*STATUS: NARROWED 2026-10-15 -- (1) and (2) of the scope shipped, (3) three of five, re-read (`docs/findings/open_items_remeasure/`; the multi-paragraph status above, which the index could not read, stands). (1) Deli Counter stamps `species` on 8,458 of 9,947 prop slots across the 158 built specs (85 %; 9314's deli_a01 127 of 142, office 60 of 73, pharmacy_a01 26 of 28). (2) Zoo builds the hinted species at the slot's dims or the `prop` box and says which in `<id>_kit.built.json`: 9314's three builds record one fallback (deli_a01's `loading_pallet_stack`, 4.50 x 2.50 x 1.50 m outside the species' range) and 0 missing; the stems carry the species, and 9 of deli_a01's 75 prop modules are plain `prop_`. (3) `counter` (`bay_max` 4.0), `shelving` (2.4) and `teller_line` (2.0) repeat by bays; `bench` does not and no `locker` species exists. The 2026-09-11 fit count is not re-run -- the hint changed what it would mean; today's figure is the fallback count. The species' look is the walker's.*
+
 **44. The green boxes could be cars, and the collision would not change.**
 
 **MEASURED 2026-09-11, AND THE WIRE IS NOT THE WHOLE GAP.** Every placement
@@ -5270,6 +5282,8 @@ surface needs the depth guide's macro layer under the tile period before
 it needs anything on top. Previously: OPEN 2026-08-14 -- specified by
 `Surface_Dressing_Level_Depth_Guide`; nothing built. Item 41 is the same
 boundary approached from the other side*
+
+*STATUS: NARROWED 2026-10-15 -- the layer exists end to end, re-read (`docs/findings/open_items_remeasure/`; the multi-paragraph status above stands). Patina's `surface_dressing.py` writes the manifest with `surface_zone_id`, `asset_set`, `placement_mode` (scatter / seam / cluster / anchor), `density`, `scale_range`, `height_band`, `collision_policy`, `shadow_policy`, `seed` and `quality_tier` -- not `yaw_range`, not `exclusion_tags`; Lot's `site_surfaces.py` names the zones, Zoo builds the clutter species, and Level Factory's `dressing_scene.py` ships it as MultiMesh in its own scene (9314: 4,439 instances in 4 draws, no collision node written); the lock (LF 0.31.0) protects collision. The item's test -- hide the layer and the level plays the same, Laser Tag the judge -- has not been run as an A/B, and uniform scatter from primary views is the walker's eye.*
 
 **45. Large playable surfaces are visually flat, and the fix is not more
 grass.** Surface Dressing is collisionless instanced detail placed across
@@ -16372,6 +16386,8 @@ next step of this item as filed. Previously: OPEN 2026-09-13 -- FILED
 FROM THE WALKER'S QUESTION AFTER THE SPECIES
 COVER LANDED; THE VOCABULARY AND ITS OWNERS ARE IN THE ITEM, NOTHING BUILT*
 
+*STATUS: NARROWED 2026-10-15 -- every layer has shipped pieces, counted on cold run 9314's seed_9104 site (`docs/findings/open_items_remeasure/`; the multi-paragraph status above stands). Step zero: 4 roads, 10 sidewalks, 4 kerb cuts, 6 frontages. Markings: crosswalk bars 34, stop bars 4, centre line 21, edge lines 12, bay ticks 54; no arrows, no yellow kerb face. The kerb line: streetlight 2, traffic signal 2, sign post 7, fire hydrant 2, parking meter 47, litter bin 4, newspaper box 4, mailbox 2, utility pole 12 with wires, pole flyers 10, payphone 3, chain-link fence 8; no bollards placed (the species exists), no utility cabinet, no bike rack. Waiting places: bus shelter 3, bench 3, 46 street trees in grates; no planters. Cars: 22 `simple_car` parked in the bays the ticks draw, 3 cruisers, a step van. No walk note has judged the street as one to drive and cross, which is what closes it.*
+
 **153. A street reads as ordered when its furniture says where cars and
 people go, and the lot has none of that furniture yet.** The walker,
 2026-09-13, after item 22 put a truck and a container on the lot: "what
@@ -16514,6 +16530,8 @@ siding, the shingle, the glass block, the EIFS remodel, the overhead wires
 that the walker says DOMINATE the view, and the corridor rule that
 buildings MEET the sidewalk with parking beside or behind them. NOTHING
 HERE IS COSTED.*
+
+*STATUS: NARROWED 2026-10-15 -- one structural ask exists as an archetype and the other has no vocabulary, re-read (`docs/findings/open_items_remeasure/`; the multi-paragraph status above stands). The twin: `twin_a01`, one archetype, whether its halves differ unmeasured. The accretion: 0 hits, nothing says a part was added later. Surfaces: `siding_delco`, `shingle_delco`, `fieldstone_delco` exist; glass block and EIFS do not. Objects: utility poles and wires shipped (240; 12 poles on 9314's site), `satellite_dish`, `shop_awning`, `security_camera` and `roller_grill` are species; window air conditioners and security bars are not. The corridor: 241's urban type stands buildings 2.0 m off the sidewalk among mid-rises; buildings at the road with parking beside or behind is still not a Lot plan. Patina's per-instance differentiation is unwired (76). The walk that reads the place as built over time is not recorded.*
 
 **154. The buildings are designed all at once, and Delco buildings are
 not.** The walker, 2026-09-13: the place "did not look like architecture
