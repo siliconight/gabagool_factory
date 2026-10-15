@@ -1,0 +1,34 @@
+def test_the_walkway_under_the_next_leg_is_filled_to_the_ground():
+    """0.134.0 kept the run the NEXT leg flies over open on every storey, a
+    channel open to the room at both ends. The walker, cold run 9310's office
+    (2026-10-14): the second flight should "come down all the way to the
+    ground", and asked, "fill the stairs to the ground". So in every cut
+    multi-storey switchback whose second leg the builder fills, that leg stands
+    on the stair's lowest floor (`flight_solid_base`), and the other run's
+    stretch past its foot carries a back on that storey -- unless a wall
+    already holds the line, as for the first run's back
+    (`_MULTI_REFUSED_BY_A_WALL`)."""
+    legs, backs, refused = 0, 0, set()
+    for path in _library_specs():
+        name = os.path.basename(path)[:-5]
+        sp = spec_loader.load_spec(path)
+        guards = S.stair_guards(sp)
+        for i, st in enumerate(sp.stairs or ()):
+            if st.style != "switchback" or S.single_run(st) or not st.cut_slabs:
+                continue
+            lo = min(st.from_story, st.to_story)
+            if not S.flight_solid_under(sp, st, lo + 1):
+                continue
+            legs += 1
+            assert S.flight_solid_base(sp, st, lo + 1) == lo, (path, i)
+            sid = S.stair_ident(st, i)
+            _own, other = _runs(st, lo)
+            if any(p["stair"] == sid and p["story"] == lo and p["kind"] == "back"
+                   and min(p["hi"], other[1]) - max(p["lo"], other[0]) > 1e-9
+                   for p in guards):
+                backs += 1
+            else:
+                refused.add((name, sid, lo))
+    assert legs == 17, legs
+    assert backs == 15, backs
+    assert refused == _MULTI_REFUSED_BY_A_WALL, sorted(refused)

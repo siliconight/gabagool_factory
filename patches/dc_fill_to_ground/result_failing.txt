@@ -1,0 +1,1 @@
+**Proven to fail first:** `test_stair_fill_to_ground.py` fails on 0.220.0, all 5, `stairwell` having no `flight_solid_base`; on 0.221.0 it passes with `test_stair_back.py` and `test_stair_underside.py`, 27 (the factory's `patches/dc_fill_to_ground/prove_tests_0220.out.txt`, run on a throwaway copy before the repo was touched)

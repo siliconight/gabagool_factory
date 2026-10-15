@@ -1,0 +1,33 @@
+== selftest (22:40:27)
+  a tool source file, a shipped spec, or another repo
+== begin (22:40:28)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9312\journal.md
+== batch (22:40:37)
+created batch 'cold_9312' with 1 mission(s): urban_row_001
+== plan (22:40:38)
+== shell (22:40:40)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 76)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_cornershop_b.glb gs_cornershop_c.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (22:42:51)
+== art (22:42:53)
+Structural checks passed  (blockers open: 0, total findings: 109)
+  exit 1
+== export (22:47:02)
+[export] light bake: 349 model(s) and 225 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3160 users, 74.7 s in the editor
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9312-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  exit 0
+== findings (22:50:23)
+findings 109 -> 109
+== walk (22:50:23)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (22:50:33)
+  0 item(s), 0.0 GB removed
+DONE (22:50:38)
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)

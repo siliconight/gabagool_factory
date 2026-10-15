@@ -15,6 +15,8 @@ fallback. The structural findings (5, 6, 7-9) are design work and come after the
 | 2 | Level Factory 0.211.0 (5c67868) | one dark plane under the backdrop, 30 m past it, 0.10 m under the plate |
 | 3 | Zoo 1.111.0 (9176f8d) | each bay's stock turned to the side its drawers face |
 | 4 | Zoo 1.112.0 (8d1e2a4) | a door under its building's band says the trade; the walker chose it |
+| 7-9 | Deli Counter 0.221.0 (33e6866f) | a cut switchback's second flight stands on the stair's lowest floor, and the walkway's mouth gets a back; the walker: "fill the stairs to the ground" |
+| 5 | Deli Counter 0.222.0 (6c312336) | the delis' basement divider runs wall to wall, and the utility room gets a door from the corridor; the walker: "close the basement", and the door |
 
 **Seen, 9305 against 9308 at the walker's own spots** (`fixes_9305_9308.png`, `fixes_1_3_9305_9308.png`, the
 stations in each frame's caption):
@@ -121,6 +123,19 @@ past a partition's end, number 59 in 31 of the 446 specs.
   - Both move the navmesh and the fights, so they go out through the graders with the moved fields read.
 - **The walker's call first:** whether the deli basement was meant to be open at its ends.
 
+**Asked, 2026-10-14 ~21:30, the walker: "close the basement".** Deli Counter 0.222.0 (6c312336):
+- `presets.corner_deli` runs the divider -19..19, and `migrate_basement_wall.py` brings all six delis to it. Each
+  door and breach stays where it was built: the door at -8.5, the breach at 7.0.
+- **Found on the way:** a breach builds as a solid panel with a collider. Wall to wall, the divider left the
+  utility room's breaches its only ways in. That was the very gap 0.197.0 had read as its open floor, and
+  `test_walk_reach` failed it under layout_lint L24 and the walker's rule of 2026-10-06: a room reached only by
+  breaching gets a door unless it is the objective.
+- **Asked again, the walker chose the door:** from the corridor, midway between that wall's breach at y -9.0 and
+  the divider, so y -4.0. The rooms reached only by breaching are then exactly the baseline's, the four server
+  rooms ruled objectives by design.
+- **The refurnish moved deli_a03 alone:** `chair_set_r365b5162_9_1` at the vault's count table, beside the new wall,
+  is no longer placed.
+
 ## 6. The hole in the deli's ceiling (frame with the taskbar at 17:25)
 
 `deli_a01`, the walker at (-43, 1.6, 3.6) looking up. Authored: `vertical_links` carries a `floor_hole` on story 1 at
@@ -162,8 +177,10 @@ Instruments: `stair_core.py` and `stair_core_office.out.txt`. The office stands 
   - The walker looked up the core from its mouth, plan (0.2, -4.2).
 
 **How far it reaches** (`floating_flights.py`, `floating_flights.out.txt`): of 281 switchbacks in 446 specs, 212
-legs above a stair's lowest storey are filled solid, 204 of them over their own cut. In the library itself, apart
-from Level Factory's per-candidate copies, that is 17 legs in 14 specs, 15 over their cut:
+legs above a stair's lowest storey are filled solid, every one over a cut. In the library itself, apart from Level
+Factory's per-candidate copies, that is 17 legs in 14 specs, all 17 over their cut. **Refuted and kept:** the first
+reading said 204 and 15. It compared `hole_span`'s width, in the stair's own frame, against world x, so the two
+east-facing stairs (bank, rowhouse_raid) read as uncut. The 17:
 - the deli family: cr_deli, night_deli, corner_deli_heist_01;
 - office and office_stepped;
 - primos_pizza and twin_a01;
@@ -179,6 +196,15 @@ from Level Factory's per-candidate copies, that is 17 legs in 14 specs, 15 over 
     sloped soffit. Larger; it is the stair species roadmap 144 names as the dearer answer.
   - Either way, shown first in the inspection light at the walker's three stations, after the demo.
 
+**Asked, 2026-10-14 ~21:30, the walker: "fill the stairs to the ground".** Deli Counter 0.221.0 (33e6866f):
+- `stairwell.flight_solid_base` stands a cut multi-storey switchback's filled second leg on the stair's lowest
+  floor, and the builder builds its columns from there.
+- `stair_guards` gives the second run a back from leg 1's foot to the arrival edge, closing the walkway's north
+  mouth, 7's gap.
+- Every other leg's numbers are 0.220.0's floats. `build.py --all` moved exactly the 14 shells' GLBs, and the
+  re-run census reads all 17 library legs standing on their stair's lowest floor.
+- 0.134.0 had kept that walkway open as a passage, and two tests that pinned it changed with this.
+
 **Seen, 21:22** (`core_9310_sheet.png`, `core_frames.sh`; 9310's package, each station in the level's own light
 and in the inspection light):
 - **core_gap**, walker_75's spot: the core reads as two wall slabs with a full-height slot between them. Through
@@ -188,6 +214,18 @@ and in the inspection light):
 - **core_underside**, finding 9's spot: the second flight's solid block hangs over the slot with a flat bottom,
   a rail crossing beneath it, and the first flight's stepped side on the right.
 - In the level's own light, the three read as dark masses. The inspection light is what shows them.
+
+## Seen after the fixes: cold runs 9311 and 9312 (22:51-22:59)
+
+- **The stair core** (`core_9311_sheet.png` against `core_9310_sheet.png`, the same three stations):
+  - core_gap: one solid block where the walker saw a full-height slot;
+  - core_mouth and core_underside: the second flight's mass comes down to the floor, where it hung.
+  - Still seen from below: the storey-1 guard rail across the hole, finding 8's remainder.
+- **The deli basement** (`basement_9312_sheet.png` against `basement_9308_sheet.png`, from `basement_frames.sh`):
+  - basement_west, the walker's own spot: the brick divider unbroken to the outside wall, where it stopped;
+  - basement_east: the vault walled off from the utility room, where it stood open;
+  - utility_door: the new door from the corridor, where the wall was blank.
+- Both runs: 0 interventions, findings unchanged, every grade held (`docs/cold_runs/cold_9311/`, `cold_9312/`).
 
 ## The work light, L (the walker's ask, 20:10)
 

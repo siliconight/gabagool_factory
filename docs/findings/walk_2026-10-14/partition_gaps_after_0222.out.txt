@@ -1,0 +1,35 @@
+# docs/findings/walk_2026-10-14/partition_gaps.py after Deli Counter 0.222.0 (6c312336); the first reading, 59 in 31, is partition_gaps.out.txt
+apartment_walkup_a01         story -1  wall along Y at   2.00  built -7..7                  open    7.00..   9.00 ( 2.00 m)  basement_approach | basement_vault
+apartment_walkup_a01         story  0  wall along X at   0.00  built -9..9                  open  -11.00..  -9.00 ( 2.00 m)  front_hall | garage_bay
+apartment_walkup_a01         story  0  wall along X at   0.00  built -9..9                  open    9.00..  11.00 ( 2.00 m)  kitchen | garage_bay
+auto_shop_a01                story  1  wall along X at   2.00  built -9..9                  open  -13.00..  -9.00 ( 4.00 m)  upper_storage | upper_office
+auto_shop_a01                story  1  wall along X at   2.00  built -9..9                  open    9.00..  13.00 ( 4.00 m)  upper_storage | upper_office
+auto_shop_a02                story  1  wall along X at   2.00  built -9..9                  open  -13.00..  -9.00 ( 4.00 m)  upper_storage | upper_office
+auto_shop_a02                story  1  wall along X at   2.00  built -9..9                  open    9.00..  13.00 ( 4.00 m)  upper_storage | upper_office
+corner_deli_heist_01         story -1  wall along Y at -16.80  built 6.25..12.95            open    1.00..   6.25 ( 5.25 m)  cold_storage_w | cold_storage_s
+corner_deli_heist_01         story -1  wall along Y at -16.80  built 6.25..12.95            open   12.95..  14.00 ( 1.05 m)  cold_storage_w | cold_storage_n
+cr_garage                    story  0  wall along X at  -8.00  built -18..-10               open  -10.00..  18.00 (28.00 m)  deck_0_south | deck_0_main
+gs_auto_shop                 story  1  wall along X at   2.00  built -9..9                  open  -13.00..  -9.00 ( 4.00 m)  upper_storage | upper_office
+gs_auto_shop                 story  1  wall along X at   2.00  built -9..9                  open    9.00..  13.00 ( 4.00 m)  upper_storage | upper_office
+lf_deli_001_9191             story -1  wall along X at   1.00  built -12..12                open  -19.00.. -12.00 ( 7.00 m)  basement_corridor | cold_storage
+lf_deli_001_9191             story -1  wall along X at   1.00  built -12..12                open   12.00..  19.00 ( 7.00 m)  utility_room | basement_vault
+lf_deli_001_9292             story -1  wall along X at   1.00  built -12..12                open  -19.00.. -12.00 ( 7.00 m)  basement_corridor | cold_storage
+lf_deli_001_9292             story -1  wall along X at   1.00  built -12..12                open   12.00..  19.00 ( 7.00 m)  utility_room | basement_vault
+lf_deli_001_9393             story -1  wall along X at   1.00  built -12..12                open  -19.00.. -12.00 ( 7.00 m)  basement_corridor | cold_storage
+lf_deli_001_9393             story -1  wall along X at   1.00  built -12..12                open   12.00..  19.00 ( 7.00 m)  utility_room | basement_vault
+lf_mercy_annex_001_9002      story  2  wall along Y at   8.00  built 4..12                  open  -12.00..   4.00 (16.00 m)  exec_lobby | exec_anteroom
+lf_mercy_annex_001_9103      story  2  wall along Y at   8.00  built 4..12                  open  -12.00..   4.00 (16.00 m)  exec_lobby | exec_anteroom
+lf_mercy_annex_001_9204      story  2  wall along Y at   8.00  built 4..12                  open  -12.00..   4.00 (16.00 m)  exec_lobby | exec_anteroom
+night_auto                   story  1  wall along X at   2.00  built -9..9                  open  -13.00..  -9.00 ( 4.00 m)  upper_storage | upper_office
+night_auto                   story  1  wall along X at   2.00  built -9..9                  open    9.00..  13.00 ( 4.00 m)  upper_storage | upper_office
+office                       story  2  wall along Y at   8.00  built 4..12                  open  -12.00..   4.00 (16.00 m)  exec_lobby | exec_anteroom
+parking_garage               story  0  wall along X at  -8.00  built -18..-10               open  -10.00..  18.00 (28.00 m)  deck_0_south | deck_0_main
+parking_garage_a01           story  0  wall along X at  -8.00  built -18..-10               open  -10.00..  18.00 (28.00 m)  deck_0_south | deck_0_main
+parking_garage_a02           story  0  wall along X at  -9.00  built -20..-12               open  -12.00..  20.00 (32.00 m)  deck_0_south | deck_0_main
+parking_garage_a02           story  1  wall along X at   6.00  built 4..20                  open  -20.00..   4.00 (24.00 m)  deck_1 | deck_1_west
+rowhouse_raid                story -1  wall along Y at   2.00  built -7..7                  open    7.00..   9.00 ( 2.00 m)  basement_approach | basement_vault
+rowhouse_raid                story  0  wall along X at   0.00  built -9..9                  open  -11.00..  -9.00 ( 2.00 m)  front_hall | garage_bay
+rowhouse_raid                story  0  wall along X at   0.00  built -9..9                  open    9.00..  11.00 ( 2.00 m)  kitchen | garage_bay
+setback_demo                 story  0  wall along X at   8.00  built -20..-3                open   -3.00..  20.00 (23.00 m)  north_aisles | north_dock
+warehouse_a02                story  0  wall along X at   8.00  built -20..-3                open   -3.00..  20.00 (23.00 m)  north_aisles | north_dock
+33 open stretches over 1.00 m, in 20 of 446 specs

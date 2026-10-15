@@ -1,0 +1,17 @@
+# test_stair_fill_to_ground.py on a copy of Deli Counter 0.220.0 (827038a4), unpatched
+      1 5 failed in 0.44s
+      1 E               AttributeError: module 'stairwell' has no attribute 'flight_solid_base'. Did you mean: 'flight_solid_end'?
+      3 E       AttributeError: module 'stairwell' has no attribute 'flight_solid_base'. Did you mean: 'flight_solid_end'?
+      1 FAILED test_stair_fill_to_ground.py::test_a_floor_cut_under_the_second_run_keeps_its_own_storey
+      1 FAILED test_stair_fill_to_ground.py::test_every_cut_second_flight_in_the_library_stands_on_its_stairs_lowest_floor
+      1 FAILED test_stair_fill_to_ground.py::test_only_a_cut_multi_storey_switchbacks_second_leg_moves
+      1 FAILED test_stair_fill_to_ground.py::test_the_walkers_core_is_closed_to_the_north
+      1 FAILED test_stair_fill_to_ground.py::test_the_walkers_second_flight_stands_on_the_ground_floor
+      1 test_stair_fill_to_ground.py:102: AttributeError
+      1 test_stair_fill_to_ground.py:46: AttributeError
+      1 test_stair_fill_to_ground.py:52: AttributeError
+      1 test_stair_fill_to_ground.py:71: AttributeError
+
+# the same test with test_stair_back.py and test_stair_underside.py on the copy patched to 0.221.0
+27 passed in 1.53s
+# run on a throwaway copy of deli_counter at 827038a4 (no build/, no .git), DC_ROOT pointing at it; the real repo untouched until this passed

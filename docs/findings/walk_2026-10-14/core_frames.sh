@@ -10,13 +10,17 @@
 #
 # NOT DURING A WALK OR A DEMO: two look_shots runs, each a Godot window for a few minutes.
 #
-#     bash docs/findings/walk_2026-10-14/core_frames.sh
+#     bash docs/findings/walk_2026-10-14/core_frames.sh [cold run, default 9310]
+#
+# A later run of the same seed stands the office where 9310 did (Lot's draw for seed_9003), so the stations hold;
+# its workspace is named in the record that cites the sheet, so tools/factory_retire.py sees it.
 F=$(cd "$(dirname "$0")/../../.." && pwd)
 cd "$F" || exit 1
 # the workspace named in full, so tools/factory_retire.py sees which one this reads
-PKG="workspaces/cold-9310-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
+RUN="${1:-9310}"
+PKG="workspaces/cold-$RUN-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot"
 OUT="docs/findings/walk_2026-10-14"
-SCR="_scratch/core_frames"
+SCR="_scratch/core_frames_$RUN"
 ST="--station core_gap:51.5,1.6,-6.1,54.0,1.7,-1.79 --station core_mouth:54.2,1.6,3.7,54.2,6.9,-10.37"
 ST="$ST --station core_underside:56.6,1.6,2.7,53.2,3.6,0.51"
 [ -f "$PKG/mission.tscn" ] || { echo "no package at $PKG"; exit 1; }
@@ -33,4 +37,4 @@ for s in core_gap core_mouth core_underside; do
   args+=("$s, the level's own light=$SCR/own/$s.png")
   args+=("$s, INSPECTION LIGHT=$SCR/inspect/INSPECT_studio_$s.png")
 done
-python docs/findings/edge_menu/sheet.py "$OUT/core_9310_sheet.png" 2 "${args[@]}"
+python docs/findings/edge_menu/sheet.py "$OUT/core_${RUN}_sheet.png" 2 "${args[@]}"

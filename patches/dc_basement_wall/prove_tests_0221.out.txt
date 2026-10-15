@@ -1,0 +1,9 @@
+# test_basement_wall.py on a copy of Deli Counter 0.221.0 (33e6866f), unpatched
+      1 !!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+      1 1 error in 0.31s
+      1 E   ModuleNotFoundError: No module named 'migrate_basement_wall'
+
+# on a fresh copy patched to 0.222.0 (the migration with the utility door, then the refurnish: deli_a03 alone moved)
+1 failed, 41 passed in 9.11s
+# the one failure is test_walk_baseline_has_not_gone_stale, which reads build/*.manifest.json and the copy carries no build/: layout_lint.walk_unreachable on the six delis equals walk_reach_baseline.json exactly (deli_a01 and corner_deli_heist_01 none; the other four their server_room)
+# run on throwaway copies of deli_counter at 0.221.0 (33e6866f; no build/, no .git), DC_ROOT pointing at them; the real repo untouched
