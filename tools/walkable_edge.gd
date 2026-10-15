@@ -93,16 +93,18 @@ func _columns(space: PhysicsDirectSpaceState3D, x: float, z: float,
 		if hit.is_empty():
 			break
 		var hy: float = float(hit["position"].y)
-		# Headroom: is there room for a body to stand on this surface?
-		var up := PhysicsRayQueryParameters3D.create(
-			Vector3(x, hy + EPS, z), Vector3(x, hy + STAND_M, z))
-		if space.intersect_ray(up).is_empty():
-			# ...and is the point itself in free space? A shin-high sphere
-			# that overlaps a wall says this "surface" is a slab's edge under
-			# the wall, which the rays alone cannot tell (PROBE_R above).
-			_stand.transform = Transform3D(Basis(), Vector3(x, hy + PROBE_H, z))
-			if space.intersect_shape(_stand, 1).is_empty():
-				out.append(hy)
+		# Does a body fit on this surface? ONE SHAPE, the body's own column,
+		# asked once: a capsule PROBE_R wide and STAND_M tall standing on the
+		# hit, overlapping nothing. The headroom ray this replaced started
+		# inside whatever solid the hit belonged to and reported nothing, so a
+		# slab's underside and a floor's edge under a wall read as surfaces;
+		# a shin-high sphere caught the wall but not a surface inside a slab
+		# (cold run 9317: 236 cells at 6.3 m on the deli's roof, 0.3 m under
+		# its top, with the sphere poking out above). A capsule from the hit
+		# to head height overlaps the slab it is inside.
+		_stand.transform = Transform3D(Basis(), Vector3(x, hy + EPS + STAND_M * 0.5, z))
+		if space.intersect_shape(_stand, 1).is_empty():
+			out.append(hy)
 		y = hy - EPS * 2.0
 	return out
 
@@ -168,14 +170,15 @@ func _run(out_path: String, cell: float) -> void:
 		return
 
 	var space: PhysicsDirectSpaceState3D = root.world_3d.direct_space_state
-	var probe := SphereShape3D.new()
+	var probe := CapsuleShape3D.new()
 	probe.radius = PROBE_R
+	probe.height = STAND_M
 	_stand = PhysicsShapeQueryParameters3D.new()
 	_stand.shape = probe
 	_stand.collide_with_areas = false
 	_stand.collide_with_bodies = true
 	report["stand_probe_r"] = PROBE_R
-	report["stand_probe_h"] = PROBE_H
+	report["stand_probe_h"] = STAND_M
 	var top: float = box.position.y + box.size.y + 1.0
 	var bottom: float = box.position.y - 1.0
 	var nx: int = int(box.size.x / cell) + 1

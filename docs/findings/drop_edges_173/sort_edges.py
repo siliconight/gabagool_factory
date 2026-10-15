@@ -11,6 +11,8 @@ and puts each edge in the first class that claims it:
                  side of a flight, which the contract calls architecture
     hatch        within HATCH_R of a `hatch` or `ladder` marker of a mission building: the ladder's own hole
     floor_hole   within HATCH_R of a `floor_hole` / `hatch` vertical link at its storey: a drop the spec declared
+    slab_cut     within SLAB_MARGIN of a hole the builder cut in that slab (a floor or roof slot's `fit.voids`,
+                 in the built slots): the cut's own lip -- a stair well, a ladder hatch, a floor hole
     roof_rim     on a building's roof level, within RIM of its footprint's edge: a parapet's job, or its absence
     storey_rim   at a storey level inside a footprint, not a stair: a mezzanine lip, a cut slab's collar -- the
                  class the item was filed on
@@ -41,6 +43,7 @@ RIM = 1.0           # m; a roof or storey rim is this close to the footprint's e
 LEVEL_TOL = 0.35    # m; a surface this close to a storey level is that storey
 KERB = 0.3          # m; above this the ground is a thing a body stood on
 WALL_LINE = 0.3     # m; a cell this close to a footprint's edge sits on the exterior wall's own line
+SLAB_MARGIN = 0.6   # m; an edge this close to a slab's cut, at its level, is the cut's own lip
 
 
 def _buildings(pkg):
@@ -140,12 +143,31 @@ def main(argv):
         h = float(s.get("story_height") or 0.0)
         base = -1 if s.get("has_basement") else 0
         levels = [oy + k * h for k in range(base, n + 1)]       # floors, and the roof at n * h
+        # EVERY CUT IN EVERY SLAB, as the builder recorded it: a floor or roof slot's `fit.voids` are
+        # the holes in that slab (stair wells, ladder hatches, floor holes), in the slot's own centred
+        # coords, so world (spec frame) = the slot's translation + the rect. An edge at that slab's
+        # level within SLAB_MARGIN of a void is the cut's own lip: declared by the builder, whatever
+        # a guard does or does not do there. (`deli_counter/build/<id>.slots.json`)
+        cuts = []
+        sp = os.path.join(DC, "build", f"{b['id']}.slots.json")
+        if os.path.exists(sp):
+            for sl in json.load(open(sp, encoding="utf-8")).get("slots", []):
+                if sl.get("role") not in ("floor", "roof"):
+                    continue
+                tx, ty = sl["transform"]["translation"][:2]
+                lvl = oy + (float(sl["transform"]["translation"][2]) if sl.get("role") == "roof"
+                            else float(sl.get("story") or 0) * h)
+                for v in (sl.get("fit") or {}).get("voids") or []:
+                    x0, y0, x1, y1 = (float(v["x0"]) + tx, float(v["y0"]) + ty,
+                                      float(v["x1"]) + tx, float(v["y1"]) + ty)
+                    # spec (x, y) -> world (ox + x, oz - y): the y axis flips, so the rect's z order does
+                    cuts.append((ox + x0, oz - y1, ox + x1, oz - y0, lvl))
         frames.append({"id": b["id"], "node": b["node"], "rect": rect, "stairs": stairs,
-                       "hatches": hatches, "holes": holes, "levels": levels,
+                       "hatches": hatches, "holes": holes, "cuts": cuts, "levels": levels,
                        "roof": oy + n * h if n else None})
 
-    classes = {k: [] for k in ("site_edge", "wall_line", "stair", "hatch", "floor_hole", "roof_rim", "storey_rim",
-                               "prop_top", "ground", "other")}
+    classes = {k: [] for k in ("site_edge", "wall_line", "stair", "hatch", "floor_hole", "slab_cut", "roof_rim",
+                               "storey_rim", "prop_top", "ground", "other")}
     for e in rows:
         x, y, z, drop = float(e["x"]), float(e["y"]), float(e["z"]), float(e.get("drop_m", 0))
         cls = None
@@ -174,6 +196,10 @@ def main(argv):
                        for hx, hz, hy in f["holes"]):
                     cls = "floor_hole"
                     break
+                if any(abs(y - lvl) <= LEVEL_TOL and _dist_to_rect_edge(x, z, (cx0, cz0, cx1, cz1)) >= -SLAB_MARGIN
+                       for cx0, cz0, cx1, cz1, lvl in f["cuts"]):
+                    cls = "slab_cut"
+                    break
                 if d >= -RIM:
                     if f["roof"] is not None and abs(y - f["roof"]) <= LEVEL_TOL and d <= RIM:
                         cls = "roof_rim"
@@ -195,6 +221,21 @@ def main(argv):
     for k, v in classes.items():
         ind = sum(1 for e in v if e.get("indoors"))
         print(f"  {k:12s} {len(v):5d}   indoors {ind:5d}   drop max {max((float(e['drop_m']) for e in v if float(e['drop_m']) < 1e8), default=0):.2f}")
+    # THE RESIDUE, by building and level: what a reader attributes next.
+    by = {}
+    for e in classes["storey_rim"]:
+        x, y, z = float(e["x"]), float(e["y"]), float(e["z"])
+        owner = "elsewhere"
+        for f in frames:
+            if _dist_to_rect_edge(x, z, f["rect"]) >= -RIM:
+                owner = f["id"]
+                break
+        key = (owner, round(y, 1), "indoors" if e.get("indoors") else "sky",
+               "full storey" if float(e["drop_m"]) >= 2.9 else ("under 1.5" if float(e["drop_m"]) < 1.5 else "mid"))
+        by[key] = by.get(key, 0) + 1
+    print("-- storey_rim by (building, level, where, depth):")
+    for key, n in sorted(by.items(), key=lambda kv: -kv[1])[:24]:
+        print(f"   {n:5d}  {key}")
     for k in ("storey_rim", "other", "hatch"):
         print(f"-- {k}: the first rows")
         for e in classes[k][:12]:

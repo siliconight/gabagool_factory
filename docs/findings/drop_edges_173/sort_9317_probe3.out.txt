@@ -1,0 +1,51 @@
+edges 7330  (report: standable 114890, drop edges 8722, unguarded 7330, unguarded indoors 1958; rows capped at the instrument's MAX_ROWS)
+  site_edge     1855   indoors    61   drop max 999.00
+  wall_line      545   indoors     0   drop max 999.00
+  stair           45   indoors    32   drop max 7.95
+  hatch           52   indoors    26   drop max 9.90
+  floor_hole      16   indoors    16   drop max 3.30
+  slab_cut        38   indoors    38   drop max 6.60
+  roof_rim       236   indoors     0   drop max 9.90
+  storey_rim     643   indoors   592   drop max 6.60
+  prop_top      3858   indoors  1151   drop max 32.50
+  ground          42   indoors    42   drop max 1.00
+  other            0   indoors     0   drop max 0.00
+-- storey_rim by (building, level, where, depth):
+     220  ('deli_a01', 0.0, 'indoors', 'full storey')
+     183  ('deli_a01', 3.3, 'indoors', 'full storey')
+     115  ('office', 7.2, 'indoors', 'full storey')
+      26  ('pharmacy_a01', 3.4, 'sky', 'full storey')
+      26  ('office', 3.6, 'indoors', 'mid')
+      24  ('office', 7.2, 'indoors', 'mid')
+      21  ('office', 3.6, 'indoors', 'full storey')
+      14  ('deli_a01', 6.6, 'sky', 'full storey')
+       9  ('office', 10.8, 'sky', 'full storey')
+       3  ('deli_a01', 0.0, 'indoors', 'mid')
+       2  ('office', 10.8, 'sky', 'mid')
+-- storey_rim: the first rows
+   ( -59.25,   3.30,  -13.00)  drop   6.60  indoors True
+   ( -59.25,   3.30,  -13.50)  drop   6.60  indoors True
+   ( -59.00,   3.30,   -6.25)  drop   6.60  indoors True
+   ( -59.00,   3.30,  -12.25)  drop   6.60  indoors True
+   ( -59.00,   3.30,   -9.25)  drop   6.60  indoors True
+   ( -59.00,   3.30,  -13.75)  drop   6.60  indoors True
+   ( -59.25,   3.30,   -9.50)  drop   6.60  indoors True
+   ( -59.25,   3.30,  -12.50)  drop   6.60  indoors True
+   ( -42.25,   3.30,  -16.00)  drop   6.60  indoors True
+   ( -48.00,   6.60,   -4.75)  drop   6.60  indoors False
+   ( -48.25,   6.60,   -4.50)  drop   6.60  indoors False
+   (  53.00,   7.20,   -2.25)  drop   3.60  indoors True
+-- other: the first rows
+-- hatch: the first rows
+   ( -42.25,   6.60,    9.50)  drop   9.90  indoors False
+   ( -43.50,   6.60,    9.75)  drop   9.90  indoors False
+   ( -43.75,   6.60,    9.50)  drop   9.90  indoors False
+   ( -43.25,   6.60,    9.50)  drop   9.90  indoors False
+   ( -42.75,   6.60,    9.50)  drop   9.90  indoors False
+   ( -42.50,   6.60,    9.75)  drop   9.90  indoors False
+   ( -64.25,   3.30,  -10.00)  drop   6.60  indoors True
+   ( -42.25,   3.30,    9.50)  drop   6.60  indoors True
+   ( -42.25,   6.60,    9.00)  drop   6.60  indoors False
+   ( -42.25,   6.60,    8.50)  drop   6.60  indoors False
+   ( -42.50,   3.30,    9.75)  drop   6.60  indoors True
+   ( -42.50,   6.60,    8.25)  drop   6.60  indoors False

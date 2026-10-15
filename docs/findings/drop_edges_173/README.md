@@ -85,25 +85,41 @@ the office's, as `_nearest_below` returns -INF there. The repair had moved the a
 
 **Third run** (`edges_9317_probe2.json`, `sort_9317_probe2.out.txt`): in pass 2, a neighbour column with no
 surface is tested with the same sphere at its own standing point before it counts as a drop; inside something,
-it is a wall the body walks into, not an edge it walks off. Bottomless indoors 2,090 -> 191.
+it is a wall the body walks into, not an edge it walks off. Bottomless indoors 2,090 -> 191. The sort then
+gained a `slab_cut` class -- every hole the builder cut, read off the built slots' floor and roof `fit.voids`
+(relative to the slot's translation; checked against deli_a01's stair at (-15, 9), its ladder at (8, -12), its
+hatch at (-12, 8) and its floor hole at (8, -4), all four landing on a void) -- and it claimed 58 edges, so the
+storey rims were NOT at the builder's cuts. Their heights said why: 236 at 6.3 m under the sky on deli_a01, whose
+roof top is 6.6; 206 at 3.0 and 222 at -0.3 indoors, each 0.3 m under a floor's top. The downward ray meets a
+slab's underside (a ceiling skin, a slab's bottom face) and the headroom ray from there starts inside the slab
+and sees nothing; the shin-high sphere, 0.6 m up, stands clear above the slab's top. A surface inside a slab.
+
+**Fourth run** (`edges_9317_probe3.json`, `sort_9317_probe3.out.txt`): the headroom ray and the sphere are one
+test now, the body's own column -- a capsule `PROBE_R` 0.20 wide and `STAND_M` 1.80 tall standing on the hit,
+overlapping nothing (CLAUDE.md's rule: "does a body fit" is a shape question). A hit inside a slab is inside the
+capsule. The neighbour-solid test uses the same capsule.
 
     run                       drop edges   unguarded   indoors   wall_line (in)   bottomless (in)   storey_rim (in)
     1  rays only                  22,445      16,739     6,004     2,703 (939)      3,753 (137)       1,053 (651)
     2  + shin probe               24,121      16,493     4,897     1,387 (32)       8,803 (2,058)     1,622 (1,152)
     3  + neighbour-solid test     13,618      11,798     2,998     1,357 (12)       4,138 (179)       1,622 (1,152)
+    4  capsule for the body        8,722       7,330     1,958       545 (0)        1,855 (61)          643 (592)
 
-    third run, the classes:   site_edge 4,138 (179 in)   wall_line 1,357 (12 in)   stair 143 (121 in)
-                              hatch 59 (33 in)   floor_hole 16 (16 in)   roof_rim 266   storey_rim 1,622 (1,152 in)
-                              prop_top 4,140 (1,428 in)   ground 57 (57 in)   other 0
+    fourth run, the classes:  site_edge 1,855 (61 in)   wall_line 545 (0 in)   stair 45 (32 in)   hatch 52 (26 in)
+                              floor_hole 16 (16 in)   slab_cut 38 (38 in)   roof_rim 236   storey_rim 643 (592 in)
+                              prop_top 3,858 (1,151 in)   ground 42 (42 in)   other 0
 
-The 1,357 wall-line edges left are outdoors: the tops of parapets and the sidewalk beside an exterior face, cells
-the sorter puts on a footprint's line by distance alone; the 179 bottomless indoors are the next thing to look
-at. The instrument's two tests are in `tools/walkable_edge.gd` with the counts above beside them.
+The instrument's tests are in `tools/walkable_edge.gd` with the counts above beside them. The 545 wall-line
+edges left are all outdoors (parapet tops, the sidewalk beside a face), and the 61 bottomless indoors are small
+enough to read one by one.
 
-**The number this leaves: 1,622 storey rims, 1,152 of them indoors**, of which about 1,050 are full-storey
-drops (3.0-3.6 m) at a storey's level -- edges at a floor's level inside deli_a01, pharmacy_a01 and office with
-nothing above step-over height between them and the fall, not in a stair's footprint and not at a declared hole.
-Which are cut-slab collars (168), stair discharge voids, mezzanine lips somebody meant, or holes nobody railed
-is the attribution the next step owes, row by row, against the slab holes `_stairs` and `_vertical_links` cut.
-Then the furniture (1,428 prop tops indoors) by what a surface IS, the declared set emitted as links, and the
-freeze.
+**The number this leaves: 643 storey rims, 592 of them indoors, and they are three places.** deli_a01 at its
+ground floor (220 edges at 0.0 m, a full storey down) and at its first floor (183 at 3.3 m, 6.6 m down -- a run
+along world x -59.0 .. -59.25, z -6 .. -14, in the building's frame x -8, y 3.5 .. 11.5, where the next column
+has no floor at 3.3 or at 0 and its nearest surface is the basement at -3.3); office at its second floor (115
+at 7.2 m); and about 75 smaller ones (pharmacy_a01's roof rim at 3.4, office mezzanine lips at 3.6 and 7.2). None
+is at a hole the builder recorded, so each is either a void the builder cut without recording it as one, a wall
+with no collider (the barrier ray at step-over height passes where a wall should stand), or a lip somebody
+meant. Reading those three places in the scene is the next step, and it is now a morning's work rather than a
+census. Then the furniture (1,151 prop tops indoors) by what a surface IS, the declared set emitted as links,
+and the freeze.
