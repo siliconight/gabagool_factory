@@ -93,6 +93,23 @@ def _dist_to_rect_edge(px, pz, rect):
     return -((dx * dx + dz * dz) ** 0.5)
 
 
+def _tail(owners, i):
+    """The last two components of an owner path: `GreyboxBase/slab_col_1`, `cover_3/SimpleCar`."""
+    return "none" if i is None or int(i) < 0 else "/".join(owners[int(i)].split("/")[-2:])
+
+
+def _floor_like(tail):
+    """A surface a body WALKS on, by what owns its collider in this toolchain's packages: Deli Counter's
+    floor and basement slabs (`GreyboxBase/slab_col_<n>`), a roof (`roof_footprint/Roof`, an Empty's
+    `KitCollision/Roof`), a stair's ramps and landings (`GreyboxBase/stair<n>...`, never `stair_guard_rail`),
+    and Lot's own surfaces, which are the site node's direct children (`Site/Ground`, `Site/road_1`,
+    `Site/sidewalk_1L_2`, `Site/frontage_0L_1`, `Site/path_1`, `Site/yard_1`; `Site/perim_*` is the fence
+    and is claimed before this is asked). Everything else is a thing's top."""
+    return (tail.startswith("Site/") or re.match(r"GreyboxBase/slab_col_-?\d+$", tail) is not None
+            or tail.endswith("/Roof") or re.match(r"GreyboxBase/stair\d", tail) is not None
+            or re.match(r"GreyboxBase/ladder\d+_plane$", tail) is not None)
+
+
 def _grow(poly, m):
     """Expand a convex-ish polygon by m along the axes (rects in practice)."""
     xs = [p[0] for p in poly]
@@ -167,12 +184,28 @@ def main(argv):
                        "roof": oy + n * h if n else None})
 
     classes = {k: [] for k in ("site_edge", "wall_line", "stair", "hatch", "floor_hole", "slab_cut", "roof_rim",
-                               "storey_rim", "prop_top", "ground", "other")}
+                               "storey_rim", "prop_top", "perimeter_top", "parapet_top", "ground", "other")}
+    owners = rep.get("owners") or []
     for e in rows:
         x, y, z, drop = float(e["x"]), float(e["y"]), float(e["z"]), float(e.get("drop_m", 0))
         cls = None
+        # WHAT THE CELL STANDS ON, FIRST. From the instrument's sixth run the row names the collider's
+        # owner, and a surface that is not a floor, a roof, a tread or Lot's ground is a thing's top --
+        # a car, a cubicle bank, a desk, a parapet, the perimeter fence -- whatever its height. The
+        # earlier runs' rows carry no owner and fall through to the height bands below.
+        on = _tail(owners, e.get("on")) if owners else ""
+        if owners:
+            if on.startswith("Site/perim_"):
+                cls = "perimeter_top"
+            elif on.startswith("GreyboxBase/parapet_") or re.match(r"parapet_[A-Z]_t\d+_\d+/", on):
+                cls = "parapet_top"
+            elif not _floor_like(on):
+                cls = "prop_top"
+        fallback = "ground" if owners else ("prop_top" if y > KERB else "ground")
+        if cls is not None:
+            pass
         # The instrument writes a bottomless drop as 1e9 and snaps it; it arrives as 999.0.
-        if drop >= 999.0 and not any(abs(_dist_to_rect_edge(x, z, f["rect"])) <= WALL_LINE for f in frames):
+        elif drop >= 999.0 and not any(abs(_dist_to_rect_edge(x, z, f["rect"])) <= WALL_LINE for f in frames):
             cls = "site_edge"
         else:
             for f in frames:
@@ -208,10 +241,10 @@ def main(argv):
                         cls = "storey_rim"
                         break
                     if d >= 0:
-                        cls = "prop_top" if y > KERB else "ground"
+                        cls = fallback
                         break
             if cls is None:
-                cls = "prop_top" if y > KERB else "ground"
+                cls = fallback
         e["class"] = cls
         classes[cls].append(e)
 
@@ -221,6 +254,35 @@ def main(argv):
     for k, v in classes.items():
         ind = sum(1 for e in v if e.get("indoors"))
         print(f"  {k:12s} {len(v):5d}   indoors {ind:5d}   drop max {max((float(e['drop_m']) for e in v if float(e['drop_m']) < 1e8), default=0):.2f}")
+    # WHAT EACH CLASS STANDS ON, by the collider's owner (the instrument's `owners[]` table, from its
+    # sixth run on): the last two components of the node path, so `GreyboxBase/slab_col_1` is a floor
+    # slab and `cartons_r2f2d413e_4/CartonStack` a thing. A gate excludes furniture by this, not by height.
+    if owners:
+        print("-- what each class stands ON (owner tail: rows), the top entries:")
+        for k, v in classes.items():
+            if not v:
+                continue
+            tally = {}
+            for e in v:
+                t = re.sub(r"_r[0-9a-f]{8}_\d+", "_r*", _tail(owners, e.get("on")))
+                t = re.sub(r"_\d+(/|$)", r"_N\1", t)
+                tally[t] = tally.get(t, 0) + 1
+            top = sorted(tally.items(), key=lambda kv: -kv[1])[:8]
+            print(f"   {k:12s} " + "; ".join(f"{t} {n}" for t, n in top))
+    # WHAT THE FLOOD REACHED (the instrument's eighth run on: `standable_by_owner` / `reachable_by_owner`,
+    # keyed by owner index). Floors and ground first: a storey the flood did not reach has no edges asked
+    # of it, and that absence is the first thing to read before trusting a zero.
+    if rep.get("reachable_by_owner") is not None:
+        std = rep.get("standable_by_owner") or {}
+        rch = rep.get("reachable_by_owner") or {}
+        trip = [(_tail(owners, int(i)), int(rch.get(i, 0)), int(n)) for i, n in std.items()]
+        print(f"-- reached from the seed {rep.get('seed')}: {rep.get('reachable_cells')} of "
+              f"{rep.get('standable_cells')} standable cells; floors and ground (reached / standable):")
+        for t, r, n in sorted((v for v in trip if _floor_like(v[0])), key=lambda v: -v[2])[:36]:
+            print(f"   {r:6d} / {n:6d}  {t}")
+        print("   tops reached that are not floors (reached / standable):")
+        for t, r, n in sorted((v for v in trip if not _floor_like(v[0]) and v[1]), key=lambda v: -v[1])[:16]:
+            print(f"   {r:6d} / {n:6d}  {t}")
     # THE RESIDUE, by building and level: what a reader attributes next.
     by = {}
     for e in classes["storey_rim"]:
@@ -240,6 +302,13 @@ def main(argv):
         print(f"-- {k}: the first rows")
         for e in classes[k][:12]:
             print(f"   ({e['x']:7.2f}, {e['y']:6.2f}, {e['z']:7.2f})  drop {float(e['drop_m']):6.2f}  indoors {e.get('indoors')}")
+    # Every row with its class, for a probe to read its points from (`--dump <file>`).
+    if "--dump" in argv:
+        dump = argv[argv.index("--dump") + 1]
+        with open(dump, "w", encoding="utf-8") as fh:
+            json.dump([{"class": e["class"], "x": float(e["x"]), "y": float(e["y"]), "z": float(e["z"]),
+                        "drop_m": float(e["drop_m"]), "indoors": bool(e.get("indoors"))} for e in rows], fh)
+        print(f"-- dumped {len(rows)} rows with their class to {dump}")
     return 0
 
 

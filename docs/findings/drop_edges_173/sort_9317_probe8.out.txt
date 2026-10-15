@@ -1,0 +1,78 @@
+edges 59  (report: standable 114992, drop edges 936, unguarded 59, unguarded indoors 59; rows capped at the instrument's MAX_ROWS)
+  site_edge        0   indoors     0   drop max 0.00
+  wall_line        0   indoors     0   drop max 0.00
+  stair           23   indoors    23   drop max 6.67
+  hatch           13   indoors    13   drop max 3.30
+  floor_hole      16   indoors    16   drop max 3.30
+  slab_cut         4   indoors     4   drop max 3.30
+  roof_rim         0   indoors     0   drop max 0.00
+  storey_rim       0   indoors     0   drop max 0.00
+  prop_top         3   indoors     3   drop max 1.07
+  perimeter_top     0   indoors     0   drop max 0.00
+  parapet_top      0   indoors     0   drop max 0.00
+  ground           0   indoors     0   drop max 0.00
+  other            0   indoors     0   drop max 0.00
+-- what each class stands ON (owner tail: rows), the top entries:
+   stair        GreyboxBase/stair0ramp_N 13; GreyboxBase/stair1ramp_N 4; GreyboxBase/stair0col_discharge_N 3; GreyboxBase/stair0ramp_-1 2; GreyboxBase/slab_col_N 1
+   hatch        GreyboxBase/slab_col_N 12; GreyboxBase/ladder1_plane 1
+   floor_hole   GreyboxBase/slab_col_N 16
+   slab_cut     GreyboxBase/slab_col_N 4
+   prop_top     GreyboxBase/stair_guard_rail_1_col 3
+-- reached from the seed {'cell_y': 0.097398430109024, 'owner': 975, 'x': 44.85, 'y': 0.0, 'z': 15.465}: 84367 of 114992 standable cells; floors and ground (reached / standable):
+    26430 /  26430  Site/Ground_13
+    11509 /  19965  Site/Ground
+     5983 /   5988  Site/road_0
+        0 /   3698  roof_footprint/Roof
+     3600 /   3600  GreyboxBase/slab_col_1
+     3588 /   3588  GreyboxBase/slab_col_-1
+     3378 /   3378  GreyboxBase/slab_col_0
+        0 /   3283  roof_footprint/Roof
+     2814 /   2814  GreyboxBase/slab_col_1
+     2700 /   2700  GreyboxBase/slab_col_0
+     2650 /   2650  GreyboxBase/slab_col_2
+     2012 /   2012  Site/sidewalk_0R_0
+     1575 /   1894  Site/Ground_4
+     1760 /   1760  Site/road_1
+        0 /   1733  roof_footprint/Roof
+     1701 /   1701  Site/road_2
+     1580 /   1580  Site/road_3
+     1386 /   1387  GreyboxBase/slab_col_0
+     1372 /   1372  Site/Ground_12
+        0 /   1288  KitCollision/Roof
+        0 /   1120  GreyboxBase/slab_col_7
+     1085 /   1085  Site/Ground_7
+        0 /   1036  GreyboxBase/slab_col_12
+      962 /    962  Site/sidewalk_0L_2
+        0 /    952  KitCollision/Roof
+      896 /    896  Site/Ground_9
+        0 /    868  GreyboxBase/slab_col_8
+        0 /    868  GreyboxBase/slab_col_7
+      532 /    851  Site/Ground_6
+        0 /    784  KitCollision/Roof
+      704 /    704  Site/sidewalk_0L_0
+      672 /    672  Site/Ground_8
+        0 /    616  GreyboxBase/slab_col_5
+      539 /    539  Site/sidewalk_2R_1
+      536 /    536  Site/sidewalk_1L_1
+        0 /    504  GreyboxBase/slab_col_5
+   tops reached that are not floors (reached / standable):
+        4 /      4  table_low_rcce455f7_6/Table
+        3 /      3  cover_101/Bench
+        2 /      2  GreyboxBase/stair_guard_rail_1_col
+-- storey_rim by (building, level, where, depth):
+-- storey_rim: the first rows
+-- other: the first rows
+-- hatch: the first rows
+   ( -43.00,   3.30,    8.25)  drop   3.30  indoors True
+   ( -42.50,   3.30,    8.25)  drop   3.30  indoors True
+   ( -42.25,   3.30,    8.50)  drop   3.30  indoors True
+   ( -42.25,   3.30,    9.00)  drop   3.30  indoors True
+   ( -58.00,   0.00,    9.25)  drop   3.30  indoors True
+   ( -58.00,   0.00,   10.25)  drop   3.30  indoors True
+   ( -58.50,   0.00,    9.25)  drop   3.30  indoors True
+   ( -57.50,   0.00,    9.25)  drop   3.30  indoors True
+   ( -57.25,   0.00,    9.50)  drop   3.30  indoors True
+   ( -57.25,   0.00,   10.00)  drop   3.30  indoors True
+   ( -43.75,   3.30,    8.50)  drop   3.30  indoors True
+   ( -43.75,   3.30,    9.00)  drop   3.30  indoors True
+-- dumped 59 rows with their class to docs/findings/drop_edges_173/edges_9317_probe8_classed.json

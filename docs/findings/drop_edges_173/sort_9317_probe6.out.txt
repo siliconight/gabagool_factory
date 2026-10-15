@@ -1,0 +1,39 @@
+edges 5085  (report: standable 114890, drop edges 5953, unguarded 5085, unguarded indoors 910; rows capped at the instrument's MAX_ROWS)
+  site_edge        0   indoors     0   drop max 0.00
+  wall_line      278   indoors     0   drop max 10.80
+  stair            0   indoors     0   drop max 0.00
+  hatch           21   indoors    13   drop max 6.60
+  floor_hole      16   indoors    16   drop max 3.30
+  slab_cut         4   indoors     4   drop max 3.30
+  roof_rim         0   indoors     0   drop max 0.00
+  storey_rim       0   indoors     0   drop max 0.00
+  prop_top      1315   indoors   877   drop max 10.49
+  perimeter_top  2464   indoors     0   drop max 999.00
+  parapet_top    987   indoors     0   drop max 16.00
+  ground           0   indoors     0   drop max 0.00
+  other            0   indoors     0   drop max 0.00
+-- what each class stands ON (owner tail: rows), the top entries:
+   wall_line    roof_footprint/Roof 278
+   hatch        GreyboxBase/slab_col_N 16; roof_footprint/Roof 3; GreyboxBase/ladder0_plane 1; GreyboxBase/ladder1_plane 1
+   floor_hole   GreyboxBase/slab_col_N 16
+   slab_cut     GreyboxBase/slab_col_N 4
+   prop_top     cover_N/SimpleCar 185; cubicles_e_N/CubicleBank 165; cubicles_w_N/CubicleBank 165; cover_N/HoneyLocust 88; cover_N/ParkingMeter 61; GreyboxBase/desk_r*_col 42; cabinet_file_r*/FilingCabinet 37; GreyboxBase/cartons_r*_col 31
+   perimeter_top Site/perim_N 792; Site/perim_S 792; Site/perim_E 442; Site/perim_W 438
+   parapet_top  GreyboxBase/parapet_S_col 348; GreyboxBase/parapet_E_col 283; GreyboxBase/parapet_W_col 225; GreyboxBase/parapet_N_col 76; parapet_E_t2_N/Wall 10; parapet_E_t1_N/Wall 9; parapet_E_t4_N/Wall 9; parapet_E_t3_N/Wall 9
+-- storey_rim by (building, level, where, depth):
+-- storey_rim: the first rows
+-- other: the first rows
+-- hatch: the first rows
+   ( -43.50,   6.60,    8.25)  drop   6.60  indoors False
+   ( -43.00,   6.60,    8.25)  drop   6.60  indoors False
+   ( -43.00,   6.60,    9.25)  drop   6.60  indoors False
+   ( -42.50,   6.60,    8.25)  drop   6.60  indoors False
+   ( -42.25,   6.60,    9.00)  drop   6.60  indoors False
+   ( -43.75,   6.60,    9.00)  drop   6.60  indoors False
+   ( -43.75,   6.60,    8.50)  drop   6.60  indoors False
+   ( -42.25,   6.60,    8.50)  drop   6.60  indoors False
+   ( -57.50,   0.00,    9.25)  drop   3.30  indoors True
+   ( -42.25,   3.30,    9.00)  drop   3.30  indoors True
+   ( -42.25,   3.30,    8.50)  drop   3.30  indoors True
+   ( -57.25,   0.00,   10.00)  drop   3.30  indoors True
+-- dumped 5085 rows with their class to docs/findings/drop_edges_173/edges_9317_probe6_classed.json

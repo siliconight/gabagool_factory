@@ -1,0 +1,28 @@
+edges 7628  (report: standable 114890, drop edges 7629, unguarded 7628, unguarded indoors 1404; rows capped at the instrument's MAX_ROWS)
+  site_edge     3237   indoors   256   drop max 999.00
+  wall_line      686   indoors    12   drop max 999.00
+  stair           32   indoors    23   drop max 7.95
+  hatch           27   indoors    13   drop max 9.90
+  floor_hole      16   indoors    16   drop max 3.30
+  slab_cut         7   indoors     7   drop max 6.60
+  roof_rim         0   indoors     0   drop max 0.00
+  storey_rim       0   indoors     0   drop max 0.00
+  prop_top      3581   indoors  1035   drop max 32.50
+  ground          42   indoors    42   drop max 1.00
+  other            0   indoors     0   drop max 0.00
+-- storey_rim by (building, level, where, depth):
+-- storey_rim: the first rows
+-- other: the first rows
+-- hatch: the first rows
+   ( -43.75,   6.60,    9.50)  drop   9.90  indoors False
+   ( -43.25,   6.60,    9.50)  drop   9.90  indoors False
+   ( -42.75,   6.60,    9.50)  drop   9.90  indoors False
+   ( -42.25,   6.60,    9.50)  drop   9.90  indoors False
+   ( -42.50,   6.60,    9.75)  drop   9.90  indoors False
+   ( -43.50,   6.60,    9.75)  drop   9.90  indoors False
+   ( -42.25,   6.60,    8.50)  drop   6.60  indoors False
+   ( -42.25,   6.60,    9.00)  drop   6.60  indoors False
+   ( -42.50,   6.60,    8.25)  drop   6.60  indoors False
+   ( -43.00,   6.60,    9.25)  drop   6.60  indoors False
+   ( -43.00,   6.60,    8.25)  drop   6.60  indoors False
+   ( -43.50,   6.60,    8.25)  drop   6.60  indoors False
