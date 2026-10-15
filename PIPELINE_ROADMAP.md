@@ -777,7 +777,7 @@ work of adopting this.
 | 96 | **CLOSED** | Daylight anchors are specified and never realized, because the manifes | 2026-09-11 -- DECIDED (WINDOW AREA LIGHTS), WIRED, MEASURED, AND THE FIRST CALL OF THE PAT |
 | 97 | **CLOSED** | `delco_1997` is a theme two repos would have to grow, and only the smo | 2026-09-11 -- BUILT, NOT ALIASED, AND RUN COLD TWICE. Pixelcoat 0.27.0 ships `profiles/the |
 | 98 | **CLOSED** | Deli Counter cannot commit through its own pre-commit hook | 2026-09-11 -- THE HOOK PASSES AND HAS BEEN COMMITTED THROUGH. `check.py` exits 0 on 2026-0 |
-| 99 | **OPEN** | A theme has to exist in two repos, and only two do | 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES, FOUR ZOO STYLES WITH REAL SPEC |
+| 99 | **NARROWED** | A theme has to exist in two repos, and only two do | 2026-10-15 -- the ceiling moved from two themes to four, re-measured (`docs/findings/open_ |
 | 100 | **CLOSED** | `site_shape` silently falls back to a row | 2026-09-11 -- IT SAYS SO, AND THE SPELLINGS THE BRIEFS USE ARE KNOWN. Level Factory 0.65.0 |
 | 101 | **CLOSED** | The handoff hands the server addresses that resolve to nothing | 2026-09-11 -- THE THIRD SHAPE, DONE REVERSIBLY, AS LEVEL FACTORY 0.66.0. `strip_dead_node_ |
 | 102 | **CLOSED** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-11 -- MEASURED FIRST, THEN FIXED, EXACTLY AS THIS ITEM ASKED. Roadmap 130 ran the  |
@@ -785,7 +785,7 @@ work of adopting this.
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
 | 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-10-15 -- MEASURED, the first step this item asked for, and the premise holds with a n |
 | 106 | **CLOSED** | Non-enterable facade buildings exist and nothing places them | 2026-10-06 -- PLACED, AND PLACED BY DEFAULT. Level Factory 0.137.0 stands a terrace of Emp |
-| 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
+| 107 | **NARROWED** | Level Factory should own the final export, not Lot | 2026-10-15 -- the first deliverable exists: the list of what the export needs from Lot, re |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
 | 109 | **CLOSED** | The walk preview and the shipped package stopped agreeing, because one | 2026-09-06 -- THE DEFAULT IS FLIPPED AND A PLAIN WALK NOW PREVIEWS THE PACKAGE. `walk_them |
 | 110 | **CLOSED** | Patina's Layer 3 surface dressing is built end to end and connected to | 2026-09-11 -- CONNECTED END TO END, IN THE ORDER THE ITEM GAVE, AND PROVEN ON A REAL PACKA |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 30 open, 127 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 28 open, 127 closed, 3 retracted, 91 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -11323,11 +11323,7 @@ everyone bypasses is a gate that is not there. The `lf_` half wants the
 freshness check to know what `building_library.index` already knows: an id
 beginning `lf_` is not this library's to grade.
 
-*STATUS: OPEN 2026-09-05 -- MEASURED, NOT FIXED. NINE PIXELCOAT PROFILES,
-FOUR ZOO STYLES WITH REAL SPECIES COVERAGE, AND AN INTERSECTION OF TWO. EVERY
-BRIEF EVER WRITTEN USES ONE OF THOSE TWO, WHICH IS NOT HABIT -- IT IS THE ONLY
-THING THAT BUILDS. THIS IS THE GENERAL FORM OF ITEM 97 AND A HARDER CEILING ON
-LEVEL DIVERSITY THAN 37 OR 69 WERE.*
+*STATUS: NARROWED 2026-10-15 -- the ceiling moved from two themes to four, re-measured (`docs/findings/open_items_remeasure/`). Pixelcoat carries 13 profiles, `center_city` and `industrial_flats` among them -- the cheapest of the three moves this item named -- so the themes that exist on both sides are rockay (128 of 133 species), center_city (126), industrial_flats (126) and delco (119). The shared vocabulary exists as a rule: `packages/tools/themes.zoo_style_for` resolves a brief's theme to a Zoo style by name and then by the name minus its trailing qualifier (`delco_1997` -> `delco`, Zoo 0.57.0's fallback), which is why every level builds under a theme Zoo's list does not carry. Left: the doctor still prints both lists and the partial styles rather than the intersection, and the briefs still ask for one theme -- 298 of 301 cold-run briefs on disk say `delco_1997`, 3 say `delco`, and none has asked for the two that became askable.*
 
 **99. A theme has to exist in two repos, and only two do.** Found 2026-09-05
 while designing cold run 5 around vocabulary the tools had never been asked
@@ -11982,8 +11978,7 @@ Zoo does. The opaque-glazing tag an Empty's windows need was lost in Deli
 Counter's f54ebfe and is restored in 0.128.1. The rename and the wiring half
 are unchanged.*
 
-*STATUS: OPEN 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND
-IT IS ABOUT WHICH TOOL THE CONTRACT BELONGS TO RATHER THAN ABOUT A BUG.*
+*STATUS: NARROWED 2026-10-15 -- the first deliverable exists: the list of what the export needs from Lot, read off `export.py`'s 21 uses of the themed site at 0.215.1 (`docs/findings/open_items_remeasure/`). The assembly `site.tscn`, copied to the package root and read twice before that -- `_standing_lot_ids` for the `lot/<id>/site.tscn` references that say which building packages ship (0.207.0), `_assembly_building_dir` for whether the composed root belongs under one lot, three facts read off disk; three sibling directories copied whole, `skins/`, `cover/`, `signs/`, by a list the exporter's own comment calls the contract; every `*.obj` beside the scene (the paint, the wires, the drains); `responders.json` for the vehicles marked dynamic and the arrivals; the provenance sidecars; and Lot's site gameplay record through the staged inputs. Two regexes, not three, since 0.207.0. Lot's job emits none of it as a manifest, and the contract is held by the closure gate refusing an unresolved reference. Left: the manifest Lot emits and the exporter consumes, a design step for Lot and Level Factory together.*
 
 **107. Level Factory should own the final export, not Lot.** Raised
 2026-09-06: "Level factory should be owning this final export, not Lot."

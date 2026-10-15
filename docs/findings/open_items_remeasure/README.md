@@ -224,3 +224,60 @@ runtime flag that printed "NOT what ships", with the fill rate unpriced.
   itself placed third and optional once the other two existed.
 
 CLOSED on the roadmap; the per-instance channel that remains unwired is roadmap 76's question, not this one's.
+
+## 99. A theme has to exist in two repos, and only two do
+
+**What it found (2026-09-05):** nine Pixelcoat profiles, four Zoo styles with real species coverage, and an
+intersection of two (`rockay`, `delco`); `center_city` and `industrial_flats`, Zoo's best-covered styles after
+`rockay`, had no profile and could not be asked for; every brief used one of the two. What would close it: a
+decision and then content -- profiles for the two covered styles (cheapest), or species styles for the seven
+uncovered profiles, or a shared vocabulary with the doctor reporting the intersection rather than two lists.
+
+**Measured today** (the doctor's `themes` row in install test 9's setup log; `packages/tools/themes.py`; the
+cold-run briefs): Pixelcoat carries 13 profiles -- `bank, card_shop, casino, center_city, delco, delco_1997,
+industrial_flats, rockay, rockay_civic, rockay_retail, rockay_service, stadium, street` -- so the cheapest option
+happened: `center_city` and `industrial_flats` have profiles, and the themes that exist on both sides are four,
+rockay (128 of 133 species), center_city (126), industrial_flats (126) and delco (119). The reconciliation the
+item called a "shared vocabulary" exists as a rule rather than a list: `themes.zoo_style_for` resolves a brief's
+theme to a Zoo style by name, then by the name minus a trailing qualifier -- `delco_1997` -> `delco` -- the
+fallback Zoo 0.57.0 taught the theme path, which is why every level builds under a theme Zoo's style list does
+not carry. The doctor still prints the two lists and the partial styles, not the intersection. And variety
+between levels is still what the briefs ask: of 301 cold-run briefs on disk, 298 ask for `delco_1997` and 3 for
+`delco`; no brief has asked for `center_city`, `industrial_flats` or `rockay` since they became askable.
+
+NARROWED on the roadmap: the ceiling moved from two themes to four; what the doctor reports and what the briefs ask
+for have not.
+
+## 107. Level Factory should own the final export, not Lot
+
+**What it asked (2026-09-06):** not to move code first but to write down what the export needs from Lot, "because
+the current answer is spread across three regexes and a docstring, and the list itself is the deliverable"; then
+a manifest Lot emits describing its site, which the exporter consumes instead of pattern-matching paths.
+
+**The list, read off `packages/exporting/export.py` at 0.215.1** (its 21 uses of `themed_site_dir`, the output of
+Lot's `themed_site_assemble` job):
+1. **`site.tscn`, the assembly scene.** Copied to the package root as `site.tscn` (every `res://site.tscn` Lux
+   and the entry scene name must resolve to the assembly). Read twice before that: `_standing_lot_ids` finds
+   every `lot/<id>/site.tscn` it names through `_LOT_SITE_REF` -- the building packages the scene stands, which
+   is what ships since 0.207.0 -- and `_assembly_building_dir` decides whether the composed root belongs under
+   one lot from three facts read off disk: an assembly scene exists, it names exactly one `lot/<id>/site.tscn`,
+   and the composed root has no `lot/` of its own. `_ROOT_SITE_REF` matches the assembly's own
+   `res://site.tscn` reference.
+2. **Three sibling directories, copied whole:** `skins/` (the ground's Pixelcoat maps, Lot 0.58.0), `cover/`
+   (the cover modules, Lot 0.59.2), `signs/` (the shop signs, Lot 0.69.0). The exporter's own comment: "THE LIST
+   IS THE CONTRACT ... a new sibling directory in Lot means a line here", after cold run 9039 shipped a street
+   whose signs were in none of them.
+3. **Every `*.obj` beside the scene,** copied by name: the road paint, the wires, the drains (Lot 0.114.0 and
+   after), after cold runs 9234 and 9235 shipped the scene without them.
+4. **`responders.json`:** which vehicle scenes to mark dynamic for the bake (`responder_vehicle_scenes`) and the
+   arrivals the package records (`write_responder_arrivals`).
+5. **`*.provenance.json` sidecars** beside each copied file, and Lot's site gameplay record (`site.site.gameplay.json`,
+   reached through the staged inputs rather than this directory) for `gameplay_anchors.json`.
+
+Lot's job emits none of this as a manifest: its `out/` holds the scene, `lot/`, `cover/`, `signs/`, the OBJs,
+`site.markings.json`, `responders.json` and the provenance sidecars, and the exporter's contract with it is the
+list above, held by the closure gate (which refuses a package with an unresolved reference) rather than by a
+schema. The regexes are two, not three, since 0.207.0 folded the third into `_standing_lot_ids`.
+
+NARROWED on the roadmap: the list exists; the manifest Lot would emit and the exporter would consume is the
+design step still owed, and it is Lot's and Level Factory's together.
