@@ -33,8 +33,8 @@ SRC = HERE / "lf_bake_counts"
 PENDING = "--results-pending" in sys.argv
 FILL = "--fill" in sys.argv
 RESULTS = {"RESULT_SUITE": "result_suite.txt"}
-VERSION_WAS, VERSION = b"0.211.0", b"0.212.0"
-CHANGELOG_HEAD = "## [0.211.0] - A ground under the backdrop"
+VERSION_WAS, VERSION = b"0.211.1", b"0.212.0"
+CHANGELOG_HEAD = "## [0.211.1] - the certified table re-grounded for factory 1.40.0"
 SHA = {"packages/exporting/light_bake.py": "dfda58dfd8ad0728"}
 NEW = {"tests/unit/test_bake_counts_what_it_bakes.py": "test_bake_counts_what_it_bakes.py.txt"}
 
@@ -161,7 +161,7 @@ def main():
         p.write_bytes(data)
     cl.write_bytes((entry.rstrip("\n") + "\n\n" + cl_text).encode("utf-8").replace(b"\n", cl_eol))
     (LF / "VERSION").write_bytes(vraw.replace(VERSION_WAS, VERSION))
-    print("Level Factory 0.211.0 -> 0.212.0")
+    print("Level Factory 0.211.1 -> 0.212.0")
 
 
 if __name__ == "__main__":

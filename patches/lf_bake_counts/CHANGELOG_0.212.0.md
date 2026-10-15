@@ -18,6 +18,6 @@ way.
   presentation's primitives are unwrapped and baked as before. The log line reads the presentation's count: 112
   on urban_row_001, where it read 225.
 - **`tests/unit/test_bake_counts_what_it_bakes.py`:** what the bake draws, a nested instance among it; only those
-  scenes written and counted; a package with no presentation bakes nothing; the call site. On 0.211.0 all four fail.
+  scenes written and counted; a package with no presentation bakes nothing; the call site. On 0.211.0 all four fail (proven on 0.211.0; 0.211.1 moved only the certified table).
 
 **Suite:** RESULT_SUITE
