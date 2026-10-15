@@ -545,3 +545,44 @@ differentiation is unwired (76). The judgement is not recorded.
 
 NARROWED: one structural ask exists as an archetype, the other has no vocabulary; the surfaces and objects are
 half there.
+
+## 178. The instruments report and nothing blocks, and that is one defect rather than four
+
+**What it said (2026-09-24):** four instruments, all reporting, none blocking -- the z-fight gate printing FAIL
+and ERROR on five runs called zeros; Lot's isolation warning on 65 of 79 sites; Lot's `objective_approaches` at
+0 on 38 of 79 and never above 2; `test_navgate_population` blocking only after a library rebuild -- and a fifth
+on 2026-10-11, a bake that failed shipping the package unbaked and counting zero. Three shapes: fires-always-
+blocks-nothing (a threshold nobody chose), blocks-but-rarely-runs, and deliberately non-blocking with a frozen
+baseline (the model). The decision owed per instrument: block, freeze-and-fail-on-new-entrants, or delete.
+
+**Re-measured 2026-10-15, per instrument:**
+
+- **The fifth, the unbaked package:** `tools/cold_drive/cold_drive.sh` stops the run when the package was asked
+  to bake and `light_bake.json`'s `ok` is not true (root 4bf7bb5, 2026-10-11, the day it was found -- "the
+  bake's own report decides"); Level Factory 0.178.5 retries the editor bake (`BAKE_ATTEMPTS` 2) and records
+  every attempt. 9314's record: `ok` true, one attempt, 81.4 s in the editor, 215 room fills. Shape 1 became
+  shape 3's cousin: a report that is read and acted on.
+- **`test_navgate_population`:** `_live()` reads `deli_counter/build/*.navgate.json` and the tests skip only when
+  `build/` is absent. On this machine `build/` holds 157 of them, newest 2026-10-15 08:44 (the library was
+  rebuilt for Deli Counter 0.223.0), and the suite that ran after it passed them. The cadence is the library
+  rebuild's, which this month is most Deli Counter releases; between rebuilds the comparison is against the last
+  one. Still shape 2, with a shorter period.
+- **Lot's isolation warning** (`lot_intel_178.py`, `lot_intel_178.out.txt`): `site_tactical.build_graph` joined
+  the buildings that share a road in Lot 0.77.0 (2026-09-24, the day this item was filed: "the site graph
+  includes the street, because the buildings do"), which was the objection to gating it. Over the 324 cold-run
+  sites on disk, in 107 workspaces: 4 read an isolated building, all four in one lot-shape experiment
+  (`shape-sweep-9500-ws`: `shape_courtyard_9500`, `shape_l_9500`, `shape_row_9500`), 0 on any cold run proper.
+- **Lot's `objective_approaches`:** over the same 324 sites, 0 on 14, 1 on 16, 2 on 289, 3 on 4, 4 on 1 --
+  where the item read 0 on 38 of 79 and never above 2. `site_layout_lint` S5 still warns only. A threshold is a
+  design call, not a measurement.
+- **The z-fight gate:** fires and blocks nothing, still. 9314's `presentation_compose` composed 17 scenes and
+  printed `z-fight gate [FAIL]` with `ERROR: coplanar surfaces detected -- the package would flicker` for
+  deli_a01 (2 pairs in 755 solids) and office (2 in 425), `[OK]: 0` on the other 15, and exited 0. Deli Counter
+  0.198.0 judges a pair by its facing side (177: 436 pairs were 5), and the decision -- block, warn or delete,
+  on pairs no frame has shown -- is the walker's and still owed.
+
+Two of the five changed shape (the bake blocks, the navgate test runs every rebuild), two moved under a Lot
+fix and read near zero, and one is where it was.
+
+NARROWED: what is left is one walker's decision (the z-fight gate), the isolation warning's graduation by 59's
+rule once the four experimental sites are attributed, and a threshold for the approaches, which is design.

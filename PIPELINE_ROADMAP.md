@@ -856,7 +856,7 @@ work of adopting this.
 | 175 | **CLOSED** | A hidden interactive state keeps its collider, so there is collision w | 2026-10-11 -- fixed by Deli Counter 0.144.0 (`319f25c2`, "a hidden interactive state keeps |
 | 176 | **CLOSED** | A stair regression hid behind a baseline that was doing its job | 2026-09-23 -- CAUSE Deli Counter 0.143.0, FIXED IN 0.144.0. Attributed from the tracked `o |
 | 177 | **NARROWED** | A gate has printed FAIL on five consecutive cold runs and nobody read  | 2026-10-06 -- the gates are read now, and one could not pass (item 192). The z-fight gate  |
-| 178 | **OPEN** | The instruments report and nothing blocks, and that is one defect rath | 2026-09-24 -- FOUR INSTRUMENTS, ALL REPORTING, NONE BLOCKING, found inside one week while  |
+| 178 | **NARROWED** | The instruments report and nothing blocks, and that is one defect rath | 2026-10-15 -- re-measured per instrument (`docs/findings/open_items_remeasure/`, `lot_inte |
 | 179 | **NARROWED** | Manhole covers and sewer drain grates: a street has them, and only so  | 2026-10-12 -- placed and drawn by Lot: 0.120.0 (a manhole cover at every junction and alon |
 | 180 | **CLOSED** | Every Patina cover is its own draw call, and the covers are a third of | 2026-10-05 -- Zoo 1.68.0 merges a building's covers one SIDE per material (8 meshes a buil |
 | 181 | **CLOSED** | Zoo's roof props cannot fire: the adapter reads a key no planner write | 2026-10-11 -- roof props reach a level, priced and seen. Zoo 1.101.0 (`patches/patch_zoo_r |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 18 open, 130 closed, 3 retracted, 98 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 17 open, 130 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -18346,14 +18346,7 @@ cycle, and the interval here was five weeks. Worth deciding whether the sweep
 should run on its own cadence, and worth noting that the regression surfaced as
 a side effect of an unrelated release rather than by being looked for.
 
-*STATUS: OPEN 2026-09-24 -- FOUR INSTRUMENTS, ALL REPORTING, NONE BLOCKING,
-found inside one week while looking for other things. The z-fight gate has
-printed FAIL and the word ERROR on five consecutive cold runs reported as
-zeros; Lot's isolation warning fires on 65 of 79 generated sites; Lot's
-objective-approach count reads 0 on 38 of 79 and has never exceeded 2;
-`test_navgate_population` fires only after a library rebuild and hid a stair
-regression for five weeks. Item 18 says the second gate does not exist. It
-does exist -- it is wired to nothing.*
+*STATUS: NARROWED 2026-10-15 -- re-measured per instrument (`docs/findings/open_items_remeasure/`, `lot_intel_178.py`): two of the five changed shape, two moved under a Lot fix, one is where it was. The fifth, the unbaked package: the cold drive stops the run when `light_bake.json`'s `ok` is not true (root 4bf7bb5, 2026-10-11, the day it was found), Level Factory 0.178.5 retries the bake and records every attempt, and 9314 baked on attempt 1. `test_navgate_population`: it runs with every Deli Counter suite run on a machine whose `build/` exists -- 157 `*.navgate.json` there today, rebuilt 2026-10-15 08:44 for 0.223.0, the suite passed after it -- so its cadence is the library rebuild's, most releases this month. Lot's isolation warning: `build_graph` joined the buildings sharing a road in Lot 0.77.0 (2026-09-24, the day this was filed), and over the 324 cold-run sites on disk in 107 workspaces 4 read an isolated building, all four in one lot-shape experiment (`shape-sweep-9500-ws`), 0 on any cold run proper. `objective_approaches` over the same 324: 0 on 14, 1 on 16, 2 on 289, 3 on 4, 4 on 1 (was 0 on 38 of 79, never above 2); S5 still warns only. The z-fight gate: fires and blocks nothing still -- 9314's compose printed FAIL and ERROR for deli_a01 (2 pairs in 755 solids) and office (2 in 425), OK on the other 15 scenes, and exited 0; the decision it owes is the walker's (177). Left: that decision; the isolation warning's graduation by 59's rule once the four experimental sites are attributed; a threshold for the approaches, which is design. Earlier status kept: filed with the z-fight gate on five runs called zeros, isolation on 65 of 79, approaches 0 on 38 and never above 2, the navgate test hiding a stair regression for five weeks (176).*
 
 **178. The instruments report and nothing blocks, and that is one defect
 rather than four.** Raised by the walker, 2026-09-24: "individually each is a
