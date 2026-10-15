@@ -735,7 +735,7 @@ work of adopting this.
 | 54 | **CLOSED** | One mesh spans a whole room, and two light caps are paying for it | 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The closing run (census #8, `walk.tscn |
 | 55 | **CLOSED** | The level ships sign fixtures with no sign art, and three of four cann | 2026-10-15 -- answered by three Lux releases and re-measured on cold run 9314's package (` |
 | 56 | **CLOSED** | The global light budget is derived from scene text, and the running le | 2026-10-15 -- the cap counts what runs, since Level Factory 0.87.0, re-measured (`docs/fin |
-| 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
+| 57 | **NARROWED** | Asset boundaries are implementation details; architectural boundaries  | 2026-10-15 -- two of the five pieces shipped, each with the walk as judge, re-read (`docs/ |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
 | 59 | **NARROWED** | One door, two corridors: a partition ends inside the aperture and spli | 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK WAS STALE AGAINST ITS OWN TAIL.  |
 | 60 | **CLOSED** | Light walks through walls: a fixture in the next room lights this one' | 2026-09-11 -- DECIDED, BUILT INTO THE TIERS, PRICED ON HARDWARE, AND WALKED WITH NUMBERS;  |
@@ -754,7 +754,7 @@ work of adopting this.
 | 73 | **CLOSED** | Two identical consecutive runs cached nothing and disagreed about what | 2026-09-05 -- MECHANISM FOUND, FIXED, AND PROVEN UNDER THE CONDITIONS THAT BROKE COLD RUN  |
 | 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-10-15 -- re-measured with its own instrument on cold run 9314's three mission buildin |
 | 75 | **CLOSED** | Delco's facade relief was drawing the module grid it exists to break u | 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING THE MODULE GRID BY TWO SEPARAT |
-| 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
+| 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-10-15 -- re-read at Level Factory 0.215.1 against cold run 9314 (`docs/findings/open_ |
 | 77 | **CLOSED** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-09-11 -- `--begin` RECORDS WHAT WAS ALREADY DIRTY AND `--end` READS IT BACK. `cold_ru |
 | 78 | **NARROWED** | Nothing measures how a level LOOKS -- only what it is made of | 2026-08-29 -- FILED AS "NOTHING MEASURES APPEARANCE", WHICH WAS FALSE AND WAS WRITTEN WITH |
 | 79 | **OPEN** | Nothing in the pipeline represents a facade, so nothing can compose on | 2026-09-06 -- INDEPENDENTLY NAMED A SECOND TIME, FROM THE ART SIDE, AND THE TWO DESCRIPTIO |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 27 open, 128 closed, 3 retracted, 91 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 26 open, 128 closed, 3 retracted, 92 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7127,10 +7127,7 @@ matches the written cap on lot_demo_001. The DERIVATION is still text-based
 and still counts an instanced rig once and a spawned light zero times; this
 item stays open for the class, with its live instance dead.
 
-*STATUS: OPEN 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23
-walks of the tiled, deduped, trimmed lot_demo_001, where the remaining
-reads-as-tiles feeling was no longer any single defect but the absence of a
-grammar. Item 58 below is the first Critical-class instance filed under it*
+*STATUS: NARROWED 2026-10-15 -- two of the five pieces shipped, each with the walk as judge, re-read (`docs/findings/open_items_remeasure/`). The corner: Deli Counter 0.102.0 / 0.102.1 (item 58) seats a `wallEnd` unit post at every corner, ENV_CORNER_OPEN 988 -> 0 over 124 buildings with zero new modules -- a family was not needed (`deli_a01.slots.json` today: 59 `end` posts against 478 full modules; `wallCorner` 0 hits). The continuity mechanism: world-space triplanar on every kit material, Level Factory 0.57.0 (item 88), texel density 47x / 66x / 12.5x -> 1.0x over 3,554 surfaces and confirmed by eye; its cost against the instancing economy is nil by construction (the module stays one GLB instanced N times, the projection is an import flag), its frame cost has not been priced on the station harness (the A/B lives in `tools/walk_themed.py --triplanar`, a walk project), it forecloses a trim-sheet atlas (88) and needed an exception for a lit face's own UVs (LF 0.140.0). Left, named: edge metadata -- slot manifest 1.3.0 carries provenance and fit (`wall`, `story`, `facing`, `size_mod`, `material`, `fit`) and nothing that says what an edge means; weathering in building space -- Patina's per-slot pass unwired, the kit's vertex wear off by 84's decision, Pixelcoat's wear / grime / streaks on the recipe path only (76's record); the mid-distance instrument -- 78's four measure appearance and none is pointed at the kit path, 74's ruler reads form. One fact bearing on the core trade: since LF 0.143.0 the Empties ship one mesh a side (10 of 9314's 13 buildings), so there the instancing economy is already spent and the seam is one mesh's texture, not N copies of one.*
 
 **57. Asset boundaries are implementation details; architectural boundaries
 are what the player should see.**
@@ -9062,13 +9059,7 @@ geometry and are settled; whether 0.02 reads as relief or as mush is not, and
 -- rockay's value -- is the other end of the dial and flattens the wall to a
 single panel, plinth and cornice with it.
 
-*STATUS: OPEN 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE
-FROM A BRIEF. ONE OF THEM IS BLOCKED BY A SINGLE MISSING MODEL FIELD. THE
-WORLD-SPACE ONE IS NO LONGER A CANDIDATE BUT A RESULT: RE-MEASURED AGAINST A
-NULL RUN (ITEM 90) IT CLEARS THE FLOOR ON 7 OF 8 SHOTS, max |delta| 43-217
-AGAINST 7-16, AND IT WAS CONFIRMED BY EYE TO FIX ITEM 88. THE EARLIER
-"13.6-19.0% OF PIXELS" READING SURVIVES ITS OWN AUDIT, THOUGH THE FLOOR IT
-WAS QUOTED AGAINST DID NOT*
+*STATUS: OPEN 2026-10-15 -- re-read at Level Factory 0.215.1 against cold run 9314 (`docs/findings/open_items_remeasure/`): the four mechanisms sit where they were, at today's lines. `commands/__init__.py:1123` and `:1131` still read `patina_theme` off a model that has no such field (0 in `mission.brief.schema.json`; 9314's Patina job ran `--mode vertex-color --theme default`), `art_mode` is `vertex-color` at `:1117` and `:1130`, `slot_variation` and `instances.json` are 0 hits outside tests while Patina still implements the pass, and the planner's Pixelcoat job is `theme-library`, the profile path, which reaches weathering's wet half (`pooling_mask`, `wetness_mask`; Pixelcoat 0.46.0 and 0.49.0 -- uniform per material, not two copies differing) and none of its wear half (`edge_wear_mask`, `grime_mask`, `streaks`, the `variations` maps: `pipeline_generation_7.py` only, from `process --mode generation_7` or `build`). The ground the deferred layer decision stands on moved: 75 closed by measurement the day it was filed, 84 decided the vertex-wear layer (objects wear, tiles do not), and since Level Factory 0.143.0 the Empties reach the package one mesh a side per material -- 10 of 9314's 13 buildings, 6,490 surfaces into 136 meshes -- so a merged side's vertex arrays are its own and the instancing economy per-instance variation was weighed against now covers the three mission buildings (deli_a01: 347 wall instances of 27 stems), not the level. The layer question stays unsettled here, as the item asked. Earlier status, kept: filed 2026-08-29 with the world-space projection re-measured against a null run (item 90) clearing the floor on 7 of 8 shots, max |delta| 43-217 against 7-16, confirmed by eye to fix item 88; the earlier "13.6-19.0% of pixels" reading survived its own audit, though the floor it was quoted against did not.*
 
 **76. Every mechanism this factory has for making two copies of one module
 look different is implemented, and none of them is wired in.** Found

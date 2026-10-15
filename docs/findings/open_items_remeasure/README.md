@@ -319,3 +319,74 @@ that a run of eighteen is eighteen placements of one mesh. The second ruler, one
 not exist; the Empties, merged one mesh a side, are outside this ruler altogether.
 
 OPEN on the roadmap, re-measured: the number is today's, and the item's two closing moves are still the two.
+
+## 76. Every mechanism this factory has for making two copies of one module look different is implemented, and none of them is wired in
+
+**What it found (2026-08-29):** four mechanisms read in the code, none reachable from a brief -- Patina's theme
+(`patina_theme` is not a brief field, so every level gets `default`), `art_mode` hardcoded `vertex-color`,
+`--slot-variation` never passed, Pixelcoat's generation-7 stack unreachable from a theme -- with world-space
+projection already counted in the status as a result (88, confirmed by eye). What would close it: not all four,
+and a decision about which LAYER owns variation that the item deliberately deferred until 75's rebuilt level had
+been looked at.
+
+**Re-read 2026-10-15, at Level Factory 0.215.1 against cold run 9314:**
+
+1. `apps/cli/commands/__init__.py:1123` and `:1131` still read `getattr(model, "patina_theme", "") or "default"`
+   under the same comment (`:1120`); `patina_theme` occurs in `schemas/mission.brief.schema.json` 0 times. 9314's
+   Patina job ran `-m patina.cli deli_a01.glb --mode vertex-color --out ... --theme default`.
+2. `"art_mode": "vertex-color"` at `:1117` and `:1130`, both branches.
+3. `slot_variation`, `slot-variation` and `instances.json`: 0 hits in `level_factory/packages` and `apps` outside
+   tests. Patina still implements the pass (`patina/cli.py:241-248`, `slots.apply_slot_variation`).
+4. The planner's Pixelcoat job is `theme-library --theme delco_1997` (9314's `job.log`), the profile path through
+   `material_grammar.build_theme_library`. That path reaches two of `weathering.py`'s six functions --
+   `pooling_mask` and `wetness_mask`, the wet maps (Pixelcoat 0.46.0, pooling 0.49.0) -- and none of
+   `edge_wear_mask`, `grime_mask`, `streaks`, which only `pipeline_generation_7.py` calls, reached from
+   `process --mode generation_7` or `build <recipe>`; the `variations` maps likewise. So the wear half is where the
+   item left it, and the wet half crossed over -- uniform per material, which is not two copies looking different.
+
+**What moved under the item:** 75 closed by measurement the day it was filed (spectral power at the 2 m pitch
+1548 -> 1044, vertex layer held); 84 decided the vertex-wear layer -- objects wear, tiles do not, the kit's COLOR_0
+stays off; and since Level Factory 0.143.0 the Empties reach the package as one mesh a side per material: on 9314,
+10 of the 13 buildings, 6,490 surfaces merged into 136 meshes (`merge_empties.json`, `lf.merge_empties.v1`, `ok`).
+That changes the trade the item weighed per-instance variation against: a merged side is one ArrayMesh with its
+own vertex arrays, so vertex-colour variation applied before the merge costs the merged mesh nothing it does not
+already pay, and the instancing economy now covers the three mission buildings (deli_a01's 347 wall instances of 27
+stems, 74's record), not the level. The layer question stays unsettled here, as the item asked.
+
+OPEN on the roadmap, re-read: the four mechanisms sit where they were at today's line numbers, the wet half of
+the fourth crossed over, and the ground the deferred decision stands on has moved.
+
+## 57. Asset boundaries are implementation details; architectural boundaries are what the player should see
+
+**What it found (2026-08-23):** a grammar, not a patch -- five pieces, the walk as judge each time: edge metadata
+in the slots contract, a corner module family, one demonstrated continuity mechanism with its cost measured
+against the instancing economy, weathering moved to building space, and a mid-distance instrument. Status:
+FRAMED, UNWORKED, and never revisited.
+
+**Re-read 2026-10-15:**
+
+- **The corner:** shipped without a family. Deli Counter 0.102.0 / 0.102.1 (item 58) insets each exterior run and
+  seats a `wallEnd` unit post at each corner: ENV_CORNER_OPEN 988 -> 0 over 124 buildings, zero new modules, the
+  gate catching its own regression. `deli_a01.slots.json` today: 59 `size_mod: end` posts against 478 full
+  modules; `wallCorner` 0 hits in `deli_counter.py`.
+- **The continuity mechanism:** shipped. World-space triplanar on every kit material, Level Factory 0.57.0 (item
+  88): texel-density mismatch 47x / 66x / 12.5x -> 1.0x over 3,554 surfaces, confirmed by eye. Its cost against
+  the instancing economy is nil by construction -- the module stays one GLB instanced N times, the projection is
+  an import flag -- and its frame cost (three samples a texel) has not been priced on the station harness; the A/B
+  instrument is `tools/walk_themed.py --triplanar`, a walk project. It forecloses a trim-sheet atlas (88's record)
+  and needed an exception for a lit face whose picture is its UVs (LF 0.140.0).
+- **Edge metadata:** not there. Slot manifest 1.3.0's fields are `role`, `size_mod`, `style`, `material`,
+  `material_in`, `wall`, `story`, `facing`, `fit`, `transform`, `kit_axis`, `current_ref`, `species`, `variant`,
+  `stock`, `form`, `room`, `interactive` -- provenance and fit, nothing that says what an edge means.
+- **Weathering in building space:** not there (76's record): Patina's per-slot pass unwired, the kit's vertex wear
+  off by 84's decision, Pixelcoat's wear / grime / streaks on the recipe path only. World triplanar makes a
+  texture's grime continuous across a seam; nothing responds to the building.
+- **The mid-distance instrument:** not there. 78's four instruments measure appearance and none is pointed at the
+  kit path; 74's re-measure today says the ruler that reads appearance still does not exist.
+
+Two of five, and one fact bearing on the item's core trade: for the Empties -- 10 of 9314's 13 buildings -- the
+per-side merge (LF 0.143.0) has spent the instancing economy already, so there the seam is one mesh's texture,
+not N copies of one.
+
+NARROWED on the roadmap: 2 of 5 shipped, each judged by the walk; the three left are named with what stands in
+their place today.
