@@ -936,8 +936,9 @@ work of adopting this.
 | 255 | **CLOSED** | A partition that stops short of where its rooms meet | 2026-10-15 -- Deli Counter 0.223.0 (cdaefcd0): the advisory exists and the list is the wal |
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
+| 258 | **OPEN** | The mission's own shell is built three times a run and ships as a dead | 2026-10-15 -- MEASURED ON COLD RUN 9316, NOT DECIDED. Three Blender builds of the mission' |
 
-**257 items: 16 open, 131 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**258 items: 17 open, 131 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20594,3 +20595,48 @@ In all, 11.80 of 48.00 m of crosswalk ends are dropped (25 %).
 **257. Level Factory shows its output layers, the light apart from the art.** The walker, 2026-10-15: "I want Level Factory to clearly show the output layers calling out how lighting/render is separate from art ... I thought we did the work to make that another step in the output layers?" **Measured that morning, on the checkout at 0.212.0 and cold run 9312's package.** The work was done: `docs/RENDER_PASS_SPLIT.md` (2026-08-05) proposed taking Lux out of `--art` behind a `--render` flag; 0.35.0 built it the other way round, as a layer a run can DECLINE -- `LAYER_LIGHT` is `lux_apply` alone, `--unlit` leaves it out, `--art` still lights the level by default, and the fixtures (Zoo's hardware, the `lux_fixture_gate`) stay in the art because a dark fixture is broken geometry whoever lights it; 0.36.0 added `export --mode art-unlit`, the same build shipped without Lux's result, so a recipient can compare one geometry under two lighting solutions. The package says it: `LF_MANIFEST.json` and `output_layers.json` both list `layers: ["art", "gameplay", "light"]`. **What does not say it, each read off the files:** (1) `level_factory/README.md`'s Output layers section -- the repo's front page on GitHub -- still describes a Graybox base and two optional layers, Art and Gameplay, lists Lux inside `--art`'s row, and names neither `light`, `--unlit` nor `art-unlit` anywhere (grep: 0 lines). (2) `output_layers.json`'s `label` reads `graybox+art+gameplay` for a package whose `layers` carry `light`: `packages/exporting/export.py` composes it from `("art", "gameplay")` alone, while `packages/pipeline/planner.label_for_layers` composes `graybox+art+light+gameplay` for the same set -- two spellings of one label, the shape CLAUDE.md's threshold rule names. (3) `HANDOFF.md`, the page a recipient reads first, says nothing about layers (17 lines: the player contract and the manifest). (4) The export's log prints no layers line. (5) `RENDER_PASS_SPLIT.md` still opens "Not implemented". **WHAT WOULD CLOSE IT, in Level Factory:** the README's Output layers table gains the light row and the two commands that decline it (`run --art --unlit`, `export --mode art-unlit`) with one sentence on what stays in the art (the fixtures and their `LuxEmit` markers, a contract another lighting system reads); `output_layers.json`'s label spelled by `planner.label_for_layers` and nowhere else, with a test that a package carrying light says so; a HANDOFF.md paragraph naming the layers this package carries and that the light is Lux's result, separable from the art it lights; an `[export] layers:` log line; and the design doc marked built, with the flag as it shipped. A doc-and-label change, no geometry: proven by the suite and by one export's files, no cold run owed.
 
 **BUILT, 2026-10-15** (Level Factory 0.213.0, 46dc828; 0.215.1). What a reader meets first now says what the package records: the README's Output layers section, the package's own label, HANDOFF.md's last paragraph and the export's log. Cold run 9314 carries the first package that says it (`docs/cold_runs/cold_9314/NOTES.md`). The only thing that moved in a package besides these is the ground 0.215.0 unshaded.
+
+*STATUS: OPEN 2026-10-15 -- MEASURED ON COLD RUN 9316, NOT DECIDED. Three Blender builds of the mission's own shell, 1.7 min each, 5.1 of the run's 8.0 min; the shell composed and gated as the first `presentation_compose` arm with 0/0 modules; its GLB in the package twice, `assets/shell.glb` and `assets/lot.glb`, the same 552,532 bytes, referenced by no scene; its gameplay record staged for Dispatch only when the site has no markers of its own, which a Lot site always has. The decision it owes is design -- whether the brief's archetype should be the generated shell, placed, or the library family it anchors today -- and is not made here.*
+
+**258. The mission's own shell is built three times a run and ships as a dead asset.** Found 2026-10-15,
+sizing roadmap 170's bulkhead: the status written that morning said every level made this week had a stair head
+open to the sky, because the nine `lf_<mission>_<seed>` specs with such a stair are the mission's own shells.
+Read against cold run 9316's package, no file in it carries the generated shell's hatch, and the retraction led
+here (`docs/findings/roof_openings_170/README.md`, "Step 2").
+
+**What the generated shell is, and where it goes.** `deli_generate` builds the brief's archetype preset through
+Blender once per candidate -- `lf_precinct_yard_001_{9001,9102,9203}` on 9316, 1.7 min each, 5.1 of the run's
+8.0 min from batch to DONE -- and `lot_assemble` depends on it. With a `lot_library` set, which every cold-run
+brief sets, Lot stands the library's buildings (`building_library.lot_for_brief`, anchored on the brief's
+archetype FAMILY: courthouse_a02, clinic_a01, convenience_store_a01, airport_terminal_a01 on 9316's seed_9203)
+and stages only those (`stage_site_packages.py`'s `[stage] glb` lines). The shell itself then:
+
+- is composed and gated as the first `presentation_compose` arm -- "placement gate [OK]: 0/0 modules sit on the
+  greybox collision", 131 solids, and the hatch excusal's "1 excused" fired on it before it fired on any building
+  that ships;
+- is bundled by `exporting/localize.py` into the package as `assets/shell.glb`, and again as `assets/lot.glb`
+  (Dispatch's "passthrough of the DC shell"), the same 552,532 bytes as seed_9203's `shell.glb`, with
+  `mission.tscn`, `site.tscn` and `handoff_bindings.json` referencing neither;
+- has its gameplay record read by `staging/dispatch_inputs.py` only when the site has no markers of its own
+  (the 9191 duplication that rule was written against), which a Lot site never lacks -- so its anchors,
+  interactives and ladders reach Dispatch on no cold run;
+- leaves its spec behind: `deli_counter/specs/` holds 287 `lf_*` files written by runs (items 70 and 73 made
+  that a design), which `tests/test_audit_specs.py` and `build_freshness` walk.
+
+**The single-shell path is why it exists.** A brief with no `lot_library` IS this shell: one unnamed building,
+`shell.patina.*` outputs, placed as the level. The planner says so ("AN EMPTY LOT IS THE SINGLE-SHELL PATH") and
+keeps every mission that does not set the library byte-for-byte. With a library, the shell is the path's
+residue: planned, built, gated, bundled, and read by nothing a package carries.
+
+**Two readings, and the item does not choose.** (1) The shell is waste on the library path: plan it once or not
+at all when a library stands, stage Dispatch's file-check placeholder (`dispatch_inputs` already writes a
+"valid-enough" one when no GLB is given), drop the compose arm and the two assets -- about 5 minutes and 1.1 MB a
+run, and the cold-run clock (239) moves by it. (2) The shell is the mission's building that the library path
+forgot: the brief asks for a `police_station` and gets a courthouse family; placing the generated shell as the
+anchored building would make the brief's archetype real and give the bulkhead and the hatch their nine mission
+buildings back. The second changes what a level IS and is the walker's; the first is Level Factory's and cheap.
+
+**WHAT WOULD CLOSE THIS.** The decision, then its build: either the library path stops building what it does not
+ship (a planner change, proven by a cold run whose package matches today's and whose clock is shorter), or the
+generated shell is placed (a Lot and Level Factory change, a design the walker reads first). Either way the
+package stops carrying an asset nothing references, which `export_closure` could refuse.
