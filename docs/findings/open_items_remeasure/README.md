@@ -169,3 +169,28 @@ cap, where the item's package held 272 against a cap of 136.
 harness is the independent reading of the same tree; nothing refuses an export on the comparison, because what
 could exceed the cap at run time is a light the gameplay layer spawns, which the package does not contain by
 contract. CLOSED on the roadmap.
+
+## 105. Lot builds one arrangement of buildings, and nothing varies it
+
+**What it asked (2026-09-06):** not more arrangements but a measurement first -- the same brief at several seeds,
+the plans compared by building positions and the space between them -- because until that number exists "more
+arrangements" is a preference and not a target.
+
+**Measured** (`arrangements_105.py`; `arrangements_105_9314.out.txt`, `arrangements_105_9311.out.txt`): the three
+seeded candidates of urban_row_001 (cold run 9314) and of restaurant_row_001 (cold run 9311), each plan read off its
+candidate's drawn site spec.
+- **The mission buildings stand in one arrangement at every seed and in both missions:** three in a row facing
+  south at rot 0, at x -51 / +1 to +4 / +48 to +54 -- deli, pharmacy, office -- and the 1 to 6 m shifts between
+  seeds are the drawn archetype's own width (deli_a03 against deli_a01, pharmacy_a02 against pharmacy_a01), not a
+  different plan. seed_9003's three stand at the same coordinates in both missions.
+- **What varies by seed is the block, not the row:** the same `block` road grammar cuts its two side streets and
+  the rear lane at different x per seed (9003: side streets at x 25.0 and -80.2; 9104: -20.0 and +75.2; 9205:
+  -21.0 and +76.2), identically in both missions for a given seed; and the far side's deal of Empties differs by
+  seed in archetype and spot (0 of 13 Empties at the same spot between any two seeds on the urban street, 0 of
+  26 on the strip).
+- Both missions are `site_shape: strip`; no other shape was in the set, so what `site_shape` varies was not read.
+
+**So 105's premise holds, with its number:** one arrangement of the mission's buildings in six plans across two
+briefs; the seed moves the streets and the backdrop around it and never the row. The item's next step is its own
+-- a plan grammar that varies where the buildings stand and which faces address the street, measured against
+sightlines and cover before it ships. OPEN on the roadmap, measured.

@@ -783,7 +783,7 @@ work of adopting this.
 | 102 | **CLOSED** | The interiors are bare, so a room is a sightline rather than a fight | 2026-09-11 -- MEASURED FIRST, THEN FIXED, EXACTLY AS THIS ITEM ASKED. Roadmap 130 ran the  |
 | 103 | **CLOSED** | The module seam is a tile-period mismatch, and the skin owns half of i | 2026-09-06 -- BUILT, WALKED AND APPROVED: "looks good". Shipped as Pixelcoat 0.18.0, `conc |
 | 104 | **CLOSED** | World projection discards the authored tile period, so every skin rend | 2026-09-06 -- SHIPPED AS LEVEL FACTORY 0.58.0 AND APPROVED AS THE LIBRARY-WIDE ART CHANGE  |
-| 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE DIFFERENT BUILDINGS; THIS IS ABOUT |
+| 105 | **OPEN** | Lot builds one arrangement of buildings, and nothing varies it | 2026-10-15 -- MEASURED, the first step this item asked for, and the premise holds with a n |
 | 106 | **CLOSED** | Non-enterable facade buildings exist and nothing places them | 2026-10-06 -- PLACED, AND PLACED BY DEFAULT. Level Factory 0.137.0 stands a terrace of Emp |
 | 107 | **OPEN** | Level Factory should own the final export, not Lot | 2026-09-06 -- AN OWNERSHIP QUESTION RAISED FROM A WALK, AND IT IS ABOUT WHICH TOOL THE CON |
 | 108 | **CLOSED** | Every architectural module is built at `texel=1.2`, so the whole libra | 2026-09-06 -- SHIPPED AS ZOO 0.55.0, AND THE LIBRARY NOW LANDS ON ITS OWN STATED DENSITY T |
@@ -11776,9 +11776,7 @@ surface in every themed level at once -- coarser for most skins, since 1.2 is
 finer than any profile asks for. That is a library-wide art change and needs
 eyes on it, not just a passing test.
 
-*STATUS: OPEN 2026-09-06 -- RAISED FROM A WALK. ITEM 37 GAVE THE SITE
-DIFFERENT BUILDINGS; THIS IS ABOUT WHERE LOT PUTS THEM, WHICH IS A SEPARATE
-AXIS AND HAS NEVER BEEN VARIED OR MEASURED.*
+*STATUS: OPEN 2026-10-15 -- MEASURED, the first step this item asked for, and the premise holds with a number (`docs/findings/open_items_remeasure/`, `arrangements_105.py`). Six plans -- the three seeded candidates of urban_row_001 (cold run 9314) and of restaurant_row_001 (9311), read off each candidate's drawn site spec -- stand the mission's buildings in ONE arrangement: three in a row facing south at rot 0, at x -51 / +1 to +4 / +48 to +54, deli, pharmacy, office; the 1 to 6 m shifts between seeds are the drawn archetype's own width, and seed_9003's three stand at the same coordinates in both missions. What the seed varies is the block and not the row: the same `block` grammar cuts its side streets and rear lane at different x per seed (25.0 and -80.2; -20.0 and +75.2; -21.0 and +76.2), the far side's Empties are dealt afresh (0 of 13 at the same spot between any two seeds), and both missions are `site_shape: strip`, so what the shape varies was not read. Left, the item's own: a plan grammar that varies where the buildings stand and which faces address the street, measured against sightlines and cover before it ships.*
 
 **105. Lot builds one arrangement of buildings, and nothing varies it.**
 Raised 2026-09-06: "lot [should] make more arrangements of buildings."

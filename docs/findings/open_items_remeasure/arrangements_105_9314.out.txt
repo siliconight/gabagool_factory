@@ -1,0 +1,19 @@
+== seed_9003: 3 mission buildings, 13 Empties, 4 roads; site_shape strip; grammar {'asked': 'block', 'got': 'block', 'known': True}
+   b0  deli_a03             at (-51.0, 2.51)      rot   0  front S
+   b1  pharmacy_a01         at (1.0, -2.51)       rot   0  front S
+   b2  office               at (54.0, 0.49)       rot   0  front S
+   Empties: gs_cornershop_d@(-78.1, -39.31)/180, gs_midrise_b@(-60.55, -39.31)/180, gs_midrise_a@(-43.75, -39.31)/180, gs_midrise_i@(-32.8, -39.31)/180, gs_midrise_h@(-24.35, -39.31)/180, gs_midrise_g@(-13.05, -39.31)/180, gs_midrise_c@(3.75, -39.31)/180, gs_midrise_d@(22.8, -39.31)/180, gs_midrise_e@(43.35, -3
+== seed_9104: 3 mission buildings, 12 Empties, 4 roads; site_shape strip; grammar {'asked': 'block', 'got': 'block', 'known': True}
+   b0  deli_a01             at (-51.0, 2.51)      rot   0  front S
+   b1  pharmacy_a01         at (4.0, -2.51)       rot   0  front S
+   b2  office               at (48.0, 0.49)       rot   0  front S
+   Empties: gs_cornershop_c@(-75.35, -39.31)/180, gs_midrise_e@(-57.05, -39.31)/180, gs_midrise_c@(-34.25, -39.31)/180, gs_midrise_a@(-15.95, -39.31)/180, gs_midrise_i@(-5.0, -39.31)/180, gs_midrise_h@(3.45, -39.31)/180, gs_midrise_b@(17.75, -39.31)/180, gs_midrise_d@(35.3, -39.31)/180, gs_midrise_f@(53.6, -39.
+== seed_9205: 3 mission buildings, 13 Empties, 4 roads; site_shape strip; grammar {'asked': 'block', 'got': 'block', 'known': True}
+   b0  deli_a03             at (-52.0, 2.01)      rot   0  front S
+   b1  pharmacy_a02         at (4.0, -2.01)       rot   0  front S
+   b2  office               at (49.0, -0.01)      rot   0  front S
+   Empties: gs_cornershop_b@(-73.35, -39.81)/180, gs_midrise_b@(-55.05, -39.81)/180, gs_midrise_h@(-40.75, -39.81)/180, gs_midrise_i@(-32.3, -39.81)/180, gs_midrise_a@(-21.35, -39.81)/180, gs_midrise_g@(-7.55, -39.81)/180, gs_midrise_c@(9.25, -39.81)/180, gs_midrise_d@(28.3, -39.81)/180, gs_midrise_e@(48.85, -3
+== pairwise
+   seed_9003 vs seed_9104: archetypes DIFFER (['deli_a03', 'office', 'pharmacy_a01'] | ['deli_a01', 'office', 'pharmacy_a01']); buildings at the same spot and facing 0 of 3; Empties differ (0 of 13 at the same spot); roads differ
+   seed_9003 vs seed_9205: archetypes DIFFER (['deli_a03', 'office', 'pharmacy_a01'] | ['deli_a03', 'office', 'pharmacy_a02']); buildings at the same spot and facing 0 of 3; Empties differ (0 of 13 at the same spot); roads differ
+   seed_9104 vs seed_9205: archetypes DIFFER (['deli_a01', 'office', 'pharmacy_a01'] | ['deli_a03', 'office', 'pharmacy_a02']); buildings at the same spot and facing 0 of 3; Empties differ (0 of 13 at the same spot); roads differ
