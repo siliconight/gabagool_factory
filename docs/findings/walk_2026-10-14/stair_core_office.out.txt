@@ -1,0 +1,21 @@
+office: 34.0 x 24.0 m, 3 storeys of 3.60 m, wall 0.30, floor 0.30
+
+stair 0 (office_stair_0): at (0.00, 0.00), stories 0..2, run 4.70, width 1.60, facing N, cut_slabs True, underside solid
+  hole_span: centre x 0.000, width 4.000
+  leg 0, storey 0, run sign +1: flight_rect x -2.000..2.000 y -2.650..3.150; solid fill True, standing on z 0.00 (storey 0's floor)
+  leg 1, storey 1, run sign -1: flight_rect x -2.000..2.000 y -3.150..2.650; solid fill True, standing on z 3.60 (storey 1's floor)
+
+slab holes in the spec as loaded (the builder appends a stair's own cuts as it builds):
+
+stair_guards:
+  side  storey 0  along Y at   -1.802    -0.600..   3.150  (3.750 m)  thick 0.395
+  rail  storey 1  along Y at   -2.050    -2.650..   1.739  (4.389 m)
+  side  storey 0  along Y at    1.802    -0.600..   3.150  (3.750 m)  thick 0.395
+  rail  storey 1  along Y at    2.050    -2.650..   1.739  (4.389 m)
+  rail  storey 1  along X at   -2.700    -2.100..   2.100  (4.200 m)
+  side  storey 1  along Y at   -1.802    -3.150..   0.600  (3.750 m)  thick 0.395
+  rail  storey 2  along Y at   -2.050    -1.739..   2.650  (4.389 m)
+  side  storey 1  along Y at    1.802    -3.150..   0.600  (3.750 m)  thick 0.395
+  rail  storey 2  along Y at    2.050    -1.739..   2.650  (4.389 m)
+  rail  storey 2  along X at    2.700    -2.100..   2.100  (4.200 m)
+  back  storey 0  along X at    2.622     0.000..   1.605  (1.605 m)  thick 1.056

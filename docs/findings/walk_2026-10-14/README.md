@@ -140,6 +140,45 @@ at 3.60) ends in a level bottom edge in mid-air, over open floor -- the walker: 
 down all the way to the ground". Not yet traced. The three read as one finding: a stair core built from per-step
 boxes, with no enclosure, soffit or rail a person would expect.
 
+**Traced, 20:50, from Deli Counter's own rules: one stair core whose upper half stands on a floor its own hole removed.**
+Instruments: `stair_core.py` and `stair_core_office.out.txt`. The office stands at Godot (54, 0, -0.49), unrotated, in
+9310's `site.tscn`, so a walker position (gx, gz) is plan (gx - 54, -(gz + 0.49)).
+- **The stair:** `office_stair_0` climbs storeys 0 to 2 at the shell's centre. Two runs sit side by side in one
+  reserved rectangle, x -2..2:
+  - leg 0 climbs north in run A, x 0..1.6;
+  - leg 1 climbs south in run B, x -1.6..0, off the landing.
+  - The stair cuts storey 1's slab across both runs: `hole_span`, 4.0 m.
+- **9, the flight ending in mid-air:** `stairwell.flight_solid_under` fills a switchback's first two legs solid "to
+  that storey's floor". Its premise is that "only the first leg of each run stands on a storey floor". Leg 1's floor,
+  at z 3.6, is the slab the stair's own hole removed, so its fill hangs with a level bottom at 3.6 over the ground
+  floor. The walker looked up at it from plan (2.6, -3.2), the mouth's south-east corner.
+- **7, the gap:** under leg 1, run B's half of the core at storey 0 is an empty slot the length of the core.
+  `stair_guards` builds its `back` only behind the first run's top, so the core's north face is open over run B,
+  x -1.6..0. From plan (-2.5, 5.6) the walker looked through it at leg 0's fill side, the stepped face.
+- **8, wrong in general:** the side walls stand per storey, and each stops 2.05 m short of its own flight's entry
+  end (`landing_open`, a body's way on from the side).
+  - Storey 0's walls cover the core's north 3.75 m and storey 1's its south 3.75 m, so the enclosure is staggered.
+  - Storey 1's rail across the hole's south edge reads from below as a handrail across the void.
+  - The walker looked up the core from its mouth, plan (0.2, -4.2).
+
+**How far it reaches** (`floating_flights.py`, `floating_flights.out.txt`): of 281 switchbacks in 446 specs, 212
+legs above a stair's lowest storey are filled solid, 204 of them over their own cut. In the library itself, apart
+from Level Factory's per-candidate copies, that is 17 legs in 14 specs, 15 over their cut:
+- the deli family: cr_deli, night_deli, corner_deli_heist_01;
+- office and office_stepped;
+- primos_pizza and twin_a01;
+- bank_job, foundry_heist_vertical, harbor_score, final_stand (2) and
+  cbp_town_finale_midbalanced_schemafixed (2).
+
+- **Proposed, Deli Counter's, frames to the walker first:**
+  - **Fill to the real floor.** The walker's words for 9, "should come down all the way to the ground", and cold run
+    9046's "stairs should have a solid bottom to the ground", both ask for the fill to stand on the floor that is
+    actually under it: here storey 0's. That fills run B's slot, which also closes 7's gap. It moves the navmesh and
+    the fights, so it goes out through the graders.
+  - **Or a real core:** enclosure walls continuous storey to storey with a door on each floor, and open flights with a
+    sloped soffit. Larger; it is the stair species roadmap 144 names as the dearer answer.
+  - Either way, shown first in the inspection light at the walker's three stations, after the demo.
+
 ## The work light, L (the walker's ask, 20:10)
 
 After the inspection light settled finding 3 in frames (`tools/look_shots.py --inspect studio`), the walker asked for
