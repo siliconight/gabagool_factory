@@ -752,7 +752,7 @@ work of adopting this.
 | 71 | **CLOSED** | The fixture co-location gate measures bracket-to-bulb and calls it a f | 2026-08-28 -- RETRACTED AS FILED, REFRAMED, FIXED IN LUX 0.26.0, AND PROVEN TWICE: ONCE SY |
 | 72 | **CLOSED** | Nothing checks that a brief's theme resolves until the art pass is alr | 2026-08-29 -- CHECKED IN FOUR PLACES, AND THE ONE THAT SAVES THE TIME IS `run` REFUSING BE |
 | 73 | **CLOSED** | Two identical consecutive runs cached nothing and disagreed about what | 2026-09-05 -- MECHANISM FOUND, FIXED, AND PROVEN UNDER THE CONDITIONS THAT BROKE COLD RUN  |
-| 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A NEW INSTRUMENT, NO FIX ATTEM |
+| 74 | **OPEN** | Every wall in every building is the same 2.00 m module, and it gets wo | 2026-10-15 -- re-measured with its own instrument on cold run 9314's three mission buildin |
 | 75 | **CLOSED** | Delco's facade relief was drawing the module grid it exists to break u | 2026-08-29 -- ZOO 0.53.0 AND 0.54.0. THE RELIEF WAS TRACING THE MODULE GRID BY TWO SEPARAT |
 | 76 | **OPEN** | Every mechanism this factory has for making two copies of one module l | 2026-08-29 -- FOUR MECHANISMS READ IN THE CODE, NONE REACHABLE FROM A BRIEF. ONE OF THEM I |
 | 77 | **CLOSED** | `cold_run.py --begin` cannot tell that a run is starting mid-edit | 2026-09-11 -- `--begin` RECORDS WHAT WAS ALREADY DIRTY AND `--end` READS IT BACK. `cold_ru |
@@ -762,7 +762,7 @@ work of adopting this.
 | 81 | **NARROWED** | Zoo's wear noise runs at the mesh's vertex density, and a wall module  | 2026-08-29 -- THE MECHANISM IS REAL IN THE FILE AND INERT IN THE ENGINE. REMOVING THE WEAR |
 | 82 | **ANALYSIS** | Every tool's contract is about a piece. No contract is about the whole | 2026-08-29 -- THE FRAME. ITEMS 73 THROUGH 81 ARE FACES OF THIS ONE FACT, AND IT EXPLAINS W |
 | 83 | **NARROWED** | The renderer lights the wall per piece, so light draws the module grid | 2026-08-29 -- REFUTED AS THE CAUSE OF THE EXTERIOR BANDING, BY ABLATION, WITHIN THE HOUR I |
-| 84 | **OPEN** | Zoo computes per-vertex wear, exports it correctly, and the engine doe | 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION RATHER THAN A FLAG. 1,896 KI |
+| 84 | **CLOSED** | Zoo computes per-vertex wear, exports it correctly, and the engine doe | 2026-10-15 -- the decision was made and built, re-read (`docs/findings/open_items_remeasur |
 | 85 | **NARROWED** | Fixtures spawn inside walls, and the co-location gate cannot notice | 2026-09-11 -- MEASURED ACROSS THE LIBRARY, THE CAUSE FOUND AT THE SOURCE AND FIXED THERE,  |
 | 86 | **CLOSED** | A 3 mm chamfer was shading every flat wall as a cushion | 2026-08-29 -- ZOO 0.52.0, AND THE ONLY VERDICT THAT MATTERS: THE PERSON WHO REPORTED IT LO |
 | 87 | **NARROWED** | Deli Counter's one-mesh-in-VRAM discipline stops at the texture | 2026-09-05 -- THE OTHER HALF NOW HAS A ROUTE AND A REASON TO EXIST BEYOND SIZE: DETACHING  |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 28 open, 127 closed, 3 retracted, 91 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 27 open, 128 closed, 3 retracted, 91 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -8932,9 +8932,7 @@ that measures what the toolchain is for -- has no yes after three cold runs:
 profile, 7003 blocked here. Evidence: `docs/findings/COLD_RUN_7003.md`.
 
 
-*STATUS: OPEN 2026-08-29 -- MEASURED ACROSS TWELVE SHIPPED BUILDINGS WITH A
-NEW INSTRUMENT, NO FIX ATTEMPTED. THE NUMBER IS NOT A ONE-BUILDING COMPLAINT
-AND IT DOES NOT PLATEAU*
+*STATUS: OPEN 2026-10-15 -- re-measured with its own instrument on cold run 9314's three mission buildings (`docs/findings/open_items_remeasure/`, `repetition_74_9314.out.txt`): deli_a01 347 wall instances, 64 forms, worst run 18 of 21 segments at one form; office 196 / 25 / 11; pharmacy_a01 73 / 24 / 7, where the 2026-08-29 baseline read it 67 / 20 / 7; every run at a 2.00 m pitch. In the ruler's own terms nothing moved, and it says why: it measures the form vocabulary, and what shipped since is per-instance -- world-space UVs on every module (80's record) end the texture restart at the seam without making a run of eighteen fewer than eighteen placements of one mesh. The second ruler, one that reads appearance, still does not exist, and the Empties, merged one mesh a side, are outside this one. The two closing moves are still the two: a vocabulary that grows with the span, or per-instance variation seen by a ruler that can see it.*
 
 **74. Every wall in every building is the same 2.00 m module, and it gets
 worse the longer the facade.** Found 2026-08-29 by walking `bank_block_001`
@@ -9712,16 +9710,7 @@ that is a reach-and-performance decision with consequences well beyond a
 facade, and it belongs to whoever owns that choice. It is recorded here
 because "light should add cohesion" has a structural answer and this is it.
 
-*STATUS: OPEN 2026-08-29 -- DIAGNOSED, NOT FIXED, AND THE FIX IS A DECISION
-RATHER THAN A FLAG. 1,896 KIT SURFACES CARRY COLOR_0 AND 0 OF 19 MATERIALS
-READ IT. THE EXPORT IS FINE; THE IMPORT DROPS IT. NOW WITH A MEASURED
-COUNTER-ARGUMENT: FORCING THE LAYER ON MULTIPLIES THE 2 m MODULE SIGNATURE BY
-3.8x (SPECTRAL POWER AT THE MODULE PITCH, NORTH ELEVATION, 278 OFF -> 1044
-ON, GEOMETRY HELD CONSTANT). THAT IS A LARGER EFFECT THAN THE RELIEF FIX OF
-ITEM 75 AND IT POINTS THE WRONG WAY. THE LAYER IS STILL DEAD WEIGHT AND STILL
-WORTH FIXING, BUT NOT AS BAKED: THE WEAR IS COMPUTED PER MODULE AND SO
-REPEATS PER MODULE BY CONSTRUCTION, WHICH IS ITEM 79'S ROOT CAUSE WEARING A
-THIRD MASK*
+*STATUS: CLOSED 2026-10-15 -- the decision was made and built, re-read (`docs/findings/open_items_remeasure/`). Level Factory 0.86.0's `zoo_worldskin.gd` (`_vertex_colour_albedo`) draws COLOR_0 as albedo on every GLB that is an object rather than a tile -- a car, a container, a chair, a lamp -- for any material some surface of which is not white, and leaves it off for the kit and the tiled families, which is this item's 3.8x argument applied: objects wear, tiles do not; `tests/unit/test_vertex_colour_and_clutter_skins.py` pins both halves, from the 0 of 1,650 surfaces that drew it on walk 9052_rain. Zoo 1.59.0 built on it, a car's paint riding its vertices, measured on the eight cars of cold run 9141. The kit's wear stays off by that decision; that it repeats per module is item 79's, as this status already said.*
 
 **84. Zoo computes per-vertex wear, exports it correctly, and the engine does
 not use it.** Found 2026-08-29 by deleting the layer and finding that nothing

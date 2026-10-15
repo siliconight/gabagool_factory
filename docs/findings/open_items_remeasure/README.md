@@ -281,3 +281,41 @@ schema. The regexes are two, not three, since 0.207.0 folded the third into `_st
 
 NARROWED on the roadmap: the list exists; the manifest Lot would emit and the exporter would consume is the
 design step still owed, and it is Lot's and Level Factory's together.
+
+## 84. Zoo computes per-vertex wear, exports it correctly, and the engine does not use it
+
+**What it found (2026-08-29):** 1,896 kit surfaces carried COLOR_0 and 0 of 19 materials read it -- Godot's glTF
+importer never sets `vertex_color_use_as_albedo` -- and the measured counter-argument that forcing it on for the
+kit multiplies the 2 m module signature by 3.8x, because the wear is computed per module. "The fix is a decision
+rather than a flag."
+
+**The decision was made and built, read off the checkouts:** Level Factory 0.86.0's `zoo_worldskin.gd`
+(`_vertex_colour_albedo`) draws COLOR_0 as albedo on every GLB that is an object rather than a tile -- a car, a
+container, a chair, a lamp -- for any material some surface of which is not white, and leaves it off for the kit
+(`KIT_PREFIXES`) and the tiled families (`ceiling_`, `floor_`, `roof_`, `_dressing.glb`), which is exactly the
+3.8x argument applied: objects wear, tiles do not. `tests/unit/test_vertex_colour_and_clutter_skins.py` pins both
+halves (every object GLB runs the pass and no tile does; the flag goes on only for tinted materials with colours
+on every surface), from the measurement that 0 of 1,650 surfaces drew it on walk 9052_rain before. Zoo 1.59.0
+then built on it -- a car's paint rides its vertices, measured on the eight cars of cold run 9141 -- which is the
+engine using the layer.
+
+CLOSED on the roadmap. The kit's own wear stays off by that decision; that the wear repeats per module is item
+79's root cause, as the status already said, and stays there.
+
+## 74. Every wall in every building is the same 2.00 m module, and it gets worse the longer the facade
+
+**What it found (2026-08-29):** `tools/repetition_census.py` over twelve shipped buildings: `longest_identical_run`
+median 19, range 7 to 28; the walked bank_block_001 at 14 was a good day. What would close it: the vocabulary
+growing with the span (a bay library, `wallCorner`) or per-instance work landing with a second ruler that reads
+appearance -- "not a threshold".
+
+**Re-measured** (`repetition_74_9314.out.txt`, `repetition_74_9314.json`, the same instrument on cold run 9314's
+three mission buildings as composed): deli_a01 347 wall instances, 27 stems, 64 forms, reuse 5.42, worst run 18
+(`ext_-1_N`, 21 segments, 86 % one form); office 196 / 14 / 25 / 7.84 / 11; pharmacy_a01 73 / 13 / 24 / 3.04 /
+7, where the baseline read it at 67 / 12 / 20 / 3.35 / 7. Every run's pitch is 2.00 m. In the ruler's own terms
+nothing moved, and it says why: it measures the form vocabulary, and what shipped since is per-instance --
+world-space UVs on every module (roadmap 80's record), which end the per-module texture restart without changing
+that a run of eighteen is eighteen placements of one mesh. The second ruler, one that reads appearance, still does
+not exist; the Empties, merged one mesh a side, are outside this ruler altogether.
+
+OPEN on the roadmap, re-measured: the number is today's, and the item's two closing moves are still the two.
