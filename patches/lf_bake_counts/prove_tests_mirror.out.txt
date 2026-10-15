@@ -1,0 +1,14 @@
+# tests/unit/test_bake_counts_what_it_bakes.py on a copy of Level Factory 0.211.0 (5c67868), unpatched
+E       AttributeError: module 'packages.exporting.light_bake' has no attribute 'baked_scenes'
+tests\unit\test_bake_counts_what_it_bakes.py:35: AttributeError
+E       AttributeError: module 'packages.exporting.light_bake' has no attribute 'baked_scenes'
+tests\unit\test_bake_counts_what_it_bakes.py:40: AttributeError
+E       AttributeError: module 'packages.exporting.light_bake' has no attribute 'baked_scenes'
+tests\unit\test_bake_counts_what_it_bakes.py:49: AttributeError
+tests\unit\test_bake_counts_what_it_bakes.py:57: AssertionError
+FAILED tests/unit/test_bake_counts_what_it_bakes.py::test_the_bake_draws_the_presentation_and_what_it_instances
+
+# the same test and test_light_bake.py on the copy patched to 0.212.0
+.........................                                                [100%]
+# the progress line above: 25 progress characters, none F or E; Level Factory's conftest prints no summary line (COMMANDS.md trap 1)
+# run on a throwaway copy of level_factory (5c67868) under the session's temp folder, LF_ROOT pointing at it; the real repo untouched; the full suite runs when the patch is applied
