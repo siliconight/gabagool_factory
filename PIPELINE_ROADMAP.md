@@ -733,7 +733,7 @@ work of adopting this.
 | 52 | **CLOSED** | `lot_demo_001` re-measured, and the route exposure it reports is the d | 2026-08-16 -- MEASURED on the mission it was overdue for. All stages EXECUTED rather than  |
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 | 54 | **CLOSED** | One mesh spans a whole room, and two light caps are paying for it | 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The closing run (census #8, `walk.tscn |
-| 55 | **OPEN** | The level ships sign fixtures with no sign art, and three of four cann | 2026-09-05 -- SEEN AGAIN ON A SECOND MISSION AND THE ART DECISION IS NOW MADE: IT IS A BUG |
+| 55 | **CLOSED** | The level ships sign fixtures with no sign art, and three of four cann | 2026-10-15 -- answered by three Lux releases and re-measured on cold run 9314's package (` |
 | 56 | **OPEN** | The global light budget is derived from scene text, and the running le | 2026-08-23 -- MEASURED at discovery, unworked. Found by item 54's closing instrument on it |
 | 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
@@ -849,7 +849,7 @@ work of adopting this.
 | 168 | **NARROWED** | Greybox survives into a themed package wherever theming has no pass fo | 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED; THREE OTHER GREYBOX SURFACES R |
 | 169 | **OPEN** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A COLD RUN. Four anchored pa |
 | 170 | **OPEN** | Every roof opening in the library is an open hole, and a building does | 2026-09-23 -- MEASURED, NOT STARTED. 58 of 58 `roof_access` ladders cut the slab they arri |
-| 171 | **OPEN** | Exterior access exists and almost never gets placed | 2026-09-23 -- A BUILT CAPABILITY THAT IS ESSENTIALLY UNUSED. 2 fire escapes in 370 specs;  |
+| 171 | **NARROWED** | Exterior access exists and almost never gets placed | 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `e |
 | 172 | **CLOSED** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 by cold run 9077 -- `links: 1`, `lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] t |
 | 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
 | 174 | **NARROWED** | `interactive_state` means one thing on a breach and another on a door | 2026-09-23 -- THE APERTURE CLAIM IS RETRACTED, MEASURED WRONG WITHIN THE HOUR. The scene a |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 38 open, 122 closed, 3 retracted, 87 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 36 open, 123 closed, 3 retracted, 88 narrowed, 1 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7024,19 +7024,7 @@ so nothing downstream can select them. NOT CLAIMED HERE: whether a blank
 emitter is a defect or simply unfinished content. That is an art decision and
 this item does not make it*
 
-*STATUS: OPEN 2026-09-05 -- SEEN AGAIN ON A SECOND MISSION AND THE ART
-DECISION IS NOW MADE: IT IS A BUG. Walked in `precinct_yard_001`, circled in a
-screenshot, `look Doorway 3.12 m` against the 2.9 m this item recorded on
-`arena_a03` eighteen days earlier -- the same white card beside the same kind
-of opening, on a different building in a different mission. An `AreaPanelRig`
-node is in the shipped build. THE ONLY THING THIS ITEM WAS WAITING FOR WAS THE
-CALL, which it declined to make itself and which has now been made by the
-person who walked it. STILL TRUE AND STILL UNFIXED: the light works, the
-surface is blank, and three of the four rigs carry engine-generated names
-(`@Node3D@27`, `@Node3D@71`, `@Node3D@99`) so nothing downstream can select
-them -- which is the half that has to be fixed before the art half can be.
-Original text below, including its deferral, kept because the deferral is what
-this update answers.*
+*STATUS: CLOSED 2026-10-15 -- answered by three Lux releases and re-measured on cold run 9314's package (`docs/findings/open_items_remeasure/`, `sign_panels_55.py`). Lux 0.33.0 turned the area rig's preview quad off for a sign -- the hardware is the panel, Zoo's cabinet carries the face -- and 0.36.0 builds a window's rig with no `AreaPanel_Surface` at all; 0.34.0 names a rig `<name>_dup<k>` where `add_child` had renamed every rig after the first building's to `@Node3D@<n>`. On 9314's `lux.applied.tscn`: 964 nodes, `AreaPanel_Surface` 0, engine names 0, spawner names 205, and the scene's only two quads are the sign faces under Zoo's art (`sign_scrapple_sons_deli` and `sign_docs_discount_drugs`, albedo and emissive). The count this item asked for in the validation output was not added: the class it would count, a blank Lux card, no longer exists in a package; a sign with no art is a Zoo face without a texture, which the closure scan reads. The first re-read counted seven 1.4 m quads that were the rigs' `panel_size` property, kept as refuted there.*
 
 **55. The level ships sign fixtures with no sign art, and three of four cannot
 be addressed.**
@@ -17876,8 +17864,7 @@ light well, a plant deck. Those exist and the rule must not close them
 blindly, which argues for the treatment being a property of the LINK rather
 than of every hole.
 
-*STATUS: OPEN 2026-09-23 -- A BUILT CAPABILITY THAT IS ESSENTIALLY UNUSED. 2
-fire escapes in 370 specs; 3 ladders in the whole library are exterior.*
+*STATUS: NARROWED 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `exterior_access_171.py`): of the library's 159 specs, 7 carry a fire escape where 2 of 370 did -- the five walk-up Empties' `fire_escape_stack: "front"` (Deli Counter 0.220.0, Zoo 1.110.0's `fire_escape` a storey a slot, merged with the front by Level Factory 0.209.0; `gs_midrise_a`, `_b`, `_g`, `_h`, `_i`) and the two assemblies this item counted -- so every urban level stands the fire escapes of the walk-ups it deals, and a strip level stands none. Exterior ladders 3 of 78, as before. Left: the stack is visual only (no collision), so it is not the alternate entry route this item asked to measure; 0.220.0's rule is chosen (a walk-up of six storeys or fewer, not a corner block), not derived from a building's stairs as the item proposed; and the library's two older walk-ups carry the assembly, not the stack.*
 
 **171. Exterior access exists and almost never gets placed.** The walker,
 2026-09-23: more outdoor ladders would be good for fire escapes and alternate
