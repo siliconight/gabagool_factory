@@ -1,0 +1,171 @@
+{
+ "tol": 0.002,
+ "min_area": 1e-06,
+ "normal_tol": 0.001,
+ "theme": "delco_1997",
+ "style": 1,
+ "rows": [
+  {
+   "species": "roof_hatch",
+   "corner": "min",
+   "dims": [
+    0.9,
+    0.9,
+    0.12
+   ],
+   "stem": "prop_roof_hatch_delco_1997_01_w90_d90_h12",
+   "built_species": "roof_hatch",
+   "status": "pass",
+   "tris": 260,
+   "pairs": []
+  },
+  {
+   "species": "roof_hatch",
+   "corner": "default",
+   "dims": [
+    1.66,
+    1.66,
+    0.2
+   ],
+   "stem": "prop_roof_hatch_delco_1997_01_w166_d166_h20",
+   "built_species": "roof_hatch",
+   "status": "pass",
+   "tris": 260,
+   "pairs": []
+  },
+  {
+   "species": "roof_hatch",
+   "corner": "max",
+   "dims": [
+    2.4,
+    2.4,
+    0.35
+   ],
+   "stem": "prop_roof_hatch_delco_1997_01_w240_d240_h35",
+   "built_species": "roof_hatch",
+   "status": "pass",
+   "tris": 260,
+   "pairs": []
+  },
+  {
+   "species": "bollard",
+   "corner": "min",
+   "dims": [
+    0.154,
+    0.154,
+    0.735
+   ],
+   "stem": "prop_bollard_delco_1997_01_w15_d15_h74",
+   "built_species": "bollard",
+   "status": "pass",
+   "tris": 536,
+   "pairs": [
+    {
+     "a": "Bollard_Pipe",
+     "b": "Bollard_Pipe",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.006115,
+     "cover_pos_mm": 145.5,
+     "cover_neg_mm": 50.0,
+     "cover_mm": 50.0
+    },
+    {
+     "a": "Bollard_Pipe",
+     "b": "Bollard_Pipe",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -0.0,
+      0.0,
+      -1.0
+     ],
+     "overlap_m2": 0.001529,
+     "cover_pos_mm": 50.0,
+     "cover_neg_mm": 145.5,
+     "cover_mm": 50.0
+    }
+   ]
+  },
+  {
+   "species": "bollard",
+   "corner": "default",
+   "dims": [
+    0.22,
+    0.22,
+    1.05
+   ],
+   "stem": "prop_bollard_delco_1997_01_w22_d22_h105",
+   "built_species": "bollard",
+   "status": "pass",
+   "tris": 536,
+   "pairs": [
+    {
+     "a": "Bollard_Pipe",
+     "b": "Bollard_Pipe",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      0.0,
+      0.0,
+      -1.0
+     ],
+     "overlap_m2": 0.01002,
+     "cover_pos_mm": 50.0,
+     "cover_neg_mm": 240.0,
+     "cover_mm": 50.0
+    },
+    {
+     "a": "Bollard_Pipe",
+     "b": "Bollard_Pipe",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      -0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.00668,
+     "cover_pos_mm": 240.0,
+     "cover_neg_mm": 50.0,
+     "cover_mm": 50.0
+    }
+   ]
+  },
+  {
+   "species": "bollard",
+   "corner": "max",
+   "dims": [
+    0.33,
+    0.33,
+    1.575
+   ],
+   "stem": "prop_bollard_delco_1997_01_w33_d33_h158",
+   "built_species": "bollard",
+   "status": "pass",
+   "tris": 536,
+   "pairs": [
+    {
+     "a": "Bollard_Pipe",
+     "b": "Bollard_Pipe",
+     "facing": "OPP",
+     "gap_mm": 0.0,
+     "normal_of_a": [
+      0.0,
+      -0.0,
+      1.0
+     ],
+     "overlap_m2": 0.039548,
+     "cover_pos_mm": 397.5,
+     "cover_neg_mm": 50.0,
+     "cover_mm": 50.0
+    }
+   ]
+  }
+ ]
+}

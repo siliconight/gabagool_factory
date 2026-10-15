@@ -1,0 +1,46 @@
+[look_shots] C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_precinct_9316
+  engine   4.7-stable (official)
+  method   gl_compatibility   (what the project asks for)
+  api      3.3.0 NVIDIA 616.56   (what this process bound)
+  adapter  NVIDIA GeForce RTX 2060 (NVIDIA)
+  viewport [1600, 900]
+  hidden non-Lux CanvasLayers: DebugOverlay/@CanvasLayer@4
+
+  shot             mean    p05    p50    p95   clipped near-clip   crushed   gpu ms
+  overview        128.0    110    118    188     0.00%     0.00%     1.04%    4.377
+  elev_N          140.5     51    161    189     0.00%     0.00%     0.00%    8.418
+  elev_S          124.4     51    153    190     0.00%     0.00%     0.00%    5.469
+  elev_E          126.3     59    111    178     0.00%     0.01%     0.00%    6.549
+  elev_W          120.8     55    136    179     0.00%     0.00%     0.00%   10.709
+  hatch_hinge_side    141.6     31    164    192     0.00%     0.00%     0.00%    9.946
+  hatch_climber_side    149.7     75    164    192     0.00%     0.00%     0.00%    8.043
+  hatch_from_above    131.2     73    152    181     0.00%     0.00%     0.00%   13.693
+  spawn            81.8     19     62    169     0.00%     0.00%     0.00%    7.966
+  objective        40.3     22     39     59     0.00%     0.01%     0.00%   12.085
+  extraction      112.4     28    119    180     0.00%     0.00%     0.00%    7.440
+
+  overview     C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/overview.png
+               from site visual AABB, framed to 75 deg vertical FOV
+  elev_N       C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/elev_N.png
+               from 160 above-grade wall slots of b0 (1 of 4 buildings on this site), orthographic, 25.7 m tall frame
+  elev_S       C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/elev_S.png
+               from 160 above-grade wall slots of b0 (1 of 4 buildings on this site), orthographic, 25.7 m tall frame
+  elev_E       C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/elev_E.png
+               from 160 above-grade wall slots of b0 (1 of 4 buildings on this site), orthographic, 19.6 m tall frame
+  elev_W       C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/elev_W.png
+               from 160 above-grade wall slots of b0 (1 of 4 buildings on this site), orthographic, 19.6 m tall frame
+  hatch_hinge_side C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/hatch_hinge_side.png
+               from GIVEN station, not derived: eye (-44.50, 12.30, 33.50) -> target (-48.00, 10.10, 29.00)
+  hatch_climber_side C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/hatch_climber_side.png
+               from GIVEN station, not derived: eye (-51.50, 12.30, 24.50) -> target (-48.00, 10.10, 29.00)
+  hatch_from_above C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/hatch_from_above.png
+               from GIVEN station, not derived: eye (-47.50, 16.10, 29.50) -> target (-48.00, 10.10, 29.00)
+  spawn        C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/spawn.png
+               from res://gameplay_anchors.json: spawn_pos at eye height 1.60 m, facing the next leg
+  objective    C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/objective.png
+               from res://gameplay_anchors.json: objective_pos at eye height 1.60 m, facing the next leg
+  extraction   C:/Projects/gabagool_studios/gabagool_factory/docs/cold_runs/cold_9316/hatch_frames/extraction.png
+               from res://gameplay_anchors.json: extraction_pos at eye height 1.60 m, facing the next leg
+
+  manifest  C:\Projects\gabagool_studios\gabagool_factory\docs\cold_runs\cold_9316\hatch_frames.json
+            shot_diff reads this; no redirect needed

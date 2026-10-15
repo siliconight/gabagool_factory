@@ -1,0 +1,47 @@
+== selftest (13:29:41)
+  a tool source file, a shipped spec, or another repo
+== begin (13:29:41)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9315\journal.md
+== batch (13:29:56)
+created batch 'cold_9315' with 1 mission(s): precinct_yard_001
+== plan (13:29:56)
+== shell (13:29:58)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 77)
+  precinct_yard_001.lot_assemble.candidate.seed_9001: courthouse_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb pawn_shop_a01.glb self_storage_a02.glb video_store_a01.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9102: airport_terminal_a02.glb country_club_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb mansion_a03.glb warehouse_a01.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9203: airport_terminal_a01.glb clinic_a01.glb convenience_store_a01.glb courthouse_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9001: 0 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9102: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR, LT_MAP_NO_REACTION_TIME), route completion 0.80, grade PASS_WITH_TUNING 77, out for nothing
+  seed 9203: 0 major, route completion 1.00, grade PASS 100, out for nothing
+  picked seed_9203 on the walktest and Laser Tag's route findings
+== approvals (13:31:32)
+== art (13:31:33)
+Blocked: unresolved blocking issues  (blockers open: 2, total findings: 84)
+  exit 1
+STOPPED: art leg
+drive exit 2
+
+  cold run: cold_9315
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_precinct_yard_001_9001.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_precinct_yard_001_9102.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_precinct_yard_001_9203.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+  hygiene: LOOSE 0  UNTRACKED 0  RECORDS 12  INDEX 1  UNDESCRIBED 20  RETIRABLE 1.0  FINDINGS 40  -- FAILING: RECORDS, INDEX
