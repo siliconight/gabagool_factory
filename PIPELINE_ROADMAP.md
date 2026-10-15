@@ -848,7 +848,7 @@ work of adopting this.
 | 167 | **ANALYSIS** | Per-instance variation has no home in this pipeline, and a GLB cannot  | 2026-09-21 -- A CAPABILITY GAP WITH A MEASURED CEILING, NOT A DEFECT. |
 | 168 | **NARROWED** | Greybox survives into a themed package wherever theming has no pass fo | 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED; THREE OTHER GREYBOX SURFACES R |
 | 169 | **OPEN** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A COLD RUN. Four anchored pa |
-| 170 | **OPEN** | Every roof opening in the library is an open hole, and a building does | 2026-09-23 -- MEASURED, NOT STARTED. 58 of 58 `roof_access` ladders cut the slab they arri |
+| 170 | **OPEN** | Every roof opening in the library is an open hole, and a building does | 2026-10-15 -- the split this item asked for first is measured, and nothing is built (`docs |
 | 171 | **NARROWED** | Exterior access exists and almost never gets placed | 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `e |
 | 172 | **CLOSED** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 by cold run 9077 -- `links: 1`, `lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] t |
 | 173 | **OPEN** | A drop is either guarded or declared, and today nothing declares one | 2026-09-23 -- THE INSTRUMENT EXISTS AND CANNOT YET BE A GATE. `tools/walkable_edge.gd` fin |
@@ -17764,9 +17764,7 @@ rather than against itself).
 with only one tinted metal gets a `push_error`, because a uniformly metal
 ladder has no contrast in it at all and the yellow at least reads.
 
-*STATUS: OPEN 2026-09-23 -- MEASURED, NOT STARTED. 58 of 58 `roof_access`
-ladders cut the slab they arrive through, and 74 `hatch` links do the same.
-Nothing in any tool emits a lid.*
+*STATUS: OPEN 2026-10-15 -- the split this item asked for first is measured, and nothing is built (`docs/findings/roof_openings_170/`, `census.py` over the 446 authored specs): 16 stairs reach the roof, all switchbacks with `cut_slabs`, in specs with no roof hatch link, so each leaves the slab open at its head -- nine of them the mission buildings Level Factory writes today (`lf_deli_001_*`, `lf_restaurant_row_001_*`, `lf_urban_row_001_*`), so every level made this week has a stair head open to the sky; that is the bulkhead's population. Of 69 roof ladders, 43 have a `hatch` link at their foot (42 `interior` with `roof_hatch_exit`) and cut the slab -- the lid's population -- and 26 are exterior, parapet or platform ladders that cut nothing and need no lid; the earlier 58 of 58 counted built output, this counts the contract. Build order by population and cost: the lid first (one Zoo species over each roof hatch link, placed where Deli Counter already emits `HATCH_<x>_<y>`), then the bulkhead over the 16 stair heads with its doorway derived like any door and the slab no longer cut. Both are look changes against the walker's reference: frames before either ships. Earlier status kept: MEASURED, NOT STARTED 2026-09-23 -- 58 of 58 `roof_access` ladders cut the slab they arrive through, 74 `hatch` links do the same, nothing in any tool emits a lid.*
 
 **170. Every roof opening in the library is an open hole, and a building does
 not have an open hole in its roof.** The walker, 2026-09-23.

@@ -1,0 +1,108 @@
+specs dir: C:\Projects\gabagool_studios\gabagool_factory\deli_counter\specs
+read 446 specs (0 skipped: not a building spec)
+  stairs                                             511
+  stairs to the roof                                  16
+  ladders                                            124
+  roof_access ladders                                 69
+  hatch links on the roof slab                        43
+  hatch links below the roof                          37
+  specs with a roof opening or a stair to the roof    73
+    reached by: stair                                 16
+    reached by: ladder                                57
+    reached by: hatch link only                        0
+
+spec                                     storeys stairs->roof roof ladders roof hatches  reached by
+07_police_station                              2            0            1            1  ladder
+airport_terminal_a01                           1            0            1            1  ladder
+airport_terminal_a03                           2            0            1            1  ladder
+arena_a02                                      1            0            1            1  ladder
+arena_a03                                      2            0            1            1  ladder
+auto_shop_a01                                  2            0            1            0  ladder
+auto_shop_a02                                  2            0            1            0  ladder
+bank                                           2            1            0            0  stair
+bank_branch_a03                                2            0            1            1  ladder
+bank_branch_a04                                2            0            1            1  ladder
+bank_tower_a02                                 2            0            1            1  ladder
+bank_tower_a03                                 1            0            1            1  ladder
+brewery_a01                                    2            0            1            1  ladder
+brewery_a03                                    1            0            1            1  ladder
+casino_a01                                     1            0            1            1  ladder
+casino_a03                                     2            0            1            1  ladder
+cbp_town_finale_midbalanced_schemafixed        3            0            1            0  ladder
+clinic_a02                                     2            0            1            1  ladder
+corner_deli_heist_01                           2            1            1            0  stair
+courthouse_a02                                 2            0            1            1  ladder
+courthouse_a03                                 1            0            1            1  ladder
+cr_deli                                        2            1            1            0  stair
+cr_pawn                                        2            0            1            0  ladder
+credit_union_a02                               2            0            1            1  ladder
+deli_a01                                       2            0            1            0  ladder
+deli_a02                                       2            0            1            0  ladder
+deli_a03                                       2            0            1            0  ladder
+depot_a01                                      1            0            1            1  ladder
+depot_a02                                      1            0            1            1  ladder
+foundry_heist_vertical                         3            1            0            0  stair
+freight_terminal_a01                           1            0            1            1  ladder
+freight_terminal_a02                           2            0            1            1  ladder
+gs_auto_shop                                   2            0            1            0  ladder
+harbor_score                                   1            1            0            0  stair
+landmark_hall_a01                              1            0            1            1  ladder
+landmark_hall_a02                              2            0            1            1  ladder
+large_warehouse_a01                            1            0            1            1  ladder
+large_warehouse_a02                            2            0            1            1  ladder
+large_warehouse_a03                            2            0            1            1  ladder
+lf_deli_001_9191                               2            1            1            0  stair
+lf_deli_001_9292                               2            1            1            0  stair
+lf_deli_001_9393                               2            1            1            0  stair
+lf_precinct_yard_001_9001                      2            0            1            1  ladder
+lf_precinct_yard_001_9102                      2            0            1            1  ladder
+lf_precinct_yard_001_9203                      2            0            1            1  ladder
+lf_restaurant_row_001_9003                     2            1            1            0  stair
+lf_restaurant_row_001_9104                     2            1            1            0  stair
+lf_restaurant_row_001_9205                     2            1            1            0  stair
+lf_urban_row_001_9003                          2            1            1            0  stair
+lf_urban_row_001_9104                          2            1            1            0  stair
+lf_urban_row_001_9205                          2            1            1            0  stair
+marina_a03                                     1            0            1            1  ladder
+market_hall_a01                                1            0            1            1  ladder
+market_hall_a03                                2            0            1            1  ladder
+museum_a03                                     2            0            1            1  ladder
+night_auto                                     2            0            1            0  ladder
+night_deli                                     2            1            1            0  stair
+night_pawn                                     2            0            1            0  ladder
+pawn_shop_a01                                  2            0            1            0  ladder
+primos_pizza                                   2            0            1            0  ladder
+pvp_station_ref                                2            0            1            1  ladder
+rail_station_a03                               2            0            1            1  ladder
+rowhouse_raid                                  2            1            0            0  stair
+self_storage_a01                               1            0            1            1  ladder
+stadium_a02                                    1            0            1            1  ladder
+stadium_a04                                    2            0            1            1  ladder
+strip_retail_a01                               2            0            1            0  ladder
+supermarket_a02                                2            0            1            1  ladder
+train_yard_a01                                 1            0            1            1  ladder
+train_yard_a03                                 2            0            1            1  ladder
+warehouse                                      1            0            1            0  ladder
+warehouse_a01                                  1            0            1            1  ladder
+warehouse_a02                                  2            0            1            1  ladder
+
+stairs that reach the roof (spec, storeys, style, cut_slabs, role, roof hatch links in the spec):
+  bank                                  2  switchback cut_slabs=True  primary_egress       hatches=0
+  corner_deli_heist_01                  2  switchback cut_slabs=True  primary_egress       hatches=0
+  cr_deli                               2  switchback cut_slabs=True  public_convenience   hatches=0
+  foundry_heist_vertical                3  switchback cut_slabs=True  public_convenience   hatches=0
+  harbor_score                          1  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_deli_001_9191                      2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_deli_001_9292                      2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_deli_001_9393                      2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_restaurant_row_001_9003            2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_restaurant_row_001_9104            2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_restaurant_row_001_9205            2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_urban_row_001_9003                 2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_urban_row_001_9104                 2  switchback cut_slabs=True  public_convenience   hatches=0
+  lf_urban_row_001_9205                 2  switchback cut_slabs=True  public_convenience   hatches=0
+  night_deli                            2  switchback cut_slabs=True  public_convenience   hatches=0
+  rowhouse_raid                         2  switchback cut_slabs=True  public_convenience   hatches=0
+  16 stairs, 16 of them cutting the slab they reach
+roof ladders by (placement_mode, transition): [(('interior', 'roof_hatch_exit'), 42), ((None, None), 22), (('interior', 'parapet_crossover_platform'), 4), (('platform', 'side_step_off'), 1)]
+roof ladders by whether the slab is cut: [("hatch link at the ladder's (x, y): the slab is cut", 43), ('no hatch link at the ladder: nothing cut', 26)]

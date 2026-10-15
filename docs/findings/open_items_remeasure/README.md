@@ -598,3 +598,16 @@ and GLB carried `generator: "Patina 0.30.0"` -- 9314's `deli_a01.patina.json` do
 to 0.30.0. Suite 402 passed, 1 skipped.
 
 CLOSED on the roadmap.
+
+## 178, the four isolated sites attributed
+
+The four sites Lot's isolation warning still fires on are all from `shape-sweep-9500-ws`, a lot-shape
+experiment whose workspace was locked on 2026-09-23 -- the day before Lot 0.77.0 joined buildings that share a
+road, and before Level Factory wrote `building` on a door path. Their `site.json` door paths carry `a`, `b` and
+`width` only (`{"a": [-28.0, -41.15], "b": [-28.0, -62.6], "width": 4.0}`), so `street_members` cannot tell whose
+door reaches the sidewalk; a site written today carries `"building": "b0"` on every door path (9314's seed_9104:
+9 of its 10 paths). The warning is reading an old spec shape, not an unreachable building: on every site written
+by today's Level Factory, 0 of 320.
+
+That is the attribution 59's rule wanted before the warning could graduate WARN -> FAIL. The graduation itself
+is a Lot change with a cold run behind it, and is not made here.
