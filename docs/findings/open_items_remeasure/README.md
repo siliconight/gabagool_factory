@@ -586,3 +586,15 @@ fix and read near zero, and one is where it was.
 
 NARROWED: what is left is one walker's decision (the z-fight gate), the isolation warning's graduation by 59's
 rule once the four experimental sites are attributed, and a threshold for the approaches, which is design.
+
+## 20, closed the same day: Patina 0.32.0
+
+The leftover named above -- deleting the dead folder -- shipped as Patina 0.32.0
+(`patches/patch_patina_godot_half_gone.py`, proof in `patches/patina_godot_half_gone/`): `godot/` removed (8
+files), the six texts that described the half as alive reworded, `shell.patina.json`'s `shader` block kept for the
+schema. Found on the way: `patina/version.py` said 0.30.0 against `VERSION`'s 0.31.0, so every 0.31.0 manifest
+and GLB carried `generator: "Patina 0.30.0"` -- 9314's `deli_a01.patina.json` does. Both read 0.32.0 and
+`tests/test_version_file.py` pins them together; the proof script shows it failing with `version.py` flipped back
+to 0.30.0. Suite 402 passed, 1 skipped.
+
+CLOSED on the roadmap.

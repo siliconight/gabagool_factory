@@ -698,7 +698,7 @@ work of adopting this.
 | 17 | **NARROWED** | The pipeline has never been run cold, so nobody knows what it costs to | 2026-10-06 -- THE BREADTH SWEEP: TEN MISSIONS, EIGHT UNTOUCHED FIRST TIME AND TWO AFTER ON |
 | 18 | **NARROWED** | Every gate measures whether a level WORKS. None measures whether it is | 2026-09-13 (small hours) -- A FOURTH SHAPE: A CLAIM REPEATED AS A MEASUREMENT. Zoo's kit i |
 | 19 | **CLOSED** | Every tool grew a Godot half before there was a DAG to say who owns wh | 2026-10-15 -- the rule the item proposed is the shipped package's state, re-read on cold r |
-| 20 | **NARROWED** | Patina's Godot half is a renderer from before Lux was one | 2026-10-15 -- the ambiguity is gone from every package and the files are still in the repo |
+| 20 | **CLOSED** | Patina's Godot half is a renderer from before Lux was one | 2026-10-15 -- Patina 0.32.0 deleted the Godot half (`godot/`: the plugin, its dock, the ap |
 | 21 | **CLOSED** | Four of eight tools have drifted from what Level Factory certified | 2026-08-22 -- factory 1.34.1 promoted and verify-manifest reads TEN OK against the live ma |
 | 22 | **NARROWED** | Outdoor props have no swap contract, so cover stays boxes forever | 2026-09-12 (late night) -- THE SITE HAS A SLOT MANIFEST AND ITS COVER IS BUILT BY ZOO AND  |
 | 23 | **CLOSED** | A Node-typed export written by a tool is discarded in silence, and the | 2026-08-01 -- as the body records: "Closed for Lux on 2026-08-01; the general form is" wha |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 17 open, 130 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 17 open, 131 closed, 3 retracted, 98 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -2446,7 +2446,7 @@ Unresolved under this rule: Patina's decal pass instantiates `Decal` nodes from
 into the texture set offline, or decals remain a runtime dependency whoever owns
 them. That is the single hardest case and it should be decided on its own.
 
-*STATUS: NARROWED 2026-10-15 -- the ambiguity is gone from every package and the files are still in the repo (`docs/findings/open_items_remeasure/`). `patina/godot/addon/patina/` (plugin, dock, apply script, `ps1.gdshader`) and `patina/godot/shaders/ps1.gdshader` exist, their README still saying the half has not been walked in the editor; they are consumed by nothing in any tool repo and shipped in no package (9314: 0 addons, its 5 shaders Lux's and SkyMint's). COLOR_0 has one reader in a package, `zoo_worldskin.gd`'s `_vertex_colour_albedo` (84). The open question settled itself: `art_mode` is `vertex-color` on both branches (76), Patina's texture half never runs, Pixelcoat is the skin; the PS1-preset half of the migration was overtaken by the walker's realism call. Left: deleting the dead folder, a Patina release.*
+*STATUS: CLOSED 2026-10-15 -- Patina 0.32.0 deleted the Godot half (`godot/`: the plugin, its dock, the apply script, both `ps1.gdshader` copies -- 8 files), measured dead first (`docs/findings/open_items_remeasure/`): consumed by nothing in any tool repo, shipped in no package (cold run 9314: no `addons/`, 0 `res://addons` references), never walked in the editor by its own README's account. The vertex-colour channel now has one reader anywhere, Level Factory's `zoo_worldskin.gd` -- albedo on objects, off on tiles (84). The open question had settled itself before this: `art_mode` is `vertex-color` on both branches (76), Patina's texture half never runs, Pixelcoat is the skin; the PS1-preset half of the migration was overtaken by the walker's realism call. Found on the way and fixed in the same release: `patina/version.py` said 0.30.0 against VERSION 0.31.0, so every 0.31.0 manifest and GLB carried `generator: "Patina 0.30.0"`; `tests/test_version_file.py` pins the two (it fails on 0.31.0's tree). Suite 402 passed, 1 skipped (`patches/patina_godot_half_gone/prove_tests.out.txt`).*
 
 **20. Patina's Godot half is a renderer from before Lux was one.** The specific
 case, with code behind it rather than inference.

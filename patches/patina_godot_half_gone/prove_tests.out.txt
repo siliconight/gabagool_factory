@@ -1,0 +1,36 @@
+== 1. unpatched tree: module version against VERSION
+patina.__version__ = 0.30.0
+VERSION file = Patina 0.31.0
+== 2. apply
+Patina 0.32.0 applied: godot/ removed, 6 texts reworded, versions 0.32.0, test added; now the suite
+ M CHANGELOG.md
+ M README.md
+ M VERSION
+ M docs/DESIGN.md
+D  godot/README.md
+D  godot/addon/patina/patina_apply.gd
+D  godot/addon/patina/patina_dock.gd
+D  godot/addon/patina/plugin.cfg
+D  godot/addon/patina/plugin.gd
+D  godot/addon/patina/ps1.gdshader
+D  godot/shaders/README.md
+D  godot/shaders/ps1.gdshader
+ M patina/__init__.py
+ M patina/manifest.py
+ M patina/version.py
+ M smoke_offline.py
+?? tests/test_version_file.py
+== 3a. the new test alone
+.                                                                        [100%]
+1 passed in 0.05s
+== 3b. the whole suite
+........................................................................ [ 71%]
+........................................................................ [ 89%]
+...........................................                              [100%]
+402 passed, 1 skipped in 17.29s
+== 4. without the fix: version.py back to 0.30.0, the test, then forward again
+=========================== short test summary info ===========================
+FAILED tests/test_version_file.py::test_module_version_is_the_version_file - ...
+1 failed in 0.15s
+9:__version__ = "0.32.0"
+== done
