@@ -30,9 +30,16 @@ only where a hatch link sits at its own (x, y). Output: `census.out.txt`.
 The refinement that decides the build:
 
 - **The 16 stairs are all switchbacks with `cut_slabs` true, in specs with no roof hatch link** -- so each
-  leaves the roof slab open at its head, and nine of the sixteen are the mission buildings Level Factory writes
-  today (`lf_deli_001_*`, `lf_restaurant_row_001_*`, `lf_urban_row_001_*`, three seeds each): every level
-  made this week has a stair head open to the sky. Those are the bulkhead's population.
+  leaves the roof slab open at its head. Nine of the sixteen are the mission's own generated shells
+  (`lf_deli_001_*`, `lf_restaurant_row_001_*`, `lf_urban_row_001_*`, three seeds each). RETRACTED, kept: the
+  first draft of this line said "every level made this week has a stair head open to the sky". Read against cold
+  run 9316's package, the generated shell is built, composed and gated every run (the first
+  `presentation_compose` arm, 0/0 modules) and reaches no package -- the site stands the library's buildings
+  (`building_library.lot_for_brief`), and no file in the package carries the shell's hatch. So the bulkhead's
+  SHIPPED population is two library buildings, cr_deli and night_deli; the five other library specs with such a
+  stair (bank, corner_deli_heist_01, foundry_heist_vertical, harbor_score, rowhouse_raid) are prop-only kitbash
+  specs with no walls and no roof slot. What the generated shell is for, when a lot library stands, is its own
+  question.
 - **Of the 69 roof ladders, 43 have a hatch link at their foot and 26 do not.** The 43 cut the slab (42 of
   them `interior` with `roof_hatch_exit`); the 26 are exterior, parapet or platform ladders (`parapet_crossover_platform`,
   `side_step_off`, or older specs with no placement recorded) that cut nothing and need no lid. Those 43 are
@@ -126,6 +133,23 @@ The package instances `prop_roof_hatch_delco_04_w166_d166_h20` on both with `met
 a rust-brown curb on the courthouse roof with its lid standing vertical on the far edge from the climber's side,
 the opening and the ladder's rungs visible from above. For the walker's eye: the lid's size (1.66 m square,
 because the hole is 1.5 m), its hinge side, the open default.
+
+## Step 2, the bulkhead: sized, not built
+
+`stair_heads.py` (`stair_heads.out.txt`) reads, for each of the 16 roof-reaching stairs, the hole `_stairs`
+cuts in the roof slab -- `stairwell.hole_span` across the runs, `run / 2 + 0.3` behind the bottom step to
+`run / 2 + WALKOFF_CLEAR` past the top landing -- and the roof left around it:
+
+    hole width 3.60 .. 4.40 m     length 5.10 .. 7.50 m     roof to the edge 1.00 .. 2.25 m
+    storeys 3.20 .. 5.00 m        parapets 1.0-1.1 m tall, 0.2-0.35 m thick (harbor_score none)
+    the deli family (10 of 16): 3.60 x 6.60, facing S, 2.25 m to the edge
+
+So a bulkhead is the stair's hole plus a wall each side -- about 4.0 x 7.0 m on a deli, a storey or a short
+storey tall -- with its door on the walk-off end (the discharge bridge past the top landing, `sign` along the
+stair's travel), the way the hatch's hinge was read off the ladder. The gates it will meet are the lid's two:
+its footprint must be its slot's, and its box stands in its own stair's column, which `circulation` excuses for
+a guard and would excuse for a bulkhead the same way (`stair:` volumes). Its shipped population today is cr_deli
+and night_deli, when a brief's draw stands them.
 
 **What a cold run was asked to show** (and did, bar the fight fields, which have no like-for-like baseline --
 9279's library draw differs): the slot in the composed building with both state nodes (the closed one `visible = false`,
