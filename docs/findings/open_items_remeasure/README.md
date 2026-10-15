@@ -611,3 +611,14 @@ by today's Level Factory, 0 of 320.
 
 That is the attribution 59's rule wanted before the warning could graduate WARN -> FAIL. The graduation itself
 is a Lot change with a cold run behind it, and is not made here.
+
+## 178, the isolation instrument graduated: Lot 0.124.0
+
+The same evening (`patches/patch_lot_isolated_finding.py`, proof in `patches/lot_isolated_finding/`):
+`site_tactical.analyze` now emits `LOT_ISOLATED_BUILDING`, severity `major`, in `report["findings"]` beside the
+warning string, in the shape Level Factory's Lot adapter already ingests from `tactical.findings` and `pick.py`
+already counts (`MAJOR = ("major", "critical", "blocker")`). A candidate with a building no path or street
+reaches loses the pick to one without; the finding stands in the report; a run whose every candidate has one
+still ships, saying so -- the item's own rule, a number that does not block being fine when something counts it.
+Three new tests fail on 0.123.0's tree (`KeyError: 'findings'`) and pass after; Lot's suite 847 passed.
+Cold run 9317 (urban_row_001 from 9314): 0 interventions, drive exit 0; the finding on 0 of 3 candidates (every candidate's tactical report carries the findings list, the other LOT_* codes in it as before -- lot.py extends it with setdefault, so the analyze-time list is kept); findings 109 -> 109 across the export; the pick seed_9104 PASS 100, as 9314's. Nothing moved.
