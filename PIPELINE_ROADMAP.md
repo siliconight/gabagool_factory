@@ -734,7 +734,7 @@ work of adopting this.
 | 53 | **NARROWED** | One Lux check is a silent no-op, and the filename literals are tidines | 2026-08-18 -- FIRST RANKED FIX SHIPPED, and the mechanism this item gave for it was WRONG. |
 | 54 | **CLOSED** | One mesh spans a whole room, and two light caps are paying for it | 2026-08-24 -- CENSUS PASS, WALK CLEAN, CAP DELETED. The closing run (census #8, `walk.tscn |
 | 55 | **CLOSED** | The level ships sign fixtures with no sign art, and three of four cann | 2026-10-15 -- answered by three Lux releases and re-measured on cold run 9314's package (` |
-| 56 | **OPEN** | The global light budget is derived from scene text, and the running le | 2026-08-23 -- MEASURED at discovery, unworked. Found by item 54's closing instrument on it |
+| 56 | **CLOSED** | The global light budget is derived from scene text, and the running le | 2026-10-15 -- the cap counts what runs, since Level Factory 0.87.0, re-measured (`docs/fin |
 | 57 | **OPEN** | Asset boundaries are implementation details; architectural boundaries  | 2026-08-23 -- FRAMED, UNWORKED. Raised from the 2026-08-23 walks of the tiled, deduped, tr |
 | 58 | **NARROWED** | A facade corner is open to the sky, and light walks straight through t | 2026-08-25 -- FIXED AND VERIFIED ON REAL GEOMETRY. Deli Counter 0.102.0 insets each exteri |
 | 59 | **NARROWED** | One door, two corridors: a partition ends inside the aperture and spli | 2026-09-11 -- TWO THIRDS DONE, AND THE HEAD OF THIS BLOCK WAS STALE AGAINST ITS OWN TAIL.  |
@@ -937,7 +937,7 @@ work of adopting this.
 | 256 | **CLOSED** | The venv pins three packages, not the nine they bring | 2026-10-15 -- Level Factory 0.214.0 (d7c5586): `interpreter.CONSTRAINED` holds the nine at |
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 
-**257 items: 32 open, 125 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**257 items: 31 open, 126 closed, 3 retracted, 89 narrowed, 2 superseded, 6 analysis.** 9 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -7089,10 +7089,7 @@ so the four are addressable, and a count in the validation output so a level
 with unfinished sign faces says so instead of being found by somebody walking
 past one.
 
-*STATUS: OPEN 2026-08-23 -- MEASURED at discovery, unworked. Found by item
-54's closing instrument on its first honest run and recorded here the same
-day, because "the roadmap already knew" (item 39's epitaph) is only true of
-findings that get written down*
+*STATUS: CLOSED 2026-10-15 -- the cap counts what runs, since Level Factory 0.87.0, re-measured (`docs/findings/open_items_remeasure/`). The Lux driver counts every Light3D in the running tree after its last bake and writes `lux.quality.json["lights_in_tree"]`, and `package_light_budget` writes `max_renderable_lights` as the larger of the scene-text count and that census (0.87.0's entry cites this item); `test_project_godot_agreement.py` pins the cap to the package's count and the preview's project to the export's. Cold runs 9308, 9313 and 9314 each record 239 (205 fixture, 19 daylight, 14 club) and write 239; the applied scene declares 238, the spawner's rigs packed into it; the perf harness's own census of 9308's running tree, an instrument the driver does not share, counts 238 positional lights -- inside the cap, where this item's package held 272 against 136. The check it asked for holds by construction, the cap never below the driver's count, with the harness as the independent reading; nothing refuses an export on the comparison, because the only light that could exceed the cap at run time is one the gameplay layer spawns, outside the package by contract.*
 
 **56. The global light budget is derived from scene text, and the running
 level has twice as many lights as the number it was given.**

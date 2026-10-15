@@ -142,3 +142,30 @@ lights are baked into the lightmap's 3,153 users).
 from the drop -- two derivations, deliberately, not the "one formula named in both places" this item proposed,
 and the rows at 2.7 to 6 m stand closer than twice Lux's 4.0 m reach, which is why they cover; and cold run
 9005's hospital, where the dark ward was walked, was not re-walked. CLOSED on the roadmap.
+
+## 56. The global light budget is derived from scene text, and the running level has twice as many lights
+
+**What it found (2026-08-23):** `max_renderable_lights` was written from a count of light DECLARATIONS in the
+package's `.tscn` files, and the running tree held twice that -- an instanced rig counts once in the text and N
+times at run time, and the spawner's area-light rigs are in no `.tscn` at all. Above the cap GL Compatibility draws
+nothing, so whole areas stayed dark. Lux 0.17.0 removed the doubling the same day; the item stayed open for the
+class: a derivation that counts an instanced rig once and a spawned light zero times, and asked for the cap to be
+derived from the running tree, or made instance- and spawner-aware, with a check that the shipped cap and a
+runtime count cannot drift apart silently.
+
+**What shipped since:** Level Factory 0.87.0, "interiors read dark, and the light budget counts what Lux built",
+citing this item: the Lux driver counts every `Light3D` in the running tree after its last bake and writes
+`lux.quality.json["lights_in_tree"]`; `packages/core/godot_project.package_light_budget` writes the cap as the
+larger of the scene-text count and that census; `tests/unit/test_project_godot_agreement.py` pins the cap to the
+package's count and the preview's `project.godot` to the export's.
+
+**Measured today:** cold runs 9308, 9313 and 9314 each record `lights_in_tree` 239 (205 fixture, 19 daylight, 14
+club) and each package writes `max_renderable_lights=239`; the applied scene declares 238 light nodes, the
+spawner's rigs packed into it; and the perf harness's own census of the running tree on 9308's package, an
+instrument the driver does not share, counts 238 positional lights (`light_cap_147_9308.out.txt`) -- inside the
+cap, where the item's package held 272 against a cap of 136.
+
+**The check this item asked for:** the cap cannot be below the driver's count by construction, and the perf
+harness is the independent reading of the same tree; nothing refuses an export on the comparison, because what
+could exceed the cap at run time is a light the gameplay layer spawns, which the package does not contain by
+contract. CLOSED on the roadmap.
