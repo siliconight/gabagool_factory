@@ -3,6 +3,44 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.40.0] - 2026-10-14
+
+Seven tools move:
+- deli_counter: 0.209.1 -> 0.222.0
+- laser_tag: 0.27.0 -> 0.32.0
+- level_factory: 0.193.1 -> 0.211.1
+- lot: 0.117.0 -> 0.123.0
+- lux: 0.75.0 -> 0.77.0
+- patina: 0.30.0 -> 0.31.0
+- zoo: 1.103.0 -> 1.112.0
+
+- **The urban street** (roadmap 241): a continuous mid-rise wall, the mission's
+  buildings among mid-rises, heights by cause, corner shops with awnings,
+  walk-ups with fire escapes, a city block's trees.
+- **Philadelphia's streets** (roadmap 240): the pole line and its wires,
+  rowhomes on stoops with railings and tar roofs, the street's drains
+  (roadmap 179).
+- **The body** (roadmap 197): every walkable door at least 1.25 m, the
+  contract read wherever a body-sized number was.
+- **The bots** (roadmaps 242, 246): they keep to the mesh, guards step up,
+  and an arrival is at the point.
+- **Light and cost:** the sun baked while the lightmap shows (-1,854 draws,
+  -3 ms); the reflection atlas 314.6 -> 65.6 MiB; a package carries only
+  what its scene stands.
+- **The same bytes twice** (roadmap 247): two runs of one command build
+  every GLB and the lightmap alike.
+- **The walker's walk of 2026-10-14** (roadmap 250): a shop's room glows
+  under its goods, desks face their sitters, a banded door says its trade,
+  a ground under the backdrop, the second flight of a stair stands on the
+  floor, the delis' basement closed with the utility room's door.
+
+Certified by install test 9: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands, the
+PyPI download included. setup exited 0 with every doctor row PASS at this set's versions, 0 `drift vs certified` lines and no sitecustomize error (the three pins from pip's cache; one of the nine packages they bring, wrapt, resolved to 2.5.1 and was downloaded where test 8 took 2.5.0 -- roadmap 256); make exited 0 in 7.9 minutes, as 1.39.0's did, and built seed_9003 where install tests 3 to 8 built seed_9104 -- level_factory 0.202.0's tie at 0 majors, route completion 1.00 and PASS 90 going to the lower seed, a move its census named (0 of 78 and 0 of 110 blockers, three roof-props layers, 320 models and 193 primitives lightmapped on the bake's first attempt in 61.8 s, 3,348 lightmap users, 218 of the merged Empties' modules that no file names dropped, the closure ok over 81 resources); walk exited 0 in 5.2 minutes where 1.39.0's took 5.6, with its export baked as make's was, the site's four ladders climbed and all nine stations passing, and after it the package still carried its bake and the backdrop's ground (2,492 files, bake.exr, light_bake.json ok). Every finding that moved against test 8 is attributed: the export's 32 are the picked candidate's and moved with the pick; Lot's 61 are test 8's, candidate by candidate; Laser Tag's 20 -> 17 are the unpicked candidates', and a two-by-two of scene and grader on each (docs/findings/stranger_install/lt_share_ab.sh, every control reading its own job in every field) puts seed_9104's player-stuck warning on the grader, seed_9205's enemy-stuck and instant-contact warnings and its new overexposed one on the scene, and seed_9205's player-stuck warning on the two together. No deviation from the page.
+
+Not certified: Linux; the backdrop's ground is unpriced (roadmap 252); the
+versions of the nine packages the venv's three pins bring (roadmap 256).
+
 ## [factory-v1.39.0] - 2026-10-12
 
 Five tools move:

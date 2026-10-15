@@ -1,0 +1,57 @@
+A: C:/stranger_202_8/gabagool/levels/.level_factory/validation/restaurant_row_001.json  113 issues
+B: C:/stranger_202_9/gabagool/levels/.level_factory/validation/restaurant_row_001.json  110 issues
+
+stage                  candidate  code                               block    A    B   B-A
+dispatch_handoff       seed_9003  DISPATCH_FINDING                   False    0    7    +7
+dispatch_handoff       seed_9104  DISPATCH_FINDING                   False    7    0    -7
+laser_tag_evaluate     seed_9104  LT_MAP_PLAYER_STUCK                False    1    0    -1
+laser_tag_evaluate     seed_9205  LT_MAP_ENEMY_STUCK                 False    1    0    -1
+laser_tag_evaluate     seed_9205  LT_MAP_INSTANT_CONTACT             False    1    0    -1
+laser_tag_evaluate     seed_9205  LT_MAP_OVEREXPOSED                 False    0    1    +1
+laser_tag_evaluate     seed_9205  LT_MAP_PLAYER_STUCK                False    1    0    -1
+lux_apply              seed_9003  LUX_NO_ROOM_PROBES                 False    0    1    +1
+lux_apply              seed_9104  LUX_NO_ROOM_PROBES                 False    1    0    -1
+presentation_compose   seed_9003  PRESENTATION_TINT_MATERIALS        False    0    1    +1
+presentation_compose   seed_9003  PRESENTATION_ZFIGHT                False    0    2    +2
+presentation_compose   seed_9104  PRESENTATION_TINT_MATERIALS        False    1    0    -1
+presentation_compose   seed_9104  PRESENTATION_ZFIGHT                False    3    0    -3
+themed_site_assemble   seed_9003  LOT_COVER_PLACED                   False    0    1    +1
+themed_site_assemble   seed_9003  LOT_DESTINATION_ABOVE_FLOOR        False    0    1    +1
+themed_site_assemble   seed_9003  LOT_ENEMY_SPAWN_CLOSE              False    0    1    +1
+themed_site_assemble   seed_9003  LOT_ENEMY_SPAWN_PUSHED             False    0    1    +1
+themed_site_assemble   seed_9003  LOT_ENEMY_SPAWN_STANDOFF           False    0    1    +1
+themed_site_assemble   seed_9003  LOT_GROUND_EXTENDED                False    0    1    +1
+themed_site_assemble   seed_9003  LOT_PACING_OUTSIDE_TARGET          False    0    1    +1
+themed_site_assemble   seed_9003  LOT_PATH_END_OFF_DOOR              False    0    2    +2
+themed_site_assemble   seed_9003  LOT_ROUTE_COVER_PLACED             False    0    1    +1
+themed_site_assemble   seed_9003  S_ADJACENCY                        False    0    1    +1
+themed_site_assemble   seed_9003  S_GETAWAY_AT_SPAWN                 False    0    1    +1
+themed_site_assemble   seed_9003  S_RESPONDER_ARC                    False    0    1    +1
+themed_site_assemble   seed_9003  S_TARGETS                          False    0    8    +8
+themed_site_assemble   seed_9104  LOT_ENEMY_SPAWN_CLOSE              False    1    0    -1
+themed_site_assemble   seed_9104  LOT_ENEMY_SPAWN_PUSHED             False    1    0    -1
+themed_site_assemble   seed_9104  LOT_ENEMY_SPAWN_STANDOFF           False    1    0    -1
+themed_site_assemble   seed_9104  LOT_GROUND_EXTENDED                False    1    0    -1
+themed_site_assemble   seed_9104  LOT_PACING_OUTSIDE_TARGET          False    1    0    -1
+themed_site_assemble   seed_9104  LOT_PATH_END_OFF_DOOR              False    1    0    -1
+themed_site_assemble   seed_9104  S_ADJACENCY                        False    2    0    -2
+themed_site_assemble   seed_9104  S_GETAWAY_AT_SPAWN                 False    1    0    -1
+themed_site_assemble   seed_9104  S_RESPONDER_ARC                    False    1    0    -1
+themed_site_assemble   seed_9104  S_STREET_CROSS                     False    2    0    -2
+themed_site_assemble   seed_9104  S_TARGETS                          False    8    0    -8
+
+rows that moved: 37 of 88
+codes only in A: LT_MAP_ENEMY_STUCK, LT_MAP_PLAYER_STUCK
+codes only in B: LT_MAP_OVEREXPOSED
+
+dispatch_handoff       A    7  B    7  +0
+laser_tag_evaluate     A   20  B   17  -3
+lot_assemble           A   61  B   61  +0
+lux_apply              A    1  B    1  +0
+presentation_compose   A    4  B    3  -1
+themed_site_assemble   A   20  B   21  +1
+
+seed_9003              A   27  B   59  +32
+seed_9104              A   57  B   24  -33
+seed_9205              A   29  B   27  -2
+total                  A  113  B  110  -3

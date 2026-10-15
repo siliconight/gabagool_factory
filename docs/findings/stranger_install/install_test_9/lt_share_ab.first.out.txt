@@ -1,0 +1,35 @@
+== seed_9205
+  job, test 8      WARN               70  route_completion 0.96  player_deaths 25  player_stuck 1  enemy_stuck 36  enemy_blocked -  time_to_first_contact 1.67  player_survival_second 7.0
+                   not PASS: FAIL:NO_REACTION_TIME, WARN:BLIND_MAP, WARN:ENEMY_STUCK, WARN:INSTANT_CONTACT, WARN:OVEREXPOSED_ZONE, WARN:PLAYER_STUCK
+  job, test 9      PASS_WITH_TUNING   80  route_completion 1.0  player_deaths 25  player_stuck 0  enemy_stuck 0  enemy_blocked 0  time_to_first_contact 2.87  player_survival_second 6.53
+                   not PASS: FAIL:NO_REACTION_TIME, WARN:BLIND_MAP, WARN:OVEREXPOSED, WARN:OVEREXPOSED_ZONE
+  s9205_t8_v27     WARN               70  route_completion 0.96  player_deaths 25  player_stuck 1  enemy_stuck 36  enemy_blocked -  time_to_first_contact 1.67  player_survival_second 7.0
+                   not PASS: FAIL:NO_REACTION_TIME, WARN:BLIND_MAP, WARN:ENEMY_STUCK, WARN:INSTANT_CONTACT, WARN:OVEREXPOSED_ZONE, WARN:PLAYER_STUCK
+                   vs test 8's job: the same in all 31 summary fields, the grade, the score and the findings
+                   vs test 9's job: 26 differ: grade, overall_score, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, summary.enemy_stuck_events, summary.
+  s9205_t8_v32     BROKEN             20  route_completion 0.0  player_deaths 0  player_stuck 0  enemy_stuck 0  enemy_blocked 0  time_to_first_contact -1.0  player_survival_second 180.07
+                   not PASS: FAIL:NO_CONTACT, FAIL:NO_ENGAGEMENT, FAIL:TRAVERSAL, FAIL:TRIVIAL_ENCOUNTER
+                   vs test 8's job: 26 differ: grade, overall_score, summary.avg_enemy_deaths_per_run, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, su
+                   vs test 9's job: 21 differ: grade, overall_score, summary.avg_enemy_deaths_per_run, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, su
+  s9205_t9_v27     WARN               70  route_completion 0.96  player_deaths 25  player_stuck 2  enemy_stuck 2  enemy_blocked -  time_to_first_contact 2.93  player_survival_second 6.09
+                   not PASS: FAIL:NO_REACTION_TIME, WARN:BLIND_MAP, WARN:OVEREXPOSED, WARN:OVEREXPOSED_ZONE, WARN:PLAYER_STUCK
+                   vs test 8's job: 22 differ: summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, summary.enemy_stuck_events, summary.enemy_stuck_per_enemy_
+                   vs test 9's job: 25 differ: grade, overall_score, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, summary.enemy_stuck_events, summary.
+  s9205_t9_v32     PASS_WITH_TUNING   80  route_completion 1.0  player_deaths 25  player_stuck 0  enemy_stuck 0  enemy_blocked 0  time_to_first_contact 2.87  player_survival_second 6.53
+                   not PASS: FAIL:NO_REACTION_TIME, WARN:BLIND_MAP, WARN:OVEREXPOSED, WARN:OVEREXPOSED_ZONE
+                   vs test 8's job: 26 differ: grade, overall_score, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_contact, summary.avg_time_to_first_enemy_shot, summary.avg_time_to_first_player_shot, summary.enemy_stuck_events, summary.
+                   vs test 9's job: the same in all 32 summary fields, the grade, the score and the findings
+
+== seed_9104
+  job, test 8      PASS_WITH_TUNING   80  route_completion 1.0  player_deaths 9  player_stuck 11  enemy_stuck 1  enemy_blocked -  time_to_first_contact 2.2  player_survival_second 72.71
+                   not PASS: WARN:INSTANT_CONTACT, WARN:OVEREXPOSED_ZONE, WARN:PLAYER_STUCK
+  job, test 9      PASS               90  route_completion 1.0  player_deaths 11  player_stuck 0  enemy_stuck 0  enemy_blocked 1  time_to_first_contact 2.2  player_survival_second 65.8
+                   not PASS: WARN:INSTANT_CONTACT, WARN:OVEREXPOSED_ZONE
+  s9104_t8_v27     PASS_WITH_TUNING   80  route_completion 1.0  player_deaths 9  player_stuck 11  enemy_stuck 1  enemy_blocked -  time_to_first_contact 2.2  player_survival_second 72.71
+                   not PASS: WARN:INSTANT_CONTACT, WARN:OVEREXPOSED_ZONE, WARN:PLAYER_STUCK
+                   vs test 8's job: the same in all 31 summary fields, the grade, the score and the findings
+                   vs test 9's job: 21 differ: grade, overall_score, summary.avg_engagement_distance, summary.avg_player_survival_seconds, summary.avg_time_to_first_enemy_shot, summary.enemy_stuck_events, summary.enemy_stuck_per_enemy_run, summary.first_enemy_shot_max, summary.first_ene
+  s9104_t8_v32     NO REPORT (C:\Projects\gabagool_studios\gabagool_factory\_scratch\install_202_9\lt_ab.first\r_s9104_t8_v32.json)
+  s9104_t9_v27     NO REPORT (C:\Projects\gabagool_studios\gabagool_factory\_scratch\install_202_9\lt_ab.first\r_s9104_t9_v27.json)
+  s9104_t9_v32     NO REPORT (C:\Projects\gabagool_studios\gabagool_factory\_scratch\install_202_9\lt_ab.first\r_s9104_t9_v32.json)
+

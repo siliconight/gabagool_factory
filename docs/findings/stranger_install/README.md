@@ -796,6 +796,144 @@ The five that moved are tagged at the commits tested, and the factory at
 
 **What is left of roadmap 202:** Linux, as before.
 
+## Install test 9, 2026-10-14, 23:20 to 23:35: the 1.40.0 set, certified
+
+**The test.** The set factory 1.40.0 certifies, typed with the page's own
+`setup --venv` as tests 6 to 8 were. Seven tools moved since test 8: the
+urban street, Philadelphia's poles, stoops and drains, every walkable door at
+the contract's width, Laser Tag's bots keeping to the mesh and arriving at the
+point, the sun baked and a package carrying only what its scene stands, the
+same bytes from two runs, a pick that breaks a tie on the grade, and the
+walker's walk of 2026-10-14 -- `factory.manifest.json`'s description names
+each release. Level Factory 0.211.1 re-grounded the doctor's table to this set.
+- **The package:** made from root `ab9a441`, Deli Counter `6c312336`
+  (0.222.0), Laser Tag `a277dd9` (0.32.0), Level Factory `e5dcd4c`
+  (0.211.1), Lot `4e4859f` (0.123.0), Lux `4ce4c85` (0.77.0), Patina
+  `2279f04` (0.31.0), Zoo `8d1e2a4` (1.112.0) and the other three repos at
+  their tags, as `gabagool_factory_package_20261014_2320.zip` (73,001,758
+  bytes, 4,978 files; 159 shells checked fresh and stamped 23:20:11).
+- **The unpack:** into a new folder, `C:\stranger_202_9\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_9.sh`,
+  which counts what test 8's did -- the doctor's `drift vs certified` lines
+  at setup (0.211.1's claim is 0) and the package after the walk -- with
+  Level Factory 0.210.0's module drop and 0.211.0's ground, and times `make`
+  and `walk` against test 8's 7.9 and 5.6 minutes. It left out test 8's
+  count of the fixture layers; that command ran after it
+  (`install_test_9/layers.txt`). Logs are in `install_test_9/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup` | 0 | 14.0 s; the venv from Blender 5.1.1's Python with the three pins (pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0, from pip's cache) and the nine packages they bring, one of them downloaded -- wrapt 2.5.1, where test 8 took 2.5.0 from the cache (below); every doctor row PASS at the new versions (Deli Counter 0.222.0, Laser Tag 0.32.0, Lot 0.123.0, Zoo 1.112.0, Patina 0.31.0, Lux 0.77.0), `worst: PASS`; 0 WARN rows, 0 `drift vs certified` lines, 0 sitecustomize errors |
+| `make` | 0 | 7.9 minutes (23:22:04 to 23:29:57), as test 8's; 0 of 78 and 0 of 110 blockers; seed_9003 picked where tests 3 to 8 picked seed_9104 (below): seed_9003 0 major (LOT_DESTINATION_ABOVE_FLOOR shown, not counted), route completion 1.00, PASS 90; seed_9104 0 major, 1.00, PASS 90; seed_9205 0 major (LOT_DESTINATION_ABOVE_FLOOR and LT_MAP_NO_REACTION_TIME shown, not counted), 1.00, PASS_WITH_TUNING 80; three roof-props layers built (deli_a03, depot_a01, self_storage_a01); the light bake on its first attempt: 320 models and 193 primitives lightmapped, 5 kept dynamic and the responders' car set dynamic, 169 steady rigs baked and 25 failing left live, 205 room fills, 3,348 lightmap users, 61.8 s in the editor; 218 modules of the merged Empties that no file names removed (3.4 MB); closure `ok=true` over 81 resources in a package of 2,486 files |
+| `walk` | 0 | 5.2 minutes (23:29:57 to 23:35:11) against test 8's 5.6; its export baked as `make`'s did (320 models, 3,348 users, 59.7 s in the editor, the same closure); the walk bot climbed all four of this site's ladders -- `Ladder_ladder_1` (the deli's; only it has one) to 3.3 m, and three `Ladder_ladder_0`s, each building naming its own, to 6.6 m and, onto a node named `Roof`, 5.5 and 3.2 m; the shot bot passed all nine stations, jitter 0.0 to 1.66 % and fighting 0.0 to 0.09 %, three with 0.48, 0.01 and 0.01 % animated, not judged |
+
+**After the walk, the package still carries its bake:** 2,492 files,
+`bake.exr` present, `light_bake.json` `ok: true` with one attempt. The
+backdrop's ground is in it (`BackdropGround` named 5 times in
+`site_backdrop.tscn`), and the module drop printed once. 0 sitecustomize
+errors in all three logs (74, 233 and 46 lines); the venv's Python 3.13.9
+imports pillow 12.3.0, pygltflib 1.16.5 and jsonschema 4.26.0. The fixture
+layers, one submission to each visual mesh in every building: deli_a03 230
+meshes, 115 `LuxEmit` markers and 28 pendants (`M_Pendant_metal` 28,
+`M_Pendant_Lens` 28); depot_a01 42, 21 and 3; self_storage_a01 72, 36 and 2.
+They are not test 8's buildings, so they are recorded and not compared.
+
+**What moved against test 8, each item accounted for:**
+- **The pick, seed_9104 -> seed_9003:** Level Factory 0.202.0 (roadmap 245).
+  Test 8's seed_9003 carried one major, LOT_DESTINATION_ABOVE_FLOOR; 0.202.0
+  shows it and does not count it where the walk test walked every leg,
+  which leaves seed_9003 and seed_9104 tied at 0 major, route completion
+  1.00 and PASS 90, and a tie goes to the lower seed. 0.202.0's own census
+  named this move (restaurant_row_001, seed_9104 to seed_9003, in 23 of its
+  42 cold runs). So the export is of a site no install test built before --
+  deli_a03, depot_a01 and self_storage_a01 where test 8's stood deli_a01,
+  the office and rail_station_a02 -- and its numbers are recorded above and
+  not compared one by one. The bake's 498 -> 320 models and 3,614 -> 3,348
+  users, the package's 2,956 -> 2,492 files and its GLBs 489 -> 299 carry
+  Level Factory 0.207.0 (a package carries only the buildings its scene
+  stands) and 0.210.0 (the merged modules no file names) together with the
+  site's own difference, not separated.
+- **The findings, 81 -> 78 at the candidates and 113 -> 110 after the
+  export** (`findings_diff.py`, keyed by the stage that raised each item;
+  `install_test_9/findings_diff.out.txt`):
+  - **Lot's 61:** test 8's, candidate by candidate and code by code.
+  - **The export's 32:** the same count, every item of it the picked
+    candidate's, so it moved with the pick. The themed site's findings are
+    the picked candidate's own Lot findings code for code in both tests
+    (seed_9104's 20 in test 8, seed_9003's 21 here); Dispatch's 7 and
+    Lux's 1 as before; the presentation's 4 -> 3, another site's z-fight
+    pairs (3 -> 2) beside its one tint.
+  - **Laser Tag's 20 -> 17,** every row an unpicked candidate's
+    (seed_9003's 3 are test 8's codes). Both the scenes and the grader moved
+    between the tests -- every evaluated scene's hash differs, and Laser Tag
+    went 0.27.0 -> 0.32.0 -- so `lt_share_ab.sh` graded each test's staged
+    scene with each version, the jobs' own command line, one at a time,
+    after Level Factory's own import pass. Both controls read their job in
+    every summary field, the grade, the score and the findings, on both
+    seeds (`install_test_9/lt_share_ab.out.txt`).
+    On seed_9104, LT_MAP_PLAYER_STUCK went with the GRADER: 0.27.0 reads it
+    on both scenes (11 and 162 player stuck events), 0.32.0 on neither, and
+    the grade goes with it (PASS_WITH_TUNING 80 under 0.27.0 on both scenes,
+    PASS 90 under 0.32.0 on both).
+    On seed_9205, LT_MAP_ENEMY_STUCK and LT_MAP_INSTANT_CONTACT went and
+    LT_MAP_OVEREXPOSED came with the SCENE: each reads the same under either
+    grader on the same scene (enemy stuck events 36 and 14 on test 8's, 2
+    and 0 on test 9's; first contact 1.67 s on test 8's, 2.93 and 2.87 on
+    test 9's). LT_MAP_PLAYER_STUCK went with BOTH: test 8's scene keeps it
+    under 0.32.0 (7 events) and test 9's under 0.27.0 (2), and only test 9's
+    scene under 0.32.0 reads 0. The route completion 0.96 -> 1.00 is the
+    same pair: 0.27.0 reads 0.96 on both scenes, 0.32.0 -- which counts an
+    arrival at the point rather than at the end of a path that stops short
+    of it -- reads 0.76 on test 8's and 1.00 on test 9's. Which change to
+    the scene moved it was not separated; Deli Counter, Lot, Level Factory
+    and Zoo all moved between the tests.
+  - **The first run of `lt_share_ab.sh` had no import pass,** and its
+    swapped arm broke: 0.32.0 on test 8's project read BROKEN 20, no shot
+    fired, every run logging "Trying to assign value of type 'Node' to a
+    variable of type 'LT_EnemyMovement.gd'" -- the project's class cache,
+    from 0.27.0's scan, lacks LT_Steering (0.31.0). The instrument failing,
+    not a reading; the script's header keeps the account, and the run's own
+    comparison is `install_test_9/lt_share_ab.first.out.txt`. Its arm that
+    swapped the other way, 0.27.0 into test 9's project, ran and read what
+    the second run read.
+- **The time:** `make` 7.9 -> 7.9 minutes and `walk` 5.6 -> 5.2. `setup`
+  12.9 -> 14.0 s, one wheel downloaded among it, not split. Laser Tag's
+  evaluations took 31 to 46 s each where 0.27.0's took 19 to 25.
+- **The venv's ninth package (the finding):** `setup --venv` installs
+  `interpreter.PINNED` -- pillow, pygltflib and jsonschema, each `==` its
+  version -- and lets pip resolve the nine packages they bring. pip
+  downloaded wrapt 2.5.1 (pygltflib's `deprecated` asks `wrapt<3,>=1.16`)
+  where test 8's resolution, two days earlier, took 2.5.0 from the cache;
+  the other eight resolved as test 8's did. Whether anything the factory
+  makes differs with it was not measured, and nothing in this test failed,
+  but two strangers a week apart install two environments from one
+  package. Roadmap 256.
+
+**The count:** 0 deviations from the page; 1 finding, the venv's unpinned
+dependencies (roadmap 256).
+
+**What it certified: factory 1.40.0.** `factory.manifest.json` names the
+set this test ran:
+
+| tool | version | since 1.39.0 |
+|---|---|---|
+| Deli Counter | 0.222.0 | was 0.209.1 |
+| Dispatch | 0.5.2 | |
+| Laser Tag | 0.32.0 | was 0.27.0 |
+| Level Factory | 0.211.1 | was 0.193.1 |
+| Lot | 0.123.0 | was 0.117.0 |
+| Lux | 0.77.0 | was 0.75.0 |
+| Patina | 0.31.0 | was 0.30.0 |
+| Pipeline | 0.6.0 | |
+| Pixelcoat | 0.62.0 | |
+| Zoo | 1.112.0 | was 1.103.0 |
+
+The seven that moved are tagged at the commits tested, and the factory at
+`factory-v1.40.0`; the other three repos' tags stand.
+
+**What is left of roadmap 202:** Linux, as before; and the venv's
+dependencies, roadmap 256.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.
