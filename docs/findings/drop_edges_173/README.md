@@ -209,6 +209,33 @@ are guards without colliders or no guards at all is a question for the scene and
 `stairwell.py` -- which sides of a switchback it guards, and whether it guards the top landing -- and it is the
 next thing.
 
+## The re-measure: cold run 9318 on Deli Counter 0.225.0
+
+Same brief, same pick (seed 9104, PASS 100), 0 interventions (`docs/cold_runs/cold_9318/NOTES.md`). The
+instrument seeded from the crew spawn (`edges_9318.*`, `sort_9318.out.txt`): 921 drops, 872 guarded, 3 blocked,
+46 unguarded, all indoors -- the office's 13 pit rows gone (the five at the storey-2 landing, the seven along the
+upper flight's inner side, one at the lower flight's foot the old two-run cut left open) and nothing new. What
+stands: 10 at three flights' first metre (0.52-1.30 m, the deliberately open sides), 13 at the two ladder
+hatches, 16 at the deli's `floor_hole` link, 4 at recorded cuts, 3 on a guard rail's top.
+
+**Ladders in the flood** (`edges_9318b.*`, `sort_9318b.out.txt`): the first linked run resolved neither ladder --
+a link's end sits on an occupied cell, the ladder's own foot or the hatch's hole -- so `_cell_at` now searches
+the ring of cells within a metre of the point for the nearest free surface in three dimensions. Links used 2,
+unresolved 0; reached 84,399 -> 88,243 cells, the deli's roof 3,698 of 3,698; 54 unguarded, the 8 new rows the
+roof hatch's own hole seen from the roof (`hatch`, 6.6 m, declared); no roof rim row, the parapet holds.
+
+**The unnamed collider, named** (`body_names.gd`, `body_names_9318.log`): deli_a01's `@StaticBody3D@19803` /
+`@19804` and the office's `@19802` are the VAULT LEDGES (`VAULTLEDGE_n`, Deli Counter 0.215.0's routed vault),
+convex boxes 0.35-0.4 m thick and 1.05-1.2 m tall; each stands beside a marker empty of the same base name,
+which is why Godot auto-named the body. A prop top, as the sort already classed it.
+
+**The declared set now ships in the package** (Deli Counter 0.226.0 `ladder.drop_nav_link`, Lot 0.125.0,
+Dispatch 0.5.3; `patches/patch_dc_drop_nav_links.py`, `patch_lot_drop_links_to_site.py`,
+`patch_dispatch_drop_links.py`): every `floor_hole` / `hatch` vertical link files a one-way off-mesh link with
+`required_capability` "drop" and the cut's rect as `hole`, moved into site space with its building and read by
+both Dispatch importers into `navigation_hints.json` `links[]`. The next package proves it, and the sort can
+then take its declared set from the package instead of this repo's build records.
+
 ## What is left
 
 1. ~~The office's two stair gaps attributed against Deli Counter's guard rules, and fixed there if they are
@@ -221,11 +248,14 @@ next thing.
    shell: `patches/dc_switchback_top_run/nav_gate_bisect.md`), and the rail rule puts a rail at the seam. The
    re-measure is cold run 9318 (staged) with the instrument seeded and linked (the session's `edge_9318.sh`):
    the 12 office rows should be gone and the 11 feet remain.
-2. The declared set read off the package's records (stair footprints, hatch and `floor_hole` links, recorded
-   cuts) and emitted as `walk_off_ledge` links in Dispatch's `navigation_hints`, so the gate's list and the AI's
-   are one list.
-3. The gate in Level Factory: the instrument seeded from the package's `player_start`, surfaces read by owner
-   with the toolchain's names (`_floor_like` here), the residue frozen as a baseline that fails on a new entrant
-   (178's pattern).
-4. Ladders in the flood: a roof reached by its hatch is a place a body stands, and today no roof is reached.
-5. `GreyboxBase/@StaticBody3D@19803` named.
+2. ~~The declared set emitted as links in Dispatch's `navigation_hints`~~ -- SHIPPED (Deli Counter 0.226.0,
+   Lot 0.125.0, Dispatch 0.5.3; above). The next package proves it; then `sort_edges.py` reads the declared
+   set from the package's `links[]` (capability "drop", the `hole` rect) and the stair footprints, not from this
+   repo's build records -- the `declared_link` class is in the sorter already, waiting for a package to claim.
+3. The gate in Level Factory: the instrument seeded from the package's `player_start` with its links, surfaces
+   read by owner with the toolchain's names (`_floor_like` here), the residue frozen as a baseline that fails
+   on a new entrant (178's pattern).
+4. ~~Ladders in the flood~~ -- DONE (`edges_9318b`): a link's end resolves to the nearest free surface within
+   a metre; the deli's roof is reached.
+5. ~~`GreyboxBase/@StaticBody3D@19803` named~~ -- the vault ledge (above). A Deli Counter nit for a later
+   change: name the ledge's collider `VAULTLEDGE_n_col` so the body keeps a readable name.

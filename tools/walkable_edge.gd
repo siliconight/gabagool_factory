@@ -209,20 +209,34 @@ func _transition(col: Array, y: float) -> int:
 	return best
 
 
-## The standable surface nearest a world point: [ix, iz, k], or [] when the
-## point's cell has no free surface within a metre of its height.
+## The standable surface nearest a world point: [ix, iz, k], or [] when no
+## cell within a metre of it has a free surface within a metre of its height.
+## A link's end is where the climb starts, and the cell under a ladder's foot
+## or inside a hatch's hole is occupied -- cold run 9318: both ladder links
+## unresolved when only the point's own cell was asked -- so the ring of cells
+## around it is searched and the nearest free surface in three dimensions wins.
 func _cell_at(cols: Array, box: AABB, cell: float, nx: int, nz: int, p: Array) -> Array:
-	var ix: int = clampi(int(round((float(p[0]) - box.position.x) / cell)), 0, nx - 1)
-	var iz: int = clampi(int(round((float(p[2]) - box.position.z) / cell)), 0, nz - 1)
-	var col: Array = cols[ix * nz + iz]
-	var best: int = -1
-	var best_dy: float = 1.0
-	for k in range(col.size()):
-		var dy: float = absf(float(col[k][0]) - float(p[1]))
-		if col[k][2] and dy < best_dy:
-			best_dy = dy
-			best = k
-	return [] if best < 0 else [ix, iz, best]
+	var cx: int = clampi(int(round((float(p[0]) - box.position.x) / cell)), 0, nx - 1)
+	var cz: int = clampi(int(round((float(p[2]) - box.position.z) / cell)), 0, nz - 1)
+	var reach: int = int(ceil(1.0 / cell))
+	var best: Array = []
+	var best_d: float = 1e9
+	for ix in range(maxi(0, cx - reach), mini(nx - 1, cx + reach) + 1):
+		for iz in range(maxi(0, cz - reach), mini(nz - 1, cz + reach) + 1):
+			var col: Array = cols[ix * nz + iz]
+			var dx: float = box.position.x + float(ix) * cell - float(p[0])
+			var dz: float = box.position.z + float(iz) * cell - float(p[2])
+			for k in range(col.size()):
+				if not col[k][2]:
+					continue
+				var dy: float = float(col[k][0]) - float(p[1])
+				if absf(dy) > 1.0:
+					continue
+				var d: float = sqrt(dx * dx + dy * dy + dz * dz)
+				if d < best_d:
+					best_d = d
+					best = [ix, iz, k]
+	return best
 
 
 func _run(out_path: String, cell: float, seed: Array, links_path: String) -> void:

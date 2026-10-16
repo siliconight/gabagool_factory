@@ -183,9 +183,33 @@ def main(argv):
                        "hatches": hatches, "holes": holes, "cuts": cuts, "levels": levels,
                        "roof": oy + n * h if n else None})
 
-    classes = {k: [] for k in ("site_edge", "wall_line", "stair", "hatch", "floor_hole", "slab_cut", "roof_rim",
-                               "storey_rim", "prop_top", "perimeter_top", "parapet_top", "ground", "other")}
+    classes = {k: [] for k in ("site_edge", "wall_line", "declared_link", "stair", "hatch", "floor_hole",
+                               "slab_cut", "roof_rim", "storey_rim", "prop_top", "perimeter_top", "parapet_top",
+                               "ground", "other")}
     owners = rep.get("owners") or []
+    # THE DECLARED SET, FROM THE PACKAGE ITSELF (Deli Counter 0.226.0 / Lot 0.125.0 / Dispatch 0.5.3): every
+    # off-mesh link in `navigation_hints.json` with `required_capability` "drop" is a floor_hole / hatch the
+    # spec declared, carrying the cut's rect as `hole` (two corners, site XY, Blender frame: Godot x = x,
+    # z = -y) and its start on the storey whose floor it opens (already in Godot's frame). An edge at that
+    # level within SLAB_MARGIN of the rect is declared by the package, not by this repo's build records --
+    # the gate's list and the AI's list are the same list. A package without such links (every one before
+    # cold run 9319) claims nothing here, which is the control.
+    declared = []
+    hints_path = os.path.join(pkg, "navigation_hints.json")
+    if os.path.exists(hints_path):
+        hints = json.load(open(hints_path, encoding="utf-8"))
+        for link in hints.get("links") or []:
+            if link.get("required_capability") != "drop" or not link.get("hole"):
+                continue
+            (hx0, hy0), (hx1, hy1) = link["hole"]
+            level = float(link["start_position"][1])
+            declared.append((min(hx0, hx1), -max(hy0, hy1), max(hx0, hx1), -min(hy0, hy1), level, link.get("id")))
+    by_cap = {}
+    if os.path.exists(hints_path):
+        for link in hints.get("links") or []:
+            cap = link.get("required_capability", "?")
+            by_cap[cap] = by_cap.get(cap, 0) + 1
+    print(f"package links by capability: {by_cap}; declared drops with a hole rect: {len(declared)}")
     for e in rows:
         x, y, z, drop = float(e["x"]), float(e["y"]), float(e["z"]), float(e.get("drop_m", 0))
         cls = None
@@ -204,6 +228,9 @@ def main(argv):
         fallback = "ground" if owners else ("prop_top" if y > KERB else "ground")
         if cls is not None:
             pass
+        elif any(abs(y - lvl) <= LEVEL_TOL and _dist_to_rect_edge(x, z, (dx0, dz0, dx1, dz1)) >= -SLAB_MARGIN
+                 for dx0, dz0, dx1, dz1, lvl, _lid in declared):
+            cls = "declared_link"
         # The instrument writes a bottomless drop as 1e9 and snaps it; it arrives as 999.0.
         elif drop >= 999.0 and not any(abs(_dist_to_rect_edge(x, z, f["rect"])) <= WALL_LINE for f in frames):
             cls = "site_edge"
