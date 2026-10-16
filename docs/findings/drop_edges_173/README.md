@@ -211,8 +211,16 @@ next thing.
 
 ## What is left
 
-1. The office's two stair gaps attributed against Deli Counter's guard rules, and fixed there if they are real:
-   the instrument's first findings that are not its own.
+1. ~~The office's two stair gaps attributed against Deli Counter's guard rules, and fixed there if they are
+   real~~ -- DONE the same evening, Deli Counter 0.225.0 (`patches/patch_dc_switchback_top_run.py`): both gaps
+   were rules. `rail` left the arrival end open across the whole reserved rectangle, two runs wide, while the
+   arriving flight is one run wide; `side` stood only on the rectangle's outer edges, so nothing guarded the
+   seam between a switchback's runs; and the top leg's cut spanned both runs when only its own run reaches that
+   storey. Now the top leg cuts and reserves its own run (the slab covers the pit), a thin seam wall runs to
+   the turn landing with its underside a body's height above the floor (the nav gate's measurement on one
+   shell: `patches/dc_switchback_top_run/nav_gate_bisect.md`), and the rail rule puts a rail at the seam. The
+   re-measure is cold run 9318 (staged) with the instrument seeded and linked (the session's `edge_9318.sh`):
+   the 12 office rows should be gone and the 11 feet remain.
 2. The declared set read off the package's records (stair footprints, hatch and `floor_hole` links, recorded
    cuts) and emitted as `walk_off_ledge` links in Dispatch's `navigation_hints`, so the gate's list and the AI's
    are one list.

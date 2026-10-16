@@ -38,10 +38,12 @@ extends SceneTree
 ##               not somewhere a body walks off.
 ##
 ## Usage:
-##   godot --headless --path <pkg> --script res://walkable_edge.gd -- <out.json> [cell_m] [seed_x,seed_y,seed_z]
+##   godot --headless --path <pkg> --script res://walkable_edge.gd -- <out.json> [cell_m] [seed_x,seed_y,seed_z] [links.json]
 ##
 ## With a seed (world metres: where the body starts, e.g. the package's spawn
-## anchor) only the cells a body can reach from it are asked -- see pass 1b.
+## anchor) only the cells a body can reach from it are asked -- see pass 1b;
+## with a links file (the package's `navigation_hints.json`) the flood also
+## takes its ladders.
 ##
 ## Output: `edges[]`, one row per unguarded drop edge -- x, y, z of the edge's
 ## midpoint (Godot metres, y the cell's surface), `drop_m` (999 when nothing is
@@ -114,10 +116,11 @@ func _initialize() -> void:
 		for v in args[2].split(","):
 			seed.append(float(v))
 		if seed.size() != 3:
-			print("[edge] USAGE: <out.json> [cell_m] [seed_x,seed_y,seed_z]")
+			print("[edge] USAGE: <out.json> [cell_m] [seed_x,seed_y,seed_z] [links.json]")
 			quit(2)
 			return
-	_run(args[0], float(args[1]) if args.size() > 1 else 0.5, seed)
+	_run(args[0], float(args[1]) if args.size() > 1 else 0.5, seed,
+		args[3] if args.size() > 3 else "")
 
 
 func _walk(n: Node, out: Array) -> void:
@@ -206,7 +209,23 @@ func _transition(col: Array, y: float) -> int:
 	return best
 
 
-func _run(out_path: String, cell: float, seed: Array) -> void:
+## The standable surface nearest a world point: [ix, iz, k], or [] when the
+## point's cell has no free surface within a metre of its height.
+func _cell_at(cols: Array, box: AABB, cell: float, nx: int, nz: int, p: Array) -> Array:
+	var ix: int = clampi(int(round((float(p[0]) - box.position.x) / cell)), 0, nx - 1)
+	var iz: int = clampi(int(round((float(p[2]) - box.position.z) / cell)), 0, nz - 1)
+	var col: Array = cols[ix * nz + iz]
+	var best: int = -1
+	var best_dy: float = 1.0
+	for k in range(col.size()):
+		var dy: float = absf(float(col[k][0]) - float(p[1]))
+		if col[k][2] and dy < best_dy:
+			best_dy = dy
+			best = k
+	return [] if best < 0 else [ix, iz, best]
+
+
+func _run(out_path: String, cell: float, seed: Array, links_path: String) -> void:
 	await process_frame
 	var main_scene: String = String(ProjectSettings.get_setting(
 		"application/run/main_scene", ""))
@@ -334,6 +353,51 @@ func _run(out_path: String, cell: float, seed: Array) -> void:
 			quit(0)
 			return
 		sc[start][3] = true
+		# LINKS ARE CLIMBS THE FLOOD CANNOT MAKE ON ITS OWN: a ladder joins a
+		# floor to a roof or a basement, and without it no roof in cold run
+		# 9317's package was reached (the deli's is by its ladder). The file
+		# is the package's `navigation_hints.json`, or anything with `links[]`
+		# of `start_position` / `end_position` in world metres and an
+		# optional `bidirectional`; each end snaps to the standable surface
+		# nearest it, and an end with none within a metre leaves the link
+		# unresolved and counted.
+		var jumps: Dictionary = {}
+		var links_used: int = 0
+		var links_unresolved: int = 0
+		if links_path != "":
+			var lf: FileAccess = FileAccess.open(links_path, FileAccess.READ)
+			if lf == null:
+				report["ok"] = false
+				report["error"] = "links file unreadable: " + links_path
+				_write(out_path, report)
+				quit(0)
+				return
+			var ld: Variant = JSON.parse_string(lf.get_as_text())
+			lf.close()
+			var arr: Array = []
+			if ld is Dictionary:
+				arr = ld.get("links", [])
+			elif ld is Array:
+				arr = ld
+			for l in arr:
+				var a: Array = _cell_at(cols, box, cell, nx, nz, l["start_position"])
+				var b: Array = _cell_at(cols, box, cell, nx, nz, l["end_position"])
+				if a.is_empty() or b.is_empty():
+					links_unresolved += 1
+					continue
+				links_used += 1
+				var ka: String = "%d,%d,%d" % [a[0], a[1], a[2]]
+				if not jumps.has(ka):
+					jumps[ka] = []
+				jumps[ka].append(b)
+				if bool(l.get("bidirectional", true)):
+					var kb: String = "%d,%d,%d" % [b[0], b[1], b[2]]
+					if not jumps.has(kb):
+						jumps[kb] = []
+					jumps[kb].append(a)
+		report["links_path"] = links_path
+		report["links_used"] = links_used
+		report["links_unresolved"] = links_unresolved
 		var queue: Array = [[six, siz, start]]
 		var qi: int = 0
 		while qi < queue.size():
@@ -352,9 +416,17 @@ func _run(out_path: String, cell: float, seed: Array) -> void:
 					continue
 				there[k][3] = true
 				queue.append([jx, jz, k])
+			var key: String = "%d,%d,%d" % [cur[0], cur[1], cur[2]]
+			if jumps.has(key):
+				for t in jumps[key]:
+					var tcol: Array = cols[int(t[0]) * nz + int(t[1])]
+					if not tcol[int(t[2])][3]:
+						tcol[int(t[2])][3] = true
+						queue.append([int(t[0]), int(t[1]), int(t[2])])
 		report["seed"] = {"x": seed[0], "y": seed[1], "z": seed[2],
 			"cell_y": float(sc[start][0]), "owner": int(sc[start][1])}
-		print("[edge] reachable from the seed: %d of %d standable cells" % [reached, standable])
+		print("[edge] reachable from the seed: %d of %d standable cells (links used %d, unresolved %d)"
+			% [reached, standable, links_used, links_unresolved])
 	else:
 		for c in cols:
 			for h in c:
