@@ -1,0 +1,10 @@
+E       AssertionError: build_freshness.py assigns no literal NOT_BAKED
+E       AssertionError: build_freshness.py assigns no literal NOT_BAKED
+E       AssertionError: build_freshness.py assigns no literal NOT_BAKED
+E       AssertionError: assert 'agent_contract.json' in ('deli_counter.py', 'stairwell.py', 'stair_core.py', 'stair_place.py', 'floorplan.py', 'floors.py', ...)
+FAILED test_freshness_sources.py::test_every_module_a_build_reaches_is_classified
+FAILED test_freshness_sources.py::test_no_module_is_in_both - AssertionError:...
+FAILED test_freshness_sources.py::test_each_module_kept_out_says_why - Assert...
+FAILED test_freshness_sources.py::test_the_agent_contract_is_a_source - Asser...
+4 failed, 1 passed in 0.24s
+exit=1 on Deli Counter 0.228.0 (3dd5d62e)

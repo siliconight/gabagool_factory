@@ -79,3 +79,17 @@ the day a stale shell is graded. The price: `layout_lint.py`, a lint edited ofte
 on every change, because stairwell reads two of its names; moving those two into a geometry module would end
 that. The content fingerprint the gate's own docstring calls "strictly better" is the larger step and not
 this one.
+
+## Built, 2026-10-19 (Deli Counter 0.229.0, 54f5b5d4)
+
+`patches/patch_dc_freshness_sources.py`, its proofs in `patches/dc_freshness_sources/`. Twenty of the 21 and
+`agent_contract.json` are in `GEOMETRY_SOURCES`, 44 entries where there were 23, still a literal. `NOT_BAKED`, a
+second literal, names the 12 kept out with why. `test_freshness_sources.py` walks the build's imports as
+`freshness_imports.py` does and fails on a module in neither; four of its five fail on 0.228.0. No rebuild was
+needed: the newest source added, `level_design.py`, was written at 09:45:29 and the oldest judged shell at
+09:47:47. Level Factory's guard reads the 44 and finds 0 stale.
+
+**Left, by decision:** `layout_lint.py` stays unwatched, as `test_gates_that_only_read_shells_are_not_watched`
+holds it, so a lint edit does not demand a rebuild. Stairwell still reads its `_host_openings` and
+`DOOR_APPROACH_M`, and stair_pitch acts on its findings. Moving those two names into a geometry module would
+watch them without watching the lint.

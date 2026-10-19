@@ -1,0 +1,8 @@
+15 passed in 0.83s
+exit=0 on Deli Counter 0.229.0 (3dd5d62e + patch_dc_freshness_sources.py): test_freshness_sources.py test_build_freshness.py
+
+python build_freshness.py, exit=0:
+build-freshness: 159 shell(s) newer than level_design.py -- up to date
+
+Level Factory's guard on the same tree (packages/pipeline/building_library.py, Level Factory 4fb25fb):
+  _geometry_sources: 44 read, agent_contract.json among them; stale_shells: 0 stale, worst gap 0.0 days
