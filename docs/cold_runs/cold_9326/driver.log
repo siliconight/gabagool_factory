@@ -1,0 +1,59 @@
+== selftest (12:05:54)
+  a tool source file, a shipped spec, or another repo
+== begin (12:05:55)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9326\journal.md
+== batch (12:06:04)
+created batch 'cold_9326' with 1 mission(s): urban_row_001
+== plan (12:06:05)
+== shell (12:06:07)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 76)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_cornershop_b.glb gs_cornershop_c.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR, LT_MAP_TRIVIAL_ENCOUNTER), route completion 1.00, grade PASS_WITH_TUNING 89, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 100, out for nothing
+  seed 9205: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9104 on the walktest and Laser Tag's route findings
+== approvals (12:07:56)
+== art (12:07:57)
+Structural checks passed  (blockers open: 0, total findings: 107)
+  exit 1
+== export (12:11:30)
+[export] light bake: 353 model(s) and 112 primitive mesh(es) lightmapped, 8 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3171 users, 74.3 s in the editor
+exported urban_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9326-ws\.level_factory\exports\LF_urban_row_001.portable-godot
+  exit 0
+== findings (12:14:55)
+findings 107 -> 107
+== walk (12:14:55)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (12:15:04)
+  1 item(s), 1.4 GB removed
+DONE (12:15:26)
+drive exit 0
+
+  cold run: cold_9326
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_urban_row_001_9003.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_urban_row_001_9104.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_urban_row_001_9205.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+  hygiene: LOOSE 0  UNTRACKED 0  RECORDS 14  INDEX 1  UNDESCRIBED 20  RETIRABLE 0.0  FINDINGS 40  -- FAILING: RECORDS, INDEX
