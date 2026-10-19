@@ -1,0 +1,25 @@
+[export] surface dressing: gas_block_001_dressing.tscn -- 5748 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 301 instances of 7 module(s) on their sides, 25 draw calls (N 108, S 106, E 45, W 41; 1 tower)
+[export] 1638 occluder(s) from 1644 solid module(s); 79 glass, 302 porous and 1017 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1638 occluder node(s) in a tree of 31275
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] light bake: 331 model(s) and 123 primitive mesh(es) lightmapped, 8 kept dynamic, 1 spawned set dynamic; 141 steady rig(s) baked, 20 failing and 0 cycling left live; 172 room fill(s); 3197 users, 61.5 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1638 occluder node(s) reachable from res://mission.tscn (1638 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 32 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 302 GLB(s), 1101 external reference(s): 1101 resolve to 294 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 53158 reached of 70504 standable cells, 19 unguarded drop edge(s): 16 a flight's own side, 0 at a declared drop, 0 at a ladder's shaft, 0 a thing's top, 3 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_gas_block_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 456 of 456 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 81 resource(s) in a package of 2587 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 2591 file(s) listed + 2 declared unlisted = 2593 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported gas_block_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9337-ws\.level_factory\exports\LF_gas_block_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9337-ws walk gas_block_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
