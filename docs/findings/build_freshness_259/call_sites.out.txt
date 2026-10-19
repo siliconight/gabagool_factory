@@ -1,0 +1,309 @@
+Deli Counter 3dd5d62e (Deli Counter 0.228.0), 2026-10-19: python docs/findings/build_freshness_259/call_sites.py deli_counter --max 3
+== agent_contract
+   in combat_audit (unlisted): 1 use(s)
+      78: return float(cover_break_height())
+   in layout_lint (unlisted): 1 use(s)
+      346: return agent_contract.door_approach()
+   in level_design (unlisted): 23 use(s)
+      101: From `agent_contract.json`, which derives it from the evaluator's own
+      103: other consumer of that contract does, so a missing file degrades rather
+      108: return float(_h())
+   in migrate_window_poster (unlisted): 2 use(s)
+      29: * up: the band's centre on the camera's eye (`agent_contract.eye_height`),
+      85: z = agent_contract.eye_height()
+   in navigability (unlisted): 2 use(s)
+      29: AGENT_RADIUS = float(_ac.contract()["nav_bake"]["agent_radius_m"])
+      30: MIN_NAV_DOOR_WIDTH = _ac.min_door_width()
+   in presets (listed): 2 use(s)
+      35: DOOR_W = agent_contract.min_door_width()
+      53: return agent_contract.stair_flight_width()
+   in spec_types (listed): 4 use(s)
+      70: """`agent_contract.min_door_width()`: the width a door with none of its
+      74: return agent_contract.min_door_width()
+      78: """`agent_contract.vault_aperture()`, a fresh dict: the round vault
+   in stairwell (listed): 9 use(s)
+      90: LANDING_DEPTH = agent_contract.stair_flight_width()
+      792: metre: the bottom at the floor plus `agent_contract.body_height` (the
+      799: z_lo = s * H + agent_contract.body_height()
+== circulation
+   in layout_lint (unlisted): 2 use(s)
+      575: A stair's own guards (`circulation.GUARD_PREFIX`) stand at its hole's
+      585: if name.startswith(circulation.GUARD_PREFIX):
+== combat_audit
+   in evidence (unlisted): 3 use(s)
+      10: build/<name>.combat_audit.json   combat_audit findings (rule packs by mode)
+      137: packs = combat_audit.packs_for(spec, "auto")
+      138: result = combat_audit.audit(spec, name=spec.name, rules="auto")
+== enterability
+   in evidence (unlisted): 1 use(s)
+      114: report["gates"]["enterability"] = _gate(lambda: enterability.check(spec))
+   in validate (unlisted): 3 use(s)
+      165: eerrors, ewarnings = enterability.check(spec)
+      166: esum = enterability.summary(spec)
+      174: print(f"  ENTRY-NOTE: {enterability.CLEARANCE_NOTE}")
+== evidence
+   in build (listed): 1 use(s)
+      101: evidence.write_reports(spec_path, out_dir)
+== guards
+   in evidence (unlisted): 1 use(s)
+      113: report["gates"]["guards"] = _gate(lambda: guards.check_all(spec))
+   in validate (unlisted): 1 use(s)
+      151: gerrors, gwarnings = guards.check_all(spec)
+== layout_lint
+   in evidence (unlisted): 1 use(s)
+      121: report["gates"]["layout"] = _gate(lambda: layout_lint.gate(data))
+   in level_design (unlisted): 8 use(s)
+      847: if not corridor and not any(p["name"] == name for p in layout_lint.stale_pieces(spec)):
+      849: story = layout_lint.piece_story(spec, v)
+      855: holes, walks = layout_lint.stair_space(spec)
+   in migrate_wall_crossing (unlisted): 4 use(s)
+      21: THROUGH a wall (`layout_lint.wall_crossings`, shape ``through``) keeps the end
+      61: sh = float(layout_lint._spec_value(spec, "story_height"))
+      62: story = layout_lint.piece_story(spec, v)
+   in stair_pitch (unlisted): 5 use(s)
+      92: and not mine(layout_lint.stair_bounds_findings(spec), sid)
+      93: and not mine(layout_lint.stair_wall_findings(spec), sid))
+      236: if not mine(layout_lint.stair_wall_findings(spec), sid):
+   in stairwell (listed): 4 use(s)
+      1234: for along, w, _label in _ll._host_openings(spec_dims, host,
+      1237: r = _ll.DOOR_APPROACH_M
+      1334: r_app = _ll.DOOR_APPROACH_M
+== ledge_cover
+   in deli_counter (listed): 2 use(s)
+      2370: frac, under = ledge_cover.cover((vl.x, vl.y, z), size, self.s.volumes)
+      2371: if frac < ledge_cover.HIDDEN_BY:
+== level_design
+   in deli_counter (listed): 2 use(s)
+      3241: if _ld.is_strip_club_room({"id": r.id}, _ld.club_building_id(builder.s))}
+      3451: business=_ld.club_building_id(builder.s),
+   in layout_lint (unlisted): 5 use(s)
+      554: and `level_design._HUNG_MIN` or more above its floor).
+      558: floored, not rounded: `level_design._volume_story`'s round puts a sign
+      561: sh = level_design._story_height(spec)
+   in lights (listed): 5 use(s)
+      434: """Does ``business`` (`level_design.club_building_id`) name a home?"""
+      453: `level_design._front_turn`, asked the other way round."""
+      1511: bar_aisle = level_design.bar_aisle_width()
+   in migrate_furnish_recipes (unlisted): 6 use(s)
+      7: chair sets with one more ``_<n>`` -- is removed, and `level_design.furnish`
+      47: stems = (set(level_design._PIECES) | set(level_design._LEGACY_STEMS)
+      48: | set(level_design._COLLIDER_STEMS) | {"chair_set"})
+   in migrate_slush_machine (unlisted): 10 use(s)
+      20: (`level_design._glazed_walls`: every store's storefront) is skipped --
+      22: * the OPENINGS: exterior ones by `level_design._ext_openings`, a
+      110: tags = {level_design._room_tag(r) for r in spec.get("rooms") or []}
+   in migrate_wall_crossing (unlisted): 2 use(s)
+      23: of the wall less `level_design._WALL_PIECE_AIR`, the air a wall-slotted piece
+      90: air = level_design._WALL_PIECE_AIR
+   in migrate_window_poster (unlisted): 1 use(s)
+      213: tags = {level_design._room_tag(r) for r in d.get("rooms") or []}
+   in migrate_window_sign (unlisted): 1 use(s)
+      272: tags = {level_design._room_tag(r) for r in d.get("rooms") or []}
+   in presets (listed): 5 use(s)
+      2401: kind is read off the building's id (`level_design.is_strip_club_room`),
+      2579: (`level_design.is_card_shop_room`), and this spec carries
+      2819: the kind is read off the building's id (`level_design.
+== material_kind
+   in deli_counter (listed): 5 use(s)
+      670: k = material_kind.kind_for(m, m if m in material_kind.SKIN_KINDS else None)
+      671: if k and k in material_kind.SKIN_KINDS and k not in self.OUTSIDE_ONLY:
+      3319: _k = material_kind.kind_for(_m)
+   in level_design (unlisted): 1 use(s)
+      2952: kind = material_kind.kind_for(w.get("material")
+   in themed_tscn (listed): 2 use(s)
+      254: kind Zoo knows (`material_kind.SKIN_KINDS`, the mirror of
+      261: return str(m) if m and m in material_kind.SKIN_KINDS else None
+== migrate_furnish_recipes
+   in migrate_slush_machine (unlisted): 2 use(s)
+      113: if migrate_furnish_recipes.furnished_by_this_pass(v, tags):
+      307: migrate_furnish_recipes.migrate(d)
+   in migrate_window_poster (unlisted): 1 use(s)
+      215: if not migrate_furnish_recipes.furnished_by_this_pass(v, tags)), default=0)
+   in migrate_window_sign (unlisted): 1 use(s)
+      274: if not migrate_furnish_recipes.furnished_by_this_pass(v, tags)), default=0)
+== migrate_roller_grill
+   in presets (listed): 1 use(s)
+      1850: grill, _why = migrate_roller_grill.plan_grill(spec)
+== migrate_slush_machine
+   in migrate_roller_grill (unlisted): 3 use(s)
+      48: return S.plan_station(spec, NAME, (WIDTH, DEPTH, HEIGHT), ANCHORS, AHEAD)
+      52: return S.migrate(d, NAME, (WIDTH, DEPTH, HEIGHT), ANCHORS, AHEAD)
+      56: return S.main(argv, NAME, (WIDTH, DEPTH, HEIGHT), ANCHORS, "a roller grill", AHEAD)
+   in migrate_window_poster (unlisted): 3 use(s)
+      6: every convenience store (`migrate_slush_machine.is_store`) with a storefront
+      32: (`migrate_slush_machine._front`), `rot_z` 180 turns either round.
+      185: if migrate_slush_machine.is_store(d):
+   in migrate_window_sign (unlisted): 3 use(s)
+      6: Zoo 1.27.0: every convenience store (`migrate_slush_machine.is_store`) with a
+      35: (`migrate_slush_machine._front`), `rot_z` 180 turns either round.
+      244: if migrate_slush_machine.is_store(d):
+   in presets (listed): 1 use(s)
+      1845: station, _why = migrate_slush_machine.plan_station(spec)
+== migrate_wall_crossing
+   in presets (listed): 1 use(s)
+      3849: migrate_wall_crossing.trim(spec)
+== migrate_window_poster
+   in presets (listed): 2 use(s)
+      784: migrate_window_poster.migrate(spec)
+      1862: migrate_window_poster.migrate(spec)
+== migrate_window_sign
+   in migrate_window_poster (unlisted): 13 use(s)
+      77: room = next((r for r in d.get("rooms") or [] if r.get("id") == SIGN.ROOM
+      83: grid = SIGN._grid(d)
+      86: sign = next((v for v in d.get("volumes") or [] if v.get("name") == SIGN.NAME), None)
+   in presets (listed): 2 use(s)
+      783: migrate_window_sign.migrate(spec)
+      1861: migrate_window_sign.migrate(spec)
+== navigability
+   in evidence (unlisted): 1 use(s)
+      115: report["gates"]["navigability"] = _gate(lambda: navigability.check(spec))
+   in validate (unlisted): 2 use(s)
+      184: nerrors, nwarnings, nsummary = navigability.check(spec)
+      185: print(navigability.format_summary(spec.name, nsummary))
+== polybudget
+   in validate (unlisted): 3 use(s)
+      141: _, psummary = polybudget.estimate(spec)
+      142: print(polybudget.format_summary(spec.name, psummary))
+      143: for w in polybudget.budget_warnings(psummary):
+== prop_species
+   in deli_counter (listed): 3 use(s)
+      2525: species = prop_species.species_for_name(v.name)
+      2557: else prop_species.long_axis_first(size))
+      2596: if v.collision != "none" and not prop_species.owns_collision(
+   in level_design (unlisted): 3 use(s)
+      3212: (`prop_species.long_axis_first`). Getting this backwards is the defect
+      3270: that side is y (`prop_species.long_axis_first`), and a slot's rotation
+      3278: turned = (prop_species.species_for_name(name) is not None
+   in lights (listed): 3 use(s)
+      451: that side is y (`prop_species.long_axis_first`), then `rot_z`; the
+      777: if prop_species.species_for_name(name) != _BACKBAR_SPECIES:
+      816: if prop_species.species_for_name(name) != _TV_SPECIES:
+== pvp_heist
+   in evidence (unlisted): 1 use(s)
+      125: report["gates"]["pvp_heist"] = _gate(lambda: pvp_heist.check(spec))
+   in validate (unlisted): 2 use(s)
+      234: perrors, pwarnings, psummary = pvp_heist.check(spec)
+      235: print(pvp_heist.format_summary(spec.name, psummary))
+== rarity
+   in deli_counter (listed): 1 use(s)
+      1274: self.rarity_info = resolve_rarity(self.s.rarity)
+== setbacks
+   in deli_counter (listed): 4 use(s)
+      1388: ex0, ey0, ex1, ey1 = setbacks_mod.slab_extent(self.s, s)
+      1506: x0, y0, x1, y1 = setbacks_mod.storey_extent(self.s, s)
+      1721: extent=setbacks_mod.storey_extent(self.s, p.story))
+   in floorplan (listed): 1 use(s)
+      497: _ex0, _ey0, _ex1, _ey1 = _sb.storey_extent(spec, story)
+   in layout_lint (unlisted): 6 use(s)
+      189: _ex = _sb2.storey_extent(_LintSpec(spec), int(part.get("story", 0)))
+      203: """Attribute view over a spec DICT, so `setbacks.py` can be asked the same
+      315: ex0, ey0, ex1, ey1 = _sb.storey_extent(_LintSpec(spec), s)
+   in roofs (listed): 1 use(s)
+      183: _rx0, _ry0, _rx1, _ry1 = _sb.slab_extent(spec, story)
+   in stairwell (listed): 3 use(s)
+      1172: ext = _sb.storey_extent(spec, part.story)
+      1177: ex0, ey0, ex1, ey1 = _sb.storey_extent(spec, p["story"])
+      1654: extent=_sb.storey_extent(spec, p.story))
+== sightlines
+   in combat_audit (unlisted): 1 use(s)
+      934: for story in sightlines.analyze(spec):
+   in evidence (unlisted): 1 use(s)
+      130: report["intel"] = {"sightlines": sightlines.analyze(spec)}
+   in pvp_heist (unlisted): 3 use(s)
+      360: wall/tall-volume occluders — the same geometry sightlines.py uses)."""
+      390: occ = sightlines._occluders(spec, story)
+      404: if sightlines._clear((a.x, a.y), (d.x, d.y), occ):
+   in validate (unlisted): 2 use(s)
+      262: for line in sightlines.report(spec).splitlines()[1:]:  # skip name header
+      264: spaths = sightlines.write_overlays(spec, sl_dir)
+== skin_style
+   in deli_counter (listed): 9 use(s)
+      744: style = skin_style.style_for(material, self._mat_style,
+      794: style = skin_style.style_for(material, self._mat_style,
+      1261: self._mat_style = skin_style.material_styles(
+   in floors (listed): 4 use(s)
+      177: finish palette adds to it. This is the list `skin_style.material_styles`
+      401: mapping = skin_style.material_styles(palette_ids(spec))
+      424: room=r.id, style=skin_style.style_for(fmat, mapping, default),
+   in roofs (listed): 2 use(s)
+      160: mapping = skin_style.material_styles(
+      162: style = skin_style.style_for(mat, mapping, mat)
+== stair_pitch
+   in presets (listed): 2 use(s)
+      3709: stair_pitch.lengthen(spec)
+      3768: stair_pitch.clear_walls(spec)
+== stoop
+   in deli_counter (listed): 3 use(s)
+      2602: """AN EMPTY'S STOOP (0.211.0, factory roadmap 240; `stoop.py`): the
+      2610: p = stoop.plan(self.s)
+      2674: "rot_y": stoop.RAIL_ROT_Y,
+   in presets (listed): 4 use(s)
+      3144: lift = (round(int(stoop) * stoop_geom.RISER - s["floor_thick"] / 2.0, 4)
+      3196: s["stoop"] = {"risers": int(stoop), "tread": stoop_geom.TREAD,
+      3197: "landing": stoop_geom.LANDING, "width": stoop_geom.WIDTH}
+== tactical
+   in combat_audit (unlisted): 26 use(s)
+      208: rid = tactical._room_at(spec, st, m.x, m.y)
+      237: a = tactical._room_at(spec, p.story, p.pos - eps, u)
+      238: b = tactical._room_at(spec, p.story, p.pos + eps, u)
+   in evidence (unlisted): 3 use(s)
+      112: report["gates"]["tactical"] = _gate(lambda: tactical.analyze(spec))
+      160: adj = tactical.build_graph(spec)
+      161: entries = sorted(tactical._entry_rooms(spec))
+   in ladder (listed): 6 use(s)
+      81: rid = tactical._room_at(spec, story, x, y)
+      330: rid = tactical._room_at(spec, story, u, hy - eps)
+      332: rid = tactical._room_at(spec, story, u, -hy + eps)
+   in layout_lint (unlisted): 5 use(s)
+      971: """A storey's partitions as `tactical.open_edge` reads them, ``(axis, pos,
+      1031: if tactical.shared_open_edge(ra["bounds"], rb["bounds"], parts):
+      1121: shared edge uncovered by any partition for `tactical.OPEN_FLOOR_M` -- and
+   in navigability (unlisted): 3 use(s)
+      74: full = tactical.build_graph(spec)
+      80: entries = tactical._entry_rooms(spec)
+      81: reach = tactical._reachable(full, entries) if entries else set()
+   in pvp_heist (unlisted): 11 use(s)
+      66: return _room_at(spec, story, x, y)
+      264: adj = build_graph(spec)
+      265: entries = _entry_rooms(spec)
+   in stair_place (listed): 1 use(s)
+      623: flat = stairwell._same_story_edges(spec, tactical.build_graph(spec))
+   in stairwell (listed): 14 use(s)
+      1800: rid = tactical._room_at(spec, story, u, hy - eps)
+      1802: rid = tactical._room_at(spec, story, u, -hy + eps)
+      1804: rid = tactical._room_at(spec, story, hx - eps, u)
+   in validate (unlisted): 2 use(s)
+      125: terrors, twarnings, scorecard = analyze(spec)
+      131: print(format_scorecard(spec.name, scorecard))
+== tscn_export
+   in build (listed): 1 use(s)
+      119: tscn_export.tscn_from_manifest(slots_json, out, res_root)
+   in themed_tscn (listed): 6 use(s)
+      26: tscn_export._godot_transform so the themed scene lines up with the baked GLB.
+      685: tscn_export.godot_basis). Fit what will be placed."""
+      705: b = godot_basis(rot, scale or [1.0, 1.0, 1.0])
+   in zoo_export (unlisted): 5 use(s)
+      26: f"{_f(x)}, {_f(y)}, {_f(z)})",
+      44: f"{_f(bx)}, 1, {_f(bz)})",
+      52: f"{_f(bx - spacing)}, 0.9, {_f(bz)})",
+== validate
+   in evidence (unlisted): 1 use(s)
+      75: schema_errs = [e for e in _v._schema_check(data) if not e.startswith("(")]
+== vault_room
+   in deli_counter (listed): 4 use(s)
+      533: hole["slot_w"] = vault_room.slot_width(r["width"], r["height"],
+      543: if face in vault_room.BEARING:
+      544: want = vault_room.FACES_FOR_AXIS["X" if axis == 0 else "Y"]
+   in level_design (unlisted): 2 use(s)
+      784: for x0, y0, x1, y1 in vault_room.keepout_rects(spec, story):
+      3592: for k in vault_room.keepout_rects(spec, story):
+   in stair_pitch (unlisted): 1 use(s)
+      231: if vault_room.is_generated(v, spec)}
+== zfight_gate
+   in circulation (unlisted): 7 use(s)
+      250: zfight_gate._node_world_boxes on a dressing GLB).
+      280: ``zfight_gate._node_world_boxes`` already skips ``*colonly`` nodes, so what
+      288: return [(n, b) for n, b in zfight_gate._node_world_boxes(shell_glb)
+== zoo_export
+   in build (listed): 1 use(s)
+      286: zoo_export.zoo_from_dir(args.zoo_dir, args.tscn_res_root, out)

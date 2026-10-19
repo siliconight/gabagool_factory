@@ -1,0 +1,9 @@
+Deli Counter 0.228.0: the pre-commit hook (catalog.py, then check.py) on commit 3dd5d62e, 2026-10-19
+== nav results against their baseline (reads what the gate just wrote) ==
+== checking catalog freshness ==
+
+All checks passed.
+
+Before it, a standalone 'python check.py' exited 1. Run without the hook's catalog.py refresh, its catalog
+freshness step failed on the 11 refurnished specs (catalog.py --check: exit 1); validate.py --all, audit_specs.py,
+layout_lint.py --all and build_freshness.py each exited 0 run alone. The hook refreshes and stages specs/CATALOG.md first.
