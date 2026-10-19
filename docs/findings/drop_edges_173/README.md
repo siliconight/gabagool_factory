@@ -329,3 +329,6 @@ unresolved in the flood (item 6 below).
    attributed to a query that sat on a round coordinate (`docs/findings/breadth_sweep_2026-10-19/`). How far
    the answer moves with the lattice's phase at the cell's own scale, which is what this item asks, is still
    unmeasured.
+   MEASURED the same evening, NOT attributed (`phase_sweep/`): six phases a quarter cell apart on three levels.
+   The verdict holds at 17 of 18 pairs. At (0.1281, 0.1273) restaurant_row_001 refuses on one row beside deli_a03's
+   0.4 m stair slot, and its flood reaches 41,322 cells where every other phase reaches 53,144 to 55,492.
