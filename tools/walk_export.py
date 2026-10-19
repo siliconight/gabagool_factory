@@ -67,6 +67,7 @@ _WALK_SCENE = """[gd_scene load_steps={steps} format=3]
 [ext_resource type="Script" path="res://_walk_ladders.gd" id="walk_ladders"]
 [ext_resource type="Script" path="res://_walk_flashlight.gd" id="walk_flashlight"]
 [ext_resource type="Script" path="res://_walk_work_light.gd" id="walk_work_light"]
+[ext_resource type="Script" path="res://_walk_asset_flags.gd" id="walk_asset_flags"]
 {drip_res}
 [sub_resource type="CapsuleShape3D" id="PlayerCol"]
 radius = 0.35
@@ -100,6 +101,9 @@ script = ExtResource("walk_flashlight")
 
 [node name="WalkWorkLight" type="Node" parent="."]
 script = ExtResource("walk_work_light")
+
+[node name="WalkAssetFlags" type="Node" parent="."]
+script = ExtResource("walk_asset_flags")
 {drip_node}"""
 
 #: LADDER CLIMB VOLUMES for the walk copy (`tools/walk_ladders.gd`). The
@@ -129,6 +133,17 @@ _FLASHLIGHT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
 #: headless. Always in the walk copy, never in the package.
 _WORK_LIGHT_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
                                "walk_work_light.gd")
+
+#: ASSET FLAGS, G and P (2026-10-19, factory roadmap 253). The walker: "I want a
+#: way to flag assets that look good and assets that need more polish/love". G
+#: marks what the crosshair rests on as looking good, P as needing love; each
+#: press appends a record and a small frame beside the copy (`asset_flags.jsonl`,
+#: `asset_flags/`), and `tools/asset_flags.py` gathers them into a ledger. The
+#: pick is by render first -- collision here is the greybox, the asset is the
+#: module over it. `tools/walk_asset_flags_selftest.gd` proves it headless.
+#: Always in the walk copy, never in the package; debug builds only.
+_ASSET_FLAGS_SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                "walk_asset_flags.gd")
 
 #: LEVEL FACTORY'S debug overlay -- position, the building under the
 #: crosshair, the collider looked at and its distance; F3 toggles, on by
@@ -415,6 +430,7 @@ def main(argv=None):
     shutil.copy2(_LADDERS_SRC, os.path.join(out, "_walk_ladders.gd"))
     shutil.copy2(_FLASHLIGHT_SRC, os.path.join(out, "_walk_flashlight.gd"))
     shutil.copy2(_WORK_LIGHT_SRC, os.path.join(out, "_walk_work_light.gd"))
+    shutil.copy2(_ASSET_FLAGS_SRC, os.path.join(out, "_walk_asset_flags.gd"))
 
     drip_staged = []
     if args.drip:
@@ -502,6 +518,8 @@ def main(argv=None):
           "to walk IS a finding, and a lamp that is always on hides it")
     print("  work light: L toggles one, OFF at start -- the whole view lit "
           "flat for checking what is there; a banner says it is not the look")
+    print("  flags    : G looks good, P needs love -- what the crosshair rests on, "
+          "to asset_flags.jsonl beside the copy (tools/asset_flags.py gathers)")
     print("  overlay  : Level Factory's debug_overlay.gd (F3 toggles; position, "
           "building, surface)")
     print("  player   : Lot's lot_player.gd as _walk_player.gd  "

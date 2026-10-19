@@ -66,10 +66,10 @@ class LoadSteps(unittest.TestCase):
                                  "drip=%s headlamp=%s" % (drip, headlamp))
 
     def test_the_counts_today(self):
-        # the mission and five scripts, one capsule, and the scene itself: 8;
-        # the drip's script makes 9
-        self.assertEqual(_steps(walk_export._walk_scene((0.0, 0.0, 0.0))), 8)
-        self.assertEqual(_steps(walk_export._walk_scene((0.0, 0.0, 0.0), drip=True)), 9)
+        # the mission and six scripts (the asset flags joined on 2026-10-19), one
+        # capsule, and the scene itself: 9; the drip's script makes 10
+        self.assertEqual(_steps(walk_export._walk_scene((0.0, 0.0, 0.0))), 9)
+        self.assertEqual(_steps(walk_export._walk_scene((0.0, 0.0, 0.0), drip=True)), 10)
 
     def test_the_spawn_lands_on_the_player(self):
         text = walk_export._walk_scene((1.5, 2.25, -3.0))
