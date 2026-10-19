@@ -1,0 +1,10 @@
+FFFFFFFF                                                                 [100%]
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_a_ledge_takes_the_buildings_drywall
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_no_drywall_takes_any_wall
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_no_wall_takes_the_floor_family
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_the_collider_is_not_skinned
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_a_base_with_no_ledge_is_a_no_op_that_says_which
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_no_art_beside_the_base_is_an_error_not_a_note
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_no_module_in_any_family_is_an_error_not_a_note
+FAILED tests/unit/test_worldskin_vault_ledges.py::test_the_call_is_recorded_as_one_that_can_change
+exit=1 on Level Factory 0.216.1 (c62b873): each Godot import printed the stairs, slabs and ladders lines and no vault ledges line

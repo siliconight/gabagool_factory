@@ -846,7 +846,7 @@ work of adopting this.
 | 165 | **ANALYSIS** | This is a multiplayer online game, so every frame is spent on somebody | 2026-09-21 -- STILL A STANDING CONSTRAINT, AND NOW A MEASURED ONE. The rule as written was |
 | 166 | **NARROWED** | A generated level chugged, and everything this repo believed about why | 2026-09-21 -- SUBMISSION COST AND MEMORY ARE FIXED AND PROVEN ON A COLD RUN; THE WARM-UP'S |
 | 167 | **ANALYSIS** | Per-instance variation has no home in this pipeline, and a GLB cannot  | 2026-09-21 -- A CAPABILITY GAP WITH A MEASURED CEILING, NOT A DEFECT. |
-| 168 | **NARROWED** | Greybox survives into a themed package wherever theming has no pass fo | 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED; THREE OTHER GREYBOX SURFACES R |
+| 168 | **CLOSED** | Greybox survives into a themed package wherever theming has no pass fo | 2026-10-19 -- every class this item named has an owner, the zero is measured, and the gate |
 | 169 | **CLOSED** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-10-19 -- shipped on 2026-10-04 and never marked here. Level Factory 0.136.0 (1343cc2) |
 | 170 | **NARROWED** | Every roof opening in the library is an open hole, and a building does | 2026-10-15 -- the lid shipped, the bulkhead is left (`docs/findings/roof_openings_170/`, ` |
 | 171 | **NARROWED** | Exterior access exists and almost never gets placed | 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `e |
@@ -922,7 +922,7 @@ work of adopting this.
 | 241 | **NARROWED** | An urban level type: mid-rise street walls | 2026-10-13 -- steps 2 and 3's first cut built, proven and priced: Level Factory 0.200.0 (6 |
 | 242 | **NARROWED** | Laser Tag's route on a lot swings with any change to its street furnit | 2026-10-12 -- the pin fixed in Laser Tag, and the grader's stuck count corrected twice on  |
 | 243 | **NARROWED** | A package runs Lux's High tier on its low-end renderer | 2026-10-12 -- the tier's largest cost taken out at the walker's call: on cold run 9264's l |
-| 244 | **OPEN** | A marked crosswalk lands on a raised kerb | 2026-10-13 -- grounded, and now a walker's call. On cold run 9262's lot (seed_9104) 25 % o |
+| 244 | **CLOSED** | A marked crosswalk lands on a raised kerb | 2026-10-19 -- DECIDED, a call that can be changed (the walker's standing instruction of 20 |
 | 245 | **CLOSED** | Which majors decide a pick | 2026-10-13 -- the walker left the call to the factory ("I think you can make that call for |
 | 246 | **CLOSED** | Laser Tag counts the end of a short path as arriving | 2026-10-14 -- traced in a run and fixed. Laser Tag 0.32.0 (a277dd9) counts an arrival only |
 | 247 | **NARROWED** | Zoo's roof props are not byte-stable from run to run | 2026-10-14 -- the roof props fixed in Zoo 1.109.0 (c2edb80): the satellite dish's bowl, a  |
@@ -938,7 +938,7 @@ work of adopting this.
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 | 258 | **OPEN** | The mission's own shell is built three times a run and ships as a dead | 2026-10-15 -- MEASURED ON COLD RUN 9316, NOT DECIDED. Three Blender builds of the mission' |
 
-**258 items: 15 open, 133 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**258 items: 14 open, 135 closed, 3 retracted, 98 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -17589,7 +17589,25 @@ draw call per row at the cost of an art capability forever. The work waits for
 a customer worth it -- all the repeated interior stock at once, not one strip
 of felt.*
 
-*STATUS: NARROWED 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED;
+*STATUS: CLOSED 2026-10-19 -- every class this item named has an owner, the
+zero is measured, and the gate refuses on it. Ladders: a worldskin pass,
+Level Factory 0.136.0 (roadmap 169). Roof parapets: wall slots the composer
+dresses, Deli Counter 0.177.0 (324 greybox surfaces on cold run 9148's package
+before it). Vault ledges: a worldskin pass, Level Factory 0.217.0 (31cc75c),
+the building's drywall wall, then any wall, then its floor family -- a call
+made 2026-10-19 and meant to be changed (`VAULT_LEDGE_FAMILIES`). Read off the
+40 censuses on disk: of 24 packages exported since 2026-10-10 none drew a
+greybox ladder or parapet, and the 11 that drew any greybox drew only vault
+ledges (1 to 3 surfaces). Cold run 9322 (urban_row_001 on 0.217.0, 0
+interventions) is the first themed package with 0 greybox surfaces, where
+9321's had 3. Level Factory 0.218.0 (3f7721f,
+`patches/patch_lf_greybox_any_role.py`) makes `greybox_skin.assert_skinned`
+refuse ANY greybox surface in a themed package, behind
+`ExportProfile.require_no_greybox` (default on; off restores slabs only), with
+the verdict's first unit tests. Not proven: platform decks (`PLATFORM_<id>`,
+the floor role, in the one spec that has one) have no pass and no censused
+package carries one; the new verdict will name one if it ships. Earlier status
+kept: NARROWED 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED;
 THREE OTHER GREYBOX SURFACES REMAIN AND ARE NOW COUNTED. Slab surfaces drawing
 a greybox material: 344 -> 0 on cold run 9070's package re-imported with LF
 0.106.0's `_skin_slabs`, and the new `greybox_skin` gate was measured REFUSING
@@ -20502,7 +20520,7 @@ So the factory owes, and owes nothing more: the `FxEmit_<kind>` markers in the a
 
 **THE TIERS SHOWN AND THE SUN BAKED, 2026-10-12** (`docs/findings/lux_tiers/`). Asked which tier, the walker: "didn't know we had this... not sure", so the four were shown on cold run 9264's level (`tier_frames.py`, `tiers.png`): High 2,642 draws a heading and a 7.73 ms median p95, Medium 2,457 and 7.21, Low and Compatibility 538 and 4.18 to 4.32 -- High and Medium dark and contrasty with the film look, Low and Compatibility brighter and flatter, every surface readable. "Test the High look without sun shadows": arm A, the preset's sun shadows off, 788 draws and 4.46 ms, reads as Low with High's post look; arm B2, the sun built static and re-baked, then drawn without its shadows, 788 draws and 4.42 ms, the nearest to High (`sun_variants.py`, `sun_price.py`). The walker: "Bake the sun by default". Lux 0.76.0 (`patches/patch_lux_sun_baked.py`; `tools/sun_bake_selftest.gd`, 12 checks, five failing on 0.75.0) and cold run 9265 (`docs/cold_runs/cold_9265/`: `sun_state.gd` against 9264's package as the control, the frames, the price). **RETRACTED, KEPT:** arm B -- the sun static with its shadow flag off for the bake -- was filed as baking unoccluded, "as flat as A", and Lux 0.76.0's comment repeated it as measured; B's frames were in no table, and measured they are B2's within a re-bake's noise (1.6 to 2.5 levels): the flag does not change the bake. Lux 0.76.1 (`patches/patch_lux_sun_comment.py`) corrects the comment, no behaviour changed. **WHAT THE BAKED SUN CHANGES, TAKEN APART** (`sun_occluders.sh`, `backdrop_split.sh`, `spec_arm.sh`). Level Factory bakes `bake.tscn`, the presentation scene; the game's `mission.tscn` also loads `site_backdrop.tscn` -- 25 MultiMeshes of 269 instances, rowhomes 8 to 11 m high and a 40 m water tower in rows round the level 58 to 181 m out, its west and north sides between blue hour's sun and the level -- which no bake has seen. Split by pixel: about half of corner's difference and half of elev_N's lie on the backdrop, which under the baked sun takes the sun with no shadow from anything (corner's far row 60.5 -> 66.2 luma, elev_N's homes 15.6 -> 36.5); its long shadows no longer fall on the level (taken away under the live sun, the level at up 52.6 -> 59.1); a lightmap's missing specular is 1.3 to 1.6 levels on the level; the rest of the level's sunlit faces reading darker under the baked sun (up 57.5 against 46.9 with both taken away) is not attributed. Levers, none taken: the backdrop as a caster in the bake (what the lightmapper does with a MultiMesh is unmeasured), its own lighting by cause, or nothing -- far scenery, its shadows short under a higher sun.
 
-*STATUS: OPEN 2026-10-13 -- grounded, and now a walker's call. On cold run 9262's lot (seed_9104) 25 % of the crosswalks' kerb ends are dropped (11.80 of 48.00 m). Read at source (`docs/reference/CURB_RAMPS.md`): today's rule ramps every crosswalk, marked or not, but a 1997 Philadelphia street not resurfaced since 1992 could meet its crosswalks with full kerbs (Kinney v. Yerusalim, 3d Cir. 1993). Ramps at every crosswalk, at none, or by street (resurfaced or not) is the walker's; the ramp's numbers are written down for whichever.*
+*STATUS: CLOSED 2026-10-19 -- DECIDED, a call that can be changed (the walker's standing instruction of 2026-10-19: make decisions that can be changed later): NONE, the level as built. A marked crosswalk meets a full kerb unless a road or a path crosses it there -- 11.80 of 48.00 m of crosswalk ends dropped on seed_9104's lot, as measured -- which is how a 1997 Philadelphia street not resurfaced since January 1992 met its crosswalks (Kinney v. Yerusalim, 3d Cir. 1993; `docs/reference/CURB_RAMPS.md`). It moves nothing the graders score, where 'every' would move the graded lots' kerbs (242's lesson) and 'by street' would need a resurfacing cause per street that no source sizes. To change it: Lot's kerb model cuts where a crosswalk lands (`site_streets.split_span` and `crossing_walks`), the walk's width plus `CUT_MARGIN`, to the PROWAG numbers this item records, priced on the graders first. Earlier status kept: OPEN 2026-10-13 -- grounded, and now a walker's call. On cold run 9262's lot (seed_9104) 25 % of the crosswalks' kerb ends are dropped (11.80 of 48.00 m). Read at source (`docs/reference/CURB_RAMPS.md`): today's rule ramps every crosswalk, marked or not, but a 1997 Philadelphia street not resurfaced since 1992 could meet its crosswalks with full kerbs (Kinney v. Yerusalim, 3d Cir. 1993). Ramps at every crosswalk, at none, or by street (resurfaced or not) is the walker's; the ramp's numbers are written down for whichever.*
 
 **244. A marked crosswalk lands on a raised kerb.** Found reading Lot's kerbs for roadmap 179 (`docs/cold_runs/cold_9269/NOTES.md`). Lot drops a kerb where another road or a path crosses it: the crosser's carriageway and `CUT_MARGIN` (0.6 m) each side (`site_streets.split_span`). It paints the crosswalks where people walk, in line with the crossing street's sidewalks (`site_streets.crossing_walks`) -- outside the dropped stretch. Measured on seed_9104's lot, for every painted walk and each of its two kerbs (the site's own `site_streets.roads`):
   * the main road's four crosswalks, one each side of its two T's, meet its north kerb dropped for 0.35 m of the 2.50 m painted, and its south kerb -- which has no cut at all -- not at all;
