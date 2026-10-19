@@ -1,0 +1,28 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "convenience_001",
+  "display_name": "Flappahs",
+  "archetype": "convenience_store",
+  "building_count": 1,
+  "site_shape": "street_block",
+  "route_shape": "push_then_backtrack",
+  "objective_hypotheses": [
+    "enter_store",
+    "reach_office",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "crew_start_backtrack",
+  "verticality": "low",
+  "landmark": "lit_storefront",
+  "time_of_day": "night",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "crew_size": 4,
+  "candidate_count": 3,
+  "target_minutes": [
+    10,
+    20
+  ],
+  "notes": "COLD RUN 9181. A convenience-store brief, never run before: one building, so no lot library and the store is GENERATED from Deli Counter's convenience_store recipe (0.188.0: the station's shop without the forecourt, with the window sign, the sale posters and its preset key). WHAT THIS RUN TESTS: that recipe reaching a package; FLAPPAHS at the door (Zoo 1.75.0) and on the fascia, never the price board (Pixelcoat 0.58.0, Level Factory 0.146.0); and a one-building street block, which no brief has asked for before (county_hospital_001 is the only one-building brief, on a campus)."
+}

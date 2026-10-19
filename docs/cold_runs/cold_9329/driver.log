@@ -1,0 +1,29 @@
+== selftest (13:04:13)
+  a tool source file, a shipped spec, or another repo
+== begin (13:04:13)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9329\journal.md
+== batch (13:04:23)
+created batch 'cold_9329' with 1 mission(s): county_hospital_001
+== plan (13:04:23)
+== shell (13:04:24)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 62)
+  county_hospital_001.lot_assemble.candidate.seed_9006: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9107: shell.glb 
+  county_hospital_001.lot_assemble.candidate.seed_9208: shell.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9006: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS_WITH_TUNING 89, out for nothing
+  seed 9107: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  seed 9208: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 100, out for nothing
+  picked seed_9208 on the walktest and Laser Tag's route findings
+== approvals (13:05:24)
+== art (13:05:26)
+Structural checks passed  (blockers open: 0, total findings: 83)
+  exit 1
+== export (13:06:28)
+internal error: UNDECLARED_DROP_INDOORS: 20 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+[export] light bake: 140 model(s) and 42 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 95 steady rig(s) baked, 11 failing and 0 cycling left live; 119 room fill(s); 1434 users, 33.3 s in the editor
+  exit 5
+STOPPED: export
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)

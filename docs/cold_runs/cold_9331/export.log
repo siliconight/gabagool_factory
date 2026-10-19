@@ -1,0 +1,23 @@
+[export] surface dressing: convenience_001_dressing.tscn -- 1442 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 146 instances of 7 module(s) on their sides, 25 draw calls (N 44, S 46, E 28, W 27; 1 tower)
+[export] 48 occluder(s) from 48 solid module(s); 17 glass, 10 porous and 19 filler left open
+[export]   res://mission.tscn loaded by Godot holds 48 occluder node(s) in a tree of 2006
+[export] light bake: 93 model(s) and 37 primitive mesh(es) lightmapped, 7 kept dynamic, 1 spawned set dynamic; 35 steady rig(s) baked, 5 failing and 0 cycling left live; 26 room fill(s); 565 users, 26.9 s in the editor
+[export] occlusion: use_occlusion_culling=true with 48 occluder node(s) reachable from res://mission.tscn (48 in the package, 7 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 46 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 92 GLB(s), 366 external reference(s): 366 resolve to 93 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 14702 reached of 18095 standable cells, 0 unguarded drop edge(s): 0 a flight's own side, 0 at a declared drop, 0 at a ladder's shaft, 0 a thing's top, 0 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_convenience_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 93 of 93 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 52 resource(s) in a package of 930 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 934 file(s) listed + 2 declared unlisted = 936 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported convenience_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9331-ws\.level_factory\exports\LF_convenience_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9331-ws walk convenience_001 --play   (a copy with a player at the package's player_start; the package stays untouched)

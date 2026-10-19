@@ -1,0 +1,26 @@
+internal error: UNDECLARED_DROP_INDOORS: 20 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+  a body walks off each into a fall deeper than it steps; a rail guards it, a floor_hole / hatch vertical link in the building's spec declares it, and either fix lands in Deli Counter, not here
+    (-6.50, 7.20, -13.25) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-5.50, 7.20, -10.75) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-7.00, 7.20, -10.75) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-6.50, 7.20, -10.75) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-7.00, 7.20, -13.25) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-5.00, 7.20, -13.25) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-7.25, 7.20, -11.00) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+    (-5.50, 7.20, -13.25) drop 7.20 m  on GreyboxBase/slab_col_2  to GreyboxBase/slab_col_0
+  full report: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9329-ws\.level_factory\exports\LF_county_hospital_001.portable-godot\drop_edges_scan.json and C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9329-ws\.level_factory\exports\LF_county_hospital_001.portable-godot\drop_edges.json
+[export] surface dressing: county_hospital_001_dressing.tscn -- 2072 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 192 instances of 6 module(s) on their sides, 24 draw calls (N 62, S 65, E 35, W 30; 0 tower)
+[export] 308 occluder(s) from 318 solid module(s); 23 glass, 48 porous and 71 filler left open
+[export]   res://mission.tscn loaded by Godot holds 308 occluder node(s) in a tree of 6431
+[export] light bake: 140 model(s) and 42 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 95 steady rig(s) baked, 11 failing and 0 cycling left live; 119 room fill(s); 1434 users, 33.3 s in the editor
+[export] occlusion: use_occlusion_culling=true with 308 occluder node(s) reachable from res://mission.tscn (308 in the package, 7 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 55 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 2, in responder_arrivals.json
+[export] glb references: 128 GLB(s), 448 external reference(s): 448 resolve to 81 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 25989 reached of 31820 standable cells, 49 unguarded drop edge(s): 3 a flight's own side, 20 at a declared drop, 0 at a ladder's shaft, 6 a thing's top, 0 outdoors (reported), 20 UNDECLARED indoors -- the class this gate refuses on

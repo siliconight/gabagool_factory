@@ -1,0 +1,19 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "county_hospital_001",
+  "display_name": "County Hospital",
+  "archetype": "county_hospital",
+  "building_count": 1,
+  "site_shape": "campus",
+  "route_shape": "spine",
+  "objective_hypotheses": ["breach_lobby", "reach_ward", "secure_patient", "extract"],
+  "extraction_relationship": "helipad_on_roof",
+  "verticality": "high",
+  "landmark": "ambulance_canopy",
+  "time_of_day": "night",
+  "weather": "rain",
+  "theme": "delco_1997",
+  "crew_size": 4,
+  "candidate_count": 3,
+  "target_minutes": [25, 35]
+}

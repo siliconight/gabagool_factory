@@ -1,0 +1,29 @@
+== selftest (13:25:52)
+  a tool source file, a shipped spec, or another repo
+== begin (13:25:52)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9333\journal.md
+== batch (13:26:02)
+created batch 'cold_9333' with 1 mission(s): restaurant_row_001
+== plan (13:26:03)
+== shell (13:26:05)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 81)
+  restaurant_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a01.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a01.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9205: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9003 on the walktest and Laser Tag's route findings
+== approvals (13:27:41)
+== art (13:27:42)
+Structural checks passed  (blockers open: 0, total findings: 110)
+  exit 1
+== export (13:30:35)
+internal error: UNDECLARED_DROP_INDOORS: 3 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+[export] light bake: 350 model(s) and 118 primitive mesh(es) lightmapped, 9 kept dynamic, 1 spawned set dynamic; 209 steady rig(s) baked, 28 failing and 0 cycling left live; 215 room fill(s); 3503 users, 59.4 s in the editor
+  exit 5
+STOPPED: export
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)

@@ -1,0 +1,34 @@
+package: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9333-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot
+the export's own scan: reachable 55710 of 64286 standable, unguarded 59, counts {'declared_drop': 20, 'ladder_hole': 13, 'outdoors': 8, 'stair_side': 12, 'top': 3, 'undeclared': 3}
+copied in 6 s; cache in the copy: True
+import: not needed, 0 s
+old arm (walkable_edge_0218_2.gd): 6 s
+   standable_cells 64286, reachable_cells 55710, occupied_surfaces 17548, steep_surfaces 685, occupied_next 7514, drop_edges 156, guarded 87, blocked 10, unguarded 59, unguarded_indoors 51, links_used 3, links_unresolved 1
+   counts {'top': 3, 'outdoors': 8, 'stair_side': 12, 'declared_drop': 20, 'ladder_hole': 13, 'undeclared': 3}
+   verdict: REFUSES -- UNDECLARED_DROP_INDOORS: 3 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+   undeclared (-64.25, 3.30, -9.50) drop 3.30 on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0
+   undeclared (-64.25, 3.30, -9.00) drop 3.30 on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0
+   undeclared (-64.00, 3.30, -8.75) drop 3.30 on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0
+new arm (walkable_edge_0219_0.gd): 6 s
+   standable_cells 63957, reachable_cells 55492, occupied_surfaces 17599, steep_surfaces 1, occupied_next 7713, drop_edges 183, guarded 123, blocked 8, unguarded 52, unguarded_indoors 44, links_used 3, links_unresolved 1
+   counts {'top': 0, 'outdoors': 8, 'stair_side': 11, 'declared_drop': 20, 'ladder_hole': 13, 'undeclared': 0}
+   verdict: PASSES
+copy deleted: True
+edge rows: old 59, new 52; only in old 12, only in new 5
+   only in old: (-64.25, 3.30, -9.50) drop 3.30 indoors True on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0 x1
+   only in old: (-64.25, 3.30, -9.00) drop 3.30 indoors True on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0 x1
+   only in old: (-64.00, 3.30, -8.75) drop 3.30 indoors True on GreyboxBase/slab_col_1 to GreyboxBase/slab_col_0 x1
+   only in old: (-63.75, 3.30, -9.50) drop 3.30 indoors True on GreyboxBase/stair1col_discharge_0 to GreyboxBase/slab_col_0 x1
+   only in old: (-63.75, 3.30, -9.00) drop 3.30 indoors True on GreyboxBase/stair1col_discharge_0 to GreyboxBase/slab_col_0 x1
+   only in old: (-61.75, 0.69, -13.00) drop 0.69 indoors True on GreyboxBase/stair1ramp_0 to GreyboxBase/slab_col_0 x1
+   only in old: (-61.75, 1.10, -12.50) drop 1.10 indoors True on GreyboxBase/stair1ramp_0 to GreyboxBase/slab_col_0 x1
+   only in old: (51.75, 4.67, -2.00) drop 1.07 indoors True on GreyboxBase/stair_guard_rail_1_col to GreyboxBase/slab_col_1 x1
+   only in old: (51.75, 4.67, -1.50) drop 1.07 indoors True on GreyboxBase/stair_guard_rail_1_col to GreyboxBase/slab_col_1 x1
+   only in old: (52.00, 4.67, -2.25) drop 1.07 indoors True on GreyboxBase/stair_guard_rail_1_col to GreyboxBase/slab_col_1 x1
+   only in old: (52.25, 4.12, -2.50) drop 0.52 indoors True on GreyboxBase/stair0ramp_1 to GreyboxBase/slab_col_1 x1
+   only in old: (55.75, 0.92, 1.00) drop 0.92 indoors True on GreyboxBase/stair0ramp_0 to GreyboxBase/slab_col_0 x1
+   only in new: (-62.25, 2.34, -11.00) drop 2.34 indoors True on GreyboxBase/stair1ramp_0 to GreyboxBase/slab_col_0 x1
+   only in new: (-62.25, 2.75, -10.50) drop 2.75 indoors True on GreyboxBase/stair1ramp_0 to GreyboxBase/slab_col_0 x1
+   only in new: (-62.25, 3.16, -10.00) drop 3.16 indoors True on GreyboxBase/stair1ramp_0 to GreyboxBase/slab_col_0 x1
+   only in new: (-62.00, 3.30, -9.75) drop 3.30 indoors True on GreyboxBase/stair1col_discharge_0 to GreyboxBase/slab_col_0 x1
+   only in new: (55.75, 0.91, 1.00) drop 0.91 indoors True on GreyboxBase/stair0ramp_0 to GreyboxBase/slab_col_0 x1

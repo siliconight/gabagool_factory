@@ -323,3 +323,9 @@ unresolved in the flood (item 6 below).
 7. **The lattice sweep.** One centimetre of grid offset lost a one-cell turn landing (`edges_9318d`). The
    gate snaps its rectangle to the unbounded lattice, so a bound cannot change the answer, but the answer
    still rests on one lattice. Several origins, as the nav gate's grid sweep does, would show how much.
+   2026-10-19: Level Factory 0.219.0 lays the lattice 3.1 mm and 2.3 mm off the round coordinates. That is not
+   this sweep. It takes every query off the coordinates where pieces meet, after a 1.7 um rounding gap on such
+   a line refused cold run 9333's export. On the breadth sweep's six packages it moved 38 edge rows, each
+   attributed to a query that sat on a round coordinate (`docs/findings/breadth_sweep_2026-10-19/`). How far
+   the answer moves with the lattice's phase at the cell's own scale, which is what this item asks, is still
+   unmeasured.

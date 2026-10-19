@@ -1,0 +1,24 @@
+package: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9330-ws\.level_factory\exports\LF_deli_001.portable-godot
+the export's own scan: reachable 26736 of 28405 standable, unguarded 66, counts {'declared_drop': 28, 'ladder_hole': 13, 'outdoors': 8, 'stair_side': 6, 'top': 11, 'undeclared': 0}
+copied in 2 s; cache in the copy: False
+import: ran, 42 s
+old arm (walkable_edge_0218_2.gd): 3 s
+   standable_cells 28405, reachable_cells 26736, occupied_surfaces 8488, steep_surfaces 36, occupied_next 3796, drop_edges 88, guarded 19, blocked 3, unguarded 66, unguarded_indoors 53, links_used 3, links_unresolved 1
+   counts {'top': 11, 'outdoors': 8, 'stair_side': 6, 'declared_drop': 28, 'ladder_hole': 13, 'undeclared': 0}
+   verdict: PASSES
+columns arm (walkable_edge_0219_0_columns_only.gd): 3 s
+   standable_cells 28400, reachable_cells 26716, occupied_surfaces 8072, steep_surfaces 0, occupied_next 3727, drop_edges 178, guarded 111, blocked 3, unguarded 64, unguarded_indoors 52, links_used 3, links_unresolved 1
+   counts {'top': 9, 'outdoors': 8, 'stair_side': 6, 'declared_drop': 28, 'ladder_hole': 13, 'undeclared': 0}
+   verdict: PASSES
+lattice arm (walkable_edge_0219_0.gd): 3 s
+   standable_cells 28400, reachable_cells 26716, occupied_surfaces 8072, steep_surfaces 0, occupied_next 3727, drop_edges 178, guarded 111, blocked 3, unguarded 64, unguarded_indoors 52, links_used 3, links_unresolved 1
+   counts {'top': 9, 'outdoors': 8, 'stair_side': 6, 'declared_drop': 28, 'ladder_hole': 13, 'undeclared': 0}
+   verdict: PASSES
+copy deleted: True
+edge rows old -> columns: 66 -> 64; only in old 2, only in columns 0
+   only in old: (-10.25, 6.30, -8.00) drop 0.50 indoors False on GreyboxBase/stair_guard_side_10_col to GreyboxBase/stair0ramp_1 x1
+   only in old: (-7.75, 3.00, -8.00) drop 1.70 indoors True on GreyboxBase/stair_guard_side_7_col to GreyboxBase/stair0ramp_0 x1
+edge rows old -> lattice: 66 -> 64; only in old 2, only in lattice 0
+   only in old: (-10.25, 6.30, -8.00) drop 0.50 indoors False on GreyboxBase/stair_guard_side_10_col to GreyboxBase/stair0ramp_1 x1
+   only in old: (-7.75, 3.00, -8.00) drop 1.70 indoors True on GreyboxBase/stair_guard_side_7_col to GreyboxBase/stair0ramp_0 x1
+edge rows columns -> lattice: 64 -> 64; only in columns 0, only in lattice 0

@@ -1,0 +1,42 @@
+# Level Factory 0.218.2 at f1602ad, walkable_edge.gd 878f755daa9521ae, 2026-10-19 14:47: tests/unit/test_edge_seam.py on the unpatched instrument, at the gate's cell
+platform win32 -- Python 3.14.4, pytest-9.0.3, pluggy-1.6.0
+rootdir: C:\Projects\gabagool_studios\gabagool_factory\level_factory
+configfile: pyproject.toml
+collected 1 item
+
+tests\unit\test_edge_seam.py F                                           [100%]
+
+================================== FAILURES ===================================
+__________________ test_a_seam_on_the_lattice_is_not_a_drop ___________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3476/test_a_seam_on_the_lattice_is_0')
+
+    @godot_required
+    def test_a_seam_on_the_lattice_is_not_a_drop(tmp_path):
+        proj = tmp_path / "pkg"
+        proj.mkdir()
+        (proj / "project.godot").write_text(PROJECT, encoding="utf-8")
+        (proj / "main.tscn").write_text(_main_scene(), encoding="utf-8")
+        (proj / "walkable_edge.gd").write_text(EDGE.read_text(encoding="utf-8"), encoding="utf-8")
+        out = tmp_path / "edges.json"
+        run = subprocess.run([_godot(), "--headless", "--path", str(proj), "--script", "res://walkable_edge.gd",
+                              "--", str(out), str(D.CELL_M), "-67.0,3.3,0.1"],
+                             capture_output=True, text=True, timeout=300)
+        assert out.is_file(), run.stdout + run.stderr
+        report = json.loads(out.read_text(encoding="utf-8"))
+        assert report["ok"], report["error"]
+        upper = [e for e in report["edges"] if e["y"] > 2.0]
+        # along the seam's interior (its ends are the slabs' own corners): a body cannot fall through 1.7 um
+        seam = [(e["x"], e["z"], e["drop_m"]) for e in upper if abs(e["x"] - SEAM_X) <= NEAR and abs(e["z"]) < 4.6]
+>       assert seam == [], seam[:20]
+E       AssertionError: [(-64.25, -4.5, 3.3), (-64.25, -4.0, 3.3), (-64.25, -3.5, 3.3), (-64.25, -3.0, 3.3), (-64.25, -2.5, 3.3), (-64.25, -2.0, 3.3), ...]
+E       assert [(-64.25, -4.....0, 3.3), ...] == []
+E         
+E         Left contains 19 more items, first extra item: (-64.25, -4.5, 3.3)
+E         Use -v to get more diff
+
+tests\unit\test_edge_seam.py:177: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_edge_seam.py::test_a_seam_on_the_lattice_is_not_a_drop
+============================== 1 failed in 0.80s ==============================
+exit 1

@@ -1,0 +1,23 @@
+internal error: UNDECLARED_DROP_INDOORS: 3 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+  a body walks off each into a fall deeper than it steps; a rail guards it, a floor_hole / hatch vertical link in the building's spec declares it, and either fix lands in Deli Counter, not here
+    (-64.25, 3.30, -9.50) drop 3.30 m  on GreyboxBase/slab_col_1  to GreyboxBase/slab_col_0
+    (-64.25, 3.30, -9.00) drop 3.30 m  on GreyboxBase/slab_col_1  to GreyboxBase/slab_col_0
+    (-64.00, 3.30, -8.75) drop 3.30 m  on GreyboxBase/slab_col_1  to GreyboxBase/slab_col_0
+  full report: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9333-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot\drop_edges_scan.json and C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9333-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot\drop_edges.json
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4127 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 274 instances of 7 module(s) on their sides, 25 draw calls (N 102, S 99, E 37, W 35; 1 tower)
+[export] 1500 occluder(s) from 1515 solid module(s); 118 glass, 261 porous and 865 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1500 occluder node(s) in a tree of 29091
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] light bake: 350 model(s) and 118 primitive mesh(es) lightmapped, 9 kept dynamic, 1 spawned set dynamic; 209 steady rig(s) baked, 28 failing and 0 cycling left live; 215 room fill(s); 3503 users, 59.4 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1500 occluder node(s) reachable from res://mission.tscn (1500 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 331 GLB(s), 1264 external reference(s): 1264 resolve to 286 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 55710 reached of 64286 standable cells, 59 unguarded drop edge(s): 12 a flight's own side, 20 at a declared drop, 13 at a ladder's shaft, 3 a thing's top, 8 outdoors (reported), 3 UNDECLARED indoors -- the class this gate refuses on
