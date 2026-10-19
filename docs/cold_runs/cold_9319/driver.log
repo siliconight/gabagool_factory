@@ -1,0 +1,40 @@
+== selftest (08:09:02)
+  a tool source file, a shipped spec, or another repo
+== begin (08:09:03)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9319\journal.md
+== batch (08:09:13)
+created batch 'cold_9319' with 1 mission(s): urban_row_001
+== plan (08:09:14)
+== shell (08:09:16)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 76)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_cornershop_b.glb gs_cornershop_c.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR, LT_MAP_TRIVIAL_ENCOUNTER), route completion 1.00, grade PASS_WITH_TUNING 89, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 100, out for nothing
+  seed 9205: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9104 on the walktest and Laser Tag's route findings
+== approvals (08:11:07)
+== art (08:11:09)
+tee: docs/cold_runs/cold_9319/art.log: No space left on device
+  exit 5
+STOPPED: art leg
+drive exit 2
+Traceback (most recent call last):
+  File "C:\Projects\gabagool_studios\gabagool_factory\tools\cold_run.py", line 582, in <module>
+    raise SystemExit(main(sys.argv[1:]))
+                     ~~~~^^^^^^^^^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\tools\cold_run.py", line 576, in main
+    return cmd_end()
+  File "C:\Projects\gabagool_studios\gabagool_factory\tools\cold_run.py", line 364, in cmd_end
+    (d / "after.json").write_text(json.dumps(after, indent=1, sort_keys=True),
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                  encoding="utf-8")
+                                  ^^^^^^^^^^^^^^^^^
+  File "C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\pathlib\__init__.py", line 810, in write_text
+    return f.write(data)
+           ~~~~~~~^^^^^^
+OSError: [Errno 28] No space left on device

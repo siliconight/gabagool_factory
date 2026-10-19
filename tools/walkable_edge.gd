@@ -38,12 +38,14 @@ extends SceneTree
 ##               not somewhere a body walks off.
 ##
 ## Usage:
-##   godot --headless --path <pkg> --script res://walkable_edge.gd -- <out.json> [cell_m] [seed_x,seed_y,seed_z] [links.json]
+##   godot --headless --path <pkg> --script res://walkable_edge.gd -- <out.json> [cell_m] [seed_x,seed_y,seed_z] [links.json] [extent_node]
 ##
 ## With a seed (world metres: where the body starts, e.g. the package's spawn
 ## anchor) only the cells a body can reach from it are asked -- see pass 1b;
 ## with a links file (the package's `navigation_hints.json`) the flood also
-## takes its ladders.
+## takes its ladders; with an extent node (a package's "Site") the grid covers
+## what is drawn under that node and not the backdrop. An empty string skips
+## an argument.
 ##
 ## Output: `edges[]`, one row per unguarded drop edge -- x, y, z of the edge's
 ## midpoint (Godot metres, y the cell's surface), `drop_m` (999 when nothing is
@@ -120,7 +122,7 @@ func _initialize() -> void:
 			quit(2)
 			return
 	_run(args[0], float(args[1]) if args.size() > 1 else 0.5, seed,
-		args[3] if args.size() > 3 else "")
+		args[3] if args.size() > 3 else "", args[4] if args.size() > 4 else "")
 
 
 func _walk(n: Node, out: Array) -> void:
@@ -239,7 +241,7 @@ func _cell_at(cols: Array, box: AABB, cell: float, nx: int, nz: int, p: Array) -
 	return best
 
 
-func _run(out_path: String, cell: float, seed: Array, links_path: String) -> void:
+func _run(out_path: String, cell: float, seed: Array, links_path: String, extent_node: String) -> void:
 	await process_frame
 	var main_scene: String = String(ProjectSettings.get_setting(
 		"application/run/main_scene", ""))
@@ -269,9 +271,37 @@ func _run(out_path: String, cell: float, seed: Array, links_path: String) -> voi
 	for i in range(20):
 		await process_frame
 
-	# The site's extent, from what is drawn.
+	# The site's extent, from what is drawn -- or, given, a rectangle
+	# "x0,z0,x1,z1" in world metres, or the name of a node to take it under.
+	# A package's scene holds the backdrop too: on cold run 9318's package
+	# the grid over everything was 1,521 cells a side and 2.5 minutes, of
+	# which the site is a few hundred cells a side, and the site node's own
+	# subtree reached just as far (its ground carries the backdrop's). The
+	# gate that runs this in every export passes the rectangle its package's
+	# nav nodes span, plus a margin; what bounded the grid is in the report.
+	var extent_root: Node = scene
+	var extent_rect: Array = []
+	if extent_node.contains(","):
+		for v in extent_node.split(","):
+			extent_rect.append(float(v))
+		if extent_rect.size() != 4:
+			report["ok"] = false
+			report["error"] = "an extent is x0,z0,x1,z1 in world metres, not %s" % extent_node
+			_write(out_path, report)
+			quit(0)
+			return
+	elif extent_node != "":
+		var found: Node = scene.find_child(extent_node, true, false)
+		if found == null:
+			report["ok"] = false
+			report["error"] = "no node named %s to bound the grid" % extent_node
+			_write(out_path, report)
+			quit(0)
+			return
+		extent_root = found
+	report["extent"] = extent_node if extent_node != "" else "(the whole scene)"
 	var nodes: Array = []
-	_walk(scene, nodes)
+	_walk(extent_root, nodes)
 	var box := AABB()
 	var first: bool = true
 	for n in nodes:
@@ -290,6 +320,21 @@ func _run(out_path: String, cell: float, seed: Array, links_path: String) -> voi
 		_write(out_path, report)
 		quit(0)
 		return
+	if extent_rect.size() == 4:
+		# The given rectangle, the drawn geometry's own height range -- and
+		# the rectangle's corner SNAPPED TO THE CELL LATTICE, so a bounded run
+		# walks the very cells an unbounded one does. Measured on cold run
+		# 9318's package: a corner at z -26.51 put every cell a centimetre
+		# off the unbounded run's, no row's coordinates matched, and on that
+		# lattice the flood never crossed the office stair's turn landing
+		# (one cell deep) -- its upper flight and second floor unreached. The
+		# same fragility the nav gate's grid sweep exists for; snapping keeps
+		# a bound from changing the answer, and the sweep is still owed.
+		var x0: float = floorf(minf(extent_rect[0], extent_rect[2]) / cell) * cell
+		var z0: float = floorf(minf(extent_rect[1], extent_rect[3]) / cell) * cell
+		var x1: float = ceilf(maxf(extent_rect[0], extent_rect[2]) / cell) * cell
+		var z1: float = ceilf(maxf(extent_rect[1], extent_rect[3]) / cell) * cell
+		box = AABB(Vector3(x0, box.position.y, z0), Vector3(x1 - x0, box.size.y, z1 - z0))
 
 	var space: PhysicsDirectSpaceState3D = root.world_3d.direct_space_state
 	var probe := CapsuleShape3D.new()

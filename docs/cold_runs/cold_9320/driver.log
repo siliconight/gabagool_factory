@@ -1,0 +1,41 @@
+== selftest (21:31:26)
+  a tool source file, a shipped spec, or another repo
+== begin (21:31:27)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9320\journal.md
+== batch (21:31:43)
+created batch 'cold_9320' with 1 mission(s): urban_row_001
+== plan (21:31:44)
+== shell (21:31:45)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 76)
+  urban_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_cornershop_c.glb gs_cornershop_d.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_f.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a01.glb 
+  urban_row_001.lot_assemble.candidate.seed_9205: deli_a03.glb gs_cornershop_b.glb gs_cornershop_c.glb gs_midrise_a.glb gs_midrise_b.glb gs_midrise_c.glb gs_midrise_d.glb gs_midrise_e.glb gs_midrise_g.glb gs_midrise_h.glb gs_midrise_i.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR, LT_MAP_TRIVIAL_ENCOUNTER), route completion 1.00, grade PASS_WITH_TUNING 89, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 100, out for nothing
+  seed 9205: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  picked seed_9104 on the walktest and Laser Tag's route findings
+== approvals (21:33:34)
+== art (21:33:35)
+Structural checks passed  (blockers open: 0, total findings: 109)
+  exit 1
+== export (21:37:02)
+internal error: UNDECLARED_DROP_INDOORS: 20 unguarded edge(s) a body reaches, indoors, on a floor, that nothing declares
+[export] light bake: 351 model(s) and 112 primitive mesh(es) lightmapped, 6 kept dynamic, 1 spawned set dynamic; 211 steady rig(s) baked, 27 failing and 0 cycling left live; 215 room fill(s); 3160 users, 76.9 s in the editor
+  exit 5
+STOPPED: export
+drive exit 2
+
+  cold run: cold_9320
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       0
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+  hygiene: LOOSE 0  UNTRACKED 0  RECORDS 28  INDEX 2  UNDESCRIBED 20  RETIRABLE 1.0  FINDINGS 40  -- FAILING: RECORDS, INDEX

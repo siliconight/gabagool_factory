@@ -236,6 +236,62 @@ Dispatch 0.5.3; `patches/patch_dc_drop_nav_links.py`, `patch_lot_drop_links_to_s
 both Dispatch importers into `navigation_hints.json` `links[]`. The next package proves it, and the sort can
 then take its declared set from the package instead of this repo's build records.
 
+**Bounding the grid, for the gate** (`edges_9318c/d/e.*`): the instrument takes a fifth argument, a node name
+or a rectangle `x0,z0,x1,z1`. Bounded by the `Site` node's subtree the grid was STILL 1,521 cells a side -- the
+site's ground carries the backdrop's -- so a node name bounds nothing here (refuted, kept). Bounded by the
+rectangle the package's nav nodes and links span plus 12 m (`-84.00,-26.51,85.75,35.06`), 340 x 124 cells and
+8 seconds instead of 150; but with the corner at z -26.51 every cell sat a centimetre off the unbounded run's
+lattice, no row's coordinates matched, and on that lattice the flood never crossed the office stair's turn
+landing (one cell deep): its upper flight and second floor unreached, 42 indoor rows not 46. The same fragility
+the nav gate's grid sweep exists for. The rectangle's corner is now snapped to the cell lattice: 341 x 126 cells,
+7 seconds, and the same 46 indoor and 8 outdoor rows as the unbounded run. The sweep (several lattice origins,
+as the nav gate does) is still owed, and the gate ships with the snap.
+
+## The gate: Level Factory 0.216.0
+
+`packages/exporting/drop_edges.py` in Level Factory (`patches/patch_lf_drop_edge_gate.py`), step 4.88 of the
+export. It runs Level Factory's own copy of `tools/walkable_edge.gd`, byte for byte (the patch pins its sha256).
+It seeds from the package's `player_start` and bounds the grid by the package's nav nodes. It reads the declared
+set off the package's own links, so the gate and the AI read one list. Each unguarded edge goes in the first
+class that claims it: a thing's top, outdoors, a flight's own side, a declared drop's rim, a ladder's shaft. It
+refuses an undeclared drop indoors. No baseline is frozen, unlike item 3's first plan: on a package that carries
+its links the residue is zero, and a baseline would have frozen exactly the rows the links now name.
+
+**Its first run in the engine** (`gate_probe.py`, `gate_probe_9318.out.txt`; the gate's report and verdict are
+kept as `gate_9318_drop_edges.json` and `gate_9318_drop_edges_scan.json`): the gate's own `measure`, `classify` and `assert_declared` on a bare copy of cold
+run 9318's package took 104 s, most of it the import. The import cache and the instrument were both gone after.
+It found 54 unguarded edges, 46 indoors, and REFUSED 27. 20 were the deli's floor hole, which that package
+predates the link for. 7 were where the deli's roof ladder passes through the first floor's slab: the first
+draft of the ladder rule asked for a ladder's ENDS only (0.0 m and 6.6 m) and the cut at 3.3 m is neither.
+
+**The shaft rule** (`_in_shaft`; `gate_reclass.py`, `gate_reclass_9318.out.txt`, re-run from this folder alone:
+`python gate_reclass.py gate_9318_inputs <out.txt> gate_9318_drop_edges.json`, where `gate_9318_inputs/` keeps
+9318's `navigation_hints.json`, the one package file it reads): a ladder claims an edge within 1.6 m of its
+column at any height from its foot to its head. On the same report it refuses 20, the floor hole alone. With
+the link Deli Counter 0.226.0 records for that hole (`deli_counter/build/deli_a01.gameplay.json`: start
+(8.0, -4.0, 3.3), hole (6.9, -5.1)-(9.1, -2.9), building frame), moved into site space by the translation the
+package's two ladder links give (-51, +2.51), the report PASSES with 0 undeclared. The hole is 2.2 m square,
+not the 1.5 m the sorter assumes, and its rect lies within 0.16 m of all 20 rows. The sorter's four `slab_cut`
+rows were that hole's far corners, just past its 1.6 m radius from the hole's centre.
+
+**Its first export REFUSED the package, and was right to** (cold run 9320, `docs/cold_runs/cold_9320/`). The
+gate counted the same 54 rows as on 9318's package, with "0 at a declared drop" and the floor hole's 20
+UNDECLARED. The package's links read `climb 2, drop 0`. Traced in the run's workspace: Lot's
+`site.site.gameplay.json` carried both drop links; Level Factory's `stage_dispatch_inputs` writes Dispatch's
+`lot.gameplay.json` from a whitelist that did not name `vertical_links`; Dispatch 0.5.3 read nothing. So the
+root's 02c1b06 claim that the declared set ships in the package was not true end to end. Three repos' tests
+each passed, and the first thing to read a real package was this gate. Level Factory 0.216.1
+(`patches/patch_lf_stage_vertical_links.py`) stages the key on both sides, with a test that both staged manifests
+carry every key Dispatch 0.5.3's importers read. Cold run 9321 is the re-run.
+
+**The proof, cold run 9321** (`docs/cold_runs/cold_9321/`; `edges_9321.*`, `sort_9321.out.txt`): 0
+interventions, the same pick and grade. The package's `navigation_hints.json` carries the floor hole's and the
+hatch's one-way drop links, each with its hole, beside the two climbs. The gate counts 10 a flight's own side,
+20 at a declared drop, 13 at a ladder's shaft, 3 a rail's top, 8 outdoors and 0 UNDECLARED, and the export
+ships. The factory's instrument, unbounded on a copy of the same package, finds the same 54 rows, and the
+sort's `declared_link` class claims the 20 off the package's links. Both runs leave the two drop links
+unresolved in the flood (item 6 below).
+
 ## What is left
 
 1. ~~The office's two stair gaps attributed against Deli Counter's guard rules, and fixed there if they are
@@ -252,10 +308,18 @@ then take its declared set from the package instead of this repo's build records
    Lot 0.125.0, Dispatch 0.5.3; above). The next package proves it; then `sort_edges.py` reads the declared
    set from the package's `links[]` (capability "drop", the `hole` rect) and the stair footprints, not from this
    repo's build records -- the `declared_link` class is in the sorter already, waiting for a package to claim.
-3. The gate in Level Factory: the instrument seeded from the package's `player_start` with its links, surfaces
-   read by owner with the toolchain's names (`_floor_like` here), the residue frozen as a baseline that fails
-   on a new entrant (178's pattern).
+3. ~~The gate in Level Factory~~ -- DONE, Level Factory 0.216.0 and 0.216.1 (above). Its first export, cold
+   run 9320, refused the package because the drop links stopped at Level Factory's own staging. On cold run
+   9321 the floor hole is claimed off the package's own links, and the export ships with 0 undeclared.
 4. ~~Ladders in the flood~~ -- DONE (`edges_9318b`): a link's end resolves to the nearest free surface within
    a metre; the deli's roof is reached.
 5. ~~`GreyboxBase/@StaticBody3D@19803` named~~ -- the vault ledge (above). A Deli Counter nit for a later
    change: name the ledge's collider `VAULTLEDGE_n_col` so the body keeps a readable name.
+6. **A drop link in the flood.** Both drop links are unresolved on 9321's package, in the gate and the
+   unbounded run: a drop link starts over its hole, and no standable surface lies within the metre the
+   instrument searches. Every floor here is reached by its stairs, so nothing went unasked. A floor
+   reachable only by a drop would be: resolve a drop link's start to its hole's rim (the `hole` rect is in
+   the link) and its end below.
+7. **The lattice sweep.** One centimetre of grid offset lost a one-cell turn landing (`edges_9318d`). The
+   gate snaps its rectangle to the unbounded lattice, so a bound cannot change the answer, but the answer
+   still rests on one lattice. Several origins, as the nav gate's grid sweep does, would show how much.
