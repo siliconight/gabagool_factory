@@ -1,0 +1,68 @@
+apartment_walkup_a01.json: basement_vault|basement_approach (story -1) wall: the Y-partition at x 2 extended over 7..9
+apartment_walkup_a01.json: front_hall|kitchen (story 0) open: front_hall.open_to += kitchen
+apartment_walkup_a01.json: front_hall|garage_bay (story 0) wall: the X-partition at y 0 extended over -11..-9
+apartment_walkup_a01.json: kitchen|garage_bay (story 0) wall: the X-partition at y 0 extended over 9..11
+apartment_walkup_a01.json: kitchen|garage_bay: a door at x +10.00, tagged kitchen_to_garage_bay
+apartment_walkup_a01.json: office|bedroom (story 1) wall: the Y-partition at x 2.5 extended over -9..-8
+apartment_walkup_a01.json: office|bedroom (story 1) wall: the Y-partition at x 2.5 extended over 8..9
+auto_shop_a01.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over -13..-9
+auto_shop_a01.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over 9..13
+auto_shop_a02.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over -13..-9
+auto_shop_a02.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over 9..13
+corner_deli_heist_01.json: main_stack_well_b|cold_storage_s (story -1) open: main_stack_well_b.open_to += cold_storage_s
+corner_deli_heist_01.json: main_stack_well_b|cold_storage_n (story -1) open: main_stack_well_b.open_to += cold_storage_n
+corner_deli_heist_01.json: cold_storage_w|cold_storage_s (story -1) wall: a Y-partition added at x -16.8, 1..6.25 -- extending the one beside it would have moved its door cold_w_access moved -0.125 m by the grid
+corner_deli_heist_01.json: cold_storage_w|cold_storage_s: a door at y +3.62, tagged cold_storage_w_to_cold_storage_s
+corner_deli_heist_01.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+corner_deli_heist_01.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+corner_deli_heist_01.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+corner_deli_heist_01.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+cr_deli.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+cr_deli.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+cr_deli.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+cr_deli.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+cr_garage.json: deck_0_south|deck_0_main (story 0) open: deck_0_south.open_to += deck_0_main
+cr_pawn.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over -8..-7
+cr_pawn.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over 7..8
+deli_a01.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+deli_a01.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+deli_a01.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+deli_a01.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+deli_a02.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+deli_a02.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+deli_a02.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+deli_a02.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+deli_a03.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+deli_a03.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+deli_a03.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+deli_a03.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+gs_auto_shop.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over -13..-9
+gs_auto_shop.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over 9..13
+night_auto.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over -13..-9
+night_auto.json: upper_office|upper_storage (story 1) wall: the X-partition at y 2 extended over 9..13
+night_deli.json: customer_floor|deli_counter (story 0) open: customer_floor.open_to += deli_counter
+night_deli.json: market_aisles|kitchen (story 0) wall: a Y-partition added at x 7, -14..6
+night_deli.json: market_aisles|kitchen: garage stockroom_gate slid -0.50 m along its wall to clear the new wall's end (L18)
+night_deli.json: market_aisles|kitchen: a door at y -4.00, tagged market_aisles_to_kitchen
+night_pawn.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over -8..-7
+night_pawn.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over 7..8
+office.json: lobby|ground_bullpen (story 0) open: lobby.open_to += ground_bullpen
+office.json: exec_lobby|exec_anteroom (story 2) open: exec_lobby.open_to += exec_anteroom
+office_stepped.json: lobby|ground_bullpen (story 0) open: lobby.open_to += ground_bullpen
+parking_garage.json: deck_0_south|deck_0_main (story 0) open: deck_0_south.open_to += deck_0_main
+parking_garage_a01.json: deck_0_south|deck_0_main (story 0) open: deck_0_south.open_to += deck_0_main
+parking_garage_a02.json: deck_0_south|deck_0_main (story 0) open: deck_0_south.open_to += deck_0_main
+parking_garage_a02.json: deck_1|deck_1_west (story 1) open: deck_1.open_to += deck_1_west
+pawn_shop_a01.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over -8..-7
+pawn_shop_a01.json: apartment|upper_storage (story 1) wall: the X-partition at y 0 extended over 7..8
+rowhouse_raid.json: basement_vault|basement_approach (story -1) wall: the Y-partition at x 2 extended over 7..9
+rowhouse_raid.json: basement_vault|basement_approach: no door -- basement_vault is the objective, kept behind what it had
+rowhouse_raid.json: front_hall|kitchen (story 0) open: front_hall.open_to += kitchen
+rowhouse_raid.json: front_hall|garage_bay (story 0) wall: the X-partition at y 0 extended over -11..-9
+rowhouse_raid.json: kitchen|garage_bay (story 0) wall: the X-partition at y 0 extended over 9..11
+rowhouse_raid.json: kitchen|garage_bay: a door at x +10.00, tagged kitchen_to_garage_bay
+rowhouse_raid.json: office|bedroom (story 1) wall: the Y-partition at x 2.5 extended over -9..-8
+rowhouse_raid.json: office|bedroom (story 1) wall: the Y-partition at x 2.5 extended over 8..9
+setback_demo.json: north_aisles|north_dock (story 0) open: north_aisles.open_to += north_dock
+warehouse_a02.json: north_aisles|north_dock (story 0) open: north_aisles.open_to += north_dock
+23 spec(s) migrated

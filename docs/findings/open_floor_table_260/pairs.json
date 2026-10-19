@@ -1,0 +1,1267 @@
+[
+ {
+  "spec": "apartment_walkup_a01",
+  "story": -1,
+  "pair": "basement_vault|basement_approach",
+  "axis": "Y",
+  "line": 2,
+  "lo": -7,
+  "hi": 9,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    7,
+    9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "breach",
+   "door",
+   "reinforced_door"
+  ],
+  "roles": [
+   "objective_room",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "apartment_walkup_a01",
+  "story": 0,
+  "pair": "front_hall|kitchen",
+  "axis": "Y",
+  "line": 0,
+  "lo": -9,
+  "hi": 0,
+  "uncovered_m": 9.0,
+  "gaps": [
+   [
+    -9,
+    0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "apartment_walkup_a01",
+  "story": 0,
+  "pair": "front_hall|garage_bay",
+  "axis": "X",
+  "line": 0,
+  "lo": -11,
+  "hi": 0,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -11,
+    -9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "public_entry",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "apartment_walkup_a01",
+  "story": 0,
+  "pair": "kitchen|garage_bay",
+  "axis": "X",
+  "line": 0,
+  "lo": 0,
+  "hi": 11,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    9,
+    11
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "breach"
+  ],
+  "roles": [
+   "connector",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "apartment_walkup_a01",
+  "story": 1,
+  "pair": "office|bedroom",
+  "axis": "Y",
+  "line": 2.5,
+  "lo": -9,
+  "hi": 9,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -9,
+    -8
+   ],
+   [
+    8,
+    9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "fortifiable",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "vertical_links floor_hole at (4, -3)",
+   "slab_holes  at (4, -3)"
+  ]
+ },
+ {
+  "spec": "auto_shop_a01",
+  "story": 1,
+  "pair": "upper_office|upper_storage",
+  "axis": "X",
+  "line": 2.0,
+  "lo": -13.0,
+  "hi": 13.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    -13.0,
+    -9.0
+   ],
+   [
+    9.0,
+    13.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "objective_room",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "auto_shop_a02",
+  "story": 1,
+  "pair": "upper_office|upper_storage",
+  "axis": "X",
+  "line": 2.0,
+  "lo": -13.0,
+  "hi": 13.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    -13.0,
+    -9.0
+   ],
+   [
+    9.0,
+    13.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "fortifiable",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "corner_deli_heist_01",
+  "story": -1,
+  "pair": "main_stack_well_b|cold_storage_s",
+  "axis": "X",
+  "line": 6.25,
+  "lo": -16.8,
+  "hi": -13.2,
+  "uncovered_m": 3.6,
+  "gaps": [
+   [
+    -16.8,
+    -13.2
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "stairwell",
+   "loot_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "corner_deli_heist_01",
+  "story": -1,
+  "pair": "main_stack_well_b|cold_storage_n",
+  "axis": "X",
+  "line": 12.95,
+  "lo": -16.8,
+  "hi": -13.2,
+  "uncovered_m": 3.6,
+  "gaps": [
+   [
+    -16.8,
+    -13.2
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "stairwell",
+   "loot_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "corner_deli_heist_01",
+  "story": -1,
+  "pair": "cold_storage_w|cold_storage_s",
+  "axis": "Y",
+  "line": -16.8,
+  "lo": 1.0,
+  "hi": 6.25,
+  "uncovered_m": 5.25,
+  "gaps": [
+   [
+    1.0,
+    6.25
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "loot_room",
+   "loot_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "corner_deli_heist_01",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "corner_deli_heist_01",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "cr_deli",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "cr_deli",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "ladders cr_deli_ladder_0 at (8, -12)"
+  ]
+ },
+ {
+  "spec": "cr_garage",
+  "story": 0,
+  "pair": "deck_0_south|deck_0_main",
+  "axis": "X",
+  "line": -8.0,
+  "lo": -10.0,
+  "hi": 18.0,
+  "uncovered_m": 28.0,
+  "gaps": [
+   [
+    -10.0,
+    18.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "cr_gas",
+  "story": 0,
+  "pair": "forecourt|sales_floor",
+  "axis": "X",
+  "line": -11.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "cr_gas",
+  "story": 0,
+  "pair": "forecourt|stockroom",
+  "axis": "X",
+  "line": -11.0,
+  "lo": 6.0,
+  "hi": 14.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    6.0,
+    14.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "cr_pawn",
+  "story": 1,
+  "pair": "apartment|upper_storage",
+  "axis": "X",
+  "line": 0.0,
+  "lo": -8.0,
+  "hi": 8.0,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -8.0,
+    -7.0
+   ],
+   [
+    7.0,
+    8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "connector",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "deli_a01",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "deli_a01",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "ladders night_deli_ladder_0 at (8, -12)"
+  ]
+ },
+ {
+  "spec": "deli_a02",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "deli_a02",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "ladders night_deli_ladder_0 at (8, -12)"
+  ]
+ },
+ {
+  "spec": "deli_a03",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "deli_a03",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "ladders night_deli_ladder_0 at (8, -12)"
+  ]
+ },
+ {
+  "spec": "gas_street",
+  "story": 0,
+  "pair": "forecourt|sales_floor",
+  "axis": "X",
+  "line": -11.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "gas_street",
+  "story": 0,
+  "pair": "forecourt|stockroom",
+  "axis": "X",
+  "line": -11.0,
+  "lo": 6.0,
+  "hi": 14.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    6.0,
+    14.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "gs_auto_shop",
+  "story": 1,
+  "pair": "upper_office|upper_storage",
+  "axis": "X",
+  "line": 2.0,
+  "lo": -13.0,
+  "hi": 13.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    -13.0,
+    -9.0
+   ],
+   [
+    9.0,
+    13.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "objective_room",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "gs_corner_station",
+  "story": 0,
+  "pair": "forecourt|sales_floor",
+  "axis": "X",
+  "line": -11.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "gs_corner_station",
+  "story": 0,
+  "pair": "forecourt|restroom",
+  "axis": "X",
+  "line": -11.0,
+  "lo": 12.5,
+  "hi": 14.0,
+  "uncovered_m": 1.5,
+  "gaps": [
+   [
+    12.5,
+    14.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "utility"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "gs_corner_station",
+  "story": 0,
+  "pair": "forecourt|stockroom",
+  "axis": "X",
+  "line": -11.0,
+  "lo": 6.0,
+  "hi": 14.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    6.0,
+    14.0
+   ]
+  ],
+  "on_footprint_edge": true,
+  "joined_by": [],
+  "roles": [
+   "staging",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "night_auto",
+  "story": 1,
+  "pair": "upper_office|upper_storage",
+  "axis": "X",
+  "line": 2.0,
+  "lo": -13.0,
+  "hi": 13.0,
+  "uncovered_m": 8.0,
+  "gaps": [
+   [
+    -13.0,
+    -9.0
+   ],
+   [
+    9.0,
+    13.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "objective_room",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "night_deli",
+  "story": 0,
+  "pair": "customer_floor|deli_counter",
+  "axis": "X",
+  "line": -3.0,
+  "lo": -19.0,
+  "hi": -8.0,
+  "uncovered_m": 11.0,
+  "gaps": [
+   [
+    -19.0,
+    -8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "objective_room"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "night_deli",
+  "story": 0,
+  "pair": "market_aisles|kitchen",
+  "axis": "Y",
+  "line": 7.0,
+  "lo": -14.0,
+  "hi": 6.0,
+  "uncovered_m": 20.0,
+  "gaps": [
+   [
+    -14.0,
+    6.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "ladders night_deli_ladder_0 at (8, -12)"
+  ]
+ },
+ {
+  "spec": "night_pawn",
+  "story": 1,
+  "pair": "apartment|upper_storage",
+  "axis": "X",
+  "line": 0.0,
+  "lo": -8.0,
+  "hi": 8.0,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -8.0,
+    -7.0
+   ],
+   [
+    7.0,
+    8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "connector",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "office",
+  "story": 0,
+  "pair": "lobby|ground_bullpen",
+  "axis": "X",
+  "line": 0.0,
+  "lo": -17.0,
+  "hi": 17.0,
+  "uncovered_m": 34.0,
+  "gaps": [
+   [
+    -17.0,
+    17.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "stairs office_stair_0 at (0, 0)"
+  ]
+ },
+ {
+  "spec": "office",
+  "story": 2,
+  "pair": "exec_lobby|exec_anteroom",
+  "axis": "Y",
+  "line": 8.0,
+  "lo": -12.0,
+  "hi": 4.0,
+  "uncovered_m": 16.0,
+  "gaps": [
+   [
+    -12.0,
+    4.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "office_stepped",
+  "story": 0,
+  "pair": "lobby|ground_bullpen",
+  "axis": "X",
+  "line": 0.0,
+  "lo": -17.0,
+  "hi": 17.0,
+  "uncovered_m": 34.0,
+  "gaps": [
+   [
+    -17.0,
+    17.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "stairs office_stair_0 at (0, 0)"
+  ]
+ },
+ {
+  "spec": "parking_garage",
+  "story": 0,
+  "pair": "deck_0_south|deck_0_main",
+  "axis": "X",
+  "line": -8.0,
+  "lo": -10.0,
+  "hi": 18.0,
+  "uncovered_m": 28.0,
+  "gaps": [
+   [
+    -10.0,
+    18.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "parking_garage_a01",
+  "story": 0,
+  "pair": "deck_0_south|deck_0_main",
+  "axis": "X",
+  "line": -8.0,
+  "lo": -10.0,
+  "hi": 18.0,
+  "uncovered_m": 28.0,
+  "gaps": [
+   [
+    -10.0,
+    18.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "parking_garage_a02",
+  "story": 0,
+  "pair": "deck_0_south|deck_0_main",
+  "axis": "X",
+  "line": -9.0,
+  "lo": -12.0,
+  "hi": 20.0,
+  "uncovered_m": 32.0,
+  "gaps": [
+   [
+    -12.0,
+    20.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "parking_garage_a02",
+  "story": 1,
+  "pair": "deck_1|deck_1_west",
+  "axis": "X",
+  "line": 6.0,
+  "lo": -20.0,
+  "hi": 4.0,
+  "uncovered_m": 24.0,
+  "gaps": [
+   [
+    -20.0,
+    4.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "connector",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "pawn_shop_a01",
+  "story": 1,
+  "pair": "apartment|upper_storage",
+  "axis": "X",
+  "line": 0.0,
+  "lo": -8.0,
+  "hi": 8.0,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -8.0,
+    -7.0
+   ],
+   [
+    7.0,
+    8.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "connector",
+   "fortifiable"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "rowhouse_raid",
+  "story": -1,
+  "pair": "basement_vault|basement_approach",
+  "axis": "Y",
+  "line": 2,
+  "lo": -7,
+  "hi": 9,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    7,
+    9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "breach",
+   "reinforced_door"
+  ],
+  "roles": [
+   "objective_room",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "rowhouse_raid",
+  "story": 0,
+  "pair": "front_hall|kitchen",
+  "axis": "Y",
+  "line": 0,
+  "lo": -9,
+  "hi": 0,
+  "uncovered_m": 9.0,
+  "gaps": [
+   [
+    -9,
+    0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "public_entry",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "rowhouse_raid",
+  "story": 0,
+  "pair": "front_hall|garage_bay",
+  "axis": "X",
+  "line": 0,
+  "lo": -11,
+  "hi": 0,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -11,
+    -9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "public_entry",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "rowhouse_raid",
+  "story": 0,
+  "pair": "kitchen|garage_bay",
+  "axis": "X",
+  "line": 0,
+  "lo": 0,
+  "hi": 11,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    9,
+    11
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "breach"
+  ],
+  "roles": [
+   "connector",
+   "public_entry"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "rowhouse_raid",
+  "story": 1,
+  "pair": "office|bedroom",
+  "axis": "Y",
+  "line": 2.5,
+  "lo": -9,
+  "hi": 9,
+  "uncovered_m": 2.0,
+  "gaps": [
+   [
+    -9,
+    -8
+   ],
+   [
+    8,
+    9
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [
+   "door"
+  ],
+  "roles": [
+   "fortifiable",
+   "connector"
+  ],
+  "baselined": true,
+  "near": [
+   "vertical_links floor_hole at (4, -3)",
+   "slab_holes  at (4, -3)"
+  ]
+ },
+ {
+  "spec": "setback_demo",
+  "story": 0,
+  "pair": "north_aisles|north_dock",
+  "axis": "X",
+  "line": 8.0,
+  "lo": -3.0,
+  "hi": 20.0,
+  "uncovered_m": 23.0,
+  "gaps": [
+   [
+    -3.0,
+    20.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "open_floor",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ },
+ {
+  "spec": "warehouse_a02",
+  "story": 0,
+  "pair": "north_aisles|north_dock",
+  "axis": "X",
+  "line": 8.0,
+  "lo": -3.0,
+  "hi": 20.0,
+  "uncovered_m": 23.0,
+  "gaps": [
+   [
+    -3.0,
+    20.0
+   ]
+  ],
+  "on_footprint_edge": false,
+  "joined_by": [],
+  "roles": [
+   "open_floor",
+   "connector"
+  ],
+  "baselined": true,
+  "near": []
+ }
+]

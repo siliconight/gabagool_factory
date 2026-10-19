@@ -1,0 +1,225 @@
+{
+ "apartment_walkup_a01": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (9, -6) is tagged room 'front_hall' but stands in kitchen",
+   "L26 open floor nobody named: 'basement_vault' and 'basement_approach' (story -1) meet along x = 2 from -7 to 9 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'front_hall' and 'kitchen' (story 0) meet along x = 0 from -9 to 0 with 9.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'front_hall' and 'garage_bay' (story 0) meet along y = 0 from -11 to 0 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'kitchen' and 'garage_bay' (story 0) meet along y = 0 from 0 to 11 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'office' and 'bedroom' (story 1) meet along x = 2.5 from -9 to 9 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'office' is 18m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L9 7x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "auto_shop_a01": {
+  "fails": [],
+  "warns": [
+   "L16 defender_spawn at (-8, 6) is tagged room 'upper_storage' but stands in upper_office",
+   "L26 open floor nobody named: 'upper_office' and 'upper_storage' (story 1) meet along y = 2 from -13 to 13 with 8.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'upper_storage' is 26m deep with 1 opening(s); expect 2 ways out (common-path rule)"
+  ]
+ },
+ "auto_shop_a02": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'upper_office' and 'upper_storage' (story 1) meet along y = 2 from -13 to 13 with 8.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "corner_deli_heist_01": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'main_stack_well_b' and 'cold_storage_s' (story -1) meet along y = 6.25 from -16.8 to -13.2 with 3.60 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'main_stack_well_b' and 'cold_storage_n' (story -1) meet along y = 12.95 from -16.8 to -13.2 with 3.60 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'cold_storage_w' and 'cold_storage_s' (story -1) meet along x = -16.8 from 1 to 6.25 with 5.25 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "cr_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'cr_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "cr_garage": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side",
+   "L26 open floor nobody named: 'deck_0_south' and 'deck_0_main' (story 0) meet along y = -8 from -10 to 18 with 28.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "cr_pawn": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'apartment' and 'upper_storage' (story 1) meet along y = 0 from -8 to 8 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "deli_a01": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L9 6x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.8, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 7x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a02": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L9 4x identical cover volumes (0.5, 1.2, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.9, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 11x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a03": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'deli_counter' is 11m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L3 room 'apartment_hideout' travel ~64m to exit (> 60m)",
+   "L9 4x identical cover volumes (0.5, 0.5, 0.85) -- vary dims/height (cover-box anti-pattern)",
+   "L9 6x identical cover volumes (0.5, 0.4, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 8x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 10x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.5, 1.2) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "gs_auto_shop": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'upper_office' and 'upper_storage' (story 1) meet along y = 2 from -13 to 13 with 8.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "night_auto": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'upper_office' and 'upper_storage' (story 1) meet along y = 2 from -13 to 13 with 8.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "night_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'night_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L26 open floor nobody named: 'customer_floor' and 'deli_counter' (story 0) meet along y = -3 from -19 to -8 with 11.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'market_aisles' and 'kitchen' (story 0) meet along x = 7 from -14 to 6 with 20.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "night_pawn": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'night_pawn_stair_0' tops out through 'door' on the story 1 X-partition at pos=0, 0.70 m inside its walk-off margin; the builder trims 1.80 m of that wall around the door",
+   "L26 open floor nobody named: 'apartment' and 'upper_storage' (story 1) meet along y = 0 from -8 to 8 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "office": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'lobby' and 'ground_bullpen' (story 0) meet along y = 0 from -17 to 17 with 34.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'exec_lobby' and 'exec_anteroom' (story 2) meet along x = 8 from -12 to 4 with 16.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "office_stepped": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'lobby' and 'ground_bullpen' (story 0) meet along y = 0 from -17 to 17 with 34.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "parking_garage": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side",
+   "L26 open floor nobody named: 'deck_0_south' and 'deck_0_main' (story 0) meet along y = -8 from -10 to 18 with 28.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "parking_garage_a01": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side",
+   "L26 open floor nobody named: 'deck_0_south' and 'deck_0_main' (story 0) meet along y = -8 from -10 to 18 with 28.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'deck_1' is 36m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L4 dead-end connector 'deck_1' (36m)",
+   "L9 24x identical cover volumes (0.5, 0.5, 3.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.5, 0.9, 1.4) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "parking_garage_a02": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_1_1 runs along inside 'col_1_22' on storey 1, 0.07 m of it out each side",
+   "L26 open floor nobody named: 'deck_0_south' and 'deck_0_main' (story 0) meet along y = -9 from -12 to 20 with 32.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'deck_1' and 'deck_1_west' (story 1) meet along y = 6 from -20 to 4 with 24.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L3 room 'deck_1' travel ~66m to exit (> 60m)",
+   "L9 24x identical cover volumes (0.5, 0.5, 3.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.5, 1.2, 1.8) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "pawn_shop_a01": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'apartment' and 'upper_storage' (story 1) meet along y = 0 from -8 to 8 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'upper_storage' is 16m deep with 1 opening(s); expect 2 ways out (common-path rule)"
+  ]
+ },
+ "rowhouse_raid": {
+  "fails": [],
+  "warns": [
+   "L26 open floor nobody named: 'basement_vault' and 'basement_approach' (story -1) meet along x = 2 from -7 to 9 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'front_hall' and 'kitchen' (story 0) meet along x = 0 from -9 to 0 with 9.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'front_hall' and 'garage_bay' (story 0) meet along y = 0 from -11 to 0 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'kitchen' and 'garage_bay' (story 0) meet along y = 0 from 0 to 11 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L26 open floor nobody named: 'office' and 'bedroom' (story 1) meet along x = 2.5 from -9 to 9 with 2.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall"
+  ]
+ },
+ "setback_demo": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (18, 11) is tagged room 'north_aisles' but stands in north_dock",
+   "L25 a piece through a wall: int_0_0 runs along inside 'rack_long_b' on storey 0, 0.45 m of it out each side",
+   "L25 a piece through a wall: int_0_0 runs along inside 'forklift_bay' on storey 0, 0.85 m of it out each side",
+   "L26 open floor nobody named: 'north_aisles' and 'north_dock' (story 0) meet along y = 8 from -3 to 20 with 23.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L1 room 'mezz_office' is 34m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L4 dead-end connector 'mezz_office' (34m)",
+   "L9 5x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (1.2, 0.8, 1.4) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "warehouse_a02": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (18, 11) is tagged room 'north_aisles' but stands in north_dock",
+   "L25 a piece through a wall: int_0_0 runs along inside 'rack_long_b' on storey 0, 0.45 m of it out each side",
+   "L25 a piece through a wall: int_0_0 runs along inside 'forklift_bay' on storey 0, 0.85 m of it out each side",
+   "L26 open floor nobody named: 'north_aisles' and 'north_dock' (story 0) meet along y = 8 from -3 to 20 with 23.00 m of it uncovered by any partition; the engine walks it as one floor -- say so (`open_to` on either room) or build the wall",
+   "L9 4x identical cover volumes (0.5, 0.5, 0.85) -- vary dims/height (cover-box anti-pattern)",
+   "L9 6x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ }
+}

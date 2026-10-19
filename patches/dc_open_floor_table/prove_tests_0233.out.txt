@@ -1,0 +1,13 @@
+test_open_floor_rules.py against Deli Counter 0.233.0 (9be68b3b), throwaway clones, 2026-10-19
+
+ARM A -- the test file alone (no open_floor_rules):
+=========================== short test summary info ===========================
+ERROR test_open_floor_rules.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.36s
+
+ARM B -- open_floor_rules.py copied in beside it, without the fixes it rides on (the exterior-wall reading, Room.open_to, presets.make):
+FAILED test_open_floor_rules.py::test_an_exterior_wall_covers_its_line - Asse...
+FAILED test_open_floor_rules.py::test_a_room_naming_open_to_loads - TypeError...
+FAILED test_open_floor_rules.py::test_a_deli_made_from_its_preset_comes_out_sorted
+3 failed, 8 passed in 0.81s

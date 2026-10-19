@@ -1,0 +1,26 @@
+build.py --all on Deli Counter 0.234.0, 2026-10-19: exit 0, no ERROR or Traceback in 121263 lines of log.
+Tracked build records changed: 175; beyond built_utc: 39, in exactly the 23 migrated specs and no other (each record's diff read for any line besides built_utc; build_time_only.py prints only its first 20, which first read as 9 specs):
+  apartment_walkup_a01     gameplay.json, manifest.json, slots.json
+  auto_shop_a01            gameplay.json, manifest.json, slots.json
+  auto_shop_a02            gameplay.json, manifest.json, slots.json
+  corner_deli_heist_01     gameplay.json, manifest.json
+  cr_deli                  manifest.json
+  cr_garage                manifest.json
+  cr_pawn                  manifest.json
+  deli_a01                 gameplay.json, manifest.json, slots.json
+  deli_a02                 gameplay.json, manifest.json, slots.json
+  deli_a03                 gameplay.json, manifest.json, slots.json
+  gs_auto_shop             gameplay.json, manifest.json, slots.json
+  night_auto               manifest.json
+  night_deli               manifest.json
+  night_pawn               manifest.json
+  office                   manifest.json
+  office_stepped           manifest.json
+  parking_garage           manifest.json
+  parking_garage_a01       manifest.json
+  parking_garage_a02       manifest.json
+  pawn_shop_a01            manifest.json, slots.json
+  rowhouse_raid            manifest.json
+  setback_demo             manifest.json
+  warehouse_a02            manifest.json
+The builder's 'door ... sits in a cut-away part of the run and is not built' warnings: 9, the same 9 a replay of its test finds on 0.233.0 and on 0.234.0 (lost_doors.py in the finding): none is this change's.

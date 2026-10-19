@@ -1,0 +1,2343 @@
+{
+ "07_police_station": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "armory|booking",
+   "armory|detective_offices",
+   "armory|garage",
+   "armory|interrogation",
+   "booking|detective_offices",
+   "booking|garage",
+   "booking|holding_cells",
+   "booking|interrogation",
+   "detective_offices|garage",
+   "detective_offices|holding_cells",
+   "detective_offices|interrogation",
+   "detective_offices|lobby",
+   "garage|lobby",
+   "holding_cells|interrogation",
+   "holding_cells|lobby"
+  ]
+ },
+ "airport_terminal_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "baggage_band|checkin_hall",
+   "baggage_band|customs_office",
+   "checkin_hall|customs_office"
+  ]
+ },
+ "airport_terminal_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "baggage_band|bond_store",
+   "baggage_band|checkin_hall",
+   "baggage_band|under_hall",
+   "bond_store|checkin_hall",
+   "bond_store|under_hall",
+   "checkin_hall|under_hall"
+  ]
+ },
+ "airport_terminal_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "baggage_band|concourse",
+   "baggage_band|ops_control",
+   "baggage_band|upper_west",
+   "concourse|ops_control",
+   "concourse|upper_ring",
+   "concourse|upper_west",
+   "ops_control|upper_ring",
+   "ops_control|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "apartment_walkup_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "basement_vault|basement_approach",
+   "front_hall|garage_bay",
+   "front_hall|kitchen",
+   "kitchen|garage_bay",
+   "office|bedroom"
+  ],
+  "graph": [
+   "basement_approach|basement_vault",
+   "basement_approach|front_hall",
+   "basement_approach|garage_bay",
+   "basement_approach|kitchen",
+   "basement_vault|garage_bay",
+   "basement_vault|kitchen",
+   "bedroom|garage_bay",
+   "bedroom|kitchen",
+   "bedroom|office",
+   "front_hall|garage_bay",
+   "front_hall|kitchen",
+   "front_hall|office",
+   "garage_bay|kitchen",
+   "garage_bay|office",
+   "kitchen|office"
+  ]
+ },
+ "apartment_walkup_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "front_flat|kitchen",
+   "front_flat|landing",
+   "front_flat|parlor",
+   "front_flat|safe_flat",
+   "kitchen|parlor",
+   "kitchen|safe_flat",
+   "landing|parlor",
+   "landing|safe_flat",
+   "parlor|safe_flat"
+  ]
+ },
+ "apartment_walkup_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "garage_cage|living_floor",
+   "garage_cage|upper_front",
+   "garage_cage|upper_rear",
+   "living_floor|upper_front",
+   "living_floor|upper_rear",
+   "upper_front|upper_rear"
+  ]
+ },
+ "arena_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_of_house|event_floor",
+   "back_of_house|under_hall",
+   "back_of_house|vault_room",
+   "event_floor|under_hall",
+   "event_floor|vault_room",
+   "under_hall|vault_room"
+  ]
+ },
+ "arena_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_of_house|box_office",
+   "back_of_house|event_floor",
+   "box_office|event_floor"
+  ]
+ },
+ "arena_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_of_house|event_floor",
+   "back_of_house|skybox_suite",
+   "back_of_house|upper_west",
+   "event_floor|skybox_suite",
+   "event_floor|upper_ring",
+   "event_floor|upper_west",
+   "skybox_suite|upper_ring",
+   "skybox_suite|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "auto_shop_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "upper_office|upper_storage"
+  ],
+  "graph": [
+   "parts_back|service_bay",
+   "parts_back|upper_office",
+   "service_bay|upper_office",
+   "service_bay|upper_storage",
+   "upper_office|upper_storage"
+  ]
+ },
+ "auto_shop_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "upper_office|upper_storage"
+  ],
+  "graph": [
+   "parts_back|service_bay",
+   "parts_back|upper_office",
+   "service_bay|upper_office",
+   "service_bay|upper_storage",
+   "upper_office|upper_storage"
+  ]
+ },
+ "bank_branch_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "lobby|manager_office",
+   "lobby|security_room",
+   "lobby|teller_staff_0",
+   "lobby|vault",
+   "lobby|vault_east",
+   "lobby|vault_west",
+   "manager_office|security_room",
+   "manager_office|vault_east",
+   "manager_office|vault_west",
+   "security_room|vault_east",
+   "security_room|vault_west",
+   "teller_staff_0|vault_east",
+   "teller_staff_0|vault_west",
+   "vault_east|vault_west",
+   "vault|vault_east",
+   "vault|vault_west"
+  ]
+ },
+ "bank_branch_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "garage_bay|lobby",
+   "garage_bay|manager_office",
+   "garage_bay|records_secure",
+   "garage_bay|upper_hall",
+   "garage_bay|vault_east",
+   "garage_bay|vault_west",
+   "lobby|manager_office",
+   "lobby|offices",
+   "lobby|records_secure",
+   "lobby|teller_staff_0",
+   "lobby|upper_hall",
+   "lobby|vault",
+   "lobby|vault_east",
+   "lobby|vault_west",
+   "manager_office|records_secure",
+   "manager_office|upper_hall",
+   "manager_office|vault_east",
+   "manager_office|vault_west",
+   "offices|records_secure",
+   "offices|teller_staff_0",
+   "offices|upper_hall",
+   "records_secure|teller_staff_0",
+   "records_secure|upper_hall",
+   "teller_staff_0|upper_hall",
+   "teller_staff_0|vault_east",
+   "teller_staff_0|vault_west",
+   "vault_east|vault_west",
+   "vault|vault_east",
+   "vault|vault_west"
+  ]
+ },
+ "bank_branch_a04": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "boardroom|grand_lobby",
+   "boardroom|mezzanine",
+   "boardroom|security_office",
+   "boardroom|teller_line",
+   "grand_lobby|mezzanine",
+   "grand_lobby|security_office",
+   "grand_lobby|teller_line",
+   "grand_lobby|vault_antechamber",
+   "grand_lobby|vault_room",
+   "security_office|teller_line",
+   "security_office|vault_room",
+   "teller_line|vault_room",
+   "vault_antechamber|vault_room"
+  ]
+ },
+ "bank_job": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "lobby|manager_office",
+   "lobby|security_room",
+   "lobby|teller_staff_0",
+   "lobby|vault",
+   "lobby|vault_room_east",
+   "lobby|vault_room_west",
+   "manager_office|security_room",
+   "manager_office|vault_room_east",
+   "manager_office|vault_room_west",
+   "security_room|vault",
+   "security_room|vault_room_east",
+   "security_room|vault_room_west",
+   "teller_staff_0|vault_room_east",
+   "teller_staff_0|vault_room_west",
+   "vault_room_east|vault_room_west",
+   "vault|vault_room_east"
+  ]
+ },
+ "bank_tower_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "banking_hall|main_vault",
+   "banking_hall|teller_band",
+   "banking_hall|under_hall",
+   "main_vault|teller_band",
+   "main_vault|under_hall",
+   "teller_band|under_hall"
+  ]
+ },
+ "bank_tower_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "banking_hall|executive_safe_suite",
+   "banking_hall|teller_band",
+   "banking_hall|upper_ring",
+   "banking_hall|upper_west",
+   "executive_safe_suite|teller_band",
+   "executive_safe_suite|upper_ring",
+   "executive_safe_suite|upper_west",
+   "teller_band|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "bank_tower_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_office|banking_hall",
+   "back_office|teller_cage",
+   "banking_hall|teller_cage"
+  ]
+ },
+ "brewery_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "brew_floor|catwalk_south",
+   "brew_floor|lab_hall",
+   "brew_floor|recipe_lab",
+   "brew_floor|taproom",
+   "catwalk_south|lab_hall",
+   "catwalk_south|recipe_lab",
+   "catwalk_south|taproom",
+   "lab_hall|recipe_lab"
+  ]
+ },
+ "brewery_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "barrel_vault|brew_hall",
+   "barrel_vault|cellar_west",
+   "barrel_vault|north_stock",
+   "brew_hall|cellar_west",
+   "brew_hall|north_stock",
+   "cellar_west|north_stock"
+  ]
+ },
+ "brewery_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "brew_back|cash_office",
+   "brew_back|taproom",
+   "cash_office|taproom"
+  ]
+ },
+ "card_shop_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "apartment|play_area",
+   "apartment|sales_floor",
+   "apartment|stockroom",
+   "apartment|upper_storage",
+   "play_area|sales_floor",
+   "play_area|upper_storage",
+   "sales_floor|stockroom",
+   "sales_floor|upper_storage",
+   "stockroom|upper_storage"
+  ]
+ },
+ "casino_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cage|count_corridor",
+   "cage|gaming_floor",
+   "count_corridor|gaming_floor"
+  ]
+ },
+ "casino_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "count_room|gaming_floor",
+   "count_room|pit_corridor",
+   "count_room|under_hall",
+   "gaming_floor|pit_corridor",
+   "gaming_floor|under_hall",
+   "pit_corridor|under_hall"
+  ]
+ },
+ "casino_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "gaming_floor|high_roller_suite",
+   "gaming_floor|pit_corridor",
+   "gaming_floor|upper_ring",
+   "gaming_floor|upper_west",
+   "high_roller_suite|pit_corridor",
+   "high_roller_suite|upper_ring",
+   "high_roller_suite|upper_west",
+   "pit_corridor|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "cbp_town_finale_midbalanced_schemafixed": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "broadcast_booth|club_lobby",
+   "broadcast_booth|club_ring_overlook",
+   "broadcast_booth|east_cash_counting",
+   "broadcast_booth|east_press_booths",
+   "broadcast_booth|east_suite_concourse",
+   "broadcast_booth|press_service_hall",
+   "broadcast_booth|west_club_security",
+   "broadcast_booth|west_press_booths",
+   "broadcast_booth|west_suite_concourse",
+   "center_field_loading_dock|center_field_service_ring",
+   "center_field_loading_dock|left_outfield_deck",
+   "center_field_loading_dock|right_outfield_deck",
+   "center_field_loading_dock|scoreboard_back_of_house",
+   "center_field_service_ring|east_upper_bowl_walk",
+   "center_field_service_ring|home_plate_overlook",
+   "center_field_service_ring|infield_bowl",
+   "center_field_service_ring|left_field_service_ring",
+   "center_field_service_ring|left_outfield_deck",
+   "center_field_service_ring|right_field_service_ring",
+   "center_field_service_ring|right_outfield_deck",
+   "center_field_service_ring|scoreboard_back_of_house",
+   "center_field_service_ring|west_upper_bowl_walk",
+   "club_lobby|club_ring_overlook",
+   "club_lobby|east_cash_counting",
+   "club_lobby|east_press_booths",
+   "club_lobby|first_base_concourse",
+   "club_lobby|first_base_gate_plaza",
+   "club_lobby|home_plate_gate_plaza",
+   "club_lobby|main_concourse",
+   "club_lobby|third_base_concourse",
+   "club_lobby|third_base_gate_plaza",
+   "club_lobby|west_club_security",
+   "club_lobby|west_press_booths",
+   "club_ring_overlook|east_press_booths",
+   "club_ring_overlook|east_press_hall",
+   "club_ring_overlook|first_base_concourse",
+   "club_ring_overlook|first_base_vomitory",
+   "club_ring_overlook|home_plate_overlook",
+   "club_ring_overlook|infield_bowl",
+   "club_ring_overlook|main_concourse",
+   "club_ring_overlook|press_service_hall",
+   "club_ring_overlook|third_base_concourse",
+   "club_ring_overlook|third_base_vomitory",
+   "club_ring_overlook|west_press_booths",
+   "club_ring_overlook|west_press_hall",
+   "east_cash_counting|east_press_booths",
+   "east_cash_counting|east_suite_concourse",
+   "east_cash_counting|first_base_concourse",
+   "east_cash_counting|first_base_gate_plaza",
+   "east_cash_counting|home_plate_gate_plaza",
+   "east_cash_counting|main_concourse",
+   "east_press_booths|east_press_hall",
+   "east_press_booths|east_suite_concourse",
+   "east_press_hall|east_suite_concourse",
+   "east_press_hall|east_upper_bowl_walk",
+   "east_press_hall|home_plate_overlook",
+   "east_press_hall|right_scoreboard_maintenance",
+   "east_suite_concourse|east_upper_bowl_walk",
+   "east_suite_concourse|first_base_concourse",
+   "east_suite_concourse|first_base_vomitory",
+   "east_suite_concourse|infield_bowl",
+   "east_suite_concourse|main_concourse",
+   "east_suite_concourse|press_service_hall",
+   "east_upper_bowl_walk|first_base_vomitory",
+   "east_upper_bowl_walk|home_plate_overlook",
+   "east_upper_bowl_walk|infield_bowl",
+   "east_upper_bowl_walk|press_service_hall",
+   "east_upper_bowl_walk|right_field_service_ring",
+   "east_upper_bowl_walk|right_outfield_deck",
+   "east_upper_bowl_walk|right_scoreboard_maintenance",
+   "east_upper_bowl_walk|scoreboard_control_catwalk",
+   "first_base_concourse|first_base_gate_plaza",
+   "first_base_concourse|first_base_vomitory",
+   "first_base_concourse|main_concourse",
+   "first_base_vomitory|home_plate_overlook",
+   "first_base_vomitory|right_field_service_ring",
+   "home_plate_gate_plaza|main_concourse",
+   "home_plate_gate_plaza|west_club_security",
+   "home_plate_overlook|infield_bowl",
+   "home_plate_overlook|left_field_service_ring",
+   "home_plate_overlook|left_scoreboard_maintenance",
+   "home_plate_overlook|press_service_hall",
+   "home_plate_overlook|right_field_service_ring",
+   "home_plate_overlook|right_scoreboard_maintenance",
+   "home_plate_overlook|scoreboard_back_of_house",
+   "home_plate_overlook|scoreboard_control_catwalk",
+   "home_plate_overlook|third_base_vomitory",
+   "home_plate_overlook|west_press_hall",
+   "home_plate_overlook|west_upper_bowl_walk",
+   "infield_bowl|main_concourse",
+   "infield_bowl|west_suite_concourse",
+   "infield_bowl|west_upper_bowl_walk",
+   "left_field_loading|left_field_service_ring",
+   "left_field_loading|left_outfield_deck",
+   "left_field_loading|scoreboard_back_of_house",
+   "left_field_service_ring|left_outfield_deck",
+   "left_field_service_ring|scoreboard_back_of_house",
+   "left_field_service_ring|third_base_vomitory",
+   "left_field_service_ring|west_upper_bowl_walk",
+   "left_outfield_deck|left_scoreboard_maintenance",
+   "left_outfield_deck|scoreboard_back_of_house",
+   "left_outfield_deck|scoreboard_control_catwalk",
+   "left_outfield_deck|west_upper_bowl_walk",
+   "left_scoreboard_maintenance|scoreboard_back_of_house",
+   "left_scoreboard_maintenance|scoreboard_control_catwalk",
+   "left_scoreboard_maintenance|west_press_hall",
+   "left_scoreboard_maintenance|west_upper_bowl_walk",
+   "main_concourse|third_base_concourse",
+   "main_concourse|west_club_security",
+   "main_concourse|west_suite_concourse",
+   "press_service_hall|scoreboard_control_catwalk",
+   "press_service_hall|west_suite_concourse",
+   "press_service_hall|west_upper_bowl_walk",
+   "right_field_loading|right_field_service_ring",
+   "right_field_loading|right_outfield_deck",
+   "right_field_loading|scoreboard_back_of_house",
+   "right_field_service_ring|right_outfield_deck",
+   "right_field_service_ring|scoreboard_back_of_house",
+   "right_outfield_deck|right_scoreboard_maintenance",
+   "right_outfield_deck|scoreboard_back_of_house",
+   "right_outfield_deck|scoreboard_control_catwalk",
+   "right_scoreboard_maintenance|scoreboard_back_of_house",
+   "right_scoreboard_maintenance|scoreboard_control_catwalk",
+   "scoreboard_back_of_house|scoreboard_control_catwalk",
+   "scoreboard_control_catwalk|west_upper_bowl_walk",
+   "third_base_concourse|third_base_gate_plaza",
+   "third_base_concourse|third_base_vomitory",
+   "third_base_concourse|west_club_security",
+   "third_base_concourse|west_suite_concourse",
+   "third_base_gate_plaza|west_club_security",
+   "third_base_vomitory|west_suite_concourse",
+   "third_base_vomitory|west_upper_bowl_walk",
+   "west_club_security|west_press_booths",
+   "west_club_security|west_suite_concourse",
+   "west_press_booths|west_press_hall",
+   "west_press_booths|west_suite_concourse",
+   "west_press_hall|west_suite_concourse",
+   "west_press_hall|west_upper_bowl_walk",
+   "west_suite_concourse|west_upper_bowl_walk"
+  ]
+ },
+ "clinic_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dispensary|exam_wing",
+   "dispensary|waiting_room",
+   "exam_wing|waiting_room"
+  ]
+ },
+ "clinic_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "exam_wing|offices",
+   "exam_wing|records_vault",
+   "exam_wing|waiting_room",
+   "offices|records_vault",
+   "offices|upper_hall",
+   "offices|waiting_room",
+   "records_vault|upper_hall",
+   "records_vault|waiting_room",
+   "upper_hall|waiting_room"
+  ]
+ },
+ "construction_site_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "ground_works|material_bay",
+   "ground_works|site_office",
+   "ground_works|upper_frame_n",
+   "ground_works|upper_frame_s",
+   "material_bay|site_office",
+   "material_bay|upper_frame_n",
+   "site_office|upper_frame_n",
+   "upper_frame_n|upper_frame_s"
+  ]
+ },
+ "construction_site_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "equipment_cage|foundation_w",
+   "equipment_cage|ground_pour",
+   "equipment_cage|laydown_yard",
+   "foundation_w|ground_pour",
+   "foundation_w|laydown_yard",
+   "ground_pour|laydown_yard"
+  ]
+ },
+ "construction_site_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "north_works|plan_room",
+   "north_works|south_works",
+   "north_works|upper_deck",
+   "north_works|upper_west",
+   "plan_room|upper_deck",
+   "plan_room|upper_west",
+   "south_works|upper_deck",
+   "upper_deck|upper_west"
+  ]
+ },
+ "convenience_store_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_hall|sales_floor",
+   "back_hall|stockroom",
+   "sales_floor|walkin_cooler",
+   "stockroom|walkin_cooler"
+  ]
+ },
+ "corner_deli_heist_01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "cold_storage_w|cold_storage_s",
+   "customer_floor|deli_counter",
+   "main_stack_well_b|cold_storage_n",
+   "main_stack_well_b|cold_storage_s",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage_e",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage_e",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage_e|cold_storage_n",
+   "cold_storage_e|cold_storage_s",
+   "cold_storage_e|deli_counter",
+   "cold_storage_e|main_stack_well_b",
+   "cold_storage_e|market_aisles",
+   "cold_storage_e|stairwell",
+   "cold_storage_e|stockroom_loading",
+   "cold_storage_n|main_stack_well_b",
+   "cold_storage_n|stairwell",
+   "cold_storage_s|cold_storage_w",
+   "cold_storage_s|deli_counter",
+   "cold_storage_s|main_stack_well_b",
+   "cold_storage_s|stairwell",
+   "cold_storage_w|deli_counter",
+   "cold_storage_w|main_stack_well_b",
+   "cold_storage_w|stairwell",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "main_stack_well_b|stairwell",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "country_club_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cellar_hall|dining_wing",
+   "cellar_hall|grand_lounge",
+   "cellar_hall|wine_cellar",
+   "dining_wing|grand_lounge",
+   "dining_wing|wine_cellar",
+   "grand_lounge|wine_cellar"
+  ]
+ },
+ "country_club_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "board_wing|lounge",
+   "board_wing|pro_shop_wing",
+   "board_wing|trophy_room",
+   "board_wing|upper_hall",
+   "lounge|pro_shop_wing",
+   "lounge|trophy_room",
+   "lounge|upper_hall",
+   "pro_shop_wing|trophy_room",
+   "trophy_room|upper_hall"
+  ]
+ },
+ "courthouse_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "chambers|court_wing",
+   "chambers|rotunda",
+   "chambers|upper_court",
+   "court_wing|evidence_hall",
+   "court_wing|evidence_vault",
+   "court_wing|rotunda",
+   "evidence_hall|evidence_vault",
+   "evidence_hall|rotunda",
+   "evidence_vault|rotunda",
+   "rotunda|upper_court"
+  ]
+ },
+ "courthouse_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "clerk_wing|courtrooms",
+   "clerk_wing|lobby",
+   "clerk_wing|records_room",
+   "clerk_wing|upper_hall",
+   "courtrooms|lobby",
+   "courtrooms|records_room",
+   "lobby|records_room",
+   "lobby|upper_hall",
+   "records_room|upper_hall"
+  ]
+ },
+ "courthouse_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "judges_chambers|main_courtroom",
+   "judges_chambers|public_hall",
+   "main_courtroom|public_hall"
+  ]
+ },
+ "cr_deli": {
+  "L12": [],
+  "L24": [
+   "server_room"
+  ],
+  "L26": [
+   "customer_floor|deli_counter",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage|deli_counter",
+   "cold_storage|market_aisles",
+   "cold_storage|stairwell",
+   "cold_storage|stockroom_loading",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "cr_garage": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "deck_0_south|deck_0_main"
+  ],
+  "graph": [
+   "attendant_booth|deck_0_main",
+   "attendant_booth|deck_0_south",
+   "attendant_booth|deck_1",
+   "deck_0_main|deck_0_south",
+   "deck_0_main|deck_1",
+   "deck_0_south|deck_1"
+  ]
+ },
+ "cr_gas": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "forecourt|sales_floor",
+   "forecourt|stockroom"
+  ],
+  "graph": [
+   "back_office|sales_floor",
+   "back_office|stockroom",
+   "forecourt|sales_floor",
+   "forecourt|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "cr_pawn": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "apartment|upper_storage"
+  ],
+  "graph": [
+   "apartment|shop_floor",
+   "apartment|upper_storage",
+   "safe_room|shop_floor",
+   "safe_room|upper_storage",
+   "shop_floor|upper_storage"
+  ]
+ },
+ "credit_union_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_office|lobby",
+   "back_office|vault_room",
+   "lobby|vault_ante",
+   "lobby|vault_room",
+   "vault_ante|vault_room"
+  ]
+ },
+ "credit_union_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "lobby|mezz",
+   "lobby|offices",
+   "lobby|records_secure",
+   "lobby|upper_hall",
+   "mezz|records_secure",
+   "mezz|upper_hall",
+   "offices|records_secure",
+   "offices|upper_hall",
+   "records_secure|upper_hall"
+  ]
+ },
+ "credit_union_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "lobby|teller_line",
+   "lobby|vault_ante",
+   "lobby|vault_room",
+   "teller_line|vault_ante",
+   "teller_line|vault_room",
+   "vault_ante|vault_room"
+  ]
+ },
+ "deli_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "customer_floor|deli_counter",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage|deli_counter",
+   "cold_storage|market_aisles",
+   "cold_storage|stairwell",
+   "cold_storage|stockroom_loading",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "deli_a02": {
+  "L12": [],
+  "L24": [
+   "server_room"
+  ],
+  "L26": [
+   "customer_floor|deli_counter",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage|deli_counter",
+   "cold_storage|market_aisles",
+   "cold_storage|stairwell",
+   "cold_storage|stockroom_loading",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "deli_a03": {
+  "L12": [],
+  "L24": [
+   "server_room"
+  ],
+  "L26": [
+   "customer_floor|deli_counter",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage|deli_counter",
+   "cold_storage|market_aisles",
+   "cold_storage|stairwell",
+   "cold_storage|stockroom_loading",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "depot_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dispatch_office|lanes",
+   "dispatch_office|parcel_hall",
+   "lanes|parcel_hall"
+  ]
+ },
+ "depot_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "bond_hall|bonded_cage",
+   "bond_hall|floor",
+   "bond_hall|north_hall",
+   "bonded_cage|floor",
+   "bonded_cage|north_hall",
+   "floor|north_hall"
+  ]
+ },
+ "final_stand": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "boss_antechamber|boss_suite",
+   "boss_antechamber|south_balcony",
+   "boss_antechamber|west_office",
+   "boss_suite|central_overlook",
+   "boss_suite|east_lounge",
+   "boss_suite|trophy_room",
+   "boss_suite|west_office",
+   "central_overlook|east_lounge",
+   "central_overlook|main_hall",
+   "central_overlook|south_balcony",
+   "central_overlook|stair_core",
+   "central_overlook|west_office",
+   "east_lounge|east_security",
+   "east_lounge|main_hall",
+   "east_lounge|south_balcony",
+   "east_lounge|south_gallery",
+   "east_lounge|stair_core",
+   "east_lounge|trophy_room",
+   "east_security|main_hall",
+   "east_security|stair_core",
+   "entry_hall|main_hall",
+   "entry_hall|south_gallery",
+   "garage|main_hall",
+   "garage|stair_core",
+   "garage|west_office",
+   "main_hall|south_gallery",
+   "main_hall|stair_core",
+   "main_hall|west_office",
+   "south_balcony|south_gallery",
+   "south_balcony|trophy_room",
+   "south_balcony|west_office",
+   "south_gallery|west_office",
+   "stair_core|west_office"
+  ]
+ },
+ "foundry_heist_vertical": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "archive_room|bridge_core",
+   "archive_room|catwalk_south",
+   "archive_room|central_floor",
+   "archive_room|comms_room",
+   "archive_room|east_floor",
+   "archive_room|loading_dock",
+   "archive_room|skylight_room",
+   "archive_room|south_machine",
+   "bridge_core|catwalk_south",
+   "bridge_core|central_floor",
+   "bridge_core|comms_room",
+   "bridge_core|control_room",
+   "bridge_core|east_floor",
+   "bridge_core|loading_dock",
+   "bridge_core|lobby",
+   "bridge_core|roof_north",
+   "bridge_core|roof_south",
+   "bridge_core|skylight_room",
+   "bridge_core|south_machine",
+   "bridge_core|west_maintenance",
+   "catwalk_south|comms_room",
+   "catwalk_south|control_room",
+   "catwalk_south|loading_dock",
+   "catwalk_south|lobby",
+   "catwalk_south|roof_south",
+   "catwalk_south|south_machine",
+   "central_floor|control_room",
+   "central_floor|east_floor",
+   "central_floor|sewer_entry",
+   "central_floor|south_machine",
+   "central_floor|vault_approach",
+   "central_floor|west_maintenance",
+   "comms_room|roof_south",
+   "comms_room|skylight_room",
+   "control_room|lobby",
+   "control_room|roof_north",
+   "control_room|roof_south",
+   "control_room|south_machine",
+   "control_room|west_maintenance",
+   "east_floor|loading_dock",
+   "east_floor|vault_approach",
+   "east_floor|vault_cage",
+   "loading_dock|south_machine",
+   "loading_dock|vault_approach",
+   "loading_dock|vault_cage",
+   "lobby|sewer_entry",
+   "lobby|south_machine",
+   "lobby|vault_approach",
+   "lobby|west_maintenance",
+   "roof_north|roof_south",
+   "roof_north|skylight_room",
+   "sewer_entry|south_machine",
+   "sewer_entry|vault_approach",
+   "sewer_entry|west_maintenance",
+   "south_machine|vault_approach",
+   "vault_approach|vault_cage",
+   "vault_approach|west_maintenance"
+  ]
+ },
+ "freight_terminal_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "bonded_cage|cross_dock",
+   "bonded_cage|west_hall",
+   "cross_dock|west_hall"
+  ]
+ },
+ "freight_terminal_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dock_floor|gantry_control",
+   "dock_floor|mezz_hall",
+   "dock_floor|mezz_south",
+   "dock_floor|south_floor",
+   "gantry_control|mezz_hall",
+   "gantry_control|mezz_south",
+   "mezz_hall|mezz_south",
+   "mezz_south|south_floor"
+  ]
+ },
+ "freight_terminal_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "bond_approach|bond_vault",
+   "bond_approach|lanes",
+   "bond_approach|sort_hall",
+   "bond_vault|lanes",
+   "bond_vault|sort_hall",
+   "lanes|sort_hall"
+  ]
+ },
+ "fuel_stop_heist": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_hall|manager_office",
+   "back_hall|sales_floor",
+   "back_hall|stockroom",
+   "food_service|sales_floor",
+   "food_service|walk_in_cooler",
+   "sales_floor|stockroom",
+   "stockroom|walk_in_cooler"
+  ]
+ },
+ "funeral_home_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cellar_hall|chapel",
+   "cellar_hall|prep_room",
+   "cellar_hall|viewing_wing",
+   "chapel|prep_room",
+   "chapel|viewing_wing",
+   "prep_room|viewing_wing"
+  ]
+ },
+ "funeral_home_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "family_wing|parlor",
+   "family_wing|records_office",
+   "family_wing|upper_hall",
+   "family_wing|viewing_rooms",
+   "parlor|records_office",
+   "parlor|upper_hall",
+   "parlor|viewing_rooms",
+   "records_office|upper_hall",
+   "records_office|viewing_rooms"
+  ]
+ },
+ "funeral_home_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "columbarium_vault|crematory_wing",
+   "columbarium_vault|lower_hall",
+   "columbarium_vault|reception",
+   "crematory_wing|lower_hall",
+   "crematory_wing|reception",
+   "lower_hall|reception"
+  ]
+ },
+ "gas_station": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_office|sales_floor",
+   "back_office|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "gas_station_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_office|sales_floor",
+   "back_office|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "gas_station_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_hall|manager_office",
+   "back_hall|sales_floor",
+   "back_hall|stockroom",
+   "food_service|sales_floor",
+   "food_service|walk_in_cooler",
+   "manager_office|stockroom",
+   "sales_floor|stockroom",
+   "stockroom|walk_in_cooler"
+  ]
+ },
+ "gas_street": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "forecourt|sales_floor",
+   "forecourt|stockroom"
+  ],
+  "graph": [
+   "back_office|sales_floor",
+   "back_office|stockroom",
+   "forecourt|sales_floor",
+   "forecourt|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "gs_auto_shop": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "upper_office|upper_storage"
+  ],
+  "graph": [
+   "parts_back|service_bay",
+   "parts_back|upper_office",
+   "service_bay|upper_office",
+   "service_bay|upper_storage",
+   "upper_office|upper_storage"
+  ]
+ },
+ "gs_corner_station": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "forecourt|restroom",
+   "forecourt|sales_floor",
+   "forecourt|stockroom"
+  ],
+  "graph": [
+   "back_office|sales_floor",
+   "back_office|stockroom",
+   "forecourt|restroom",
+   "forecourt|sales_floor",
+   "forecourt|stockroom",
+   "restroom|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "harbor_score": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "basement_storage_north|basement_storage_south",
+   "basement_storage_north|loading_floor",
+   "basement_storage_north|office_wing",
+   "basement_storage_south|loading_floor",
+   "basement_storage_south|office_wing",
+   "loading_floor|office_wing"
+  ]
+ },
+ "landmark_hall_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "artifact_room|assembly_hall",
+   "artifact_room|curator_band",
+   "assembly_hall|curator_band"
+  ]
+ },
+ "landmark_hall_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "archive_office|assembly_hall",
+   "archive_office|curator_band",
+   "archive_office|upper_ring",
+   "archive_office|upper_west",
+   "assembly_hall|curator_band",
+   "assembly_hall|upper_ring",
+   "assembly_hall|upper_west",
+   "curator_band|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "landmark_hall_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "conservation_vault|curator_band",
+   "conservation_vault|exhibit_hall",
+   "conservation_vault|under_hall",
+   "curator_band|exhibit_hall",
+   "curator_band|under_hall",
+   "exhibit_hall|under_hall"
+  ]
+ },
+ "large_warehouse_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dock_floor|high_value_cage",
+   "dock_floor|north_hall",
+   "high_value_cage|north_hall"
+  ]
+ },
+ "large_warehouse_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "control_room|dock_hall",
+   "control_room|mezz_south",
+   "control_room|mezz_walk",
+   "dock_hall|mezz_south",
+   "dock_hall|mezz_walk",
+   "dock_hall|south_floor",
+   "mezz_south|mezz_walk",
+   "mezz_south|south_floor"
+  ]
+ },
+ "large_warehouse_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "archive_hall|bonded_archive",
+   "archive_hall|main_floor",
+   "archive_hall|north_stock",
+   "bonded_archive|main_floor",
+   "bonded_archive|north_stock",
+   "main_floor|mezz_offices",
+   "main_floor|mezz_stock",
+   "main_floor|north_stock",
+   "mezz_offices|mezz_stock",
+   "mezz_stock|north_stock"
+  ]
+ },
+ "mansion_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "bedroom_wing|foyer",
+   "bedroom_wing|living_wing",
+   "bedroom_wing|upper_hall",
+   "cellar_hall|foyer",
+   "cellar_hall|living_wing",
+   "cellar_hall|wine_vault",
+   "foyer|living_wing",
+   "foyer|upper_hall",
+   "foyer|wine_vault",
+   "living_wing|wine_vault"
+  ]
+ },
+ "mansion_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "guest_wing|hall",
+   "guest_wing|kitchen_wing",
+   "guest_wing|landing",
+   "guest_wing|master_suite",
+   "hall|kitchen_wing",
+   "hall|landing",
+   "hall|master_suite",
+   "kitchen_wing|master_suite",
+   "landing|master_suite"
+  ]
+ },
+ "mansion_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "gallery_wing|grand_foyer",
+   "gallery_wing|panic_approach",
+   "gallery_wing|panic_room",
+   "gallery_wing|private_wing",
+   "gallery_wing|study",
+   "grand_foyer|panic_approach",
+   "grand_foyer|panic_room",
+   "grand_foyer|private_wing",
+   "grand_foyer|study",
+   "grand_foyer|upper_hall",
+   "panic_approach|panic_room",
+   "panic_room|study",
+   "private_wing|study",
+   "private_wing|upper_hall"
+  ]
+ },
+ "marina_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "basement_approach|basement_storage",
+   "basement_approach|loading_floor",
+   "basement_approach|office_wing",
+   "basement_storage|loading_floor",
+   "basement_storage|office_wing",
+   "loading_floor|office_wing"
+  ]
+ },
+ "marina_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "boat_hall|club_room",
+   "boat_hall|harbormaster",
+   "boat_hall|shop_wing",
+   "boat_hall|upper_deck",
+   "club_room|harbormaster",
+   "club_room|shop_wing",
+   "club_room|upper_deck",
+   "harbormaster|shop_wing",
+   "harbormaster|upper_deck"
+  ]
+ },
+ "marina_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "bonded_locker|gear_hall",
+   "bonded_locker|sales_floor",
+   "gear_hall|sales_floor"
+  ]
+ },
+ "market_hall_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "deposit_cage|loading_band",
+   "deposit_cage|stall_floor",
+   "loading_band|stall_floor"
+  ]
+ },
+ "market_hall_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cold_store|loading_band",
+   "cold_store|stall_floor",
+   "cold_store|under_hall",
+   "loading_band|stall_floor",
+   "loading_band|under_hall",
+   "stall_floor|under_hall"
+  ]
+ },
+ "market_hall_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "loading_band|mezz_office",
+   "loading_band|stall_floor",
+   "loading_band|upper_west",
+   "mezz_office|stall_floor",
+   "mezz_office|upper_ring",
+   "mezz_office|upper_west",
+   "stall_floor|upper_ring",
+   "stall_floor|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "museum_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "great_hall|mezzanine",
+   "great_hall|north_galleries",
+   "great_hall|special_exhibit",
+   "great_hall|upper_west",
+   "mezzanine|special_exhibit",
+   "mezzanine|upper_west",
+   "north_galleries|special_exhibit",
+   "north_galleries|upper_west",
+   "special_exhibit|upper_west"
+  ]
+ },
+ "museum_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "archive_hall|art_storage",
+   "archive_hall|galleries",
+   "archive_hall|north_wing",
+   "art_storage|galleries",
+   "art_storage|north_wing",
+   "galleries|north_wing"
+  ]
+ },
+ "museum_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "artifact_wing|atrium",
+   "artifact_wing|upper_north",
+   "artifact_wing|upper_south",
+   "atrium|upper_north",
+   "atrium|upper_south",
+   "upper_north|upper_south"
+  ]
+ },
+ "night_auto": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "upper_office|upper_storage"
+  ],
+  "graph": [
+   "parts_back|service_bay",
+   "parts_back|upper_office",
+   "service_bay|upper_office",
+   "service_bay|upper_storage",
+   "upper_office|upper_storage"
+  ]
+ },
+ "night_deli": {
+  "L12": [],
+  "L24": [
+   "server_room"
+  ],
+  "L26": [
+   "customer_floor|deli_counter",
+   "market_aisles|kitchen"
+  ],
+  "graph": [
+   "apartment_hideout|kitchen",
+   "apartment_hideout|manager_office",
+   "apartment_hideout|market_aisles",
+   "apartment_hideout|server_room",
+   "basement_corridor|cold_storage",
+   "basement_corridor|customer_floor",
+   "basement_corridor|deli_counter",
+   "basement_corridor|market_aisles",
+   "basement_corridor|utility_room",
+   "basement_vault|cold_storage",
+   "basement_vault|kitchen",
+   "basement_vault|market_aisles",
+   "basement_vault|stockroom_loading",
+   "basement_vault|utility_room",
+   "cold_storage|deli_counter",
+   "cold_storage|market_aisles",
+   "cold_storage|stairwell",
+   "cold_storage|stockroom_loading",
+   "customer_floor|deli_counter",
+   "customer_floor|manager_office",
+   "customer_floor|market_aisles",
+   "deli_counter|manager_office",
+   "deli_counter|stairwell",
+   "deli_counter|upper_hall",
+   "kitchen|market_aisles",
+   "kitchen|server_room",
+   "kitchen|stockroom_loading",
+   "kitchen|utility_room",
+   "manager_office|market_aisles",
+   "manager_office|upper_hall",
+   "market_aisles|server_room",
+   "market_aisles|stockroom_loading",
+   "market_aisles|upper_hall",
+   "market_aisles|utility_room",
+   "server_room|stockroom_loading",
+   "server_room|upper_hall",
+   "stairwell|stockroom_loading",
+   "stairwell|upper_hall",
+   "stockroom_loading|upper_hall"
+  ]
+ },
+ "night_pawn": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "apartment|upper_storage"
+  ],
+  "graph": [
+   "apartment|shop_floor",
+   "apartment|upper_storage",
+   "safe_room|shop_floor",
+   "safe_room|upper_storage",
+   "shop_floor|upper_storage"
+  ]
+ },
+ "office": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "exec_lobby|exec_anteroom",
+   "lobby|ground_bullpen"
+  ],
+  "graph": [
+   "exec_anteroom|exec_lobby",
+   "exec_anteroom|exec_suite",
+   "exec_anteroom|floor_1",
+   "exec_lobby|exec_suite",
+   "exec_lobby|floor_1",
+   "exec_suite|floor_1",
+   "floor_1|ground_bullpen",
+   "floor_1|lobby",
+   "ground_bullpen|lobby"
+  ]
+ },
+ "office_stepped": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "lobby|ground_bullpen"
+  ],
+  "graph": [
+   "exec_suite|floor_1",
+   "floor_1|ground_bullpen",
+   "floor_1|lobby",
+   "ground_bullpen|lobby"
+  ]
+ },
+ "parking_garage": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "deck_0_south|deck_0_main"
+  ],
+  "graph": [
+   "attendant_booth|deck_0_main",
+   "attendant_booth|deck_0_south",
+   "attendant_booth|deck_1",
+   "deck_0_main|deck_0_south",
+   "deck_0_main|deck_1",
+   "deck_0_south|deck_1"
+  ]
+ },
+ "parking_garage_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "deck_0_south|deck_0_main"
+  ],
+  "graph": [
+   "attendant_booth|deck_0_main",
+   "attendant_booth|deck_0_south",
+   "attendant_booth|deck_1",
+   "deck_0_main|deck_0_south",
+   "deck_0_main|deck_1",
+   "deck_0_south|deck_1"
+  ]
+ },
+ "parking_garage_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "deck_0_south|deck_0_main",
+   "deck_1|deck_1_west"
+  ],
+  "graph": [
+   "armored_pen|deck_0_main",
+   "armored_pen|deck_1",
+   "armored_pen|deck_1_west",
+   "attendant_booth|deck_0_main",
+   "attendant_booth|deck_0_south",
+   "attendant_booth|deck_1",
+   "deck_0_main|deck_0_south",
+   "deck_0_main|deck_1",
+   "deck_0_main|deck_1_west",
+   "deck_0_south|deck_1",
+   "deck_1|deck_1_west"
+  ]
+ },
+ "pawn_shop_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "apartment|upper_storage"
+  ],
+  "graph": [
+   "apartment|shop_floor",
+   "apartment|upper_storage",
+   "safe_room|shop_floor",
+   "safe_room|upper_storage",
+   "shop_floor|upper_storage"
+  ]
+ },
+ "pawn_shop_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_room|lockup",
+   "back_room|shop_floor",
+   "back_room|upper_flat",
+   "lockup|shop_floor",
+   "lockup|upper_flat",
+   "lockup|upper_hall",
+   "shop_floor|upper_flat",
+   "shop_floor|upper_hall",
+   "upper_flat|upper_hall"
+  ]
+ },
+ "pharmacy_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "retail_floor|rx_counter",
+   "retail_floor|rx_vault",
+   "rx_counter|rx_vault"
+  ]
+ },
+ "pharmacy_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "retail_floor|rx_area",
+   "retail_floor|schedule_vault",
+   "retail_floor|stock_hall",
+   "rx_area|schedule_vault",
+   "schedule_vault|stock_hall"
+  ]
+ },
+ "primos_pizza": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "count_room|dining_room",
+   "count_room|kitchen",
+   "count_room|rear_hall",
+   "count_room|social_club",
+   "count_room|stair_room",
+   "count_room|upper_hall",
+   "dining_room|dough_cellar",
+   "dining_room|kitchen",
+   "dining_room|rear_hall",
+   "dining_room|social_club",
+   "dining_room|stash_room",
+   "dining_room|upper_hall",
+   "dough_cellar|rear_hall",
+   "dough_cellar|stash_room",
+   "dough_cellar|walkin_cooler",
+   "kitchen|social_club",
+   "kitchen|stair_room",
+   "kitchen|stash_room",
+   "kitchen|upper_hall",
+   "rear_hall|social_club",
+   "rear_hall|stair_room",
+   "rear_hall|stash_room",
+   "rear_hall|upper_hall",
+   "rear_hall|walkin_cooler",
+   "social_club|upper_hall",
+   "social_club|walkin_cooler",
+   "stair_room|stash_room",
+   "stair_room|upper_hall",
+   "upper_hall|walkin_cooler"
+  ]
+ },
+ "pvp_station_ref": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "armory|booking",
+   "armory|detective_offices",
+   "armory|garage",
+   "armory|interrogation",
+   "booking|detective_offices",
+   "booking|garage",
+   "booking|holding_cells",
+   "booking|interrogation",
+   "detective_offices|garage",
+   "detective_offices|holding_cells",
+   "detective_offices|interrogation",
+   "detective_offices|lobby",
+   "garage|lobby",
+   "holding_cells|interrogation",
+   "holding_cells|lobby"
+  ]
+ },
+ "rail_station_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "fare_hall|money_room",
+   "fare_hall|platform_north",
+   "fare_hall|platform_south",
+   "fare_hall|service_hall",
+   "money_room|platform_north",
+   "money_room|service_hall",
+   "platform_north|platform_south",
+   "platform_north|service_hall"
+  ]
+ },
+ "rail_station_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "agent_wing|concourse",
+   "agent_wing|fare_vault",
+   "agent_wing|vault_approach",
+   "concourse|fare_vault",
+   "concourse|vault_approach",
+   "fare_vault|vault_approach"
+  ]
+ },
+ "rail_station_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dispatch_office|mezz_hall",
+   "dispatch_office|north_gates",
+   "dispatch_office|office_row",
+   "dispatch_office|waiting_hall",
+   "mezz_hall|office_row",
+   "mezz_hall|waiting_hall",
+   "north_gates|office_row",
+   "north_gates|waiting_hall",
+   "office_row|waiting_hall"
+  ]
+ },
+ "rowhouse_raid": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "basement_vault|basement_approach",
+   "front_hall|garage_bay",
+   "front_hall|kitchen",
+   "kitchen|garage_bay",
+   "office|bedroom"
+  ],
+  "graph": [
+   "basement_approach|basement_vault",
+   "basement_approach|front_hall",
+   "basement_approach|garage_bay",
+   "basement_approach|kitchen",
+   "basement_vault|garage_bay",
+   "basement_vault|kitchen",
+   "bedroom|garage_bay",
+   "bedroom|kitchen",
+   "bedroom|office",
+   "front_hall|garage_bay",
+   "front_hall|kitchen",
+   "front_hall|office",
+   "garage_bay|kitchen",
+   "garage_bay|office",
+   "kitchen|office"
+  ]
+ },
+ "self_storage_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "mid_aisle|north_aisle",
+   "mid_aisle|south_aisle",
+   "mid_aisle|vault_unit",
+   "north_aisle|vault_unit"
+  ]
+ },
+ "self_storage_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "corner_unit|ground_units",
+   "corner_unit|lobby_aisle",
+   "corner_unit|upper_aisle",
+   "corner_unit|upper_units",
+   "ground_units|lobby_aisle",
+   "ground_units|upper_units",
+   "lobby_aisle|upper_aisle",
+   "lobby_aisle|upper_units",
+   "upper_aisle|upper_units"
+  ]
+ },
+ "self_storage_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cellar_aisle|climate_vault",
+   "cellar_aisle|ground_aisle",
+   "cellar_aisle|rear_units",
+   "climate_vault|ground_aisle",
+   "climate_vault|rear_units",
+   "ground_aisle|rear_units"
+  ]
+ },
+ "setback_demo": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "north_aisles|north_dock"
+  ],
+  "graph": [
+   "floor_cage|north_aisles",
+   "floor_cage|north_dock",
+   "main_floor|mezz_office",
+   "main_floor|north_aisles",
+   "mezz_office|north_aisles",
+   "north_aisles|north_dock"
+  ]
+ },
+ "stadium_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "concourse|count_room",
+   "concourse|ops_band",
+   "concourse|under_hall",
+   "count_room|ops_band",
+   "count_room|under_hall",
+   "ops_band|under_hall"
+  ]
+ },
+ "stadium_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cage_room|concourse",
+   "cage_room|ops_band",
+   "concourse|ops_band"
+  ]
+ },
+ "stadium_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "concourse|ops_band",
+   "concourse|strong_room",
+   "concourse|under_hall",
+   "ops_band|strong_room",
+   "ops_band|under_hall",
+   "strong_room|under_hall"
+  ]
+ },
+ "stadium_a04": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "club_lobby|ops_band",
+   "club_lobby|premium_suite",
+   "club_lobby|upper_ring",
+   "club_lobby|upper_west",
+   "ops_band|premium_suite",
+   "ops_band|upper_west",
+   "premium_suite|upper_ring",
+   "premium_suite|upper_west",
+   "upper_ring|upper_west"
+  ]
+ },
+ "stop_n_go": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_hall|sales_floor",
+   "back_hall|stockroom",
+   "sales_floor|walkin_cooler",
+   "stockroom|walkin_cooler"
+  ]
+ },
+ "strip_club_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cash_office|main_floor",
+   "cash_office|vip_wing",
+   "main_floor|vip_wing"
+  ]
+ },
+ "strip_club_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_rooms|cellar_hall",
+   "back_rooms|count_room",
+   "back_rooms|main_floor",
+   "cellar_hall|count_room",
+   "cellar_hall|main_floor",
+   "count_room|main_floor"
+  ]
+ },
+ "strip_club_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_bar|champagne_wing",
+   "back_bar|main_floor",
+   "back_bar|mezz_office",
+   "champagne_wing|main_floor",
+   "champagne_wing|mezz_office",
+   "champagne_wing|vip_mezz",
+   "main_floor|mezz_office",
+   "main_floor|vip_mezz",
+   "mezz_office|vip_mezz"
+  ]
+ },
+ "strip_retail_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "count_room|dining_room",
+   "count_room|kitchen",
+   "count_room|rear_hall",
+   "count_room|social_club",
+   "count_room|stair_room",
+   "count_room|upper_hall",
+   "dining_room|dough_cellar",
+   "dining_room|kitchen",
+   "dining_room|rear_hall",
+   "dining_room|social_club",
+   "dining_room|stash_room",
+   "dining_room|upper_hall",
+   "dough_cellar|rear_hall",
+   "dough_cellar|stash_room",
+   "dough_cellar|walkin_cooler",
+   "kitchen|social_club",
+   "kitchen|stair_room",
+   "kitchen|stash_room",
+   "kitchen|upper_hall",
+   "rear_hall|social_club",
+   "rear_hall|stair_room",
+   "rear_hall|stash_room",
+   "rear_hall|upper_hall",
+   "rear_hall|walkin_cooler",
+   "social_club|upper_hall",
+   "social_club|walkin_cooler",
+   "stair_room|stash_room",
+   "stair_room|upper_hall",
+   "upper_hall|walkin_cooler"
+  ]
+ },
+ "strip_retail_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "showroom|stone_vault",
+   "showroom|workshop",
+   "stone_vault|workshop"
+  ]
+ },
+ "supermarket_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_stock|cash_office",
+   "back_stock|sales_floor",
+   "cash_office|sales_floor"
+  ]
+ },
+ "supermarket_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "manager_suite|mezz_floor",
+   "manager_suite|mezz_hall",
+   "manager_suite|sales_floor",
+   "manager_suite|stockroom",
+   "mezz_floor|mezz_hall",
+   "mezz_floor|sales_floor",
+   "mezz_hall|sales_floor",
+   "mezz_hall|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "supermarket_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "cellar_west|count_cage",
+   "cellar_west|receiving",
+   "cellar_west|sales_floor",
+   "count_cage|receiving",
+   "count_cage|sales_floor",
+   "receiving|sales_floor"
+  ]
+ },
+ "survival_demo": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "ground_back|roof_holdout",
+   "ground_back|start_lobby",
+   "ground_back|upper_hall",
+   "roof_holdout|start_lobby",
+   "roof_holdout|upper_hall",
+   "start_lobby|upper_hall"
+  ]
+ },
+ "train_yard_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "dispatch_office|shed_floor",
+   "dispatch_office|works_band",
+   "shed_floor|works_band"
+  ]
+ },
+ "train_yard_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "shed_floor|under_hall",
+   "shed_floor|under_track_store",
+   "shed_floor|works_band",
+   "under_hall|under_track_store",
+   "under_hall|works_band",
+   "under_track_store|works_band"
+  ]
+ },
+ "train_yard_a03": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "shed_floor|signal_control",
+   "shed_floor|upper_ring",
+   "shed_floor|upper_west",
+   "shed_floor|works_band",
+   "signal_control|upper_ring",
+   "signal_control|upper_west",
+   "signal_control|works_band",
+   "upper_ring|upper_west",
+   "upper_west|works_band"
+  ]
+ },
+ "twin_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_left_0|back_left_1",
+   "back_left_0|front_left_0",
+   "back_left_0|front_left_1",
+   "back_left_1|front_left_0",
+   "back_left_1|front_left_1",
+   "back_right_0|back_right_1",
+   "back_right_0|front_right_0",
+   "back_right_0|front_right_1",
+   "back_right_1|front_right_0",
+   "back_right_1|front_right_1",
+   "front_left_0|front_left_1",
+   "front_right_0|front_right_1"
+  ]
+ },
+ "video_store_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_room|sales_floor",
+   "back_room|stockroom",
+   "sales_floor|stockroom"
+  ]
+ },
+ "warehouse_a01": {
+  "L12": [],
+  "L24": [],
+  "L26": [],
+  "graph": [
+   "back_corridor|cage",
+   "back_corridor|office",
+   "cage|dock_floor",
+   "dock_floor|office"
+  ]
+ },
+ "warehouse_a02": {
+  "L12": [],
+  "L24": [],
+  "L26": [
+   "north_aisles|north_dock"
+  ],
+  "graph": [
+   "floor_cage|mezz_hall",
+   "floor_cage|north_aisles",
+   "floor_cage|north_dock",
+   "main_floor|mezz_south",
+   "main_floor|north_aisles",
+   "mezz_hall|mezz_office",
+   "mezz_hall|mezz_south",
+   "mezz_hall|north_aisles",
+   "mezz_hall|north_dock",
+   "mezz_office|mezz_south",
+   "mezz_office|north_aisles",
+   "mezz_office|north_dock",
+   "mezz_south|north_aisles",
+   "north_aisles|north_dock"
+  ]
+ }
+}

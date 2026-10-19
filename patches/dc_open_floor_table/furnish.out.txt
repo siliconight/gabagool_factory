@@ -1,0 +1,7 @@
+[furnish_recipes] 128 specs: -7962 furnished volumes, +7839 refurnished
+
+Per spec, against the migrated specs before the refurnish (a fresh run from 0.233.0 in a throwaway copy, which reproduces the repository's specs byte for byte):
+  apartment_walkup_a01  9 pieces out, 8 in
+  corner_deli_heist_01  3 out, 2 in (pallets_ref7ecc85_1 at (-15.14, 3.49), before the new cold-room door, dropped)
+  deli_a02              4 out, 4 in (kitchen work tables and cartons, clear of the new kitchen door)
+Control: 0.233.0's library refurnished the same way changes no spec.

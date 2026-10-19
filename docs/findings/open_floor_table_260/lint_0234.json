@@ -1,0 +1,177 @@
+{
+ "apartment_walkup_a01": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (9, -6) is tagged room 'front_hall' but stands in kitchen",
+   "L1 room 'office' is 18m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L9 6x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "auto_shop_a01": {
+  "fails": [],
+  "warns": [
+   "L16 defender_spawn at (-8, 6) is tagged room 'upper_storage' but stands in upper_office",
+   "L1 room 'upper_storage' is 26m deep with 1 opening(s); expect 2 ways out (common-path rule)"
+  ]
+ },
+ "auto_shop_a02": {
+  "fails": [],
+  "warns": []
+ },
+ "corner_deli_heist_01": {
+  "fails": [],
+  "warns": []
+ },
+ "cr_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'cr_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it"
+  ]
+ },
+ "cr_garage": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side"
+  ]
+ },
+ "cr_pawn": {
+  "fails": [],
+  "warns": []
+ },
+ "deli_a01": {
+  "fails": [],
+  "warns": [
+   "L9 6x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.8, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 7x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a02": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L9 4x identical cover volumes (0.5, 1.2, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.9, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 11x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a03": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L1 room 'deli_counter' is 11m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L3 room 'apartment_hideout' travel ~64m to exit (> 60m)",
+   "L9 4x identical cover volumes (0.5, 0.5, 0.85) -- vary dims/height (cover-box anti-pattern)",
+   "L9 6x identical cover volumes (0.5, 0.4, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 8x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 10x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.5, 1.2) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "gs_auto_shop": {
+  "fails": [],
+  "warns": []
+ },
+ "night_auto": {
+  "fails": [],
+  "warns": []
+ },
+ "night_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'night_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it"
+  ]
+ },
+ "night_pawn": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'night_pawn_stair_0' tops out through 'door' on the story 1 X-partition at pos=0, 0.70 m inside its walk-off margin; the builder trims 1.80 m of that wall around the door"
+  ]
+ },
+ "office": {
+  "fails": [],
+  "warns": []
+ },
+ "office_stepped": {
+  "fails": [],
+  "warns": []
+ },
+ "parking_garage": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side"
+  ]
+ },
+ "parking_garage_a01": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_0_1 runs along inside 'col_0_00' on storey 0, 0.07 m of it out each side",
+   "L1 room 'deck_1' is 36m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L4 dead-end connector 'deck_1' (36m)",
+   "L9 24x identical cover volumes (0.5, 0.5, 3.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.5, 0.9, 1.4) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "parking_garage_a02": {
+  "fails": [],
+  "warns": [
+   "L23 a piece over an opening or in a stair's walk: 'col_0_02' on storey 0 has 0.12 m2 in a stair's walk",
+   "L23 a piece over an opening or in a stair's walk: 'col_1_02' on storey 1 has 0.12 m2 over a slab opening",
+   "L25 a piece through a wall: int_1_1 runs along inside 'col_1_22' on storey 1, 0.07 m of it out each side",
+   "L3 room 'deck_1' travel ~66m to exit (> 60m)",
+   "L9 24x identical cover volumes (0.5, 0.5, 3.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.5, 1.2, 1.8) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "pawn_shop_a01": {
+  "fails": [],
+  "warns": [
+   "L1 room 'upper_storage' is 16m deep with 1 opening(s); expect 2 ways out (common-path rule)"
+  ]
+ },
+ "rowhouse_raid": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'basement_vault' (story -1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it"
+  ]
+ },
+ "setback_demo": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (18, 11) is tagged room 'north_aisles' but stands in north_dock",
+   "L25 a piece through a wall: int_0_0 runs along inside 'rack_long_b' on storey 0, 0.45 m of it out each side",
+   "L25 a piece through a wall: int_0_0 runs along inside 'forklift_bay' on storey 0, 0.85 m of it out each side",
+   "L1 room 'mezz_office' is 34m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L4 dead-end connector 'mezz_office' (34m)",
+   "L9 5x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (1.2, 0.8, 1.4) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "warehouse_a02": {
+  "fails": [],
+  "warns": [
+   "L16 camera_socket '01' at (18, 11) is tagged room 'north_aisles' but stands in north_dock",
+   "L25 a piece through a wall: int_0_0 runs along inside 'rack_long_b' on storey 0, 0.45 m of it out each side",
+   "L25 a piece through a wall: int_0_0 runs along inside 'forklift_bay' on storey 0, 0.85 m of it out each side",
+   "L9 4x identical cover volumes (0.5, 0.5, 0.85) -- vary dims/height (cover-box anti-pattern)",
+   "L9 6x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ }
+}
