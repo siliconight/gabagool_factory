@@ -847,7 +847,7 @@ work of adopting this.
 | 166 | **NARROWED** | A generated level chugged, and everything this repo believed about why | 2026-09-21 -- SUBMISSION COST AND MEMORY ARE FIXED AND PROVEN ON A COLD RUN; THE WARM-UP'S |
 | 167 | **ANALYSIS** | Per-instance variation has no home in this pipeline, and a GLB cannot  | 2026-09-21 -- A CAPABILITY GAP WITH A MEASURED CEILING, NOT A DEFECT. |
 | 168 | **NARROWED** | Greybox survives into a themed package wherever theming has no pass fo | 2026-09-23 -- THE SLAB CLASS IS CLOSED, MEASURED AND GATED; THREE OTHER GREYBOX SURFACES R |
-| 169 | **OPEN** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A COLD RUN. Four anchored pa |
+| 169 | **CLOSED** | A ladder ships in the greybox yellow, and skinning it spends a legibil | 2026-10-19 -- shipped on 2026-10-04 and never marked here. Level Factory 0.136.0 (1343cc2) |
 | 170 | **NARROWED** | Every roof opening in the library is an open hole, and a building does | 2026-10-15 -- the lid shipped, the bulkhead is left (`docs/findings/roof_openings_170/`, ` |
 | 171 | **NARROWED** | Exterior access exists and almost never gets placed | 2026-10-15 -- re-measured against today's specs (`docs/findings/open_items_remeasure/`, `e |
 | 172 | **CLOSED** | An AI cannot path up a ladder in a shipped package, because the off-me | 2026-09-23 by cold run 9077 -- `links: 1`, `lot:07_ladder_0_navlink`, [67.0, 3.6, -23.0] t |
@@ -938,7 +938,7 @@ work of adopting this.
 | 257 | **CLOSED** | Level Factory shows its output layers, the light apart from the art | 2026-10-15 -- Level Factory 0.213.0 (46dc828) and 0.215.1: `output_layers_record` spells t |
 | 258 | **OPEN** | The mission's own shell is built three times a run and ships as a dead | 2026-10-15 -- MEASURED ON COLD RUN 9316, NOT DECIDED. Three Blender builds of the mission' |
 
-**258 items: 16 open, 132 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**258 items: 15 open, 133 closed, 3 retracted, 99 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -17711,7 +17711,18 @@ surfaces on a greybox material, a worldskin `push_error` naming a base it
 could not find a pack for, or a walk that still shows a grey collar around an
 opening -- a gate that passes is not the same as a level that reads right.*
 
-*STATUS: OPEN 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A
+*STATUS: CLOSED 2026-10-19 -- shipped on 2026-10-04 and never marked here.
+Level Factory 0.136.0 (1343cc2) applied the four staged patches' work, every
+anchor still matching: `zoo_worldskin.gd`'s `_assign_ladders` skins a ladder
+with the building's own metals, the rails on the darkest and the rungs on the
+lightest, and an exterior ladder takes the theme's rusted steel; Deli Counter
+writes the exterior mark it reads (`deli_counter.py:2259`, `ladder<n>ext_`,
+from `Ladder.placement_mode`, since 0.173.0); `test_worldskin_ladders.py` (10,
+through a real Godot import) pins it. Re-measured on cold run 9321's package
+(`greybox_skin_scan.json`): 0 `gb_ladder` surfaces, where cold run 9070's had
+38 (22.82 m2). The only greybox left in that themed package is three
+`VAULTLEDGE_n` surfaces on `gb_floor` (49.7 m2), a separate defect. Earlier
+status kept: OPEN 2026-09-23 -- DESIGNED, STAGED AND DRY-RUN CLEAN, HELD BEHIND A
 COLD RUN. Four anchored patches (`patches/patch_worldskin_ladders.py`,
 `patch_dc_ladder_mode_in_name.py`, `patch_fixture_material_tint.py`,
 `patch_worldskin_ladders_test.py`) apply cleanly against the live files and
