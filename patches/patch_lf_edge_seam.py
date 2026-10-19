@@ -52,8 +52,10 @@ The third reached the block capsule and the barrier ray, which the first build l
 origin takes every query off it at once. Measured the same way, this build's every count and row equals the first
 build's on all six packages (`gate_ab/`, `ab_table.out.txt`): the barrier ray and the block capsule moved and changed
 nothing measurable there. 684 of 685 "steep surfaces" on 9333's package were a fifth artefact that
-changed no row: rays starting inside a quarter-turned sidewalk box exactly on its side, which Godot's strict point
-test calls outside, so the box reports a hit at the ray's start with a zero normal (`steep_hits.gd`). The other
+changed no row: zero-normal hits on sidewalk boxes wherever a lattice line runs along a box's side (`steep_hits.gd`).
+Read off Godot's box code, not measured: a ray starting inside a box exactly on its side is outside to the box's
+strict point test, so the box reports a hit at the ray's start with no normal. (First written "a quarter-turned
+sidewalk box"; sidewalk_0R_0, unturned, carries 12 of them -- corrected, the docstring only.) The other
 packages' steep counts fell the same way (9328 1,815 to 5, 9330 36 to 0, 9331 48 to 0, 9334 36 to 0; 9332 6 and 6)
 and were not probed one by one.
 

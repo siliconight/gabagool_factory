@@ -133,9 +133,16 @@ first build left both on the lattice. So 0.219.0 moves the grid's origin instead
 at once. On these six packages that changed nothing more, as the next table shows. The first build's record is
 `gate_ab_columns_only/`.
 
-A fifth artefact changed no row. On 9333's package, 684 of 685 "steep surfaces" were rays starting inside a
-quarter-turned sidewalk box, exactly on its side (`steep_hits.gd`). Godot's strict point test calls such a start
-outside, so the box reports a hit at the ray's start with a zero normal. The other packages' steep counts fell the
+A fifth artefact changed no row. On 9333's package, 684 of 685 "steep surfaces" were hits with a zero normal on Lot's
+sidewalk boxes, each where a lattice line runs along a box's side (`steep_hits.gd`; every hit with its normal in
+`steep_hits_9333_on_lattice.json`, and the one left off the lattice in `steep_hits_9333_off_lattice.json`). For
+example, sidewalk_0R_0 is unturned and ends at x -90.5, and its 12 hits are at x -90.5, inside its height, from z 27.0
+to 29.5. The mechanism is read off Godot's box code, not measured here. A ray that starts inside a box exactly on its
+side is outside to the box's strict point test, so the segment test reports a hit at the ray's start with no normal.
+
+Corrected, kept: the first account of this, in the root commit that filed this finding, said the boxes were
+quarter-turned. Most of the hits are on two that are, but sidewalk_0R_0 is not; the side on a lattice line is what
+they share. The other packages' steep counts fell the
 same way and were not probed one by one.
 
 **Through the gate, before and after** (`ab_table.py`, `ab_table.out.txt`; every arm's scan and rows in `gate_ab/`).

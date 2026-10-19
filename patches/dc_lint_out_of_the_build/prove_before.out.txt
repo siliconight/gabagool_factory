@@ -1,0 +1,27 @@
+# Deli Counter Deli Counter 0.232.0 at 22f71e05, 2026-10-19 15:07: test_lint_out_of_the_build.py before the change
+
+    def test_stairwell_imports_no_lint():
+        tree = ast.parse((HERE / "stairwell.py").read_text(encoding="utf-8"))
+        names = set()
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                names |= {a.name.split(".")[0] for a in node.names}
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                names.add(node.module.split(".")[0])
+>       assert "layout_lint" not in names
+E       AssertionError: assert 'layout_lint' not in {'agent_contract', 'interactives', 'ladder_geom', 'layout_lint', 'math', 'os', ...}
+
+test_lint_out_of_the_build.py:27: AssertionError
+_____________ test_the_openings_are_one_function_under_two_names ______________
+
+    def test_the_openings_are_one_function_under_two_names():
+>       assert layout_lint._host_openings is partition_bounds.host_openings
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'partition_bounds' has no attribute 'host_openings'
+
+test_lint_out_of_the_build.py:31: AttributeError
+=========================== short test summary info ===========================
+FAILED test_lint_out_of_the_build.py::test_stairwell_imports_no_lint - Assert...
+FAILED test_lint_out_of_the_build.py::test_the_openings_are_one_function_under_two_names
+2 failed, 1 passed in 0.26s
+exit 1

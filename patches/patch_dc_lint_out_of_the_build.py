@@ -19,7 +19,8 @@ is true again.
 What it changes (anchored; each file pinned by hash; nothing written on a miss; each file keeps its own endings):
   * partition_bounds.py (CRLF) -- `host_openings`, moved.
   * layout_lint.py -- the definition replaced by the alias.
-  * stairwell.py -- two function-level `import layout_lint` gone; the two names asked of their sources.
+  * stairwell.py -- two function-level `import layout_lint` gone; the two names asked of their sources, and the one
+    docstring line that named the lint's number.
   * build_freshness.py -- layout_lint's `NOT_BAKED` reason.
   * test_build_freshness.py -- the readers test's docstring: the refuted premise holds again.
   * test_lint_out_of_the_build.py (new, 3; two fail on 0.232.0): stairwell imports no lint; the two names are one
@@ -153,6 +154,11 @@ STAIRWELL = [
 '''),
     ("the second openings", '''            for c, w, _label in _ll._host_openings(spec_dims, host, is_ext):
 ''', '''            for c, w, _label in partition_bounds.host_openings(spec_dims, host, is_ext):
+'''),
+    # The dry check counted the five anchors above and never ran the guard below, which a docstring line naming the
+    # lint's number refused on the first apply (nothing written); the line names where the number comes from now.
+    ("the second's docstring", '''          `layout_lint.DOOR_APPROACH_M` either side of the wall over the
+''', '''          `agent_contract.door_approach()` either side of the wall over the
 '''),
 ]
 
