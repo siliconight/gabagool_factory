@@ -1,0 +1,11 @@
+75 passed in 1.42s
+exit=0 on Deli Counter 0.230.0 (54f5b5d4 + patch_dc_zfight_rows.py): test_zfight_rows test_zfight_gate test_state_variants test_circulation test_freshness_sources test_build_freshness
+
+python build_freshness.py, exit=0:
+build-freshness: 159 shell(s) newer than level_design.py -- up to date
+
+the patched gate (Deli Counter 0.230.0) on cold run 9324's composed buildings:
+  deli_a01           pairs 0, buried 220, solids 756
+  office             pairs 0, buried 127, solids 424
+  pharmacy_a01       pairs 0, buried 27, solids 126
+  visible pairs over 16 buildings: 0

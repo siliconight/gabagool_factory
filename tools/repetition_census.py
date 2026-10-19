@@ -100,9 +100,16 @@ def parse_scene(text):
                 except ValueError:
                     f = []
                 if len(f) == 12:
+                    # per-axis scale is the length of each COLUMN -- where the
+                    # basis sends the module's own x, y, z -- and the written
+                    # numbers are the basis's ROWS (`tools/godot_transform.py`).
+                    # Until 2026-10-19 this took each written triplet's length,
+                    # a row's, which swaps x and z for every quarter-turned
+                    # module: one wallEnd size on an east-west wall and on a
+                    # north-south one counted as two forms (roadmap 177).
                     pending[2] = tuple(
-                        round(math.sqrt(f[i] ** 2 + f[i + 1] ** 2 + f[i + 2] ** 2), 4)
-                        for i in (0, 3, 6))
+                        round(math.sqrt(f[i] ** 2 + f[i + 3] ** 2 + f[i + 6] ** 2), 4)
+                        for i in (0, 1, 2))
                     pending[3] = (f[9], f[10], f[11])
             elif line.startswith("["):
                 out.append(pending)

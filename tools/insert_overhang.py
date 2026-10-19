@@ -120,13 +120,17 @@ def glb_aabb(path):
 
 
 def godot_transform(numbers):
-    """Godot writes Transform3D as basis COLUMNS then origin."""
+    """Godot writes Transform3D as the basis's ROWS, then the origin -- the
+    3x4 below, number for number (`tools/godot_transform.py`, measured three
+    times off the engine). Until 2026-10-19 this said "basis COLUMNS then
+    origin" and built the transpose: a quarter-turned module turned the other
+    way and a turned, scaled one with two extents swapped (roadmap 177)."""
     v = [float(n) for n in numbers]
     if len(v) < 12:
         return _IDENTITY
-    return ((v[0], v[3], v[6], v[9]),
-            (v[1], v[4], v[7], v[10]),
-            (v[2], v[5], v[8], v[11]))
+    return ((v[0], v[1], v[2], v[9]),
+            (v[3], v[4], v[5], v[10]),
+            (v[6], v[7], v[8], v[11]))
 
 
 def hull(matrix, lo, hi):

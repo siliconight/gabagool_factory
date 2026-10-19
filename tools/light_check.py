@@ -131,7 +131,10 @@ def placements(walk):
         if rid not in res:
             continue
         v = [float(x) for x in tr.split(",")]
-        basis = ((v[0], v[3], v[6]), (v[1], v[4], v[7]), (v[2], v[5], v[8]))
+        # the written numbers ARE the rows (`tools/godot_transform.py`); until
+        # 2026-10-19 this built the transpose, turning a quarter-turned
+        # building's points the other way about its origin (roadmap 177)
+        basis = ((v[0], v[1], v[2]), (v[3], v[4], v[5]), (v[6], v[7], v[8]))
         out[name] = (res[rid], basis, (v[9], v[10], v[11]))
     return out
 

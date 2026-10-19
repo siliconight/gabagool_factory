@@ -743,22 +743,29 @@ def _selftest() -> int:
 def _tscn_matrix(nums: list[float]) -> list[float]:
     """Column-major 4x4 from a `.tscn` Transform3D's twelve reals.
 
-    Godot's resource writer emits the basis as its three COLUMN vectors
-    (x_axis, y_axis, z_axis) and then the origin, which is why `nums[10]` is
-    origin.y and why reading that one index looked like it worked. The other
-    nine numbers are the half of the placement that scales and rotates the
-    module, and dropping them is the bug this file is named after.
+    Godot's resource writer emits the basis as its three ROWS and then the
+    origin (`tools/godot_transform.py`, measured three times off the engine),
+    so column k -- where the basis sends the module's own axis k -- is
+    `nums[k], nums[3 + k], nums[6 + k]`, and `nums[10]` is origin.y.
+    REFUTED, KEPT: until 2026-10-19 this said the writer emits the three
+    COLUMN vectors and built the transpose, which turns a quarter-turned
+    module the other way and swaps a turned, scaled one's extents (roadmap
+    177). The nine numbers are the half of the placement that scales and
+    rotates the module, and dropping them is the bug this file is named after.
     """
-    return [nums[0], nums[1], nums[2], 0.0,
-            nums[3], nums[4], nums[5], 0.0,
-            nums[6], nums[7], nums[8], 0.0,
+    return [nums[0], nums[3], nums[6], 0.0,
+            nums[1], nums[4], nums[7], 0.0,
+            nums[2], nums[5], nums[8], 0.0,
             nums[9], nums[10], nums[11], 1.0]
 
 
 def _scale_of(nums: list[float]) -> tuple[float, float, float]:
-    """Per-axis scale = the length of each basis column."""
+    """Per-axis scale = the length of each basis column: column c is
+    `nums[c], nums[3 + c], nums[6 + c]`, the written numbers being rows (until
+    2026-10-19 this measured the rows, which swaps x and z for every
+    quarter-turned module; roadmap 177)."""
     return tuple(  # type: ignore[return-value]
-        round(sum(nums[c * 3 + k] ** 2 for k in range(3)) ** 0.5, 4)
+        round(sum(nums[k * 3 + c] ** 2 for k in range(3)) ** 0.5, 4)
         for c in range(3))
 
 

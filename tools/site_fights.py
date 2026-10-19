@@ -58,6 +58,7 @@ import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 from factory_paths import factory_root  # noqa: E402
+import godot_transform  # noqa: E402
 
 AXIS = "XYZ"
 
@@ -75,11 +76,13 @@ _MESHREF = re.compile(r'\[node name="[^"]+" type="MeshInstance3D" '
 
 
 def _m(vals):
-    """Godot's 12-float Transform3D (3 basis columns then origin) -> 3x4."""
-    f = [float(v) for v in vals.split(",")]
-    return [[f[0], f[3], f[6], f[9]],
-            [f[1], f[4], f[7], f[10]],
-            [f[2], f[5], f[8], f[11]]]
+    """Godot's 12-float Transform3D -> 3x4, read as Godot reads it: the basis's
+    ROWS, then the origin (`godot_transform.matrix`, 2026-10-19). Until then
+    this said "3 basis columns then origin" and built the transpose, which
+    turns a quarter-turned instance the other way and swaps a turned, scaled
+    box's extents -- the misreading Deli Counter's z-fight gate reported two
+    false pairs from (roadmap 177)."""
+    return godot_transform.matrix([float(v) for v in vals.split(",")])
 
 
 def _apply(m, p):
