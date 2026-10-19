@@ -1,0 +1,44 @@
+(trimmed 2026-10-19: the editor's first-scan import lines removed -- 411,651 bytes; kept: every OWNER_PROBE, ERROR and WARNING line, and the last 40)
+ERROR: Parameter "t" is null.
+OWNER_PROBE {"census":{"canvas_layers":1,"directional_lights":1,"lux_owned":["LuxRoot","LuxFixtureLights","LuxDaylight","LuxRoomAmbient","LuxClub"],"nodes":33358,"owned":964,"world_environments":1},"ok":true,"open_ms":15183,"scene":"res://presentation/lux.applied.tscn","settle_frames":120}
+.....
+[  99% ] [90m[1mreimport[22m | gs_midrise_b_dressing.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+[   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+[worldskin] gs_midrise_b_dressing.glb  not a kit module, left alone
+[  99% ] [90m[1mimport[22m | Saving...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  99% ] [90m[1mreimport[22m | wallEnd_delco_1997_01_mbrick_idrywall.glb[39m[0m
+[   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+[   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+[   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+[worldskin] wallEnd_delco_1997_01_mbrick_idrywall.glb  2 material(s) world-projected, 0 without a UV density, 0 lit face(s) left on their own UVs
+[  99% ] [90m[1mimport[22m | Saving...[39m[0m
+[92m[ DONE ][39m [1mimport[22m
+[0m
+[  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (924 steps)[39m[0m
+[   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+[92m[ DONE ][39m [1mreimport[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+[lux] Bound 60 fixture emissive material(s) (searched Site)
+[   0% ] [90m[1msave[22m | Started Saving Scene (4 steps)[39m[0m
+[   0% ] [90m[1msave[22m | Analyzing[39m[0m
+[  20% ] [90m[1msave[22m | Creating Thumbnail[39m[0m
+ERROR: Parameter "t" is null.
+   at: texture_2d_get (./servers/rendering/dummy/storage/texture_storage.h:110)
+   GDScript backtrace (most recent call first):
+       [0] _process (res://addons/lux_owner_probe/owner_probe_plugin.gd:63)
+[  80% ] [90m[1msave[22m | Saving Scene[39m[0m
+[92m[ DONE ][39m [1msave[22m
+[0m
+OWNER_PROBE {"census":{"canvas_layers":1,"directional_lights":1,"lux_owned":["LuxRoot","LuxFixtureLights","LuxDaylight","LuxRoomAmbient","LuxClub"],"nodes":33358,"owned":964,"world_environments":1},"ok":true,"open_ms":15183,"scene":"res://presentation/lux.applied.tscn","settle_frames":120}

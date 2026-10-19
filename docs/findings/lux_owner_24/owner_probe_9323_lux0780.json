@@ -1,0 +1,94 @@
+{
+ "package": "workspaces/cold-9323-ws/.level_factory/exports/LF_urban_row_001.portable-godot",
+ "scene": "res://presentation/lux.applied.tscn",
+ "runtime_overlay": {
+  "dir": "lux/addons/lux/runtime",
+  "scripts": [
+   "lux_emissive_binder.gd",
+   "lux_environment.gd",
+   "lux_failing.gd",
+   "lux_fixture_spawner.gd",
+   "lux_horizon_glow.gd",
+   "lux_leak_meter.gd",
+   "lux_light_loader.gd",
+   "lux_lighting.gd",
+   "lux_post_fx.gd",
+   "lux_rain.gd",
+   "lux_rain_collision.gd",
+   "lux_root.gd",
+   "lux_runtime_api.gd",
+   "lux_sky_provider.gd"
+  ]
+ },
+ "runs": [
+  {
+   "cycle": 1,
+   "editor_s": 119.2,
+   "exit": 0,
+   "result": {
+    "census": {
+     "canvas_layers": 1,
+     "directional_lights": 1,
+     "lux_owned": [
+      "LuxRoot",
+      "LuxFixtureLights",
+      "LuxDaylight",
+      "LuxRoomAmbient",
+      "LuxClub"
+     ],
+     "nodes": 33358,
+     "owned": 964,
+     "world_environments": 1
+    },
+    "ok": true,
+    "open_ms": 15183,
+    "scene": "res://presentation/lux.applied.tscn",
+    "settle_frames": 120
+   },
+   "saved_bytes": 368401,
+   "shipped_bytes": 360090,
+   "nodes_shipped": 964,
+   "nodes_saved": 964,
+   "added": [],
+   "added_count": 0,
+   "removed": [],
+   "removed_count": 0,
+   "added_types": []
+  },
+  {
+   "cycle": 2,
+   "editor_s": 23.4,
+   "exit": 0,
+   "result": {
+    "census": {
+     "canvas_layers": 1,
+     "directional_lights": 1,
+     "lux_owned": [
+      "LuxRoot",
+      "LuxFixtureLights",
+      "LuxDaylight",
+      "LuxRoomAmbient",
+      "LuxClub"
+     ],
+     "nodes": 33358,
+     "owned": 964,
+     "world_environments": 1
+    },
+    "ok": true,
+    "open_ms": 1868,
+    "scene": "res://presentation/lux.applied.tscn",
+    "settle_frames": 120
+   },
+   "saved_bytes": 368435,
+   "shipped_bytes": 360090,
+   "nodes_shipped": 964,
+   "nodes_saved": 964,
+   "added": [],
+   "added_count": 0,
+   "removed": [],
+   "removed_count": 0,
+   "added_types": [],
+   "added_since_previous_save": []
+  }
+ ]
+}

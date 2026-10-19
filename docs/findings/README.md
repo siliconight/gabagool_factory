@@ -79,7 +79,7 @@
 - `lighting_spec_vs_lux/` -- The lighting spec against Lux and Level Factory
 - `long_paths/` -- How deep a level's files reach, against Windows' 260 (roadmap 227)
 - `lt_arrival/` -- Laser Tag counted the end of a short path as arriving (roadmap 246)
-- `lux_owner_24/` -- 2 file(s); Roadmap 24's proof, measured: does opening a shipped package's scene in the editor and saving it bake Lux's
+- `lux_owner_24/` -- Lux's runtime scaffolding and a Ctrl+S (roadmap 24)
 - `lux_tiers/` -- Lux's quality tiers on one level (roadmap 243)
 - `merged_modules/` -- The modules the Empties were merged from, out of the package (roadmap 249)
 - `moving_parts/` -- 22 file(s); Small things that move, steps 1 and 2: measured
