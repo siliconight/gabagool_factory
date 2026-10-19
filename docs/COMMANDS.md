@@ -112,6 +112,7 @@ The layout is not uniform. Run from inside the repo.
 python tools/factory_hygiene.py --check     # LOOSE at the root, untracked records, index drift; exit 1 on any
 python tools/factory_index.py --write       # regenerate docs/findings, patches, tools ... READMEs after adding a file
 python tools/factory_retire.py              # what the retention rule would remove (dry run); --apply removes it
+python tools/factory_retire.py --pushed-only  # the rule every cold run's last step applies: a pushed run's workspace goes even when named
 ```
 
 The check runs at the end of every cold run (`cold_run.py --end` prints its

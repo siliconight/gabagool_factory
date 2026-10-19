@@ -3,6 +3,7 @@
     python tools/factory_retire.py             # what would go, and why; removes nothing
     python tools/factory_retire.py --apply     # remove it
     python tools/factory_retire.py --selftest  # prove the rules on a throwaway tree
+    python tools/factory_retire.py --pushed-only [--apply]  # a pushed run's workspace goes even when named
 
 Dry-run by default, like `scripts/factory_clean.ps1`. Nothing git tracks is
 ever touched, and nothing under docs/ or patches/ is looked at: those are
@@ -32,6 +33,15 @@ describes can be made again from it. None of these fires without an upstream:
   pushed runs    a cold-run workspace beyond the newest KEEP_PUSHED whose
                  docs/cold_runs/cold_N/NOTES.md is pushed (a price takes the
                  previous run's package as its control, so four stay).
+                 WITH --pushed-only (the walker, 2026-10-19) the push is the
+                 only question: a pushed run's workspace goes even when a
+                 record names it. The disk filled on 2026-10-16 with 79
+                 cold-run workspaces, 67 of them pushed and kept because
+                 records named them (docs/findings/disk_full_2026_10_16/). A
+                 record's script that reads one regenerates it from
+                 docs/cold_runs/cold_N/ first; an UNPUSHED run's named
+                 workspace still stays. Every cold run's last step
+                 (tools/cold_drive/cold_drive.sh) applies it this way.
   release zips   ../gabagool_factory_package_factory-vX.Y.Z.zip whose
                  docs/releases/factory-vX.Y.Z.md is pushed, but not the newest.
   test zips      ../gabagool_factory_package_<stamp>.zip a pushed record names.
@@ -152,8 +162,12 @@ def _stranger_installs(root):
     return out
 
 
-def plan(root, keep=KEEP_WORKSPACES, keep_pushed=KEEP_PUSHED, package_dir=None):
-    """``[{path, why, bytes}]`` the rules would remove, newest-first within a rule."""
+def plan(root, keep=KEEP_WORKSPACES, keep_pushed=KEEP_PUSHED, package_dir=None, pushed_only=False):
+    """``[{path, why, bytes}]`` the rules would remove, newest-first within a rule.
+
+    With ``pushed_only`` (the walker, 2026-10-19) a pushed run's workspace beyond
+    ``keep_pushed`` goes even when a record names it; an unpushed one a record
+    names still stays."""
     out = []
     perf = os.path.join(root, "_runs", "perf_inner")
     if os.path.isdir(perf):
@@ -191,11 +205,14 @@ def plan(root, keep=KEEP_WORKSPACES, keep_pushed=KEEP_PUSHED, package_dir=None):
     if os.path.isdir(ws):
         for d in cold[keep_pushed:]:
             p = os.path.join(ws, d)
-            if p in already or d in named or _tracked(root, "workspaces/" + d):
+            if p in already or (d in named and not pushed_only) or _tracked(root, "workspaces/" + d):
                 continue
             n = d.split("-")[1]
             if _pushed(root, upstream, "docs/cold_runs/cold_%s/NOTES.md" % n):
-                out.append({"path": p, "why": "cold-run workspace beyond the newest %d whose record is pushed" % keep_pushed, "bytes": _size(p)})
+                why = "cold-run workspace beyond the newest %d whose record is pushed" % keep_pushed
+                if d in named:
+                    why += "; a record names it, and --pushed-only retires it anyway"
+                out.append({"path": p, "why": why, "bytes": _size(p)})
     pdir = package_dir or os.path.dirname(os.path.abspath(root))
     if os.path.isdir(pdir):
         zips = sorted(f for f in os.listdir(pdir) if f.startswith("gabagool_factory_package_") and f.endswith(".zip"))
@@ -285,6 +302,10 @@ def _selftest_pushed():
         write("docs/findings/stranger_install/install_test_%d.sh" % n,
               "DEST='%s'\n" % os.path.join(base, "stranger_202_%d" % n, "gabagool"))
     write("docs/findings/stranger_install/install_test_1/steps.txt", "ok\n")
+    # --pushed-only (2026-10-19): run 3's record is pushed and a finding names its
+    # workspace; the same finding names run 2's, whose record is not pushed
+    write("docs/cold_runs/cold_3/NOTES.md", "run 3\n")
+    write("docs/findings/reads/README.md", "reads workspaces/cold-3-ws and workspaces/cold-2-ws\n")
     git("add", "-A")
     git("commit", "-q", "-m", "records")
     git("remote", "add", "origin", up)
@@ -303,20 +324,35 @@ def _selftest_pushed():
     want = ["cold-1-ws", "gabagool_factory_package_20260101_0000.zip",
             "gabagool_factory_package_factory-v1.0.0.zip", "stranger_202_1"]
     assert got == want, got
+    # --pushed-only: the push is the only question for a pushed run -- cold-3-ws goes
+    # though a record names it; cold-2-ws, named and unpushed, stays
+    got = sorted(os.path.basename(p["path"]) for p in plan(root, keep=12, keep_pushed=2, package_dir=pkgs,
+                                                            pushed_only=True))
+    assert got == sorted(want + ["cold-3-ws"]), got
     # with no upstream the pushed rules say nothing
     git("branch", "--unset-upstream")
     assert plan(root, keep=12, keep_pushed=2, package_dir=pkgs) == []
+    assert plan(root, keep=12, keep_pushed=2, package_dir=pkgs, pushed_only=True) == []
     shutil.rmtree(base, ignore_errors=True)
 
 
 def main():
     argv = sys.argv[1:]
+    # a misspelt flag must not fall back to the other rule in silence
+    unknown = [a for a in argv if a not in ("--apply", "--selftest", "--pushed-only")]
+    if unknown:
+        print("unknown argument(s): %s\n%s" % (" ".join(unknown), __doc__.split("\n\n")[1]))
+        sys.exit(2)
     if "--selftest" in argv:
         return selftest()
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     import factory_index
     root = factory_index.factory_root()
-    items = plan(root)
+    pushed_only = "--pushed-only" in argv
+    if pushed_only:
+        print("  --pushed-only: a pushed run's workspace beyond the newest %d goes even when a record names it"
+              % KEEP_PUSHED)
+    items = plan(root, pushed_only=pushed_only)
     total = sum(p["bytes"] for p in items)
     for p in items:
         print("  %7.0f MB  %-70s %s" % (p["bytes"] / 1e6, os.path.relpath(p["path"], root), p["why"]))

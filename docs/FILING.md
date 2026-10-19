@@ -52,7 +52,7 @@ them there, and COMMANDS.md says so.
    `_scratch/`. Nothing writes to the root.
 4. **Regenerable output is retired, not kept.** `tools/factory_retire.py`
    (dry-run by default, `--apply` to act) retires perf copies that have
-   their JSON, walk exports older than a mission's newest, and cold-run
+   their JSON, walk exports untouched for thirty days, and cold-run
    workspaces older than the last twelve that no finding reads. **What a
    PUSHED record makes regenerable goes too** (2026-10-11): a cold-run
    workspace beyond the newest four whose `NOTES.md` is in the branch the
@@ -60,7 +60,12 @@ them there, and COMMANDS.md says so.
    an install-test zip a pushed record names, and an install test's unpack
    whose record is pushed (never the newest). Every cold run ends by
    applying it (`tools/cold_drive/cold_drive.sh`'s last step), so the disk
-   does not wait for somebody to remember.
+   does not wait for somebody to remember. **It applies it with
+   `--pushed-only`** (2026-10-19, the walker): a pushed run's workspace goes
+   even when a record names it, so a finding whose script reads one
+   regenerates it from `docs/cold_runs/cold_N/` first. The disk filled on
+   2026-10-16 with 67 pushed runs' workspaces kept because records named
+   them (`docs/findings/disk_full_2026_10_16/`).
 
 ## The checks
 
@@ -68,6 +73,7 @@ them there, and COMMANDS.md says so.
 python tools/factory_hygiene.py --check      # LOOSE at the root, untracked records, index drift, retirable bulk
 python tools/factory_index.py --check        # every generated index matches its folder
 python tools/factory_retire.py               # what the retention rule would remove; --apply removes it
+python tools/factory_retire.py --pushed-only # the rule every cold run applies: a pushed run's workspace goes even when named
 ```
 
 `factory_hygiene.py --check` is step 7 of `docs/SHIPPING_A_CHANGE.md`, and

@@ -99,5 +99,7 @@ python tools/cold_drive/wire_sky.py _runs/walk_export_$M 2>&1 | tail -1
 # THE PACKAGE CLEAN JOB (2026-10-11): what a pushed record makes regenerable goes --
 # workspaces beyond the newest four, release and test zips, test unpacks. This run's
 # own workspace stays: its record is not pushed yet. Never fatal to the run.
-step retire; python tools/factory_retire.py --apply 2>&1 | tail -1 || true
+# --pushed-only (2026-10-19, the walker): a pushed run's workspace goes even when a
+# record names it -- the disk filled on 2026-10-16 with 67 of them kept that way.
+step retire; python tools/factory_retire.py --apply --pushed-only 2>&1 | tail -1 || true
 echo "DONE ($(date +%H:%M:%S))"

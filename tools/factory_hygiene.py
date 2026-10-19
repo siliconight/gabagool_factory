@@ -14,7 +14,8 @@ THE RULES, each a measurement with a number:
   RECORDS        untracked files under docs/ and patches/: work whose record did not ship
   INDEX          generated indexes that drift from their folder (`factory_index.py --check`)
   UNDESCRIBED    indexed entries with no docstring or heading to show
-  RETIRABLE      bulk the retention rule would remove (`factory_retire.py`), in GB -- reported, never failed on
+  RETIRABLE      bulk the retention rule would remove (`factory_retire.py --pushed-only`, the rule every
+                 cold run's last step applies), in GB -- reported, never failed on
   FINDINGS       finding folders without a README -- reported, never failed on
 """
 import os
@@ -103,9 +104,10 @@ def main():
 
     try:
         import factory_retire
-        plan = factory_retire.plan(root)
+        # the rule every cold run's last step applies (--pushed-only since 2026-10-19)
+        plan = factory_retire.plan(root, pushed_only=True)
         gb = sum(p["bytes"] for p in plan) / 1e9
-        lines.append(("RETIRABLE", round(gb, 1), "GB in %d item(s); tools/factory_retire.py" % len(plan)))
+        lines.append(("RETIRABLE", round(gb, 1), "GB in %d item(s); tools/factory_retire.py --pushed-only" % len(plan)))
     except Exception as exc:  # reported, never a failure
         lines.append(("RETIRABLE", "?", "factory_retire could not run: %s" % exc))
 

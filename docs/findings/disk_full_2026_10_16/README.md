@@ -46,6 +46,8 @@ knows. Between the retire's end and 2026-10-18 free space fell from 54 GB to 46 
 the factory's scratch, the test runner's temp (7.6 MB) or the user's Temp folder (1.0 GB): unattributed,
 outside the factory.
 
-**For the retire tool (a policy call, queued):** a `--pushed-only` mode that retires any cold-run workspace whose
-record is pushed regardless of mentions, which is the rule the walker approved by hand today, would have kept
-the disk from filling. It is not changed here because it is the walker's standing rule to change.
+**For the retire tool: decided 2026-10-19.** Asked whether the retire should take any cold-run workspace whose
+record is pushed, even when a record names it, the walker said "yes, add --pushed-only to the retire tool".
+`tools/factory_retire.py --pushed-only` does that (`patches/patch_retire_pushed_only.py`), and every cold run's
+clean job applies it. The newest four pushed runs, tracked paths, and an unpushed run's named workspace still
+stay. Its first dry run takes one workspace, cold-9314-ws (1.4 GB).
