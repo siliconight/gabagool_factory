@@ -1,0 +1,46 @@
+tools/walk_asset_flags_selftest.gd (patched), headless, Godot 4.7.stable, 2026-10-19: a temporary project holding the UNPATCHED handler (tools/walk_asset_flags.gd at sha 7ac2454ad91a3443) as res://_walk_asset_flags.gd
+ok    G writes one record
+ok    the verdict is good
+ok    picked by render, not physics
+ok    the asset is the module the eye sees
+ok    its file is the module's GLB
+ok    the building is deli_a01
+ok    the point is the mesh's near face
+ok    the collider is recorded beside it
+FAIL  G boxes the module
+FAIL  in green
+FAIL  round the module's bounds, held off them
+ok    an echo and a release write nothing
+FAIL  and draw nothing
+ok    P writes a second record
+ok    the verdict is needs_love
+FAIL  with the mesh hidden the collider stands in
+FAIL  and names its building's scene
+FAIL  the building is still deli_a01
+FAIL  P boxes the collider itself, the building being a scene and not a model
+FAIL  in red
+FAIL  round its shape, nothing under it being drawn
+ok    P on the module writes a third record
+ok    needs_love, picked by render
+FAIL  and repaints the module's box rather than adding one
+FAIL  red now
+FAIL  still round the module
+ok    P on the kerb writes a fourth record
+ok    which names the layer, as it always has
+FAIL  the kerb is boxed itself, not the level
+FAIL  in red
+FAIL  three boxes now
+FAIL  the banner names the kerb by its path, not the level's file
+FAIL  control: that line meets the box
+ok    and a pick along it takes no box for an asset, nor the mesh 450 m off
+ok    control: the line up meets the mesh round the level, out of reach
+ok    P at the open sky writes a fifth record
+FAIL  which names nothing
+FAIL  and boxes nothing
+FAIL  the banner says nothing was in reach
+ok    the banner goes after its seconds
+FAIL  and the boxes stay
+FAIL  the banner hangs from the foot of the screen, clear of F3's panels at the top
+FAIL  in the last verdict's colour
+selftest: 24 check(s) failed
+exit 1

@@ -16,6 +16,29 @@ extends Node
 ## and is the pick when no mesh is hit (the record says which, as `how`). A fire escape has no collider and still
 ## picks; a MultiMesh (Lot's dressing) is not a MeshInstance3D and does not -- the physics hit then stands in.
 ##
+## WHAT A FLAG LEAVES ON SCREEN. The walker, 2026-10-19, after the first walk with these keys: "we should put a red
+## line around an item that is flagged", "green for looks good, red for needs more work", "and it persists for that
+## session". So each asset flagged is boxed in its verdict's colour until the walk quits, and a second flag of one
+## asset repaints its box rather than adding one; flags from an earlier walk are in the file, not on screen. The box
+## goes round the nearest instanced ancestor when that is a MODEL -- the GLB a Zoo module or a prop was instanced
+## from, as the car `cover/prop_simple_car_...glb` -- and otherwise round the node picked, which the banner names by
+## its path under the scene it sits in. Otherwise means a scene: a building's own `lot/<arch>/site.tscn`, or the
+## level's, `presentation/lux.applied.tscn`, which holds the whole site, so a sidewalk Lot draws into it has no file
+## of its own. REFUTED, kept: the rule was first "unless the ancestor is a scene at the package's root", and on cold
+## run 9334's walk copy a press on the sidewalk beside the car boxed the whole level, 760 m across, the banner
+## calling it `lux.applied` -- the site is not at the root. A box and not a silhouette: a wall or floor module sits
+## flush in a run of its neighbours, where a hull drawn just outside it is buried on every side. A box held off the
+## bounds shows wherever its edges clear the level, and they are drawn pulled OUTLINE_PULL_M toward the eye, so an
+## edge that lands just inside the slab a wall module meets still draws. The picks never take a box for an asset.
+## Two draw calls a box, in a debug walk only.
+##
+## A mesh is picked only within RAY_LENGTH, as the physics ray is. The pick's own comment said so and its test did
+## not hold it: on that walk copy a press turned toward the street's buildings picked Lux's horizon glow, 405 m off,
+## a mesh whose bounds hold every camera in the level.
+##
+## The banner saying what was flagged hangs from the foot of the screen. At the top-left it drew under the F3
+## overlay's panel, and a frame of that first walk shows it cut off between the overlay's two panels.
+##
 ## Walk copies only, DEBUG BUILDS ONLY: a release export frees this on its first frame. The package ships no
 ## player and no flags; `tools/walk_export.py` copies this in as `_walk_asset_flags.gd`. Proven headless by
 ## `tools/walk_asset_flags_selftest.gd`.
@@ -30,11 +53,51 @@ const FRAMES_DIR := "res://asset_flags"
 const FRAME_WIDTH := 640
 const BANNER_SECS := 3.0
 const VERDICT_BY_KEY := {KEY_G: "good", KEY_P: "needs_love"}
+## The banner's foot above the bottom of the screen; the F3 overlay's two panels hold the top corners.
+const BANNER_FROM_BOTTOM_PX := 40.0
+## Each verdict's box, in the walker's colours: green for looks good, red for needs more work.
+const OUTLINE_COLOR := {"good": Color(0.2, 0.95, 0.3), "needs_love": Color(1.0, 0.12, 0.1)}
+## How far the box stands off the asset's bounds, so an edge clears the face of a flush neighbour.
+const OUTLINE_PAD_M := 0.03
+## How thick an edge is drawn: about 5 px at 2 m on the walk's 648-high window with its 75-degree view, the distance
+## the first flags were given from, and 1 px at 10 m. A line one pixel wide runs down each edge as well, so a box
+## farther off still reads.
+const OUTLINE_EDGE_M := 0.025
+## How far toward the eye the box is drawn: an edge less than this inside a surface still shows.
+const OUTLINE_PULL_M := 0.10
+## The files a model is instanced from, by extension: an ancestor from one of these is the asset a box goes round.
+const MODEL_FILES := ["glb", "gltf", "blend", "fbx", "dae", "obj"]
+## Unshaded and unfogged, so a box reads the same at the far end of a rainy night as under a lamp; two-sided, so a
+## beam's winding does not matter; pulled toward the eye in view space, never more than half the way to it.
+const OUTLINE_SHADER := """shader_type spatial;
+render_mode unshaded, cull_disabled, shadows_disabled, fog_disabled;
+
+uniform vec4 color : source_color = vec4(1.0, 0.0, 0.0, 1.0);
+uniform float pull_m = 0.1;
+
+void vertex() {
+	vec4 v = MODELVIEW_MATRIX * vec4(VERTEX, 1.0);
+	float d = length(v.xyz);
+	if (d > 0.001) {
+		v.xyz *= (d - min(pull_m, 0.5 * d)) / d;
+	}
+	POSITION = PROJECTION_MATRIX * v;
+}
+
+void fragment() {
+	ALBEDO = color.rgb;
+}
+"""
 
 var _banner: CanvasLayer = null
 var _label: Label = null
 var _banner_left: float = 0.0
 var _count: int = 0
+## The boxes drawn this session, under one node the picks skip, each by its asset's instance id.
+var _outlines: Node3D = null
+var _outlined: Dictionary = {}
+var _materials: Dictionary = {}
+var _shader: Shader = null
 
 
 func _ready() -> void:
@@ -47,9 +110,18 @@ func _ready() -> void:
 	_banner.visible = false
 	add_child(_banner)
 	_label = Label.new()
-	_label.position = Vector2(16, 48)
-	_label.add_theme_font_size_override("font_size", 20)
+	_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	_label.add_theme_font_size_override("font_size", 22)
+	_label.add_theme_color_override("font_outline_color", Color(0.0, 0.0, 0.0))
+	_label.add_theme_constant_override("outline_size", 8)
 	_banner.add_child(_label)
+	_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	_label.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	_label.offset_top = -BANNER_FROM_BOTTOM_PX - 32.0
+	_label.offset_bottom = -BANNER_FROM_BOTTOM_PX
+	_outlines = Node3D.new()
+	_outlines.name = &"AssetFlagOutlines"
+	add_child(_outlines)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -108,10 +180,12 @@ func flag(verdict: String) -> Dictionary:
 		"frame": _save_frame(verdict),
 	}
 	_append(rec)
+	outline(node, verdict)
 	_show("FLAGGED %s: %s%s" % [
 		"LOOKS GOOD" if verdict == "good" else "NEEDS LOVE",
-		String(rec["asset"]) if String(rec["asset"]) != "" else String(rec["node"]),
-		(" in " + String(rec["building"])) if String(rec["building"]) != "" else ""])
+		_shown_name(node, rec),
+		(" in " + String(rec["building"])) if String(rec["building"]) != "" else ""],
+		OUTLINE_COLOR.get(verdict, Color.WHITE))
 	return rec
 
 
@@ -134,7 +208,7 @@ func _render_hit(from: Vector3, dir: Vector3) -> Dictionary:
 		if float(cands[i][0]) > best_t:
 			break
 		var t: float = _triangle_t(mi, from, dir)
-		if t < best_t:
+		if t < best_t and t <= RAY_LENGTH:
 			best_t = t
 			best = mi
 	if best == null:
@@ -142,8 +216,11 @@ func _render_hit(from: Vector3, dir: Vector3) -> Dictionary:
 	return {"node": best, "point": from + dir * best_t}
 
 
-## Every visible MeshInstance3D whose world bounds the ray enters within RAY_LENGTH, as [entry distance, node].
+## Every visible MeshInstance3D whose world bounds the ray enters within RAY_LENGTH, as [entry distance, node]; the
+## boxes drawn round flagged assets are not among them.
 func _collect(n: Node, from: Vector3, dir: Vector3, out: Array) -> void:
+	if n == _outlines:
+		return
 	var mi := n as MeshInstance3D
 	if mi != null and mi.mesh != null and mi.is_visible_in_tree():
 		var box: AABB = mi.global_transform * mi.get_aabb()
@@ -264,9 +341,166 @@ func _append(rec: Dictionary) -> void:
 	f.close()
 
 
-func _show(text: String) -> void:
+func _show(text: String, color: Color) -> void:
 	if _label == null:
 		return
 	_label.text = text
+	_label.add_theme_color_override("font_color", color)
 	_banner.visible = true
 	_banner_left = BANNER_SECS
+
+
+## Box the asset `node` belongs to in `verdict`'s colour for the rest of the session -- repainting its box if it was
+## flagged before -- and return the box, or null when nothing there has bounds to draw one round.
+func outline(node: Node, verdict: String) -> MeshInstance3D:
+	if node == null or _outlines == null or not OUTLINE_COLOR.has(verdict):
+		return null
+	var target: Node = _outline_target(node)
+	var found: Array = _bounds(target)
+	if found.is_empty():
+		return null
+	var key: int = target.get_instance_id()
+	if _outlined.has(key) and is_instance_valid(_outlined[key]):
+		var old: Node = _outlined[key]
+		_outlines.remove_child(old)
+		old.queue_free()
+	var bounds: AABB = found[0]
+	var box := MeshInstance3D.new()
+	box.name = "box_%d" % key
+	box.mesh = _box_mesh(bounds.grow(OUTLINE_PAD_M))
+	box.material_override = _material(verdict)
+	box.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	box.gi_mode = GeometryInstance3D.GI_MODE_DISABLED
+	box.set_meta(&"verdict", verdict)
+	box.set_meta(&"target", target.get_path())
+	_outlines.add_child(box)
+	_outlined[key] = box
+	return box
+
+
+## What a flag's box goes round: the node's nearest instanced ancestor when that was instanced from a model file
+## (MODEL_FILES), else the node itself -- a building's scene and the level's are not one thing to box.
+func _outline_target(node: Node) -> Node:
+	var root: Node = _instanced_ancestor(node)
+	if root != null and MODEL_FILES.has(root.scene_file_path.get_extension().to_lower()):
+		return root
+	return node
+
+
+## The node itself or its nearest ancestor that was instanced from a file, or null.
+func _instanced_ancestor(node: Node) -> Node:
+	var n: Node = node
+	while n != null:
+		if n.scene_file_path != "":
+			return n
+		n = n.get_parent()
+	return null
+
+
+## What the banner calls the thing flagged: the asset's name when the box goes round the asset, else the node boxed by
+## its path under the scene it sits in -- `sidewalk_1L_1/mesh_t0_0`, not the level's `lux.applied`.
+func _shown_name(node: Node, rec: Dictionary) -> String:
+	if node == null:
+		return "(nothing within %d m)" % int(RAY_LENGTH)
+	var target: Node = _outline_target(node)
+	var root: Node = _instanced_ancestor(node)
+	if root == null or target == root:
+		return String(rec["asset"]) if String(rec["asset"]) != "" else String(target.name)
+	return String(root.get_path_to(target))
+
+
+## The world bounds of what is drawn under `target` -- its meshes, as the eye sees them -- or of its collision shapes
+## when nothing under it is drawn (a physics pick); [bounds], or [] when it has neither.
+func _bounds(target: Node) -> Array:
+	var boxes: Array[AABB] = []
+	_visual_boxes(target, boxes)
+	if boxes.is_empty():
+		_shape_boxes(target, boxes)
+	if boxes.is_empty():
+		return []
+	var out: AABB = boxes[0]
+	for b in boxes:
+		out = out.merge(b)
+	return [out]
+
+
+func _visual_boxes(n: Node, out: Array[AABB]) -> void:
+	if n == _outlines:
+		return
+	var mi := n as MeshInstance3D
+	if mi != null and mi.mesh != null and mi.is_visible_in_tree():
+		out.append(mi.global_transform * mi.get_aabb())
+	var mm := n as MultiMeshInstance3D
+	if mm != null and mm.multimesh != null and mm.multimesh.instance_count > 0 and mm.is_visible_in_tree():
+		out.append(mm.global_transform * mm.get_aabb())
+	for c in n.get_children():
+		_visual_boxes(c, out)
+
+
+func _shape_boxes(n: Node, out: Array[AABB]) -> void:
+	var cs := n as CollisionShape3D
+	if cs != null and cs.shape != null and not cs.disabled:
+		out.append(cs.global_transform * cs.shape.get_debug_mesh().get_aabb())
+	for c in n.get_children():
+		_shape_boxes(c, out)
+
+
+## The box's twelve edges as beams OUTLINE_EDGE_M thick, and a one-pixel line down each, as one mesh of two surfaces.
+func _box_mesh(box: AABB) -> ArrayMesh:
+	var c: Array[Vector3] = _corners(box.position, box.end)
+	var beams := PackedVector3Array()
+	var lines := PackedVector3Array()
+	var h := Vector3.ONE * (OUTLINE_EDGE_M * 0.5)
+	for i in range(8):
+		for k in range(3):
+			if (i & (1 << k)) != 0:
+				continue
+			var a: Vector3 = c[i]
+			var b: Vector3 = c[i | (1 << k)]
+			lines.append(a)
+			lines.append(b)
+			beams.append_array(_beam(a - h, b + h))
+	var mesh := ArrayMesh.new()
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, _surface(beams))
+	mesh.add_surface_from_arrays(Mesh.PRIMITIVE_LINES, _surface(lines))
+	return mesh
+
+
+## The eight corners of the box from `lo` to `hi`: corner i takes `hi` on axis k where bit k of i is set.
+func _corners(lo: Vector3, hi: Vector3) -> Array[Vector3]:
+	var out: Array[Vector3] = []
+	for i in range(8):
+		out.append(Vector3(hi.x if (i & 1) != 0 else lo.x, hi.y if (i & 2) != 0 else lo.y,
+			hi.z if (i & 4) != 0 else lo.z))
+	return out
+
+
+## A solid box from `lo` to `hi`, as twelve triangles.
+func _beam(lo: Vector3, hi: Vector3) -> PackedVector3Array:
+	var c: Array[Vector3] = _corners(lo, hi)
+	var out := PackedVector3Array()
+	for f in [[0, 1, 3, 2], [4, 5, 7, 6], [0, 1, 5, 4], [2, 3, 7, 6], [0, 2, 6, 4], [1, 3, 7, 5]]:
+		var q: Array = f
+		out.append_array(PackedVector3Array([c[q[0]], c[q[1]], c[q[2]], c[q[0]], c[q[2]], c[q[3]]]))
+	return out
+
+
+func _surface(verts: PackedVector3Array) -> Array:
+	var arrays: Array = []
+	arrays.resize(Mesh.ARRAY_MAX)
+	arrays[Mesh.ARRAY_VERTEX] = verts
+	return arrays
+
+
+func _material(verdict: String) -> ShaderMaterial:
+	if _materials.has(verdict):
+		return _materials[verdict]
+	if _shader == null:
+		_shader = Shader.new()
+		_shader.code = OUTLINE_SHADER
+	var m := ShaderMaterial.new()
+	m.shader = _shader
+	m.set_shader_parameter(&"color", OUTLINE_COLOR[verdict])
+	m.set_shader_parameter(&"pull_m", OUTLINE_PULL_M)
+	_materials[verdict] = m
+	return m

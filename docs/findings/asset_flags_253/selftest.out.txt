@@ -1,4 +1,4 @@
-tools/walk_asset_flags_selftest.gd, headless, Godot 4.7.stable, 2026-10-19: a temporary project holding the handler as res://_walk_asset_flags.gd
+tools/walk_asset_flags_selftest.gd, headless, Godot 4.7.stable, 2026-10-19 (after patches/patch_walk_asset_flag_outlines.py): a temporary project holding the handler as res://_walk_asset_flags.gd
 ok    G writes one record
 ok    the verdict is good
 ok    picked by render, not physics
@@ -7,11 +7,40 @@ ok    its file is the module's GLB
 ok    the building is deli_a01
 ok    the point is the mesh's near face
 ok    the collider is recorded beside it
+ok    G boxes the module
+ok    in green
+ok    round the module's bounds, held off them
 ok    an echo and a release write nothing
+ok    and draw nothing
 ok    P writes a second record
 ok    the verdict is needs_love
 ok    with the mesh hidden the collider stands in
 ok    and names its building's scene
 ok    the building is still deli_a01
+ok    P boxes the collider itself, the building being a scene and not a model
+ok    in red
+ok    round its shape, nothing under it being drawn
+ok    P on the module writes a third record
+ok    needs_love, picked by render
+ok    and repaints the module's box rather than adding one
+ok    red now
+ok    still round the module
+ok    P on the kerb writes a fourth record
+ok    which names the layer, as it always has
+ok    the kerb is boxed itself, not the level
+ok    in red
+ok    three boxes now
+ok    the banner names the kerb by its path, not the level's file
+ok    control: that line meets the box
+ok    and a pick along it takes no box for an asset, nor the mesh 450 m off
+ok    control: the line up meets the mesh round the level, out of reach
+ok    P at the open sky writes a fifth record
+ok    which names nothing
+ok    and boxes nothing
+ok    the banner says nothing was in reach
+ok    the banner goes after its seconds
+ok    and the boxes stay
+ok    the banner hangs from the foot of the screen, clear of F3's panels at the top
+ok    in the last verdict's colour
 selftest: 0 check(s) failed
 exit 0
