@@ -482,3 +482,26 @@ review-rejection table (12). Labelled by its own evidence boundary: documented,
 project prescription, or verified in project. The nine scenarios above and
 the harness's same-session control are this repo's reading of its section 4;
 its verification record is the shape a cold run's perf note should grow into.
+
+Three more, from the walker on 2026-10-19 ("sharing for optimizing our levels"),
+each labelled by its own boundary as documentation-checked and not run in an
+engine:
+
+- `docs/reference/Low_Poly_Geometry_Audit_Blender_Godot_4_7.md` -- why a level
+  that looks low-poly can report a high count. Its four measures, kept apart:
+  Blender evaluated triangles, Godot imported LOD0 triangles, placed triangles
+  (mesh x placements) and the runtime primitives monitor, which counts vertices
+  or indices across passes and is NOT a triangle count. Its own decision tree
+  ends where this contract's measurement already stands: when removing geometry
+  does not move frame time, stop optimising triangles.
+- `docs/reference/Texture_Tiling_Variation_Blender_Godot_4_7.md` -- hiding
+  repeats on large reused surfaces at four scales (tile, variant and offset,
+  broad mask, placed event), with an escalation order that starts at the cheap
+  end and a performance test against a one-layer baseline. The walker paired it
+  with roadmap 238 (texture memory) and Pixelcoat's Quake II notes
+  (`pixelcoat/docs/CONTRAST_DIRECTION.md`, Part II).
+- `docs/reference/Baked_Lighting_Level_Generation_Blender_Godot_4_7.md` --
+  baking as the generator's job: UV1 for design and UV2 for the lightmap, a
+  clear-glass policy, light roles by what gameplay can change (do not bake a
+  permanent consequence of a temporary state), probes for moving actors, a
+  bake report and input fingerprint, and a validation room.
