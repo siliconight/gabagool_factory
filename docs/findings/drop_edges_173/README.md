@@ -332,3 +332,5 @@ unresolved in the flood (item 6 below).
    MEASURED the same evening, NOT attributed (`phase_sweep/`): six phases a quarter cell apart on three levels.
    The verdict holds at 17 of 18 pairs. At (0.1281, 0.1273) restaurant_row_001 refuses on one row beside deli_a03's
    0.4 m stair slot, and its flood reaches 41,322 cells where every other phase reaches 53,144 to 55,492.
+   ATTRIBUTED the same afternoon: the row is a 0.4 by 0.36 m opening a body cannot enter, and the loss is a moat the
+   standing probe reads beside an 8 cm kerb, which the shipped phase clears by 1.8 cm (`phase_sweep/README.md`).

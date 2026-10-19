@@ -40,15 +40,38 @@ That is item 7's "one-cell landing lost to a centimetre's offset", measured agai
 **The classes move with the phase everywhere.** Things' tops on gas_block_001 read 0 to 18, and declared drops on
 county_hospital_001 read 40 to 48. Neither class is refused, so neither moves a verdict.
 
+## Attributed, the same afternoon
+
+**The refused row is an opening a body cannot enter** (`stair_guards_a03.py`, `phase_attrib.py`, `edge_cells_at.gd`;
+outputs in `attrib/`). deli_a03's flight is 1.6 m wide, x -63.6 to -62.0, in a hole 2.4 m wide, so a 0.4 m slot runs
+down each side of it. Guard rails 5 and 6 stand on the hole's edges from z -13.81 to -10.11, and the plate starts at
+z -9.752, so each edge is unrailed for 0.36 m beside its slot. At the shipped phase the slab cell beside the east
+edge is occupied by the end of rail 6, so no row asks that gap. At (0.1281, 0.1273) the slab cell clears the rail's
+end, and its neighbour in the slot falls 3.3 m to the ground floor. The opening is 0.4 by 0.36 m, smaller than the
+contract's body at 0.70 m across and than the probe at 0.40 m. The west edge's row at that phase lies within the
+gate's 0.6 m margin of a 1.4 m drop hole deli_a03 declares inside the stairwell, x -63.7 to -62.3, so it is filed as
+declared. The east row misses that margin by 8 cm and is refused.
+
+**The flood's loss is a moat beside a kerb** (`reach_dump.py`; both phases' surfaces in `attrib/`, gzipped). At (0.1281, 0.1273) the flood never reaches 14,695
+surfaces at the east end of the site, among them the outdoor ground east of x 33.5 and all three floors of the
+office. Every link into that region crosses a kerb, and the cell beside each kerb is occupied: the standing probe,
+1.80 m tall on its 0.20 m radius, overlaps the kerb's 8 cm face. Measured at the main road's south sidewalk, whose box
+ends at z 13.665 (`site.tscn`: centre 15.165, 3 m deep): at the shipped phase the first frontage cell is 0.163 m from
+that face and free, and at (0.1281, 0.1273) it is 0.038 m from it and occupied. At the kerb's top the probe's rounded
+base reaches 0.144 m from its axis, so the shipped phase clears this kerb by 1.8 cm.
+
+**What they share.** Both are the standing probe's model of a body, not the level. The first is a gap the probe
+reads as a fall and a body cannot enter. The second is a kerb a body steps over and the probe cannot stand beside.
+The candidates, neither started: a body-fit test before a gap counts as a fall, the contract's radius at the rim
+sampled across the opening; and a standing test that ignores what a body steps over, so a solid wholly below the
+step height does not occupy a cell. Each is a Level Factory instrument change, to be measured across phases as
+0.219.0 was.
+
 ## Not established
 
-- **Whether the refused row is a defect or an artefact.** It is not attributed. The slab's hole edge carries a guard
-  rail (`stair_guard_rail_6_col`) along part of its length, and whether it ends there is unread. The slot is 0.4 m
-  across: exactly the instrument's probe (`PROBE_R` 0.20) and narrower than the contract's body (0.35 radius), so the
-  probe radius alone may decide it. The next step is the factory's `docs/findings/breadth_sweep_2026-10-19/edge_cells.gd`
-  at this phase, on the row's cell pair and its neighbours.
-- **What the flood loses at that phase.** It is not located. A reach map, the reached cells of `p11` against `p00`,
-  would put it on the level.
+- **Whether the unrailed 0.36 m of each hole edge is meant.** It is too small for a body either way. Whether
+  Deli Counter's rail rule stops short of the plate on purpose is unread.
+- **How many other kerbs the shipped phase clears by millimetres.** One was measured.
 - **Any other level.** Three levels were swept. The four other sweep missions' workspaces were retired by rule
   before this ran, and a cold run regenerates them.
 
