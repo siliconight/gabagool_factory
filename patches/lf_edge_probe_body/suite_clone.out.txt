@@ -1,0 +1,615 @@
+Level Factory 0.222.0 in the scratch clone lf_edge, the full suite: exit 1 on 24 failures, the very 24 the 0.220.0 and 0.221.0 clones failed at the same location (sibling repos are not above a scratch clone; patches/lf_fire_escape_ramp/suite_clone_failed_also_on_0219.txt).
+
+tests/test_archetype_resolution.py::test_every_brief_on_disk_resolves_or_is_a_named_defect
+tests/test_archetype_resolution.py::test_the_corpus_is_not_empty
+tests/test_archetype_resolution.py::test_the_corpus_is_walked_once_a_session
+tests/test_archetype_resolution.py::test_the_known_offenders_are_still_there
+tests/test_dressing_jobs.py::test_measuring_changes_the_fingerprint
+tests/test_dressing_jobs.py::test_shape_metrics_is_where_the_adapter_thinks_it_is
+tests/test_dressing_jobs.py::test_the_measuring_tools_own_source_is_an_input
+tests/test_drip_assets.py::test_stager_writes_the_shader_the_atlas_and_the_node
+tests/unit/test_brief_pacing.py::test_lots_heist_gate_passes_on_a_written_spec
+tests/unit/test_brief_pacing.py::test_lots_own_estimate_reads_the_window_and_counts_travel
+tests/unit/test_brief_pacing.py::test_the_adapter_knows_every_status_lot_writes
+tests/unit/test_layer3_wiring.py::test_the_tracked_asset_set_file_names_the_four_clutter_species
+tests/unit/test_sibling_locator.py::test_it_finds_a_repo_above_the_caller
+tests/unit/test_sibling_locator.py::test_the_factory_root_holds_this_repo
+tests/unit/test_sibling_locator.py::test_the_suite_can_be_run_from_anywhere
+tests/unit/test_signs_in_site_spec.py::test_a_door_wears_its_shells_band
+tests/unit/test_signs_in_site_spec.py::test_a_shell_is_dealt_one_business_wherever_it_stands
+tests/unit/test_signs_in_site_spec.py::test_a_shop_still_takes_a_band_of_its_own_family
+tests/unit/test_signs_in_site_spec.py::test_a_station_and_a_store_wear_flappahs_never_the_price_board
+tests/unit/test_signs_in_site_spec.py::test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat
+tests/unit/test_signs_in_site_spec.py::test_every_flappahs_door_wears_flappahs
+tests/unit/test_signs_in_site_spec.py::test_the_themed_spec_carries_the_signs_and_the_greybox_does_not
+tests/unit/test_site_audit_report.py::test_every_finding_lot_keeps_reaches_the_report
+tests/unit/test_site_audit_report.py::test_the_adapter_knows_every_severity_lot_writes
+
+..................................................................ssssss [  2%]
+sssss..x................................................................ [  5%]
+....................FFF..FF...FF........................................ [  8%]
+F..............................................................s........ [ 11%]
+........................................................................ [ 14%]
+....................FF...F.............................................. [ 17%]
+........................................................................ [ 19%]
+.........s.......s...................................................... [ 22%]
+..........................s............................................. [ 25%]
+........................................................................ [ 28%]
+........................................................................ [ 31%]
+................ss...................................................... [ 34%]
+....................................................................s... [ 37%]
+s...............................................F....................... [ 39%]
+........................................................................ [ 42%]
+........................................................................ [ 45%]
+........................................................................ [ 48%]
+.......s................................................................ [ 51%]
+........................................................................ [ 54%]
+.............................s.......................................... [ 57%]
+..................................sss....s.............................. [ 59%]
+........................................................................ [ 62%]
+........s...................F.....F..................................... [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+........................................................................ [ 76%]
+.......................................F...............................F [ 79%]
+.F.FFFF.FF...........F.................................................. [ 82%]
+...................................s.................................... [ 85%]
+.................................................s..ssss................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+.......................................................................s [ 96%]
+.....s..s.....s.........................s............................... [ 99%]
+......                                                                   [100%]
+================================== FAILURES ===================================
+________________________ test_the_corpus_is_not_empty _________________________
+
+    def test_the_corpus_is_not_empty():
+        """A sweep over zero briefs passes and proves nothing (CLAUDE.md)."""
+>       paths = _brief_paths()
+                ^^^^^^^^^^^^^^
+
+tests\test_archetype_resolution.py:222: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @functools.lru_cache(maxsize=None)
+    def _brief_paths():
+        """Every brief in the repo: examples, recorded cold runs, workspaces.
+    
+        A PREDICATE RATHER THAN A LIST OF PATTERNS, deliberately. The first
+        version of this spelled four globs and missed `level_factory/examples/`
+        entirely -- it found 19 of 21 briefs and reported the corpus clean of a
+        defect that was sitting in one of the 2. A walk cannot miss a directory
+        shape nobody thought of.
+    
+        ONCE A SESSION (0.193.2). The three tests below each walked the whole
+        factory: 58.3, 30.4 and 30.1 s of a 443.1 s suite (0.193.1's own run), for
+        487 briefs in a tree of 1.5 million entries that grows with every cold
+        run. The list is read once and shared, as a tuple, so no test can change
+        what the next one reads.
+        """
+>       assert _ROOT is not None, (
+            "the factory root is not above %s -- set LF_DC_ROOT. A corpus sweep "
+            "with no corpus passes and proves nothing."
+            % Path(__file__).resolve().parent)
+E       AssertionError: the factory root is not above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_DC_ROOT. A corpus sweep with no corpus passes and proves nothing.
+E       assert None is not None
+
+tests\test_archetype_resolution.py:204: AssertionError
+___________ test_every_brief_on_disk_resolves_or_is_a_named_defect ____________
+
+    def test_every_brief_on_disk_resolves_or_is_a_named_defect():
+        unresolved = {}
+>       for path in _brief_paths():
+                    ^^^^^^^^^^^^^^
+
+tests\test_archetype_resolution.py:229: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @functools.lru_cache(maxsize=None)
+    def _brief_paths():
+        """Every brief in the repo: examples, recorded cold runs, workspaces.
+    
+        A PREDICATE RATHER THAN A LIST OF PATTERNS, deliberately. The first
+        version of this spelled four globs and missed `level_factory/examples/`
+        entirely -- it found 19 of 21 briefs and reported the corpus clean of a
+        defect that was sitting in one of the 2. A walk cannot miss a directory
+        shape nobody thought of.
+    
+        ONCE A SESSION (0.193.2). The three tests below each walked the whole
+        factory: 58.3, 30.4 and 30.1 s of a 443.1 s suite (0.193.1's own run), for
+        487 briefs in a tree of 1.5 million entries that grows with every cold
+        run. The list is read once and shared, as a tuple, so no test can change
+        what the next one reads.
+        """
+>       assert _ROOT is not None, (
+            "the factory root is not above %s -- set LF_DC_ROOT. A corpus sweep "
+            "with no corpus passes and proves nothing."
+            % Path(__file__).resolve().parent)
+E       AssertionError: the factory root is not above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_DC_ROOT. A corpus sweep with no corpus passes and proves nothing.
+E       assert None is not None
+
+tests\test_archetype_resolution.py:204: AssertionError
+__________________ test_the_known_offenders_are_still_there ___________________
+
+    def test_the_known_offenders_are_still_there():
+        """If one gets fixed, this fails and the entry comes out. A stale
+        exception list is how a fixed defect keeps looking open -- and how a
+        reintroduced one keeps looking fixed."""
+        seen = set()
+>       for path in _brief_paths():
+                    ^^^^^^^^^^^^^^
+
+tests\test_archetype_resolution.py:249: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @functools.lru_cache(maxsize=None)
+    def _brief_paths():
+        """Every brief in the repo: examples, recorded cold runs, workspaces.
+    
+        A PREDICATE RATHER THAN A LIST OF PATTERNS, deliberately. The first
+        version of this spelled four globs and missed `level_factory/examples/`
+        entirely -- it found 19 of 21 briefs and reported the corpus clean of a
+        defect that was sitting in one of the 2. A walk cannot miss a directory
+        shape nobody thought of.
+    
+        ONCE A SESSION (0.193.2). The three tests below each walked the whole
+        factory: 58.3, 30.4 and 30.1 s of a 443.1 s suite (0.193.1's own run), for
+        487 briefs in a tree of 1.5 million entries that grows with every cold
+        run. The list is read once and shared, as a tuple, so no test can change
+        what the next one reads.
+        """
+>       assert _ROOT is not None, (
+            "the factory root is not above %s -- set LF_DC_ROOT. A corpus sweep "
+            "with no corpus passes and proves nothing."
+            % Path(__file__).resolve().parent)
+E       AssertionError: the factory root is not above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_DC_ROOT. A corpus sweep with no corpus passes and proves nothing.
+E       assert None is not None
+
+tests\test_archetype_resolution.py:204: AssertionError
+__________________ test_the_corpus_is_walked_once_a_session ___________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000011ACF6C5CD0>
+
+    def test_the_corpus_is_walked_once_a_session(monkeypatch):
+        walks = []
+    
+        def counting(root):
+            walks.append(root)
+            return [Path("briefs", "a.json")]
+    
+        monkeypatch.setitem(globals(), "_corpus_walk", counting)
+        _brief_paths.cache_clear()
+        try:
+>           first, second = _brief_paths(), _brief_paths()
+                            ^^^^^^^^^^^^^^
+
+tests\test_archetype_resolution.py:330: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    @functools.lru_cache(maxsize=None)
+    def _brief_paths():
+        """Every brief in the repo: examples, recorded cold runs, workspaces.
+    
+        A PREDICATE RATHER THAN A LIST OF PATTERNS, deliberately. The first
+        version of this spelled four globs and missed `level_factory/examples/`
+        entirely -- it found 19 of 21 briefs and reported the corpus clean of a
+        defect that was sitting in one of the 2. A walk cannot miss a directory
+        shape nobody thought of.
+    
+        ONCE A SESSION (0.193.2). The three tests below each walked the whole
+        factory: 58.3, 30.4 and 30.1 s of a 443.1 s suite (0.193.1's own run), for
+        487 briefs in a tree of 1.5 million entries that grows with every cold
+        run. The list is read once and shared, as a tuple, so no test can change
+        what the next one reads.
+        """
+>       assert _ROOT is not None, (
+            "the factory root is not above %s -- set LF_DC_ROOT. A corpus sweep "
+            "with no corpus passes and proves nothing."
+            % Path(__file__).resolve().parent)
+E       AssertionError: the factory root is not above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_DC_ROOT. A corpus sweep with no corpus passes and proves nothing.
+E       assert None is not None
+
+tests\test_archetype_resolution.py:204: AssertionError
+____________ test_shape_metrics_is_where_the_adapter_thinks_it_is _____________
+
+    def test_shape_metrics_is_where_the_adapter_thinks_it_is():
+        """The path is walked up from the adapter's own location. If the repo
+        layout moves, this fails here rather than by silently never measuring."""
+>       assert SHAPE_METRICS.is_file(), SHAPE_METRICS
+E       AssertionError: WindowsPath('C:/Users/Brannen/AppData/Local/Temp/claude/C--Projects-gabagool-studios-gabagool-factory/27f14f8b-7ce5-44c0-a704-178a824035d7/scratchpad/lf_edge/tools/shape_metrics.py')
+E       assert False
+E        +  where False = is_file()
+E        +    where is_file = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/claude/C--Projects-gabagool-studios-gabagool-factory/27f14f8b-7ce5-44c0-a704-178a824035d7/scratchpad/lf_edge/tools/shape_metrics.py').is_file
+
+tests\test_dressing_jobs.py:37: AssertionError
+___________________ test_measuring_changes_the_fingerprint ____________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_measuring_changes_the_fin0')
+
+    def test_measuring_changes_the_fingerprint(tmp_path):
+        """Otherwise a job that starts measuring cache-hits the entry from before
+        it did, and the metrics sidecar is never produced."""
+        a = ZooAdapter()
+        base = {"mode": "dress", "manifest_path": str(tmp_path / "m.json")}
+        (tmp_path / "m.json").write_text("{}", encoding="utf-8")
+        plain = a.fingerprint_inputs(base, ctx(tmp_path))
+        measured = a.fingerprint_inputs({**base, "measure_shapes": True},
+                                        ctx(tmp_path))
+        assert plain != measured
+>       assert "shape_metrics_hash" in measured
+E       AssertionError: assert 'shape_metrics_hash' in {'manifest_path_hash': 'sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a', 'measure_shapes': True, 'mode': 'dress', 'plan_only': False, ...}
+
+tests\test_dressing_jobs.py:86: AssertionError
+_______________ test_the_measuring_tools_own_source_is_an_input _______________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_the_measuring_tools_own_s0')
+
+    def test_the_measuring_tools_own_source_is_an_input(tmp_path):
+        """A change to how a footprint is computed changes the catalogue the
+        planner is built from, with every other input byte-identical. That is the
+        executes-a-sub-tool problem test_presentation_fingerprint documents."""
+        a = ZooAdapter()
+        (tmp_path / "m.json").write_text("{}", encoding="utf-8")
+        fp = a.fingerprint_inputs({"mode": "dress",
+                                   "manifest_path": str(tmp_path / "m.json"),
+                                   "measure_shapes": True}, ctx(tmp_path))
+>       assert fp["shape_metrics_hash"]
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'shape_metrics_hash'
+
+tests\test_dressing_jobs.py:98: KeyError
+____________ test_stager_writes_the_shader_the_atlas_and_the_node _____________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_stager_writes_the_shader_0')
+
+    def test_stager_writes_the_shader_the_atlas_and_the_node(tmp_path) -> None:
+        import sys
+        sys.path.insert(0, str(_LF / "tools"))
+        import drip_assets
+    
+>       assert drip_assets.stage(tmp_path, node=True) == [
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            "rain_drip.gdshader", "drop_atlas.png", "rain_drip.gd"]
+
+tests\test_drip_assets.py:88: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+dest = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_stager_writes_the_shader_0')
+pixelcoat = None, node = True
+
+    def stage(dest: Path, pixelcoat: Path | None = None,
+              node: bool = False) -> list[str]:
+        """Write the shader, the atlas and optionally the node into ``dest``.
+    
+        Returns the filenames written, in order. Raises rather than half-staging:
+        a drip missing its texture is not a cheap drip, it is a shader sampling
+        nothing, and the last time a pass was measured without being drawn the
+        figure had to be withdrawn.
+        """
+        dest = Path(dest)
+        pixelcoat = Path(pixelcoat) if pixelcoat else DEFAULT_PIXELCOAT
+        if pixelcoat is None:
+>           raise SystemExit(
+                "the drip needs Pixelcoat and none was found: no pixelcoat/%s at "
+                "or above %s -- pass --pixelcoat or set %s. The atlas is "
+                "generated, never carried."
+                % (PIXELCOAT_MARKER, Path(__file__).resolve().parent, PIXELCOAT_ENV))
+E           SystemExit: the drip needs Pixelcoat and none was found: no pixelcoat/pixelcoat/core/droplets.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tools -- pass --pixelcoat or set LF_PIXELCOAT_ROOT. The atlas is generated, never carried.
+
+tools\drip_assets.py:85: SystemExit
+__________ test_lots_own_estimate_reads_the_window_and_counts_travel __________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_lots_own_estimate_reads_t0')
+
+    def test_lots_own_estimate_reads_the_window_and_counts_travel(tmp_path):
+        _, spec = _spec(tmp_path, target_minutes=(20, 30))
+>       pacing = _lot("site_pacing").estimate_pacing(spec, {"markers": []})
+                 ^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_brief_pacing.py:84: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+module = 'site_pacing'
+
+    def _lot(module):
+>       assert LOT is not None, not_found("lot", marker=_PACING)
+E       AssertionError: no lot/site_pacing.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_LOT_ROOT
+E       assert None is not None
+
+tests\unit\test_brief_pacing.py:65: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[site] 3 buildings, ONE archetype: this brief sets no `lot_library`, so the same generated shell is placed 3 times (roadmap 37). Point it at a build directory -- e.g. deli_counter/build -- for a lot of different buildings.
+________________ test_lots_heist_gate_passes_on_a_written_spec ________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_lots_heist_gate_passes_on0')
+
+    def test_lots_heist_gate_passes_on_a_written_spec(tmp_path):
+        """A guard, not a regression proof: with no mode the gate returns without
+        checking anything, so this passes on 0.152.0 too. With the mode it raises
+        on a site whose spawn, objective and extraction are not joined."""
+        _, spec = _spec(tmp_path)
+>       _lot("site_tactical").gate(spec)
+        ^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_brief_pacing.py:96: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+module = 'site_tactical'
+
+    def _lot(module):
+>       assert LOT is not None, not_found("lot", marker=_PACING)
+E       AssertionError: no lot/site_pacing.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_LOT_ROOT
+E       assert None is not None
+
+tests\unit\test_brief_pacing.py:65: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[site] 3 buildings, ONE archetype: this brief sets no `lot_library`, so the same generated shell is placed 3 times (roadmap 37). Point it at a build directory -- e.g. deli_counter/build -- for a lot of different buildings.
+_______________ test_the_adapter_knows_every_status_lot_writes ________________
+
+    def test_the_adapter_knows_every_status_lot_writes():
+        """Read from Lot's source, so a status Lot renames or adds fails here
+        rather than surfacing as LOT_PACING_UNREAD on every level."""
+        import re
+    
+        import adapters.lot as lot_adapter
+>       assert LOT is not None, not_found("lot", marker=_PACING)
+E       AssertionError: no lot/site_pacing.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_LOT_ROOT
+E       assert None is not None
+
+tests\unit\test_brief_pacing.py:128: AssertionError
+_______ test_the_tracked_asset_set_file_names_the_four_clutter_species ________
+
+    def test_the_tracked_asset_set_file_names_the_four_clutter_species():
+        """The real file, in the real Patina checkout above this one.
+    
+        ASSERTED, not skipped: this is the only test that reads the file the
+        species actually come from, and a run that cannot find Patina has learned
+        nothing about the four species it is asserting."""
+>       assert PATINA is not None, not_found("patina", marker=_CLUTTER_REL)
+E       AssertionError: no patina/patina/asset_sets/ground_clutter.json at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_PATINA_ROOT
+E       assert None is not None
+
+tests\unit\test_layer3_wiring.py:198: AssertionError
+____________________ test_it_finds_a_repo_above_the_caller ____________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_it_finds_a_repo_above_the0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000011ACF19E890>
+
+    def test_it_finds_a_repo_above_the_caller(tmp_path, monkeypatch):
+        """The whole point: an ancestor, at any distance, not a fixed one."""
+        monkeypatch.delenv(env_var("patina"), raising=False)
+>       assert sibling_repo("patina",
+                            marker="patina/asset_sets/ground_clutter.json")
+E       AssertionError: assert None
+E        +  where None = sibling_repo('patina', marker='patina/asset_sets/ground_clutter.json')
+
+tests\unit\test_sibling_locator.py:49: AssertionError
+____________________ test_the_factory_root_holds_this_repo ____________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x0000011ACF216580>
+
+    def test_the_factory_root_holds_this_repo(monkeypatch):
+        monkeypatch.delenv("LF_DC_ROOT", raising=False)
+        root = factory_root()
+>       assert root is not None, "no deli_counter above %s" % _REPO
+E       AssertionError: no deli_counter above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge
+E       assert None is not None
+
+tests\unit\test_sibling_locator.py:99: AssertionError
+___________________ test_the_suite_can_be_run_from_anywhere ___________________
+
+    def test_the_suite_can_be_run_from_anywhere():
+        """What all of it is for: the locator answers the same from a checkout and
+        from a worktree, so nothing here depends on which one was used."""
+        assert os.path.isdir(_REPO)
+>       assert sibling_repo("pixelcoat",
+                            marker="profiles/signs/delco_1997.json") is not None
+E       AssertionError: assert None is not None
+E        +  where None = sibling_repo('pixelcoat', marker='profiles/signs/delco_1997.json')
+
+tests\unit\test_sibling_locator.py:244: AssertionError
+____________ test_a_shell_is_dealt_one_business_wherever_it_stands ____________
+
+    def test_a_shell_is_dealt_one_business_wherever_it_stands():
+        """0.148.0: Zoo builds a shell's door box once, so every instance of the
+        shell must wear one band; two shells still never repeat."""
+        ws = _Workspace()
+        rows = [{"id": "b0", "archetype": "deli_a01"}, {"id": "b1", "archetype": "bank_tower_a03"},
+                {"id": "b2", "archetype": "deli_a01"}, {"id": "b3", "archetype": "deli_a02"}]
+        signs = cmds._signs_for(ws, rows, Path("/px/out"), "delco_1997")
+>       assert signs["b0"] == signs["b2"]
+               ^^^^^^^^^^^
+E       KeyError: 'b0'
+
+tests\unit\test_signs_in_site_spec.py:105: KeyError
+______________________ test_a_door_wears_its_shells_band ______________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_a_door_wears_its_shells_b0')
+
+    def test_a_door_wears_its_shells_band(tmp_path):
+        """0.148.0: the fixtures job's pack is the deal the site spec's band
+        reads -- library shells by id, the generated one by its preset."""
+        ws = _Workspace(internal_dir=tmp_path / "internal")
+        model = SimpleNamespace(mission_id="m", archetype="corner_deli", theme="delco_1997")
+        site = tmp_path / "internal" / "temp" / "m" / "candidate_seed_9181" / "site.json"
+        site.parent.mkdir(parents=True)
+        rows = [{"id": "b0", "archetype": "deli_a01"}, {"id": "b1", "archetype": "casino_a02"}]
+        site.write_text(json.dumps({"buildings": rows}), encoding="utf-8")
+        band = cmds._signs_for(ws, rows, Path("/px/out"), "delco_1997")
+        door = cmds._door_sign_pack(ws, model, "m.candidate.seed_9181", "deli_a01", Path("/px/out"))
+>       assert door == band["b0"] and door.endswith("sign_" + cmds.deal_signs(ws, rows, "delco_1997")["deli_a01"])
+                       ^^^^^^^^^^
+E       KeyError: 'b0'
+
+tests\unit\test_signs_in_site_spec.py:133: KeyError
+______________ test_a_shop_still_takes_a_band_of_its_own_family _______________
+
+    def test_a_shop_still_takes_a_band_of_its_own_family():
+        ws = _Workspace()
+        for archetype, family in (("bank_branch_a02", "bank"), ("deli_a01", "deli"),
+                                  ("strip_retail_a01", "retail"),
+                                  ("self_storage_a01", "warehouse"),
+                                  ("auto_shop_a01", "auto")):
+            signs = cmds._signs_for(ws, [{"id": "b", "archetype": archetype}],
+                                    Path("/px/out"), "delco_1997")
+>           slug = Path(signs["b"]).name[len("sign_"):]
+                        ^^^^^^^^^^
+E           KeyError: 'b'
+
+tests\unit\test_signs_in_site_spec.py:161: KeyError
+___________________ test_every_flappahs_door_wears_flappahs ___________________
+
+    def test_every_flappahs_door_wears_flappahs():
+        """0.147.0: the stations and the store by other names. Each door already
+        said FLAPPAHS (Zoo `storefront_names`); the band said a civic or default
+        name."""
+        ws = _Workspace()
+        for archetype in ("gs_corner_station", "fuel_stop_heist", "stop_n_go",
+                          "cr_gas", "gas_street", "gas_station_a01",
+                          "convenience_store_a01"):
+            signs = cmds._signs_for(ws, [{"id": "b", "archetype": archetype}],
+                                    Path("/px/out"), "delco_1997")
+>           assert Path(signs["b"]).name == "sign_flappahs", (archetype, signs)
+                        ^^^^^^^^^^
+E           KeyError: 'b'
+
+tests\unit\test_signs_in_site_spec.py:176: KeyError
+_______ test_a_station_and_a_store_wear_flappahs_never_the_price_board ________
+
+    def test_a_station_and_a_store_wear_flappahs_never_the_price_board():
+        """0.146.0. The walker, 2026-10-06: "Flappahs store always Flappahs".
+        The gas family is FLAPPAHS and the fuel price board (Pixelcoat 0.58.0),
+        and the board names nobody. Before names-only dealing a generated gas
+        station standing alone drew the board, and so did `gas_station_a02` at
+        the head of a row."""
+        ws = _Workspace()
+        for archetype in ("gas_station", "convenience_store"):
+            rows = cmds._sign_rows([{"id": "b0"}], archetype)
+            signs = cmds._signs_for(ws, rows, Path("/px/out"), "delco_1997")
+>           assert Path(signs["b0"]).name == "sign_flappahs", (archetype, signs)
+                        ^^^^^^^^^^^
+E           KeyError: 'b0'
+
+tests\unit\test_signs_in_site_spec.py:189: KeyError
+___ test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat ___
+
+    def test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat():
+        ws = _Workspace()
+        buildings = [{"id": "b0", "archetype": "bank_branch_a02"},
+                     {"id": "b1", "archetype": "deli_a01"},
+                     {"id": "b2", "archetype": "bank_tower_a03"}]
+        signs = cmds._signs_for(ws, buildings, Path("/px/out"), "delco_1997")
+>       assert set(signs) == {"b0", "b1", "b2"}
+E       AssertionError: assert set() == {'b0', 'b1', 'b2'}
+E         
+E         Extra items in the right set:
+E         'b1'
+E         'b2'
+E         'b0'
+E         Use -v to get more diff
+
+tests\unit\test_signs_in_site_spec.py:209: AssertionError
+_______ test_the_themed_spec_carries_the_signs_and_the_greybox_does_not _______
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_the_themed_spec_carries_t1')
+
+    def test_the_themed_spec_carries_the_signs_and_the_greybox_does_not(tmp_path):
+        brief = MissionBrief(mission_id="m", display_name="m", archetype="bank",
+                             building_count=2, theme="delco_1997",
+                             candidate_count=1, lot_library=None)
+        ws = _Workspace(jobs_dir=tmp_path / "jobs", internal_dir=tmp_path / "internal")
+>       grey = cmds._write_site_spec(ws, brief, _deli_out(tmp_path), seed=9039)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_signs_in_site_spec.py:244: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+apps\cli\commands\__init__.py:2476: in _write_site_spec
+    repos = ws.load_tools_local().get("repositories", {})
+            ^^^^^^^^^^^^^^^^^^^^^
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = _Workspace(jobs_dir=WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_the_themed_spe...dowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_the_themed_spec_carries_t1/internal'))
+
+    def load_tools_local(self) -> dict:
+>       assert PIXELCOAT is not None, not_found("pixelcoat", marker=_PROFILE)
+E       AssertionError: no pixelcoat/profiles/signs/delco_1997.json at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_PIXELCOAT_ROOT
+E       assert None is not None
+
+tests\unit\test_signs_in_site_spec.py:32: AssertionError
+---------------------------- Captured stdout call -----------------------------
+[site] 2 buildings, ONE archetype: this brief sets no `lot_library`, so the same generated shell is placed 2 times (roadmap 37). Point it at a build directory -- e.g. deli_counter/build -- for a lot of different buildings.
+_______________ test_every_finding_lot_keeps_reaches_the_report _______________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3534/test_every_finding_lot_keeps_r0')
+
+    def test_every_finding_lot_keeps_reaches_the_report(tmp_path):
+        """Lot's own audit and Lot's own record, read by this adapter: the four
+        codes 9209's job log printed, at this model's severities, none blocking."""
+>       sa = _site_audit()
+             ^^^^^^^^^^^^^
+
+tests\unit\test_site_audit_report.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+    def _site_audit():
+>       assert LOT is not None, not_found("lot", marker=_AUDIT)
+E       AssertionError: no lot/site_audit.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_LOT_ROOT
+E       assert None is not None
+
+tests\unit\test_site_audit_report.py:35: AssertionError
+______________ test_the_adapter_knows_every_severity_lot_writes _______________
+
+    def test_the_adapter_knows_every_severity_lot_writes():
+        """Read from Lot's source, so a severity Lot adds fails here rather than
+        surfacing as LOT_SITE_AUDIT_UNREAD on every level."""
+>       assert LOT is not None, not_found("lot", marker=_AUDIT)
+E       AssertionError: no lot/site_audit.py at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_edge\tests -- set LF_LOT_ROOT
+E       assert None is not None
+
+tests\unit\test_site_audit_report.py:135: AssertionError
+-------------------------- real-tool smoke coverage ---------------------------
+ran 5 of 16 real-tool tests, 11 skipped
+  ran      test_every_grounded_tool_has_a_marker
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/__init__.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/conftest.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/test_grounded_table.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/test_real_adapters.py]
+  skipped  test_grounded_matches_the_tools_this_smoke_ran -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_deli_new_level -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_dispatch -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_dispatch_handoff_from_lf_staged_inputs -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lasertag_runner_and_invocation -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lot -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lux_addon_and_driver_invocation -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_patina -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_patina_dressing_emits_manifest_for_zoo -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_pixelcoat -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_zoo_plan -- LF_TOOLS_DIR not set; real-tool smoke skipped
+this suite is adapter-and-contract depth in seconds; it builds no geometry. Re-certification is docs/CERTIFY.md, all legs.
+=========================== short test summary info ===========================
+FAILED tests/test_archetype_resolution.py::test_the_corpus_is_not_empty - Ass...
+FAILED tests/test_archetype_resolution.py::test_every_brief_on_disk_resolves_or_is_a_named_defect
+FAILED tests/test_archetype_resolution.py::test_the_known_offenders_are_still_there
+FAILED tests/test_archetype_resolution.py::test_the_corpus_is_walked_once_a_session
+FAILED tests/test_dressing_jobs.py::test_shape_metrics_is_where_the_adapter_thinks_it_is
+FAILED tests/test_dressing_jobs.py::test_measuring_changes_the_fingerprint - ...
+FAILED tests/test_dressing_jobs.py::test_the_measuring_tools_own_source_is_an_input
+FAILED tests/test_drip_assets.py::test_stager_writes_the_shader_the_atlas_and_the_node
+FAILED tests/unit/test_brief_pacing.py::test_lots_own_estimate_reads_the_window_and_counts_travel
+FAILED tests/unit/test_brief_pacing.py::test_lots_heist_gate_passes_on_a_written_spec
+FAILED tests/unit/test_brief_pacing.py::test_the_adapter_knows_every_status_lot_writes
+FAILED tests/unit/test_layer3_wiring.py::test_the_tracked_asset_set_file_names_the_four_clutter_species
+FAILED tests/unit/test_sibling_locator.py::test_it_finds_a_repo_above_the_caller
+FAILED tests/unit/test_sibling_locator.py::test_the_factory_root_holds_this_repo
+FAILED tests/unit/test_sibling_locator.py::test_the_suite_can_be_run_from_anywhere
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_shell_is_dealt_one_business_wherever_it_stands
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_door_wears_its_shells_band
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_shop_still_takes_a_band_of_its_own_family
+FAILED tests/unit/test_signs_in_site_spec.py::test_every_flappahs_door_wears_flappahs
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_station_and_a_store_wear_flappahs_never_the_price_board
+FAILED tests/unit/test_signs_in_site_spec.py::test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat
+FAILED tests/unit/test_signs_in_site_spec.py::test_the_themed_spec_carries_the_signs_and_the_greybox_does_not
+FAILED tests/unit/test_site_audit_report.py::test_every_finding_lot_keeps_reaches_the_report
+FAILED tests/unit/test_site_audit_report.py::test_the_adapter_knows_every_severity_lot_writes
+exit=1

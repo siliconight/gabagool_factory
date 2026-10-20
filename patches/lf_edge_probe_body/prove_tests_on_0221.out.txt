@@ -1,0 +1,25 @@
+Level Factory 0.221.0 (2706673) with tests/unit/test_edge_probe_body.py alone (the storey shifted over a fixed ground), 07:13:03
+?? tests/unit/test_edge_probe_body.py
+FFFFFF                                                                   [100%]
+E       AssertionError: ({'0': 480}, ['/root/Main/GroundW', '/root/Main/Sidewalk', '/root/Main/GroundE'])
+E       assert 0 > 0
+tests\unit\test_edge_probe_body.py:124: AssertionError
+E       AssertionError: assert 0 > 0
+tests\unit\test_edge_probe_body.py:167: AssertionError
+E       AssertionError: [(0.75, 1.5), (0.75, 1.0), (0.75, 0.5), (0.75, 0.0), (0.75, -0.5), (0.75, -1.0), ...]
+E       assert [(0.75, 1.5),...5, -1.0), ...] == []
+tests\unit\test_edge_probe_body.py:166: AssertionError
+E       AssertionError: [(0.75, 1.5), (0.75, 1.0), (0.75, 0.5), (0.75, 0.0), (0.75, -0.5), (0.75, -1.0), ...]
+E       assert [(0.75, 1.5),...5, -1.0), ...] == []
+tests\unit\test_edge_probe_body.py:166: AssertionError
+E       AssertionError: assert 0 > 0
+tests\unit\test_edge_probe_body.py:167: AssertionError
+E       AssertionError: walkable_edge.gd names no STEP_M or BODY_R
+E       assert (None)
+tests\unit\test_edge_probe_body.py:184: AssertionError
+FAILED tests/unit/test_edge_probe_body.py::test_a_kerb_a_body_steps_over_does_not_occupy_the_cell_beside_it
+FAILED tests/unit/test_edge_probe_body.py::test_a_gap_narrower_than_a_body_is_not_a_fall_and_a_hole_still_is[0.0]
+FAILED tests/unit/test_edge_probe_body.py::test_a_gap_narrower_than_a_body_is_not_a_fall_and_a_hole_still_is[0.13]
+FAILED tests/unit/test_edge_probe_body.py::test_a_gap_narrower_than_a_body_is_not_a_fall_and_a_hole_still_is[0.26]
+FAILED tests/unit/test_edge_probe_body.py::test_a_gap_narrower_than_a_body_is_not_a_fall_and_a_hole_still_is[0.39]
+FAILED tests/unit/test_edge_probe_body.py::test_the_step_and_the_body_are_the_contracts

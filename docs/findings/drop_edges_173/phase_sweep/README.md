@@ -67,6 +67,9 @@ sampled across the opening; and a standing test that ignores what a body steps o
 step height does not occupy a cell. Each is a Level Factory instrument change, to be measured across phases as
 0.219.0 was.
 
+**Both shipped, 2026-10-20** (Level Factory 0.222.0; `../probe_body/README.md`): measured across these six phases on
+three packages, no verdict moves and the moat is gone.
+
 ## Not established
 
 - **Whether the unrailed 0.36 m of each hole edge is meant.** It is too small for a body either way. Whether

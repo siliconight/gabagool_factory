@@ -334,3 +334,8 @@ unresolved in the flood (item 6 below).
    0.4 m stair slot, and its flood reaches 41,322 cells where every other phase reaches 53,144 to 55,492.
    ATTRIBUTED the same afternoon: the row is a 0.4 by 0.36 m opening a body cannot enter, and the loss is a moat the
    standing probe reads beside an 8 cm kerb, which the shipped phase clears by 1.8 cm (`phase_sweep/README.md`).
+   SHIPPED 2026-10-20, both repairs (Level Factory 0.222.0, `probe_body/README.md`): the standing capsule stands the
+   contract's 0.1025 m unassisted step up, so what a body walks over does not occupy a cell, and a drop counts only
+   where a sphere of the body's 0.35 m radius fits in the opening. On three packages at the six phases no verdict
+   moves, urban_row_001's flood at the refusing phase reaches 52,030 cells where it reached 39,266, and the slot's
+   refusal is reproduced and removed on a fixture. A package with deli_a03 through the sweep is still owed.
