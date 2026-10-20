@@ -112,7 +112,8 @@ wall at x 4, whose centreline sits on its atrium's edge with half its thickness 
 **The rule: layout_lint L27** (Deli Counter 0.235.0, advisory). It names every BUILT partition (`built_walls`) that
 reaches past the edge of an authored hole in its own ceiling by more than a touch (0.02 m). Authored holes are
 `slab_holes` plus the floor_hole and hatch links that cut the slab; a hole in both lists is one hole.
-`l27.py` runs it over a folder of specs:
+`l27.py` runs it over a folder of specs (a past version's library comes out of git as
+`git -C deli_counter archive <commit> specs | tar -x -C <dir>`: 0.233.0 is 9be68b3b, 0.234.0 a6cbc045):
 
 | specs | L27 rows |
 |---|---|
