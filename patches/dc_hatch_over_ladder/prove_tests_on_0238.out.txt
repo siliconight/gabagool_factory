@@ -1,0 +1,156 @@
+.F...FFFFFFF                                                             [100%]
+================================== FAILURES ===================================
+________ test_a_roof_hatch_link_emits_one_lidded_slot_on_the_slab_top _________
+
+    def test_a_roof_hatch_link_emits_one_lidded_slot_on_the_slab_top():
+        s = _spec([VerticalLink(kind="hatch", story=2, x=13.0, y=-9.0)],
+                  [Ladder(x=13.0, y=-9.0, from_story=1, to_story=2, facing="S", role="roof_access")])
+        out = roof_hatch.roof_hatches(s, style=3)
+        assert len(out) == 1
+        slot, entry, center, size = out[0]
+        assert slot["slot_id"] == "roof_hatch_13_-9"
+        assert slot["role"] == "prop" and slot["species"] == "roof_hatch"
+        assert slot["fit"]["dims"] == [1.66, 1.66, 0.2]            # 1.5 m hole + 0.08 m curb a side
+        assert slot["fit"]["collision"] == "none"                   # the species owns its collision
+        assert slot["style"] == 3
+        # OVER THE LADDER'S CUT (0.239.0): the ladder faces S and cuts its hole 0.45 m south of its face, so the
+        # hatch's square stands there. Until 0.239.0 it stood at the link, (13.0, -9.0), on the ladder's face, and the
+        # ladder's cut ran 0.35 m past the curb.
+>       assert slot["transform"]["translation"] == [13.0, -9.45, round(2 * 3.2 + 0.1, 4)]
+E       assert [13.0, -9.0, 6.5] == [13.0, -9.45, 6.5]
+E         
+E         At index 1 diff: -9.0 != -9.45
+E         Use -v to get more diff
+
+test_roof_hatch.py:55: AssertionError
+________________ test_the_hatch_stands_over_its_ladders_cut[N] ________________
+
+facing = 'N'
+
+    @pytest.mark.parametrize("facing", ["N", "E", "S", "W"])
+    def test_the_hatch_stands_over_its_ladders_cut(facing):
+        """The ladder's through-hole lies inside the hatch's opening, and the opening inside the curb by the curb's
+        width a side, whichever way the ladder faces. FAILS ON 0.238.0: there is no `opening`, and the slot stood on
+        the link with the ladder's cut 0.35 m past its square."""
+        s = _spec([VerticalLink(kind="hatch", story=2, x=3.0, y=-2.0)],
+                  [Ladder(x=3.0, y=-2.0, from_story=1, to_story=2, facing=facing, role="roof_access")])
+        ld = s.ladders[0]
+        cut = ladder_geom.hole_rect(ld.x, ld.y, ld.width, ld.facing)
+>       cx, cy, sx, sy = roof_hatch.opening(s, s.vertical_links[0])
+                         ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:101: AttributeError
+________________ test_the_hatch_stands_over_its_ladders_cut[E] ________________
+
+facing = 'E'
+
+    @pytest.mark.parametrize("facing", ["N", "E", "S", "W"])
+    def test_the_hatch_stands_over_its_ladders_cut(facing):
+        """The ladder's through-hole lies inside the hatch's opening, and the opening inside the curb by the curb's
+        width a side, whichever way the ladder faces. FAILS ON 0.238.0: there is no `opening`, and the slot stood on
+        the link with the ladder's cut 0.35 m past its square."""
+        s = _spec([VerticalLink(kind="hatch", story=2, x=3.0, y=-2.0)],
+                  [Ladder(x=3.0, y=-2.0, from_story=1, to_story=2, facing=facing, role="roof_access")])
+        ld = s.ladders[0]
+        cut = ladder_geom.hole_rect(ld.x, ld.y, ld.width, ld.facing)
+>       cx, cy, sx, sy = roof_hatch.opening(s, s.vertical_links[0])
+                         ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:101: AttributeError
+________________ test_the_hatch_stands_over_its_ladders_cut[S] ________________
+
+facing = 'S'
+
+    @pytest.mark.parametrize("facing", ["N", "E", "S", "W"])
+    def test_the_hatch_stands_over_its_ladders_cut(facing):
+        """The ladder's through-hole lies inside the hatch's opening, and the opening inside the curb by the curb's
+        width a side, whichever way the ladder faces. FAILS ON 0.238.0: there is no `opening`, and the slot stood on
+        the link with the ladder's cut 0.35 m past its square."""
+        s = _spec([VerticalLink(kind="hatch", story=2, x=3.0, y=-2.0)],
+                  [Ladder(x=3.0, y=-2.0, from_story=1, to_story=2, facing=facing, role="roof_access")])
+        ld = s.ladders[0]
+        cut = ladder_geom.hole_rect(ld.x, ld.y, ld.width, ld.facing)
+>       cx, cy, sx, sy = roof_hatch.opening(s, s.vertical_links[0])
+                         ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:101: AttributeError
+________________ test_the_hatch_stands_over_its_ladders_cut[W] ________________
+
+facing = 'W'
+
+    @pytest.mark.parametrize("facing", ["N", "E", "S", "W"])
+    def test_the_hatch_stands_over_its_ladders_cut(facing):
+        """The ladder's through-hole lies inside the hatch's opening, and the opening inside the curb by the curb's
+        width a side, whichever way the ladder faces. FAILS ON 0.238.0: there is no `opening`, and the slot stood on
+        the link with the ladder's cut 0.35 m past its square."""
+        s = _spec([VerticalLink(kind="hatch", story=2, x=3.0, y=-2.0)],
+                  [Ladder(x=3.0, y=-2.0, from_story=1, to_story=2, facing=facing, role="roof_access")])
+        ld = s.ladders[0]
+        cut = ladder_geom.hole_rect(ld.x, ld.y, ld.width, ld.facing)
+>       cx, cy, sx, sy = roof_hatch.opening(s, s.vertical_links[0])
+                         ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:101: AttributeError
+_____________ test_without_a_ladder_the_hatch_stands_on_its_link ______________
+
+    def test_without_a_ladder_the_hatch_stands_on_its_link():
+        s = _spec([VerticalLink(kind="hatch", story=2, x=1.0, y=4.0, size_x=1.2, size_y=1.0)])
+>       assert roof_hatch.opening(s, s.vertical_links[0]) == (1.0, 4.0, 1.2, 1.0)
+               ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:113: AttributeError
+_ test_a_square_too_small_for_the_cut_grows_round_both_and_turns_with_the_slot _
+
+    def test_a_square_too_small_for_the_cut_grows_round_both_and_turns_with_the_slot():
+        """A hatch authored smaller than its ladder's cut (1.0 m against 1.1 x 1.3) takes the box round both, and a
+        quarter-turned slot carries that box's world sides swapped as its own (w, d), as `hole_causes._local` does."""
+        s = _spec([VerticalLink(kind="hatch", story=2, x=0.0, y=0.0, size_x=1.0, size_y=1.0)],
+                  [Ladder(x=0.0, y=0.0, from_story=1, to_story=2, facing="E", role="roof_access")])
+        ld = s.ladders[0]
+        cut = ladder_geom.hole_rect(ld.x, ld.y, ld.width, ld.facing)
+>       cx, cy, sx, sy = roof_hatch.opening(s, s.vertical_links[0])
+                         ^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'roof_hatch' has no attribute 'opening'
+
+test_roof_hatch.py:123: AttributeError
+__________ test_every_built_roof_hatch_holds_every_hole_cut_under_it __________
+
+    def test_every_built_roof_hatch_holds_every_hole_cut_under_it():
+        """The built library: each roof hatch's curb (its slot less the curb a side) holds every hole the roof is cut
+        with under it -- its own square and its ladder's cut -- so the opening a body sees is the one the lid covers.
+        FAILS ON 0.238.0's build: 39 hatches, every ladder's cut 0.35 m past the square and 0.27 m past the curb."""
+        built = _built_roof_hatches()
+        # 39 when this was written: the 46 roof hatch links in the specs, less those whose roof is not one footprint slot
+        assert len(built) >= 35, "the library carries fewer roof hatches than when this was written: %d" % len(built)
+        bad = []
+        for name, h, voids in built:
+            x, y = h["transform"]["translation"][:2]
+            w, d = h["fit"]["dims"][:2]
+            if int(h["transform"].get("rot_y") or 0) % 180:
+                w, d = d, w
+            curb = (x - w / 2.0 + roof_hatch.CURB, y - d / 2.0 + roof_hatch.CURB,
+                    x + w / 2.0 - roof_hatch.CURB, y + d / 2.0 - roof_hatch.CURB)
+            under = [v for v in voids if v[0] < curb[2] and curb[0] < v[2] and v[1] < curb[3] and curb[1] < v[3]]
+            if not under or not all(_inside(v, curb, eps=1e-3) for v in under):
+                bad.append((name, h["slot_id"], [tuple(round(c, 3) for c in v) for v in under]))
+>       assert not bad, bad[:5]
+E       AssertionError: [('airport_terminal_a01', 'roof_hatch_24_8', [(23.45, 8.0, 24.55, 9.3), (23.25, 7.45, 24.75, 8.95)]), ('airport_termin...5, -11.25)]), ('bank_branch_a03', 'roof_hatch_-13_-9', [(-13.2, -9.55, -11.9, -8.45), (-13.75, -9.75, -12.25, -8.25)])]
+E       assert not [('airport_terminal_a01', 'roof_hatch_24_8', [(23.45, 8.0, 24.55, 9.3), (23.25, 7.45, 24.75, 8.95)]), ('airport_termin...25, -8.25)]), ('bank_branch_a04', 'roof_hatch_16_12', [(15.45, 10.9, 16.55, 12.2), (15.25, 11.25, 16.75, 12.75)]), ...]
+
+test_roof_hatch.py:170: AssertionError
+=========================== short test summary info ===========================
+FAILED test_roof_hatch.py::test_a_roof_hatch_link_emits_one_lidded_slot_on_the_slab_top
+FAILED test_roof_hatch.py::test_the_hatch_stands_over_its_ladders_cut[N] - At...
+FAILED test_roof_hatch.py::test_the_hatch_stands_over_its_ladders_cut[E] - At...
+FAILED test_roof_hatch.py::test_the_hatch_stands_over_its_ladders_cut[S] - At...
+FAILED test_roof_hatch.py::test_the_hatch_stands_over_its_ladders_cut[W] - At...
+FAILED test_roof_hatch.py::test_without_a_ladder_the_hatch_stands_on_its_link
+FAILED test_roof_hatch.py::test_a_square_too_small_for_the_cut_grows_round_both_and_turns_with_the_slot
+FAILED test_roof_hatch.py::test_every_built_roof_hatch_holds_every_hole_cut_under_it
+8 failed, 4 passed in 1.19s
+exit=1
