@@ -1,0 +1,11 @@
+Level Factory 0.226.0 -> 0.226.1
+first exit 0
+Traceback (most recent call last):
+  File "C:\Projects\gabagool_studios\gabagool_factory\patches\patch_lf_reground_1_41_0.py", line 153, in <module>
+    main()
+    ~~~~^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\patches\patch_lf_reground_1_41_0.py", line 121, in main
+    assert vraw.strip() == VERSION_WAS, vraw
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: b'0.226.1'
+second exit 1

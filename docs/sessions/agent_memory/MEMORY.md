@@ -1,0 +1,129 @@
+- [Git TLS is intercepted by AVG](git-tls-intercepted-by-avg.md) — fixed with http.sslBackend=schannel; never silence fetch errors.
+- [Gameplay layer lives outside Level Factory](gameplay-layer-lives-outside-level-factory.md) — spawns are provisional; level-quality measures key off geometry.
+- [The game is a series of shooting galleries](game-is-a-series-of-shooting-galleries.md) — buildings, roads, props for cover AND life; report the mix.
+- [Bash heredoc large bodies fail](bash-heredoc-large-bodies-fail.md) — any backslash or long body: Write the file, run it from disk.
+- [Bash cwd drifts between calls](bash-cwd-drifts-between-calls.md) — absolute cd every command; `git -C`; never batch commits.
+- [grep counts CR wrong in Git Bash](grep-cr-count-lies-in-git-bash.md) — `grep -c $'
+'` counts every line; count b'
+' in Python.
+- [Walker wants retro style with real structure](walker-wants-retro-style-with-real-structure.md) — style SUPERSEDED by realism; real structure first, show a frame.
+- [Never edit tool repos during a cold run](never-edit-tool-repos-during-a-cold-run.md) — the run hashes them at --begin; a mid-flight commit voids the zero.
+- [Walker taste overrides art budget](walker-taste-overrides-art-budget.md) — keep looks the walker likes even when an audit flags them; note the call.
+- [Props must contrast with floor and walls](props-must-contrast-with-floor-and-walls.md) — a walk-into solid must read; never the building default material.
+- [Debug overlay is debug builds only](debug-overlay-is-debug-builds-only.md) — F3, walk copies only, OS.is_debug_build(), never in exports.
+- [Stop sign placement follows MUTCD](stop-sign-placement-follows-mutcd.md) — one per approach on the right, 6 ft off, <=50 ft from the junction, 4 ft before a crosswalk.
+- [Street rules reference](street-rules-reference.md) — docs/STREET_RULES.md: MUTCD stop signs + NACTO crosswalks.
+- [Fake Delco brands, funny and crass](fake-delco-brands-funny-and-crass.md) — invented Delco-slang brands, PG-13, no real marks; lit machines glow.
+- [Strip club comp: Lou Turk's](strip-club-comp-lou-turks.md) — dingy dark coloured-light club, bar-stage with poles; vibe only, never the name.
+- [Material Maker reference](material-maker-reference.md) — docs URL + CLI export; a candidate Pixelcoat backend, judged by frames.
+- [Performance beats graphics](performance-beats-graphics.md) — multiplayer: price every look, show the tradeoff, optimize on runtime data.
+- [No attribution, mine included](no-attribution-covers-my-own-commits.md) — no Co-Authored-By in any factory repo; overrides the session reminder.
+- [Store-at-night work queue](store-at-night-work-queue.md) — night levers, pylon, storefronts done; open: store vs canopy brightness, back-room glass.
+- [References fill blanks, never override](references-fill-blanks-not-override.md) — real-world guides answer open questions; liked looks stay.
+- [Posters fill four wall kinds](posters-fill-four-wall-kinds.md) — club, bar, alley/poles, store windows; shared atlas first.
+- [look_shots frames were 10% scale](look-shots-frames-were-ten-percent.md) — 2026-09-21..29 frames shot mid-warm-up; stats hold, detail doesn't.
+- [Store dressing queue](store-dressing-queue.md) — snacks, posters, ATMs, VHS store done; open: dive bar, true alleys, video store extras.
+- [Lewd comp: Duke Nukem 3D](lewd-comp-duke-nukem-3d.md) — the 1996 club dancer is the ceiling: PG-13, never explicit.
+- [First dive bar: The Wooder Hole](first-dive-bar-the-wooder-hole.md) — the first dive bar's name; also on club_names.
+- [PA skill games queue](pa-skill-games-queue.md) — video poker SHIPPED (Zoo 1.39.0, DC 0.168.x); open: row layout.
+- [Posters: too much color](posters-too-much-color.md) — pass done 2026-10-02; awaiting the walker's verdict on colour.
+- [Homes get porch lights](homes-get-porch-lights.md) — DC 0.169.0, my call; unseen in a level; strip_retail misnamed.
+- [Forecourt pad light cap](forecourt-pad-light-cap.md) — cap binds only at the apron; tiling the pad is the walker's call.
+- [Levels feel static](levels-feel-static-make-them-alive.md) — screens, unsteady light, moving parts 1-2 SHIPPED; wind steps and a changing world next.
+- [Video store comps](video-store-comps.md) — 9 photos: spines-out tall aisles + new-release wall; format only, own colours.
+- [Realism replaces the retro look](realism-replaces-retro-look.md) — trial Zoo 1.46.0, walker: "looking much better"; open: frame time, compression, rollout.
+- [Library growth reshuffles lots](library-growth-reshuffles-lots.md) — a new building family changes every seed's draw; use anchored briefs.
+- [Authorship guide](authorship-guide.md) — walker's art direction: cause and specificity over uniform polish; defines "good" (roadmap 18).
+- [Modern low-poly standard](modern-low-poly-standard.md) — walker's asset standard; weighted normals SHIPPED Zoo 1.87.0; payphone is 210.
+- [CC0 font catalog](cc0-font-catalog.md) — fonts by role, each with an in-world owner; downloads need a yes.
+- [Failing fixtures shipped](failing-fixtures-paused.md) — Lux 0.62.0: one bad tube a room, cycling poles; priced within noise.
+- [Backdrop guide filed for later](backdrop-guide-filed-for-later.md) — PENNSYLVANIA_BACKDROP_WORLDS_GUIDE.md, 18 recipes; photo downloads need a yes.
+- [Moving parts shipped](moving-parts-shipped.md) — Zoo 1.55.0 + LF 0.129.0; pivots ride re-centred vertices; neon letter + pump shimmer open.
+- [Runtime optimization guide](runtime-optimization-guide.md) — Godot 4.7 runtime guide filed; its verification record is the perf-note shape.
+- [Empties get dark interiors](empties-get-dark-interiors.md) — per-side merge (LF 0.143.0), on by default since 0.144.0; doors shut by design.
+- [Cover draws, roadmap 180](cover-draws-roadmap-180.md) — CLOSED: Zoo 1.68.0 merges covers per side per material; compare against two controls.
+- [Work order after the crowns](work-order-after-crowns.md) — light bake on by default since LF 0.144.0 (-12 % frame); amplitudes owed.
+- [Walk feedback 2026-10-03](walk-feedback-2026-10-03.md) — poles fixed Lux 0.64.0; walks only to real doors (Lot 0.91.0); crowns' species look open.
+- [Dumpsters beside buildings](dumpsters-beside-buildings.md) — Zoo 1.58.0 + Lot 0.90.0: one a building, back/side; awaiting the walker's eye.
+- [Land-use guide informs Lot](land-use-guide-informs-lot.md) — steps 2+4 shipped; step 3 + verges/vacant lots next.
+- [Fence marks the playable edge](fence-marks-the-playable-edge.md) — phase one SHIPPED (Zoo 1.77/1.78, Lot 0.97.x); perimeter after backdrops.
+- [Never pay more than the subscription](never-pay-more-than-the-subscription.md) — Claude Max, fixed fee only: no billed features (ultrareview), no extra usage, ever; billing settings are the walker's.
+- [Keep it rolling](keep-it-rolling.md) — walker: work continuously; summarise each block; queue taste calls; never stop to wait for the walker's eye; honour a pause.
+- [Perf copies fill the disk](perf-copies-fill-the-disk.md) — each price leaves a ~250 MB copy; delete it once its JSON exists.
+- [Detail lives in generator logic](detail-lives-in-generator-logic.md) — gas, convenience, deli done; open: 196 wall pieces, 197 rear-door jam.
+- [Breadth sweep: ten missions](breadth-sweep-ten-missions.md) — 2026-10-06: 10/10 after LF 0.144.1-0.144.3; all views < 16.7 ms p95.
+- [Two names on one building](two-names-one-building.md) — walker chose A + green FLAPPAHS; SHIPPED, roadmap 187 CLOSED.
+- [Stairwell on one grid in four](stairwell-on-one-grid-in-four.md) — 189 NARROWED; next 3 neck rules; stand-point patch HELD.
+- [Stair-head ledge](stair-head-ledge.md) — 190 CLOSED: DC 0.190.0 trims every ramp head; the bake reads VISUAL treads.
+- [Presentation gates were unread](presentation-gates-were-unread.md) — DC 0.191.0 + LF 0.149.0; job.log shows only the last building.
+- [Stale pieces, L23](stale-pieces-l23.md) — DC 0.192.0; furnish can't see authored slab_holes; any piece edit needs a refurnish.
+- [Enemy inside an Empty](enemy-inside-an-empty.md) — 191 CLOSED (Lot 0.97.3); simulate placement with collision, never footprints.
+- [Seeded corridor and entrance gate](seeded-corridor-and-entrance-gate.md) — 194 CLOSED (cold 9189); 15 rooms await the walker; read a bake's bounds.
+- [Z-fight gate judges the facing side](zfight-gate-judges-facing-side.md) — 177: DC 0.198.0, 436 pairs were 5; block/warn/delete is the walker's call.
+- [Repo hygiene and filing](repo-hygiene-filing.md) — docs/FILING.md; hygiene --check before a root commit, index --write after adding.
+- [Stop a background loop's shell first](stop-a-background-loop-shell-first.md) — TaskStop leaves grandchildren; kill the loop's bash.exe first.
+- [Pieces through walls](pieces-through-walls.md) — 195: DC 0.199.0 L25 + trims; 12 ALONG frozen; casino vault open.
+- [Interiors must read at night](interiors-must-read-at-night.md) — dens of sin kept dark whole; Lux 0.67/0.68 + LF 0.151.0; 9193.
+- [Five times of day](levels-have-five-times-of-day.md) — morning/noon/afternoon/evening/midnight; window light has no dial yet.
+- [Walkable city brief informs Lot](walkable-city-brief-informs-lot.md) — hub+spokes, loops, gates; not yet compared to Lot.
+- [Level standard v1](level-excellence-standard-doc.md) — docs/LEVEL_STANDARD.md: start every level request there.
+- [Gate commits on the patch](gate-commits-on-the-patch.md) — patch -> regenerate -> commit with && only; a `;` committed a refused patch.
+- [Collaborator handoff ~2026-10-21](collaborator-handoff-around-2026-10-21.md) — they make levels on Windows AND Linux; 1.39.0 released; left: Linux.
+- [Consumers need only Blender and Godot](consumers-need-only-blender-and-godot.md) — Blender's Python runs the tools; five packages are the gap.
+- [Getaway vehicle: the P30 at the spawn](extraction-is-the-getaway-vehicle.md) — hero prop Zoo 1.85.0, placed (Lot 0.98.x); start+exit at the van.
+- [target_minutes is not a hard rule](target-minutes-is-not-a-hard-rule.md) — a real length needs fighting + objective time; pacing non-blocking.
+- [Responders arrive on the way back](responders-arrive-on-the-way-back.md) — gameplay spawns them, the factory guarantees arrival; 215's arc open.
+- [Perf stations follow package anchors](perf-stations-follow-package-anchors.md) — stations come from gameplay_anchors.json; compare prices within one LF version.
+- [Prices drift between sessions](prices-drift-between-sessions.md) — evening draws, p95, buffer memory move on identical bytes; price arms in one session; read texture_mem.
+- [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
+- [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
+- [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-20 ~16:35 booth marks shipped + proven (Zoo 1.117.0, cold 9355); all clean; next 267 crowd rails
+- [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
+- [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
+- [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
+- [Trees, roadmap 216](trees-reference-roadmap-216.md) — CC0 reference tree (trunk + ~800 cards); price a card crown first.
+- [while-read loops lose lines to Blender](while-read-loops-lose-lines-to-blender.md) — use `for x in $(cat list)` + `< /dev/null`.
+- [Light tools: breakdown, check, rebake](light-tools-breakdown-and-check.md) — tools/light_breakdown.py, light_check.py, lux_rebake.py.
+- [Street lamps dark by day](street-lamps-dark-by-day.md) — Lux 0.71.0, proven 9214: hidden lamps not baked; signs and glass stay lit.
+- [Lighting spec filed](lighting-spec-filed.md) — sky in the bake lifts clear-day shade (recommended); grep preset comments first.
+- [WD Passport disk errors](wd-passport-disk-errors.md) — the external drive threw 30k errors; check System log `disk` events on odd failures.
+- [Walk feedback 2026-10-09](walk-feedback-2026-10-09.md) — club light fixed Lux 0.72.0; placeholders, bags, perimeter, moon open.
+- [Edge menu: walker picked E, varied per level](edge-menu-walker-picked-e.md) — fence + glow + rowhomes + water tower, varied by level.
+- [GitHub push and releases](github-push-and-releases.md) — root to siliconight/gabagool_factory; releases built AT TAGS; notes after the zip; verify-manifest from the root; retire after.
+- [Indoor fixtures in a perfect line](indoor-fixture-placement.md) — 229 SHIPPED DC 0.206-0.207.1; left: species, benches/bar, ducts.
+- [Backdrop trees are lollipops](backdrop-trees-are-lollipops.md) — redrawn (Zoo 1.97.0 + Lot 0.110.0), proven 9230; species step G next.
+- [PA tree guides filed](pa-tree-guides-filed.md) — native trees + Blender scripting guides; the backdrop uses the species rows (228 G).
+- [Adjacency guide filed](adjacency-guide-filed.md) — 230 steps 1, 2, 4 landed (9232); step 3 open; data, never a layout brain.
+- [Elevated shots are orthographic](elevated-shots-are-orthographic.md) — elev_* see no horizontal face; pick with slab_ray.py first.
+- [Floaters, a Zoo core concept](floaters-zoo-core-concept.md) — a floater RESTS (skirt past 2 mm) or HOVERS >= 3 mm (234).
+- [Level creation before FX](level-creation-before-fx.md) — levels first; the factory owns FX hooks only (235), effects are Calibria's.
+- [Texture accents guide filed](texture-accents-guide-filed.md) — 237 tiers A/B/C; no decals on GL Compat; after 181.
+- [Cold-run speed loop](grader-speed-cap-three.md) — 239: 30.4 -> 6.9 min by 9259; the clock moves no Laser Tag field.
+- [Philly street comps](philly-street-comps.md) — 240: pole line + wires shipped (shadow maps +170 draws); stoops, railings, tar roofs; dishes next.
+- [Urban level type](urban-level-type.md) — 241: far+near side, heights, trees, corner shops, awning, fire escape shipped (9287-9303)
+- [Corner pins, both engines](corner-pin-is-godot-physics.md) — roadmap 242: LT 0.29.0 crew keeps to the mesh; 0.30.0 bot-held guards = blocked; 0.31.0 guards keep to the mesh + step up (LT_Steering), stuck 182 -> 14; warehouse 9206 wall end is a physics hold; 'choose Jolt' RETRACTED
+- [Sun baked by default](sun-baked-by-default.md) — 243: Lux 0.76.x, -1,854 draws/-3 ms; the backdrop is outside the bake; tier the walker's.
+- [Street drains, roadmap 179](street-drains-roadmap-179.md) — Lot 0.120.x: covers, inlets, lids; grates step past the paint; 244 filed.
+- [Lightmap atlas repacks on new users](lightmap-atlas-repacks-on-new-users.md) — a new baked mesh moves most rects; frame diffs are noisy everywhere.
+- [Reflection atlas is the VRAM](reflection-atlas-is-the-vram.md) — 238: LF 0.198.0 atlas per package (314.6 -> 65.6 MiB); LF 0.199.0 puts memory in every price (76.0 MiB in play on 9276; split probe 65.6 is a different moment)
+- [Rowhouse stoops, roadmap 240](rowhouse-stoops-roadmap-240.md) — stoops + railings both sides, cold 9271-9273; the terrace reads colliders; breadth A/B: no snag, fights re-play on any navmesh change.
+- [Check a name before Write](check-a-name-before-write.md) — Write silently replaces an existing file ("updated" not "created"); ls patches/ for the name first; overwrote patch_roadmap_234_floaters.py 2026-10-13, restored
+- [Door widths: widen to the contract](door-widths-widen-to-contract.md) — SHIPPED DC 0.214.0; a door change needs a refurnish (furnish fixed point)
+- [Name workspaces literally in records](name-workspaces-literally-in-records.md) — still write cold-NNNN-ws in full; since 2026-10-19 --pushed-only a name no longer keeps a PUSHED run's workspace: keep a finding's small inputs in the finding
+- [Agent contract: one change re-sizes all](agent-contract-single-change.md) — walker: body-derived numbers read the contract; DC 0.215.0 routed landing + vault; census open
+- [Laser Tag is a rabbit hole](laser-tag-rabbit-hole.md) — walker: keep LT work bounded; 246 fixed in LT 0.32.0 (one trace, one line, one breadth)
+- [Lot text fixes ride the next change](next-lot-change-carries-docstring-fix.md) — walker's rule; QUEUED: urban_tree_stations says trees "step clear" of cuts; they're dropped
+- [Picks moved: name the seed](pick-moved-name-the-seed.md) — LF 0.202.0 moved 28/62 picks (9104->9003); A/B vs older runs passes the seed, not auto
+- [Inspection light for dark checks](inspection-light-for-dark-checks.md) — look_shots --inspect studio settles geometry in dark levels; never the look; fullbright refuted
+- [Contract language, pinned](contract-language-pinned.md) — walker: protobuf-like contracts for LF "later later"; parked, file in roadmap
+- [Addon swap needs an import pass](addon-swap-needs-import-pass.md) — swapped LT addon without `--import` reads BROKEN (class cache); import every arm, controls too
+- [Claim shipping only from a package](claim-shipping-only-from-a-package.md) — cross-repo capabilities: LF's dispatch staging is a whitelist; read the package before saying it ships (172 x2, 173)
+- [Godot Transform3D text is rows](godot-transform3d-text-is-rows.md) — nine basis numbers are ROWS; columns bit DC, Lot, LF; use tools/godot_transform.py
+- [Open floors: 260 CLOSED](open-floors-255-awaiting-walker.md) — DC 0.234.0 table + 0.235.0 hole slide (L27), cold 9338/9339; 3 stair rows await the walker; 264 open.
+- [Floor holes get a cause](floor-holes-get-a-cause.md) — SHIPPED; all three causes seen in packages (9341 cut, 9343 broken + hatch); hatch frame reads brown, Zoo fix next
+- [Greybox is in the walk navmesh](greybox-is-in-the-walk-navmesh.md) — Lot bakes walk navmeshes from visual meshes; never draw a slot's greybox over a void
+- [Asset wishlist filed](asset-wishlist-filed.md) — 1999 PA wishlist read; 14.8 % of prop slots build as boxes; roadmap 267/268; 3 tensions queued
+- [Three guides 2026-10-19](three-guides-2026-10-19.md) — filed + chased (docs/findings/guides_2026-10-19/); 261 tris label, 262 shader-UV2 baked, 263 actor light; 238 dedup
+- [Greybox owner census](greybox-owner-census.md) — run docs/findings/base_greybox_owners/census.py when DC adds base geometry; LF refuses any unowned greybox
+- [Stairs and ladders are primary](stairs-and-ladders-are-primary.md) — SHIPPED: holes rare per level, rate 0.25 (LF 0.221.0, DC 0.237.0); roadmap 269 CLOSED
