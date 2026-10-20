@@ -1,0 +1,122 @@
+[census] Deli Counter build C:\Projects\gabagool_studios\gabagool_factory\deli_counter\build: 158 buildings with slots; Level Factory 0.222.0's themed pool 102 of 127 indexed
+[census] TOL 0.05 m along a face; storeys >= 0; a face is one side over all its storeys
+
+group                            bldgs  multi-st stack g>1  stack up    joints  remainder
+themed pool (enterable)            102        52    16.6 %   100.0 %    41.4 %       8.2 %
+Empties (facade; preset bays)       27        27    92.9 %   100.0 %    96.9 %      35.4 %
+outside the pool, enterable         29        11    22.8 %       -      33.9 %      12.1 %
+
+stack g>1: of the first storey's openings, the share with a ground-floor opening under them (within TOL);
+stack up: the same for every pair of storeys above; joints: of the joints between pieces on a storey, the
+share that continue a joint on the storey below; remainder: the share of solid wall length that is a tiling
+remainder (corner posts left out).
+
+THE THEMED POOL'S ENTERABLE BUILDINGS, one row a building (multi-storey first):
+building                    st stk g1 stk up  joint    rem widths entrance (tag: w x h vs others; over it; off centre)
+office                       3  0.0 % 100.0 % 64.7 %   8.6%     9  none tagged main/front (4 doors)
+office_stepped               3  0.0 %      - 42.1 %   7.1%    10  none tagged main/front (4 doors)
+airport_terminal_a03         2  0.0 %      - 49.3 %   6.5%    11  none tagged main/front (4 doors)
+apartment_walkup_a01         2 100.0 %      - 43.9 %   9.5%    10  main_entry: 1.25x2.20 only door; no; 0.25
+apartment_walkup_a02         2  0.0 %      - 65.7 %  13.6%     7  none tagged main/front (2 doors)
+apartment_walkup_a03         2 50.0 %      - 71.4 %  14.8%     6  none tagged main/front (2 doors)
+arena_a03                    2  0.0 %      - 40.7 %   7.2%    11  none tagged main/front (4 doors)
+auto_shop_a01                2 33.3 %      - 53.1 %   8.7%    13  front_man_door: 1.25x2.20 same; no; 0.35
+auto_shop_a02                2 16.7 %      - 38.8 %   8.1%    13  front_man_door: 1.25x2.20 same; no; 0.35
+bank_branch_a02              2 12.5 %      - 21.4 %  10.0%    10  main_entry: 1.80x2.20 wider; no; 0.10
+bank_branch_a03              2 33.3 %      - 26.0 %   8.6%    11  main_entry: 1.80x2.20 wider; no; 0.10
+bank_branch_a04              2  0.0 %      - 30.0 %   5.2%     8  main_entry: 2.20x2.20 wider; no; 0.00
+bank_tower_a02               2  0.0 %      - 46.7 %   8.0%    11  none tagged main/front (4 doors)
+brewery_a01                  2  0.0 %      - 40.0 %   8.2%     8  none tagged main/front (2 doors)
+card_shop_a01                2  0.0 %      - 16.7 %  12.3%    11  front_door: 1.60x2.20 wider; no; 0.15
+casino_a03                   2  0.0 %      - 31.3 %   7.3%    11  none tagged main/front (4 doors)
+clinic_a02                   2  0.0 %      - 45.7 %   9.0%     9  main_entry: 1.80x2.20 wider; no; 0.14
+construction_site_a01        2 33.3 %      - 22.1 %   7.5%    11  none tagged main/front (2 doors)
+construction_site_a03        2  0.0 %      - 45.7 %   7.4%    10  none tagged main/front (2 doors)
+country_club_a02             2 50.0 %      - 48.4 %   8.1%    11  main_entry: 2.00x2.20 wider; no; 0.11
+courthouse_a01               2  0.0 %      - 68.8 %   7.9%     9  main_entry: 2.40x2.20 wider; no; 0.00
+courthouse_a02               2 50.0 %      - 54.9 %   7.8%     9  main_entry: 2.20x2.20 wider; no; 0.16
+cr_garage                    2 12.5 %      - 11.4 %  13.0%     8  none tagged main/front (4 doors)
+credit_union_a02             2  0.0 %      - 37.8 %   9.4%     9  main_entry: 1.80x2.20 wider; no; 0.00
+deli_a01                     2 20.0 %      - 30.3 %   8.7%    17  front_customer_entry: 1.25x2.20 differs; over; 0.28
+deli_a03                     2 20.0 %      - 40.9 %   8.9%    15  front_customer_entry: 1.25x2.20 differs; over; 0.28
+freight_terminal_a02         2  0.0 %      - 42.9 %   5.7%    10  none tagged main/front (2 doors)
+funeral_home_a02             2 50.0 %      - 62.0 %   8.3%     8  front_entry: 1.80x2.20 wider; no; 0.15
+landmark_hall_a02            2  0.0 %      - 41.1 %  10.5%    13  none tagged main/front (4 doors)
+large_warehouse_a02          2  0.0 %      - 49.3 %   4.8%    10  none tagged main/front (2 doors)
+large_warehouse_a03          2 50.0 %      - 23.0 %   5.7%    11  none tagged main/front (3 doors)
+mansion_a01                  2  0.0 %      - 33.9 %   6.4%    11  front_door: 2.00x2.20 wider; no; 0.00
+mansion_a02                  2 50.0 %      - 38.6 %   7.7%     9  front_door: 1.80x2.20 same; no; 0.10
+mansion_a03                  2  0.0 %      - 25.8 %   6.4%    12  none tagged main/front (3 doors)
+marina_a02                   2  0.0 %      - 53.2 %   5.6%     9  none tagged main/front (3 doors)
+market_hall_a03              2  0.0 %      - 40.3 %   6.6%    11  none tagged main/front (4 doors)
+museum_a01                   2  0.0 %      - 39.8 %   4.4%     6  none tagged main/front (3 doors)
+museum_a03                   2  0.0 %      - 50.7 %   6.5%     8  none tagged main/front (3 doors)
+parking_garage               2 12.5 %      - 11.4 %  13.0%     8  none tagged main/front (4 doors)
+parking_garage_a01           2 16.7 %      - 11.4 %  12.6%     9  none tagged main/front (3 doors)
+parking_garage_a02           2 12.5 %      - 17.9 %   5.5%     7  none tagged main/front (3 doors)
+pawn_shop_a01                2 25.0 %      - 40.6 %  15.9%    11  front_door: 1.40x2.20 wider; no; 0.19
+pawn_shop_a02                2  0.0 %      - 60.0 %  14.6%     9  front_door: 1.50x2.20 wider; no; 0.14
+rail_station_a01             2  0.0 %      - 45.3 %   8.6%    10  none tagged main/front (3 doors)
+rail_station_a03             2  0.0 %      - 36.8 %   4.9%     9  main_entry: 2.20x2.20 wider; no; 0.20
+self_storage_a02             2  0.0 %      - 59.7 %   6.1%     8  none tagged main/front (1 doors)
+stadium_a04                  2  0.0 %      - 47.0 %   6.4%    12  none tagged main/front (4 doors)
+strip_club_a03               2 50.0 %      - 62.7 %   4.9%     8  front_door: 1.60x2.20 wider; no; 0.20
+supermarket_a02              2  0.0 %      - 40.3 %   7.5%     9  main_entry: 2.20x2.20 wider; no; 0.00
+train_yard_a03               2  0.0 %      - 38.9 %   6.1%    12  none tagged main/front (4 doors)
+twin_a01                     2 50.0 %      - 40.6 %  33.1%     9  front_door_left: 1.30x2.20 same; no; 0.26
+warehouse_a02                2 100.0 %      - 34.4 %   8.7%    10  none tagged main/front (1 doors)
+airport_terminal_a01         1      -      -      -   8.4%     9  none tagged main/front (4 doors)
+airport_terminal_a02         1      -      -      -   7.1%     8  none tagged main/front (4 doors)
+arena_a01                    1      -      -      -   4.3%     8  none tagged main/front (4 doors)
+arena_a02                    1      -      -      -   8.7%     9  none tagged main/front (4 doors)
+bank_tower_a01               1      -      -      -   6.1%     9  none tagged main/front (4 doors)
+bank_tower_a03               1      -      -      -  11.4%     9  none tagged main/front (4 doors)
+brewery_a02                  1      -      -      -   9.3%     8  none tagged main/front (2 doors)
+brewery_a03                  1      -      -      -   6.6%     6  none tagged main/front (2 doors)
+casino_a01                   1      -      -      -  10.0%     9  none tagged main/front (4 doors)
+casino_a02                   1      -      -      -   8.0%     9  none tagged main/front (4 doors)
+clinic_a01                   1      -      -      -  10.0%     8  main_entry: 1.80x2.20 wider; 1 st; 0.00
+construction_site_a02        1      -      -      -   8.0%     7  none tagged main/front (1 doors)
+convenience_store_a01        1      -      -      -  17.9%    10  main_entry: 1.80x2.20 wider; 1 st; 0.16
+country_club_a01             1      -      -      -   9.7%     7  none tagged main/front (3 doors)
+courthouse_a03               1      -      -      -   7.8%     8  main_entry: 2.20x2.20 wider; 1 st; 0.00
+credit_union_a01             1      -      -      -   8.3%     6  main_entry: 1.80x2.20 wider; 1 st; 0.10
+credit_union_a03             1      -      -      -  10.0%     6  main_entry: 1.60x2.20 wider; 1 st; 0.20
+depot_a01                    1      -      -      -   4.7%     9  none tagged main/front (2 doors)
+depot_a02                    1      -      -      -  12.3%     7  none tagged main/front (2 doors)
+freight_terminal_a01         1      -      -      -   7.2%    10  none tagged main/front (2 doors)
+freight_terminal_a03         1      -      -      -   7.1%    10  none tagged main/front (2 doors)
+funeral_home_a01             1      -      -      -  11.2%     7  none tagged main/front (3 doors)
+funeral_home_a03             1      -      -      -   4.2%     7  main_entry: 1.80x2.20 wider; 1 st; 0.00
+gas_station_a02              1      -      -      -  16.8%    10  front_entry_west: 1.80x2.20 same; 1 st; 0.19
+landmark_hall_a01            1      -      -      -  13.3%     8  none tagged main/front (4 doors)
+landmark_hall_a03            1      -      -      -  10.8%     9  none tagged main/front (4 doors)
+large_warehouse_a01          1      -      -      -   7.6%     7  none tagged main/front (2 doors)
+marina_a01                   1      -      -      -   3.3%     5  none tagged main/front (2 doors)
+marina_a03                   1      -      -      -   4.6%     7  none tagged main/front (2 doors)
+market_hall_a01              1      -      -      -   9.2%     8  none tagged main/front (4 doors)
+market_hall_a02              1      -      -      -  10.0%     9  none tagged main/front (4 doors)
+museum_a02                   1      -      -      -   5.5%     7  main_entry: 2.40x2.20 wider; 1 st; 0.10
+pharmacy_a01                 1      -      -      -  12.2%     7  main_entry: 1.60x2.20 wider; 1 st; 0.15
+pharmacy_a02                 1      -      -      -  17.2%    10  main_entry: 1.80x2.20 wider; 1 st; 0.00
+rail_station_a02             1      -      -      -  10.1%     8  none tagged main/front (3 doors)
+self_storage_a01             1      -      -      -   8.6%     7  none tagged main/front (3 doors)
+self_storage_a03             1      -      -      -   8.3%     7  none tagged main/front (2 doors)
+stadium_a01                  1      -      -      -   6.6%     9  none tagged main/front (4 doors)
+stadium_a02                  1      -      -      -   7.8%     9  none tagged main/front (4 doors)
+stadium_a03                  1      -      -      -  10.3%     8  none tagged main/front (4 doors)
+stop_n_go                    1      -      -      -  16.5%     9  main_entry: 1.80x2.20 wider; 1 st; 0.16
+strip_club_a01               1      -      -      -   7.5%     8  front_door: 1.60x2.20 wider; 1 st; 0.15
+strip_club_a02               1      -      -      -   9.2%     6  front_door: 1.60x2.20 wider; 1 st; 0.00
+strip_retail_a02             1      -      -      -  13.7%     8  front_door: 1.50x2.20 wider; 1 st; 0.00
+supermarket_a01              1      -      -      -   6.9%     7  none tagged main/front (3 doors)
+supermarket_a03              1      -      -      -   6.2%     7  main_entry: 2.00x2.20 wider; 1 st; 0.20
+train_yard_a01               1      -      -      -   9.4%    10  none tagged main/front (4 doors)
+train_yard_a02               1      -      -      -   8.0%     8  none tagged main/front (4 doors)
+video_store_a01              1      -      -      -  17.6%     7  front_door: 1.60x2.20 wider; 1 st; 0.23
+warehouse_a01                1      -      -      -   5.9%     7  none tagged main/front (1 doors)
+
+entrances in the pool's enterable buildings: {'an opening over it': 2, 'has a primary': 39, 'no primary tagged': 63, 'nothing over it': 21, "on its face's centre (<= 5 %)": 11, 'primary differs': 2, 'primary only door': 1, 'primary same': 5, 'primary wider': 31, 'with a storey above': 23}
+opening pitch, runs with 3+ openings in the pool's enterable buildings: 62 runs, median CV 0.00, 43 regular (CV < 0.05)
+distinct remainder widths across the pool's enterable buildings: 69; the commonest: 1.700 x61, 0.150 x44, 0.225 x42, 1.725 x39, 1.150 x39, 0.725 x38, 1.225 x36, 1.650 x30
+[census] wrote docs/findings/facade_census_79/census.json
