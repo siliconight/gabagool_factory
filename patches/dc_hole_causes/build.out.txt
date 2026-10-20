@@ -1,0 +1,17 @@
+build.py --all on Deli Counter 0.236.0, 2026-10-19: exit=0, 0 Traceback lines and 0 ERROR lines in 121311 lines of log; 159 specs built; hole_causes notes: 0.
+
+tracked build records changed: 173; beyond built_utc: 26, in 12 spec(s); untracked new under build/: 0
+  07_police_station          manifest.json
+  apartment_walkup_a01       gameplay.json, manifest.json, slots.json
+  corner_deli_heist_01       gameplay.json, manifest.json
+  cr_deli                    manifest.json
+  deli_a01                   gameplay.json, manifest.json, slots.json
+  deli_a02                   gameplay.json, manifest.json, slots.json
+  deli_a03                   gameplay.json, manifest.json, slots.json
+  foundry_heist_vertical     gameplay.json, manifest.json
+  night_deli                 manifest.json
+  pvp_station_ref            gameplay.json, manifest.json, slots.json
+  rowhouse_raid              manifest.json
+  warehouse_a02              gameplay.json, manifest.json, slots.json
+
+The builder's 'door ... is not built' warnings: 9. Replayed per spec without Blender (docs/findings/open_floor_table_260/lost_doors.py -> lost_doors_0236.txt here), identical to 0.235.0's replay (patches/dc_ceiling_holes/lost_doors_0235.txt).

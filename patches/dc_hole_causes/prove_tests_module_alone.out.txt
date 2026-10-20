@@ -1,0 +1,235 @@
+.....FFF...F.FFFF                                                        [100%]
+================================== FAILURES ===================================
+__________ test_the_links_own_cause_wins_and_a_wrong_one_is_refused ___________
+
+    def test_the_links_own_cause_wins_and_a_wrong_one_is_refused():
+        s = _house(above="bedroom")
+        s["vertical_links"][0]["cause"] = "cut"
+        assert "hole_kit" in _slots(s)[0]
+        s["vertical_links"][0]["cause"] = "burnt"
+        with pytest.raises(ValueError):
+            HC.hole_slots(s, lambda material: 1)
+>       fails, warns = layout_lint.hole_cause_findings(s)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:136: AttributeError
+______ test_l28_names_a_hole_no_cause_covers_and_nothing_stands_round_it ______
+
+    def test_l28_names_a_hole_no_cause_covers_and_nothing_stands_round_it():
+        s = _house(above="loft", below="shop")
+        assert HC.hole_slots(s, lambda material: 1) == ([], [])
+>       fails, warns = layout_lint.hole_cause_findings(s)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:143: AttributeError
+_________________ test_a_hole_that_is_not_a_drop_gets_nothing _________________
+
+    def test_a_hole_that_is_not_a_drop_gets_nothing():
+        roof = _house(link={"kind": "hatch", "story": 3, "x": -5.0, "y": 0.0})        # roof_hatch.py's
+        uncut = _house(link={"kind": "floor_hole", "story": 1, "x": -5.0, "y": 0.0, "cut_slab": False})
+        stair = _house(link={"kind": "stair", "from_story": 0, "to_story": 1})
+        for s in (roof, uncut, stair):
+            assert HC.drop_links(s) == [] and HC.hole_slots(s, lambda material: 1) == ([], [])
+>           assert layout_lint.hole_cause_findings(s) == ([], [])
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E           AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:155: AttributeError
+___ test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so ____
+
+    def test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so():
+        """Zoo builds a slot outside its species' sizes as the plain box at the slot's size, which over a
+        hole would cover it: the slot is left out instead."""
+        big = _house(link={"kind": "floor_hole", "story": 1, "x": -5.0, "y": 0.0, "size_x": 6.5, "size_y": 6.5})
+        by, notes = _slots(big)
+        assert sorted(by) == ["hole_kit", "hole_spoil"]                  # the edge would be 7.1 m, past 6.8
+        assert by["hole_spoil"][0]["fit"]["dims"] == [7.0, 7.0, 0.1]      # the hole and SPILL a side: Zoo's 7.0
+        assert notes == ["hole_edge_1_-50_0: no hole_edge -- 7.1 x 7.1 x 0.652 m is outside its sizes, "
+                         "and Zoo would build a box over the hole"]
+>       (warn,) = layout_lint.hole_cause_findings(big)[1]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:203: AttributeError
+_________ test_a_link_says_its_cause_in_the_schema_and_the_dataclass __________
+
+    def test_a_link_says_its_cause_in_the_schema_and_the_dataclass():
+        import jsonschema
+        schema = json.load(open(os.path.join(HERE, "schema", "level.schema.json"), encoding="utf-8"))
+        link = {"kind": "floor_hole", "story": 1, "x": 0.0, "y": 0.0, "cause": "broken"}
+>       jsonschema.validate({"name": "t", "vertical_links": [link]}, schema)
+
+test_hole_causes.py:237: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+instance = {'name': 't', 'vertical_links': [{'cause': 'broken', 'kind': 'floor_hole', 'story': 1, 'x': 0.0, ...}]}
+schema = {'$defs': {'opening': {'additionalProperties': False, 'properties': {'breach_class': {'type': ['string', 'null']}, 'br...licounter/level.schema.json', '$schema': 'http://json-schema.org/draft-07/schema#', 'additionalProperties': False, ...}
+cls = <class 'jsonschema.validators.Draft7Validator'>, args = (), kwargs = {}
+validator = Draft7Validator(schema={'$defs': {'opening': {'additionalProperties': False, 'properties': {'breach_class': {'type': [......l.schema.json', '$schema': 'http://json-...ft-07/schema#', 'additionalProperties': False, ...}, format_checker=None)
+error = <ValidationError: "Additional properties are not allowed ('cause' was unexpected)">
+
+    def validate(instance, schema, cls=None, *args, **kwargs):  # noqa: D417
+        """
+        Validate an instance under the given schema.
+    
+            >>> validate([2, 3, 4], {"maxItems": 2})
+            Traceback (most recent call last):
+                ...
+            ValidationError: [2, 3, 4] is too long
+    
+        :func:`~jsonschema.validators.validate` will first verify that the
+        provided schema is itself valid, since not doing so can lead to less
+        obvious error messages and fail in less obvious or consistent ways.
+    
+        If you know you have a valid schema already, especially
+        if you intend to validate multiple instances with
+        the same schema, you likely would prefer using the
+        `jsonschema.protocols.Validator.validate` method directly on a
+        specific validator (e.g. ``Draft202012Validator.validate``).
+    
+    
+        Arguments:
+    
+            instance:
+    
+                The instance to validate
+    
+            schema:
+    
+                The schema to validate with
+    
+            cls (jsonschema.protocols.Validator):
+    
+                The class that will be used to validate the instance.
+    
+        If the ``cls`` argument is not provided, two things will happen
+        in accordance with the specification. First, if the schema has a
+        :kw:`$schema` keyword containing a known meta-schema [#]_ then the
+        proper validator will be used. The specification recommends that
+        all schemas contain :kw:`$schema` properties for this reason. If no
+        :kw:`$schema` property is found, the default validator class is the
+        latest released draft.
+    
+        Any other provided positional and keyword arguments will be passed
+        on when instantiating the ``cls``.
+    
+        Raises:
+    
+            `jsonschema.exceptions.ValidationError`:
+    
+                if the instance is invalid
+    
+            `jsonschema.exceptions.SchemaError`:
+    
+                if the schema itself is invalid
+    
+        .. rubric:: Footnotes
+        .. [#] known by a validator registered with
+            `jsonschema.validators.validates`
+    
+        """
+        if cls is None:
+            cls = validator_for(schema)
+    
+        cls.check_schema(schema)
+        validator = cls(schema, *args, **kwargs)
+        error = exceptions.best_match(validator.iter_errors(instance))
+        if error is not None:
+>           raise error
+E           jsonschema.exceptions.ValidationError: Additional properties are not allowed ('cause' was unexpected)
+E           
+E           Failed validating 'additionalProperties' in schema['properties']['vertical_links']['items']:
+E               {'type': 'object',
+E                'required': ['kind'],
+E                'additionalProperties': False,
+E                'properties': {'kind': {'enum': ['stair', 'floor_hole', 'hatch']},
+E                               'role': {'type': ['string', 'null']},
+E                               'from_story': {'type': ['integer', 'null']},
+E                               'to_story': {'type': ['integer', 'null']},
+E                               'story': {'type': ['integer', 'null']},
+E                               'x': {'type': ['number', 'null']},
+E                               'y': {'type': ['number', 'null']},
+E                               'size_x': {'type': ['number', 'null'],
+E                                          'exclusiveMinimum': 0},
+E                               'size_y': {'type': ['number', 'null'],
+E                                          'exclusiveMinimum': 0},
+E                               'breachable': {'type': ['boolean', 'null']},
+E                               'cut_slab': {'type': 'boolean'},
+E                               'meta': {'type': 'object'}}}
+E           
+E           On instance['vertical_links'][0]:
+E               {'kind': 'floor_hole',
+E                'story': 1,
+E                'x': 0.0,
+E                'y': 0.0,
+E                'cause': 'broken'}
+
+..\..\..\..\..\..\Python\pythoncore-3.14-64\Lib\site-packages\jsonschema\validators.py:1332: ValidationError
+__________________ test_the_hole_species_own_their_collision __________________
+
+    def test_the_hole_species_own_their_collision():
+        for sp in ("hole_edge", "hole_spoil", "hole_kit", "roof_hatch"):
+>           assert prop_species.owns_collision(sp)
+E           AssertionError: assert False
+E            +  where False = <function owns_collision at 0x0000025DDF9D0BF0>('hole_edge')
+E            +    where <function owns_collision at 0x0000025DDF9D0BF0> = prop_species.owns_collision
+
+test_hole_causes.py:245: AssertionError
+___ test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it ____
+
+    def test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it():
+        """deli_a03's `roof_drop_to_stair` hatch is cut wholly inside `deli_stair_up`'s well: a floor hatch built round it
+        hung over the stair, and `circulation.check_shell` read its frame 0.03 m inside the stair's column. rowhouse_raid's
+        hatch is 70 % in its stair's well and the rest a bare cut beside it, which L28 names."""
+        deli = json.load(open(os.path.join(HERE, "specs", "deli_a03.json"), encoding="utf-8"))
+        (hatch,) = [v for v in HC.drop_links(deli) if v["kind"] == "hatch"]
+        assert HC.stair_share(deli, hatch) == pytest.approx(1.0)
+        assert HC.cause_for(deli, hatch) == HC.STAIR
+        assert [s["species"] for s, _e, _c, _z in HC.hole_slots(deli, lambda m: 1)[0]] == [
+            "hole_edge", "hole_spoil", "hole_kit"]
+>       assert layout_lint.hole_cause_findings(deli) == ([], [])
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:258: AttributeError
+__________ test_the_library_dresses_every_drop_but_foundrys_catwalk ___________
+
+    def test_the_library_dresses_every_drop_but_foundrys_catwalk():
+        """0.235.0's library: 21 drop links in 12 specs. The six delis' hideout floors (concrete) cut through to their
+        kitchens; the two walk-ups' bedroom floors broken over their kitchens, on tile; eight hatches, and four holes in a
+        stair's well with nothing round them (deli_a01-a03's drop to the stair, rowhouse_raid's hatch); foundry's 5 x 3 m
+        catwalk drop onto its south machine floor caused by nothing, named by L28."""
+        got = {}
+        for p in sorted(glob.glob(os.path.join(HERE, "specs", "*.json"))):
+            spec = json.load(open(p, encoding="utf-8"))
+            slots, notes = HC.hole_slots(spec, lambda material: 1)
+            assert notes == [], (p, notes)
+            if slots:
+                got[os.path.basename(p)[:-5]] = sorted((s["species"], s["form"], s["stock"]) for s, _e, _c, _z in slots)
+        cut = [("hole_edge", "cut_slab", None), ("hole_kit", "cut", None), ("hole_spoil", "cut_slab", "none")]
+        deli = cut + [("roof_hatch", "floor", None)]
+        broken = [("hole_edge", "broken", None), ("hole_spoil", "broken", "tile")]
+        hatch = [("roof_hatch", "floor", None)]
+        assert got == {"corner_deli_heist_01": deli, "cr_deli": deli, "deli_a01": cut, "deli_a02": cut,
+                       "deli_a03": cut, "night_deli": deli, "apartment_walkup_a01": broken + hatch,
+                       "rowhouse_raid": broken, "07_police_station": hatch, "pvp_station_ref": hatch,
+                       "warehouse_a02": hatch, "foundry_heist_vertical": hatch}
+        spec = json.load(open(os.path.join(HERE, "specs", "foundry_heist_vertical.json"), encoding="utf-8"))
+>       (warn,) = layout_lint.hole_cause_findings(spec)[1]
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'layout_lint' has no attribute 'hole_cause_findings'. Did you mean: 'stale_piece_findings'?
+
+test_hole_causes.py:289: AttributeError
+=========================== short test summary info ===========================
+FAILED test_hole_causes.py::test_the_links_own_cause_wins_and_a_wrong_one_is_refused
+FAILED test_hole_causes.py::test_l28_names_a_hole_no_cause_covers_and_nothing_stands_round_it
+FAILED test_hole_causes.py::test_a_hole_that_is_not_a_drop_gets_nothing - Att...
+FAILED test_hole_causes.py::test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so
+FAILED test_hole_causes.py::test_a_link_says_its_cause_in_the_schema_and_the_dataclass
+FAILED test_hole_causes.py::test_the_hole_species_own_their_collision - Asser...
+FAILED test_hole_causes.py::test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it
+FAILED test_hole_causes.py::test_the_library_dresses_every_drop_but_foundrys_catwalk
+8 failed, 9 passed in 0.73s
+exit=1

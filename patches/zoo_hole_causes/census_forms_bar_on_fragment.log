@@ -1,0 +1,158 @@
+[census] == form cut_slab_plaster
+[hole_edge] 1.20 x 1.20 x 0.400 form=cut_slab_plaster variant=0 ring=28 joists=0 rebar=5 hangers=5 slab=0.048
+INFO Draco mesh compression is available, use library at C:\blender\5.1\scripts\addons_core\io_scene_gltf2\extern_draco.dll
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_wood
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Finished glTF 2.0 export in 0.021861553192138672 s
+
+[census] hole_edge/min 1.2x1.2x0.4: 460 tris, 0 pairs
+[hole_edge] 2.80 x 2.80 x 0.652 form=cut_slab_plaster variant=0 ring=96 joists=0 rebar=28 hangers=6 slab=0.300
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_wood
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Finished glTF 2.0 export in 0.016914844512939453 s
+
+[census] hole_edge/default 2.8x2.8x0.652: 1704 tris, 0 pairs
+[hole_edge] 6.80 x 6.80 x 1.400 form=cut_slab_plaster variant=0 ring=276 joists=0 rebar=80 hangers=6 slab=1.048
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleEdge_wood
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Finished glTF 2.0 export in 0.022951364517211914 s
+
+[census] hole_edge/max 6.8x6.8x1.4: 4752 tris, 0 pairs
+[hole_spoil] 0.80 x 0.80 x 0.040 form=cut_slab_plaster stock=none variant=0 pieces=9 groups=['chunk', 'lath', 'rebar', 'slab'] plan span before the fit 0.774 x 0.785
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleSpoil_lath
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Finished glTF 2.0 export in 0.010992288589477539 s
+
+[census] hole_spoil/min 0.8x0.8x0.04: 140 tris, 1 pairs
+[census]    OPP  gap   0.00 mm  overlap      0.42 cm2  cover 0.0 mm  HoleSpoil_chunk <-> HoleSpoil_rebar
+[hole_spoil] 2.70 x 2.70 x 0.100 form=cut_slab_plaster stock=none variant=0 pieces=23 groups=['chunk', 'lath', 'plaster', 'rebar', 'slab'] plan span before the fit 2.663 x 2.689
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleSpoil_lath
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleSpoil_plaster
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:29 | INFO: Primitives created: 1
+22:57:29 | INFO: Finished glTF 2.0 export in 0.014505147933959961 s
+
+[census] hole_spoil/default 2.7x2.7x0.1: 348 tris, 0 pairs
+[hole_spoil] 7.00 x 7.00 x 0.100 form=cut_slab_plaster stock=none variant=0 pieces=27 groups=['chunk', 'lath', 'plaster', 'rebar', 'slab'] plan span before the fit 6.987 x 6.999
+22:57:29 | INFO: Starting glTF 2.0 export
+22:57:29 | INFO: Extracting primitive: HoleSpoil_lath
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleSpoil_plaster
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Finished glTF 2.0 export in 0.03140401840209961 s
+
+[census] hole_spoil/max 7.0x7.0x0.1: 432 tris, 0 pairs
+[census] == form broken_slab_plaster
+[hole_edge] 1.20 x 1.20 x 0.400 form=broken_slab_plaster variant=0 ring=28 joists=0 rebar=5 hangers=5 slab=0.048
+22:57:30 | INFO: Starting glTF 2.0 export
+22:57:30 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_wood
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Finished glTF 2.0 export in 0.014296770095825195 s
+
+[census] hole_edge/min 1.2x1.2x0.4: 460 tris, 0 pairs
+[hole_edge] 2.80 x 2.80 x 0.652 form=broken_slab_plaster variant=0 ring=96 joists=0 rebar=40 hangers=6 slab=0.300
+22:57:30 | INFO: Starting glTF 2.0 export
+22:57:30 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_wood
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Finished glTF 2.0 export in 0.017251968383789062 s
+
+[census] hole_edge/default 2.8x2.8x0.652: 1992 tris, 0 pairs
+[hole_edge] 6.80 x 6.80 x 1.400 form=broken_slab_plaster variant=0 ring=276 joists=0 rebar=116 hangers=6 slab=1.048
+22:57:30 | INFO: Starting glTF 2.0 export
+22:57:30 | INFO: Extracting primitive: HoleEdge_Collar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Rebar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_Hang_plaster
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleEdge_wood
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Finished glTF 2.0 export in 0.023909330368041992 s
+
+[census] hole_edge/max 6.8x6.8x1.4: 5616 tris, 0 pairs
+[hole_spoil] 0.80 x 0.80 x 0.040 form=broken_slab_plaster stock=none variant=0 pieces=10 groups=['chunk', 'rebar', 'slab'] plan span before the fit 0.774 x 0.799
+22:57:30 | INFO: Starting glTF 2.0 export
+22:57:30 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:30 | INFO: Primitives created: 1
+22:57:30 | INFO: Finished glTF 2.0 export in 0.00778651237487793 s
+
+[census] hole_spoil/min 0.8x0.8x0.04: 152 tris, 0 pairs
+[hole_spoil] 2.70 x 2.70 x 0.100 form=broken_slab_plaster stock=none variant=0 pieces=23 groups=['chunk', 'lath', 'plaster', 'rebar', 'slab'] plan span before the fit 2.638 x 2.659
+22:57:31 | INFO: Starting glTF 2.0 export
+22:57:31 | INFO: Extracting primitive: HoleSpoil_lath
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_plaster
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Finished glTF 2.0 export in 0.01422262191772461 s
+
+[census] hole_spoil/default 2.7x2.7x0.1: 380 tris, 0 pairs
+[hole_spoil] 7.00 x 7.00 x 0.100 form=broken_slab_plaster stock=none variant=0 pieces=29 groups=['chunk', 'lath', 'plaster', 'rebar', 'slab'] plan span before the fit 6.968 x 6.988
+22:57:31 | INFO: Starting glTF 2.0 export
+22:57:31 | INFO: Extracting primitive: HoleSpoil_lath
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_plaster
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_rebar
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Extracting primitive: HoleSpoil_concrete
+22:57:31 | INFO: Primitives created: 1
+22:57:31 | INFO: Finished glTF 2.0 export in 0.01569986343383789 s
+
+[census] hole_spoil/max 7.0x7.0x0.1: 428 tris, 0 pairs
+[census] 12 builds, 1 with coincident pairs, 0 that did not build
+Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+Blender quit

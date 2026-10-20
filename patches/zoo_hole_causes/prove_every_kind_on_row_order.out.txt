@@ -1,0 +1,468 @@
+....F.F.....FF......FFFF....F....F....F....FFF....F.FFF.FFF..FF.         [100%]
+================================== FAILURES ===================================
+______ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-0-broken] _______
+
+w = 2.7, d = 2.7, variant = 0, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...lank', 'tile'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+____ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-0-broken_slab] ____
+
+w = 2.7, d = 2.7, variant = 0, form = 'broken_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'rebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'grid'
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+______ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-1-broken] _______
+
+w = 2.7, d = 2.7, variant = 1, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...lank', 'tile'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+__ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-1-broken_plaster] ___
+
+w = 2.7, d = 2.7, variant = 1, form = 'broken_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'la...k', 'plaster'} == {'chunk', 'jo...k', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+______ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken] _______
+
+w = 2.7, d = 2.7, variant = 2, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...lank', 'tile'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+__ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_plaster] ___
+
+w = 2.7, d = 2.7, variant = 2, form = 'broken_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'la...k', 'plaster'} == {'chunk', 'jo...k', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+____ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_slab] ____
+
+w = 2.7, d = 2.7, variant = 2, form = 'broken_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...ebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_slab_plaster] _
+
+w = 2.7, d = 2.7, variant = 2, form = 'broken_slab_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'pl...ebar', 'slab'} == {'chunk', 'la...ebar', 'slab'}
+E         
+E         Extra items in the right set:
+E         'lath'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+______ test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-3-broken] _______
+
+w = 2.7, d = 2.7, variant = 3, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...lank', 'tile'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+___ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-0-cut_plaster] ___
+
+w = 2.29, d = 1.83, variant = 0, form = 'cut_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'la...l', 'plaster'} == {'chunk', 'jo...l', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+___ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-0-broken_slab] ___
+
+w = 2.29, d = 1.83, variant = 0, form = 'broken_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'rebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'grid'
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-cut_slab_plaster] _
+
+w = 2.29, d = 1.83, variant = 1, form = 'cut_slab_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'pl...ebar', 'slab'} == {'chunk', 'la...ebar', 'slab'}
+E         
+E         Extra items in the right set:
+E         'lath'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_____ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-broken] ______
+
+w = 2.29, d = 1.83, variant = 1, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'grid', 'plank'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-broken_plaster] __
+
+w = 2.29, d = 1.83, variant = 1, form = 'broken_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'la...k', 'plaster'} == {'chunk', 'jo...k', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+____ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-cut_slab] _____
+
+w = 2.29, d = 1.83, variant = 2, form = 'cut_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...ebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_____ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken] ______
+
+w = 2.29, d = 1.83, variant = 2, form = 'broken'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...lank', 'tile'} == {'chunk', 'gr...lank', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken_plaster] __
+
+w = 2.29, d = 1.83, variant = 2, form = 'broken_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'lath', 'plank'} == {'chunk', 'jo...k', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         'plaster'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+___ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken_slab] ___
+
+w = 2.29, d = 1.83, variant = 2, form = 'broken_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...ebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_______ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut] _______
+
+w = 2.29, d = 1.83, variant = 3, form = 'cut'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...anel', 'tile'} == {'chunk', 'gr...anel', 'tile'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+___ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut_plaster] ___
+
+w = 2.29, d = 1.83, variant = 3, form = 'cut_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'jo...l', 'plaster'} == {'chunk', 'jo...l', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'lath'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+____ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut_slab] _____
+
+w = 2.29, d = 1.83, variant = 3, form = 'cut_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...ebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+_ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-broken_plaster] __
+
+w = 2.29, d = 1.83, variant = 3, form = 'broken_plaster'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'la...k', 'plaster'} == {'chunk', 'jo...k', 'plaster'}
+E         
+E         Extra items in the right set:
+E         'joist'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+___ test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-broken_slab] ___
+
+w = 2.29, d = 1.83, variant = 3, form = 'broken_slab'
+
+    @pytest.mark.parametrize("form", FORMS)
+    @pytest.mark.parametrize("variant", range(HF.VARIANTS))
+    @pytest.mark.parametrize("w,d", [(2.7, 2.7), (2.29, 1.83)])
+    def test_a_spoil_carries_every_kind_its_form_names(w, d, variant, form):
+        # one of each kind is placed before the rest, so a slot the size of the walk-ups' still shows
+        # the ceiling the drop came through as well as the floor that came down
+        kinds = {c[0] for c in HF.spoil_plan(w, d, 0.10, form, variant)}
+>       assert kinds == {k for k, *_r in HF.spoil_rows(form)}
+E       AssertionError: assert {'chunk', 'gr...ebar', 'slab'} == {'chunk', 'gr...slab', 'tile'}
+E         
+E         Extra items in the right set:
+E         'tile'
+E         Use -v to get more diff
+
+tests\test_hole_forms.py:121: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-0-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-0-broken_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-1-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-1-broken_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-2-broken_slab_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.7-2.7-3-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-0-cut_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-0-broken_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-cut_slab_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-1-broken_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-cut_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-2-broken_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-cut_slab]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-broken_plaster]
+FAILED tests/test_hole_forms.py::test_a_spoil_carries_every_kind_its_form_names[2.29-1.83-3-broken_slab]
+23 failed, 41 passed, 537 deselected in 2.23s
