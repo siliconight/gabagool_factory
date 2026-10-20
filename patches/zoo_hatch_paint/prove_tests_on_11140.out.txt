@@ -1,0 +1,16 @@
+Zoo 1.114.0 (5cedc35) with the new test alone, 02:23:18
+        path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                            "zoo_keeper", "recipes", "roof_hatch.py")
+        tree = ast.parse(open(path, encoding="utf-8").read())
+        consts = {t.id: n.value.value for n in tree.body if isinstance(n, ast.Assign)
+                  for t in n.targets if isinstance(t, ast.Name) and isinstance(n.value, ast.Constant)}
+>       assert consts.get("FLOOR_PAINT") == "metal_painted", consts.get("FLOOR_PAINT")
+E       AssertionError: None
+E       assert None == 'metal_painted'
+E        +  where None = <built-in method get of dict object at 0x00000271FD9993C0>('FLOOR_PAINT')
+E        +    where <built-in method get of dict object at 0x00000271FD9993C0> = {'CURB_T': 0.06, 'HINGE_IN': 0.04, 'HINGE_R': 0.018, 'LID_T': 0.035, ...}.get
+
+tests\test_hole_forms.py:206: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_hole_forms.py::test_the_floor_form_paints_on_a_tintable_kind_never_the_slots_material
+1 failed, 2 passed, 599 deselected in 0.33s

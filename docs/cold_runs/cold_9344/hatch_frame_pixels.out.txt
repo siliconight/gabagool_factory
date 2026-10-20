@@ -1,0 +1,9 @@
+The floor hatch's frame, hatch_from_office_e (the same station, the same brief and seed), cold run 9343 (Zoo 1.114.0)
+against 9344 (Zoo 1.114.1). The frame's pixels are found in 9344's inspection frame -- within the box around the
+opening, the 40 pixels whose red minus blue is largest -- and the SAME pixel positions are read in each image.
+sRGB 0-255, mean over the 40.
+frame pixels found in (608, 405, 992, 594) e.g. [(872, 515), (871, 515), (869, 515)]
+inspection light 9343  mean [69, 35, 7]  (r - b 62)
+inspection light 9344  mean [217, 156, 20]  (r - b 197)
+level light      9343  mean [26, 9, 1]  (r - b 25)
+level light      9344  mean [99, 46, 5]  (r - b 94)

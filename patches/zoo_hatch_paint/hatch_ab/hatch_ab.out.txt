@@ -1,0 +1,32 @@
+The floor hatch, apartment_walkup_a01's floor_hatch_1_-60_50 alone, built by zoo_cli.py --build-kit with cold run
+9343's own skin library (pixelcoat_build/out, theme delco, seed 9708): Zoo 1.114.0 (the live repo) and 1.114.1
+(the scratch clone). Per material: its base colour factor and the mean of the albedo texture it names (sRGB 0-1);
+per mesh: its materials and the most-yellow vertex colour it carries.
+
+== 11140  prop_roof_hatch_delco_04_w166_d166_h3_ffloor.glb
+   material M_Skin_metal_bare_delco_29292b             base [0.16, 0.16, 0.17]       texture _tex/metal_bare_neutral_albedo_6dde06e8.png mean [0.946, 0.942, 0.93]
+   material M_Skin_metal_delco                         base [1, 1, 1]                texture _tex/metal_rusted_street_albedo_54c113e6.png mean [0.451, 0.315, 0.208]
+   mesh RoofHatch_Hinge            material M_Skin_metal_bare_delco_29292b             most-yellow vertex [0.982, 0.982, 0.982]
+   mesh RoofHatch-colonly          material None                                       most-yellow vertex None
+   mesh RoofHatch_metal_delco      material M_Skin_metal_delco                         most-yellow vertex [0.863, 0.638, 0.04]
+
+== 11140  prop_roof_hatch_delco_04_w166_d166_h3_ffloor_closed.glb
+   material M_Skin_metal_bare_delco_29292b             base [0.16, 0.16, 0.17]       texture _tex/metal_bare_neutral_albedo_ad17422c.png mean [0.946, 0.942, 0.93]
+   material M_Skin_metal_delco                         base [1, 1, 1]                texture _tex/metal_rusted_street_albedo_394ebf71.png mean [0.451, 0.315, 0.208]
+   mesh RoofHatch_Hinge            material M_Skin_metal_bare_delco_29292b             most-yellow vertex [0.965, 0.965, 0.965]
+   mesh RoofHatch-colonly          material None                                       most-yellow vertex None
+   mesh RoofHatch_metal_delco      material M_Skin_metal_delco                         most-yellow vertex [0.863, 0.638, 0.04]
+
+== 11141  prop_roof_hatch_delco_04_w166_d166_h3_ffloor.glb
+   material M_Skin_metal_bare_delco_29292b             base [0.16, 0.16, 0.17]       texture _tex/metal_bare_neutral_albedo_6dde06e8.png mean [0.946, 0.942, 0.93]
+   material M_Skin_metal_painted_delco_ffffff          base [1, 1, 1]                texture _tex/metal_painted_neutral_albedo_fa269f8e.png mean [0.93, 0.927, 0.919]
+   mesh RoofHatch_Hinge            material M_Skin_metal_bare_delco_29292b             most-yellow vertex [0.982, 0.982, 0.982]
+   mesh RoofHatch-colonly          material None                                       most-yellow vertex None
+   mesh RoofHatch_metal_painted_delco_ffffff material M_Skin_metal_painted_delco_ffffff          most-yellow vertex [0.863, 0.638, 0.04]
+
+== 11141  prop_roof_hatch_delco_04_w166_d166_h3_ffloor_closed.glb
+   material M_Skin_metal_bare_delco_29292b             base [0.16, 0.16, 0.17]       texture _tex/metal_bare_neutral_albedo_ad17422c.png mean [0.946, 0.942, 0.93]
+   material M_Skin_metal_painted_delco_ffffff          base [1, 1, 1]                texture _tex/metal_painted_neutral_albedo_6265f5a8.png mean [0.93, 0.927, 0.919]
+   mesh RoofHatch_Hinge            material M_Skin_metal_bare_delco_29292b             most-yellow vertex [0.965, 0.965, 0.965]
+   mesh RoofHatch-colonly          material None                                       most-yellow vertex None
+   mesh RoofHatch_metal_painted_delco_ffffff material M_Skin_metal_painted_delco_ffffff          most-yellow vertex [0.863, 0.638, 0.04]
