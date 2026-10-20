@@ -1,6 +1,7 @@
 # The facade planner: one face, every storey, decided before an opening is placed (proposal, 2026-10-20)
 
-**Status: PLANNED, not built.** Roadmap 79, with 74 and 76 inside it. Mapped read-only against Deli Counter 0.237.0,
+**Status: steps 1 and 3 SHIPPED** (Deli Counter 0.238.0, `patches/dc_facade_stack/`; proven by cold run 9348,
+`docs/cold_runs/cold_9348/`); steps 2 and 4-6 planned. Roadmap 79, with 74 and 76 inside it. Mapped read-only against Deli Counter 0.237.0,
 Zoo 1.114.1 and Level Factory 0.222.0 on 2026-10-20. Re-read every cited line before patching (CLAUDE.md,
 grounding). It serves the "good" gate (roadmap 18), not interventions-per-level: every level the pipeline makes today
 already ships without a hand on it, and none of this changes that number.

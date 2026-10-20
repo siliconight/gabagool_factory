@@ -102,5 +102,7 @@ counted, not simulated), and how any of it looks.
 
 ## What is left
 
-- The proposal: `docs/proposals/FACADE_PLANNER.md`.
+- The proposal: `docs/proposals/FACADE_PLANNER.md`. Its steps 1 and 3 shipped as Deli Counter 0.238.0
+  (`facade_plan.py`; `over sym` as `stack_mirrored`, over the library and in every preset), proven by cold run 9348:
+  the 22 pool buildings and 46 windows it moved are the ones `predict.py` priced, building by building.
 - A ruler for appearance (roadmap 78) still does not exist; this one reads placement.

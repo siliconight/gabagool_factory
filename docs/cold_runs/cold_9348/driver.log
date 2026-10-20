@@ -1,0 +1,57 @@
+== selftest (09:12:37)
+  a tool source file, a shipped spec, or another repo
+== begin (09:12:38)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9348\journal.md
+== batch (09:12:53)
+created batch 'cold_9348' with 1 mission(s): bank_block_001
+== plan (09:12:53)
+== shell (09:12:55)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 73)
+  bank_block_001.lot_assemble.candidate.seed_9054: bank_branch_a04.glb casino_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_retail_a02.glb 
+  bank_block_001.lot_assemble.candidate.seed_9155: bank_tower_a01.glb freight_terminal_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a01.glb 
+  bank_block_001.lot_assemble.candidate.seed_9256: bank_branch_a04.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb parking_garage.glb rail_station_a03.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (09:14:31)
+== art (09:14:33)
+Structural checks passed  (blockers open: 0, total findings: 101)
+  exit 1
+== export (09:17:11)
+[export] light bake: 288 model(s) and 94 primitive mesh(es) lightmapped, 9 kept dynamic, 1 spawned set dynamic; 131 steady rig(s) baked, 19 failing and 0 cycling left live; 217 room fill(s); 3063 users, 62.8 s in the editor
+exported bank_block_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9348-ws\.level_factory\exports\LF_bank_block_001.portable-godot
+  exit 0
+== findings (09:20:10)
+findings 102 -> 101
+   LT_MAP_TRAVERSAL 1 -> 0
+== walk (09:20:11)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (09:20:21)
+  1 item(s), 1.0 GB removed
+DONE (09:20:45)
+drive exit 0
+
+  cold run: cold_9348
+  ----------------------------------------------------------
+  interventions NOTED in the journal      0
+  tool source files CHANGED on disk       3
+    attributed to the pipeline, NOT counted   3
+      deli_counter/specs/lf_bank_block_001_9054.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_bank_block_001_9155.json
+          Level Factory writes one DC spec per candidate, per run
+      deli_counter/specs/lf_bank_block_001_9256.json
+          Level Factory writes one DC spec per candidate, per run
+    UNATTRIBUTED, counted                     0
+  retries (same command re-run)           0
+  observations (looked, did not touch)    0
+
+  Every changed file is one the pipeline is expected to write.
+  That is a clean run, and GENERATED in this file is the claim it
+  rests on -- the reasons above are printed so you can refuse it.
+  INTERVENTIONS: 0   (journal 0, unattributed files 0)
+  A run needing zero is the first real evidence -- roadmap item 17.
+  hygiene: LOOSE 0  UNTRACKED 0  RECORDS 25  INDEX 2  UNDESCRIBED 20  RETIRABLE 0.0  FINDINGS 41  -- FAILING: RECORDS, INDEX
+ended
