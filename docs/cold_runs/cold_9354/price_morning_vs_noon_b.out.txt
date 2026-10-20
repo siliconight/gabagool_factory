@@ -1,0 +1,66 @@
+station                  yaw draws A draws B  merged    p95 A    p95 B   merged   d p95
+attacker_spawn_4           0     427     427     427     2.77     2.85     2.92   +0.11
+attacker_spawn_4          90     882     882     882     4.99     5.11     4.83   -0.22
+attacker_spawn_4         180     365     365     365     2.26     2.26     2.30   +0.04
+attacker_spawn_4         270     443     443     443     2.88     2.90     3.02   +0.13
+attacker_spawn_5           0     431     431     431     2.79     2.81     2.78   -0.02
+attacker_spawn_5          90    1240    1240    1240     6.91     6.87     6.97   +0.09
+attacker_spawn_5         180     350     350     350     2.25     2.25     2.33   +0.08
+attacker_spawn_5         270     276     276     276     2.43     2.59     2.43   -0.07
+camera_socket_0            0     174     174     174     1.87     1.89     1.93   +0.05
+camera_socket_0           90    1130    1130    1130     6.54     6.40     6.43   -0.03
+camera_socket_0          180     357     357     357     2.35     2.27     2.31   +0.01
+camera_socket_0          270     955     955     955     5.12     5.65     5.16   -0.23
+camera_socket_1            0     329     329     329     2.42     2.74     2.47   -0.11
+camera_socket_1           90     343     343     343     2.80     2.92     2.81   -0.04
+camera_socket_1          180     320     320     320     2.55     2.23     2.23   -0.16
+camera_socket_1          270     685     685     685     3.80     3.73     3.89   +0.12
+defender_spawn_17          0     212     212     212     1.99     2.04     1.99   -0.02
+defender_spawn_17         90     110     110     110     1.75     1.66     1.66   -0.04
+defender_spawn_17        180     231     231     231     2.05     2.02     2.00   -0.03
+defender_spawn_17        270     754     754     754     4.37     4.54     4.57   +0.12
+defender_spawn_8           0      42      42      42     1.37     1.31     1.32   -0.02
+defender_spawn_8          90    1050    1050    1050     6.31     6.42     6.66   +0.29
+defender_spawn_8         180     257     257     257     2.15     2.15     2.16   +0.00
+defender_spawn_8         270      60      60      60     1.46     1.42     1.44   -0.00
+extraction_15              0      68      68      68     1.47     1.44     1.46   +0.01
+extraction_15             90     364     364     364     2.77     2.77     3.04   +0.27
+extraction_15            180     325     325     325     2.03     2.06     2.13   +0.08
+extraction_15            270    1276    1276    1276     7.01     7.03     6.92   -0.10
+extraction_16              0     221     221     221     2.17     2.17     2.24   +0.07
+extraction_16             90     862     862     862     5.65     5.13     5.28   -0.11
+extraction_16            180     311     311     311     2.11     1.98     2.01   -0.03
+extraction_16            270     725     725     725     4.21     4.12     4.24   +0.07
+highest_vantage            0      42      42      42     1.33     1.31     1.40   +0.08
+highest_vantage           90    1050    1050    1050     6.37     6.54     6.21   -0.25
+highest_vantage          180     257     257     257     2.09     2.11     2.11   +0.01
+highest_vantage          270      60      60      60     1.44     1.44     1.44   -0.00
+longest_sightline        270    1158    1158    1158     6.66     6.48     6.32   -0.24
+objective_2                0     248     248     248     2.23     2.27     2.25   -0.00
+objective_2               90     267     267     267     2.21     2.37     2.25   -0.04
+objective_2              180     297     297     297     2.23     2.21     2.23   +0.01
+objective_2              270     396     396     396     2.97     2.99     3.01   +0.03
+objective_3                0      69      69      69     1.51     1.49     1.48   -0.02
+objective_3               90     137     137     137     1.80     1.76     1.74   -0.04
+objective_3              180     265     265     265     2.17     2.19     2.22   +0.04
+objective_3              270     394     394     394     2.71     2.69     2.73   +0.03
+patrol_point_12            0     400     400     400     2.93     2.95     2.88   -0.06
+patrol_point_12           90     208     208     208     2.22     2.07     2.06   -0.09
+patrol_point_12          180     230     230     230     2.01     2.05     2.04   +0.01
+patrol_point_12          270     286     286     286     2.37     2.41     2.40   +0.01
+player_start_19            0     214     214     214     2.07     2.09     2.07   -0.01
+player_start_19           90     899     899     899     5.22     5.78     5.31   -0.20
+player_start_19          180     271     271     271     1.82     1.85     1.87   +0.04
+player_start_19          270     886     886     886     5.31     5.07     4.93   -0.26
+
+53 station-headings. Draws: control 23609 and 23609 in all, merged 23609 (+0.0 a heading, median +0, most +0)
+p95: control means 3.080 and 3.091 ms, merged 3.073 ms; merged minus the controls' mean -0.013 ms a heading (median -0.001); the controls differ by 0.099 ms a heading (median 0.043, most 0.562) -- the floor
+worst heading, control A: extraction_15 yaw 270 -- 7.01 ms p95, 1276 draws
+worst heading, control B: extraction_15 yaw 270 -- 7.03 ms p95, 1276 draws
+worst heading, merged   : attacker_spawn_5 yaw 90 -- 6.97 ms p95, 1240 draws
+control A: 2971 mesh instances, 23190 nodes, video memory 135.0 MiB
+control B: 2971 mesh instances, 23190 nodes, video memory 135.0 MiB
+merged   : 2971 mesh instances, 23190 nodes, video memory 133.0 MiB
+control A lights per object: by reach 220 of 2971 meshes over the cap of 8; paired 5 over, 2898 lightmap users
+control B lights per object: by reach 220 of 2971 meshes over the cap of 8; paired 5 over, 2898 lightmap users
+merged    lights per object: by reach 220 of 2971 meshes over the cap of 8; paired 5 over, 2898 lightmap users

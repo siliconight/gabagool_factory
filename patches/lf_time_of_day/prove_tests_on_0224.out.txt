@@ -1,0 +1,85 @@
+..FFFF.s.............F...........                                        [100%]
+================================== FAILURES ===================================
+___ test_each_of_the_five_times_names_its_own_preset[midnight-Delco Night] ____
+
+tod = 'midnight', preset = 'Delco Night'
+
+    @pytest.mark.parametrize("tod,preset", sorted(FIVE.items()))
+    def test_each_of_the_five_times_names_its_own_preset(tod, preset):
+>       assert _preset_for(_brief(tod)) == preset
+E       AssertionError: assert 'Gas Station Fluorescent' == 'Delco Night'
+E         
+E         - Delco Night
+E         + Gas Station Fluorescent
+
+tests\unit\test_time_of_day_presets.py:37: AssertionError
+___ test_each_of_the_five_times_names_its_own_preset[morning-Delco Morning] ___
+
+tod = 'morning', preset = 'Delco Morning'
+
+    @pytest.mark.parametrize("tod,preset", sorted(FIVE.items()))
+    def test_each_of_the_five_times_names_its_own_preset(tod, preset):
+>       assert _preset_for(_brief(tod)) == preset
+E       AssertionError: assert 'Gas Station Fluorescent' == 'Delco Morning'
+E         
+E         - Delco Morning
+E         + Gas Station Fluorescent
+
+tests\unit\test_time_of_day_presets.py:37: AssertionError
+___ test_each_of_the_five_times_names_its_own_preset[noon-Delco High Noon] ____
+
+tod = 'noon', preset = 'Delco High Noon'
+
+    @pytest.mark.parametrize("tod,preset", sorted(FIVE.items()))
+    def test_each_of_the_five_times_names_its_own_preset(tod, preset):
+>       assert _preset_for(_brief(tod)) == preset
+E       AssertionError: assert 'Gas Station Fluorescent' == 'Delco High Noon'
+E         
+E         - Delco High Noon
+E         + Gas Station Fluorescent
+
+tests\unit\test_time_of_day_presets.py:37: AssertionError
+___________ test_the_spellings_a_brief_uses_today_still_name_theirs ___________
+
+    def test_the_spellings_a_brief_uses_today_still_name_theirs():
+        assert _preset_for(_brief("night")) == "Delco Night"
+        assert _preset_for(_brief("NIGHT")) == "Delco Night"
+        for noon in ("high noon", "high_noon", "midday"):
+>           assert _preset_for(_brief(noon)) == "Delco High Noon"
+E           AssertionError: assert 'Gas Station Fluorescent' == 'Delco High Noon'
+E             
+E             - Delco High Noon
+E             + Gas Station Fluorescent
+
+tests\unit\test_time_of_day_presets.py:44: AssertionError
+___ test_clear_weather_keeps_the_time_of_day_choice[morning-Delco Morning] ____
+
+tod = 'morning', preset = 'Delco Morning'
+
+    @pytest.mark.parametrize("tod,preset", [
+        ("afternoon", "Delco Summer Afternoon"),
+        # `night` meant dusk until 0.121.0 (`_preset_for`); it asks for Lux's
+        # `Delco Night` since, and this row was left behind until 0.138.0.
+        ("night", "Delco Night"),
+        ("evening", "Blue Hour"),
+        # `morning` fell through to Gas Station Fluorescent, an interior look,
+        # until 0.225.0; it asks for Lux 0.79.0's `Delco Morning` since
+        # (`tests/unit/test_time_of_day_presets.py` holds all five times).
+        ("morning", "Delco Morning"),
+    ])
+    def test_clear_weather_keeps_the_time_of_day_choice(tod, preset):
+>       assert _preset_for(_brief(weather="clear", time_of_day=tod)) == preset
+E       AssertionError: assert 'Gas Station Fluorescent' == 'Delco Morning'
+E         
+E         - Delco Morning
+E         + Gas Station Fluorescent
+
+tests\unit\test_lux_rain.py:59: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_time_of_day_presets.py::test_each_of_the_five_times_names_its_own_preset[midnight-Delco Night]
+FAILED tests/unit/test_time_of_day_presets.py::test_each_of_the_five_times_names_its_own_preset[morning-Delco Morning]
+FAILED tests/unit/test_time_of_day_presets.py::test_each_of_the_five_times_names_its_own_preset[noon-Delco High Noon]
+FAILED tests/unit/test_time_of_day_presets.py::test_the_spellings_a_brief_uses_today_still_name_theirs
+FAILED tests/unit/test_lux_rain.py::test_clear_weather_keeps_the_time_of_day_choice[morning-Delco Morning]
+SKIPPED [1] tests\unit\test_time_of_day_presets.py:55: no lux/addons/lux/presets at or above C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf_prove_tod\tests -- set LF_LUX_ROOT
+exit=1

@@ -1,0 +1,27 @@
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4127 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 274 instances of 7 module(s) on their sides, 25 draw calls (N 102, S 99, E 37, W 35; 1 tower)
+[export] 1509 occluder(s) from 1524 solid module(s); 118 glass, 262 porous and 867 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1509 occluder node(s) in a tree of 29223
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] buildings merged: 3 scene(s), 885 slot(s), 1662 surface(s) -> 808 merged mesh(es); 24 lit surface(s) in 24 mesh(es) of their own; 834 collider(s) kept
+[export] merged buildings' modules no file names: 202 removed (9.9 MB), 48 named and kept
+[export] light bake: 153 model(s) and 118 primitive mesh(es) lightmapped, 9 kept dynamic, 1 spawned set dynamic; 209 steady rig(s) baked, 28 failing and 0 cycling left live; 215 room fill(s); 2898 users, 60.6 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1509 occluder node(s) reachable from res://mission.tscn (1509 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 43 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 134 GLB(s), 490 external reference(s): 490 resolve to 207 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 55638 reached of 69748 standable cells, 26 unguarded drop edge(s): 6 a flight's own side, 10 at a declared drop, 6 at a ladder's shaft, 0 a thing's top, 4 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_restaurant_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 449 of 449 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 83 resource(s) in a package of 2879 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 2883 file(s) listed + 2 declared unlisted = 2885 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9353-ws\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9353-ws walk restaurant_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)

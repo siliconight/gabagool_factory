@@ -750,11 +750,11 @@ level follow the slot, and one bake per level is baked for its slot.
 
 | slot | brief `time_of_day` | Lux preset today | status |
 |---|---|---|---|
-| morning | -- | none: falls through to Gas Station Fluorescent | GAP (Lux preset, Level Factory word) |
-| high noon | -- | none: falls through to Gas Station Fluorescent | GAP (Lux preset, Level Factory word) |
+| morning | `morning` | Delco Morning (Lux 0.79.0) | BUILT (Level Factory 0.225.0; cold run 9353) |
+| high noon | `noon` (`high noon`, `midday`) | Delco High Noon (Lux 0.79.0) | BUILT (Level Factory 0.225.0; cold run 9354) |
 | afternoon | `afternoon` | Delco Summer Afternoon | BUILT |
 | evening | `evening` | Blue Hour | BUILT |
-| midnight | `night` | Delco Night | BUILT |
+| midnight | `night`, `midnight` | Delco Night | BUILT (`midnight` since Level Factory 0.225.0) |
 | rain, any slot | `weather: rain` | Heavy Rain, an overcast DAY: it overrides the slot | BUILT, with that trade recorded in `_preset_for` |
 
 **What the preset carries:**
@@ -991,9 +991,10 @@ runs. Statuses are as of 2026-10-07; "not checked" means nobody has looked.
 7. **State that changes:** an alarm, escalation, and one extraction active per
    run. A runtime layer; owner to be named. It unblocks Replayability and v0's
    escalation shape.
-8. **Light by use** (Deli Counter anchors, Lux rows), **morning and high
-   noon** (Lux, Level Factory), **audio and ambient life** (new), **the
-   backdrop** (Lot, Zoo, per the backdrop guide).
+8. **Light by use** (Deli Counter anchors, Lux rows), **audio and ambient
+   life** (new), **the backdrop** (Lot, Zoo, per the backdrop guide). The
+   morning and the high noon were built on 2026-10-20 (Lux 0.79.0, Level
+   Factory 0.225.0).
 
 ---
 
