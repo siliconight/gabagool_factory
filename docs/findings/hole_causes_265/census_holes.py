@@ -59,10 +59,12 @@ for p in sorted(glob.glob(os.path.join(REPO, "specs", "*.json"))):
             "stair_share": round(HC.stair_share(spec, v), 3),
             "form": HC.form_for(spec, v, cause) if cause in ("cut", "broken") else None,
             "wall_above": near[int(v["story"])], "wall_below": near[int(v["story"]) - 1]})
-    for s, _e, c, size in slots:
+    for x in slots:
+        # 0.236.0 returned (slot, entry, box center, box size); 0.236.1 (slot, entry, boxes)
+        s = x[0]
         rows.append({"spec": name, "slot": s["slot_id"], "species": s["species"], "form": s["form"],
                      "stock": s["stock"], "variant": s["variant"], "rot": s["transform"]["rot_y"],
-                     "dims": s["fit"]["dims"], "center": [round(q, 3) for q in c]})
+                     "dims": s["fit"]["dims"], "center": [round(q, 3) for q in s["transform"]["translation"]]})
     for n in notes:
         rows.append({"spec": name, "note": n})
 for r in rows:

@@ -1,0 +1,290 @@
+FFFFFF..FF.FFF..FF                                                       [100%]
+================================== FAILURES ===================================
+__________ test_a_cut_hole_gets_its_edge_its_spoil_and_the_crews_kit __________
+
+    def test_a_cut_hole_gets_its_edge_its_spoil_and_the_crews_kit():
+>       by, notes = _slots(_house())
+                    ^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:72: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+_________________ test_a_form_names_the_slab_and_the_ceiling __________________
+
+    def test_a_form_names_the_slab_and_the_ceiling():
+        # a concrete floor above is a slab (bars, not joists); a plaster ceiling below breaks as plaster and lath
+        s = _house(up={"role": "staging"}, dn={"role": "utility"})
+>       by, _n = _slots(s)
+                 ^^^^^^^^^
+
+test_hole_causes.py:95: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+__ test_a_broken_floor_gets_an_edge_and_a_spoil_in_its_own_finish_and_no_kit __
+
+    def test_a_broken_floor_gets_an_edge_and_a_spoil_in_its_own_finish_and_no_kit():
+>       by, notes = _slots(_house(above="bedroom", up={"floor_material": "tile"}, dn={"ceiling_material": "plaster"}))
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+_ test_a_hatch_below_the_roof_gets_a_floor_hatch_with_its_lid_by_the_nearest_wall _
+
+    def test_a_hatch_below_the_roof_gets_a_floor_hatch_with_its_lid_by_the_nearest_wall():
+        s = _house(link={"kind": "hatch", "story": 1, "x": -5.0, "y": 0.0})
+>       by, notes = _slots(s)
+                    ^^^^^^^^^
+
+test_hole_causes.py:114: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+_______________ test_a_floor_hole_the_rules_call_a_hatch_is_one _______________
+
+    def test_a_floor_hole_the_rules_call_a_hatch_is_one():
+>       by, _n = _slots(_house(above="armory", below="garage"))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+__________ test_the_links_own_cause_wins_and_a_wrong_one_is_refused ___________
+
+    def test_the_links_own_cause_wins_and_a_wrong_one_is_refused():
+        s = _house(above="bedroom")
+        s["vertical_links"][0]["cause"] = "cut"
+>       assert "hole_kit" in _slots(s)[0]
+                             ^^^^^^^^^
+
+test_hole_causes.py:139: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+____ test_the_kit_keeps_off_a_piece_a_door_and_says_when_no_side_has_room _____
+
+    def test_the_kit_keeps_off_a_piece_a_door_and_says_when_no_side_has_room():
+>       by, _n = _slots(_house(volumes=[_crate(-2.5, 0.0, 1)]))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:166: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+____ test_the_spoil_keeps_off_the_furniture_below_and_says_when_none_fits _____
+
+    def test_the_spoil_keeps_off_the_furniture_below_and_says_when_none_fits():
+>       by, _n = _slots(_house(volumes=[_crate(-3.5, 0.0, 0)]))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:179: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+___ test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so ____
+
+    def test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so():
+        """Zoo builds a slot outside its species' sizes as the plain box at the slot's size, which over a
+        hole would cover it: the slot is left out instead."""
+        big = _house(link={"kind": "floor_hole", "story": 1, "x": -5.0, "y": 0.0, "size_x": 6.5, "size_y": 6.5})
+>       by, notes = _slots(big)
+                    ^^^^^^^^^^^
+
+test_hole_causes.py:205: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+____________ test_nothing_of_a_holes_greybox_stands_over_the_hole _____________
+
+    def test_nothing_of_a_holes_greybox_stands_over_the_hole():
+        """Cold run 9340: the walk test bakes its navmesh from the greybox lot's visual meshes, and 0.236.0 drew the
+        edge as one box over the hole -- the bake took it for floor and every walker on both of deli_a03's candidates was
+        sent into the hole (WALKTEST_WALKER_STUCK 0 -> 8). The edge and the floor hatch now draw a ring round it."""
+        for spec in (_house(), _house(link={"kind": "hatch", "story": 1, "x": -5.0, "y": 0.0}),
+                     json.load(open(os.path.join(HERE, "specs", "deli_a03.json"), encoding="utf-8"))):
+            slots, _n = HC.hole_slots(spec, lambda material: 1)
+            sh = float(spec.get("story_height") or SH)
+            thick = float(spec.get("floor_thick") or 0.3)
+            # each hole's rect, and the heights of the slab it is cut in, skins and all
+            holes = [(HC._rect(v), int(v["story"]) * sh - thick - HC.SKIN, int(v["story"]) * sh + HC.SKIN + 0.05)
+                     for v in HC.drop_links(spec)]
+            assert slots
+>           for slot, _e, boxes in slots:
+                ^^^^^^^^^^^^^^^
+E           ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:236: ValueError
+___________ test_a_slots_variant_is_its_names_and_its_stem_is_zoos ____________
+
+    def test_a_slots_variant_is_its_names_and_its_stem_is_zoos():
+        s = _house()
+>       by, _n = _slots(s)
+                 ^^^^^^^^^
+
+test_hole_causes.py:255: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+spec = {'floor_thick': 0.3, 'footprint_x': 20.0, 'footprint_y': 16.0, 'grid': 0.5, ...}
+
+    def _slots(spec):
+        """{species: (slot, gameplay entry, greybox box center, greybox footprint)}, the greybox's union of boxes."""
+        slots, notes = HC.hole_slots(spec, lambda material: 1)
+        out = {}
+>       for s, e, boxes in slots:
+            ^^^^^^^^^^^
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:63: ValueError
+___ test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it ____
+
+    def test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it():
+        """deli_a03's `roof_drop_to_stair` hatch is cut wholly inside `deli_stair_up`'s well: a floor hatch built round it
+        hung over the stair, and `circulation.check_shell` read its frame 0.03 m inside the stair's column. rowhouse_raid's
+        hatch is 70 % in its stair's well and the rest a bare cut beside it, which L28 names."""
+        deli = json.load(open(os.path.join(HERE, "specs", "deli_a03.json"), encoding="utf-8"))
+        (hatch,) = [v for v in HC.drop_links(deli) if v["kind"] == "hatch"]
+        assert HC.stair_share(deli, hatch) == pytest.approx(1.0)
+        assert HC.cause_for(deli, hatch) == HC.STAIR
+>       assert [s["species"] for s, _e, _b in HC.hole_slots(deli, lambda m: 1)[0]] == [
+                                 ^^^^^^^^^
+            "hole_edge", "hole_spoil", "hole_kit"]
+E       ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:293: ValueError
+__________ test_the_library_dresses_every_drop_but_foundrys_catwalk ___________
+
+    def test_the_library_dresses_every_drop_but_foundrys_catwalk():
+        """0.235.0's library: 21 drop links in 12 specs. The six delis' hideout floors (concrete) cut through to their
+        kitchens; the two walk-ups' bedroom floors broken over their kitchens, on tile; eight hatches, and four holes in a
+        stair's well with nothing round them (deli_a01-a03's drop to the stair, rowhouse_raid's hatch); foundry's 5 x 3 m
+        catwalk drop onto its south machine floor caused by nothing, named by L28."""
+        got = {}
+        for p in sorted(glob.glob(os.path.join(HERE, "specs", "*.json"))):
+            if os.path.basename(p).startswith("lf_"):        # a level's transients, not the library
+                continue
+            spec = json.load(open(p, encoding="utf-8"))
+            slots, notes = HC.hole_slots(spec, lambda material: 1)
+            assert notes == [], (p, notes)
+            if slots:
+>               got[os.path.basename(p)[:-5]] = sorted((s["species"], s["form"], s["stock"]) for s, _e, _b in slots)
+                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+test_hole_causes.py:318: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+.0 = <list_iterator object at 0x000002415E0094E0>
+
+>   got[os.path.basename(p)[:-5]] = sorted((s["species"], s["form"], s["stock"]) for s, _e, _b in slots)
+                                                                                     ^^^^^^^^^
+E   ValueError: too many values to unpack (expected 3, got 4)
+
+test_hole_causes.py:318: ValueError
+=========================== short test summary info ===========================
+FAILED test_hole_causes.py::test_a_cut_hole_gets_its_edge_its_spoil_and_the_crews_kit
+FAILED test_hole_causes.py::test_a_form_names_the_slab_and_the_ceiling - Valu...
+FAILED test_hole_causes.py::test_a_broken_floor_gets_an_edge_and_a_spoil_in_its_own_finish_and_no_kit
+FAILED test_hole_causes.py::test_a_hatch_below_the_roof_gets_a_floor_hatch_with_its_lid_by_the_nearest_wall
+FAILED test_hole_causes.py::test_a_floor_hole_the_rules_call_a_hatch_is_one
+FAILED test_hole_causes.py::test_the_links_own_cause_wins_and_a_wrong_one_is_refused
+FAILED test_hole_causes.py::test_the_kit_keeps_off_a_piece_a_door_and_says_when_no_side_has_room
+FAILED test_hole_causes.py::test_the_spoil_keeps_off_the_furniture_below_and_says_when_none_fits
+FAILED test_hole_causes.py::test_a_hole_too_big_for_its_edge_or_hatch_gets_neither_and_l28_says_so
+FAILED test_hole_causes.py::test_nothing_of_a_holes_greybox_stands_over_the_hole
+FAILED test_hole_causes.py::test_a_slots_variant_is_its_names_and_its_stem_is_zoos
+FAILED test_hole_causes.py::test_a_hole_in_a_stairs_well_is_the_stairs_and_nothing_stands_round_it
+FAILED test_hole_causes.py::test_the_library_dresses_every_drop_but_foundrys_catwalk
+13 failed, 5 passed in 0.79s

@@ -1,0 +1,17 @@
+build.py --all on Deli Counter 0.236.1, 2026-10-20: exit 0, 0 Traceback lines and 0 ERROR lines in 121,407 lines of log; 159 specs built; hole_causes notes: 0; the builder's 'door ... is not built' warnings: 9, the nine 0.235.0 and 0.236.0 carried (replayed in patches/dc_hole_causes/lost_doors_0236.txt; no spec changed since).
+
+tracked build records changed: 167; beyond built_utc: 20, in 12 spec(s); untracked new under build/: 0
+  07_police_station          manifest.json
+  apartment_walkup_a01       gameplay.json, manifest.json
+  corner_deli_heist_01       gameplay.json, manifest.json
+  cr_deli                    manifest.json
+  deli_a01                   gameplay.json, manifest.json
+  deli_a02                   gameplay.json, manifest.json
+  deli_a03                   gameplay.json, manifest.json
+  foundry_heist_vertical     gameplay.json, manifest.json
+  night_deli                 manifest.json
+  pvp_station_ref            gameplay.json, manifest.json
+  rowhouse_raid              manifest.json
+  warehouse_a02              gameplay.json, manifest.json
+
+The eight tracked gameplay.json moved in surface_roles alone (every changed line a hole_edge_ or floor_hatch_ node's role; the other four specs track only a manifest): each such node is now four, <slot_id>_n/_s/_e/_w; slots.json unchanged; deli_a03's manifest its build time and its GLB's hash.

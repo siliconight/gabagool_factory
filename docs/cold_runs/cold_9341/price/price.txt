@@ -1,0 +1,12 @@
+measured control_1  53 headings  draws mean 734 worst 2115  p95 median 2.87 ms
+measured glow       53 headings  draws mean 735 worst 2115  p95 median 2.85 ms
+measured control_2  53 headings  draws mean 734 worst 2115  p95 median 2.83 ms
+controls' spread, median over 53 headings: p95 0.05 ms, draws 0.0 (the noise floor)
+run        draws +mean   draws +min   draws +max   p95 +median ms  p95 +max ms
+control_1          0.0            0            2            -0.01         0.16
+glow               1.4           -2            9            -0.02         1.13
+control_2         -0.0           -2            0             0.01         0.31
+memory after the warm-up, MiB:
+  control_1 textures   77.4  buffers   52.8  video  130.1
+  glow      textures   77.4  buffers   53.0  video  130.4
+  control_2 textures   77.4  buffers   52.8  video  130.1

@@ -61,6 +61,24 @@ into a wall's 0.30 m and never out of its far face.
   keeps a slot's dressing all or nothing, and it built the plain edge -- read off the stems before any number was
   used (`patches/zoo_hole_causes/census_forms.py` now sets it on the spoil alone).
 
+## The first cold run: the greybox over the hole (9340)
+
+Cold run 9340 (restaurant_row_001, seed 9003, Deli Counter 0.236.0 and Zoo 1.114.0; `docs/cold_runs/cold_9340/`) was 0
+interventions and read 8 new findings, every one `WALKTEST_WALKER_STUCK`: all four walkers on both of deli_a03's
+candidates sent to a target inside the deli's drop, stuck in its north-west corner on the slab's cut faces. One
+cause: 0.236.0 drew the edge's greybox as one box over the hole, its top 12 mm above the floor, and Lot bakes the walk
+test's navmesh from the candidate's greybox lot with visual meshes in it (`geometry_parsed_geometry_type = 2`), so the
+bake took the box for floor. `greybox_over_holes.py` measured the class over the library: on 0.236.0 every dressed
+hole, 16, had greybox over its whole area, 56.76 m2 in all (a floor hatch's box did the same); Deli Counter 0.236.1
+draws a ring of four boxes outside the hole instead, their union still the slot's footprint, and none is covered
+(`greybox_over_holes.out.txt`). The roof hatch's box over its roof hole (`roof_hatch.py`, 0.224.0) is the same shape
+and was not examined here.
+
+Its frames are the first look at a hole in a level: `docs/cold_runs/cold_9340/holes_9339_vs_9340.jpg`, the same
+stations as 9339's in the level's light. The hole reads as broken through, not cut square, from above and from the
+kitchen; the kit stands beside it with its light aimed in. Two things seen and left for the walker: the spoil reads
+sparse at play distance, and the kit's 0.35 m off the south rim costs two of the hole's declared drop edges.
+
 ## Draws
 
 Measured off the built modules (`glb_draws.py`): the edge 2 submissions framed, 3 over a slab, 4 over a slab under
@@ -70,7 +88,8 @@ building has one or two holes). Not measured: frame time. The cold run that prov
 
 ## What is not proven here
 
-- Frames. Nothing above was seen in a level: the cold run is the first look (roadmap 265).
+- The walker's read of the frames. Cold run 9340's are the first look (above); whether the hole reads as the signal
+  the walker asked for is theirs to say.
 - The gates that run only in Level Factory's package: Deli Counter's placement and z-fight gates over the themed
   modules, the drop-edge gate (a kit's top is a thing's top, reported and not refused), the walk.
 - That a player reads the signal. The walker's eye.
