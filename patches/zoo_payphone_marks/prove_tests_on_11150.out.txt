@@ -1,0 +1,136 @@
+.............F.......sssFFFFFFFF                                         [100%]
+================================== FAILURES ===================================
+_______________ test_the_shroud_is_painted_the_genome_s_colour ________________
+
+    def test_the_shroud_is_painted_the_genome_s_colour():
+        """Editing the genome repaints the payphone. `test_recipe_reads_its_genome`
+        checked that on 1.87.0's materials; an atlas recipe builds none, so that
+        test now skips the payphone ("builds no materials") and this holds it:
+        the style colour reaches the shroud's tile, and the recipe passes it."""
+        rgb = genome_mod.load_species("payphone")["styles"]["default"]["color"]
+        mine = PF.plan(0.75, 0.5, 2.3, "booth", rgb)["tiles"]["shroud"][1]
+        other = PF.plan(0.75, 0.5, 2.3, "booth", (0.5, 0.1, 0.1))["tiles"]["shroud"][1]
+        assert mine["paint"] == tuple(PF._srgb8(c) for c in rgb)
+        assert CA.paint(mine).png() != CA.paint(other).png()
+        src = open(os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                "zoo_keeper", "recipes", "payphone.py"), encoding="utf-8").read()
+        # 1.116.0 passes the kit's variant after the colour (`test_the_recipe_hands_the_variant_to_the_plan`)
+>       assert 'PF.plan(w, d, h, params.get("form"), plan["color"], variant=' in src
+E       assert 'PF.plan(w, d, h, params.get("form"), plan["color"], variant=' in '"""payphone recipe: a 1990s coin payphone in one of three enclosures, two\natlases, two draws.\n\nZoo 1.88.0, roadmap..._props": {lamp["name"]: dict(lamp["props"])},\n            "payphone": {"form": f["form"], "company": f["company"]}}\n'
+
+tests\test_payphone.py:189: AssertionError
+________________ test_variant_zero_is_the_1_115_0_booth[booth] ________________
+
+form = 'booth'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_variant_zero_is_the_1_115_0_booth(form):
+        """No tile carries `marks` and the stickers keep their rows: the plan is the plan without a variant, so a
+        payphone built before 1.116.0 rebuilds byte for byte."""
+        plain = PF.plan(0.75, 0.5, 2.3, form)
+>       assert plain == PF.plan(0.75, 0.5, 2.3, form, variant=0)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: plan() got an unexpected keyword argument 'variant'
+
+tests\test_payphone.py:348: TypeError
+______________ test_variant_zero_is_the_1_115_0_booth[pedestal] _______________
+
+form = 'pedestal'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_variant_zero_is_the_1_115_0_booth(form):
+        """No tile carries `marks` and the stickers keep their rows: the plan is the plan without a variant, so a
+        payphone built before 1.116.0 rebuilds byte for byte."""
+        plain = PF.plan(0.75, 0.5, 2.3, form)
+>       assert plain == PF.plan(0.75, 0.5, 2.3, form, variant=0)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: plan() got an unexpected keyword argument 'variant'
+
+tests\test_payphone.py:348: TypeError
+________________ test_variant_zero_is_the_1_115_0_booth[wall] _________________
+
+form = 'wall'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_variant_zero_is_the_1_115_0_booth(form):
+        """No tile carries `marks` and the stickers keep their rows: the plan is the plan without a variant, so a
+        payphone built before 1.116.0 rebuilds byte for byte."""
+        plain = PF.plan(0.75, 0.5, 2.3, form)
+>       assert plain == PF.plan(0.75, 0.5, 2.3, form, variant=0)
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: plan() got an unexpected keyword argument 'variant'
+
+tests\test_payphone.py:348: TypeError
+_ test_each_variant_marks_its_booth_differently_and_the_same_every_build[booth] _
+
+form = 'booth'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_each_variant_marks_its_booth_differently_and_the_same_every_build(form):
+        """The walker's look review, 2026-10-19: the booth's graffiti "too similar/uniform". Each of the four looks paints
+        the enclosure's insides its own way, and the same way every build. FAILS ON 1.115.0: `plan` takes no variant."""
+        seen = set()
+>       for v in range(PF.VARIANTS):
+                       ^^^^^^^^^^^
+E       AttributeError: module 'zoo_keeper.core.payphone_forms' has no attribute 'VARIANTS'
+
+tests\test_payphone.py:357: AttributeError
+_ test_each_variant_marks_its_booth_differently_and_the_same_every_build[pedestal] _
+
+form = 'pedestal'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_each_variant_marks_its_booth_differently_and_the_same_every_build(form):
+        """The walker's look review, 2026-10-19: the booth's graffiti "too similar/uniform". Each of the four looks paints
+        the enclosure's insides its own way, and the same way every build. FAILS ON 1.115.0: `plan` takes no variant."""
+        seen = set()
+>       for v in range(PF.VARIANTS):
+                       ^^^^^^^^^^^
+E       AttributeError: module 'zoo_keeper.core.payphone_forms' has no attribute 'VARIANTS'
+
+tests\test_payphone.py:357: AttributeError
+_ test_each_variant_marks_its_booth_differently_and_the_same_every_build[wall] _
+
+form = 'wall'
+
+    @pytest.mark.parametrize("form", PF.FORMS)
+    def test_each_variant_marks_its_booth_differently_and_the_same_every_build(form):
+        """The walker's look review, 2026-10-19: the booth's graffiti "too similar/uniform". Each of the four looks paints
+        the enclosure's insides its own way, and the same way every build. FAILS ON 1.115.0: `plan` takes no variant."""
+        seen = set()
+>       for v in range(PF.VARIANTS):
+                       ^^^^^^^^^^^
+E       AttributeError: module 'zoo_keeper.core.payphone_forms' has no attribute 'VARIANTS'
+
+tests\test_payphone.py:357: AttributeError
+________ test_the_genome_takes_four_variants_and_the_stem_carries_one _________
+
+    def test_the_genome_takes_four_variants_and_the_stem_carries_one():
+        g = genome_mod.load_species("payphone")
+        assert genome_mod.validate_genome(g) == []
+>       assert g["module_variants"] == PF.VARIANTS == 4
+               ^^^^^^^^^^^^^^^^^^^^
+E       KeyError: 'module_variants'
+
+tests\test_payphone.py:367: KeyError
+________________ test_the_recipe_hands_the_variant_to_the_plan ________________
+
+    def test_the_recipe_hands_the_variant_to_the_plan():
+        root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        recipe = open(os.path.join(root, "zoo_keeper", "recipes", "payphone.py"), encoding="utf-8").read()
+>       assert 'variant=int(params.get("variant") or 0)' in recipe
+E       assert 'variant=int(params.get("variant") or 0)' in '"""payphone recipe: a 1990s coin payphone in one of three enclosures, two\natlases, two draws.\n\nZoo 1.88.0, roadmap..._props": {lamp["name"]: dict(lamp["props"])},\n            "payphone": {"form": f["form"], "company": f["company"]}}\n'
+
+tests\test_payphone.py:379: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_payphone.py::test_the_shroud_is_painted_the_genome_s_colour
+FAILED tests/test_payphone.py::test_variant_zero_is_the_1_115_0_booth[booth]
+FAILED tests/test_payphone.py::test_variant_zero_is_the_1_115_0_booth[pedestal]
+FAILED tests/test_payphone.py::test_variant_zero_is_the_1_115_0_booth[wall]
+FAILED tests/test_payphone.py::test_each_variant_marks_its_booth_differently_and_the_same_every_build[booth]
+FAILED tests/test_payphone.py::test_each_variant_marks_its_booth_differently_and_the_same_every_build[pedestal]
+FAILED tests/test_payphone.py::test_each_variant_marks_its_booth_differently_and_the_same_every_build[wall]
+FAILED tests/test_payphone.py::test_the_genome_takes_four_variants_and_the_stem_carries_one
+FAILED tests/test_payphone.py::test_the_recipe_hands_the_variant_to_the_plan
+9 failed, 20 passed, 3 skipped in 6.18s
+exit=1
