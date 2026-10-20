@@ -84,8 +84,8 @@ the CHANGELOG.
 ## Not shown yet (as of 0.234.0; see below for what has been since)
 
 - A frame of any of it. *Since: cold run 9338's frames of deli_a03, `docs/cold_runs/cold_9338/`.*
-- A cold run on a level whose lot carries one of the 23 specs. *Since: 9338, restaurant_row_001 on 0.234.0, 0
-  interventions; 0.235.0's is the next.*
+- A cold run on a level whose lot carries one of the 23 specs. *Since: 9338 on 0.234.0 and 9339 on 0.235.0,
+  restaurant_row_001, each 0 interventions.*
 - The networked doors themselves, which are the gameplay layer's.
 
 ## The first cold run: a wall under the drop (Deli Counter 0.235.0)
@@ -138,4 +138,10 @@ either side, and the only warning gone is L27's.
 **Left as named:** the three library walls that stood under a hole before the table, and casino_tower's skylight.
 final_stand's and cbp_town_finale's ground-floor walls cross under their atriums, their tops a 0.3 m strip across the
 void; bank's shows half its thickness at its atrium's edge; the skylight drops onto a wall. L27 names each on every
-lint. Moving them is the factory's next call on this rule, not this change's.
+lint. Moving them is the factory's next call on this rule, not this change's: roadmap 264.
+
+**Proven: cold run 9339** (restaurant_row_001 on 0.235.0, `docs/cold_runs/cold_9339/NOTES.md`): 0 interventions, the
+pick and findings as on 9338. The drop's nav link moved with the hole, x -43.0 to -42.5, its hole clear of the kitchen
+wall's face by 0.225 m and landing in the kitchen. The 7 drop-edge rows 9338 lost came back as declared drop edges
+(13 to 20, 0 undeclared), and `interactives.json` is identical. `hole_9338_vs_9339.jpg` there sets the two runs' hole
+frames side by side: on 9339 no wall top shows in the hole and the kitchen door stands beside it.
