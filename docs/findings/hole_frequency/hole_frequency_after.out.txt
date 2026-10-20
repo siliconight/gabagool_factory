@@ -1,0 +1,44 @@
+[draw] Level Factory at C:\Projects\gabagool_studios\gabagool_factory\level_factory, version 0.221.0
+[library] 11 built specs carry a hole a player sees; 3 of them in the 102 shells a themed lot can draw:
+    07_police_station        -     [('floor_hole', 'hatch', None)]
+    apartment_walkup_a01     lot   [('floor_hole', 'broken', 'vertical_angle'), ('hatch', 'hatch', None)]
+    corner_deli_heist_01     -     [('floor_hole', 'cut', 'vertical_attack_angle'), ('hatch', 'hatch', 'roof_drop_to_stair')]
+    cr_deli                  -     [('floor_hole', 'cut', 'vertical_attack_angle'), ('hatch', 'hatch', 'roof_drop_to_stair')]
+    deli_a02                 -     [('floor_hole', 'cut', 'vertical_attack_angle')]
+    deli_a03                 lot   [('floor_hole', 'cut', 'vertical_attack_angle')]
+    foundry_heist_vertical   -     [('floor_hole', None, 'drop_angle'), ('hatch', 'hatch', 'roof_to_archive_drop')]
+    night_deli               -     [('floor_hole', 'cut', 'vertical_attack_angle'), ('hatch', 'hatch', 'roof_drop_to_stair')]
+    pvp_station_ref          -     [('floor_hole', 'hatch', None)]
+    rowhouse_raid            -     [('floor_hole', 'broken', 'vertical_angle')]
+    warehouse_a02            lot   [('floor_hole', 'hatch', None)]
+
+[missions] the latest staged brief of each, 12 candidate seeds a lot mission
+    mission                    archetype              count  levels     holes     which
+    bank_block_001             urban_bank             3      0 of 12    0.00 a level {}
+    card_block_001             card_shop              3      0 of 12    0.00 a level {}
+    card_block_002             card_shop              3      0 of 12    0.00 a level {}
+    category5_baie_dore_001    casino_tower           4      2 of 12    0.17 a level {'warehouse_a02 hatch': 2}
+    club_block_001             strip_club             3      1 of 12    0.08 a level {'deli_a03 cut': 1}
+    club_block_002             strip_club             3      0 of 12    0.00 a level {}
+    club_block_003             strip_club             3      0 of 12    0.00 a level {}
+    club_block_004             strip_club             3      0 of 12    0.00 a level {}
+    club_block_005             strip_club             3      0 of 12    0.00 a level {}
+    club_block_006             strip_club             3      0 of 12    0.00 a level {}
+    club_block_007             strip_club             3      0 of 12    0.00 a level {}
+    club_block_008             strip_club             3      0 of 12    0.00 a level {}
+    club_block_009             strip_club             3      0 of 12    0.00 a level {}
+    club_block_010             strip_club             3      0 of 12    0.00 a level {}
+    club_block_011             strip_club             3      0 of 12    0.00 a level {}
+    club_block_012             strip_club             3      1 of 12    0.08 a level {'deli_a03 cut': 1}
+    club_block_013             strip_club             3      1 of 12    0.08 a level {'warehouse_a02 hatch': 1}
+    club_block_014             strip_club             3      1 of 12    0.25 a level {'deli_a03 cut': 1, 'apartment_walkup_a01 broken': 1, 'apartment_walkup_a01 hatch': 1}
+    convenience_001            convenience_store      1      none seen  -         no transient of it in census_holes.json
+    county_hospital_001        county_hospital        1      5 of 12    1-2 a level the preset, from 6 built transients: [('floor_hole', None, 'elevator_shaft_horde_channel')]
+    deli_001                   deli                   1      2 of 12    2-2 a level the preset, from 3 built transients: [('floor_hole', 'cut', 'vertical_attack_angle'), ('hatch', 'hatch', 'roof_drop_to_stair')]
+    gas_block_001              gas_station            3      0 of 12    0.00 a level {}
+    gas_stop_001               gas_station            3      0 of 12    0.00 a level {}
+    precinct_yard_001          police_station         4      3 of 12    0.33 a level {'apartment_walkup_a01 broken': 1, 'apartment_walkup_a01 hatch': 1, 'warehouse_a02 hatch': 2}
+    restaurant_row_001         corner_deli            3      2 of 12    0.17 a level {'deli_a03 cut': 2}
+    urban_row_001              corner_deli            3      2 of 12    0.17 a level {'deli_a03 cut': 2}
+    video_block_001            video_store            3      0 of 12    0.00 a level {}
+    warehouse_yard_001         industrial_warehouse   2      4 of 12    0.33 a level {'warehouse_a02 hatch': 4}

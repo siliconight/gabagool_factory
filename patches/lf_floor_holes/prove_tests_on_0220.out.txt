@@ -1,0 +1,17 @@
+Level Factory 0.220.0 (aa217f7) with tests/unit/test_floor_holes.py alone, 03:14:39
+?? tests/unit/test_floor_holes.py
+FFFFFFF                                                                  [100%]
+E   AttributeError: module 'packages.pipeline.building_library' has no attribute 'holes_wanted'
+E       AttributeError: module 'packages.pipeline.building_library' has no attribute 'carries_hole'
+E       AttributeError: module 'packages.pipeline.building_library' has no attribute 'apply_hole_rule'
+E       AttributeError: module 'packages.pipeline.building_library' has no attribute 'apply_hole_rule'
+E               TypeError: lot_for() got an unexpected keyword argument 'hole_rate'
+E       AttributeError: 'MissionBrief' object has no attribute 'floor_holes'
+E       ValueError: list.index(x): x not in list
+FAILED tests/unit/test_floor_holes.py::test_the_rate_is_the_rate - AttributeE...
+FAILED tests/unit/test_floor_holes.py::test_a_hole_is_a_drop_a_player_sees - ...
+FAILED tests/unit/test_floor_holes.py::test_a_level_without_one_swaps_the_variant_never_the_family
+FAILED tests/unit/test_floor_holes.py::test_a_level_with_one_keeps_it_or_takes_one
+FAILED tests/unit/test_floor_holes.py::test_lot_for_and_the_site_draw_apply_it_alike
+FAILED tests/unit/test_floor_holes.py::test_the_brief_names_its_rate - Attrib...
+FAILED tests/unit/test_floor_holes.py::test_the_deli_counter_job_passes_holes_off_and_nothing_else

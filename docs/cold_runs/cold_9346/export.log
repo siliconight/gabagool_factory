@@ -1,0 +1,23 @@
+[export] surface dressing: deli_001_dressing.tscn -- 1632 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 158 instances of 7 module(s) on their sides, 25 draw calls (N 52, S 49, E 29, W 27; 1 tower)
+[export] 303 occluder(s) from 315 solid module(s); 1 glass, 36 porous and 60 filler left open
+[export]   res://mission.tscn loaded by Godot holds 303 occluder node(s) in a tree of 6396
+[export] light bake: 185 model(s) and 37 primitive mesh(es) lightmapped, 5 kept dynamic, 1 spawned set dynamic; 99 steady rig(s) baked, 15 failing and 0 cycling left live; 119 room fill(s); 1633 users, 34.8 s in the editor
+[export] occlusion: use_occlusion_culling=true with 303 occluder node(s) reachable from res://mission.tscn (303 in the package, 7 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 108 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 2, in responder_arrivals.json
+[export] glb references: 180 GLB(s), 763 external reference(s): 763 resolve to 91 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 26650 reached of 28324 standable cells, 35 unguarded drop edge(s): 6 a flight's own side, 0 at a declared drop, 13 at a ladder's shaft, 8 a thing's top, 8 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_deli_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 91 of 91 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 52 resource(s) in a package of 1198 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 1202 file(s) listed + 2 declared unlisted = 1204 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported deli_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9346-ws\.level_factory\exports\LF_deli_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             level-factory -C C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9346-ws walk deli_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
