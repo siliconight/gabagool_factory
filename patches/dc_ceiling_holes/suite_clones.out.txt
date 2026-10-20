@@ -1,0 +1,8 @@
+The suite on two clones, 2026-10-19. A clone has no build/ outputs (gitignored), so tests that read built shells fail
+in both; the record is that the same ones fail.
+
+  Deli Counter 0.234.0, clean clone (a6cbc045):       23 failed, 1518 passed, 48 skipped, 1 warning in 118.42s
+  the 0.235.0 dry run (patch + migrations + catalog):  23 failed, 1527 passed, 48 skipped, 1 warning in 126.16s
+
+The 23 failures by name: identical (suite_clone_0234_failed.txt, suite_clone_0235_failed.txt; diff empty).
+The 9 more passing are test_ceiling_holes.py. The verdict is the repository's suite after build.py --all (suite.out.txt).

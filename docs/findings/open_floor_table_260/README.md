@@ -81,8 +81,61 @@ a door.
 The refurnish moved three specs, all by the new doors; the untouched library refurnished moves none. Details are in
 the CHANGELOG.
 
-## Not shown yet
+## Not shown yet (as of 0.234.0; see below for what has been since)
 
-- A frame of any of it.
-- A cold run on a level whose lot carries one of the 23 specs.
+- A frame of any of it. *Since: cold run 9338's frames of deli_a03, `docs/cold_runs/cold_9338/`.*
+- A cold run on a level whose lot carries one of the 23 specs. *Since: 9338, restaurant_row_001 on 0.234.0, 0
+  interventions; 0.235.0's is the next.*
 - The networked doors themselves, which are the gameplay layer's.
+
+## The first cold run: a wall under the drop (Deli Counter 0.235.0)
+
+Cold run 9338 (restaurant_row_001, whose lot places deli_a03) ran on 0.234.0 with 0 interventions. Its frames show
+the kitchen wall and its door from the aisles, and the slid stockroom gate, as `plans/plans.html` drew them. They
+also show the wall running up into the delis' 2.2 m drop at (8, -4), the "vertical attack angle". The hole spans
+x 6.9..9.1 and the wall stands at x 7, 0.35 m thick, so its top shows 0.275 m into the hole along all 2.2 m of it, and
+the new door sits under the hole. Level Factory's drop-edge gate saw it as 7 fewer unguarded edges on that slab: its
+column probe read the wall's top as floor.
+
+**Measured across the library before any fix.** `holes_over_walls.py` checks each authored partition against every
+hole in its ceiling, the centreline deciding as `partition_bounds.hole_cuts` does. It finds 8 walls under a hole on
+0.233.0's specs and 14 on 0.234.0's. The six new ones are exactly the six delis -- the kitchen wall under the drop --
+and nothing else the table made (`holes_over_walls_0233.json`, `holes_over_walls_0234.json`, their `.out.txt`).
+
+**That probe over-counted, and is kept as it ran.** It read partitions as authored, but the builder cuts a partition
+over a hole in its own floor (roadmap 114). Two storey-1 walls of final_stand's and
+cbp_town_finale_midbalanced_schemafixed's two-storey atriums, which it counted under the storey-2 hole, are cut away
+over the storey-1 hole beneath them and stand nowhere under the one above. Its four stair rows are stair enclosures
+0.05 m inside their hole's edge, which is L21's business. And it missed one: its strict centreline let through bank's
+wall at x 4, whose centreline sits on its atrium's edge with half its thickness under the hole.
+
+**The rule: layout_lint L27** (Deli Counter 0.235.0, advisory). It names every BUILT partition (`built_walls`) that
+reaches past the edge of an authored hole in its own ceiling by more than a touch (0.02 m). Authored holes are
+`slab_holes` plus the floor_hole and hatch links that cut the slab; a hole in both lists is one hole.
+`l27.py` runs it over a folder of specs:
+
+| specs | L27 rows |
+|---|---|
+| 0.233.0's library (`l27_0233.out.txt`) | 3: final_stand's ground-floor wall under its atrium (0.30 m into it, along 10 m), cbp_town_finale_midbalanced_schemafixed's (0.30 m, 28 m), bank's at x 4 (0.15 m, 6 m) |
+| 0.234.0's library (`l27_0234.out.txt`) | 9: those three, and the six delis (0.275 m, 2.2 m) |
+| 0.235.0's folder (`l27_0235.out.txt`) | the three; and, among Level Factory's `lf_*` transients, cold run 9338's three restaurant_row_001 shells (built on 0.234.0, rebuilt each run) and ten category5_baie_dore_001 shells of 2026-09-13 |
+
+The baie_dore rows are `presets.casino_tower`'s: its count-room skylight, a 1.4 m breachable hatch at (14, 8) in
+storey 1's floor, is centred on the storey-0 wall at y 8 between the gaming floor and the cashier cage. That predates
+the table, and L27 is the first thing to name it.
+
+**The fix: the hole moves, not the wall** (L21's rule for a stair: the rooms are the plan). `open_floor_rules` now
+slides a hole off any wall its table lays: across the wall, whole grid cells, toward the side holding the hole's
+centre, until it opens into the one room below and no wall stands under it. If it can't, the pair is refused. It also
+slides a hole off a standing wall between a WALL row's pair, so running the migration again moved the six delis'
+drops 0.5 m east, to (8.5, -4): x 7.4..9.6, all in the kitchen, slab hole and link together.
+
+Refurnished (`refurnish_0235.out.txt`): in three delis the storey-1 dining table had stood within furnish's 0.3 m of
+the new hole, so in each 6 pieces moved and a chair went. The rest of the library refurnished moves nothing. Lint on
+the six before and after, with L27's code both times (`holes_lint_before.json`, `holes_lint_after.json`): no FAIL on
+either side, and the only warning gone is L27's.
+
+**Left as named:** the three library walls that stood under a hole before the table, and casino_tower's skylight.
+final_stand's and cbp_town_finale's ground-floor walls cross under their atriums, their tops a 0.3 m strip across the
+void; bank's shows half its thickness at its atrium's edge; the skylight drops onto a wall. L27 names each on every
+lint. Moving them is the factory's next call on this rule, not this change's.

@@ -1,0 +1,65 @@
+{
+ "corner_deli_heist_01": {
+  "fails": [],
+  "warns": [
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_9) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall"
+  ]
+ },
+ "cr_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'cr_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_6) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall"
+  ]
+ },
+ "deli_a01": {
+  "fails": [],
+  "warns": [
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_6) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall",
+   "L9 6x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.8, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 7x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a02": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_6) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall",
+   "L9 4x identical cover volumes (0.5, 1.2, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.6, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.9, 1.0) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.4, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 5x identical cover volumes (0.6, 2.6, 1.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 11x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "deli_a03": {
+  "fails": [],
+  "warns": [
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_6) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall",
+   "L1 room 'deli_counter' is 11m deep with 1 opening(s); expect 2 ways out (common-path rule)",
+   "L3 room 'apartment_hideout' travel ~64m to exit (> 60m)",
+   "L9 4x identical cover volumes (0.5, 0.5, 0.85) -- vary dims/height (cover-box anti-pattern)",
+   "L9 6x identical cover volumes (0.5, 0.4, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 8x identical cover volumes (0.8, 1.2, 1.4) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (1.2, 0.5, 1.8) -- vary dims/height (cover-box anti-pattern)",
+   "L9 10x identical cover volumes (0.5, 0.5, 0.9) -- vary dims/height (cover-box anti-pattern)",
+   "L9 4x identical cover volumes (0.6, 0.5, 1.2) -- vary dims/height (cover-box anti-pattern)"
+  ]
+ },
+ "night_deli": {
+  "fails": [],
+  "warns": [
+   "L21 stair arrives through a wall: 'night_deli_stair_0' tops out through 'office_stair_door' on the story 0 X-partition at pos=6, 0.55 m inside its walk-off margin; the builder trims 3.60 m of that wall around the door",
+   "L24 reachable only by breaching: 'server_room' (story 1) -- every way in is a breach panel, a window or a drop; no door, stair, ladder or open floor reaches it",
+   "L27 wall under a hole in its ceiling: the story 0 Y-partition at pos=7 (int_0_6) stands 0.28 m into the hole (6.90, -5.10)-(9.10, -2.90) in the floor of story 1 along 2.20 m of its run, its top showing in the hole -- move the hole clear of the wall, not the wall"
+  ]
+ }
+}

@@ -1,0 +1,12 @@
+build.py --all on Deli Counter 0.235.0, 2026-10-19 20:01:56-20:09:40: build exit 0, 0 ERROR or Traceback lines in 121251 lines of log, 0 FAILED.
+
+tracked build records changed: 166; beyond built_utc: 13, in 6 spec(s); untracked new under build/: 0
+  corner_deli_heist_01       gameplay.json, manifest.json
+  cr_deli                    manifest.json
+  deli_a01                   gameplay.json, manifest.json, slots.json
+  deli_a02                   gameplay.json, manifest.json, slots.json
+  deli_a03                   gameplay.json, manifest.json, slots.json
+  night_deli                 manifest.json
+(cr_deli and night_deli track only a manifest; every record each of the six tracks moved, and no other spec's.)
+
+The builder's 'door ... sits in a cut-away part of the run and is not built' warnings: 9. Replayed per spec without Blender (docs/findings/open_floor_table_260/lost_doors.py -> lost_doors_0235.txt here), they are the same 9 doors as 0.234.0's (lost_doors_0234.txt in the finding), spec by spec: none is this change's. Pairing each warning with the next '[build] ... ->' line of the log put all 9 on 07_police_station, which is wrong: the log's order is not the build's.

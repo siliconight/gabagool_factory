@@ -1,0 +1,18 @@
+patches/patch_dc_ceiling_holes.py, dry-run on a fresh clone of Deli Counter 0.234.0 (a6cbc045), 2026-10-19,
+laid out as <dir>/patches/ and <dir>/deli_counter/:
+
+  first run:  Deli Counter 0.235.0 applied: 3 files edited, 1 written, VERSION, CHANGELOG. Now, in deli_counter/:
+              migrate_open_floor_rules.py, migrate_furnish_recipes.py, catalog.py, the suite, build.py --all, check.py
+  second run: REFUSED: deli_counter/layout_lint.py is f174d0793a2701d8, not the 65f82bc6fc24c2af this patch was
+              written against; nothing written   (exit 1)
+
+Then, in the dry run's deli_counter/: migrate_open_floor_rules.py (6 spec(s) migrated), migrate_furnish_recipes.py
+([furnish_recipes] 128 specs: -7960 furnished volumes, +7836 refurnished), catalog.py (159 levels).
+Files changed: 13. Byte-identical to the proven clone the patch was generated from: 11 of 11 (the clone carries no
+VERSION or CHANGELOG change; the dry run's read "Deli Counter 0.235.0" and open on "## [0.235.0]").
+
+On the repository, the same three commands after the patch: 13 files changed, every one byte-identical to the dry run.
+
+The generator: gen_dc_ceiling_holes.py (here; it reads the proven clone from the session's scratch directory). Each
+edited file's hunks come from a line diff of the pinned file against the clone's, widened until unique, and the patch
+is written only if the hunks reproduce the clone's file byte for byte; it asserts every file LF.
