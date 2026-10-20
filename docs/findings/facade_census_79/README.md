@@ -52,31 +52,50 @@ centres within it are the same grid point.
 
 ## Can it be composed after the openings are placed? (`predict.py`; `predict.out.txt`)
 
-Four candidate grammars, each moving only upper-storey windows with no gameplay tag -- the ground floor, every door,
-breach, garage and vault, and every tagged window stay where gameplay put them -- and keeping each storey's count,
-kind and size. A target is turned down when the window would leave the run, come within 0.3 m of another opening, or
-cross a partition's junction with the exterior wall (a room wall standing in the window); the window then tries the
-next target. 170 such windows in the pool's 52 multi-storey buildings; 28 of 169 first-storey openings stacked as
-built.
+Five candidate grammars in seven rows, each moving only upper-storey windows with no gameplay tag -- the ground floor,
+every door, breach, garage and vault, and every tagged window stay where gameplay put them -- and keeping each
+storey's count, kind and size. A target is turned down when the window would leave the run, come within 0.3 m of
+another opening, or cross a partition's junction with the exterior wall (a room wall standing in the window); the
+window then tries the next target. 170 such windows in the pool's 52 multi-storey buildings; 28 of 169 first-storey
+openings stacked as built. `mirrored` counts the upper-storey openings with a partner mirrored about their face's
+centre.
 
-| grammar | moved | into another room | median / max move | stacked, ground -> first | buildings touched |
-|---|---|---|---|---|---|
-| over: onto the opening below, within half a bay | 17 (124 have none within 1.6 m) | 0 | 1.50 / 1.50 m | 45 of 169 | 13 |
-| centred: n = round(L / 3.2) equal bays | 160 | 0 | 0.86 / 3.30 m | **5 of 169** | 51 |
-| entrance: centred, phased on the primary door | 156 | 0 | 0.88 / 3.38 m | 20 of 169 | 51 |
-| fit: the best grid through the ground's own openings, stacking first | 147 | 8 | **2.50 / 22.00 m** | 139 of 169 | 51 |
+**REFUTED, kept above what replaced it.** The first reading (the root's 33f9e4a) priced `over` at half a bay only and
+closed this section with: *"no re-placement of one against the other fixed recovers a composition at a small move.
+The grid has to be chosen where the openings are first chosen."* Half a bay was a choice, not a bound: at one bay's
+reach the same grammar moves 71 windows a median 2.0 m and stacks 99, none into another room. The conclusion was
+drawn from one row of a table that needed several. What the full table says is below.
 
-- **A regular grid is cheap to reach and composes against nothing:** centring the upper storeys on equal bays moves
-  windows under a metre and drops stacking over the ground floor from 28 to 5, because the ground floor's
-  openings are not on any such grid.
-- **A grid through the ground floor exists** -- 283 of 321 ground openings stand on the best 2.4-4.0 m grid their
-  own face admits (the search is generous: 17 widths and a phase per opening, so some of that fit is the search's
-  freedom) -- **but reaching it from the upper storeys means relocating windows**, a median 2.5 m and up to 22 m,
-  8 of them into another room.
-- **So the ground floor and the upper storeys were laid out independently**, and no re-placement of one against the
-  other fixed recovers a composition at a small move. The grid has to be chosen where the openings are first
-  chosen -- with the ground floor's -- which is the spec's authoring, not the emitter. That is where the proposal
-  puts the planner.
+| grammar | moved | into another room | median / max move | stacked, ground -> first | mirrored upstairs | buildings touched |
+|---|---|---|---|---|---|---|
+| as built | - | - | - | 28 of 169 | **167 of 177** | - |
+| over, within half a bay (1.6 m) | 17 | 0 | 1.50 / 1.50 m | 45 | 155 | 13 |
+| over, within a bay (3.2 m) | 71 | 0 | 2.00 / 3.00 m | 99 | 123 | 37 |
+| over, within 6 m | 100 | 3 | 2.50 / 6.00 m | 126 | 98 | 47 |
+| **over, keeping the symmetry, within a bay** | **46** | **0** | 2.00 / 3.00 m | **74** | **167** | **22** |
+| centred: n = round(L / 3.2) equal bays | 160 | 0 | 0.86 / 3.30 m | 5 | 151 | 51 |
+| entrance: centred, phased on the primary door | 156 | 0 | 0.88 / 3.38 m | 20 | 64 | 51 |
+| fit: the best grid through the ground's own openings, stacking first | 147 | 8 | 2.50 / 22.00 m | 139 | 64 | 51 |
+
+- **The upper storeys were authored to one rule, and the ground floors to another.** Upstairs, 167 of 177 openings
+  have a partner mirrored about their face's centre: the presets put upper windows at plus and minus a fraction of
+  the run. At grade, 135 of 321 do, and 62 of 180 ground faces are wholly mirrored: doors, breaches and display
+  windows stand where the rooms behind them need them. Of the 96 faces with openings on both storeys, 35 are wholly
+  mirrored on both -- bank_branch_a04's south face is one, its windows at 12 m and 10 m off centre.
+- **So stacking and symmetry trade against each other while the ground floor holds.** Every `over` row stacks by
+  giving up symmetry: at a bay's reach 99 stack and 44 upstairs openings lose their mirrored partner; at 6 m, 126 and
+  69. The centred grid keeps the symmetry and stacks almost nothing (5), because the ground floor's openings are on no
+  regular grid. The best grid through the ground floor's own openings exists for most faces (283 of 321 ground
+  openings stand on one -- the search is generous, 17 widths and a phase per opening), but reaching it moves windows
+  up to 22 m, 8 into another room, and breaks most of the symmetry (64).
+- **The cheapest step that composes without undoing anything authored is `over sym`:** a mirrored pair of upper
+  windows moves together onto a mirrored pair of openings below, within a bay; a window on the centre line only
+  onto an opening on it. 46 windows in 22 buildings move, none into another room, and stacking goes from 28 to 74
+  with the symmetry intact.
+- **A face with both -- every storey stacked and symmetric where its use allows -- needs its ground floor laid out
+  with the grid.** That is still the spec's authoring, where the openings are first chosen, and the proposal still
+  puts the planner there. What the refutation changed is the first step: the library can be moved part of the way
+  without moving any opening gameplay placed.
 
 What `predict.py` cannot see: stairs, fixtures and lights against a wall (every touched building needs a refurnish,
 counted, not simulated), and how any of it looks.

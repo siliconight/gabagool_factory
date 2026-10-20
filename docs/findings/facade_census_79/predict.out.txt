@@ -1,17 +1,21 @@
-[predict] 52 multi-storey enterable buildings in Level Factory's themed pool; BAY 3.2 m, REACH 1.6 m, MIN_PIER 0.3 m
+[predict] 52 multi-storey enterable buildings in Level Factory's themed pool; BAY 3.2 m, MIN_PIER 0.3 m
 [predict] as built: stacked ground->first 28 of 169, above 3 of 3
 
-grammar    movable  moved new room refused                deflected                                 move med/max    stacked g->1      above  touched
-over           170     17        0 no target 124          -                                          1.50/1.50        45 of 169      3 of 3     13
-centred        170    160        0 -                      over a partition junction 8                0.86/3.30         5 of 169      3 of 3     51
-entrance       170    156        0 -                      leaves the run 1, over a partition junction 6   0.88/3.38        20 of 169      3 of 3     51
-fit            170    147        8 leaves the run 1       leaves the run 7, over a partition junction 2, too near another opening 2   2.50/22.00      139 of 169      3 of 3     51
+grammar   movable  moved new room refused          deflected                              move med/max  stacked g->1     above   mirrored up touched
+over 1.6      170     17        0 no target 124    -                                       1.50/1.50      45 of 169    3 of 3     155 of 177     13
+over 3.2      170     71        0 no target 70     -                                       2.00/3.00      99 of 169    3 of 3     123 of 177     37
+over 6.0      170    100        3 leaves the run 3, no target 40 -                                       2.50/6.00     126 of 169    3 of 3      98 of 177     47
+over sym      170     46        0 no target 111    -                                       2.00/3.00      74 of 169    3 of 3     167 of 177     22
+centred       170    160        0 -                over a partition junction 8             0.86/3.30       5 of 169    3 of 3     151 of 177     51
+entrance      170    156        0 -                leaves the run 1, over a partition junction 6  0.88/3.38      20 of 169    3 of 3      64 of 177     51
+fit           170    147        8 leaves the run 1 leaves the run 7, over a partition junction 2, too near another opening 2  2.50/22.00    139 of 169    3 of 3      64 of 177     51
 
+as built, mirrored up: 167 of 177 upper-storey openings have a partner mirrored about their face's centre
 fit: ground-floor openings standing on the best grid their own face admits, once a face: 283 of 321
 
 movable: upper-storey windows with no gameplay tag; moved: those the grammar moved (a window already on its
 target is not a move); new room: moves across a partition's junction with the wall, into another room;
-refused: no target left, the window where it is; deflected: windows whose first
-target was turned down, by why, that took another; move: metres
-along the face; stacked: openings over an opening on the storey below, after; touched: buildings with at
-least one window moved, each of which would need a refurnish and a rebuild.
+refused: no target left, the window where it is; deflected: windows whose first target was turned down,
+by why, that took another; move: metres along the face; stacked: openings over an opening on the storey
+below, after; mirrored up: upper-storey openings with a partner mirrored about the face's centre, after;
+touched: buildings with at least one window moved, each of which would need a refurnish and a rebuild.
