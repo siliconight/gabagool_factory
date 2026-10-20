@@ -78,7 +78,7 @@
 - `hole_causes_265/` -- Every hole in a floor has a cause (roadmap 265)
 - `hole_frequency/` -- How often a level has a hole in a floor -- and the rule that makes it rare (2026-10-20, roadmap 269)
 - `horizon_glow/` -- The horizon glow, seen and priced (roadmap 228, step A; Lux 0.73.0)
-- `interior_merge_266/` -- Enterable buildings' static modules merged per room cell and material (roadmap 266), 2026-10-20: prototyped and priced
+- `interior_merge_266/` -- Enterable buildings' static modules merged per room cell and material (roadmap 266), 2026-10-20: prototyped, priced, shipped
 - `lf_suite_time/` -- Level Factory's suite: where its seven minutes go (roadmap 239)
 - `light_bake/` -- 66 file(s); The light-bake probe (roadmap item 31)
 - `light_breakdown/` -- What a night frame is made of: the light breakdown (club_block_014, cold run 9213, midnight)

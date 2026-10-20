@@ -1,0 +1,4 @@
+            raise MergeError(f"merge failed: {report.get('error')}")
+FAILED tests/unit/test_merge_buildings.py::test_a_finished_merge_is_believed_and_leaves_no_rooms_behind
+FAILED tests/unit/test_merge_buildings.py::test_what_a_merge_leaves_alone
+FAILED tests/unit/test_merge_buildings.py::test_a_lit_face_stays_its_own_instances_mesh

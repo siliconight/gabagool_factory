@@ -1,0 +1,29 @@
+# Level Factory's suite in two clones outside the factory: the change (0.223.0) and pristine 0.222.0. The same 24
+# tests fail in both -- sibling repos the clone's location cannot reach; the change passes 26 more: test_merge_buildings.py's
+# 24 and test_sibling_locator's case for each of its two new .py files.
+lf_merge_suite: passed 2490, failed 24, errors 1, skipped 37
+lf_0222_suite: passed 2464, failed 24, errors 1, skipped 37
+FAILED tests/test_archetype_resolution.py::test_every_brief_on_disk_resolves_or_is_a_named_defect
+FAILED tests/test_archetype_resolution.py::test_the_corpus_is_not_empty
+FAILED tests/test_archetype_resolution.py::test_the_corpus_is_walked_once_a_session
+FAILED tests/test_archetype_resolution.py::test_the_known_offenders_are_still_there
+FAILED tests/test_dressing_jobs.py::test_measuring_changes_the_fingerprint
+FAILED tests/test_dressing_jobs.py::test_shape_metrics_is_where_the_adapter_thinks_it_is
+FAILED tests/test_dressing_jobs.py::test_the_measuring_tools_own_source_is_an_input
+FAILED tests/test_drip_assets.py::test_stager_writes_the_shader_the_atlas_and_the_node
+FAILED tests/unit/test_brief_pacing.py::test_lots_heist_gate_passes_on_a_written_spec
+FAILED tests/unit/test_brief_pacing.py::test_lots_own_estimate_reads_the_window_and_counts_travel
+FAILED tests/unit/test_brief_pacing.py::test_the_adapter_knows_every_status_lot_writes
+FAILED tests/unit/test_layer3_wiring.py::test_the_tracked_asset_set_file_names_the_four_clutter_species
+FAILED tests/unit/test_sibling_locator.py::test_it_finds_a_repo_above_the_caller
+FAILED tests/unit/test_sibling_locator.py::test_the_factory_root_holds_this_repo
+FAILED tests/unit/test_sibling_locator.py::test_the_suite_can_be_run_from_anywhere
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_door_wears_its_shells_band
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_shell_is_dealt_one_business_wherever_it_stands
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_shop_still_takes_a_band_of_its_own_family
+FAILED tests/unit/test_signs_in_site_spec.py::test_a_station_and_a_store_wear_flappahs_never_the_price_board
+FAILED tests/unit/test_signs_in_site_spec.py::test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat
+FAILED tests/unit/test_signs_in_site_spec.py::test_every_flappahs_door_wears_flappahs
+FAILED tests/unit/test_signs_in_site_spec.py::test_the_themed_spec_carries_the_signs_and_the_greybox_does_not
+FAILED tests/unit/test_site_audit_report.py::test_every_finding_lot_keeps_reaches_the_report
+FAILED tests/unit/test_site_audit_report.py::test_the_adapter_knows_every_severity_lot_writes

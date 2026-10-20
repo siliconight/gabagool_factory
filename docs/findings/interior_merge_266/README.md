@@ -1,4 +1,4 @@
-# Enterable buildings' static modules merged per room cell and material (roadmap 266), 2026-10-20: prototyped and priced
+# Enterable buildings' static modules merged per room cell and material (roadmap 266), 2026-10-20: prototyped, priced, shipped
 
 **What was asked.** Roadmap 266 (from `docs/findings/multimesh_audit/`): the buildings hold 2,576 of a level's 3,798
 surfaces, MultiMesh is not the lever for them -- they are baked, and a MultiMesh is one culling object -- and merging
@@ -68,11 +68,54 @@ Over 53 station-headings the controls drew 38,954 both times; v3 drew 34,735. Th
   MiB against the controls' 126.3 and 130.4 (they differ by 4.1 themselves). v1 and v2 packed into 1024 x 1024; v3's
   cells are more, smaller charts. Not attributed further.
 
+## Shipped: Level Factory 0.223.0 (4174d64) and 0.224.0 (f754562)
+
+0.223.0 is v3 in the export (`packages/exporting/merge_buildings.py`, `assets/godot/merge_buildings.gd`): after the
+Empties' merge and before the light bake, rooms taken from Lot's site record into each building's frame through the
+inverse of its node's transform, the module GLBs no file names dropped after it, on by default
+(`ExportProfile.merge_buildings`; `export --no-merge-buildings` ships one module a slot). 0.224.0 splits a lit face
+that is not a fixture's (`M_*_Face`: a sign, a screen) into a mesh of its own per instance, `LitR_<n>`, where it
+stood, and merges the rest of its module; a fixture (a lens or a diffuser) and any ShaderMaterial module stay whole.
+The records: `patches/patch_lf_merge_buildings.py`, `patches/lf_merge_buildings/`, `patches/patch_lf_lit_face_split.py`,
+`patches/lf_lit_face_split/`.
+
+Four prices, each against two controls priced on the same bytes, 53 station-headings:
+
+| what | package | draws, all headings (a heading) | p95, merged minus the controls' mean (median) | the controls' floor | worst heading | over the 8-light cap, paired | video memory |
+|---|---|---|---|---|---|---|---|
+| 0.223.0's path on 9347's copies (`price_9347_production.out.txt`) | 9347, re-baked | 38,954 -> 34,590 (-82.3) | -0.249 ms (-0.144) | 0.097 | 10.05 / 9.88 -> 9.10 ms | 9 -> 9 | 126.3 / 130.4 -> 134.7 MiB |
+| cold run 9349's package, twice (`docs/cold_runs/cold_9349/NOTES.md`) | 9349 against itself exported `--no-merge-buildings` | 38,938 -> 34,531 / 34,439 (-83.2 / -84.9) | -0.181 / +0.156 ms (-0.102 / +0.054) | 0.131 | 9.95 / 10.33 -> 9.13 / 9.96 ms | 9 -> 9 | 130.5 -> 134.7 MiB |
+| **0.224.0's first cut, REFUSED** (`price_9349_lit_a.out.txt`, `_b`) | 9349, re-merged and re-baked | 38,938 -> 33,953 / 33,826 (-94.1 / -96.5) | -0.310 / -0.324 ms (-0.220 / -0.193) | 0.131 | -> 9.06 / 8.96 ms | **9 -> 11** | -> 130.2 / 134.3 MiB |
+| 0.224.0 as shipped (`price_9349_0224_a.out.txt`, `_b`) | 9349, re-merged and re-baked | 38,938 -> 34,439 / 34,623 (-84.9 / -81.4) | -0.242 / -0.183 ms (-0.167 / -0.162) | 0.131 | -> 9.62 / 9.13 ms | 9 -> 9 | -> 134.5 MiB |
+
+- **The draws fall by 81 to 85 a heading, 11 %, 418 to 420 at the most, every time it was measured.** The two
+  passes of one package draw up to 184 apart in all: the harness's own two passes at a heading drew different
+  counts at 0 to 4 headings a run.
+- **The frame time is a smaller and noisier gain on this machine.** Three of the four merged runs on 9349 read
+  0.18 to 0.32 ms a heading under the controls, beyond their 0.131 floor; one read 0.156 over. At about 4 ms a
+  frame on this desktop GPU submission is not what the frame waits on, and the level's worst heading stays under
+  10 ms either way. The merge is bought for the low-end target the packages ship for (GL Compatibility), and
+  nothing here measures that machine.
+- **0.224.0's first cut merged the fixtures' housings too**, keeping only their lit faces apart. It was the fastest
+  arm on 9349, and it was refused by the light cap: two room cells' merged meshes, `MergedR_335` and `MergedR_336`,
+  each paired 10 lights, and the meshes over the cap went 9 -> 11. CLAUDE.md lists "more than
+  `max_lights_per_object` (8) lights reaching one mesh" among the shapes refused on cost; 10 more draws a heading do
+  not buy two housings that the ninth and tenth lamp would not light.
+- **0.224.0 as shipped changes nothing on this level, and is meant not to:** 9349 carries 6 lit faces in its
+  buildings (deli_a03 4, office 2), and the 25 surfaces of the modules 0.223.0 left whole for them became 25 meshes
+  (1,643 surfaces -> 789 meshes under 0.223.0, 1,662 -> 808 + 6 lit under 0.224.0; 2,953 mesh instances both). What
+  it changes is a level with lit desk screens (Zoo 1.115.0, roadmap 148): each desk's screen a mesh of its own, the
+  rest of the desk in its room cell's.
+- **The look:** the prototype's frames, above. The export's own path is the prototype's v3; no frame of the
+  shipped package is compared here.
+- **The cost:** a 2048 x 1024 lightmap where the control's is 1024 x 1024, about 4 MiB of video memory.
+
 ## What is left
 
-- Shipping it: a Level Factory export step beside the Empties' merge (after the occluder bake, before the light
-  bake), with the module drop that follows it, a fixture test and a package price.
 - The 6 m cell is MEASURED, not derived: it is what kept this level's light pairing at the control's. Another level's
-  fixture spacing could want another.
-- Lit fixtures (468 surfaces here) and the slabs stay separate; whether their non-emissive parts could merge is not
-  asked here.
+  fixture spacing could want another, and the export would not say so; the perf census's paired count would.
+- A light fixture stays whole (400 of cold run 9339's building surfaces were fixtures). Merging housings needs a unit
+  that pairs no more lights than one fixture does -- measured here as two 6 m cells at 10.
+- The low-end target's frame time: no machine of that class has priced it.
+- "The bake unchanged in look (lightmap compared user by user)" -- the item's own test -- cannot be asked of a merge:
+  the users are what change, 3,524 -> 2,880, and the atlas repacks with them. The frames stand in for it.
