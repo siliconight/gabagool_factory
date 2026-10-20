@@ -22,3 +22,25 @@ walk_9352 (the bank's roof), walk_9353 (morning) and walk_9354 (noon).
 
     python docs/findings/walker_review_2026-10-20/collect_frames.py <page dir>
     python docs/findings/walker_review_2026-10-20/build_page.py <page dir>
+
+## The walker's answers, 2026-10-20
+
+All 9 questions were answered on the page between 18:56 and 18:57 UTC; `verdicts_2026-10-20.json` is the page's store
+as read back that afternoon, one document per question. Each answer now leads its roadmap item's status
+(`patches/patch_roadmap_look_review_2026_10_20.py`).
+
+| item | question | answer | the walker's note |
+|---|---|---|---|
+| 148 | the office screens | Looks right | |
+| 210 | each phone facing the sidewalk | Looks right | |
+| 210 | the booths' marks | Needs work | "more subtle graffiti/weathering....a large shapie squigle doesn't look like anything" |
+| 170 | the hatch's hole against its lid | Looks right | |
+| 217 | the morning | Looks right | |
+| 217 | the high noon | Looks right | |
+| 79 | the stacked fronts | Better | |
+| 79 | where stacking and symmetry trade | Symmetry | |
+| 267 | arena_a02's barrier | Crowd rails (a new model) | |
+
+The one "Needs work" was answered the same day: Zoo 1.117.0 marks every booth small and mostly with weather, and cold
+run 9355 shows it in 9351's level (`docs/cold_runs/cold_9355/`). Symmetry is the rule Deli Counter 0.238.0 already
+shipped by default. The crowd rails are a new Zoo species and a Deli Counter mapping, queued under roadmap 267.

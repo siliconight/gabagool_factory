@@ -1,0 +1,23 @@
+...........F...                                                          [100%]
+================================== FAILURES ===================================
+_____________ test_the_primitives_monitor_is_not_called_triangles _____________
+
+    def test_the_primitives_monitor_is_not_called_triangles():
+        """`RENDER_TOTAL_PRIMITIVES_IN_FRAME` counts what every pass submits -- vertices or indices, the shadow and depth
+        passes included -- and never triangles (the factory's roadmap 261; its geometry guide, sections 2 and 9.3). It
+        moved 1.5-5.4x on identical meshes with the Lux tier alone. FAILS ON 0.225.0: the panel printed it as "tris", and
+        a figure read off the panel reached the factory's draw-call budget as two million triangles."""
+        text = _func(_src(), "_perf_refresh")
+        m = re.search(r'"([^"]*)" % \[\s*_grouped\(int\(Performance\.get_monitor\(\s*'
+                      r'Performance\.RENDER_TOTAL_DRAW_CALLS_IN_FRAME', text)
+        assert m, "the draw line is not formatted where this expects it"
+>       assert "prims (all passes)" in m.group(1), m.group(1)
+E       AssertionError: draw %s calls  %s tris  %s objects
+E       assert 'prims (all passes)' in 'draw %s calls  %s tris  %s objects'
+E        +  where 'draw %s calls  %s tris  %s objects' = <built-in method group of re.Match object at 0x00000254076FD000>(1)
+E        +    where <built-in method group of re.Match object at 0x00000254076FD000> = <re.Match object; span=(1909, 2037), match='"draw %s calls  %s tris  %s objects" % [\n\t\t_gr>.group
+
+tests\unit\test_debug_overlay_perf.py:207: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_debug_overlay_perf.py::test_the_primitives_monitor_is_not_called_triangles
+exit=1

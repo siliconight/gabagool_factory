@@ -33,9 +33,13 @@ level:
 | 6,376 | 25.59 | 99.6% | ~1.4M |
 
 **Cold run 9088's walk copy, 2026-09-27**, read off the F4 overlay while the
-walker moved through the level. Same package, same machine, one session:
+walker moved through the level. Same package, same machine, one session. The
+second column is the overlay's primitives figure, which it printed as "tris"
+until Level Factory 0.226.0: Godot's `RENDER_TOTAL_PRIMITIVES_IN_FRAME`, what
+every pass submits, shadows and depth included -- never a triangle count
+(roadmap 261; it moved 1.5-5.4x on identical meshes with the Lux tier alone):
 
-| draws | triangles | frame ms | GPU ms | render-CPU ms |
+| draws | primitives (all passes) | frame ms | GPU ms | render-CPU ms |
 |---:|---:|---:|---:|---:|
 | 1,091 | 139,440 | 6.23 | 2.12 | 4.65 |
 | 1,484 | 1,805,782 | 7.03 | 1.19 | 5.36 |
@@ -48,7 +52,7 @@ walker moved through the level. Same package, same machine, one session:
 
 Two things to read off it, and one caution.
 
-**Triangles again did nothing.** Across rows 2–8 the triangle count moves
+**Geometry again did nothing.** Across rows 2–8 the primitive count moves
 1.81M → 2.07M, a 15% change, while frame time moves 7.03 → 29.90 ms, a factor
 of 4.3. The 2026-09-16 finding reproduces on a different package and a
 different camera path. Row 1 is a sky-heavy view with almost no geometry in
@@ -173,10 +177,10 @@ deliberately keeps LOD out.
 
 That decision is about **authored polygon budgets**, and it should hold.
 Runtime LOD is a different question, and the measurement above is the reason
-to reopen it narrowly: at 2.07M triangles and CPU-bound submission, LOD's
-value here would be in **collapsing distant objects into fewer submissions**
-(visibility-range HLOD), not in thinning near geometry. That is the shape
-worth a proposal; per-mesh decimation is not.
+to reopen it narrowly: at 2.07M primitives across all passes and CPU-bound
+submission, LOD's value here would be in **collapsing distant objects into
+fewer submissions** (visibility-range HLOD), not in thinning near geometry.
+That is the shape worth a proposal; per-mesh decimation is not.
 
 ### 4. The per-object light cap interacts with all of this
 
