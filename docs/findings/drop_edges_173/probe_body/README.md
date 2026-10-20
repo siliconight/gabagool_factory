@@ -46,30 +46,36 @@ All six fail on 0.221.0 (`patches/lf_edge_probe_body/prove_tests_on_0221.out.txt
 new keys printed and a slim report kept per arm) runs the gate's own measure, classify and assert on a copy of a
 package through every arm. Old is 0.221.0's instrument (the shipped one, sha256 352cad39, at p00), new is 0.222.0's.
 Packages: precinct_yard_001 (cold runs 9343 and 9344 -- the same level; their arms agree to the cell, and `gate_ab/`
-holds 9344's, whose files replaced 9343's under one name, `logs/` both), urban_row_001 (9345), deli_001 (9346).
-**Each control arm reproduces its export's own scan** (reached, standable, unguarded and every count).
+holds 9344's, whose files replaced 9343's under one name, `logs/` both), urban_row_001 (9345), deli_001 (9346) -- and
+restaurant_row_001 (9347, below), made for this on 0.222.0 because none of the first three carries deli_a03.
+**Each control arm reproduces its export's own scan** (reached, standable, unguarded and every count): the old arm
+at p00 for the first three, exported on 0.221.0; the new arm at p00 for 9347, exported on 0.222.0.
 
 | package | reached at the six phases, old | reached, new | unguarded at p00, old -> new | too narrow | verdict |
 |---|---|---|---|---|---|
 | precinct_yard_001 | 120,461 .. 133,172 | 120,819 .. 134,967 | 54 -> 35 | 11 .. 26 | passes, every arm |
 | urban_row_001 | **39,266** .. 52,524 | 51,614 .. 52,848 | 28 -> 14 | 4 .. 22 | passes, every arm |
 | deli_001 | 25,505 .. 26,650 | 25,734 .. 26,669 | 35 -> 23 | 4 .. 20 | passes, every arm |
+| restaurant_row_001 | **41,244** .. 55,451 | 54,666 .. 55,780 | 50 -> 26 | 7 .. 31 | **old refuses at p11**; new passes, every arm |
 
 - **The moat is gone.** urban_row_001 at p11, the sweep's refusing phase, reached 39,266 of 60,205 cells on 0.221.0 --
   a quarter of the level lost, as restaurant_row_001's was -- and 52,030 of 66,419 on 0.222.0, in line with its other
   phases. Standable cells rise 2,400 to 6,700 a level: the cells beside low things.
-- **No verdict moves**, 18 of 18 passing on each side.
+- **The slot's refusal, reproduced and gone** (cold run 9347, `logs/gate_ab_cold-9347-ws.log`): on restaurant_row_001
+  with deli_a03, the old instrument at p11 refuses on (-61.62, 3.30, -9.87), a 3.3 m drop from slab_col_1 to slab_col_0
+  -- the phase sweep's row on 9335 to the centimetre -- and its flood reaches 41,244 cells (9335's: 41,322); the new
+  instrument passes at all six phases, reaching 55,027 at p11. Over the four levels the old instrument refuses 1 of
+  24 arms, the new 0 of 24 (`table.out.txt`).
+- **No other verdict moves.**
 - **Rows only the new probe finds:** 0 at the shipped phase on all three; at most 4 at any other, each attributed and
   each in a class the gate files -- the precinct's declared floor hatch in apartment_walkup_a01 (whose 3 cm frame no
   longer occupies the cell beside the hole, so its drops are asked), outdoor roof and storey rims, and a flight's own
   side on urban_row_001.
-- **The slot's refusal is not on these packages**: none carries deli_a03. It is proven on the fixture.
 - **Not attributed:** precinct_yard_001's reach still spans 14,000 cells across the phases, p33 the high end on both
   instruments; that spread is not the kerb's.
 
 ## What is left
 
-- A package with deli_a03 through the same sweep (restaurant_row_001's seed 9003 still draws it).
 - The precinct's phase spread above.
 - The phase sweep's other open question -- refuse a row only where two phases agree, or sample finer at a drop --
   is less pressing with both of its attributed causes repaired; it stays open.

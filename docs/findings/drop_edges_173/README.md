@@ -338,4 +338,6 @@ unresolved in the flood (item 6 below).
    contract's 0.1025 m unassisted step up, so what a body walks over does not occupy a cell, and a drop counts only
    where a sphere of the body's 0.35 m radius fits in the opening. On three packages at the six phases no verdict
    moves, urban_row_001's flood at the refusing phase reaches 52,030 cells where it reached 39,266, and the slot's
-   refusal is reproduced and removed on a fixture. A package with deli_a03 through the sweep is still owed.
+   refusal is reproduced and removed on a fixture -- and on a package: cold run 9347 (restaurant_row_001 with
+   deli_a03) refuses at the sweep's phase on the old instrument, on the very row 9335 did, and passes at every phase on
+   the new one.
