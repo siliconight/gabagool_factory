@@ -1,0 +1,22 @@
+internal error: GREYBOX_IN_A_THEMED_PACKAGE: 2 surface(s) still carry a greybox material (gb_floor 2)
+  every kind of base geometry the census has met has an owner -- slabs, flights, ladders and vault ledges a worldskin pass, parapets a wall slot -- so this is a pass that failed (its own log line says which, and it push_error()s) or a new kind that arrived without one
+  a build that knowingly ships a new kind before its pass sets ExportProfile.require_no_greybox = False
+    Bake/Site/b2/GreyboxBase/FIREESCAPE_REAR_FIRE_ESCAPE_1  on gb_floor
+    Bake/Site/b2/GreyboxBase/FIREESCAPE_REAR_FIRE_ESCAPE_1_RAIL  on gb_floor
+  full report: C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9342-ws\.level_factory\exports\LF_precinct_yard_001.portable-godot\greybox_skin_scan.json
+[export] surface dressing: precinct_yard_001_dressing.tscn -- 7901 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 381 instances of 7 module(s) on their sides, 25 draw calls (N 114, S 96, E 89, W 81; 1 tower)
+[export] 1902 occluder(s) from 1919 solid module(s); 0 glass, 289 porous and 950 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1902 occluder node(s) in a tree of 34377
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] light bake: 379 model(s) and 149 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 131 steady rig(s) baked, 19 failing and 0 cycling left live; 358 room fill(s); 4632 users, 75.1 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1902 occluder node(s) reachable from res://mission.tscn (1902 in the package, 22 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 43 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 351 GLB(s), 1429 external reference(s): 1429 resolve to 309 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 2 surface(s) on a greybox material (gb_floor 2), 0 of them slabs; any one is refused (require_no_greybox)

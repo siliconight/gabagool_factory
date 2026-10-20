@@ -1,0 +1,32 @@
+== selftest (01:56:10)
+  a tool source file, a shipped spec, or another repo
+== begin (01:56:11)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9343\journal.md
+== batch (01:56:22)
+created batch 'cold_9343' with 1 mission(s): precinct_yard_001
+== plan (01:56:22)
+== shell (01:56:24)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 74)
+  precinct_yard_001.lot_assemble.candidate.seed_9708: airport_terminal_a01.glb apartment_walkup_a01.glb freight_terminal_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb large_warehouse_a03.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9809: gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb self_storage_a03.glb warehouse_a01.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9910: gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb mansion_a02.glb parking_garage_a02.glb train_yard_a02.glb twin_a01.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (01:57:39)
+== art (01:57:41)
+Structural checks passed  (blockers open: 0, total findings: 104)
+  exit 1
+== export (02:00:33)
+[export] light bake: 379 model(s) and 149 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 131 steady rig(s) baked, 19 failing and 0 cycling left live; 358 room fill(s); 4632 users, 75.3 s in the editor
+exported precinct_yard_001 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9343-ws\.level_factory\exports\LF_precinct_yard_001.portable-godot
+  exit 0
+== findings (02:03:56)
+findings 104 -> 104
+== walk (02:03:56)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (02:04:06)
+  2 item(s), 2.0 GB removed
+DONE (02:04:44)

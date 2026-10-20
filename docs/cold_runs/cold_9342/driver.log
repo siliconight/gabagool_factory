@@ -1,0 +1,25 @@
+== selftest (01:13:18)
+  a tool source file, a shipped spec, or another repo
+== begin (01:13:19)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9342\journal.md
+== batch (01:13:28)
+created batch 'cold_9342' with 1 mission(s): precinct_yard_001
+== plan (01:13:29)
+== shell (01:13:30)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 74)
+  precinct_yard_001.lot_assemble.candidate.seed_9708: airport_terminal_a01.glb apartment_walkup_a01.glb freight_terminal_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb large_warehouse_a03.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9809: gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb self_storage_a03.glb warehouse_a01.glb 
+  precinct_yard_001.lot_assemble.candidate.seed_9910: gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb mansion_a02.glb parking_garage_a02.glb train_yard_a02.glb twin_a01.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (01:14:47)
+== art (01:14:49)
+Structural checks passed  (blockers open: 0, total findings: 104)
+  exit 1
+== export (01:17:45)
+internal error: GREYBOX_IN_A_THEMED_PACKAGE: 2 surface(s) still carry a greybox material (gb_floor 2)
+  every kind of base geometry the census has met has an owner -- slabs, flights, ladders and vault ledges a worldskin pass, parapets a wall slot -- so this is a pass that failed (its own log line says which, and it push_error()s) or a new kind that arrived without one
+[export] light bake: 379 model(s) and 149 primitive mesh(es) lightmapped, 3 kept dynamic, 1 spawned set dynamic; 131 steady rig(s) baked, 19 failing and 0 cycling left live; 358 room fill(s); 4632 users, 75.1 s in the editor
+  exit 5
+STOPPED: export

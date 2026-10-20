@@ -1,0 +1,61 @@
+Level Factory 0.220.0, the full suite in the factory on the patched tree: python -m pytest -q, 01:49:29 - 01:55:39, 2026-10-20
+exit=0 (the conftest replaces pytest's summary line; exit 0 = no failure, no error)
+progress characters: 2511 -- 2496 passed, 14 skipped, 1 xfailed, 0 F, 0 E
+FAILED/ERROR lines: 0
+
+the raw output:
+..................................................................ssssss [  2%]
+sssss..x................................................................ [  5%]
+........................................................................ [  8%]
+........................................................................ [ 11%]
+........................................................................ [ 14%]
+........................................................................ [ 17%]
+........................................................................ [ 20%]
+........................................................................ [ 22%]
+........................................................................ [ 25%]
+........................................................................ [ 28%]
+........................................................................ [ 31%]
+...ss................................................................... [ 34%]
+........................................................................ [ 37%]
+........................................................................ [ 40%]
+........................................................................ [ 43%]
+........................................................................ [ 45%]
+........................................................................ [ 48%]
+........................................................................ [ 51%]
+........................................................................ [ 54%]
+................s....................................................... [ 57%]
+........................................................................ [ 60%]
+........................................................................ [ 63%]
+........................................................................ [ 65%]
+........................................................................ [ 68%]
+........................................................................ [ 71%]
+........................................................................ [ 74%]
+........................................................................ [ 77%]
+........................................................................ [ 80%]
+........................................................................ [ 83%]
+........................................................................ [ 86%]
+........................................................................ [ 88%]
+........................................................................ [ 91%]
+........................................................................ [ 94%]
+........................................................................ [ 97%]
+...............................................................          [100%]
+-------------------------- real-tool smoke coverage ---------------------------
+ran 5 of 16 real-tool tests, 11 skipped
+  ran      test_every_grounded_tool_has_a_marker
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/__init__.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/conftest.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/test_grounded_table.py]
+  ran      test_nothing_reaches_above_this_repo_by_counting_parents[tests/real_tools/test_real_adapters.py]
+  skipped  test_grounded_matches_the_tools_this_smoke_ran -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_deli_new_level -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_dispatch -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_dispatch_handoff_from_lf_staged_inputs -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lasertag_runner_and_invocation -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lot -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_lux_addon_and_driver_invocation -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_patina -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_patina_dressing_emits_manifest_for_zoo -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_pixelcoat -- LF_TOOLS_DIR not set; real-tool smoke skipped
+  skipped  test_real_zoo_plan -- LF_TOOLS_DIR not set; real-tool smoke skipped
+this suite is adapter-and-contract depth in seconds; it builds no geometry. Re-certification is docs/CERTIFY.md, all legs.
+exit=0
