@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~17:45 292 CLOSED; floor-plan guide -> 293-295; 293 NARROWED (DC 0.254.0 axonometric); IN FLIGHT stairs as treads; next 290, 285, 294
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~18:40 DC 0.255.0 stairs as treads shipped; 292 CLOSED; 293 NARROWED; next 290, 285, 294
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -132,4 +132,4 @@
 - [Deli Counter control runs](dc-control-run-via-tools-local.md) — clone, build.py --all AND nav_gate.py --all, pre-write the workspace's tools.local.json; before.json names the real repo
 - [Rooms: not crowded, not barren](rooms-not-crowded-not-barren.md) — walker 2026-10-21: density is a band (~12-25 % floor share), rows of primary furniture over clutter, lanes open
 - [Route census reads furnishing](route-census-reads-furnishing.md) — route_cost.py beside the nav gate for any furnishing change; reserve square routes first (DC 0.250.0)
-- [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 axonometric.py; offsets are the drawing's alone; stairs as treads next
+- [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 axonometric.py + 0.255.0 treads; offsets are the drawing's alone

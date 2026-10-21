@@ -1,0 +1,29 @@
+== 0.255.0's tests on 0.254.0 (00c50db9) ==
+E           AssertionError: ('office', [('office_stair_0', 0, 0), ('office_stair_0', 0, 1), ('office_stair_0', 0, 2), ('office_stair_0', 0, 3), ('office_stair_0', 0, 4), ('office_stair_0', 0, 5)])
+E           assert set() == {('office_sta...', 0, 5), ...}
+E             
+E             Extra items in the right set:
+E             ('office_stair_0', 1, 11)
+E             ('office_stair_0', 1, 14)
+E             ('office_stair_0', 1, 17)
+E             ('office_stair_0', 0, 0)
+E             ('office_stair_0', 0, 6)...
+E             
+E             ...Full output truncated (32 lines hidden), use '-vv' to show
+E       assert (0 == 1)
+E        +  where 0 = len([])
+E       AssertionError: no tread drawn: the check would ask nothing
+E       assert {}
+PASSED test_axonometric.py::test_the_offset_is_the_drawings_alone
+PASSED test_axonometric.py::test_every_library_building_draws_every_storey
+PASSED test_axonometric.py::test_the_drawing_is_deterministic
+PASSED test_axonometric.py::test_a_doorway_moved_moves_its_gap_in_both_drawings
+PASSED test_axonometric.py::test_a_stair_moved_moves_its_flight_and_its_column
+PASSED test_axonometric.py::test_an_atrium_stays_open
+PASSED test_axonometric.py::test_two_markers_one_above_the_other_land_on_their_own_floors
+PASSED test_axonometric.py::test_the_axonometric_stands_a_partition_at_its_built_thickness
+FAILED test_axonometric.py::test_a_flight_is_drawn_as_the_treads_the_builder_builds
+FAILED test_axonometric.py::test_a_landing_is_a_plate_and_a_solid_flight_stands_on_its_floor
+FAILED test_axonometric.py::test_a_stair_moved_moves_its_treads - AssertionEr...
+3 failed, 8 passed in 1.04s
+exit 1
