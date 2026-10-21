@@ -1,0 +1,56 @@
+== 50 specs the clone changed; the factory's census at 0.250.0 over the same specs
+rooms measured (>= 9 m2, >= 2 endpoints): 217 in 50 specs; endpoint pairs: 1000
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 949 pairs joined in both: median 1.000, p90 1.028, p99 1.125, max 1.270; > 1.10 (the guide's warning): 18 pairs in 16 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 949 pairs joined in both: median 1.000, p90 1.000, p99 1.044, max 1.270; > 1.10: 7 pairs in 7 rooms; dressing narrows 37 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 46
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 80
+bottleneck width, AUTHORED: < 0.70 (no body) 51; < 1.00 (under the bake's floor) 123; < 1.90 (single file) 178; >= 1.90 822
+bottleneck width, FURNISHED: < 0.70 (no body) 51; < 1.00 (under the bake's floor) 123; < 1.90 (single file) 258; >= 1.90 742
+
+the 20 longest detours (FURNISHED / AUTHORED):
+
+== the clone
+rooms measured (>= 9 m2, >= 2 endpoints): 217 in 50 specs; endpoint pairs: 1000
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 949 pairs joined in both: median 1.000, p90 1.027, p99 1.105, max 1.224; > 1.10 (the guide's warning): 12 pairs in 11 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 949 pairs joined in both: median 1.000, p90 1.000, p99 1.026, max 1.052; > 1.10: 0 pairs in 0 rooms; dressing narrows 5 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 46
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 51
+bottleneck width, AUTHORED: < 0.70 (no body) 51; < 1.00 (under the bake's floor) 123; < 1.90 (single file) 178; >= 1.90 822
+bottleneck width, FURNISHED: < 0.70 (no body) 51; < 1.00 (under the bake's floor) 123; < 1.90 (single file) 229; >= 1.90 771
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.224  train_yard_a01                         dispatch_office          secure_door -> A  5.6 -> 6.9 m
+  1.213  landmark_hall_a01                      artifact_room            secure_door -> A  3.5 -> 4.2 m
+  1.196  final_stand                            trophy_room              door -> door  6.4 -> 7.6 m
+  1.184  construction_site_a01                  site_office              secure_door -> office_door  5.1 -> 6.0 m
+  1.182  market_hall_a01                        deposit_cage             secure_door -> A  5.2 -> 6.1 m
+  1.154  funeral_home_a02                       records_office           door -> A  4.3 -> 5.0 m
+  1.132  fuel_stop_heist                        back_hall                hall_to_stockroom -> hall_to_office  5.2 -> 5.9 m
+  1.109  train_yard_a01                         dispatch_office          secure_door -> secure_door  4.8 -> 5.4 m
+  1.109  final_stand                            west_office              door -> door  7.0 -> 7.8 m
+  1.108  twin_a01                               front_right_0            door -> front_door_right  4.9 -> 5.4 m
+  1.102  museum_a01                             special_exhibit          exhibit_vault_door -> A  7.3 -> 8.0 m
+  1.101  depot_a01                              dispatch_office          secure_door -> A  4.6 -> 5.1 m
+  1.096  twin_a01                               front_left_0             door -> front_door_left  4.9 -> 5.3 m
+  1.092  bank_tower_a03                         teller_cage              secure_door -> crew_n  7.2 -> 7.9 m
+  1.091  stadium_a04                            ops_band                 door -> door  18.2 -> 19.9 m
+  1.090  large_warehouse_a01                    north_hall               door -> door  18.2 -> 19.8 m
+  1.088  marina_a03                             bonded_locker            secure_door -> bond_door  6.0 -> 6.5 m
+  1.080  casino_a01                             cage                     secure_door -> A  5.1 -> 5.5 m
+  1.079  cr_gas                                 back_office              stock_to_office -> SAFE  7.4 -> 8.0 m
+  1.079  cr_gas                                 back_office              stock_to_office -> SAFECASH  7.4 -> 8.0 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.052  supermarket_a01                        cash_office              secure_door -> cash_office_door  4.5 -> 4.7 m
+  1.044  brewery_a01                            brew_floor               door -> grain_entry  13.2 -> 13.8 m
+  1.040  self_storage_a02                       lobby_aisle              door -> lobby_entry  17.5 -> 18.2 m
+  1.039  market_hall_a01                        loading_band             door -> dock_n  12.1 -> 12.6 m
+  1.038  stadium_a01                            ops_band                 door -> dock_n  15.5 -> 16.1 m
+  1.036  bank_branch_a03                        garage_bay               door -> staff_entry  13.7 -> 14.2 m
+exit=0

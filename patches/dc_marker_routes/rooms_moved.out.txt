@@ -1,0 +1,29 @@
+== rooms_moved.py compare rooms_0250.json rooms_0251_v3.json
+furnish's pieces, whole library: 8434 -> 8428 (-6); assigned to a room by tag: 8434 -> 8428
+rooms moved: 51 in 50 specs
+  holding a marker: 51; not: 0
+moved rooms by band, before -> after: [(('under 12 %', '12-25 %'), 1), (('under 12 %', 'under 12 %'), 50)]
+pieces per moved room: total -6, fewest -4, most +2
+share per moved room: fewest -2.6 pts, most +2.0 pts
+by kind (rooms moved, pieces before -> after, mean share before -> after):
+  vault               15   211 ->  216  4.4 -> 4.5 %
+  office              15   137 ->  138  5.8 -> 6.0 %
+  storage              9    68 ->   63  5.8 -> 5.2 %
+  fallback             5    35 ->   31  5.9 -> 5.3 %
+  shop_floor           3    36 ->   36  9.5 -> 9.5 %
+  hall                 2    21 ->   20  6.2 -> 5.9 %
+  wine_cellar          1    20 ->   20  2.0 -> 2.0 %
+  cold_storage         1     5 ->    3  11.8 -> 11.2 %
+the 12 rooms that lost the most share:
+  clinic_a01                     dispensary             fallback        100 m2  pieces   6 ->   3  share 5.1 -> 2.4 %
+  auto_shop_a02                  parts_back             storage         130 m2  pieces   6 ->   4  share 9.6 -> 7.7 %
+  auto_shop_a01                  parts_back             storage         130 m2  pieces   6 ->   2  share 8.5 -> 6.9 %
+  primos_pizza                   stash_room             storage         140 m2  pieces   7 ->   7  share 5.3 -> 4.2 %
+  self_storage_a02               corner_unit            fallback        156 m2  pieces  10 ->  10  share 6.6 -> 5.7 %
+  fuel_stop_heist                walk_in_cooler         cold_storage     90 m2  pieces   5 ->   3  share 11.8 -> 11.2 %
+  landmark_hall_a01              artifact_room          hall             58 m2  pieces   6 ->   5  share 8.6 -> 8.0 %
+  supermarket_a02                manager_suite          office          168 m2  pieces  13 ->  13  share 7.0 -> 6.4 %
+  video_store_a01                stockroom              storage          48 m2  pieces   2 ->   1  share 3.4 -> 2.9 %
+  brewery_a01                    recipe_lab             fallback        210 m2  pieces  10 ->  10  share 5.2 -> 4.7 %
+  cr_gas                         back_office            office           90 m2  pieces   6 ->   5  share 7.3 -> 7.1 %
+  gas_station                    back_office            office           90 m2  pieces   6 ->   5  share 7.3 -> 7.1 %

@@ -1,0 +1,13 @@
+== route_cover.py the 0.251.0 clone
+twin_a01 / front_right_1: 7.7 x 5.0 m, kind fallback; endpoints [('door', 'door'), ('objective', 'UPSTAIRS')]
+    1 routes, [3]; floor within a route 23 %, of a cluster's floor 22 %
+auto_shop_a01 / parts_back: 26.0 x 5.0 m, kind storage; endpoints [('door', 'door'), ('door', 'door'), ('door', 'rear_door'), ('objective', 'A')]
+    4 routes, [2, 4, 2, 3]; floor within a route 46 %, of a cluster's floor 38 %
+video_store_a01 / stockroom: 12.0 x 4.0 m, kind storage; endpoints [('door', 'stock_door'), ('door', 'back_room_staff_door'), ('door', 'rear_door'), ('objective', 'SAFE')]
+    6 routes, [2, 3, 3, 3, 3, 3]; floor within a route 77 %, of a cluster's floor 95 %
+clinic_a01 / dispensary: 10.0 x 10.0 m, kind fallback; endpoints [('door', 'secure_door'), ('door', 'dispensary_door'), ('door', 'ambulance_entry'), ('objective', 'A')]
+    5 routes, [2, 3, 3, 3, 3]; floor within a route 46 %, of a cluster's floor 42 %
+funeral_home_a02 / records_office: 12.0 x 11.0 m, kind office; endpoints [('door', 'door'), ('door', 'office_door'), ('objective', 'A')]
+    2 routes, [2, 3]; floor within a route 16 %, of a cluster's floor 19 %
+courthouse_a02 / records_room: 15.0 x 16.0 m, kind storage; endpoints [('door', 'door'), ('door', 'records_door'), ('objective', 'A')]
+    2 routes, [2, 3]; floor within a route 12 %, of a cluster's floor 13 %

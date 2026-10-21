@@ -45,7 +45,24 @@ the body's radius and the bake's floor, and control 2 checks both.
 
 ## What it measured
 
-### Deli Counter 0.250.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 540 s)
+### Deli Counter 0.251.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 523 s)
+
+The library after a room holding an objective or loot marker keeps its dressing off its routes (Deli Counter 0.251.0,
+roadmap 288; the factory's `patches/dc_marker_routes/`). The same coverage: 580 rooms of 128 specs, 2,338 pairs.
+
+- **Dressing over the functional build.** Over 10 %: 8 pairs in 8 rooms -> 1 in 1, the one left self_storage_a01's
+  mid_aisle, door to side_exit (1.130), a room that holds no marker; the worst 1.270 -> 1.130, p99 1.046 -> 1.039.
+  Dressing narrows 58 pairs from two abreast to single file -> 26.
+- **All of furnishing.** Over 10 %: 34 pairs in 31 rooms -> 28 in 26; p99 1.116 -> 1.108; the worst unchanged at
+  1.308 (gas_station_a01's back office). Narrowed to single file 179 -> 150; two abreast furnished 1,884 -> 1,913.
+  Closures as before: none to a body, the same five to the bake.
+- **By room kind** (`by_kind.out.txt`, against `by_kind_0250.out.txt`): the dressing's narrowings in offices 13 -> 0,
+  storage 11 -> 5, vaults 7 -> 2, halls 7 -> 2; the corner stores' floors unchanged. Over the 282 objective and loot
+  routes, grown over 10 % 17 -> 12 and the dressing's share of them 7 -> 0; narrowed 44 -> 28.
+- **Every figure is the 50-spec census's arithmetic** (`patches/dc_marker_routes/census_changed.out.txt`: 18 -> 12
+  over 10 %, 80 -> 51 narrowed, 7 -> 0 and 37 -> 5 for the dressing) on the rest of the library, unmoved.
+
+### Deli Counter 0.250.0's library (`route_cost_0250.out.txt`, `route_cost_0250.json`, `by_kind_0250.out.txt`, 540 s)
 
 The library after the corner stores reserved their routes (Deli Counter 0.250.0, roadmap 288), the first run with the
 FUNCTIONAL arm. The same coverage as below: 580 rooms of 128 specs, 2,338 endpoint pairs.
@@ -72,7 +89,7 @@ FUNCTIONAL arm. The same coverage as below: 580 rooms of 128 specs, 2,338 endpoi
   garage_cage, supermarket_a02's manager_suite, train_yard_a01's dispatch_office, courthouse_a02's records_room and
   brewery_a01's recipe_lab (1.102). The eighth is self_storage_a01's mid_aisle, door to side_exit (1.130). Over the
   282 objective and loot routes, 17 grow over 10 % with all of furnishing and 7 with its dressing alone; 44 narrow.
-  These rooms are roadmap 288's next step.
+  These rooms are roadmap 288's next step -- taken by Deli Counter 0.251.0, above.
 - **Refuted, kept: they are not small rooms.** The reading below, of 0.249.0, called them small objective rooms from
   the length of the route. Read room by room they are 97 to 240 m2 and 3.0 to 7.3 % under furniture (the walker's
   band is 12 to 25 %); the route is short because the marker stands near the door, and what lengthens each is one to
@@ -135,7 +152,8 @@ The measurement roadmap 288 was filed and fixed from. Two arms: the FUNCTIONAL a
 | file | what |
 |---|---|
 | `route_cost.py` | the census; `--controls`; `--spec <name>` |
-| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.250.0, three arms, summary and per room |
+| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.251.0, three arms, summary and per room |
+| `route_cost_0250.out.txt`, `route_cost_0250.json` | the same at 0.250.0, before the marker rooms reserved their routes |
 | `route_cost_0249.out.txt`, `route_cost_0249.json` | the same at 0.249.0, two arms: the census roadmap 288 was filed from |
-| `by_kind.py`, `by_kind.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
+| `by_kind.py`, `by_kind.out.txt`, `by_kind_0250.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
 | `unsnapped.py`, `unsnapped.out.txt` | every endpoint no body stands at in the AUTHORED arm, and what stands there (at 0.249.0) |

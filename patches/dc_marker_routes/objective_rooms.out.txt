@@ -1,0 +1,49 @@
+== objective_rooms.py 
+apartment_walkup_a03 / garage_cage  kind vault  8.0 x 16.0 m (128.0 m2)  floor share 4.8 %  endpoints [['door', 'cage_door'], ['door', 'garage_door'], ['objective', 'A']]
+    authored   garage_door -> A  length 3.4  bottleneck 1.597
+    functional garage_door -> A  length 3.4  bottleneck 1.597
+    furnished  garage_door -> A  length 3.956  bottleneck 0.757
+    dressing: ['cartons_r35d033ba_6 0.40x0.60', 'cartons_r35d033ba_7 0.50x0.40']
+    function (furnish's): ['cabinet_locker_r35d033ba_4 0.50x0.90', 'safe_floor_r35d033ba_1 0.80x0.70', 'safe_floor_r35d033ba_3 0.60x0.60', 'shelf_run_r35d033ba_2 2.40x0.60', 'table_count_r35d033ba_5 0.90x1.60', 'table_count_r35d033ba_8 0.90x1.60']
+brewery_a01 / recipe_lab  kind fallback  14.0 x 15.0 m (210.0 m2)  floor share 5.2 %  endpoints [['door', 'door'], ['door', 'recipe_door'], ['objective', 'A']]
+    authored   recipe_door -> A  length 6.507  bottleneck 1.603
+    functional recipe_door -> A  length 6.507  bottleneck 1.603
+    furnished  recipe_door -> A  length 7.17  bottleneck 1.353
+    dressing: ['cartons_r1081d588_1 1.20x1.60', 'cartons_r1081d588_10 0.40x0.50', 'cartons_r1081d588_9 0.90x0.60']
+    function (furnish's): ['cabinet_file_r1081d588_4 0.90x0.50', 'cabinet_file_r1081d588_7 0.90x0.50', 'chair_waiting_r1081d588_3 3.00x0.60', 'chair_waiting_r1081d588_6 0.60x1.80', 'shelf_run_r1081d588_2 0.60x2.40', 'shelf_run_r1081d588_5 0.60x2.40', 'shelf_run_r1081d588_8 2.60x0.60']
+courthouse_a02 / records_room  kind storage  15.0 x 16.0 m (240.0 m2)  floor share 3.0 %  endpoints [['door', 'door'], ['door', 'records_door'], ['objective', 'A']]
+    authored   records_door -> A  length 6.3  bottleneck 1.603
+    functional records_door -> A  length 6.3  bottleneck 1.603
+    furnished  records_door -> A  length 7.046  bottleneck 0.903
+    dressing: ['cartons_rde8f4591_7 0.90x0.60', 'cartons_rde8f4591_8 0.60x0.40', 'cartons_rde8f4591_9 0.60x0.90', 'pallets_rde8f4591_10 1.00x1.20']
+    function (furnish's): ['cabinet_file_rde8f4591_3 0.50x0.60', 'cabinet_file_rde8f4591_6 0.90x0.50', 'cabinet_supply_rde8f4591_2 0.60x0.90', 'cabinet_supply_rde8f4591_5 0.50x1.20', 'shelf_run_rde8f4591_1 2.40x0.60', 'shelf_run_rde8f4591_4 2.40x0.60']
+funeral_home_a02 / records_office  kind office  12.0 x 11.0 m (132.0 m2)  floor share 5.2 %  endpoints [['door', 'door'], ['door', 'office_door'], ['objective', 'A']]
+    authored   door -> A  length 4.3  bottleneck 1.602
+    functional door -> A  length 4.3  bottleneck 1.238
+    furnished  door -> A  length 5.46  bottleneck 1.138
+    dressing: ['cartons_r9464fbe5_7 1.60x1.20', 'cartons_r9464fbe5_8 0.50x0.40']
+    function (furnish's): ['cabinet_file_r9464fbe5_2 0.50x0.90', 'cabinet_file_r9464fbe5_3 0.60x0.50', 'cabinet_file_r9464fbe5_5 0.90x0.60', 'chair_set_r9464fbe5_1_1 0.50x0.50', 'desk_r9464fbe5_1 1.80x0.90', 'desk_r9464fbe5_6 0.70x1.40', 'shelf_run_r9464fbe5_4 1.20x0.50']
+self_storage_a01 / mid_aisle  kind shop_floor  40.0 x 12.0 m (480.0 m2)  floor share 13.1 %  endpoints [['door', 'door'], ['door', 'door'], ['door', 'door'], ['door', 'door'], ['door', 'door'], ['door', 'side_exit']]
+    authored   door -> side_exit  length 7.637  bottleneck 1.497
+    functional door -> side_exit  length 7.637  bottleneck 1.497
+    furnished  door -> side_exit  length 8.633  bottleneck 1.368
+    dressing: ['cartons_r46fb9a18_7 0.80x1.20', 'cartons_r46fb9a18_8 1.60x1.20', 'litter_bin_r46fb9a18_6 0.60x0.60', 'litter_bin_r46fb9a18_9 0.50x0.50']
+    function (furnish's): ['cabinet_file_r46fb9a18_5 0.50x0.60', 'counter_service_r46fb9a18_1 0.70x1.60', 'shelf_run_r46fb9a18_3 0.60x2.60', 'shelf_run_r46fb9a18_4 0.60x2.60', 'vending_r46fb9a18_2 0.80x1.00']
+self_storage_a02 / corner_unit  kind fallback  12.0 x 13.0 m (156.0 m2)  floor share 6.6 %  endpoints [['door', 'door'], ['door', 'corner_unit_gate'], ['objective', 'A']]
+    authored   corner_unit_gate -> A  length 5.507  bottleneck 1.603
+    functional corner_unit_gate -> A  length 5.507  bottleneck 1.603
+    furnished  corner_unit_gate -> A  length 6.418  bottleneck 1.003
+    dressing: ['dust_sheet_r41b1032f_1 1.00x0.80', 'dust_sheet_r41b1032f_10 2.00x0.90', 'dust_sheet_r41b1032f_2 0.90x2.00', 'dust_sheet_r41b1032f_9 1.00x0.80']
+    function (furnish's): ['cabinet_file_r41b1032f_5 0.50x0.90', 'cabinet_file_r41b1032f_8 0.50x0.90', 'chair_waiting_r41b1032f_4 1.80x0.60', 'chair_waiting_r41b1032f_7 0.60x1.80', 'shelf_run_r41b1032f_3 2.40x0.60', 'shelf_run_r41b1032f_6 1.20x0.50']
+supermarket_a02 / manager_suite  kind office  14.0 x 12.0 m (168.0 m2)  floor share 7.0 %  endpoints [['door', 'door'], ['door', 'mgr_door'], ['objective', 'A']]
+    authored   door -> A  length 6.046  bottleneck 1.602
+    functional door -> A  length 6.046  bottleneck 1.318
+    furnished  door -> A  length 6.963  bottleneck 1.318
+    dressing: ['cartons_r3ce3241c_8 1.20x1.60', 'cartons_r3ce3241c_9 0.90x0.60']
+    function (furnish's): ['cabinet_file_r3ce3241c_3 0.50x0.60', 'cabinet_file_r3ce3241c_4 0.90x0.50', 'cabinet_file_r3ce3241c_6 0.90x0.50', 'chair_set_r3ce3241c_10_1 0.50x0.50', 'chair_set_r3ce3241c_1_1 0.50x0.50', 'chair_set_r3ce3241c_7_1 0.50x0.50', 'desk_r3ce3241c_1 1.40x0.70', 'desk_r3ce3241c_10 0.90x1.80', 'desk_r3ce3241c_7 1.80x0.90', 'shelf_run_r3ce3241c_2 0.60x2.60', 'shelf_run_r3ce3241c_5 2.60x0.60']
+train_yard_a01 / dispatch_office  kind office  11.4 x 8.5 m (97.2 m2)  floor share 7.3 %  endpoints [['door', 'secure_door'], ['door', 'secure_door'], ['door', 'crew_n'], ['objective', 'A']]
+    authored   secure_door -> A  length 5.6  bottleneck 1.537
+    functional secure_door -> A  length 5.6  bottleneck 1.093
+    furnished  secure_door -> A  length 6.428  bottleneck 1.093
+    dressing: ['cartons_r0678fb3a_5 0.80x1.20']
+    function (furnish's): ['cabinet_file_r0678fb3a_2 0.90x0.60', 'cabinet_file_r0678fb3a_3 0.60x0.90', 'chair_set_r0678fb3a_1_1 0.50x0.50', 'chair_set_r0678fb3a_6_1 0.50x0.50', 'desk_r0678fb3a_1 0.90x1.80', 'desk_r0678fb3a_4 1.60x0.80', 'desk_r0678fb3a_6 0.90x1.80']

@@ -1,0 +1,18 @@
+== combat_audit.py --all over the 132 tracked specs: C:\Projects\gabagool_studios\gabagool_factory\deli_counter -> C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_routes_obj
+codes:
+  ADJACENT_FACES        2 ->    2
+  CHOKE_HEAVY           1 ->    1
+  COVER_ALL_LOW         8 ->    8
+  CRAMPED               2 ->    2
+  DEAD_END              3 ->    3
+  OBJ_AT_DOOR          52 ->   52
+  OBJ_NARROW           10 ->   10
+  OBJ_ONE_DOOR          2 ->    2
+  ONE_FACE              2 ->    2
+  SIGHT_INTENT        503 ->  503
+  VERT_DEAD_END        54 ->   54
+findings only before: 2; only after: 2
+  - brewery_a01.json SIGHT_INTENT room 'recipe_lab' (story 1) is authored 'close' but its geometry plays 'medium' (17.1 m sightline)
+  - landmark_hall_a01.json COVER_ALL_LOW room 'artifact_room' has 6 piece(s) of cover and not one of them breaks a sightline: the tallest is 1.05 m against the 1.30 m where the crew's line and the enem
+  + brewery_a01.json SIGHT_INTENT room 'recipe_lab' (story 1) is authored 'close' but its geometry plays 'medium' (17.0 m sightline)
+  + landmark_hall_a01.json COVER_ALL_LOW room 'artifact_room' has 5 piece(s) of cover and not one of them breaks a sightline: the tallest is 1.05 m against the 1.30 m where the crew's line and the enem

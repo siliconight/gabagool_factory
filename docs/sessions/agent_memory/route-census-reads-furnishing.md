@@ -36,8 +36,9 @@ corner floor).
 - THREE ARMS since 2026-10-21: FUNCTIONAL strips only furnish's dressing (`dressing`: a cluster stem the recipe
   places nowhere else), so FURNISHED / FUNCTIONAL is the guide's own B -> C flag; FURNISHED / AUTHORED charges rows
   and desks too. At DC 0.250.0: 8 dressing detours over 10 %, 7 of them door -> marker in objective rooms of
-  97-240 m2 at 3-7 % share. DC 0.251.0 (in progress) keeps a marker room's clusters off its routes: keeping EVERY
-  floor piece off was measured and refuted (rooms already under the band emptied).
+  97-240 m2 at 3-7 % share. DC 0.251.0 (SHIPPED, 2ebc1359) keeps a marker room's clusters off its routes (library
+  dressing detours 8 -> 1): keeping EVERY floor piece off was measured and refuted (rooms already under the band
+  emptied), and so was keeping the shelter strictly off (a preset safe room lost its shelter): it falls back.
 - Of the census's 80 no-path pairs, 21 are its own limits (stairs at doors, markers inside their blocks). 11 are
   authored defects still open (cbp doors onto holes, the gas stations' cooler run across the office door, booths at
   primos and strip_retail front doors).

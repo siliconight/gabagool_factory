@@ -1,0 +1,27 @@
+== 0.251.0's tests on 0.250.0 (f0ab57ca) ==
+E       TypeError: reserves_routes() takes 2 positional arguments but 3 were given
+E       AssertionError: [('airport_terminal_a02', 'cartons_rcb773d79_16'), ('airport_terminal_a02', 'cartons_rcb773d79_17'), ('apartment_walku..._a03', 'cartons_r35d033ba_7'), ('auto_shop_a01', 'cartons_rd3f62382_3'), ('auto_shop_a01', 'cartons_rd3f62382_4'), ...]
+E       assert not [('airport_terminal_a02', 'cartons_rcb773d79_16'), ('airport_terminal_a02', 'cartons_rcb773d79_17'), ('apartment_walku..._a03', 'cartons_r35d033ba_7'), ('auto_shop_a01', 'cartons_rd3f62382_3'), ('auto_shop_a01', 'cartons_rd3f62382_4'), ...]
+E       AssertionError: {'collision': 'convex', 'material': 'wood', 'name': 'crate_stack_tall_safe_flat_shelter', 'size_x': 1.1, ...}
+E       assert not True
+E        +  where True = <function on_protected_route at 0x00000281FA846C40>([([(2.0, 4.49), (10.0, 4.49)], 0.3)], 8.17, 4.49, (1.1 - 0.01), (1.1 - 0.01))
+E        +    where <function on_protected_route at 0x00000281FA846C40> = L.on_protected_route
+E       AssertionError: ['market_aisles']
+E       assert ['market_aisles'] == ['exec_suite'...ment_hideout']
+E         
+E         At index 0 diff: 'market_aisles' != 'exec_suite'
+E         Right contains 2 more items, first extra item: 'market_aisles'
+E         Use -v to get more diff
+PASSED test_marker_room_routes.py::test_a_room_with_no_spot_off_its_routes_keeps_its_shelter
+PASSED test_marker_room_routes.py::test_the_library_is_sheltered_off_its_routes
+PASSED test_reserved_routes.py::test_every_pass_reserves_on_the_floor_the_refurnish_starts_from
+PASSED test_reserved_routes.py::test_two_abreast_is_the_guides_formula_on_the_contracts_body
+PASSED test_reserved_routes.py::test_route_endpoints_stand_inside_the_doors_the_builder_cuts
+PASSED test_reserved_routes.py::test_reserved_routes_run_square
+PASSED test_reserved_routes.py::test_nothing_furnish_stood_on_a_corner_floor_stands_on_its_routes
+FAILED test_marker_room_routes.py::test_a_room_says_what_keeps_off_its_routes
+FAILED test_marker_room_routes.py::test_no_dressing_stands_on_a_marker_rooms_routes
+FAILED test_marker_room_routes.py::test_the_shelter_pass_keeps_off_a_rooms_routes_where_it_can
+FAILED test_reserved_routes.py::test_a_floor_that_stands_rows_or_a_room_holding_a_marker_asks_for_its_routes
+4 failed, 7 passed in 7.14s
+exit 1

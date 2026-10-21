@@ -31,4 +31,8 @@ middle, not a maximum.
   day (`docs/reference/Lived_In_Levels_Clear_Navigation_4P_PVE_1999_PA.md`) puts movement before building use before
   story clusters.
 
+- DC 0.251.0 (routes in objective rooms) made a few already-barren rooms barer: a cluster group that fits nowhere
+  off its routes is dropped whole (clinic_a01's dispensary ~5 -> 2.4 %). Objective rooms sit at 3-7 %; the band
+  wants their PRIMARY furniture raised, not more piles. Queued for the walker: desks off objective routes too?
+
 Related: [[game-is-a-series-of-shooting-galleries]], [[open-work-2026-10-09]], [[route-census-reads-furnishing]].
