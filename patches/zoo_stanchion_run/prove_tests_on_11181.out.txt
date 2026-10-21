@@ -1,0 +1,12 @@
+# Zoo 1.118.1 (ea536a5), a fresh clone, with 1.119.0's three new or changed test files copied in
+## tests/test_stanchion_run.py
+ImportError while importing test module 'C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_prove_11181\tests\test_stanchion_run.py'.
+E   ImportError: cannot import name 'stanchion_run_forms' from 'zoo_keeper.core' (C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_prove_11181\zoo_keeper\core\__init__.py)
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.30s
+## tests/test_coincident_faces.py tests/test_material_options_closed.py
+FAILED tests/test_coincident_faces.py::test_the_census_covers_every_species_there_is
+FAILED tests/test_material_options_closed.py::test_moved_species_no_longer_offer_raw_metal[stanchion_run]
+FAILED tests/test_material_options_closed.py::test_painted_species_are_on_metal_painted[stanchion_run]
+FAILED tests/test_material_options_closed.py::test_nothing_else_moved - Asser...
+4 failed, 542 passed, 63 skipped, 1 xfailed in 1.00s

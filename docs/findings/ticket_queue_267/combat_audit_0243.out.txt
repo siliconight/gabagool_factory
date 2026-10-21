@@ -1,0 +1,11 @@
+== arena_a02.json ==
+  rooms 3  edges 3  loops 1  entry faces E/N/S/W  objectives box_office
+  flags: 0 HIGH / 1 MED / 4 INFO
+    [MED] H_NO_HOLDOUT: [heist] no defensible holdout at/next to objective 'box_office' (want a room with 2-3 coverable entries, >= 12 m^2, and cover): the drill/objective-wait phase has nowhere to fight from.
+    [INFO] C_FEED_MONOTONE: [cqb] all 8 interior doors are center-fed: every room clears the same way. Mixing feed types varies the entries.
+    [INFO] OBJ_AT_DOOR: objective room 'box_office' has a direct exterior entry -- a designed breach shortcut if intended; gate it in game code or accept the speedrun line.
+    [INFO] SIGHT_INTENT: room 'box_office' (story 0) is authored 'close' but its geometry plays 'medium' (12.7 m sightline)
+    [INFO] SIGHT_INTENT: room 'back_of_house' (story 0) is authored 'medium' but its geometry plays 'long' (38.2 m sightline)
+
+== 1 audited: 0 HIGH, 1 MED ==
+(structural estimate, not a measure of fun -- walk it)

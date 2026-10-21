@@ -1,0 +1,26 @@
+== 0.242.0 docs\findings\ticket_queue_267\arena_a02_0242.json
+   audit:   rooms 3  edges 3  loops 1  entry faces E/N/S/W  objectives box_office
+   audit:   flags: 0 HIGH / 1 MED / 4 INFO
+   audit:     [MED] H_NO_HOLDOUT: [heist] no defensible holdout at/next to objective 'box_office' (want a room with 2-3 coverable entries, >= 12 m^2, and cover): the drill/objective-wait phase has nowhere to fight from.
+   audit:     [INFO] C_FEED_MONOTONE: [cqb] all 8 interior doors are center-fed: every room clears the same way. Mixing feed types varies the entries.
+   audit:     [INFO] OBJ_AT_DOOR: objective room 'box_office' has a direct exterior entry -- a designed breach shortcut if intended; gate it in game code or accept the speedrun line.
+   audit:     [INFO] SIGHT_INTENT: room 'box_office' (story 0) is authored 'close' but its geometry plays 'medium' (12.7 m sightline)
+   audit:     [INFO] SIGHT_INTENT: room 'back_of_house' (story 0) is authored 'medium' but its geometry plays 'long' (38.2 m sightline)
+   audit: == 1 audited: 0 HIGH, 1 MED ==
+   audit: (structural estimate, not a measure of fun -- walk it)
+   event floor volumes 29; cover-like 21: barrier_0, barrier_1, barrier_2, barrier_3, cabinet_file_rff5e6702_11, cabinet_file_rff5e6702_3, cabinet_file_rff5e6702_7, cartons_rff5e6702_15, cartons_rff5e6702_16, cartons_rff5e6702_17, cartons_rff5e6702_19, cartons_rff5e6702_20, cartons_rff5e6702_22, cartons_rff5e6702_23, counter_service_rff5e6702_1, shelf_run_rff5e6702_10, shelf_run_rff5e6702_13, shelf_run_rff5e6702_2, shelf_run_rff5e6702_5, shelf_run_rff5e6702_6, shelf_run_rff5e6702_9
+   _room_has_cover True, _room_has_shelter True
+   standing 1.0 m or taller, mid-floor: 10: barrier_0 1.20 m, barrier_1 1.20 m, barrier_2 1.20 m, barrier_3 1.20 m, cartons_rff5e6702_15 1.20 m, cartons_rff5e6702_16 1.00 m, cartons_rff5e6702_19 1.20 m, cartons_rff5e6702_20 1.00 m, litter_bin_rff5e6702_24 1.00 m, litter_bin_rff5e6702_25 1.00 m
+== 0.243.0 deli_counter\specs\arena_a02.json
+   audit:   rooms 3  edges 3  loops 1  entry faces E/N/S/W  objectives box_office
+   audit:   flags: 0 HIGH / 1 MED / 4 INFO
+   audit:     [MED] H_NO_HOLDOUT: [heist] no defensible holdout at/next to objective 'box_office' (want a room with 2-3 coverable entries, >= 12 m^2, and cover): the drill/objective-wait phase has nowhere to fight from.
+   audit:     [INFO] C_FEED_MONOTONE: [cqb] all 8 interior doors are center-fed: every room clears the same way. Mixing feed types varies the entries.
+   audit:     [INFO] OBJ_AT_DOOR: objective room 'box_office' has a direct exterior entry -- a designed breach shortcut if intended; gate it in game code or accept the speedrun line.
+   audit:     [INFO] SIGHT_INTENT: room 'box_office' (story 0) is authored 'close' but its geometry plays 'medium' (12.7 m sightline)
+   audit:     [INFO] SIGHT_INTENT: room 'back_of_house' (story 0) is authored 'medium' but its geometry plays 'long' (38.2 m sightline)
+   audit: == 1 audited: 0 HIGH, 1 MED ==
+   audit: (structural estimate, not a measure of fun -- walk it)
+   event floor volumes 29; cover-like 17: cabinet_file_rff5e6702_11, cabinet_file_rff5e6702_3, cabinet_file_rff5e6702_7, cartons_rff5e6702_15, cartons_rff5e6702_16, cartons_rff5e6702_17, cartons_rff5e6702_19, cartons_rff5e6702_20, cartons_rff5e6702_22, cartons_rff5e6702_23, counter_service_rff5e6702_1, shelf_run_rff5e6702_10, shelf_run_rff5e6702_13, shelf_run_rff5e6702_2, shelf_run_rff5e6702_5, shelf_run_rff5e6702_6, shelf_run_rff5e6702_9
+   _room_has_cover True, _room_has_shelter True
+   standing 1.0 m or taller, mid-floor: 6: cartons_rff5e6702_15 1.20 m, cartons_rff5e6702_16 1.00 m, cartons_rff5e6702_19 1.20 m, cartons_rff5e6702_20 1.00 m, cartons_rff5e6702_23 1.00 m, litter_bin_rff5e6702_25 1.00 m

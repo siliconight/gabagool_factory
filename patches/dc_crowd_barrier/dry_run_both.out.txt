@@ -1,0 +1,4 @@
+first (patch_dc_crowd_barrier.py) exit 0: Deli Counter 0.242.0 applied: 3 files edited, 0 written, VERSION, CHANGELOG. Now, in deli_counter/: build.py --all, suite
+second (patch_dc_crowd_barrier_materials.py) exit 0: Deli Counter 0.242.0, second step: 3 files edited. Now, in deli_counter/: build.py specs/arena_a02.json, the suite, check.py
+second again (patch_dc_crowd_barrier_materials.py) exit 1: REFUSED: deli_counter/specs/arena_a02.json is not the first step's result this patch was written against; nothing written
+the dry clone's 5 changed files are the proven clone's, byte for byte: CHANGELOG.md, VERSION, prop_species.py, specs/arena_a02.json, test_prop_species.py

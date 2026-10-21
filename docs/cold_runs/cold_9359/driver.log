@@ -1,0 +1,33 @@
+== selftest (21:59:10)
+  a tool source file, a shipped spec, or another repo
+== begin (21:59:11)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9359\journal.md
+== batch (21:59:20)
+created batch 'cold_9359' with 1 mission(s): club_block_014
+== plan (21:59:20)
+== shell (21:59:22)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 73)
+  club_block_014.lot_assemble.candidate.seed_9014: arena_a02.glb card_shop_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a01.glb 
+  club_block_014.lot_assemble.candidate.seed_9115: bank_branch_a04.glb construction_site_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a02.glb 
+  club_block_014.lot_assemble.candidate.seed_9216: auto_shop_a02.glb gas_station_a02.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (22:00:38)
+== art (22:00:39)
+Structural checks passed  (blockers open: 0, total findings: 101)
+  exit 1
+== export (22:03:13)
+[export] light bake: 133 model(s) and 96 primitive mesh(es) lightmapped, 5 kept dynamic, 1 spawned set dynamic; 94 steady rig(s) baked, 11 failing and 2 cycling left live; 170 room fill(s); 2375 users, 54.1 s in the editor
+exported club_block_014 [portable-godot] -> C:\Projects\gabagool_studios\gabagool_factory\workspaces\cold-9359-ws\.level_factory\exports\LF_club_block_014.portable-godot
+  exit 0
+== findings (22:06:10)
+findings 101 -> 101
+== walk (22:06:10)
+  THIS COPY IS NOT THE PACKAGE. It has a player in it. The export itself
+  is untouched; ship that one.
+wired: SkyCycle node and script, the same bytes as tools/walk_sky_cycle.gd
+== retire (22:06:17)
+  1 item(s), 1.0 GB removed
+DONE (22:06:38)
+driver exit 0

@@ -1,0 +1,90 @@
+
+=================================== ERRORS ====================================
+________________ ERROR collecting tests/test_crowd_barrier.py _________________
+ImportError while importing test module 'C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_prove_1117\tests\test_crowd_barrier.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\..\..\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_crowd_barrier.py:13: in <module>
+    from zoo_keeper.core import crowd_barrier_forms as F
+E   ImportError: cannot import name 'crowd_barrier_forms' from 'zoo_keeper.core' (C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_prove_1117\zoo_keeper\core\__init__.py)
+=========================== short test summary info ===========================
+ERROR tests/test_crowd_barrier.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.63s
+exit=2
+=== the two shared-test files, on 1.117.0
+..........F....sssssssssssssssssssssssssssssssssssssssssssssssssssssssss [ 11%]
+ssssssx................................................................. [ 23%]
+........................................................................ [ 35%]
+........................................................................ [ 47%]
+........................................................................ [ 59%]
+........................................................................ [ 71%]
+........................................................................ [ 83%]
+.........................................F.............................. [ 95%]
+........................FF...                                            [100%]
+================================== FAILURES ===================================
+________________ test_the_census_covers_every_species_there_is ________________
+
+    def test_the_census_covers_every_species_there_is():
+        """A checker that cannot find a species has learned nothing about it."""
+        species = {f[:-5] for f in os.listdir(_GENOMES) if f.endswith(".json")}
+        accounted = set(RESIDUE) | set(GATED) | DID_NOT_BUILD
+        assert accounted <= species, sorted(accounted - species)
+        clean = species - accounted
+>       assert len(species) * 3 == CENSUS_BUILDS, len(species)
+E       AssertionError: 137
+E       assert (137 * 3) == 414
+E        +  where 137 = len({'aisle_sign', 'atm', 'back_bar', 'backdrop_rowhome', 'backdrop_tree', 'backdrop_warehouse', ...})
+
+tests\test_coincident_faces.py:578: AssertionError
+_________ test_moved_species_no_longer_offer_raw_metal[crowd_barrier] _________
+
+sp = 'crowd_barrier'
+
+    @pytest.mark.parametrize("sp", MOVED)
+    def test_moved_species_no_longer_offer_raw_metal(sp):
+>       g = json.load(open(os.path.join(SPECIES_DIR, sp + ".json"),
+                           encoding="utf-8"))
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Brannen\\AppData\\Local\\Temp\\claude\\C--Projects-gabagool-studios-gabagool-factory\\27f14f8b-7ce5-44c0-a704-178a824035d7\\scratchpad\\zoo_prove_1117\\zoo_keeper\\genome\\species\\crowd_barrier.json'
+
+tests\test_material_options_closed.py:189: FileNotFoundError
+_____________ test_bare_species_are_on_metal_bare[crowd_barrier] ______________
+
+sp = 'crowd_barrier'
+
+    @pytest.mark.parametrize("sp", BARE)
+    def test_bare_species_are_on_metal_bare(sp):
+>       g = json.load(open(os.path.join(SPECIES_DIR, sp + ".json"),
+                           encoding="utf-8"))
+E       FileNotFoundError: [Errno 2] No such file or directory: 'C:\\Users\\Brannen\\AppData\\Local\\Temp\\claude\\C--Projects-gabagool-studios-gabagool-factory\\27f14f8b-7ce5-44c0-a704-178a824035d7\\scratchpad\\zoo_prove_1117\\zoo_keeper\\genome\\species\\crowd_barrier.json'
+
+tests\test_material_options_closed.py:209: FileNotFoundError
+___________________________ test_nothing_else_moved ___________________________
+
+    def test_nothing_else_moved():
+        """The remaining 41 genomes stay on plain `metal`. When batch 3 lands this
+        list changes deliberately, not by surprise."""
+        moved = [g["species"] for g in _genomes()
+                 if {"metal_painted", "metal_bare"} & set(
+                     g["materials"].get("options", []))]
+>       assert sorted(moved) == sorted(MOVED), (
+            "on a split kind: %s\nexpected: %s" % (sorted(moved), sorted(MOVED)))
+E       AssertionError: on a split kind: ['aisle_sign', 'atm', 'bar_stool', 'bollard', 'box_truck', 'bus_shelter', 'cargo_container', 'cash_register', 'ceiling_hanger', 'chain_link_fence', 'chair', 'cigarette_machine', 'cooler_run', 'cruiser', 'dartboard', 'deli_case', 'display_case', 'dress_cover', 'dumpster', 'filing_cabinet', 'fire_escape', 'fire_hydrant', 'flat_top_grill', 'folding_chair', 'folding_table', 'furnace', 'gold_bar', 'helmet', 'litter_bin', 'mailbox', 'neon_sign', 'newspaper_box', 'pack_wall', 'parking_meter', 'payphone', 'poster', 'price_pylon', 'pump', 'queue_stanchion', 'roller_grill', 'shelving', 'sign_post', 'simple_car', 'slush_machine', 'snack_gondola', 'stoop_railing', 'stop_sign', 'traffic_signal', 'vault_door', 'vending_machine', 'video_poker', 'video_rack', 'water_tank', 'water_tower']
+E         expected: ['aisle_sign', 'atm', 'bar_stool', 'bollard', 'box_truck', 'bus_shelter', 'cargo_container', 'cash_register', 'ceiling_hanger', 'chain_link_fence', 'chair', 'cigarette_machine', 'cooler_run', 'crowd_barrier', 'cruiser', 'dartboard', 'deli_case', 'display_case', 'dress_cover', 'dumpster', 'filing_cabinet', 'fire_escape', 'fire_hydrant', 'flat_top_grill', 'folding_chair', 'folding_table', 'furnace', 'gold_bar', 'helmet', 'litter_bin', 'mailbox', 'neon_sign', 'newspaper_box', 'pack_wall', 'parking_meter', 'payphone', 'poster', 'price_pylon', 'pump', 'queue_stanchion', 'roller_grill', 'shelving', 'sign_post', 'simple_car', 'slush_machine', 'snack_gondola', 'stoop_railing', 'stop_sign', 'traffic_signal', 'vault_door', 'vending_machine', 'video_poker', 'video_rack', 'water_tank', 'water_tower']
+E       assert ['aisle_sign'...shelter', ...] == ['aisle_sign'...shelter', ...]
+E         
+E         At index 13 diff: 'cruiser' != 'crowd_barrier'
+E         Right contains one more item: 'water_tower'
+E         Use -v to get more diff
+
+tests\test_material_options_closed.py:220: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_coincident_faces.py::test_the_census_covers_every_species_there_is
+FAILED tests/test_material_options_closed.py::test_moved_species_no_longer_offer_raw_metal[crowd_barrier]
+FAILED tests/test_material_options_closed.py::test_bare_species_are_on_metal_bare[crowd_barrier]
+FAILED tests/test_material_options_closed.py::test_nothing_else_moved - Asser...
+4 failed, 537 passed, 63 skipped, 1 xfailed in 1.05s
+exit=1

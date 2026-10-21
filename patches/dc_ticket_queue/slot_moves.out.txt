@@ -1,0 +1,64 @@
+slots.json slots: 218 -> 219 entries; 4 gone, 5 new, 20 changed
+   gone slot_id=barrier_0
+   gone slot_id=barrier_1
+   gone slot_id=barrier_2
+   gone slot_id=barrier_3
+   new  slot_id=int_0_0_open3
+   new  slot_id=stanchion_run_0_0
+   new  slot_id=stanchion_run_0_1
+   new  slot_id=stanchion_run_0_2
+   new  slot_id=stanchion_run_0_3
+   changed slot_id=cartons_rff5e6702_15: transform: {'translation': [-6.18, -3.73, 0.6], 'rot_y': 90.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [3.73, -6.41, 0.6], 'rot_y': 90.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_16: transform: {'translation': [-6.18, -2.31, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [3.73, -4.99, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_17: transform: {'translation': [-6.18, -1.18, 0.3], 'rot_y': 0.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [3.73, -3.86, 0.3], 'rot_y': 0.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_19: transform: {'translation': [15.71, -12.41, 0.6], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-6.18, -3.39, 0.6], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_20: transform: {'translation': [15.71, -10.84, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-6.18, -1.82, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_22: transform: {'translation': [-8.6, 2.26, 0.3], 'rot_y': 270.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [0.63, -12.94, 0.3], 'rot_y': 270.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=cartons_rff5e6702_23: transform: {'translation': [-8.6, 3.7, 0.5], 'rot_y': 90.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [0.63, -11.49, 0.5], 'rot_y': 90.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_open1: current_ref: 'doorway_greybox_01' -> 'window_greybox_01'; fit: {'dims': [1.8, 0.3, 5.2], 'pivot': 'center', 'openings': [{'kind': 'door', 'width': 1.8, 'height': 2.2, 'sill': 0.0}], 'collision': 'convex'} -> {'dims': [1.2, 0.3, 5.2], 'pivot': 'center', 'openings': [{'kind': 'window', 'width': 1.2, 'height': 1.1, 'sill': 1.0}], 'collision': 'convex'}; interactive: {'id': 'arena_a02:if:f352c339', 'kind': 'door', 'states': ['closed', 'open'], 'default': 'closed', 'collision_per_state': {'closed': True, 'open': False}} -> '<absent>'; role: 'doorway' -> 'window'; transform: {'translation': [0.0, 5.
+   changed slot_id=int_0_0_open2: interactive: {'id': 'arena_a02:if:aab36dad', 'kind': 'door', 'states': ['closed', 'open'], 'default': 'closed', 'collision_per_state': {'closed': True, 'open': False}} -> {'id': 'arena_a02:if:f352c339', 'kind': 'door', 'states': ['closed', 'open'], 'default': 'closed', 'collision_per_state': {'closed': True, 'open': False}}; transform: {'translation': [17.5, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [0.0, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg10: transform: {'translation': [-3.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-3.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg11: current_ref: 'wallEnd_greybox_01' -> 'wall_greybox_01'; fit: {'dims': [1.7, 0.3, 5.2], 'pivot': 'center', 'openings': [], 'collision': 'convex'} -> {'dims': [2.0, 0.3, 5.2], 'pivot': 'center', 'openings': [], 'collision': 'convex'}; size_mod: 'end' -> 'full'; transform: {'translation': [-1.75, 5.9, 2.6], 'rot_y': 0, 'scale': [1.7, 0.3, 5.2]} -> {'translation': [-1.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg4: current_ref: 'wall_greybox_01' -> 'wallEnd_greybox_01'; fit: {'dims': [2.0, 0.3, 5.2], 'pivot': 'center', 'openings': [], 'collision': 'convex'} -> {'dims': [0.5, 0.3, 5.2], 'pivot': 'center', 'openings': [], 'collision': 'convex'}; size_mod: 'full' -> 'end'; transform: {'translation': [-15.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-16.35, 5.9, 2.6], 'rot_y': 0, 'scale': [0.5, 0.3, 5.2]}
+   changed slot_id=int_0_0_seg5: transform: {'translation': [-13.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-13.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg6: transform: {'translation': [-11.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-11.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg7: transform: {'translation': [-9.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-9.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg8: transform: {'translation': [-7.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-7.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=int_0_0_seg9: transform: {'translation': [-5.6, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-5.9, 5.9, 2.6], 'rot_y': 0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=litter_bin_rff5e6702_21: transform: {'translation': [0.63, -12.14, 0.425], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [15.71, -11.77, 0.425], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=litter_bin_rff5e6702_24: transform: {'translation': [-13.12, -12.81, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-8.6, 3.06, 0.5], 'rot_y': 180.0, 'scale': [1.0, 1.0, 1.0]}
+   changed slot_id=litter_bin_rff5e6702_25: transform: {'translation': [-9.43, -5.76, 0.5], 'rot_y': 0.0, 'scale': [1.0, 1.0, 1.0]} -> {'translation': [-13.12, -12.81, 0.5], 'rot_y': 0.0, 'scale': [1.0, 1.0, 1.0]}
+slots.json other keys moved: ['coverage']
+   coverage: {'breach/generated': 2, 'doorway/generated': 9, 'wall/generated': 113, 'window/generated': 2} -> {'breach/generated': 2, 'doorway/generated': 9, 'wall/generated': 113, 'window/generated': 3}
+gameplay.json interactives: 12 -> 12 entries; 0 gone, 0 new, 2 changed
+   changed id=arena_a02:if:aab36dad: slot_ref: 'int_0_0_open2' -> 'int_0_0_open3'
+   changed id=arena_a02:if:f352c339: slot_ref: 'int_0_0_open1' -> 'int_0_0_open2'
+gameplay.json materials: 10 -> 10 entries; 1 gone, 1 new, 0 changed
+   gone id=metal_bare
+   new  id=metal_painted
+gameplay.json openings: 13 -> 14 entries; 0 gone, 1 new, 0 changed
+   new  int_0_0 window at (-15.5, 5.9)
+gameplay.json surface_roles: 12 keys changed
+   barrier_0: 'prop' -> '<absent>'
+   barrier_1: 'prop' -> '<absent>'
+   barrier_2: 'prop' -> '<absent>'
+   barrier_3: 'prop' -> '<absent>'
+   int_0_0_open1_lintel: 'doorway' -> 'window'
+   int_0_0_open1_pane: '<absent>' -> 'window'
+   int_0_0_open1_sill: '<absent>' -> 'window'
+   int_0_0_open3_lintel: '<absent>' -> 'doorway'
+   stanchion_run_0_0: '<absent>' -> 'prop'
+   stanchion_run_0_1: '<absent>' -> 'prop'
+   stanchion_run_0_2: '<absent>' -> 'prop'
+   stanchion_run_0_3: '<absent>' -> 'prop'
+gameplay.json surfaces: 182 -> 181 entries; 4 gone, 3 new, 0 changed
+   gone node=barrier_0_col
+   gone node=barrier_1_col
+   gone node=barrier_2_col
+   gone node=barrier_3_col
+   new  node=int_col_0_0_open1_pane
+   new  node=int_col_0_0_open1_sill
+   new  node=int_col_0_0_open3_lintel
+lights.json anchors: 15 -> 16 entries; 0 gone, 1 new, 0 changed
+   new  id=int_0_0_window_1
+manifest.json: outputs_sha256_16: {'arena_a02.glb': '638e66e128a55b4b'} -> {'arena_a02.glb': 'ba993b40048315ad'}; spec_sha256_16: 'd6370cb2b37e81ca' -> 'bee3073e601e9a3c'

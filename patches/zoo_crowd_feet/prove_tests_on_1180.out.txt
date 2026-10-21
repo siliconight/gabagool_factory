@@ -1,0 +1,23 @@
+........................................................................ [ 23%]
+........................................................................ [ 47%]
+........................................................F............... [ 71%]
+........................................................................ [ 94%]
+................                                                         [100%]
+================================== FAILURES ===================================
+__________________ test_the_feet_stand_proud_of_a_floor_skin __________________
+
+    def test_the_feet_stand_proud_of_a_floor_skin():
+        """1.118.1: Deli Counter lays a room's floor finish as a 2 cm skin over the slab and stands a prop on the slab under
+        it (its `floors.SKIN_THICK`), so a foot under 2 cm is buried -- the factory's cold run 9359 framed 1.118.0's 9.5 mm
+        feet out of sight, the legs planted in the carpet. A foot's top clears that skin by a centimetre or more, at every
+        size. FAILS ON 1.118.0."""
+        skin = 0.02
+>       assert F.FOOT_T - skin >= 0.01
+E       assert (0.0095 - 0.02) >= 0.01
+E        +  where 0.0095 = F.FOOT_T
+
+tests\test_crowd_barrier.py:164: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_crowd_barrier.py::test_the_feet_stand_proud_of_a_floor_skin
+1 failed, 303 passed in 1.30s
+exit=1

@@ -1,0 +1,935 @@
+{
+ "$schema": "../schema/level.schema.json",
+ "name": "arena_a02",
+ "mode": "pvp_heist",
+ "seed": 4112,
+ "footprint_x": 50,
+ "footprint_y": 34,
+ "story_height": 5.5,
+ "n_stories": 1,
+ "has_basement": false,
+ "collision": "convex",
+ "auto_exterior": true,
+ "scale_ref": false,
+ "default_material": "metal",
+ "materials": [
+  {
+   "id": "concrete",
+   "acoustic": "Concrete",
+   "absorption": 0.7,
+   "damping": 0.6
+  },
+  {
+   "id": "drywall",
+   "acoustic": "Drywall"
+  },
+  {
+   "id": "glass",
+   "acoustic": "Glass",
+   "absorption": 0.1,
+   "damping": 0.05
+  },
+  {
+   "id": "metal",
+   "acoustic": "Metal",
+   "absorption": 0.5,
+   "damping": 0.3
+  },
+  {
+   "id": "wood",
+   "acoustic": "Wood"
+  },
+  {
+   "id": "carpet",
+   "acoustic": "Curtain",
+   "absorption": 0.85,
+   "damping": 0.75
+  },
+  {
+   "id": "tile",
+   "acoustic": "Concrete",
+   "absorption": 0.3,
+   "damping": 0.2
+  },
+  {
+   "id": "ceiling_tile",
+   "acoustic": "Curtain",
+   "absorption": 0.9,
+   "damping": 0.8
+  },
+  {
+   "id": "plaster",
+   "acoustic": "Drywall",
+   "absorption": 0.45,
+   "damping": 0.4
+  },
+  {
+   "id": "metal_painted",
+   "acoustic": "Metal",
+   "absorption": 0.25,
+   "damping": 0.2
+  }
+ ],
+ "ext_walls": [
+  {
+   "wall": "S",
+   "story": 0,
+   "material": "concrete",
+   "openings": [
+    {
+     "kind": "door",
+     "pos": -0.25,
+     "width": 2.4,
+     "tag": "entry_w"
+    },
+    {
+     "kind": "door",
+     "pos": 0.25,
+     "width": 2.4,
+     "tag": "entry_e"
+    },
+    {
+     "kind": "window",
+     "pos": 0.0,
+     "width": 3.0,
+     "sill": 1.6,
+     "vaultable": false
+    }
+   ]
+  },
+  {
+   "wall": "E",
+   "story": 0,
+   "material": "metal",
+   "openings": [
+    {
+     "kind": "door",
+     "pos": 0.25,
+     "width": 1.25,
+     "tag": "service_entry"
+    }
+   ]
+  },
+  {
+   "wall": "W",
+   "story": 0,
+   "material": "metal",
+   "openings": [
+    {
+     "kind": "breach",
+     "pos": 0.0,
+     "width": 1.4,
+     "breach_class": "soft_wall",
+     "material": "drywall"
+    },
+    {
+     "kind": "window",
+     "pos": 0.35,
+     "width": 2.0,
+     "sill": 1.8,
+     "vaultable": false
+    }
+   ]
+  },
+  {
+   "wall": "N",
+   "story": 0,
+   "material": "metal",
+   "openings": [
+    {
+     "kind": "garage",
+     "pos": 0.15,
+     "width": 4.2,
+     "tag": "dock_n"
+    },
+    {
+     "kind": "door",
+     "pos": -0.35,
+     "width": 1.25,
+     "tag": "crew_n"
+    }
+   ]
+  }
+ ],
+ "partitions": [
+  {
+   "story": 0,
+   "axis": "X",
+   "pos": 5.9,
+   "start": -25.0,
+   "end": 25.0,
+   "material": "metal",
+   "openings": [
+    {
+     "kind": "door",
+     "pos": -0.35,
+     "width": 1.8,
+     "reinforceable": true,
+     "tag": "secure_door"
+    },
+    {
+     "kind": "door",
+     "pos": 0.0,
+     "width": 1.8
+    },
+    {
+     "kind": "door",
+     "pos": 0.35,
+     "width": 1.8
+    },
+    {
+     "kind": "window",
+     "pos": -0.31,
+     "width": 1.2,
+     "height": 1.1,
+     "sill": 1.0,
+     "vaultable": false,
+     "tag": "ticket_window"
+    }
+   ]
+  },
+  {
+   "story": 0,
+   "axis": "Y",
+   "pos": -14.0,
+   "start": 5.9,
+   "end": 17.0,
+   "material": "metal",
+   "openings": [
+    {
+     "kind": "door",
+     "pos": 0.0,
+     "width": 1.25,
+     "tag": "secure_door",
+     "reinforceable": true
+    },
+    {
+     "kind": "breach",
+     "pos": 0.45,
+     "width": 1.4,
+     "breach_class": "soft_wall",
+     "material": "drywall"
+    }
+   ]
+  }
+ ],
+ "rooms": [
+  {
+   "id": "event_floor",
+   "story": 0,
+   "bounds": [
+    -25.0,
+    -17.0,
+    25.0,
+    5.9
+   ],
+   "role": "public_entry",
+   "combat_range": "long"
+  },
+  {
+   "id": "box_office",
+   "story": 0,
+   "bounds": [
+    -25.0,
+    5.9,
+    -14.0,
+    17.0
+   ],
+   "role": "objective_room",
+   "objective": true,
+   "fortifiable": true,
+   "combat_range": "close"
+  },
+  {
+   "id": "back_of_house",
+   "story": 0,
+   "bounds": [
+    -14.0,
+    5.9,
+    25.0,
+    17.0
+   ],
+   "role": "connector",
+   "combat_range": "medium"
+  }
+ ],
+ "stairs": [],
+ "ladders": [
+  {
+   "x": 21.0,
+   "y": 8.9,
+   "from_story": 0,
+   "to_story": 1,
+   "facing": "N",
+   "role": "roof_access",
+   "placement_mode": "interior",
+   "upper_surface": "roof",
+   "transition": "roof_hatch_exit",
+   "access_class": "staff_restricted",
+   "access_control": "locked_hatch",
+   "id": "ar02_ladder_0"
+  }
+ ],
+ "vertical_links": [
+  {
+   "kind": "hatch",
+   "story": 1,
+   "x": 21.0,
+   "y": 8.9
+  }
+ ],
+ "parapets": [
+  {
+   "story": 1,
+   "height": 1.0
+  }
+ ],
+ "volumes": [
+  {
+   "name": "counter_service_rff5e6702_1",
+   "x": 24.44,
+   "y": -12.43,
+   "z": 0.525,
+   "size_x": 0.8,
+   "size_y": 3.0,
+   "size_z": 1.05,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "shelf_run_rff5e6702_2",
+   "x": 24.54,
+   "y": 1.73,
+   "z": 0.95,
+   "size_x": 0.6,
+   "size_y": 2.6,
+   "size_z": 1.9,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "cabinet_file_rff5e6702_3",
+   "x": 21.19,
+   "y": -16.54,
+   "z": 0.525,
+   "size_x": 0.9,
+   "size_y": 0.6,
+   "size_z": 1.05,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "vending_rff5e6702_4",
+   "x": -24.46,
+   "y": -10.48,
+   "z": 0.915,
+   "size_x": 0.75,
+   "size_y": 0.85,
+   "size_z": 1.83,
+   "collision": "convex",
+   "material": "metal",
+   "rot_z": 180.0
+  },
+  {
+   "name": "shelf_run_rff5e6702_5",
+   "x": 24.54,
+   "y": -8.19,
+   "z": 1.05,
+   "size_x": 0.6,
+   "size_y": 2.4,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "shelf_run_rff5e6702_6",
+   "x": -20.59,
+   "y": -16.54,
+   "z": 1.05,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cabinet_file_rff5e6702_7",
+   "x": -24.59,
+   "y": -14.17,
+   "z": 0.7,
+   "size_x": 0.5,
+   "size_y": 0.9,
+   "size_z": 1.4,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "vending_rff5e6702_8",
+   "x": -7.74,
+   "y": -16.44,
+   "z": 0.95,
+   "size_x": 1.0,
+   "size_y": 0.8,
+   "size_z": 1.9,
+   "collision": "convex",
+   "material": "metal",
+   "rot_z": 180.0,
+   "variant": 3
+  },
+  {
+   "name": "shelf_run_rff5e6702_9",
+   "x": -15.81,
+   "y": -16.59,
+   "z": 0.95,
+   "size_x": 2.0,
+   "size_y": 0.5,
+   "size_z": 1.9,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "shelf_run_rff5e6702_10",
+   "x": 8.99,
+   "y": -16.54,
+   "z": 1.05,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cabinet_file_rff5e6702_11",
+   "x": -24.54,
+   "y": -7.55,
+   "z": 0.525,
+   "size_x": 0.6,
+   "size_y": 0.9,
+   "size_z": 1.05,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "vending_rff5e6702_12",
+   "x": 24.44,
+   "y": -15.67,
+   "z": 0.95,
+   "size_x": 0.8,
+   "size_y": 1.0,
+   "size_z": 1.9,
+   "collision": "convex",
+   "material": "metal",
+   "variant": 3
+  },
+  {
+   "name": "shelf_run_rff5e6702_13",
+   "x": 24.59,
+   "y": -2.08,
+   "z": 0.95,
+   "size_x": 0.5,
+   "size_y": 2.0,
+   "size_z": 1.9,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "litter_bin_rff5e6702_14",
+   "x": -5.07,
+   "y": -15.29,
+   "z": 0.5,
+   "size_x": 0.6,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "metal",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cartons_rff5e6702_15",
+   "x": -6.18,
+   "y": -3.73,
+   "z": 0.6,
+   "size_x": 1.2,
+   "size_y": 1.6,
+   "size_z": 1.2,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "cartons_rff5e6702_16",
+   "x": -6.18,
+   "y": -2.31,
+   "z": 0.5,
+   "size_x": 0.9,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "variant": 2
+  },
+  {
+   "name": "cartons_rff5e6702_17",
+   "x": -6.18,
+   "y": -1.18,
+   "z": 0.3,
+   "size_x": 0.6,
+   "size_y": 0.4,
+   "size_z": 0.6,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "litter_bin_rff5e6702_18",
+   "x": -18.55,
+   "y": -5.68,
+   "z": 0.425,
+   "size_x": 0.5,
+   "size_y": 0.5,
+   "size_z": 0.85,
+   "collision": "convex",
+   "material": "metal"
+  },
+  {
+   "name": "cartons_rff5e6702_19",
+   "x": 15.71,
+   "y": -12.41,
+   "z": 0.6,
+   "size_x": 1.6,
+   "size_y": 1.2,
+   "size_z": 1.2,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "variant": 3
+  },
+  {
+   "name": "cartons_rff5e6702_20",
+   "x": 15.71,
+   "y": -10.84,
+   "z": 0.5,
+   "size_x": 0.9,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "litter_bin_rff5e6702_21",
+   "x": 0.63,
+   "y": -12.14,
+   "z": 0.425,
+   "size_x": 0.5,
+   "size_y": 0.5,
+   "size_z": 0.85,
+   "collision": "convex",
+   "material": "metal",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cartons_rff5e6702_22",
+   "x": -8.6,
+   "y": 2.26,
+   "z": 0.3,
+   "size_x": 0.4,
+   "size_y": 0.6,
+   "size_z": 0.6,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cartons_rff5e6702_23",
+   "x": -8.6,
+   "y": 3.7,
+   "z": 0.5,
+   "size_x": 0.6,
+   "size_y": 0.9,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "variant": 2
+  },
+  {
+   "name": "litter_bin_rff5e6702_24",
+   "x": -13.12,
+   "y": -12.81,
+   "z": 0.5,
+   "size_x": 0.6,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "metal",
+   "rot_z": 180.0
+  },
+  {
+   "name": "litter_bin_rff5e6702_25",
+   "x": -9.43,
+   "y": -5.76,
+   "z": 0.5,
+   "size_x": 0.6,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "metal"
+  },
+  {
+   "name": "desk_rdaf92b94_1",
+   "x": -18.14,
+   "y": 8.99,
+   "z": 0.38,
+   "size_x": 1.8,
+   "size_y": 0.9,
+   "size_z": 0.76,
+   "collision": "convex",
+   "material": "wood",
+   "stock": "office"
+  },
+  {
+   "material": "wood",
+   "name": "chair_set_rdaf92b94_1_1",
+   "x": -18.14,
+   "y": 8.15,
+   "z": 0.45,
+   "size_x": 0.5,
+   "size_y": 0.5,
+   "size_z": 0.9,
+   "collision": "convex",
+   "rot_z": 163.2
+  },
+  {
+   "name": "shelf_run_rdaf92b94_2",
+   "x": -22.38,
+   "y": 16.54,
+   "z": 1.05,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "cabinet_file_rdaf92b94_3",
+   "x": -24.54,
+   "y": 6.96,
+   "z": 0.525,
+   "size_x": 0.6,
+   "size_y": 0.9,
+   "size_z": 1.05,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0
+  },
+  {
+   "name": "cabinet_file_rdaf92b94_4",
+   "x": -19.55,
+   "y": 16.59,
+   "z": 0.7,
+   "size_x": 0.9,
+   "size_y": 0.5,
+   "size_z": 1.4,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "desk_rdaf92b94_5",
+   "x": -15.79,
+   "y": 14.21,
+   "z": 0.38,
+   "size_x": 0.9,
+   "size_y": 1.8,
+   "size_z": 0.76,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "stock": "office",
+   "variant": 1
+  },
+  {
+   "name": "cartons_rdaf92b94_6",
+   "x": -22.95,
+   "y": 10.09,
+   "z": 0.3,
+   "size_x": 0.6,
+   "size_y": 0.4,
+   "size_z": 0.6,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "variant": 1
+  },
+  {
+   "name": "cartons_rdaf92b94_7",
+   "x": -22.95,
+   "y": 11.09,
+   "z": 0.5,
+   "size_x": 0.6,
+   "size_y": 0.9,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "variant": 3
+  },
+  {
+   "name": "desk_rdaf92b94_8",
+   "x": -19.67,
+   "y": 12.7,
+   "z": 0.38,
+   "size_x": 1.8,
+   "size_y": 0.9,
+   "size_z": 0.76,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "stock": "office"
+  },
+  {
+   "material": "wood",
+   "name": "chair_set_rdaf92b94_8_1",
+   "x": -19.67,
+   "y": 13.6,
+   "z": 0.45,
+   "size_x": 0.5,
+   "size_y": 0.5,
+   "size_z": 0.9,
+   "collision": "convex",
+   "rot_z": 341.8
+  },
+  {
+   "name": "cartons_r22743783_1",
+   "x": 2.13,
+   "y": 9.79,
+   "z": 0.6,
+   "size_x": 1.6,
+   "size_y": 1.2,
+   "size_z": 1.2,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "dust_sheet_r22743783_2",
+   "x": 2.13,
+   "y": 11.49,
+   "z": 0.5,
+   "size_x": 0.8,
+   "size_y": 0.8,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "variant": 1
+  },
+  {
+   "name": "cabinet_file_r22743783_3",
+   "x": -10.55,
+   "y": 16.54,
+   "z": 0.525,
+   "size_x": 0.9,
+   "size_y": 0.6,
+   "size_z": 1.05,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "chair_waiting_r22743783_4",
+   "x": 3.09,
+   "y": 16.54,
+   "z": 0.45,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 0.9,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "shelf_run_r22743783_5",
+   "x": 18.13,
+   "y": 16.54,
+   "z": 1.05,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "cabinet_file_r22743783_6",
+   "x": 11.07,
+   "y": 16.59,
+   "z": 0.65,
+   "size_x": 0.6,
+   "size_y": 0.5,
+   "size_z": 1.3,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "chair_waiting_r22743783_7",
+   "x": 24.54,
+   "y": 13.83,
+   "z": 0.45,
+   "size_x": 0.6,
+   "size_y": 1.8,
+   "size_z": 0.9,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "shelf_run_r22743783_8",
+   "x": -4.79,
+   "y": 16.54,
+   "z": 1.05,
+   "size_x": 2.4,
+   "size_y": 0.6,
+   "size_z": 2.1,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "cabinet_file_r22743783_9",
+   "x": -0.99,
+   "y": 16.59,
+   "z": 0.65,
+   "size_x": 0.6,
+   "size_y": 0.5,
+   "size_z": 1.3,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "dust_sheet_r22743783_10",
+   "x": -3.97,
+   "y": 12.58,
+   "z": 0.5,
+   "size_x": 0.8,
+   "size_y": 0.8,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood",
+   "rot_z": 180.0,
+   "variant": 2
+  },
+  {
+   "name": "cartons_r22743783_11",
+   "x": -3.97,
+   "y": 13.88,
+   "z": 0.5,
+   "size_x": 0.9,
+   "size_y": 0.6,
+   "size_z": 1.0,
+   "collision": "convex",
+   "material": "wood"
+  },
+  {
+   "name": "stanchion_run_0_0",
+   "x": -12.5,
+   "y": 4.572,
+   "z": 0.485,
+   "size_x": 4.8,
+   "size_y": 0.356,
+   "size_z": 0.97,
+   "collision": "convex",
+   "material": "metal_painted"
+  },
+  {
+   "name": "stanchion_run_0_1",
+   "x": -13.7,
+   "y": 3.016,
+   "z": 0.485,
+   "size_x": 4.8,
+   "size_y": 0.356,
+   "size_z": 0.97,
+   "collision": "convex",
+   "material": "metal_painted"
+  },
+  {
+   "name": "stanchion_run_0_2",
+   "x": -12.5,
+   "y": 1.46,
+   "z": 0.485,
+   "size_x": 4.8,
+   "size_y": 0.356,
+   "size_z": 0.97,
+   "collision": "convex",
+   "material": "metal_painted"
+  },
+  {
+   "name": "stanchion_run_0_3",
+   "x": -13.7,
+   "y": -0.096,
+   "z": 0.485,
+   "size_x": 4.8,
+   "size_y": 0.356,
+   "size_z": 0.97,
+   "collision": "convex",
+   "material": "metal_painted"
+  }
+ ],
+ "markers": [
+  {
+   "type": "attacker_spawn",
+   "id": "MAIN_W",
+   "x": -10.0,
+   "y": -19.0,
+   "z": 0,
+   "rot_z": 90,
+   "room": "event_floor"
+  },
+  {
+   "type": "attacker_spawn",
+   "id": "MAIN_E",
+   "x": 10.0,
+   "y": -19.0,
+   "z": 0,
+   "rot_z": 90,
+   "room": "event_floor"
+  },
+  {
+   "type": "defender_spawn",
+   "x": 7.5,
+   "y": 11.45,
+   "z": 0.0,
+   "rot_z": 0,
+   "room": "back_of_house"
+  },
+  {
+   "type": "objective",
+   "id": "A",
+   "x": -20.0,
+   "y": 11.45,
+   "z": 0.0,
+   "room": "box_office",
+   "meta": {
+    "kind": "secure"
+   }
+  },
+  {
+   "type": "extraction",
+   "id": "EXIT",
+   "x": 0.0,
+   "y": -19.0,
+   "z": 0
+  },
+  {
+   "type": "cover_high",
+   "x": 0.0,
+   "y": -6.800000000000001,
+   "z": 0,
+   "room": "event_floor"
+  },
+  {
+   "type": "camera_socket",
+   "id": "01",
+   "x": 22.0,
+   "y": -14.0,
+   "z": 4.5,
+   "room": "event_floor"
+  }
+ ]
+}

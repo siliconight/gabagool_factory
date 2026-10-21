@@ -1,0 +1,36 @@
+roadmap 267: status replaced, the earlier kept; items 273, 274, 275, 276 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 948-948 -> dry 948-948
+    + | 267 | **NARROWED** | Furniture the generator places that Zoo builds as a box | 2026-10-21 -- ARENA_A02'S BARRIERS, MADE AND THEN RE-SCOPED BY THE WA
+insert live 954-953 -> dry 954-957
+    + | 273 | **OPEN** | The steel crowd barricade stands nowhere | 2026-10-21 -- filed with the walker's re-scope of item 267; not started. |
+    + | 274 | **OPEN** | A prop's ground detail under 2 cm is buried inside a Deli Counter buil | 2026-10-21 -- found by cold run 9359's frames (`docs/findi
+    + | 275 | **OPEN** | A bank's teller line has no queue | 2026-10-21 -- filed with Deli Counter 0.243.0; not started. |
+    + | 276 | **OPEN** | arena_a02's event floor is all but black at night | 2026-10-21 -- a question for the walker before it is a task. |
+replace live 955-955 -> dry 959-959
+    + **276 items: 21 open, 140 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 20771-20771 -> dry 20775-20775
+    + *STATUS: NARROWED 2026-10-21 -- ARENA_A02'S BARRIERS, MADE AND THEN RE-SCOPED BY THE WALKER. Made as asked: Zoo 1.118.0 (7344bed) draws the steel crow
+insert live 20796-20795 -> dry 20800-20815
+    + 
+    + *STATUS: OPEN 2026-10-21 -- filed with the walker's re-scope of item 267; not started.*
+    + 
+    + **273. The steel crowd barricade stands nowhere.** Zoo 1.118.0 and 1.118.1 draw `crowd_barrier`, the interlocking steel barricade on its flat feet, an
+    + 
+    + *STATUS: OPEN 2026-10-21 -- found by cold run 9359's frames (`docs/findings/crowd_barrier_267/`); two species fixed or drawn round it, the rest unmeas
+    + 
+    + **274. A prop's ground detail under 2 cm is buried inside a Deli Counter building.** Deli Counter lays a room's floor finish as a 2 cm skin over the s
+    + 
+    + *STATUS: OPEN 2026-10-21 -- filed with Deli Counter 0.243.0; not started.*
+    + 
+    + **275. A bank's teller line has no queue.** The walker, 2026-10-20: "stanchion or stanchions are likley more common for banks and indoor common areas"
+    + 
+    + *STATUS: OPEN 2026-10-21 -- a question for the walker before it is a task.*
+    + 
+    + **276. arena_a02's event floor is all but black at night.** Cold runs 9358 to 9361 framed it in the level's own night light (`docs/findings/crowd_barr
