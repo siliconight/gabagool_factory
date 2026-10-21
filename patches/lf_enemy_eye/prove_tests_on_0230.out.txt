@@ -1,0 +1,25 @@
+== 0.231.0's tests on 0.230.0 (16ba543) ==
+E       KeyError: 'enemy_eye_height_m'
+E       KeyError: 'enemy_eye_height_m'
+E       KeyError: 'enemy_eye_height_m'
+E       KeyError: 'enemy_eye_height_m'
+E       AssertionError: [{'blocking': False, 'category': 'configuration', 'code': 'LT_ENGAGEMENT_NOT_CONFIGURABLE', 'location': 'LT_MapEvalHar...tion': '', ...}, {'blocking': False, 'category': 'combat_structure', 'code': 'LT_OPEN_SIGHTLINE', 'location': '', ...}]
+E       assert 'LT_SIGHT_ONE_EYE' not in ['LT_ENGAGEMENT_NOT_CONFIGURABLE', 'LT_SIGHT_ONE_EYE', 'LT_OPEN_SIGHTLINE']
+E        +  where ['LT_ENGAGEMENT_NOT_CONFIGURABLE', 'LT_SIGHT_ONE_EYE', 'LT_OPEN_SIGHTLINE'] = _codes([{'blocking': False, 'category': 'configuration', 'code': 'LT_ENGAGEMENT_NOT_CONFIGURABLE', 'location': 'LT_MapEvalHar...tion': '', ...}, {'blocking': False, 'category': 'combat_structure', 'code': 'LT_OPEN_SIGHTLINE', 'location': '', ...}])
+E       KeyError: 'enemy_eye_height_m'
+PASSED tests/unit/test_the_enemy_sights_from_the_contract.py::test_a_nonsense_npc_eye_is_dropped_rather_than_replaced
+PASSED tests/unit/test_the_enemy_sights_from_the_contract.py::test_a_brief_s_scenario_still_beats_the_contract
+PASSED tests/unit/test_sight_follows_the_body.py::test_without_the_crate_the_street_is_one_open_sightline
+PASSED tests/unit/test_sight_follows_the_body.py::test_the_crate_is_cover_for_the_stock_body
+PASSED tests/unit/test_sight_follows_the_body.py::test_a_brief_s_scenario_beats_the_contract_here_too
+PASSED tests/unit/test_sight_follows_the_body.py::test_no_contract_leaves_laser_tag_s_own_heights
+PASSED tests/unit/test_sight_follows_the_body.py::test_two_eyes_are_named_rather_than_averaged
+PASSED tests/unit/test_sight_follows_the_body.py::test_a_height_that_is_not_a_number_does_not_stop_the_advisory
+PASSED tests/unit/test_sight_follows_the_body.py::test_the_geometry_takes_a_body
+FAILED tests/unit/test_the_enemy_sights_from_the_contract.py::test_a_studio_states_its_body_once_and_both_sides_take_it
+FAILED tests/unit/test_the_enemy_sights_from_the_contract.py::test_a_contract_with_no_npc_block_shares_the_player_s_eye
+FAILED tests/unit/test_the_enemy_sights_from_the_contract.py::test_a_distinct_class_states_its_own_eye
+FAILED tests/unit/test_the_enemy_sights_from_the_contract.py::test_the_shipped_contract_fields_one_eye_on_both_sides
+FAILED tests/unit/test_sight_follows_the_body.py::test_a_studio_states_its_body_once_and_the_advisory_sights_from_it
+FAILED tests/unit/test_sight_follows_the_body.py::test_the_run_and_the_advisory_ask_one_precedence
+exit 1

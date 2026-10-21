@@ -1,0 +1,32 @@
+......F................................................................. [  8%]
+........................................................................ [ 16%]
+........................................................................ [ 25%]
+........................................................................ [ 33%]
+........................................................................ [ 42%]
+........................................................................ [ 50%]
+........................................................................ [ 59%]
+........................................................................ [ 67%]
+........................................................................ [ 75%]
+........................................................................ [ 84%]
+........................................................................ [ 92%]
+..............................................................           [100%]
+================================== FAILURES ===================================
+__________________ test_the_shared_keys_are_actually_shared ___________________
+
+    def test_the_shared_keys_are_actually_shared():
+        """A guard that compares an empty intersection passes for free. Every key of the cover fallback is
+        in the contract, and the agent defaults share at least the 21 keys they share today."""
+        (_n1, defaults, whole), (_n2, cover, bake) = _copies(_live())
+        assert len(list(_pairs(cover, bake))) == len(cover), sorted(cover)
+>       assert len(list(_pairs(defaults, whole))) >= 21, [k for k, _f, _v in _pairs(defaults, whole)]
+E       AssertionError: ['nav_bake.agent_radius_m', 'nav_bake.agent_height_m', 'nav_bake.agent_max_climb_m', 'nav_bake.agent_max_slope_deg', 'nav_bake.cell_size_m', 'nav_bake.cell_height_m', ...]
+E       assert 19 >= 21
+E        +  where 19 = len([('nav_bake.agent_radius_m', 0.4, 0.4), ('nav_bake.agent_height_m', 1.8, 1.8), ('nav_bake.agent_max_climb_m', 0.15, 0....ake.agent_max_slope_deg', 55.0, 55.0), ('nav_bake.cell_size_m', 0.1, 0.1), ('nav_bake.cell_height_m', 0.15, 0.15), ...])
+E        +    where [('nav_bake.agent_radius_m', 0.4, 0.4), ('nav_bake.agent_height_m', 1.8, 1.8), ('nav_bake.agent_max_climb_m', 0.15, 0....ake.agent_max_slope_deg', 55.0, 55.0), ('nav_bake.cell_size_m', 0.1, 0.1), ('nav_bake.cell_height_m', 0.15, 0.15), ...] = list(<generator object _pairs at 0x00000225A410D690>)
+E        +      where <generator object _pairs at 0x00000225A410D690> = _pairs({'characters': {'npc_standard': {'height_m': 1.8, 'radius_m': 0.35}, 'player': {'crouch_height_m': 1.2, 'eye_height_m'...x_slope_deg': 55.0, 'agent_radius_m': 0.4, ...}, 'qa': {'arrive_dist_m': 1.5, 'snap_max_m': 2.0, 'stuck_seconds': 4.0}}, {'characters': {'npc_standard': {'note': 'cops/civilians share player metrics until a distinct class ships', 'shares_n... the building, is what was making the false claim.', 'agent_max_climb_m': 0.15, 'agent_max_slope_deg': 55.0, ...}, ...})
+
+tests\test_cover_fallback.py:82: AssertionError
+=========================== short test summary info ===========================
+FAILED tests/test_cover_fallback.py::test_the_shared_keys_are_actually_shared
+1 failed, 853 passed in 17.05s
+exit 1

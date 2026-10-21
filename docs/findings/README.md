@@ -77,7 +77,7 @@
 - `getaway_van_price/` -- The getaway van's price (roadmap 206)
 - `grader_speed/` -- Grader speed: where a cold run's time goes, and what may be cut without changing a result
 - `guides_2026-10-19/` -- Three guides, chased: geometry, texture tiling, baked lighting
-- `guides_2026-10-21/` -- Two documents, chased: the retopology TDD and lived-in levels
+- `guides_2026-10-21/` -- Three documents, chased: the retopology TDD, lived-in levels, and floor plan to 3D layout
 - `heat_lamp/` -- 45 file(s); The roller grill's heat lamp, measured
 - `hemisphere_half/` -- Which half `add_hemisphere` keeps (roadmap 232)
 - `hidden_state_collision/` -- A hidden interactive state and its collider (roadmap 175)

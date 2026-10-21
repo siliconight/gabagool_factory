@@ -1,0 +1,30 @@
+== 0.253.0's tests on 0.252.0 (8eb3233f) ==
+E           ValueError: sightlines.aim_height_m is 1.0 and characters.player.chest_height_m is 1.150 -- one body, one aim point
+E       AttributeError: module 'agent_contract' has no attribute 'npc_body'
+E           AttributeError: module 'agent_contract' has no attribute 'sight_heights'
+E       AssertionError: assert not ['radius_m', 'height_m']
+PASSED test_cover_breaks_sightlines.py::test_the_break_height_is_derived_not_stored
+PASSED test_cover_breaks_sightlines.py::test_the_shipped_contract_agrees_with_its_own_inputs
+PASSED test_cover_breaks_sightlines.py::test_a_stored_value_that_drifted_is_refused
+PASSED test_cover_breaks_sightlines.py::test_lines_that_never_cross_are_refused
+PASSED test_cover_breaks_sightlines.py::test_the_aim_point_is_a_property_of_the_body
+PASSED test_cover_breaks_sightlines.py::test_an_aim_point_outside_its_own_body_is_refused
+PASSED test_cover_breaks_sightlines.py::test_the_two_copies_of_the_aim_point_must_agree
+PASSED test_cover_breaks_sightlines.py::test_the_shipped_aim_point_sits_in_the_shipped_body
+PASSED test_cover_breaks_sightlines.py::test_a_missing_contract_degrades_to_the_ratified_value
+PASSED test_cover_breaks_sightlines.py::test_high_cover_means_it_breaks_the_line
+PASSED test_cover_breaks_sightlines.py::test_the_two_questions_have_two_numbers
+PASSED test_cover_breaks_sightlines.py::test_room_has_cover_reads_the_constant_not_a_copy
+PASSED test_cover_breaks_sightlines.py::test_furniture_alone_does_not_credit_a_room
+PASSED test_cover_breaks_sightlines.py::test_one_piece_over_the_crossing_is_enough_to_credit_it
+PASSED test_cover_breaks_sightlines.py::test_the_corpus_has_no_room_that_cannot_be_fought_in
+PASSED test_cover_breaks_sightlines.py::test_every_combat_room_big_enough_to_seed_has_shelter
+PASSED test_cover_breaks_sightlines.py::test_the_shelter_pass_is_idempotent
+PASSED test_cover_breaks_sightlines.py::test_shelter_is_taller_than_the_height_cover_starts_working_at
+PASSED test_cover_breaks_sightlines.py::test_the_killbox_remedy_does_not_recommend_furniture
+FAILED test_npc_body.py::test_a_studio_states_its_body_once_and_the_crossing_follows_it
+FAILED test_npc_body.py::test_the_npc_is_the_player_until_it_says_otherwise
+FAILED test_npc_body.py::test_a_sight_height_that_disagrees_with_its_body_is_refused
+FAILED test_npc_body.py::test_the_shipped_npc_states_no_metric_of_its_own - A...
+4 failed, 19 passed in 10.48s
+exit 1

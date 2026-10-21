@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~15:45 DC 0.252.0 shipped (chairless hosts seated or taken away), 284 NARROWED, cold 9374 clean; walker question queued; next 290, 285, 292
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~17:45 292 CLOSED; floor-plan guide -> 293-295; 293 NARROWED (DC 0.254.0 axonometric); IN FLIGHT stairs as treads; next 290, 285, 294
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -113,7 +113,7 @@
 - [Name workspaces literally in records](name-workspaces-literally-in-records.md) — still write cold-NNNN-ws in full; since 2026-10-19 --pushed-only a name no longer keeps a PUSHED run's workspace: keep a finding's small inputs in the finding
 - [Agent contract: one change re-sizes all](agent-contract-single-change.md) — walker: body-derived numbers read the contract; DC 0.215.0 routed landing + vault; census open
 - [Laser Tag is a rabbit hole](laser-tag-rabbit-hole.md) — walker: keep LT work bounded; 246 fixed in LT 0.32.0 (one trace, one line, one breadth)
-- [Lot text fixes ride the next change](next-lot-change-carries-docstring-fix.md) — walker's rule; QUEUED: urban_tree_stations says trees "step clear" of cuts; they're dropped
+- [Lot text fixes ride the next change](next-lot-change-carries-docstring-fix.md) — walker's rule; queue EMPTY (Lot 0.126.1 carried the urban_tree_stations fix)
 - [Picks moved: name the seed](pick-moved-name-the-seed.md) — LF 0.202.0 moved 28/62 picks (9104->9003); A/B vs older runs passes the seed, not auto
 - [Inspection light for dark checks](inspection-light-for-dark-checks.md) — look_shots --inspect studio settles geometry in dark levels; never the look; fullbright refuted
 - [Contract language, pinned](contract-language-pinned.md) — walker: protobuf-like contracts for LF "later later"; parked, file in roadmap
@@ -132,3 +132,4 @@
 - [Deli Counter control runs](dc-control-run-via-tools-local.md) — clone, build.py --all AND nav_gate.py --all, pre-write the workspace's tools.local.json; before.json names the real repo
 - [Rooms: not crowded, not barren](rooms-not-crowded-not-barren.md) — walker 2026-10-21: density is a band (~12-25 % floor share), rows of primary furniture over clutter, lanes open
 - [Route census reads furnishing](route-census-reads-furnishing.md) — route_cost.py beside the nav gate for any furnishing change; reserve square routes first (DC 0.250.0)
+- [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 axonometric.py; offsets are the drawing's alone; stairs as treads next

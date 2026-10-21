@@ -1,0 +1,28 @@
+== Deli Counter's suite in the dc_eye clone (0.253.0) against a fresh 0.252.0 clone (8eb3233f)
+0.253.0: exit=1  23 failed, 1673 passed, 50 skipped, 1 warning in 280.48s (0:04:40)
+0.252.0: exit=1  23 failed, 1669 passed, 50 skipped, 1 warning in 280.12s (0:04:40)
+failing only on 0.253.0: 0; only on 0.252.0: 0
+the failures both share:
+  test_counter_accent.py::test_every_built_store_hangs_its_accent_over_its_counter
+  test_empty_door_leaf.py::test_a_building_you_enter_keeps_its_doors_open
+  test_empty_door_leaf.py::test_every_empty_door_is_filled_and_has_its_collider
+  test_inner_face.py::test_every_outside_only_exterior_wall_names_its_room_face_and_nothing_else_does
+  test_payphone_wall_form.py::test_the_form_reaches_the_slot_zoo_reads
+  test_residence_lights.py::test_the_library_homes_have_no_sign_and_every_other_storefront_keeps_its_own
+  test_roller_grill.py::test_the_built_slots_carry_the_species
+  test_roof_fixtures.py::test_every_built_rowhome_s_roof_carries_what_its_preset_asked_for
+  test_sales_cooler.py::test_every_built_store_carries_its_sales_cooler_as_a_cooler_slot
+  test_sign_business.py::test_every_library_sign_names_the_building_it_is_on
+  test_slush_machine.py::test_the_built_slots_carry_the_species
+  test_stoop_circulation.py::test_the_twelve_are_built
+  test_storefront_glazing.py::test_a_back_room_behind_a_storefront_wall_has_a_wall[cr_gas]
+  test_storefront_glazing.py::test_a_back_room_behind_a_storefront_wall_has_a_wall[gas_station]
+  test_storefront_glazing.py::test_a_back_room_behind_a_storefront_wall_has_a_wall[stop_n_go]
+  test_storefront_glazing.py::test_only_the_storefronts_full_walls_and_doors_are_tagged[cr_gas]
+  test_storefront_glazing.py::test_only_the_storefronts_full_walls_and_doors_are_tagged[gas_station]
+  test_storefront_glazing.py::test_only_the_storefronts_full_walls_and_doors_are_tagged[stop_n_go]
+  test_storefront_glazing.py::test_the_back_rooms_that_had_glass_have_none
+  test_storefront_glazing.py::test_the_once_shell_walled_stores_have_storefront_slots
+  test_storefront_reach.py::test_only_a_storefront_building_carries_a_reach_and_only_on_fluorescents
+  test_window_sign.py::test_every_built_store_carries_it_as_a_window_neon_prop_slot
+  test_window_sign.py::test_the_sign_clears_the_lit_sign_box_as_built

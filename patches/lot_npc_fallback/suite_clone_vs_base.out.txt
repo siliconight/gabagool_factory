@@ -1,0 +1,10 @@
+== Lot's suite in the lot_npc clone (0.126.1) against a fresh 0.126.0 clone (49dcf8d), neither beside the factory's other repos
+-- Deli Counter 0.252.0's contract (the factory's)
+  0.126.1: exit=1 12 failed, 834 passed, 8 skipped in 17.83s
+  0.126.0: exit=1 12 failed, 834 passed, 8 skipped in 19.15s
+  failing only on 0.126.1: 0; only on 0.126.0: 0; on both: 12
+-- Deli Counter 0.253.0's contract (the dc_eye clone)
+  0.126.1: exit=1 12 failed, 834 passed, 8 skipped in 17.81s
+  0.126.0: exit=1 13 failed, 833 passed, 8 skipped in 17.75s
+  failing only on 0.126.1: 0; only on 0.126.0: 1; on both: 12
+    only 0.126.0: tests/test_cover_fallback.py::test_the_shared_keys_are_actually_shared

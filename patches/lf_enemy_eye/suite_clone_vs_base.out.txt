@@ -1,0 +1,20 @@
+== Level Factory's suite in the lf_eye clone (0.231.0) against a fresh 0.230.0 clone (16ba543), both with LF_LASERTAG_ROOT, LF_LOT_ROOT and LF_DC_ROOT set to the factory's checkouts
+0.231.0: exit=1 2598 {'.': 2553, 's': 29, 'x': 1, 'F': 15}
+0.230.0: exit=1 2591 {'.': 2546, 's': 29, 'x': 1, 'F': 15}
+failing only on 0.231.0: 0; only on 0.230.0: 0
+the failures both share (each needs the factory tree beside the clone):
+  tests/test_dressing_jobs.py::test_measuring_changes_the_fingerprint
+  tests/test_dressing_jobs.py::test_shape_metrics_is_where_the_adapter_thinks_it_is
+  tests/test_dressing_jobs.py::test_the_measuring_tools_own_source_is_an_input
+  tests/test_drip_assets.py::test_stager_writes_the_shader_the_atlas_and_the_node
+  tests/unit/test_layer3_wiring.py::test_the_tracked_asset_set_file_names_the_four_clutter_species
+  tests/unit/test_sibling_locator.py::test_it_finds_a_repo_above_the_caller
+  tests/unit/test_sibling_locator.py::test_the_factory_root_holds_this_repo
+  tests/unit/test_sibling_locator.py::test_the_suite_can_be_run_from_anywhere
+  tests/unit/test_signs_in_site_spec.py::test_a_door_wears_its_shells_band
+  tests/unit/test_signs_in_site_spec.py::test_a_shell_is_dealt_one_business_wherever_it_stands
+  tests/unit/test_signs_in_site_spec.py::test_a_shop_still_takes_a_band_of_its_own_family
+  tests/unit/test_signs_in_site_spec.py::test_a_station_and_a_store_wear_flappahs_never_the_price_board
+  tests/unit/test_signs_in_site_spec.py::test_each_building_takes_a_business_of_its_own_family_and_no_two_repeat
+  tests/unit/test_signs_in_site_spec.py::test_every_flappahs_door_wears_flappahs
+  tests/unit/test_signs_in_site_spec.py::test_the_themed_spec_carries_the_signs_and_the_greybox_does_not

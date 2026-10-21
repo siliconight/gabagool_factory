@@ -1,6 +1,12 @@
-# Two documents, chased: the retopology TDD and lived-in levels
+# Three documents, chased: the retopology TDD, lived-in levels, and floor plan to 3D layout
 
-The walker, 2026-10-21, shared two documents:
+**A third, the same afternoon** (the walker: "add this to the roadmap to make our floorplan tool better and acheive
+that Exploded axonometric view, with architectural cutaways"): *Floor Plan to 3D Layout and Automap Guide*, filed at
+`docs/reference/Floor_Plan_to_3D_Layout_and_Automap_Guide.md`, unchanged. Its chase is `floor_plan.md` -- what the
+floorplan tool (`deli_counter/floorplan.py`) draws, what a 3D view would read, and what exists of the guide's
+exploded view, automap and connectivity graph -- the claims roadmaps 293 to 295 rest on read again first and marked.
+
+The walker, 2026-10-21, shared two documents in the morning:
 
 | document | filed at | the walker's words |
 |---|---|---|

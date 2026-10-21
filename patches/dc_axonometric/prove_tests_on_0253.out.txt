@@ -1,0 +1,12 @@
+== 0.254.0's tests on 0.253.0 (ca7e45a8) ==
+E   ModuleNotFoundError: No module named 'axonometric'
+E       AssertionError: a band drawn 0.15 m thick
+E       assert not [(1.8, 26.1), (1.8, 246.2), (1.8, 31.9), (1.8, 40.3), (1.8, 204.5), (1.8, 59.2), ...]
+E       assert (('%.1f m floor to floor' % 3.6) in '<svg xmlns="http://www.w3.org/2000/svg" width="488.0" height="459.0" viewBox="0 0 488.0 459.0" font-family="Inter,Seg...\\n<text x="40" y="445" font-size="9" fill="#52606d">1. office_stair_0 \u2191N [public_convenience]  \u21912</text>\\n</g>\\n</svg>')
+E        +  where 3.6 = <function _story_height at 0x000001A7AC37CA90>(LevelSpec(name='office', seed=2001, grid=0.5, mode='assault', footprint_x=34.0, footprint_y=24.0, story_height=3.6, n_...e_stack=None, modular=True, module=None, theme=None, state=None, module_library=None, vertex_nuance=False, rarity=None))
+E        +    where <function _story_height at 0x000001A7AC37CA90> = FP._story_height
+ERROR test_axonometric.py
+FAILED test_plan_matches_build.py::test_a_partition_is_drawn_at_the_thickness_it_is_built_at
+FAILED test_plan_matches_build.py::test_the_plan_calls_the_storey_height_floor_to_floor
+2 failed, 1 error in 0.46s
+exit 1
