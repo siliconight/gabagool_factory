@@ -1,0 +1,74 @@
+== test_room_count_storey.py on 0.245.0 (147111ee) ==
+  AssertionError: assert 5 == 0
+E        +  where 5 = <function _room_volume_count at 0x000002161DCAD2D0>({'floor_thick': 0.3, 'footprint_x': 20, 'footprint_y': 20, 'name': 'count_probe', ...}, {'bounds': [-10.0, -10.0, 10.0, 10.0], 'id': 'above', 'story': 1})
+E        +    where <function _room_volume_count at 0x000002161DCAD2D0> = level_design._room_volume_count
+
+test_room_count_storey.py:53: AssertionError
+______________ test_a_slab_sunk_under_the_floor_is_not_furniture ______________
+
+    def test_a_slab_sunk_under_the_floor_is_not_furniture():
+        """gas_station_a02's sales floor holds the centre of a 46 x 46 m `forecourt_pad` whose top is the floor: under
+        the old spelling it was one of the room's pieces."""
+        pad = {"name": "forecourt_pad", "x": 0.0, "y": 0.0, "z": -0.2, "size_x": 46.0, "size_y": 46.0, "size_z": 0.4,
+               "collision": "convex", "material": "concrete"}
+        spec = _spec([pad, _standing(0, 1.0)])
+        below, above = spec["rooms"]
+>       assert level_design._room_volume_count(spec, below) == 1
+E       AssertionError: assert 2 == 1
+E        +  where 2 = <function _room_volume_count at 0x000002161DCAD2D0>({'floor_thick': 0.3, 'footprint_x': 20, 'footprint_y': 20, 'name': 'count_probe', ...}, {'bounds': [-10.0, -10.0, 10.0, 10.0], 'id': 'below', 'story': 0})
+E        +    where <function _room_volume_count at 0x000002161DCAD2D0> = level_design._room_volume_count
+
+test_room_count_storey.py:70: AssertionError
+______________ test_a_raised_piece_counts_on_its_own_storey_only ______________
+
+    def test_a_raised_piece_counts_on_its_own_storey_only():
+        """A piece with collision whose foot is above the floor -- on a plinth, on a bracket -- is its own storey's, and
+        only its own: the old spelling counted a foot 1.2 m up in the room over it too, 2.1 m off. What is hung over a
+        body's head with no collision stays out, as it was."""
+        v = _standing(0, 0.5)
+        v["z"] = 1.45                       # its foot at 1.2 m
+        spec = _spec([v])
+        below, above = spec["rooms"]
+        assert level_design._room_volume_count(spec, below) == 1
+>       assert level_design._room_volume_count(spec, above) == 0
+E       AssertionError: assert 1 == 0
+E        +  where 1 = <function _room_volume_count at 0x000002161DCAD2D0>({'floor_thick': 0.3, 'footprint_x': 20, 'footprint_y': 20, 'name': 'count_probe', ...}, {'bounds': [-10.0, -10.0, 10.0, 10.0], 'id': 'above', 'story': 1})
+E        +    where <function _room_volume_count at 0x000002161DCAD2D0> = level_design._room_volume_count
+
+test_room_count_storey.py:83: AssertionError
+=========================== short test summary info ===========================
+FAILED test_room_count_storey.py::test_a_piece_on_the_floor_below_is_not_counted_upstairs
+FAILED test_room_count_storey.py::test_a_slab_sunk_under_the_floor_is_not_furniture
+FAILED test_room_count_storey.py::test_a_raised_piece_counts_on_its_own_storey_only
+3 failed, 3 passed in 6.01s
+exit 1
+
+== the library test with 0.246.0's rule on 0.245.0's specs ==
+F                                                                        [100%]
+================================== FAILURES ===================================
+________________ test_the_library_is_a_fixed_point_of_furnish _________________
+
+    def test_the_library_is_a_fixed_point_of_furnish():
+        """Every library spec with rooms comes back byte for byte from stripping what furnish wrote and furnishing again:
+        the refurnish shipped with this rule is the one the rule makes."""
+        import migrate_furnish_recipes
+        moved = []
+        for p in sorted(glob.glob(os.path.join(HERE, "specs", "*.json"))):
+            if os.path.basename(p).startswith("lf_"):
+                continue
+            d = json.load(open(p, encoding="utf-8"))
+            if not d.get("rooms"):
+                continue
+            before = json.dumps(d, sort_keys=True)
+            migrate_furnish_recipes.migrate(d)
+            if json.dumps(d, sort_keys=True) != before:
+                moved.append(os.path.basename(p))
+>       assert not moved, moved
+E       AssertionError: ['07_police_station.json', 'auto_shop_a01.json', 'auto_shop_a02.json', 'bank_branch_a03.json', 'bank_branch_a04.json', 'card_shop_a01.json', ...]
+E       assert not ['07_police_station.json', 'auto_shop_a01.json', 'auto_shop_a02.json', 'bank_branch_a03.json', 'bank_branch_a04.json', 'card_shop_a01.json', ...]
+
+test_room_count_storey.py:101: AssertionError
+=========================== short test summary info ===========================
+FAILED test_room_count_storey.py::test_the_library_is_a_fixed_point_of_furnish
+1 failed, 5 deselected in 6.26s
+exit 1

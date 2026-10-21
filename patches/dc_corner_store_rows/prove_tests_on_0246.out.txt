@@ -1,0 +1,36 @@
+== 0.247.0's tests on 0.246.0 (d94c6c0f) ==
+E       AssertionError: assert 'wood' == 'metal_painted'
+E         
+E         - metal_painted
+E         + wood
+E       KeyError: 'gondola_aisle'
+E           AttributeError: module 'level_design' has no attribute 'is_corner_store_floor'
+E       AssertionError: assert {} == {'convenience...s_floor', ...}
+E         
+E         Right contains 14 more items:
+E         {'convenience_store_a01': 'sales_floor',
+E          'corner_deli_heist_01': 'market_aisles',
+E          'cr_deli': 'market_aisles',
+E          'cr_gas': 'sales_floor',
+E          'deli_a01': 'market_aisles',...
+E         
+E         ...Full output truncated (10 lines hidden), use '-vv' to show
+E       assert 0 == 2
+E        +  where 0 = len([])
+E           AttributeError: module 'level_design' has no attribute 'room_floor_share'
+E       AttributeError: module 'migrate_store_gondolas' has no attribute 'is_store'
+E           AttributeError: module 'migrate_store_gondolas' has no attribute 'is_store'
+PASSED test_corner_store_rows.py::test_every_gondola_keeps_an_aisle_round_it
+PASSED test_corner_store_rows.py::test_no_gondola_stands_in_a_door_s_approach
+PASSED test_store_gondolas.py::test_the_supermarkets_and_the_pharmacy_are_left_alone
+PASSED test_store_gondolas.py::test_milk_crates_route_to_their_species_not_a_box
+FAILED test_corner_store_rows.py::test_the_aisle_gondola_is_a_snack_gondola_in_its_own_kind
+FAILED test_corner_store_rows.py::test_a_gondola_in_a_row_is_cover_and_never_shelter
+FAILED test_corner_store_rows.py::test_which_floors_are_a_corner_store_s - At...
+FAILED test_corner_store_rows.py::test_the_library_s_corner_stores_stand_rows_and_no_other_room_does
+FAILED test_corner_store_rows.py::test_the_rows_continue_a_room_s_own_aisles
+FAILED test_corner_store_rows.py::test_the_rows_fill_the_floor - AttributeErr...
+FAILED test_corner_store_rows.py::test_a_deli_is_a_store_to_the_gondola_migration
+FAILED test_store_gondolas.py::test_every_store_aisle_is_a_snack_gondola - At...
+8 failed, 4 passed in 0.57s
+exit 1

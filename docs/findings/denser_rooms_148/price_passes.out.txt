@@ -1,0 +1,54 @@
+53 headings, two passes each
+  the control (9368 run twice): smaller pass differs at 0, larger at 2
+  the change (9369 against 9368): smaller pass differs at 38, larger at 38
+  station                  yaw    passes 9368  smaller  larger  ms after-mean
+  attacker_spawn_4           0    549/549         +32     +32         +0.126
+  attacker_spawn_4          90   1437/1437        +12     +12         +0.094
+  attacker_spawn_4         270    611/611         +32     +32         +0.108
+  attacker_spawn_5           0    549/549         +37     +37         +0.153
+  attacker_spawn_5          90   1812/1812        +26     +26         +0.133
+  attacker_spawn_5         270    444/444         +12     +12         +0.030
+  camera_socket_0            0    307/307          +4      +4         -0.059
+  camera_socket_0           90   1514/1514        -29     -29         -0.072
+  camera_socket_0          270   1241/1241        +61     +61         +0.372
+  camera_socket_1            0    433/433         +33     +33         +0.163
+  camera_socket_1           90    532/532         -24     -24         -0.084
+  camera_socket_1          180    415/415          +1      +1         -0.021
+  camera_socket_1          270    821/821         +48     +48         +0.183
+  defender_spawn_17          0    212/212          +8      +8         +0.036
+  defender_spawn_17         90    262/262          +5      +5         +0.050
+  defender_spawn_17        180    496/496          -4      -4         -0.006
+  defender_spawn_17        270   1268/1268         +3      +3         -0.028
+  defender_spawn_8          90   1570/1570        +13     +13         +0.148
+  defender_spawn_8         180    423/423         +10     +10         +0.045
+  extraction_15             90    597/597          +1      +1         -0.048
+  extraction_15            270   1790/1790        +27     +27         +0.188
+  extraction_16              0    352/352          +1      +1         -0.056
+  extraction_16             90   1230/1322         -2      -2         +0.074
+  extraction_16            270   1016/1016        +34     +34         +0.186
+  highest_vantage           90   1570/1570        +13     +13         +0.161
+  highest_vantage          180    423/423         +10     +10         +0.023
+  longest_sightline        270   1663/1663         +7      +7         +0.072
+  objective_2                0    248/248          +2      +2         +0.011
+  objective_2               90    486/486          -2      -2         +0.069
+  objective_2              180    552/552          -1      -1         -0.019
+  objective_2              270    656/656          +3      +3         -0.007
+  objective_3              270    688/688          +7      +7         +0.038
+  patrol_point_12            0    400/400         -12     -12         +0.002
+  patrol_point_12           90    419/419          -7      -7         -0.041
+  patrol_point_12          180    502/502          -4      -4         -0.038
+  patrol_point_12          270    541/541         -11     -11         +0.004
+  player_start_19           90   1337/1337         +1      +1         +0.045
+  player_start_19          270   1184/1184        +36     +36         +0.155
+  where either pass moved (38 headings): smaller pass median +6 (min -29, max +61); larger pass median +6 (min -29, max +61)
+  headings where a pass draws FEWER after: 10
+    camera_socket_0 90: -29 / -29
+    camera_socket_1 90: -24 / -24
+    defender_spawn_17 180: -4 / -4
+    extraction_16 90: -2 / -2
+    objective_2 90: -2 / -2
+    objective_2 180: -1 / -1
+    patrol_point_12 0: -12 / -12
+    patrol_point_12 90: -7 / -7
+    patrol_point_12 180: -4 / -4
+    patrol_point_12 270: -11 / -11
