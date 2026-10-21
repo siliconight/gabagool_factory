@@ -5,7 +5,7 @@ metadata:
   node_type: memory
   type: feedback
   originSessionId: 27f14f8b-7ce5-44c0-a704-178a824035d7
-  modified: 2026-10-21T12:00:41.281Z
+  modified: 2026-10-21T15:01:12.264Z
 ---
 
 The walker, 2026-10-21, mid-way through roadmap 148's density work (after "Too sparse" on 2026-10-19): "To temper
@@ -26,4 +26,9 @@ middle, not a maximum.
 - Keep lanes open: the contract's 1.25 m aisle at least; a room left a little under the band beats one packed to it.
 - Report a change's floor share (before -> after) with its frames, so the walker judges the band, not just the look.
 
-Related: [[game-is-a-series-of-shooting-galleries]], [[open-work-2026-10-09]].
+- Read the band BESIDE what it costs a route: [[route-census-reads-furnishing]]. Since Deli Counter 0.250.0 the
+  corner stores reserve their routes first and sit at 17.2-22.1 %, inside the band; the walker's guide of the same
+  day (`docs/reference/Lived_In_Levels_Clear_Navigation_4P_PVE_1999_PA.md`) puts movement before building use before
+  story clusters.
+
+Related: [[game-is-a-series-of-shooting-galleries]], [[open-work-2026-10-09]], [[route-census-reads-furnishing]].
