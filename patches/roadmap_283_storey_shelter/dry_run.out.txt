@@ -1,0 +1,20 @@
+roadmap 283: CLOSED, the earlier status kept; item 284 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 964-964 -> dry 964-965
+    + | 283 | **CLOSED** | The shelter pass and the combat audit ask a piece's storey two more wa | 2026-10-21 -- Deli Counter 0.249.0 (a3e4d838, `patches/p
+    + | 284 | **OPEN** | A dining table draws none to four chairs, and one in five stands with  | 2026-10-21 -- measured shipping roadmap 283; not started. 
+replace live 966-966 -> dry 967-967
+    + **284 items: 25 open, 144 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 20854-20854 -> dry 20855-20855
+    + *STATUS: CLOSED 2026-10-21 -- Deli Counter 0.249.0 (a3e4d838, `patches/patch_dc_storey_shelter.py`): `level_design.stands_on_storey` and `marker_on_st
+insert live 20857-20856 -> dry 20858-20861
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured shipping roadmap 283; not started.*
+    + 
+    + **284. A dining table draws none to four chairs, and one in five stands with none.** `level_design`'s `table_dining` seats `("table", 0, 4)`: `_seats`

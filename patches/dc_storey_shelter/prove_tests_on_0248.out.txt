@@ -1,0 +1,40 @@
+== 0.249.0's tests on 0.248.0 (88422d0b) ==
+E           AttributeError: module 'level_design' has no attribute 'stands_on_storey'
+E           AttributeError: module 'level_design' has no attribute 'marker_on_storey'
+E           AssertionError: 1.45
+E           assert (True and not True)
+E            +  where True = <function _room_has_shelter at 0x00000131FE1E09E0>({'floor_thick': 0.3, 'footprint_x': 12, 'footprint_y': 12, 'markers': [], ...}, {'bounds': [-6.0, -6.0, 6.0, 6.0], 'combat_range': 'medium', 'id': 'below', 'story': 0})
+E            +    where <function _room_has_shelter at 0x00000131FE1E09E0> = LD._room_has_shelter
+E            +  and   True = <function _room_has_shelter at 0x00000131FE1E09E0>({'floor_thick': 0.3, 'footprint_x': 12, 'footprint_y': 12, 'markers': [], ...}, {'bounds': [-6.0, -6.0, 6.0, 6.0], 'combat_range': 'medium', 'id': 'above', 'story': 1})
+E            +    where <function _room_has_shelter at 0x00000131FE1E09E0> = LD._room_has_shelter
+E       AssertionError: assert not True
+E        +  where True = <function _room_has_shelter at 0x00000131FE1E09E0>({'floor_thick': 0.3, 'footprint_x': 12, 'footprint_y': 12, 'markers': [{'id': 'cover_below', 'type': 'cover_high', 'x': 0.0, 'y': 0.0, ...}], ...}, {'bounds': [-6.0, -6.0, 6.0, 6.0], 'combat_range': 'medium', 'id': 'above', 'story': 1})
+E        +    where <function _room_has_shelter at 0x00000131FE1E09E0> = LD._room_has_shelter
+E       assert 2 == 0
+E        +  where 2 = <function _cover_in_room at 0x00000131FF3B7270>(<test_storey_shelter._Thing object at 0x00000131FF3C09D0>, <test_storey_shelter._Thing object at 0x00000131FE263750>)
+E        +    where <function _cover_in_room at 0x00000131FF3B7270> = CA._cover_in_room
+E       AssertionError: []
+E       assert [] == ['above']
+E         
+E         Right contains one more item: 'above'
+E         Use -v to get more diff
+E       AssertionError: assert [] == ['crate_stack...ck_0_shelter']
+E         
+E         Right contains one more item: 'crate_stack_tall_back_0_shelter'
+E         Use -v to get more diff
+E       AssertionError: run `python migrate_shelter.py`: cbp_town_finale_midbalanced_schemafixed.json: kiosk_main_concourse_shelter; cbp_town_finale_midbalanced_schemafixed.json: crate_stack_tall_club_ring_overlook_shelter; freight_terminal_a02.json: crate_stack_tall_gantry_control_shelter; parking_garage_a02.json: crate_stack_tall_attendant_booth_shelter; primos_pizza.json: kiosk_rear_hall_shelter; rail_station_a02.json: crate_stack_tall_vault_approach_shelter; rowhouse_raid.json: crate_stack_tall_basement_vault_shelter; warehouse_a01.json: shelf_run_back_corridor_shelter
+E       assert ['cbp_town_fi...shelter', ...] == []
+E         
+E         Left contains 8 more items, first extra item: 'cbp_town_finale_midbalanced_schemafixed.json: kiosk_main_concourse_shelter'
+E         Use -v to get more diff
+PASSED test_storey_shelter.py::test_every_library_cover_marker_names_its_floor
+FAILED test_storey_shelter.py::test_a_piece_stands_on_the_storey_its_foot_is_on
+FAILED test_storey_shelter.py::test_a_marker_stands_on_the_floor_its_z_names
+FAILED test_storey_shelter.py::test_the_producer_does_not_shelter_a_room_from_another_storey
+FAILED test_storey_shelter.py::test_the_producer_does_not_shelter_a_room_from_a_marker_on_another_storey
+FAILED test_storey_shelter.py::test_the_audit_does_not_count_the_floor_below_as_cover_upstairs
+FAILED test_storey_shelter.py::test_cover_all_low_quotes_a_piece_on_its_own_storey
+FAILED test_storey_shelter.py::test_a_room_whose_own_shelter_fits_nowhere_gets_the_smallest
+FAILED test_storey_shelter.py::test_the_library_is_a_fixed_point_of_the_shelter_pass
+8 failed, 1 passed in 1.65s
+exit 1

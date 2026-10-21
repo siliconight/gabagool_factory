@@ -1,0 +1,47 @@
+items 285-291 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+insert live 966-965 -> dry 966-972
+    + | 285 | **OPEN** | Back-face culling is off on every surface the factory ships | 2026-10-21 -- measured chasing the walker's retopology TDD (`docs/fin
+    + | 286 | **OPEN** | Nothing decides which meshes cast shadows | 2026-10-21 -- measured chasing the walker's retopology TDD; not started. |
+    + | 287 | **OPEN** | A package's manifest names the factory's release pins, not the tools t | 2026-10-21 -- measured chasing the walker's retopology TDD
+    + | 288 | **OPEN** | Nothing measured what furnishing costs a route, and the corner stores' | 2026-10-21 -- measured the same day (`docs/findings/furnis
+    + | 289 | **OPEN** | Level Factory's sightline advisory crosses at 1.2 m; the contract cros | 2026-10-21 -- measured chasing the lived-in levels guide (
+    + | 290 | **OPEN** | Laser Tag counts a shot into a teammate as a hit, and nothing a teamma | 2026-10-21 -- measured chasing the lived-in levels guide; 
+    + | 291 | **OPEN** | A second route can end under the shooter who holds the first | 2026-10-21 -- measured chasing the lived-in levels guide; not starte
+replace live 967-967 -> dry 974-974
+    + **291 items: 32 open, 144 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+insert live 20862-20861 -> dry 20869-20896
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the walker's retopology TDD (`docs/findings/guides_2026-10-21/retopo_tdd.md`); not started.*
+    + 
+    + **285. Back-face culling is off on every surface the factory ships.** The walker, 2026-10-21, sharing `docs/proposals/Blender_Retopology_Planner_Execu
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the walker's retopology TDD; not started.*
+    + 
+    + **286. Nothing decides which meshes cast shadows.** Measured on cold run 9370's package: only Lot's seven overhead-wire meshes, its ten drain meshes a
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the walker's retopology TDD; not started.*
+    + 
+    + **287. A package's manifest names the factory's release pins, not the tools that built it.** Cold run 9370's `LF_MANIFEST.json` `tools` block (`tools_
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured the same day (`docs/findings/furnish_route_cost/route_cost.py`, over Deli Counter 0.249.0's library); the corner 
+    + 
+    + **288. Nothing measured what furnishing costs a route, and the corner stores' rows cost the most.** The walker, 2026-10-21: free navigation and fun gu
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the lived-in levels guide (`docs/findings/guides_2026-10-21/lived_in.md`); not started.*
+    + 
+    + **289. Level Factory's sightline advisory crosses at 1.2 m; the contract crosses at 1.3.** `level_factory/packages/validation/sightlines.py` sights fr
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the lived-in levels guide; not started.*
+    + 
+    + **290. Laser Tag counts a shot into a teammate as a hit, and nothing a teammate stood in front of.** `LT_Shooter.gd` types a crew shot that meets a te
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured chasing the lived-in levels guide; not started.*
+    + 
+    + **291. A second route can end under the shooter who holds the first.** `combat_audit._disjoint_paths2` and `tactical._count_independent_routes` find n

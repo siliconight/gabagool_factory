@@ -1,0 +1,25 @@
+specs no longer a fixed point of furnish under the new code (before any seeding): []
+seed_cover now adds: {'shelter': 11}
+  + cbp_town_finale_midbalanced_schemafixed: kiosk_main_concourse_shelter (1.20 x 1.20 x 1.60)
+  + cbp_town_finale_midbalanced_schemafixed: crate_stack_tall_club_ring_overlook_shelter (1.10 x 1.10 x 1.60)
+  + final_stand: crate_stack_tall_stair_core_shelter (1.10 x 1.10 x 1.60)
+  + freight_terminal_a02: crate_stack_tall_gantry_control_shelter (1.10 x 1.10 x 1.60)
+  + parking_garage_a02: crate_stack_tall_attendant_booth_shelter (1.10 x 1.10 x 1.60)
+  + primos_pizza: kiosk_rear_hall_shelter (1.20 x 1.20 x 1.60)
+  + rail_station_a02: crate_stack_tall_vault_approach_shelter (1.10 x 1.10 x 1.60)
+  + rowhouse_raid: crate_stack_tall_kitchen_shelter (1.10 x 1.10 x 1.60)
+  + rowhouse_raid: crate_stack_tall_basement_vault_shelter (1.10 x 1.10 x 1.60)
+  + twin_a01: crate_stack_tall_front_left_1_shelter (1.10 x 1.10 x 1.60)
+  + warehouse_a01: shelf_run_back_corridor_shelter (2.60 x 0.60 x 1.60)
+  audit + cbp_town_finale_midbalanced_schemafixed COVER_ALL_LOW home_plate_overlook
+  audit - cbp_town_finale_midbalanced_schemafixed COVER_ALL_LOW club_ring_overlook
+  audit - cbp_town_finale_midbalanced_schemafixed COVER_ALL_LOW main_concourse
+  audit + deli_a02 COVER_ALL_LOW stairwell
+  audit - parking_garage_a02 COVER_ALL_LOW attendant_booth
+  audit + pawn_shop_a02 COVER_ALL_LOW upper_flat
+  audit - rail_station_a02 COVER_ALL_LOW vault_approach
+  audit - rowhouse_raid COVER_ALL_LOW basement_vault
+  audit - rowhouse_raid COVER_ALL_LOW kitchen
+  audit - warehouse_a01 COVER_ALL_LOW back_corridor
+audit findings that appear: {'COVER_ALL_LOW': 3}  vanish: {'COVER_ALL_LOW': 7}
+shipped totals: {'COVER_ALL_LOW': 12}  after: {'COVER_ALL_LOW': 8}
