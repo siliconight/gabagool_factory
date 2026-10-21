@@ -1,0 +1,24 @@
+== 0.250.0's tests on 0.249.0 (a3e4d838) ==
+E           AttributeError: module 'level_design' has no attribute 'unfurnished'
+E       AttributeError: module 'level_design' has no attribute 'two_abreast_width'
+E       AttributeError: module 'level_design' has no attribute 'room_route_endpoints'
+E           AttributeError: module 'level_design' has no attribute 'protected_routes'
+E           AttributeError: module 'level_design' has no attribute 'protected_routes'
+E       AttributeError: module 'level_design' has no attribute 'protected_routes'
+PASSED test_corner_store_rows.py::test_the_aisle_gondola_is_a_snack_gondola_in_its_own_kind
+PASSED test_corner_store_rows.py::test_a_gondola_in_a_row_is_cover_and_never_shelter
+PASSED test_corner_store_rows.py::test_which_floors_are_a_corner_store_s
+PASSED test_corner_store_rows.py::test_the_library_s_corner_stores_stand_rows_and_no_other_room_does
+PASSED test_corner_store_rows.py::test_every_gondola_keeps_an_aisle_round_it
+PASSED test_corner_store_rows.py::test_no_gondola_stands_in_a_door_s_approach
+PASSED test_corner_store_rows.py::test_the_rows_continue_a_room_s_own_aisles
+PASSED test_corner_store_rows.py::test_the_rows_fill_the_floor
+PASSED test_corner_store_rows.py::test_a_deli_is_a_store_to_the_gondola_migration
+FAILED test_reserved_routes.py::test_every_pass_reserves_on_the_floor_the_refurnish_starts_from
+FAILED test_reserved_routes.py::test_two_abreast_is_the_guides_formula_on_the_contracts_body
+FAILED test_reserved_routes.py::test_route_endpoints_stand_inside_the_doors_the_builder_cuts
+FAILED test_reserved_routes.py::test_reserved_routes_run_square - AttributeEr...
+FAILED test_reserved_routes.py::test_nothing_furnish_stood_on_a_corner_floor_stands_on_its_routes
+FAILED test_reserved_routes.py::test_only_a_floor_that_stands_rows_asks_for_its_routes
+6 failed, 9 passed in 0.84s
+exit 1

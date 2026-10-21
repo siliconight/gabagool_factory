@@ -1,0 +1,81 @@
+rooms measured (>= 9 m2, >= 2 endpoints): 92 in 14 specs; endpoint pairs: 342
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 298 pairs joined in both: median 1.000, p90 1.079, p99 1.143, max 1.308; > 1.10 (the guide's warning): 20 pairs in 13 rooms
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 40
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 4
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 70
+bottleneck width, AUTHORED: < 0.70 (no body) 44; < 1.00 (under the bake's floor) 102; < 1.90 (single file) 143; >= 1.90 199
+bottleneck width, FURNISHED: < 0.70 (no body) 44; < 1.00 (under the bake's floor) 106; < 1.90 (single file) 213; >= 1.90 129
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.308  gas_station_a01                        back_office              stock_roll_door -> office_back_door  5.8 -> 7.6 m
+  1.203  stop_n_go                              back_hall                door -> rear_service  4.6 -> 5.6 m
+  1.143  cr_gas                                 sales_floor              sales_to_stock -> west_service  22.5 -> 25.8 m
+  1.143  gas_station                            sales_floor              sales_to_stock -> west_service  22.5 -> 25.8 m
+  1.143  gas_station_a01                        sales_floor              sales_to_stock -> west_service  22.5 -> 25.8 m
+  1.143  gas_street                             sales_floor              sales_to_stock -> west_service  22.5 -> 25.8 m
+  1.135  corner_deli_heist_01                   market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.2 m
+  1.135  deli_a01                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.2 m
+  1.135  deli_a02                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.2 m
+  1.135  deli_a03                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.2 m
+  1.132  fuel_stop_heist                        back_hall                hall_to_stockroom -> hall_to_office  5.2 -> 5.9 m
+  1.124  cr_deli                                market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.0 m
+  1.124  night_deli                             market_aisles            customer_to_counter -> market_aisles_to_kitchen  16.9 -> 19.0 m
+  1.119  gas_station_a01                        back_office              sales_to_office -> stock_to_office  5.9 -> 6.6 m
+  1.119  deli_a01                               market_aisles            customer_to_counter -> stockroom_gate  21.7 -> 24.3 m
+  1.105  deli_a02                               market_aisles            customer_to_counter -> stockroom_gate  21.7 -> 24.0 m
+  1.102  cr_gas                                 sales_floor              front_entry_west -> west_service  13.8 -> 15.3 m
+  1.102  gas_station                            sales_floor              front_entry_west -> west_service  13.8 -> 15.3 m
+  1.102  gas_station_a01                        sales_floor              front_entry_west -> west_service  13.8 -> 15.3 m
+  1.102  gas_street                             sales_floor              front_entry_west -> west_service  13.8 -> 15.3 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 4 (first 25, by the furnished bottleneck)
+  gas_station_a01                        back_office              sales_to_office -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              stock_to_office -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              stock_roll_door -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              office_back_door -> A  width 1.40 -> 0.99 m
+
+two abreast -> single file: 70 (first 25, by the furnished bottleneck)
+  stop_n_go                              back_hall                door -> door  width 2.81 -> 1.19 m
+  stop_n_go                              back_hall                door -> rear_service  width 2.81 -> 1.19 m
+  stop_n_go                              sales_floor              door -> door  width 2.26 -> 1.20 m
+  stop_n_go                              sales_floor              door -> main_entry  width 2.40 -> 1.20 m
+  convenience_store_a01                  sales_floor              door -> secure_door  width 2.37 -> 1.21 m
+  convenience_store_a01                  sales_floor              door -> main_entry  width 2.37 -> 1.21 m
+  gas_station_a01                        sales_floor              sales_to_stock -> west_service  width 2.36 -> 1.30 m
+  gas_station_a01                        sales_floor              front_entry_west -> west_service  width 3.20 -> 1.30 m
+  gas_station_a01                        sales_floor              front_entry_east -> west_service  width 2.40 -> 1.30 m
+  deli_a03                               market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.33 m
+  deli_a03                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.33 m
+  corner_deli_heist_01                   market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.35 m
+  corner_deli_heist_01                   market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.35 m
+  cr_deli                                market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.35 m
+  cr_deli                                market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.35 m
+  deli_a01                               market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.35 m
+  deli_a01                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.35 m
+  deli_a02                               market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.35 m
+  deli_a02                               market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.35 m
+  night_deli                             market_aisles            customer_to_counter -> stockroom_gate  width 3.15 -> 1.35 m
+  night_deli                             market_aisles            customer_to_counter -> market_aisles_to_kitchen  width 3.14 -> 1.35 m
+  corner_deli_heist_01                   deli_counter             office_stair_door -> customer_floor  width 2.63 -> 1.37 m
+  corner_deli_heist_01                   deli_counter             alley_entry -> customer_floor  width 2.63 -> 1.37 m
+  cr_deli                                deli_counter             office_stair_door -> customer_floor  width 2.63 -> 1.37 m
+  cr_deli                                deli_counter             alley_entry -> customer_floor  width 2.63 -> 1.37 m
+
+convenience_store_a01  sales_floor    share 0.199  generated gondolas 8
+corner_deli_heist_01   market_aisles  share 0.208  generated gondolas 9
+cr_deli                market_aisles  share 0.196  generated gondolas 9
+cr_gas                 sales_floor    share 0.229  generated gondolas 12
+deli_a01               market_aisles  share 0.200  generated gondolas 9
+deli_a02               market_aisles  share 0.201  generated gondolas 9
+deli_a03               market_aisles  share 0.197  generated gondolas 9
+fuel_stop_heist        sales_floor    share 0.204  generated gondolas 4
+gas_station            sales_floor    share 0.229  generated gondolas 12
+gas_station_a01        sales_floor    share 0.231  generated gondolas 12
+gas_station_a02        sales_floor    share 0.202  generated gondolas 4
+gas_street             sales_floor    share 0.229  generated gondolas 12
+night_deli             market_aisles  share 0.196  generated gondolas 9
+stop_n_go              sales_floor    share 0.192  generated gondolas 8
