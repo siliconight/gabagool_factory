@@ -1,0 +1,31 @@
+FFFFF                                                                    [100%]
+================================== FAILURES ===================================
+E   AssertionError: assert None == 'cargo_container'
+     +  where None = <function species_for_name at 0x0000026F74323A00>('container_0')
+C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_0244_prove\test_depth_long.py:33: AssertionError: assert None == 'cargo_container'
+E   AssertionError: []
+    assert [] == [('freight_te...tal_painted')]
+      
+      Right contains 4 more items, first extra item: ('freight_terminal_a01', 'container_0', 'metal_painted')
+      Use -v to get more diff
+C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_0244_prove\test_depth_long.py:55: AssertionError: []
+E   AttributeError: module 'prop_species' has no attribute 'DEPTH_LONG'
+C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_0244_prove\test_depth_long.py:70: AttributeError: module 'prop_species' has no attribute 'DEPTH_LONG'
+E   AssertionError: {'container_0': (None, [6.0, 2.4, 2.6], 0.0, 'convex'), 'container_1': (None, [2.4, 6.0, 2.6], 0.0, 'convex')}
+    assert {'container_0....0, 'convex')} == {'container_0....0, 'convex')}
+      
+      Differing items:
+      {'container_1': (None, [2.4, 6.0, 2.6], 0.0, 'convex')} != {'container_1': ('cargo_container', [2.4, 6.0, 2.6], 0.0, 'convex')}
+      {'container_0': (None, [6.0, 2.4, 2.6], 0.0, 'convex')} != {'container_0': ('cargo_container', [2.4, 6.0, 2.6], 90.0, 'convex')}
+      Use -v to get more diff
+C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_0244_prove\test_depth_long.py:118: AssertionError: {'container_0': (None, [6.0, 2.4, 2.6], 0.0, 'convex'), 'container_1': (None, [2.4, 6.0, 2.6], 0.0, 'convex')}
+E   AttributeError: module 'prop_species' has no attribute 'recorded_turn'
+C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\dc_0244_prove\test_depth_long.py:131: AttributeError: module 'prop_species' has no attribute 'recorded_turn'
+=========================== short test summary info ===========================
+FAILED test_depth_long.py::test_container_routes_to_the_cargo_container_long_in_depth
+FAILED test_depth_long.py::test_the_word_claims_exactly_the_freight_terminals_four_containers
+FAILED test_depth_long.py::test_depth_long_is_every_routed_species_long_in_depth_and_nothing_else
+FAILED test_depth_long.py::test_a_container_slot_is_recorded_short_side_first_and_keeps_its_box
+FAILED test_depth_long.py::test_every_front_reader_asks_the_emitters_turn - A...
+5 failed in 0.58s
+exit=1

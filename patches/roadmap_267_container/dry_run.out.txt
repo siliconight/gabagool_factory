@@ -1,0 +1,24 @@
+roadmap 267: NARROWED, the earlier status kept, a body paragraph added; item 280 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 948-948 -> dry 948-948
+    + | 267 | **NARROWED** | Furniture the generator places that Zoo builds as a box | 2026-10-21 -- THE CONTAINERS: Deli Counter 0.245.0 (147111ee) routes 
+insert live 961-960 -> dry 961-961
+    + | 280 | **OPEN** | The cargo container draws a material a colour | 2026-10-21 -- found routing Deli Counter 0.245.0's containers (cold run 9364); not 
+replace live 962-962 -> dry 963-963
+    + **280 items: 23 open, 142 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 20778-20778 -> dry 20779-20779
+    + *STATUS: NARROWED 2026-10-21 -- THE CONTAINERS: Deli Counter 0.245.0 (147111ee) routes `container` to Zoo's `cargo_container` behind `prop_species.DEP
+insert live 20783-20782 -> dry 20784-20785
+    + 
+    + **THE CONTAINERS, 2026-10-21** (Deli Counter 0.245.0; `patches/dc_depth_long/`, `docs/findings/cargo_container_267/`). REFUTED, kept: the paragraph ab
+insert live 20831-20830 -> dry 20834-20837
+    + 
+    + *STATUS: OPEN 2026-10-21 -- found routing Deli Counter 0.245.0's containers (cold run 9364); not started.*
+    + 
+    + **280. The cargo container draws a material a colour.** Zoo's `cargo_container` recipe (`zoo_keeper/recipes/cargo_container.py`, `build`'s `mats`) giv
