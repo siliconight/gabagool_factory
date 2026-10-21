@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~04:50 44 car wear shipped + priced (Zoo 1.120.0/.1, cold 9364-9366); all clean; next 148, 217, 280
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~07:40 148 corner-store aisles + room-count fix (DC 0.246.0/0.247.0, cold 9367-9369); all clean; next 281, 148 rows, 217
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -129,3 +129,4 @@
 - [Stairs and ladders are primary](stairs-and-ladders-are-primary.md) — SHIPPED: holes rare per level, rate 0.25 (LF 0.221.0, DC 0.237.0); roadmap 269 CLOSED
 - [Cold runs do not walk](cold-runs-do-not-walk.md) — cold_drive builds the walk copy, never the walk bot; run `walk` after --end when a change touches ladders/markers.
 - [Stanchions indoors, barricades outdoors](stanchions-indoors-barricades-outdoors.md) — walker: steel barricades are outdoor/police kit; indoor queues are retractable-belt stanchions
+- [Deli Counter control runs](dc-control-run-via-tools-local.md) — clone, build.py --all AND nav_gate.py --all, pre-write the workspace's tools.local.json; before.json names the real repo
