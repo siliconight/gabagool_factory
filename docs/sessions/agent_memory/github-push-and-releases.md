@@ -48,6 +48,7 @@ releases as the place where the package would go".
   Afterwards `python tools/factory_retire.py` (dry run, then `--apply`)
   takes the previous release's zip, the tested zip and the older install
   test's unpack -- the walker's standing "package clean job" rule.
+- 1.41.0 (2026-10-20) the same, no block: three install tests (10 stopped on a ramp, 11's walk found no ladder, 12 certified), 5,181 of 5,186 same, digest matched. A TAG CHECK MUST PEEL: pipeline's `v0.6.0` is ANNOTATED (`git cat-file -t` says tag), so `rev-parse refs/tags/v0.6.0` gives the tag object, not the commit -- compare `git rev-parse <tag>^{commit}`. The release's own tags are lightweight, at the tested commits.
 
 **Why:** the handoff (roadmap 202) now goes through GitHub: the repo for the
 record, Releases for the thing a stranger downloads.
