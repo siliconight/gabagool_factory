@@ -1,0 +1,7 @@
+# Level Factory 0.227.0 (2592e7a), a fresh clone, with 0.228.0's tests/unit/test_candidate_guard.py copied in
+PASSED tests/unit/test_candidate_guard.py::test_a_planned_seed_passes_and_is_warned_about_until_its_job_runs
+PASSED tests/unit/test_candidate_guard.py::test_a_malformed_id_is_still_refused
+PASSED tests/unit/test_candidate_guard.py::test_a_mission_no_batch_holds_keeps_the_warning
+FAILED tests/unit/test_candidate_guard.py::test_a_seed_the_plan_never_builds_is_refused_and_the_planned_ones_named
+FAILED tests/unit/test_candidate_guard.py::test_approve_records_nothing_for_a_refused_seed
+pytest exit 1

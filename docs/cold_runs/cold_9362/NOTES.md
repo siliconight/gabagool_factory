@@ -21,3 +21,12 @@ before any approval, and lists the batch's own -- tried against this run's works
 all is filed (roadmap 278). Cold run 9363 runs the same level with its batch's `seed_base` set to 9281.
 
 **Tools:** Zoo 1.119.0 (3f54314), Deli Counter 0.244.0 (33e81109); the rest as 9361.
+
+**CORRECTED, 2026-10-21.** The paragraphs above leave out that Level Factory warned. It did, at the approve step, by
+design -- "[approve] WARNING no bank_block_001.lot_assemble.candidate.seed_9281 yet; the selection
+is recorded and will resolve once that job runs" (`driver.log` line 17) -- because whether a candidate's job has run
+when it is selected is an ordering question its `_refuse_bad_candidate` leaves open on purpose. The gap was narrower:
+the batch's own plan never builds seed 9281, so the warning's "will resolve" could not come true. Level Factory 0.228.0
+refuses a candidate outside the mission's plan and names the planned ones (roadmap 278); against a copy of this run's
+workspace, seed 9281 is refused with nothing recorded and seed 9155 approved
+(`patches/lf_candidate_guard/approve_probe_9362.out.txt`).
