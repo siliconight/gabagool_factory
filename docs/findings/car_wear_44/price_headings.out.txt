@@ -1,0 +1,27 @@
+53 headings; draws differ before -> after at 20; the control's two runs differ at 0
+  station                  yaw  before  after-before perturbed  after-mean ms  control ms  p95 after-mean
+  attacker_spawn_2          90     359            +1      True         +0.014      +0.032          -0.028
+  attacker_spawn_2         270    1484            +3      True         +0.002      -0.008          +0.061
+  attacker_spawn_4           0     356            +1      True         +0.016      +0.010          +0.017
+  attacker_spawn_4          90     576            +1      True         -0.012      -0.021          -0.492
+  attacker_spawn_6         180     724            +1      True         +0.029      +0.051          +0.050
+  attacker_spawn_6         270     913            +2      True         -0.014      -0.029          -0.080
+  camera_socket_1          270     535            +1      True         +0.023      -0.002          -0.075
+  defender_spawn_8         180     239            +1      True         +0.036      -0.009          +0.045
+  extraction_11             90     530            +1      True         -0.047      -0.006          -0.091
+  extraction_11            270    1117            +3      True         +0.003      -0.022          +0.129
+  extraction_12             90     889            +1      True         +0.043      -0.029          +0.006
+  extraction_12            180     462            +1      True         +0.034      +0.020          +0.114
+  highest_vantage          270     535            +1      True         +0.035      +0.016          -0.026
+  longest_sightline        270    1117            +3      True         -0.014      -0.033          -0.170
+  objective_3              180     659            +1      True         +0.051      -0.008          +0.030
+  objective_3              270     253            +1      True         +0.032      +0.039          +0.070
+  objective_5              180     673            +1      True         +0.010      +0.024          -0.021
+  objective_5              270     610            +1      True         -0.008      +0.012          -0.023
+  player_start_17           90     991            +2      True         +0.053      +0.003          +0.016
+  player_start_17          270     680            +2      True         +0.020      +0.068          +0.055
+  draws after - before where they moved: median +1, min +1, max +3
+  ms_median after - mean(before): where draws moved mean +0.015 (n 20); elsewhere mean +0.014 (n 33); the control's spread -0.040 to +0.076, mean |control| 0.022
+  before   mesh_instances 2274 texture_mem_bytes 73501493 buffer_mem_bytes 54794460 video_mem_bytes 128295953
+  before2  mesh_instances 2274 texture_mem_bytes 73501493 buffer_mem_bytes 59054844 video_mem_bytes 132556337
+  after    mesh_instances 2281 texture_mem_bytes 73657317 buffer_mem_bytes 59087196 video_mem_bytes 132744513

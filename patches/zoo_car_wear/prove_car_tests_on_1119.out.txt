@@ -1,0 +1,17 @@
+
+=================================== ERRORS ====================================
+___________________ ERROR collecting tests/test_car_wear.py ___________________
+ImportError while importing test module 'C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_1119_prove\tests\test_car_wear.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\..\..\..\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_car_wear.py:19: in <module>
+    from zoo_keeper.core import car_forms, car_stickers, car_wear, seeding
+E   ImportError: cannot import name 'car_stickers' from 'zoo_keeper.core' (C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\zoo_1119_prove\zoo_keeper\core\__init__.py)
+=========================== short test summary info ===========================
+ERROR tests/test_car_wear.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+1 error in 0.43s
+exit=2
