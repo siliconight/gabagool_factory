@@ -1,6 +1,6 @@
 ---
 name: gate-commits-on-the-patch
-description: "Chain patch -> regenerate -> git commit with && only; a `;` before git add let a refused patch's commit through (b9c6635, 2026-10-07)"
+description: "Chain patch -> regenerate -> git commit with && only, and never pipe a gating step (a pipeline takes its LAST stage's exit); a `;` let a refused patch's commit through (b9c6635)"
 metadata:
   node_type: memory
   type: feedback
@@ -22,5 +22,12 @@ throws that backstop away and writes a false record.
   before `git add` or `git commit`.
 - When a bad commit happens, fix forward with a commit that names the bad one
   and says what it carried. Do not amend.
+- **A pipeline hides a failure from `&&`.** `step | grep | cut && next` takes
+  CUT's exit, so a failing `step` lets `next` run. 2026-10-21: a test-proof
+  script failed to generate, `| grep | cut` passed 0 on, and the chain applied
+  Deli Counter 0.248.0's patch to the real repo before the proof existed --
+  harmless that time (the proof runs in a clone), but the gate was gone. Never
+  pipe a step that gates the next one; or `set -o pipefail`, or test
+  `${PIPESTATUS[0]}`.
 
 Related: [[bash-heredoc-large-bodies-fail]].

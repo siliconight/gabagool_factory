@@ -1,6 +1,6 @@
 ---
 name: game-is-a-series-of-shooting-galleries
-description: "The game the factory builds for is a series of shooting galleries: buildings, roads between them, and props inside that give cover AND life without overkill"
+description: "The game is a series of shooting galleries; walker 2026-10-21: a lived-in world that feels real, but free navigation and fun gunfights come FIRST"
 metadata: 
   node_type: memory
   type: project
@@ -32,4 +32,12 @@ firefight geometry — `deli_counter/agent_contract.json` `sightlines` block,
 buildings are Lot's `site_cover` domain; props inside are Deli Counter's
 `level_design` / `combat_audit`.
 
-Related: [[gameplay-layer-lives-outside-level-factory]]
+**The order of priorities, the walker 2026-10-21:** "Above all, we are creating a lived in world that feels real
+when you are in it, but still is a video game, that prioritizes the fun and the game of free navigation and fun gun
+fights." So when they compete: free navigation and the fight come first, the lived-in realism is the texture on top,
+never at their expense. Every furnishing or density change reports, in this order: the nav gate (does a body still
+go everywhere), the cover mix and sightlines (does the room still fight well), then the look. Mid-floor pieces stay
+under `shelter_height` unless a fight wants shelter there; aisles keep the contract's width; see
+[[rooms-not-crowded-not-barren]] for the density band.
+
+Related: [[gameplay-layer-lives-outside-level-factory]], [[rooms-not-crowded-not-barren]]

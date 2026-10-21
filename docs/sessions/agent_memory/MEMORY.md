@@ -1,6 +1,6 @@
 - [Git TLS is intercepted by AVG](git-tls-intercepted-by-avg.md) — fixed with http.sslBackend=schannel; never silence fetch errors.
 - [Gameplay layer lives outside Level Factory](gameplay-layer-lives-outside-level-factory.md) — spawns are provisional; level-quality measures key off geometry.
-- [The game is a series of shooting galleries](game-is-a-series-of-shooting-galleries.md) — buildings, roads, props for cover AND life; report the mix.
+- [The game is a series of shooting galleries](game-is-a-series-of-shooting-galleries.md) — lived-in and real, but free navigation + fun gunfights come FIRST; report nav, cover mix, then look.
 - [Bash heredoc large bodies fail](bash-heredoc-large-bodies-fail.md) — any backslash or long body: Write the file, run it from disk.
 - [Bash cwd drifts between calls](bash-cwd-drifts-between-calls.md) — absolute cd every command; `git -C`; never batch commits.
 - [grep counts CR wrong in Git Bash](grep-cr-count-lies-in-git-bash.md) — `grep -c $'
@@ -67,7 +67,7 @@
 - [Five times of day](levels-have-five-times-of-day.md) — morning/noon/afternoon/evening/midnight; window light has no dial yet.
 - [Walkable city brief informs Lot](walkable-city-brief-informs-lot.md) — hub+spokes, loops, gates; not yet compared to Lot.
 - [Level standard v1](level-excellence-standard-doc.md) — docs/LEVEL_STANDARD.md: start every level request there.
-- [Gate commits on the patch](gate-commits-on-the-patch.md) — patch -> regenerate -> commit with && only; a `;` committed a refused patch.
+- [Gate commits on the patch](gate-commits-on-the-patch.md) — patch -> regenerate -> commit with && only; never pipe a gating step (a pipeline takes its last stage's exit).
 - [Collaborator handoff ~2026-10-21](collaborator-handoff-around-2026-10-21.md) — they make levels on Windows AND Linux; 1.39.0 released; left: Linux.
 - [Consumers need only Blender and Godot](consumers-need-only-blender-and-godot.md) — Blender's Python runs the tools; five packages are the gap.
 - [Getaway vehicle: the P30 at the spawn](extraction-is-the-getaway-vehicle.md) — hero prop Zoo 1.85.0, placed (Lot 0.98.x); start+exit at the van.
@@ -130,3 +130,4 @@
 - [Cold runs do not walk](cold-runs-do-not-walk.md) — cold_drive builds the walk copy, never the walk bot; run `walk` after --end when a change touches ladders/markers.
 - [Stanchions indoors, barricades outdoors](stanchions-indoors-barricades-outdoors.md) — walker: steel barricades are outdoor/police kit; indoor queues are retractable-belt stanchions
 - [Deli Counter control runs](dc-control-run-via-tools-local.md) — clone, build.py --all AND nav_gate.py --all, pre-write the workspace's tools.local.json; before.json names the real repo
+- [Rooms: not crowded, not barren](rooms-not-crowded-not-barren.md) — walker 2026-10-21: density is a band (~12-25 % floor share), rows of primary furniture over clutter, lanes open

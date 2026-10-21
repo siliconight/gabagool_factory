@@ -1,0 +1,16 @@
+== 0.248.0's test on 0.247.0 (e1cbd7e1) ==
+E               AssertionError: ('office', 'floor_1')
+E               assert 'shop_floor' == 'office'
+E                 
+E                 - office
+E                 + shop_floor
+E           AttributeError: module 'level_design' has no attribute 'is_office_floor'
+E       AttributeError: module 'level_design' has no attribute 'is_office_floor'
+E           AssertionError: ('office', {'cabinet_file': 2, 'cartons': 4, 'counter_service': 1, 'litter_bin': 4, ...})
+E           assert 0 >= 4
+FAILED test_office_floor_kind.py::test_an_office_building_s_floor_is_an_office
+FAILED test_office_floor_kind.py::test_every_other_bare_floor_keeps_its_kind
+FAILED test_office_floor_kind.py::test_the_rule_asks_the_word_floor_alone - A...
+FAILED test_office_floor_kind.py::test_the_library_office_floors_hold_desks_and_no_shop_stock
+4 failed in 0.27s
+exit 1
