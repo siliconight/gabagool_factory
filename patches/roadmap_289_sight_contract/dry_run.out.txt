@@ -1,0 +1,21 @@
+roadmap 289: NARROWED, the earlier status kept; 292 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 970-970 -> dry 970-970
+    + | 289 | **NARROWED** | Level Factory's sightline advisory crosses at 1.2 m; the contract cros | 2026-10-21 -- the advisory's heights done; left, the c
+insert live 973-972 -> dry 973-973
+    + | 292 | **OPEN** | The contract's body reaches the crew in a run and not the enemy | 2026-10-21 -- found shipping Level Factory 0.230.0 (roadmap 289);
+replace live 974-974 -> dry 975-975
+    + **292 items: 31 open, 144 closed, 3 retracted, 106 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 20886-20886 -> dry 20887-20887
+    + *STATUS: NARROWED 2026-10-21 -- the advisory's heights done; left, the contract's note. Level Factory 0.229.0 (1f6f047, `patches/patch_lf_sight_crossi
+insert live 20897-20896 -> dry 20898-20901
+    + 
+    + *STATUS: OPEN 2026-10-21 -- found shipping Level Factory 0.230.0 (roadmap 289); not started.*
+    + 
+    + **292. The contract's body reaches the crew in a run and not the enemy.** `level_factory/adapters/laser_tag/__init__.py`'s `_FIELDS` writes `character

@@ -7,9 +7,13 @@ after furnishing (section 5) and a dressing traversal cost (section 14: flag a r
 this, nothing in the factory compared a route with and without what furnish stands in a room: the nav gate asks
 whether a marker is reachable, and a density change shipped with no number for what it did to movement.
 
-TWO ARMS, ONE SPEC. AUTHORED is the spec less every volume furnish or the shelter pass wrote
+THREE ARMS, ONE SPEC. AUTHORED is the spec less every volume furnish or the shelter pass wrote
 (`migrate_furnish_recipes.furnished_by_this_pass`, `level_design._seeded_cover`): its walls, stairs, authored pieces,
-queues and enclosures. FURNISHED is the spec as it ships.
+queues and enclosures. FURNISHED is the spec as it ships. FUNCTIONAL (added the same day) is the spec less only
+furnish's DRESSING (`dressing`: a cluster pool's stem the room's recipe places nowhere else) -- the guide's "B", its
+functional build, where AUTHORED is nearer its blockout "A". FURNISHED / FUNCTIONAL is the guide's own section-14
+measure, the dressing's traversal cost; FURNISHED / AUTHORED charges a store's rows and a room's desks too, which in
+the guide's terms are the building's function, not its dressing.
 
 ENDPOINTS of a room: each walkable opening bordering it (door, garage, a vault's leaf; partition and exterior, placed
 by `partition_bounds.host_openings`, the builder's own arithmetic), each edge it is open to with no partition on it
@@ -94,8 +98,33 @@ def generated(d, v, tags=None):
     return any(L._seeded_cover(v, r) for r in d.get("rooms") or [])
 
 
+def dressing(d, v, rooms_by_tag, building):
+    """Is this volume furnish's DRESSING -- the guide's "C" over its functional build "B"? A volume furnish wrote whose
+    stem is in its room kind's cluster pools (with the basement's, as furnish adds it below ground) and in none of
+    the kind's functional lists: anchors, wall run, floor sets, rows, fixtures. A table and its chairs, a desk, a shelf
+    run, a gondola and a shelter piece are the room's working furniture; cartons, pallets, bins and dust sheets are
+    what the guide calls story clusters and small accents."""
+    m = MF._GENERATED.match(str(v.get("name") or ""))
+    if not m or m.group("tag") not in rooms_by_tag:
+        return False
+    room = rooms_by_tag[m.group("tag")]
+    kind = L._room_kind(room, building)
+    recipe = L._RECIPES[kind]
+    pools = list(recipe.get("clusters") or ())
+    if room.get("story", 0) < 0 and kind not in ("basement", "vault", "corridor", "wine_cellar"):
+        pools.append(L._BASEMENT_CLUSTER)
+    clustered = {s for pool, _lo, _hi in pools for s in pool}
+    functional = set()
+    for key in ("anchors", "wall", "floor", "fixtures"):
+        functional |= set(recipe.get(key) or ())
+    if kind == "shop_floor":
+        functional |= set(L._shop_rows(room, building) or ())
+    stem = m.group("stem")
+    return stem in clustered and stem not in functional
+
+
 def obstacles(d, story, arm):
-    """[(x0, y0, x1, y1)] on `story`, for `arm` "authored" or "furnished"."""
+    """[(x0, y0, x1, y1)] on `story`, for `arm` "authored", "functional" or "furnished"."""
     sh = L._story_height(d)
     floor = story * sh
     out = list(L._corridor_obstacles(dict(d, volumes=[], stairs=[]), story, floor, sh))
@@ -112,6 +141,8 @@ def obstacles(d, story, arm):
             out.append((h["x"] - h["size_x"] / 2.0, h["y"] - h["size_y"] / 2.0,
                         h["x"] + h["size_x"] / 2.0, h["y"] + h["size_y"] / 2.0))
     tags = _tags(d)
+    rooms_by_tag = {L._room_tag(r): r for r in d.get("rooms") or []}
+    building = L.club_building_id(d)
     for v in d.get("volumes") or []:
         if v.get("collision") == "none":
             continue
@@ -119,6 +150,8 @@ def obstacles(d, story, arm):
         if not L._on_storey(vz, vh, floor, sh) or L._hung(v, floor):
             continue
         if arm == "authored" and generated(d, v, tags):
+            continue
+        if arm == "functional" and dressing(d, v, rooms_by_tag, building):
             continue
         ax, ay = float(v.get("size_x", 1)) / 2.0, float(v.get("size_y", 1)) / 2.0
         out.append((v["x"] - ax, v["y"] - ay, v["x"] + ax, v["y"] + ay))
@@ -358,7 +391,7 @@ def measure_room(d, room, cache):
                                    if generated(d, v, tags) and x0 <= v["x"] <= x1 and y0 <= v["y"] <= y1
                                    and L.stands_on_storey(float(v.get("z", 0)), float(v.get("size_z", 0)),
                                                           story * L._story_height(d), L._story_height(d)))
-    for arm in ("authored", "furnished"):
+    for arm in ("authored", "functional", "furnished"):
         key = (story, arm)
         if key not in cache:
             cache[key] = obstacles(d, story, arm)
@@ -419,6 +452,25 @@ def summarise(rows):
                   "max %.3f; > 1.10 (the guide's warning): %d pairs in %d rooms"
                   % (len(v), np.median(v), np.percentile(v, 90), np.percentile(v, 99), v.max(),
                      int((v > 1.10).sum()), len({(x[1]["spec"], x[1]["room"]) for x in ratios if x[0] > 1.10})))
+    # THE GUIDE'S OWN MEASURE: dressing over the functional build (its section 14, B -> C)
+    bc, bc_two, bc_body = [], 0, 0
+    for r, k in pairs:
+        if "functional" not in r["arms"]:
+            continue
+        b_, f = r["arms"]["functional"], r["arms"]["furnished"]
+        lb, lf = b_["length"].get(k), f["length"].get(k)
+        bb, bf = b_["bottleneck"].get(k, 0.0), f["bottleneck"].get(k, 0.0)
+        if lb is not None and lf is not None and lb > 0:
+            bc.append((lf / lb, r, k, lb, lf))
+        bc_two += bb >= TWO_ABREAST > bf
+        bc_body += bb >= R_BODY > bf
+    if bc:
+        v = np.array([x[0] for x in bc])
+        L_.append("path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- "
+                  "over the %d pairs joined in both: median %.3f, p90 %.3f, p99 %.3f, max %.3f; > 1.10: %d pairs in %d "
+                  "rooms; dressing narrows %d pairs from two abreast to single file and closes %d to a body"
+                  % (len(v), np.median(v), np.percentile(v, 90), np.percentile(v, 99), v.max(), int((v > 1.10).sum()),
+                     len({(x[1]["spec"], x[1]["room"]) for x in bc if x[0] > 1.10}), bc_two, bc_body))
     L_.append("pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): %d"
               % both_none)
     L_.append("pairs furnishing closes to the body (bottleneck >= %.2f authored, < %.2f furnished): %d"
@@ -441,6 +493,12 @@ def summarise(rows):
         p, q = (int(s) for s in k.split("-"))
         L_.append("  %.3f  %-38s %-24s %s -> %s  %.1f -> %.1f m" % (ratio, r["spec"], r["room"], r["endpoints"][p][1],
                                                                     r["endpoints"][q][1], la, lf))
+    L_.append("")
+    L_.append("the 10 longest dressing detours (FURNISHED / FUNCTIONAL):")
+    for ratio, r, k, lb, lf in sorted(bc, key=lambda x: -x[0])[:10]:
+        p, q = (int(s) for s in k.split("-"))
+        L_.append("  %.3f  %-38s %-24s %s -> %s  %.1f -> %.1f m" % (ratio, r["spec"], r["room"], r["endpoints"][p][1],
+                                                                    r["endpoints"][q][1], lb, lf))
     for title, rowsx, thr in (("closed to the body", lost_body, R_BODY), ("closed to the bake", lost_bake, C_BAKE),
                               ("two abreast -> single file", lost_two, TWO_ABREAST)):
         L_.append("")
@@ -504,6 +562,21 @@ def controls():
     la, lf = r["arms"]["authored"]["length"].get("0-1"), r["arms"]["furnished"]["length"].get("0-1")
     if la is None or lf is None or not lf > la * 1.05:
         fails.append("detour: lengths %s -> %s, want the furnished one over 5 %% longer" % (la, lf))
+    # 5. dressing against function: a 0.60 m slot across the room in cartons (the fallback recipe's cluster stem, placed
+    # nowhere else) is dressing -- the FUNCTIONAL arm walks straight through, FURNISHED cannot; the same slot in shelf
+    # runs (its wall run) is the room's function, and the FUNCTIONAL arm is closed by it too
+    gap = 0.60
+
+    def carton(n, y0, y1):
+        return dict(wall_piece(n, y0, y1), name="cartons_%s_%d" % (tag, n))
+
+    r = measure_spec(room_spec([carton(1, -2.85, -gap / 2), carton(2, gap / 2, 2.85)]), "ctl")[0]
+    if r["arms"]["functional"]["length"].get("0-1") is None or r["arms"]["furnished"]["length"].get("0-1") is not None:
+        fails.append("dressing: a slot of cartons read %s functional, %s furnished; want a path, then none"
+                     % (r["arms"]["functional"]["length"].get("0-1"), r["arms"]["furnished"]["length"].get("0-1")))
+    r = measure_spec(room_spec([wall_piece(1, -2.85, -gap / 2), wall_piece(2, gap / 2, 2.85)]), "ctl")[0]
+    if r["arms"]["functional"]["length"].get("0-1") is not None:
+        fails.append("function: a slot of shelf runs read open to the FUNCTIONAL arm")
     for f in fails:
         print("CONTROL FAILED:", f)
     print("controls: %d failed" % len(fails))

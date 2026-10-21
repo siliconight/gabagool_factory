@@ -1,0 +1,27 @@
+== 0.229.0's tests on 0.228.0 (e71ea71) ==
+E       assert 1.2 == 1.3
+E       assert ['Level Facto... either side'] == []
+E         
+E         Left contains 2 more items, first extra item: "Level Factory's sightline advisory sizes cover against a 1.4 m eye and Laser Tag sights the crew from 1.6 m (read from scenario, bot controller, enemy brain, harness, scenario script)"
+E         Use -v to get more diff
+PASSED tests/unit/test_sightlines.py::test_an_empty_yard_leaves_the_whole_line_open
+PASSED tests/unit/test_sightlines.py::test_a_building_across_the_middle_closes_the_line
+PASSED tests/unit/test_sightlines.py::test_a_kerb_is_in_the_way_on_a_plan_view_and_a_rifle_shoots_over_it
+PASSED tests/unit/test_sightlines.py::test_a_first_floor_slab_overhead_is_not_cover_for_the_fight_beneath_it
+PASSED tests/unit/test_sightlines.py::test_the_building_you_are_standing_in_is_not_cover_from_itself
+PASSED tests/unit/test_sightlines.py::test_two_overlapping_blockers_are_not_counted_twice
+PASSED tests/unit/test_sightlines.py::test_pairs_are_reported_longest_first_and_only_past_the_opening_range
+PASSED tests/unit/test_sightlines.py::test_a_blocked_pair_is_not_an_open_sightline_however_long_it_is
+PASSED tests/unit/test_sightlines.py::test_cover_has_to_stop_both_sides_or_it_stops_nothing
+PASSED tests/unit/test_sightlines.py::test_a_solid_taller_than_both_ends_breaks_the_line_anywhere_along_it
+PASSED tests/unit/test_sightlines.py::test_a_solid_shorter_than_the_minimum_is_a_decoration_not_cover
+PASSED tests/unit/test_sightlines.py::test_an_enemy_on_a_roof_is_measured_from_the_yard_the_cover_stands_on
+PASSED tests/unit/test_sightlines.py::test_cover_is_proposed_towards_the_crews_approach_rather_than_the_midpoint
+PASSED tests/unit/test_sightlines.py::test_a_proposal_placed_where_it_was_asked_for_actually_breaks_the_line
+PASSED tests/unit/test_sightlines.py::test_the_finding_says_what_to_do_and_keeps_the_fact_it_was_drawn_from
+PASSED tests/unit/test_sightlines.py::test_a_line_no_cover_can_break_says_it_needs_a_building
+PASSED tests/unit/test_sightlines.py::test_a_long_list_is_summarised_rather_than_dumped
+PASSED tests/unit/test_sightlines.py::test_nothing_open_is_nothing_said
+FAILED tests/unit/test_sightlines.py::test_on_flat_ground_the_shortest_workable_cover_works_at_one_spot_only
+FAILED tests/unit/test_sightlines.py::test_the_advisory_s_heights_are_the_shipped_evaluator_s
+exit 1

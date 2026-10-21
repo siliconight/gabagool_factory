@@ -11,9 +11,15 @@ marker is reachable, and roadmaps 148 and 281 shipped density changes with no nu
 
 `route_cost.py`, over Deli Counter's library. Its docstring is the method. In short:
 
-- **Two arms of one spec.** AUTHORED is the spec less every volume furnish and the shelter pass wrote
-  (`migrate_furnish_recipes.furnished_by_this_pass`, `level_design._seeded_cover`). FURNISHED is the spec as it ships.
-  Every other obstacle is shared, so what differs is what those two passes stood.
+- **Three arms of one spec.** AUTHORED is the spec less every volume furnish and the shelter pass wrote
+  (`migrate_furnish_recipes.furnished_by_this_pass`, `level_design._seeded_cover`). FUNCTIONAL is the spec less only
+  furnish's dressing (`dressing`: a stem in the room kind's cluster pools and in none of its anchors, wall run, floor
+  sets, rows or fixtures). FURNISHED is the spec as it ships. Every other obstacle is shared, so what differs between
+  two arms is what those passes stood.
+- **Two ratios, two questions.** FURNISHED / FUNCTIONAL is the guide's own section-14 measure: what the dressing (its
+  "C") costs a route over the functional build (its "B"). FURNISHED / AUTHORED charges everything furnish stands,
+  including a store's rows and an office's desks, which in the guide's terms are the building's function rather than
+  its dressing. AUTHORED is nearer the guide's blockout, its "A".
 - **Endpoints of a room:** its walkable doors (placed by `partition_bounds.host_openings`, the builder's arithmetic),
   its open edges, and its objective and loot markers.
 - **Per pair of endpoints:** the shortest path for the contract's 0.35 m body on the bake's 0.10 m grid, shifted off
@@ -21,20 +27,60 @@ marker is reachable, and roadmaps 148 and 281 shipped density changes with no nu
   from the contract as the contract derives it) and the guide's two abreast (1.90 m on the contract's body, the
   guide's own margins).
 
-**Controls** (`python route_cost.py --controls`, all four reading as they must):
+**Controls** (`python route_cost.py --controls`, all five reading as they must, re-run at Deli Counter 0.250.0):
 
 1. an empty room: both arms the same, the route its straight length;
 2. furnish's own 0.90 m margin as a slot across a room: open to the body, closed to the bake, read within half a cell
    of 0.45 m;
 3. a 0.60 m slot: closed to the body, no path;
-4. a barrier with its gap at one end: the FURNISHED route over 5 % longer, the AUTHORED arm blind to it.
+4. a barrier with its gap at one end: the FURNISHED route over 5 % longer, the AUTHORED arm blind to it;
+5. dressing against function: a 0.60 m slot across a room in cartons (the fallback recipe's cluster stem, placed
+   nowhere else) is open to the FUNCTIONAL arm and closed FURNISHED; the same slot in shelf runs (its wall run) closes
+   the FUNCTIONAL arm too.
 
 **Refuted, kept:** the control first proposed for this instrument -- "a planted 0.9 m slot must read closed at 0.40
 and open at 0.35" -- is wrong for geometry. A 0.90 m gap admits any body up to 0.45 m in radius; it is the bake's
 quantised floor (`2 * ceil(0.4 / 0.1) * 0.1 + 0.2`, 1.00 m) that closes it, so the instrument reads two thresholds,
 the body's radius and the bake's floor, and control 2 checks both.
 
-## What it measured (Deli Counter 0.249.0's library, `route_cost.out.txt`, 331 s)
+## What it measured
+
+### Deli Counter 0.250.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 540 s)
+
+The library after the corner stores reserved their routes (Deli Counter 0.250.0, roadmap 288), the first run with the
+FUNCTIONAL arm. The same coverage as below: 580 rooms of 128 specs, 2,338 endpoint pairs.
+
+- **Dressing over the functional build, the guide's own measure.** FURNISHED / FUNCTIONAL over the 2,252 pairs joined
+  in both: median 1.000, p90 1.000, p99 1.046, max 1.270. 8 pairs in 8 rooms are over the guide's 10 %. Dressing
+  narrows 58 pairs from two abreast to single file and closes none to a body.
+- **All of furnishing.** FURNISHED / AUTHORED: median 1.000, p90 1.025, p99 1.116, max 1.308; 34 pairs in 31 rooms
+  over 10 %, from 50 in 41. 179 pairs narrowed from two abreast to single file, from 195; 1,884 of the 2,338 stay two
+  abreast furnished, from 1,868. Closures as before: none to a body, the same five to the bake.
+- **By room kind** (`by_kind.out.txt`). Between the two runs only the corner stores' selling floors moved -- grown over
+  10 % 16 -> 0, narrowed 44 -> 28. Every other kind's counts are identical.
+
+  | room kind | pairs | grew over 10 % | two abreast -> single file | dressing: grew | dressing: narrowed |
+  |---|---|---|---|---|---|
+  | vault | 146 | 6 | 42 | 1 | 7 |
+  | office | 324 | 14 | 25 | 3 | 13 |
+  | corner store's selling floor | 85 | 0 | 28 | 0 | 2 |
+  | hall | 172 | 6 | 19 | 0 | 7 |
+  | every other kind | 1,525 | 8 | 65 | 4 | 29 |
+
+- **The dressing detours.** Seven of the eight over 10 % are one route in an objective room, its door to its marker:
+  funeral_home_a02's records_office (4.3 -> 5.5 m, 1.270), self_storage_a02's corner_unit, apartment_walkup_a03's
+  garage_cage, supermarket_a02's manager_suite, train_yard_a01's dispatch_office, courthouse_a02's records_room and
+  brewery_a01's recipe_lab (1.102). The eighth is self_storage_a01's mid_aisle, door to side_exit (1.130). Over the
+  282 objective and loot routes, 17 grow over 10 % with all of furnishing and 7 with its dressing alone; 44 narrow.
+  These rooms are roadmap 288's next step.
+- **Refuted, kept: they are not small rooms.** The reading below, of 0.249.0, called them small objective rooms from
+  the length of the route. Read room by room they are 97 to 240 m2 and 3.0 to 7.3 % under furniture (the walker's
+  band is 12 to 25 %); the route is short because the marker stands near the door, and what lengthens each is one to
+  four carton piles, pallets or dust sheets standing in it.
+
+### Deli Counter 0.249.0's library, before the reservation (`route_cost_0249.out.txt`, `route_cost_0249.json`, `by_kind_0249.out.txt`, 331 s)
+
+The measurement roadmap 288 was filed and fixed from. Two arms: the FUNCTIONAL arm came after.
 
 - **Coverage.** 580 rooms of 128 specs (9 m2 or more, two endpoints or more), 2,338 endpoint pairs.
 - **Most routes are untouched.** FURNISHED / AUTHORED over the 2,252 pairs joined in both arms: median 1.000, p90
@@ -43,7 +89,7 @@ the body's radius and the bake's floor, and control 2 checks both.
   (1.40 -> 0.99 m), and self_storage_a01's vault unit to its objective.
 - **Narrowing.** 195 pairs go from two abreast to single file. Of 2,338 pairs, 1,868 stay two abreast furnished,
   against 2,063 authored.
-- **By room kind** (`by_kind.out.txt`):
+- **By room kind** (`by_kind_0249.out.txt`):
 
   | room kind | pairs | grew over 10 % | two abreast -> single file |
   |---|---|---|---|
@@ -61,7 +107,8 @@ the body's radius and the bake's floor, and control 2 checks both.
   longest detours in the library are small objective rooms, the route from the door to the marker: records offices,
   cash offices, artifact and deposit rooms, 3.5-6 m routes growing 20-30 %.
 - **The 80 pairs no body joins in either arm** are each attributed (`unsnapped.py`, `unsnapped.out.txt`). None is
-  furnishing's: each fails in the AUTHORED arm too.
+  furnishing's: each fails in the AUTHORED arm too. The count is 80 at 0.250.0 as well, whose change moved only
+  furnish's pieces.
   - **21 are this instrument's limits:** a door, or the midpoint of an open edge, landing on a stair's body (office's
     and office_stepped's lobby and bullpen meet across their stair); a vault's objective and loot markers standing
     inside their own block.
@@ -80,12 +127,15 @@ the body's radius and the bake's floor, and control 2 checks both.
   through, and authored holes, are obstacles.
 - **Door leaves, and anything a navmesh does that geometry does not.**
 - **Chairs turned a few degrees** count unturned, as `_seed_clear` reads them.
+- **Where dressing ends** is furnish's own recipe lists, not the guide's roles: a stem a room kind's recipe places
+  both as a cluster and as function counts as function.
 
 ## Files
 
 | file | what |
 |---|---|
 | `route_cost.py` | the census; `--controls`; `--spec <name>` |
-| `route_cost.out.txt`, `route_cost.json` | the library's census, summary and per room |
-| `by_kind.py`, `by_kind.out.txt` | the census by room kind, and the objective routes |
-| `unsnapped.py`, `unsnapped.out.txt` | every endpoint no body stands at in the AUTHORED arm, and what stands there |
+| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.250.0, three arms, summary and per room |
+| `route_cost_0249.out.txt`, `route_cost_0249.json` | the same at 0.249.0, two arms: the census roadmap 288 was filed from |
+| `by_kind.py`, `by_kind.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
+| `unsnapped.py`, `unsnapped.out.txt` | every endpoint no body stands at in the AUTHORED arm, and what stands there (at 0.249.0) |

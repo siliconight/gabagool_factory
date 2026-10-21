@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~11:15 283 CLOSED, 288 NARROWED (DC 0.249.0/0.250.0, cold 9371); guides filed; next census B arm, office/vault routes, 284
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~12:45 289 NARROWED (LF 0.229.0/0.230.0, cold 9372/9373), 292 filed; DC 0.251.0 marker-room routes measured in a scratch clone, not shipped
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().

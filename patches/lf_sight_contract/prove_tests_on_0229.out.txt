@@ -1,0 +1,22 @@
+== 0.230.0's tests on 0.229.0 (1f6f047) ==
+E       AssertionError: ['LT_ENGAGEMENT_NOT_CONFIGURABLE']
+E       assert 0 == 1
+E        +  where 0 = len([])
+E       AssertionError: [{'blocking': False, 'category': 'configuration', 'code': 'LT_ENGAGEMENT_NOT_CONFIGURABLE', 'location': 'LT_MapEvalHarness.gd', ...}]
+E       assert 'LT_OPEN_SIGHTLINE' in ['LT_ENGAGEMENT_NOT_CONFIGURABLE']
+E        +  where ['LT_ENGAGEMENT_NOT_CONFIGURABLE'] = _codes([{'blocking': False, 'category': 'configuration', 'code': 'LT_ENGAGEMENT_NOT_CONFIGURABLE', 'location': 'LT_MapEvalHarness.gd', ...}])
+E       AssertionError: ['LT_ENGAGEMENT_NOT_CONFIGURABLE']
+E       assert 0 == 1
+E        +  where 0 = len([])
+E       AttributeError: module 'packages.validation.sightlines' has no attribute 'Sight'
+E       AttributeError: module 'adapters.laser_tag' has no attribute '_run_scenario'. Did you mean: '_write_scenario'?
+PASSED tests/unit/test_sight_follows_the_body.py::test_without_the_crate_the_street_is_one_open_sightline
+PASSED tests/unit/test_sight_follows_the_body.py::test_the_crate_is_cover_for_the_stock_body
+PASSED tests/unit/test_sight_follows_the_body.py::test_no_contract_leaves_laser_tag_s_own_heights
+PASSED tests/unit/test_sight_follows_the_body.py::test_a_height_that_is_not_a_number_does_not_stop_the_advisory
+FAILED tests/unit/test_sight_follows_the_body.py::test_a_studio_states_its_body_once_and_the_advisory_sights_from_it
+FAILED tests/unit/test_sight_follows_the_body.py::test_a_brief_s_scenario_beats_the_contract_here_too
+FAILED tests/unit/test_sight_follows_the_body.py::test_two_eyes_are_named_rather_than_averaged
+FAILED tests/unit/test_sight_follows_the_body.py::test_the_geometry_takes_a_body
+FAILED tests/unit/test_sight_follows_the_body.py::test_the_run_and_the_advisory_ask_one_precedence
+exit 1
