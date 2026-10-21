@@ -1,0 +1,43 @@
+== package 19:42:39
+package exit 0
+zip: C:\Projects\gabagool_studios\gabagool_factory_package_20261020_1942.zip
+== unpack 19:43:49
+unpack exit 0
+== test 19:44:44
+test exit 0
+== setup 19:44:44.34
+setup exit 0
+== make 19:44:57.89
+make exit 0
+== walk 19:53:04.74
+walk exit 0
+== done 19:58:19.63
+== venv 19:58:19
+<string>:1: DeprecationWarning: Accessing jsonschema.__version__ is deprecated and will be removed in a future release. Use importlib.metadata directly to query for jsonschema's version.
+3.13.9 12.3.0 1.16.5 4.26.0
+/c/stranger_202_12/gabagool/.venv/Lib/site-packages/sitecustomize.py
+== sitecustomize errors
+setup: 0 of 74 lines
+make: 0 of 237 lines
+walk: 0 of 44 lines
+== the doctor's drift lines at setup
+drift vs certified: 0  WARN rows: 0
+== the package after the walk
+files: 2764  bake.exr: 1  light_bake.json ok: True
+merged modules dropped: 1  backdrop ground: 5
+== what the buildings' merge kept
+[export] buildings merged: 3 scene(s), 864 slot(s), 1587 surface(s) -> 781 merged mesh(es); 8 lit surface(s) in 8 mesh(es) of their own; 829 collider(s) kept; 4 slot(s) kept whole, holding what a merge cannot carry
+deli_a01: ladder_area3d 2, dc_marker 14
+parking_garage: ladder_area3d 0, dc_marker 8
+supermarket_a01: ladder_area3d 0, dc_marker 7
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+  walk bot [OK]   Ladder_ladder_0: climbed to 6.6 m and stood up
+  walk bot [OK]   Ladder_ladder_1: climbed to 3.3 m and stood up
+  shot bot [OK] exterior: jitter 0.0%, fighting 0.0%, void 62.14%
+  shot bot [OK] Ladder_ladder_0_base: jitter 2.66%, fighting 0.07%, void 0.0%, animated 0.83% (changed with the camera still; not judged)  (sparkle: small flips of one texture, not a fight)
+  shot bot [OK] Ladder_ladder_0_top: jitter 0.22%, fighting 0.02%, void 28.68%, animated 2.64% (changed with the camera still; not judged)
+  shot bot [OK] Ladder_ladder_1_base: jitter 0.41%, fighting 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_top: jitter 1.2%, fighting 0.04%, void 0.0%
+  frames written for review (5 stations)
+== done 19:58:22
+script exit 0

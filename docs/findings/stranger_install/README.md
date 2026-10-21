@@ -934,6 +934,111 @@ The seven that moved are tagged at the commits tested, and the factory at
 **What is left of roadmap 202:** Linux, as before; and the venv's
 dependencies, roadmap 256.
 
+## Install test 10, 2026-10-20, 17:25 to 17:40: the 1.41.0 set, stopped at the export
+
+**The test.** The set factory 1.41.0 was to certify, typed with the page's own
+`setup --venv` as tests 6 to 9 were: Deli Counter 0.240.0, Dispatch 0.5.3,
+Level Factory 0.226.1 (its certified table re-grounded to the set), Lot
+0.126.0, Lux 0.79.0, Patina 0.32.0 and Zoo 1.117.0, with Laser Tag 0.32.0,
+Pipeline 0.6.0 and Pixelcoat 0.62.0 as 1.40.0 had them. The walker asked for
+it that afternoon: a fresh release, so that a new PC loses no progress.
+- **The package:** made from root `b541aaa`, Deli Counter `557717da`,
+  Dispatch `8fd73cf`, Laser Tag `a277dd9`, Level Factory `934ec5b`, Lot
+  `49dcf8d`, Lux `9132d32`, Patina `0108c6d`, Pipeline `1084ded`, Pixelcoat
+  `c5c9d1f` and Zoo `48fdc71`, as `gabagool_factory_package_20261020_1725.zip`
+  (73,770,741 bytes, 5,184 files staged; 159 shells checked fresh and stamped
+  17:25:36).
+- **The unpack:** into a new folder, `C:\stranger_202_10\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_10.sh`.
+  Logs are in `install_test_10/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup --venv` | 0 | 0 `drift vs certified` lines and 0 WARN rows -- 0.226.1's claim; Python 3.13.9 with Pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0; 0 sitecustomize errors |
+| `make` | **5** | the pick took **seed 9205** (PASS 100; 9003 and 9104 PASS 90); **STOPPED at the export**: UNDECLARED_DROP_INDOORS, 33 edges round the parking garage's ramp |
+| `walk` | 5 | the same 33 |
+
+**What stopped it was the tools', and no cold run could have seen it.** Seed
+9205's lot stands a `parking_garage`, and its ramp's slab cut ran half a run
+past the ramp's head: 24 edges over nothing, a 3 m fall to the ground floor at
+most, and 9 from the cut's other edges onto the ramp, unguarded. Every library
+ramp did the same. Every cold run since the drop-edge gate shipped (Level
+Factory 0.216.0) had named seed 9003, whose lot has no garage; the first
+level's own seed is left to the pick. The finding, its census and the gate's
+reports are `docs/findings/ramp_cut_241/`. Deli Counter 0.241.0 fixed it at
+the source (`35d88455`): the cut stops at the head, it is railed, and a landing
+past the head keeps walls off the ramp's arrival. Level Factory 0.226.2
+grounded the table's deli_counter row to it. The test did what it exists for:
+the package was not released.
+
+## Install test 11, 2026-10-20, 18:41 to 18:56: the 1.41.0 set, and the walk found no ladder
+
+**The test.** Install test 10's set with Deli Counter 0.241.0 (the ramp's cut
+stopping at its head) and Level Factory 0.226.2 (its table's deli_counter row
+grounded to it), typed as test 10 was.
+- **The package:** made from root `b541aaa`, Deli Counter `35d88455`,
+  Dispatch `8fd73cf`, Laser Tag `a277dd9`, Level Factory `44d3b2d`, Lot
+  `49dcf8d`, Lux `9132d32`, Patina `0108c6d`, Pipeline `1084ded`, Pixelcoat
+  `c5c9d1f` and Zoo `48fdc71`, as `gabagool_factory_package_20261020_1841.zip`
+  (73,782,199 bytes, 5,185 files staged; 159 shells checked fresh and stamped
+  18:41:46).
+- **The unpack:** into a new folder, `C:\stranger_202_11\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_11.sh`.
+  Logs are in `install_test_11/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup --venv` | 0 | 0 `drift vs certified` lines, the doctor's worst PASS, Deli Counter 0.241.0 among the tools; Python 3.13.9 |
+| `make` | 0 | 7.9 minutes; the pick took **seed 9205** again (PASS 100; 9003 and 9104 PASS 90), and the export shipped it: 13 unguarded drop edges, **0 undeclared indoors** (test 10: 33), the buildings' merge 868 slots, the closure clean |
+| `walk` | 0 | 4.6 minutes; **"walk bot: no ladder_area3d in scene; traversal vacuous"**; the shot bot one station, the exterior, OK |
+
+**The ramp was fixed; the walk found what the buildings' merge had done.**
+Test 9's walk bot climbed all four of its site's ladders and its shot bot
+judged nine stations, a base and a top at each ladder; this one found no
+ladder, so its bot had nothing to climb and its shot bot only the exterior to
+frame. The composed scene still had deli_a01's two ladders and the package
+had none: Level Factory 0.223.0's buildings' merge (that morning, roadmap
+266) took every building's `Ladders` and `Markers` apart -- Area3D climb
+volumes and grouped spawns, neither a mesh nor a collider, which is all it
+carries -- and removed them with their slots. Eight cold runs had shipped
+packages so (9349 to 9356) and passed every gate: none counts a group, and
+the cold drive's walk step builds the walk copy without the walk's
+self-check, which is where the line printed (roadmap 272). No release carried
+it. The finding and its census are `docs/findings/merge_ladders_227/`; Level
+Factory 0.227.0 keeps a slot holding what the merge cannot carry whole
+(`2592e7a`), and cold run 9357 made this level with the ladders in it
+(`docs/cold_runs/cold_9357/`: 0 interventions, the merge's
+slots 868 -> 864, every other count of it 9356's). The package was not released.
+
+## Install test 12, 2026-10-20, 19:42 to 19:58: the 1.41.0 set, certified
+
+**The test.** Install test 11's set with Level Factory 0.227.0 (`2592e7a`),
+whose buildings' merge keeps a slot holding what it cannot carry whole,
+typed as tests 6 to 11 were.
+- **The package:** made from root `b541aaa`, Deli Counter `35d88455`,
+  Dispatch `8fd73cf`, Laser Tag `a277dd9`, Level Factory `2592e7a`, Lot
+  `49dcf8d`, Lux `9132d32`, Patina `0108c6d`, Pipeline `1084ded`, Pixelcoat
+  `c5c9d1f` and Zoo `48fdc71`, as `gabagool_factory_package_20261020_1942.zip`
+  (73,788,664 bytes, 5,186 files staged -- test 11's and the new test file;
+  159 shells checked fresh and stamped 19:42:49).
+- **The unpack:** into a new folder, `C:\stranger_202_12\gabagool`.
+- **What was typed:** `install_test_venv.cmd`, through `install_test_12.sh`.
+  Logs are in `install_test_12/`.
+
+| step | exit | what it printed |
+|---|---|---|
+| `setup --venv` | 0 | every doctor row PASS at this set's versions, 0 `drift vs certified` lines, 0 WARN rows, 0 sitecustomize errors; Python 3.13.9 with Pillow 12.3.0, pygltflib 1.16.5, jsonschema 4.26.0, from pip's cache |
+| `make` | 0 | 8.1 minutes; seed 9205 picked again (PASS 100; 9003 and 9104 PASS 90); 0 undeclared drop edges indoors; the buildings' merge 864 slots, **4 kept whole** -- deli_a01's `Ladders` and each building's `Markers`; 140 models and 96 primitive meshes baked, 2,775 users; the closure ok over 83 resources |
+| `walk` | 0 | 5.3 minutes; **the walk bot climbed `Ladder_ladder_0` to 6.6 m and `Ladder_ladder_1` to 3.3 m**; the shot bot passed all **five** stations -- the exterior and each ladder's base and top -- `Ladder_ladder_0_base` noted as "sparkle: small flips of one texture, not a fight" at 2.66 % jitter |
+
+**After the walk the package still carries its bake:** 2,764 files,
+`bake.exr`, `light_bake.json` ok, the backdrop's ground. The package's
+`lot/deli_a01/site.tscn` holds 2 nodes in `ladder_area3d` and 14 in
+`dc_marker`, the garage's 8 and the supermarket's 7 -- the composed scenes'
+counts. Every line of `make` is cold run 9357's level (0 interventions,
+`docs/cold_runs/cold_9357/`). No deviation from the page: this is the set
+factory 1.41.0 certifies.
+
 ## Design, proposed 2026-10-10 (kept as it was first proposed; all built since)
 
 Each step names the intervention it removes.

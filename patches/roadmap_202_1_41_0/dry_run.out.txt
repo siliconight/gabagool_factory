@@ -1,0 +1,38 @@
+roadmap 202: status replaced, one paragraph appended; 266's status headed; items 270, 271, 272 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 883-883 -> dry 883-883
+    + | 202 | **NARROWED** | Handing the factory to a stranger | 2026-10-20 -- the path a stranger follows is certified a sixth time, with no deviation fro 
+replace live 947-947 -> dry 947-947
+    + | 266 | **NARROWED** | Enterable buildings' interiors merge per room and material | 2026-10-20 -- A REGRESSION IN IT, FOUND AND FIXED: from Level Fact
+insert live 951-950 -> dry 951-953
+    + | 270 | **OPEN** | A ramp's cut begins where a body still meets the slab, and furnish doe | 2026-10-20 -- measured (`docs/findings/ramp_cut_241/`), no
+    + | 271 | **OPEN** | The price drifts between sessions on identical bytes | 2026-10-20 -- measured on cold run 9355's price (`docs/cold_runs/cold_9355/N
+    + | 272 | **OPEN** | Nothing checks that a package carries the gameplay its composition had | 2026-10-20 -- found by install test 11 (`docs/findings/mer
+replace live 952-952 -> dry 955-955
+    + **272 items: 17 open, 140 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 19196-19196 -> dry 19199-19199
+    + *STATUS: NARROWED 2026-10-20 -- the path a stranger follows is certified a sixth time, with no deviation from the page: install test 12, at the set fa
+insert live 19263-19262 -> dry 19266-19267
+    + 
+    + **INSTALL TESTS 10, 11 AND 12, 2026-10-20: factory 1.41.0** (`docs/findings/stranger_install/`). The walker asked for a fresh release that afternoon, 
+replace live 20760-20760 -> dry 20765-20765
+    + *STATUS: NARROWED 2026-10-20 -- A REGRESSION IN IT, FOUND AND FIXED: from Level Factory 0.223.0 to 0.226.2 the merge removed every enterable building'
+insert live 20779-20778 -> dry 20784-20795
+    + 
+    + *STATUS: OPEN 2026-10-20 -- measured (`docs/findings/ramp_cut_241/`), not started; Deli Counter 0.241.0 fixed what the drop-edge gate refused and left
+    + 
+    + **270. A ramp's cut begins where a body still meets the slab, and furnish does not read a ramp.** Found fixing the cut install test 10 stopped on (Del
+    + 
+    + *STATUS: OPEN 2026-10-20 -- measured on cold run 9355's price (`docs/cold_runs/cold_9355/NOTES.md`, "The price"), not attributed.*
+    + 
+    + **271. The price drifts between sessions on identical bytes.** Pricing cold run 9355 against 9351's runs of four hours earlier read 184 fewer draws, 0
+    + 
+    + *STATUS: OPEN 2026-10-20 -- found by install test 11 (`docs/findings/merge_ladders_227/`); Level Factory 0.227.0 fixed the loss and left the check tha
+    + 
+    + **272. Nothing checks that a package carries the gameplay its composition had.** From Level Factory 0.223.0 to 0.226.2 the buildings' merge removed ev

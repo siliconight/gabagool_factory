@@ -1,0 +1,524 @@
+{
+  "scenes": [
+    {
+      "carried_meshes": 857,
+      "carried_meshes_flagged": [],
+      "children": 565,
+      "dropped_by_class": {
+        "Area3D": 2,
+        "CollisionShape3D": 2,
+        "Node3D": 635
+      },
+      "empties_by_name": {
+        "ATT_cook_center": 2,
+        "ATT_counter_front": 9,
+        "ATT_dial": 2,
+        "ATT_face": 1,
+        "ATT_register": 8,
+        "ATT_register_B": 2,
+        "ATT_seat": 2,
+        "ATT_seat_center": 11,
+        "ATT_shelf_top": 21,
+        "ATT_surface_center": 13,
+        "ATT_top": 3,
+        "ATT_top_center": 21,
+        "ATT_tray": 1,
+        "TopOfLadder": 2
+      },
+      "error": null,
+      "flagged": [
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "ladder",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "LADDER_0"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "ladder",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "LADDER_1"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "hatch",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "HATCH__12_8"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_FRONT"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_REAR"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "defender_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "DEFENDER_SPAWN"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "objective",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "OBJECTIVE_A"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "extraction",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "EXTRACTION_STREET"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_low",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_LOW_AISLE_LEFT"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_low",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_LOW_AISLE_RIGHT"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_high",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_HIGH_PALLET_STACK"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "camera_socket",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "CAMERA_SOCKET_CAM_FRONT"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "camera_socket",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "CAMERA_SOCKET_CAM_SERVER"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "patrol_point",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "PATROL_POINT_P01"
+        },
+        {
+          "child": "Ladders",
+          "class": "Area3D",
+          "groups": [
+            "ladder_area3d",
+            "dc_ladder"
+          ],
+          "meta": [
+            "climb_height",
+            "facing"
+          ],
+          "path": "Ladder_ladder_0"
+        },
+        {
+          "child": "Ladders",
+          "class": "CollisionShape3D",
+          "groups": [],
+          "meta": [],
+          "path": "Ladder_ladder_0/CollisionShape3D"
+        },
+        {
+          "child": "Ladders",
+          "class": "Area3D",
+          "groups": [
+            "ladder_area3d",
+            "dc_ladder"
+          ],
+          "meta": [
+            "climb_height",
+            "facing"
+          ],
+          "path": "Ladder_ladder_1"
+        },
+        {
+          "child": "Ladders",
+          "class": "CollisionShape3D",
+          "groups": [],
+          "meta": [],
+          "path": "Ladder_ladder_1/CollisionShape3D"
+        }
+      ],
+      "flagged_count": 18,
+      "merged_02262": 523,
+      "rule_a": {
+        "kept": [
+          "Markers",
+          "Ladders"
+        ],
+        "surfaces": 0
+      },
+      "rule_w": {
+        "kept": [
+          "Markers",
+          "Ladders"
+        ],
+        "surfaces": 0
+      },
+      "scene": "res://lot/deli_a03/site.tscn"
+    },
+    {
+      "carried_meshes": 463,
+      "carried_meshes_flagged": [],
+      "children": 287,
+      "dropped_by_class": {
+        "Node3D": 321
+      },
+      "empties_by_name": {
+        "ATT_belt": 1,
+        "ATT_counter_front": 3,
+        "ATT_dial": 1,
+        "ATT_hood": 1,
+        "ATT_register": 2,
+        "ATT_register_B": 2,
+        "ATT_seat_center": 9,
+        "ATT_shelf_top": 5,
+        "ATT_surface_center": 11,
+        "ATT_top_center": 11,
+        "ATT_tray": 1
+      },
+      "error": null,
+      "flagged": [
+        {
+          "child": "payphone_rcce455f7_5",
+          "class": "Node3D",
+          "groups": [],
+          "meta": [
+            "extras"
+          ],
+          "path": "LuxEmit_payphone_hood"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_high",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_HIGH_CUBE_W0"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_high",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_HIGH_CUBE_E0"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_low",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_LOW_RECEPTION"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "camera_socket",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "CAMERA_SOCKET_01"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_A"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_B"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "defender_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "DEFENDER_SPAWN_D"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "objective",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "OBJECTIVE_EXEC"
+        }
+      ],
+      "flagged_count": 9,
+      "merged_02262": 265,
+      "rule_a": {
+        "kept": [
+          "Markers"
+        ],
+        "surfaces": 0
+      },
+      "rule_w": {
+        "kept": [
+          "payphone_rcce455f7_5",
+          "Markers"
+        ],
+        "surfaces": 2
+      },
+      "scene": "res://lot/office/site.tscn"
+    },
+    {
+      "carried_meshes": 156,
+      "carried_meshes_flagged": [],
+      "children": 115,
+      "dropped_by_class": {
+        "Node3D": 119
+      },
+      "empties_by_name": {
+        "ATT_counter_front": 1,
+        "ATT_dial": 1,
+        "ATT_register": 1,
+        "ATT_seat": 2,
+        "ATT_seat_center": 2,
+        "ATT_shelf_top": 4,
+        "ATT_surface_center": 1,
+        "ATT_top_center": 3
+      },
+      "error": null,
+      "flagged": [
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_FRONT"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "attacker_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "ATTACKER_SPAWN_REAR"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "defender_spawn",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "DEFENDER_SPAWN"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "objective",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "OBJECTIVE_A"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "extraction",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "EXTRACTION_STREET"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "cover_low",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "COVER_LOW"
+        },
+        {
+          "child": "Markers",
+          "class": "Node3D",
+          "groups": [
+            "camera_socket",
+            "dc_marker"
+          ],
+          "meta": [
+            "marker_type"
+          ],
+          "path": "CAMERA_SOCKET_01"
+        }
+      ],
+      "flagged_count": 7,
+      "merged_02262": 97,
+      "rule_a": {
+        "kept": [
+          "Markers"
+        ],
+        "surfaces": 0
+      },
+      "rule_w": {
+        "kept": [
+          "Markers"
+        ],
+        "surfaces": 0
+      },
+      "scene": "res://lot/pharmacy_a01/site.tscn"
+    }
+  ],
+  "schema": "merge_drop_census.v1"
+}

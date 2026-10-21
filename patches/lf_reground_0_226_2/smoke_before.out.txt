@@ -1,0 +1,83 @@
+.Fs.........                                                             [100%]
+================================== FAILURES ===================================
+_______________ test_grounded_matches_the_tools_this_smoke_ran ________________
+
+tools_base = WindowsPath('C:/Projects/gabagool_studios/gabagool_factory')
+
+    def test_grounded_matches_the_tools_this_smoke_ran(tools_base):
+        """Probe each tool the way `verify-contracts` does and hold GROUNDED to it.
+    
+        The probe, not the VERSION file. `_probe_tool_versions` calls
+        `adapter.probe(...).tool_version`, and two adapters override it --
+        `dispatch` and `deli_counter` prefer their `contract` command's version
+        over the file. Reading VERSION here instead would pin `dispatch` to 0.4.2
+        and leave `verify-contracts` reading DRIFT against a tool that reports
+        0.3.0 and stamps 0.3.0 into everything it writes.
+    
+        Comparison is `contracts.compare`, the same function the CLI uses, so
+        there is one derivation of what OK means rather than a second one here
+        that could disagree with it.
+        """
+        from packages.adapters.registry import AdapterRegistry
+    
+        reg = AdapterRegistry()
+        compared: dict[str, str] = {}
+        unreadable: dict[str, str] = {}
+        bad: list[str] = []
+    
+        for adapter_id, marker in sorted(MARKERS.items()):
+            grounded = contracts.GROUNDED[adapter_id]["version"]
+            repo = _find_root(tools_base, marker)
+            if repo is None:
+                unreadable[adapter_id] = f"no repo under {tools_base} with {marker}"
+                continue
+            try:
+                probe = reg.get(adapter_id).probe(
+                    {"repository": str(repo), "python_executable": sys.executable})
+                installed = probe.tool_version
+            except Exception as exc:  # noqa: BLE001 -- the reason is the finding
+                unreadable[adapter_id] = f"probe raised {type(exc).__name__}: {exc}"
+                continue
+            status = contracts.compare(grounded, installed)
+            if status == contracts.UNKNOWN:
+                # No comparable version. Degrades to unreadable rather than to a
+                # false OK, exactly as `compare` does for the CLI.
+                unreadable[adapter_id] = f"probe reported {installed!r}"
+                continue
+            compared[adapter_id] = str(installed)
+            if status != contracts.OK:
+                bad.append(f"  {adapter_id:<14} grounded {grounded:<10} "
+                           f"installed {installed}   [{status}]")
+    
+>       assert not bad, (
+            "contracts.GROUNDED does not match the tools this smoke just ran:\n"
+            + "\n".join(bad)
+            + "\n\nThe smoke passing is what licenses a pin, so a pin the smoke "
+              "disagrees with is a claim nobody made. Re-ground the row(s) above "
+              "in packages/tools/contracts.py -- per docs/CERTIFY.md, the smoke "
+              "alone does not re-certify geometry -- or, if the tool really is "
+              "not certified at that version, this failure is the finding.")
+E       AssertionError: contracts.GROUNDED does not match the tools this smoke just ran:
+E           deli_counter   grounded 0.240.0    installed Deli Counter 0.241.0   [DRIFT]
+E         
+E         The smoke passing is what licenses a pin, so a pin the smoke disagrees with is a claim nobody made. Re-ground the row(s) above in packages/tools/contracts.py -- per docs/CERTIFY.md, the smoke alone does not re-certify geometry -- or, if the tool really is not certified at that version, this failure is the finding.
+E       assert not ['  deli_counter   grounded 0.240.0    installed Deli Counter 0.241.0   [DRIFT]']
+
+tests\real_tools\test_grounded_table.py:111: AssertionError
+-------------------------- real-tool smoke coverage ---------------------------
+ran 10 of 12 real-tool tests, 1 skipped, 1 FAILED
+  ran      test_every_grounded_tool_has_a_marker
+  ran      test_real_deli_new_level
+  ran      test_real_dispatch_handoff_from_lf_staged_inputs
+  ran      test_real_lasertag_runner_and_invocation
+  ran      test_real_lot
+  ran      test_real_lux_addon_and_driver_invocation
+  ran      test_real_patina
+  ran      test_real_patina_dressing_emits_manifest_for_zoo
+  ran      test_real_pixelcoat
+  ran      test_real_zoo_plan
+  skipped  test_real_dispatch -- dispatch example build inputs not present: ['build/deli_counter/shell.gameplay.json', 'build/lot/lot.layout.json', 'build/zoo/zoo.catalog.json', 'build/patina/shell.patina.json', 'build/lux/lux.profile.json']
+  FAILED   test_grounded_matches_the_tools_this_smoke_ran
+this suite is adapter-and-contract depth in seconds; it builds no geometry. Re-certification is docs/CERTIFY.md, all legs.
+=========================== short test summary info ===========================
+FAILED tests/real_tools/test_grounded_table.py::test_grounded_matches_the_tools_this_smoke_ran

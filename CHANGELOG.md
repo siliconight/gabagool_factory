@@ -3,6 +3,45 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.41.0] - 2026-10-20
+
+Seven tools move:
+- deli_counter: 0.222.0 -> 0.241.0
+- dispatch: 0.5.2 -> 0.5.3
+- level_factory: 0.211.1 -> 0.227.0
+- lot: 0.123.0 -> 0.126.0
+- lux: 0.77.0 -> 0.79.0
+- patina: 0.31.0 -> 0.32.0
+- zoo: 1.112.0 -> 1.117.0
+
+- **A body walks off an edge only where the level says it may** (roadmap
+  173): undeclared drops are refused, declared ones carry their own
+  navigation links into the package.
+- **Holes in floors, rare and caused** (roadmaps 255, 260, 264, 265, 269):
+  the open-floor table; every hole a torn edge, a broken floor or a floor
+  hatch, with what came down below it; one level in four carries one.
+- **The roof hatch** (roadmap 170): a lid on every one, its hole the lid's.
+- **A ramp's cut stops at its head**, railed, with a landing past it: found
+  by install test 10, which stopped on a parking garage's ramp.
+- **A building's ladders and markers survive the merge**: found by install
+  test 11, whose walk found no ladder -- the interiors' merge had removed
+  them, in no release.
+- **Interiors merged** (roadmap 266): 11 % fewer draws.
+- **The walker's look reviews:** desks' computers on (148); street phones
+  facing the sidewalk in four booths, their marks small and mostly weather
+  (210); upper windows over the openings below (79); a morning and a high
+  noon (217).
+- **Gates that read what Godot reads** (roadmaps 168, 177, 178, 259).
+- **A stranger's path** (roadmaps 251, 252, 256, 257): the bake counts
+  what it draws, the layers shown, the pins' packages held, the ground
+  unshaded.
+
+Certified by install test 12: the set's package, unzipped into a fresh
+folder, made restaurant_row_001 with START_HERE.md's commands, the
+PyPI download included. setup exited 0 with every doctor row PASS at this set's versions, 0 `drift vs certified` lines and no sitecustomize error (the three pins from pip's cache); make exited 0 in 8.1 minutes and built seed_9205, the pick tests 10 and 11 made (PASS 100, seeds 9003 and 9104 PASS 90): 0 undeclared drop edges indoors where test 10's export stopped on 33, the buildings' merge 864 slots with 4 kept whole -- deli_a01's ladders and each building's markers --, 140 models and 96 primitive meshes lightmapped on the bake's first attempt, 2,775 lightmap users, the closure ok over 83 resources; walk exited 0 in 5.3 minutes, the walk bot climbing both of deli_a01's ladders, to 6.6 and 3.3 m, where test 11's found none, the shot bot passing all five stations, and after it the package still carried its bake and the backdrop's ground (2,764 files, bake.exr, light_bake.json ok). Cold run 9357 made the same level at 0 interventions. No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.40.0] - 2026-10-14
 
 Seven tools move:

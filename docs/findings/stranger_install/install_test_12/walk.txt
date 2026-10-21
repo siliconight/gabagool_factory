@@ -1,0 +1,44 @@
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4315 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 290 instances of 7 module(s) on their sides, 25 draw calls (N 100, S 104, E 42, W 43; 1 tower)
+[export] 1543 occluder(s) from 1555 solid module(s); 36 glass, 279 porous and 885 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1543 occluder node(s) in a tree of 28973
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] buildings merged: 3 scene(s), 864 slot(s), 1587 surface(s) -> 781 merged mesh(es); 8 lit surface(s) in 8 mesh(es) of their own; 829 collider(s) kept; 4 slot(s) kept whole, holding what a merge cannot carry
+[export] merged buildings' modules no file names: 194 removed (8.7 MB), 49 named and kept
+[export] light bake: 140 model(s) and 96 primitive mesh(es) lightmapped, 8 kept dynamic, 1 spawned set dynamic; 186 steady rig(s) baked, 24 failing and 0 cycling left live; 228 room fill(s); 2775 users, 53.3 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1543 occluder node(s) reachable from res://mission.tscn (1543 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 128 GLB(s), 478 external reference(s): 478 resolve to 195 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 54282 reached of 75296 standable cells, 13 unguarded drop edge(s): 2 a flight's own side, 0 at a declared drop, 6 at a ladder's shaft, 1 a thing's top, 4 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_restaurant_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 431 of 431 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 83 resource(s) in a package of 2758 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 2762 file(s) listed + 2 declared unlisted = 2764 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\stranger_202_12\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             .\factory -C C:\stranger_202_12\gabagool\levels walk restaurant_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
+  imported: resources ready (headless --import pass)
+walk preview: C:\stranger_202_12\gabagool\levels\.level_factory\preview\restaurant_row_001_walk
+  source: export (portable-godot)
+  wraps mission.tscn + player at anchor:player_start (Functional/GameplayAnchors/PlayerStarts/lot:getaway_van_crew_spawn_0) (x=14.85, y=0.6, z=18.965)
+  content: sha256:f154fc38e3d240ec (2713 file(s)) built 2026-10-20T23:56:16.068672+00:00
+  recorded in C:\stranger_202_12\gabagool\levels\.level_factory\preview\restaurant_row_001_walk\walk.source.json
+self-check:
+  walk bot [OK]   Ladder_ladder_0: climbed to 6.6 m and stood up
+  walk bot [OK]   Ladder_ladder_1: climbed to 3.3 m and stood up
+  shot bot [OK] exterior: jitter 0.0%, fighting 0.0%, void 62.14%
+  shot bot [OK] Ladder_ladder_0_base: jitter 2.66%, fighting 0.07%, void 0.0%, animated 0.83% (changed with the camera still; not judged)  (sparkle: small flips of one texture, not a fight)
+  shot bot [OK] Ladder_ladder_0_top: jitter 0.22%, fighting 0.02%, void 28.68%, animated 2.64% (changed with the camera still; not judged)
+  shot bot [OK] Ladder_ladder_1_base: jitter 0.41%, fighting 0.0%, void 0.0%
+  shot bot [OK] Ladder_ladder_1_top: jitter 1.2%, fighting 0.04%, void 0.0%
+  frames written for review (5 stations)
+  open:  .\factory -C C:\stranger_202_12\gabagool\levels walk restaurant_row_001 --open
+  play:  .\factory -C C:\stranger_202_12\gabagool\levels walk restaurant_row_001 --play

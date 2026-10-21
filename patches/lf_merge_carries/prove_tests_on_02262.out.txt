@@ -1,0 +1,142 @@
+FFF.......................FF....F..                                      [100%]
+================================== FAILURES ===================================
+________________ test_the_merge_ran_and_its_report_is_believed ________________
+
+merged = ({'error': None, 'ok': True, 'scenes': [{'colliders': 2, 'error': None, 'lit_meshes': 0, 'lit_surfaces': 0, ...}], 'sc... 5 slots, 3 meshes, 3 surfaces -> 2 merged, 0 lit surfaces in 0 meshes of their own (2 unwrapped), 2 colliders kept\n')
+
+    @godot_required
+    def test_the_merge_ran_and_its_report_is_believed(merged):
+        rep, _scene, log = merged
+        assert rep["ok"], log
+        row = rep["scenes"][0]
+        assert row["error"] is None, log
+        # the two wall modules, one storey's side, into one mesh; the lamp's prop, the ladders and the markers left whole
+>       assert (row["slots_merged"], row["surfaces_in"], row["merged"], row["colliders"]) == (2, 2, 1, 1), row
+E       AssertionError: {'colliders': 2, 'error': None, 'lit_meshes': 0, 'lit_surfaces': 0, ...}
+E       assert (5, 3, 2, 2) == (2, 2, 1, 1)
+E         
+E         At index 0 diff: 5 != 2
+E         Use -v to get more diff
+
+tests\unit\test_merge_buildings_godot.py:156: AssertionError
+_______ test_the_ladder_and_the_marker_stay_where_deli_counter_put_them _______
+
+merged = ({'error': None, 'ok': True, 'scenes': [{'colliders': 2, 'error': None, 'lit_meshes': 0, 'lit_surfaces': 0, ...}], 'sc... 5 slots, 3 meshes, 3 surfaces -> 2 merged, 0 lit surfaces in 0 meshes of their own (2 unwrapped), 2 colliders kept\n')
+
+    @godot_required
+    def test_the_ladder_and_the_marker_stay_where_deli_counter_put_them(merged):
+        _rep, scene, log = merged
+        nodes = _nodes(scene)
+        typ, rest = nodes.get(("Ladders", "Ladder_ladder_0"), (None, ""))
+>       assert typ == "Area3D" and _groups(rest) == {"ladder_area3d", "dc_ladder"}, log
+E       AssertionError: Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+E         
+E         [merge_buildings] res://lot/b/site.tscn: 5 slots, 3 meshes, 3 surfaces -> 2 merged, 0 lit surfaces in 0 meshes of their own (2 unwrapped), 2 colliders kept
+E         
+E       assert (None == 'Area3D')
+
+tests\unit\test_merge_buildings_godot.py:165: AssertionError
+_____ test_a_module_holding_a_lamp_stays_whole_and_keeps_its_own_collider _____
+
+merged = ({'error': None, 'ok': True, 'scenes': [{'colliders': 2, 'error': None, 'lit_meshes': 0, 'lit_surfaces': 0, ...}], 'sc... 5 slots, 3 meshes, 3 surfaces -> 2 merged, 0 lit surfaces in 0 meshes of their own (2 unwrapped), 2 colliders kept\n')
+
+    @godot_required
+    def test_a_module_holding_a_lamp_stays_whole_and_keeps_its_own_collider(merged):
+        """Kept before any collider is copied out: its body stands once, in the module, never also under KitCollision."""
+        rep, scene, _log = merged
+        nodes = _nodes(scene)
+>       assert nodes.get(("lamp_r1_0", "Light"), (None,))[0] == "OmniLight3D"
+E       AssertionError: assert None == 'OmniLight3D'
+
+tests\unit\test_merge_buildings_godot.py:178: AssertionError
+___________ test_an_unfinished_or_unrecognised_merge_refuses[doc13] ___________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3599/test_an_unfinished_or_unrecogn13')
+doc = {'error': None, 'ok': True, 'scenes': [{'colliders': 485, 'error': None, 'kept_carrying': ['Ladders: Ladder_ladder_0 (.....}, {'colliders': 485, 'error': None, 'lit_meshes': 90, 'lit_surfaces': 132, ...}], 'schema': 'lf.merge_buildings.v1'}
+
+    @pytest.mark.parametrize("doc", [
+        _report([_row(ASKED[0])]),                                   # a scene missing
+        _report([_row(s) for s in ASKED], schema="something.else"),  # not this report
+        _report([_row(s) for s in ASKED], ok=False, error="boom"),   # said it failed
+        _report([_row(ASKED[0]), _row(ASKED[1], unwrapped=12)]),     # a mesh with no lightmap UV
+        _report([_row(ASKED[0]), _row(ASKED[1], unwrapped=470)]),    # the lit meshes not unwrapped
+        _report([_row(ASKED[0]), _row(ASKED[1], lit_meshes=0)]),     # lit surfaces in no mesh
+        _report([_row(ASKED[0]), {k: v for k, v in _row(ASKED[1]).items() if k != "lit_surfaces"}]),
+        _report([_row(ASKED[0]), _row(ASKED[1], merged=0)]),         # merged nothing
+        _report([_row(ASKED[0]), _row(ASKED[1], merged=2000)]),      # more meshes than surfaces
+        _report([_row(ASKED[0]), _row(ASKED[1], colliders=0)]),      # lost the collision
+        _report([_row(ASKED[0]), _row(ASKED[1], units={})]),         # says nothing of its units
+        _report([_row(ASKED[0]), _row(ASKED[1], error="cannot load")]),
+        _report([_row(ASKED[0]), {"scene": ASKED[1]}]),              # a row of nothing
+        # an older merge's report (0.226.2 and before), which removed what it could not carry, and a count for the list
+        _report([_row(ASKED[0]), {k: v for k, v in _row(ASKED[1]).items() if k != "kept_carrying"}]),
+        _report([_row(ASKED[0]), _row(ASKED[1], kept_carrying=2)]),
+    ])
+    def test_an_unfinished_or_unrecognised_merge_refuses(tmp_path, doc):
+        pkg, g = _pkg(tmp_path)
+>       with pytest.raises(M.MergeError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'packages.exporting.merge_empties.MergeError'>
+
+tests\unit\test_merge_buildings.py:198: Failed
+___________ test_an_unfinished_or_unrecognised_merge_refuses[doc14] ___________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3599/test_an_unfinished_or_unrecogn14')
+doc = {'error': None, 'ok': True, 'scenes': [{'colliders': 485, 'error': None, 'kept_carrying': ['Ladders: Ladder_ladder_0 (......}, {'colliders': 485, 'error': None, 'kept_carrying': 2, 'lit_meshes': 90, ...}], 'schema': 'lf.merge_buildings.v1'}
+
+    @pytest.mark.parametrize("doc", [
+        _report([_row(ASKED[0])]),                                   # a scene missing
+        _report([_row(s) for s in ASKED], schema="something.else"),  # not this report
+        _report([_row(s) for s in ASKED], ok=False, error="boom"),   # said it failed
+        _report([_row(ASKED[0]), _row(ASKED[1], unwrapped=12)]),     # a mesh with no lightmap UV
+        _report([_row(ASKED[0]), _row(ASKED[1], unwrapped=470)]),    # the lit meshes not unwrapped
+        _report([_row(ASKED[0]), _row(ASKED[1], lit_meshes=0)]),     # lit surfaces in no mesh
+        _report([_row(ASKED[0]), {k: v for k, v in _row(ASKED[1]).items() if k != "lit_surfaces"}]),
+        _report([_row(ASKED[0]), _row(ASKED[1], merged=0)]),         # merged nothing
+        _report([_row(ASKED[0]), _row(ASKED[1], merged=2000)]),      # more meshes than surfaces
+        _report([_row(ASKED[0]), _row(ASKED[1], colliders=0)]),      # lost the collision
+        _report([_row(ASKED[0]), _row(ASKED[1], units={})]),         # says nothing of its units
+        _report([_row(ASKED[0]), _row(ASKED[1], error="cannot load")]),
+        _report([_row(ASKED[0]), {"scene": ASKED[1]}]),              # a row of nothing
+        # an older merge's report (0.226.2 and before), which removed what it could not carry, and a count for the list
+        _report([_row(ASKED[0]), {k: v for k, v in _row(ASKED[1]).items() if k != "kept_carrying"}]),
+        _report([_row(ASKED[0]), _row(ASKED[1], kept_carrying=2)]),
+    ])
+    def test_an_unfinished_or_unrecognised_merge_refuses(tmp_path, doc):
+        pkg, g = _pkg(tmp_path)
+>       with pytest.raises(M.MergeError):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE <class 'packages.exporting.merge_empties.MergeError'>
+
+tests\unit\test_merge_buildings.py:198: Failed
+__________ test_a_slot_holding_what_a_merge_cannot_carry_stays_whole __________
+
+    def test_a_slot_holding_what_a_merge_cannot_carry_stays_whole():
+        """0.227.0, held to the Godot half's source: outside a static body, a node that is neither a mesh nor a bare Node3D,
+        or any node in a group of its own or with metadata, keeps its slot whole -- decided before any collider is copied
+        out, so a kept slot's colliders are never doubled -- and the report names the slot. FAILS ON 0.226.2, which took
+        Deli Counter's `Ladders` and `Markers` apart and removed them (the factory's install test 11's walk)."""
+        text = M.MERGE_SCRIPT.read_text(encoding="utf-8")
+>       carry = _func(text, "_cannot_carry")
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+tests\unit\test_merge_buildings.py:247: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+text = 'extends SceneTree\n## AN ENTERABLE BUILDING\'S STATIC MODULES, MERGED PER ROOM CELL AND MATERIAL (0.223.0, the factor..._empty():\n\t\t_report["error"] = "%d scene(s) failed" % bad.size()\n\t_write()\n\t_exit(0 if bad.is_empty() else 2)\n'
+name = '_cannot_carry'
+
+    def _func(text, name):
+>       a = text.index("func %s(" % name)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       ValueError: substring not found
+
+tests\unit\test_merge_buildings.py:223: ValueError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_merge_buildings_godot.py::test_the_merge_ran_and_its_report_is_believed
+FAILED tests/unit/test_merge_buildings_godot.py::test_the_ladder_and_the_marker_stay_where_deli_counter_put_them
+FAILED tests/unit/test_merge_buildings_godot.py::test_a_module_holding_a_lamp_stays_whole_and_keeps_its_own_collider
+FAILED tests/unit/test_merge_buildings.py::test_an_unfinished_or_unrecognised_merge_refuses[doc13]
+FAILED tests/unit/test_merge_buildings.py::test_an_unfinished_or_unrecognised_merge_refuses[doc14]
+FAILED tests/unit/test_merge_buildings.py::test_a_slot_holding_what_a_merge_cannot_carry_stays_whole
+exit=1

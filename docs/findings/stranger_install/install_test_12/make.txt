@@ -1,0 +1,237 @@
+== init
+initialized workspace at C:\stranger_202_12\gabagool\levels
+  project_id: levels
+  tools.local.json:
+    blender_executable   C:\blender\blender.exe  (factory.local.json)
+    godot_executable     C:\Godot\4.7\Godot_v4.7-stable_win64.exe  (factory.local.json)
+    python_executable    C:\stranger_202_12\gabagool\.venv\Scripts\python.exe  (factory.local.json)
+    deli_counter         C:/stranger_202_12/gabagool/deli_counter
+    lot                  C:/stranger_202_12/gabagool/lot
+    laser_tag            C:/stranger_202_12/gabagool/lasertag
+    pixelcoat            C:/stranger_202_12/gabagool/pixelcoat
+    zoo                  C:/stranger_202_12/gabagool/zoo
+    patina               C:/stranger_202_12/gabagool/patina
+    lux                  C:/stranger_202_12/gabagool/lux
+    dispatch             C:/stranger_202_12/gabagool/dispatch
+  then run: .\factory -C C:\stranger_202_12\gabagool\levels doctor
+== batch
+[batch] restaurant_row_001: no lot library in the brief; drawing from C:\stranger_202_12\gabagool\deli_counter\build (archetype 'corner_deli' anchors on corner_deli_heist_01, deli)
+[batch] restaurant_row_001: recorded, not built -- nothing builds from route_shape, objective_hypotheses, extraction_relationship, verticality, landmark yet (roadmap 200)
+created batch 'first_level' with 1 mission(s): restaurant_row_001
+== plan
+plan for restaurant_row_001 (output=graybox)
+  candidates: restaurant_row_001.candidate.seed_9003, restaurant_row_001.candidate.seed_9104, restaurant_row_001.candidate.seed_9205
+  theme:      delco_1997 — pixelcoat profile found
+              kinds: all 15 asked for by 8 shell(s) resolve in 'delco_1997'
+              zoo: all 137 species resolve 'delco_1997'
+              zoo: 0 carry the name itself; the rest reach it through Zoo's own fallback
+  restaurant_row_001.deli_generate.candidate.seed_9003  [deli_counter/blender]
+  restaurant_row_001.deli_generate.candidate.seed_9104  [deli_counter/blender]
+  restaurant_row_001.deli_generate.candidate.seed_9205  [deli_counter/blender]
+  restaurant_row_001.lot_assemble.candidate.seed_9003  [lot/python_cpu] <- restaurant_row_001.deli_generate.candidate.seed_9003
+  restaurant_row_001.lot_assemble.candidate.seed_9104  [lot/python_cpu] <- restaurant_row_001.deli_generate.candidate.seed_9104
+  restaurant_row_001.lot_assemble.candidate.seed_9205  [lot/python_cpu] <- restaurant_row_001.deli_generate.candidate.seed_9205
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9003  [laser_tag/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9003
+  restaurant_row_001.walktest_navqa.candidate.seed_9003  [walktest/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9003
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9104  [laser_tag/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9104
+  restaurant_row_001.walktest_navqa.candidate.seed_9104  [walktest/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9104
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9205  [laser_tag/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9205
+  restaurant_row_001.walktest_navqa.candidate.seed_9205  [walktest/godot_headless] <- restaurant_row_001.lot_assemble.candidate.seed_9205
+== shell
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 27 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 24 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), greybox
+[site] 24 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 27 Empties across the street, 12 shell(s), greybox
+  restaurant_row_001.deli_generate.candidate.seed_9205 succeeded
+  restaurant_row_001.deli_generate.candidate.seed_9104 succeeded
+  restaurant_row_001.deli_generate.candidate.seed_9003 succeeded
+  restaurant_row_001.lot_assemble.candidate.seed_9104 succeeded
+  restaurant_row_001.lot_assemble.candidate.seed_9205 succeeded
+  restaurant_row_001.lot_assemble.candidate.seed_9003 succeeded
+  restaurant_row_001.walktest_navqa.candidate.seed_9104 succeeded
+  restaurant_row_001.walktest_navqa.candidate.seed_9205 succeeded
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9205 succeeded
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9104 succeeded
+  restaurant_row_001.walktest_navqa.candidate.seed_9003 succeeded
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9003 succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 74)
+== pick
+  seed 9003: 0 major (not counted: LOT_DESTINATION_ABOVE_FLOOR), route completion 1.00, grade PASS 90, out for nothing
+  seed 9104: 0 major, route completion 1.00, grade PASS 90, out for nothing
+  seed 9205: 0 major, route completion 1.00, grade PASS 100, out for nothing
+  picked restaurant_row_001.candidate.seed_9205
+== approve brief
+approved brief_approved for restaurant_row_001
+== approve candidate
+approved candidate_selected for restaurant_row_001
+== approve shell
+approved functional_shell_locked for restaurant_row_001
+== art
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 27 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 24 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] themed lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), themed
+[site] 2 shop sign(s): b0=scrapple_sons_deli, b1=pike_food_market
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] graded lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), greybox
+[site] 27 Empties across the street, 12 shell(s), greybox
+[site] 24 Empties across the street, 12 shell(s), greybox
+[site] 32 entr(y/ies) in C:\stranger_202_12\gabagool\deli_counter\build are not source archetypes and were not offered to the lot: gs_cornershop_a, gs_cornershop_b, gs_cornershop_c, gs_cornershop_d, gs_empty_rowhome_a
+[site] themed lot: 102 of 127 shell(s) can carry a theme -- keyed on the brief, so this is the same pool in every invocation
+[site] 26 Empties across the street, 12 shell(s), themed
+[site] 2 shop sign(s): b0=scrapple_sons_deli, b1=pike_food_market
+  restaurant_row_001.deli_generate.candidate.seed_9205 cache
+  restaurant_row_001.deli_generate.candidate.seed_9003 cache
+  restaurant_row_001.deli_generate.candidate.seed_9104 cache
+  restaurant_row_001.lot_assemble.candidate.seed_9104 cache
+  restaurant_row_001.lot_assemble.candidate.seed_9205 cache
+  restaurant_row_001.lot_assemble.candidate.seed_9003 cache
+  restaurant_row_001.lot_site_surfaces             succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_a succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_b succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_c succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_d succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_e succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_f succeeded
+  restaurant_row_001.patina_apply.deli_a01         succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_h succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_g succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_i succeeded
+  restaurant_row_001.walktest_navqa.candidate.seed_9104 cache
+  restaurant_row_001.patina_apply.gs_empty_rowhome_j succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_l succeeded
+  restaurant_row_001.patina_apply.gs_empty_rowhome_k succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_a succeeded
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9205 cache
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9104 cache
+  restaurant_row_001.walktest_navqa.candidate.seed_9205 cache
+  restaurant_row_001.patina_apply.parking_garage   succeeded
+  restaurant_row_001.patina_apply.supermarket_a01  succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_b succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_d succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_c succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_e succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_f succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_h succeeded
+  restaurant_row_001.walktest_navqa.candidate.seed_9003 cache
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_g succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_i succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_l succeeded
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_j succeeded
+  restaurant_row_001.laser_tag_evaluate.candidate.seed_9003 cache
+  restaurant_row_001.patina_dressing.gs_empty_rowhome_k succeeded
+  restaurant_row_001.pixelcoat_build               succeeded
+  restaurant_row_001.patina_dressing.deli_a01      succeeded
+  restaurant_row_001.zoo_clutter_build             succeeded
+  restaurant_row_001.zoo_fixtures_build.parking_garage succeeded
+  restaurant_row_001.patina_dressing.parking_garage succeeded
+  restaurant_row_001.zoo_fixtures_build.supermarket_a01 succeeded
+  restaurant_row_001.patina_dressing.supermarket_a01 succeeded
+  restaurant_row_001.zoo_fixtures_build.deli_a01   succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_a succeeded
+  restaurant_row_001.lux_fixture_gate.parking_garage succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_b succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_c succeeded
+  restaurant_row_001.lux_fixture_gate.supermarket_a01 succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_d succeeded
+  restaurant_row_001.lux_fixture_gate.deli_a01     succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_e succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_f succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_g succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_h succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_i succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_j succeeded
+  restaurant_row_001.zoo_kit_build.deli_a01        succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_k succeeded
+  restaurant_row_001.zoo_kit_build.gs_empty_rowhome_l succeeded
+  restaurant_row_001.zoo_kit_build.parking_garage  succeeded
+  restaurant_row_001.zoo_roof_props_build.deli_a01 succeeded
+  restaurant_row_001.zoo_roof_props_build.parking_garage succeeded
+  restaurant_row_001.zoo_kit_build.supermarket_a01 succeeded
+  restaurant_row_001.zoo_kit_build.site            succeeded
+  restaurant_row_001.zoo_roof_props_build.supermarket_a01 succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_a succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_b succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_c succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_d succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_e succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_f succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_g succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_h succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_i succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_j succeeded
+  restaurant_row_001.zoo_dressing_build.deli_a01   succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_k succeeded
+  restaurant_row_001.zoo_dressing_build.gs_empty_rowhome_l succeeded
+  restaurant_row_001.zoo_dressing_build.parking_garage succeeded
+  restaurant_row_001.zoo_dressing_build.supermarket_a01 succeeded
+  restaurant_row_001.presentation_compose          succeeded
+  restaurant_row_001.themed_site_assemble          succeeded
+  restaurant_row_001.patina_surface_dressing       succeeded
+  restaurant_row_001.lux_apply                     succeeded
+  restaurant_row_001.dispatch_handoff              succeeded
+
+candidates: 3 built, all distinct
+
+Structural checks passed  (blockers open: 0, total findings: 105)
+== export
+[export] surface dressing: restaurant_row_001_dressing.tscn -- 4315 instances of 4 meshes, 4 draw calls
+[export] backdrop: site_backdrop.tscn -- 290 instances of 7 module(s) on their sides, 25 draw calls (N 100, S 104, E 42, W 43; 1 tower)
+[export] 1543 occluder(s) from 1555 solid module(s); 36 glass, 279 porous and 885 filler left open
+[export]   res://mission.tscn loaded by Godot holds 1543 occluder node(s) in a tree of 28973
+[export] Empties merged: 12 scene(s), 1145 mesh(es) of 1744 surface(s) -> 172 merged mesh(es), 998 collider(s) kept
+[export] merged Empties' modules no file names: 218 removed (3.4 MB), 2 named and kept
+[export] buildings merged: 3 scene(s), 864 slot(s), 1587 surface(s) -> 781 merged mesh(es); 8 lit surface(s) in 8 mesh(es) of their own; 829 collider(s) kept; 4 slot(s) kept whole, holding what a merge cannot carry
+[export] merged buildings' modules no file names: 194 removed (8.7 MB), 49 named and kept
+[export] light bake: 140 model(s) and 96 primitive mesh(es) lightmapped, 8 kept dynamic, 1 spawned set dynamic; 186 steady rig(s) baked, 24 failing and 0 cycling left live; 228 room fill(s); 2775 users, 53.6 s in the editor
+[export] occlusion: use_occlusion_culling=true with 1543 occluder node(s) reachable from res://mission.tscn (1543 in the package, 21 scene(s) walked)
+[export] 1 scene(s) ship and res://mission.tscn reaches none of them: site.tscn
+[export] warm-up: res://warmup.gd wired into mission.tscn as `Warmup`, 3 guard(s)
+[export] warm-up knobs: cover_screen=True, enabled=True, grid_spacing_m=40.0, max_stations=96, station_spacing_m=12.0, warm_light_clusters=True
+[export] warm-up verdict: 1 node, script shipped=true
+[export] 40 handoff node path(s) named nothing in the package and were moved to node_dispatch -- see handoff_bindings.json
+[export] responder arrivals: 3, in responder_arrivals.json
+[export] glb references: 128 GLB(s), 478 external reference(s): 478 resolve to 195 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)
+[export] greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)
+[export] drop edges: 54282 reached of 75296 standable cells, 13 unguarded drop edge(s): 2 a flight's own side, 0 at a declared drop, 6 at a ladder's shaft, 1 a thing's top, 4 outdoors (reported), 0 UNDECLARED indoors -- the class this gate refuses on
+[export] import cache moved beside the package (LF_restaurant_row_001.portable-godot.import_cache); the package ships sidecars, not .godot
+[export] import pins: 431 of 431 shared-texture sidecar(s) carry their pins; 0 re-pinned after an import reset them, 0 sign sidecar(s) re-pinned, 0 skin sidecar(s) re-pinned
+[export] closure verdict: ok=true, 0 issue(s) over 83 resource(s) in a package of 2758 file(s)
+[export] layers: art, gameplay, light (graybox+art+light+gameplay); the light is Lux's result, a layer apart from the art
+[export] manifest: 2762 file(s) listed + 2 declared unlisted = 2764 in the package (portable_resource_manifest.json, LF_MANIFEST.json)
+exported restaurant_row_001 [portable-godot] -> C:\stranger_202_12\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+  to run the package as shipped:   import it once in Godot first; it ships sidecars, not the cache (HANDOFF.md, in the package, says how)
+  to walk it yourself:             .\factory -C C:\stranger_202_12\gabagool\levels walk restaurant_row_001 --play   (a copy with a player at the package's player_start; the package stays untouched)
+
+the level: C:\stranger_202_12\gabagool\levels\.level_factory\exports\LF_restaurant_row_001.portable-godot
+walk it:   .\factory -C C:\stranger_202_12\gabagool\levels walk restaurant_row_001 --play

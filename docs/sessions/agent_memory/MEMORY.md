@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-20 ~16:35 booth marks shipped + proven (Zoo 1.117.0, cold 9355); all clean; next 267 crowd rails
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-20 ~20:05 factory 1.41.0 certified (install test 12; LF 0.227.0, DC 0.241.0); release in progress; next 267 crowd rails
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -127,3 +127,4 @@
 - [Three guides 2026-10-19](three-guides-2026-10-19.md) — filed + chased (docs/findings/guides_2026-10-19/); 261 tris label, 262 shader-UV2 baked, 263 actor light; 238 dedup
 - [Greybox owner census](greybox-owner-census.md) — run docs/findings/base_greybox_owners/census.py when DC adds base geometry; LF refuses any unowned greybox
 - [Stairs and ladders are primary](stairs-and-ladders-are-primary.md) — SHIPPED: holes rare per level, rate 0.25 (LF 0.221.0, DC 0.237.0); roadmap 269 CLOSED
+- [Cold runs do not walk](cold-runs-do-not-walk.md) — cold_drive builds the walk copy, never the walk bot; run `walk` after --end when a change touches ladders/markers.
