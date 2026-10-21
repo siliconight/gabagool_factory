@@ -15,5 +15,7 @@ The walker (2026-09-14, on vending machines, with a Deus Ex vending-mod referenc
 **How to apply:** any branded surface a tool generates (vending fronts, shelf/surface stock, signs, packaging) uses invented Delco-slang brands — wooder, jawn, youse, Iggles, scrapple, hoagie, MacDade, Blue Route, down the shore, Nana's basement — PG-13 crass, never Wawa/Tastykake/Yuengling/Eagles marks. Lit fronts carry emission that reads in GL Compatibility. Related: [[walker-wants-retro-style-with-real-structure]], [[props-must-contrast-with-floor-and-walls]].
 
 **Named brands the walker has settled, use these rather than inventing a
-second one:** FLAPPHAS is the Wawa-style convenience store and its gas
+second one:** FLAPPAHS (spelled so in the shipped code, 20 uses; this note
+once said FLAPPHAS) is the Wawa-style convenience store and its gas
 forecourt (2026-09-16) -- fascia, pump price signs, cups, bags, wrappers.
+Zoo 1.120.0's bumper stickers reuse FLAPPAHS, Skeevy's and The Wooder Hole.

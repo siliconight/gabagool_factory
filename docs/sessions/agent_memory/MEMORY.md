@@ -13,7 +13,7 @@
 - [Debug overlay is debug builds only](debug-overlay-is-debug-builds-only.md) — F3, walk copies only, OS.is_debug_build(), never in exports.
 - [Stop sign placement follows MUTCD](stop-sign-placement-follows-mutcd.md) — one per approach on the right, 6 ft off, <=50 ft from the junction, 4 ft before a crosswalk.
 - [Street rules reference](street-rules-reference.md) — docs/STREET_RULES.md: MUTCD stop signs + NACTO crosswalks.
-- [Fake Delco brands, funny and crass](fake-delco-brands-funny-and-crass.md) — invented Delco-slang brands, PG-13, no real marks; lit machines glow.
+- [Fake Delco brands, funny and crass](fake-delco-brands-funny-and-crass.md) — invented Delco-slang brands, PG-13, no real marks; FLAPPAHS (not FLAPPHAS); lit machines glow.
 - [Strip club comp: Lou Turk's](strip-club-comp-lou-turks.md) — dingy dark coloured-light club, bar-stage with poles; vibe only, never the name.
 - [Material Maker reference](material-maker-reference.md) — docs URL + CLI export; a candidate Pixelcoat backend, judged by frames.
 - [Performance beats graphics](performance-beats-graphics.md) — multiplayer: price every look, show the tradeoff, optimize on runtime data.
@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~03:15 267 containers shipped (DC 0.245.0, cold 9364); 280 filed; all clean; next 280 or 44 car wear, 277
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~04:50 44 car wear shipped + priced (Zoo 1.120.0/.1, cold 9364-9366); all clean; next 148, 217, 280
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
