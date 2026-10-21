@@ -45,7 +45,25 @@ the body's radius and the bake's floor, and control 2 checks both.
 
 ## What it measured
 
-### Deli Counter 0.251.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 523 s)
+### Deli Counter 0.252.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 523 s)
+
+The library after a piece that seats somebody stands with its chair (Deli Counter 0.252.0, roadmap 284; the factory's
+`patches/dc_table_chairs/`): a host the room left chairless is seated last, kept off the room's reserved routes, or
+taken away. The same coverage: 580 rooms of 128 specs, 2,338 pairs.
+
+- **All of furnishing.** Over 10 %: 28 pairs in 26 rooms -> 26 in 25; p99 1.108 -> 1.107; the worst unchanged at
+  1.308. Narrowed to single file 150 -> 151; two abreast furnished 1,913 -> 1,912. Closures as before: none to a
+  body, the same five to the bake.
+- **Dressing over the functional build** unchanged: 1 pair over 10 %, 26 narrowed. A host and its chairs are
+  function, which both arms keep, so this ratio cannot see the change; the one before it can.
+- **By room kind** (`by_kind.out.txt`, against `by_kind_0251.out.txt`): only offices and halls moved. Offices grown
+  over 10 % 13 -> 12 and narrowed 15 -> 13; halls 5 -> 4 and 14 -> 17, five of those narrowings landmark_hall_a01's
+  artifact_room, re-drawn by the shelter pass around a crate on the floor its taken-away table freed. Over the 282
+  objective and loot routes, grown over 10 % 12 -> 9, narrowed 28 -> 28.
+- **Every figure is the 55-spec census's arithmetic** (`patches/dc_table_chairs/census_changed.out.txt`: 15 -> 13
+  over 10 %, 68 -> 69 narrowed, 856 -> 855 two abreast) on the rest of the library, unmoved.
+
+### Deli Counter 0.251.0's library (`route_cost_0251.out.txt`, `route_cost_0251.json`, `by_kind_0251.out.txt`, 523 s)
 
 The library after a room holding an objective or loot marker keeps its dressing off its routes (Deli Counter 0.251.0,
 roadmap 288; the factory's `patches/dc_marker_routes/`). The same coverage: 580 rooms of 128 specs, 2,338 pairs.
@@ -152,8 +170,9 @@ The measurement roadmap 288 was filed and fixed from. Two arms: the FUNCTIONAL a
 | file | what |
 |---|---|
 | `route_cost.py` | the census; `--controls`; `--spec <name>` |
-| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.251.0, three arms, summary and per room |
+| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.252.0, three arms, summary and per room |
+| `route_cost_0251.out.txt`, `route_cost_0251.json` | the same at 0.251.0, before a chairless host was seated or taken away |
 | `route_cost_0250.out.txt`, `route_cost_0250.json` | the same at 0.250.0, before the marker rooms reserved their routes |
 | `route_cost_0249.out.txt`, `route_cost_0249.json` | the same at 0.249.0, two arms: the census roadmap 288 was filed from |
-| `by_kind.py`, `by_kind.out.txt`, `by_kind_0250.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
+| `by_kind.py`, `by_kind.out.txt`, `by_kind_0251.out.txt`, `by_kind_0250.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
 | `unsnapped.py`, `unsnapped.out.txt` | every endpoint no body stands at in the AUTHORED arm, and what stands there (at 0.249.0) |

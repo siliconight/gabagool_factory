@@ -1,0 +1,83 @@
+[the clone's level_design.py] [furnish_recipes] 128 specs: -8439 furnished volumes, +8362 refurnished
+[the clone's level_design.py] [shelter] 1 spec(s) got 1 shelter piece(s)
+== seats.py, the clone's level_design.py
+# seats.py over <temp clone at 2ebc1359>: 128 specs
+counter_bar        seats ('counter', 2, 3)      hosts   18  chairs per host {2: 8, 3: 10}  chairless 0
+counter_club       seats ('stool', 3, 5)        hosts    8  chairs per host {3: 2, 4: 3, 5: 3}  chairless 0
+desk               seats ('desk', 1, 1)         hosts  239  chairs per host {1: 239}  chairless 0
+folding_table      seats ('folding', 2, 3)      hosts    2  chairs per host {2: 2}  chairless 0
+stage_bar          seats ('stool', 6, 10)       hosts    4  chairs per host {7: 1, 8: 1, 9: 2}  chairless 0
+table_cocktail     seats ('club', 2, 3)         hosts   46  chairs per host {1: 15, 2: 18, 3: 13}  chairless 0
+table_count        seats ('table', 0, 2)        hosts  162  chairs per host {0: 61, 1: 72, 2: 29}  chairless 61  (airport_terminal_a02, apartment_walkup_a01, apartment_walkup_a02, apartment_walkup_a03, arena_a01, bank_branch_a02, bank_branch_a03, bank_branch_a04)
+table_dining       seats ('table', 0, 4)        hosts  254  chairs per host {1: 117, 2: 64, 3: 43, 4: 30}  chairless 0
+table_tasting      seats ('table', 2, 2)        hosts    6  chairs per host {1: 1, 2: 5}  chairless 0
+video_poker_bar    seats ('stool', 1, 1)        hosts   44  chairs per host {1: 44}  chairless 0
+video_poker_store  seats ('stool', 1, 1)        hosts   61  chairs per host {1: 61}  chairless 0
+table chairs: {'pulled out (gap > 0.30 m)': 214, 'tucked (gap <= 0.30 m)': 421}
+== gone_hosts.py, the clone's level_design.py
+hosts taken away: 25 {'desk': 24, 'table_dining': 1}
+  by what the room reserves: {'dressing': 14, 'nothing': 11}
+  stood with a chair at 0.251.0: 0
+  airport_terminal_a01                     customs_office (storey 0)      office       121 m2  reserves 'dressing' desk           desk_r24e29255_1
+  airport_terminal_a01                     customs_office (storey 0)      office       121 m2  reserves 'dressing' desk           desk_r24e29255_8
+  airport_terminal_a03                     ops_control (storey 1)         office       228 m2  reserves 'dressing' desk           desk_r6b7dbbc5_1
+  auto_shop_a01                            upper_office (storey 1)        office       182 m2  reserves ''        desk           desk_r27d8e619_6
+  auto_shop_a02                            upper_office (storey 1)        office       182 m2  reserves ''        desk           desk_r27d8e619_6
+  bank_branch_a02                          security_room (storey 0)       office       135 m2  reserves ''        desk           desk_rad8edd5a_4
+  bank_branch_a04                          security_office (storey 0)     office       168 m2  reserves ''        desk           desk_r42be9d17_10
+  bank_job                                 security_room (storey 0)       office       135 m2  reserves ''        desk           desk_rad8edd5a_4
+  cbp_town_finale_midbalanced_schemafixed  press_service_hall (storey 2)  office       720 m2  reserves ''        desk           desk_r5c2f4b93_2
+  clinic_a02                               offices (storey 1)             office       170 m2  reserves ''        desk           desk_rf574ff4c_1
+  courthouse_a01                           chambers (storey 1)            office       782 m2  reserves ''        desk           desk_r2a231801_20
+  courthouse_a03                           judges_chambers (storey 0)     office       196 m2  reserves 'dressing' desk           desk_rd0b99e5b_10
+  credit_union_a01                         back_office (storey 0)         office       182 m2  reserves ''        desk           desk_ra57ba328_10
+  gs_auto_shop                             upper_office (storey 1)        office       182 m2  reserves 'dressing' desk           desk_r27d8e619_6
+  landmark_hall_a01                        curator_band (storey 0)        office       207 m2  reserves ''        desk           desk_rd21e6c25_10
+  mansion_a03                              study (storey 0)               office       121 m2  reserves ''        desk           desk_re67f9749_8
+  marina_a02                               harbormaster (storey 1)        office       182 m2  reserves 'dressing' desk           desk_raa0f1886_10
+  museum_a01                               special_exhibit (storey 1)     hall         256 m2  reserves 'dressing' table_dining   table_dining_r3cf79185_7
+  night_auto                               upper_office (storey 1)        office       182 m2  reserves 'dressing' desk           desk_r27d8e619_6
+  office                                   exec_suite (storey 2)          office        72 m2  reserves 'dressing' desk           desk_r93ac9731_1
+  supermarket_a02                          manager_suite (storey 1)       office       168 m2  reserves 'dressing' desk           desk_r3ce3241c_9
+  train_yard_a01                           dispatch_office (storey 0)     office        97 m2  reserves 'dressing' desk           desk_r0678fb3a_4
+  train_yard_a01                           dispatch_office (storey 0)     office        97 m2  reserves 'dressing' desk           desk_r0678fb3a_6
+  train_yard_a03                           signal_control (storey 1)      office       203 m2  reserves 'dressing' desk           desk_re87808f7_1
+  train_yard_a03                           signal_control (storey 1)      office       203 m2  reserves 'dressing' desk           desk_re87808f7_10
+[the rescue's route check off] [furnish_recipes] 128 specs: -8439 furnished volumes, +8380 refurnished
+[the rescue's route check off] [shelter] 0 spec(s) got 0 shelter piece(s)
+== seats.py, the rescue's route check off
+# seats.py over <temp clone at 2ebc1359>: 128 specs
+counter_bar        seats ('counter', 2, 3)      hosts   18  chairs per host {2: 8, 3: 10}  chairless 0
+counter_club       seats ('stool', 3, 5)        hosts    8  chairs per host {3: 2, 4: 3, 5: 3}  chairless 0
+desk               seats ('desk', 1, 1)         hosts  246  chairs per host {1: 246}  chairless 0
+folding_table      seats ('folding', 2, 3)      hosts    2  chairs per host {2: 2}  chairless 0
+stage_bar          seats ('stool', 6, 10)       hosts    4  chairs per host {7: 1, 8: 1, 9: 2}  chairless 0
+table_cocktail     seats ('club', 2, 3)         hosts   46  chairs per host {1: 15, 2: 18, 3: 13}  chairless 0
+table_count        seats ('table', 0, 2)        hosts  162  chairs per host {0: 61, 1: 72, 2: 29}  chairless 61  (airport_terminal_a02, apartment_walkup_a01, apartment_walkup_a02, apartment_walkup_a03, arena_a01, bank_branch_a02, bank_branch_a03, bank_branch_a04)
+table_dining       seats ('table', 0, 4)        hosts  255  chairs per host {1: 118, 2: 64, 3: 43, 4: 30}  chairless 0
+table_tasting      seats ('table', 2, 2)        hosts    6  chairs per host {1: 1, 2: 5}  chairless 0
+video_poker_bar    seats ('stool', 1, 1)        hosts   44  chairs per host {1: 44}  chairless 0
+video_poker_store  seats ('stool', 1, 1)        hosts   61  chairs per host {1: 61}  chairless 0
+table chairs: {'pulled out (gap > 0.30 m)': 213, 'tucked (gap <= 0.30 m)': 423}
+== gone_hosts.py, the rescue's route check off
+hosts taken away: 17 {'desk': 17}
+  by what the room reserves: {'dressing': 6, 'nothing': 11}
+  stood with a chair at 0.251.0: 0
+  airport_terminal_a01                     customs_office (storey 0)      office       121 m2  reserves 'dressing' desk           desk_r24e29255_1
+  airport_terminal_a03                     ops_control (storey 1)         office       228 m2  reserves 'dressing' desk           desk_r6b7dbbc5_1
+  auto_shop_a01                            upper_office (storey 1)        office       182 m2  reserves ''        desk           desk_r27d8e619_6
+  auto_shop_a02                            upper_office (storey 1)        office       182 m2  reserves ''        desk           desk_r27d8e619_6
+  bank_branch_a02                          security_room (storey 0)       office       135 m2  reserves ''        desk           desk_rad8edd5a_4
+  bank_branch_a04                          security_office (storey 0)     office       168 m2  reserves ''        desk           desk_r42be9d17_10
+  bank_job                                 security_room (storey 0)       office       135 m2  reserves ''        desk           desk_rad8edd5a_4
+  cbp_town_finale_midbalanced_schemafixed  press_service_hall (storey 2)  office       720 m2  reserves ''        desk           desk_r5c2f4b93_2
+  clinic_a02                               offices (storey 1)             office       170 m2  reserves ''        desk           desk_rf574ff4c_1
+  courthouse_a01                           chambers (storey 1)            office       782 m2  reserves ''        desk           desk_r2a231801_20
+  credit_union_a01                         back_office (storey 0)         office       182 m2  reserves ''        desk           desk_ra57ba328_10
+  landmark_hall_a01                        curator_band (storey 0)        office       207 m2  reserves ''        desk           desk_rd21e6c25_10
+  mansion_a03                              study (storey 0)               office       121 m2  reserves ''        desk           desk_re67f9749_8
+  marina_a02                               harbormaster (storey 1)        office       182 m2  reserves 'dressing' desk           desk_raa0f1886_10
+  office                                   exec_suite (storey 2)          office        72 m2  reserves 'dressing' desk           desk_r93ac9731_1
+  train_yard_a03                           signal_control (storey 1)      office       203 m2  reserves 'dressing' desk           desk_re87808f7_1
+  train_yard_a03                           signal_control (storey 1)      office       203 m2  reserves 'dressing' desk           desk_re87808f7_10
+exit=0

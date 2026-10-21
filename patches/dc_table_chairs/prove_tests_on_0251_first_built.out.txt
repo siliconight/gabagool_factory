@@ -1,0 +1,17 @@
+== 0.252.0's tests on 0.251.0 (2ebc1359) ==
+E       AssertionError: assert ('table', 0, 4) == ('table', 1, 4)
+E         
+E         At index 1 diff: 0 != 1
+E         Use -v to get more diff
+E       AssertionError: [('airport_terminal_a01', 'desk_r24e29255_1'), ('airport_terminal_a01', 'desk_r24e29255_8'), ('airport_terminal_a03', ... 'desk_r6b7dbbc5_7'), ('apartment_walkup_a01', 'desk_r74516b02_1'), ('apartment_walkup_a01', 'desk_r74516b02_10'), ...]
+E       assert not [('airport_terminal_a01', 'desk_r24e29255_1'), ('airport_terminal_a01', 'desk_r24e29255_8'), ('airport_terminal_a03', ... 'desk_r6b7dbbc5_7'), ('apartment_walkup_a01', 'desk_r74516b02_1'), ('apartment_walkup_a01', 'desk_r74516b02_10'), ...]
+E           AssertionError: ('brewery_a01', 'taproom')
+E           assert [('booth_rece..., -7.19), ...] == [('booth_rece..., -7.19), ...]
+E             
+E             At index 0 diff: ('booth_recea99f1_4', 21.46, -11.88) != ('booth_recea99f1_4', -21.46, -13.57)
+E             Use -v to get more diff
+FAILED test_seated_hosts.py::test_a_dining_table_seats_one_at_least - Asserti...
+FAILED test_seated_hosts.py::test_every_piece_that_seats_somebody_stands_with_its_chair
+FAILED test_seated_hosts.py::test_a_hosts_chairs_spend_none_of_the_rooms_draws
+3 failed in 0.72s
+exit 1

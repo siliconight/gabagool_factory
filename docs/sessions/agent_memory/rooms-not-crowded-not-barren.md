@@ -35,4 +35,6 @@ middle, not a maximum.
   off its routes is dropped whole (clinic_a01's dispensary ~5 -> 2.4 %). Objective rooms sit at 3-7 %; the band
   wants their PRIMARY furniture raised, not more piles. Queued for the walker: desks off objective routes too?
 
+- DC 0.252.0 (roadmap 284) took away 24 desks and a table no chair fits beside -- offices barer, marker rooms most (office's exec_suite 7.2 -> 5.4 %, train_yard_a01's dispatch_office 7.0 -> 4.0 %). Queued for the walker: move such a desk instead? The re-draw that would move it was priced and refuted on this draw.
+
 Related: [[game-is-a-series-of-shooting-galleries]], [[open-work-2026-10-09]], [[route-census-reads-furnishing]].

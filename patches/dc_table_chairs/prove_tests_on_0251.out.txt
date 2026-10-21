@@ -1,0 +1,16 @@
+== 0.252.0's tests on 0.251.0 (2ebc1359) ==
+E       KeyError: 'must_seat'
+E       AssertionError: [('airport_terminal_a01', 'desk_r24e29255_1'), ('airport_terminal_a01', 'desk_r24e29255_8'), ('airport_terminal_a03', ... 'desk_r6b7dbbc5_7'), ('apartment_walkup_a01', 'desk_r74516b02_1'), ('apartment_walkup_a01', 'desk_r74516b02_10'), ...]
+E       assert not [('airport_terminal_a01', 'desk_r24e29255_1'), ('airport_terminal_a01', 'desk_r24e29255_8'), ('airport_terminal_a03', ... 'desk_r6b7dbbc5_7'), ('apartment_walkup_a01', 'desk_r74516b02_1'), ('apartment_walkup_a01', 'desk_r74516b02_10'), ...]
+E       AssertionError: no host was seated or taken away: the rescue did nothing
+E       assert 0
+PASSED test_marker_room_routes.py::test_a_room_says_what_keeps_off_its_routes
+PASSED test_marker_room_routes.py::test_no_dressing_stands_on_a_marker_rooms_routes
+PASSED test_marker_room_routes.py::test_the_shelter_pass_keeps_off_a_rooms_routes_where_it_can
+PASSED test_marker_room_routes.py::test_a_room_with_no_spot_off_its_routes_keeps_its_shelter
+PASSED test_marker_room_routes.py::test_a_shelter_piece_on_a_route_is_the_pass_s_fallback
+FAILED test_seated_hosts.py::test_a_dining_table_must_seat_one_and_its_draw_is_unchanged
+FAILED test_seated_hosts.py::test_every_piece_that_must_seat_somebody_stands_with_its_chair
+FAILED test_seated_hosts.py::test_seating_a_chairless_host_moves_nothing_the_room_drew
+3 failed, 5 passed in 4.09s
+exit 1

@@ -1,21 +1,19 @@
-# route_cost.py over Deli Counter 0.251.0's library (159 specs), 523 s
+# route_cost.py over Deli Counter 0.252.0's library (159 specs), 523 s
 rooms measured (>= 9 m2, >= 2 endpoints): 580 in 128 specs; endpoint pairs: 2338
 body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
-path length FURNISHED / AUTHORED, over the 2252 pairs joined in both: median 1.000, p90 1.025, p99 1.108, max 1.308; > 1.10 (the guide's warning): 28 pairs in 26 rooms
+path length FURNISHED / AUTHORED, over the 2252 pairs joined in both: median 1.000, p90 1.024, p99 1.107, max 1.308; > 1.10 (the guide's warning): 26 pairs in 25 rooms
 path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 2252 pairs joined in both: median 1.000, p90 1.000, p99 1.039, max 1.130; > 1.10: 1 pairs in 1 rooms; dressing narrows 26 pairs from two abreast to single file and closes 0 to a body
 pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 80
 pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
 pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 5
-pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 150
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 151
 bottleneck width, AUTHORED: < 0.70 (no body) 86; < 1.00 (under the bake's floor) 179; < 1.90 (single file) 275; >= 1.90 2063
-bottleneck width, FURNISHED: < 0.70 (no body) 86; < 1.00 (under the bake's floor) 184; < 1.90 (single file) 425; >= 1.90 1913
+bottleneck width, FURNISHED: < 0.70 (no body) 86; < 1.00 (under the bake's floor) 184; < 1.90 (single file) 426; >= 1.90 1912
 
 the 20 longest detours (FURNISHED / AUTHORED):
   1.308  gas_station_a01                        back_office              stock_roll_door -> office_back_door  5.8 -> 7.6 m
   1.233  landmark_hall_a02                      archive_office           suite_door -> A  3.6 -> 4.4 m
   1.229  strip_club_a01                         cash_office              secure_door -> A  4.3 -> 5.3 m
-  1.224  train_yard_a01                         dispatch_office          secure_door -> A  5.6 -> 6.9 m
-  1.213  landmark_hall_a01                      artifact_room            secure_door -> A  3.5 -> 4.2 m
   1.203  stop_n_go                              back_hall                door -> rear_service  4.6 -> 5.6 m
   1.196  final_stand                            trophy_room              door -> door  6.4 -> 7.6 m
   1.184  construction_site_a01                  site_office              secure_door -> office_door  5.1 -> 6.0 m
@@ -30,7 +28,9 @@ the 20 longest detours (FURNISHED / AUTHORED):
   1.130  self_storage_a01                       mid_aisle                door -> side_exit  7.6 -> 8.6 m
   1.119  gas_station_a01                        back_office              sales_to_office -> stock_to_office  5.9 -> 6.6 m
   1.118  strip_club_a01                         main_floor               door -> secure_door  22.1 -> 24.7 m
+  1.115  landmark_hall_a01                      artifact_room            secure_door -> crew_n  6.5 -> 7.2 m
   1.109  marina_a02                             boat_hall                door -> door  22.8 -> 25.3 m
+  1.109  train_yard_a01                         dispatch_office          secure_door -> secure_door  4.8 -> 5.4 m
 
 the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
   1.130  self_storage_a01                       mid_aisle                door -> side_exit  7.6 -> 8.6 m
@@ -53,7 +53,7 @@ closed to the bake: 5 (first 25, by the furnished bottleneck)
   gas_station_a01                        back_office              stock_roll_door -> office_back_door  width 1.40 -> 0.99 m
   gas_station_a01                        back_office              office_back_door -> A  width 1.40 -> 0.99 m
 
-two abreast -> single file: 150 (first 25, by the furnished bottleneck)
+two abreast -> single file: 151 (first 25, by the furnished bottleneck)
   self_storage_a01                       vault_unit               unit_gate -> A  width 2.99 -> 0.97 m
   strip_club_a01                         vip_wing                 door -> office_door  width 2.99 -> 1.15 m
   strip_club_a01                         vip_wing                 office_door -> stage_door  width 2.99 -> 1.15 m
@@ -75,7 +75,7 @@ two abreast -> single file: 150 (first 25, by the furnished bottleneck)
   cr_deli                                deli_counter             alley_entry -> customer_floor  width 2.63 -> 1.37 m
   night_deli                             deli_counter             office_stair_door -> customer_floor  width 2.63 -> 1.37 m
   night_deli                             deli_counter             alley_entry -> customer_floor  width 2.63 -> 1.37 m
-  train_yard_a01                         dispatch_office          secure_door -> secure_door  width 3.07 -> 1.37 m
-  train_yard_a01                         dispatch_office          secure_door -> crew_n  width 3.20 -> 1.37 m
-  train_yard_a01                         dispatch_office          secure_door -> A  width 3.20 -> 1.37 m
   strip_club_a03                         champagne_wing           door -> mezz_office_door  width 2.99 -> 1.39 m
+  final_stand                            trophy_room              door -> door  width 2.80 -> 1.42 m
+  rowhouse_raid                          kitchen                  kitchen_to_garage_bay -> front_hall  width 3.20 -> 1.42 m
+  gas_station_a02                        food_service             sales_to_food -> cooler_door_1  width 2.40 -> 1.43 m
