@@ -54,6 +54,11 @@ if [ "$SEED" = "auto" ]; then
   SEED=$(python tools/cold_drive/pick_candidate.py "$WS" "$M") || die "no candidate could be picked"
   echo "  picked seed_$SEED on the walktest and Laser Tag's route findings"
 fi
+# THE SEED NAMES ONE OF THIS BATCH'S CANDIDATES, or the run stops here and says so. Cold run 9362 named seed 9281
+# against a batch whose seed_base was 9054 (candidates 9054, 9155, 9256): Level Factory's `approve candidate_selected`
+# took a candidate no job had built, and the functional lock refused it a step later as "THIS LOCK PROTECTS NOTHING"
+# -- true, and no help. Name a seed the batch builds: set batch.json's seed_base to it.
+ls -d "$WS"/.level_factory/jobs/$M.*.candidate.seed_$SEED >/dev/null 2>&1 || die "seed_$SEED is not one of this batch's candidates ($(ls -d "$WS"/.level_factory/jobs/$M.*.candidate.seed_* 2>/dev/null | sed 's/.*seed_//' | sort -u | tr '\n' ' ')) -- set batch.json's seed_base to it"
 step approvals
 python -m level_factory -C "$WS" approve $M brief_approved >/dev/null || die approve1
 python -m level_factory -C "$WS" approve $M candidate_selected --candidate $M.candidate.seed_$SEED >/dev/null || die approve2

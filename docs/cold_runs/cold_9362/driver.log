@@ -1,0 +1,23 @@
+== selftest (01:01:49)
+  a tool source file, a shipped spec, or another repo
+== begin (01:01:50)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9362\journal.md
+== batch (01:01:59)
+created batch 'cold_9362' with 1 mission(s): bank_block_001
+== plan (01:01:59)
+== shell (01:02:01)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 73)
+  bank_block_001.lot_assemble.candidate.seed_9054: bank_branch_a04.glb casino_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_retail_a02.glb 
+  bank_block_001.lot_assemble.candidate.seed_9155: bank_tower_a01.glb freight_terminal_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb strip_club_a01.glb 
+  bank_block_001.lot_assemble.candidate.seed_9256: bank_branch_a04.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb parking_garage.glb rail_station_a03.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (01:03:31)
+[approve] WARNING no bank_block_001.lot_assemble.candidate.seed_9281 yet; the selection is recorded and will resolve once that job runs
+functional_shell_locked REFUSED for bank_block_001: the lock this would write protects nothing.
+[lock] bank_block_001: THIS LOCK PROTECTS NOTHING.
+[lock]   the site file contributed NO protected key; every non-empty signature is backfilled from Deli
+[lock]   see docs / probe_selection_drift.py; LOCK_COVERAGE_ENFORCED is True
+  nothing was recorded and no lock was written.
+STOPPED: approve3

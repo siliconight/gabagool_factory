@@ -1,0 +1,31 @@
+roadmap 275: CLOSED, the earlier status kept; items 277, 278, 279 appended; now roadmap_status.py --write / --check
+first exit 0
+  rewrote the generated block in PIPELINE_ROADMAP.md
+write exit 0
+  PIPELINE_ROADMAP.md index matches its items
+check exit 0
+REFUSED: already applied; nothing written
+second exit 1
+replace live 956-956 -> dry 956-956
+    + | 275 | **CLOSED** | A bank's teller line has no queue | 2026-10-21 -- SHIPPED AND PROVEN. Deli Counter 0.244.0 (33e81109): `ticket_queue.queue_tel |
+insert live 958-957 -> dry 958-960
+    + | 277 | **OPEN** | Furnish's storey filter is decided by float rounding | 2026-10-21 -- measured (`patches/dc_teller_queue/storey_filter_floats.py`), 
+    + | 278 | **OPEN** | Level Factory approves a candidate no job built | 2026-10-21 -- found by cold run 9362; the cold drive guards it since (`tools/cold
+    + | 279 | **OPEN** | bank_branch_a04's teller counter stands against its lobby's wall | 2026-10-21 -- found by Deli Counter 0.244.0's teller-line queue;
+replace live 959-959 -> dry 962-962
+    + **279 items: 23 open, 141 closed, 3 retracted, 104 narrowed, 2 superseded, 6 analysis.** 0 rest on a sentence rather than a status line -- run `roadma
+replace live 20809-20809 -> dry 20812-20812
+    + *STATUS: CLOSED 2026-10-21 -- SHIPPED AND PROVEN. Deli Counter 0.244.0 (33e81109): `ticket_queue.queue_teller_lines` lays a teller line's queue on its
+insert live 20816-20815 -> dry 20819-20830
+    + 
+    + *STATUS: OPEN 2026-10-21 -- measured (`patches/dc_teller_queue/storey_filter_floats.py`), not changed; fixing it refurnishes the library's multi-store
+    + 
+    + **277. Furnish's storey filter is decided by float rounding.** `level_design._room_volume_count` counts a volume in a room when `abs(z - (story * sh +
+    + 
+    + *STATUS: OPEN 2026-10-21 -- found by cold run 9362; the cold drive guards it since (`tools/cold_drive/cold_drive.sh`), Level Factory does not.*
+    + 
+    + **278. Level Factory approves a candidate no job built.** Cold run 9362 named seed 9281 against a batch whose candidates were 9054, 9155 and 9256; `le
+    + 
+    + *STATUS: OPEN 2026-10-21 -- found by Deli Counter 0.244.0's teller-line queue; not started.*
+    + 
+    + **279. bank_branch_a04's teller counter stands against its lobby's wall.** Its `teller_counter` (10.0 x 0.9 x 2.4 m, x -11 to -1 at y 3.5) stands in t
