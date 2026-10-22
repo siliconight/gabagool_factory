@@ -1,0 +1,41 @@
+# test_seated_hosts.py and test_room_necks.py as 0.256.0 ships them, run against a fresh clone of Deli Counter 0.255.0 (267fc365), 2026-10-21
+                         if cm and (cm.group("tag"), cm.group("seq")) == (g.group("tag"), g.group("seq"))]
+                assert seats, n
+                ways = L.protected_routes(L.unfurnished(on), room)
+                for p in [v] + seats:
+                    assert not L.on_protected_route(ways, p["x"], p["y"], p["size_x"] - 0.02, p["size_y"] - 0.02), \
+                        p["name"]
+                without = dict(on, volumes=[c for c in on["volumes"] if c is not v and not any(c is s for s in seats)])
+                before, after = L.room_necks(without, room), L.room_necks(on, room)
+                assert before, n
+                for q, b in before.items():
+                    assert q in after and not (after[q] < b - 1e-9 and after[q] < two), (n, q, b, after.get(q))
+>       assert moved == 2, moved
+E       AssertionError: 0
+E       assert 0 == 2
+test_seated_hosts.py:148: AssertionError
+________ test_a_rooms_neck_is_half_the_narrowest_gap_a_body_must_pass _________
+    def test_a_rooms_neck_is_half_the_narrowest_gap_a_body_must_pass():
+        """The open room: its two doors joined at the clearance just past a door's open approach disc -- the wall the door
+        stands in, `_ROUTE_DOOR_IN` plus `_NECK_DOOR_ZONE` off it and a cell on (the first draft of this test asked for the
+        cap, and read 1.598). A box across the room leaving 1.2 m at the east wall: half that, to a cell. The box to the
+        wall: the doors parted, the pair absent."""
+        spec, room = _room()
+        assert [k for k, _l, _x, _y in L.room_route_endpoints(spec, room)] == ["door", "door"]
+>       necks = L.room_necks(spec, room)
+                ^^^^^^^^^^^^
+E       AttributeError: module 'level_design' has no attribute 'room_necks'
+test_room_necks.py:49: AttributeError
+_____________ test_a_neck_narrowed_counts_only_under_two_abreast ______________
+    def test_a_neck_narrowed_counts_only_under_two_abreast():
+        """`_narrows`: a pair left two abreast (a 2.4 m gap, a 1.2 m neck) is not narrowed, however much it lost; one left
+        single file (1.2 m) is; one parted is."""
+>       open_ = L.room_necks(*_room())
+                ^^^^^^^^^^^^
+E       AttributeError: module 'level_design' has no attribute 'room_necks'
+test_room_necks.py:62: AttributeError
+=========================== short test summary info ===========================
+FAILED test_seated_hosts.py::test_a_host_no_chair_fits_beside_is_moved_where_one_does
+FAILED test_room_necks.py::test_a_rooms_neck_is_half_the_narrowest_gap_a_body_must_pass
+FAILED test_room_necks.py::test_a_neck_narrowed_counts_only_under_two_abreast
+3 failed, 3 passed in 0.97s

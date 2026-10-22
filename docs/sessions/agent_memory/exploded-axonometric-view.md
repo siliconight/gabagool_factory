@@ -1,6 +1,6 @@
 ---
 name: exploded-axonometric-view
-description: "Roadmap 293: DC axonometric.py draws every building exploded with cutaways (0.254.0), stairs as treads (0.255.0); offsets are the drawing's alone"
+description: "Roadmap 293: DC axonometric.py draws every building exploded with cutaways (0.254.0), stairs as treads (0.255.0); the walker wants it seen in BOTH a review page and a level's export, and in-game (296)"
 metadata:
   type: project
 ---
@@ -20,5 +20,10 @@ next" -- SHIPPED in DC 0.255.0 from `stairwell.ascent_surfaces`, a turn landing 
   geometry in the drawing. Treads read `ascent_surfaces` (the headroom gate's copy of the builder).
 - To look at one: `patches/dc_axonometric/svg_png.py <svg> <png> [scale]` (headless Edge, local file only); crop a
   detail with a viewBox (scratch `crop_svg.py`). Pass Windows paths to Python.
-- LEFT on 293: ramps, platforms, fire escapes in either drawing; where a reviewer finds it beside a level (walker's
-  call). Related: [[open-work-2026-10-09]], [[floor-holes-get-a-cause]].
+- LEFT on 293: ramps, platforms, fire escapes in either drawing; a cut switchback's second leg.
+- WHERE IT IS SEEN (the walker, 2026-10-21): "both" -- a walker-review page and a level's export -- "It could even get
+  into the game where the players can 'scope out' the level and see the buildings the level assembles". Roadmap 296:
+  the building package draws itself (`portable_building.build_package`, the only route a building's files take into
+  a package, to `lot/<id>/`); a facade's drawing is an empty ground-floor box, so it gets a reason, not a drawing; the
+  game builds the screen, the factory ships drawings + an index. Related: [[open-work-2026-10-09]],
+  [[floor-holes-get-a-cause]].

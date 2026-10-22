@@ -45,7 +45,24 @@ the body's radius and the bake's floor, and control 2 checks both.
 
 ## What it measured
 
-### Deli Counter 0.252.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 523 s)
+### Deli Counter 0.256.0's library (`route_cost.out.txt`, `route_cost.json`, `by_kind.out.txt`, 505 s)
+
+The library after a host no chair fits beside is moved where one does rather than taken away (Deli Counter 0.256.0,
+roadmap 284; the factory's `patches/dc_desk_move/`): 18 of the 25 hosts 0.252.0 took away stand again, in 17 specs,
+each kept off its room's routes and narrowing no pair of the room's route endpoints -- `room_necks`, this census's own
+neck asked of one room, which reads every pair of twelve untouched specs as this census does
+(`patches/dc_desk_move/census_agreement.out.txt`). The same coverage: 580 rooms of 128 specs, 2,338 pairs.
+
+- **Every summary line is 0.252.0's**, and every row by room kind (`by_kind.out.txt` against
+  `by_kind_0252.out.txt`): over 10 % 26 pairs in 25 rooms, p99 1.107, the worst 1.308; narrowed to single file 151;
+  two abreast furnished 1,912; closures as before. Ten pairs lost width -- landmark_hall_a01's curator_band six,
+  mansion_a03's study two, clinic_a02's offices and museum_a01's special_exhibit one each -- every one still two
+  abreast, the narrowest 1.053 m of clearance, and no pair's length moved (`patches/dc_desk_move/arms_final.json`).
+- **Measured before the guard** (`patches/dc_desk_move/arms_A.json`): the move held off the routes alone narrowed
+  nine pairs to single file in two rooms, 151 -> 160 -- keeping off a route keeps its length, not its width -- which
+  is why the move asks `room_necks` too.
+
+### Deli Counter 0.252.0's library (`route_cost_0252.out.txt`, `route_cost_0252.json`, `by_kind_0252.out.txt`, 523 s)
 
 The library after a piece that seats somebody stands with its chair (Deli Counter 0.252.0, roadmap 284; the factory's
 `patches/dc_table_chairs/`): a host the room left chairless is seated last, kept off the room's reserved routes, or
@@ -170,9 +187,10 @@ The measurement roadmap 288 was filed and fixed from. Two arms: the FUNCTIONAL a
 | file | what |
 |---|---|
 | `route_cost.py` | the census; `--controls`; `--spec <name>` |
-| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.252.0, three arms, summary and per room |
+| `route_cost.out.txt`, `route_cost.json` | the library's census at Deli Counter 0.256.0, three arms, summary and per room |
+| `route_cost_0252.out.txt`, `route_cost_0252.json` | the same at 0.252.0, before a host no chair fits beside was moved rather than taken away |
 | `route_cost_0251.out.txt`, `route_cost_0251.json` | the same at 0.251.0, before a chairless host was seated or taken away |
 | `route_cost_0250.out.txt`, `route_cost_0250.json` | the same at 0.250.0, before the marker rooms reserved their routes |
 | `route_cost_0249.out.txt`, `route_cost_0249.json` | the same at 0.249.0, two arms: the census roadmap 288 was filed from |
-| `by_kind.py`, `by_kind.out.txt`, `by_kind_0251.out.txt`, `by_kind_0250.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
+| `by_kind.py`, `by_kind.out.txt`, `by_kind_0252.out.txt`, `by_kind_0251.out.txt`, `by_kind_0250.out.txt`, `by_kind_0249.out.txt` | a census by room kind, and the objective routes (`python by_kind.py [census json]`), with the dressing columns where the census has the FUNCTIONAL arm |
 | `unsnapped.py`, `unsnapped.out.txt` | every endpoint no body stands at in the AUTHORED arm, and what stands there (at 0.249.0) |

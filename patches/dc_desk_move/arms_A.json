@@ -1,0 +1,616 @@
+{
+ "arm": "A",
+ "pairs": [
+  2338,
+  2338,
+  2338
+ ],
+ "pairs_differing": 14,
+ "seconds": 529,
+ "over_10pct": [
+  26,
+  26
+ ],
+ "crossed_over": 0,
+ "came_back_under": 0,
+ "closed_to_bake": [
+  5,
+  5
+ ],
+ "narrowed_to_single_file": [
+  151,
+  160
+ ],
+ "p99": 1.107,
+ "max": 1.308,
+ "pieces": 8512,
+ "hosts": {
+  "desk": 257,
+  "table_count": 162,
+  "table_dining": 255,
+  "counter_bar": 18,
+  "video_poker_bar": 44,
+  "table_tasting": 6,
+  "folding_table": 2,
+  "video_poker_store": 61,
+  "stage_bar": 4,
+  "counter_club": 8,
+  "table_cocktail": 46
+ },
+ "chairless": {
+  "desk": 0,
+  "table_count": 61,
+  "table_dining": 0,
+  "counter_bar": 0,
+  "video_poker_bar": 0,
+  "table_tasting": 0,
+  "folding_table": 0,
+  "video_poker_store": 0,
+  "stage_bar": 0,
+  "counter_club": 0,
+  "table_cocktail": 0
+ },
+ "chairs": {
+  "desk": 257,
+  "table_count": 130,
+  "table_dining": 495,
+  "counter_bar": 46,
+  "video_poker_bar": 44,
+  "table_tasting": 11,
+  "folding_table": 4,
+  "video_poker_store": 61,
+  "stage_bar": 33,
+  "counter_club": 33,
+  "table_cocktail": 90
+ },
+ "gone_vs_shipped": [],
+ "moved_vs_shipped": [],
+ "back_vs_shipped": [
+  "airport_terminal_a03 ops_control/1 desk_r6b7dbbc5_1 (12.85, 11.73)",
+  "auto_shop_a01 upper_office/1 desk_r27d8e619_6 (0.16, 5.41)",
+  "auto_shop_a02 upper_office/1 desk_r27d8e619_6 (0.44, 4.08)",
+  "bank_branch_a02 security_room/0 desk_rad8edd5a_4 (6.31, 4.46)",
+  "cbp_town_finale_midbalanced_schemafixed press_service_hall/2 desk_r5c2f4b93_2 (6.81, -9.41)",
+  "clinic_a02 offices/1 desk_rf574ff4c_1 (-2.81, 3.02)",
+  "courthouse_a01 chambers/1 desk_r2a231801_20 (17.39, 4.38)",
+  "courthouse_a03 judges_chambers/0 desk_rd0b99e5b_10 (17.01, 12.93)",
+  "credit_union_a01 back_office/0 desk_ra57ba328_10 (-1.87, 4.13)",
+  "gs_auto_shop upper_office/1 desk_r27d8e619_6 (-5.52, 3.33)",
+  "landmark_hall_a01 curator_band/0 desk_rd21e6c25_10 (8.03, 9.35)",
+  "mansion_a03 study/0 desk_re67f9749_8 (9.55, 11.72)",
+  "marina_a02 harbormaster/1 desk_raa0f1886_10 (13.31, 5.72)",
+  "museum_a01 special_exhibit/1 table_dining_r3cf79185_7 (9.60, 12.05)",
+  "night_auto upper_office/1 desk_r27d8e619_6 (-5.52, 3.33)",
+  "office exec_suite/2 desk_r93ac9731_1 (15.06, 6.51)",
+  "train_yard_a01 dispatch_office/0 desk_r0678fb3a_4 (-16.58, 11.03)",
+  "train_yard_a03 signal_control/1 desk_re87808f7_1 (12.31, 9.82)",
+  "train_yard_a03 signal_control/1 desk_re87808f7_10 (20.36, 8.56)"
+ ],
+ "floor_share_of_rooms_moved_in": [
+  "airport_terminal_a03 ops_control: 2.9 -> 3.4 %",
+  "auto_shop_a01 upper_office: 4.3 -> 5.3 %",
+  "auto_shop_a02 upper_office: 4.9 -> 5.7 %",
+  "bank_branch_a02 security_room: 5.7 -> 7.1 %",
+  "cbp_town_finale_midbalanced_schemafixed press_service_hall: 1.9 -> 2.1 %",
+  "clinic_a02 offices: 4.9 -> 5.7 %",
+  "courthouse_a01 chambers: 1.7 -> 1.9 %",
+  "courthouse_a03 judges_chambers: 3.6 -> 4.5 %",
+  "credit_union_a01 back_office: 4.9 -> 5.6 %",
+  "gs_auto_shop upper_office: 5.0 -> 5.7 %",
+  "landmark_hall_a01 curator_band: 4.0 -> 4.7 %",
+  "mansion_a03 study: 5.6 -> 6.9 %",
+  "marina_a02 harbormaster: 4.0 -> 4.7 %",
+  "museum_a01 special_exhibit: 3.5 -> 4.0 %",
+  "night_auto upper_office: 5.0 -> 5.7 %",
+  "office exec_suite: 5.4 -> 7.5 %",
+  "train_yard_a01 dispatch_office: 4.0 -> 5.6 %",
+  "train_yard_a03 signal_control: 4.1 -> 5.6 %",
+  "train_yard_a03 signal_control: 4.1 -> 5.6 %"
+ ],
+ "pairs_moved": [
+  {
+   "spec": "clinic_a02",
+   "room": "offices",
+   "a": [
+    "door",
+    "door",
+    -8.4,
+    0.65
+   ],
+   "b": [
+    "door",
+    "records_door",
+    2.35,
+    5.0
+   ],
+   "shipped": {
+    "authored": [
+     12.58,
+     1.597
+    ],
+    "furnished": [
+     12.58,
+     1.597
+    ]
+   },
+   "arm": {
+    "authored": [
+     12.58,
+     1.597
+    ],
+    "furnished": [
+     12.58,
+     1.332
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "door",
+    0.0,
+    4.85
+   ],
+   "b": [
+    "door",
+    "door",
+    11.9,
+    4.85
+   ],
+   "shipped": {
+    "authored": [
+     11.9,
+     1.602
+    ],
+    "furnished": [
+     11.9,
+     1.198
+    ]
+   },
+   "arm": {
+    "authored": [
+     11.9,
+     1.602
+    ],
+    "furnished": [
+     11.9,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "door",
+    0.0,
+    4.85
+   ],
+   "b": [
+    "door",
+    "service_entry",
+    16.35,
+    6.0
+   ],
+   "shipped": {
+    "authored": [
+     16.76,
+     1.602
+    ],
+    "furnished": [
+     16.76,
+     1.198
+    ]
+   },
+   "arm": {
+    "authored": [
+     16.76,
+     1.602
+    ],
+    "furnished": [
+     16.76,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "door",
+    11.9,
+    4.85
+   ],
+   "b": [
+    "door",
+    "dock_n",
+    5.1,
+    11.35
+   ],
+   "shipped": {
+    "authored": [
+     9.49,
+     1.598
+    ],
+    "furnished": [
+     9.49,
+     1.398
+    ]
+   },
+   "arm": {
+    "authored": [
+     9.49,
+     1.598
+    ],
+    "furnished": [
+     9.96,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "door",
+    11.9,
+    4.85
+   ],
+   "b": [
+    "door",
+    "secure_door",
+    -8.87,
+    8.1
+   ],
+   "shipped": {
+    "authored": [
+     22.12,
+     1.602
+    ],
+    "furnished": [
+     22.21,
+     1.198
+    ]
+   },
+   "arm": {
+    "authored": [
+     22.12,
+     1.602
+    ],
+    "furnished": [
+     22.21,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "secure_door",
+    -8.87,
+    8.1
+   ],
+   "b": [
+    "door",
+    "service_entry",
+    16.35,
+    6.0
+   ],
+   "shipped": {
+    "authored": [
+     26.07,
+     1.603
+    ],
+    "furnished": [
+     26.73,
+     1.198
+    ]
+   },
+   "arm": {
+    "authored": [
+     26.07,
+     1.603
+    ],
+    "furnished": [
+     26.73,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "landmark_hall_a01",
+   "room": "curator_band",
+   "a": [
+    "door",
+    "service_entry",
+    16.35,
+    6.0
+   ],
+   "b": [
+    "door",
+    "dock_n",
+    5.1,
+    11.35
+   ],
+   "shipped": {
+    "authored": [
+     13.44,
+     1.598
+    ],
+    "furnished": [
+     13.44,
+     1.398
+    ]
+   },
+   "arm": {
+    "authored": [
+     13.44,
+     1.598
+    ],
+    "furnished": [
+     13.44,
+     0.802
+    ]
+   }
+  },
+  {
+   "spec": "mansion_a03",
+   "room": "study",
+   "a": [
+    "door",
+    "door",
+    11.4,
+    3.65
+   ],
+   "b": [
+    "door",
+    "pool_door",
+    18.35,
+    5.6
+   ],
+   "shipped": {
+    "authored": [
+     7.79,
+     1.502
+    ],
+    "furnished": [
+     8.04,
+     1.158
+    ]
+   },
+   "arm": {
+    "authored": [
+     7.79,
+     1.502
+    ],
+    "furnished": [
+     8.04,
+     1.067
+    ]
+   }
+  },
+  {
+   "spec": "mansion_a03",
+   "room": "study",
+   "a": [
+    "door",
+    "study_door",
+    8.65,
+    8.5
+   ],
+   "b": [
+    "door",
+    "pool_door",
+    18.35,
+    5.6
+   ],
+   "shipped": {
+    "authored": [
+     10.9,
+     1.597
+    ],
+    "furnished": [
+     10.9,
+     1.158
+    ]
+   },
+   "arm": {
+    "authored": [
+     10.9,
+     1.597
+    ],
+    "furnished": [
+     10.9,
+     1.067
+    ]
+   }
+  },
+  {
+   "spec": "museum_a01",
+   "room": "special_exhibit",
+   "a": [
+    "door",
+    "exhibit_vault_door",
+    8.65,
+    10.0
+   ],
+   "b": [
+    "objective",
+    "A",
+    16.0,
+    10.0
+   ],
+   "shipped": {
+    "authored": [
+     7.3,
+     1.603
+    ],
+    "furnished": [
+     7.3,
+     1.603
+    ]
+   },
+   "arm": {
+    "authored": [
+     7.3,
+     1.603
+    ],
+    "furnished": [
+     7.3,
+     1.598
+    ]
+   }
+  },
+  {
+   "spec": "train_yard_a01",
+   "room": "dispatch_office",
+   "a": [
+    "door",
+    "crew_n",
+    -18.2,
+    12.35
+   ],
+   "b": [
+    "objective",
+    "A",
+    -20.8,
+    8.75
+   ],
+   "shipped": {
+    "authored": [
+     4.68,
+     1.598
+    ],
+    "furnished": [
+     4.68,
+     1.143
+    ]
+   },
+   "arm": {
+    "authored": [
+     4.68,
+     1.598
+    ],
+    "furnished": [
+     4.68,
+     1.143
+    ]
+   }
+  },
+  {
+   "spec": "train_yard_a01",
+   "room": "dispatch_office",
+   "a": [
+    "door",
+    "secure_door",
+    -15.21,
+    8.75
+   ],
+   "b": [
+    "door",
+    "crew_n",
+    -18.2,
+    12.35
+   ],
+   "shipped": {
+    "authored": [
+     4.84,
+     1.537
+    ],
+    "furnished": [
+     4.84,
+     1.237
+    ]
+   },
+   "arm": {
+    "authored": [
+     4.84,
+     1.537
+    ],
+    "furnished": [
+     5.31,
+     0.878
+    ]
+   }
+  },
+  {
+   "spec": "train_yard_a01",
+   "room": "dispatch_office",
+   "a": [
+    "door",
+    "secure_door",
+    -15.21,
+    8.75
+   ],
+   "b": [
+    "objective",
+    "A",
+    -20.8,
+    8.75
+   ],
+   "shipped": {
+    "authored": [
+     5.6,
+     1.537
+    ],
+    "furnished": [
+     5.6,
+     1.143
+    ]
+   },
+   "arm": {
+    "authored": [
+     5.6,
+     1.537
+    ],
+    "furnished": [
+     5.6,
+     0.878
+    ]
+   }
+  },
+  {
+   "spec": "train_yard_a01",
+   "room": "dispatch_office",
+   "a": [
+    "door",
+    "secure_door",
+    -18.2,
+    5.15
+   ],
+   "b": [
+    "door",
+    "secure_door",
+    -15.21,
+    8.75
+   ],
+   "shipped": {
+    "authored": [
+     4.84,
+     1.537
+    ],
+    "furnished": [
+     5.37,
+     1.237
+    ]
+   },
+   "arm": {
+    "authored": [
+     4.84,
+     1.537
+    ],
+    "furnished": [
+     5.37,
+     0.878
+    ]
+   }
+  }
+ ]
+}
