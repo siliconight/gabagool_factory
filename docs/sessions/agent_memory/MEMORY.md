@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-22 scout view shipped (DC 0.258.0, LF 0.233.0, cold 9379); narrowed audit done; next 295 map mesh, small items, 290, 285, 294
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-22 scout window in game (DC 0.260.0, LF 0.235.0, cold 9381, F6); owed: open hitch, hold player, pixel font
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -137,4 +137,5 @@
 - [Main drag comp](main-drag-comp.md) — walker's PA-291 Tinicum remix for later: roadmap 298, docs/reference/MAIN_DRAG_COMP.md
 - [Late pieces guard width](late-pieces-guard-width.md) — off a route keeps length, not width; ask room_necks/_narrows (DC 0.256.0)
 - [Root search skips tool repos](root-search-skips-tool-repos.md) — root .gitignore excludes every tool repo: search inside each; a root 'nothing found' is unproven
-- [Scout model ships to players](scout-model-ships-to-players.md) — walker: polished, artistic, 360-degree rotatable building models players scout with (295); SVG ok for now
+- [Scout model ships to players](scout-model-ships-to-players.md) — walker: 360-degree building schematics in a runtime window, 1990s Palm Pilot style but backlit and more colour (295)
+- [Scout model: pop and clarity](scout-model-pop-and-clarity.md) — walker's polish guide: layered coloured drop shadows, hard outlines, soft glows on key signals; price each

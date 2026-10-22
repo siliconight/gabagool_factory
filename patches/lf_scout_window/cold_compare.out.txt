@@ -1,0 +1,14 @@
+== cold run 9381 (Deli Counter 0.260.0, Level Factory 0.235.0) against 9379, restaurant_row_001
+mission_scenario.tres seed_9003: 1326 bytes against 1326, identical
+    9381: player_eye_height_m = 1.6; enemy_eye_height_m = 1.6; aim_height_m = 1.0
+mission_scenario.tres seed_9104: 1326 bytes against 1326, identical
+    9381: player_eye_height_m = 1.6; enemy_eye_height_m = 1.6; aim_height_m = 1.0
+mission_scenario.tres seed_9205: 1326 bytes against 1326, identical
+    9381: player_eye_height_m = 1.6; enemy_eye_height_m = 1.6; aim_height_m = 1.0
+cold 9379: 108 findings
+cold 9381: 108 findings
+findings identical by code, candidate and message: False (only 9379: 1, only 9381: 1)
+  only 9379: PRESENTATION_TINT_MATERIALS restaurant_row_001.candidate.seed_9003 75 material(s) in 9 family/families differ only in a colour factor -- same textures, same transform, same everything else. The package ships
+  only 9381: PRESENTATION_TINT_MATERIALS restaurant_row_001.candidate.seed_9003 75 material(s) in 9 family/families differ only in a colour factor -- same textures, same transform, same everything else. The package ships
+cold 9379's bake: 153 models and 118 primitive meshes lightmapped, 2947 users
+cold 9381's bake: 153 models and 118 primitive meshes lightmapped, 2947 users

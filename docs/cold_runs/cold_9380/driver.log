@@ -1,0 +1,23 @@
+== selftest (18:01:51)
+  a tool source file, a shipped spec, or another repo
+== begin (18:01:52)
+  every tool repo clean at --begin
+  journal: C:\Projects\gabagool_studios\gabagool_factory\_runs\cold\cold_9380\journal.md
+== batch (18:02:08)
+created batch 'cold_9380' with 1 mission(s): restaurant_row_001
+== plan (18:02:09)
+== shell (18:02:11)
+candidates: 3 built, all distinct
+Structural checks passed  (blockers open: 0, total findings: 79)
+  restaurant_row_001.lot_assemble.candidate.seed_9003: deli_a03.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a01.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9104: deli_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a01.glb 
+  restaurant_row_001.lot_assemble.candidate.seed_9205: deli_a01.glb gs_empty_rowhome_a.glb gs_empty_rowhome_b.glb gs_empty_rowhome_c.glb gs_empty_rowhome_d.glb gs_empty_rowhome_e.glb gs_empty_rowhome_f.glb gs_empty_rowhome_g.glb gs_empty_rowhome_h.glb gs_empty_rowhome_i.glb gs_empty_rowhome_j.glb gs_empty_rowhome_k.glb gs_empty_rowhome_l.glb office.glb pharmacy_a02.glb 
+  exit 0 (non-zero at an approval gate is the pipeline waiting)
+== approvals (18:03:47)
+== art (18:03:49)
+Structural checks passed  (blockers open: 0, total findings: 108)
+  exit 1
+== export (18:06:45)
+internal error: the import pass left 3 of 537 model(s) unimported after 3 attempt(s) and this build had a Godot to run it with; first: lot/deli_a03/drawings/scout.glb
+  exit 5
+STOPPED: export
