@@ -25,5 +25,6 @@ next" -- SHIPPED in DC 0.255.0 from `stairwell.ascent_surfaces`, a turn landing 
   into the game where the players can 'scope out' the level and see the buildings the level assembles". Roadmap 296:
   the building package draws itself (`portable_building.build_package`, the only route a building's files take into
   a package, to `lot/<id>/`); a facade's drawing is an empty ground-floor box, so it gets a reason, not a drawing; the
-  game builds the screen, the factory ships drawings + an index. Related: [[open-work-2026-10-09]],
-  [[floor-holes-get-a-cause]].
+  game builds the screen, the factory ships drawings + an index -- SHIPPED 2026-10-21 (DC 0.257.0, LF 0.232.0/
+  0.232.1, cold 9377/9378); the walker's review page https://claude.ai/artifact/BG8SRKn7xVCEz3L3JFyg3y.
+  Related: [[open-work-2026-10-09]], [[floor-holes-get-a-cause]].

@@ -1,0 +1,14 @@
+# Level Factory's passing tests, 0.232.0 (lf0232_drawings) against 0.231.0 (d3cf8d5), each suite run with -rA, LF_LASERTAG_ROOT, LF_LOT_ROOT and LF_DC_ROOT set; SKIPPED lines differ only by the clone's path in their message
+== only on 0.232.0
+PASSED tests/unit/test_buildings_index.py::test_a_package_with_no_assembly_scene_gets_no_index
+PASSED tests/unit/test_buildings_index.py::test_a_package_without_drawings_says_so
+PASSED tests/unit/test_buildings_index.py::test_every_standing_instance_is_named_with_where_it_stands_and_its_drawings
+PASSED tests/unit/test_buildings_index.py::test_the_closure_verdict_proves_every_drawing_the_index_names
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_a_library_row_names_its_spec_where_deli_counter_has_one
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_each_building_s_compose_names_its_own_spec
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_the_driver_asks_for_drawings_only_where_they_can_be_answered
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_the_lot_is_drawn_from_the_same_draw_with_or_without_specs
+PASSED tests/unit/test_sibling_locator.py::test_nothing_reaches_above_this_repo_by_counting_parents[packages/exporting/buildings_index.py]
+PASSED tests/unit/test_sibling_locator.py::test_nothing_reaches_above_this_repo_by_counting_parents[tests/unit/test_buildings_index.py]
+PASSED tests/unit/test_sibling_locator.py::test_nothing_reaches_above_this_repo_by_counting_parents[tests/unit/test_compose_draws_its_buildings.py]
+== only on 0.231.0

@@ -1,0 +1,15 @@
+# test_package_drawings.py and test_axonometric.py as 0.257.0 ships them, run against a fresh clone of Deli Counter 0.256.0 (31eb0a59), 2026-10-21
+E       AttributeError: module 'portable_building' has no attribute 'KEEP_IMPORT'
+E       AttributeError: module 'portable_building' has no attribute 'package_drawings'
+E       AttributeError: module 'portable_building' has no attribute 'package_drawings'
+E       TypeError: build_package() got an unexpected keyword argument 'spec_path'
+E           AssertionError: ('gs_facade_rowhome', 'furniture', '466', 275.0)
+E           assert (466.0 + (9 * 6.0)) <= 275.0
+E            +  where 466.0 = float('466')
+E            +  and   9 = len('furniture')
+FAILED test_package_drawings.py::test_the_keep_import_is_the_one_godot_left_as_written
+FAILED test_package_drawings.py::test_a_building_package_carries_its_drawings
+FAILED test_package_drawings.py::test_a_facade_gets_its_reason_and_no_drawing
+FAILED test_package_drawings.py::test_build_package_draws_the_spec_it_is_given
+FAILED test_axonometric.py::test_every_line_of_text_fits_its_canvas - Asserti...
+5 failed, 11 passed in 1.38s

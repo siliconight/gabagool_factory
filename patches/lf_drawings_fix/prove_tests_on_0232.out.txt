@@ -1,0 +1,10 @@
+== 0.232.1's tests on 0.232.0 (6ce0e8e) ==
+E       KeyError: 'spec'
+E       AttributeError: module 'packages.exporting.export' has no attribute '_root_left_out'
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_a_library_row_names_its_spec_where_deli_counter_has_one
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_the_lot_is_drawn_from_the_same_draw_with_or_without_specs
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_each_building_s_compose_names_its_own_spec
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_the_driver_asks_for_drawings_only_where_they_can_be_answered
+FAILED tests/unit/test_compose_draws_its_buildings.py::test_an_empty_row_names_its_spec_too
+FAILED tests/unit/test_compose_draws_its_buildings.py::test_the_composed_roots_drawings_stay_out_with_its_scene
+exit 1

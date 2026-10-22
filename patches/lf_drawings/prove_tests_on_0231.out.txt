@@ -1,0 +1,12 @@
+== 0.232.0's tests on 0.231.0 (d3cf8d5) ==
+E   ImportError: cannot import name 'buildings_index' from 'packages.exporting' (C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad\lf0231_prove\packages\exporting\__init__.py)
+E           KeyError: 'spec'
+E           AssertionError: assert None == 'C:\\Users\\Brannen\\AppData\\Local\\Temp\\pytest-of-Brannen\\pytest-3747\\test_each_building_s_compose_n0\\specs\\bank_job.json'
+E            +  where 'C:\\Users\\Brannen\\AppData\\Local\\Temp\\pytest-of-Brannen\\pytest-3747\\test_each_building_s_compose_n0\\specs\\bank_job.json' = str(((WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-3747/test_each_building_s_compose_n0') / 'specs') / ('bank_job' + '.json')))
+E       AttributeError: module 'run_presentation_compose_under_test' has no attribute '_drawing_kwargs'
+PASSED tests/unit/test_compose_draws_its_buildings.py::test_the_lot_is_drawn_from_the_same_draw_with_or_without_specs
+ERROR tests/unit/test_buildings_index.py
+FAILED tests/unit/test_compose_draws_its_buildings.py::test_a_library_row_names_its_spec_where_deli_counter_has_one
+FAILED tests/unit/test_compose_draws_its_buildings.py::test_each_building_s_compose_names_its_own_spec
+FAILED tests/unit/test_compose_draws_its_buildings.py::test_the_driver_asks_for_drawings_only_where_they_can_be_answered
+exit 1

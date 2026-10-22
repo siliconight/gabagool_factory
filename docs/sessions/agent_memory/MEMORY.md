@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~20:25 DC 0.256.0 desk move shipped (cold 9376); 296 NEXT (drawings in packages); 297 filed
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~22:40 296 NARROWED (drawings in packages, review page awaits the walker); 298 filed; next 290, 285, 294
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -91,6 +91,7 @@
 - [Walk feedback 2026-10-09](walk-feedback-2026-10-09.md) — club light fixed Lux 0.72.0; placeholders, bags, perimeter, moon open.
 - [Edge menu: walker picked E, varied per level](edge-menu-walker-picked-e.md) — fence + glow + rowhomes + water tower, varied by level.
 - [GitHub push and releases](github-push-and-releases.md) — root to siliconight/gabagool_factory; releases built AT TAGS; notes after the zip; verify-manifest from the root; retire after.
+- [Forge mirrors GitHub](forge-mirrors-github.md) — walker chose a pull mirror (BMONEY/LevelFactory); check 1.42.0's release reaches it
 - [Indoor fixtures in a perfect line](indoor-fixture-placement.md) — 229 SHIPPED DC 0.206-0.207.1; left: species, benches/bar, ducts.
 - [Backdrop trees are lollipops](backdrop-trees-are-lollipops.md) — redrawn (Zoo 1.97.0 + Lot 0.110.0), proven 9230; species step G next.
 - [PA tree guides filed](pa-tree-guides-filed.md) — native trees + Blender scripting guides; the backdrop uses the species rows (228 G).
@@ -132,5 +133,6 @@
 - [Deli Counter control runs](dc-control-run-via-tools-local.md) — clone, build.py --all AND nav_gate.py --all, pre-write the workspace's tools.local.json; before.json names the real repo
 - [Rooms: not crowded, not barren](rooms-not-crowded-not-barren.md) — walker 2026-10-21: density is a band (~12-25 % floor share), rows of primary furniture over clutter, lanes open
 - [Route census reads furnishing](route-census-reads-furnishing.md) — route_cost.py beside the nav gate for any furnishing change; reserve square routes first (DC 0.250.0)
-- [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 + 0.255.0 treads; walker: seen in review page AND export, in-game later (296)
+- [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 + 0.255.0 treads; in every package since DC 0.257.0/LF 0.232.x (296)
+- [Main drag comp](main-drag-comp.md) — walker's PA-291 Tinicum remix for later: roadmap 298, docs/reference/MAIN_DRAG_COMP.md
 - [Late pieces guard width](late-pieces-guard-width.md) — off a route keeps length, not width; ask room_necks/_narrows (DC 0.256.0)
