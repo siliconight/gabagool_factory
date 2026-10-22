@@ -1,0 +1,10 @@
+lf_base tests 2612 failures 15 skipped 31 passed 2566
+lf_new2 tests 2613 failures 15 skipped 31 passed 2567
+failures only new: []
+failures only base: []
+passed only new: ['tests.unit.test_buildings_index::test_the_scout_view_is_named_where_a_package_carries_one']
+passed only base: []
+
+Refuted and kept: the first pairing ran both suites at once against the same sibling repos and read 24 failures
+against 15 and 42 skipped against 31 -- archetype resolution, brief pacing and site-audit tests -- each of which
+passed alone in both clones; the line above is the new clone run alone against that base run.

@@ -1,0 +1,13 @@
+1. full axonometric, 458 specs: 0 render differently []
+2. the new tests on 0.257.0:
+   FAILED test_scout_view.py::test_the_scout_view_keeps_every_signal_the_full_drawing_carries
+   FAILED test_scout_view.py::test_the_scout_view_leaves_out_what_a_body_does_not_find_its_way_by
+   FAILED test_scout_view.py::test_each_flight_and_each_hole_keeps_one_line_to_the_floor_it_reaches
+   FAILED test_scout_view.py::test_the_scout_view_is_deterministic_and_holds_its_text
+   FAILED test_package_drawings.py::test_a_building_package_carries_its_drawings
+   FAILED test_package_drawings.py::test_a_facade_gets_its_reason_and_no_drawing
+   6 failed, 2 passed in 0.57s
+
+Why each fails on 0.257.0 (pytest --tb=line, a fresh clone of 0.257.0 with the two test files copied in): four in
+test_scout_view.py "TypeError: render_axonometric() got an unexpected keyword argument 'scout'" (:45, :59, :74, :87), two
+in test_package_drawings.py "KeyError: 'scout'" (:41, :60) -- all on the new name, none on behaviour.
