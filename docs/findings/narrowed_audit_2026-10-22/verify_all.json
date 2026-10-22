@@ -1,0 +1,363 @@
+{
+ "17": {
+  "n": 17,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "acceptance test -> body PIPELINE_ROADMAP.md:2190-2195: 'pick a spec that has never been through the pipeline, run it untouched, and record every intervention it needed ... Repeat on several specs before believing either result'. The framing question (:2174-2177) adds 'one command' and 'a walkable, gated package'. Nothing further is asked of a close.",
+   "newest status NARROWED 2026-10-06 (:2122-2125) -> 'WHAT THE SWEEP DOES NOT SHOW: every brief had been through the pipeline before ... The acceptance test below asks for a spec that never has' -- matches the remainder",
+   "9181 'The brief is new' -> docs/cold_runs/cold_9181/NOTES.md:1 ('from a brief never run before'), :11 ('**The brief is new** (`briefs/convenience_001.json`)'), :18 ('Every leg ran, `INTERVENTIONS: 0`, and the package exported')",
+   "9181 journal/diff -> _runs/cold/cold_9181/journal.md 'begun 2026-10-06 10:15:42', table header and no rows; diff.json changed [], unattributed [], added = three deli_counter/specs/lf_convenience_001_*.json each attributed 'Level Factory writes one DC spec per candidate, per run'",
+   "9191 -> docs/cold_runs/cold_9191/NOTES.md:3 'A never-seen one-building brief, `deli_001`', 'Every leg ran, `INTERVENTIONS: 0`, and the package exported'; journal 'begun 2026-10-07 00:51:03', no rows; diff.json changed [], unattributed [], three lf_deli_001_* specs attributed",
+   "9132 -> NOTES.md:3 'A NEW brief, `video_block_001`', 'Zero interventions, no observations'",
+   "9135 -> NOTES.md:3 'gas_block_001, a NEW brief', 'Zero interventions (journal 0, unattributed files 0)'",
+   "market_row_001 -> roadmap status 2026-09-07 (:1518-1522) 'theme `center_city` and archetype `rowhome`, neither ever built, 0 interventions'; no docs/cold_runs folder holds that run (cold_7001..7003, 8001 are other briefs) -- the claim rests on the roadmap alone",
+   "breadth sweep 2026-10-19 -> docs/findings/breadth_sweep_2026-10-19/README.md table: 9328-9334, every run 0 interventions, 9329 and 9333 'STOPPED at the export', 9329's stop UNDECLARED_DROP_INDOORS, 9334 re-run DONE",
+   "'every cold run since 9178 records the number' -> true but 9278-9284 have no NOTES.md; the figure is in driver.log ('INTERVENTIONS: 0 (journal 0, unattributed files 0)', checked 9278, 9281, 9284)",
+   "CLAUDE.md line 14 -> git blame 54c68652 2026-07-31: 'Nobody has measured this number yet (`PIPELINE_ROADMAP.md` item 17)'",
+   "docs/COLD_RUN.md:278 -> 'Zero. The first real evidence, and item 17 says so. It does not close the item -- one run proves less than it feels like it does.' (one run; several have now been made)",
+   "docs/COLD_RUN.md:36-44 -> 'a brief written today, by anyone who has been inside this pipeline this month, is not cold either -- it would be written around what is known to work, and would measure the author rather than the tools'",
+   "9191 NOTES -> 'All three were \"out\" on Laser Tag's `LT_MAP_ENEMY_PATHING_BROKEN`, so the driver took the fewest major findings'; 9181 NOTES:3 'The proof run for the store work of 2026-10-06'; 9191 'That word was refused until Level Factory 0.150.0'",
+   "item 202 NARROWED (index :883) carries the stranger's brief; item 18 NARROWED (:699) carries 'good'"
+  ],
+  "problems": [
+   "The status omits COLD_RUN.md's own caveat on the item: all five 'never-run' briefs were written in-house, each as a proof run for tool work just shipped for that archetype (9181 'the proof run for the store work'; 9191 run after Level Factory 0.150.0 was changed to accept its archetype word). By COLD_RUN.md:36-44 such a brief 'would measure the author rather than the tools'. The literal test is met; the close must say which reading it meets and hand the other to item 202.",
+   "9191 shipped with every candidate 'out' on LT_MAP_ENEMY_PATHING_BROKEN (driver took fewest majors). The status counts it as 'came out first time, untouched' without saying so; it is a zero on hand-touches and a weak 'gated, walkable' result.",
+   "market_row_001's zero rests on the roadmap's own 2026-09-07 status; there is no cold-run record of it under docs/cold_runs/. Say so, or count four.",
+   "'every cold run since 9178 records the number' -- 9278-9284 record it only in driver.log; say 'in its NOTES or driver.log'.",
+   "Closing item 17 leaves CLAUDE.md:14-15 and COLD_RUN.md:3-13,275-281 describing it as the open, unmeasured metric. The proposed status calls CLAUDE.md's sentence 'stale' but CLAUDE.md is the walker's judgment file; the close should ship only together with those amendments, and as the walker's call, since it retires the repo's headline acceptance item."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- THE ACCEPTANCE TEST, MET LITERALLY ON SPECS THE PIPELINE HAD NEVER RUN. Cold run 9181 (`briefs/convenience_001.json`, 'The brief is new', begun 2026-10-06 10:15) and cold run 9191 (`deli_001`, 'A never-seen one-building brief', begun 2026-10-07 00:51) each ran every leg and exported a package with 0 interventions: `_runs/cold/cold_9181/diff.json` and `cold_9191/diff.json` read `changed` [] and `unattributed` [], the three added files in each Level Factory's per-candidate specs, and neither journal carries a row. With video_block_001 (9132, 'A NEW brief') and gas_block_001 (9135, 'a NEW brief') before them, and market_row_001 (this item's 2026-09-07 status; no cold-run folder holds its record), five specs the pipeline had never run each came out first time with no hand-touch -- the 'several' the item asked for -- and every cold run since 9178 records the number in its NOTES or driver.log. WHAT IT DOES NOT SAY. (1) Every one of the five briefs was written in this repo, most as the proof run of tool work just shipped for that archetype (9181 'the proof run for the store work'; 9191's word `deli` was refused until Level Factory 0.150.0) -- the compromise `docs/COLD_RUN.md` names, a brief that 'would measure the author rather than the tools'; a spec written by someone outside is item 202's. (2) 9191 shipped with all three candidates 'out' on `LT_MAP_ENEMY_PATHING_BROKEN`, the driver taking the fewest majors: a zero counts hand-touches only. (3) On the breadth sweep of 2026-10-19 (9328-9333, `docs/findings/breadth_sweep_2026-10-19/`) four of six shipped first time and two stopped at the export on the drop-edge gate (9329, 9333) and shipped only after a tool change (9334, 9335) -- patches the level required, which the counter does not count. Whether a level is good stays item 18's. Closed together with CLAUDE.md's 'Nobody has measured this number yet (item 17)' (line 14, written 2026-07-31) and `docs/COLD_RUN.md`'s 'It does not close the item', both amended in the same change at the walker's word.*",
+  "why": "The item's body asks for exactly one thing beyond the framing question: a never-run spec, run untouched, interventions recorded, repeated on several specs. Two such runs with full records (9181, 9191: journals empty, diff.json changed and unattributed empty, packages exported) plus two more with NOTES (9132, 9135) meet that literally, so the close stands. But the item's own runbook (COLD_RUN.md) warns that an in-house brief measures its author, and all five briefs were written to prove fresh tool work; 9191 shipped with every candidate failing Laser Tag's map-pathing check; market_row_001 has no on-disk record; and closing the headline-metric item contradicts CLAUDE.md:14 and COLD_RUN.md:278 unless they change with it. Those belong in the status, and the walker should take the close, not an audit pass."
+ },
+ "64": {
+  "n": 64,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "remainder -> newest status NARROWED 2026-09-11 (PIPELINE_ROADMAP.md:8230-8250): 'WHAT REMAINS is the step the item priced and deferred: Deli Counter promoting its corner slots from the `wallEnd` unit post ... to `wallCorner` ... it buys nothing a person can see until the corner has art a post does not (item 57's vocabulary)'",
+   "body close (:8299-8302) -> 'Deli Counter promoting its corner slots from `wallEnd` to `wallCorner` ... when there is art to justify 18 modules per theme and style. Item 57 gets its corner vocabulary out of it'",
+   "deli_counter.py:1124-1135 -> corner posts seated by `_seg_box(..., role=\"wall\", ..., size_mod=\"end\")` with the comment naming `wallEnd`",
+   "deli_counter.py:645-650 -> `_slot_typename` returns 'wallEnd' if size_mod == 'end'",
+   "git -C deli_counter grep wallCorner *.py -> only migrations/patch_dc_corner_posts.py:59, test_themed_stem.py:85-88, themed_tscn.py:73 `CORNER_ROLES = (\"wallCorner\",)`",
+   "zoo_keeper/core/kit.py:116 -> `CORNER_ROLES = (\"wallCorner\",)`; genome wallCorner.json height min 2.0 max 6.5, dimensions_note '950 corner posts across 17 (thickness, height) pairs'; last commit on recipe+genome d3d6a49 2026-09-11",
+   "item 79 body :9344-9345 -> '\"corners simply stop the pattern\" -- literally. `corners=True` seats one scaled unit box at each end of the run (item 58)'; :9361-9364 -> '... and corners as a designed condition rather than a remainder'",
+   "docs/proposals/FACADE_PLANNER.md:115-117 -> '6. **The primary bay and the corners as designed conditions**, after step 4's frames, with the walker. 79 asks for both. 74's caveat holds: any second layer of articulation is subtractive or texture, never proud of the wall'",
+   "item 57 status :7187 -> 'The corner: Deli Counter 0.102.0 / 0.102.1 (item 58) seats a `wallEnd` unit post at every corner, ENV_CORNER_OPEN 988 -> 0 ... a family was not needed (... `wallCorner` 0 hits)'; open_items_remeasure/README.md:368 'The corner: shipped without a family.'",
+   "item 74 (OPEN, index :755) body :9061-9063 -> 'Either the vocabulary grows with the span (... plus the `wallCorner` of item 64) or item 76's per-instance work lands'",
+   "item 79 index :760 NARROWED 2026-10-20; item 63 SUPERSEDED by 119 (:744)"
+  ],
+  "problems": [
+   "The first pass's note 'Nothing else asks' is incomplete: item 58 (NARROWED, :7435-7442) says 'TIER TWO IS ZOO'S, AND ZOO ALREADY BUILT IT -- see item 64' and carries tier two by reference to this item. Superseding 64 leaves 58's and 74's pointers aimed at a superseded item; the status should name them.",
+   "Item 79's step 6 takes over the corner DESIGN, not the `wallCorner` promotion: FACADE_PLANNER.md:116-117 requires any articulation to be subtractive or texture, so the designed corner may never want an L module. The status should say the promotion survives only as a possible outcome of step 6 (and as one branch of 74), not as a task anywhere."
+  ],
+  "corrected_status": "*STATUS: SUPERSEDED 2026-10-22 -- the three preconditions stand where 2026-09-11 left them (Zoo `wallCorner.json` height 2.0-6.5 m with the 950-post measurement in its `dimensions_note`; `zoo_keeper/core/kit.py:116` `CORNER_ROLES = (\"wallCorner\",)`, mirrored at Deli Counter `themed_tscn.py:73`), and the promotion this item deferred has not been made: `deli_counter.py:1124-1135` seats every corner post with `size_mod=\"end\"`, which `_slot_typename` (`:645-650`) names `wallEnd`, and `wallCorner` occurs in no Deli Counter source but the stem mirror, its test and a migration's docstring. What the promotion was waiting for -- corner art a post does not have -- now has its own home: item 79's facade planner asks for \"corners as a designed condition rather than a remainder\" and schedules it as `docs/proposals/FACADE_PLANNER.md` step 6, \"the primary bay and the corners as designed conditions, after step 4's frames, with the walker\", under the rule that any second layer of articulation is \"subtractive or texture, never proud of the wall\" -- so the designed corner may or may not want `wallCorner` at all, and that is step 6's to decide. Item 57's re-read of 2026-10-15 counts its own corner piece \"shipped without a family\" (item 58's post, ENV_CORNER_OPEN 988 -> 0). Two items point here and now point at 79's step 6: item 58's tier two (\"see item 64\") and item 74's close (\"the `wallCorner` of item 64\", one branch). Promoting before step 6 decides what a corner is would cost one exact module per (thickness, height) per building -- 17 across the library per theme and style -- and show nothing.*",
+  "why": "Every code and roadmap citation checks: the promotion is not done, and the item itself says it buys nothing visible until corner art exists. That art is now explicitly scheduled in item 79's planner, step 6, with the walker. So SUPERSEDED is right on the condition that is actually waiting. The fixes are honesty about what 79 takes over (the design, not necessarily the module) and naming the two items (58's tier two, 74's branch) whose pointers aim at this one."
+ },
+ "81": {
+  "n": 81,
+  "verdict": "UPHELD",
+  "checked": [
+   "newest status NARROWED 2026-08-29 (PIPELINE_ROADMAP.md:9484-9490) -> 'THIS ITEM'S OWN QUESTION -- WHAT WEAR SHOULD DO ON A MESH WITH NO INTERIOR VERTICES -- IS UNANSWERED AND IS WHY 84 CANNOT SIMPLY BE SWITCHED ON'",
+   "body close (:9592-9601) -> 'Occlusion has to stop being a property of the MODULE and become a property of the SPACE. Two routes ... put grime in the texture ... or get real occlusion from the scene'",
+   "level_factory/assets/godot/zoo_worldskin.gd:35-36 -> `KIT_PREFIXES` wall_, wallEnd_, window_, doorway_, breach_; :301-302 `TILED_PREFIXES` ceiling_, floor_, roof_ and `TILED_SUFFIXES` _dressing.glb",
+   "zoo_worldskin.gd:956-964 -> `if not is_kit and not _is_tiled(base): var vc: Array = _vertex_colour_albedo(scene)`",
+   "zoo_worldskin.gd:1123-1127 -> 'NOT ON A TILE ... Zoo computes wear per module, so on a module laid edge to edge it repeats per module by construction: measured on a delco elevation (Zoo 0.54.0, roadmap 84), turning it on multiplied the 2 m module signature 3.8x'",
+   "item 84 status :9767 -> 'CLOSED 2026-10-15 ... objects wear, tiles do not ... The kit's wear stays off by that decision; that it repeats per module is item 79's'",
+   "zoo/zoo_keeper/bpylayer/geometry.py:736 -> `dark = min(1.0, concave * 1.5 + noise * 0.5) * wear`; zoo VERSION 1.120.1",
+   "open_items_remeasure/README.md:381-383 -> 'Weathering in building space: not there (76's record): Patina's per-slot pass unwired, the kit's vertex wear off by 84's decision, Pixelcoat's wear / grime / streaks on the recipe path only'; item 57 status :7187 lists it as 'Left, named'"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "The item's question (what wear should do on a box with no interior vertices) was answered by item 84's closed decision and is built: the engine never draws COLOR_0 on kit or tiled GLBs, so the mechanism is inert by design and cannot reach a frame. The constructive remainder, occlusion or weathering as a property of the space, is item 57's named, open 'weathering in building space' piece, and the per-module repetition is item 79's per 84's close. Every citation reads as claimed. SUPERSEDED is right; the first pass correctly declined to count the light bake as 'real occlusion from the scene', since nothing measured that."
+ },
+ "87": {
+  "n": 87,
+  "verdict": "UPHELD",
+  "checked": [
+   "remainder -> statuses above the heading (PIPELINE_ROADMAP.md:9936-9958): 'WHAT REMAINS IS A DECISION -- WHERE THE DETACH RUNS -- AND THE SECOND HALF: THE `tex/` FOLDER HAS TO TRAVEL WITH THE ART THROUGH ASSEMBLY AND EXPORT'; 2026-09-05 'STILL OPEN AND UNCHANGED: the `tex/` folder travelling through ASSEMBLY'",
+   "zoo/zoo_keeper/bpylayer/export.py:20 `def export_glb(filepath, collection, merge_parts=True, share_textures=True, ...)`; :72-73 `if share_textures: _share_textures(filepath)`",
+   "zoo/zoo_keeper/core/gltf_textures.py:42 `TEX_DIR = \"_tex\"`; :147-165 pops bufferView/mimeType, names by sha1 of the blob, sets `im[\"uri\"]`; :215-222 skips an existing same-named, same-size file as shared",
+   "level_factory/packages/jobs/scheduler.py:210-238 `_with_glb_dependencies` docstring (Zoo 1.2.0 .png beside GLB, cold run 9068 '1,264 GLB references resolving to nothing'); :716-719 wraps every job's collected outputs",
+   "level_factory/packages/exporting/export.py:2579-2599 -> glb_refs.scan, writes glb_reference_scan.json, `assert_closed` raising ExportGlbReferenceError",
+   "glb_deps.copy_with_deps -> deli_counter/portable_building.py:689, :714; lot/lot.py:1986; lot/package.py:405",
+   "docs/cold_runs/cold_9378/export.log:17 -> '134 GLB(s), 486 external reference(s): 486 resolve to 209 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)'",
+   "9378 package _tex PNGs outside .godot hashed read-only: 451 files, 112 distinct, max 31 copies -- matches the status",
+   "item 28 CLOSED 2026-10-15 (:2893) -> 'the duplication left is per building folder, not per module. What the engine keeps resident is 238's question'",
+   "item 238 NARROWED 2026-10-19 (:20472) -> '9335's 458 texture files are 118 images, every building shipping its own copies, so one per content per package is estimated at -10 to -12 MiB ... then the deduplication'"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "Both halves of the remainder are done on the path the item named, and shown in a package. The detach runs at Zoo's export for every module (not Level Factory's export as 2026-09-05 guessed, which the status says). The texture folder travels through jobs, cache hits, Deli Counter's and Lot's copy sites and the export, and the export refuses a dangling reference. Cold run 9378 shows 486 of 486 references resolving. What remains is the same duplication at a coarser grain (per building folder). Item 28's close names it, and item 238 explicitly carries the deduplication with a priced estimate, so the close does not bury it."
+ },
+ "90": {
+  "n": 90,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "remainder -> body :10377-10381 '`shot_diff.py` should report it and refuse a verdict below the floor ... the honest form is a NULL SHOT: shoot twice, subtract, and only then compare'; :10364-10370 'Any comparison ... resting on a sub-42% pixel count needs re-reading, including the triplanar A/B of 2026-08-29'",
+   "tools/shot_diff.py:243-252 -> `--null` ('Implies --images') and `--null-of`; :265-360 several `return 2` refusals around render provenance and null side",
+   "shot_diff.py:403 -> `moved = moved or frac > 0`; :404-433 per-shot floor from the null pair, '~floor' (moved=False), 'marginal' within MARGIN (=1.5, :84), else 'MOVED'; :449-454 'inside the measured floor (no verdict)'",
+   "git log tools/shot_diff.py -> 55e1790 2026-09-02 12:59:42 'look_shots: orthographic elevations; shot_diff: the null floor' (newest commit on the file)",
+   "docs/findings/weighted_normals/level_shots_diff.txt (a1f47b6, 2026-10-09) -> 'null: shots_wn_off2.json -- a re-shoot of `before`', 12 shots, 8 MOVED, 3 ~floor, 1 marginal, floors 3-231",
+   "item 92 :10487 -> 'THE INSTRUMENT ALREADY EXISTS. `look_shots` + `shot_diff --null` can hold this honest'",
+   "triplanar re-read -> item 88 status at :10005-10012 is 'NARROWED 2026-08-29 ... MEASURED AGAINST A NULL (ITEM 90): 7 OF 8 SHOTS CLEAR THEIR OWN FLOOR, max |delta| 43-217 AGAINST FLOORS OF 7-16'; item 76 status :9121 'filed 2026-08-29 with the world-space projection re-measured against a null run (item 90) ... the earlier \"13.6-19.0% of pixels\" reading survived its own audit, though the floor it was quoted against did not'",
+   "items 84, 86 CLOSED (index :765, :767); 81's status :9484-9489 'IT WAS VERTEX NORMALS, NOT COLOUR; SEE ITEM 86, SHIPPED AS ZOO 0.52.0 AND CONFIRMED BY EYE'"
+  ],
+  "problems": [
+   "The proposed status dates the triplanar null re-read '2026-09-01'. The roadmap records it as 2026-08-29: item 88's status of that date and item 76's 'filed 2026-08-29'. 09-01 is at most a commit date (95262fd), which I did not confirm with git log -S.",
+   "The null is opt-in. Run with `--images` and no `--null`, shot_diff still counts any pixel over the threshold as moved (`moved = moved or frac > 0`, :403) and prints no line saying that no floor was measured. That is a pixel verdict with no floor, the exact use the item warned against. The item's literal ask (report max |delta|, refuse below a measured floor, the null shot as the method) is met, so this does not reopen it, but the close should name the gap rather than imply the tool forces the honest form."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- the ruler this item asked for is in `shot_diff`: `tools/shot_diff.py` (55e1790, 2026-09-02, an hour after the status above) takes `--null` from a re-shoot of an unchanged run, refuses a null whose render provenance or subject does not match and asks `--null-of` when both runs photographed one subject (`:243-252`, `:265-360`), judges each shot's `max_d` against its own measured floor as `~floor`, `marginal` (within 1.5x) or `MOVED` (`:404-433`), and lists the shots inside the floor as 'no verdict' (`:449-454`); exercised on roadmap 214's weighted-normals A/B (`docs/findings/weighted_normals/level_shots_diff.txt`, 2026-10-09: 12 shots, floors 3-231, 8 MOVED, 3 inside the floor, 1 marginal), and item 92 builds on it. The null is opt-in: with `--images` and no `--null` the tool still calls any pixel over the threshold a move (`:403`) and does not say no floor was measured -- a guard worth adding, not this item's literal ask. The triplanar A/B was re-read against a null on 2026-08-29 (items 76 and 88: 7 of 8 shots clear their own floor, max |delta| 43-217 against 7-16; the 13.6-19.0 % reading survived, its quoted floor did not), and the 'survives triplanar' claims of 81, 84 and 86 rest on nothing open -- the outline was vertex normals, fixed in Zoo 0.52.0 and confirmed by eye (86), and 84 is CLOSED. What stands as this item's record: a pixel count needs a null; the frame mean does not at six frames and 1600x900 (zero to two decimals on eight shots) but is blind to a change that moves texels without moving brightness (item 87's retraction, 2026-09-05); and a floor belongs to one project, frame count and resolution.*",
+  "why": "The item asked for max |delta| to be reported, for a refusal below a measured floor, and for the null shot as the method. All three are in shot_diff since 55e1790, and they have been used on a real A/B (roadmap 214). The triplanar re-read was done against a null and is recorded in items 76 and 88, and the qualitative 'survives triplanar' claims were settled by item 86's direct cause. The close stands. Two fixes: the re-read is dated 2026-08-29 in the roadmap, not 09-01, and the opt-in null should be named, because without it the tool still issues pixel verdicts against zero."
+ },
+ "117": {
+  "n": 117,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "remainder -> status NARROWED 2026-09-07 (PIPELINE_ROADMAP.md:13023-13031): 'ladder 0, `floor_hole`/`hatch` 0, in all 162 specs ... What remains open is the two arms, and they go in with the spec that needs them'",
+   "deli_counter/stairwell.py:746-802 `wall_voids` -> producers slab_openings, stair_footprints, ramp cut + `ramp_landing` (:798) + ramp footprint; docstring 'LADDERS AND `floor_hole`/`hatch` LINKS ARE DELIBERATELY ABSENT ... Add them WITH the spec that needs them, and the count that shows it'",
+   "test_wall_over_void.py:321-337 `test_ladders_and_hatches_are_deliberately_not_voids` -> asserts no ladder's `ladder_geom.hole_rect` is in any storey's voids, on foundry_heist_vertical",
+   "layout_lint.py:868-889 -> L15 WARN 'ladder climb surfaces into a wall' when a partition on the top storey crosses the through-hole",
+   "layout_lint.py:1255 -> L27 `ceiling_hole_findings`, a wall UNDER a hole in its ceiling (0.235.0)",
+   "deli_counter.py:2289-2297 -> `_ladders` appends `ladder_geom.through_hole(...)` at story s+1 when `ld.cut_slabs`; ladder_geom.hole_rect is through_hole as a rect (ladder_geom.py:64-67)",
+   "deli_counter.py:2983-2989 -> `_vertical_links` appends a SlabHole of size `hsx or 1.5` for floor_hole/hatch with cut_slab",
+   "deli_counter.py:1690-1700 -> `_partitions` calls `stairwell.wall_voids(self.s)` before `_ramps`, `_ladders`, `_vertical_links` append",
+   "CHANGELOG 0.241.0 heading :872 'a ramp's cut stops at its head, railed, with a landing past it'; 0.235.0 :1143-1149 the delis' drop 'a `slab_holes` entry and a floor_hole link, one hole'",
+   "Deli Counter VERSION 0.257.0; specs/*.json 458, of which 299 are lf_* per-candidate specs Level Factory writes"
+  ],
+  "problems": [
+   "The census figures ('0 partitions in 458 specs -- 91 carrying 130 ladders, 81 carrying 102 such links'; the control's 23 clipped walls) were produced by a script the first pass ran and did not file. No file in the repo or the audit folder holds it, so I could not check them, and CLAUDE.md's filing rule requires the instrument beside its result before a status cites it. File it under docs/findings/ with its output, or cite only the 2026-09-07 count (0 in 162).",
+   "'458 specs' includes 299 `lf_*` per-candidate specs written by Level Factory's cold runs. They are not the library the 2026-09-07 count (162) measured, so say what the 458 are.",
+   "'Nothing to do until a spec stands a wall over one' assumes somebody will notice when one does. For ladders L15 warns. For a wall standing ON a link-only `floor_hole`/`hatch` hole (one not also in `slab_holes`) no lint exists: L27 is a wall under a hole in its ceiling, and wall_voids does not see link holes. So the trigger the item waits on is unarmed for that arm. The status should say so (and it may deserve its own small item)."
+  ],
+  "corrected_status": "*STATUS: ANALYSIS 2026-10-22 -- the two arms this item left are a decision waiting on a case, and no case has appeared. `stairwell.wall_voids` (stairwell.py:746-802, Deli Counter 0.257.0) still carries authored slab holes, stair cuts and footprints, and a ramp's cut, landing and footprint, and leaves ladders and `floor_hole`/`hatch` links out on purpose (the docstring at :773-784, 'Add them WITH the spec that needs them, and the count that shows it'; pinned by test_wall_over_void.py:321-337). The ramp half shipped in 0.107.0 and was re-cut in 0.241.0 with `ramp_landing`. Where a link's hole is also authored in `slab_holes` (the six delis' drop, 0.235.0), `slab_openings` already carries it. Re-counted 2026-10-22 over the 458 specs on disk (159 library, 299 Level Factory per-candidate) by [census filed at docs/findings/<folder>/, with its control]: widening the voids by every ladder's through-hole and every link's cut changes no built partition, and the control (the producers the rule does carry) clips 23. THE TRIPWIRE IS HALF ARMED: layout_lint L15 warns when a partition crosses a ladder's through-hole, but nothing reports a wall standing on a link-only `floor_hole`/`hatch` hole (L27 asks a wall under a hole in its ceiling), so the spec that would need that arm would go unnoticed. Nothing to build until a spec stands a wall over one; arming the link tripwire is the one cheap step left.*",
+  "why": "The remainder was always conditional: the arms go in with the spec that needs them. The decision, its pin test and its docstring stand in Deli Counter 0.257.0, and nothing I could open shows a wall over a ladder hole or a link-only hole. So ANALYSIS is defensible. But the fresh census figures are uncited and unfiled, the 458-spec count mixes in generated cold-run specs, and the waiting condition can only be noticed for ladders (L15). A link-only hole has no tripwire, so 'nothing to do' needs that qualifier, or a small item, rather than a silent wait."
+ },
+ "127": {
+  "n": 127,
+  "verdict": "UPHELD",
+  "checked": [
+   "distance branch unchanged -> lot/site_spawns.py:556 `reach = opening_range + clearance`; :559-569 the 'THE DISC APPLIES TO OCCLUSION, NOT TO DISTANCE' comment naming CREW_SPEED alone and 'nearer 8.5 m'",
+   "REACTION_SECONDS = 1.0 at :107 with 'One second is the floor, not a target' (:104) -> verbatim",
+   "untouched since 0.53.0 -> git log -S on 'reach = opening_range + clearance' / 'REACTION_SECONDS = 1.0' / 'THE DISC APPLIES' finds only pre-0.53 commits and 77deb73 (0.53.0); later releases (0.54.0, 0.97.3, 0.98.x, 0.122.0, 0.123.0) touch other code",
+   "LEVEL_STANDARD.md:546-548 'Spawns are provisional. The gameplay layer that will own them lives outside Level Factory...' -> verbatim",
+   "item 132 'a real day's work invested in code that is leaving' -> PIPELINE_ROADMAP.md:15096-15099, body of 132 (status 2026-09-10, a day after 127's 2026-09-09)",
+   "item 245 CLOSED 2026-10-13, five fight verdicts 'shown and not counted' -> roadmap:20616",
+   "item 241 'recorded, not tuned, enemy placement being provisional', INSTANT_CONTACT on all three -> roadmap:20559 (241's body, heading :20542)",
+   "stale docstring -> site_spawns.py:548-553 still says lot.py 'does not pass them'; lot.py:3041-3043 and :3720 both pass solids=solids"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "Both remaining pieces (two-sided closing speed in the distance branch; whether a one-second opening is what a brief wants) are tuning of Lot's enemy placement, and the factory has recorded that placement is provisional and owned by a gameplay layer outside it (LEVEL_STANDARD section 11), declined to invest in it for exactly that reason (132), and stopped counting Laser Tag's fight verdicts in a pick (245). Every cited line checks. SUPERSEDED (design assumption replaced) is the right word rather than CLOSED, since the code is untouched, and the status keeps the reopen condition. Caveat worth knowing, not a refutation: Lot has continued to change place_enemies since (0.97.3, 0.122.0) to stop refusals, so 'code that is leaving' is still being maintained -- but none of that touched the opening model."
+ },
+ "138": {
+  "n": 138,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "window rigs build no quad -> lux/addons/lux/runtime/lux_light_loader.gd:1601-1616, 'NO PREVIEW QUAD IN A WINDOW: THE GLASS IS THE PANE', `ar.show_emissive_quad = false`; Lux b5d498c 2026-09-13 '0.36.0: a window's light draws no pane in front of the glass'",
+   "0.32.2 double-sided quad -> lux/addons/lux/runtime/RIGS/lux_area_light_rig.gd:198-204 (CULL_DISABLED, comment cites roadmap 138); the path cited without `rigs/` does not exist",
+   "glass_delco opacity 0.38 -> pixelcoat/profiles/materials/glass_delco.json:15 verbatim",
+   "see_through_fault -> pixelcoat/pixelcoat/core/material_grammar.py:946-969; raised in build_theme_library at :1003-1005; Pixelcoat 781f5a0 2026-09-13 '0.40.0: ... a theme can no longer ship opaque windows'",
+   "cold run 9132 'the racks visible through the glass' -> docs/cold_runs/cold_9132/NOTES.md:17-18 (line 4: 'Night, clear')",
+   "cold run 9120 'the storefront through its glass' -> docs/cold_runs/cold_9120/NOTES.md:25-26 ('at night')",
+   "'signs still build it' -> lux/CHANGELOG.md:2551-2552: 'rig_for_anchor(\"sign\") still builds its quad, and the fixture spawner still turns it off under spawned hardware (0.33.0)'; lux_fixture_spawner.gd:101-106 sets show_emissive_quad = false"
+  ],
+  "problems": [
+   "File path wrong: `lux_area_light_rig.gd:198-204` is at `lux/addons/lux/runtime/rigs/lux_area_light_rig.gd`.",
+   "'the signs, which still build it' is loose: only loader-placed sign rigs build the quad; under Zoo's spawned sign hardware the fixture spawner turns it off (lux_fixture_spawner.gd:101-106; Lux CHANGELOG 0.36.0).",
+   "Status word: CLOSED is right, not SUPERSEDED. The item's observable -- windows reading black from the street at night -- is gone and was seen gone in packages at night (9120, 9132); nothing later carries a remainder, so 'superseded by' would name no owner. The first pass's MOOT maps to CLOSED here because the defect itself is answered with proof, not merely made irrelevant.",
+   "Scope note: the night evidence is storefront glass on enterable buildings (glass kind), not the county_hospital ward windows; Empties' opaque glass_facade is a different design tracked elsewhere (roadmap ~12008-12014, 'UNPROVEN ... a question for the eye')."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- THE PATH WAS REBUILT UNDER IT, two days after it was filed. The black rectangle was a single-sided emissive quad over opaque near-black glass; Pixelcoat 0.40.0 (781f5a0, 2026-09-13) made every theme's `glass` blend -- `glass_delco` at opacity 0.38 (`profiles/materials/glass_delco.json:15`) -- and refuses a theme whose glass would ship opaque (`see_through_fault`, `pixelcoat/core/material_grammar.py:946-969`, raised at `:1003-1005`), and Lux 0.36.0 (b5d498c, the same day) builds every window rig with no quad (`lux_light_loader.gd:1601-1616`, `show_emissive_quad = false`): what a window shows at night is the lit room through the glass. Seen from the street at night since: cold run 9132, 'the racks visible through the glass'; cold run 9120, 'the storefront through its glass'. The 0.32.2 double-sided quad (`runtime/rigs/lux_area_light_rig.gd:198-204`) remains for sign rigs the loader places (the fixture spawner turns it off under Zoo's sign hardware, `lux_fixture_spawner.gd:101-106`), and the night tint this item asked about was a question about an opaque skin that no longer ships on enterable windows; an Empty's opaque `glass_facade` is a different design and not this item.*",
+  "why": "Every substantive claim checks: windows no longer draw the quad the 'NOT YET RE-WALKED' fix was about, glass is see-through by a build-time guard, and the lit-room-through-glass look was seen at night in two cold runs' notes. The re-walk the status asked for is of a mechanism that no longer runs on windows, and the 'night tint' was a fix for a skin that cannot ship. Fixes: one wrong path, one over-broad sign claim, and CLOSED (not SUPERSEDED) is the fitting word because the defect is proven gone and nothing else owns a remainder."
+ },
+ "139": {
+  "n": 139,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "SIGN_ALBEDO 0.15, SIGN_ROUGHNESS 1.0 -> zoo/zoo_keeper/recipes/sign_box.py:18-19",
+   "build_art(..., lit=(PY.GLOW_EMISSION, SIGN_ALBEDO)) -> sign_box.py:130-132",
+   "GLOW_EMISSION = 1.4 -> zoo/zoo_keeper/core/price_pylon_forms.py:91",
+   "pack path 2.2 -> sign_box.py:91-96 `style.get(\"emissive_strength\", 2.2)`; reached only when `skins_dir` is set and no sign_pack is handed (:42-48)",
+   "LF fixtures job passes no --skins -> level_factory/adapters/zoo/__init__.py:321-341 (--fixtures, --out, --theme, --fixture-types, --sign-pack only)",
+   "Zoo 1.37.0 '102 ... blank lit box' -> zoo/CHANGELOG.md:4729-4740; 'emission 1.4' in the same entry",
+   "Zoo 1.37.1 4109dc1 2026-09-30; 26.5% / control 26.4% -> 20.0%, field (78, 141, 110), 'The rest of the 20.0% is the letters, which clip at this emission whatever the lamp does' -> CHANGELOG.md:4698-4727 verbatim",
+   "cold run 9378: deli_a03, office, pharmacy_a01 M_SignBox_Face_*_Face at KHR emissiveStrength 1.4 -> read from the three exported fixtures GLBs' JSON chunk; office job.log:4 '[sign_box] 2.80 x 0.60 number: 1766'",
+   "walker 'double sign here looks...redundant', both read DOC'S DISCOUNT DRUGS -> zoo/CHANGELOG.md:509-513 (1.112.0); docs/findings/walk_2026-10-14/README.md:85-87",
+   "roadmap 220 CLOSED 2026-10-10, door_signs.png -> roadmap:20051; docs/cold_runs/cold_9218/door_signs.png exists"
+  ],
+  "problems": [
+   "'Read by the walker: ... and head-on in cold run 9218's door_signs.png (roadmap 220)' attributes a factory frame to the walker. 9218's door_signs.png is the factory's own proof frame for item 220 (a conduit bar), not the walker's reading. Only the 2026-10-14 walk is the walker's eye.",
+   "Not measured on the item's own station (county_hospital's sign); the 1.37.1 clip figure is from a gas-station sign on 9122's walk copy. Acceptable since the hospital face no longer exists in that form, but should be said."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- THE WHITE BOX WAS REPLACED, NOT RE-TUNED, AND THE WALKER HAS READ A DOOR SIGN SINCE. The slab was a blank face: until Zoo 1.37.0 every derived door sign was 'a blank lit box' (102 in the library). 1.37.0 paints the face with the business's name at the pylon's emission 1.4 (`core/price_pylon_forms.py:91`), and 1.37.1 (4109dc1, 2026-09-30) builds it at albedo 0.15 and roughness 1.0 (`recipes/sign_box.py:18-19`), measured at a station square to a sign on cold run 9122's walk copy (a gas station's, not this item's hospital sign): pixels clipped to white 26.5% (control 26.4%) -> 20.0%, the field reading (78, 141, 110) and the rest the letters. The style row's 2.2 survives only on the pack path (`sign_box.py:91-96`), which Level Factory's fixtures job never reaches -- `adapters/zoo/__init__.py:321-341` passes no `--skins` -- and in cold run 9378's package all three door faces are painted at emissiveStrength 1.4. Read by the walker on the walk of 2026-10-14: 'double sign here looks...redundant', the band and the door both legibly reading DOC'S DISCOUNT DRUGS (Zoo 1.112.0); framed head-on by the factory's own shots in cold run 9218's `door_signs.png` (roadmap 220). The letters still clip at 1.4 'whatever the lamp does'; whether that matters is a look call, not this item.*",
+  "why": "The remainder asked that the face's colour and text read instead of a white slab, then a re-walk. The face was rebuilt as named art at 1.4 with a measured drop in clipping and a coloured field, it ships that way in today's package (read from the GLBs), the 2.2 path is unreachable from Level Factory, and the walker has since read a door sign's text in a walk. The close stands; the one misattribution (9218's frame as the walker's) is corrected, and the measurement's station is named honestly."
+ },
+ "140": {
+  "n": 140,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "Pixelcoat 0.52.0 305a124 2026-09-27 -> git log; pixelcoat/CHANGELOG.md:371ff",
+   "'We need to change/fix this' -> CHANGELOG 0.52.0 verbatim; 'spotted hide' is the changelog's description ('read as a spotted hide ... and the walker called it'), not a walker quote",
+   "fbm 16 cells, blob 9.2%, ac1 0.64 -> CHANGELOG 0.52.0 table and profiles/materials/drywall_orangepeel_delco.json (meso fbm cells 16)",
+   "'the walker chose this one' from a second sheet -> CHANGELOG 0.52.0",
+   "_SURFACE_NOT_NOISE drywall (0.5, (9.0, 16.0)) and the test -> pixelcoat/tests/test_theme_profiles.py:~250-282; tests/test_drywall_orangepeel.py exists",
+   "delco_1997 maps drywall -> profiles/themes/delco_1997.json:17",
+   "'normal': false -> drywall_orangepeel_delco.json emit block",
+   "'real orange peel is 2-5 mm, this pack's texel is 7.8 mm, and no grammar at this density can draw the finish the id names' -> CHANGELOG 0.52.0 verbatim",
+   "review 2026-10-19: r_wall_drywall 'A drywall partition and an office beyond it' under s238 -> docs/findings/walker_review_2026-10-19/build_page.py:57-63; cold run 9335 -> build_page.py:17",
+   "q238 'Too soft or noisy', note 'you can tell where one texture stops and ends...needs 3d UV Tri stuff?' -> verdicts_2026-10-19.json",
+   "238 owns it: 'Next: arms at the review's two cameras to name what the eye sees' -> roadmap:20472; docs/findings/guides_2026-10-19/textures.md:88-93 lists drywall's fine layer under BC1 among the suspects"
+  ],
+  "problems": [
+   "'the walker called 0.28.0's a spotted hide' puts the changelog's words in the walker's mouth; the walker's words are 'We need to change/fix this'."
+  ],
+  "corrected_status": "*STATUS: SUPERSEDED 2026-10-22 by 238 -- the eye judged the drywall after this status, twice. The grammar: 0.28.0's read as a spotted hide on every interior wall and the walker called it, \"We need to change/fix this\", then chose its replacement from a second contact sheet, Pixelcoat 0.52.0 (305a124, 2026-09-27: fbm at 16 cells, blob share 9.2 %, ac1 0.64, held by tests/test_drywall_orangepeel.py and by `_SURFACE_NOT_NOISE` drywall ac1 >= 0.5, std 9-16, tests/test_theme_profiles.py; delco_1997 still maps drywall to drywall_orangepeel_delco, profiles/themes/delco_1997.json:17). In a level: the look review of 2026-10-19 showed a drywall partition from cold run 9335 (`r_wall_drywall`) under item 238's question, and the walker answered \"Too soft or noisy\" -- \"you can tell where one texture stops and ends\". Item 238 owns that answer and measures at that camera (\"arms at the review's two cameras to name what the eye sees\"), drywall's fine layer under BC1 among its named suspects (docs/findings/guides_2026-10-19/textures.md). Orange peel as relief stays unemitted (`\"normal\": false`). Pixelcoat 0.52.0 measured the limit: real orange peel is 2-5 mm against the pack's 7.8 mm texel, and \"no grammar at this density can draw the finish the id names\".*",
+  "why": "The 'eye has not judged it' remainder has been met (contact-sheet choice in 0.52.0) and then re-opened in a level by a negative walker verdict -- which is exactly why SUPERSEDED, not CLOSED, is right: 238 explicitly owns that verdict and lists drywall's grain among its suspects, so the noise question is tracked, not buried. The relief piece is not separately doable at this texel density. One quote misattribution fixed."
+ },
+ "141": {
+  "n": 141,
+  "verdict": "UPHELD",
+  "checked": [
+   "cold run 9006 begun 2026-09-11 20:31:18 -> docs/cold_runs/cold_9006/journal.md:3; level_factory 0.72.0 -> run.log:7; export of county_hospital_001 -> run.log:117",
+   "item 17's record: 'texel_density 537 kit surfaces, every skin at 0.500 world-triplanar, worst mismatch 1.0x (item 141 -- the export's project.godot declares the script and 49 of 49 sidecars bind it)' -> PIPELINE_ROADMAP.md:2301-2304; 9005 copy retired, 9006's 'the copy to walk' -> :2298-2300; re-walk list omits 141 -> :2325-2326",
+   "cold run 9376 package project.godot [importer_defaults] scene import_script/path res://zoo_worldskin.gd -> workspaces/cold-9376-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot/project.godot:32-36",
+   "zoo_worldskin.gd at the package root, 109,030 bytes -> ls -l",
+   "134 GLB sidecars, 39 kit-family (wall_/wallEnd_/window_/doorway_/breach_), 39 bound to res://zoo_worldskin.gd, 0 empty, 0 other -> read-only scan of *.glb.import",
+   "_worldskin_in_package :1224, _importer_defaults_block :1255 -> level_factory/packages/exporting/export.py; tests in level_factory/tests/unit/test_worldskin_declared.py (incl. test_the_script_under_lot_shell_is_declared_where_it_sits)",
+   "walker 2026-10-19 'you can tell where one texture stops and ends' -> verdicts_2026-10-19.json q238; owned by 238 (roadmap:20472)"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "The item asked for texel_density over a running package plus the sidecars read for import_script/path. Both were done on cold run 9006's export (the first after the fix; item 17's record: 1.0x, 49/49 bound), and the binding still holds in today's package, which I read directly (39/39). The re-walk target named in the status was itself retired for the 9006 copy. The one live look complaint about texture seams is on interior walls under 238, whose plan runs texel_density again, and the status says so. Only residual weakness: the 1.0x figure exists as a roadmap record with no kept output file -- acceptable, as it is the recorded instrument run on the package the item asked about."
+ },
+ "142": {
+  "n": 142,
+  "verdict": "UPHELD",
+  "checked": [
+   "142's status: 'THE PROP IS NOT UNSKINNED, IT IS UNLIT; FILED AS ITEM 147' and 'texel_density.gd's planned ... report would have found nothing here, and is not built' -> PIPELINE_ROADMAP.md:15550-15576",
+   "147 CLOSED 2026-10-15, DC 0.206.0 rows by work plane, 1,004 rows, 957 off centreline, 390 of 431 lit rooms with more than one run, 'cold run 9005's hospital was not re-walked' -> roadmap:15748 (index row :828)",
+   "item 17 reproduced the black cart on the lit 9006 copy and called it 'item 147's finding, now measured where the lights are on' -> roadmap:2312-2324",
+   "texel_density.gd only visits kit surfaces and reads uv1_scale / uv1_triplanar -> tools/texel_density.gd:50-57 (_is_kit), :79-104; no UV-presence check (grep 'uv' finds only uv1_scale/uv1_triplanar)",
+   "glb_uv_census.py prints primitives vs TEXCOORD_0 -> tools/glb_uv_census.py:187 ('primitives_with_uv0'), :236-242"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "The item's own last status already reduced its remainder to nothing about the prop: the UV hypothesis was refuted (the UV-less primitive is a never-drawn collision mesh) and the cause, an unlit spot, was handed to 147, which is CLOSED on a library-wide re-lay of rows. The texel_density extension was planned against the refuted hypothesis and would detect no real defect. SUPERSEDED by 147 is correct; the status honestly records that neither item re-walked the ward."
+ },
+ "144": {
+  "n": 144,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "0.72.1's concrete lookup refuted on cold run 9061, card shop has no concrete wall, 0 stair surfaces skinned -> zoo_worldskin.gd:57-90 says exactly this (REFUTED 2026-09-16 block, card_shop_a01 'A CARD SHOP HAS NO CONCRETE WALL')",
+   "LF 0.93.0 f906b9a 2026-09-16 -> git: 'f906b9a Wed Sep 16 2026 0.93.0: a card shop has no concrete wall'",
+   "STAIR_FLIGHT_FAMILY at :93 -> level_factory/assets/godot/zoo_worldskin.gd:93 `const STAIR_FLIGHT_FAMILY: Array = [\"floor_\"]`",
+   "_skin_stairs at :1687-1723 push_error()s when it cannot -> read 1689-1725: push_error on no art/zoo and on no module in the floor family",
+   "export refuses any gb_* surface in a themed package since 0.218.0 -> level_factory/packages/exporting/greybox_skin.py:246-269 `_assert_no_greybox` raises GREYBOX_IN_A_THEMED_PACKAGE (0.218.0)",
+   "census is a prefix test naming gb_stair -> greybox_census.gd:15-16 names gb_stair, :45 GREYBOX_PREFIX := \"gb_\"",
+   "cold run 9343 export line -> docs/cold_runs/cold_9343/export.log:16 verbatim 'greybox skin: 0 surface(s) on a greybox material (none), 0 of them slabs; any one is refused (require_no_greybox)'",
+   "9343's apartment_walkup_a01 carries two stair systems -> apartment_walkup_a01 is in 9343's lot (cold_9343/NOTES.md:13); the two stair systems (aw01_stair_dn, aw01_stair_up) were read from deli_counter/build/apartment_walkup_a01.gameplay.json, today's DC build, not from 9343's package",
+   "re-walk on 9070's package 2026-09-23, stair note = cut collar owned and CLOSED by 168 -> item 168 body (PIPELINE_ROADMAP.md:17671-17680): 'Then the same descending a staircase'; 168's status CLOSED 2026-10-20 (re-closed)",
+   "floor_hole marking is item 265's -> item 265 NARROWED 2026-10-20, all three causes read in a package (PIPELINE_ROADMAP.md:20783)",
+   "Zoo still carries only stair_rail -> git -C zoo ls-files | grep stair: stair_rail.json, recipes/stair_rail.py only"
+  ],
+  "problems": [
+   "Missed cross-reference: item 250 (walker's walk of cold runs 9305-9307, 2026-10-14, PIPELINE_ROADMAP.md:20662) records finding 6 as 'an authored floor_hole ... which 144 left as designed, unmarked' and findings 7-9 (the office's stair core) as \"144's 'Zoo stair species built to DC's flight geometry', asked for by a person\". So the 'dearer upgrade' is not merely an unrequested option: a person asked for it, and 250 carries that ask (its status: 7 and 9 met by Deli Counter 0.221.0/0.222.0, 8's storey-1 guard rail and 6 still open there). The close must point at 250, not call the species something nobody asked for.",
+   "'The re-walk was cold run 9070's package' is loose: 168 records the walker descending a staircase in 9070's package and naming the grey cut collar, not a verdict on the treads. No record holds an explicit look at tread finish. Item 250's 2026-10-14 walk, in which the walker looked closely at a stair core and named enclosure, soffit and rail, not the tread finish, is the stronger evidence and should be cited beside it.",
+   "The two stair systems are read from today's Deli Counter build record, not 9343's package (9343 ran Deli Counter 0.236.1). Either say so or drop the figure; the gate line on its own carries the proof."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- the stairs wear the building's floor family, and a themed package that draws any greybox is refused. Cold run 9061 refuted 0.72.1's concrete lookup: a card shop has no concrete wall, so 0 stair surfaces were skinned. Level Factory 0.93.0 (f906b9a, 2026-09-16) replaced it. `_skin_stairs` now dresses every visual `stair<n>_*` mesh from the first `floor_` kit module (`STAIR_FLIGHT_FAMILY`, assets/godot/zoo_worldskin.gd:93), and push_error()s when it cannot. Since 0.218.0 the export refuses any `gb_*` surface in a themed package (packages/exporting/greybox_skin.py:246-269; the census is a prefix test that names `gb_stair`). Cold run 9343 has apartment_walkup_a01 in its lot and exported \"greybox skin: 0 surface(s) on a greybox material\" (docs/cold_runs/cold_9343/export.log:16). Walked since, with no note on the treads: cold run 9070's package on 2026-09-23 (the stair note was the slab's cut collar, which item 168 owned and CLOSED) and cold runs 9305-9307 on 2026-10-14 (item 250). The `floor_hole` marking is items 265 and 250's (finding 6). The Zoo stair species built to Deli Counter's flights was this item's 'or, later'. The walker asked for it at the office's stair core (item 250, findings 7-9), and that ask is item 250's: 7 and 9 were met by Deli Counter 0.221.0 and 0.222.0, and 8's guard rail is still open there. Zoo still carries only `stair_rail`.*",
+  "why": "Every file:line, commit and quoted log line checks, and the close condition's cheaper branch (skin the base's stair meshes) shipped and is now gated by a refusal at export, proven on a package. The status is wrong in two places, though. First, it treats the Zoo stair species as an upgrade nobody asked for, when item 250 records a person asking for exactly that at a stair core. Second, the 're-walk' is a walk with no complaint about the treads, not a verdict on them. Both residues have owners (250, 265, 168), so CLOSED stands once the text points at them."
+ },
+ "158": {
+  "n": 158,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "look review 2026-10-19 asked 'Do the parked cars read right?' over three frames -> docs/findings/walker_review_2026-10-19/build_page.py:92-98, section s44: frames r_payphone_face_inspect ('Parked cars across the street', inspect), h_payphone_face_inspect ('A row of parked cars at the hospital', inspect), r_cars_lot ('A parking lot')",
+   "answer 'Looks right' with the wear note -> verdicts_2026-10-19.json verdicts.q44 = {choice 'Looks right', note 'some of the cars need some patina and wear...rusting....ect....bumper stickers....more lift', at 2026-10-19T21:16:09Z}, verbatim",
+   "item 44 took the note up, Zoo 1.120.0/1.120.1, cold runs 9364-9366 -> item 44 status NARROWED 2026-10-21 (PIPELINE_ROADMAP.md:5147) says so, 0c51827 and 2ed0d79, and leaves the walker's eye on the wear and 'more lift'",
+   "matrix re-measured for 1.120.0 on 2026-10-21, 646 builds, 0 same/opposite pairs -> zoo/tests/test_car_forms.py:24-52; also re-measured for 1.120.1 (:47-52), Zoo VERSION is 1.120.1",
+   "held at :255-277 -> test_every_stand_off_clears_the_probe_window (:256-268) checks the recipe's stand-off constants against the 2 mm window; test_the_measured_matrix_was_clean_and_fits_the_budget (:271-277) asserts the recorded MEASURED dict"
+  ],
+  "problems": [
+   "'held at :255-277' overstates one of the two tests: test_the_measured_matrix_was_clean... asserts a hand-recorded constant (MEASURED = {builds 646, same 0, opp 0}). It re-runs no probe and cannot fail if the cars regress. Only the stand-off test holds geometry, and it holds constants. Say 'recorded in, with stand-offs held by'.",
+   "The verdict answers 'read right' on review-page frames (two in the inspection light), not 'the walker walks a street ... and names them as 1990s cars'. It is the walker's eye, but on a different question than the close condition, and the status should say so rather than 'the walker named the cars'.",
+   "The re-measure is for 1.120.0 AND 1.120.1 (the shipped version); cite both."
+  ],
+  "corrected_status": "*STATUS: CLOSED 2026-10-22 -- the walker passed the cars. The look review of 2026-10-19 asked \"Do the parked cars read right?\" over three frames: cars parked on a street and a row at the hospital, both in the inspection light, and a parking lot (`docs/findings/walker_review_2026-10-19/build_page.py`, section s44). The answer was \"Looks right\" (q44, `verdicts_2026-10-19.json`), with \"some of the cars need some patina and wear...rusting....ect....bumper stickers....more lift\". This was given on frames, not on a walk, and answers 'read right' rather than naming them as 1990s cars. Item 44 took the note up (Zoo 1.120.0 and 1.120.1, cold runs 9364-9366) and still carries it. Nothing jitters by the car's own measure: Zoo's coplanar matrix, re-measured on 2026-10-21 for 1.120.0 and again for 1.120.1, reads 646 builds and 0 same- or opposite-facing coincident pairs. The figure is recorded in zoo tests/test_car_forms.py:24-52, and the recipe's stand-offs are held above the probe's 2 mm window there (:256-268).*",
+  "why": "The quotation, the frames, item 44's hand-off and the matrix figures all check. The close condition asked for the walker's eye, and the walker gave it. The gap is in the wording: that eye was given on frames rather than a walk, and on 'read right' rather than '1990s'. One of the two tests cited as holding the jitter result only re-asserts a recorded number. The wear look the walker did ask for already lives in item 44, so nothing undone is buried by closing, as long as the status states what the verdict was."
+ },
+ "166": {
+  "n": 166,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "LF 0.101.0 c28fae3 2026-09-21 20:25 -> git: 'c28fae3 Mon Sep 21 20:25:39 2026 0.101.0: price the warm-up's station set, and say which part of the 48 s is not its to give back'",
+   "the sweep, tools/warmup_spacing_sweep.py, cold run 9066's package, one cold one warm launch per configuration, RTX 2060 GL Compat -> level_factory/CHANGELOG.md:7868-7880",
+   "cold load 40.7 s at 9 stations, 48.6 at 21, 50.2 at 79 -> CHANGELOG.md table and :7910-7911",
+   "lap 1's worst cold frame plateaus at 148-159 ms above ~16 stations -> CHANGELOG 'Above about 16 stations lap 1's worst frame plateaus at 148-159 ms' (with one 284 ms outlier at 40 m, repeated at 156)",
+   "grid_spacing_m ships at 40.0, 21 stations, 6.4-6.5 s warm, 20.1-20.5 ms -> CHANGELOG 'ships at 40.0 ... 6.4-6.5 s of load and 20.1-20.5 ms'; level_factory/assets/godot/warmup.gd:132 `@export var grid_spacing_m: float = 40.0`",
+   "warmup_finished lets a host wait behind its own loading screen (warmup.gd:62-64) -> signal warmup_finished with the comment 'A host with its own loading screen can await this'",
+   "cold run 9378's package carries the measurements in warmup.json -> workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot/warmup.json knobs.grid_spacing_m default 40.0 with the full table in 'measured'",
+   "the open half per the item -> PIPELINE_ROADMAP.md:17600-17605 ('the spacing has never been priced', 'the magnitudes will not')"
+  ],
+  "problems": [
+   "'52.1 s at 29' is not a row of the measured table: the table has 31 stations at 49.0 s and 41 at 51.2/49.0 s. The figure appears only in the changelog's own prose (CHANGELOG.md:7910), which contradicts its table. Drop it or replace it with '49.0-51.2 s at 31-41'.",
+   "The item's third remainder (magnitudes on other hardware) is not done; it waits for data. ANALYSIS is right only because the status says so explicitly, which the proposed text does ('every figure is one GPU's')."
+  ],
+  "corrected_status": "*STATUS: ANALYSIS 2026-10-22 -- the open half was priced the day it was named, and what it found is a trade, not a task. Level Factory 0.101.0 (c28fae3, 2026-09-21, `tools/warmup_spacing_sweep.py`) swept the warm-up's station set on cold run 9066's package, with one cold and one warm launch per configuration, on an RTX 2060 on GL Compatibility. Cold load read 40.7 s at 9 stations, 45.3 s at 13, 48.6 s at 21, 49.0-51.2 s at 31-41 and 50.2 s at 79. So the ~48 s is the level's shader compile bill pulled forward, not the sweep's frames, and no station set removes it. Above ~16 stations lap 1's worst cold frame plateaus at 148-159 ms. The warm launch is the one that tunes, and `grid_spacing_m` ships at 40.0: 21 stations, 6.4-6.5 s warm load, 20.1-20.5 ms (`level_factory/assets/godot/warmup.gd:132`). Its measurements are in every package's `warmup.json`, cold run 9378's included. Left as a standing trade: a first launch on a cold driver cache pays the compile bill once per machine and driver, behind `warmup_finished`, where a host can show its own loading screen (warmup.gd:62-64). Every figure is one GPU's, and the magnitudes elsewhere wait for runtime data. Not re-priced since 9066: today's packages, with baked lights and sun and merged interiors, have not been measured for load.*",
+  "why": "The open half, pricing the spacing and the load, was answered by a measured sweep with repeats, and the shipped default and its measurements reach every package (checked on 9378's). What remains is a cost the sweep shows no spacing can remove, plus other hardware, which needs runtime data nobody has. Both are recorded in the status, so ANALYSIS fits. One figure, 52.1 s at 29 stations, is copied from changelog prose that its own table does not support."
+ },
+ "222": {
+  "n": 222,
+  "verdict": "UPHELD_WITH_FIXES",
+  "checked": [
+   "seven runs that night read 0.001 and PASS -> docs/findings/streetlight_shadow_control/selftest_runs.txt: 7 PASS lines, 'on the axis at the lens 0.001'",
+   "Lux 0.77.0 records the selftest on 2026-10-14 -> lux/CHANGELOG.md:76 'the other 24 in tools/ exit 0 on 0.76.1 and on 0.77.0 alike ... (streetlight_shadow_selftest.gd windowed on GL Compatibility ...)'",
+   "shadow_gap_probe.gd / shadow_gap_probe2.gd findings -> both in the finding folder; roadmap body (PIPELINE_ROADMAP.md:20111-20125) records 5 mm at bias 0.03 reading 0.001 and the staleness reading refuted",
+   "selftest unchanged since Lux 0.65.0 9237208 -> git -C lux log on tools/streetlight_shadow_selftest.gd: last 9237208 (2026-10-03, 'Lux 0.65.0'); working tree clean for tools/",
+   "counted _check at :194, exit 1 at :205 -> streetlight_shadow_selftest.gd:194 the on-axis _check; :205 `_exit(1 if _fails > 0 else 0)`; _check increments _fails (:46-51)",
+   "it reads the frame at :84 and prints -> :84 `return _band(root.get_viewport().get_texture().get_image())`; saves nothing",
+   "the failing runs on 0.71.0/0.72.0 drafts -> lux/CHANGELOG.md:313-322 (0.72.0 entry) records the on-axis control failing and filing roadmap 222"
+  ],
+  "problems": [
+   "'Every run since reads the on-axis cap control at 0.001 against 0.459 and passes: ... both runs Lux 0.77.0 records' -- Lux 0.77.0's record (CHANGELOG.md:76) says only that the test exits 0; it gives no figures. The 0.001/0.459 readings are the seven 2026-10-10 runs' alone. Also 'every run since' can only mean 'every recorded run'."
+  ],
+  "corrected_status": "*STATUS: ANALYSIS 2026-10-22 -- the control sees its shadow, and what made it miss twice on 2026-10-10 is a standing unknown rather than a task. Every recorded run since has passed. The seven that night read the on-axis cap control at 0.001 against 0.459 unshadowed (`docs/findings/streetlight_shadow_control/`, `selftest_runs.txt`). Lux 0.77.0 records the test exiting 0 on 2026-10-14, windowed on GL Compatibility, on 0.76.1 and on 0.77.0 (`lux/CHANGELOG.md:76`). `shadow_gap_probe.gd` shows the control's own setting, a 5 mm cap at bias 0.03, blacks the pool (0.001), and `shadow_gap_probe2.gd` refutes a stale first read. The selftest is unchanged since Lux 0.65.0 (9237208), and a miss cannot pass quietly: the cap control is a counted `_check` (`tools/streetlight_shadow_selftest.gd:194`) and the test exits 1 (:205). If it fails again, keep the frame, the window's state (minimised, covered, the display asleep) and whatever else held the GPU. The selftest saves none of them itself: it reads the frame at :84 and prints.*",
+  "why": "The item's remainder is a cause that cannot be found until the failure recurs, plus a contingent instruction to capture state if it does. The control is shown to be able to fail, a failure exits non-zero, and the instruction survives in the status. ANALYSIS is honest. The only defect is attributing the 0.001/0.459 figures to Lux 0.77.0's runs, whose record gives an exit code only."
+ },
+ "247": {
+  "n": 247,
+  "verdict": "UPHELD",
+  "checked": [
+   "Zoo 1.109.0 c2edb80 restarts faces at their lowest vertex with corner data -> git 'c2edb80 Wed Oct 14 2026 1.109.0: a bevelled mesh is one mesh every build'; zoo/zoo_keeper/bpylayer/geometry.py:111-130 start_at_lowest, corner data since 1.109.0; :406 `start_at_lowest(bm, list(bm.faces))` after the bevel",
+   "9299/9300 every one of 596 GLBs and the lightmap the same bytes -> docs/cold_runs/cold_9300/NOTES.md:7-15 ('3,261 byte-identical, among them every one of the package's 596 GLBs ... bake.exr and bake.lmbake')",
+   "Lux 0.77.0 4ce4c85 rest() on three rigs -> git '4ce4c85 0.77.0: a rig at rest before its scene is packed (factory roadmap 247'; lux_fluorescent_rig.gd:50, lux_stage_light_rig.gd:58, lux_streetlight_rig.gd:156 each `func rest() -> void:`",
+   "LF 0.208.0 b8fe4f7 rests every lux_light_rig before the pack -> git 'b8fe4f7 0.208.0: every animated Lux rig at rest before the applied scene is packed'; run_lux_apply.gd:369-382 loops get_nodes_in_group(&\"lux_light_rig\") calling rest()",
+   "9301/9302 all 12 saved scenes 0 lines apart once per-save ids masked -> docs/cold_runs/cold_9302/NOTES.md:13-15",
+   "22 of 3,283 files, every one attributed -> cold_9300 NOTES: 11 per-save ids, 1 lux.applied, 10 metadata; cold_9302 NOTES: 22 of 3,283, 'the set 9300's NOTES attributes'",
+   "read since as '247's residue, 0 lines once masked' -> PIPELINE_ROADMAP.md:20670 contains '12 are Godot's per-save ids (247's residue, 0 lines once masked)'",
+   "remainder as the item states it -> status NARROWED 2026-10-14 'Left: those ids ... and the metadata that hashes them'; docs/findings/roofprops_bytes/README.md:141-142 'What remains of 247'"
+  ],
+  "problems": [],
+  "corrected_status": "",
+  "why": "The item's concern was 'a byte that moves without a cause'. Both causes found, the dish's face order and the rigs' clocks, were fixed and each was proven with a pair of identical-command cold runs. What still differs is Godot's per-save ids and the run's own metadata. Each is attributed file by file and reads 0 lines once masked, and later runs treat it as known residue. Nothing in the roadmap asks for a byte-identical package. Every cited commit, line and figure checks."
+ },
+ "14": {
+  "n": 14,
+  "verdict": "REFUTED",
+  "checked": [
+   "Item 14's status (PIPELINE_ROADMAP.md:1360, SUPERSEDED 2026-10-15) and docs/findings/open_items_remeasure/README.md:91-92 both say 'the walk test walks the crew's body over every leg of every candidate (roadmap 208)'",
+   "WHAT 'the walk test' IS, in both claims and in the auditor's: the candidate job `walktest_navqa` (cold_9314/art.log:57,67,73) -> level_factory/adapters/walktest/__init__.py:9 'lot/walktest.py answers it ... runs Lot's <stem>_navqa.tscn' -> lot/walktest.py:89-98 sync_addon copies lot/godot/addons/heist_nav_qa (the director) into the project before every run, :161-162 env = agent_contract.nav_env(env). The director is lot/godot/addons/heist_nav_qa/nav_qa_director.gd, Lot's file (the prompt's 'level_factory's nav_qa_director.gd' is a misnaming; no copy exists in level_factory or deli_counter)",
+   "the body it walks today -> nav_qa_director.gd:40 `AGENT_RADIUS := _envf(\"DC_NAV_RADIUS\", 0.4)`, :818 `capsule.radius = AGENT_RADIUS * 0.7`, :830 `body.floor_max_angle = deg_to_rad(_envf(\"DC_NAV_SLOPE\", 55.0) + 1.0)`; deli_counter/agent_contract.py:93-107 nav_env sets DC_NAV_RADIUS = nav_bake.agent_radius_m and DC_NAV_SLOPE = nav_bake.agent_max_slope_deg, which agent_contract.json:22,25 give as 0.4 and 55.0 -> a 0.28 m capsule on a 56 degree floor. The auditor is right",
+   "no later change -> the director's last commit is 2f647d4 (Lot 0.97.2, 2026-10-06), before item 14's status; `walker_capsule_radius_m` is read by no code: git grep finds it only in deli_counter/agent_contract.json:60 and agent_contract.py:65, nothing in lot, level_factory or lasertag",
+   "the later record the auditor was asked about -> item 208's status (PIPELINE_ROADMAP.md:19505, NARROWED 2026-10-09) and body (:19507-19540): the crew's body (0.35 m, floor 45) was walked ONCE as a measurement, from patched copies, 18 of 18 passing (docs/findings/walktest_crew_body/README.md; rewalk.py:76-85 patches the RADIUS_LINE and FLOOR_LINE in copies and deliberately avoids walktest.py main() because sync_addon would restore the shipped director); 208 STILL OPEN: 'whether the gate adopts the crew's body' and 'qa.walker_capsule_radius_m, still read by nothing'. The auditor did not miss it: their 208 note cites docs/findings/walktest_crew_body/ and the 18/18",
+   "the 9314 figure item 14 rests on -> docs/cold_runs/cold_9314/fight_fields_9313_9314.out.txt holds grades and '0 of 32 summary fields moved' per candidate; it does not print walker statuses or player-stuck counts. In 9314 all three walktest_navqa jobs were cache hits (art.log:57,67,73), i.e. earlier output of the same 0.28 m director; workspaces/cold-9314-ws is not kept"
+  ],
+  "problems": [
+   "False: 'the walk test walks the crew's body over every leg of every candidate (208)'. The walk test, the walktest_navqa job running Lot's nav_qa_director.gd, walks a 0.28 m capsule on a 56 degree floor with a teleport step-up. The crew's 0.35 m body walked once, in item 208's measurement on patched copies of 18 kept walks (2026-10-08/09). Whether the gate adopts that body is 208's open question.",
+   "The two artefacts in the claim are different jobs: the walk test (Lot's director, the 0.28 m walker) and Laser Tag's evaluation (the crew, the contract's body). Only the second walks the crew's body. The status runs them together.",
+   "Unsupported: 'cold run 9314 reads every path proof and every walker ok ... Laser Tag's crew at 0 player-stuck events' -- the cited fight_fields_9313_9314.out.txt carries neither figure, and 9314's walk tests were cache hits.",
+   "The same false sentence is in docs/findings/open_items_remeasure/README.md:91-92 and needs the same correction."
+  ],
+  "corrected_status": "*STATUS: SUPERSEDED 2026-10-15 by 197 and 208 -- the site cannot be re-read, and its class is owned elsewhere. Seed 5017 is in no cold run's batch and no record names it; the lot-demo-era generators that built it are gone. What catches the class it named is a walker under real physics that the path query does not stand in for. The walk test (Lot's `nav_qa_director.gd`, the candidate's `walktest_navqa` job) still walks every leg of every candidate, a 0.28 m capsule on a 56 degree floor (the bake radius x 0.7 and the bake slope + 1). Deli Counter 0.214.0 widens every walkable door to the agent contract's 1.25 m (197). The crew's own body, 0.35 m on a 45 degree floor, was walked once over 18 kept walk tests from patched copies and passed 18 of 18 (`docs/findings/walktest_crew_body/`). Whether the gate adopts that body is item 208's open question, and the trap this item found is a body-versus-path gap of that kind. Corrected 2026-10-22: this status first said the walk test walks the crew's body. It does not, and its figure for cold run 9314 is not in the file it cited.*",
+  "why": "Named by producer: the walk test in item 14's claim, in the open_items_remeasure README and in the auditor's note is the same thing, the walktest_navqa job. It runs lot/walktest.py, which copies Lot's heist_nav_qa director over the project and feeds it the contract's BAKE numbers. That director builds a 0.28 m capsule with a 56 degree floor today, unchanged since 2026-10-06, and the contract's walker_capsule_radius_m has no reader. The later record (item 208, docs/findings/walktest_crew_body/) is not a change to the gate. It is a one-off measurement on patched copies that leaves 'whether the gate adopts the crew's body' open, and the auditor cited it. So the sentence item 14's SUPERSEDED rests on is false, and its 9314 figure is not in the cited file. The supersession can stand, because the site is unrecoverable and 208 owns the open part, but only with the status text and the README corrected as above."
+ }
+}

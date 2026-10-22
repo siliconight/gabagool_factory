@@ -1,0 +1,524 @@
+[
+ {
+  "n": 17,
+  "title": "The pipeline has never been run cold, so nobody knows what it costs to make a level",
+  "remainder": [
+   "A spec that has never been through the pipeline, run cold and untouched, with its interventions recorded -- newest status: 'every brief had been through the pipeline before, on older tools. The acceptance test below asks for a spec that never has.'",
+   "Repeated on several such specs -- body: 'Repeat on several specs before believing either result'"
+  ],
+  "verdict": "DONE",
+  "per_piece": [
+   {
+    "piece": "A never-run spec, cold and untouched",
+    "state": "done",
+    "evidence": "docs/cold_runs/cold_9181/NOTES.md:1,11 ('from a brief never run before'; 'The brief is new (briefs/convenience_001.json)'; 'Every leg ran, INTERVENTIONS: 0, and the package exported'); _runs/cold/cold_9181/journal.md 'begun 2026-10-06 10:15:42', no intervention rows; _runs/cold/cold_9181/diff.json 'changed': [], 'unattributed': [], the three 'added' files each 'Level Factory writes one DC spec per candidate, per run'; driver.log 'exported convenience_001 [portable-godot]' exit 0. docs/cold_runs/cold_9191/NOTES.md:3 ('A never-seen one-building brief, deli_001'), 'Every leg ran, INTERVENTIONS: 0, and the package exported'; _runs/cold/cold_9191/journal.md 'begun 2026-10-07 00:51:03'; diff.json 'changed': [], 'unattributed': [].",
+    "checked": "Listed every cold-run title 9178-9378; grepped NOTES for 'new brief'/'never run before'/'never-seen'; read both journals and diff.json (keys 'changed', 'added', 'attributed', 'unattributed' read off the real files)."
+   },
+   {
+    "piece": "Several specs",
+    "state": "done",
+    "evidence": "Never-run briefs that came out first time with 0 interventions: market_row_001 (the item's own 2026-09-07 status, 'theme center_city and archetype rowhome, neither ever built, 0 interventions'), video_block_001 (docs/cold_runs/cold_9132/NOTES.md:3 'A NEW brief', 'Zero interventions, no observations'), gas_block_001 (cold_9135/NOTES.md:3 'a NEW brief', 'Zero interventions (journal 0, unattributed'), convenience_001 (9181), deli_001 (9191): five.",
+    "checked": "Roadmap lines 1480-1530 (the item's status history above its heading) and the cold-run NOTES named."
+   }
+  ],
+  "done_since": [
+   "Cold run 9181 (convenience_001, never run before, begun 2026-10-06 10:15, after the sweep 9166-9177 the status records): 0 interventions, package exported (diff.json unattributed [], changed [])",
+   "Cold run 9191 (deli_001, never seen, 2026-10-07): 0 interventions, package exported (diff.json unattributed [], changed [])",
+   "A second sweep, 2026-10-19 (cold runs 9328-9333): 6 missions, 0 interventions each; 4 shipped first time, 2 (9329 county_hospital_001, 9333 restaurant_row_001) stopped at the export on the new drop-edge gate UNDECLARED_DROP_INDOORS and shipped after a tool change (9334 Deli Counter shaft fix; 9335 Level Factory 0.219.0)"
+  ],
+  "size": "none",
+  "bears_on": "interventions",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- THE ACCEPTANCE TEST, MET ON SPECS THE PIPELINE HAD NEVER SEEN, AFTER THE SWEEP SAID IT HAD NOT BEEN. Cold run 9181 (`briefs/convenience_001.json`, 'The brief is new', begun 2026-10-06 10:15) and cold run 9191 (`deli_001`, 'A never-seen one-building brief', begun 2026-10-07 00:51) each ran every leg and exported a package with 0 interventions: `_runs/cold/cold_9181/diff.json` and `cold_9191/diff.json` read `changed` [] and `unattributed` [], the three added files in each Level Factory's per-candidate specs, and neither journal carries a row. With market_row_001 (2026-09-07), video_block_001 (9132) and gas_block_001 (9135) before them, five specs the pipeline had never run have each come out first time, untouched -- the 'several' the item asked for -- and every cold run since 9178 records the number. What it does not say, as this item always warned: a 0 counts hand-touches only. On the breadth sweep of 2026-10-19 (9328-9333, `docs/findings/breadth_sweep_2026-10-19/`) four of six shipped first time and two stopped at the export on the new drop-edge gate (9329, 9333) and shipped only after a tool change (9334, 9335); whether a level is good stays item 18's, and a stranger's own brief item 202's. CLAUDE.md's 'Nobody has measured this number yet (item 17)' (line 14) was written 2026-07-31, before the first cold run, and is stale.*",
+  "notes": "Caveats a reviewer should weigh before closing: (1) both new briefs were run as proof runs of tool work aimed at their archetypes (9181 'The proof run for the store work of 2026-10-06'; 9191's word 'deli' 'was refused until Level Factory 0.150.0'), so 'never seen' is literal -- the brief had never run -- not 'someone else's spec', which is roadmap 202's install-test question (those install tests rebuild known cold-run briefs, docs/findings/stranger_install/README.md:262,1038). (2) 9191 shipped with all three candidates 'out' on LT_MAP_ENEMY_PATHING_BROKEN, the driver taking the fewest majors -- works, not good. (3) CLAUDE.md:14-15 ('Nobody has measured this number yet (PIPELINE_ROADMAP.md item 17)', git blame 54c68652 2026-07-31) and docs/COLD_RUN.md ('Zero ... does not close the item') would want a line alongside the close. If the owner prefers item 17 to stay as the standing metric rather than close, ANALYSIS is the alternative verdict; no task is left in it either way."
+ },
+ {
+  "n": 36,
+  "title": "Walking it. Zoo's inserts are exact; the layer with no slot is the one breaking the level",
+  "remainder": [
+   "The z-fight gate's red served from cache as green -- 'A red gate is being served from cache as a green one ... the more serious of the two findings'",
+   "Dressing rods standing free in open floor -- 'Rods standing floor-to-ceiling in open interior space, with no collision' (Cover_pilaster)",
+   "Dressing props below the floor and stubs/slabs above the roof -- 'Props below the floor'; 'parapet stubs are Cover_edge_strip ... one metre above a roof'; 'Gutters 4.6 m above the roof they drain'",
+   "A rule and a gate for the slotless Dressing layer -- 'an intrusion limit in the slot manifest, and a gate that reads it'",
+   "Windows shading as moire -- 'A normal map on geometry with no UVs samples garbage'",
+   "Doorways stacked in one column and a wall crossing a window -- attributed to 'zfight_check: ok false, 8 buried pairs'",
+   "Fluorescent fixtures buried in the floor slabs -- '28 of 28 fluorescents sit inside a floor slab'",
+   "insert_overhang.py mis-measures baked layers -- 'Fix the AABB or restrict the tool to instanced modules and say so; do not quote its numbers for baked layers.'",
+   "Nothing calls LuxFixtureSpawner although the markers exist -- 'what is true is that nothing calls the spawner'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "z-fight red served from cache as green",
+    "state": "done",
+    "evidence": "Roadmap 133 CLOSED 2026-09-10 (Level Factory 0.64.0). level_factory/adapters/presentation/__init__.py:604-640 reads `zfight_check` (ok False, pairs, buried_pairs, greybox_internal_pairs) off the composed manifest every run and files PRESENTATION_ZFIGHT, so the red no longer depends on the job's exit code or its cache; cold run 9181's findings list 'PRESENTATION_ZFIGHT 0 -> 1'.",
+    "checked": "Read the adapter branch and item 133's status; driver.log of 9181."
+   },
+   {
+    "piece": "Dressing rods (Cover_pilaster) in open floor",
+    "state": "done",
+    "evidence": "level_factory/adapters/patina/__init__.py:159-183: '--panel-fields and --pilasters are gone ... Every one of those boxes was therefore non-collision geometry standing in space a body walks through'; the adapter asks only `--dressing --anchors --gutters` (line 183). patina/patina/cli.py:418-444 keeps pilaster_orders behind an opt-in flag nothing passes.",
+    "checked": "grep of level_factory for the flags (only the adapter and its comments); read the adapter and Patina's cli block."
+   },
+   {
+    "piece": "Dressing below the floor / above the roof",
+    "state": "superseded",
+    "evidence": "Roadmap 41's newest status (NARROWED 2026-08-18, line 4670): 'The 0.30 m below-floor offset: GONE ... --below 0 returns zero nodes on all five'; 'The extra-storey height: GONE -- every gutter is BELOW its building's top'; 'The 1389 Cover_panel_field: the family DOES NOT EXIST, nor do Cover_pilaster or Cover_frame'; edge offsets 'quantised by roof TYPE ... which is a rule, not drift'.",
+    "checked": "Read item 41's status line; not re-measured on a 2026-10 package."
+   },
+   {
+    "piece": "Intrusion limit and a gate for the Dressing layer",
+    "state": "superseded",
+    "evidence": "Item 41's status: 'WHAT SURVIVES: the routing. Dressing is still on the props channel with no slot, no placement gate, no collision authority and no intrusion limit'. Today: `allowed_inward_intrusion` occurs only in PIPELINE_ROADMAP.md, docs/sessions/* and two roadmap patches -- 0 hits in any tool repo.",
+    "checked": "grep -r allowed_inward_intrusion|inward_intrusion over the factory, workspaces excluded."
+   },
+   {
+    "piece": "Window moire (normal map on UV-less geometry)",
+    "state": "moot",
+    "evidence": "Cold run 9378's package, lot/deli_a03/art/zoo/window_delco_1997_01_w120_mbrick_idrywall_o24f6a4.glb (Zoo's window module as shipped): primitive attributes COLOR_0, NORMAL, POSITION, TEXCOORD_0; material M_Skin_glass_delco_1997 has no normalTexture and the GLB references no glass_wavy map. The 'zero TEXCOORD channels' premise is gone (items 88/91 world projection; the light bake has needed UVs since LF 0.144.0).",
+    "checked": "Python reading the GLB's JSON chunk (read-only)."
+   },
+   {
+    "piece": "Doorways stacked / wall crossing a window (z-fight pairs at the storey ceilings)",
+    "state": "superseded",
+    "evidence": "The z-fight pairs are roadmap 177's (NARROWED 2026-10-19, 'every building the level composes reads OK'; cold run 9325 'every building's z-fight gate reads OK'); a module standing off its greybox is PRESENTATION_PLACEMENT_MISMATCH, a blocker since roadmap 133 (adapters/presentation/__init__.py:580-602, 'severity': 'blocker').",
+    "checked": "Read the adapter; index line for 177; cold-run titles. The two visual faults themselves were never re-walked against this attribution."
+   },
+   {
+    "piece": "Fluorescents buried in the slabs",
+    "state": "done",
+    "evidence": "Roadmap 38 CLOSED 2026-08-02. deli_counter/deli_counter.py:3425-3430 ('deriving it from floor + story_height alone put every fluorescent inside the slab (measured 2026-08-02: 28 of 28...)') and :3480 passes `cap_thick=lambda story: builder._cap_thick(int(story), _top)` to `lights.build_light_manifest`.",
+    "checked": "Read the light-manifest call site."
+   },
+   {
+    "piece": "insert_overhang.py on baked layers",
+    "state": "undone",
+    "evidence": "tools/insert_overhang.py:93-119 `glb_aabb` still hulls every POSITION accessor's min/max with no node transforms inside the GLB; the docstring (lines 1-51) says 'For every instanced module' but neither restricts the tool to instanced modules nor warns against baked/merged layers; grep for 'layer|dressing|per-node|children' in the file: 0 hits; tools/README.md:60 carries only the one-line purpose. Last touched 4f1e7df 2026-10-19 (row-major transforms), not for this.",
+    "checked": "Read the tool's docstring and glb_aabb; grep of the file and tools/README.md."
+   },
+   {
+    "piece": "Nothing calls the fixture spawner",
+    "state": "done",
+    "evidence": "Roadmap 30 CLOSED 2026-08-12: '116 OmniLight3D + 11 SpotLight3D under LuxFixtureLights in the shipped scene'.",
+    "checked": "Index line for item 30."
+   }
+  ],
+  "done_since": [
+   "z-fight red now reaches a finding from the manifest, not the exit code (LF 0.64.0, roadmap 133 CLOSED 2026-09-10; adapters/presentation/__init__.py:604-640)",
+   "Pilasters and panel fields no longer requested (adapters/patina/__init__.py:159-183)",
+   "Window glass ships UVs and no normal map (cold run 9378's window GLB)",
+   "Placement mismatch made a blocker (adapters/presentation/__init__.py:580-602)"
+  ],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "Everything in this item but one tool caveat has an owner or is gone: the slotless-Dressing rule is item 41's (still unbuilt there), the z-fight pairs 133's (closed) and 177's, the buried lamps 38's, the spawner 30's. What genuinely remains here is insert_overhang.py's baked-layer limit -- a docstring restriction (or an in-GLB node-transform walk) in one tool, after which the item could close as SUPERSEDED by 41/133/177. The 'doorways stacked in one column' and 'wall crossing a window' were attributed to buried z-fight pairs in the body without being re-walked; nobody has confirmed that attribution by eye, so the superseded state for that piece rests on the attribution. The status line's 'nine findings' are not enumerated in the item; the nine pieces above are my reading of the body."
+ },
+ {
+  "n": 78,
+  "title": "Nothing measures how a level LOOKS -- only what it is made of",
+  "remainder": [
+   "vertex_variation run over the kit by the pipeline -- 'Run vertex_variation over the kit as part of the art pass, so the zero is reported by the pipeline instead of discovered by a walkthrough.'",
+   "A facade framing for look_shots/shot_diff -- 'give look_shots/shot_diff a facade framing -- a straight-on elevation shot per face -- so a composition change has a before and after that is not a person's memory.'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "vertex_variation over the kit, in the art pass",
+    "state": "undone",
+    "evidence": "No caller anywhere: grep -rl vertex_variation over level_factory (packages, apps, adapters, assets), lot, deli_counter, patina, zoo/zoo_keeper, tools and scripts finds only tools/vertex_variation.py itself, tools/README.md and two docstrings inside tools/walk_themed.py:513,524. The factory's own re-read of 2026-10-15 says the same: roadmap 57's status (PIPELINE_ROADMAP.md:7187) 'the mid-distance instrument -- 78's four measure appearance and none is pointed at the kit path', and docs/findings/open_items_remeasure/README.md:384-385.",
+    "checked": "grep over every tool repo and the factory's tools/scripts; read item 57's 2026-10-15 status and the remeasure README."
+   },
+   {
+    "piece": "A straight-on elevation shot per face",
+    "state": "done",
+    "evidence": "tools/look_shots.gd:566-636: 'ELEVATIONS. One straight-on orthographic shot per compass face, framed on the exterior wall slots alone. This is the frame a facade is JUDGED in -- roadmap 79 and 82 -- and until now the instrument had no such shot'; one shot per face N/S/E/W named elev_<face>, PROJECTION_ORTHOGONAL (:208-215), level and square-on, frame pinned to the building's base. Landed in 55e1790 (2026-09-02, 'look_shots: orthographic elevations; shot_diff: the null floor'), four days after this item's status; shot_diff compares shots by name, so the elevations enter every A/B.",
+    "checked": "Read the elevation block; git log -S on the block's text and on '\"elev_\"' (first commit 55e1790)."
+   }
+  ],
+  "done_since": [
+   "Facade framing: orthographic elevation per compass face in look_shots.gd:566-636 (commit 55e1790, 2026-09-02), never recorded on this item"
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Half of the item's 'WHAT WOULD CLOSE THIS' shipped four days after its status and was never written here; the other half has no caller today. A reviewer should weigh one change of ground before doing the literal remainder: roadmap 84 CLOSED 2026-10-15 decided the kit's COLOR_0 stays OFF in the engine ('objects wear, tiles do not', zoo_worldskin.gd `_vertex_colour_albedo`, docs/findings/open_items_remeasure/README.md:285-303), so vertex_variation pointed at the kit would report a channel no renderer draws. The substantive need -- 'the second ruler, one that reads appearance' that items 74 and 76 wait on (roadmap line 9064 'item 78's second ruler is built to see it') -- is a larger design question tied to 76's unsettled layer choice. Sized small for the literal wiring the item names; large if re-scoped to that ruler."
+ },
+ {
+  "n": 81,
+  "title": "Zoo's wear noise runs at the mesh's vertex density, and a wall module has eight vertices",
+  "remainder": [
+   "Decide what wear should do on a mesh with no interior vertices -- newest status: 'THIS ITEM'S OWN QUESTION -- WHAT WEAR SHOULD DO ON A MESH WITH NO INTERIOR VERTICES -- IS UNANSWERED AND IS WHY 84 CANNOT SIMPLY BE SWITCHED ON'",
+   "Make occlusion a property of the space, not the module -- 'Occlusion has to stop being a property of the MODULE and become a property of the SPACE. Two routes ... grime in the texture ... or get real occlusion from the scene'"
+  ],
+  "verdict": "SUPERSEDED",
+  "per_piece": [
+   {
+    "piece": "What wear does on a mesh with no interior vertices",
+    "state": "superseded",
+    "evidence": "Answered by item 84's decision, built: level_factory/assets/godot/zoo_worldskin.gd:35-36 `KIT_PREFIXES` (wall_, wallEnd_, window_, doorway_, breach_), :301-302 `TILED_PREFIXES` (ceiling_, floor_, roof_) and `TILED_SUFFIXES` (_dressing.glb); :956-968 calls `_vertex_colour_albedo` only 'if not is_kit and not _is_tiled(base)'; :1123-1130 'NOT ON A TILE ... Zoo computes wear per module, so on a module laid edge to edge it repeats per module by construction: measured on a delco elevation (Zoo 0.54.0, roadmap 84), turning it on multiplied the 2 m module signature 3.8x'. Item 84 CLOSED 2026-10-15 (PIPELINE_ROADMAP.md:9767): 'objects wear, tiles do not ... The kit's wear stays off by that decision; that it repeats per module is item 79's'.",
+    "checked": "Read the worldskin constants, the kit branch and the function's comment; read item 84's closing status."
+   },
+   {
+    "piece": "Occlusion as a property of the space",
+    "state": "superseded",
+    "evidence": "Tracked as item 57's 'weathering in building space' piece, re-read 2026-10-15 (docs/findings/open_items_remeasure/README.md:381-383): 'not there (76's record): Patina's per-slot pass unwired, the kit's vertex wear off by 84's decision, Pixelcoat's wear / grime / streaks on the recipe path only. World triplanar makes a texture's grime continuous across a seam; nothing responds to the building.' Per-module repetition is item 79's (84's status).",
+    "checked": "Read the remeasure README's 57 and 84 sections and item 84's status."
+   }
+  ],
+  "done_since": [
+   "Item 84 decided and built: kit and tiled families keep COLOR_0 off in the engine (Level Factory 0.86.0's zoo_worldskin.gd; roadmap 84 CLOSED 2026-10-15)"
+  ],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: SUPERSEDED 2026-10-22 -- by item 84's decision, which answered this item's question: on a mesh with no interior vertices, wear does nothing in the engine. Level Factory 0.86.0's `zoo_worldskin.gd` draws COLOR_0 only on a GLB that is neither kit (`KIT_PREFIXES` wall_, wallEnd_, window_, doorway_, breach_, :35-36) nor tile (`TILED_PREFIXES` ceiling_, floor_, roof_ and `_dressing.glb`, :301-302) -- the branch at :956-968 -- and its comment (:1123-1130) cites this item's mechanism: 'Zoo computes wear per module, so on a module laid edge to edge it repeats per module by construction ... multiplied the 2 m module signature 3.8x'; item 84 CLOSED 2026-10-15, 'objects wear, tiles do not'. Zoo 1.120.1's `wear_colors` (`bpylayer/geometry.py:736`, `dark = min(1.0, concave * 1.5 + noise * 0.5) * wear`) still computes the term unchanged, so the finding stands in the file and cannot reach a frame. What this item said would close it -- occlusion as a property of the space -- is item 57's 'weathering in building space' (re-read 2026-10-15: not there), and the per-module repetition item 79's.*",
+  "notes": "Not re-measured in a frame: the claim that the kit's wear cannot reach the engine rests on the worldskin branch read here and on item 84's test (tests/unit/test_vertex_colour_and_clutter_skins.py, cited by 84, not opened in this run). The light bake on by default since Level Factory 0.144.0 now gives the scene baked indirect occlusion -- arguably the 'real occlusion from the scene' route this item thought needed Forward+ -- but no record ties the bake to this question and nothing here measured it, so it is not counted."
+ },
+ {
+  "n": 139,
+  "title": "The sign is a white box with a white square standing off it",
+  "remainder": [
+   "The sign face's emission against the tonemap, so colour and text read -- 'the sign face's emission against the tonemap -- a Zoo sign style row, measured by the near-clip figure of this station, so the pack's colour and text read instead of a white slab'",
+   "The re-walk -- 'then the re-walk'"
+  ],
+  "verdict": "DONE",
+  "per_piece": [
+   {
+    "piece": "Face emission against the tonemap; colour and text read",
+    "state": "done",
+    "evidence": "Fixed by replacing the face rather than its style row. Zoo 1.37.0 (CHANGELOG.md:4729-4774): the face with no pack, until then 'a flat warm glow ... every derived sign in the library -- 102 -- was a blank lit box', is painted art naming the business 'in one backlit atlas (emission 1.4 ...)'. Zoo 1.37.1 (4109dc1, 2026-09-30; CHANGELOG.md:4698-4727): measured at a station square to the sign on cold run 9122's walk copy, the share of the sign's pixels clipped to white 26.5% (control 26.4%) -> 20.0%, field (80,153,117) -> (78,141,110), 'The rest of the 20.0% is the letters'. Today: zoo/zoo_keeper/recipes/sign_box.py:18-19 SIGN_ALBEDO 0.15, SIGN_ROUGHNESS 1.0, :130-132 `build_art(..., lit=(PY.GLOW_EMISSION, SIGN_ALBEDO))`, price_pylon_forms.py:91 GLOW_EMISSION = 1.4. The 2.2 style default survives only on the pack path (sign_box.py:91-96), which Level Factory's fixtures job cannot reach: adapters/zoo/__init__.py:321-341 passes `--fixtures`, `--theme`, `--fixture-types` and `--sign-pack` (a band's pack, which makes the door paint its trade, sign_box.py:42-48), never `--skins`. In cold run 9378's package every door face is painted: deli_a03, office and pharmacy_a01 `M_SignBox_Face_SignBox_Face_*_Face` at KHR emissiveStrength 1.4; the office job printed '[sign_box] 2.80 x 0.60 number: 1766'.",
+    "checked": "Read sign_box.py whole, the Zoo changelog entries, the LF fixtures branch, the 9378 fixtures job logs, and the face materials of the three fixtures GLBs (read-only Python over the GLB JSON chunk)."
+   },
+   {
+    "piece": "The re-walk",
+    "state": "done",
+    "evidence": "The walker has read the door sign since: Zoo CHANGELOG.md:509-516 (1.112.0), the walk of cold runs 9305-9307 on 2026-10-14, finding 4: 'double sign here looks...redundant' -- the band and the door box 'both read DOC'S DISCOUNT DRUGS'; roadmap 187 CLOSED 2026-10-06 (the walker's option A on the door box's name); roadmap 220 CLOSED 2026-10-10, 'all three signed buildings' door signs frame head-on with no bar' (docs/cold_runs/cold_9218/door_signs.png).",
+    "checked": "Read the 1.112.0 changelog entry and the 187/220 status lines."
+   }
+  ],
+  "done_since": [
+   "Zoo 1.37.0 (2026-09-30): the door face painted with the business name at emission 1.4 instead of a blank glow",
+   "Zoo 1.37.1 (4109dc1, 2026-09-30): albedo 0.15, roughness 1.0; clipped share 26.5% -> 20.0% measured",
+   "Walker read the door sign on the 2026-10-14 walk (Zoo 1.112.0's finding 4) and in 9218's head-on frames (roadmap 220)"
+  ],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- THE WHITE BOX WAS REPLACED, NOT RE-TUNED, AND THE WALKER HAS READ THE SIGN SINCE. The slab was a blank face: until Zoo 1.37.0 every derived door sign was 'a blank lit box' (102 in the library). 1.37.0 paints the face with the business's name at the pylon's emission 1.4 (`price_pylon_forms.py:91`), and 1.37.1 (4109dc1, 2026-09-30) builds it at albedo 0.15 and roughness 1.0 (`recipes/sign_box.py:18-19`), measured at a station square to the sign on cold run 9122's walk copy: pixels clipped to white 26.5% (control 26.4%) -> 20.0%, the field reading (78, 141, 110) and the rest the letters. The style row's 2.2 survives only on the pack path (`sign_box.py:91-96`), which Level Factory's fixtures job never reaches -- `adapters/zoo/__init__.py:321-341` passes no `--skins` -- and in cold run 9378's package all three door faces are painted at emissiveStrength 1.4. Read by the walker: 'double sign here looks...redundant' (walk of 2026-10-14, the band and door both reading DOC'S DISCOUNT DRUGS; Zoo 1.112.0), and head-on in cold run 9218's `door_signs.png` (roadmap 220). The letters still clip at 1.4 'whatever the lamp does'; whether that matters is a look call, not this item.*",
+  "notes": "Not measured on the item's own station (the county_hospital walk copy's sign); the 1.37.1 figure is a gas-station sign on 9122's walk copy, the same instrument shape (clip share at a station square to the sign). Residue a reviewer may want filed rather than lost: (1) the letters clip to white at emission 1.4, so a letter's own colour may not survive -- untested by anyone; (2) the pack path's 2.2 default is dormant, not removed, and would return the white slab if Level Factory ever passed `--skins` to a fixtures job."
+ },
+ {
+  "n": 157,
+  "title": "Weather: rain and wetness on top of the level",
+  "remainder": [
+   "A chooser that points a surface at the wet maps -- body: '1. A chooser. Something decides wet-or-dry per surface at build time'; status: 'Nothing chooses them yet -- Zoo's MAP_KEYS allow-list ignores them'",
+   "The draw-call check -- '2. ... a rebuilt package whose DRAW CALL COUNT at the same stations is unchanged from dry'",
+   "A person looking at a lit wet street -- '3. A person looking at a wet street ... a lit street does not [exist]'",
+   "Wetness stops at a roof -- '4. Item 4 is still untouched -- whether wetness stops at a roof the way rain does'",
+   "The ship-or-not call on wetness given its price -- status: 'WHAT REMAINS: the ship-or-not call on wetness given the price'",
+   "Puddles -- status 'puddles'; slice (3) 'puddles as flat Zoo species placed by Patina'",
+   "A night rain preset -- status 'a night rain preset'",
+   "Screen-space reflection / depth texture on GL Compatibility priced -- status 'item 1 (screen-space reflection on GL Compatibility) still unpriced'",
+   "The close -- 'a cold package whose brief says rain, walked: rain outside, dry inside, wet ground that reads as wet, at a measured frame cost on the Compatibility renderer'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Chooser",
+    "state": "done",
+    "evidence": "Zoo 1.3.0 (844b9d2, 2026-09-25): zoo/zoo_keeper/core/skins.py:35-42 `WET_SUBSTITUTIONS = {'albedo': 'wet_albedo', 'roughness': 'wet_roughness'}`, `load_pack(pack_dir, wet=False)` (:231, :259). Zoo does not skin the ground (LF 0.114.0 changelog), so the ground's chooser is Lot's: Lot 0.78.0 (c7bcfe5, 2026-09-25) lot/lot.py:1226-1275 `want_wet = bool(site_spec.get('wet_ground'))`, substituting the wet albedo/roughness 'No extra texture, no extra material, no extra draw call'; Level Factory sets it from the one rain predicate, apps/cli/commands/__init__.py:2453-2463 `if _is_raining(model): spec['wet_ground'] = True` (0.114.0), and passes `wet` to the Zoo builds (:940, :998, :1029, :1081; 0.113.0).",
+    "checked": "Read the Zoo resolver lines, Lot's ground-skin block, LF's site-spec branch; changelog entries LF 0.113.0-0.115.0 and Zoo 1.3.0; git dates."
+   },
+   {
+    "piece": "Draw calls unchanged from dry, on a rebuilt package",
+    "state": "undone",
+    "evidence": "No record: docs/experiments/wet_pass_9600/ holds only the next_pass price (withdrawn and re-measured, LF 0.115.0); grep for wet_ground|wet road|wet street|_wet over docs/findings, docs/experiments and every cold run's NOTES.md finds nothing after 2026-09-25. LF 0.113.0's own changelog: 'WHAT IS STILL NOT PROVED. That a wet package costs no extra draw calls ... the measured half is a rebuilt package read at fixed stations against a dry one'.",
+    "checked": "grep of docs/findings, docs/experiments, docs/proposals and docs/cold_runs/*/NOTES.md."
+   },
+   {
+    "piece": "A person looking at a lit wet street",
+    "state": "undone",
+    "evidence": "The walker has looked at rain, not at the wet ground as such: docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json `q217_rain` {'choice': 'Needs work', 'note': ''} and README.md:69-70 ('the rainy night | Needs work'; 'sun on a rainy day | A weak sun'), frames from cold run 9334 (county_hospital_001, night, rain); that verdict is carried by roadmap 217 (NARROWED 2026-10-20, 'Left: the rainy night (\"Needs work\", 2026-10-19), the rainy day's weak sun'). No verdict names the ground's wetness; twenty-odd rain briefs ran cold since (9168-9282, 9334), and none of their NOTES mentions wet ground. LF 0.113.0: 'nobody has looked at a lit wet street yet.'",
+    "checked": "Read the 2026-10-19 verdicts JSON (keys count/source/verdicts; each {choice, note, at}) and README; item 217's status; grep of cold-run NOTES."
+   },
+   {
+    "piece": "Wetness stops at a roof (item 4)",
+    "state": "undone",
+    "evidence": "docs/proposals/RAIN_WETNESS.md:129-135 'Item 4 is still open and needs the under-roof walk, not this', repeated at :349 for the drip probe (2026-09-26). By construction interior surfaces are Zoo kinds with no wet variant (LF 0.114.0: 'No kind Zoo skins has a wet variant'), so they should stay dry -- 'easier is not measured'.",
+    "checked": "Read the proposal's measurement list and the drip section."
+   },
+   {
+    "piece": "Ship-or-not on wetness given the price",
+    "state": "walker",
+    "evidence": "Ground: the variant route was taken (zero extra submissions by construction), its measured half undone above. Walls (the drip fragment, LF 0.116.0): RAIN_WETNESS.md:334-342, 'The walker's call, 2026-09-26: +1.85 ms worst-station for 19 wall families is affordable enough to walk ... It is a decision to look at the drip on a real street, not an approval to ship it'; :387-398 'The pipeline still attaches nothing.'",
+    "checked": "Read the proposal's drip section."
+   },
+   {
+    "piece": "Puddles",
+    "state": "undone",
+    "evidence": "grep -i puddle over zoo/zoo_keeper, patina/patina, lot/lot.py and lux finds only lux/addons/lux/resources/lux_weather_profile.gd and Lux's changelog -- no species, no placement. (Pixelcoat 0.49.0 'the water accumulates' pools water in the wet texture, which is not slice 3's puddle.)",
+    "checked": "grep."
+   },
+   {
+    "piece": "Night rain preset",
+    "state": "superseded",
+    "evidence": "Still not built -- level_factory/apps/cli/commands/__init__.py:1412-1421: 'Heavy Rain is an overcast DAY, so a night brief that asks for rain ... gets daylight rain until rain is a layer over the time-of-day look rather than a look of its own'; Lux presets delco_night, gothic_street_night, heavy_rain, ps1_storm_night -- but now carried by roadmap 217's status (2026-10-20): 'Left: the rainy night (\"Needs work\", 2026-10-19), the rainy day's weak sun'.",
+    "checked": "Read _preset_for; listed lux/addons/lux/presets; read item 217's status."
+   },
+   {
+    "piece": "SSR / depth texture on Compatibility priced",
+    "state": "undone",
+    "evidence": "docs/proposals/RAIN_WETNESS.md:116-118 item 1 ('Does GL Compatibility ... give a usable hint_depth_texture ... and at what GPU cost?') carries no measurement; only item 2 is marked MEASURED.",
+    "checked": "Read the proposal's 'What must be measured before building'."
+   }
+  ],
+  "done_since": [
+   "Zoo 1.3.0 (2026-09-25): the wet chooser (`--wet`, WET_SUBSTITUTIONS)",
+   "Level Factory 0.113.0 and 0.114.0 (2026-09-25): a rain brief passes `wet` to Zoo and `wet_ground` to Lot; Lot 0.78.0 (2026-09-25) wets the ground skins",
+   "Pixelcoat 0.47.0-0.49.0 (2026-09-24/25): pack digests, soaked road, water that accumulates",
+   "Level Factory 0.115.0: the 2026-09-24 next_pass price withdrawn and re-measured with a frame-readback control (worst +6.00 ms)",
+   "Level Factory 0.116.0 (2026-09-26): the drip fragment priced (+1.85 ms worst station, brick only) and the walker's call to walk it, not ship it; tools/walk_export.py --drip"
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The status line (2026-09-24) is behind its own body and behind RAIN_WETNESS.md: the chooser it calls missing shipped the next day in three tools, and the price it quotes was withdrawn by LF 0.115.0. Narrowing it to what is left would read: the draw-call proof on a rebuilt wet package, a person looking at a lit wet street, the under-roof walk, puddles, a night rain look, the depth-texture price, and the drip's attachment (walked, then the walker's ship call). The body's slice (4), ripple sub-emitters, is left out of the remainder: the status itself records that Godot 4.7 Compatibility does not render sub-emitters, so it is moot on the shipping renderer unless that changes. Whether any shipped rain package actually carries `_wet` ground skins was not checked here: no rain cold run's workspace is kept (only cold-9375..9378-ws, all clear weather)."
+ },
+ {
+  "n": 159,
+  "title": "Rooms are a table-and-chair round robin",
+  "remainder": [
+   "The walker walks a cold package room by room and names each room's use -- 'WHAT WOULD CLOSE THIS: a cold package the walker walks room by room and names each room's use from what is in it'; status 'NOT YET JUDGED'",
+   "The 560 m2 wine cellar reads sparse -- 'the 560 m2 cellar still reads sparse (density unchanged)'",
+   "Zoo's vending machine failed its fit check -- '(fixed in Zoo 0.87.0, item 162)'",
+   "Five species with no genome -- 'wine rack, reach-in cooler, dartboard, hand truck and water cooler have no genome'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "The walker names each room's use",
+    "state": "superseded",
+    "evidence": "Judged since, and failed: docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json `q148` {'choice': 'Too sparse', 'note': 'these are ultimately shooting galleries for a video game, but the rooms still feel sparse and boring....computer screens hsould be on...bring life to this dead world'}. Carried by roadmap 148 (NARROWED 2026-10-21, PIPELINE_ROADMAP.md:15789): 'Left: the review's other rooms by the same rows where their kind has them ... and whether a room reads as inhabited, the walker's eye -- the market aisles' frames are the question.'",
+    "checked": "Read the verdicts JSON and item 148's status."
+   },
+   {
+    "piece": "The 560 m2 cellar is sparse",
+    "state": "undone",
+    "evidence": "docs/findings/denser_rooms_148/furnish_census_0245.out.txt:19 (Deli Counter 0.245.0, 2026-10-21): 'wine_cellar 3 rooms, area_med 560, tgt_med 14.0, have_med 18.0, 32.2 m2/piece'; plateau_dry_run_0245.out.txt:19: floor under furniture 2.1% as built (5.2% with the plateau lifted). Deli Counter 0.247.0's rows touched only the corner stores ('no other room moved', item 148's status). The recipe is level_design.py:2284-2288 (rack_wine anchors, wall rack_wine x2 + shelf_run, a tasting table, wine barrels and cartons in clusters).",
+    "checked": "Read both census outputs' headers and the cellar rows; read the recipe."
+   },
+   {
+    "piece": "Vending machine fit",
+    "state": "done",
+    "evidence": "Zoo 0.87.0, per this item's own status and item 162's body ('the 0.86.0 machine was 0.795 m deep in a 0.75 m slot and now fits exactly').",
+    "checked": "Item text only."
+   },
+   {
+    "piece": "Reach-in cooler genome",
+    "state": "done",
+    "evidence": "Zoo 1.12.0 (8308b6f, 2026-09-28) 'the reach-in cooler wall, glowing': zoo/zoo_keeper/genome/species/cooler_run.json added in that commit; Zoo 1.28.0/1.29.0/1.51.0 stock it.",
+    "checked": "ls of genome/species; git log --diff-filter=A on the genome; changelog headings."
+   },
+   {
+    "piece": "Dartboard genome",
+    "state": "done",
+    "evidence": "Zoo 0.91.0 (88d7935, 2026-09-15) 'a dartboard with the game in chalk': genome/species/dartboard.json added in that commit; Deli Counter routes the name ('dartboard' -> dartboard via prop_species.species_for_name).",
+    "checked": "git log on the genome; resolved the name through deli_counter/prop_species.py."
+   },
+   {
+    "piece": "Wine rack genome",
+    "state": "undone",
+    "evidence": "No wine-rack genome in zoo/zoo_keeper/genome/species (139 files; none matching wine|rack except video_rack). Deli Counter places `rack_wine` (level_design.py:1497, :2284-2285) and routes it to Zoo's generic `shelving` (species_for_name('rack_wine') -> 'shelving'); `barrel_wine` routes to `water_barrel`.",
+    "checked": "ls of the genomes; resolved the names through prop_species."
+   },
+   {
+    "piece": "Hand truck genome",
+    "state": "superseded",
+    "evidence": "No genome and nothing places one (species_for_name('hand_truck') -> None; no Deli Counter source names it). Carried by roadmap 268 (OPEN 2026-10-20), 'hand trucks and stock carts at a rear door (E02)'.",
+    "checked": "grep of deli_counter/*.py; read item 268's body."
+   },
+   {
+    "piece": "Water cooler genome",
+    "state": "undone",
+    "evidence": "No genome (genome/species has water_barrel, water_tank, water_tower only); no Deli Counter source places one; not named by item 268's list as read.",
+    "checked": "ls of the genomes; grep of deli_counter and the roadmap."
+   }
+  ],
+  "done_since": [
+   "Dartboard genome, Zoo 0.91.0 (2026-09-15)",
+   "Reach-in cooler genome (cooler_run), Zoo 1.12.0 (2026-09-28)",
+   "The walker judged rooms on 2026-10-19: 'Too sparse' (q148) -- the judgement this item waited for, negative, now carried by item 148"
+  ],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Most of what is left is now other items' work: rooms reading as places and density are item 148's (the walker's 'Too sparse'), the hand truck is item 268's, box-built furniture item 267's. What only this item still names: a wine-rack species (today a generic shelf), a water cooler, and the cellar's 2.1 % floor share against the 12-25 % band the walker gave on 2026-10-21 (that band is quoted from the assistant's notes; I did not find its source record in this run). Narrowing this item to those three, or folding them into 148/267, would let it close. Side effect to report: resolving names through prop_species by importing it rewrote the gitignored bytecode cache deli_counter/__pycache__/prop_species.cpython-314.pyc (08:40:45); deli_counter's `git status` stays clean."
+ },
+ {
+  "n": 162,
+  "title": "Vending machines should glow, and sell something",
+  "remainder": [
+   "The machine in a cold package -- status 'ZOO SHIPPED THE MACHINE; NOT YET IN A COLD PACKAGE'",
+   "Two brands' white emblem disc blooms -- 'Open: SCRAPPLE SODA and NANA'S BASEMENT carry a pure-white disc that blooms'",
+   "Every machine in a building was one brand -- 'DC's vending piece had variants off so every machine in a building was one brand (in progress, DC 0.132.0)'",
+   "Slogans too small at distance -- 'single-size slogans do not read at 4.7 m (4 px cap height) -- a content call for the walker'",
+   "Light spill on the floor -- 'needs a Zoo marker, a Lux vending rig row and LF's light census'",
+   "The close -- 'the walker reads a machine's brand from across a room and laughs, or at least does not ask what the grey box is'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "In a cold package",
+    "state": "done",
+    "evidence": "docs/cold_runs/cold_9324/NOTES.md:51 (deli_a01's customer floor, where 9323 'stood the lemonade vending machine' -- SHORE THING is the lemonade brand, zoo/zoo_keeper/core/brands.py:65-69) and :59 'the cabinets' screens lit as the vending machine's face was'; cold_9326/NOTES.md:13,21 and cold_9370/NOTES.md:16 ('three vending machines') count machines in shipped buildings.",
+    "checked": "grep -il vending over every cold run's NOTES.md; read the 9324 passage."
+   },
+   {
+    "piece": "White emblem disc blooms",
+    "state": "undone",
+    "evidence": "zoo/zoo_keeper/core/brands.py:55-59 SCRAPPLE SODA 'emblem': '#ffd9e8', 'shape': 'disc'; :80-84 NANA'S BASEMENT 'emblem': '#ffffff', 'shape': 'disc' -- the file's last commit is c69ab57 (2026-09-14, 0.87.0) and recipes/vending_machine.py's too; no Zoo changelog entry names either disc since.",
+    "checked": "Read brands.py; git log on brands.py and the recipe; grep of Zoo's changelog for the brand names and 'disc'. Whether the disc still blooms under today's presets was not measured."
+   },
+   {
+    "piece": "One brand per building",
+    "state": "done",
+    "evidence": "deli_counter/level_design.py:1535-1540, `_piece('vending', ..., front=True, most=3, variants=True)` under 'Up to three a room ... each its own brand' -- git blame 16c363dd4, 2026-09-14 (the in-progress 0.132.0 the status names).",
+    "checked": "Read the piece definition and its blame."
+   },
+   {
+    "piece": "Slogans too small to read at 4.7 m",
+    "state": "walker",
+    "evidence": "The item calls it 'a content call for the walker'; no verdict on it in docs/findings/walker_review_2026-10-19 or _2026-10-20 or walk_2026-10-14 (grep vending|brand: none).",
+    "checked": "grep of the review READMEs and agent notes."
+   },
+   {
+    "piece": "Light spill",
+    "state": "undone",
+    "evidence": "No vending rig or marker anywhere: grep -ri vending over lux (.gd/.py/.tres/.json) finds nothing; zoo_keeper/recipes/vending_machine.py has no LuxEmit/marker; core/fixtures.py routes no vending type.",
+    "checked": "grep of Lux and the Zoo recipe/fixture table."
+   },
+   {
+    "piece": "The walker reads a brand across a room",
+    "state": "walker",
+    "evidence": "No walker verdict on a vending machine in any review or walk record read; the only walker words on file are the 2026-09-14 ask (docs/sessions/agent_memory/fake-delco-brands-funny-and-crass.md:11).",
+    "checked": "grep of review folders and agent notes."
+   }
+  ],
+  "done_since": [
+   "Vending machines ship in cold packages (cold runs 9323/9324, 9326, 9370 name them in shipped buildings)",
+   "Deli Counter's vending piece varies its brand, up to three a room (16c363dd4, 2026-09-14, level_design.py:1535-1540)"
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Narrowable now to: the two white discs (a Zoo brand-table change, then a frame), the walker's read of a machine and of its slogan size, and -- optional, and against the performance rule's grain (a light per machine on GL Compatibility's 8-light per-mesh cap) -- the floor spill. A reviewer could reasonably drop the spill as priced-out-by-default and leave this item a walker look plus one small Zoo fix."
+ },
+ {
+  "n": 174,
+  "title": "`interactive_state` means one thing on a breach and another on a door",
+  "remainder": [
+   "Declare what a door's state label means -- 'Either the door node's state is marked as an intention rather than a state (aperture / state_pending, say), or the anchor says outright that no geometry represents open because the opening IS the open state ... it should be readable without comparing two kinds of interactive'; status: '24 nodes are tagged closed over geometry that is an open aperture, with no open counterpart ... One field, two meanings.'",
+   "(Held, and named as not blocking the above) which navigation payload the runtime wants -- 'HELD FOR ONE ANSWER ... whether the runtime blocks a closed door with a NavigationObstacle3D, toggles a region, or re-bakes a tile ... Nothing else in this item depends on that answer.'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "A declaration of what the door's state label means",
+    "state": "undone",
+    "evidence": "deli_counter/interactives.py:39-49: the door machine is states [closed, open], default closed, collision_per_state {closed: True, open: False}, and -- unlike breach_wall (:54) and window (:77) -- no `state_geometry` and no field saying the label is an intention or that the aperture is the open state. deli_counter/themed_tscn.py:840-846 writes `metadata/interactive_state = \"<default>\"` on the default node, the doorway module. Dispatch passes the records through untouched (dispatch/importers/deli_counter.py:19). In cold run 9378's package, interactives.json (keys schema, mission_id, interactives; 23 door, 10 breach_wall) carries a door as {'kind': 'door', 'states': ['closed', 'open'], 'default': 'closed', 'collision_per_state': {'closed': true, 'open': false}, 'source': 'inferred', ...} and 23 scene nodes read `interactive_state = \"closed\"`. interactives.py was last touched 0.224.0 (roof hatch lids) and 0.144.0 (2026-09-23, hidden-state collision, roadmap 175); docs/INTERACTIVES.md last on 2026-09-14, before this item.",
+    "checked": "Read the machine table, the composer's metadata lines, Dispatch's importer, the package's interactives.json and a grep of its scenes; git log on the three files."
+   },
+   {
+    "piece": "Navigation payload for a closed door",
+    "state": "walker",
+    "evidence": "No answer on file: the 2026-10-19 review records only that 'networked doors are the gameplay layer's' (docs/findings/walker_review_2026-10-19/README.md:75). The item itself says the declaration does not wait on it.",
+    "checked": "Read the review README."
+   }
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "other",
+  "proposed_status": "",
+  "notes": "Unchanged since its status: one Deli Counter patch (a field on the door machine, or a `state_geometry`-style declaration that `open` is the aperture and `closed` is the gameplay layer's leaf), carried verbatim by Dispatch, plus INTERACTIVES.md. The shipped `collision_per_state {closed: true}` over a frame a body walks through is the sharpest form of the trap: it is advisory, but a reader takes it as a description of the geometry. Roadmap 294 (OPEN, the room graph reads no door state) is related and does not take this over."
+ },
+ {
+  "n": 208,
+  "title": "The walktest walks a different body, in a different order",
+  "remainder": [
+   "The mission's order -- status 'Open: the mission's order (spawn, objective, extraction), which the director never walks'; body 'That is a director change to measure, not a variant of this one.'",
+   "The gate's body -- status 'whether the gate adopts the crew's body'; body NEXT 'The walker reads the contract's body: walker_capsule_radius_m, and the floor angle the crew stands on'",
+   "A step-up that lands only on a floor -- body NEXT 'Its step-up lands only on a floor (the rule Laser Tag 0.24.0's carries)'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Walk the mission's order",
+    "state": "undone",
+    "evidence": "lot/godot/addons/heist_nav_qa/nav_qa_director.gd:149-151 takes `proxies := _group_points(player_proxy_group)` in group order; :202-207 proves home->proxy_i and proxy_i->proxy_i+1; :237-242 walkers walk `spine = [home] + proxies` in that order -- nothing orders by spawn/objective/extraction. The director's last commit is 2f647d4 (Lot 0.97.2, 2026-10-06), before this status; Lot is at 0.126.1.",
+    "checked": "Read the pass-1 and pass-2 blocks; git log on the director."
+   },
+   {
+    "piece": "The gate walks the contract's body",
+    "state": "undone",
+    "evidence": "nav_qa_director.gd:40 `AGENT_RADIUS := _envf('DC_NAV_RADIUS', 0.4)`, :818 `capsule.radius = AGENT_RADIUS * 0.7` (0.28 m), :830 `floor_max_angle = deg_to_rad(_envf('DC_NAV_SLOPE', 55.0) + 1.0)` (56 deg). deli_counter/agent_contract.json: nav_bake.agent_radius_m 0.4, qa.walker_capsule_radius_m 0.35; agent_contract.py:93-107 `nav_env` exports DC_NAV_* and DC_QA_ARRIVE/STUCK/SNAP and no walker radius; lot/walktest.py:161-162 uses nav_env. `walker_capsule_radius_m` is read by no code in lot, level_factory or deli_counter (only defined, and named in tools/check_steps.py's docstring).",
+    "checked": "Read the director lines, the contract JSON and env bridge, walktest.py's call; grep for the knob across the tool repos."
+   },
+   {
+    "piece": "Step-up lands only on a floor",
+    "state": "undone",
+    "evidence": "nav_qa_director.gd:992-1031: on wall contact it tries lifts [0.5, 0.35, 0.2] m and moves the body `global_position += up + fwd * STEP_FWD` after two test_move checks (overhead, ahead) -- no probe that the top it lands on is a walkable floor.",
+    "checked": "Read the step-up block."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Two records written after this status say the opposite of the code, and a reviewer should know before relying on either: roadmap 14's SUPERSEDED status (2026-10-15, PIPELINE_ROADMAP.md:1360) and docs/findings/open_items_remeasure/README.md:91 both read 'the walk test walks the crew's body over every leg of every candidate (208)'. The director walks a 0.28 m capsule on a 56 deg floor; the crew's 0.35 m body was walked once, as this item's measurement (docs/findings/walktest_crew_body/, patched copies, 18/18), not as the gate. Item 14's supersession therefore rests on a capability that has not shipped. Whether the gate should adopt the crew's body is framed by the item as 'a question of what the gate should mean' -- a design call, possibly the walker's -- but the measurement says it costs no kept candidate, so nothing blocks the change except that call."
+ },
+ {
+  "n": 239,
+  "title": "A cold run spends 88 % of its job time in its graders",
+  "remainder": [
+   "The bake editor's first frame of the level -- 'the bake's editor's first frame of the level (~10 s, not the viewport)'",
+   "The sidecar step's serial model imports -- 'the sidecar step's serial model imports (32 s)'",
+   "The Lux job's staging import -- 'the Lux job's staging import (26.5 s)'",
+   "The suite's worldskin imports and integration tests -- 'the suite's worldskin imports (91.7 s; side by side needs pytest-xdist, a download) and integration tests (166.8 s)'",
+   "The residue between two cold runs -- 'the residue between two cold runs (rowhome_k's merged covers' triangle order, Lux's applied scene ids)'",
+   "The grader's step -- 'and the walker's call on the grader's step (4x against the game's 1/60 s)'",
+   "Whether the brief corpus may read _scratch/ -- 'Not changed, a question: 148 of the 487 briefs are under the gitignored _scratch/'"
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "Bake editor's first frame; sidecar serial imports; Lux staging import; suite imports and integration tests",
+    "state": "walker",
+    "evidence": "Untouched and paused: the newest status opens 'PAUSED at the walker's call, 2026-10-12: \"our optimization for time is good enough for now\"' and lists each as 'measured and none started'. No Level Factory release since 0.193.2 names any of them (CHANGELOG.md headings 0.194.0-0.232.1 read: lightmap wires, stoops, reflection atlas, urban streets, drop edges, merges, drawings); Laser Tag's latest is 0.32.0 (arrivals).",
+    "checked": "Read every Level Factory changelog heading after 0.193.2 and Laser Tag's recent headings."
+   },
+   {
+    "piece": "Residue between two cold runs",
+    "state": "superseded",
+    "evidence": "Taken over and mostly fixed by roadmap 247 (NARROWED 2026-10-14, PIPELINE_ROADMAP.md:20636): Zoo 1.109.0 (c2edb80) -- cold runs 9299/9300, 'every GLB and the lightmap the same bytes, 22 of 3,283 files different' (docs/cold_runs/cold_9300/NOTES.md); Lux 0.77.0 + Level Factory 0.208.0 -- cold runs 9301/9302, 'all 12 scenes Godot saves ... 0 lines apart once its per-save ids are masked'. 247's 'Left: those ids, node unique_ids and drawn resource ids, and the metadata that hashes them'.",
+    "checked": "Read cold runs 9299-9302's heads and item 247's status."
+   },
+   {
+    "piece": "The grader's step (4x vs 1/60 s)",
+    "state": "walker",
+    "evidence": "Undecided: the body's OPEN list item 3 'The grader's step, the walker's call. Laser Tag steps at 4x (1/15 s); at the game's own 1/60 s an evaluation now costs about a minute (62 s on seed_9104)'; lasertag/CHANGELOG.md:332 '`--time-scale` stays 4 by default'; no later record of a call.",
+    "checked": "Read the body and Laser Tag's changelog; grep of the roadmap after line 20490."
+   },
+   {
+    "piece": "_scratch/ briefs in the corpus",
+    "state": "undone",
+    "evidence": "Recorded in the body as 'Not changed, a question' (Level Factory 0.193.2); nothing since touches it.",
+    "checked": "Changelog headings after 0.193.2."
+   }
+  ],
+  "done_since": [
+   "Run-to-run residue: every GLB and the lightmap reproduce (Zoo 1.109.0, cold runs 9299/9300) and Lux's applied scene reproduces once Godot's per-save ids are masked (Lux 0.77.0, Level Factory 0.208.0, cold runs 9301/9302) -- carried by roadmap 247"
+  ],
+  "size": "medium",
+  "bears_on": "other",
+  "proposed_status": "",
+  "notes": "This item reached its goal and was stopped there on purpose: a cold run's drive 30.4 -> 6.9 minutes, every cut against a control. What is left is a paused backlog of optional speedups (about 10 + 32 + 26.5 s of a drive, 258 s of the suite) and one walker call (the grader's step), so whether any of it is done is the walker's to say -- 'our optimization for time is good enough for now'. If the owner wants the roadmap to stop counting a paused backlog as narrowed, the honest move is to close this with the walker's quote and file the leftovers as one OPEN item; nothing in it is a defect. The suite piece also needs a yes for a download (pytest-xdist)."
+ }
+]

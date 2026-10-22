@@ -1,0 +1,412 @@
+[
+ {
+  "n": 64,
+  "title": "Zoo built the corner module forty-one days ago and nothing has ever asked for one",
+  "remainder": [
+   "Deli Counter promotes its corner slots from the wallEnd unit post to wallCorner -- 'WHAT REMAINS is the step the item priced and deferred: Deli Counter promoting its corner slots from the `wallEnd` unit post ... to `wallCorner`'",
+   "corner art a post does not have, which is the promotion's trigger -- 'it buys nothing a person can see until the corner has art a post does not (item 57's vocabulary)'"
+  ],
+  "verdict": "SUPERSEDED",
+  "per_piece": [
+   {
+    "piece": "Deli Counter promotes corner slots to wallCorner",
+    "state": "superseded",
+    "evidence": "Still not done: deli_counter/deli_counter.py:1124-1135 seats each corner post via _seg_box(..., role='wall', size_mod='end'), and _slot_typename (deli_counter.py:645-650) returns 'wallEnd' for size_mod 'end'. wallCorner in Deli Counter *.py: only themed_tscn.py:73 (CORNER_ROLES stem mirror), test_themed_stem.py:85-88, migrations/patch_dc_corner_posts.py:59 (a docstring). Taken over: the trigger (corner art) is item 79's step 6 (see the next piece); item 57's status of 2026-10-15 (PIPELINE_ROADMAP.md:7187): 'The corner: Deli Counter 0.102.0 / 0.102.1 (item 58) seats a `wallEnd` unit post at every corner ... a family was not needed (... `wallCorner` 0 hits)'; item 74 (OPEN) carries the module as part of its close (PIPELINE_ROADMAP.md:9060-9063): 'Either the vocabulary grows with the span (a bay library ... plus the `wallCorner` of item 64) or item 76's per-instance work lands'.",
+    "checked": "Grep wallCorner over deli_counter *.py, level_factory, lot; read deli_counter.py:640-650 and 1110-1136; git -C deli_counter log --since=2026-09-11 --grep=corner (no corner-module change; 'corner' hits are corner stores/blocks); grep roadmap for wallCorner / item 64."
+   },
+   {
+    "piece": "corner art a post does not have",
+    "state": "superseded",
+    "evidence": "Taken over by item 79 (NARROWED 2026-10-20, the facade planner): its close asks for 'corners as a designed condition rather than a remainder' (PIPELINE_ROADMAP.md:9364), its body names today's corner as the remainder ('corners simply stop the pattern ... `corners=True` seats one scaled unit box at each end of the run (item 58)', :9344-9345), and its proposal schedules it: docs/proposals/FACADE_PLANNER.md:115-117 '6. The primary bay and the corners as designed conditions, after step 4's frames, with the walker. 79 asks for both ... any second layer of articulation is subtractive or texture, never proud of the wall'. Nothing else asks: roadmap grep for quoin / corner pilaster / corner art / corner vocabulary finds only item 64's own line 8302. Zoo's recipe and genome untouched since 0.60.0 (git log of zoo_keeper/recipes/wallCorner.py and genome/species/wallCorner.json: last d3d6a49 2026-09-11). docs/findings/open_items_remeasure/README.md:368-371 (2026-10-15): 'The corner: shipped without a family.'",
+    "checked": "Grep roadmap; read item 79's body lines 9340-9370 and FACADE_PLANNER.md:105-125; git -C zoo log on the two wallCorner files; read open_items_remeasure README 57 section."
+   }
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: SUPERSEDED 2026-10-22 -- the three preconditions stand where 2026-09-11 left them (Zoo `wallCorner.json` height 2.0-6.5 m with the 950-post measurement in its `dimensions_note`; `zoo_keeper/core/kit.py:116` `CORNER_ROLES = (\"wallCorner\",)`, mirrored at Deli Counter `themed_tscn.py:73`), and the promotion this item deferred has not been made: `deli_counter.py:1124-1135` seats every corner post with `size_mod=\"end\"`, which `_slot_typename` (`:645-650`) names `wallEnd`, and `wallCorner` occurs in no Deli Counter source but the stem mirror and its test. What the promotion was waiting for now has its own home: item 79's facade planner asks for \"corners as a designed condition rather than a remainder\" and schedules it as `docs/proposals/FACADE_PLANNER.md` step 6, \"the primary bay and the corners as designed conditions, after step 4's frames, with the walker\" -- the corner art a post does not have, which is when `wallCorner` would earn its modules. Item 57's re-read of 2026-10-15 meanwhile counts its own corner piece \"shipped without a family\" (item 58's post, ENV_CORNER_OPEN 988 -> 0, `wallCorner` 0 hits), and item 74's close keeps \"the `wallCorner` of item 64\" as one branch. Promoting before item 79's step 6 decides what a corner is would cost one exact module per (thickness, height) per building -- 17 across the library per theme and style -- and show nothing.*",
+  "notes": "Not OPEN because the item itself says the promotion buys nothing visible until corner art exists, and that art is now item 79's step 6 (with the walker). When 79 designs the corner, the wallCorner promotion is one Deli Counter function plus 17 kit modules per theme and style -- or may not be wanted at all if the designed corner is subtractive or texture, as FACADE_PLANNER.md:116-117 requires. Size 'large' reflects the design question first; the code alone is small."
+ },
+ {
+  "n": 83,
+  "title": "The renderer lights the wall per piece, so light draws the module grid instead of dissolving it",
+  "remainder": [
+   "test the per-mesh light-binding mechanism indoors -- 'THE MECHANISM IS REAL AND STILL UNTESTED INDOORS, WHICH IS THE ONLY PLACE ITS LIGHTS ARE'",
+   "the Forward+ vs GL Compatibility tradeoff -- 'THE TRADEOFF THIS RAISES, which is not mine to take ... it belongs to whoever owns that choice'",
+   "the 57-light vs 51-omni gap -- 'The 57-vs-51 gap is unexplained and may be benign ... but nobody has checked'",
+   "the edge classifier's caveat -- 'the dark-line/step split should be re-derived properly before it is quoted as a number'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "test the mechanism indoors",
+    "state": "undone",
+    "evidence": "No indoor ablation or look test of per-mesh binding is recorded since 2026-08-29 (roadmap grep for 'item 83' finds only items 81 and 86 citing its exterior result). What moved: (a) Level Factory 0.131.0 bakes the steady lights and 0.144.0 makes the bake default (level_factory/CHANGELOG.md:5538, :4970); 0.159.0 reads Godot's culler -- a BAKE_STATIC light on a lightmapped mesh is never paired (CHANGELOG.md:3852-3880, quoting renderer_scene_cull.cpp) -- and counts what the renderer pairs in every price (level_factory/tools/perf_stations.gd:425-501, `_light_census`). (b) On cold run 9341's control price (docs/cold_runs/cold_9341/price/perf_control_1.json, rows[0].light_census.paired): 9 meshes over the cap of 8, of which ONE is interior -- /root/Mission/Bake/Site/b0/int_1_2_open1_breached/Breach_drywall_delco_1997 at 9 lights; the rest are LuxHorizonGlow 237, BackdropGround 148, two wire cells 47/30, b0's roof 10 and three road-mark cells 10. _runs/perf_inner/price_9369_b.json (perf_stations' report, named for cold run 9369; its NOTES do not cite it) reads the same nine with the roof renamed MergedR_35. Item 147's closure (roadmap:15748) on 9308: 'no room floor or ceiling tile' over the cap. So the mechanism can now reach one interior mesh by one light on this level, and nobody has looked whether it shows.",
+    "checked": "Read LF CHANGELOG 0.159.0 entry and perf_stations.gd census fields; python read of the paired over_list in three price JSONs (9324, 9341, 9369); roadmap grep for brightness step / lighting seam / item 83."
+   },
+   {
+    "piece": "Forward+ vs GL Compatibility tradeoff",
+    "state": "done",
+    "evidence": "Decided by the walker: CLAUDE.md:45-48 'The walker's standing call, 2026-09-16: performance over look when the two compete. Packages ship on GL Compatibility, which is the low-end target on purpose'; CLAUDE.md:66-68 lists 'more than max_lights_per_object (8) lights reaching one mesh' among refused shapes.",
+    "checked": "Read CLAUDE.md lines 44-70."
+   },
+   {
+    "piece": "57 vs 51 light gap",
+    "state": "moot",
+    "evidence": "Concerned the 2026-08-29 walk_themed build under that day's Lux loader; Lux is 0.79.0 today and lights are now counted by source with an ablating instrument (docs/findings/light_breakdown/README.md:60-80: 'lightmap: 1 lightmap, 81 static lamps (the paired census's 81); live: 17 lamps'). Not checked on the old build; nothing cites the 57/51 figures again (roadmap grep: only lines 9695-9698).",
+    "checked": "Grep roadmap for 'omni=51' / '57-vs-51'; read light_breakdown README."
+   },
+   {
+    "piece": "classifier caveat",
+    "state": "moot",
+    "evidence": "The split '5 dark lines ... 4 steps' is quoted nowhere outside this item (roadmap grep: lines 9738 and 9753 only), so there is no quotation to correct.",
+    "checked": "Grep roadmap for 'dark line' / 'dark-line/step'."
+   }
+  ],
+  "done_since": [
+   "The exterior answer this item named ('It is {\"reveal\": 0.0}') shipped: Zoo 0.51.0 (4c0cef7, 2026-09-05, 'delco relief stops drawing the bricks'); zoo/zoo_keeper/genome/species/wall.json:63-65 delco style 'relief': {'reveal': 0.0}.",
+   "The Forward+ question is decided for GL Compatibility (CLAUDE.md:45-48, the walker's call of 2026-09-16).",
+   "Steady lights are baked and a baked light binds to no lightmapped mesh (LF 0.131.0 / 0.144.0 / 0.159.0), and the paired census in every price names the meshes over the cap: one interior mesh, by one light, on cold run 9341's level (docs/cold_runs/cold_9341/price/perf_control_1.json)."
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "What would close it is now narrow: an A/B on a copy of a current restaurant_row_001 package with max_lights_per_object raised (or light_breakdown's live switch) and frames at the one interior mesh the paired census names (b0 int_1_2_open1_breached's breach panel), against an unchanged copy as control. If the reviewer accepts the census as the indoor test -- a mesh within the cap binds every light it pairs, so no binding seam can form, and only one interior mesh is over, by one -- the item could be closed as ANALYSIS instead. Lightmap chart seams are a different mechanism and are not this item. Worth knowing: item 54's closing status (PIPELINE_ROADMAP.md:6876-6882, 2026-08-24, five days before this item was filed) already ran an indoor A/B of exactly this dial -- per-object 8 vs 40 on lot_demo_001's preview, zero meshes over the cap -- and 'saw no difference -- no brightness steps at tile boundaries, no thin lines'; this item does not cite it."
+ },
+ {
+  "n": 112,
+  "title": "Pixelcoat has nine themes and Zoo can style two of them, so seven cannot be built",
+  "remainder": [
+   "the themes no Zoo species resolves need styles, a fallback rule that names them, or to leave Pixelcoat's theme list -- 'the four at zero are content gaps in Zoo -- bank, casino, stadium and street need species styles or a fallback rule that names them' (the body's alternative: 'narrow Pixelcoat's advertised list to what can actually be built and treat the rest as material libraries rather than themes')",
+   "the species bare `delco` does not reach -- 'delco's 14 missing species are the 1990s-only set roadmap 112 first counted'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "bank, casino, stadium, street at zero",
+    "state": "undone",
+    "evidence": "Recomputed today with LF's own rule (level_factory/packages/tools/themes.py:117-158 `zoo_style_for`, which mirrors zoo/zoo_keeper/core/dna.py:79-119 `theme_style` -- both read this run, identical: exact name, name minus trailing qualifier, 4-digit qualifier as decade) over all 139 species in zoo/zoo_keeper/genome/species and the 13 profiles in pixelcoat/profiles/themes: bank 0/139, casino 0/139, stadium 0/139, street 0/139 -- and card_shop 0/139, a fifth zero-coverage profile added since (Pixelcoat 0.44.0, 80f1460, 2026-09-16). The four profiles' JSON carries only description/materials/theme, no alias a fallback could read. No cold-run brief names any of the five (grep of docs/cold_runs/*/briefs: delco_1997 356, delco 12, rockay 1). No later roadmap item takes the choice over (grep for 'bank, casino' / 'stadium, street' / 'material libraries rather than themes' finds only item 97's 2026-09 doctor output at line 11256 and item 112's own text).",
+    "checked": "python -B read-only recomputation of themes.resolve's per-species count; read themes.py and dna.theme_style; git -C pixelcoat log on the five profiles; git -C zoo log on dna.py since 2026-09-11 (no change to the rule)."
+   },
+   {
+    "piece": "bare delco's 14 missing species",
+    "state": "undone",
+    "evidence": "Bare `delco` resolves 125/139; the 14 it misses: atm, briefcase, cash_stack, chair, cheesesteak, crt_tv, desk, filing_cabinet, flat_top_grill, french_fries, simple_car, soda_cup, table, vending_machine. `delco_1997` resolves 139/139 through the decade fallback, so the gap reaches only briefs naming bare `delco` -- cold runs 7002, 7003, 8001, 9001, 9172, 9279, 9315, 9316, 9328, 9342, 9343, 9344 have one.",
+    "checked": "Same recomputation, listing species where style_for('delco') is None; grep of cold-run briefs for '\"theme\": \"delco\"'."
+   }
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "Today's figures for the eight that build (139 species): center_city 132, industrial_flats 132, rockay and its three variants 134, delco 125, delco_1997 139. USING_THE_FACTORY.md:127-131 (CORRECTED 2026-10-07) records the Philadelphia pair buildable and that 'No level has been built in either Philadelphia theme yet' -- that is item 17's unseen-theme request, not this item's remainder. The item's own 2026-09-07 note already leans to narrowing ('the ones to narrow or drop, and the setting says they are not what the game is about'), so the remaining work is likely one Pixelcoat patch (mark or drop the five profiles) plus a decision on whether bare `delco` should reach the decade styles; authoring 139 x 5 styles would be large."
+ },
+ {
+  "n": 127,
+  "title": "The opening is judged against an enemy that stands still, and it does not",
+  "remainder": [
+   "the distance branch models only the crew's closing speed -- '(2) THE DISTANCE BRANCH IS UNTOUCHED and still understates: `clearance` is the ground the CREW covers, so it models a closing speed of `CREW_SPEED` alone when both sides close at about 4 m/s'",
+   "whether a one-second opening is what a brief wants -- '(3) THE EXPENSIVE QUESTION is untouched: whether an opening that lasts one second is what a brief wanted, which is where `REACTION_SECONDS = 1.0` being \"the floor, not a target\" starts to matter'",
+   "implied by both: the score and Laser Tag's opening verdicts did not move -- 'AND THE SCORE STILL DID NOT MOVE ... INSTANT_CONTACT and NO_REACTION_TIME both still fire'"
+  ],
+  "verdict": "SUPERSEDED",
+  "per_piece": [
+   {
+    "piece": "distance branch",
+    "state": "superseded",
+    "evidence": "Unchanged in code: lot/site_spawns.py:556-569 -- `reach = opening_range + clearance`, and the comment still says 'clearance is the ground the CREW covers, so a closing speed of CREW_SPEED alone'; OPENING_CLEARANCE = CREW_SPEED * REACTION_SECONDS (:111). git -C lot log --since=2026-09-09 -- site_spawns.py: 0.54.0, 0.97.3, 0.98.x, 0.122.0, 0.123.0 -- none touches the opening model. Taken over by the factory's decision that enemy placement is not its to tune: docs/LEVEL_STANDARD.md:546-548 'Spawns are provisional. The gameplay layer that will own them lives outside Level Factory, so a level-quality measure keys off geometry, not spawn placement'; item 132 (roadmap ~15097-15103, a day after this status): 'Spawn placement is expected to move out of this toolchain into a gameplay layer ... Teaching site_spawns about route elevation would be a real day's work invested in code that is leaving'.",
+    "checked": "Read site_spawns.py:85-111 and 500-610; git log of site_spawns.py; read LEVEL_STANDARD.md section 11; read item 132's text."
+   },
+   {
+    "piece": "one-second opening question",
+    "state": "superseded",
+    "evidence": "REACTION_SECONDS = 1.0 with its 'the floor, not a target' comment unchanged (lot/site_spawns.py:104-107). Same decision as above; item 241's body (roadmap:20559) records a later run's INSTANT_CONTACT on all three candidates as 'recorded, not tuned, enemy placement being provisional'.",
+    "checked": "Read site_spawns.py:94-111; grep roadmap for 'provisional'."
+   },
+   {
+    "piece": "score / opening verdicts unmoved",
+    "state": "superseded",
+    "evidence": "Item 245 CLOSED 2026-10-13 (roadmap:20616): Level Factory 0.202.0 picks 'then the higher Laser Tag score ... Laser Tag's five verdicts on the fight (TRIVIAL_ENCOUNTER, NO_REACTION_TIME, LT_NO_SURVIVABLE_OPENING, NO_ENGAGEMENT, NO_CONTACT) are shown and not counted'. LEVEL_STANDARD.md section 11: 'the encounter is Laser Tag's to grade, and it is advisory by contract'.",
+    "checked": "Read item 245's status and body; read LEVEL_STANDARD.md:536-548."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "gunfights",
+  "proposed_status": "*STATUS: SUPERSEDED 2026-10-22 -- both pieces left here belong to Lot's enemy placement, which the factory has since handed to a gameplay layer outside this pipeline: `docs/LEVEL_STANDARD.md:546-548`, \"Spawns are provisional. The gameplay layer that will own them lives outside Level Factory, so a level-quality measure keys off geometry, not spawn placement\"; item 132's reason for not fixing placement, a day after this status (\"a real day's work invested in code that is leaving\"); item 245 (CLOSED 2026-10-13), where Level Factory 0.202.0 shows Laser Tag's five fight verdicts and counts none of them in a pick; and item 241's record of INSTANT_CONTACT on all three of a run's candidates, \"recorded, not tuned, enemy placement being provisional\". The code stands where 2026-09-09 left it: `lot/site_spawns.py:556-569`, the distance branch's `clearance` still the crew's ground alone with its comment saying so, and `REACTION_SECONDS = 1.0` (`:107`), untouched by every Lot release since 0.53.0. If the gameplay layer never comes, both return as written here: two bodies' closing speed in the distance branch, and whether a one-second opening is what a brief wants. Found on the way: the docstring at `site_spawns.py:548-552` still says `lot.py` does not pass its solids to `place_enemies`; both call sites do (`lot.py:3041-3043`, `:3720`), as this item's body recorded -- a Lot text fix for the next Lot change.*",
+  "notes": "Could equally be called ANALYSIS (nothing for the factory to do while spawns are provisional); SUPERSEDED was chosen because a recorded decision (LEVEL_STANDARD section 11, item 132) replaced the assumption that Lot owns the opening's fairness. The stale docstring (site_spawns.py:548-552) is a small hygiene residue under the walker's rule that Lot text fixes ride the next Lot change; it is not in item 127's remainder."
+ },
+ {
+  "n": 141,
+  "title": "The facade's texel scale jumps at the remainders and the openings",
+  "remainder": [
+   "a package exported by the fix, measured -- 'RESIDUE: no package has been exported by 0.71.0 yet' (the close: '`tools/texel_density.gd` over the running package, per module family, and the `.import` sidecars read for `import_script/path`')",
+   "the re-walk -- 'the walked copy `_runs/walk_county_hospital_001` now carries the declaration ... so it is the copy to re-walk'"
+  ],
+  "verdict": "DONE",
+  "per_piece": [
+   {
+    "piece": "a package exported by the fix, measured",
+    "state": "done",
+    "evidence": "Cold run 9006 began 2026-09-11 20:31 on Level Factory 0.72.0 (docs/cold_runs/cold_9006/journal.md:3, run.log:7) and exported LF_county_hospital_001 (run.log:117). Item 17's status (PIPELINE_ROADMAP.md:2302-2304) records on that export's walk copy: '`texel_density` 537 kit surfaces, every skin at 0.500 world-triplanar, worst mismatch 1.0x (item 141 -- the export's project.godot declares the script and 49 of 49 sidecars bind it)'. Today's package, read directly: workspaces/cold-9376-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot (cold run 9376, Level Factory's export) -- project.godot:32-36 '[importer_defaults] scene={ \"import_script/path\": \"res://zoo_worldskin.gd\" }', zoo_worldskin.gd present at that root (109,030 bytes), and of its 134 GLB sidecars the 39 kit-family ones (wall_, wallEnd_, window_, doorway_, breach_) all carry import_script/path=res://zoo_worldskin.gd, 0 empty. The fix: level_factory/packages/exporting/export.py:1224-1269 (`_worldskin_in_package` root first, then the first copy below; `_importer_defaults_block` declares that path); pinned by level_factory/tests/unit/test_worldskin_declared.py:47,65.",
+    "checked": "Read export.py:1218-1297; read cold_9006 journal/run.log; python -B read-only scan of the 9376 package's .glb.import files and grep of its project.godot; grep of the LF test."
+   },
+   {
+    "piece": "the re-walk",
+    "state": "done",
+    "evidence": "Overtaken by the 9006 copy: item 17 (PIPELINE_ROADMAP.md:2296-2300) retired the hand-patched 9005 copy as `_runs/walk_county_hospital_001_9005_handpatched` and made `_runs/walk_export_county_hospital_001` (9006's cold export) 'the copy to walk'; its re-walk list (:2325-2326, 'WHAT THE RE-WALK ASKS: 138, 139, 140, 143, 144, 145, 146 by eye') leaves 141 out because the instrument settled it. No walk or look review since reports the jump again (roadmap grep for 'texel scale' / 'scale jumps' / 'cells are visibly larger': only item 17's 2026-09-11 list and this item).",
+    "checked": "Read item 17's status lines 2296-2345; roadmap grep."
+   }
+  ],
+  "done_since": [
+   "Package exported by the fix and measured: cold run 9006 (LF 0.72.0), texel_density 1.0x over 537 surfaces, 49/49 sidecars bound (item 17's record).",
+   "Still bound in today's packages: cold run 9376's export, 39/39 kit sidecars on res://zoo_worldskin.gd."
+  ],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- re-exported and measured. Cold run 9006 (begun 2026-09-11 20:31 on Level Factory 0.72.0, `docs/cold_runs/cold_9006/`) is the first package the fix exported, and item 17's record of its walk copy reads `texel_density` 537 kit surfaces, every skin 0.500 world-triplanar, worst mismatch 1.0x, its project.godot declaring the script and 49 of 49 sidecars binding it. Today's package keeps the shape: cold run 9376's `LF_restaurant_row_001.portable-godot` declares `[importer_defaults]` `import_script/path` `res://zoo_worldskin.gd` (project.godot:32-36), ships the script at that path, and binds it on all 39 of its kit-family GLB sidecars (`wall_`, `wallEnd_`, `window_`, `doorway_`, `breach_`), none empty. The code is `export.py:1224-1269` (`_worldskin_in_package`, `_importer_defaults_block`), pinned by `tests/unit/test_worldskin_declared.py`. The hand-patched 9005 copy this item named for a re-walk was retired for 9006's (item 17), and no walk since has reported a texel-scale jump at a remainder or an opening; the walker's \"you can tell where one texture stops and ends\" on interior walls (look review, 2026-10-19) is item 238's open question, whose planned arms include `tools/texel_density.gd`.*",
+  "notes": "The 1.0x figure on 9006 is item 17's record; no texel_density output file is kept on disk (find over docs/ and _runs/ for '*texel*' finds only docs/findings/bake_texel). Today's binding was read directly from the 9376 package; texel_density itself was not re-run (that needs Godot). If the reviewer wants the instrument on a current package before closing, the run is `tools/texel_density.gd` over a walk copy of cold run 9376 or 9378 -- but the cause this item found (the declaration and the sidecars) is verified present. One adjacent signal: the walker's look review of 2026-10-19 said of interior walls 'you can tell where one texture stops and ends' (q238). That is item 238's open question, and its planned arms name tools/texel_density.gd among their instruments (docs/findings/guides_2026-10-19/textures.md:89-95, suspects listed there: the 2 m tile at the module pitch, BC1 grain, lightmap chart edges, relief steps -- not a scale mismatch); if those arms find a texel-scale jump, this item reopens."
+ },
+ {
+  "n": 145,
+  "title": "A window's light pools on the wall it sits in",
+  "remainder": [
+   "the re-walk of Lux 0.32.3's fix -- 'FIXED THE SAME HOUR IN LUX 0.32.3, NOT YET RE-WALKED' / 'Not re-walked.'",
+   "the window source's 0.35 m offset derived from the wall thickness the manifest carries -- 'RESIDUE: the number is chosen against the kit's wall thickness, not derived from it; the loader should read the thickness the manifest carries once it carries one'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "re-walk",
+    "state": "done",
+    "evidence": "The walker walked cold run 9060 on 2026-09-16 with the offset in place and called the window 'is the light inside the wall here?': lux/CHANGELOG.md:1889-1925 (0.40.0) -- 'Roadmap 145 moved it 0.35 m inboard so the pool stopped landing on the ceiling and the floor symmetrically AT the wall; it did not stop the source being a SPHERE' (reveal 8.57 vs floor 1.117 by the falloff law). Lux 0.40.0 made the source the opening's 45-degree cone (WINDOW_CONE_HALF_ANGLE_DEG), measured against a 0.39.0 control that reproduced the shipped frames: b2 ground window ceiling 135.2 -> 34.4, reveal 132.8 -> 58.2, floor 56.2 -> 43.8 mean luma. Code today: lux/addons/lux/runtime/lux_light_loader.gd:1579-1600 (cone), :1616 (no preview quad).",
+    "checked": "Read lux_light_loader.gd:1540-1649 and Lux CHANGELOG 0.40.0 entry."
+   },
+   {
+    "piece": "offset derived from wall thickness",
+    "state": "undone",
+    "evidence": "Lux still hardcodes it: lux_light_loader.gd:1574-1578 'half a wall (0.15) plus the panel's own standoff (0.20)' -> `ar.light_offset = Vector3(0.0, 0.0, 0.35)`. The manifest still carries no thickness for a window: deli_counter/lights.py:1697-1706 writes a window anchor as id, type, source, pos, rot_y, size, reacts_to_alarm only, although `wall_thick` is in scope in that function (used at :1713 and :1724 for the sign and the wall packs). Shipped walls are not all 0.30 (lights.py:187: 0.30 on 18,469 of the shipped wall slots; item 64 measured 0.25/0.30/0.35 corners).",
+    "checked": "Grep of lux runtime for light_offset / thickness keys; read deli_counter/lights.py:180-195 and 1675-1725."
+   }
+  ],
+  "done_since": [
+   "Re-walked: cold run 9060, 2026-09-16, the walker's 'is the light inside the wall here?'; answered by Lux 0.40.0's window cone, measured against a control (lux/CHANGELOG.md:1889-1925)."
+  ],
+  "size": "medium",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "What is left is a derivation, not a visible defect: at the shipped thicknesses 0.25-0.35 m a 0.35 m offset still stands 0.175-0.225 m inside the room, so the look should not move. It needs two repos -- Deli Counter writing the wall's thickness into each window anchor (it already has `wall_thick` there) and Lux reading it -- hence 'medium'. Lux 0.40.0's cone itself has no recorded walk by the walker; it was judged by look_shots against a control."
+ },
+ {
+  "n": 152,
+  "title": "The surface dressing reads as defects in the texture, not as things on a surface -- and the layer stack under it has two layers missing and one that never leaves the tool",
+  "remainder": [
+   "step 2 beyond the road paint: Patina's stamps (stains under wall bases, tyre streaks on paths) to the package -- body: 'a `decals` block in the delco_1997 theme, `presentation_compose` emitting `Decal` nodes from Patina's placements'; the newest status counts only 'its first decal ... THE ROAD PAINT'",
+   "step 3a: clutter skinned, not flat colour -- '(3) clutter that is not a speck: Pixelcoat-skinned clutter materials instead of flat colour'",
+   "step 3b: base colour from the surface under it -- 'base colours taken from the surface under them (a pebble on asphalt is asphalt-dark)'",
+   "step 3c: grounding -- 'a sink of a few millimetres and a contact-shadow disc or vertex-darkened base so each piece is anchored' (with (d): '`shadow_policy: contact` is a word in the manifest; nothing reads it')",
+   "step 3d: the density table turned round -- 'the density table turned round -- wall bases and path edges high, perimeter medium'",
+   "step 4: the low band -- '(4) the low band where nobody walks: boards, bags, a crate, a bollard, a planter (0.1-0.7 m) in perimeter and wall-base zones only'",
+   "item 45's grammars -- 'the asphalt reads as paving cells and the sidewalk as a white mosaic (item 45)'",
+   "the close -- 'a cold package whose outdoor ground carries a skin, a decal layer and clutter that a frame at eye height shows as objects on a surface rather than noise in it -- judged by the walker, and counted by the census'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "step 2: Patina's stamps as Decal nodes",
+    "state": "superseded",
+    "evidence": "Item 237 (OPEN 2026-10-11) decides the accent layer: 'Never runtime decals (GL Compatibility has none) ... Not a Patina pass: Patina's posterised textures and decal pass dress the GREYBOX for the PS1 path'; its tier B carries ground grime by cause ('site furniture knows its ground contact and the street's wet (Lot)'). Patina 0.32.0 (0108c6d, 2026-10-15) removed its Godot half. The cutout-quad road paint (9029) is the only decal shape that ships.",
+    "checked": "Read item 237's status and body; git -C patina log since 2026-09-13."
+   },
+   {
+    "piece": "step 3a: skinned clutter",
+    "state": "done",
+    "evidence": "Level Factory 0.86.0 (7cddc3e, 2026-09-13 22:52, after the roadmap commit c667a96 that wrote this status): 'The clutter build now takes the skin library, with --theme' and 'the textures now ride in the .res' -- 'pebble tops 150, rubble 136, against sidewalk 155; the pebbles read as stones, the weeds green' (level_factory/CHANGELOG.md:10045-10076). In a package: cold run 9376's LF_restaurant_row_001.portable-godot/dressing_layer.json (LF's extract_meshes.gd record) gives each of litter_scrap, pebble, rubble_frag, weed_tuft 'embedded_textures': 2; delco_1997 maps the kinds (pixelcoat/profiles/themes/delco_1997.json: gravel -> pebble_gravel, paper -> paper_neutral, vegetation -> vegetation_neutral).",
+    "checked": "Read LF CHANGELOG 0.86.0; read the 9376 package's dressing_layer.json; read the delco_1997 profile's materials."
+   },
+   {
+    "piece": "step 3b: colour from the surface under it",
+    "state": "undone",
+    "evidence": "No tint or colour in either stage: grep -i 'tint|colour|color' over patina/patina/surface_dressing.py and level_factory/packages/exporting/dressing_scene.py -- 0 hits. The pack is per species (pebble_gravel), not per surface.",
+    "checked": "Grep of both files."
+   },
+   {
+    "piece": "step 3c: grounding",
+    "state": "undone",
+    "evidence": "Patina still writes it and nothing reads it: patina/patina/surface_dressing.py:644 '\"shadow_policy\": \"contact\"'; on cold run 9376's manifest (workspaces/cold-9376-ws/.level_factory/jobs/restaurant_row_001.patina_surface_dressing/out/restaurant_row_001.surface_dressing.json, generator 'patina 0.32.0 surface_dressing') all 4,127 orders carry shadow_policy 'contact'; grep for shadow_policy across lot, level_factory/packages, zoo/zoo_keeper and patina/patina finds only that writer, and level_factory/packages/exporting/dressing_scene.py (the MultiMesh writer) has no shadow_policy, cast_shadow, contact or sink. pebble's recipe sink (zoo_keeper/recipes/pebble.py:64, param since Zoo 0.38.0, 2026-08-19) predates the item.",
+    "checked": "Grep; python read of the 9376 manifest's orders (key 'shadow_policy')."
+   },
+   {
+    "piece": "step 3d: density table turned round",
+    "state": "undone",
+    "evidence": "lot/site_surfaces.py:90-105 DENSITY_BY_ZONE still has perimeter 'very_high', wall_base 'high', path 'low', sidewalk 'high'. On 9376's manifest by zone family (orders, per m2 of zone box): sidewalk 1,743 (0.437), open 1,610 (0.075), road 653, perimeter 55 (0.401), path 23, wall_base 22 (0.163), parking 21 -- the perimeter's share has collapsed because the site changed (137 m2 of perimeter box), not because the table turned, and wall bases still get 22 pieces against the sidewalk's 1,743.",
+    "checked": "Read site_surfaces.py:90-112; python count of the 9376 manifest's orders by zone_family tag."
+   },
+   {
+    "piece": "step 4: the low band",
+    "state": "undone",
+    "evidence": "The clutter set is still four micro species (patina/patina/asset_sets/ground_clutter.json: pebble, rubble_frag, weed_tuft, litter_scrap; unchanged since a64607c 2026-09-11); 9376's orders: assets rubble_frag 1,062, pebble 1,035, litter_scrap 1,018, weed_tuft 1,012; height bands micro 3,974, low 153 (scaled micro species). Partly met outside the layer: Lot 0.90.0 stands one dumpster a building at its back or side wall and 0.104.0 a heap of Zoo's trash_bags beside it (lot/site_dumpsters.py:1-80). No boards, crates, planters or bollards are dressed into perimeter or wall-base zones.",
+    "checked": "Read the asset set and its git log; python count of 9376 orders by asset and band; read site_dumpsters.py docstring; grep for placers of trash_bags / milk_crate_stack / bollard."
+   },
+   {
+    "piece": "item 45's grammars",
+    "state": "superseded",
+    "evidence": "Tracked by item 45 itself (NARROWED 2026-10-19, roadmap:5329): 'THE WALKER'S LOOK REVIEW: the litter and leaf scatter \"Natural\" ... Next: thin it a little'.",
+    "checked": "Read item 45's newest status."
+   },
+   {
+    "piece": "the close: the walker's judgement",
+    "state": "unclear",
+    "evidence": "docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json, key q45: choice 'Natural', note 'maybe a little heavy if anything (too much)'; the question (build_page.py:104) was 'Does the litter and leaf scatter look natural, or too even?' on frames r_spawn, r_extraction and r_drain_inspect -- a verdict on distribution, not on 'objects on a surface rather than noise', and no census of what each layer put where has been written for this item.",
+    "checked": "Python read of the verdicts JSON; read build_page.py:95-106."
+   }
+  ],
+  "done_since": [
+   "Step 3a: clutter wears Pixelcoat skins and the textures reach the package (LF 0.86.0; cold run 9376's dressing_layer.json, embedded_textures 2 per species).",
+   "Placement correctness: Patina 0.22.0 stands each piece on the top of the surface under it (2,500 of 4,909 instances had been more than 5 mm inside a slab) and 0.23.0 lets a zone dress only its own ground (patina/CHANGELOG.md:431-523).",
+   "A first low-band silhouette at wall bases: Lot 0.90.0 dumpsters and 0.104.0 trash bags, one heap a building.",
+   "The walker's look review of 2026-10-19 judged the scatter 'Natural' ('maybe a little heavy').",
+   "Step 2's Patina-decal route is replaced by item 237's tiers (no runtime decals on GL Compatibility)."
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Ignore the text after line 16094 in the batch body: from '*STATUS: NARROWED 2026-09-13 (evening) -- THEY FACE THE ROAD' on it is item 153's status (statuses precede their headings in this file; the next heading after 16095 is 153 at 16444). What is left is three pieces in two or three tools -- grounding (a reader for shadow_policy, or a vertex-darkened base in Zoo), colour from the surface under a piece, and a low band with its own species -- plus a density table whose 'turn round' the walker's 'maybe a little heavy' may now answer differently (item 45 says 'thin it a little'). It could be narrowed to those three and the rest closed or moved to items 45 and 237."
+ },
+ {
+  "n": 186,
+  "title": "The detail put into a building type must live in the logic every level runs for it",
+  "remainder": [
+   "two brief words refused -- 'Open: `corner_store` and `nightclub` stay refused by decision'",
+   "wall pieces in front of the deli case -- 'furnish's wall pieces on open edges stand in front of the case (item 196)'",
+   "enemies jam at the generated deli's rear door -- 'the generated deli's enemies jam at its rear door (item 197)'",
+   "the window neon's brightness -- 'the window neon reads faint behind its pane, the walker's to judge'"
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "corner_store and nightclub refused",
+    "state": "done",
+    "evidence": "A recorded decision, not work: level_factory/CHANGELOG.md:4667-4672 (0.146.0) 'Left refused on purpose, because a wrong-but-plausible building is worse than a refusal: corner_store: in Philadelphia it is as often the deli as the Flappahs store; nightclub: not a strip club, and there is no dance-club recipe', restated at :4433-4436 (0.150.0).",
+    "checked": "Read both changelog passages; grep of level_factory/packages for the two words (only cluster.py's district table)."
+   },
+   {
+    "piece": "wall pieces in front of the case",
+    "state": "done",
+    "evidence": "Deli Counter 0.202.0 (e6cb0d55, 2026-10-07 07:49, after this status's commit b7c384c at 01:37): deli_counter/level_design.py:3246-3254 'A WALL BEHIND IT (0.202.0). An edge is offered only where a wall the builder stands lies on it and holds the piece's whole run' -- `_edge_backing` and `_held` at :3184-3202, used at :3288. Item 196's record of the same day: the library census 0 of 3,998 (was 155 of 4,086), and cold run 9192 'deli_a01's ATM stands on the west wall, not 2.3 m in front of the case, its two poster boards on the south wall, the case clear in the frame'. Item 196 stays NARROWED for store cabinets and partitions, not for the case.",
+    "checked": "Read level_design.py:3183-3292; read item 196's status (roadmap:19094); git log times of the two commits."
+   },
+   {
+    "piece": "enemies jam at the rear door",
+    "state": "done",
+    "evidence": "Item 197 CLOSED 2026-10-13: Deli Counter 0.214.0 writes every walkable door at least clearances.min_door_width_m (1.25), the generated deli's rear_staff_entry among them; cold run 9286 (deli_001, 9191's brief and seeds) 'enemy stuck 0 on all three candidates where 9246 read 49 / 0 / 19'.",
+    "checked": "Read item 197's status in the roadmap index and text."
+   },
+   {
+    "piece": "window neon brightness",
+    "state": "walker",
+    "evidence": "Still unjudged: docs/cold_runs/cold_9191/NOTES.md:49-50 'The neon reads faint behind the pane. Whether it should glow brighter is the walker's to judge' and :90 'The window neon's brightness: the walker's call'; frames frame_9191_window_street.jpg and frame_9191_front_three_quarter.jpg are on disk. No verdict on it in the walker's look reviews of 2026-10-19 (verdicts_2026-10-19.json, 20 non-floor questions) or 2026-10-20 (9 questions); roadmap grep for 'window neon' finds only this item.",
+    "checked": "Read cold_9191 NOTES; python read of both verdicts files; roadmap grep."
+   }
+  ],
+  "done_since": [
+   "Wall pieces no longer stand against open edges, the deli case clear in the frame: Deli Counter 0.202.0, seen in cold run 9192 (item 196's record).",
+   "The generated deli's guards no longer jam at the rear door: Deli Counter 0.214.0's door widths, cold run 9286 (item 197, CLOSED 2026-10-13)."
+  ],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Question for the walker, as cold run 9191 put it: 'The neon reads faint behind the pane. Whether it should glow brighter is the walker's to judge' (frames in docs/cold_runs/cold_9191/). The strip club, the third kind the walker named, was already generated logic before this item (deli_counter/presets.py:2399-2441, `preset: \"strip_club\"`, furnished and lit by 0.132.0's recipe) and its brief words resolve (LF 0.146.0). If the walker's answer is 'fine', the item closes; if 'brighter', it is a small Zoo/Lux change plus a look."
+ },
+ {
+  "n": 210,
+  "title": "Payphones: quarters and a steel cord",
+  "remainder": [
+   "where phones stand, by kind of place -- 'Left: the city / rural / special rule for where phones stand (the walker: \"you decide\")' (earlier: 'Lot's placement: wall units by store doors, pedestals at corners')",
+   "indoor wall units' marks by place -- 'the indoor wall units' marks by place (Deli Counter's slots carry no variant)'",
+   "the walker's eye on Zoo 1.117.0's marks -- 'the walker's eye on the new marks'",
+   "the walker's eye on the hood lamp -- 'and on the hood lamp washing a booth's inside nearly white at 1.5 m'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "city / rural / special placement rule",
+    "state": "undone",
+    "evidence": "Lot still stands exactly one phone, at the bus stop: lot/site_furniture.py:1161-1210 `_stop_corner` ('Nothing is placed when there is no stop'; the payphone at dt -6.4 beside the mailbox and racks), with 0.126.0's facing and booth variant (:1170-1207). No wall unit by a store door, no pedestal at a corner, no rule by kind of place: grep for 'rural' over lot/site_furniture.py and level_factory/packages/pipeline finds only a district name in cluster.py:41. Git logs since 2026-10-20: Lot 0.126.1 only (the NPC contract fallback). The walker delegated the rule: verdicts_2026-10-19.json q210_themes note 'you decide...we should have city, rural, special'.",
+    "checked": "Read site_furniture.py:1160-1210; grep; git -C lot log --since=2026-10-20; read the 2026-10-19 verdicts."
+   },
+   {
+    "piece": "indoor wall units' marks",
+    "state": "undone",
+    "evidence": "deli_counter/level_design.py:1596 `_piece(\"payphone\", ((0.75, 0.5, 2.3),), \"wall\", front=True, form=\"wall\", most=1)` -- no `variants`, so `variant_count` (:4450-4465) returns 0 and furnish writes no variant (:4440-4447); every indoor unit wears the plain look. No Deli Counter release since the status changes that line (git log -S'_piece(\"payphone\"' since 2026-10-19: none); the one release since that names a payphone, 0.244.0 (33e81109), only keeps bank_job's through a refurnish.",
+    "checked": "Read level_design.py:1596, 4430-4466; git -C deli_counter log --since=2026-10-19 --grep=payphone and -S on the piece line; git show --stat of 33e81109."
+   },
+   {
+    "piece": "the walker's eye on the new marks",
+    "state": "walker",
+    "evidence": "Zoo 1.117.0 (48fdc71, 2026-10-20 15:38) answered q210_marks of the 2026-10-20 review ('more subtle graffiti/weathering....a large shapie squigle doesn't look like anything'); no review since asks about it (the 2026-10-22 verdicts folder holds only the drawings' questions: q_deli_a03, q_facades, q_office, q_pharmacy_a01, q_scope).",
+    "checked": "git -C zoo log; listing of docs/findings/walker_review_2026-10-21_drawings/verdicts_2026-10-22/verdicts/."
+   },
+   {
+    "piece": "the walker's eye on the hood lamp",
+    "state": "walker",
+    "evidence": "Named in the newest status as the walker's eye; no verdict on it in the 2026-10-19 or 2026-10-20 verdict files (q210_booth 'Looks right' on 2026-10-19 predates the 1.5 m frames of cold run 9355).",
+    "checked": "Python read of both verdict files."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nothing has moved since the 2026-10-20 status. The factory's half is a Lot placement rule by kind of place (the walker left the classes to the factory) and a one-field Deli Counter change (`variants` on the payphone piece) that needs the library refurnished (L23) and a cold run to see; the walker's half is two looks, best asked together on one review page after the factory's half lands."
+ },
+ {
+  "n": 238,
+  "title": "A package's textures ship uncompressed and all resident: 516 MiB",
+  "remainder": [
+   "name what the walker's 'too soft or noisy' sees -- 'Next: arms at the review's two cameras to name what the eye sees (an unchanged copy the null control, a lossless arm the positive, `uv1_scale` x 0.8 for a 2.5 m period)'",
+   "one texture per content per package -- 'then the deduplication' ('one per content per package is estimated at -10 to -12 MiB on a multi-building lot')",
+   "the 8 MiB in play, unattributed -- earlier status: 'Left: ... the 8 MiB a camera adds at the stations, unattributed'",
+   "the close -- 'The engine's monitor read under 100 MiB on a package at the fixed stations with the walker's eye on the frames, the probe run in every cold run's record beside the price'",
+   "compression of the level's own ~30 MiB -- earlier status: 'Left: ... compression of the level's own ~30 MiB' (the newest status says it is already spent)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "arms at the two review cameras",
+    "state": "undone",
+    "evidence": "No finding runs them: grep of docs/findings for '2.5 m period' / 'uv1_scale x 0.8' / 'null control ... lossless' finds only the plan itself (docs/findings/guides_2026-10-19/textures.md:89-95); no findings folder newer than 2026-10-19 concerns walls or textures (ls -t docs/findings: drawings, furnish_route_cost, guides_2026-10-21, reserved_routes_288, office_floor_281, denser_rooms_148, car_wear_44, cargo/ticket/teller queues, ...). The walker's verdict it would answer: verdicts_2026-10-19.json q238 'Too soft or noisy', note 'you can tell where one texture stops and ends...needs 3d UV Tri stuff?' -- asked 'Do walls hold up close after the cut?' on r_wall_drywall, r_wall_concrete and 9274's atlas before/after (build_page.py:57-62).",
+    "checked": "Grep of docs/findings; read textures.md; read the 2026-10-19 verdicts and build_page.py."
+   },
+   {
+    "piece": "deduplication",
+    "state": "undone",
+    "evidence": "No Level Factory release since 2026-10-19 dedupes package textures (git -C level_factory log --since=2026-10-19: 0.218.2 to 0.232.1, none dedupes textures -- the nearest, 0.220.0, assigns skins to fire escapes and ramps; the CHANGELOG's newest dedup/duplicat hit is 0.210.0's note at :896, 'A merged mesh names no module. Its materials are duplicates pointing at art/zoo/_tex/*.png, which stay'). textures.md:57-62 measured the gap: 9335 458 files, 118 distinct images, est. 23.3 -> 11.5 MiB.",
+    "checked": "git log; grep of the LF CHANGELOG; read textures.md section 2."
+   },
+   {
+    "piece": "the 8 MiB in play",
+    "state": "undone",
+    "evidence": "textures.md:67-68 lists it under 'Not measured: ... the 8 MiB in play'; nothing since attributes it.",
+    "checked": "Read textures.md."
+   },
+   {
+    "piece": "the close condition",
+    "state": "unclear",
+    "evidence": "The number half holds: the fixed-station harness reads memory into every price since LF 0.199.0 (level_factory/tools/perf_stations.gd), 76.0 MiB in play on 9276 (item 238's record) and 'memory after the warm-up: textures 78.1 MiB, buffers 63.2 MiB, video 141.3 MiB' in _runs/perf_inner/price_9369_b.log (that harness's log, named for cold run 9369). The walker's-eye half came back negative: q238 'Too soft or noisy'.",
+    "checked": "Read the price log's memory line; read the 2026-10-19 verdicts."
+   },
+   {
+    "piece": "compression of the level's own textures",
+    "state": "done",
+    "evidence": "Already spent before the newest status, as it says: textures.md:46-52 '458 of 458 level images are VRAM-compressed, high_quality=false, S3TC' in 9335's package, since Level Factory 0.190.0 (level_factory/CHANGELOG.md:1058-1100 as cited there).",
+    "checked": "Read textures.md section 2."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The memory bar this item set (under 100 MiB at the fixed stations) is met and watched in every price; what keeps it open is the walker's 'too soft or noisy' on walls after the cut and the deduplication that textures.md says any denser or lossless skin would need first. The look complaint overlaps items 74 (OPEN, wall repetition) and 57 (edge vocabulary): if the arms show the eye is seeing the 2 m tile period rather than compression, the look half belongs there and 238 narrows to the deduplication (a Level Factory export patch plus a priced cold run). textures.md section 5 lists five questions only the walker can answer (pixel vs realism skins, BC1/BC7/lossless, whether tiles may stop repeating per module, broad variation, the hardware budget)."
+ }
+]

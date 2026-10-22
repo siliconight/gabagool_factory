@@ -1,0 +1,335 @@
+[
+ {
+  "n": 45,
+  "title": "Large playable surfaces are visually flat, and the fix is not more grass",
+  "remainder": [
+   "Thin the ground scatter a little: newest status 'the litter and leaf scatter \"Natural\" -- \"maybe a little heavy if anything (too much)\". Next: thin it a little.'",
+   "Two manifest fields the item names are not written: 2026-10-15 status 'not `yaw_range`, not `exclusion_tags`' (remeasure: 'two manifest fields and the A/B are what is left')",
+   "The item's own test has not been run: 'hide the layer and the level plays the same, Laser Tag the judge -- has not been run as an A/B'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "thin the scatter", "state": "undone",
+    "evidence": "patina/patina/surface_dressing.py:116 still `DEFAULT_INSTANCES_PER_M2 = 0.20`, :64-70 DENSITY_SPEND unchanged (low 0.35 .. very_high 1.0); git log: surface_dressing.py last touched cb35eb5 2026-10-03 (Patina 0.23.0), asset_sets/ground_clutter.json a64607c (0.21.1), lot/site_surfaces.py abf9b9b 2026-10-03 (Lot 0.96.0), level_factory adapters/patina + dressing_layer.py 6364ce1 2026-09-22; no Patina commit since 2026-10-15, and no Lot/LF/Zoo commit since 2026-10-18 names scatter, litter or dressing density. Litter is still on the sidewalks in the daytime frames of cold runs 9353/9354 (docs/cold_runs/cold_9354/tod_evening_morning_noon.jpg), built on that unchanged code.",
+    "checked": "read surface_dressing.py:1-120 and :382-680 (plan(): instance budget 'auto' = dressable m2 * 0.20; LF adapter passes job_spec.get('instance_budget','auto') at adapters/patina/__init__.py:98); git log --since=2026-10-18 on patina, lot, level_factory, zoo; git log -- on each dressing file. The walker's verdict read from docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json key verdicts.q45 = {'choice': 'Natural', 'note': 'maybe a little heavy if anything (too much)'}"},
+   {"piece": "manifest fields yaw_range and exclusion_tags", "state": "undone",
+    "evidence": "grep -rn 'yaw_range|exclusion_tags' over patina/, level_factory/schemas, level_factory/packages, level_factory/adapters, lot/*.py: 0 hits. The order written at surface_dressing.py:631-653 carries a per-instance `yaw` and `cleared_exclusions` (the tags TESTED), neither the range nor the tag list the item names",
+    "checked": "grep + read of the order dict"},
+   {"piece": "A/B: dressing hidden vs shown, Laser Tag judges the level plays the same", "state": "undone",
+    "evidence": "no finding or cold run records it: grep over docs/ for dressing off/hidden/A-B/'plays the same' finds only docs/findings/open_items_remeasure/README.md:512 ('has not been run as an A/B') and unrelated hits; grep -i dressing over docs/cold_runs/cold_93[3-9]*/NOTES.md: 0 files",
+    "checked": "Grep over docs/, cold run notes since 9330"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The DoD line 'No visible uniform scatter from primary views' is answered by the walker 2026-10-19 ('Natural'), so it is not a remainder piece. Thinning is a one-constant change (Patina DEFAULT_INSTANCES_PER_M2 or Lot's zone densities) but it is a look the walker judged in a frame, so proving it wants a package and a frame: medium. The A/B is a cold-run-sized measurement with Laser Tag on both arms. The roadmap file also carries a misplaced paragraph: 'THE PARKED CARS' WEAR, 2026-10-21' (item 44's) sits at line 5327 inside item 45's status block, between the 2026-09-13 status and the 2026-10-19 one -- a hygiene note for whoever next edits 44/45."
+ },
+ {
+  "n": 59,
+  "title": "One door, two corridors: a partition ends inside the aperture and splits the egress",
+  "remainder": [
+   "Generator avoidance: newest status 'WHAT REMAINS is the last third: the floorplan generator learning avoidance, for which the FAIL gate is the backstop rather than the fix' (body: 'the AVOIDANCE in the floorplan/generator path (nudge the opening along its wall or terminate the partition one bay short -- never silently delete either)')"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "generator avoidance of L18 (nudge the opening / stop the partition a bay short)", "state": "undone",
+    "evidence": "Partly done since (see done_since): open_floor_rules.py has it for the walls IT adds. NOT in the preset generator: presets.py (the spec generator behind new_level.py, 'generate a level spec from a preset recipe') carries no avoidance logic -- grep 'door_split|nudge|LEAF_MARGIN|layout_lint' in presets.py finds only comments asserting hand-authored compliance (presets.py:2458, 2697, 2891 'Every partition ends clear of every doorway it meets (layout_lint L18...)'). The --stairs-first path (new_level.py -> stair_core.apply) trims partitions (stair_core.py:192-220 `_trim_partition`) and punches doors at landing crossings (stair_core.py:223-258 `_punch_door`) with no L18 test -- grep 'L18|door_split|LEAF|aperture' in stair_core.py: 0 hits. layout_lint.py:1441-1444 (the L18 docstring, DC 0.257.0) still says 'Generator avoidance ... remains the right fix on the authoring side when this fires.'",
+    "checked": "read layout_lint.py:1422-1528 (door_split_findings) and :1541 (wired into fails); read stair_core.py:185-307; grep over presets.py/new_level.py; grep L18 across deli_counter non-test sources; DC CHANGELOG 0.101.0-0.101.2 entries (lines 9459-9535)"}
+  ],
+  "done_since": [
+   "Deli Counter 0.234.0 (roadmap 260): open_floor_rules._clear_apertures (open_floor_rules.py:251-309, called from apply at :488-490) slides an opening a new wall's end would split along its own wall, whole grid cells, up to 3 m, staying between the same two rooms, else refuses the pair -- 'L18's own prescription, \"nudge the opening along its wall\"'. This is generator avoidance for the walls the open-floor table adds, the first generator path to learn it.",
+   "The library half stays clean: DC CHANGELOG 0.236.0 (line 1133) 'layout_lint over the library: 0 FAIL before and after', and L18 is a FAIL (layout_lint.py:1541). No later lint record in the changelog."
+  ],
+  "size": "small",
+  "bears_on": "interventions",
+  "proposed_status": "",
+  "notes": "Neither Level Factory nor Lot writes partitions or ext_walls (grep over their packages/adapters: 0 hits), so the only generators are Deli Counter's: presets.make (authored recipes, compliant by hand), the --stairs-first core reshaping (no L18 check), open_floor_rules (has avoidance), vault_room conversion (`_relocate`, vault_room.py:682-717, slides a door it must move to a grid spot at least w/2 + LEAF_MARGIN + wt/2 from its wall's ends and clear of the wall's other openings) and enclose_teller_lines (refuses when a doorway is inside the counter's span). The cold-run pipeline draws authored library specs, so today a missing avoidance surfaces as a build FAIL for someone authoring a new building with new_level.py rather than in a cold run. The L17 discrepancy the 2026-08-24 record raises ('L17 ... ABSENT from today's layout_lint.py') is its own question, not this item's remainder. A one-patch fix is a post-pass over a generated spec reusing _clear_apertures' slide."
+ },
+ {
+  "n": 132,
+  "title": "The route can go up and the fight cannot follow",
+  "remainder": [
+   "Enemy placement that follows the route's elevation (enemies on the objective's floor / roof): newest status 'What is NOT fixed is the placement itself ... spawn placement is expected to leave this toolchain'; body 'The placement is still not fixed and still belongs to the gameplay layer, which is what keeps this item open'",
+   "The marker-floor instrument defect: body 'LT_MARKER_OFF_FLOOR fires on all three candidates with \"LT_ObjectivePoint 7.20 m up\" ... it will fire on every vertical mission until the gate reads the surface under the marker rather than the ground plane' -- no status reports it fixed",
+   "Score passing an uncontested route: newest status 'The score also still passes such a map, which is roadmap 128's open question rather than this one's'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "elevation-aware enemy placement", "state": "superseded",
+    "evidence": "Parked by decision, not undone by neglect: the item's own body says the placement 'still belongs to the gameplay layer'; lot/site_spawns.py:145-150 still says 'Lot has no storey model, so it says so and moves nothing'; Lot's site_spawns.py history since 2026-09-10 (0.97.3, 0.98.0-0.98.2, 0.122.0, 0.123.0) adds no storey or route-elevation term. The walker's rule (assistant memory 'gameplay-layer-lives-outside-level-factory', 2026-09-08): spawns live in a separate gameplay layer. No later roadmap item takes the work over.",
+    "checked": "read site_spawns.py:140-160; git log -- site_spawns.py; roadmap index scan for spawn/gameplay-layer items"},
+   {"piece": "LT_MARKER_OFF_FLOOR on legitimate upper-storey/rooftop markers", "state": "undone",
+    "evidence": "level_factory/packages/validation/spawn_placement.py:751-773 `_floating` still measures lift = marker y - field.floor[cell], where the field is ONE storey built round the crew spawn (FIELD_BAND 3.0, :78-83), and is applied to every destination with no regard to `_placement`'s unseen-storey verdict (:500-522; both lists built at :469-484). Live: cold run 9375's validation record (workspaces/cold-9375-ws/.level_factory/validation/restaurant_row_001.json, issues[66] and [67], stage laser_tag_evaluate, candidate seed_9003) files the SAME upstairs objective twice -- `LT_MARKER_OFF_FLOOR` 'LT_ObjectivePoint 3.30 m up' and `LT_STOREY_UNSEEN` 'the marker is at y = 3.3, the surface the field holds there is at 0.0'. Cold run 9334 (county_hospital_001, the item's own mission, 2026-10-19) driver.log:42 'LT_MARKER_OFF_FLOOR 0 -> 3'. spawn_placement.py last changed add55d8 2026-09-15 (LF 0.88.0).",
+    "checked": "read spawn_placement.py:60-210, :360-530, :740-773; git log -- spawn_placement.py; read the 9375 validation JSON (keys 'issues' -> code/message) and 9334 driver.log"},
+   {"piece": "score discounts a fight that never happened", "state": "done",
+    "evidence": "roadmap 128 CLOSED 2026-09-10 (PIPELINE_ROADMAP.md:14452-14477): Laser Tag 0.22.0 scores traversal on route_progress_rate and 'NPC Pathing loses the cap ... (132's residue)'; the 1-2 enemy 'not a contest' gap went to item 135, 'closed one commit later'",
+    "checked": "read item 128's closing status"}
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "OPEN only on the instrument defect, which is the factory's and small: `_floating` should skip a point `_placement` already files as LT_STOREY_UNSEEN, or read the surface under the marker. The producer is Level Factory's spawn_placement advisory, filed under source_tool laser_tag -- not Laser Tag's own code (grep of lasertag/ for MARKER_OFF_FLOOR: 0 hits). Once that lands, the item's only remainder is the parked placement, and the right status is SUPERSEDED/parked to the gameplay layer with the item's own reopen clause ('If the gameplay layer never materialises, this item reopens with the work named above still to do')."
+ },
+ {
+  "n": 154,
+  "title": "The buildings are designed all at once, and Delco buildings are not",
+  "remainder": [
+   "Twins that differ, in a package: 'The twin: `twin_a01`, one archetype, whether its halves differ unmeasured' (close: 'a cold package whose street carries twins that differ from each other'); the 2026-09-13 status adds 'The two halves of a twin cannot wear different materials on the SAME wall'",
+   "The accretion: 'The accretion: 0 hits, nothing says a part was added later' (close: 'at least one building wearing two materials from two dates')",
+   "Surfaces: 'glass block and EIFS do not' exist",
+   "Objects: 'window air conditioners and security bars are not' species",
+   "The corridor: 'buildings at the road with parking beside or behind is still not a Lot plan' (close: 'buildings meeting the sidewalk')",
+   "Per-instance differentiation: 'Patina's per-instance differentiation is unwired (76)'",
+   "The walker's judgment: 'The walk that reads the place as built over time is not recorded'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "twins that differ", "state": "undone",
+    "evidence": "deli_counter.py:1498 `explicit = {(w.wall, w.story): w for w in self.s.ext_walls}` -- still one exterior wall entry per (wall, storey), so a twin's two halves cannot wear different materials on one face (the 2026-09-13 'WHAT REMAINS'). twin_a01.json: storey 0 stone_ext on N/S/E/W, storey 1 siding on N/S/E/W -- the halves share every face's material (the 09-13 status records they differ in porch vs stoop and door hood). Only one twin archetype exists (specs/twin_a01.json, the only 'twin' spec), so a street cannot carry several twins differing from each other. One cold run drew it since (9364, bank_block_001 seed 9082, NOTES.md:6); no record measures its halves or frames them.",
+    "checked": "read Builder._exterior (deli_counter.py:1494-1534); read twin_a01.json ext_walls; ls specs | grep twin; grep twin_a01 over cold run notes"},
+   {"piece": "the accretion (a later addition, different height/material, broken roofline)", "state": "undone",
+    "evidence": "grep -i 'accretion|added later' over deli_counter/*.py, lot/*.py, level_factory/packages: no vocabulary (only an unrelated 'networked doors added later' in open_floor_rules.py:14); DC commits since 2026-10-14 name no addition/accretion work",
+    "checked": "grep + git log --since=2026-10-14 on deli_counter"},
+   {"piece": "glass block and EIFS surfaces", "state": "undone",
+    "evidence": "grep -i 'glass.block|glassblock|eifs|dryvit' over pixelcoat/: only CHANGELOG.md:1616, Pixelcoat 0.38.0's deliberate refusal ('Glass block, EIFS, faux shutters and storm doors are named in the direction and are not minted -- an unused pack is built into every library and reaches no surface'). Pixelcoat's last commit c5c9d1f 2026-10-10. Blocked on a consumer rather than on Pixelcoat.",
+    "checked": "grep over pixelcoat; read CHANGELOG 1608-1622"},
+   {"piece": "window air conditioners and security bars", "state": "done",
+    "evidence": "They exist, as an Empty's window fixtures rather than species -- the 2026-10-15 re-read counted species only. Zoo 1.69.0 (31f1b5e, 2026-10-05) `dress_cover` kinds `ac_unit` ('an Empty's window air conditioner standing on the sill') and `window_bars` (zoo_keeper/recipes/dress_cover.py:25-28, built at :104-110); Patina 0.26.0 orders them (patina/patina/framing.py:128-175 `window_fixture_orders`, one per opening of a slot with `ac`/`bars`); Deli Counter >= 0.181.0 writes `ac`/`bars` only on an Empty's sealed facade windows. Deliberately never on a real (enterable) window: 'a real window is a firing line, and bars a bullet passes through would lie about it' (framing.py:139-142).",
+    "checked": "read dress_cover.py:1-60 and framing.py:128-175; git log -S window_bars on dress_cover.py"},
+   {"piece": "buildings at the road, parking beside or behind (a Lot plan)", "state": "undone",
+    "evidence": "Lot commits since 2026-10-15: 0.124.0 (isolated building finding), 0.125.0 (drop nav links), 0.126.0 (bus stop/phone), 0.126.1 (contract) -- none places buildings at the road. lot/site_streets.py:486-502 (FRONTAGE) paves the walk to the face where the strip is shallower than a bay -- it does not move the building or put parking behind it.",
+    "checked": "git log --since=2026-10-14 on lot; read site_streets.py:470-540"},
+   {"piece": "Patina per-instance differentiation", "state": "superseded",
+    "evidence": "tracked by roadmap 76, OPEN 2026-10-15 (index line 757: 'Every mechanism this factory has for making two copies of one module l...'); Patina's last commit 0108c6d 2026-10-15",
+    "checked": "roadmap index; git log patina"},
+   {"piece": "the walker's eye-height walk", "state": "walker",
+    "evidence": "the close is 'judged from eye height by the walker as a place that was built over time'; no walker review (2026-10-19, 2026-10-20) asked it",
+    "checked": "read docs/findings/walker_review_2026-10-19/README.md answers table"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Correction to the 2026-10-15 status rather than work since it: window ACs and bars have existed on Empties since 2026-10-05. twin_a01 already wears stone under siding (two materials, two dates, one per storey), which is the nearest thing to the close's 'two materials from two dates' -- but it is a layer per storey, not an addition, and the per-face split the twin needs is blocked at deli_counter.py:1498. The item is a design-sized ask across Deli Counter, Lot, Pixelcoat and Patina with the walker's eye as the gate."
+ },
+ {
+  "n": 160,
+  "title": "The bank vault is a box",
+  "remainder": [
+   "A cold package that draws a bank carrying the hero door: newest status 'NO COLD PACKAGE HAS DRAWN A BANK THAT CARRIES IT'",
+   "Authored vault rooms get no hero door: 'an AUTHORED vault room does not get the hero door, only a converted vault box does -- that is the next gap'",
+   "`bank.json` is not converted: '`bank.json` (no rooms, not modular) is not converted'",
+   "The close: 'the walker opens a generated bank's vault and calls it the hero piece'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "a cold package carries the hero door", "state": "done",
+    "evidence": "Cold runs 9364-9366 (bank_block_001, seed 9082) draw bank_branch_a02 (cold_9364/NOTES.md:5 'Seed 9082 draws bank_branch_a02'). 9366's walk copy, which copies its package (`_runs/walk_9366_bank_block_001/`, written by the cold run's walk leg), stands Zoo's door in all four states: lot/bank_branch_a02/site.tscn:17-23 ext_resources `vault_door_delco_1997_01_w360_mconcrete_oed4008.glb` and its `_unlocked`, `_open`, `_breached` GLBs, the four GLBs present under lot/bank_branch_a02/art/zoo/. The LF transient spec lf_bank_block_001_9082.json carries one `vault` opening and rooms vault_room_west/vault_room_east/vault.",
+    "checked": "find over _runs for vault_door GLBs; grep site.tscn; read cold_9364/9366 NOTES heads; counted vault openings per spec with a read-only python pass over deli_counter/specs/*.json"},
+   {"piece": "authored vault rooms get the hero door", "state": "undone",
+    "evidence": "vault_room.enclose_vaults (vault_room.py:720-787) converts vault VOLUMES only (`vaults = [v ... if is_vault_volume(v)]`, :755). Today's specs: bank_branch_a04, credit_union_a01, credit_union_a03 and bank_tower_a01 each have an authored vault room whose way in is an ordinary `door` tagged `vault_gate` (kind 'door', no machine); only bank.json, bank_branch_a02, bank_branch_a03 and bank_job carry a `vault` opening.",
+    "checked": "read vault_room.py:596-787; read-only python over the four specs' openings"},
+   {"piece": "bank.json converted", "state": "undone",
+    "evidence": "specs/bank.json: 0 rooms, a `VAULT` volume still present, and its one `vault` opening (`main_vault`, a basement Y-partition) dates from DC 0.63.0 (ca29d818, 2026-07-08) -- the box was never enclosed. Whether any lot ever draws bank.json is not checked.",
+    "checked": "read-only python over bank.json; git log -S on the spec"},
+   {"piece": "the walker opens a generated bank's vault and calls it the hero piece", "state": "walker",
+    "evidence": "no walker review asks about a bank's vault: grep -i vault over docs/findings/walker_review_*/ finds only 'The pharmacy's vault room' among item 148's room frames (walker_review_2026-10-19/build_page.py:112); the 2026-10-21 drawings review has no vault or bank question",
+    "checked": "grep over the three review folders"}
+  ],
+  "done_since": [
+   "A cold package carries the hero vault door: cold runs 9364-9366 (2026-10-21, bank_block_001 seed 9082) draw bank_branch_a02, and 9366's walk copy instances vault_door_delco_1997_01_w360 in four states (_runs/walk_9366_bank_block_001/lot/bank_branch_a02/site.tscn:17-23)."
+  ],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The status line 'NO COLD PACKAGE HAS DRAWN A BANK THAT CARRIES IT' is stale: bank_block_001 at seeds 9054/9155/9256 (cold 9197-9199) and 9082 (9364-9366) all have LF transients carrying the vault opening. What is left for the factory is converting authored vault rooms (four specs) so a lot that draws bank_branch_a04 or a credit union also gets the door; then frames for the walker. Memory notes a separate open 'casino vault' under roadmap 195 -- not checked here."
+ },
+ {
+  "n": 188,
+  "title": "The fence at the playable edge",
+  "remainder": [
+   "A fence on a vacant lot: 'Left: vacant lots' / body 'What this item still asks of the edge: a fence on a vacant lot'",
+   "A fence on an Empty that stands alone: 'and Empties not in a row' / 'and on an Empty that stands alone rather than in a row'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "fence on a vacant lot", "state": "undone",
+    "evidence": "Lot has no vacant lot to fence: grep -i vacant over lot/*.py hits only site_fences.py:3 and :7 (the docstring quoting the walker); none in level_factory/packages. lot/site_fences.py last changed 030901f 2026-10-13 (0.122.0). Vacant lots themselves appear only in roadmap 240's 'Then:' list (PIPELINE_ROADMAP.md:20518, 'vacant lots behind corrugated metal') and the land-use guide's unbuilt remainder.",
+    "checked": "grep; git log -- site_fences.py"},
+   {"piece": "fence on a lone Empty", "state": "undone",
+    "evidence": "site_fences.rows (lot/site_fences.py:80-99) makes a lone Empty a row of one, and plan_fences (:248-303) gives every row its two end runs to the plate (:282-286) -- but first skips the WHOLE row when any mission marker stands in its band (:272-278, `markers_behind`), and the band runs across the plate's whole width (`shut_band`, :134-151). docs/findings/urban_street/README.md:122-136 and :163-168 measure exactly that case: the urban street's near-side Empty 'is a row of its own', its band holds the objective or the street, and it was LOT_FENCE_SKIPPED on all three candidates; 'The band itself. It spans the plate's whole width. That is right for a terrace ... and wrong for a row that is not one.'",
+    "checked": "read site_fences.py:1-333; read the urban_street finding; Lot commits since 2026-10-19 (0.126.0, 0.126.1) do not touch fences"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The lone-Empty half is a Lot rule (a band or end runs sized to a row that is not a terrace) plus a cold run: medium. The vacant-lot half needs vacant lots to exist first -- a new Lot capability no item currently owns by name -- which is what makes the whole large. A reviewer may prefer to split it: the vacant-lot fence as a dependent of whichever item builds vacant lots."
+ },
+ {
+  "n": 189,
+  "title": "A building's walkable connectivity depends on where it lands on the voxel grid",
+  "remainder": [
+   "Stair heads facing a wall: 'foundry_heist_vertical's and primos_pizza's flights top out toward their north walls with 1.08 and 1.05 m ... The rule: a flight's head leaves a corridor (1.2 m) of floor before a wall it faces, a layout-lint sibling of L21'",
+   "A door running past the end of its wall: 'cbp_town_finale_midbalanced_schemafixed's 2.0 m `third_vomitory` door ... L18 catches a wall ending inside a door, not a door's aperture running past its own wall's end: that is the rule to add'",
+   "A cover pocket: 'bank_job's auto-placed crate stack stands 0.99 m from a desk on a route. Auto cover should leave a corridor beside whatever it stands next to'",
+   "Markers that move at a failing origin, in nine shells: 'the fix is where the markers stand'",
+   "The register markers on their counters: 'Where the crew stands to take a register is the gameplay layer's call'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "stair-head-faces-a-wall rule", "state": "undone",
+    "evidence": "layout_lint.py carries L18-L28 (door split, stair bounds, setbacks, stair hole, vault, stale pieces, breach-only rooms, pieces through walls, open floors, wall under hole, hole causes); none asks for floor before a wall a flight's head faces (grep 'faces a wall|head_clear|corridor of floor' over layout_lint, stairwell, stair_place, stair_core, presets: 0 hits). Both shells are still in navgate_baseline.json `grid_fragile` (foundry_heist_vertical stair_0 and stair_1; primos_pizza stair_0 plus three markers at 6/8), last regenerated 173c91b5 2026-10-14.",
+    "checked": "rule list from layout_lint.py; read-only python over navgate_baseline.json key grid_fragile"},
+   {"piece": "door-past-its-wall's-end rule", "state": "undone",
+    "evidence": "no such lint (grep 'past its wall|past the end of its wall|vomitory' over layout_lint.py: only L25's ALONG note). The case stands: specs/cbp_town_finale_midbalanced_schemafixed.json partition X y -8, run -43..43, `third_vomitory` door pos -0.5 width 2.0 -- centred on the run's west end, half its aperture beyond it.",
+    "checked": "grep; read-only python over the spec's openings"},
+   {"piece": "auto cover leaves a corridor (the cover pocket)", "state": "done",
+    "evidence": "The rule: Deli Counter 0.195.0 (9bec0ff6, 2026-10-06 20:52, after this status): `_seed_clear(..., corridor=True)` -- a seeded piece's square keeps agent_contract.min_corridor_width (1.1 m) clear of every wall's box, stair reserve and standing volume (level_design.py:723-736, asked by seed_cover); migrate_seed_corridor moved 35 seeded pieces in 13 shells (DC CHANGELOG 0.195.0). The case: the neck finder put bank_job's break at (3.40, 4.15) between `crate_stack_security_room_0` at (2.38, 3.85) and `desk_rad8edd5a_4` at (4.82, 3.20) (docs/findings/stairwell_on_one_grid_in_four/necks.txt:4-12); that desk left the spec with Deli Counter 0.252.0 (8eb3233f, git log -S'desk_rad8edd5a_4' -- specs/bank_job.json; the chairless-desk rule, roadmap 284), and today no spec volume stands within 2.0 m of the crate stack -- the security room's one desk is desk_rad8edd5a_1 at (9.04, 8.64). Residual class, from 0.195.0's own 'Not done here': furnish keeps only 0.9 m from a volume, so furniture placed after seeding can still stand 0.9-1.1 m from a seeded piece (4 such pieces in 2 shells then).",
+    "checked": "read level_design.py:692-771 and :987-1106; DC CHANGELOG 0.195.0; read necks.txt; read-only python over bank_job.json volumes and vault_ledges; git log -S. Not re-measured with neck_finder."},
+   {"piece": "nine shells' markers that move", "state": "walker",
+    "evidence": "the status ties it to where the markers stand, the gameplay layer's (the next piece); the four register shells remain in grid_fragile (corner_deli_heist_01, cr_deli, night_deli at 2/8, fuel_stop_heist at 4/8)",
+    "checked": "navgate_baseline.json"},
+   {"piece": "register markers on counters", "state": "walker",
+    "evidence": "presets.py:757 and :1826 still place REGISTER at z 0.9 (cr_deli, night_deli, corner_deli_heist_01 at (-12, -7, 0.9); fuel_stop_heist at (0, -8.5, 0.9)); the status calls it 'a gameplay-layer call'",
+    "checked": "grep presets.py; read-only python over four specs"}
+  ],
+  "done_since": [
+   "The cover pocket: Deli Counter 0.195.0's seeded corridor rule (level_design.py:723-736), and bank_job's pocket gone since Deli Counter 0.252.0 took away the desk beside its crate stack (desk_rad8edd5a_4)."
+  ],
+  "size": "small",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "The two lint rules are each one Deli Counter patch (a stair-head floor check beside L21, a door-past-its-run check beside L18), then whatever re-authoring the rules force in foundry_heist_vertical, primos_pizza and cbp_town_finale -- the latter may be medium. Memory 'stairwell-on-one-grid-in-four' already records '189 NARROWED; next 3 neck rules; stand-point patch HELD'; the held patch (`patches/patch_dc_grid_stand_point.py`) is a refuted direction, not a remainder."
+ },
+ {
+  "n": 206,
+  "title": "The extraction is the getaway vehicle",
+  "remainder": [
+   "Responders on the way back: 'Open: responders on the way back -- ... the walker's answer is item 212'",
+   "The package's anchors: 'the package's anchors (item 204)'",
+   "The van in daylight: 'and the van in daylight' (cold run 9198: 'That level is night and rain, so the van reads as a silhouette and the ghost and the patina do not show'; its NOTES 'Not checked: ... the van in daylight')",
+   "Body: 'Lot 0.98.1's comment in `place_enemies` gives the single-file account as if it always held; the next Lot release corrects it'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "responders on the way back", "state": "done",
+    "evidence": "roadmap 212 CLOSED 2026-10-08 (PIPELINE_ROADMAP.md:19641): Lot 0.99.0-0.101.0 plans an arrival per open road end sized for Zoo 1.86.0's cruiser, Level Factory 0.156.0-0.162.1 ships `responder_arrivals.json`; cold runs 9206-9209 at 0 interventions; 'How many responders spawn, and when, is the gameplay layer's'",
+    "checked": "read 212's closing status"},
+   {"piece": "the package's anchors", "state": "done",
+    "evidence": "roadmap 204 CLOSED 2026-10-08 (PIPELINE_ROADMAP.md:19356): Level Factory 0.156.0 tags the van's start and exit `mission_start` and `extraction`, 0.158.0 writes the flow spawn -> score -> extract; cold run 9203 'the shipped package's beats are spawn -> score -> extract'",
+    "checked": "read 204's closing status"},
+   {"piece": "the van in daylight", "state": "undone",
+    "evidence": "No frame of the van in a daytime level was shot for it or shown to the walker: the walker reviews of 2026-10-19 and 2026-10-20 have no van question (grep van/getaway/step van over walker_review_2026-10-19 and -10-20: 0 hits); the daytime cold runs 9353 (morning) and 9354 (noon) on restaurant_row_001 mention no van in their NOTES, and their only frames (docs/cold_runs/cold_9354/tod_evening_morning_noon.jpg) catch the van's dark side filling the right third of the spawn view from about a metre -- not a frame of the van, and the ghost lettering and patina are not legible in it.",
+    "checked": "grep over reviews and cold run notes; looked at the 9354 frame sheet"},
+   {"piece": "Lot's place_enemies comment corrected", "state": "done",
+    "evidence": "lot/site_spawns.py:926-935 '\"ONE AT A TIME FROM ONE SIDE\" HELD ON TWO SITES OF THREE (0.98.2)' -- the single-file account qualified with 9199's seed_9256 (two enemies 17.7 and 23.4 m out, 94 degrees apart) and pointing to roadmap 212",
+    "checked": "read site_spawns.py:900-935"}
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Everything the item built is shipped and proven; the one open piece is a look check: shoot the van from stations round it in a daytime package (9198's five-station method, tools/look_shots.py) and put the frames on the walker's review page -- after which it is the walker's. Observation, not a remainder: the NEXT list's 'A test: no candidate's extraction is the objective building' holds only for an anchored score (level_factory/tests/unit/test_score_building.py:20-27 asserts spawn != b0 and extraction == spawn); with no anchored score the old draw stands and test_score_building.py:40-49 pins seeds 9000 and 9002 at spawn = objective = extraction."
+ },
+ {
+  "n": 222,
+  "title": "A shadow control that stopped seeing its shadow",
+  "remainder": [
+   "The cause of the two failing reads: 'What differed during the two failing runs is not known' / body 'Why it read 0.447 twice earlier that night, on unchanged code, is not established'",
+   "Capture next time: 'next time it fails, keep the frame and the window's state'"
+  ],
+  "verdict": "ANALYSIS",
+  "per_piece": [
+   {"piece": "why the control read 0.447 twice on 2026-10-10", "state": "unclear",
+    "evidence": "Not decidable without a recurrence: the code under test is unchanged since (lux/tools/streetlight_shadow_selftest.gd last changed 9237208, Lux 0.65.0, 2026-10-03), and every recorded run since passes -- seven on 2026-10-10 (docs/findings/streetlight_shadow_control/README.md:21-29, selftest_runs.txt) and Lux 0.77.0's record on 2026-10-14 ('the other 24 in `tools/` exit 0 on 0.76.1 and on 0.77.0 alike, ... `streetlight_shadow_selftest.gd` windowed on GL Compatibility', lux/CHANGELOG.md:76). The finding's probes show the control's own setting works (5 mm at bias 0.03 reads 0.001, README.md:40-49) and refute a stale first read (:58-76).",
+    "checked": "git log on the selftest; Lux CHANGELOG grep for selftest records; read the finding"},
+   {"piece": "keep the frame and the window's state next time", "state": "undone",
+    "evidence": "a contingent instruction, not a task until it fails: the selftest reads the frame (streetlight_shadow_selftest.gd:81-84) and prints its numbers (:190-191) but saves no image and records no window state. A miss cannot pass silently: the cap control is a `_check` that counts a failure (:46-51, :194) and the test exits 1 (:204-205).",
+    "checked": "read streetlight_shadow_selftest.gd:30-205"}
+  ],
+  "done_since": [
+   "Lux 0.77.0 (2026-10-14) records the selftest exiting 0 again, windowed, on 0.76.1 and 0.77.0 (lux/CHANGELOG.md:76)."
+  ],
+  "size": "none",
+  "bears_on": "hygiene",
+  "proposed_status": "*STATUS: ANALYSIS 2026-10-22 -- the control sees its shadow, and what made it miss twice on 2026-10-10 is a standing unknown rather than a task. Every run since reads the on-axis cap control at 0.001 against 0.459 unshadowed and passes: seven that night (`docs/findings/streetlight_shadow_control/`, `selftest_runs.txt`) and both runs Lux 0.77.0 records on 2026-10-14 (`lux/CHANGELOG.md:76`, windowed on GL Compatibility, on 0.76.1 and 0.77.0); `shadow_gap_probe.gd` shows the control's own setting, a 5 mm cap at bias 0.03, blacks the pool (0.001), and `shadow_gap_probe2.gd` refutes a stale first read. The selftest is unchanged since Lux 0.65.0 (9237208), and a miss cannot pass quietly: the cap control is a counted `_check` (`tools/streetlight_shadow_selftest.gd:194`) and the test exits 1 (:205). If it fails again, keep the frame, the window's state (minimised, covered, the display asleep) and what else held the GPU -- the selftest saves none of them itself (it reads the frame at :84 and prints).*",
+  "notes": "If the reviewer wants the capture automatic rather than remembered, a small Lux change (save the read frame and DisplayServer window mode beside the numbers when a control fails) would make 'next time' self-recording -- hygiene, not required by the item."
+ },
+ {
+  "n": 229,
+  "title": "Indoor fixtures stand in a perfect line",
+  "remainder": [
+   "Layout by use beyond the aisles: 'the layout by use beyond the aisles (benches, the bar's pendants, the counter's work side)'",
+   "Structural causes beyond the grid and aisles: 'structural causes beyond the grid and the aisles (a duct run)'",
+   "Species beyond the dome: 'the species beyond the dome ...: strip light, sconce, high-bay, exit sign' (body: 'the pendant over a home's table and the guide's strip light, sconce, high-bay and exit sign')",
+   "Body: 'Daylight switches the window row ... That belongs to the five-times-of-day work'",
+   "Body, for the walker's eye: 'three rows of four at the cap, or two of five, for a 12 x 11 m room'; and the home bays 'Not seen in a level yet; a residence-heavy brief ... would show it'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "layout by use: benches, the bar's pendants, the counter's work side", "state": "undone",
+    "evidence": "deli_counter/lights.py (1,804 lines) has no bench, bar-pendant or work-side row rule: grep -i 'bench|over the bar|over the table|work side' finds nothing; the pendant type is spread over a moody room by area (`_PENDANT_AREA` 25 m2 a bulb, lights.py:144, :1553-1612), not hung over its bar; the counter's one warm accent bulb is 0.160.0's (lights.py:146-155). lights.py commits since 2026-10-11: 0.216.0 (contract literals) and 0.245.0 (container) only.",
+    "checked": "grep over lights.py; git log --since=2026-10-11 -- lights.py"},
+   {"piece": "a duct run as a structural cause", "state": "undone",
+    "evidence": "grep -i duct over lights.py: 0 hits",
+    "checked": "grep"},
+   {"piece": "species: strip light, sconce, high-bay, exit sign, a pendant over a home's table", "state": "undone",
+    "evidence": "Zoo's fixture recipes are fluorescent_fixture, pendant_fixture, dome_fixture, club_fixture, canopy_lights, streetlight, skylight (ls zoo_keeper/recipes); grep -i 'sconce|exit_sign|high_bay|highbay|strip_light' over zoo .py/.json (previews and tests excluded) and zoo/CHANGELOG.md: 0 hits. lights.py never mentions a table, so no pendant is hung over one. Roadmap 148's newest status also lists 'an exit sign, which no species draws'.",
+    "checked": "ls + grep over zoo; grep over lights.py"},
+   {"piece": "daylight switches the window row", "state": "superseded",
+    "evidence": "routed by the item itself to the five-times-of-day work; roadmap 217's newest status (2026-10-20) keeps 'the window light's dial' as left",
+    "checked": "read 217's status"},
+   {"piece": "the walker's eye: rows at the cap, and the home bays seen", "state": "walker",
+    "evidence": "the 12 x 11 m question is in the roadmap only (PIPELINE_ROADMAP.md:20323); no review README asks it; 0.207.1's home bays have no frames in a level (twin_a01, a residence, stood in cold runs 9364-9366, unframed for its lights)",
+    "checked": "grep over the review READMEs and cold run notes"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "What shipped (rows to the work plane, aisle rows, home bays, the dome) is proven and priced; what is left is four Zoo species with their Lux rigs plus Deli Counter placement rules -- several tools. Each species is hardware with draw calls, so each wants its price at stations (the item's own 'price before look')."
+ },
+ {
+  "n": 288,
+  "title": "Nothing measured what furnishing costs a route, and the corner stores' rows cost the most",
+  "remainder": [
+   "Working furniture off a marker room's routes: 'working furniture is not kept off a marker room's routes, and a desk can stand where a pile stood ... -- whether it should is the walker's call'",
+   "Barer rooms: 'a cluster group that fits nowhere off its routes leaves its room barer (clinic_a01's dispensary about 5 -> 2.4 %), the barren side of the walker's band, which wants primary furniture rather than more piles'",
+   "Function's narrowings: 'the offices' and vaults' narrowings, which are their function's'",
+   "The authored cases: 'the eleven authored cases' (close: 'the eleven authored cases each looked at')",
+   "The census's limits: 'the census's limits' (close: 'named where they bite')",
+   "Close: 'every furnishing change reporting this census beside its nav gate'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "desks and working furniture off a marker room's routes", "state": "walker",
+    "evidence": "the status: 'whether it should is the walker's call, priced by the refuted shape'; no review since asks it (the 2026-10-21 drawings review is about drawings)",
+    "checked": "read the status; grep the review folders"},
+   {"piece": "rooms left barer than the walker's band", "state": "superseded",
+    "evidence": "the density band is roadmap 148's work: its newest status (PIPELINE_ROADMAP.md:15789) leaves 'the review's other rooms by the same rows where their kind has them -- a stockroom's racks, a bullpen's desk pairs ...'. 148 does not name objective rooms (3-7 % under furniture) by kind, so a reviewer may want that said there.",
+    "checked": "read 148's newest status"},
+   {"piece": "the offices' and vaults' narrowings", "state": "done",
+    "evidence": "not a task: the status itself calls them 'their function's'",
+    "checked": "read the status"},
+   {"piece": "the eleven authored cases", "state": "undone",
+    "evidence": "Unchanged in today's specs: gas_station_a01's `cooler_run` stands at (4.5, 6.0), 2.8 x 8.0, along the sales floor's side of the Y-partition at x 6.0 whose `sales_to_office` door (pos 0.3, 1.25 m) centres at y 6.6 -- across it; primos_pizza and strip_retail_a01 still stand `booth_seating_a` at (-8.0, -5.5) beside their S-wall `front_door`. The census at Deli Counter 0.256.0 (docs/findings/furnish_route_cost/route_cost.out.txt:1, :6) still reads 'pairs no body path joins in either arm ... 80', as at 0.249.0. Deli Counter releases after 0.251.0 (0.252.0-0.257.0) touch none of the cases.",
+    "checked": "read-only python over three specs; read route_cost.out.txt head; DC changelog/git log since 0.251.0"},
+   {"piece": "the census's limits named where they bite", "state": "undone",
+    "evidence": "named in general only: docs/findings/furnish_route_cost/README.md:174-183 'Not measured' (a route that leaves its room, stair guards and the hole a flight cuts above, door leaves, chairs turned, where dressing ends); only the 21 unsnapped pairs are attributed to a limit (:161-166). No pair is attributed to the route-through-a-neighbour, stair-guard or flight-hole limits.",
+    "checked": "read the finding README:95-197"},
+   {"piece": "every furnishing change reports the census beside its nav gate", "state": "done",
+    "evidence": "held in practice for both furnishing changes since: Deli Counter 0.252.0 and 0.256.0 each re-ran the census (route_cost_0252.out.txt '# route_cost.py over Deli Counter 0.252.0's library'; route_cost.out.txt '# route_cost.py over Deli Counter 0.256.0's library (159 specs), 505 s'), and the nav gate runs on every Deli Counter commit: the installed .git/hooks/pre-commit (byte-identical to hooks/pre-commit) runs check.py, which runs nav_gate.py --all (check.py:95); root commit b5e3d70 records it for 0.252.0 ('the nav gate (Deli Counter's hook, 157 shells passed)'). The census half is a convention, not a gate: nothing fails a furnishing change that skips it.",
+    "checked": "read both census headers; hooks/pre-commit and check.py:55-95; cmp of the installed hook; the root commit messages"}
+  ],
+  "done_since": [
+   "The census is re-run beside the nav gate for each furnishing change since the status: 0.252.0 (route_cost_0252.*) and 0.256.0 (route_cost.out.txt)."
+  ],
+  "size": "medium",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "The eleven authored cases are Deli Counter spec or recipe fixes (cbp_town_finale's six club doors onto atrium holes, the five gas stations' cooler run across the office door, two booths at front doors), each re-read through route_cost.py and the nav gate. The 'census beside the nav gate' rule could be made a gate (a furnishing change with no census run fails), which would be hygiene."
+ }
+]

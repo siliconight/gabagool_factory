@@ -1,0 +1,388 @@
+[
+ {
+  "n": 10,
+  "title": "`nav_gate.py` certifies geometry that never ships",
+  "remainder": [
+   "The gate still bakes a runtime GLTF load with PARSED_GEOMETRY_MESH_INSTANCES; the item asks that it 'should bake what the runtime loads -- instance the imported scene, or parse `PARSED_GEOMETRY_BOTH` the way the navqa scene does'."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "nav_gate bakes what the runtime loads (imported scene, or PARSED_GEOMETRY_BOTH)",
+    "state": "undone",
+    "evidence": "deli_counter/godot/addon/deli_counter/nav_gate.gd:198-206 still loads the shell with GLTFDocument.append_from_file + generate_scene (no importer), and :223 still sets `nm.geometry_parsed_geometry_type = NavigationMesh.PARSED_GEOMETRY_MESH_INSTANCES`, with the comment at :209-211 saying the -colonly collision meshes are 'still real meshes here'. deli_counter/nav_gate.py:102-103 launches `godot --headless --script nav_gate.gd -- glb gameplay out` with no import pass. `git log -L223,226` on nav_gate.gd shows only the origin commit 51908762 (2026-07-17); the three later commits to the file (79ba672c 2026-09-14, 121f0fe5 0.189.0 grid sweep, cf109231 0.196.0 entrances) do not touch the parse. Meanwhile lot/lot.py:3266-3267 (walk scene) and :3479-3480 (navqa scene) still write `geometry_parsed_geometry_type = 2` (Lot 0.126.1, dc4e2a6), and built shells still ship collider-only nodes (deli_counter/build/07_police_station.gameplay.json:913 names `VAULTLEDGE_0-convcolonly`; DC 0.236.1's CHANGELOG at line 1068 restates that Lot bakes the walk navmesh at type 2).",
+    "checked": "Read nav_gate.gd 150-279 and nav_gate.py's Godot launch; grep for parsed_geometry_type/PARSED_GEOMETRY across lot, level_factory and deli_counter; git log of nav_gate.gd since 2026-08-14 and git log -L on the parse line; grep of the roadmap after line 1300 for GLTFDocument / PARSED_GEOMETRY / nav_gate finds no later item taking this over."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Nothing has moved on this item since 2026-08-14; the newest status's lot.py:1430,1643 are now lot.py:3267,3480 (same content). Where the two bakes can actually differ: a `-colonly` node is the same triangles either way (runtime mesh vs imported trimesh collider), so the gap is a `-convcolonly` node whose source mesh is not convex (the importer's hull differs from the mesh the gate parses) plus any other import-time rewrite. Nobody has counted how many shells that changes, so the size of the defect in practice is unmeasured. The fix needs an import pass (a staged project, as Level Factory's jobs do) or equivalent, and a re-gate of the library, because the gate's results are frozen by the library's population test (nav_gate.gd:276-278: 'nav_gate.py prints it and the library's population test freezes the set') -- hence medium rather than small. Separate from item 12 (the collider mask), which shares the 'One bake, two items' section but asks for a different change."
+ },
+ {
+  "n": 92,
+  "title": "Lux REPLACES the art pass's lighting instead of adding to it",
+  "remainder": [
+   "The default flip in `graft_lux`: 'a default flip in `graft_lux` -- `--keep-walk-lighting --sun-link` becomes the behaviour and the deletion becomes the opt-out, or disappears' (and 'whoever owns the walk preview should say so before the default changes under them').",
+   "The three-state seam: 'One named choice, three states, no deletion in any of them: light = lux | own | none' ... 'is unaffected and still unbuilt'.",
+   "The no-Lux package's typed light contract: 'The no-Lux path ships no typed light contract. It ships `LuxEmit_*` markers inside the GLBs and a `site.site.lights.json` nothing exports' (the seam's `light = none` state names 'the anchor manifest').",
+   "Lux's sun-adoption asymmetry and Sun Link's two-way definition: 'A plain `DirectionalLight3D` named `Sun`, which is exactly what Lot emits, is never found' and 'Decide which it is before designing on it.'",
+   "The residue: 'overview -0.05 and elev_W -0.01 ... are NOT the floor ... would be settled by diffing the two Environment resources'.",
+   "`lights_json` hashed and never passed: '`plan_commands` never passes it; `run_lux_apply.gd` accepts only `--scene`, `--preset`, `--out`'."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Default flip in graft_lux (Sun Link instead of deletion)",
+    "state": "undone",
+    "evidence": "tools/walk_themed.py:571-597: `graft_lux(tscn_text, drop_walk_lighting=True, ...)` still text-deletes the `WorldEnvironment` and `Sun` node blocks by default; :936 passes `drop_walk_lighting=not args.keep_walk_lighting`; :720-727 still offer `--sun-link` only as an opt-in 'with --keep-walk-lighting'. Commits to walk_themed.py since 2026-09-02 (793a2e4 varied lot, 494325d worldskin default, 040888b world skin) do not touch the lighting default.",
+    "checked": "Read graft_lux and main()'s call; git log of tools/walk_themed.py since 2026-09-02."
+   },
+   {
+    "piece": "Three-state seam light = lux | own | none",
+    "state": "undone",
+    "evidence": "level_factory/apps/cli/main.py:97-135 still carry only `--art` and `--unlit` (\"drop the Light layer (Lux)\"); :200-205 export `--mode` choices are portable-godot, art-unlit, pure-shell, source-authoring; level_factory/packages/exporting/export.py:34-42 defines no own/none distinction (UNLIT_MODES = pure-shell, art-unlit). grep of the roadmap for 'light = (lux|own|none)' finds only this item's own lines (10620-10625). Roadmap 257 (CLOSED 2026-10-15) labelled the light as its own layer in output_layers.json/HANDOFF.md but did not build the seam.",
+    "checked": "grep -rn unlit/art-unlit/light_mode over level_factory apps/packages/adapters; read main.py's run/plan/export parsers and export.py's mode block; read roadmap 257's body."
+   },
+   {
+    "piece": "No-Lux package ships a typed light (anchor) manifest",
+    "state": "undone",
+    "evidence": "grep of level_factory/packages/exporting/export.py for 'lights' finds only the lightmap bake (lines 315-360, 2329, 2461-2465), no `*.lights.json`; cold run 9378's package workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot holds no file matching *lights* (find), while `site.site.lights.json` exists only in that workspace's staging dirs. tools/probe_lightable.py exists (checks a manifest a consumer would read) but nothing ships the manifest for it to read in a package.",
+    "checked": "grep export.py; find -iname '*lights*' in 9378's export; read probe_lightable.py's docstring."
+   },
+   {
+    "piece": "Sun-adoption asymmetry / two-way Sun Link",
+    "state": "undone",
+    "evidence": "lux/addons/lux/runtime/lux_root.gd:302-331 (Lux 0.79.0): `_resolve_sun_link` still resolves only an assigned `sun_light` or a node duck-typed on a `sun_light` property (`_find_skymint`); a plain DirectionalLight3D is never adopted. :419-421 assigns `_lighting.sun = sun_light` so the preset is written onto the linked light, and :917-923 `_track_sun_light` reads it back -- the two directions the item names, undecided.",
+    "checked": "Read lux_root.gd 295-434 and grep for sun_light."
+   },
+   {
+    "piece": "Residue: diff the adopted vs fresh Environment resources",
+    "state": "unclear",
+    "evidence": "No finding or tool found that diffs the two Environment resources; the item records it as a hypothesis, not a task with an owner.",
+    "checked": "grep of the roadmap for later mentions of Sun Link / the residue finds none after 10683."
+   },
+   {
+    "piece": "lights_json passed to lux_apply",
+    "state": "done",
+    "evidence": "level_factory/adapters/lux/__init__.py:172-177 now appends `--lights <lights_json>` ('the unused parameter the item named, finished', roadmap 96), and level_factory/assets/godot/run_lux_apply.gd:13,155-163 reads `--lights` and calls bake_daylight / bake_room_ambient / bake_club with it. Introduced by Level Factory 0.70.0 (5517955, 2026-09-11, 'the windows light'), after this item's newest status.",
+    "checked": "Read the adapter's fingerprint_inputs and plan_commands; grep run_lux_apply.gd; git log -S'--lights' on the adapter."
+   }
+  ],
+  "done_since": [
+   "`lights_json` reaches the headless apply: Level Factory 0.70.0 (5517955, 2026-09-11, roadmap 96) -- adapters/lux/__init__.py:172-177 passes `--lights`, run_lux_apply.gd:155-163 reads it. This was one of the three files the body's 'WHAT IT TOUCHES, revised' put in the blast radius."
+  ],
+  "size": "large",
+  "bears_on": "other",
+  "proposed_status": "",
+  "notes": "The newest status names two remaining things (the graft_lux default flip and the three-state seam); both are untouched. The flip is a preview-tool default (walk_themed.py), not the shipped path -- the shipped lux_apply input carries no Lot lighting, and the cold runs' walk copy is tools/walk_export.py, which walks the exported package and has no graft_lux -- and the item itself says the flip waits on 'whoever owns the walk preview'. The seam is a design question first ('Whether that becomes a third flag value or stays two flags is a decision'), so it is sized large. Bears on consumers integrating a package with their own lighting, not on interventions-per-level, hence 'other'."
+ },
+ {
+  "n": 99,
+  "title": "A theme has to exist in two repos, and only two do",
+  "remainder": [
+   "doctor reports the intersection: 'the doctor still prints both lists and the partial styles rather than the intersection' (the body: '`doctor` reports the intersection rather than each side's list').",
+   "A level built under a newly askable theme: 'the briefs still ask for one theme ... none has asked for the two that became askable' (center_city, industrial_flats)."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "doctor reports the intersection",
+    "state": "undone",
+    "evidence": "level_factory/packages/tools/doctor.py:233-244 still builds the `themes` row as 'pixelcoat: <every profile>' + ' | zoo (N species): <styles on all>' + ' | zoo partial: <style (n/N)>' -- each side's list, no intersection computed. `git log --since=2026-10-15` on packages/tools/doctor.py and packages/tools/themes.py: no commits (Level Factory at 0.232.1, fb4707d).",
+    "checked": "Read doctor.py 215-254; git log of doctor.py/themes.py since the newest status."
+   },
+   {
+    "piece": "A brief / cold run asking for center_city or industrial_flats",
+    "state": "undone",
+    "evidence": "Both profiles exist (pixelcoat/profiles/themes/center_city.json, industrial_flats.json; Pixelcoat 0.62.0, 13 profiles), but reading the `theme` key of every docs/cold_runs/cold_*/briefs/*.json (369 files): delco_1997 356, delco 12, rockay 1, center_city 0, industrial_flats 0; cold runs 9315 onward: delco_1997 58, delco 6. grep of level_factory/examples, workspaces/*/batches and docs for a brief theme of center_city/industrial_flats: no match.",
+    "checked": "ls pixelcoat/profiles/themes; a read-only Python count of the `theme` key over the cold-run briefs; grep of example and workspace briefs."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The status's counts (298 of 301 delco_1997, 3 delco) differ from today's 356/12/1 of 369; the difference is more runs since and possibly a different file set -- not material, since the remaining point (zero briefs on the two new themes) holds either way. Read narrowly, the body's 'WHAT WOULD CLOSE THIS' offered three alternatives and the first (Pixelcoat profiles for center_city and industrial_flats) is done, so a reviewer could argue the item closes on that; the newest status chose to keep the doctor intersection and an unseen-theme level open. The doctor change is a small Level Factory patch; the unseen-theme level is a cold run (roadmap 17 at line 1484 records 'an unseen THEME ... is currently impossible -- item 99', which is no longer true and is not yet measured). Item 112 (NARROWED) tracks the four profiles Zoo cannot style at all (bank, casino, stadium, street) -- a different remainder."
+ },
+ {
+  "n": 117,
+  "title": "The wall-over-void rule covers stairs and not the other three things that open a slab",
+  "remainder": [
+   "The ladder arm of the wall-over-void rule: 'What remains open is the two arms, and they go in with the spec that needs them' (ladder through-holes).",
+   "The `floor_hole`/`hatch` arm: the same sentence ('ladder 0, `floor_hole`/`hatch` 0, in all 162 specs ... the zero is why the last two came back out')."
+  ],
+  "verdict": "ANALYSIS",
+  "per_piece": [
+   {
+    "piece": "Ladder arm",
+    "state": "moot",
+    "evidence": "Still deliberately absent: deli_counter/stairwell.py:773-784 (wall_voids docstring, 'LADDERS AND `floor_hole`/`hatch` LINKS ARE DELIBERATELY ABSENT ... Add them WITH the spec that needs them, and the count that shows it'), pinned by test_wall_over_void.py:321-337. No spec needs it today: a read-only census (python -B, Deli Counter 0.257.0's own spec_loader / stairwell.wall_voids / partition_bounds.partition_spans / setbacks.storey_extent, as Builder._partitions calls them at deli_counter.py:1694-1724) adding each ladder's `ladder_geom.hole_rect` at every storey it surfaces into (the key `_ladders` cuts with, deli_counter.py:2289-2297) changes 0 built partitions across 458 specs (91 specs, 130 ladders). Layout lint L15 (layout_lint.py:871-889) already WARNs on a partition crossing a ladder's through-hole on the storey the climb surfaces into, so a future case is named.",
+    "checked": "Read wall_voids, slab_openings, _partitions, _ladders, the pinning test and L15; ran the census with a control (below)."
+   },
+   {
+    "piece": "floor_hole / hatch arm",
+    "state": "moot",
+    "evidence": "Same census, adding each `floor_hole`/`hatch` link's cut at its own storey, sized as `_vertical_links` cuts it (deli_counter.py:2984-2989: x, y, size or 1.5): 0 built partitions change across 458 specs (81 specs, 102 such links). Where a link's hole is also authored in `slab_holes` (the six delis' drop, DC 0.235.0 CHANGELOG lines 1145-1149), `slab_openings` already carries it into wall_voids. CONTROL: the same comparison asked of the producers the rule does carry (empty void list vs wall_voids) clips 23 partitions, night_pawn's int_1_1 and foundry_heist_vertical's int_0_4 among them, so the census can see a crossing.",
+    "checked": "Census as above; read _vertical_links 2936-2995 and DC 0.235.0's entry."
+   }
+  ],
+  "done_since": [
+   "The ramp half was refined after the newest status: Deli Counter 0.241.0 (CHANGELOG line 872ff) cut a ramp's hole only to its head and added `stairwell.ramp_landing` to wall_voids (stairwell.py:798), because with the shorter cut foundry_heist_vertical's int_0_4 -- the wall that opened this item -- would have stood across the ramp's arrival."
+  ],
+  "size": "none",
+  "bears_on": "gunfights",
+  "proposed_status": "*STATUS: ANALYSIS 2026-10-22 -- the two arms this item left have no case to check them against, re-counted on today's library. With `stairwell.wall_voids` (stairwell.py:746-802, Deli Counter 0.257.0) widened in memory by every ladder's through-hole (`ladder_geom.hole_rect`, at each storey the climb surfaces into, as `_ladders` cuts it) and every `floor_hole`/`hatch` link's cut (at its own storey, sized as `_vertical_links` cuts it), 0 partitions in 458 specs -- 91 carrying 130 ladders, 81 carrying 102 such links -- build differently through `partition_bounds.partition_spans`; the control, the same comparison asked of the producers the rule does carry, clips 23 walls, night_pawn's int_1_1 and foundry_heist_vertical's int_0_4 among them. The decision stays pinned (test_wall_over_void.py:321-337; the docstring at stairwell.py:773-784, 'Add them WITH the spec that needs them, and the count that shows it'), layout_lint L15 (layout_lint.py:871-889) already names a wall across a ladder's hole, and the ramp half shipped in 0.107.0 and was re-cut in 0.241.0 with `ramp_landing`. Nothing to do until a spec stands a wall over one.*",
+  "notes": "The batch's `body` for this item runs on past item 117 into item 118's history (its SUPERSEDED STATUS about `archetype` naming a block, the corpus test, and 'WHAT IS LEFT. Name the anchor building in restaurant_row_001 and rockay_lot_demo_001'): in PIPELINE_ROADMAP.md that text sits between 117's body and 118's heading (line 13176), above 118's own status line, so it is 118's and was not audited here. One gap a reviewer may want filed separately: a wall standing ON a link-only floor hole (one not also authored in `slab_holes`) has no lint -- L15 covers ladders, L27 (layout_lint.py:1256) a wall UNDER a hole in its ceiling -- so the trigger 'the spec that needs them' would be noticed for ladders and not for links. The census was a read-only re-implementation using DC's own functions, not a build; a library rebuild was not run."
+ },
+ {
+  "n": 146,
+  "title": "The floor, the walls and the ceiling of a room all wear the same skin",
+  "remainder": [
+   "Run the new finishes through Zoo and measure them: 'no Zoo kit has been built from a 0.115.0 manifest yet, so the new stems are unmeasured'.",
+   "The walker's re-walk verdict on the per-role values: 'the values in the maps are opinions with reasons, not derived, and the first re-walk judges them' (status: 'NOT YET RUN THROUGH ZOO OR RE-WALKED')."
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "Through Zoo: the new stems reach a shipped level",
+    "state": "done",
+    "evidence": "Cold run 9378's package (workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot; Deli Counter 0.257.0, Level Factory 0.232.1) carries all four finish skins as their own materials in the enterable buildings' merged room meshes: `M_Skin_carpet_delco_1997` in 5 files (deli_a03 3, office 1, pharmacy_a01 1), `M_Skin_tile_delco_1997` 11 (deli_a03 6, office 4, pharmacy_a01 1), `M_Skin_ceiling_tile_delco_1997` 17 (deli_a03 10, office 5, pharmacy_a01 2), `M_Skin_plaster_delco_1997` 17 -- beside concrete/drywall rather than in place of them. Roadmap 225's step 2 (PIPELINE_ROADMAP.md:20200) read the same off cold run 9222's package: the drop ceiling is `M_Skin_ceiling_tile_delco_1997`, Zoo's `ceiling_delco_1997_13_*` -- its own module stem, not concrete's style 1. The maps are unchanged since (deli_counter/floors.py:93-165; git log of floors.py since 2026-09-11: only 0.128.0).",
+    "checked": "grep -a -o of `M_Skin_*` names across 9378's package files with per-folder counts; read floors.py's maps; read roadmap line 20200."
+   },
+   {
+    "piece": "Walker's re-walk verdict on the per-role finishes",
+    "state": "walker",
+    "evidence": "No recorded walker verdict on floor/wall/ceiling finishes found: grep of docs (walk_2026-10-14, walker_review_2026-10-19/-20, the roadmap after line 15750) for the walker on carpet/tile/ceiling finishes or 'same texture' finds frames and other topics, not a judgment of these maps.",
+    "checked": "grep -rn over docs/findings walker reviews and the roadmap."
+   }
+  ],
+  "done_since": [
+   "The four new finish stems run through Zoo into shipped packages: cold run 9222 (roadmap 225 step 2, PIPELINE_ROADMAP.md:20200: the drop ceiling is `M_Skin_ceiling_tile_delco_1997`, module `ceiling_delco_1997_13_*`) and cold run 9378's package (carpet 5, tile 11, ceiling_tile 17, plaster 17 files carrying their own skins)."
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The question for the walker, in the item's own terms: on a re-walk of an interior, do the floor, the walls and the ceiling now read as different surfaces 'uniform in some way (human design)' -- carpet or tile underfoot, a dropped grid overhead in public rooms, plaster over the money rooms -- or do the map values (floors.py:93-137) want changing? 'Measured' for the Zoo half is read here as 'the stems resolve to their own skins in a shipped package'; no per-role census of a level's floors/ceilings (the 7-of-9 / 9-of-9 style-1 count the item opened on) was re-run on a package, so if the reviewer wants that number it is a read of one package's slots, not a build."
+ },
+ {
+  "n": 153,
+  "title": "A street reads as ordered when its furniture says where cars and people go, and the lot has none of that furniture yet",
+  "remainder": [
+   "The walker's judgment that closes it: 'No walk note has judged the street as one to drive and cross, which is what closes it' (the body: 'judged from eye height by the walker as a street one could drive and cross').",
+   "Inventory pieces the status records as absent (not in the closing condition): 'no arrows, no yellow kerb face', 'no bollards placed (the species exists), no utility cabinet, no bike rack', 'no planters'."
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "Walker judges the street, from eye height, as one to drive and cross",
+    "state": "walker",
+    "evidence": "Closest thing on record, after the newest status: the walker's look review of 2026-10-19 answered q240_look, 'Do the poles, wires, stoops and street furniture read as a Philly street?' (docs/findings/walker_review_2026-10-19/build_page.py:71), with 'Looks right' (verdicts_2026-10-19.json, key `verdicts.q240_look`, choice 'Looks right', note ''), and q44 'the parked cars' 'Looks right'. That was asked of five stills for roadmap 240, not of this item's question (markings at crossings, signals at corners, cars in bays, 'a street one could drive and cross'), so it does not close 153 by its own words.",
+    "checked": "Read the 2026-10-19 review page's question list and the verdict store (non-floor keys); grep of walk_2026-10-14 and walker_review_2026-10-20 for a street verdict found none."
+   },
+   {
+    "piece": "Lane arrows and the yellow kerb face",
+    "state": "undone",
+    "evidence": "lot/site_streets.py:684-779 `markings` emits only edge_line, bay_tick, centre_line, crosswalk_bar and stop_bar; grep of lot/*.py for arrow / yellow kerb / kerb_face finds no marking of either (only MUTCD sign comments in site_furniture.py:249-299).",
+    "checked": "grep -n for marking kinds in site_streets.py; grep -i arrow|yellow|kerb_face across lot."
+   },
+   {
+    "piece": "Bollards placed; utility cabinet; bike rack; planters",
+    "state": "undone",
+    "evidence": "Zoo has a bollard species (zoo/zoo_keeper/genome/species/bollard.json, recipes/bollard.py) and none for bike rack, planter or utility cabinet (find over zoo). grep of lot/*.py for bollard, bike_rack, planter, utility_cabinet: no placement code. Lot commits since 2026-10-15 (732b4ad 0.124.0, 9c13032 0.125.0, 49dcf8d 0.126.0 bus-stop pieces face the road, dc4e2a6 0.126.1) add none of them.",
+    "checked": "find in zoo; grep in lot; git -C lot log --since=2026-10-15."
+   }
+  ],
+  "done_since": [
+   "The walker's 2026-10-19 look review: 'Looks right' to 'Do the poles, wires, stoops and street furniture read as a Philly street?' (q240_look) and to the parked cars (q44) -- a partial answer to this item's closing question.",
+   "Lot 0.126.0 (49dcf8d, 2026-10-20): every bus-stop corner piece (mailbox, news racks, payphone) faces the road on both kerbs -- a refinement of the waiting-places layer, from roadmap 210."
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The question for the walker, in the item's words: walking a recent package at eye height, does the street read as 'a street one could drive and cross' -- crosswalks at the cuts, signals at the corners, cars in the bays? If yes, the item closes on its own condition. The absent pieces (arrows, yellow kerb face, placed bollards, utility cabinet, bike rack, planters) are in the body's inventory but not in 'WHAT WOULD CLOSE THIS'; if the walker wants them, they are new Zoo species (three of the four) plus Lot placement -- a medium-to-large follow-up better filed as its own item. The status's counts (cold run 9314, seed_9104) were not re-counted here."
+ },
+ {
+  "n": 177,
+  "title": "A gate has printed FAIL on five consecutive cold runs and nobody read it",
+  "remainder": [
+   "Measure the library: 'Left for BLOCK, the decision's condition: the LIBRARY's count, which needs every building composed with its art and no run does'.",
+   "Then make it block: 'the gate stays WARN until that reads zero' (the earlier status: 'then the adapter's finding becomes a blocker and the label FAIL')."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Library-wide z-fight count with every building composed with its art",
+    "state": "undone",
+    "evidence": "docs/findings/zfight_rows_177/README.md:59-60: 'Whether the LIBRARY counts zero -- the decision's condition for BLOCK -- is not measured: a library-wide count needs every building composed with its art, which no run has'. The only library-wide z-fight instrument, tools/sweep_fights.py, reads built shell GLBs (`lot/specs/<site>/buildings/*.glb`, docstring lines 29-40), not art-composed buildings, and was last changed 2026-08-01 (bcfb593), before the rows fix. No Level Factory or Deli Counter commit since 2026-10-19 (LF 0.218.2..0.232.1, DC 0.228.0..0.257.0) adds a library compose or count.",
+    "checked": "Read the finding's README lines on the library; read sweep_fights.py's docstring and git log; git log of level_factory and deli_counter since 2026-10-19."
+   },
+   {
+    "piece": "Flip PRESENTATION_ZFIGHT to blocking",
+    "state": "undone",
+    "evidence": "level_factory/adapters/presentation/__init__.py:621-639 still files `PRESENTATION_ZFIGHT` with `\"severity\": \"moderate\"` and `\"blocking\": False` -- correct under the walker's standing decision (WARN now, BLOCK once the library counts zero), and waiting on the piece above.",
+    "checked": "Read the adapter's z-fight branch."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The decision this item originally owed (block/warn/delete) is made -- the walker's standing instruction of 2026-10-19, recorded in the status: WARN now, BLOCK once the library counts zero -- so what is left is factory work, not a walker call. Every building a level composes already reads OK (cold run 9325, 17 buildings). The cost is the measurement: composing all ~159 library buildings with Zoo/Pixelcoat/Patina art through presentation_compose, which no driver does today; the flip itself is a one-line adapter change plus a test. Sized medium on the assumption that the per-building compose job can be driven over the library as it is; if it cannot, it is large."
+ },
+ {
+  "n": 200,
+  "title": "Four brief fields reach nothing",
+  "remainder": [
+   "The pacing estimate's missing term: 'a real length counts fighting and acquiring the score (\"the drilling\"), which the estimate does not. Open: that term'.",
+   "What the unbuilt fields should drive, or their retirement: 'what route_shape, objective_hypotheses, extraction_relationship, verticality and landmark should drive' (the body: 'Decide, with the walker, what each of the other three should drive -- or retire them from the schema')."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "A fighting / score-acquisition term in the pacing estimate",
+    "state": "undone",
+    "evidence": "lot/site_pacing.py:160-185 (Lot 0.126.1): `estimate_pacing` still sums travel legs, a flat `setup_secs` (30) and `n_obj * objective_secs` (120 per objective marker, the docstring's 'drill/hack/search' at :35) plus loot trips -- no combat term and no per-objective duration (grep -i duration: only docstring lines 16 and 31). `git log --since=2026-10-07 -- site_pacing.py`: no commits.",
+    "checked": "Read estimate_pacing; grep for drill/fight/combat/duration; git log of site_pacing.py."
+   },
+   {
+    "piece": "route_shape, objective_hypotheses, extraction_relationship, verticality, landmark (and seed_policy): wire or retire",
+    "state": "undone",
+    "evidence": "level_factory/apps/cli/commands/__init__.py:91-101 still lists all six in `UNBUILT_BRIEF_FIELDS` ('A field leaves this list in the release that builds something from it'); level_factory/packages/core/models.py:109-119 still marks them 'RECORDED, NOT BUILT (roadmap 200)'. grep across level_factory, lot, deli_counter, lasertag, dispatch and zoo (excluding tests/examples) finds each field only in the model, `functional_signature` (models.py:228-232) and the site-spec copy at commands/__init__.py:2269 that Lot ignores (comment at :1856); the other hits for 'landmark'/'verticality' are unrelated words (a cluster tag, a marker type, preset comments).",
+    "checked": "Read the constant and the model; grep -rn for each field name across the tool repos."
+   }
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Two different kinds of remainder. (1) The combat/drilling term is factory work but needs a model of fight time first, and the repo's standing rule is that these tools are not the authority on gameplay -- so it is a design question before it is a patch. (2) The fields are a walker decision per field, drive or retire; one is largely answered elsewhere: item 206 ('The extraction is the getaway vehicle', the walker 2026-10-07) and Level Factory 0.155.0 made the extraction the spawn building, so `extraction_relationship` (159 of 181 briefs ask 'crew_start_backtrack', roadmap line 19429) now describes a hardwired behaviour and is a candidate to retire rather than wire. The body's other open question -- which of two objective counts pacing should read (Lot's per-building markers vs the package's 9 objective / 5 loot anchors) -- is not in the newest status and was not resolved either. Nothing here moves interventions-per-level; per CLAUDE.md a knob with no effect is a defect, so retiring the fields would be hygiene and wiring them quality."
+ },
+ {
+  "n": 214,
+  "title": "Zoo's minting meets the modern low-poly standard",
+  "remainder": [
+   "The asset record: '`meta.json` lacks viewing conditions, the features the construction serves, exported vertices per LOD, the surface count, texture size and texel density, and review evidence' ('Emit the asset record with the mesh').",
+   "A budget class per genome: 'A budget class per genome (clutter, medium, hero, assembly)'.",
+   "The A/B/C review: 'The A/B/C review ... on the three approval assets ... It has never been run.'",
+   "Trial 2, convex-edge wear: '`wear_colors` darkens concave vertices only'.",
+   "Trials 3 and 4: 'a procedural bake source ... baked onto the game mesh ... Zoo bakes nothing today' and 'procedural detail on that bake source'."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Asset record in meta.json",
+    "state": "undone",
+    "evidence": "A Zoo-written record, zoo/_census/prop_bollard_delco_1997_01_w33_d33_h158.meta.json (built 2026-10-15), has top-level keys files, genome, license, module, plan, validation, zoo; `module` = dims, fit, pivot, style, theme, type, width_cm; `validation` = checks, status -- no viewing conditions, features served, vertices per LOD, surface count, texture size, texel density or review evidence. zoo_keeper/core/meta.py (build_meta / build_module_meta / write_meta) has no commits since 2026-10-09.",
+    "checked": "Read one real meta.json's keys with a read-only Python one-liner; git log of core/meta.py."
+   },
+   {
+    "piece": "Budget class per genome",
+    "state": "undone",
+    "evidence": "Across all 139 genomes in zoo/zoo_keeper/genome/species/*.json the `budgets` block carries only `tris_lod0` / `tris_per_bay`, and none has a budget_class/class field (read-only count). Roadmap 216's tree note (PIPELINE_ROADMAP.md:19925) still writes 'A budget class (item 214's \"hero\") makes the jump a stated exception' as future work.",
+    "checked": "Python count over every genome; grep of the roadmap for 214."
+   },
+   {
+    "piece": "A/B/C review on the approval assets",
+    "state": "undone",
+    "evidence": "docs/findings/payphone_redraw/README.md:155-157 (the redraw of the standard's second worked example, roadmap 210): 'The A/B/C review the standard asks for, with construction and materials separated, was not split. The frames compare the old with the whole redraw.' No other finding or tool runs it (grep for A/B/C / approval / neutral light outside the reference docs).",
+    "checked": "grep -rln over docs/findings, zoo/tools, docs/reference; read the payphone README's open list."
+   },
+   {
+    "piece": "Trial 2: convex-edge wear",
+    "state": "undone",
+    "evidence": "zoo/zoo_keeper/bpylayer/geometry.py:719-743 `wear_colors`: still 'Concave verts (avg edge angle) darken' -- `concave = sum(-a for a in angles if a < 0)`, no convex term. Commits to geometry.py since 2026-10-09 (1.99.1, 1.103.0, 1.106.0, 1.109.0) are hemisphere caps, face order, floaters and bevel determinism.",
+    "checked": "Read wear_colors; git log of geometry.py since 2026-10-09."
+   },
+   {
+    "piece": "Trials 3-4: bake source and procedural detail",
+    "state": "undone",
+    "evidence": "grep of zoo_keeper for bake_normal / normal_map / bpy.ops.object.bake / bake_type / Subdivision / SUBSURF finds only a comment in recipes/litter_scrap.py:54; no Zoo commit since 2026-10-09 mentions a bake, normal map or the standard.",
+    "checked": "grep over zoo_keeper; git log --since=2026-10-09 filtered for wear/normal/bake/standard/budget/record/214."
+   }
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nothing on this item has moved since trial 1 (Zoo 1.87.0, 2026-10-09). One smaller piece the body records and the newest status does not list: `simple_car`'s style bevels are still a knob with no effect -- the genome still sets `bevel` 0.01-0.014 in its style blocks (zoo_keeper/genome/species/simple_car.json:78-164) and recipes/simple_car.py:188-192 still builds every part at bevel 0 on purpose. Each trial is a look and owes a price first (CLAUDE.md), and the A/B/C review ends in the walker's eye, so the item is several releases plus walker reviews, not one patch. None of it moves interventions-per-level; it is the 'good' gate (roadmap 18)."
+ },
+ {
+  "n": 215,
+  "title": "`S_RESPONDER_ARC` fires where a site's roads lie to one side of the objective, and the site audit reaches no report",
+  "remainder": [
+   "The arc question: 'Open: the arc question itself, now counted on every run of this mission' -- which of 'leave the rule, which reports a true fact about the roads; let Lot open road ends on more sides of a heist; change the rule's severity', given that 'The rule's premise (assault waves from different directions) is the gameplay layer's design.'"
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "Decide the arc question (leave / open more road ends / change severity)",
+    "state": "walker",
+    "evidence": "Unchanged since the status: lot/site_audit.py:53 `RESPONDER_ARC = 150.0` and :211-226 still raise MED `S_RESPONDER_ARC` when the responder bearings' spread is under 210 deg (git log of site_audit.py / site_responders.py since 2026-10-09: only 0.111.0 and 0.112.0, the adjacency and targets audits). It still fires on every candidate of the newest cold run: cold run 9378's three lot_assemble outputs (workspaces/cold-9378-ws/.level_factory/jobs/restaurant_row_001.lot_assemble.candidate.seed_{9003,9104,9205}/out/site.site.gameplay.json, key `site_audit.findings[].code`) read MED S_RESPONDER_ARC at 155, 21 and 47 deg. No later roadmap item decides it: 212 (CLOSED) made responders able to arrive; the only later mention (PIPELINE_ROADMAP.md:20365) lists 212/215's gates among what a rear lane would change.",
+    "checked": "Read the rule; parsed the three site_audit blocks (keys counts, findings, mode; finding keys severity, code, message); grep of the roadmap for 215 / S_RESPONDER_ARC after the item."
+   }
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "The instrument half of the item (the audit reaching the validation report) is done and was done before the newest status. What is left is a design call the item itself declined to make ('NOT DECIDED HERE'): whether responder pressure must change direction between waves is the gameplay layer's premise, which in this repo means the walker. The question to put: on a heist whose roads lie to one side of the objective, should Lot open road ends on more sides (a Lot/Level Factory road-grammar change plus a cold run -- medium), or should the audit keep reporting the arc as a true fact about the roads, as it does now, or at a lower severity (small)?"
+ },
+ {
+  "n": 242,
+  "title": "Laser Tag's route on a lot swings with any change to its street furniture",
+  "remainder": [
+   "The guards held at a wall's end: 'left, 14 guards at one wall's end on warehouse_yard_001 seed_9206 that the physics holds ... so the level is not the trap' (the body: 'what holds the guards is their own state as they arrive').",
+   "The gas lot's crew stuck events: 'the gas lot's route point past its path's end' (gas_block_001 seed_9181, 'a crew member turning back and forth at its path's last point with its route point 0.58 m past it').",
+   "The engine: 'the engine, the game's choice' ('The walker's call on the engine the game ships ... the grader running the same').",
+   "The swing itself: 'Left: the swing itself -- an encounter's, now, not a snag's' ('The swing a grade still carries is the encounter's ... no remedy is proposed').",
+   "The fights 0.31.0 moved: 'the fights 0.31.0 moved, read on the breadth and not yet judged' ('an encounter's question this item does not answer').",
+   "The meter place: 'and the place beside the meter attributed' (the body's latest 'WHAT WOULD CLOSE IT NOW')."
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "14 guards held at warehouse_yard_001 seed_9206's wall end",
+    "state": "undone",
+    "evidence": "docs/findings/route_snag/guard_steer_breadth.out.txt:20 'warehouse_yard_001 seed_9206 WARN 73 -> PASS_WITH_TUNING 83 enemy stuck 13 -> 14'; docs/findings/route_snag/README.md:373-391 (corner_hold_probe): the place holds no lone body, 'What holds the guards there is their own state as they arrive ... it is not measured further.' Laser Tag's only release since, 0.32.0 (a277dd9, roadmap 246), 'reads 0.31.0 exactly: every summary field, the grade and the score' on the sixteen lots (lasertag/CHANGELOG.md, 0.32.0 'Measured'). No later roadmap item takes it over (grep for seed_9206 / corner_hold after line 20590).",
+    "checked": "Read the breadth row, the probe section and LT 0.32.0's changelog; git -C lasertag log since 2026-10-12; roadmap grep."
+   },
+   {
+    "piece": "gas_block_001 seed_9181's two crew-stuck events (route point past the path's end)",
+    "state": "undone",
+    "evidence": "Recorded under 0.31.0 in the item and in docs/findings/route_snag/pin_trace_gas9181_r12_0310.out.txt (traced, not fixed); guard_steer_breadth.out.txt:26 gas_block_001 seed_9181 88 -> 87. Laser Tag 0.32.0 changed arrivals for points a path stops short of, but measured the sixteen lots identical to 0.31.0 in every summary field, so the two events stand.",
+    "checked": "Read the breadth rows and LT 0.32.0's measured paragraph."
+   },
+   {
+    "piece": "Which physics engine the game ships (the grader runs the same)",
+    "state": "walker",
+    "evidence": "docs/findings/route_snag/README.md:94-103: 'Which physics engine the game ships is the game's question, and the walker does not know yet (2026-10-12: \"we are going to use Godot\")... until that is chosen the default stands.' No later decision found.",
+    "checked": "Read the README section; roadmap grep."
+   },
+   {
+    "piece": "The swing itself (now an encounter's)",
+    "state": "unclear",
+    "evidence": "The status's own reading (stoop breadth, 2026-10-13): a far-side change moved 2 of 8 lots' scores, each route move one team wipe, no stuck event within 10.9 m of the change; 'no remedy is proposed'. route_snag README.md:259-266 attributes the two shorter routes under 0.29.0 to early team wipes. This is a standing finding about encounter variance rather than a task.",
+    "checked": "Read the README's 0.29.0 section."
+   },
+   {
+    "piece": "Judging the fights 0.31.0 moved",
+    "state": "unclear",
+    "evidence": "The item itself scopes it out: 'whether the fights 0.31.0 moved read better or worse -- an encounter's question this item does not answer.' Roadmap 245 (per the agent notes, docs/sessions/agent_memory/laser-tag-rabbit-hole.md) found Laser Tag's fight verdicts decided none of 62 picks.",
+    "checked": "Read the item's last paragraph."
+   },
+   {
+    "piece": "The place beside the meter at (35, -17)",
+    "state": "moot",
+    "evidence": "Never attributed (route_snag README.md:101-102: '8 of 9263's 72 events, the same mechanism unproven'), but nothing is left there to attribute: under Laser Tag 0.29.0 cold run 9263's lot reads 'PASS 90, route 1.0, player stuck 0, enemy stuck 0' (pin_trace census, docs/findings/route_snag/pin_9263_029.out.txt), and over all sixteen lots 'player stuck 0 under Godot Physics, 0 under Jolt, pinned 0 under Godot Physics, 0 under Jolt' (engine_breadth_029.out.txt, last line).",
+    "checked": "Read both output files."
+   }
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "By the body's own latest closing condition -- 'The bot keeping its path's clearance at corners, measured on these 16 lots under both engines (pins near zero on each, the grades' spread the fights'), and the place beside the meter attributed' -- the item is met: Laser Tag 0.29.0 (5b94ada) keeps the bot to the mesh, engine_breadth_029.out.txt reads player stuck and pinned 0 under both engines, the stoop breadth puts the remaining swing on single encounters, and the meter place has no events left. What keeps it OPEN is the newest status's 'Left' list: two grader residues in Laser Tag (the 14 held guards, the gas lot's two crew events), neither about street furniture, plus the engine (the game's call) and two encounter questions the item disowns. A reviewer could close 242 on its condition and file the two residues as one bounded Laser Tag item -- the walker has said Laser Tag work should not become a rabbit hole (PIPELINE_ROADMAP.md:20632). Bears on grader accuracy (tooling), not interventions; Laser Tag's fight verdicts decide no pick."
+ }
+]

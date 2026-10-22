@@ -92,6 +92,15 @@ walks the crew's body over every leg of every candidate (roadmap 208), and cold 
 and every walker `ok` on all three candidates, with Laser Tag's crew at 0 player-stuck events on each
 (`cold_9314/fight_fields_9313_9314.out.txt`). SUPERSEDED on the roadmap by 197 and 208, with that figure.
 
+**Corrected 2026-10-22** (`docs/findings/narrowed_audit_2026-10-22/`, verify_C.json): the paragraph above is wrong
+in two places, kept as written. The walk test does not walk the crew's body: `walktest_navqa` runs Lot's
+`godot/addons/heist_nav_qa/nav_qa_director.gd`, whose capsule is `AGENT_RADIUS * 0.7` -- 0.28 m at the bake's
+0.4 m (:40, :818) -- on a floor of the bake slope plus one degree, 56 (:830), unchanged since Lot 0.97.2
+(2026-10-06). The crew's 0.35 m body walked once, over 18 kept walk tests on patched copies (roadmap 208,
+`docs/findings/walktest_crew_body/`), and adopting it is 208's open question. And
+`fight_fields_9313_9314.out.txt` carries neither the path proofs nor the player-stuck figure the paragraph cites;
+9314's three walk tests were cache hits (`cold_9314/art.log:57,67,73`). Item 14 stays SUPERSEDED by 197 and 208, its status now saying so.
+
 ## 66. `verify-manifest` prescribes a remedy that under-proves what it certifies
 
 **What it found (2026-08-25):** every DRIFT line ended "re-run the real-tool smoke and re-certify" -- one suite,

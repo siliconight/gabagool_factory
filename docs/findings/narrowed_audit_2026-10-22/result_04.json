@@ -1,0 +1,284 @@
+[
+ {
+  "n": 44,
+  "title": "The green boxes could be cars, and the collision would not change",
+  "remainder": [
+   "The walker's eye on the cars' wear -- 'Left: the walker's eye on the look (frames in both lights -- the level's own heavy rain hides most of it)'",
+   "'more lift' -- '\"more lift\", read as a lifted ride height or as \"more life\", asked and not built': its meaning is the walker's, then a build is Zoo's",
+   "The primer patch's shape -- 'the primer patch reads as a clean oval, not a sanded repair'",
+   "Bench bays -- 'the earlier status's runs -- `bench` does not repeat by bays'",
+   "A locker species -- '... and no `locker` species exists'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "walker's eye on the wear", "state": "walker",
+    "evidence": "docs/findings/car_wear_44/README.md:72-74 lists 'The look, from the frames' under 'The walker's calls'; the frames exist (cars_9364_9365_9366_inspect.jpg, cars_9364_9365_9366_lit.jpg). The only walker page since (docs/findings/walker_review_2026-10-21_drawings/README.md, answered 2026-10-22) asked six questions about drawings, none about the cars.",
+    "checked": "read the finding README; listed docs/findings/walker_review_* and read the 2026-10-21 page's README and verdict file names"},
+   {"piece": "'more lift'", "state": "walker",
+    "evidence": "car_wear_44/README.md:75 '\"more lift\" -- a lifted ride height (a jacked-up pickup or SUV), or \"more life\"? Not built.' No ride-height knob: grep -i 'ride_h|clearance|lift' over recipes/simple_car.py, genome/species/simple_car.json and core/car_wear.py finds only the underside comment (simple_car.py:235) and the paint's chalk lift (car_wear.py:81-85, 226-228). Zoo's last commit is 2ed0d79 (1.120.1, 2026-10-21 04:21), before the status.",
+    "checked": "grep; git -C zoo log --since=2026-10-19"},
+   {"piece": "primer patch reads as an oval", "state": "undone",
+    "evidence": "zoo/zoo_keeper/core/car_wear.py:107-108 (PRIMER_HALF, PRIMER_POINTS = 12) and :329-356 primer_patch: one 12-point _blob (rag 0.32) fanned from its centre in one primer colour shaded 0.88 by noise -- no feathered or sanded edge band. Unchanged since 1.120.0; no Zoo commit after 1.120.1. The finding's own reading (README.md:76-77): 'an oval reads as a decal'.",
+    "checked": "read car_wear.py:100-119 and 300-356; zoo git log"},
+   {"piece": "bench bays", "state": "undone",
+    "evidence": "zoo/zoo_keeper/recipes/bench.py:1-62 builds two end frames and three full-length slats, imports no `_bays`; genome/species/bench.json has no bay_max and width max 3.6 (the item's bench runs are 5.0 x 1.4). Deli Counter routes every 'bench' name to the `chair` species (prop_species.py:283), a chair row (chair.json bay_max 0.6) -- a stand-in since DC 0.117.0 (f50aec86, 2026-09-12), which predates the statuses that still count this undone.",
+    "checked": "read bench.py and bench.json; grep bay_max over the genomes; git log -S on prop_species.py"},
+   {"piece": "locker species", "state": "undone",
+    "evidence": "No locker.json among zoo/zoo_keeper/genome/species (listed); grep 'locker' over zoo_keeper finds only filing_cabinet.py:7-11 ('`cabinet_*` and `*_LOCKER` volumes ... a bank of cabinets or lockers', built by `_bays`) and comments. DC prop_species.py:239 routes ('cabinet', 'locker') to filing_cabinet. Item 267's body names the same stand-in: 'a `locker` is built as a `filing_cabinet`'.",
+    "checked": "ls genome/species; grep; read prop_species.py:225-294"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Three pieces are Zoo's to do (primer reshape, bench bays, a locker species) and would want one cold run to be seen; two are the walker's (the look; what 'more lift' means). The finding files the primer under 'the walker's calls', but the defect is stated by the factory with its fix ('a sanded, feathered panel'), so it is counted undone, not walker. Overlap: item 267 tracks the same locker->filing_cabinet stand-in among its 'new species the rest want'. Two body asks no status reports and the newest 'Left' list does not carry: 'Reversible, always. A designer must be able to reveal the proxy' and `allowed_inward_intrusion_m` 'in the slot manifest with something that reads it' -- grep finds `allowed_inward_intrusion` only in PIPELINE_ROADMAP.md, docs/sessions and roadmap patches, in no tool source (shared with item 41). The cars' lit frame is 9366's heavy-rain afternoon; no clear-light frame of the wear exists."
+ },
+ {
+  "n": 79,
+  "title": "Nothing in the pipeline represents a facade, so nothing can compose one",
+  "remainder": [
+   "A primary bay -- 'Left: the primary bay ... as designed conditions' (body: 'a hierarchy that marks one bay primary')",
+   "Corners as a designed condition -- 'corners ... as designed conditions' (body: 'corners as a designed condition rather than a remainder')",
+   "Masses -- '... and masses as designed conditions' (body: 'grouping into masses larger than a module')",
+   "Piers chosen, not left -- 'piers chosen rather than left (74)'",
+   "A family re-planned whole with its ground floor -- 'a family re-planned whole with its ground floor (step 4, the walker's choice)'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "primary bay", "state": "undone",
+    "evidence": "deli_counter/facade_plan.py (whole file read): ROWS holds rowhome and midrise only (:60-70), bay_positions returns bay centres with no role (:83-92), stack_mirrored moves upper windows (:159-275); grep 'primary' over facade_plan.py, presets.py, deli_counter.py finds no bay role. The proposal's 'each bay's role (primary, regular, end)' (docs/proposals/FACADE_PLANNER.md:62) is not built; it puts this at step 6, 'after step 4's frames, with the walker' (:115).",
+    "checked": "read facade_plan.py and FACADE_PLANNER.md; grep; git log on facade_plan.py shows only ac5f2135 (0.238.0)"},
+   {"piece": "corners", "state": "undone",
+    "evidence": "facade_plan.py has no corner handling (only EDGE_WALLS keeping a moved window off a run's end, :77, :148); FACADE_PLANNER.md:115 step 6 planned, not shipped (:3-4 'steps 2 and 4-6 planned').",
+    "checked": "read both files"},
+   {"piece": "masses", "state": "undone",
+    "evidence": "No grouping above the module in facade_plan.py; grep 'mass' over facade_plan.py, presets.py, deli_counter.py finds only an unrelated stair comment (deli_counter.py:1925).",
+    "checked": "grep"},
+   {"piece": "piers chosen (74)", "state": "undone",
+    "evidence": "FACADE_PLANNER.md:113-114 step 5 'Piers chosen, not left' planned; facade_plan.py's only pier is MIN_PIER = 0.3 (:76), a clearance a moved window keeps, not a sized pier; item 74 is OPEN in the index (PIPELINE_ROADMAP.md:755, status 2026-10-19).",
+    "checked": "read; grep 'pier'; index row"},
+   {"piece": "step 4, one family re-planned whole", "state": "walker",
+    "evidence": "FACADE_PLANNER.md:107 'One enterable family re-planned whole, as a trial (the walker's choice of family)' and :129-130 'which family first, and whether a ground floor's openings may move within their rooms'. The walker's 2026-10-20 verdicts (docs/findings/walker_review_2026-10-20/verdicts_2026-10-20.json) answer q79_stack 'Better' and q79_tradeoff 'Symmetry' and nothing on a family; the 2026-10-22 answers are about drawings.",
+    "checked": "read the verdicts JSON (keys q79_stack, q79_tradeoff) and the 2026-10-21 page's README"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "No facade work in any repo since the status: facade_plan.py and migrate_facade_stack.py were last touched by ac5f2135 (DC 0.238.0, 2026-10-20); DC's later commits (0.239.0-0.257.0) are other items. Piers (step 5) are the factory's to do without a walker call; the primary bay and corners are sequenced by the proposal after step 4's frames, and step 4 waits on the walker's choice of family. The proposal's step 2 ('The census as a Deli Counter report', FACADE_PLANNER.md:98-99) is also unbuilt (grep 'stacked|stacking|facade_census' over validate.py, check.py, build.py, audit_specs.py finds none) but the item's own 'Left' does not carry it. The proposal says outright this serves the 'good' gate (roadmap 18), 'not interventions-per-level'."
+ },
+ {
+  "n": 90,
+  "title": "`look_shots` was never measured against itself, so its own repeatability was unknown",
+  "remainder": [
+   "A calibrated per-pixel ruler -- status: 'THE PER-PIXEL RULER IS STILL UNCALIBRATED'; body: '`shot_diff.py` should report it and refuse a verdict below the floor'",
+   "The null shot as the method -- 'the honest form is a NULL SHOT: shoot twice, subtract, and only then compare'",
+   "Re-reading the sub-42% comparisons -- 'Any comparison in this file resting on a sub-42% pixel count needs re-reading, including the triplanar A/B of 2026-08-29 ... items 81, 84 and 86 each say an artefact \"survives triplanar\"'"
+  ],
+  "verdict": "DONE",
+  "per_piece": [
+   {"piece": "shot_diff reports max |delta| and refuses a verdict below the floor", "state": "done",
+    "evidence": "tools/shot_diff.py:376-377 and :396-402 print max_d per shot; :404-434 judge it against the shot's own null floor -- '~floor' (not counted as moved), 'marginal' within MARGIN 1.5x (:84), else 'MOVED'; :449-454 print the shots 'inside the measured floor (no verdict)'. Landed in 55e1790 (2026-09-02 12:59, 'shot_diff: the null floor'), an hour after item 90's newest status (10b6fc7, 2026-09-02 11:53). max_d was printed since df8cc82; the floor and the refusal were not (git show per commit: null 0/0/5, '~floor' 0/0/3).",
+    "checked": "read shot_diff.py whole; git log/show on tools/shot_diff.py; git log -S on the status text"},
+   {"piece": "the null shot", "state": "done",
+    "evidence": "shot_diff.py:243-252 `--null` (a re-shoot of an unchanged run, implies --images) and `--null-of`; :319-365 refuse a null whose render provenance differs from `after`, or whose subject matches neither run, and ask which run it re-shot when both match. Exercised: docs/findings/weighted_normals/level_shots_diff.txt (a1f47b6, 2026-10-09, roadmap 214) -- 'null: shots_wn_off2.json -- a re-shoot of `before`', 12 shots, floors 3-231, 8 MOVED, 3 ~floor, 1 marginal; its lines match shot_diff.py's prints at :364-365 and :453-457. Item 92 builds on it: 'THE INSTRUMENT ALREADY EXISTS. `look_shots` + `shot_diff --null` can hold this honest' (PIPELINE_ROADMAP.md:10487).",
+    "checked": "read the output file and its commit; grep '~floor|--null' outside workspaces"},
+   {"piece": "re-read the triplanar A/B and the 'survives triplanar' claims", "state": "done",
+    "evidence": "Re-measured against a null before this status: 95262fd (2026-09-01 07:38) wrote into items 76 and 88 'MEASURED AGAINST A NULL (ITEM 90): 7 OF 8 SHOTS CLEAR THEIR OWN FLOOR, max |delta| 43-217 AGAINST FLOORS OF 7-16' and 'THE EARLIER \"13.6-19.0% OF PIXELS\" READING SURVIVES ITS OWN AUDIT, THOUGH THE FLOOR IT WAS QUOTED AGAINST DID NOT' (kept today in item 76's status, PIPELINE_ROADMAP.md:9121). The claims in 81 and 86 concern the panel outline, whose cause was found directly: item 81's status (:9483) 'IT WAS VERTEX NORMALS, NOT COLOUR; SEE ITEM 86, SHIPPED AS ZOO 0.52.0 AND CONFIRMED BY EYE'; 86 and 84 are CLOSED in the index (:765, :767).",
+    "checked": "git log -S '43-217' and git show 95262fd; read statuses of 76, 81, 84; index rows; grep the roadmap for other pixel-count claims (the rest post-date the null or carry their own controls)"}
+  ],
+  "done_since": [
+   "shot_diff's per-shot null floor and 'no verdict' refusal -- 55e1790, 2026-09-02 12:59, tools/shot_diff.py:243-252, :319-365, :404-454"
+  ],
+  "size": "none",
+  "bears_on": "hygiene",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- the ruler this item asked for is in `shot_diff`: `tools/shot_diff.py` (55e1790, 2026-09-02, an hour after the status above) takes `--null` from a re-shoot of an unchanged run, refuses a null whose render provenance or subject does not match and asks `--null-of` when both runs photographed one subject (`:243-252`, `:319-365`), judges each shot's `max_d` against its own measured floor as `~floor`, `marginal` (within 1.5x) or `MOVED` (`:404-434`), and lists the shots inside the floor as 'no verdict' (`:449-454`); exercised on roadmap 214's weighted-normals A/B (`docs/findings/weighted_normals/level_shots_diff.txt`, 2026-10-09: 12 shots, floors 3-231, 8 MOVED, 3 inside the floor, 1 marginal), and item 92 builds on it. The triplanar A/B was re-read against a null on 2026-09-01 (items 76 and 88: 7 of 8 shots clear their own floor, max |delta| 43-217 against 7-16; the 13.6-19.0 % reading survived, its quoted floor did not), and the 'survives triplanar' claims of 81, 84 and 86 rest on nothing open -- the outline was vertex normals, fixed in Zoo 0.52.0 and confirmed by eye (86), and 84 is CLOSED. What stands as this item's record: a pixel count needs a null; the frame mean does not at six frames and 1600x900 (zero to two decimals on eight shots) but is blind to a change that moves texels without moving brightness (item 87's retraction, 2026-09-05: mean luma read a build with no triplanar 0.14 from the flag); and a floor belongs to one project, frame count and resolution.*",
+  "notes": "One caveat a reviewer should weigh before closing: the null is opt-in. Run with `--images` and no `--null`, shot_diff still judges pixels against zero (`moved = moved or frac > 0`, shot_diff.py:403) and prints no warning that no floor was measured. The item asked the tool to 'refuse a verdict below the floor' and named the null shot as 'the honest form', which is what `--null` does; if 'refuse' is read as 'refuse a pixel verdict when no floor was measured', that one guard is the remaining piece (small, tools/shot_diff.py). Item 90's 09-02 body text still says 'the triplanar A/B still needs re-reading' although items 76/88 had recorded the null re-measure the day before (95262fd); read as referring to the qualitative 'survives triplanar' claims, those are settled by 86's direct cause-and-fix, so nothing is left either way. The weighted-normals run is the only recorded `--null` use found outside the tool itself (grep '~floor|shot_diff.*--null|cleared its own floor' excluding workspaces: 3 files); price runs elsewhere use their own controls instead. Other sub-42% pixel counts in the roadmap carry their own controls (item 87, PIPELINE_ROADMAP.md:10116-10121: re-render 0.02 %, copy and re-import 0.03 %, at shot_diff's threshold 8, where item 90's 42 % was at >2). Item 87's retraction (:10106-10111) also says 'every \"matches the flag on N of 8 shots\" in this item and in 90 inherits' the mean-luma blindness; item 90 carries no such phrase today, and its own 7-of-8 figures (via 76/88) are per-pixel max |delta| against a null, which that criticism does not reach."
+ },
+ {
+  "n": 107,
+  "title": "Level Factory should own the final export, not Lot",
+  "remainder": [
+   "A manifest Lot emits describing its site -- 'Left: the manifest Lot emits and the exporter consumes' (body: 'Lot emits a site and a manifest DESCRIBING it -- roots, building ids, which scene is the entry')",
+   "The exporter consuming it in place of path inference -- '... and the exporter consumes the manifest rather than pattern-matching paths. Then a change to Lot's layout conventions breaks a schema check'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Lot emits a site manifest", "state": "undone",
+    "evidence": "grep -rln 'site_manifest|assembly_manifest|export_manifest|entry_scene' over lot/*.py finds only tests/test_ladders_reach_the_site.py; Lot's commits since 2026-10-15 are 0.124.0 (isolated building), 0.125.0 (drop nav link), 0.126.0 (bus stop), 0.126.1 (NPC fallback) -- none a manifest. docs/findings/open_items_remeasure/README.md:277-280: 'Lot's job emits none of this as a manifest ... held by the closure gate ... rather than by a schema.'",
+    "checked": "grep; git -C lot log --since=2026-10-15; read the finding's section 107"},
+   {"piece": "the exporter consumes it", "state": "undone",
+    "evidence": "level_factory/packages/exporting/export.py still infers from Lot's paths: _ROOT_SITE_REF (:434), _LOT_SITE_REF (:441), _standing_lot_ids reads the assembly scene by regex (:444-466, called :2181), _assembly_building_dir decides the root's home from three facts off disk (:505-541, called :2135). Since the status the inference grew: LF 0.232.0's packages/exporting/buildings_index.py (roadmap 296) reads the package's copy of Lot's assembly scene with three more regexes (_EXT, _NODE, _XFORM, :22-24) to write buildings.json -- an index LF derives, not one Lot emits.",
+    "checked": "read export.py:395-562 and grep of call sites; read buildings_index.py:1-65"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "The status's own word: 'a design step for Lot and Level Factory together' -- a schema first, then both tools. Levels ship today at 0 interventions on this inference (the closure gate refuses an unresolved reference), so the payoff is a schema failure in place of a subtly wrong package after a Lot layout change, not a lower interventions count now. Worth telling whoever designs the manifest: buildings.json (LF 0.232.0) already carries per standing instance its node, lot id, kind, origin and spec, which is most of what the body's manifest ('roots, building ids, which scene is the entry') would hold -- but it is derived by parsing Lot's scene, the shape this item wants gone."
+ },
+ {
+  "n": 138,
+  "title": "The windows read as black rectangles from outside",
+  "remainder": [
+   "Re-walk the double-sided quad -- 'FIXED THE SAME HOUR IN LUX 0.32.2 (the quad is double-sided), NOT YET RE-WALKED'",
+   "The glass skin at night -- 'the glass skin's own darkness is the residue'; body: 'a look at whether the glass skin should carry a night-time tint of its own'"
+  ],
+  "verdict": "MOOT",
+  "per_piece": [
+   {"piece": "re-walk the double-sided window quad", "state": "moot",
+    "evidence": "Windows no longer draw the quad: lux/addons/lux/runtime/lux_light_loader.gd:1601-1616 sets `ar.show_emissive_quad = false` for every window rig ('NO PREVIEW QUAD IN A WINDOW: THE GLASS IS THE PANE'), Lux 0.36.0 (b5d498c, 2026-09-13; CHANGELOG.md:2530-2560). The 0.32.2 fix remains in lux_area_light_rig.gd:198-204 (CULL_DISABLED) and now serves signs, whose rigs still build the quad (CHANGELOG 0.36.0: 'Signs are untouched').",
+    "checked": "read the loader and rig code; grep show_emissive_quad; Lux changelog and git log"},
+   {"piece": "glass skin's darkness / a night tint", "state": "moot",
+    "evidence": "The skin is no longer an opaque near-black slab: Pixelcoat 0.40.0 (781f5a0, 2026-09-13) gave glass_delco `transparency: {opacity: 0.38, ior: 1.5}` (pixelcoat/profiles/materials/glass_delco.json:15) and made opaque window glass a build error -- see_through_fault (pixelcoat/pixelcoat/core/material_grammar.py:946-969) raised by build_theme_library (:1003-1005). Seen at night from the street since: cold run 9132 (f210114, 2026-10-02, 'Night, clear') 'the racks visible through the glass, the checkout inside the door'; cold run 9120 (2026-09-30, 'at night') 'the storefront through its glass'.",
+    "checked": "read the grammar check and the glass profile line; Pixelcoat 0.40.0 changelog; read cold_9132 and cold_9120 NOTES and dated their commits after both versions"}
+  ],
+  "done_since": [],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- THE PATH WAS REBUILT UNDER IT, two days after it was filed. The black rectangle was a single-sided emissive quad over opaque near-black glass; Pixelcoat 0.40.0 (2026-09-13) made every theme's `glass` blend -- `glass_delco` at opacity 0.38 (`profiles/materials/glass_delco.json:15`) -- and refuses a theme whose glass would ship opaque (`see_through_fault`, `pixelcoat/core/material_grammar.py:946-969`, raised at `:1003-1005`), and Lux 0.36.0 (the same day) builds every window rig with no quad (`lux_light_loader.gd:1601-1616`, `show_emissive_quad = false`): what a window shows at night is the lit room through the glass. Seen from the street at night since: cold run 9132, 'the racks visible through the glass'; cold run 9120, 'the storefront through its glass'. The 0.32.2 double-sided quad (`lux_area_light_rig.gd:198-204`) now serves the signs, which still build it, and the night tint this item asked about was a question about an opaque skin that no longer ships.*",
+  "notes": "Not re-walked as the status asked, and it no longer needs to be for windows: the quad it fixed is not drawn there. Non-enterable Empties are a different design (opaque `glass_facade`, lit windows as paint) and are not this item. Whether a dark-glass room reads bright enough at night is a lighting question tracked elsewhere (e.g. the night-interiors work), not this item's black-rectangle defect."
+ },
+ {
+  "n": 142,
+  "title": "A prop ships black",
+  "remainder": [
+   "The prop's darkness -- status: 'THE PROP IS NOT UNSKINNED, IT IS UNLIT; FILED AS ITEM 147' (the item's defect, handed on)",
+   "The UV report -- 'What remains of THIS item: nothing about the prop; `texel_density.gd`'s planned \"textured material and no UVs\" report would have found nothing here, and is not built'"
+  ],
+  "verdict": "SUPERSEDED",
+  "per_piece": [
+   {"piece": "the prop's darkness", "state": "superseded",
+    "evidence": "Item 147 owns it -- its body: 'On cold run 9005's hospital the wards are 12 m wide, the nurse station stands 4 m off the centre line, and it was walked as \"a prop with...' -- and is CLOSED (PIPELINE_ROADMAP.md:828, status 2026-10-15): Deli Counter 0.206.0 lays a room's rows by its work plane, 1,004 fluorescent rows with 957 off the centreline, 390 of 431 lit rooms with more than one run; 'cold run 9005's hospital was not re-walked.'",
+    "checked": "read 147's index row, status and body opening"},
+   {"piece": "texel_density.gd's 'textured material and no UVs' report", "state": "moot",
+    "evidence": "Not built: tools/texel_density.gd (read whole, last commit 4578178 2026-09-06) visits only kit surfaces (`_is_kit`, :50-57) and reads `uv1_scale`/`uv1_triplanar` (:79-104); no UV-presence check. Its premise -- 'a primitive with no UVs samples one texel' -- is the hypothesis the status refuted (the UV-less primitive is `Prop-colonly`, a collision mesh Godot never draws). tools/glb_uv_census.py already prints, per GLB, primitives against primitives carrying TEXCOORD_0 (:187, :236-242), without tying a missing UV to a textured material.",
+    "checked": "read texel_density.gd whole and glb_uv_census.py:150-259; git log on both"}
+  ],
+  "done_since": [],
+  "size": "none",
+  "bears_on": "quality",
+  "proposed_status": "*STATUS: SUPERSEDED 2026-10-22 by 147 -- what this item found was a room-lighting fact, filed there the day it was measured ('FILED AS ITEM 147'), and 147 is CLOSED (2026-10-15: Deli Counter 0.206.0 lays a room's rows by its work plane; 957 of the library's 1,004 fluorescent rows off the centreline, 390 of 431 lit rooms with more than one run). The one piece the status above left -- `texel_density.gd` reporting a textured material with no UV set -- was planned against the refuted hypothesis and, as that status says, would have found nothing here; it is not built (`tools/texel_density.gd:79-104` reads only kit surfaces' `uv1_scale`), and `tools/glb_uv_census.py` already prints per GLB how many primitives carry `TEXCOORD_0` against how many there are (`:187`, `:236-242`), the count such a report would start from. Not re-walked: cold run 9005's ward, as 147 also records.*",
+  "notes": "If a 'textured material, no UV set' guard is still wanted, it is new hygiene work with no defect behind it today, and glb_uv_census.py is the natural home (it already reads every primitive's attributes and the file's materials). Neither 142 nor 147 re-walked the hospital ward where the black nurse station was seen."
+ },
+ {
+  "n": 196,
+  "title": "Furnish stands wall pieces against walls that are not there",
+  "remainder": [
+   "pawn_shop_a01's second cabinet -- 'Open: pawn_shop_a01 at one' (body: 'its shop floor is the spread rule's')",
+   "Partitions for the other wall pieces -- 'every other wall piece still keeps a metre off every partition -- the dial is per piece, and only the cabinet has it' (body: 'whether any other wall piece should back onto a partition -- a dial a piece, not a rule for all')"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "pawn_shop_a01's second cabinet", "state": "undone",
+    "evidence": "deli_counter/specs/pawn_shop_a01.json holds one `video_poker_store` volume (`video_poker_store_r79538c7c_8`, x 3.24 y 1.54); over every spec in deli_counter/specs, 48 hold two and pawn_shop_a01 alone holds one (the key read: each volume's `name`). The spec was last rewritten by d94c6c0f (DC 0.246.0, 2026-10-21, roadmap 148), which left it at one.",
+    "checked": "python one-liner reading specs/*.json volumes[].name; git log on the spec"},
+   {"piece": "other wall pieces against partitions", "state": "undone",
+    "evidence": "deli_counter/level_design.py: `backs_on_partitions=True` appears once, on `video_poker_store` (:1580-1587); the dial's only reader is :4725. The comment at :1575-1579 keeps it 'a call made 2026-10-19 and meant to be changed'. git log -S'backs_on_partitions' since 2026-10-19 finds only 50db4890 (0.231.0).",
+    "checked": "grep over DC's .py (tests excluded); read level_design.py:1570-1594; git log -S"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The defect the title names is fixed and holds: level_design.py:3246-3254 offers a wall slot only where a built wall holds the piece's whole run (`_edge_backing`, `_held`, DC 0.202.0; 155 of 4,086 -> 0 of 3,998). What is left is the store-cabinet follow-on and a bare-partition design question. The second piece is a design call ('a dial a piece, not a rule for all') that the factory has been making and marking for the walker to change; it would want a census of which wall pieces a partition refuses before any dial is set. The status's '30 of the 31 stores' reads today as 48 specs at two, likely because the library grew (not re-attributed here)."
+ },
+ {
+  "n": 199,
+  "title": "Lot's layout against the walkable-city brief",
+  "remainder": [
+   "The inversion -- 'Left: that inversion' (roads first, buildings hung off them: '`road_grammar.py` names the next step for a crossroads with a loop and for the spine: roads first, buildings hung off them')",
+   "The X and spine grammars -- '... and the X and spine grammars'",
+   "Rear doors for the lane -- 'the rear doors the lane serves (Deli Counter's shells have none on the rear face ... `LOT_PATH_END_OFF_DOOR`)'",
+   "A parking field kept beside the lane -- 'a plate that keeps its parking field beside the lane (9233 lost its one field to the lane's band)'",
+   "Three distinct approach profiles -- 'the brief's three distinct approach profiles'",
+   "The lane's stop control -- body, THE LANE'S LAMPS: 'Still open beside it: the lane's own stop control is never stood (`LOT_TRAFFIC_CONTROL_NO_BAND`, no band for a sign), recorded and not called'",
+   "The traversal review -- body, NEXT/MEASURED: 'unlabelled dead ends as INFO beside `S_ONE_APPROACH`; the blocked-edge review as a run with a road end closed' (not in the status's Left)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "the inversion", "state": "undone",
+    "evidence": "level_factory/packages/pipeline/road_grammar.py:25-30 still reads 'THE DEPENDENCY IS STILL BUILDINGS -> ROADS, and that is the next step rather than this one'; roads_for derives every road from the placed buildings (:357-414: _south_face, _through_road, _cross_line). No commit touches road_grammar.py since 2026-10-11.",
+    "checked": "read road_grammar.py:1-100 and :224-414; git log --since=2026-10-11 on the file (empty)"},
+   {"piece": "X and spine grammars", "state": "undone",
+    "evidence": "GRAMMARS = ('T', 'cross', 'block') (road_grammar.py:82); no spine. A buildings-first crossroads (`cross`, spelled x/crossroads, :88-95, :371-392) exists since LF 0.109.0 (042b51b, 2026-09-23), before the status -- so the status's 'X' is the roads-first crossroads with a loop it ties to the inversion, which does not exist.",
+    "checked": "read; git log -S'\"x\": \"cross\"'"},
+   {"piece": "rear doors the lane serves", "state": "undone",
+    "evidence": "Cold run 9378 (newest, block grammar, Lot 0.126.1): the themed assembly's site.site.drawn.json paths 7 (b0 deli_a03) and 9 (b2 office) snap to `ext_0_N`, path 8 (b1 pharmacy_a01) is 'drawn': false, and job.log reads 'LOT_PATH_END_OFF_DOOR: path 8 (spur of b1): building 'b1' has no ground door on the face this spur meets'. deli_counter/specs: pharmacy_a01's ground N wall holds only a breach, deli_a01's a window and a breach; deli_a03's door 'rear_staff_entry' dates from f54ebfee (2026-07-19) -- 9378 reaches two rear doors by its draw, not by a Deli Counter change (9233's notes: 'the deli's and the pharmacy's rear doors are Deli Counter's to add').",
+    "checked": "read 9378's drawn spec (keys paths[].snapped/drawn, buildings[].archetype) and job.log; read specs' ext_walls; git log -S on deli_a03; read cold_9233 NOTES:44-70"},
+   {"piece": "parking field beside the lane", "state": "undone",
+    "evidence": "9378's one field (`field_0`, road 0, side L, rect x -30.65..-12.35, y -13.67..2.54) stands on the main street, not beside the lane (road 3 at y 27.18). No lane-aware field planning: grep 'lane' in lot/site_fields.py finds only the kerb parking lane (:42); no commit to site_fields.py or site_parking.py since 2026-10-11.",
+    "checked": "read 9378's drawn spec `fields` and `roads`; grep; git log"},
+   {"piece": "three distinct approach profiles", "state": "undone",
+    "evidence": "9378's audit counts approaches, not profiles: 'S_TARGETS: 2 road end(s) reach the plate's edge and 2 distinct first hop(s) reach the objective ... the guide asks 2 meaningful approaches' (lot/site_targets.py:238-240, Lot 0.112.0, 47713ab, 2026-10-10). Nothing measures exposure, distance, height or access per approach.",
+    "checked": "read 9378 job.log S_TARGETS lines and site_targets.py lines; git log -S"},
+   {"piece": "the lane's stop control", "state": "undone",
+    "evidence": "9378 job.log: 'LOT_TRAFFIC_CONTROL_NO_BAND: road 3's +t approach to road 1 is under a stop and has no sidewalk band to stand it on; nothing is placed' and the same for road 2. Lot's commits since 2026-10-11 do not touch it.",
+    "checked": "grep 9378's themed_site_assemble job.log; git -C lot log --since=2026-10-11"},
+   {"piece": "dead ends and the blocked-edge review", "state": "undone",
+    "evidence": "grep 'dead end|dead_end' in lot/site_targets.py finds nothing; 9378's S_TARGETS reports loops (:243) and approaches but no dead end and no run with a road end closed.",
+    "checked": "grep; read 9378's S_TARGETS lines"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Owners per the status: Level Factory (road_grammar, site_variation), Lot (the audit, the lane's sign), Deli Counter (rear doors). The `block` grammar is now the cold runs' default brief (cold_9356 NOTES:8: 'the cold runs' brief names `block` and `auto`'), so the lane's two open findings (NO_BAND, the undrawn rear spur) recur in every cold run. 9378 drew 2 of 3 rear spurs where 9233 drew 1 of 3 -- attributable to deli_a03 replacing deli_a01 in the draw. A rough census of deli_counter/specs (a ground door tagged front*/main* on one wall, any ground door on the opposite wall, rotation and setbacks ignored) reads 148 of 344 -- an indicator of how far the rear-door gap runs, not a measured figure. The 9233 status line 'every rear spur ... recorded undrawn' disagrees with 9233's own notes, which say the office's rear spur was drawn."
+ },
+ {
+  "n": 228,
+  "title": "The edge of the plate: E, varied by level",
+  "remainder": [
+   "The edge priced looking out over it -- 'Next: the edge priced -- draw calls and frame time at stations looking out over it, against a control -- before anything more is built on it' (the walker: 'needs to ensure its thought of for runtime performance')",
+   "Step G, the guides' species for the backdrop tree -- 'STEP G ... the backdrop's three invented forms become the guide's species silhouettes ... not started'",
+   "Two calls on 9230's sheet -- 'whether the near band wants a minimum distance from an elevated station, and whether the lobes want the guides' card method before the forms become species'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "price from edge-facing stations", "state": "undone",
+    "evidence": "Every backdrop price so far ran at the package's anchor stations, facing in: cold_9230 NOTES:76-81 '25 headings a run at the package's anchors' against a backdrop-off copy; the edge stations (tools/edge_stations.py, 'the eye 45 m inside each edge ... looking along the road to the edge') were used for frames only (cold_9226 NOTES:60-63, cold_9230 NOTES:49). docs/findings/edge_menu/README.md:127-129 already warned 'These stations face into the level ... an edge-facing view sees more of the backdrop than they do'. No commit since 2026-10-19 touches tools/edge_stations.py, tools/backdrop_off.py, horizon_glow/price_glow.py or any edge/backdrop finding (last: horizon_glow 2026-10-13); no backdrop/edge commit in lot, zoo, lux or level_factory since 2026-10-19. cold_9230 NOTES:114-118 also lists 'the price on the low-end target' as not proven.",
+    "checked": "read cold_9230 NOTES:76-118, cold_9226 NOTES:55-80, edge_menu README:115-140, edge_stations.py:1-30; git log per path and per repo since 2026-10-19"},
+   {"piece": "step G", "state": "undone",
+    "evidence": "The status says 'not started' and gates it behind the price ('before anything more is built on it'); Zoo's last commits (1.114.0-1.120.1) are holes, booths, monitors, barriers, stanchions and car wear -- none a backdrop tree.",
+    "checked": "git -C zoo log --since=2026-10-19"},
+   {"piece": "near-band distance and the lobes' card method", "state": "walker",
+    "evidence": "Named as the walker's in the status ('The walker's eye on 9230's sheet is the next call'); the 2026-10-19 review asked one question of 228 and got 'Needs work' -- 'needs to ensure its thought of for runtime performance' (docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json, key verdicts.q228), nothing on either call.",
+    "checked": "read the verdicts JSON (verdicts.q228) and the README's table"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "performance",
+  "proposed_status": "",
+  "notes": "The immediate remainder is a measurement (medium: a priced run at tools/edge_stations.py's stations against a backdrop-off control, on the target renderer), and the item gates everything else behind it; 'large' is for step G, which is a recipe per species across Zoo and Lot. Recorded lever if the price says so: one module a form with the slot's size as instance scale (cold_9230 NOTES:107-110: three modules and twelve draws where 9230 spends twenty-four). Overlaps: roadmap 216 (trees, OPEN) and 241 (the urban level type, whose 'edge recipes gain taller massing', PIPELINE_ROADMAP.md:20551)."
+ },
+ {
+  "n": 267,
+  "title": "Furniture the generator places that Zoo builds as a box",
+  "remainder": [
+   "The stair guards -- 'Left: the stair guards (1,025) once a frame shows how a box reads as a guard'",
+   "The other names -- 'the runs and the new species the rest want' (body: columns, pump islands, planters, slot machines, market stalls, kiosks, the vehicle lift, a pizza oven, a jukebox, kegs, a forklift; stand-ins 'a `locker` is built as a `filing_cabinet` and a `workbench` as a `counter`')",
+   "The package share -- 'the share in a cold run's package' (body: 'Not measured: the share in Level Factory's own `lf_` buildings, which a cold run's package holds')",
+   "Three walker calls -- 'whether arena_a02's event floor wants its mid-floor crouching cover back, whether the ticket window wants a species of its own, and whether the freight terminal's four containers ... should each draw their own'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "stair guards", "state": "undone",
+    "evidence": "No frame has judged one: docs/findings/asset_wishlist_2026-10-19/README.md:92-93 'nobody has looked at one in a frame to say whether a box reads wrong as a guard rail'; the only cold-run mention since (cold_9356 NOTES:36) is the garage ramp's three new rails. Still boxes: no keyword in deli_counter/prop_species.py claims a `stair_guard_*` name (species_for_name, :352-358; prop_species.py untouched since 0.245.0); in today's tracked builds (deli_counter/build/*.slots.json, lf_ excluded, key slots[].fit.dims) 1,055 `stair_guard*` prop slots carry species null.",
+    "checked": "read the finding; grep cold-run notes; read prop_species.py:225-359; python one-liner over build/*.slots.json after reading one real slot record"},
+   {"piece": "runs and new species", "state": "undone",
+    "evidence": "deli_counter/prop_species.py has had no commit since 147111ee (0.245.0); the stand-ins stand: ('cabinet', 'locker') -> filing_cabinet (:239), 'workbench'/'tool_bench' -> counter (:236-237). Zoo's commits since 1.119.0 are 1.120.0/1.120.1 (car wear). The last census (box_slots_library_0240.out.txt) has not been re-run.",
+    "checked": "git log on prop_species.py and guards.py since 2026-10-21 02:30 (empty); git -C zoo log"},
+   {"piece": "share in a cold run's package", "state": "undone",
+    "evidence": "box_slots.py reads deli_counter/build/ and skips `lf_*` unless --with-lf (:1-13, :28-31); the finding says 'Not measured here: the share in Level Factory's own buildings (`lf_*` ...); a cold run's package answers it' (README.md:42-43). grep 'box_slots|plain `prop_|box share' over docs/cold_runs/*/NOTES.md finds no such measurement.",
+    "checked": "read box_slots.py header and the README; grep"},
+   {"piece": "three walker calls", "state": "walker",
+    "evidence": "Asked in the status; the walker's only page since (docs/findings/walker_review_2026-10-21_drawings/README.md, answered 2026-10-22) carried six questions about drawings, none of these.",
+    "checked": "read that README and its verdict file names"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "A measurement for whoever takes the guards next (read off DC's tracked builds, slots[].fit.dims, not a frame): 547 of the 1,055 `stair_guard*` prop slots fall inside Zoo's existing `stair_rail` genome by size (long side 0.6-8.0, 0.04-0.15 thick, 0.85-1.15 tall; 546 of them 0.10 x 1.07 m rails) -- so half the largest piece may be a routing plus a frame rather than a new species; the rest are 0.4-0.8 m thick and 2.9-4.7 m tall, solid side walls and backs. Orientation was not checked (long side taken as width), and 1,055 against the census's 1,025 means the library moved since 0.240.0. The locker stand-in is shared with item 44."
+ }
+]

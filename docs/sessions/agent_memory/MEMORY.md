@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-21 ~22:40 296 NARROWED (drawings in packages, review page awaits the walker); 298 filed; next 290, 285, 294
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-22 narrowed audit done (15 changed, 17+117 held); drawings must be simpler (296/295); next scout drawing, small items, 290, 285, 294
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -136,3 +136,4 @@
 - [Exploded axonometric, roadmap 293](exploded-axonometric-view.md) — DC 0.254.0 + 0.255.0 treads; in every package since DC 0.257.0/LF 0.232.x (296)
 - [Main drag comp](main-drag-comp.md) — walker's PA-291 Tinicum remix for later: roadmap 298, docs/reference/MAIN_DRAG_COMP.md
 - [Late pieces guard width](late-pieces-guard-width.md) — off a route keeps length, not width; ask room_necks/_narrows (DC 0.256.0)
+- [Root search skips tool repos](root-search-skips-tool-repos.md) — root .gitignore excludes every tool repo: search inside each; a root 'nothing found' is unproven

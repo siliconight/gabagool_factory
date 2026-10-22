@@ -1,0 +1,379 @@
+[
+ {
+  "n": 87,
+  "title": "Deli Counter's one-mesh-in-VRAM discipline stops at the texture",
+  "remainder": [
+   "Where the detach runs, in the pipeline rather than as a hand-run tool: 'WHAT REMAINS IS A DECISION -- WHERE THE DETACH RUNS' (2026-08-29 status; the 2026-09-05 status answers it on paper as 'the export is the natural place')",
+   "The shared texture folder travelling with the art through assembly and export into a package: 'STILL OPEN AND UNCHANGED: the `tex/` folder travelling through ASSEMBLY, which is this item's own residual and was not tested'"
+  ],
+  "verdict": "DONE",
+  "per_piece": [
+   {
+    "piece": "Where the detach runs",
+    "state": "done",
+    "evidence": "zoo/zoo_keeper/bpylayer/export.py:22 `export_glb(..., share_textures=True, ...)` and :72-73 `if share_textures: _share_textures(filepath)` -- every Zoo module export externalises its images; zoo/zoo_keeper/core/gltf_textures.py:42 `TEX_DIR = \"_tex\"`, :147-165 pops each image's bufferView and writes `im[\"uri\"] = f\"{tex_dir}/{name}\"` with the name carrying sha1 of the pixels, :215-222 an existing same-named file is shared, not rewritten. Zoo CHANGELOG 1.2.0 (line 6205, 'a pack texture is one file, not sixty copies'). The detach landed in Zoo's export, not in Level Factory's export as the 2026-09-05 status proposed.",
+    "checked": "Read export.py whole and gltf_textures.py lines 1-60 and 125-228; read Zoo CHANGELOG 6205-6323."
+   },
+   {
+    "piece": "The texture folder travels through assembly and export into the package",
+    "state": "done",
+    "evidence": "Level Factory 0.105.0 (CHANGELOG line 7216, 'a job publishes what its GLBs name, and a gate asks whether the package does'): level_factory/packages/jobs/scheduler.py:212-266 `_with_glb_dependencies` adds every file a collected GLB names via images[].uri, called at :716-719 on every job's outputs; Deli Counter's and Lot's copy sites use `glb_deps.copy_with_deps` (deli_counter/portable_building.py:689 and :714; lot/lot.py:1986; lot/package.py:405); level_factory/packages/exporting/export.py:2579-2599 scans every shipped GLB's references, writes glb_reference_scan.json and raises ExportGlbReferenceError on a missing one. In a package: docs/cold_runs/cold_9378/export.log:17 '[export] glb references: 134 GLB(s), 486 external reference(s): 486 resolve to 209 file(s) in the package, 0 missing, 0 unportable, 0 unreadable GLB(s)'. The 9378 package (workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot) holds `_tex/` folders under cover/ and every lot/<building>/art/{zoo,dressing,fixtures,roofprops}/.",
+    "checked": "Read scheduler.py 205-266 and 706-725, export.py 2560-2604, glb_refs.py docstring, LF CHANGELOG 7216-7330; grepped DC and Lot for copy_with_deps; grepped cold_9378/export.log; listed the 9378 package's _tex folders."
+   }
+  ],
+  "done_since": [
+   "Zoo 1.2.0 (2026-09-21) moved the detach into every module export (export.py:72-73, gltf_textures.py:147-165)",
+   "Level Factory 0.105.0 (2026-09-22) publishes a GLB's uri dependencies (scheduler.py:212-266, 716-719) and gates the package on them (export.py:2579-2599); proven at 0 missing in cold run 9378 (export.log:17)"
+  ],
+  "size": "none",
+  "bears_on": "performance",
+  "proposed_status": "*STATUS: CLOSED 2026-10-22 -- the texture leaves the GLB where the module is written and travels with it to the package. Zoo 1.2.0's `export_glb(..., share_textures=True)` (zoo/zoo_keeper/bpylayer/export.py:22, :72-73) rewrites every module's embedded images to `images[].uri` under `_tex/`, each named by a hash of its pixels and written once (zoo_keeper/core/gltf_textures.py:147-165, :215-222), so the detach runs in Zoo's export and not, as this item proposed, in Level Factory's. The folder travels: Level Factory 0.105.0's `scheduler._with_glb_dependencies` publishes whatever a collected GLB names beside it (level_factory/packages/jobs/scheduler.py:212-266, called at :716-719), Deli Counter's and Lot's copy sites carry it (`glb_deps.copy_with_deps`, deli_counter/portable_building.py:689 and :714, lot/lot.py:1986, lot/package.py:405), and the export refuses a package whose GLBs name a file it lacks (packages/exporting/export.py:2579-2599). In a package: cold run 9378's export.log line 17 reads 134 GLBs, 486 external references, 486 resolving to 209 files, 0 missing. What is left is not this item's: the duplication is now per building folder, not per module (9378's package: 451 `_tex/` PNGs, 112 distinct by sha256, one image stored 31 times), which item 28's closing status records and item 238 carries ('one per content per package is estimated at -10 to -12 MiB ... then the deduplication', NARROWED 2026-10-19).*",
+  "notes": "Extraction artefact: the batch's `body` for 87 runs from 87's heading to the paragraph above 88's heading, so it carries ITEM 88's statuses (the triplanar / .tres override history, lines 10004-10200); 88 itself is CLOSED 2026-09-06 by Level Factory 0.57.0's importer_defaults. Item 87's own statuses are the two paragraphs ABOVE its heading (roadmap lines 9935-9958). Sibling item 28 ('The VRAM question is about zoo's GLB embedding') was CLOSED 2026-10-15 on the same Zoo 1.2.0 change with cold run 9314's package (0 embedded images). Item 166 also records 'Zoo 1.2.0 + LF 0.99.0 stop embedding the same pack texture in every GLB' (roadmap ~17586). Per-folder duplication measured read-only on 9378's package with a hashlib one-liner over `_tex/*.png` outside .godot: 451 files, 14,954,224 B, 112 distinct, 4,684,188 B unique -- the same shape item 238's 2026-10-19 status counted on 9335 (458 files, 118 images) and lists as 'then the deduplication', so the follow-on has a home. The 9378 package's lot_assemble candidates were content-cache hits (cold_9378/art.log:30-32) and its zoo_kit_build jobs ran (art.log:75-76); since LF 0.105.0 a cache hit materialises a GLB's textures with it (scheduler.py:236-238)."
+ },
+ {
+  "n": 118,
+  "title": "Nothing checks that the briefs on disk resolve to a preset, and two of them do not",
+  "remainder": [
+   "rockay_lot_demo_001's brief still names `mixed_block`, a block and not a building: 'MIXED_BLOCK STAYS ... its only carrier is `workspaces/rockay-ws/.../rockay_lot_demo_001/brief/brief.json` ... Fixing it means editing a brief that is not ours'",
+   "The site builder's own comment still carries a stale count: 'WHAT ELSE STAYS OPEN is unchanged: the stale claim in the site builder's own comment' (the 2026-09-07 status quotes it: 'of eight briefs on disk only two demos set `lot_library`, and all THREE cold-run briefs do not')",
+   "The laggard example briefs place one shell N times: '`restaurant_row_001` still sets no `lot_library`, so it places one shell three times even now that it resolves, and the shipped examples carry no `lot_library` at all'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "mixed_block in rockay_lot_demo_001",
+    "state": "walker",
+    "evidence": "workspaces/rockay-ws/batches/rockay_category5/missions/rockay_lot_demo_001/brief/brief.json:2 still reads `\"archetype\": \"mixed_block\"` (with `lot_library` set at :8); level_factory/tests/test_archetype_resolution.py:144-147 records it in `_KNOWN_UNRESOLVABLE` ('its brief lives under read-only rockay-ws'), and :244-258 fail the suite the moment it resolves or another brief joins it. The cheap half of the item (the corpus check) is shipped and live in that file.",
+    "checked": "Read the rockay brief's archetype/lot_library lines; read the test's known list and both corpus tests."
+   },
+   {
+    "piece": "Stale comment in the site builder",
+    "state": "undone",
+    "evidence": "level_factory/apps/cli/commands/__init__.py:1916-1923 still says 'of eight briefs on disk only two demos set `lot_library`, and all THREE cold-run briefs -- the runs that exist to measure interventions-per-level -- do not. So every cold run measured to date placed one building N times'. Stale twice over now: since 0.145.0 `batch create` defaults the library (see the next piece), so cold runs do draw varied lots.",
+    "checked": "Grepped level_factory for 'of eight briefs' / 'ONE archetype'; read commands/__init__.py 1860-1950."
+   },
+   {
+    "piece": "Example briefs with no lot_library place one shell N times",
+    "state": "done",
+    "evidence": "Level Factory 0.145.0 ('The lot library by default, wherever it can honour the brief', CHANGELOG line 4732): `_default_lot_library` (level_factory/apps/cli/commands/__init__.py:110-159) writes the workspace's Deli Counter build/ into a brief that names none, asks for two or more buildings and whose archetype anchors on a family there; called from `batch create` at :453-457 and recorded in the workspace's copy. Proven: workspaces/cold-9378-ws/batches/cold_9378/missions/restaurant_row_001/brief/brief.json:9 carries `\"lot_library\": \"...deli_counter\\\\build\"` while the shipped example (level_factory/examples/delco_batch/briefs/restaurant_row_001.json) and the cold run's input brief (docs/cold_runs/cold_9378/briefs/restaurant_row_001.json) name none; 9378's lot is three different buildings, deli_a03, pharmacy_a01 and office (docs/cold_runs/cold_9378/NOTES.md, 'deli_a03, pharmacy_a01 and office, ten drawings'), with the gs_empty_rowhome_* Empties across the road, not one shell three times. The example files themselves still carry no `lot_library` text (grep count 0 in all four), which no longer changes what they build.",
+    "checked": "Read _default_lot_library and its call site; read the example brief, the cold-run input brief and the workspace copy; grep -c lot_library over examples/*/briefs."
+   }
+  ],
+  "done_since": [
+   "The laggard examples no longer place one shell N times: Level Factory 0.145.0's `_default_lot_library` (apps/cli/commands/__init__.py:110-159, called at :455) gives a multi-building brief the library at batch create; cold run 9378's workspace copy of restaurant_row_001 records it (brief.json:9)."
+  ],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "What is left for the factory is one stale comment (apps/cli/commands/__init__.py:1916-1923); the printed warning under it (:1924-1928) is still correct for a brief that reaches the site builder without a library. mixed_block is the walker's (rockay-ws is read-only evidence per CLAUDE.md), and the test already pins it. If the comment is fixed, the item could close as 'the corpus check shipped (test_archetype_resolution.py), commercial_strip fixed, mixed_block the owner's'. The third design answer (a lot-level vocabulary) was explicitly demoted to 'argued on its own ground' by the 2026-09-07 status and is not counted as remainder."
+ },
+ {
+  "n": 143,
+  "title": "Ceiling lamps sit inside partitions on this shell",
+  "remainder": [
+   "The probe as a gate: 'item 85's ask -- the probe run as a gate over the deli job's outputs -- is still open' (and the item's own close: 'and the probe run as a gate over the deli job's outputs -- item 85's residue')",
+   "A re-walk of the shell by eye: 'NOT YET RE-WALKED'",
+   "Whether the roof's south half wants its own row: 'the roof's south half has no bulbs now (one row, one side, on purpose -- whether that space wanted its own row is a room-splitting question for the spec)'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "The probe as a gate over the deli job's outputs",
+    "state": "undone",
+    "evidence": "level_factory/adapters/deli_counter/__init__.py:300-322: `normalize_validation` reads only `*gameplay.json` / `*audit.json` intel codes, nothing of `shell.lights.json` against `shell.slots.json`; deli_counter/layout_lint.py's rules (L20-L28, assembled at :1543-1554) have no lamp-against-wall rule; `tools/anchor_wall_probe.py` is referenced only from comments and docstrings (deli_counter/lights.py:183 and :410, test_lights.py:238, CHANGELOG) and is run by nobody. Item 85, which owns this gate, is still NARROWED 2026-09-11 with 'WHAT REMAINS is that check as a GATE rather than a probe run by hand'.",
+    "checked": "Read the DC adapter's normalize_validation; grepped layout_lint for rule codes; grepped the factory for anchor_wall_probe callers; read item 85's newest status."
+   },
+   {
+    "piece": "Re-walk by eye",
+    "state": "unclear",
+    "evidence": "Item 17's 2026-09-12 status measured the probe on cold run 9006's copy ('0 lamp points inside a wall, 6 at exactly 0.250 m from a face (item 143)', roadmap ~2305) and listed 143 under 'WHAT THE RE-WALK ASKS ... by eye'; no later record found of a person re-walking the hospital for this. The fix itself is still in today's row code: deli_counter/lights.py:1532 (partitions per storey), :1585-1594 (`_colinear_shift` then `_row_runs(..., walls=walls, clear=clear)`), carried through 0.206.0's rows-to-the-work rewrite.",
+    "checked": "Read lights.py 1480-1610; grepped the roadmap for re-walk mentions; grepped cold-run NOTES for 'light inside the wall'."
+   },
+   {
+    "piece": "The roof's south half",
+    "state": "unclear",
+    "evidence": "Still one bulb row on the objective roof: lights.py:1554-1565 lays an objective room's bulbs on one centre row, and deli_counter/test_lights_partitions.py:85-97 asserts every roof bulb at y = 7.5 after the shift. The status calls it on purpose and a spec question; nobody has asked it.",
+    "checked": "Read the moody-row branch and the roof test."
+   }
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The remainder is the same gate as item 85's (earlier, still NARROWED), so closing either needs the one check: lamp points from `<building>.lights.json` against wall slots in `<building>.slots.json`, in the DC adapter's normalize_validation or as a DC intel code. The probe's geometry is pure Python (the 85 status: 'one command and no Godot'). No hospital shell is kept to re-probe (no hospital in deli_counter/build; county_hospital workspaces 9329/9334 retired), so the current shell's figure was not re-measured here."
+ },
+ {
+  "n": 148,
+  "title": "Nothing dresses the inside of a building: no posters, clocks, vents, smoke detectors, garbage -- the non-collision layer that gives a room character and depth",
+  "remainder": [
+   "Rows for the review's other rooms: 'the review's other rooms by the same rows where their kind has them -- a stockroom's racks, a bullpen's desk pairs or cubicle banks, a kitchen's prep islands'",
+   "The office's floor_1 furnished as a shop floor: 'an office's floor_1 furnishing as a shop floor (281)'",
+   "The card shop island's aisle: 'the card shop island's aisle (282)'",
+   "Five species nobody draws: 'a clock, a ceiling vent, a smoke detector, a light switch and an exit sign, which no species draws'",
+   "The interior no-collision dressing layer itself: 'and the no-collision dressing layer' (the body's close: 'the interior surfaces reachable by the Layer 3 chain, one species placed by one rule')",
+   "The walker's eye: 'whether a room reads as inhabited, the walker's eye -- the market aisles' frames are the question'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Rows for stockrooms, bullpens, kitchens",
+    "state": "undone",
+    "evidence": "deli_counter/level_design.py:2597-2601 `_shop_rows` returns `(\"gondola_aisle\",)` for a corner store's selling floor 'and nothing on any other' (read at :3835 and :5788); `is_corner_store_floor` (:2586-2595) keys on deli/convenience/gas/fuel/bodega/stop. Deli Counter's CHANGELOG since 0.247.0 (lines 1-548: 0.248.0 to 0.257.0) names no stockroom rack, bullpen desk pair, cubicle bank or kitchen prep-island row.",
+    "checked": "Read _shop_rows and is_corner_store_floor; grepped DC CHANGELOG 1-372 for stockroom/bullpen/prep island/kitchen/desk pair/cubicle/rack (none) and read 0.248.0-0.250.0."
+   },
+   {
+    "piece": "Office floor_1 as a shop floor",
+    "state": "done",
+    "evidence": "Deli Counter 0.248.0 ('an office building's open floor is an office', CHANGELOG line 522): `is_office_floor` (deli_counter/level_design.py:2247-2269, asked at :3004) makes an office building's `floor_N` an office; office's floor_1 now four desks with chairs, office_stepped's six. Roadmap 281 is CLOSED 2026-10-21 on it (index line 962).",
+    "checked": "Read is_office_floor and the 0.248.0 entry; read the index row for 281."
+   },
+   {
+    "piece": "Card shop island's aisle",
+    "state": "superseded",
+    "evidence": "Roadmap 282 'The card shop's island stands its aisle off the room's bound, not the ...' is OPEN 2026-10-21, 'measured building Deli Counter 0.247.0's rows (roadmap 148); not started' (index line 963).",
+    "checked": "Read the index row for 282."
+   },
+   {
+    "piece": "Clock, ceiling vent, smoke detector, light switch, exit sign",
+    "state": "undone",
+    "evidence": "zoo/zoo_keeper/genome/species/ holds 139 genomes; the only names near the ask are aisle_sign, litter_bin, litter_scrap, neon_sign, poster, poster_wall, sign_box, sign_post, stop_sign, traffic_signal, trash_bags and vent_stack (a roof piece, per the 2026-10-15 status). No clock, smoke_detector, light_switch, exit_sign or ceiling vent genome or recipe.",
+    "checked": "ls zoo/zoo_keeper/genome/species | wc -l and a name grep; grepped zoo_keeper/recipes the same way."
+   },
+   {
+    "piece": "The interior no-collision dressing layer",
+    "state": "undone",
+    "evidence": "lot/site_surfaces.py:605-620 excludes every building footprint from the site's Layer 3 scatter ('Interiors are dressed by Deli Counter's own layer, at the shell's request, never by the site's ground scatter'); the Deli Counter 'dressing' that ships per building (e.g. 9378's lot/deli_a03/art/dressing/deli_a03_dressing.glb) is the shell's merged facade covers (DC CHANGELOG 0.191.0, line 3324ff: 'Zoo merges a building's covers per side per material'); patina/patina/gameplay.py:38-42 says 'no dressing family reaches inside a room at all'. Posters and litter reach rooms only as furnish slots (2026-10-15 status), not as a wall/ceiling MultiMesh layer.",
+    "checked": "Read lot/site_surfaces.py 600-625, DC CHANGELOG 3324-3360, patina gameplay.py 35-70; listed deli_a03's art/dressing in 9378's package."
+   },
+   {
+    "piece": "Whether a room reads as inhabited",
+    "state": "walker",
+    "evidence": "The status's own question: 'whether a room reads as inhabited, the walker's eye -- the market aisles' frames are the question' (frames in docs/findings/denser_rooms_148/). The walker's answers filed 2026-10-22 (docs/findings/walker_review_2026-10-21_drawings/README.md diff) are about the drawings, not these frames.",
+    "checked": "Read the uncommitted README diff and the verdict filenames under verdicts_2026-10-22/."
+   }
+  ],
+  "done_since": [
+   "The office's floor_1 is an office, not a shop floor: Deli Counter 0.248.0 `is_office_floor` (level_design.py:2247-2269, :3004); roadmap 281 CLOSED 2026-10-21."
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Narrowed is not near-finished here: the item's own close ('the interior surfaces reachable by the Layer 3 chain, one species placed by one rule') has not started -- no interior layer exists and none of the five asked species exists. What has moved is room density by furnishing (0.246.0-0.252.0), which the item absorbed after the 2026-10-19 look review. The card-shop aisle now lives in 282. Deli Counter 0.250.0/0.251.0 (routes reserved before rows; dressing kept off marker rooms' routes) shaped the rows further but answer roadmap 288, not a remaining piece here."
+ },
+ {
+  "n": 150,
+  "title": "A new person cannot yet ask the factory for a prop, a texture or a style that does not exist and get one",
+  "remainder": [
+   "A minted prop in a cold package: 'THE WORKED EXAMPLES IN A COLD PACKAGE REMAIN ... The minted pump is in seven shells and reached no package yet' (the body's close: 'then one worked example of each reaching a cold package')",
+   "A minted texture in a cold package: 'ONE WORKED EXAMPLE OF EACH IN A COLD PACKAGE IS WHAT REMAINS' (the texture half, Pixelcoat 0.29.0's new_material.py)",
+   "A minted style in a cold package: same sentence (the style half, Zoo 0.64.0's `new_species.py style <theme> --write`)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Minted prop in a cold package",
+    "state": "done",
+    "evidence": "zoo/tests/test_fire_hydrant.py:1 'fire_hydrant: minted 2026-09-12 by tools/new_species.py (roadmap 150)' and zoo/tests/test_litter_bin.py:1 the same, both in zoo/zoo_keeper/genome/minted.json (which `new_species.py new` writes, tools/new_species.py:233-238; 37 entries today, mailbox, newspaper_box, parking_meter, payphone, utility_pole among them). Cold run 9378's package (workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot) carries GLBs named fire_hydrant (1), litter_bin (1), payphone (3), utility_pole (2), mailbox, newspaper_box and parking_meter (1 each). Earlier still, Zoo CHANGELOG 0.66.1 records minted box_truck and cargo_container in cold run 9019's site kit.",
+    "checked": "Read minted.json and the tool's registry write; read the two tests' docstrings; find over 9378's package for each minted name."
+   },
+   {
+    "piece": "Minted texture in a cold package",
+    "state": "unclear",
+    "evidence": "Pixelcoat 0.30.0 (40bba0f, 2026-09-12, 'asphalt_delco and sidewalk_delco minted') added two profiles that differ from their templates (asphalt_street, concrete_sidewalk_street at 40bba0f~1) in exactly two keys, `id` and `kind` -- the shape `new_material.py new --like` writes (pixelcoat/tools/new_material.py:120-123, :139-141) -- and both ship in every package since: 9378's skins/asphalt_delco_albedo.png and skins/sidewalk_delco_albedo.png (also road_paint_delco, 0.31.0). But they reached cold run 9017's package (begun 2026-09-12 12:00, committed 12:18) BEFORE this item's 'late' status still called the texture example missing, and nothing records the tool as their maker (cmd_new leaves no mark in the profile).",
+    "checked": "git show of both profiles against their templates at 40bba0f~1 (Python json diff of keys); pixelcoat log for 'mint'; find over 9378's skins/; cold_9017/journal.md start time and commit time."
+   },
+   {
+    "piece": "Minted style in a cold package",
+    "state": "undone",
+    "evidence": "No genome carries a row minted under a theme's own name: 0 of 139 species in zoo/zoo_keeper/genome/species/ carry `delco_1997`, and `dna._pick_style_tag(g, 'delco_1997')` resolves 125 to `delco` and the same 14 to `default` that the 2026-09-12 status listed (atm, briefcase, cash_stack, chair, cheesesteak, crt_tv, desk, filing_cabinet, flat_top_grill, french_fries, simple_car, soda_cup, table, vending_machine) -- exactly the case `new_species.py style delco_1997 --write` exists for (zoo/tools/new_species.py:275-338) and has not been run on. Zoo's CHANGELOG mentions `--write` only where the tool shipped (0.64.0, line 10972).",
+    "checked": "Read cmd_style; a read-only python -B pass over every genome with dna._pick_style_tag; grepped Zoo CHANGELOG for --write / style row."
+   }
+  ],
+  "done_since": [
+   "Minted props reach cold packages: fire_hydrant and litter_bin, minted 2026-09-12 by tools/new_species.py (zoo/tests/test_fire_hydrant.py:1, test_litter_bin.py:1), stand in cold run 9378's package with payphone, utility_pole, mailbox, newspaper_box and parking_meter, all in genome/minted.json."
+  ],
+  "size": "medium",
+  "bears_on": "other",
+  "proposed_status": "",
+  "notes": "The page (USING_THE_FACTORY.md:187, 'Minting, step by step') and all three tools exist. What is left is the style half's worked example: run `new_species.py style <theme> --write` for a real need (the 14 species above, or a new theme) and show the row reaching a package in a cold run. The texture piece is likely done but is marked unclear because the only candidates were minted the day the tool shipped, before the status that still listed the texture example as missing, and carry no maker's mark; a reviewer who accepts 'id and kind changed from the template, nothing else' as the tool's signature can call it done. The minted pump itself is not in 9378's package (no gas station on restaurant_row_001), which no longer matters once any minted prop ships."
+ },
+ {
+  "n": 171,
+  "title": "Exterior access exists and almost never gets placed",
+  "remainder": [
+   "A fire escape a body can use as an entry route, measured against route counts: 'the stack is visual only (no collision), so it is not the alternate entry route this item asked to measure' (body: 'Any rule here should be measured against route counts, not only counted')",
+   "A derived placement rule: '0.220.0's rule is chosen (a walk-up of six storeys or fewer, not a corner block), not derived from a building's stairs as the item proposed' (body: 'storey count and how many independent interior stairs a building has')",
+   "The two older walk-ups: 'the library's two older walk-ups carry the assembly, not the stack'",
+   "More exterior ladders: 'Exterior ladders 3 of 78, as before' against the walker's 'more outdoor ladders would be good for fire escapes and alternate entry points'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "A climbable fire escape as an entry route",
+    "state": "undone",
+    "evidence": "deli_counter/fire_escape_stack.py:27-28 'No collision: the lowest landing stands a storey up, and Level Factory reads an Empty's street edge off its colliders'; DC CHANGELOG 0.220.0 (line 1722-1724) the same. Item 156 (NARROWED 2026-10-14) names the same work as its close: 'Left: what closes this, a fire escape a body can climb on an enterable walk-up'. Nothing in DC's CHANGELOG since 0.220.0 adds collision or a route to the stack.",
+    "checked": "Read fire_escape_stack.py 1-70 and the 0.220.0 entry; grepped DC CHANGELOG for fire escape; read item 156's newest status."
+   },
+   {
+    "piece": "A derived rule (storeys and independent stairs)",
+    "state": "undone",
+    "evidence": "deli_counter/fire_escape_stack.py:8-10 'CHOSEN, not read from a code: the height a walk-up stops at' and :33 `WALKUP_STOREYS = 6`; the rule itself is deli_counter/presets.py:3382-3386, `fire_escape = (int(floors) <= fire_escape_stack.WALKUP_STOREYS and not shop)` -- a storey count and the corner-shop flag, no stair count.",
+    "checked": "Read the module docstring, constants and plan's head; read presets.empty_midrise's rule lines."
+   },
+   {
+    "piece": "The two older walk-ups carry the assembly",
+    "state": "unclear",
+    "evidence": "Re-run today (read-only, docs/findings/open_items_remeasure/exterior_access_171.py over deli_counter/specs): 'fire_escapes assemblies: 2 spec(s): apartment_walkup_a01 (1), rowhouse_raid (1)' and 'fire_escape_stack sides: 5 spec(s): gs_midrise_a, _b, _g, _h, _i' -- the same as 2026-10-15. Whether the two should move to the stack is not stated as wanted; the status records it as a fact.",
+    "checked": "Read the script (it only reads specs and prints) and ran it with python -B."
+   },
+   {
+    "piece": "More exterior ladders",
+    "state": "undone",
+    "evidence": "The same run: library 'ladders: 78 ... exterior ladders: 3: apartment_walkup_a01:fire_escape_drop_ladder (exterior_wall), rowhouse_raid:fire_escape_drop_ladder (exterior_wall), warehouse:catwalk_ladder (platform)' -- unchanged from the item's 2026-09-23 count and from 2026-10-15.",
+    "checked": "Same run."
+   }
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Nothing has moved since the 2026-10-15 status: the library's counts are identical today (159 specs, 7 with a fire escape, 3 exterior ladders of 78). Item 241's body says of the fire escape 'roadmap 156 has it whole' (roadmap ~20571), and 156 lists 'which buildings' among the walker's calls -- so the derived-rule piece here may be overruled by a walker's choice, and should be argued in one place. The climbable half is shared with item 156 (earlier number, NARROWED 2026-10-14, whose left-overs also include the walker's calls on front/back, which buildings, colour and night look); closing it is a Zoo collider plus a Deli Counter/Level Factory route and nav change, then a route-count measurement, so it is large. Lot/LF read an Empty's street edge off its colliders (fire_escape_stack.py:27-28), which is the stated reason the stack has none -- a constraint the climbable version has to answer."
+ },
+ {
+  "n": 179,
+  "title": "Manhole covers and sewer drain grates: a street has them, and only so many",
+  "remainder": [
+   "The inlet's throat reads as a notch: 'Next: the throat made to read as an inlet's rather than a notch' (after the walker's 'Needs work' -- 'there looks to be a slight cutout/indent of the kerb')",
+   "Curb ramps: 'and curb ramps at crossings looked at'",
+   "Inlets between corners: 'Left: inlets between corners (they need a grade and a design storm)' (2026-10-12 status, not reported done since)",
+   "The iron beyond a flat colour, conditionally: 'if that eye asks more of the iron than a flat colour, the Zoo species and Pixelcoat iron this item first assigned' (2026-10-12 status)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "Throat made to read as an inlet's",
+    "state": "undone",
+    "evidence": "lot/site_drains.py:406-417 still draws the throat as one dark quad on the kerb face, PROUD of it toward the road, from road_top + THROAT_SILL to band_top - THROAT_HEAD (:83-85, 0.015 / 0.025) -- the shape the walker read as a cutout. Lot's commits since 2026-10-19 are 0.126.0 (bus stop pieces face the road, a street phone's booth) and 0.126.1 (the contract fallback); neither touches site_drains.",
+    "checked": "Read _inlet (site_drains.py 388-418) and the throat constants; git -C lot log --since=2026-10-19; Lot CHANGELOG headers 0.121.0-0.126.1."
+   },
+   {
+    "piece": "Curb ramps at crossings",
+    "state": "superseded",
+    "evidence": "Roadmap 244 'A marked crosswalk lands on a raised kerb' is CLOSED 2026-10-19: 'DECIDED, a call that can be changed ...: NONE, the level as built. A marked crosswalk meets a full kerb unless a road or a path crosses it there' (roadmap line 20601), with the ramp's PROWAG numbers kept in docs/reference/CURB_RAMPS.md and the change route named (`site_streets.split_span` and `crossing_walks`).",
+    "checked": "Grepped the roadmap for curb ramp / CURB_RAMPS; read 244's closing status and index row."
+   },
+   {
+    "piece": "Inlets between corners",
+    "state": "undone",
+    "evidence": "lot/site_drains.py:22-23 'Inlets between corners follow the gutter's spread, which needs the street's grade and a design storm a site has not got: not placed'; `plan` (:233ff) places inlets a corner by `site_furniture.corner_key` (:282).",
+    "checked": "Grepped site_drains.py for the placement rule and its docstring."
+   },
+   {
+    "piece": "Iron as a Zoo species in a Pixelcoat skin",
+    "state": "walker",
+    "evidence": "Conditional on the walker's eye; the 2026-10-19 review's 'Needs work' is about the kerb cutout, not the iron. The covers and grates are still Lot's generated meshes in a flat colour (Lot CHANGELOG 0.120.0, lines 333-340: 'One mesh a material (the iron, the dark) a 32 m cell').",
+    "checked": "Read the walker's quote in the status and Lot 0.120.0's entry."
+   }
+  ],
+  "done_since": [
+   "Curb ramps at crossings were answered by roadmap 244's closing decision of 2026-10-19 (NONE, as built, changeable; docs/reference/CURB_RAMPS.md)."
+  ],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The factory's next step is the throat (a Lot geometry change, then a frame for the walker from a cold run). Inlets between corners need a grade and a design storm the site does not model -- arguably a standing constraint rather than a task, but the 2026-10-12 status lists it as left. The walker's comment also asked whether the cutout was a wheelchair ramp; 244 is where that question now lives, and it is decided."
+ },
+ {
+  "n": 193,
+  "title": "Pieces stand over openings and on stair walks, and nothing asks again",
+  "remainder": [
+   "The 18 frozen pieces, case by case: 'Open: the 18 -- cbp_town_finale's and final_stand's AUTHORED tables, consoles, statue and cover standing inside atrium holes nothing fills, foundry's roof pieces over roof openings, the garages' columns at a ramp opening's edge -- each a look, not a rule' (body step 3: 'The rest of the frozen list, case by case')",
+   "A furnish set moving as one: body step 2, 'A furnish SET -- a table and its chairs -- moves together, not a piece at a time' (not mentioned in the newest status)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "The 18 frozen pieces",
+    "state": "undone",
+    "evidence": "deli_counter/stale_pieces_baseline.json is unchanged since 0.202.0 (git log: e6cb0d55, 2026-10-07): counts {'pieces': 18, 'shells': 7}. Recounted today, read-only, with `layout_lint.stale_pieces` over every built non-lf_ spec (the same walk as test_stale_pieces.py:120-149): 18 pieces in 7 shells -- cbp_town_finale_midbalanced_schemafixed (cash_counting_tables, left_field_power_cabinet, security_console_cluster), final_stand (boss_desk, garage_cover, north_statue, upper_cover_west), foundry_heist_vertical (bridge_server_rack, roof_ac_block_a, skylight_box), and col_0_02 / col_1_02 in cr_garage, parking_garage, parking_garage_a01 and parking_garage_a02. No later roadmap item takes them over (grep for stale_pieces_baseline / item 193 / L23).",
+    "checked": "Read the baseline and its history; read test_stale_pieces.py's two baseline tests; ran layout_lint.stale_pieces over the library with python -B (no writes)."
+   },
+   {
+    "piece": "A furnish set moves together",
+    "state": "moot",
+    "evidence": "`level_design.reseat_piece` still moves ONE volume (deli_counter/level_design.py:872-875) and nothing in DC moves a set; but every one of the 18 left is authored or structure (the baseline's own reason), none a furnish set, and 0.202.0's `_seed_clear` keeps every standing piece furnish or seed_cover places 0.3 m off an authored hole in its own storey's floor (level_design.py:807-822), so a refurnish re-draws a set clear (apartment_walkup_a01's dining set left the list that way). The case the step was written for no longer exists in the library.",
+    "checked": "Read reseat_piece's docstring and head; grepped level_design and migrate_stale_pieces for set moves; read the baseline's reason."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nothing has moved since 2026-10-07. Each of the 18 is a look first (frames of cbp_town_finale's storey-1 tables were the item's own first ask) and then either a move/trim or a recorded 'by design' (the garages' columns are structure; foundry's skylight box and roof AC may be meant to stand over their openings). Some of those calls may be the walker's; none is recorded as asked. L23 is WARN, so none of this blocks a build."
+ },
+ {
+  "n": 195,
+  "title": "A piece passes through a wall, and no gate asked",
+  "remainder": [
+   "The twelve pieces ALONG a wall: 'Open: the twelve ALONG a wall, frozen in `wall_crossing_baseline.json`, each to be looked at'",
+   "The casino's generated vault block: '`casino_tower`'s generated basement vault block, centred on a partition'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {
+    "piece": "The twelve along a wall",
+    "state": "undone",
+    "evidence": "deli_counter/wall_crossing_baseline.json unchanged since 0.199.0 (git log: 2501789f, 2026-10-06), counts {'pieces': 12, 'shells': 8}. Recounted today, read-only, with `layout_lint.wall_crossings` over every built non-lf_ spec (test_wall_crossing.py:215-244's walk): 12 pieces in 8 shells, every one shape 'along' -- bank_branch_a04 VAULT_DOOR; cbp_town_finale_midbalanced_schemafixed field_service_locked_rollgate and the two vomitory wall covers; col_0_00 in cr_garage, parking_garage and parking_garage_a01, col_1_22 in parking_garage_a02; forklift_bay and rack_long_b in setback_demo and warehouse_a02.",
+    "checked": "Read the baseline and its history; ran layout_lint.wall_crossings over the library with python -B (no writes)."
+   },
+   {
+    "piece": "casino_tower's vault_block",
+    "state": "undone",
+    "evidence": "deli_counter/presets.py:1613 stands the basement partition at axis Y pos 0.0 and :1632 the `vault_block` at x 0.0, 8.0 m wide -- centred on it; deli_counter/test_wall_crossing.py:195-201 pins the generated 'along' set as exactly [('casino_tower', 'vault_block'), ('parking_garage', 'col_0_00')].",
+    "checked": "Read the casino recipe's partition and volume lines and the pinning test."
+   }
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The body's third open step, a level frame of the trimmed deli case, is already reported done in the newest status (cold runs 9190/9191, case at x -11.0925), so it is not counted. Nothing has moved since 2026-10-07. Several of the twelve may be structure (the garage columns on 0.35 m walls) and want a recorded 'by design' rather than a move; the 14 m racks centred on a partition and the 5.0 m rollgate across a 2.2 m doorway are the ones the item's own text calls wrong. L25 is WARN."
+ },
+ {
+  "n": 202,
+  "title": "Handing the factory to a stranger",
+  "remainder": [
+   "A Linux run: 'Left: a Linux run -- the walker has no Linux machine (2026-10-11), so `factory.sh` and START_HERE.md's Linux lines are written and unproven' (the walker's decision: their machines are 'Windows and Linux')",
+   "The venv's unpinned packages: '-- item 256'",
+   "A gate for gameplay the merge drops: 'and item 272, the gate that would have caught the merge's loss before an install test did'"
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {
+    "piece": "A Linux run",
+    "state": "walker",
+    "evidence": "Blocked on a machine the factory does not have: the status says the walker has none (2026-10-11), and this machine has no Linux to run on -- `wsl.exe -l -q` prints only its usage text (no distribution installed), and enabling one is a system change and a download the walker would have to approve. `factory.sh` and START_HERE.md's Linux lines exist and no install test has run them: docs/findings/stranger_install/ holds install tests 1 to 12, test 12 unpacked to `C:\\stranger_202_12\\gabagool` (install_test_12.sh:15), and its README:177-179 says 'the Linux half is checked by reading, and the first real Linux run will be the collaborator's'. The factory is still at 1.41.0 (factory.manifest.json `factory_version`; root CHANGELOG.md line 6).",
+    "checked": "Read the status; ls'd wsl.exe and listed distributions; listed docs/findings/stranger_install and read its README 172-182 and 600-612; read install_test_12.sh's paths; read factory.manifest.json's version and the root CHANGELOG headers; git tag -l 'factory-v1.4*'."
+   },
+   {
+    "piece": "Item 256, the venv's unpinned packages",
+    "state": "done",
+    "evidence": "Roadmap 256 is CLOSED 2026-10-15 (index line 937), five days before this status still named it: Level Factory 0.214.0's `interpreter.CONSTRAINED` (level_factory/packages/tools/interpreter.py:59-69, wrapt held at 2.5.1 among the nine) is written to `<venv>/constraints.txt` and passed to pip with `-c` (:136-175); install test 12 ran on Level Factory 0.227.0, past it.",
+    "checked": "Read the 256 index row and interpreter.py 55-175."
+   },
+   {
+    "piece": "Item 272, a gate for gameplay the merge drops",
+    "state": "superseded",
+    "evidence": "Roadmap 272 'Nothing checks that a package carries the gameplay its composition had' is OPEN 2026-10-20: 'Level Factory 0.227.0 fixed the loss and left the check that would have found it' (index line 953). No Level Factory release since (0.228.0 to 0.232.1, CHANGELOG headers) names 272.",
+    "checked": "Read 272's status; read LF CHANGELOG headers and grepped for 272."
+   }
+  ],
+  "done_since": [
+   "Item 256 was already closed (2026-10-15, Level Factory 0.214.0, interpreter.py:59-69 and :136-175) when the 2026-10-20 status listed it as left; the next status should drop it."
+  ],
+  "size": "medium",
+  "bears_on": "interventions",
+  "proposed_status": "",
+  "notes": "Everything else the item's NEXT list asked for is shipped and certified by twelve install tests (re-certification and tags, init filling tools.local.json, setup --venv on Blender's Python, START_HERE.md, the lean package). The factory's own remaining work is item 272's gate, which lives there. What only the walker can unblock is a Linux machine or VM (or the collaborator's own run reported back); once one exists the Linux install test is a medium job. The memory note 'Collaborator handoff ~2026-10-21 ... left: Linux' says the same."
+ }
+]

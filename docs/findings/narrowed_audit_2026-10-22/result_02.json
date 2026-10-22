@@ -1,0 +1,262 @@
+[
+ {
+  "n": 18,
+  "title": "Every gate measures whether a level WORKS. None measures whether it is GOOD",
+  "remainder": [
+   "A: a gate that a path crossing a road yields to it -- \"a path that crosses a road should yield to it (walkup_siege's path_0 covers 16.0 m of asphalt at 30 degrees ...)\"",
+   "B: a gate that a kerb cut runs square to its kerb -- \"a kerb cut should run perpendicular to its kerb, not diagonally\"",
+   "C: a gate that stair pitch is consistent across a building -- \"a flight of stairs should have a consistent pitch across a building\"",
+   "D: classify which parts of 'good' are measurable and which stay a person's -- \"saying which is which is itself work nobody has done\"",
+   "E: the GOOD gate itself, so shipping stops needing a human to play every level -- \"So long as that gap exists, shipping requires a human to play every level\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: path-yields-to-road gate", "state": "undone",
+    "evidence": "lot/site_streets.py:232-238 builds `LOT_KERB_CROSSED_SHALLOW` (a crosser meeting a kerb so shallow that span > 3x its width, 'Re-route it closer to square'), but its only producer call lot/lot.py:2550-2553 does `for f_ in street_findings: print(f\"[lot] {f_}\")` -- stdout only, never filed in a validation report, never blocking (level_factory/adapters/lot/__init__.py:389-467 normalize_validation reads pacing, tactical.findings and site_audit only). The design side moved: lot/site_paths.py:42-47 (Lot 0.91.0, 2026-10-03) 'A SPUR WITH NO DOOR TO MEET IS NOT DRAWN' / 'A BUILDING PATH IS NOT DRAWN', which removes the cross-lot building walks that produced walkup_siege's path_0/path_2.",
+    "checked": "read site_streets.kerb_crossings and roads(), lot.py's caller, the Lot adapter's normalize_validation; bash grep -rn KERB_CROSSED_SHALLOW over lot and level_factory (only the producer and test_site_streets.py:47). Lot's S_STREET_CROSS (site_audit.py:269-279) is a different question: a mission leg crossing a road as a combat exposure, INFO."},
+   {"piece": "B: kerb cut square to its kerb", "state": "done",
+    "evidence": "By construction, not by a gate: lot/lot.py:2207-2247 `street_slabs` draws every `kerbcut_*` piece as a box at the road's own yaw `ang` along the kerb line (spans from site_streets.split_span), so a dropped kerb's ends are square to the kerb and a diagonal cut cannot be produced. Shipped with Lot's street model (site_streets, 0.61.0/0.65.0, 2026-09-12), never recorded against this item.",
+    "checked": "read lot.py street_slabs and site_streets kerb_crossings/crossing_box; git log of site_streets.py"},
+   {"piece": "C: consistent stair pitch across a building", "state": "undone",
+    "evidence": "deli_counter/stair_pitch.py:17-23,35-36 caps a flight at MAX_WALKABLE_PITCH_DEG 40 and lengthens only flights over it to TARGET_PITCH_DEG 38; flights under 40 keep their own pitch. No rule compares pitches within a building: grep of layout_lint.py finds 'pitch' only in advice text (282, 331, 377); tools/check_stair_pitch.py measures pitch against the 45/55 limits, no spread.",
+    "checked": "read stair_pitch.py head; grep -n -i pitch layout_lint.py validate.py; grep consistent/spread over deli_counter, level_factory, lot, tools; grep of the roadmap for 'consistent pitch' finds only this item"},
+   {"piece": "D: which parts are measurable vs a person's", "state": "done",
+    "evidence": "docs/LEVEL_STANDARD.md:83-101 (section 0.2) tags every requirement GATE / MEASURED / BUILT / EYE ('Judged by the walker from frames or a walk; no instrument can') / GAP; v1 written 2026-10-07 (aa7bb67), v1.1 411e4d8.",
+    "checked": "read LEVEL_STANDARD.md 61-101; git log -- docs/LEVEL_STANDARD.md"},
+   {"piece": "E: the GOOD gate", "state": "undone",
+    "evidence": "docs/LEVEL_STANDARD.md:69-72: 'GOOD is the gate this standard is for ... item 18 records that it does not exist as a gate.' The walker-side half is now roadmap 253 ('It is roadmap 18's missing gate from the walker's side'), NARROWED 2026-10-19 with walk-copy flag keys shipped; no instrument gate on 'good' exists.",
+    "checked": "read LEVEL_STANDARD.md section 0.1; read roadmap 253's status and body"}
+  ],
+  "done_since": [
+   "D done: docs/LEVEL_STANDARD.md v1 (2026-10-07, aa7bb67) section 0.2 tags each requirement GATE/MEASURED/BUILT/EYE/GAP -- the measurable-vs-human split this item said nobody had done.",
+   "Part of A's cause removed by design: Lot 0.88.0-0.91.0 (2026-10-03; lot/site_paths.py:11-45) -- walks go to real doors and building-to-building paths are not drawn; the shallow-crossing finding exists but only prints.",
+   "Walker-side half of E handed to roadmap 253 (look flags in walk copies, NARROWED 2026-10-19)."
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The umbrella 'good' gate. Of its three named measurable examples, one (kerb cut square) is now true by construction, one (path across road) has an instrument that only prints to stdout, and one (pitch consistency) has nothing. The cheapest next step toward a GATE is filing LOT_KERB_CROSSED_SHALLOW into Lot's validation findings (it already exists) and adding a per-building pitch-spread lint in Deli Counter; LEVEL_STANDARD.md's rule is 'measure the corpus first, set the bound second'. The newest status is an instrument-score essay (2026-09-13) naming no remainder of its own; the remainder here is the body's asks."
+ },
+ {
+  "n": 26,
+  "title": "Something finally looks at the picture",
+  "remainder": [
+   "A: decide the number a level has to beat -- \"Not yet gated on anything, and it should not be until somebody decides what number a level has to beat\"",
+   "B: gate on it once decided -- \"THE GATE WAITS ON A NUMBER NOBODY HAS CHOSEN\"",
+   "C: the display dependency -- \"`--headless` disables rendering, so a machine without one measures under llvmpipe, which may be A/B'd against itself and not quoted beside a Forward+ figure\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A1: sourced floors", "state": "done",
+    "evidence": "tools/light_check.py (2026-10-09, docs commit 0f838a1; `import look_shots` at :96) holds every station to a named target with its source -- table :55-66: interior ROW p50 >= 10 ('the night census and LEVEL_STANDARD's scorecard, \"rooms under 10\"'), street p50 >= 2 (NIGHT_READABILITY), facade WARN at p95 < 10. Constants :109-112 (ROW_FLOOR 10, MOODY_FLOOR 5, BLACK_P50 1, NEAR_CLIP_PCT 5.0).",
+    "checked": "read light_check.py 1-117 and grep -n of its constants and table rows"},
+   {"piece": "A2: the provisional floors and which may block", "state": "walker",
+    "evidence": "light_check.py:60,63,65 mark MOODY p50 >= 5, street near-clip <= 5% and the day balance PROVISIONAL; :15-16 'A target nobody has set yet is PROVISIONAL and says so, so the walker's eye can move it.' docs/LEVEL_STANDARD.md:99-101: moving a line to GATE 'is a decision ... measure the corpus first, set the bound second'.",
+    "checked": "read light_check.py's docstring; LEVEL_STANDARD.md section 0.2"},
+   {"piece": "B: the gate", "state": "undone",
+    "evidence": "tools/light_check.py:84-85: 'Prints the verdicts and stops. Exit 1 when any station FAILs, else 0. Nothing gates on it yet.' Nothing runs it: bash grep -rln light_check over tools/*.py, level_factory/packages and level_factory/apps finds only light_check.py itself, a docstring mention in godot_transform.py:4 and test_godot_transform.py:61-67 (a unit test of its placements() parser, not a run of the check); only cold runs 9214-9216's NOTES.md mention it. Roadmap 178 (the 'instruments report and nothing blocks' item) lists z-fight, isolation, approaches and the navgate test, not look_shots/light_check.",
+    "checked": "grep over tools, level_factory and docs/cold_runs/*/NOTES.md; read roadmap 178's status and body"},
+   {"piece": "C: display dependency", "state": "moot",
+    "evidence": "A standing engine constraint, still true and still documented: tools/look_shots.py:62-66 'THIS ONE NEEDS A DISPLAY. --headless disables rendering outright ... llvmpipe -- usable for an A/B against itself, not for a number you quote next to a Forward+ one'; :142 headless=False. Nothing to build.",
+    "checked": "read look_shots.py 1-80, grep llvmpipe/headless"}
+  ],
+  "done_since": [
+   "A largely done: tools/light_check.py (2026-10-09) names the luminance floors a level has to beat, each with its source, three of them PROVISIONAL for the walker's eye; it exits 1 on a FAIL (light_check.py:388)."
+  ],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "What is left is wiring, plus one call. The floors now exist (light_check), so the item's own precondition for gating is met for brightness; nothing runs light_check per level, not even report-only. Running it in every cold run needs a display (the cold-run machine is Windows and has one) and adds re-bakes for any slot other than the level's own. Which floors may BLOCK (and the three PROVISIONAL ones) is a decision LEVEL_STANDARD.md section 0.2 calls a decision; the reporting half is the factory's. The display dependency (C) is a constraint, not work. A histogram still cannot answer item 18, as this item says itself."
+ },
+ {
+  "n": 42,
+  "title": "A level leaves the factory with a name that does not say what it is",
+  "remainder": [
+   "A: rename the package interior's per-building subtree -- \"the interior renames -- `lot/<building>/` -> `sites/<building>/` ... which move `res://` paths inside the package and want their own portability run\"",
+   "B: stop shipping the duplicate -- \"and dropping `assets/lot.glb`\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: lot/<building>/ -> sites/<building>/", "state": "undone",
+    "evidence": "Cold run 9378's package (workspaces/cold-9378-ws/.level_factory/exports/LF_restaurant_row_001.portable-godot, written by Level Factory 0.232.1's export on 2026-10-21) still has `lot/` (deli_a03, gs_empty_rowhome_a..., office, pharmacy_a01) and no `sites/`; its scenes carry `res://lot/deli_a03/` x498, `res://lot/office/` x338, `res://lot/pharmacy_a01/` x106. The newest export code builds on the old name: level_factory/packages/exporting/buildings_index.py:51,54 (0.232.0, 2026-10-21) writes `res://lot/%s/drawings/`; merge_buildings.py:57 and merge_empties.py:67 key on `res://lot/<id>/site.tscn`; tools/light_check.py's placements() regex matches `lot/([^/\"]+)/site\\.tscn`.",
+    "checked": "ls of the 9378 package; grep -rho res://lot/... over its .tscn; grep of level_factory/packages for res://lot/ and \"lot\" path joins"},
+   {"piece": "B: drop assets/lot.glb", "state": "superseded",
+    "evidence": "Still shipped: 9378's package `assets/lot.glb` and `assets/shell.glb`, 1,042,328 bytes each, sha256 prefix fb4e6a91371ec78b for both; neither referenced by mission.tscn (0 matches each), listed only in build.lock.json, light_bake.json, mission_manifest.json, portable_resource_manifest.json. Now tracked by roadmap 258 (OPEN 2026-10-19), which owns both dead copies: 'What stands is the dead asset, bigger: 9322's package carries `assets/shell.glb` and `assets/lot.glb` ... byte-identical, which no scene references' and 'Either way the package stops carrying an asset nothing references, which `export_closure` could refuse.'",
+    "checked": "ls -l and sha256 of the two GLBs; grep of the package's .tscn/.json for lot.glb/shell.glb; read roadmap 258's status and close condition"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "Piece B can be struck from this item and left to 258 (whose fix removes both copies). Piece A is undone and has grown more expensive since 2026-08-14: at least four Level Factory exporting modules and the factory's light_check now key on `res://lot/<id>/`, and the package's own `buildings.json` (roadmap 296) publishes `res://lot/.../drawings/` paths to game code, so the rename now also moves a published contract. docs/EXPORT_NAMING.md:119-131 and 176-183 still carry the plan and its costs. Whether the rename is still wanted at that price is worth asking before doing it; it moves no interventions."
+ },
+ {
+  "n": 61,
+  "title": "Optional color-preserving film emulsion for Lux",
+  "remainder": [
+   "A: section 51's hardware sweep on the six unmeasured classes -- \"SIX OF SEVEN CLASSES REMAIN OPEN (AMD discrete, Intel Arc, integrated, handheld, Apple/Metal, software)\"",
+   "B: section 50's two empty columns -- \"BANDWIDTH AND SHADER STALLS ARE LEFT EMPTY ... stalls need Nsight, RGP or PIX\"",
+   "C: the half-resolution pass -- \"A HALF-RES PASS THAT IS PRICED BUT UNBUILT ... That is a look decision and this item does not make it\"",
+   "D: section 41's failing cells -- \"INSIDE BUDGET EVERYWHERE EXCEPT 4K ABOVE 60 FPS AND 1440p AT 120\" (recorded as scoping, not work)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: six hardware classes", "state": "undone",
+    "evidence": "lux/docs/data/film_hw_sweep.jsonl holds 1 record (keys incl. adapter, class, driver: 'NVIDIA GeForce RTX 2060', 'nvidia-discrete', '616.56'), last written by 6095168 (Lux 0.29.0, 2026-09-04); lux/tools/film_hw_sweep.py:69-77 COVERAGE still names amd-discrete, intel-arc, integrated, handheld, apple, software. `git -C lux log --since=2026-09-04` shows no film work after 713695a (resource uids, 2026-09-05).",
+    "checked": "wc -l and a read of the jsonl's one record; read film_hw_sweep.py COVERAGE; git log of lux grepped for film/emulsion/grain/hdr_2d"},
+   {"piece": "B: bandwidth and shader-stall columns", "state": "undone",
+    "evidence": "No Lux commit after 2026-09-05 touches film; the status's own account (columns left empty, need vendor tools) stands unchanged.",
+    "checked": "git log of lux since 2026-09-04"},
+   {"piece": "C: half-res pass", "state": "walker",
+    "evidence": "Priced only: lux/tools/film_halfres_probe.py exists; no `half_res`/`halfres` in any .gd or .gdshader under lux. lux/addons/lux/docs/film_emulsion_authoring.md:50-59 documents it as the 4K>60 / 1440p@120 option ('4K half-res | 74.3% | 31.5% -> 13.5%'). Building it is the look decision the status leaves open ('a SECOND STOCK, the same emulsion coarser').",
+    "checked": "grep -rln -i half_res/halfres over lux .gd/.gdshader/.py; read the authoring doc's lines"},
+   {"piece": "D: section 41 envelope", "state": "moot",
+    "evidence": "Recorded as a scoping decision, not a task: film_emulsion_authoring.md:24 'Film Mode fits everywhere except 4K above 60 fps and 1440p at 120.'",
+    "checked": "grep of the authoring doc"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "performance",
+  "proposed_status": "",
+  "notes": "Nothing has moved since 2026-09-05. The feature is OFF in everything the factory ships: lux_preset.gd:255 `film_emulsion_enabled: bool = false`, none of the 12 presets in lux/addons/lux/presets/ sets it, Low and Compatibility tiers set allow_film_emulsion = false (lux_quality_profile.gd:89,100), and roadmap 155's ledger entry 6 (line 16699) records 'Film emulsion -- a question, answered: off.' So the remainder qualifies an optional look no level uses, on hardware the factory does not have (only the 'software' llvmpipe row could be taken locally). It moves no interventions and no shipped frame. A walker call to park it (drop to ANALYSIS with the one-GPU envelope as the record) would be honest; until then it is undone work, hence OPEN."
+ },
+ {
+  "n": 85,
+  "title": "Fixtures spawn inside walls, and the co-location gate cannot notice",
+  "remainder": [
+   "A: the anchor-against-wall check as a gate, not a probe run by hand -- \"WHAT REMAINS is that check as a GATE rather than a probe run by hand ... the natural home is the Deli Counter adapter's `normalize_validation`\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: anchor-in-wall gate", "state": "undone",
+    "evidence": "tools/anchor_wall_probe.py is unchanged since 5f7f984 (2026-09-11) and still says (:25) 'Prints what it measured and stops.' level_factory/adapters/deli_counter/__init__.py:300-321 `normalize_validation` reads only `intel` from *gameplay.json / *audit.json -- no lights.json, no anchor geometry. Deli Counter prevents the defect at the source but files nothing: lights.py:287-289 `wall_clearance` (derived: half wall + half fixture depth + gap), :1274-1283 ceiling-row points within it are NUDGED or DROPPED and counted, :414,416 facade packs/signs proud of the FACE (0.113.0); deli_counter.py:3499-3516 prints the nudged/dropped counts to stdout. No gate checks an emitted anchor against a wall: grep for anchor_wall / IN_WALL / lamp-inside-wall over deli_counter, level_factory, lot, lux and tools finds only the probe, lights.py comments and tests; layout_lint.py, validate.py, nav_gate.py and check.py have no light/anchor rule; Lux's colocation/light-leak selftests answer other questions.",
+    "checked": "read the probe's head and git log; read the DC adapter's normalize_validation; read lights.py wall_clearance/_band/row nudge and the deli_counter.py report print; grep across the tool repos"}
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The source fixes (DC 0.113.0 facade offsets, 0.116.0 ceiling rows off partitions, both 2026-09-11) mean a gate today would read clean; its value is catching a regression that would otherwise surface only in a walk, as this item's original defect did. The tolerance the body called 'a decision somebody has to make' now has a derivation in lights.wall_clearance, so the gate can reuse it rather than pick one. One patch: either Deli Counter emits an intel code (e.g. a lamp point inside a wall's band, from the slots it already writes) that the existing adapter path files, or the adapter runs the probe's geometry on shell.lights.json + shell.slots.json."
+ },
+ {
+  "n": 111,
+  "title": "The preset registry is advertised at seventeen and exercised at three, and first contact found two defects",
+  "remainder": [
+   "A: first contact for the presets never built -- \"NEVER BUILT: auto_shop, compound, gas_station, parking_garage, pawn_shop, suburban_safehouse -- six ... WHAT REMAINS is the six, one cold run each\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A1: gas_station", "state": "done",
+    "evidence": "Exercised the day after the status: docs/cold_runs/cold_9011/briefs/gas_stop_001.json asks `archetype: gas_station`; cold_9011/run.log shows gas_stop_001.deli_generate and .lot_assemble for seeds 9011/9112/9213 'succeeded', every job of the run succeeded, journal.md (begun 2026-09-12) records no intervention. Since then 44 cold-run briefs ask for it (first cold_9011), e.g. cold_9196 '0 interventions; gas_block_001 ships' (NOTES.md:1); deli_counter/specs/lf_gas_block_001_9080.json carries \"preset\": \"gas_station\".",
+    "checked": "tallied `archetype` over docs/cold_runs/*/briefs/*.json (key read off gas_block_001.json); read cold_9011's run.log and journal; read an lf_gas spec's preset field"},
+   {"piece": "A2: auto_shop, compound, parking_garage, pawn_shop, suburban_safehouse", "state": "undone",
+    "evidence": "No brief anywhere asks for any of the five: grep -rlE '\"archetype\": \"(auto_shop|compound|parking_garage|pawn_shop|suburban_safehouse)\"' over docs, workspaces, level_factory/examples and _runs finds nothing; the cold-run brief tally lists only corner_deli 128, strip_club 86, urban_bank 69, gas_station 44, police_station 9, county_hospital 8, card_shop 7, industrial_warehouse 5, deli 5, video_store 4, convenience_store 3, casino_tower 1; the workspaces' briefs add bank, mixed_block and nothing else. Library specs of those families (e.g. auto_shop_a01, used in cold_9011) carry no `preset` field -- they are not the preset. Measured read-only (python -B, git status clean after): presets.make(p, seed=9002) + tactical.analyze gives 1 objective and 0 tactical errors for each of the five, so first contact at the spec level would pass deli_generate's validation; the Blender build, nav gate and a run are untested.",
+    "checked": "greps and tallies above; a read-only python -B run of presets.make + tactical.analyze for the five"}
+  ],
+  "done_since": [
+   "gas_station exercised: cold run 9011 (2026-09-12, gas_stop_001) built three gas_station preset shells and assembled them, every job succeeded, no intervention; repeated by the gas_block_001 runs (e.g. 9196, 0 interventions)."
+  ],
+  "size": "medium",
+  "bears_on": "interventions",
+  "proposed_status": "",
+  "notes": "Five of the six remain, one cold run each (or one batch carrying five missions). The registry has grown to 24 presets (card_shop, convenience_store, empty_midrise, empty_rowhome, strip_club, twin, video_store added); by this item's own census rule `twin` (not a facade, 0 objectives) is also never exercised, while empty_midrise/empty_rowhome are facades and exempt. Caveat for whoever runs them: with a `lot_library` set (every cold-run brief), the archetype's preset shell is built and gated but not placed in the level (roadmap 258), so 'exercised' here means built and composed, not played. No test sweeps every preset through tactical validation (the body's 'probe that makes every preset in the registry and validates the result'): test_preset_stairs.py, test_cover_breaks_sightlines.py and test_door_width.py sweep the registry for stairs, cover and doors only."
+ },
+ {
+  "n": 116,
+  "title": "Buildings read as boxes, and that is a shape problem no skin can solve",
+  "remainder": [
+   "A: adoption -- buildings the pipeline makes actually step -- \"it is opt-in and only the demo opts in ... THE REMAINING WORK IS ADOPTION: presets have to start using it, and that is a design pass, not a capability gap\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: presets and library adopt setbacks (or other massing)", "state": "undone",
+    "evidence": "Read-only tally over deli_counter/specs/*.json: 458 specs, 2 with a `setbacks` key -- office_stepped.json ([{story 2, inset_n 7.0, inset_e 5.0}]) and setback_demo.json (demo: true, out of levels since DC 0.187.0) -- both added in 24f495a3 (0.110.0, 2026-09-07), i.e. the state the status describes. `grep -n setbacks deli_counter/presets.py` finds nothing: no preset steps. Deli Counter's changelog has no massing move after 0.110.0 ('nothing else opts in yet. tools/massing.py is the check', CHANGELOG.md:8860). The one stepped library building can reach a level: level_factory/packages/pipeline/cluster.py:68 `\"office\": (\"office\", \"office_stepped\", \"bank_tower\")`, and cold_9172/NOTES.md:17 lists office_stepped on seed_9102 -- one family of ~150.",
+    "checked": "python -B one-liner reading every spec's `setbacks`; grep presets.py; grep DC CHANGELOG for massing/setback/stepped/bay; grep cluster.py and cold-run notes for office_stepped"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The instrument the body asked for exists and predates the status (tools/massing.py, 7765437, 2026-09-07: fill per elevation and distinct masses); it could not be re-run here (running repo scripts was refused in this audit), so today's library fill figure is not re-measured -- the spec tally above is the evidence instead. The body's two cheaper routes have moved since, and the item itself says they do not substitute: layer-on-top (fire escapes Zoo 1.110.0/DC 0.220.0, roof props, awnings, stoops) and street-scale arrangement (roadmap 241's urban street, four to twelve storeys sharing walls). Overlaps roadmap 156's 'massing' list (no recessed bays, no light wells, one parapet height). What is left is a design pass -- which buildings step, where -- before any code, hence large."
+ },
+ {
+  "n": 156,
+  "title": "Fire escapes, brick walk-ups, and buildings that are not one box at one height",
+  "remainder": [
+   "A: a climbable fire escape on an enterable walk-up, in a cold package -- \"Left: what closes this, a fire escape a body can climb on an enterable walk-up\" / \"a cold package with a walk-up whose fire escape a body can climb from the drop ladder to the top landing\"",
+   "B: the light well -- \"Left of this item: the merge; climbing it, which closes 156; the light well; the walker's calls\"",
+   "C: the walker's calls -- \"the walker's calls: front or back, which buildings, the colour, how it reads at night\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: climbable fire escape", "state": "undone",
+    "evidence": "The walk-up stacks have no collision: deli_counter/deli_counter.py:2721-2749 `_fire_escape_stack` docstring 'No collision: the lowest landing stands a storey up', each slot `\"collision\": \"none\"` (:2748); Zoo 1.110.0's `fire_escape` genome is '`metal_painted` ... no collision' (zoo/CHANGELOG.md:606-607). The legacy builder is unchanged from the body's description: deli_counter.py:2414-2463 `_fire_escapes` gives the deck a collider (:2442) but the rail (:2450,2456) and the stair stub (:2461, a 0.6 x 0.6 visual box) none. The walk-ups that carry the stack are Empties (non-enterable). No Zoo, DC, LF or Lot changelog entry after 2026-10-14 adds a walkable flight; LF 0.220.0 (2026-10-20) only skins apartment_walkup_a01's legacy fire escape (level_factory/CHANGELOG.md:484-517).",
+    "checked": "read both DC builders; grep -i fire.escape over the zoo, deli_counter, level_factory and lot changelogs"},
+   {"piece": "B: light well", "state": "undone",
+    "evidence": "grep -rn -i 'light.well|light_well|lightwell' over deli_counter, level_factory/packages, lot and zoo source finds nothing; the roadmap's only mentions are this item's survey line (16944) and an unrelated rule note (17920).",
+    "checked": "grep of source and roadmap"},
+   {"piece": "C: the walker's calls", "state": "walker",
+    "evidence": "Not asked yet: the look reviews' verdict files carry no fire-escape question -- docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json (68 verdicts; non-floor keys q148, q170_*, q179, q210_*, q217_*, q228, q238, q240_*, q241_*, q253, q44, q45), walker_review_2026-10-20/verdicts_2026-10-20.json (q148_screens, q170_match, q210_*, q217_*, q267_barrier, q79_*), and the untracked verdicts_2026-10-22/ (q_deli_a03, q_facades, q_office, q_pharmacy_a01, q_scope).",
+    "checked": "read each verdict file's keys (schemas differ: 10-19 nests under 'verdicts', 10-20 is flat)"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "The close condition's second half (two buildings of different heights sharing a wall) stands, as the status says. Climbing needs walkable landings and flights with collision (Zoo and/or DC), an enterable walk-up to hang them on (today's stacks stand on Empties; apartment_walkup_a01 is enterable but carries only the legacy deck-and-column version), nav links for the drop ladder (Lot/Dispatch already carry ladder links), and a cold run walked -- several tools, hence large. The walker's four calls could ride the next review page."
+ },
+ {
+  "n": 217,
+  "title": "Levels read by day and by night",
+  "remainder": [
+   "A: the rainy night -- \"Left: the rainy night (\\\"Needs work\\\", 2026-10-19)\"",
+   "B: the rainy day's weak sun -- \"the rainy day's weak sun\" (the walker, asked 'Should a rainy day show any sun at all?': \"A weak sun\")",
+   "C: the window light's dial -- \"and the window light's dial\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: the rainy night", "state": "undone",
+    "evidence": "Rain is still a look of its own, not a layer: level_factory/apps/cli/commands/__init__.py:1403-1421 `_preset_for` returns 'Heavy Rain' whenever the weather is rain, before time of day -- 'Heavy Rain is an overcast DAY, so a night brief that asks for rain ... gets daylight rain until rain is a layer over the time-of-day look'. The 2026-10-19 frame was that case (walker_review_2026-10-19/README.md:16 'county_hospital_001 | night, rain | 9334'; cold_9334's brief: time_of_day night, weather rain). Heavy Rain is the only Lux preset with a rain profile (heavy_rain.tres:16-34; ps1_storm_night.tres has none). No Lux commit after 0.79.0 (2026-10-20).",
+    "checked": "read LF's _preset_for; read the review README and cold_9334's brief; grep rain in the Lux presets; lux git log"},
+   {"piece": "B: the rainy day's weak sun", "state": "undone",
+    "evidence": "lux/addons/lux/presets/heavy_rain.tres:48-53 still sun_enabled true, sun_energy 0.5, sun_shadows false -- the shadowless sun this item measured lighting rooms through their roofs; last changed 7177cab (Lux 0.73.0, 2026-10-10), before the walker's 2026-10-19 answer (verdicts_2026-10-19.json q217_rainsun: 'A weak sun').",
+    "checked": "read heavy_rain.tres's sun fields and its git log; the verdict file"},
+   {"piece": "C: the window light's dial", "state": "undone",
+    "evidence": "docs/LEVEL_STANDARD.md:764-766 'GAP: window light. Every window spot ships at 3.0 at every hour'; lux_preset.gd carries no window field (grep -n -i window finds only comments at 155 and 245); lux/addons/lux/runtime/rigs/lux_area_light_rig.gd:95 defaults a rig's energy to 3.0, overridden only by its tuning row.",
+    "checked": "read LEVEL_STANDARD section 17; grep Lux runtime and preset resource"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nothing has moved since the status (2026-10-20). Piece A overlaps roadmap 157, whose 2026-09-24 WHAT REMAINS already lists 'a night rain preset'; the walker's 'Needs work' carried no note, so the frame's flaw is inferred (daylight rain on a night brief), not stated -- a one-line question to the walker would confirm it. Piece B has a recorded price question attached: the shadow Lux 0.38.0 refused at +3.2 to +8.1 ms predates the bake and the merges (this item's own Gap 3), so 'weak' may mean lower energy, a re-priced shadow, or the cull-mask split. A and C each touch Lux and Level Factory and want a cold run and the walker's eye, hence large."
+ },
+ {
+  "n": 234,
+  "title": "Floaters: details laid on a surface, not cut into it",
+  "remainder": [
+   "A: a first species detailed with the helper, priced and framed -- \"Left: no species uses the helper\" / body (3) \"a first species detailed with it, priced and framed\"",
+   "B: the existing species' own numbers moved onto the rule -- \"each chose its own number before the rule had a name (JOIN 4 and 6 mm, PROUD 3 and 5 mm), and moving one is a mesh change to price and census\"",
+   "C: floaters baked into a normal map -- \"baking floaters into a normal map, which needs a channel Zoo does not ship\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A: a species uses the helper", "state": "undone",
+    "evidence": "`add_floater` / `add_flat_floater` (zoo/zoo_keeper/bpylayer/geometry.py:244,259) are called only by zoo/tests/test_floaters.py:138,151; the only importer of core.floaters outside tests is geometry.py:19. `git -C zoo log --since=2026-10-13` has no floater commit after 39b7052 (1.106.0).",
+    "checked": "grep -rn add_floater/add_flat_floater and floaters imports over zoo; zoo git log since 2026-10-13"},
+   {"piece": "B: species' own numbers onto the rule", "state": "undone",
+    "evidence": "No existing species was moved. Two NEW species follow the rule's numbers but re-spell them rather than import them: zoo/zoo_keeper/recipes/roof_hatch.py:38 `SKIRT = 0.004 ... (core.floaters' FLOATER_SKIRT)` (1.113.0, 643131f, 2026-10-15) and zoo/zoo_keeper/core/hole_forms.py:54-55 `SKIRT = 0.004`, `PROUD = 0.003` citing core.floaters (1.114.0, 5cedc35, 2026-10-19), against core/floaters.py:25,29 FLOATER_SKIRT 0.004, FLOATER_PROUD 0.003 -- the same values, two more spellings.",
+    "checked": "grep FLOATER/SKIRT/PROUD over zoo source; git log -S FLOATER on the two files"},
+   {"piece": "C: normal-map bake", "state": "undone",
+    "evidence": "grep -rn -i 'normalTexture|bake_normal|normal_bake|normal map bake' over zoo/zoo_keeper finds nothing: no normal-map channel is shipped or priced.",
+    "checked": "grep of zoo_keeper"}
+  ],
+  "done_since": [
+   "Partial, by rule not by helper: Zoo 1.113.0's roof_hatch lid (2026-10-15) and 1.114.0's hole_forms spoil/kit (2026-10-19) rest at the rule's 4 mm skirt and stand at its 3 mm proud, citing core.floaters -- but as local constants, so the helper still has no caller."
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Piece A alone is small (one Zoo species detailed with add_floater, priced and censused, framed); the body named a CRT front panel or the roof props' grilles. A cheap hygiene step while there: have roof_hatch.py and hole_forms.py import FLOATER_SKIRT/FLOATER_PROUD instead of re-spelling them, which is the drift this item was written against ('five species, five numbers'). Piece C is a new texture channel and wants pricing (texture memory per module) first, hence large overall."
+ }
+]

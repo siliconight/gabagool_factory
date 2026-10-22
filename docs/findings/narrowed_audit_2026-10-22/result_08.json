@@ -1,0 +1,351 @@
+[
+ {
+  "n": 9,
+  "title": "Lot emits nav-QA anchors nothing checks",
+  "remainder": [
+   "An offline answer, in Lot, to whether a storey-height destination stands over a floor a stair reaches: \"Lot still cannot answer 'is this anchor over anything?' offline\" -- the newest status's two LOT_DESTINATION_ABOVE_FLOOR instances (3.60 m on ref_pvp, 6.00 m on lot_demo_001 seed_5219), \"The gap is unchanged and unbuilt\"",
+   "A read-back of the props under the nav-QA anchors: \"nothing checks the props, and the props are what the anchors were landing on ... If that offline read-back is ever built, site_cover.pinches() is the template\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "offline answer for a storey-height destination", "state": "undone",
+    "evidence": "lot/site_spawns.py:1104-1119 -- a drop over FURNITURE_MAX (2.0, site_spawns.py:150) still appends LOT_DESTINATION_ABOVE_FLOOR (major) and `continue`s, leaving the marker; the message now reads \"Lot cannot tell which offline; the walk test answers it\". lot/lot.py:3698-3700 calls seat_destinations with the default floor GROUND_Z, so no storey floor or stair is read for it. Lot CHANGELOG 0.123.0 (line 132-135) only rewrote that message.",
+    "checked": "Read site_spawns.seat_destinations and its three callers (lot.py:3019, 3246, 3698); grep LOT_DESTINATION_ABOVE_FLOOR across lot (code, CHANGELOG, one test) and level_factory; git log -S in lot (introduced 5d7f4b4 2026-07-27, message touched 4e4859f 2026-10-14)"},
+   {"piece": "props read under the nav-QA anchors", "state": "undone",
+    "evidence": "lot/lot.py:3398-3449 _navqa_anchors floors each marker by its room record (_floor_of, lot.py:3379-3395) and dedupes; it takes no collision reading and checks nothing under the point -- the Godot director's ring search is still the only check. The prop read that does exist, seat_destinations(..., solids=) -> _resolve_laterally -> site_collision.resolve_onto_floor (site_spawns.py:1134-1203, LOT_DESTINATION_ON_PROP / _RESOLVED), applies only to the three nav hooks, only to drops <= 2.0 m, and shipped 2026-07-27 (lot 5d7f4b4, CHANGELOG 0.29.0), before this item's gap was written.",
+    "checked": "Read _navqa_anchors, _floor_of, write_navqa_scene's anchor emission (lot.py:3466-3523) and _resolve_laterally; Lot CHANGELOG 0.28.0/0.29.0 entries (5472-5637)"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "Mitigated, not done: roadmap 245 (CLOSED 2026-10-13) found LOT_DESTINATION_ABOVE_FLOOR on 96 of 186 candidates, every one an objective 3.3-4.0 m up, and the walk test walked to it on 95 -- which refutes this item's newest-status claim that \"Laser Tag then cannot path to it and reports TRAVERSAL at 0%\". Level Factory 0.202.0 stopped counting it in the pick where a crew body walked every leg (level_factory/packages/pipeline/pick.py:75 ANSWERED_BY_WALK, walked_every_leg at 112-128). So the finding no longer steers picks, but Lot still raises a major that is false on ~95 of 96 candidates, and no offline read exists. A Lot patch could read the storey floor and stair reach from Deli Counter's merged room records (Lot already reads room floor elevations for nav-QA anchors, lot.py:3364-3376) and a cold run would show the finding gone; alternatively the walker/factory could declare the walk test THE answer and close this as superseded by 245 -- that is a policy call the item does not make. No later item names item 9."
+ },
+ {
+  "n": 12,
+  "title": "Props bake as walkable navmesh, and nothing can reach them",
+  "remainder": [
+   "Mask prop colliders out of the bake: \"put prop colliders on their own physics layer in Deli Counter and mask them out of the bake in Lot's navqa and site scenes\" via NavigationMesh.geometry_collision_mask",
+   "A collision-layer contract: \"its own entry in agent_contract.json rather than two magic numbers\"",
+   "Settle first which props are mountable: \"some props should be mountable (a bar top, a low crate) and the right answer is a ramp or a step, not a mask. Deli Counter owns that decision\"",
+   "The measurement the 2026-08-14 reading left owed: \"Inferred, and still not measured: that the unmasked colliders are what put walkable polygons on prop tops\" (One bake, two items, line 642-646), and whether they cost anything (the status: \"Still the candidate cause of the 1,179 player_stuck_events\")"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "prop colliders masked out of the bake", "state": "undone",
+    "evidence": "`git grep geometry_collision_mask` finds 0 hits in lot, level_factory, zoo; Lot's walk and navqa scenes still bake `geometry_parsed_geometry_type = 2` with no mask (lot/lot.py:3267, 3480). The only setters are Deli Counter's template level_test.gd:108 (`0xFFFFFFFF`, every layer -- the opposite of a mask) and Laser Tag's run_map_eval.gd:223-224 (static colliders on layer 1, 'collision is truth'), which masks nothing that props are not also on.",
+    "checked": "git grep in every tool repo and tools/; read run_map_eval.gd:195-254 and level_test.gd:100-112"},
+   {"piece": "collision-layer entry in agent_contract.json", "state": "undone",
+    "evidence": "deli_counter/agent_contract.json top-level keys are schema, description, characters, nav_bake, clearances, sightlines, qa, review; no 'mask' or 'collision' string anywhere in it, and its 'layer' hits are all inside 'player'. No collision_layer assignment for props in deli_counter, lot or zoo (the one DC hit, themed_tscn.py:886, zeroes a hidden interactive state's layer, a different job).",
+    "checked": "Python read of the contract's keys and a regex for layer/mask/collision; git grep collision_layer|physics_layer in four repos"},
+   {"piece": "which props are mountable (DC's decision)", "state": "undone",
+    "evidence": "No later roadmap item or DC changelog line records the decision; grep of the roadmap after line 1300 for prop/furniture islands, 'mountable', 'item 12' finds only the original section (lines 570-646, 1286-1305) and item 16's cross-reference (1451).",
+    "checked": "Regex search of PIPELINE_ROADMAP.md"},
+   {"piece": "measure prop-top polygons on today's bake", "state": "undone",
+    "evidence": "No re-measurement since 2026-07-28's 61 islands; the contract's agent_max_climb is now 0.15 (agent_contract.json nav_bake), so any prop top over 0.15 m is still an island by construction if it bakes.",
+    "checked": "Roadmap search; read nav_bake block"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Nothing has moved on this item since 2026-08-14. Its own record says the impact is unproven: the 2026-08-14 sweep walked 20 sites with 0 stuck walkers, and the cause of SESSION_0811's stuck events was never attributed to prop tops. The cheapest next step is the measurement (count baked polygons standing on prop colliders in a current package's walk or Laser Tag bake) before the cross-repo mask; if it reads zero cost, the item may become ANALYSIS. Cross-repo (DC layer + Lot/LF/Laser Tag bakes + contract), with a DC design decision first, hence large."
+ },
+ {
+  "n": 22,
+  "title": "Outdoor props have no swap contract, so cover stays boxes forever",
+  "remainder": [
+   "The truck and the container drawn as what they are: \"the truck and the container are boxes at the right proportions (the recipes are where the cab, the wheels and the doors go)\"",
+   "A lot that reads as parked in: \"the density is Lot's sightline budget, two or three pieces a site, which is cover and not yet a lot that reads as parked in\"",
+   "An instrument for the affordance change: \"a prop's silhouette leaving the box it was graded in is an affordance change no gate measures\" -- SET_DRESSING_REFERENCES.md:187-189: \"The census that would catch it compares a placed prop's visual extent against its slot the way the wall gate does ... a Zoo/DC instrument to build\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "truck and container drawn", "state": "done",
+    "evidence": "Container: Zoo 0.82.0 (c8539fd, 2026-09-13), zoo/zoo_keeper/recipes/cargo_container.py:1-30 -- castings, frame, corrugated sides and roof, two door leaves with locking bars, ISO markings; Zoo CHANGELOG 0.82.0 (9988-10097: 44 tris -> 2,814 at Lot's slot, 'the ribs and door channels read at 7 and 20 m in the frames'). Truck: Zoo 1.92.0 (bd568ac, 2026-10-10), zoo/zoo_keeper/recipes/box_truck.py:1-25 and its sections at 130 (roll-up door), 158-196 (cab-over body, roof, glass), 251 (wheels, dual rears); proven in a package, docs/cold_runs/cold_9219/NOTES.md:29-33,52-54 (0 interventions; cover_154 ships prop_box_truck_..._n2.glb; 'The box truck reads as a truck'); roadmap 219 note 5 records it FIXED and PROVEN.",
+    "checked": "Read both recipe headers and the truck's section markers; Zoo CHANGELOG entries; git log for both versions; cold_9219 NOTES in full"},
+   {"piece": "a lot that reads as parked in", "state": "done",
+    "evidence": "Lot 0.63.0 (b0f4c39, 2026-09-12 17:01, after this status's 14:15 roadmap commit b08ca41) parks cars in kerb-lane bays, lot/site_parking.py:1-28 and OCCUPANCY = 0.6 at :41; a mix of four car shapes, :68-73. Lot 0.94.0 (6391e35, 2026-10-03) adds parking fields in the gaps between buildings (Lot CHANGELOG 2193-2250, 6-30 cars a lot). docs/cold_runs/cold_9141/NOTES.md:20 ('three fields (17 cars, 42 bay lines)') and :116-117 ('the fields read as lots -- bay lines, cars nose in both sides of the aisle'), priced there at +52 draws, +0.14 ms median (:80-88).",
+    "checked": "Read site_parking.py header and tables; Lot CHANGELOG 0.63.0 and 0.94.0; cold_9141 NOTES 1-125"},
+   {"piece": "silhouette-vs-graded-box instrument", "state": "undone",
+    "evidence": "No tool measures a placed cover prop's visual extent against the slot it was graded as: `git grep -i silhouette` in zoo, level_factory, deli_counter, lot finds only recipe comments and DC setbacks.py; the placement gate is footprint only (level_factory/assets/scripts/run_presentation_compose.py:129-130, 'fits every themed module to its greybox slot and reports the ones whose footprint does not land'); Lot grades cover by slot dims (lot/site_cover.py:180-193, 'exact-fit by construction'). No later roadmap item takes it over (item 44's 2026-10-21 status tracks species and wear, not this census).",
+    "checked": "git grep in four repos; read the references doc 173-189, site_cover.py 180-215, run_presentation_compose.py 120-140; regex search of the roadmap for affordance/visual extent/see under"}
+  ],
+  "done_since": [
+   "Truck and container drawn: Zoo 0.82.0 (container, 2026-09-13) and Zoo 1.92.0 (truck, 2026-10-10), proven in cold run 9219 (docs/cold_runs/cold_9219/NOTES.md:52)",
+   "Parked-in density: Lot 0.63.0 kerb-lane parking (site_parking.py:41 OCCUPANCY 0.6), 0.94.0 parking fields; cold run 9141 frames read the fields as lots (NOTES.md:116-117)"
+  ],
+  "size": "medium",
+  "bears_on": "gunfights",
+  "proposed_status": "",
+  "notes": "Two of three named pieces are done and nobody narrowed the item; the one left is an instrument (a census of placed props' visual extent against their graded slot), which the references doc itself scopes as 'a Zoo/DC instrument to build'. Collision is still the slot's box (box_truck: 'Its collision is the slot's box', Zoo CHANGELOG 1.92.0 line 1501-1502), so what the census would catch is sight through the shape (under a truck's chassis, through a car's glass), not a collision change. Whether the parked-in density reads right is the factory's reading of cold run 9141, not the walker's; the walker's later look review (item 44, 2026-10-19) said of the parked cars 'Looks right'."
+ },
+ {
+  "n": 57,
+  "title": "Asset boundaries are implementation details; architectural boundaries are what the player should see",
+  "remainder": [
+   "Edge metadata and a resolver: \"edge metadata -- slot manifest 1.3.0 carries provenance and fit ... and nothing that says what an edge means\"; the body's \"nothing can warn 'these two modules meet mid-surface with no transition' or insert a separator from a pool\"",
+   "Weathering in building space: \"Patina's per-slot pass unwired, the kit's vertex wear off by 84's decision, Pixelcoat's wear / grime / streaks on the recipe path only\"",
+   "The mid-distance instrument: \"78's four measure appearance and none is pointed at the kit path, 74's ruler reads form\"; the body: \"nothing measures 'reads as tiles from 40 m' ... fixed-distance station shots plus a repetition metric\"",
+   "The shipped continuity mechanism's frame cost: \"its frame cost has not been priced on the station harness\" (CLAUDE.md's price-a-look rule; the close condition asks its cost be measured)"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "edge metadata and a resolver", "state": "undone",
+    "evidence": "deli_counter/deli_counter.py:3393 still writes \"slot_manifest_version\": \"1.3.0\"; a wall slot record (deli_counter.py:755-765) carries slot_id, role, size_mod, style, material, current_ref, kit_axis, wall, story, facing, transform, fit -- no edge field. `git grep` for edge_kind/edge_role/BAY_BOUNDARY/CONTINUOUS_BRICK/separator finds nothing; DC CHANGELOG mentions roadmap 57 once (9606, a palette entry). No DC commit since 2026-10-15 touches it (0.223.0-0.257.0 subjects read).",
+    "checked": "Read the manifest writer and the wall slot record; git grep in deli_counter; git log --since=2026-10-15"},
+   {"piece": "weathering in building space", "state": "undone",
+    "evidence": "Patina's one release since, 0.32.0 (0108c6d, 2026-10-15), removed the Godot half only and states 'The offline pass -- vertex nuance, banding, mottle, per-slot variation ... is untouched' (patina/CHANGELOG.md:17-19); Pixelcoat's last release is 0.62.0 (2026-10-10); Zoo's wear work since is cars (1.120.x) and payphone booths (1.117.0); no Level Factory commit since 2026-10-15 names wear, grime or weathering on the kit path.",
+    "checked": "git log --since=2026-10-15 in patina, pixelcoat, zoo, level_factory, lux filtered for wear/grime/weather/runoff/streak; read Patina CHANGELOG 0.32.0"},
+   {"piece": "mid-distance repetition instrument", "state": "undone",
+    "evidence": "No tool or finding measures repetition at distance: grep of tools/*.py and level_factory/packages for periodicity/repetition/bay rhythm/mid-distance finds nothing; tools commits since 2026-10-15 are drop-edge, asset flags, transforms, retire. Item 238's 2026-10-19 'Next: arms at the review's two cameras to name what the eye sees' is a seam A/B for one review, not this instrument.",
+    "checked": "grep -rl in tools and level_factory/packages; git log -- tools since 2026-10-15; read item 238's status (roadmap 20472)"},
+   {"piece": "triplanar's frame cost priced", "state": "undone",
+    "evidence": "docs/findings/guides_2026-10-19/textures.md:82 -- 'Triplanar | On kit walls, slabs, stairs and the ground (V) | DONE, never priced | 0 | 3 fetches per map'.",
+    "checked": "grep of docs/findings and the roadmap for triplanar with price/ms/station"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nothing has moved since the 2026-10-15 status; three of the five 'What would close this' pieces are untouched, and the shipped continuity mechanism is still unpriced. The edge vocabulary is a design question first (what an edge means, which pool of separators). Related, not a takeover: item 238 (2026-10-19) carries the walker's 'you can tell where one texture stops and ends' and notes triplanar 'solves projection, not repetition' -- the repetition half of this item's continuity question is live there. Each piece also wants the walk as judge, so a walker look follows any build."
+ },
+ {
+  "n": 155,
+  "title": "The walker played a generated level, and the list of what a person finds in five minutes is longer than anything a gate found in a week",
+  "remainder": [
+   "Interior furnishing and the vault as a hero piece: \"Open: the interior furnishing (item 159), the vault as a hero piece (item 160)\"",
+   "Walker look calls: \"two look decisions waiting on the walker (Lux's per-channel quantiser under a calm wall, and the rain preset's film grain)\"; entry 31 \"THE WALKER HAS TO JUDGE THE LOOK: ceilings lose the halo around each fixture\"; entry 15 corrugated-steel lighting \"(the walker deferred the question)\"",
+   "Fixed by measurement, never walked: \"UNVERIFIED IN GAME ... the car wheel jitter (entry 11) ..., the safe details (entry 12), the light leak's new look (31), and whether the white boxes (entry 16) were ...\"",
+   "The fizz, entry 14: \"Left: the fizz, the seams, the white boxes ...\" -- no entry records a fix",
+   "The contrast rule's measurement: entry 24 \"The contrast itself is still unmeasured\" (entry 18: \"That is measurable ... and nothing measures it yet\")",
+   "Entry 46: \"NOT VERIFIED: the bank and casino themes' brass scored slightly worse on the bar measure and was not rendered\"",
+   "Agents' residue: sphere primitives \"still are\" non-repeatable; \"Lot 0.72.0 did not rebuild 9052's own scene byte for byte ... walktest spine differed (302 m against 405 m) -- STILL UNEXPLAINED\"; Deli Counter patrol-route destination \"not deterministic across builds. Unattributed.\"",
+   "The close condition's walk: \"a walk of a fresh cold package that raises none of them again\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "interior furnishing / vault hero piece", "state": "superseded",
+    "evidence": "Tracked by their own items: PIPELINE_ROADMAP.md:840 (159 NARROWED, 'Rooms are a table-and-chair round robin') and :841 (160 NARROWED, 'The bank vault is a box').",
+    "checked": "Index rows read"},
+   {"piece": "walker look calls (quantiser banding, rain film grain, ceiling halo, corrugated lighting)", "state": "walker",
+    "evidence": "No later roadmap text answers any of them (regex for quantis/film grain/calm drywall/halo after line 16600 finds only this item). The quantiser still ships: every Lux preset sets dither_enabled = true (e.g. lux/addons/lux/presets/heavy_rain.tres:75, delco_summer_afternoon.tres:54) and the per-channel path is lux_ordered_dither_film.gdshader:402-404; heavy_rain.tres:83 grain_strength = 0.04. Entry 36 (LF 0.85.0 mipmaps, 'The walker's articulation of it was interference') may already answer entry 15, unconfirmed by the walker.",
+    "checked": "Roadmap regex; git grep in lux presets and shader"},
+   {"piece": "wheel jitter / safe details / white boxes, never walked", "state": "unclear",
+    "evidence": "Instrument evidence only, no recorded walk verdict: zoo/tests/test_coincident_faces.py:326 holds drop_safe at 3 pairs, 0 exposed, min cover 30.0 mm (buried, so not a visible fight); item 44's 2026-10-21 status reads the car matrix '646 builds and 0 coincident pairs' and the walker's 2026-10-19 review of the parked cars 'Looks right' without a jitter remark; the white boxes were the placeholder hydrant, redrawn in Zoo 0.85.0 (zoo/zoo_keeper/recipes/fire_hydrant.py:1-8).",
+    "checked": "Read the census table row and docstring; item 44 status; hydrant recipe header"},
+   {"piece": "the fizz (entry 14)", "state": "unclear",
+    "evidence": "No entry or later item records it fixed or declined. Plausibly covered by entry 36's mipmaps (LF 0.85.0) and S3TC-with-mips on every level texture since LF 0.190.0 (item 238's 2026-10-19 status), but the ledger never ties 14 to either and nobody re-walked it.",
+    "checked": "Read the ledger entries 14, 36; item 238 status (roadmap 20472)"},
+   {"piece": "prop-vs-floor/wall contrast measured", "state": "undone",
+    "evidence": "No instrument: the only contrast tool, tools/shot_contrast.py (9411df1, 2026-09-06), is a whole-frame figure-ground blur test whose docstring says it cannot test a marker against its local background; grep of deli_counter/*.py and level_factory/packages finds no prop/surface contrast check; the roadmap after line 16600 mentions contrast measurement only at 16804 (this item's own 'still unmeasured').",
+    "checked": "grep -rl contrast in tools, level_factory/packages, deli_counter; read shot_contrast.py:1-60"},
+   {"piece": "brass verified (entry 46)", "state": "undone",
+    "evidence": "No later reference to brass anywhere in the roadmap after line 16600 except entry 46 itself (16899).",
+    "checked": "Roadmap regex"},
+   {"piece": "sphere primitives byte-stable", "state": "done",
+    "evidence": "Zoo 1.103.0 'a mesh leaves with its faces in one order, the same every build' (zoo/CHANGELOG.md:857; :905 -- cold run 9259's 38 Zoo jobs replayed twice: on 1.102.0 seven differed, among them 'the clutter's pebble'; 'on 1.103.0 all 38 built the same bytes both times'); then Zoo 1.109.0 (item 247) 40 of 40 jobs byte-stable.",
+    "checked": "Read Zoo CHANGELOG 1.103.0 entry lines; item 247 status"},
+   {"piece": "Lot spine 302 vs 405 m; DC patrol-route nondeterminism", "state": "undone",
+    "evidence": "Neither is mentioned anywhere after this item (roadmap regex for 302 m/405 m/spine differ/route choice ... deterministic finds only lines 16911-16915; the one 405 m hit at 20680 is an unrelated pick distance); no Deli Counter CHANGELOG line pairs patrol with determinism.",
+    "checked": "Roadmap regex; grep deli_counter/CHANGELOG.md for patrol"},
+   {"piece": "a fresh walk raising none again", "state": "undone",
+    "evidence": "The walker's walk of 2026-10-14 (item 250, findings 7-9) re-raised entry 2's shape -- 'the second flight's solid underside ending in mid-air, where the walker expects it to come down to the ground' -- fixed again in Deli Counter 0.221.0 (cold runs 9311/9312). The 2026-10-19 look review's walls verdict, 'you can tell where one texture stops and ends' (item 238), is close kin to entry 17's seams. No walk is recorded as checking this ledger.",
+    "checked": "Read item 250's body in the batch; item 238's status"}
+  ],
+  "done_since": [
+   "Sphere primitives repeatable: Zoo 1.103.0 (zoo/CHANGELOG.md:857, 905), confirmed 40 of 40 jobs under Zoo 1.109.0 (item 247)"
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Not close to closing as written: its close condition needs every entry fixed or declined AND a clean fresh walk, and the walker has since walked packages and raised new findings into new items (219, 250, the 2026-10-19 look review) rather than this ledger -- one of them re-raising entry 2. The factory-owned residue is small pieces in several tools (a contrast census, a brass render, two unexplained nondeterminisms); the rest is walker taste calls and items 159/160. A reviewer could reasonably split it: close the ledger as a record, move the contrast census and the two nondeterminisms to their own items, and put the four look calls on the walker's queue."
+ },
+ {
+  "n": 164,
+  "title": "The library has no card shop and no convenience store, which are the two building types the walker asked for next",
+  "remainder": [
+   "\"a real `convenience_store` preset (today an alias for `gas_station`)\"",
+   "\"room-sized floor and ceiling meshes over the per-mesh light budget OUTSIDE the storefront rooms (b2's stockroom and back hall at 10-13, no frame showing it)\"",
+   "\"the store at night does not yet outshine its street ... and the canopy is still the brightest thing there\"",
+   "\"FLAPPHAS on the fascia, the pump signs, the cups and the bags\"",
+   "\"the forecourt's two measured defects (3.0 m end aisles against a 4.3-4.8 m car; two canopy columns in the outer lanes' swept path)\" -- and the body's \"the reachability of a pump from the road is a Lot gate that does not exist yet\"",
+   "The close condition: \"a cold package whose lot draws a card shop and a convenience store with a forecourt, and the walker walks in, buys nothing, and does not ask what either building is\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "a real convenience_store preset", "state": "done",
+    "evidence": "Deli Counter 0.188.0 (51322861, 2026-10-06): deli_counter/presets.py:1880-1895 `convenience_store` builds `gas_station(..., forecourt=False)` and writes preset 'convenience_store', registered at presets.py:3684; the forecourt filter at :1839-1847; CHANGELOG 3600-3658 (the walker: 'a03 as convenience store; Flappahs store always Flappahs'; gas_station_a03 -> convenience_store_a01). Item 186's 2026-10-07 status records cold run 9181 'a never-seen one-building convenience store, generated', 0 interventions.",
+    "checked": "Read the preset and its CHANGELOG entry; git log for 0.188.0; item 186 status"},
+   {"piece": "meshes over the light cap outside the storefront rooms", "state": "unclear",
+    "evidence": "Not re-measured since 2026-09-28. The premise moved: packages bake their lights by default since Level Factory 0.144.0 and the live lights left are failing tubes, cycling poles and spots (roadmap 20375), and LF 0.159.0's perf census reports the PAIRED count for the 8-light cap (roadmap 20380). No cold-run note names b2's stockroom or back hall against the cap (grep of docs/cold_runs/*/NOTES.md).",
+    "checked": "Roadmap regex for over-8/light-budget; grep of cold-run notes"},
+   {"piece": "the store outshining its street", "state": "walker",
+    "evidence": "Nothing since dims the canopy or lifts the store past it; Lux 0.61.0 TRIPLED the canopy wash on the walker's own pick from frames ('The walker chose k = 3', lux/CHANGELOG.md:994-995). Whether a canopy brighter than the store is wanted is the walker's look call; no record shows it was put.",
+    "checked": "Lux CHANGELOG 0.55.0-0.79.0 headings and 0.61.0 entry; roadmap regex for brightest/outshine after line 17400"},
+   {"piece": "FLAPPAHS on the fascia, the pump signs, the cups and the bags", "state": "undone",
+    "evidence": "Fascia and pump signs DONE: pixelcoat/profiles/signs/delco_1997.json:6-16 (FLAPPAHS band, green mark; item 186: 'FLAPPAHS is cream on green on every sign'), zoo/zoo_keeper/core/storefront_names.py:40-42 (a gas or convenience store's door box says FLAPPAHS, Zoo 1.75.0), zoo/zoo_keeper/core/pump_forms.py:28 (Zoo 1.36.0: 'header the store's name, FLAPPAHS, lit on both faces'). Cups and bags UNDONE: the coffee island's cups are plain stacks (coffee_island_forms.py:140 CUP_SIZES, :169 cup colour (0.90, 0.88, 0.84) 'plastic'), the slush station's plain white and red (slush_machine_forms.py:101, 132-133); no Zoo source names a shopping bag; FLAPPAHS appears in Zoo only on the pylon, pumps, coffee sign, door box, slush brand and a car sticker (git grep).",
+    "checked": "git grep FLAPPAHS in zoo_keeper and pixelcoat; read the three Zoo modules' cited lines"},
+   {"piece": "the forecourt's two defects and a pump-reach gate", "state": "undone",
+    "evidence": "deli_counter/presets.py:1783-1793 unchanged since 2026-06-29 (git blame): pad 28 x 12 at y -18 (y -24..-12), islands 6.0 m long at y -18 (y -21..-15) -> 3.0 m end aisles; columns at x +/-10 inside the outer lanes (island edges +/-8.8, pad edge +/-14). The library spec gas_station_a01.json carries the same numbers; gas_station_a02 / fuel_stop_heist stand columns at x +/-8 (islands' outer edges +/-6.8) one metre past each island end. No Lot code names a pump's reach (git grep).",
+    "checked": "git blame on the preset; Python read of three library specs' forecourt volumes; git grep in lot"},
+   {"piece": "a lot with both buildings, walked", "state": "undone",
+    "evidence": "The four cold runs that drew card_shop_a01 (9170, 9178, 9216 on card_block_001; 9358 on club_block_014) stand no gas station or convenience store beside it; no cold-run note names both.",
+    "checked": "Loop over docs/cold_runs/*/NOTES.md for both names; headers of the four card-shop runs"}
+  ],
+  "done_since": [
+   "A real convenience_store preset: Deli Counter 0.188.0 (presets.py:1880-1895), proven generated in cold run 9181 (item 186)",
+   "FLAPPAHS on the fascia (Pixelcoat delco_1997 sign profile; Zoo 1.75.0 door box) and the pump headers (Zoo 1.36.0, pump_forms.py:28)"
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Two of five named pieces are done and unrecorded here. What is left spans Deli Counter (forecourt geometry, every forecourted spec), Lot (the pump-reach gate the body asks for), Zoo (cups, bags), a walker call (store vs canopy at night), an unclear light-cap residue, and a walk of a lot drawing both buildings -- hence large. The light-cap piece may be moot under the default bake; the paired census on a gas_block package would settle it."
+ },
+ {
+  "n": 192,
+  "title": "The presentation gates were read for one building in sixteen, and the circulation gate could not pass",
+  "remainder": [
+   "\"A walkable piece at a door: twin_a01's porch deck and stoop read 0.2 m into its front doorways' volumes, and the shell arm fails it. The gate has no notion of a piece being walked on.\"",
+   "\"The z-fight pairs on deli_a01, office and rail_station_a02 (item 177).\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "a walkable piece at a door", "state": "undone",
+    "evidence": "deli_counter/circulation.py:292-302 excused_own_furniture excuses only GUARD_PREFIX pieces from stair volumes and HATCH_PREFIX pieces from ladder volumes (added 0.191.0 and 0.224.1); nothing marks a piece as walked on, and check_shell (:305-347) counts every other overlap. Live in a package: docs/cold_runs/cold_9364/NOTES.md:23-25 (2026-10-21, Deli Counter 0.245.0, Level Factory 0.228.0) -- 'the one moderate presentation finding is twin_a01's porch deck and stoop 0.2 m into its doorways, recorded before as a gate with no notion of a piece being walked on'.",
+    "checked": "Read circulation.py header, excused_own_furniture and check_shell; git log of circulation.py (last 0.224.1, 2026-10-15); cold_9364 NOTES 1-40"},
+   {"piece": "z-fight pairs on deli_a01, office, rail_station_a02", "state": "superseded",
+    "evidence": "Delegated by this item to 177, whose 2026-10-19 status (PIPELINE_ROADMAP.md:18273) reads 'every building the level composes reads OK': Deli Counter 0.227.0 (the office's vault ledge) and 0.230.0 (c5e77e52, the gate reads Transform3D rows); docs/cold_runs/cold_9325/NOTES.md:14-22 '17 buildings [OK]', deli_a01 0 pairs over 756 solids. Read today in cold run 9378's compose summaries (workspaces/cold-9378-ws/.../presentation/lot/*/compose.summary.json, key zfight_check): deli_a03, office, pharmacy_a01 and the 12 Empties all ok, pairs 0. 177 keeps the library-wide count (rail_station_a02 among it) before the gate may BLOCK.",
+    "checked": "Read item 177's status, cold_9325 NOTES, and 15 compose.summary.json files' zfight_check / circulation_check keys"}
+  ],
+  "done_since": [
+   "The named z-fight pairs no longer read in composed levels: item 177's Deli Counter 0.227.0 and 0.230.0, cold run 9325 '17 buildings [OK]', cold run 9378's compose summaries all zfight ok with 0 pairs"
+  ],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "One piece left and it is narrow: the circulation gate needs a notion of a piece a body walks on (a porch deck, a stoop) at a doorway, or Deli Counter needs to keep those pieces out of the doorway volume. It is a moderate, non-blocking finding today, so it costs a false line in every package that draws twin_a01, not an intervention. The z-fight half can be dropped from this item, since 177 carries it."
+ },
+ {
+  "n": 241,
+  "title": "An urban level type: mid-rise street walls",
+  "remainder": [
+   "Windows that look real: the walker 2026-10-19, \"the corner shops glow and windows need some more detail to look realer\"; \"Next: the shop windows (roadmap 209's window displays)\" -- with the 2026-10-13 status's \"the window rhythm and the detail the walker left open\"",
+   "Street trees with variety: \"the trees read as too uniform and fake\"; \"Next: ... the street trees' variety (216)\"",
+   "\"the penthouse and bay-window variants, each a capability Deli Counter lacks\" (2026-10-13 status; body step 1)",
+   "\"Lux's dusk haze\" -- body step 4: \"Depth fog, which GL Compatibility supports, priced at the fixed stations\"",
+   "\"the corner shop's sign band\"",
+   "\"the frontage\" -- the comps' zero setback; LF 0.200.0: \"The 2.0 m frontage stays\"",
+   "\"the awning's price on a quiet machine\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "windows that look real (window displays)", "state": "superseded",
+    "evidence": "The newest status hands it to roadmap 209, whose index row (PIPELINE_ROADMAP.md:890) reads OPEN 2026-10-08 'filed for later' -- not started. DC 0.238.0's facade planner (2026-10-20) leaves every Empty 'its row's and untouched' (deli_counter/CHANGELOG.md:977-1006), so the mid-rise windows are as they were.",
+    "checked": "Index row 209; DC CHANGELOG 0.238.0; git log of deli_counter since 2026-10-13 filtered for midrise/corner/urban"},
+   {"piece": "street-tree variety", "state": "superseded",
+    "evidence": "Handed to roadmap 216, index row PIPELINE_ROADMAP.md:897: OPEN 2026-10-10 'filed, not started'.",
+    "checked": "Index row 216"},
+   {"piece": "penthouse and bay-window variants", "state": "undone",
+    "evidence": "deli_counter/presets.py:3282-3284 -- 'Its rooftop penthouse, its corner shop at grade and its bay windows each need a capability this builder does not have yet, and are not here' (the corner shop since built, 0.218.0; the other two not); EMPTY_MIDRISE_NARROW and EMPTY_CORNERS (presets.py:3421-3453) carry width, floors, wall, lobby, cornice, seed, door finish, shop and awning only.",
+    "checked": "Read presets.py 3275-3304 and 3420-3453; grep penthouse/bay window"},
+   {"piece": "Lux's dusk haze, priced", "state": "undone",
+    "evidence": "Lux's releases since the 2026-10-13 status (0.77.0 rig rest, 0.78.0 editor scaffolding, 0.79.0 morning and high noon) carry no urban haze; the fog the presets already set (e.g. lux/addons/lux/presets/blue_hour.tres:45-47, density 0.005) and 0.73.0's horizon-glow ring (2026-10-10, before the status that still lists the haze) are not an urban dusk haze priced at the stations.",
+    "checked": "Lux git log and CHANGELOG headings 0.73.0-0.79.0; grep of presets for fog"},
+   {"piece": "the corner shop's sign band", "state": "undone",
+    "evidence": "EMPTY_CORNERS (deli_counter/presets.py:3442-3453) names shop and awning per block and no band; no DC commit since 2026-10-14 mentions a corner shop's band.",
+    "checked": "Read the table; DC git log since 2026-10-13"},
+   {"piece": "the frontage (zero setback)", "state": "undone",
+    "evidence": "level_factory/CHANGELOG.md:1209-1221 (0.200.0): every urban front stands 'FRONTAGE (2.0 m) behind the far sidewalk' and 'The 2.0 m frontage stays'; docs/findings/urban_street/README.md:55 'the 2.0 m frontage, kept'. No later LF entry moves it.",
+    "checked": "grep frontage in LF CHANGELOG and the urban findings"},
+   {"piece": "the awning's frame-time price", "state": "undone",
+    "evidence": "Only cold run 9297's '+0.7 draws a heading in two runs; frame time and memory not priced' (PIPELINE_ROADMAP.md:20567); no later pricing of the awning in the roadmap or docs/findings.",
+    "checked": "Roadmap regex for awning with price/ms/quiet after line 20540; grep of findings READMEs"}
+  ],
+  "done_since": [],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The level type works end to end (every cold run 0 interventions, priced) -- what is left is the look and the comps' remaining features. Two pieces are already parked on not-started items (209, 216), so 241 could be narrowed to the four Deli Counter / Lux / Level Factory pieces it still owns. The walker's 2026-10-19 verdict on the block is 'Needs work', so a closing walk is part of done."
+ },
+ {
+  "n": 247,
+  "title": "Zoo's roof props are not byte-stable from run to run",
+  "remainder": [
+   "Godot's per-save ids: \"Left: those ids, node `unique_id`s and drawn resource ids\" in the scenes the pipeline has Godot save (bake.tscn, the standing Empties' site.tscn, Lux's applied scene)",
+   "\"and the metadata that hashes them\" -- docs/findings/roofprops_bytes/README.md: \"the metadata recording times, paths and the hashes of those\""
+  ],
+  "verdict": "ANALYSIS",
+  "per_piece": [
+   {"piece": "Godot's per-save ids in saved scenes", "state": "moot",
+    "evidence": "An engine behaviour, attributed and masked, not a defect in a tool: docs/cold_runs/cold_9302/NOTES.md:13-14 'All 12 scenes Godot saves read 0 lines different once its per-save ids are masked'; cold_9300/NOTES.md:16-19 (11 files differ 'by Godot's per-save ids alone'). Later runs read them the same way as a known residue: PIPELINE_ROADMAP.md:20670 'of the 24 files that differ ... 12 are Godot's per-save ids (247's residue, 0 lines once masked)'.",
+    "checked": "Read cold_9300 and cold_9302 NOTES headers, the findings README's two 'What remains of 247' paragraphs, and later roadmap references"},
+   {"piece": "metadata recording times, paths and hashes", "state": "moot",
+    "evidence": "By design: cold_9300/NOTES.md:21-22 '10 metadata files, read key by key: timestamps, the workspace's path, the bake's timings, and the hashes and sizes of the files above' -- records of when and where, which differ because the run did.",
+    "checked": "Read cold_9300 NOTES"}
+  ],
+  "done_since": [],
+  "size": "none",
+  "bears_on": "hygiene",
+  "proposed_status": "*STATUS: ANALYSIS 2026-10-22 -- the subject is fixed and proven twice, and what two runs of one command still disagree on is the engine's and the records'. The roof props: Zoo 1.109.0 (c2edb80) restarts every face `bevel_edges` leaves at its lowest vertex with its corner data (zoo/zoo_keeper/bpylayer/geometry.py:111-130, called at :406), and cold runs 9299 and 9300 built every one of the package's 596 GLBs and the lightmap to the same bytes (docs/cold_runs/cold_9300/NOTES.md:7-15). The applied scene's eleven energies: Lux 0.77.0 (4ce4c85) gives its three rigs `rest()` (lux/addons/lux/runtime/rigs/lux_fluorescent_rig.gd:50, lux_stage_light_rig.gd:58, lux_streetlight_rig.gd:156) and Level Factory 0.208.0 (b8fe4f7) rests every `lux_light_rig` before the pack (level_factory/assets/godot/run_lux_apply.gd:369-382); cold runs 9301 and 9302 read all 12 scenes Godot saves 0 lines apart once its per-save ids are masked (cold_9302/NOTES.md:13-14). Left, and not a task: Godot's own per-save ids (node unique_ids, drawn resource ids) and the metadata that records times, paths and the hashes of those -- 22 of 3,283 files, every one attributed, and read since as '247's residue, 0 lines once masked' (roadmap 20670). A package that must match byte for byte would need the ids normalised after every save; nothing asks for that today.*",
+  "notes": "Per-piece 'moot' here means 'not a task' (engine behaviour, or a record doing its job), the nearest of the allowed states. ANALYSIS rather than DONE because the residue is not done, it is the engine's: Godot assigns per-save ids on every save, and the comparisons that matter already mask them (docs/findings/roofprops_bytes/per_save_ids*.out.txt; masked_scenes.py in later runs). Not checked: whether Godot 4.7 has any setting that makes those ids stable. If a census that hashes raw package bytes is ever built, it would need masked hashes -- that would be a new item, not this one."
+ },
+ {
+  "n": 250,
+  "title": "The walker's walk of cold runs 9305-9307: nine findings by eye",
+  "remainder": [
+   "Finding 6: \"a `floor_hole` cut bare (144's residue)\" -- \"a design call -- dress the hole as deliberate, trim and a guard, or as damage, its gameplay role kept\"",
+   "Finding 8's rest: \"8's storey-1 guard rail across the hole's south edge, still read from below as a rail across the void, for the walker's eye now that the core is solid\"",
+   "Taste call: \"whether the door's trade sign should wear the band's colours, yellow on black, rather than its own\"",
+   "Taste call: \"whether a corner shop's window wants depth, a redrawn pane or a shallow interior, priced first\""
+  ],
+  "verdict": "WALKER",
+  "per_piece": [
+   {"piece": "finding 6, the bare floor_hole", "state": "superseded",
+    "evidence": "Taken over by roadmap 265 'Every hole in a floor has a cause' (filed 2026-10-19 from the walker's 'give them a reason to exist'). The deli's hole is the `cut` cause: deli_counter/hole_causes.py:64 ('apartment_hideout', 'kitchen'): 'cut'; Deli Counter 0.236.0/0.236.1 and Zoo 1.114.0 stand the torn edge, spoil and crew kit; docs/cold_runs/cold_9341/NOTES.md:1-12 (0 interventions, the ring greybox, WALKTEST_WALKER_STUCK 8 -> 0) and 265's status: 'deli_a03's drop stands behind a torn concrete edge with the crew's kit beside it and the spoil below' (cold runs 9340/9341). Roadmap 269 (CLOSED 2026-10-20) also makes such a hole an optional route, rare per level. 265 carries the walker's eye on it.",
+    "checked": "Read hole_causes.py:1-64; item 265's status (roadmap 20783); cold_9341 NOTES; index row 269"},
+   {"piece": "finding 8's storey-1 rail, for the walker's eye", "state": "walker",
+    "evidence": "No verdict recorded: the walker's review verdicts of 2026-10-19 (68 entries, docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json) and 2026-10-20 (9 entries) carry no 250 question; docs/findings/walk_2026-10-14/README.md:226 'Still seen from below: the storey-1 guard rail across the hole, finding 8's remainder'. Deli Counter 0.225.0 changed only the TOP leg's cut and seam guard (CHANGELOG 0.225.0: 'an intermediate leg and its turn landing keep both runs').",
+    "checked": "Python read of both verdict files' keys and notes; grep of the walk README; DC CHANGELOG 0.225.0"},
+   {"piece": "the door's trade-sign colours", "state": "walker",
+    "evidence": "docs/findings/walk_2026-10-14/README.md:24-26 'Its colours are the trade sign's own colourway, cream on navy, where the door had worn the band's yellow on black -- the walker's call whether it should match'; no verdict in either review file.",
+    "checked": "Walk README; verdict files"},
+   {"piece": "a corner shop's window depth", "state": "walker",
+    "evidence": "Effectively answered and moved: the walker's 2026-10-19 verdict q241_look, 'Needs work' -- 'the corner shops glow and windows need some more detail to look realer' (verdicts_2026-10-19.json), now carried by roadmap 241's 'Next: the shop windows (roadmap 209's window displays)'. Which of the walk README's options (:56-57: a darker backing, a redrawn pane with depth, a shallow real interior priced first) is the walker's to pick.",
+    "checked": "Verdict file; item 241 status; walk README 50-57"}
+  ],
+  "done_since": [
+   "Finding 6 built and in packages through roadmap 265: Deli Counter 0.236.0/0.236.1, Zoo 1.114.0, cold runs 9340/9341 (the deli's cut hole with its torn edge, kit and spoil)"
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Every factory-owned finding of the walk is fixed and in packages; what is left are three looks for the walker (the storey-1 rail from below, the door sign's colours, which window treatment) and finding 6's own walker look, which 265 now carries. Putting the rail and the door-sign colour on the next review page would close this item."
+ },
+ {
+  "n": 284,
+  "title": "A dining table draws none to four chairs, and one in five stands with none",
+  "remainder": [
+   "The last seven hosts: \"seven hosts still go -- every spot on their rooms' 25-spot grids refused ... a finer grid for the move the next lever\"",
+   "The chairs' own stream: \"a table's regular chairs still spend the room's stream\" -- the close condition: \"its chairs drawn from the table's own stream so that an upstream piece does not re-draw them\"",
+   "Pulled-out chairs: the close condition's \"tucked within a seat's depth of the table unless pulled out on purpose\"; the earlier status: \"40 % of regular table chairs stand pulled out by a draw, which is the 'on purpose', not measured against play\""
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "the seven hosts still taken away", "state": "undone",
+    "evidence": "deli_counter/level_design.py:6039-6085 `_move` asks only `floor_cands`, the room's furnish grid (built at :5831-5840, 5 to 14 a side, so 25 spots in a small room) -- no finer grid; patches/dc_desk_move/still_gone.out.txt lists each gone host's 25 spots and their refusals (e.g. airport_terminal_a01 customs_office desk: 'on a route' 16, 'seed_clear' 8, 'no chair fits' 1). Deli Counter's only release since 0.256.0 is 0.257.0 (drawings).",
+    "checked": "Read _move's head and the grid; read still_gone.out.txt's first entries; DC git log"},
+   {"piece": "regular chairs from the table's own stream", "state": "undone",
+    "evidence": "deli_counter/level_design.py:6239-6240 calls `_seats(vol, (qx, qy), how, lo, hi, extra=...)` with no `draws`, and `_seats` (:5866-5890) takes 'draws = draws or rng' -- the room's stream. Only the rescue (:6407-6414) and the move draw from a stream keyed by the host. The earlier status holds the decoupling on measurement: it 're-draws the library once and on this draw costs routes, so it is held, not refuted'.",
+    "checked": "Read _seats' docstring and first lines, the host placement call, and the chairless loop"},
+   {"piece": "pulled-out chairs measured against play", "state": "unclear",
+    "evidence": "No measurement since the 2026-10-21 status called 40 % 'the on purpose, not measured against play'; the route census (docs/findings/furnish_route_cost/) prices routes, not whether a pulled-out chair reads deliberate. A walker look at furnished rooms, or a census of pulled-out chairs on routes, would decide it.",
+    "checked": "Item 284's statuses; no later roadmap reference"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Close to its end on its main measure -- dining tables chairless 51 -> 0, desks 41 -> 0 with 18 of 25 removed hosts moved back (0.252.0, 0.256.0, cold runs 9374 and 9376 at 0 interventions). What is left is a finer move grid for seven hosts (one Deli Counter patch, a refurnish and the census) and the stream decoupling, which the factory measured, found costly on this draw and held -- either it is built and priced, or the close condition is rewritten to accept the room stream; that is a decision before it is work."
+ }
+]

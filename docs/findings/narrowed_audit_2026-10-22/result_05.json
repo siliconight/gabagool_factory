@@ -1,0 +1,334 @@
+[
+ {
+  "n": 35,
+  "title": "The graybox/art relationship: it is a SWAP, and most of the recommended shape is already the contract. What is missing is the library",
+  "remainder": [
+   "Beams -- body: 'Absent entirely: interior corners, exterior corners, columns, beams, ...'; status 2026-10-15: 'No species or slot is named for a beam'",
+   "Thickness transitions -- body: '... parapets, thickness transitions, and every seam-management piece'",
+   "Seam pieces: baseboards, crown trim, fascias -- body: 'every seam-management piece -- baseboards, crown trim, pilasters, fascias' (pilasters answered by relief_parts piers per the status)",
+   "Interior corners -- body: 'Absent entirely: interior corners, ...'; no status addresses them",
+   "The intrusion/overhang limit in the slot record -- body: '`allowed_outward_overhang_m` / `allowed_inward_intrusion_m`. Worth adding' and 'The intrusion limit is a small, checkable addition to a gate that already exists.'",
+   "An import-time rejection of unauthorised collision -- body: 'a post-import script can refuse any the manifest did not grant. Today nothing checks'",
+   "A composed-section tier, and occluders -- body: 'This pipeline has the first and the last and nothing between ... nothing in the chain emits any'",
+   "ASSET_SWAP_CONTRACT.md's stale status line -- body: 'Someone should reconcile the status line and the workflow section with what runs'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Beams", "state": "undone",
+    "evidence": "zoo/zoo_keeper/genome/species/ holds 139 species, none a beam; over deli_counter/build/*.slots.json (158 manifests, 39,569 slots, all slot_manifest_version 1.3.0) no slot_id/role/species matches beam; roles are wall 24,843, prop 10,668, window 1,454, doorway 1,007, floor 586, ceiling 586, breach 271, roof 146, safe_deposit_boxes 5, vault_door 3. Zoo CHANGELOG 'beam' hits are a car's beam axle (2494) and a light beam drawn on a club poster (5070)",
+    "checked": "ls of the species dir; grep -o of role/slot_id/species over every built manifest; grep of zoo CHANGELOG and deli_counter *.py (only migrate_prop_materials.py:37-38's volume-name filter mentions 'beam')"},
+   {"piece": "Thickness transitions", "state": "undone",
+    "evidence": "no species or slot named for a transition (same species listing and slot census); no later roadmap item mentions one (grep of PIPELINE_ROADMAP.md for 'thickness transition' hits only item 35 itself)",
+    "checked": "ls species dir; grep of slots and roadmap"},
+   {"piece": "Baseboards, crown trim, fascias", "state": "undone",
+    "evidence": "zoo/zoo_keeper/core/arch.py:393-400 relief_parts gives a solid wall a plinth (0.45 m) and a cap/cornice (0.12 m) -- exterior base course and cornice, not an interior baseboard or crown; Zoo CHANGELOG 'fascia' hits are a civic sign's (1685), an ATM/cabinet's front (4850-4870) and a club stage's (9043), none an architectural roof-edge or seam piece; no slot matches baseboard|skirting|crown|trim|fascia",
+    "checked": "grep of zoo/zoo_keeper and zoo CHANGELOG; grep -o over built slots"},
+   {"piece": "Interior corners", "state": "moot",
+    "evidence": "every built storey is a rectangle in plan: 146 buildings, 352 storeys, each with exactly N/S/E/W exterior runs and one perpendicular offset per run (python read of deli_counter/build/*.slots.json, ext_<storey>_<side> walls), so no inside corner exists to fill; tools/envelope_continuity.py:366-377 reports a storey that is not the four runs as ENV_SHAPE_UNRECOGNISED, FAIL at :148, so an L-plan would be refused rather than shipped open",
+    "checked": "read-only python one-liner over the 158 manifests; read envelope_continuity.py:200-280 and 355-385"},
+   {"piece": "Intrusion/overhang limit in the slot record", "state": "undone",
+    "evidence": "slot key census over 39,569 slots: no allowed_inward_intrusion_m / allowed_outward_overhang_m (fit keys are collision, dims, keep_out 146, key_height, openings, pivot, voids); tools/insert_overhang.py:40-50 says it does NOT measure inward intrusion and that the overhang limit 'belongs in the slot manifest (`allowed_outward_overhang_m`)'; neither insert_overhang.py nor tools/room_intrusion.py is called from tools/check_all.py or level_factory packages/apps",
+    "checked": "python census of every slot's keys and fit keys; read both tools' docstrings; grep for callers"},
+   {"piece": "Import-time rejection of unauthorised collision", "state": "undone",
+    "evidence": "level_factory/adapters/zoo/__init__.py:479-488 ZOO_DRESSING_HAS_COLLISION reads only the dressing index's DECLARED `collision`, not the GLB's node names, and not kit modules; level_factory/packages/exporting/glb_collision_flag.py (renames -col suffixes) has no caller but tests/unit/test_glb_collision_flag.py; packages/validation/glb_collision.py reads colliders for ground contact, not against a grant",
+    "checked": "grep for colonly / COLLISION over level_factory *.py/*.gd; read the three sites"},
+   {"piece": "Composed-section tier and occluders", "state": "done",
+    "evidence": "level_factory/packages/exporting/merge_buildings.py:1-13: an enterable building's static slots join one mesh per (unit, material), a unit being a wall side of a storey, a partition run, the parapet's side, the roof or a 6 m room cell; export.py:361-368 `merge_buildings: bool = True` (LF 0.223.0, 4174d64, 2026-10-20); the Empties one mesh a side per material (merge_empties, LF 0.143.0, 52abe8e); occluders.py:1-25 ships occluders.tscn of OccluderInstance3D instanced by mission.tscn (LF 0.96.0 bdb369a, 0.98.0, 0.102.0 6a7dcc8)",
+    "checked": "read merge_buildings.py docstring, export.py profile field, occluders.py docstring; LF git log for the versions"},
+   {"piece": "ASSET_SWAP_CONTRACT.md status line", "state": "undone",
+    "evidence": "deli_counter/docs/ASSET_SWAP_CONTRACT.md:3 still reads 'Status (as of 0.35.0): design spec -- NOT yet implemented.' and :20-23 still describe composing in the Godot editor and an editor-tool swap; the file's last commit is 35e113a5 (2026-06-30, DC 0.47.0)",
+    "checked": "grep -n of the doc; git log -- docs/ASSET_SWAP_CONTRACT.md"}
+  ],
+  "done_since": [
+   "Composed-section tier: Level Factory 0.223.0 (4174d64, 2026-10-20, after the 2026-10-15 status) merges each enterable building's static modules per wall side / partition run / roof / 6 m room cell and material, default on (level_factory/packages/exporting/merge_buildings.py:1-13, export.py:361-368)",
+   "Occluders (done 2026-09-21, before the status but never recorded on this item): LF 0.96.0/0.98.0/0.102.0 ship occluders.tscn instanced by mission.tscn (level_factory/packages/exporting/occluders.py:1-25)"
+  ],
+  "size": "large",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The 2026-10-15 re-measure scoped the remainder to five library pieces and was silent on the body's smaller asks (the intrusion limit, the collision gate, the stale doc line), each of which is one patch on its own and could be split out. Item 57's remainder ('an edge vocabulary and a resolver ... insert a separator from a pool (column, trim, downpipe, material band)') overlaps the seam pieces and this item's `connection_edges`; neither item says it takes over the other. `material_family` was 'blocked behind the UV finding'; UVs now exist (item 88), so it is unblocked but the body never asked for it outright. Prop slots now carry a per-slot `variant` (10,663), close to the body's per-slot `variant_seed`, which the body did not recommend. The 'composed-section tier' is read here as the export's merge units (a storey's wall side, a partition run, a 6 m room cell), which sit between module and runtime chunk; if the guidance meant an authored intermediate section (a facade bay assembled from modules and reused), item 79's facade work is the nearer match and this piece would be only half done. Whether beams, transitions, baseboards, crown trim and fascias are wanted at all is partly a look question; the body's own order calls the library gap 'the one that would visibly improve levels'."
+ },
+ {
+  "n": 46,
+  "title": "Forty-five state machines a run, reaching nobody",
+  "remainder": [
+   "The generator that writes breach_class \"reinforced\" -- status 2026-08-22: 'an LF-generated spec authors breach_class \"reinforced\" where `floorplan.py` reads `== \"reinforceable\"` ... THE GENERATOR THAT WROTE IT HAS NOT BEEN LOCATED. REMAINS: that generator'",
+   "A sync check between the two INTERACTIVES.md copies -- status: 'the INTERACTIVES.md twin-file sync check -- still nothing compares the two copies, and they HAVE drifted'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "The generator writing \"reinforced\"", "state": "undone",
+    "evidence": "LOCATED by this audit, not fixed: deli_counter/presets.py:222-226, inside `bank()` (:84, basement=True by default), appends a basement partition whose breach carries \"breach_class\": \"reinforced\", \"material\": \"concrete\" -- unchanged since f64e6313 (DC 0.12.0, 2026-06-19). Level Factory reaches it through level_factory/adapters/deli_counter/__init__.py:252 (`new_level.py --preset <preset>`); lf_bank_block_001_7002.json's story -1 partition at pos 0.0 carries exactly that breach. It is the only *.py in deli_counter, lot, level_factory, zoo or tools writing the value. Today 187 of 458 specs carry it (23 tracked, e.g. bank_job, airport_terminal_a02, casino_a02; 164 gitignored lf_ transients) against 67 \"reinforceable\"; deli_counter/tactical.py:615-625 only warns, floorplan.py:175-176 draws it as a soft breach, and interactives.py:229-230/277 ships the unknown value to the game as the machine's `breach_class` advisory",
+    "checked": "grep for reinforced over every tool repo's *.py; git blame/log -S on presets.py; read presets.py:84-100,180-249, the LF adapter :240-262, tactical.py:590-640, floorplan.py:160-190, interactives.py:186-283; python read of one lf_ spec; count of breach_class values over specs/"},
+   {"piece": "INTERACTIVES.md twin sync check", "state": "undone",
+    "evidence": "deli_counter/docs/INTERACTIVES.md (8,570 B, LF endings) and zoo/INTERACTIVES.md (10,759 B) differ from line 5 and by 295 diff lines; the DC copy still says (:5-6) 'The same file lives in the zoo repo -- keep them in sync', Zoo's says 'Copy it into both zoo and deli-counter'; each was last edited separately (zoo 01267a6 2026-09-13, DC 87fa93ad 2026-09-14). No *.py/*.ps1/*.sh/*.json/*.gd anywhere under the factory compares them -- 'INTERACTIVES.md' appears only in comments and patch records",
+    "checked": "cmp and diff of the two files; git log of each; grep for INTERACTIVES.md over code and config"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "other",
+  "proposed_status": "",
+  "notes": "The status's 'LF-generated' was right about the path and wrong about the owner: the value is Deli Counter's own `presets.bank`, which LF calls. The fix is one line plus a migration of the 23 tracked specs and a rebuild of the bank shells (their interactives' advisory changes), and the 164 lf_ transients regenerate on the next run. The twin check is either a comparison or retiring one copy (Zoo's is the longer and they diverged in both directions); that is a two-repo change. The pipe itself (steps 1-4) was not re-proven here; nothing found suggests it regressed."
+ },
+ {
+  "n": 53,
+  "title": "One Lux check is a silent no-op, and the filename literals are tidiness with one real consequence",
+  "remainder": [
+   "The preset readback proven by a real Godot run -- status 2026-08-18: 'NOT YET RUN ON HARDWARE'; body: 'No Godot process has produced a `preset_applied` field yet ... The next lit run is the evidence.'",
+   "The Lux filename literals behind one symbol -- status: 'What remains open is the third-ranked item only: 27 filename literals across 8 modules, tidiness'; body: 'define in `packages/adapters/sdk.py` ... and RE-EXPORT from `adapters/lux/__init__.py`'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Preset readback proven in a real run", "state": "done",
+    "evidence": "cold run 9378's `lux_apply` job (restaurant_row_001, 2026-10-21) wrote workspaces/cold-9378-ws/.level_factory/jobs/restaurant_row_001.lux_apply/out/lux.quality.json (1,461 B), copied unchanged into the export's presentation/: \"preset\": \"Blue Hour\", \"preset_applied\": \"Blue Hour\", \"applied\": true, fixture_lights 204. The driver takes `preset_applied` from LuxRoot, not the argument: level_factory/assets/godot/run_lux_apply.gd:107-111 (`reported` = get_current_preset().preset_name), :399 (written beside the request), :462-468 (LUX_PRESET_NOT_APPLIED, moderate, when they differ)",
+    "checked": "python read of the export's lux.quality.json (keys listed, both preset fields quoted); read run_lux_apply.gd:98-119 and :340-474"},
+   {"piece": "Filename literals behind one symbol", "state": "undone",
+    "evidence": "no LUX_APPLIED_SCENE (or any constant for the three names) anywhere in level_factory; the literals have grown from 27 lines in 8 modules to 40 lines in 12 (excluding tests, __pycache__, .pre_*): exporting/export.py 11, exporting/occluders.py 7, exporting/localize.py 4, adapters/lux/__init__.py 4, apps/cli/commands/__init__.py 3, service/facade.py 2, preview/walk_preview.py 2, pipeline/planner.py 2, core/godot_project.py 2, exporting/merge_empties.py 1, exporting/light_bake.py 1, exporting/closure.py 1",
+    "checked": "grep -rn for the constant name and for lux.applied.tscn / lux.quality.json / lux.validation.json over level_factory *.py"}
+  ],
+  "done_since": [
+   "The hardware half: cold run 9378's lux_apply (2026-10-21) produced preset_applied 'Blue Hour' for a 'Blue Hour' request (workspaces/cold-9378-ws/.level_factory/jobs/restaurant_row_001.lux_apply/out/lux.quality.json); the readback code is level_factory/assets/godot/run_lux_apply.gd:107-111, :399, :462-468"
+  ],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "What is left is the item's own 'Worth tidying when something else already has those files open. Not as a project.' -- one Level Factory patch, no behaviour change, and it has grown by four modules since it was counted. The body's manual render-context step for the varied lot's lights was dropped from the remainder by the 2026-08-18 status itself and is not counted here. The batch's body for this item also carries the roadmap's '### Not to be worked on' and '### Smaller, carried' sections (PIPELINE_ROADMAP.md:6744 and :6752): they are H3 sections that sit between item 53's body and item 54's status, not item 53's remainder, and were not audited as such. Spot-checked only: the duplicate ps1.gdshader is gone (patina/godot/ no longer exists, Patina 0.32.0), and lot/cater.py:173-184 still writes a project.godot with no run/main_scene."
+ },
+ {
+  "n": 58,
+  "title": "A facade corner is open to the sky, and light walks straight through the building envelope",
+  "remainder": [
+   "Tie the founding sighting to the corner defect or retire it -- status 2026-08-25: 'the FOUNDING SIGHTING is still not tied to this defect (the overlay's 21.63 m ray lands on `ext_0_N_seg8`'s span, ~19 m from the nearest corner) and should be tied or explicitly retired rather than left implying it was'",
+   "Certify the Deli Counter that fixed it -- status: 'Certification is also owed: DC moved 0.101.2 -> 0.102.1 and no `factory-v` entry has been cut'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Founding sighting tied or retired", "state": "undone",
+    "evidence": "docs/findings/ITEM58_THE_CORNER_IS_NOBODYS_JOB.md:283 still reads '- [ ] tie the founding sighting to this, or record that it was not tied', and :82-87 'the founding sighting is still not tied to it'; grep of the roadmap and every *.md for 'founding sighting' / '21.63' finds only item 58's own text (PIPELINE_ROADMAP.md:7293, :7330-7331, :7377) and item 59's unrelated founding sighting (:7459)",
+    "checked": "grep over all *.md; read the findings doc's 'What is NOT claimed' and 'What would close item 58' sections"},
+   {"piece": "Certification of DC >= 0.102.1", "state": "done",
+    "evidence": "CHANGELOG.md:181-185 factory-v1.35.0 (2026-10-10), 'the first certification since 1.34.1 (2026-08-22)': deli_counter 0.94.0 -> 0.205.0; factory.manifest.json today is factory_version 1.41.0 pinning deli_counter 0.241.0. The gate the fix graduated is still wired: tools/check_all.py:76 runs envelope_continuity.py --dir deli_counter/build",
+    "checked": "read the factory CHANGELOG headings and the 1.35.0 entry; python read of factory.manifest.json; grep of check_all.py"}
+  ],
+  "done_since": [
+   "Certification: factory-v1.35.0 (2026-10-10) certified deli_counter 0.205.0, past 0.102.1 (CHANGELOG.md:181-185); 1.41.0 (2026-10-20) pins 0.241.0"
+  ],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "What is left is a records decision, not a build: write down that the 2026-08-23 photograph was never tied and retire it, or tie it. It is not purely cosmetic: the ray landed mid-run on seg8 (~19 m from a corner), so if the photographed gap was not the corner notch it may have been the body's other candidate (a themed module narrower than its slot), which the slot-side envelope gate cannot see -- GLB bounds were never read for that question (findings :88-95). Retiring it honestly should say that. The corner fix itself was not re-measured here; the gate that proves it is still wired."
+ },
+ {
+  "n": 161,
+  "title": "A stale building library is invisible to every gate, and the guard that should have said so had been silent since 0.116.0",
+  "remainder": [
+   "The guard proven in practice -- body: 'WHAT WOULD CLOSE THIS: a merge of a Deli Counter branch followed by `--begin` that refuses, once, for the right reason.'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "A recorded --begin refusal over a stale library", "state": "undone",
+    "evidence": "the guard is in place: tools/cold_run.py:263-283 runs deli_counter/build_freshness.py --list, and :291-300 refuses with exit 3 unless --allow-stale-library; deli_counter/build_freshness.py:194-240 (content_stale: spec hash, outputs_sha256_16) and :250-300 (exit 1 when stale). But no record of it ever refusing: grep of docs/ (every cold run NOTES.md and findings) and PIPELINE_ROADMAP.md for 'library is STALE' / 'refused: rebuild it' / '--allow-stale-library' finds only the item's own text (:17246, :17254); none of the 385 journals under _runs/cold/*/journal.md carries the line tools/cold_run.py:310-313 writes when a stale library is begun on purpose (a case-insensitive grep for 'stale' finds two unrelated observations, cold_9004 and cold_9077)",
+    "checked": "read cold_run.py:249-325 and build_freshness.py:190-304; grep of docs/, the roadmap and _runs/cold/*/journal.md"}
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "hygiene",
+  "proposed_status": "",
+  "notes": "A refusal returns at tools/cold_run.py:300 BEFORE any journal is written (:302-309), so a refusal that happened would leave no trace in _runs/cold/; the absence of records is weak evidence that it never fired, and strong evidence that nothing has proven it. The proof can be staged rather than waited for: in a clone, move a spec or a tracked manifest without rebuilding and run --begin. Since the status, item 259 (CLOSED 2026-10-19, DC 0.233.0) widened what build_freshness watches to every module a shell build reads -- the guard got stronger, it was not exercised. The item itself is second-order by its own account ('none of this reduces interventions on a fresh library')."
+ },
+ {
+  "n": 163,
+  "title": "Strip clubs are lit like offices",
+  "remainder": [
+   "Lot's merge_lights and the stage light's aim -- status 2026-09-16: 'Lot's `merge_lights` does not transform `stage_light.target`, so 9060's stage light baked to energy 0 and drew black'",
+   "Deli Counter's side of the same -- status: 'Deli Counter does not yet write `room_drop` on club anchors or a building-local target'",
+   "strip_club_a01's window light -- status: 'a01's window still lights a windowless box'",
+   "Neon signs missing -- status: 'neon signs are occasionally not placed at all'",
+   "The walker's verdict -- status: 'the room may still be too dark for the walker, which is a walk call'; body: 'WHAT WOULD CLOSE THIS: the walker walks a generated strip club and calls it dingy.'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "merge_lights carries stage_light.target", "state": "done",
+    "evidence": "lot/lot.py:605-612 `_LIGHT_POINTS = (\"pos\", \"target\")` and :678-686 move every point through `_place_point`, :619-634 refusing an unclassed numeric triple; Lot 0.99.1 (a4d1571, 2026-10-08); roadmap 207 CLOSED 2026-10-08: cold run 9204 built 44 of 44 club rigs, LUX_CLUB_REFUSED gone",
+    "checked": "read lot.py:600-690; git log of lot; read item 207's status"},
+   {"piece": "DC room_drop / building-local target on club anchors", "state": "superseded",
+    "evidence": "the stage light's aim was fixed on Lot's side instead (item 207's status, quoted above); Deli Counter already writes `drop` (ceiling to floor) on every club anchor and a building-frame `target` on each stage light -- deli_counter/lights.py:654-661 (club_wash), :686-698 (stage_light, target :693-694), :709-717 and :727-737 (neon) -- since 0.132.0 (16c363dd, 2026-09-14); 'room_drop' appears in no tool's code (grep over deli_counter, lux, lot, level_factory, zoo)",
+    "checked": "read lights.py:625-739; git log -S on lights.py; grep for room_drop"},
+   {"piece": "strip_club_a01's window lights a windowless box", "state": "done",
+    "evidence": "deli_counter/lights.py:1681-1695 skips the window area light behind a `window_drape` (DC 0.205.0, 68caeb40, 2026-10-09, roadmap 219 note 2, proven cold 9217); built strip_club_a01.lights.json today carries club_wash 9, stage_light 2, neon 7, back_bar 1, room_ambient 3, pendant 1, sign 1, wall_pack 2 -- no window anchor",
+    "checked": "read lights.py:1435-1440 and :1676-1700; python count of anchor types in build/strip_club_a0{1,2,3}.lights.json"},
+   {"piece": "Neon signs not placed at all", "state": "undone",
+    "evidence": "measured today by calling deli_counter's presets.make('strip_club', name='lf_club_block_001_<seed>', seed=0..49) in memory, as Level Factory's adapter does: no neon_sign in main_floor at 5 seeds (2, 4, 17, 44, 45), in vip_lounge at 38, in back_bar at 19, and none anywhere in the building at 3 (4, 17, 45) -- the same 5 / 38 / 3 deli_counter/CHANGELOG.md:7181-7183 recorded at 0.133.0 as 'Not fixed here'; deli_counter/test_preset_strip_club.py:127-134 still says the sign 'is not asserted here' (only the three library clubs are, test_club_rooms.py:640-656)",
+    "checked": "PYTHONDONTWRITEBYTECODE in-memory run of presets.make over 50 seeds counting neon_sign volumes per club room the way the test's _species does; read the changelog and both tests"},
+   {"piece": "The walker calls a generated club dingy (and not too dark)", "state": "walker",
+    "evidence": "the walker walked a generated club on 2026-10-09 (cold 9213): 'strip club is still a tad too dark ... dark and moody, but lit enough' (roadmap 219, note 1); Lux 0.72.0 lifted it (main floor median luma 1 -> 8, cold 9218) and item 219's status leaves 'the brighter fill, the club's office-tile ceiling' as 'Still the walker's'; no record of the walker calling it dingy (grep of the roadmap and docs/ for 'dingy' finds only the original ask and the memory note)",
+    "checked": "read item 219's status and note 1 (PIPELINE_ROADMAP.md:20032-20038); grep for 'dingy'"}
+  ],
+  "done_since": [
+   "Lot 0.99.1 (a4d1571, 2026-10-08) carries a stage light's target into site space (lot/lot.py:605-612, :678-686); item 207 CLOSED",
+   "Deli Counter 0.205.0 (68caeb40, 2026-10-09) hangs drapes on every strip-club window and derives no window light behind one (deli_counter/lights.py:1681-1695); strip_club_a01 has no window anchor today",
+   "Lux 0.72.0 (2026-10-10) lit the club brighter for the walker's 'a tad too dark' (item 219, cold 9218) -- not yet judged"
+  ],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Two of the four owned pieces are done by later items and one was answered on the other side of the seam; the factory piece left is the neon sign, a Deli Counter recipe change (keep the sign out of the shuffle-and-cut of the wall run), then the walker. Related and tracked under item 219, not here: the club's ceiling is still the office tile (strip_club_a01's rooms carry floor_material carpet_club and no ceiling material). The in-memory measurement executed Deli Counter's generator without writing a file; it is the same call the preset test makes."
+ },
+ {
+  "n": 166,
+  "title": "A generated level chugged, and everything this repo believed about why was wrong",
+  "remainder": [
+   "Price the warm-up's station spacing -- body: 'a real trade, and the spacing has never been priced'",
+   "The warm-up's load cost itself -- status 2026-09-21: 'THE WARM-UP'S LOAD COST IS THE OPEN HALF'; body: 'the warm-up costs 48.2 s on a machine whose driver cache has never seen the content and 4.8 s on every launch after'",
+   "Magnitudes on other hardware -- body: 'Every figure here is one GPU (RTX 2060, NVIDIA 616.56) on GL Compatibility; the shapes should hold on other hardware and the magnitudes will not.'"
+  ],
+  "verdict": "ANALYSIS",
+  "per_piece": [
+   {"piece": "Spacing priced", "state": "done",
+    "evidence": "Level Factory 0.101.0 (c28fae3, 2026-09-21 20:25, the status's own day): level_factory/CHANGELOG.md:7868-7966 sweeps the station set on cold run 9066's package with tools/warmup_spacing_sweep.py, one cold and one warm launch per configuration (no warm-up 6,172 ms lap-1 worst cold; grid off 13 stations 45.3 s cold load; 40 m 21 stations 48.6/47.8 s cold, 6.5 s warm, 20.1-20.3 ms; 24 m 41 stations 51.2/49.0 s, 8.7/7.1 s; 16 m 79 stations 50.2 s) and ships `grid_spacing_m` 40.0 (level_factory/assets/godot/warmup.gd:132); cold run 9378's package carries the knobs and their measurements in warmup.json (`grid_spacing_m` default 40.0)",
+    "checked": "read the 0.101.0 entry, warmup.gd:36-65 and its @export lines, and the warmup.json of workspaces/cold-9378-ws's export"},
+   {"piece": "The load cost", "state": "done",
+    "evidence": "priced and attributed, not reduced: CHANGELOG.md:7908-7921 'Most of the 48 s is irreducible' -- cold load 40.7 s at 9 stations, 52.1 s at 29, 50.2 s at 79: 'the load is not the sweep's frames, it is the compile bill the sweep pulls forward'; warmup.gd:45-52 'The warm-up moves the bill; it does not shrink it'; :62-64 `warmup_finished` lets a host wait behind its own loading screen; CHANGELOG.md:8020-8029 spreading the sweep into play 'is a presentation choice, not a cost one'",
+    "checked": "read CHANGELOG.md:7908-8037 and warmup.gd:36-65; grep of the roadmap for any later item on load time or shader variants (none)"},
+   {"piece": "Magnitudes on other hardware", "state": "unclear",
+    "evidence": "no second GPU has been measured anywhere in the records read; CHANGELOG.md:8031-8035 'One package ... one machine's driver'; CLAUDE.md: 'There is no runtime telemetry from real sessions yet'",
+    "checked": "read the 0.101.0 entry's 'What this does not answer'; grep of the roadmap"}
+  ],
+  "done_since": [
+   "Level Factory 0.101.0 (c28fae3, 2026-09-21) priced the warm-up's spacing and found the ~48 s cold load to be the level's shader compile bill, not the warm-up's to give back (level_factory/CHANGELOG.md:7868-7966)"
+  ],
+  "size": "none",
+  "bears_on": "performance",
+  "proposed_status": "*STATUS: ANALYSIS 2026-10-22 -- the open half was priced the day it was named, and what it found is a trade, not a task. Level Factory 0.101.0 (c28fae3, 2026-09-21, `tools/warmup_spacing_sweep.py`) swept the warm-up's station set on cold run 9066's package, one cold and one warm launch per configuration, RTX 2060 on GL Compatibility: cold load 40.7 s at 9 stations, 48.6 s at 21, 52.1 s at 29 and 50.2 s at 79, so the ~48 s is the level's shader compile bill pulled forward rather than the sweep's frames, and no station set removes it; lap 1's worst cold frame plateaus at 148-159 ms above ~16 stations; the warm launch is the one that tunes, and `grid_spacing_m` ships at 40.0 (21 stations, 6.4-6.5 s warm load, 20.1-20.5 ms; `level_factory/assets/godot/warmup.gd:132`, its measurements in every package's `warmup.json`, cold run 9378's included). Left as a standing trade: a first launch on a cold driver cache pays the compile bill once per machine and driver, behind `warmup_finished` where a host can show its own loading screen (warmup.gd:62-64); every figure is one GPU's, and the magnitudes elsewhere wait for runtime data. Not re-priced since 9066: today's packages, with baked lights and sun and merged interiors, have not been measured for load.*",
+  "notes": "ANALYSIS rather than DONE because nothing the item asks for is a build; rather than OPEN because no later item or record names a target for the cold load or a plan to shrink the compile bill (fewer shader programs would be the only lever, and no item proposes it). If the owner wants a figure for today's levels, the run that decides it is warmup_spacing_sweep.py at the defaults on a current package (e.g. cold run 9378's), cold and warm, against 9066's 48.5 s / 6.4 s; the cold-run prices since record memory after the warm-up (e.g. cold_9324, cold_9341 NOTES) but not its load time. Submission and memory, the other half, were not re-audited here."
+ },
+ {
+  "n": 243,
+  "title": "A package runs Lux's High tier on its low-end renderer",
+  "remainder": [
+   "Which tier a package runs -- status 2026-10-12: 'Left: which tier a package runs (the walker's; High with the sun baked draws 788 a heading against Low's 538)'",
+   "The street lights' shadow budget -- status: 'the street lights' shadow budget (with 240)'",
+   "The backdrop's look under a baked sun -- status: 'the backdrop's look under a baked sun (levers in the findings)'",
+   "The darker sunlit faces -- status: 'the level's sunlit faces reading darker under the baked sun, 1.6 levels of it specular, the rest unattributed'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Which tier", "state": "walker",
+    "evidence": "still unset: no *.py/*.gd in level_factory, lot, lux's injector or dispatch sets `quality_tier` (grep), lux/addons/lux/runtime/lux_root.gd:29 defaults it to 0 (High), and cold run 9378's package names it in none of lux.applied.tscn, mission.tscn or bake.tscn (0 matches); the question is restated open in docs/findings/guides_2026-10-19/geometry.md:83 ('Which Lux tier should packages ship with (roadmap 243)?') and was not on the walker's 2026-10-19 review (verdicts_2026-10-19.json has no tier key)",
+    "checked": "grep for quality_tier over the tool repos and the 9378 export; read the guides pass and the review's verdict store"},
+   {"piece": "Street lights' shadow budget", "state": "done",
+    "evidence": "the walker's call, 2026-10-19: docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json `verdicts.Q240_shadows` = {'choice': 'Keep as is', 'note': \"moving bodies shouldn't be dark, they will be important to see in the game.\"}; item 240's status (PIPELINE_ROADMAP.md:20511): 'so the shadows keep their price, about 170 draw calls a view, by the walker's call'",
+    "checked": "python read of the verdict store; read item 240's newest status"},
+   {"piece": "Backdrop's look under a baked sun", "state": "walker",
+    "evidence": "docs/findings/lux_tiers/README.md:154-158 'Levers, none taken, the walker's: the backdrop in the bake as a caster ..., its own lighting by cause ..., or nothing'; no Lux change after 0.76.1 touches the backdrop (lux/CHANGELOG.md, one backdrop line, :93), Level Factory's later backdrop work is its ground plane (0.211.0, 0.215.0), and the walker's reviews of 2026-10-19/20 asked nothing about it",
+    "checked": "read the findings' attribution section; grep of the Lux and LF changelogs; read both review READMEs"},
+   {"piece": "Darker sunlit faces, unattributed", "state": "undone",
+    "evidence": "docs/findings/lux_tiers/README.md:149-152 still 'Not attributed ... Unmeasured candidates: the live map's bias at a 4-degree sun ..., the lightmap's texels and its denoiser'; no later finding or roadmap line attributes it (grep for 'sunlit faces' / 'darker under the baked sun' hits only that README and cold_9265/NOTES.md:88)",
+    "checked": "grep of docs/ and the roadmap"}
+  ],
+  "done_since": [
+   "The street lights' shadow budget: the walker chose 'Keep as is' on 2026-10-19 (docs/findings/walker_review_2026-10-19/verdicts_2026-10-19.json, Q240_shadows), recorded on item 240"
+  ],
+  "size": "small",
+  "bears_on": "performance",
+  "proposed_status": "",
+  "notes": "Two of the three pieces left are the walker's (the tier, the backdrop lever); the only factory piece is the attribution of the darker sunlit faces, a measurement with named candidates, which could also be retired by the walker's acceptance of the baked sun's look ('Bake the sun by default' was chosen from frames that showed it). If that residue is recorded as accepted, the item becomes WALKER. Related later items, not taking this over: 263 (what a moving body receives from the bake) and 286 (nothing decides which meshes cast shadows)."
+ },
+ {
+  "n": 253,
+  "title": "Flag assets as looking good or needing love",
+  "remainder": [
+   "The walker's walk with the boxes -- status 2026-10-19: 'walk done \"Not yet\"'; earlier status: 'What is left: a walk with the boxes whose ledger names each flag rightly'; body: 'WHAT WOULD CLOSE IT: the walker flags assets on a walk and the ledger names each rightly, its frames beside it.'",
+   "A pick in the level's own scene recorded under the level's file -- earlier status: 'a pick in the level's own scene (a sidewalk, a kerb, a road) is boxed by itself but still RECORDED under the level's file, so the ledger lumps such flags under `lux.applied`'",
+   "The known naming gaps -- earlier status: 'Known gaps: a MultiMesh (Lot's dressing) falls to the physics hit; merged Empties carry their merged name'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "The walker's walk with the boxes", "state": "walker",
+    "evidence": "the only flag record on disk is _scratch/review/walk_9334/asset_flags.jsonl (5 lines, 2026-10-19 17:48, before the boxes shipped in 72e3c4c at 17:59); docs/findings/asset_flags_253/LEDGER.md still lists one asset (the car, 5 flags) and 'Looks good: Nothing flagged'",
+    "checked": "find over the whole factory for asset_flags.jsonl; read the ledger; git log of the two tools"},
+   {"piece": "Level-scene picks recorded as `lux.applied`", "state": "undone",
+    "evidence": "tools/walk_asset_flags.gd:271-277 `_asset_file` still returns the nearest ancestor's scene_file_path, and :175-176 record it as `asset_file` and `asset`; only the banner (:400-409 `_shown_name`) names the node's own path. Neither tool has changed since 72e3c4c (2026-10-19, the commit the status describes)",
+    "checked": "read walk_asset_flags.gd:10-34, :265-291, :378-417; git log -- tools/walk_asset_flags.gd tools/asset_flags.py"},
+   {"piece": "Naming gaps: MultiMesh dressing and merged meshes", "state": "undone",
+    "evidence": "tools/walk_asset_flags.gd:16-17 still lets a MultiMesh fall to the physics hit, and the tool has no handling for merged meshes (no 'merge' in it). The gap has WIDENED since the status: Level Factory 0.223.0 (2026-10-20) merges every enterable building's static modules into `MergedR_<k>` MeshInstance3Ds under the building scene and removes the slot nodes (level_factory/assets/godot/merge_buildings.gd:338-346, :364-374), so by :271-277 a flag on a building's wall, floor or prop now resolves to `res://lot/<id>/site.tscn` -- the building is named, the Zoo module is not (read from the code, not run)",
+    "checked": "read merge_buildings.gd:330-374 and walk_asset_flags.gd; grep for merge/multimesh in the flag tool"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "The walk is the walker's, but the ledger it would produce cannot yet 'name each rightly' for three kinds of pick, one of which (any enterable building since LF 0.223.0's merge) is most of what a walk looks at indoors. Fixing it likely needs the merge to keep a triangle-to-slot or mesh-to-module record that the flag tool can read, so two places (Level Factory and the root's tools/walk_asset_flags.gd). The merged-building naming consequence is inferred from reading both files; a press on a merged wall in a current walk copy would confirm it in one try."
+ },
+ {
+  "n": 265,
+  "title": "Every hole in a floor has a cause",
+  "remainder": [
+   "The walker's eye on four look notes -- status 2026-10-20: 'Left: the walker's eye -- the hatch's 3 cm frame is a line at 4 m; the broken hole is square in plan behind its teeth; the spoil reads sparse; the kit's 0.35 m off the cut's rim'",
+   "L28's uncaused holes -- status: '-- and L28's uncaused holes'; an earlier status: 'foundry_heist_vertical's catwalk and lf_county_hospital_001's atriums and light well, a guard or a curb the walker's call'",
+   "The broken and hatch holes' price -- body: 'What would close it: ... the hole's price in draws at its stations'; the broken/hatch paragraph: 'The price, inferred and not measured'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "The walker's eye on the four look notes", "state": "walker",
+    "evidence": "no answer recorded: the 2026-10-20 review (docs/findings/walker_review_2026-10-20/README.md:32-42) asked about items 148, 210, 170, 217, 79 and 267 only, and the 2026-10-21 review is the drawings; item 265's body itself calls the 3 cm frame 'the walker's call' (hole_causes.HATCH_FRAME)",
+    "checked": "read both later review READMEs' answer tables"},
+   {"piece": "L28's uncaused holes (foundry's catwalk drop, the hospital's atriums and light well)", "state": "walker",
+    "evidence": "deli_counter/build/foundry_heist_vertical.validation.json still carries 'L28 a hole in a floor with no cause: the story 1 floor_hole at (0, -9), catwalk_south over south_machine, ships as a bare cut'; the status names a guard rail or a curb here 'the walker's call'; no answer recorded in the later reviews. The hospital's atriums (Level Factory transients, 9 uncaused per the item) were not re-measured here",
+    "checked": "grep -o of every L28 line over build/*.validation.json (two in the library); read layout_lint.py:1289-1330"},
+   {"piece": "L28's other library warning: rowhouse_raid's hatch half in a stair's well", "state": "undone",
+    "evidence": "deli_counter/build/rowhouse_raid.validation.json: 'L28 a hole in a floor runs past a stair's well: the story 1 hatch at (-6, 5), office over garage_bay, is 70% in the well and the rest a bare cut in the floor beside it -- keep the hole inside the well or clear of it' -- a geometry fix (deli_counter/layout_lint.py:1325-1329), not a cause question, unchanged since 0.236.0 measured it (:1301-1305); rowhouse_raid's shell is turned away from themed lots (the item's broken/hatch paragraph), so it reaches no level today",
+    "checked": "same grep; read the L28 docstring"},
+   {"piece": "Broken and hatch holes priced in the engine", "state": "undone",
+    "evidence": "docs/cold_runs/cold_9343/NOTES.md:54-58 'The price, inferred ... Not priced in the engine: 9342 shipped nothing to compare against' -- 5 submissions for the broken hole, 2 for the hatch, ~0.03 ms inferred; cold_9344/NOTES.md:19 'no draw moves' for the paint change; no later record prices them (the cut hole was priced on 9341: +9 draws, p95 inside the 0.05 ms floor)",
+    "checked": "grep of cold_9343 and cold_9344 NOTES for draw/price"}
+  ],
+  "done_since": [],
+  "size": "small",
+  "bears_on": "quality",
+  "proposed_status": "",
+  "notes": "Nearly all of what is left is the walker's eye; the factory loose ends are small: rowhouse_raid's half-in-the-well hatch (a library WARN on a shell no themed lot draws) and an engine price for the broken and hatch holes, which a holes-on/holes-off pair of the same seed could give (Level Factory 0.221.0 decides holes per level). If the owner accepts the inferred price and treats rowhouse_raid as out of scope while it is turned away, the verdict becomes WALKER."
+ },
+ {
+  "n": 266,
+  "title": "Enterable buildings' interiors merge per room and material",
+  "remainder": [
+   "Frames of a shipped package against its control -- earlier status (SHIPPED AND PRICED, 2026-10-20): 'Left: frames of a shipped package against its control (the prototype's were compared ...)'; body: 'the bake unchanged in look'",
+   "The low-end target's frame time -- same status: 'the low-end target's frame time'",
+   "A merge unit that lets a fixture's housing merge -- same status: 'a unit that lets a fixture's housing merge'",
+   "The 6 m cell derived, not just measured -- same status: 'and the 6 m cell's derivation (measured on one level)'",
+   "The walker told -- body: 'What would close it: ... and the walker told what it cost and bought'",
+   "The dressing MultiMeshes, one a species for the site -- body: 'Also measured and left as a question: the dressing layer's MultiMeshes are one a species for the whole site, against CLAUDE.md's \"never one for the level\"'",
+   "A check that a package keeps its composition's gameplay -- newest status: 'Item 272 is the check that would have caught it'"
+  ],
+  "verdict": "OPEN",
+  "per_piece": [
+   {"piece": "Frames of the shipped merge against its control", "state": "undone",
+    "evidence": "docs/findings/interior_merge_266/README.md:109-110 'The look: the prototype's frames, above. The export's own path is the prototype's v3; no frame of the shipped package is compared here'; cold run 9357's docs/cold_runs/cold_9357/compare_merge.py compares the merge report's counts and the ladder/marker groups, not frames; no later cold run NOTES (9361, 9363, 9374) compares frames of a merged package with its --no-merge-buildings export",
+    "checked": "read the findings README; ls and head of cold_9357; grep of docs/ for merge_buildings / no-merge-buildings"},
+   {"piece": "The low-end target's frame time", "state": "unclear",
+    "evidence": "interior_merge_266/README.md:94-98 and :119 'The low-end target's frame time: no machine of that class has priced it'; nothing later measures one",
+    "checked": "read the findings; grep of the roadmap and cold-run notes"},
+   {"piece": "A unit that merges a fixture's housing", "state": "undone",
+    "evidence": "level_factory/assets/godot/merge_buildings.gd:55-58 (`FIXTURE_SUFFIXES` _Lens/_Diffuser) and :181 still keep a fixture module whole; the merge's files are unchanged since 0.227.0 (2592e7a, 2026-10-20); README.md:117-118 'Merging housings needs a unit that pairs no more lights than one fixture does'",
+    "checked": "grep of merge_buildings.gd; git log of merge_buildings.gd and merge_buildings.py"},
+   {"piece": "The 6 m cell's derivation", "state": "undone",
+    "evidence": "level_factory/assets/godot/merge_buildings.gd:59-61 '## MEASURED, not derived: the cell that kept cold run 9347's light pairing at the control's ... const CELL_M := 6.0'",
+    "checked": "read the constant and its comment"},
+   {"piece": "The walker told what it cost and bought", "state": "unclear",
+    "evidence": "no record of it: the merge was not on the walker's 2026-10-20 review (walker_review_2026-10-20/README.md:32-42 asks about 148, 210, 170, 217, 79, 267) nor the 2026-10-21 one; the findings say only that it answered the walker's ask 'more performant at runtime' (README.md:8-9). It may have been said in chat",
+    "checked": "read both review tables and the findings head"},
+   {"piece": "Dressing MultiMeshes one a species for the site", "state": "undone",
+    "evidence": "still so on 2026-10-21: docs/findings/guides_2026-10-21/retopo_tdd.md:80 '29 MultiMeshes (including the four site-wide dressing batches)'; no item or record answers the question, and its vertex cost is again a low-end measurement",
+    "checked": "grep of the roadmap for 'never one for the level' / 'site-wide dressing' (hits only 266 and 286, which is about shadow casting)"},
+   {"piece": "The check that would have caught the regression", "state": "superseded",
+    "evidence": "roadmap 272 (PIPELINE_ROADMAP.md:20825) 'STATUS: OPEN 2026-10-20 -- found by install test 11 ...; Level Factory 0.227.0 fixed the loss and left the check that would have found it'",
+    "checked": "read 272's status"}
+  ],
+  "done_since": [],
+  "size": "medium",
+  "bears_on": "performance",
+  "proposed_status": "",
+  "notes": "The merge itself shipped, was priced (draws -81 to -85 a heading, 11 %) and its one regression was fixed (LF 0.227.0, cold 9357); what is left are its own follow-ups. Two of them (the low-end frame time, the dressing batches' vertex cost) need a machine the factory does not have, which makes them standing questions rather than tasks; the frames comparison, the housing unit and the cell's derivation are ordinary factory work. The merge also removed the module identity a walk's asset flag reads (see item 253 in this batch)."
+ }
+]
