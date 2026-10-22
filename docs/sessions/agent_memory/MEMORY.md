@@ -137,3 +137,4 @@
 - [Main drag comp](main-drag-comp.md) — walker's PA-291 Tinicum remix for later: roadmap 298, docs/reference/MAIN_DRAG_COMP.md
 - [Late pieces guard width](late-pieces-guard-width.md) — off a route keeps length, not width; ask room_necks/_narrows (DC 0.256.0)
 - [Root search skips tool repos](root-search-skips-tool-repos.md) — root .gitignore excludes every tool repo: search inside each; a root 'nothing found' is unproven
+- [Scout model ships to players](scout-model-ships-to-players.md) — walker: polished, artistic, 360-degree rotatable building models players scout with (295); SVG ok for now
