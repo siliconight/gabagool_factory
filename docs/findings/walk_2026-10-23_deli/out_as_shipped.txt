@@ -1,0 +1,68 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+[lux] Bound 84 fixture emissive material(s) (searched Site)
+scene instantiated ok
+[debug_overlay] F3 position/building/surface, F4 perf. restaurant_row_001 (shell)  gl_compatibility  light budget 238  vsync on  0x0
+WARNING: [walk_flashlight] no Camera3D found; no flashlight
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://_walk_flashlight.gd:37)
+[walk_work_light] L toggles a work light: a shadowless light over your shoulder and a flat ambient, for checking what is there in a dark room. While it is on, nothing on screen is the level's look.
+[lux] baked lighting: 1 lightmap(s) bound under _walk
+[walk_ladders] 2 ladder climb volume(s)
+WARNING: [cycle] no sky provider in this scene
+   at: push_warning (core/variant/variant_utility.cpp:1033)
+   GDScript backtrace (most recent call first):
+       [0] _ready (res://_sky_cycle.gd:32)
+VOL group=ladder node=/root/_walk/Mission/Bake/Site/b0/Markers/LADDER_0 type=Node3D pos=(-43.0, 0.0, 9.49)
+VOL group=ladder node=/root/_walk/WalkLadders/LADDER_0_climb type=Area3D pos=(-43.0, 0.0, 9.49) box_centre=(-43.0, 2.0, 9.49) size=(1.3, 4.0, 1.3) y_range=[0.000, 4.000]
+VOL group=ladder_area3d node=/root/_walk/Mission/Bake/Site/b0/Ladders/Ladder_ladder_0 type=Area3D pos=(-43.0, 0.0, 9.49) box_centre=(-43.0, 3.3, 9.04) size=(1.3, 7.6, 0.8) y_range=[-0.500, 7.100]
+RAY x=-44.003 z8.093:6.600(slab_col_2) z8.493:6.600(slab_col_2) z8.793:6.600(slab_col_2) z9.113:6.600(slab_col_2) z9.493:6.600(Roof) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-43.703 z8.093:6.600(slab_col_2) z8.493:6.600(slab_col_2) z8.793:6.600(slab_col_2) z9.113:6.600(slab_col_2) z9.493:6.600(slab_col_2) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-43.403 z8.093:6.600(slab_col_2) z8.493:-0.000(slab_col_0) z8.793:-0.000(slab_col_0) z9.113:-0.000(slab_col_0) z9.493:6.600(ladder0_plane) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-43.003 z8.093:6.600(slab_col_2) z8.493:-0.000(slab_col_0) z8.793:-0.000(slab_col_0) z9.113:-0.000(slab_col_0) z9.493:6.600(ladder0_plane) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-42.603 z8.093:6.600(Roof) z8.493:-0.000(slab_col_0) z8.793:-0.000(slab_col_0) z9.113:-0.000(slab_col_0) z9.493:6.600(ladder0_plane) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-42.303 z8.093:6.600(Roof) z8.493:6.600(Roof) z8.793:6.600(Roof) z9.113:6.600(Roof) z9.493:6.600(Roof) z9.793:6.600(Roof) z10.193:6.600(Roof)
+RAY x=-42.003 z8.093:6.600(Roof) z8.493:6.600(Roof) z8.793:6.600(Roof) z9.113:6.600(Roof) z9.493:6.600(Roof) z9.793:6.600(Roof) z10.193:6.600(Roof)
+CAP feet=3.313 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0", "LADDER_0_climb"]
+CAP feet=3.563 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0", "LADDER_0_climb"]
+CAP feet=3.813 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0", "LADDER_0_climb"]
+CAP feet=4.063 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=4.313 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=4.563 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=4.813 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=5.063 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=5.313 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=5.563 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=5.813 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=6.063 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=6.313 solids=["ladder0_plane"] ladder_areas=["Ladder_ladder_0"]
+CAP feet=6.563 solids=[] ladder_areas=["Ladder_ladder_0"]
+CAP feet=6.813 solids=[] ladder_areas=["Ladder_ladder_0"]
+CAP feet=7.063 solids=[] ladder_areas=["Ladder_ladder_0"]
+CAP feet=7.313 solids=[] ladder_areas=[]
+CLIMB t=0.25 feet=3.916 eye=5.516 on_ladder=true x=-43.003 z=9.089
+CLIMB t=0.50 feet=4.403 eye=6.003 on_ladder=false x=-43.003 z=9.089
+CLIMB t=0.75 feet=4.285 eye=5.885 on_ladder=false x=-43.003 z=9.089
+CLIMB t=1.00 feet=4.184 eye=5.784 on_ladder=false x=-43.003 z=9.089
+CLIMB t=1.25 feet=4.434 eye=6.034 on_ladder=false x=-43.003 z=9.089
+CLIMB t=1.50 feet=4.071 eye=5.671 on_ladder=false x=-43.003 z=9.089
+CLIMB t=1.75 feet=4.362 eye=5.962 on_ladder=false x=-43.003 z=9.089
+CLIMB t=2.00 feet=4.367 eye=5.967 on_ladder=false x=-43.003 z=9.089
+CLIMB t=2.25 feet=4.069 eye=5.669 on_ladder=false x=-43.003 z=9.089
+CLIMB t=2.50 feet=4.442 eye=6.042 on_ladder=false x=-43.003 z=9.089
+CLIMB t=2.75 feet=4.202 eye=5.802 on_ladder=false x=-43.003 z=9.089
+CLIMB t=3.00 feet=4.296 eye=5.896 on_ladder=false x=-43.003 z=9.089
+CLIMB t=3.25 feet=4.424 eye=6.024 on_ladder=false x=-43.003 z=9.089
+CLIMB t=3.50 feet=3.938 eye=5.538 on_ladder=true x=-43.003 z=9.089
+CLIMB t=3.75 feet=4.425 eye=6.025 on_ladder=false x=-43.003 z=9.089
+CLIMB t=4.00 feet=4.308 eye=5.908 on_ladder=false x=-43.003 z=9.089
+CLIMB t=4.25 feet=4.206 eye=5.806 on_ladder=false x=-43.003 z=9.089
+CLIMB t=4.50 feet=4.456 eye=6.056 on_ladder=false x=-43.003 z=9.089
+CLIMB t=4.75 feet=4.093 eye=5.693 on_ladder=false x=-43.003 z=9.089
+CLIMB t=5.00 feet=4.384 eye=5.984 on_ladder=false x=-43.003 z=9.089
+CLIMB t=5.25 feet=4.389 eye=5.989 on_ladder=false x=-43.003 z=9.089
+CLIMB t=5.50 feet=3.991 eye=5.591 on_ladder=true x=-43.003 z=9.089
+CLIMB t=5.75 feet=4.442 eye=6.042 on_ladder=false x=-43.003 z=9.089
+CLIMB t=6.00 feet=4.284 eye=5.884 on_ladder=false x=-43.003 z=9.089
+CLIMB arm=as_shipped max_feet=4.463 (roof top at local 6.6)
