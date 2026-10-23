@@ -101,6 +101,13 @@ for k in sorted(set(a) | set(b)):
 PY
 step walk; python tools/walk_export.py "$WS/.level_factory" $M 2>&1 | tail -2
 python tools/cold_drive/wire_sky.py _runs/walk_export_$M 2>&1 | tail -1
+# THE LIGHT CHECK (2026-10-23, the walker's walk of cold run 9383): every room and every opening's landing, under the
+# level's own preset, held to its floor (`tools/light_check.py`). It failed three rooms of 9383 that nobody had run it
+# on. Its frames stay in the run's scratch, its verdict goes in the record, and a FAIL is reported, not a stop.
+step light; python tools/light_check.py _runs/walk_export_$M --slots own --out _runs/cold/cold_$N/light_check \
+    > _runs/cold/cold_$N/light_check.log 2>&1
+echo "light check exit $? -- $(grep -m1 -E '^  (FAIL|PASS|WARN|EXEMPT|REPORT) ' _runs/cold/cold_$N/light_check/light_check.txt 2>/dev/null || echo 'no verdict written')"
+cp _runs/cold/cold_$N/light_check/light_check.txt docs/cold_runs/cold_$N/light_check.txt 2>/dev/null || true
 # THE PACKAGE CLEAN JOB (2026-10-11): what a pushed record makes regenerable goes --
 # workspaces beyond the newest four, release and test zips, test unpacks. This run's
 # own workspace stays: its record is not pushed yet. Never fatal to the run.

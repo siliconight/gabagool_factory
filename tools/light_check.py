@@ -45,6 +45,14 @@ THE STATIONS.
     Bare bulbs, by Deli Counter's `lights.py` rule;
   - DEN: a room in a building with a tinted room probe, a den of sin, dark
     by design (Lux 0.68.2 reads a building the same way).
+- **Openings: one a landing (2026-10-23).** Every place an opening comes
+  down -- Deli Counter's `lights.opening_landings`, the rule its landing lights
+  are placed by -- seen from where a player stands to use it: a stair's upper
+  end, 0.8 m past a hole's edge, 0.9 m beside a ladder's top, at eye height on
+  the storey above, looking at the landing 0.2 m over its floor. Buildings and
+  their specs come from the walk copy's `buildings.json`. A Deli Counter older
+  than 0.261.0 has no `opening_landings`, and the check says so rather than
+  judging none.
 - **Outside: look_shots' own derived cameras.**
   - the spawn and the extraction, on the mission's spine at eye height:
     "street";
@@ -59,6 +67,7 @@ THE TARGETS. Luma, 0 to 255, after the grade, as look_shots measures it.
 | interior ROW | any | p50 >= 10 | the night census and `LEVEL_STANDARD`'s scorecard, "rooms under 10" |
 | interior MOODY | any | p50 >= 5, PROVISIONAL | half the ROW floor: moody rooms take half the fill (`BAKE_FILL_BULB_SHARE`) |
 | interior DEN | any | exempt, reported | dark by design (Lux 0.68.2) |
+| opening | any | p50 >= 20, PROVISIONAL | the walker, 2026-10-23: "you should be able to see into holes to know you can go forward into them" -- a stair opening onto deli_a03's basement read black from above at the landing's own p50 10, so twice the ROW floor |
 | street | any | p50 >= 2 | `NIGHT_READABILITY`: the collapse is "a median pixel at zero" |
 | street | any | near-clip <= 5%, PROVISIONAL | look_shots: 18.6% within 3 codes of white was blown; 1.1 to 3.2% read |
 | facade | any | WARN when p95 < 10, or near-clip over 5% | nothing on the facade reaches the ROW floor, or it is blown. An elevation is not a player's view. |
@@ -108,6 +117,11 @@ EYE = 1.6
 LOOK_Z = 1.0
 ROW_FLOOR = 10
 MOODY_FLOOR = 5
+OPENING_FLOOR = 20
+#: Where the eye stands beside an opening, metres past a hole's edge and beside a ladder's top.
+OPENING_STAND_OFF_HOLE = 0.8
+OPENING_STAND_OFF_LADDER = 0.9
+OPENING_LOOK_Z = 0.2
 BLACK_P50 = 1
 NEAR_CLIP_PCT = 5.0
 STREET = ("spawn", "extraction", "objective")
@@ -204,9 +218,87 @@ def rooms(walk, dc):
     return out, skipped, sorted(places[n][0] for n in den)
 
 
+def openings(walk, dc):
+    """One station an opening's landing: ``([{name, building, node, kind, story, spec}], note)``, the eye where a
+    player stands to use the opening, looking down at where it lands -- in the site frame. ``note`` says why there
+    are none when there are none for a reason (no buildings.json, a Deli Counter without `opening_landings`)."""
+    path = os.path.join(walk, "buildings.json")
+    if not os.path.isfile(path):
+        return [], "no buildings.json in the walk copy: openings not judged"
+    if dc not in sys.path:
+        sys.path.insert(0, dc)
+    try:
+        import axonometric
+        import lights
+        import spec_loader
+        import stairwell
+    except ImportError as e:
+        return [], "Deli Counter not importable (%s): openings not judged" % e
+    if not hasattr(lights, "opening_landings"):
+        return [], "Deli Counter has no lights.opening_landings (before 0.261.0): openings not judged"
+    places = placements(walk)
+    with open(path, encoding="utf-8") as fh:
+        entries = json.load(fh).get("buildings") or []
+    out, done = [], set()
+    for e in entries:
+        node, spec_name = e.get("node"), e.get("spec")
+        if e.get("kind") != "building" or not spec_name or node not in places or node in done:
+            continue
+        done.add(node)
+        spec_path = os.path.join(dc, "specs", spec_name + ".json")
+        if not os.path.isfile(spec_path):
+            continue
+        spec = spec_loader.load_spec(spec_path)
+        sh = float(spec.story_height)
+        holes = axonometric._slab_holes(spec)
+        bx, by = 0.0, 0.0
+        for k, g in enumerate(lights.opening_landings(spec)):
+            s, lx, ly = g["story"], g["x"], g["y"]
+            eye = None
+            if g["kind"] == "stair":
+                for st in getattr(spec, "stairs", []) or []:
+                    ends = stairwell.stair_endpoints(st)
+                    low = [x for x in ends if x["end"] == "lower"]
+                    up = [x for x in ends if x["end"] == "upper"]
+                    if low and up and min(st.from_story, st.to_story) == s \
+                            and abs(low[0]["point"][0] - lx) < 0.01 and abs(low[0]["point"][1] - ly) < 0.01:
+                        top = max(st.from_story, st.to_story)
+                        eye = (up[0]["point"][0], up[0]["point"][1], top * sh + EYE)
+                        break
+            elif g["kind"] == "hole":
+                for r, kind in holes.get(s + 1, []):
+                    if kind != "stair" and r[0] <= lx <= r[2] and r[1] <= ly <= r[3]:
+                        # past the edge nearest the building's middle, on the storey above
+                        sides = [(r[0] - OPENING_STAND_OFF_HOLE, ly), (r[2] + OPENING_STAND_OFF_HOLE, ly),
+                                 (lx, r[1] - OPENING_STAND_OFF_HOLE), (lx, r[3] + OPENING_STAND_OFF_HOLE)]
+                        ex, ey = min(sides, key=lambda p: (p[0] - bx) ** 2 + (p[1] - by) ** 2)
+                        eye = (ex, ey, (s + 1) * sh + EYE)
+                        break
+            elif g["kind"] == "ladder":
+                for ld in getattr(spec, "ladders", []) or []:
+                    if abs(ld.x - lx) < 0.01 and abs(ld.y - ly) < 0.01:
+                        top = max(ld.from_story, ld.to_story)
+                        d = OPENING_STAND_OFF_LADDER
+                        dx, dy = (-1.0 if lx > bx else 1.0), (-1.0 if ly > by else 1.0)
+                        eye = (lx + dx * d * 0.7071, ly + dy * d * 0.7071, top * sh + EYE)
+                        break
+            if eye is None:
+                continue
+            place = places[node]
+            e3, t3 = to_site(place, eye), to_site(place, (lx, ly, s * sh + OPENING_LOOK_Z))
+            out.append({"name": "%s__open_%s_%d" % (e.get("id", spec_name), g["kind"], k), "building": e.get("id"),
+                        "node": node, "kind": g["kind"], "story": s,
+                        "spec": ",".join("%.3f" % c for c in e3 + t3)})
+    return out, None
+
+
 def judge(region, kind, shot, day, street_median):
     """(verdict, rule) for one station's frame."""
     p50, near, mean = shot["p50"], shot["near_clipped_pct"], shot["mean"]
+    if region == "opening":
+        if p50 < OPENING_FLOOR:
+            return "FAIL", "p50 %d under the OPENING floor %d: what it leads to does not read" % (p50, OPENING_FLOOR)
+        return "PASS", "p50 %d at or over %d" % (p50, OPENING_FLOOR)
     if region == "interior":
         if kind == "DEN":
             return "EXEMPT", "a den of sin, dark by design"
@@ -288,14 +380,19 @@ def main(argv=None):
     own = lux_rebake.active_preset(a.project)
     slots = slot_list(a.slots, own)
     rs, skipped, den_buildings = rooms(a.project, a.dc)
-    stations = ["%s:%s" % (r["name"], r["spec"]) for r in rs]
+    ops, ops_note = openings(a.project, a.dc)
+    stations = ["%s:%s" % (r["name"], r["spec"]) for r in rs] + ["%s:%s" % (o["name"], o["spec"]) for o in ops]
     by_name = {r["name"]: r for r in rs}
+    by_name.update({o["name"]: dict(o, region="opening") for o in ops})
     godot = None
     report = {"project": os.path.abspath(a.project), "own_preset": own, "rooms": len(rs),
               "skipped_no_room_list": skipped, "dens": den_buildings, "slots": {}}
     lines = ["light check: %s" % os.path.abspath(a.project),
              "own preset %s; %d rooms; dens of sin: %s; no room list (not judged): %s"
-             % (own, len(rs), ", ".join(den_buildings) or "none", ", ".join(skipped) or "none")]
+             % (own, len(rs), ", ".join(den_buildings) or "none", ", ".join(skipped) or "none"),
+             "openings: %d station(s)%s" % (len(ops), "; " + ops_note if ops_note else "")]
+    report["openings"] = len(ops)
+    report["openings_note"] = ops_note
     failed = 0
     seen = {}
     for slot, preset, rebake_preset in slots:
@@ -341,7 +438,8 @@ def main(argv=None):
         rows = []
         for name, shot in shots.items():
             if name in by_name:
-                region, kind = "interior", by_name[name]["kind"]
+                # a room's station is interior; an opening's carries its own region, held to its own floor
+                region, kind = by_name[name].get("region", "interior"), by_name[name]["kind"]
             elif name == "objective":
                 eye = shot.get("eye") or [0, 0, 0]
                 inside = next((rm for rm in rs if all(rm["box"][k] <= eye[k] <= rm["box"][k + 3] for k in range(3))),
@@ -358,7 +456,7 @@ def main(argv=None):
                          "mean": round(shot["mean"], 1), "p50": shot["p50"],
                          "near_clip_pct": round(shot["near_clipped_pct"], 2),
                          "crushed_pct": round(shot["crushed_pct"], 1), "png": shot.get("png")})
-        order = {"interior": 0, "street": 1, "facade": 2, "context": 3}
+        order = {"interior": 0, "opening": 1, "street": 2, "facade": 3, "context": 4}
         rows.sort(key=lambda x: (order[x["region"]], x["station"]))
         counts = {}
         for x in rows:
