@@ -53,8 +53,11 @@ releases as the place where the package would go".
 **Why:** the handoff (roadmap 202) now goes through GitHub: the repo for the
 record, Releases for the thing a stranger downloads.
 
-**How to apply:** build at tags, write the notes, then push main + the
-`factory-v*` tags and create the release with the zip attached; never
-publish a package built from HEADs ahead of the certified set.
+**How to apply:** build at tags, write the notes, then publish with
+`python tools/publish_release.py factory-vX.Y.Z --zip <zip> --notes docs/releases/factory-vX.Y.Z.md`
+(SINCE 2026-10-23: it pushes main + the tag to GitHub AND the walker's forge,
+creates the release on both, and holds the forge's zip to the sha256 -- a bare
+`gh release create` reaches GitHub only; docs/COMMANDS.md says so). Never
+publish a package built from HEADs ahead of the certified set. See [[forge-mirrors-github]].
 
 Related: [[collaborator-handoff-around-2026-10-21]], [[no-attribution-covers-my-own-commits]].

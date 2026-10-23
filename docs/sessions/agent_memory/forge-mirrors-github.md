@@ -1,15 +1,29 @@
 ---
 name: forge-mirrors-github
-description: "Walker 2026-10-21 chose a PULL MIRROR: forge.internal.vaultinteractive.net/BMONEY/LevelFactory mirrors github.com/siliconight/gabagool_factory (repo + releases); nothing is pushed to the forge from here"
+description: "Walker 2026-10-23: releases go to GitHub AND forge BMONEY/gabagool_factory (ordinary repo, not a mirror) via tools/publish_release.py; backfill 1.36-1.41 once the walker's credential is stored"
 metadata:
   node_type: memory
   type: project
   originSessionId: 27f14f8b-7ce5-44c0-a704-178a824035d7
-  modified: 2026-10-22T02:18:57.300Z
+  modified: 2026-10-23T21:24:15.665Z
 ---
 
-The walker wants their internal Forgejo (forge.internal.vaultinteractive.net/BMONEY/LevelFactory, private) to be "essentially a clone of the Gabagool Factory Repo/Releases", and chose option 1 on 2026-10-21: the forge pull-mirrors the public GitHub repo via New Migration (mirror + Releases), set up by the walker in the forge's web UI. No `forge` remote is added here and nothing is pushed to it from this machine; the GitHub release flow ([[github-push-and-releases]]) is unchanged.
+The walker wants their internal Forgejo to carry the same releases as github.com/siliconight/gabagool_factory: forge.internal.vaultinteractive.net/BMONEY/gabagool_factory/releases.
 
-**Why:** least work -- the forge keeps itself in sync from GitHub.
+**History:** on 2026-10-21 they chose a pull mirror, then named BMONEY/LevelFactory. On 2026-10-23 the repo is BMONEY/gabagool_factory, a pull mirror, and its releases page had none of the zips. A pull mirror syncs code and tags, not releases. Both URLs 404 to the unsigned browser pane.
 
-**How to apply:** after the next factory release (1.42.0), check the forge's Releases tab: whether the new release's notes and zip arrived by themselves or only its tag (a pull mirror's release sync was not certain when chosen). If only the tag arrives, offer the walker the push option (a `forge` remote + `tea release create`), which needs their forge token in Git Credential Manager and their allow-list entry -- never handle the token.
+**Decision 2026-10-23 (walker):**
+- Recreate BMONEY/gabagool_factory as an ORDINARY repo.
+- Publish every release to both sites with `tools/publish_release.py` (root commit, 2026-10-23):
+  - `python tools/publish_release.py factory-vX.Y.Z --zip <zip> --notes docs/releases/factory-vX.Y.Z.md`
+  - `--backfill` copies each GitHub release the forge lacks. The walker chose a backfill of all of 1.36.0-1.41.0.
+  - The forge's copy of each zip is downloaded back and held to the sha256.
+
+**Waiting on the walker:**
+- Recreate the repo.
+- Push main to it once by hand (`git push https://forge.internal.vaultinteractive.net/BMONEY/gabagool_factory.git main`), so Git Credential Manager stores their forge username and access token.
+- Add the script to `.claude/settings.local.json`'s allow list beside the gh entries.
+
+**Never handle the token:** the script reads it from GCM and sends it only in a header.
+
+Related: [[github-push-and-releases]].

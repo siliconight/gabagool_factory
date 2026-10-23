@@ -239,6 +239,25 @@ none of that counts.
 from *how many hands did it take*. Both belong in a run's report and neither
 substitutes for the other.
 
+## Publishing a release: GitHub and the forge together
+
+A factory release goes to github.com/siliconight/gabagool_factory AND the
+walker's forge, forge.internal.vaultinteractive.net/BMONEY/gabagool_factory,
+with the same tag, notes and zip. One command does both, after the package is
+built at the certified tags (`tools/make_factory_package.ps1 -Tag
+factory-vX.Y.Z`) and its notes written:
+
+    python tools/publish_release.py factory-vX.Y.Z --zip <the zip> --notes docs/releases/factory-vX.Y.Z.md
+
+It pushes main and the tag to both, runs `gh release create`, creates the
+forge's release through its API, uploads the zip, and downloads the forge's
+copy back to check its sha256. A bare `gh release create` reaches GitHub
+only. `--backfill` copies any GitHub release the forge lacks; `--dry-run`
+shows the plan and sends nothing. The forge credential is the walker's, kept
+in Git Credential Manager; the script never prints it. The forge repo is an
+ordinary repo, not a pull mirror: a mirror copies code and tags, never
+releases, and is read-only.
+
 ## Godot probes
 
 A probe launched with `--script` runs AS the main loop and must

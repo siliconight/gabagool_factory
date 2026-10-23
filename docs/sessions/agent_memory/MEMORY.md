@@ -91,7 +91,7 @@
 - [Walk feedback 2026-10-09](walk-feedback-2026-10-09.md) — club light fixed Lux 0.72.0; placeholders, bags, perimeter, moon open.
 - [Edge menu: walker picked E, varied per level](edge-menu-walker-picked-e.md) — fence + glow + rowhomes + water tower, varied by level.
 - [GitHub push and releases](github-push-and-releases.md) — root to siliconight/gabagool_factory; releases built AT TAGS; notes after the zip; verify-manifest from the root; retire after.
-- [Forge mirrors GitHub](forge-mirrors-github.md) — walker chose a pull mirror (BMONEY/LevelFactory); check 1.42.0's release reaches it
+- [Forge gets every release](forge-mirrors-github.md) — 2026-10-23: forge repo ordinary, not a mirror; tools/publish_release.py to both + --backfill 1.36-1.41; waiting on the walker's credential
 - [Indoor fixtures in a perfect line](indoor-fixture-placement.md) — 229 SHIPPED DC 0.206-0.207.1; left: species, benches/bar, ducts.
 - [Backdrop trees are lollipops](backdrop-trees-are-lollipops.md) — redrawn (Zoo 1.97.0 + Lot 0.110.0), proven 9230; species step G next.
 - [PA tree guides filed](pa-tree-guides-filed.md) — native trees + Blender scripting guides; the backdrop uses the species rows (228 G).
