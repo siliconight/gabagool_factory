@@ -37,13 +37,26 @@ def _loads(text):
     return len(re.findall(r"^\[(?:ext|sub)_resource ", text, flags=re.M))
 
 
+def _fresh():
+    """The walk scene walk_export.py writes today."""
+    return walk_export._walk_scene((1.0, 0.0, 2.0))
+
+
+#: The fresh scene's resources and load_steps, counted off it: the numbers below are this, less or plus the one
+#: resource the step under test removes or adds. They were pinned as numbers (an old copy at six resources and
+#: load_steps 7) and broke when the asset flags (2026-10-19) added a resource to every fresh scene.
+FRESH_LOADS = _loads(_fresh())
+FRESH_STEPS = _steps(_fresh())
+
+
 def _old_copy_scene():
-    """A walk scene as walk_export.py wrote it before the work light: five ext, one sub, load_steps 7."""
-    s = walk_export._walk_scene((1.0, 0.0, 2.0))
+    """A walk scene as walk_export.py wrote it before the work light: today's, less the work light's ext and node,
+    load_steps one over its resources."""
+    s = _fresh()
     s = s.replace(walk_add_work_light.EXT + "\n", "")
     s = s.replace("\n" + walk_add_work_light.NODE + '\nscript = ExtResource("walk_work_light")\n', "")
-    s = re.sub(r"load_steps=\d+", "load_steps=7", s, count=1)
-    assert "walk_work_light" not in s and _loads(s) == 6
+    s = re.sub(r"load_steps=\d+", "load_steps=%d" % FRESH_LOADS, s, count=1)
+    assert "walk_work_light" not in s and _loads(s) == FRESH_LOADS - 1
     return s
 
 
@@ -69,7 +82,7 @@ class Retrofit(unittest.TestCase):
             self.assertEqual(got.count(walk_add_work_light.NODE), 1)
             self.assertEqual(got.count(walk_add_work_light.EXT), 1)
             self.assertEqual(_steps(got), _loads(got) + 1)
-            self.assertEqual(_steps(got), 8)
+            self.assertEqual(_steps(got), FRESH_STEPS)
             self.assertEqual(got.count("\r\n") == got.count("\n"), eol == "\r\n", "line endings kept")
             self.assertEqual((self.dir / "_walk_work_light.gd").read_bytes(),
                              walk_add_work_light.SRC.read_bytes())
@@ -107,19 +120,19 @@ class WireSky(unittest.TestCase):
             self.assertEqual(got.count('[node name="SkyCycle" type="Node" parent="."]'), 1)
             self.assertEqual(got.count('[node name="WalkWorkLight" type="Node" parent="."]'), 1)
             self.assertEqual(_steps(got), _loads(got) + 1)
-            self.assertEqual(_steps(got), 9)
+            self.assertEqual(_steps(got), FRESH_STEPS + 1)   # the sky's script
 
     def test_an_old_copy_still_takes_the_sky_and_then_the_work_light(self):
         (self.dir / "_walk.tscn").write_bytes(_old_copy_scene().encode("utf-8"))
         r = self._wire()
         self.assertEqual(r.returncode, 0, r.stderr[-400:])
-        self.assertEqual(_steps((self.dir / "_walk.tscn").read_text(encoding="utf-8")), 8)
+        self.assertEqual(_steps((self.dir / "_walk.tscn").read_text(encoding="utf-8")), FRESH_STEPS)
         walk_add_work_light.add(self.dir)
         got = (self.dir / "_walk.tscn").read_text(encoding="utf-8")
         self.assertEqual(got.count('[node name="SkyCycle" type="Node" parent="."]'), 1)
         self.assertEqual(got.count('[node name="WalkWorkLight" type="Node" parent="."]'), 1)
         self.assertEqual(_steps(got), _loads(got) + 1)
-        self.assertEqual(_steps(got), 9)
+        self.assertEqual(_steps(got), FRESH_STEPS + 1)   # the sky's script and the work light, on the old copy
 
 
 if __name__ == "__main__":
