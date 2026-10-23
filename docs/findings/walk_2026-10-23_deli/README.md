@@ -38,6 +38,34 @@ nothing in a cold run runs it (the narrowed audit's item 26: "Nothing runs it or
 the MOODY floor raised to what the walker will read as lit -- their call, with these numbers -- and the check run by
 every cold run, so a dark room is found by the factory and not by the walker.
 
+**REFUTED, kept: "the basement is dim, so the opening reads black".** The basement IS dim by rule, and both fixes
+above shipped (Deli Counter 0.261.0 lights every opening's landing; the cold drive runs the light check) -- and
+neither could have made the opening the walker saw read. Cold run 9384 carried the landing lamps
+(`cold_storage_landing` and `basement_corridor_landing` in `lot/deli_a03/art/fixtures/deli_a03_fixtures.glb`; a first
+search that read only `.tscn` and `.json` said they were missing, and was wrong), and measured through the opening's
+own rim -- the pixels a player looks through, the rim projected into the frame (`through_proto.py`, checked against
+Godot: its whole-frame p50 is the engine's on all six frames) -- the ground floor's ladder hole into the basement
+corridor read luma p50 0, p95 9 on 9383 and p50 0, p95 12 on 9384, a lamp lit 0.6 m beside it below. The whole-frame
+p50 the light check judged it by was 41 and 42 and PASSED it: the lit floor round the hole outvoted the black inside
+it. The light check's opening stations ask the wrong statistic (below).
+
+**THE CAUSE: Level Factory's backdrop ground.** Photographed in the inspection light, which lights the scene from the
+camera, the hole stayed black inside its rim with the ladder's two rail tops in it (`ladder4_inspect_down.png`);
+from the basement looking up, the hole and the room above are there (`ladder4_inspect_up.png`). Every visible
+instance crossing the hole's column (`hole_column.gd`, `hole_column.out.txt`) named it:
+`site_backdrop/BackdropGround`, a 432 x 332 m plane at y -0.10, unshaded, albedo 0.045, facing up -- laid by Level
+Factory 0.211.0 "a tenth of a metre under the plate, so the plate covers it wherever both stand". A ground slab is
+-0.30..0.00: the plane runs inside every one, hidden by it everywhere but where the slab has a hole down into a
+basement, and there it is a black lid at floor level, from above only. Hidden alone in a copy of 9384's walk copy,
+the hole shows the ladder and the lit basement floor (`ladder4_backdrop_hidden.png`). Every level since 0.211.0 with
+a basement under an opening has had it. Level Factory 0.237.0 lays the ground as a frame round the plate and every
+building, never under one (the factory's `patches/lf_backdrop_frame/`).
+
+**The instrument, then.** The light check's opening stations are held to the frame's p50, and a frame looking down an
+opening is mostly the floor round it: it PASSED the black ladder hole at 42 and FAILED the broken-floor hole (p50 9,
+through its rim 87) and the roof hatch (p50 0, the lit landing at the shaft's foot through-p95 129) where what each
+leads to reads. An opening is judged by what is seen through its rim.
+
 ## 2. Stuck on the ladder to the roof
 
 An investigator's headless probe on a scratch copy of the walk copy (`ladder_probe.gd`, `out_as_shipped.txt`,
@@ -98,3 +126,11 @@ needed because the stairwell was laid out so that the up-flight's foot can be re
 end: a hand patch in a library spec where a layout rule belongs. The rule it wants: a flight's foot reachable from
 the storey's open floor without passing beneath the flight -- then every stair stands solid, as the other 525 do,
 and the spec's patch goes.
+
+**Built solid** (a scratch clone of Deli Counter 0.261.0, `open_under` removed): the nav gate traverses both stairs
+and reaches objective_A upstairs and the patrol point at 8 of 8 voxel-grid origins. The patch outlived its reason:
+Deli Counter 0.189.0 widened `office_stair_door` to 2.4 m, and the door has opened onto the strip beside the up-flight
+since (the spec's own `door_why`). Deli Counter 0.262.0 builds it solid and holds every library stair solid unless a
+named list says why (`test_library_undersides.py`), so the next hand-opened underside is a failure, not a habit. The
+layout rule above is what the nav gate already proves once the underside is solid: a flight whose foot cannot be
+reached from the open floor fails its traversal.

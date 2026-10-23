@@ -67,7 +67,7 @@ THE TARGETS. Luma, 0 to 255, after the grade, as look_shots measures it.
 | interior ROW | any | p50 >= 10 | the night census and `LEVEL_STANDARD`'s scorecard, "rooms under 10" |
 | interior MOODY | any | p50 >= 5, PROVISIONAL | half the ROW floor: moody rooms take half the fill (`BAKE_FILL_BULB_SHARE`) |
 | interior DEN | any | exempt, reported | dark by design (Lux 0.68.2) |
-| opening | any | p50 >= 20, PROVISIONAL | the walker, 2026-10-23: "you should be able to see into holes to know you can go forward into them" -- a stair opening onto deli_a03's basement read black from above at the landing's own p50 10, so twice the ROW floor |
+| opening | any | p95 THROUGH ITS RIM >= 20, PROVISIONAL | the walker, 2026-10-23: "you should be able to see into holes to know you can go forward into them" -- a stair opening onto deli_a03's basement read black from above at the landing's own p50 10, so twice the ROW floor; the pixels inside the opening's rim, not the frame (`through_rim`) |
 | street | any | p50 >= 2 | `NIGHT_READABILITY`: the collapse is "a median pixel at zero" |
 | street | any | near-clip <= 5%, PROVISIONAL | look_shots: 18.6% within 3 codes of white was blown; 1.1 to 3.2% read |
 | facade | any | WARN when p95 < 10, or near-clip over 5% | nothing on the facade reaches the ROW floor, or it is blown. An elevation is not a player's view. |
@@ -122,6 +122,15 @@ OPENING_FLOOR = 20
 OPENING_STAND_OFF_HOLE = 0.8
 OPENING_STAND_OFF_LADDER = 0.9
 OPENING_LOOK_Z = 0.2
+#: AN OPENING IS JUDGED THROUGH ITS RIM (2026-10-23). A frame looking down an opening is mostly the floor round it,
+#: and its p50 is that floor's: on cold run 9384 it passed a ladder hole black inside its rim at 42 and failed a
+#: broken-floor hole that showed a lit kitchen. The brightest twentieth through the rim, the facade rule's statistic:
+#: measured, a lidded hole 12 and 9, every opening whose landing reads 40 or over
+#: (`docs/findings/walk_2026-10-23_deli/through_*.out.txt`).
+OPENING_THROUGH_PCT = 95
+#: The camera look_shots draws with: Godot's Camera3D default, 75 degrees vertical (it never sets `fov`), aimed by
+#: `look_at(target, Vector3.UP)`.
+CAMERA_FOV_V = 75.0
 BLACK_P50 = 1
 NEAR_CLIP_PCT = 5.0
 STREET = ("spawn", "extraction", "objective")
@@ -229,6 +238,7 @@ def openings(walk, dc):
         sys.path.insert(0, dc)
     try:
         import axonometric
+        import ladder_geom
         import lights
         import spec_loader
         import stairwell
@@ -255,6 +265,7 @@ def openings(walk, dc):
         for k, g in enumerate(lights.opening_landings(spec)):
             s, lx, ly = g["story"], g["x"], g["y"]
             eye = None
+            rim = None   # the slab cut the opening is looked down through: (x0, y0, x1, y1), the slab's top
             if g["kind"] == "stair":
                 for st in getattr(spec, "stairs", []) or []:
                     ends = stairwell.stair_endpoints(st)
@@ -264,6 +275,7 @@ def openings(walk, dc):
                             and abs(low[0]["point"][0] - lx) < 0.01 and abs(low[0]["point"][1] - ly) < 0.01:
                         top = max(st.from_story, st.to_story)
                         eye = (up[0]["point"][0], up[0]["point"][1], top * sh + EYE)
+                        rim = (stairwell.footprint_rect(st), top * sh)
                         break
             elif g["kind"] == "hole":
                 for r, kind in holes.get(s + 1, []):
@@ -273,6 +285,7 @@ def openings(walk, dc):
                                  (lx, r[1] - OPENING_STAND_OFF_HOLE), (lx, r[3] + OPENING_STAND_OFF_HOLE)]
                         ex, ey = min(sides, key=lambda p: (p[0] - bx) ** 2 + (p[1] - by) ** 2)
                         eye = (ex, ey, (s + 1) * sh + EYE)
+                        rim = (r, (s + 1) * sh)
                         break
             elif g["kind"] == "ladder":
                 for ld in getattr(spec, "ladders", []) or []:
@@ -281,24 +294,84 @@ def openings(walk, dc):
                         d = OPENING_STAND_OFF_LADDER
                         dx, dy = (-1.0 if lx > bx else 1.0), (-1.0 if ly > by else 1.0)
                         eye = (lx + dx * d * 0.7071, ly + dy * d * 0.7071, top * sh + EYE)
+                        hx, hy, hsx, hsy = ladder_geom.through_hole(ld.x, ld.y, ld.width, ld.facing)
+                        rim = ((hx - hsx / 2.0, hy - hsy / 2.0, hx + hsx / 2.0, hy + hsy / 2.0), top * sh)
                         break
             if eye is None:
                 continue
             place = places[node]
             e3, t3 = to_site(place, eye), to_site(place, (lx, ly, s * sh + OPENING_LOOK_Z))
+            (rx0, ry0, rx1, ry1), rz = rim
             out.append({"name": "%s__open_%s_%d" % (e.get("id", spec_name), g["kind"], k), "building": e.get("id"),
                         "node": node, "kind": g["kind"], "story": s,
-                        "spec": ",".join("%.3f" % c for c in e3 + t3)})
+                        "spec": ",".join("%.3f" % c for c in e3 + t3),
+                        "rim": [list(to_site(place, (x, y, rz))) for x, y in
+                                ((rx0, ry0), (rx1, ry0), (rx1, ry1), (rx0, ry1))]})
     return out, None
+
+
+def project(eye, target, pts, width, height, fov_v=CAMERA_FOV_V):
+    """Site points -> frame pixels ``[(u, v)]`` for a camera at `eye` aimed at `target` with Y up, as Godot's
+    `look_at` aims it and its perspective projection draws it (keep-height, `fov_v` degrees vertical); None when a
+    point is behind the camera."""
+    import math
+    sub = [eye[i] - target[i] for i in range(3)]
+    n = math.sqrt(sum(c * c for c in sub))
+    z = [c / n for c in sub]
+    x = [z[2], 0.0, -z[0]]                                    # Y x z
+    n = math.sqrt(sum(c * c for c in x))
+    x = [c / n for c in x]
+    y = [z[1] * x[2] - z[2] * x[1], z[2] * x[0] - z[0] * x[2], z[0] * x[1] - z[1] * x[0]]
+    f = 1.0 / math.tan(math.radians(fov_v) / 2.0)
+    out = []
+    for p in pts:
+        d = [p[i] - eye[i] for i in range(3)]
+        cx, cy, cz = (sum(d[i] * a[i] for i in range(3)) for a in (x, y, z))
+        if cz >= 0:
+            return None
+        out.append(((f * cx / -cz / (width / height) + 1.0) / 2.0 * width, (1.0 - f * cy / -cz) / 2.0 * height))
+    return out
+
+
+def through_rim(shot, rim):
+    """Luma 0-255 of the frame's pixels inside an opening's rim: ``{p50, p95, mean, frame_pct, pixels}``, or None
+    when the shot has no PNG, the rim is behind the camera or covers no pixel. Rec.709, as look_shots measures."""
+    png = shot.get("png")
+    if not rim or not png or not os.path.isfile(png) or not shot.get("eye") or not shot.get("target"):
+        return None
+    from PIL import Image, ImageDraw
+    img = Image.open(png).convert("RGB")
+    w, h = img.size
+    uv = project(shot["eye"], shot["target"], rim, w, h)
+    if uv is None:
+        return None
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).polygon([(float(u), float(v)) for u, v in uv], fill=255)
+    rgb, inside = img.tobytes(), mask.tobytes()
+    lum = sorted(0.2126 * rgb[3 * i] + 0.7152 * rgb[3 * i + 1] + 0.0722 * rgb[3 * i + 2]
+                 for i in range(w * h) if inside[i])
+    if not lum:
+        return None
+
+    def pct(q):
+        return lum[min(len(lum) - 1, int(q / 100.0 * len(lum)))]
+    return {"p50": round(pct(50), 1), "p95": round(pct(OPENING_THROUGH_PCT), 1),
+            "mean": round(sum(lum) / len(lum), 1), "frame_pct": round(100.0 * len(lum) / (w * h), 1),
+            "pixels": len(lum)}
 
 
 def judge(region, kind, shot, day, street_median):
     """(verdict, rule) for one station's frame."""
     p50, near, mean = shot["p50"], shot["near_clipped_pct"], shot["mean"]
     if region == "opening":
-        if p50 < OPENING_FLOOR:
-            return "FAIL", "p50 %d under the OPENING floor %d: what it leads to does not read" % (p50, OPENING_FLOOR)
-        return "PASS", "p50 %d at or over %d" % (p50, OPENING_FLOOR)
+        # through its rim (`through_rim`), not the frame: the frame is mostly the floor round the opening
+        th = shot.get("through")
+        if not th:
+            return "REPORT", "the rim is not in the frame: not judged (frame p50 %d)" % p50
+        if th["p95"] < OPENING_FLOOR:
+            return "FAIL", "through its rim p95 %d under the OPENING floor %d: what it leads to does not read" % (
+                th["p95"], OPENING_FLOOR)
+        return "PASS", "through its rim p95 %d at or over %d" % (th["p95"], OPENING_FLOOR)
     if region == "interior":
         if kind == "DEN":
             return "EXEMPT", "a den of sin, dark by design"
@@ -451,11 +524,14 @@ def main(argv=None):
                 region, kind = "facade", "-"
             else:
                 region, kind = "context", "-"
+            if region == "opening":
+                shot = dict(shot, through=through_rim(shot, by_name[name].get("rim")))
             verdict, rule = judge(region, kind, shot, day, street_median)
             rows.append({"station": name, "region": region, "kind": kind, "verdict": verdict, "rule": rule,
                          "mean": round(shot["mean"], 1), "p50": shot["p50"],
                          "near_clip_pct": round(shot["near_clipped_pct"], 2),
-                         "crushed_pct": round(shot["crushed_pct"], 1), "png": shot.get("png")})
+                         "crushed_pct": round(shot["crushed_pct"], 1), "png": shot.get("png"),
+                         "through": shot.get("through")})
         order = {"interior": 0, "opening": 1, "street": 2, "facade": 3, "context": 4}
         rows.sort(key=lambda x: (order[x["region"]], x["station"]))
         counts = {}

@@ -68,13 +68,47 @@ class OpeningStations(unittest.TestCase):
         self.assertAlmostEqual(-tz, 11.6, places=3)
         self.assertGreater(ey, ty, "the eye stands above what it looks at")
 
-    def test_an_opening_is_judged_by_its_own_floor(self):
-        dark = {"p50": 10, "near_clipped_pct": 0.0, "mean": 12.0, "p95": 30}
-        lit = dict(dark, p50=light_check.OPENING_FLOOR)
-        self.assertEqual(light_check.judge("opening", "stair", dark, False, None)[0], "FAIL")
-        self.assertEqual(light_check.judge("opening", "stair", lit, False, None)[0], "PASS")
-        # the room the walker looked into passed as a room at the same p50: the reason this region exists
-        self.assertEqual(light_check.judge("interior", "MOODY", dark, False, None)[0], "PASS")
+    def test_an_opening_is_judged_through_its_rim_not_by_its_frame(self):
+        """Cold run 9384: deli_a03's ground-floor ladder hole, black inside its rim, in a frame of lit floor at p50
+        42; its broken-floor hole showing a lit kitchen in a frame at p50 9. The frame's p50 passed the first and
+        failed the second; the rim's p95 does the reverse."""
+        lidded = {"p50": 42, "near_clipped_pct": 0.0, "mean": 45.3, "through": {"p50": 0.0, "p95": 12.0}}
+        kitchen = {"p50": 9, "near_clipped_pct": 0.0, "mean": 24.7, "through": {"p50": 87.0, "p95": 158.2}}
+        self.assertEqual(light_check.judge("opening", "ladder", lidded, False, None)[0], "FAIL")
+        self.assertEqual(light_check.judge("opening", "hole", kitchen, False, None)[0], "PASS")
+        self.assertEqual(light_check.judge("opening", "hole", dict(kitchen, through=None), False, None)[0], "REPORT")
+        # the room the walker looked into passed as a room at a p50 of 10: the reason this region exists
+        self.assertEqual(light_check.judge("interior", "MOODY", dict(lidded, p50=10), False, None)[0], "PASS")
+
+    def test_every_opening_station_carries_its_rim_round_its_landing(self):
+        ops, _note = light_check.openings(str(self.walk), str(DC))
+        self.assertTrue(ops)
+        for o in ops:
+            rim = o["rim"]
+            self.assertEqual(len(rim), 4, o["name"])
+            ex, ey, ez, tx, ty, tz = (float(v) for v in o["spec"].split(","))
+            xs, zs = [p[0] for p in rim], [p[2] for p in rim]
+            self.assertTrue(min(xs) <= tx <= max(xs) and min(zs) <= tz <= max(zs) or o["kind"] == "stair",
+                            (o["name"], rim, (tx, tz)))
+            self.assertTrue(ty < rim[0][1] <= ey, (o["name"], "the rim is between the eye and the landing"))
+
+    def test_the_rim_is_measured_where_godot_draws_it(self):
+        """A frame drawn by hand: grey floor, and a black square exactly where `project` puts a rim the camera
+        looks straight into. Inside it reads black and the frame reads grey -- and a rim one metre aside does not."""
+        from PIL import Image, ImageDraw
+        eye, target = [0.3, 4.0, 0.2], [0.0, 0.0, 0.0]
+        rim = [[-0.5, 0.0, -0.5], [0.5, 0.0, -0.5], [0.5, 0.0, 0.5], [-0.5, 0.0, 0.5]]
+        uv = light_check.project(eye, target, rim, 320, 180)
+        img = Image.new("RGB", (320, 180), (120, 120, 120))
+        ImageDraw.Draw(img).polygon(uv, fill=(0, 0, 0))
+        png = os.path.join(str(self.walk), "frame.png")
+        img.save(png)
+        shot = {"png": png, "eye": eye, "target": target}
+        th = light_check.through_rim(shot, rim)
+        self.assertLess(th["p95"], 5)
+        aside = [[x + 1.0, y, z] for x, y, z in rim]
+        self.assertGreater(light_check.through_rim(shot, aside)["p50"], 100)
+        self.assertIsNone(light_check.project(eye, target, [[0.0, 9.0, 0.0]], 320, 180))
 
     def test_no_buildings_json_says_so(self):
         (self.walk / "buildings.json").unlink()

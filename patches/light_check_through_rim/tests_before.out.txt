@@ -1,0 +1,11 @@
+        42; its broken-floor hole showing a lit kitchen in a frame at p50 9. The frame's p50 passed the first and
+        failed the second; the rim's p95 does the reverse."""
+E       AssertionError: 'PASS' != 'FAIL'
+E       - PASS
+E       + FAIL
+E           KeyError: 'rim'
+E       AttributeError: module 'light_check' has no attribute 'project'
+FAILED test_light_check_openings.py::OpeningStations::test_an_opening_is_judged_through_its_rim_not_by_its_frame
+FAILED test_light_check_openings.py::OpeningStations::test_every_opening_station_carries_its_rim_round_its_landing
+FAILED test_light_check_openings.py::OpeningStations::test_the_rim_is_measured_where_godot_draws_it
+3 failed, 2 passed in 0.33s

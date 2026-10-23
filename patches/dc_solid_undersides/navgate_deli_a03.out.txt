@@ -1,0 +1,15 @@
+nav-gate: using C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe (DC_GODOT (explicit, unprobed))
+
+== deli_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1370
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.59m, outside the footprint)
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+nav-gate: 1 shell(s) passed

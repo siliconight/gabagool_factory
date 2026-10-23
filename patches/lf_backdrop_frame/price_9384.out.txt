@@ -1,0 +1,42 @@
+Level Factory 0.237.0 priced on cold run 9384's walk copy (_runs/walk_9384_restaurant_row_001, blue_hour as shipped),
+one session, the same stations: 'plane' the package as shipped (0.211.0's ground), 'frame' a scratch copy with only
+site_backdrop.tscn rewritten by the lf_frame clone's with_ground from the export's own drawn spec (reground.py).
+Stations: ladder4 looks down deli_a03's ground-floor ladder hole; east_edge and south_edge over the plate's edge;
+the rest are look_shots' defaults. Luma 0-255 after the grade; gpu_ms the engine's own timestamps.
+
+plane  overview     p50   64 mean   71.3 gpu_ms 0.547
+plane  elev_N       p50   59 mean   62.7 gpu_ms 10.924
+plane  elev_S       p50   40 mean   48.7 gpu_ms 2.752
+plane  elev_E       p50   28 mean   36.4 gpu_ms 2.699
+plane  elev_W       p50   35 mean   51.5 gpu_ms 7.059
+plane  ladder4      p50   42 mean   45.3 gpu_ms 2.717
+plane  east_edge    p50   17 mean   30.3 gpu_ms 1.445
+plane  south_edge   p50    2 mean   12.3 gpu_ms 1.177
+plane  spawn        p50    7 mean   28.4 gpu_ms 1.269
+plane  objective    p50    8 mean   10.8 gpu_ms 2.578
+plane  extraction   p50    2 mean   17.7 gpu_ms 2.904
+frame  overview     p50   64 mean   71.3 gpu_ms 0.546
+frame  elev_N       p50   59 mean   62.7 gpu_ms 11.739
+frame  elev_S       p50   40 mean   48.7 gpu_ms 2.756
+frame  elev_E       p50   28 mean   36.4 gpu_ms 2.696
+frame  elev_W       p50   35 mean   51.5 gpu_ms 4.808
+frame  ladder4      p50   44 mean   51.9 gpu_ms 2.285
+frame  east_edge    p50   17 mean   30.3 gpu_ms 1.482
+frame  south_edge   p50    2 mean   12.3 gpu_ms 1.179
+frame  spawn        p50    7 mean   28.4 gpu_ms 1.267
+frame  objective    p50    8 mean   10.8 gpu_ms 2.945
+frame  extraction   p50    2 mean   17.7 gpu_ms 2.895
+
+CONTROL: the package as shipped shot a second time ('plane2'), the same session. gpu_ms deltas, ms:
+  station      plane2-plane frame-plane  p50/mean plane2 vs plane
+  overview        -0.001    -0.001  same
+  elev_N          +0.389    +0.815  same
+  elev_S          -0.019    +0.004  same
+  elev_E          +0.008    -0.003  same
+  elev_W          -1.714    -2.251  same
+  ladder4         -0.456    -0.432  same
+  east_edge       -0.002    +0.037  same
+  south_edge      +0.000    +0.002  same
+  spawn           +0.000    -0.002  same
+  objective       -0.092    +0.367  same
+  extraction      +0.004    -0.009  same
