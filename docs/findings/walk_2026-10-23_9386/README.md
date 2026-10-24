@@ -36,6 +36,17 @@ causes, not yet told apart: each wall piece starting its texture over (UVs per p
 light bake not matching its neighbour's at the joint (lightmap seams). To tell them apart: the same view shot with the
 bake and without it.
 
+**Measured 2026-10-24, NOT YET DECIDED** (`seams/`): the walker's eye (overlay: -8.0, 1.6, -0.1, facing the north
+wall) on cold run 9388's walk copy, three ways (`tools/look_shots.py`): as shipped; the inspection light with the bake
+on; the inspection light with the bake switched off (`--switch-off lightmap`: 1 lightmap cleared, 209 static lamps
+hidden). With the bake off the plaster's grain runs continuously across the wall -- the texture is world-projected
+and has no joint to show. As shipped, a contrast-stretched crop shows two thin vertical lines
+(`wall_crops_autocontrast.webp`). Measured at those columns, 1600x900, the line's dip against the 4 px either side is
+0.2 and 1.5 grey codes as shipped, 0.6 and 0.5 bake on, 0.6 and -0.4 bake off (`seam_profile.out.txt`) -- under what
+this instrument separates from the grain. Along the whole wall the largest column-to-column step is 9.6 % of the mean
+as shipped, 8.1 % bake on, 5.1 % bake off. Leaning: the bake (lightmap rects meeting at a joint), not the texture --
+but a lean is not a finding; the next instrument reads the lightmap's own rects at the wall's piece joints.
+
 ## 3. The drop safe reads as a brown box
 
 `03_drop_safe.webp`: pharmacy_a01's `DropSafe`, a wood-brown cube with a faint dial, under its spot -- the same
