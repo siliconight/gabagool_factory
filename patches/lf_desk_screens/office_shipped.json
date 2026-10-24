@@ -1,0 +1,3127 @@
+{
+  "complete": true,
+  "geometry": {
+    "buffer_mem_bytes": 55241708,
+    "cold_worst_ms": 23.895,
+    "mesh_instances": 3043,
+    "multimesh_instances": 30,
+    "nodes": 23479,
+    "passes": 2,
+    "texture_mem_bytes": 72810737,
+    "video_mem_bytes": 128052445
+  },
+  "rows": [
+    {
+      "headings": [
+        {
+          "draws": 1317,
+          "gpu_ms": 2.39989998340607,
+          "ms_median": 9.946,
+          "ms_p95": 13.997,
+          "ms_worst": 16.427,
+          "objects": 1282,
+          "pass_spread_ms": 2.931,
+          "passes": [
+            {
+              "draws": 1317,
+              "ms_median": 9.946,
+              "ms_p95": 13.997
+            },
+            {
+              "draws": 2920,
+              "ms_median": 15.681,
+              "ms_p95": 16.928
+            }
+          ],
+          "primitives": 3648574,
+          "render_cpu_ms": 9.46074998378754,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 1047,
+          "gpu_ms": 2.09530001878738,
+          "ms_median": 6.064,
+          "ms_p95": 6.718,
+          "ms_worst": 14.483,
+          "objects": 1030,
+          "pass_spread_ms": 0.937,
+          "passes": [
+            {
+              "draws": 1047,
+              "ms_median": 6.064,
+              "ms_p95": 6.718
+            },
+            {
+              "draws": 969,
+              "ms_median": 6.55,
+              "ms_p95": 7.655
+            }
+          ],
+          "primitives": 1938214,
+          "render_cpu_ms": 5.2772500038147,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 390,
+          "gpu_ms": 0.882850003242493,
+          "ms_median": 2.837,
+          "ms_p95": 3.124,
+          "ms_worst": 3.327,
+          "objects": 390,
+          "pass_spread_ms": 3.69,
+          "passes": [
+            {
+              "draws": 390,
+              "ms_median": 2.837,
+              "ms_p95": 3.124
+            },
+            {
+              "draws": 390,
+              "ms_median": 4.305,
+              "ms_p95": 6.814
+            }
+          ],
+          "primitives": 1182126,
+          "render_cpu_ms": 2.2754499733448,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 91,
+          "gpu_ms": 0.926899993419647,
+          "ms_median": 1.555,
+          "ms_p95": 1.822,
+          "ms_worst": 1.943,
+          "objects": 87,
+          "pass_spread_ms": 0.079,
+          "passes": [
+            {
+              "draws": 91,
+              "ms_median": 1.555,
+              "ms_p95": 1.822
+            },
+            {
+              "draws": 109,
+              "ms_median": 1.595,
+              "ms_p95": 1.901
+            }
+          ],
+          "primitives": 1078252,
+          "render_cpu_ms": 1.17610000371933,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 401,
+          "1": 943,
+          "2": 479,
+          "3": 293,
+          "4": 268,
+          "5": 166,
+          "6": 119,
+          "7": 105,
+          "8": 54,
+          "9": 42,
+          "10": 32,
+          "11": 16,
+          "12": 8,
+          "13": 13,
+          "14": 7,
+          "15": 11,
+          "16": 15,
+          "17": 6,
+          "18": 5,
+          "19": 9,
+          "20": 9,
+          "21": 1,
+          "24": 4,
+          "25": 1,
+          "26": 3,
+          "27": 3,
+          "28": 1,
+          "29": 1,
+          "32": 2,
+          "33": 1,
+          "34": 2,
+          "36": 1,
+          "37": 1,
+          "38": 5,
+          "39": 1,
+          "40": 1,
+          "41": 1,
+          "44": 3,
+          "45": 1,
+          "47": 1,
+          "49": 1,
+          "59": 1,
+          "63": 1,
+          "69": 1,
+          "70": 1,
+          "79": 1,
+          "100": 1,
+          "239": 1
+        },
+        "lights": 239,
+        "meshes": 3043,
+        "over_cap": 215,
+        "over_list": [
+          {
+            "lights": 239,
+            "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+          },
+          {
+            "lights": 100,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+          },
+          {
+            "lights": 79,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+          },
+          {
+            "lights": 70,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_183"
+          },
+          {
+            "lights": 69,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+          },
+          {
+            "lights": 63,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+          },
+          {
+            "lights": 59,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_310"
+          },
+          {
+            "lights": 49,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_281"
+          },
+          {
+            "lights": 47,
+            "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+          },
+          {
+            "lights": 45,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_188"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_250"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_294"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_14"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_313"
+          },
+          {
+            "lights": 40,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_408"
+          },
+          {
+            "lights": 39,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_62"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_251"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_27"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_296"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_373"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_46"
+          },
+          {
+            "lights": 37,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_48"
+          },
+          {
+            "lights": 36,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_314"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_76"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_278"
+          },
+          {
+            "lights": 33,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_407"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_202"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_61"
+          },
+          {
+            "lights": 29,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_30"
+          },
+          {
+            "lights": 28,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_428"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_204"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_92"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_251"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_144"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_372"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_6"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_173"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_26"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_29"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_6"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_196"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_10"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_11"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_33"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_23"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_24"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_277"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_172"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_351"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_26"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_27"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_20"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_22"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_43"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c497_499"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_15"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_16"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_17"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_26"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_14"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_15"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_169"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_20"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_22"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_24"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_28"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_48"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_49"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_25"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_5"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_12"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_13"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_23"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_409"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_8"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_9"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_10"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_2"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_3"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_1"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_25"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_4"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/LitR_5"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_2"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_6"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_16"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_17"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_193"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_315"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_352"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_260"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_5"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c500_499"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c497_500"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_2"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_6"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_1"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_270"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/frontage_2R_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/Ground_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_0"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_3"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_304"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_305"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_32"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_150"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_152"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_198"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_200"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t4_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t0_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t1_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_151"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_153"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_154"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_156"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_158"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_159"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_199"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_201"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_202"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_204"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_206"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_207"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_3"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_13/mesh_t1_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_4/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_6/mesh"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_6"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t5_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_199"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_200"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_261"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_264"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_33"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_349"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_4"
+          }
+        ],
+        "over_list_truncated": true,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 1933,
+            "1": 776,
+            "2": 243,
+            "3": 42,
+            "4": 24,
+            "5": 8,
+            "6": 5,
+            "7": 5,
+            "9": 1,
+            "10": 1,
+            "11": 3,
+            "47": 1,
+            "239": 1
+          },
+          "lightmap_users": 2970,
+          "lights_static": 209,
+          "over_cap": 7,
+          "over_list": [
+            {
+              "by_reach": 239,
+              "lights": 239,
+              "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+            },
+            {
+              "by_reach": 47,
+              "lights": 47,
+              "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+            },
+            {
+              "by_reach": 69,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+            },
+            {
+              "by_reach": 63,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+            },
+            {
+              "by_reach": 79,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+            },
+            {
+              "by_reach": 100,
+              "lights": 10,
+              "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+            },
+            {
+              "by_reach": 9,
+              "lights": 9,
+              "mesh": "/root/Mission/Bake/Site/b0/int_1_2_open1_breached/Breach_drywall_delco_1997"
+            }
+          ],
+          "over_list_truncated": false,
+          "pairs": 1927,
+          "worst": 239,
+          "worst_mesh": "LuxHorizonGlow"
+        },
+        "pairs": 10606,
+        "worst": 239,
+        "worst_mesh": "LuxHorizonGlow"
+      },
+      "mean_p95_over_headings": 6.41525,
+      "pos": [
+        54.0,
+        1.60000002384186,
+        -6.48999977111816
+      ],
+      "station": "camera_socket_0",
+      "type": "camera_socket",
+      "worst_heading": {
+        "draws": 1317,
+        "gpu_ms": 2.39989998340607,
+        "ms_median": 9.946,
+        "ms_p95": 13.997,
+        "ms_worst": 16.427,
+        "objects": 1282,
+        "pass_spread_ms": 2.931,
+        "passes": [
+          {
+            "draws": 1317,
+            "ms_median": 9.946,
+            "ms_p95": 13.997
+          },
+          {
+            "draws": 2920,
+            "ms_median": 15.681,
+            "ms_p95": 16.928
+          }
+        ],
+        "primitives": 3648574,
+        "render_cpu_ms": 9.46074998378754,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1317,
+          "gpu_ms": 2.34685001373291,
+          "ms_median": 7.097,
+          "ms_p95": 8.69,
+          "ms_worst": 11.154,
+          "objects": 1282,
+          "pass_spread_ms": 2.796,
+          "passes": [
+            {
+              "draws": 1317,
+              "ms_median": 7.097,
+              "ms_p95": 8.69
+            },
+            {
+              "draws": 1317,
+              "ms_median": 8.241,
+              "ms_p95": 11.486
+            }
+          ],
+          "primitives": 3648574,
+          "render_cpu_ms": 6.13925001621246,
+          "split_perturbed": true,
+          "yaw": 90.0
+        },
+        {
+          "draws": 969,
+          "gpu_ms": 1.65879998803139,
+          "ms_median": 5.653,
+          "ms_p95": 6.556,
+          "ms_worst": 7.064,
+          "objects": 954,
+          "pass_spread_ms": 0.447,
+          "passes": [
+            {
+              "draws": 969,
+              "ms_median": 5.653,
+              "ms_p95": 6.556
+            },
+            {
+              "draws": 969,
+              "ms_median": 5.909,
+              "ms_p95": 7.003
+            }
+          ],
+          "primitives": 1914780,
+          "render_cpu_ms": 4.80114998817444,
+          "split_perturbed": true,
+          "yaw": 180.0
+        },
+        {
+          "draws": 390,
+          "gpu_ms": 0.881800004839897,
+          "ms_median": 2.737,
+          "ms_p95": 3.027,
+          "ms_worst": 3.653,
+          "objects": 390,
+          "pass_spread_ms": 0.286,
+          "passes": [
+            {
+              "draws": 390,
+              "ms_median": 2.737,
+              "ms_p95": 3.027
+            },
+            {
+              "draws": 390,
+              "ms_median": 2.872,
+              "ms_p95": 3.313
+            }
+          ],
+          "primitives": 1182126,
+          "render_cpu_ms": 2.23879999518394,
+          "split_perturbed": true,
+          "yaw": 270.0
+        },
+        {
+          "draws": 91,
+          "gpu_ms": 0.924599999189377,
+          "ms_median": 1.629,
+          "ms_p95": 1.892,
+          "ms_worst": 2.154,
+          "objects": 87,
+          "pass_spread_ms": 0.0270000000000001,
+          "passes": [
+            {
+              "draws": 91,
+              "ms_median": 1.629,
+              "ms_p95": 1.892
+            },
+            {
+              "draws": 91,
+              "ms_median": 1.682,
+              "ms_p95": 1.919
+            }
+          ],
+          "primitives": 1078252,
+          "render_cpu_ms": 1.12264997363091,
+          "split_perturbed": true,
+          "yaw": 0.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 401,
+          "1": 943,
+          "2": 479,
+          "3": 293,
+          "4": 268,
+          "5": 166,
+          "6": 119,
+          "7": 105,
+          "8": 54,
+          "9": 42,
+          "10": 32,
+          "11": 16,
+          "12": 8,
+          "13": 13,
+          "14": 7,
+          "15": 11,
+          "16": 15,
+          "17": 6,
+          "18": 5,
+          "19": 9,
+          "20": 9,
+          "21": 1,
+          "24": 4,
+          "25": 1,
+          "26": 3,
+          "27": 3,
+          "28": 1,
+          "29": 1,
+          "32": 2,
+          "33": 1,
+          "34": 2,
+          "36": 1,
+          "37": 1,
+          "38": 5,
+          "39": 1,
+          "40": 1,
+          "41": 1,
+          "44": 3,
+          "45": 1,
+          "47": 1,
+          "49": 1,
+          "59": 1,
+          "63": 1,
+          "69": 1,
+          "70": 1,
+          "79": 1,
+          "100": 1,
+          "239": 1
+        },
+        "lights": 239,
+        "meshes": 3043,
+        "over_cap": 215,
+        "over_list": [
+          {
+            "lights": 239,
+            "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+          },
+          {
+            "lights": 100,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+          },
+          {
+            "lights": 79,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+          },
+          {
+            "lights": 70,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_183"
+          },
+          {
+            "lights": 69,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+          },
+          {
+            "lights": 63,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+          },
+          {
+            "lights": 59,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_310"
+          },
+          {
+            "lights": 49,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_281"
+          },
+          {
+            "lights": 47,
+            "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+          },
+          {
+            "lights": 45,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_188"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_250"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_294"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_14"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_313"
+          },
+          {
+            "lights": 40,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_408"
+          },
+          {
+            "lights": 39,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_62"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_251"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_27"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_296"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_373"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_46"
+          },
+          {
+            "lights": 37,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_48"
+          },
+          {
+            "lights": 36,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_314"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_76"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_278"
+          },
+          {
+            "lights": 33,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_407"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_202"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_61"
+          },
+          {
+            "lights": 29,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_30"
+          },
+          {
+            "lights": 28,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_428"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_204"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_92"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_251"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_144"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_372"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_6"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_173"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_26"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_29"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_6"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_196"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_10"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_11"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_33"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_23"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_24"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_277"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_172"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_351"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_26"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_27"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_20"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_22"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_43"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c497_499"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_15"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_16"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_17"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_26"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_14"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_15"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_169"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_20"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_22"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_24"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_28"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_48"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_49"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_25"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_5"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_12"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_13"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_23"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_409"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_8"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_9"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_10"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_2"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_3"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_1"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_25"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_4"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/LitR_5"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_2"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_6"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_16"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_17"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_193"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_315"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_352"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_260"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_5"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c500_499"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c497_500"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_2"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_6"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_1"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_270"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/frontage_2R_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/Ground_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_0"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_3"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_304"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_305"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_32"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_150"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_152"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_198"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_200"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t4_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t0_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t1_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_151"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_153"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_154"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_156"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_158"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_159"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_199"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_201"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_202"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_204"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_206"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_207"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_3"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_13/mesh_t1_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_4/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_6/mesh"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_6"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t5_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_199"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_200"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_261"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_264"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_33"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_349"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_4"
+          }
+        ],
+        "over_list_truncated": true,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 1933,
+            "1": 776,
+            "2": 243,
+            "3": 42,
+            "4": 24,
+            "5": 8,
+            "6": 5,
+            "7": 5,
+            "9": 1,
+            "10": 1,
+            "11": 3,
+            "47": 1,
+            "239": 1
+          },
+          "lightmap_users": 2970,
+          "lights_static": 209,
+          "over_cap": 7,
+          "over_list": [
+            {
+              "by_reach": 239,
+              "lights": 239,
+              "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+            },
+            {
+              "by_reach": 47,
+              "lights": 47,
+              "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+            },
+            {
+              "by_reach": 69,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+            },
+            {
+              "by_reach": 63,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+            },
+            {
+              "by_reach": 79,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+            },
+            {
+              "by_reach": 100,
+              "lights": 10,
+              "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+            },
+            {
+              "by_reach": 9,
+              "lights": 9,
+              "mesh": "/root/Mission/Bake/Site/b0/int_1_2_open1_breached/Breach_drywall_delco_1997"
+            }
+          ],
+          "over_list_truncated": false,
+          "pairs": 1927,
+          "worst": 239,
+          "worst_mesh": "LuxHorizonGlow"
+        },
+        "pairs": 10606,
+        "worst": 239,
+        "worst_mesh": "LuxHorizonGlow"
+      },
+      "mean_p95_over_headings": 5.04125,
+      "pos": [
+        54.0,
+        1.60000002384186,
+        -6.48999977111816
+      ],
+      "station": "highest_vantage",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 1317,
+        "gpu_ms": 2.34685001373291,
+        "ms_median": 7.097,
+        "ms_p95": 8.69,
+        "ms_worst": 11.154,
+        "objects": 1282,
+        "pass_spread_ms": 2.796,
+        "passes": [
+          {
+            "draws": 1317,
+            "ms_median": 7.097,
+            "ms_p95": 8.69
+          },
+          {
+            "draws": 1317,
+            "ms_median": 8.241,
+            "ms_p95": 11.486
+          }
+        ],
+        "primitives": 3648574,
+        "render_cpu_ms": 6.13925001621246,
+        "split_perturbed": true,
+        "yaw": 90.0
+      }
+    },
+    {
+      "headings": [
+        {
+          "draws": 1760,
+          "gpu_ms": 2.84370001554489,
+          "ms_median": 9.738,
+          "ms_p95": 10.473,
+          "ms_worst": 10.648,
+          "objects": 1727,
+          "pass_spread_ms": 0.673999999999999,
+          "passes": [
+            {
+              "draws": 1760,
+              "ms_median": 9.738,
+              "ms_p95": 10.473
+            },
+            {
+              "draws": 1760,
+              "ms_median": 9.717,
+              "ms_p95": 11.147
+            }
+          ],
+          "primitives": 3761380,
+          "render_cpu_ms": 8.63629994392395,
+          "split_perturbed": true,
+          "yaw": 135.0
+        }
+      ],
+      "light_census": {
+        "basis": "reach",
+        "cap": 8,
+        "histogram": {
+          "0": 401,
+          "1": 943,
+          "2": 479,
+          "3": 293,
+          "4": 268,
+          "5": 166,
+          "6": 119,
+          "7": 105,
+          "8": 54,
+          "9": 42,
+          "10": 32,
+          "11": 16,
+          "12": 8,
+          "13": 13,
+          "14": 7,
+          "15": 11,
+          "16": 15,
+          "17": 6,
+          "18": 5,
+          "19": 9,
+          "20": 9,
+          "21": 1,
+          "24": 4,
+          "25": 1,
+          "26": 3,
+          "27": 3,
+          "28": 1,
+          "29": 1,
+          "32": 2,
+          "33": 1,
+          "34": 2,
+          "36": 1,
+          "37": 1,
+          "38": 5,
+          "39": 1,
+          "40": 1,
+          "41": 1,
+          "44": 3,
+          "45": 1,
+          "47": 1,
+          "49": 1,
+          "59": 1,
+          "63": 1,
+          "69": 1,
+          "70": 1,
+          "79": 1,
+          "100": 1,
+          "239": 1
+        },
+        "lights": 239,
+        "meshes": 3043,
+        "over_cap": 215,
+        "over_list": [
+          {
+            "lights": 239,
+            "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+          },
+          {
+            "lights": 100,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+          },
+          {
+            "lights": 79,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+          },
+          {
+            "lights": 70,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_183"
+          },
+          {
+            "lights": 69,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+          },
+          {
+            "lights": 63,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+          },
+          {
+            "lights": 59,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_310"
+          },
+          {
+            "lights": 49,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_281"
+          },
+          {
+            "lights": 47,
+            "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+          },
+          {
+            "lights": 45,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_188"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_250"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_294"
+          },
+          {
+            "lights": 44,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_14"
+          },
+          {
+            "lights": 41,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_313"
+          },
+          {
+            "lights": 40,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_408"
+          },
+          {
+            "lights": 39,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_62"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_251"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_27"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_296"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_373"
+          },
+          {
+            "lights": 38,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_46"
+          },
+          {
+            "lights": 37,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_48"
+          },
+          {
+            "lights": 36,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_314"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_76"
+          },
+          {
+            "lights": 34,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_278"
+          },
+          {
+            "lights": 33,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_407"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_202"
+          },
+          {
+            "lights": 32,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_61"
+          },
+          {
+            "lights": 29,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_30"
+          },
+          {
+            "lights": 28,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_428"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_204"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_92"
+          },
+          {
+            "lights": 27,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_251"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_144"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_372"
+          },
+          {
+            "lights": 26,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_6"
+          },
+          {
+            "lights": 25,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_173"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_26"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_29"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 24,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_6"
+          },
+          {
+            "lights": 21,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_196"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverN_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_10"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_11"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_33"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_23"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_24"
+          },
+          {
+            "lights": 20,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_277"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_172"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_351"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_26"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_27"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_18"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_19"
+          },
+          {
+            "lights": 19,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_20"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_22"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_43"
+          },
+          {
+            "lights": 18,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c497_499"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_1"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_15"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_16"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_17"
+          },
+          {
+            "lights": 17,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_26"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverS_concrete_delco_1997"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_1"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_14"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_15"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_169"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_20"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_22"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_24"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_28"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_48"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_49"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_21"
+          },
+          {
+            "lights": 16,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_25"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_4"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_5"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_12"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_13"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_23"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_409"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_8"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_9"
+          },
+          {
+            "lights": 15,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_10"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_2"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_3"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_1"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_25"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b1/MergedR_4"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/LitR_5"
+          },
+          {
+            "lights": 14,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_2"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_1"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_6"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_16"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_17"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_193"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_315"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_352"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverN_concrete_delco_1997"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_260"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_5"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_075_020_c500_499"
+          },
+          {
+            "lights": 13,
+            "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c497_500"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_2"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_6"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_0"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_1"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_270"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_concrete_delco_1997"
+          },
+          {
+            "lights": 12,
+            "mesh": "/root/Mission/Bake/Site/frontage_2R_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/Ground_5/mesh"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_6"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_0"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_2"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_3"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_304"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_305"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_32"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_concrete_delco_1997"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverW_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_150"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_152"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_198"
+          },
+          {
+            "lights": 11,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_200"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t4_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_2"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t4_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_3"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_0"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_1"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_6"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_7"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/Dressing/CoverE_metal_painted_delco_1997_dbdbd4"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t0_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/GreyboxBase/slab_2_t1_5"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_151"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_153"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_154"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_156"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_158"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_159"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_199"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_201"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_202"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_204"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_206"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_207"
+          },
+          {
+            "lights": 10,
+            "mesh": "/root/Mission/Bake/Site/b2/MergedR_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground/mesh_t0_3"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_13/mesh_t1_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_4/mesh_t0_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/Ground_6/mesh"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t1_6"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t2_1"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_0_t5_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t0_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t1_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_5"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t2_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t3_4"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_0"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_2"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/GreyboxBase/slab_1_t5_7"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_199"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_200"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_261"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_264"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_33"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_349"
+          },
+          {
+            "lights": 9,
+            "mesh": "/root/Mission/Bake/Site/b0/MergedR_4"
+          }
+        ],
+        "over_list_truncated": true,
+        "paired": {
+          "basis": "paired",
+          "histogram": {
+            "0": 1933,
+            "1": 776,
+            "2": 243,
+            "3": 42,
+            "4": 24,
+            "5": 8,
+            "6": 5,
+            "7": 5,
+            "9": 1,
+            "10": 1,
+            "11": 3,
+            "47": 1,
+            "239": 1
+          },
+          "lightmap_users": 2970,
+          "lights_static": 209,
+          "over_cap": 7,
+          "over_list": [
+            {
+              "by_reach": 239,
+              "lights": 239,
+              "mesh": "/root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow"
+            },
+            {
+              "by_reach": 47,
+              "lights": 47,
+              "mesh": "/root/Mission/Bake/Site/site_wires_c497_499"
+            },
+            {
+              "by_reach": 69,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_499"
+            },
+            {
+              "by_reach": 63,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c499_500"
+            },
+            {
+              "by_reach": 79,
+              "lights": 11,
+              "mesh": "/root/Mission/Bake/Site/site_marks_090_090_088_c500_499"
+            },
+            {
+              "by_reach": 100,
+              "lights": 10,
+              "mesh": "/root/Mission/Bake/Site/b0/MergedR_35"
+            },
+            {
+              "by_reach": 9,
+              "lights": 9,
+              "mesh": "/root/Mission/Bake/Site/b0/int_1_2_open1_breached/Breach_drywall_delco_1997"
+            }
+          ],
+          "over_list_truncated": false,
+          "pairs": 1927,
+          "worst": 239,
+          "worst_mesh": "LuxHorizonGlow"
+        },
+        "pairs": 10606,
+        "worst": 239,
+        "worst_mesh": "LuxHorizonGlow"
+      },
+      "mean_p95_over_headings": 10.473,
+      "pos": [
+        54.0,
+        1.60000002384186,
+        -6.48999977111816
+      ],
+      "station": "longest_sightline",
+      "type": "derived",
+      "worst_heading": {
+        "draws": 1760,
+        "gpu_ms": 2.84370001554489,
+        "ms_median": 9.738,
+        "ms_p95": 10.473,
+        "ms_worst": 10.648,
+        "objects": 1727,
+        "pass_spread_ms": 0.673999999999999,
+        "passes": [
+          {
+            "draws": 1760,
+            "ms_median": 9.738,
+            "ms_p95": 10.473
+          },
+          {
+            "draws": 1760,
+            "ms_median": 9.717,
+            "ms_p95": 11.147
+          }
+        ],
+        "primitives": 3761380,
+        "render_cpu_ms": 8.63629994392395,
+        "split_perturbed": true,
+        "yaw": 135.0
+      }
+    }
+  ],
+  "schema": "level_factory.perf_stations.v1"
+}

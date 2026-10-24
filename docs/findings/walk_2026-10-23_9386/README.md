@@ -93,6 +93,12 @@ draw for every screen in view -- the club's handful of TVs measured below the no
 desks is twenty more submissions. Measure draw calls and frame time at the office's stations, pass on and off, with a
 control, before it ships.
 
+**Fixed in Level Factory 0.239.0** (`patches/patch_lf_desk_screens.py`), priced first (`patches/lf_desk_screens/`):
+the desk screens live in the export's merged lit meshes (`LitR_*`, 20 in the office, 3 in deli_a03, one atlas
+material -- `screen_holders.gd`). Three arms of 9387's raw package: the twelve stations 0-19 draws more and a p95
+move inside the control's spread; the office bullpen facing the desks 91 -> 110 draws, 1.98 ms against controls 1.82
+and 1.85.
+
 
 ## 6. The office's double stair: walling and railing look unnatural
 
@@ -195,6 +201,14 @@ driver. On a four-way each corner is the far-right corner of exactly one approac
 Green`, Zoo's recipe says gameplay or a Lux row would drive which is lit). A cycle costs no per-frame CPU as a shader
 on those three materials driven by TIME, the junction's two directions in opposition by a phase each signal carries --
 priced on/off at stations before it ships (`CLAUDE.md`), and kept out of the light bake, which would freeze one state.
+
+**Correction, 2026-10-24: the cycle already existed.** Level Factory 0.165.0 gives each lens a lit shader on one 60 s
+clock (green 33, amber 4, red 23 s), and both 9386's and 9387's packages carry it (`lens_materials.gd`,
+`lens_materials_938[67].out.txt`) -- the lights DID change, once a minute, which a passer-by reads as never. And on
+one clock, Lot 0.128.0's far-side signals put every head at a junction on green together (9387's frame).
+**Fixed in Level Factory 0.238.0** (`patches/patch_lf_signal_opposition.py`): a head's facing picks its half of a 48 s
+cycle (green 18, amber 4, red 26 with a 2 s all-red), so a junction's two directions take turns; measured on a
+re-imported copy of 9387 (`patches/lf_signal_opposition/heads_shipped_over_trial.png`).
 
 ## 13. Rowhome doors without knobs
 
