@@ -47,6 +47,21 @@ this instrument separates from the grain. Along the whole wall the largest colum
 as shipped, 8.1 % bake on, 5.1 % bake off. Leaning: the bake (lightmap rects meeting at a joint), not the texture --
 but a lean is not a finding; the next instrument reads the lightmap's own rects at the wall's piece joints.
 
+**The walker, 2026-10-24: "i think we want the look of baking but where we try to not get those bands".**
+
+**CAUSE MEASURED, 2026-10-24** (`seams/wall_islands.gd`, `wall_islands.out.txt`, `joints_in_frame.out.txt`, on 9389's
+walk copy): the back room's north wall is one merged mesh, `b1/MergedR_1`, and its lightmap UV2 is ONE ISLAND PER 2 m
+WALL MODULE (x -10.85..-8.85, -8.85..-6.85, ... two triangles each) -- the merge (`merge_buildings.gd`) unwraps each
+cell's mesh with `lightmap_unwrap` at 0.2 m a texel, and adjacent modules share no vertices, so each is its own chart
+of about 10 texels across. Some neighbours sit side by side in the atlas (-4.85..-2.85 and -2.85..-0.85 share
+u = 0.1474), others in different rows (-8.85..-6.85 at u 0.53, -6.85..-4.85 at u 0.24). Projected into the shipped
+frame through the same camera, the brightness step across a joint against one mid-module: joints mean 3.0 grey codes
+(n 8; the joint behind the bookshelf left out), mid-module 1.5 (n 6; one at the room's corner left out) -- and the two
+lines first picked out by eye, columns 1335 and 1415, are the joints at x 0.30 and 1.70, the door opening's edges.
+So the bands are lightmap islands meeting at module joints. The cure the walker's call points to: one chart per
+wall plane inside a cell (unwrap a position-and-normal-welded proxy and carry its UV2 back), keeping the bake --
+priced before it ships (lightmap size, bake time, frames from the walker's eye).
+
 ## 3. The drop safe reads as a brown box
 
 `03_drop_safe.webp`: pharmacy_a01's `DropSafe`, a wood-brown cube with a faint dial, under its spot -- the same
