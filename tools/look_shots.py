@@ -42,7 +42,9 @@ what each changes. Empty, the default, touches nothing.
 SOURCES OF LIGHT CAN BE SWITCHED OFF before every shot (2026-10-09):
 `--switch-off lightmap,live,sun,ambient,probes,emission,sky,fog`, any of
 them. `look_shots.gd`'s SWITCHES says what each does, and the report says what
-each found and turned off. Empty, the default, touches nothing.
+each found and turned off. Empty, the default, touches nothing. And
+`hide:<node name>` (2026-10-24) hides every visible node of that name, to
+attribute a frame's pixels by shooting it with and without one node.
 `tools/light_breakdown.py` drives it, one configuration a run.
 
 THE CAMERAS ARE DERIVED, NOT CHOSEN. Eye-level shots stand on the walk scene's

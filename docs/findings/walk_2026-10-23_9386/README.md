@@ -74,6 +74,31 @@ L-shaped tops: its bounds spanned the hole, its triangles did not.
 Next: shoot the walker's view from the eye with the camera's own basis and pick the rod's pixels by hiding
 candidates, rather than by bounds -- every bounds-based instrument above has been answered.
 
+**NAMED, 2026-10-24: the two storey-0 ceiling skins' rims.** Done as above. `tools/look_shots.py` gained a
+`hide:<node name>` switch (wildcards allowed) to attribute a frame's pixels; the walker's view reproduced from their
+eye under the inspection light (`walker:54.6,2.2,1.6 -> 54.6,5.8,-7.73`) shows the bar at row 382. Hidden by family,
+then by digit, the bar's band (rows 379-386, columns 660-1040, 0-255 grey) against the ceiling above it (rows
+360-370):
+
+    as shipped                         bar 131.7   above 54.2
+    every MergedR_* hidden             bar  34.6   above 34.0      the bar goes
+    MergedR_2* hidden                  bar  54.5   above 54.2      the bar goes
+    MergedR_27* alone / MergedR_278    bar 125.0   above 54.2      dimmed, not gone
+    MergedR_251 alone                  bar 131.7   above 54.2
+    MergedR_251 + MergedR_278          bar  54.5   above 54.2      the bar goes
+
+`b2/MergedR_278` is the lobby's ceiling skin and `b2/MergedR_251` the ground bullpen's (2 cm at y 3.28-3.30, meeting
+at z -0.49, the line between the two rooms). Zoo's `arch.plate_voids` inset every void `PLATE_RIM` (2 cm) from every
+edge it reached, "invisible from below": the stairwell crosses that room line, so each ceiling kept a 2 cm rim across
+the hole there, back to back -- the bar. **Fixed in Zoo 1.122.0** (`patches/patch_zoo_plate_rim.py`): the rim only on
+a side a void would take end to end.
+
+**Refuted and kept, a second time:** `rod_pick.gd` (a `--script` probe hiding meshes and diffing the band) scored
+against a BLACK frame -- it replaces the main loop, so the walk copy's warm-up never finished; every candidate "moved
+the band" the same 0.34 and its leader (`MergedR_182`, the storey-1 wood rails) meant nothing
+(`rod_pick_black_frame_REFUTED.out.txt`). It now refuses a black first frame, and did, which is why the work moved to
+`look_shots`, which waits for the warm-ups.
+
 ## 5. Office monitors are still pictures
 
 `05_office_screen_static.webp`: the office's cubicle monitors show a fixed screen ("READY", and the neighbour's

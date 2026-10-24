@@ -73,6 +73,11 @@ const WARMUP_MAX_FRAMES := 5000
 ##              reflection that read the background is pointed at the sky, so
 ##              this switches the sky's own pixels and nothing the sky lights.
 ##   fog        each Environment's depth fog.
+##   hide:<name>  (2026-10-24) every visible node of that NAME hidden -- not a
+##              light: a way to ATTRIBUTE a frame's pixels, by shooting it with
+##              and without one node (the walk of 9386's finding 4, a rod no
+##              bounds-based probe could name). The report lists every path it
+##              hid; one that found nothing says so, never a silent no-op.
 ## An unknown name refuses the run. The report carries what each switch found
 ## and turned off: a switch that found nothing has no effect, and a reader
 ## must see "nothing here" rather than "no contribution".
@@ -142,8 +147,8 @@ func _ready() -> void:
 	var off: PackedStringArray = PackedStringArray()
 	for s in String(ProjectSettings.get_setting("look_shots/switch_off", "")).split(",", false):
 		var sw: String = s.strip_edges()
-		if not SWITCHES.has(sw):
-			_emit({"error": "no light switch %s; the switches are %s" % [sw, ", ".join(SWITCHES)]})
+		if not SWITCHES.has(sw) and not (sw.begins_with("hide:") and sw.length() > 5):
+			_emit({"error": "no light switch %s; the switches are %s, or hide:<node name>" % [sw, ", ".join(SWITCHES)]})
 			return
 		off.append(sw)
 	_inspect = String(ProjectSettings.get_setting("look_shots/inspect", "")).strip_edges()
@@ -421,6 +426,15 @@ func _switch_off(names: PackedStringArray) -> Dictionary:
 				got = {"environments": envs.size(), "before": was}
 			"emission":
 				got = _switch_emission(root)
+			_:
+				if sw.begins_with("hide:"):
+					var hid: Array = []
+					for n in root.find_children(sw.substr(5), "Node3D", true, false):
+						var n3: Node3D = n as Node3D
+						if n3 != null and n3.is_visible_in_tree():
+							n3.visible = false
+							hid.append(String(n3.get_path()))
+					got = {"hidden": hid.size(), "paths": hid}
 		out[sw] = got
 	return out
 
