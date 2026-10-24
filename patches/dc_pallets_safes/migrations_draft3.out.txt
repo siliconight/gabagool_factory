@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\migrations\migrate_pallet_pile.py", line 64, in <module>
+    main()
+    ~~~~^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\migrations\migrate_pallet_pile.py", line 58, in main
+    migrate_furnish_recipes.migrate(d)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\migrate_furnish_recipes.py", line 97, in migrate
+    added = level_design.furnish(d) if d.get("rooms") else 0
+            ~~~~~~~~~~~~~~~~~~~~^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\level_design.py", line 6695, in furnish
+    short += 0 if _host(item[1]) else 1
+                  ~~~~~^^^^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\level_design.py", line 6472, in _host
+    in _wall_slots(spec, room, w, d, rng,
+       ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+                   with_front=True,
+                   ^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+                   off_glass=p["off_glass"],
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^
+                   back_off=piece_back_off(p))]
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\level_design.py", line 3606, in _wall_slots
+    backing = _edge_backing(spec, story, 1, wy)
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\level_design.py", line 3374, in _edge_backing
+    spans = sorted(s for _label, ws, wn, plane, _half, sp in _built_walls(spec)
+                                                             ~~~~~~~~~~~~^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\level_design.py", line 3366, in _built_walls
+    got = _WALLS_SEEN[key] = layout_lint.built_walls(spec)
+                             ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\layout_lint.py", line 683, in built_walls
+    voids = stairwell.wall_voids(spec_loader.spec_from_dict(spec))
+                                 ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Projects\gabagool_studios\gabagool_factory\_scratch\dc_pal5\spec_loader.py", line 51, in spec_from_dict
+    volumes = [Volume(**v) for v in d.get("volumes", [])]
+               ~~~~~~^^^^^
+TypeError: Volume.__init__() got an unexpected keyword argument 'pile'

@@ -1,0 +1,28 @@
+........................................................................ [ 56%]
+..........x.............................................                 [100%]Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+============================== warnings summary ===============================
+tests/test_casing.py: 3 warnings
+tests/test_coincident_faces.py: 370 warnings
+tests/test_door_hardware.py: 5 warnings
+tests/test_merge_by_material.py: 8 warnings
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:227: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_coincident_faces.py: 24 warnings
+tests/test_merge_by_material.py: 1 warning
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:355: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:466: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_merge_by_material.py::test_merging_does_not_change_the_facts_a_module_reports
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:580: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+127 passed, 1 xfailed, 415 warnings in 29.23s

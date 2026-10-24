@@ -144,3 +144,4 @@
 - [Buildings wanted 2026-10-23](buildings-wanted-2026-10-23.md) — restrooms/toilets, a laundromat, a better bank; queued for the roadmap
 - [Double stair is a compact U](double-stair-is-compact-u.md) — walker's pick for finding 6: walls enclose the well, rail between flights; refs in walk_2026-10-23_9386/stair_refs
 - [Baked look without bands](baked-look-without-bands.md) — walker: keep the bake, remove wall-joint bands; prove cause, try cures one at a time, price each
+- [Distant vistas, variety](distant-vistas-variety.md) — walker: trains, ocean+marina, forest, malls, airports far off; varied, good-looking, highly performant; far band never built

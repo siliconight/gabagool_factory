@@ -49,6 +49,16 @@ but a lean is not a finding; the next instrument reads the lightmap's own rects 
 
 **The walker, 2026-10-24: "i think we want the look of baking but where we try to not get those bands".**
 
+**REFUTED, 2026-10-24, the same day -- kept above the reasoning it overturns.** Level Factory 0.240.0 made the wall
+one lightmap chart (a welded proxy unwrapped, UV2 carried back) and cold run 9390 measured it against 9389 from the
+walker's eye, same instrument, one session (`seams/joints_9389_vs_9390.out.txt`): the wall IS one continuous row of
+the lightmap in 9390 (`wall_islands_9390.out.txt`) and the joint-to-mid-module step went 2.0x -> 3.0x, not down. So the
+bands are NOT separate lightmap charts meeting at the joints; the correlation below with the joints stands, the cause
+read into it does not. 0.240.0 reverted as 0.240.1 (bake 36.0 -> 52.7 s, for nothing the walker asked for). Still
+open, untested: the per-module `wear` Zoo bakes into each wall module's own vertex colours (a module-to-module step
+that would show with the bake off too -- the bake-off frame's largest step was 5.1 %, not zero), the texel grid at
+0.2 m against the 2 m module (a joint every tenth texel), and the bake's denoiser at quality Low.
+
 **CAUSE MEASURED, 2026-10-24** (`seams/wall_islands.gd`, `wall_islands.out.txt`, `joints_in_frame.out.txt`, on 9389's
 walk copy): the back room's north wall is one merged mesh, `b1/MergedR_1`, and its lightmap UV2 is ONE ISLAND PER 2 m
 WALL MODULE (x -10.85..-8.85, -8.85..-6.85, ... two triangles each) -- the merge (`merge_buildings.gd`) unwraps each
@@ -61,6 +71,90 @@ lines first picked out by eye, columns 1335 and 1415, are the joints at x 0.30 a
 So the bands are lightmap islands meeting at module joints. The cure the walker's call points to: one chart per
 wall plane inside a cell (unwrap a position-and-normal-welded proxy and carry its UV2 back), keeping the bake --
 priced before it ships (lightmap size, bake time, frames from the walker's eye).
+
+**THE JOINTS REFUTED, 2026-10-24, later the same day -- kept below the two readings it overturns, both of which rest
+on it.** The "joints step twice as much as mid-module" figure was the control's placement, not the joints:
+
+- **What the modules carry was read first and is no cause** (`seams/joint_attrs.gd`, `joint_attrs_9389.out.txt`, on
+  9389's walk copy). Every module of the wall is one quad with the same four corner colours, so `Wear` (Zoo's
+  `geometry.wear_colors`, seeded noise per vertex) DOES step at every joint -- 0.686/0.820 bottom/top on a module's
+  right edge against 0.973/0.663 on the next one's left. But nothing draws it: the merged wall's material reads
+  `vertex_color_use_as_albedo false` at run time (the worldskin keeps a tiled kit's vertex colour off, for this
+  reason). Its UV1 restarts per module, and the material is `uv1_world_triplanar true`, so it never reads UV1. The
+  normals are identical either side, (0, 0, 1) to four decimals.
+- **Which light carries the steps** (`seams/light_sources.sh`, `light_sources_9389.out.txt`; three arms from the
+  walker's eye on 9389, one session): shipped joints 3.19 / mid-module 1.45 grey codes (n 7 / 6, the corner and the
+  bookshelf left out as above), reproducing the first frame to 0.5; lightmap only 3.46 / 1.40; lightmap off 0.66 /
+  0.38 -- a wall at 11-20 grey, too dark for this instrument to say anything either way. The lightmap carries them.
+- **But the lightmap itself is smooth across the joints** (`seams/lm_wall_profile.gd`, which reads the bake's own
+  EXR, since headless holds no texture pixels: `lm_wall_profile_9389.out.txt`, `_9390.out.txt`). At y 1.6 every
+  5 cm, consecutive texels run on without a step at any joint, in both runs (at -8.85: 0.682, 0.654, 0.594). The
+  curve is the ceiling lamps' pools on the wall -- peaks near -9.5, -3.25, 0.05 and 3.0, troughs near -7.3 and
+  -1.5, rising 0.10 -> 0.70 over about 1.5 m -- at a texel of about 0.18 m in 9389 and 0.35 m in 9390 (whose one
+  chart gave the wall half the texels; the coarser texel is a likely reading of 0.240.0's worse ratio).
+- **The control was on the pools' extremes.** The lamps sit on the modules' grid, so the mid-module positions fell
+  on peaks and troughs, where the light is flat, and the joints on the slopes. Measured at every 0.1 m of the wall
+  in the lightmap-only frame (`seams/step_vs_slope.py`, `step_vs_slope_9389.out.txt`): joints mean |step| 2.25
+  (n 5), mid-modules 1.74 (n 6), every other position 3.73 (n 116); inside the joints' own slope range, joints 2.25
+  (n 5) against 1.99 for 53 positions that are not joints. A joint steps as much as anywhere else on a slope.
+- **Two refutations on the way:** bicubic lightmap sampling (Mach bands at the kinks of a bilinear gradient) is
+  ALREADY ON -- `rendering/lightmapping/lightmap_gi/use_bicubic_filter = true` in the walk copy, and Godot 4.7's
+  Compatibility scene shader carries the `LIGHTMAP_BICUBIC_FILTER` variant. And the wall modules' buried end faces
+  (`seams/joint_caps.gd`, `joint_caps_9389.out.txt`: two back to back at every joint, 0.30 m deep, z -6.64..-6.34)
+  lie behind the face the bake's rays leave from, and the texels show no dip there.
+
+**What IS a seam, measured:** the breach panel's edges, x 0.30 and 1.70 (an earlier line here called it a door
+opening; it is `ext_0_N_open0`, the BREACHPANEL the walker's crosshair was on). There the merged wall meets
+`ext_0_N_open0/Wall_Panel`, the panel's own piece, a separate mesh with its own rect
+in the atlas (slice 12 against the wall's slice 7), and the bake does not agree across the cut: above the door at
+y 2.6 the wall reads 0.601 and the panel 0.526 at x 0.30 (-12 %), the panel 0.410 and the wall 0.364 at 1.70
+(+13 %) (`lm_door_b1_MergedR_1_9389.out.txt`, `lm_door_ext_0_N_open0_Wall_Panel_9389.out.txt`). Inside one merged
+mesh, 9389's separate per-module islands bake smooth; between two meshes, they do not.
+
+**Still open:** whether the walker's bands are those two door seams, the lamp pools themselves (a wall lit in
+scallops reads as stripes), or both. The next instrument: the walker's frame marked against these positions. The
+cure for the door seams, if they are it, is the opening's piece baked as part of the wall's merged mesh, to be
+found in Level Factory's merge and priced; the pools are the lighting's look, Lux's to answer if the walker wants
+them softer.
+
+**THE STATION WAS NOT THE WALKER'S VIEW, 2026-10-24 -- every frame measurement above it stands, about a different
+view of the same wall.** The station `seams:-8.0,1.6,-0.1,-6.0,2.07,-10.5` faced the north wall square on; the
+walker faced east-north-east, their crosshair on the breach panel at 10.49 m (`ext_col_0_N_open0_BREACHPANEL`; from
+their position (0.4, 2.07, -6.34) is 10.5 m off). Re-shot from `walker:-8.0,1.6,-0.1,0.4,2.07,-6.34` it matches their
+frame: the north wall on the left (bookshelf and all), the east wall ahead with its door.
+
+**The walker's ten marks, placed** (their 2000 px frame scaled to 1600, cast through that camera; about +/-0.3 m,
+the view being reconstructed rather than theirs) against the meshes each wall face is made of
+(`seams/wall_pieces.gd`, `wall_pieces_x_9389.out.txt`, `wall_pieces_z_9389.out.txt`):
+
+| wall | marks | a piece the merge left out (`merge_buildings.gd`, `_mergeable`: `*_open<n>` and interactive slots stay whole) |
+|---|---|---|
+| north, z -6.34 | x 0.17, 2.31 | the breach panel `ext_0_N_open0`, x 0.30..1.70 |
+| east, x 4.85 | z -3.89, -3.48, -2.86, -2.20 | the doorway `int_0_1_open1`, z -3.615..-2.365 |
+| east | z -1.00, -0.52 | the breach panel `int_0_1_open0/Wall_Panel`, z -0.69..0.71 (first read here as a filled opening) |
+| north, above the bookshelf | x -7.00, -6.44 | none: one merged mesh there (its module joint at -6.85) -- unexplained |
+
+Eight of the ten sit at an edge where an opening's own mesh, with its own rect in the lightmap, meets the room's
+merged wall -- the seam the breach panel's texels measure at -12 % and +13 %. The cure this points at is Level
+Factory's: bake an opening's opaque wall surfaces as part of the cell's merged wall, where nothing about the opening
+needs them apart (a filled opening's panel, a doorway's jambs and head); a breach panel and a door leaf change state
+and stay their own. To be built, then proven and priced in a cold run, from the walker's view.
+
+**THE MERGE CURE REFUTED BEFORE IT WAS BUILT, 2026-10-24** (`seams/open_slots.gd`, `open_slots_b1_9389.out.txt`):
+every piece behind those eight marks is INTERACTIVE -- `ext_0_N_open0` and `int_0_1_open0` are breach panels
+(`interactive_id`, each with a `_breached` twin it swaps to), `int_0_1_open1` a doorway -- and an interactive slot
+changes state, so it has to stay its own mesh. Of pharmacy_a01's 11 opening slots, none is both untagged and free of
+glass. What is left, each a change to what a player sees:
+
+- **A casing at the edge.** A real doorway's casing covers exactly this joint, and a trim strip reads as built rather
+  than as a fault: a few triangles inside the interactive slot, no draw added. For a doorway this is plainly right.
+- **For a breach panel it is a gameplay call, queued for the walker:** a frame round a breach panel tells a player
+  where the wall will open. Left unframed, its seam is the lightmap's.
+  **THE WALKER, 2026-10-24: "Yes hide the seam for breaches, we still don't know how they would work in the game
+  but its' really cool we are building it in for potential use".** Doorways and breach panels both get the casing.
+- **Matched texel density**, as a partial cure: the panel's rect is about 0.05 m a texel (30 texels across 1.4 m)
+  against the merged wall's 0.18 m, two very different bakes meeting. It cannot remove the step on its own -- at
+  x 0.30 the two disagree by 0.075 where the wall's own slope across 0.2 m is about 0.02 -- but it may narrow it.
 
 ## 3. The drop safe reads as a brown box
 

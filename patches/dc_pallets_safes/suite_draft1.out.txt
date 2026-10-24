@@ -1,0 +1,129 @@
+........................................................................ [  3%]
+.................................................................ss..... [  7%]
+.........s..........................................................s... [ 11%]
+...F...........................s.................s.....s................ [ 15%]
+................................F................s...................... [ 19%]
+...............................s.........s..............s...s........... [ 23%]
+..................................ss.................................... [ 27%]
+........................ss................s.........s................... [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+................................................................s....... [ 43%]
+........................................................................ [ 47%]
+.s...................................................................... [ 51%]
+........................................................................ [ 55%]
+s....................................................................... [ 59%]
+..........................................................F............. [ 63%]
+........................................................................ [ 67%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 78%]
+........................................................................ [ 82%]
+.....................s.................................................. [ 86%]
+................ss....s..s..............................sss............. [ 90%]
+...................................s.........s........F................. [ 94%]
+........................................................................ [ 98%]
+..........................                                               [100%]
+================================== FAILURES ===================================
+_ test_the_library_carries_the_fixture_pass_and_is_still_a_fixed_point_of_furnish _
+
+    def test_the_library_carries_the_fixture_pass_and_is_still_a_fixed_point_of_furnish():
+        import migrate_club_fixtures
+        import migrate_club_rooms
+        import migrate_furnish_recipes
+        counts = collections.Counter()
+        for path in _library_specs():
+            with open(path, encoding="utf-8") as f:
+                d = json.load(f)
+            if not d.get("rooms"):
+                continue
+            once = copy.deepcopy(d)
+            assert not migrate_club_fixtures.migrate(once), os.path.basename(path)
+            assert once == d
+            full = copy.deepcopy(d)
+            name = os.path.basename(path)
+            (migrate_club_rooms.migrate if name.startswith("strip_club_") else migrate_furnish_recipes.migrate)(full)
+>           assert json.dumps(full, sort_keys=True) == json.dumps(d, sort_keys=True), name
+E           AssertionError: corner_deli_heist_01.json
+E           assert '{"$schema": ..."story": 0}]}' == '{"$schema": ..."story": 0}]}'
+E             
+E             Skipping 21331 identical leading characters in diff, use -v to show
+E             - terial": "wood", "name": "cabinet_supply_r3a31909e_3", "size_x": 0.6, "size_y": 0.9, "size_z": 1.4, "stock": "storage", "variant": 1, "x": 18.52, "y": 12.06, "z": 0.7}, {"collision": "convex", "material": "wood", "name": "shelf_run_r3a31909e_4", "size_x": 2.6, "size_y": 0.6, "size_z": 1.9, "x": 8.8, "y": 13.52, "z": 0.95}, {"collision": "convex", "material": "wood", "name": "cabinet_file_r3a31909e_5", "size_x": 0.9, "size_y": 0.5, "size_z": 1.4, "x": 14.55, "y": 13.56, "z": 0.7}, {"collision": "convex"...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+tests\test_club_fixtures.py:291: AssertionError
+_____________ test_the_library_delis_are_a_fixed_point_of_furnish _____________
+
+    def test_the_library_delis_are_a_fixed_point_of_furnish():
+        import migrate_furnish_recipes
+        for name in DELIS:
+            d = _spec(name)
+            before = json.dumps(d, sort_keys=True)
+            migrate_furnish_recipes.migrate(d)
+>           assert json.dumps(d, sort_keys=True) == before, name
+E           AssertionError: deli_a01
+E           assert '{"$schema": ...thick": 0.35}' == '{"$schema": ...thick": 0.35}'
+E             
+E             Skipping 18896 identical leading characters in diff, use -v to show
+E             - terial": "wood", "name": "cabinet_supply_r3a31909e_3", "size_x": 0.5, "size_y": 1.0, "size_z": 1.8, "stock": "storage", "variant": 1, "x": 18.57, "y": 9.74, "z": 0.9}, {"collision": "convex", "material": "wood", "name": "shelf_run_r3a31909e_4", "size_x": 2.6, "size_y": 0.6, "size_z": 1.9, "x": 7.66, "y": 13.52, "z": 0.95}, {"collision": "convex", "material": "wood", "name": "cabinet_file_r3a31909e_5", "size_x": 0.9, "size_y": 0.6, "size_z": 1.05, "x": -3.04, "y": 13.52, "z": 0.525}, {"collision": "conv...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+tests\test_deli_window.py:162: AssertionError
+________________ test_the_library_is_a_fixed_point_of_furnish _________________
+
+    def test_the_library_is_a_fixed_point_of_furnish():
+        """Every library spec with rooms comes back byte for byte from stripping what furnish wrote and furnishing again:
+        the refurnish shipped with this rule is the one the rule makes."""
+        import migrate_furnish_recipes
+        moved = []
+        for p in sorted(glob.glob(os.path.join(HERE, "specs", "*.json"))):
+            if os.path.basename(p).startswith("lf_"):
+                continue
+            d = json.load(open(p, encoding="utf-8"))
+            if not d.get("rooms"):
+                continue
+            before = json.dumps(d, sort_keys=True)
+            migrate_furnish_recipes.migrate(d)
+            if json.dumps(d, sort_keys=True) != before:
+                moved.append(os.path.basename(p))
+>       assert not moved, moved
+E       AssertionError: ['corner_deli_heist_01.json', 'cr_deli.json', 'deli_a01.json', 'deli_a02.json', 'deli_a03.json', 'night_deli.json']
+E       assert not ['corner_deli_heist_01.json', 'cr_deli.json', 'deli_a01.json', 'deli_a02.json', 'deli_a03.json', 'night_deli.json']
+
+tests\test_room_count_storey.py:101: AssertionError
+________________ test_the_library_is_a_fixed_point_of_furnish _________________
+
+    def test_the_library_is_a_fixed_point_of_furnish():
+        """`migrate_furnish_recipes.main`'s own walk: a spec with no rooms -- an
+        Empty, a facade, a demo -- is never furnished, and `migrate` on one only
+        adds an empty `volumes` key (this test's first draft called it on all 16
+        and read that as a moved library)."""
+        for name, s in _library():
+            if not s.get("rooms"):
+                continue
+            before = json.dumps(s, sort_keys=True)
+            MF.migrate(s)
+>           assert json.dumps(s, sort_keys=True) == before, name
+E           AssertionError: corner_deli_heist_01
+E           assert '{"$schema": ..."story": 0}]}' == '{"$schema": ..."story": 0}]}'
+E             
+E             Skipping 21331 identical leading characters in diff, use -v to show
+E             - terial": "wood", "name": "cabinet_supply_r3a31909e_3", "size_x": 0.6, "size_y": 0.9, "size_z": 1.4, "stock": "storage", "variant": 1, "x": 18.52, "y": 12.06, "z": 0.7}, {"collision": "convex", "material": "wood", "name": "shelf_run_r3a31909e_4", "size_x": 2.6, "size_y": 0.6, "size_z": 1.9, "x": 8.8, "y": 13.52, "z": 0.95}, {"collision": "convex", "material": "wood", "name": "cabinet_file_r3a31909e_5", "size_x": 0.9, "size_y": 0.5, "size_z": 1.4, "x": 14.55, "y": 13.56, "z": 0.7}, {"collision": "convex"...
+E             
+E             ...Full output truncated (2 lines hidden), use '-vv' to show
+
+tests\test_wall_backing.py:162: AssertionError
+============================== warnings summary ===============================
+tests/test_state_collision.py::test_an_unreadable_module_yields_nothing_rather_than_raising
+  C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pygltflib\__init__.py:1140: UserWarning: pygltflib does not support version strictly smaller than v2 or strictly larger than v2 of the binary gltf format, this file is version 1752394029, it may not import correctly. Please open an issue at https://gitlab.com/dodgyville/pygltflib/issues
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_club_fixtures.py::test_the_library_carries_the_fixture_pass_and_is_still_a_fixed_point_of_furnish
+FAILED tests/test_deli_window.py::test_the_library_delis_are_a_fixed_point_of_furnish
+FAILED tests/test_room_count_storey.py::test_the_library_is_a_fixed_point_of_furnish
+FAILED tests/test_wall_backing.py::test_the_library_is_a_fixed_point_of_furnish
+4 failed, 1791 passed, 31 skipped, 1 warning in 400.09s (0:06:40)
