@@ -83,7 +83,7 @@ The layout is not uniform. Run from inside the repo.
 | `patina` | `python -m pytest -q` | |
 | `dispatch` | `python -m pytest -q` | |
 | `pipeline` | `python -m pytest -q` | |
-| `deli_counter` | `python -m pytest -q` | tests are `test_*.py` at the REPO ROOT, not under `tests/` |
+| `deli_counter` | `python -m pytest -q` | tests in `tests/` since 0.265.0; one-shot migrations run as `python migrations/migrate_<name>.py`; the root holds only the builder modules `root_modules.txt` names, and `check.py` refuses any other root `.py` |
 | `lasertag`, `lux` | — | Godot addon repos, no Python suite; check `.gd` with `gdcheck.py` |
 
 **In Pixelcoat, a release bumps `pixelcoat/version.py`'s `_FALLBACK` with

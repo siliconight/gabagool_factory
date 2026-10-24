@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-23 night: DC 0.264.0 lattice shipped (9386); next DC 0.265.0 root cleanup, then floor hosts
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: DC 0.265.0 + Lot 0.127.0 shipped; DC 0.266.0 bins-on-walls applying; walk-9386 findings 11-12, 5 next
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -142,3 +142,4 @@
 - [Openings must show what's below](openings-must-show-whats-below.md) — walker: see into a hole to go forward; black was LF's backdrop ground lid (0.237.0); judge THROUGH the rim
 - [Lived-in touches](lived-in-touches.md) — walker: order first, then small deviations with a cause (chair out, seat up, light on); show frames
 - [Buildings wanted 2026-10-23](buildings-wanted-2026-10-23.md) — restrooms/toilets, a laundromat, a better bank; queued for the roadmap
+- [Double stair is a compact U](double-stair-is-compact-u.md) — walker's pick for finding 6: walls enclose the well, rail between flights; refs in walk_2026-10-23_9386/stair_refs

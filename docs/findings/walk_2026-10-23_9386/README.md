@@ -50,6 +50,30 @@ stairwell at about head height over the flight, which the walker walked through 
 handrail or guard rail laid across the flight rather than along it, or a light rig's pole. First step: name the node
 from the walk copy (every visible instance crossing that span, as `hole_column.gd` did for finding 1 of 9383's walk).
 
+**Measured 2026-10-23, NOT YET NAMED.** The building is `b2`, spec `office` (placed at Godot 54, 0, -0.49;
+`buildings.json`). The overlay's `pos` is the EYE (`debug_overlay.gd:443`): local (0.6, 2.2, 2.09), at the foot of
+flight 0 of the office's switchback (`office_stair_0`: flight 0 at local x 0..1.6 rising toward -z to the landing at
+y 3.4-3.6, flight 1 at x -1.6..0 rising back). Its centre ray hits `slab_col_2` 13.07 m off at y 6.90, so the walker
+was looking UP the flight, through the slab hole. Ruled out, each by measurement, instruments beside this README:
+
+  * a spec volume: `specs/office.json` holds no volume with two sides under 0.2 m within 8 m;
+  * a rod-shaped node anywhere in the walk scene (`thin_rods.gd`, two sides under 0.1, one over 1.0 m:
+    nine found, all sign posts and two merged shop-front mullions, none near) or in the office's
+    `site_base.glb`, dressing or fixtures (`glb_rods.py`);
+  * Deli Counter's slab: `build/office.glb`'s `slab_1_t2_3` is a frame round the hole, x -2..2, and no bottom
+    face covers a point over the flight;
+  * the ceiling skins: both storey-0 panels void the hole (`office.slots.json`, voids x -2..2, y -2.65..3.15) and
+    hold nothing but ceiling tile (`glb_faces_in_rect.py` on the themed assembly's panels);
+  * a fixture over the hole below 10.4 m (`fixtures_in_stairwell.out.txt`).
+
+**Refuted and kept:** `faces_in_box.gd` found a 6 mm concrete island at y 3.294-3.300 in `b2/MergedR_250`, and it
+was read as a plate across the hole. `merged_plate.gd` then showed that mesh is the flight's two full-height guards
+(`stair_guard_side_2`, `stair_guard_back_10`, Zoo props `w40_d375_h330` and `w160_d106_h330`) and the island their
+L-shaped tops: its bounds spanned the hole, its triangles did not.
+
+Next: shoot the walker's view from the eye with the camera's own basis and pick the rod's pixels by hiding
+candidates, rather than by bounds -- every bounds-based instrument above has been answered.
+
 ## 5. Office monitors are still pictures
 
 `05_office_screen_static.webp`: the office's cubicle monitors show a fixed screen ("READY", and the neighbour's
@@ -58,6 +82,17 @@ work, `levels-feel-static-make-them-alive`). The walker: every screen the same. 
 screen species carry the effect, and why a monitor is outside it; then the effect on every screen, priced -- an office
 floor holds many monitors, so a per-screen cost is multiplied (`CLAUDE.md`: per-frame work that scales with prop count
 is a shape already refused; a shader-only effect, no script, would not scale that way).
+
+**Owner found, 2026-10-23.** The shimmer is Level Factory's import pass (`assets/godot/zoo_worldskin.gd`, CRT MOTION,
+0.89.0): a darkening overlay hung off a lit screen material's `next_pass`, phased per node from
+`NODE_POSITION_WORLD`, safe through Lux's power cut. It takes a material only by name -- `M_*CRT_Screen*_Face`
+(`_is_crt_face`) -- and Zoo 1.115.0 names a desk monitor's lit screen `M_StockScreen_<atlas>_Face`
+(`recipes/_card_atlas.build_art`, from `bpylayer/prim_mesh.build_stock`), so no monitor was ever given it. The fix is
+one more mark in `_is_crt_face`. **Its price is owed first** (`CLAUDE.md`): each overlay is a `next_pass`, one more
+draw for every screen in view -- the club's handful of TVs measured below the noise floor, an office floor of twenty
+desks is twenty more submissions. Measure draw calls and frame time at the office's stations, pass on and off, with a
+control, before it ships.
+
 
 ## 6. The office's double stair: walling and railing look unnatural
 
@@ -69,6 +104,14 @@ yet. Related and recent: Deli Counter 0.262.0 builds every library stair solid u
 side and back guards; a real stair of this shape has a half-height balustrade or a rail on posts over an open string,
 a wall only where it meets a real wall. To read before changing: which guard kinds stand here (side, back, rail), at
 what heights, and what the real-world forms are.
+
+**The walker's pick, 2026-10-23: the compact U-shaped staircase** (`stair_refs/ref_4_compact_u_rcc_section.png`, of five
+references they sent, all in `stair_refs/`). Its form, as the drawing gives it: two parallel flights of about 900 mm
+clear width side by side in a well about 2.1 m wide and 3.5 m long; a half landing the well's full width and about
+900 mm deep at the turn; a waist slab (150 mm) under each flight; masonry walls enclosing the well's outer sides;
+risers about 164 mm, treads about 280 mm, 3.0 m floor to floor. So walls are right where they ENCLOSE the well; the
+edge between the two flights is the one that should read open, with a rail. The other four references (open treads
+with cable or glass guards, a concrete well, a masonry dog-leg) are kept as the range, not the target.
 
 ## 7. Wide empty ground
 
@@ -108,6 +151,13 @@ edge. Owner: Lot's street furniture. The rule to check it against: `docs/STREET_
 placement the stop signs already follow, `stop-sign-placement-follows-mutcd`); a bus stop sign stands at the curb, set
 back from the travelled way as a sign is, beside where the bus stops.
 
+**Fixed in Lot 0.127.0** (`patches/patch_lot_bus_flag.py`): `_bus_stop` stood the flag `BAND_INSET` in from the
+band's BACK edge; it now stands with its plate's near edge 2 ft from the curb face (PennDOT LTAP TS 181, the urban
+curbed-street offset; `docs/STREET_RULES.md`, "Bus stops"). On Lot's probe street the flag moves from 7.55 m off the
+centre line to 5.76 m, the curb at 5.0. **Open, the second half of the walker's reason:** parking bays still run past
+the stop -- `site_streets.bays(road)` is computed from the road alone by five modules while the stop is placed later
+against what already stands, so keeping the stop's length free of parked cars is its own change.
+
 ## 11. The traffic lights never change
 
 `11_traffic_lights_static.webp`: the intersection's signal heads hold one state, never cycling. The walker's ask
@@ -126,6 +176,25 @@ mast-arm head and a near-side head) facing every approach, the crossing directio
 find: whether the site draws a signal for one approach only, or each assembly is placed and oriented for one
 direction; then a junction-level rule from Lot, checked against the MUTCD's signal-face placement the street rules
 draw on (`docs/STREET_RULES.md`).
+
+**Owner found, 2026-10-23 (findings 11 and 12 together).** Lot's `site_furniture.plan_traffic_control` stands a signal
+ONLY on a signalised junction's yielding (minor) approach: `ap.control == "signal" and not ap.minor` is skipped. Its
+pole stands on that leg's right kerb at the mouth, yawed along the leg's travel, and Zoo's `traffic_signal` hangs its
+two heads facing local -y off an arm along local +x -- so the heads face ACROSS the yielding road, serving one
+direction of the road it meets. Nothing faces the yielding driver, and on a T the far direction of the major road is
+served by nothing: the walker's finding 12 on both counts.
+
+**The rule a fix builds to** (MUTCD 2009 4D.14, quoted in the Delaware Administrative Code's copy; FHWA
+interpretation 4-358): at least TWO primary faces for each approach's through movement, at least 8 ft apart, at least
+one of them no less than 40 ft and no more than 180 ft beyond the stop line. Zoo's signal already carries two heads
+about 4.3 m apart (the arm's and the pole's), so ONE FAR-SIDE SIGNAL PER APPROACH answers it: its pole beyond the
+junction on the approach's right, its arm reaching back over the approach's lanes, both heads facing the approaching
+driver. On a four-way each corner is the far-right corner of exactly one approach, so Lot's one post a corner holds.
+
+**Finding 11 on top of it:** the lenses already wear one material per colour (`M_TrafficSignal_Lens_Red/Amber/
+Green`, Zoo's recipe says gameplay or a Lux row would drive which is lit). A cycle costs no per-frame CPU as a shader
+on those three materials driven by TIME, the junction's two directions in opposition by a phase each signal carries --
+priced on/off at stations before it ships (`CLAUDE.md`), and kept out of the light bake, which would freeze one state.
 
 ## 13. Rowhome doors without knobs
 

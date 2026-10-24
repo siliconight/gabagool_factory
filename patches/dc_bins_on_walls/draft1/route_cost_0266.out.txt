@@ -1,0 +1,82 @@
+# route_cost.py over Deli Counter 0.265.0's library (159 specs), 523 s
+rooms measured (>= 9 m2, >= 2 endpoints): 580 in 128 specs; endpoint pairs: 2338
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 2252 pairs joined in both: median 1.000, p90 1.023, p99 1.101, max 1.308; > 1.10 (the guide's warning): 24 pairs in 23 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 2252 pairs joined in both: median 1.000, p90 1.000, p99 1.039, max 1.100; > 1.10: 0 pairs in 0 rooms; dressing narrows 26 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 80
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 5
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 146
+bottleneck width, AUTHORED: < 0.70 (no body) 86; < 1.00 (under the bake's floor) 179; < 1.90 (single file) 275; >= 1.90 2063
+bottleneck width, FURNISHED: < 0.70 (no body) 86; < 1.00 (under the bake's floor) 184; < 1.90 (single file) 421; >= 1.90 1917
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.308  gas_station_a01                        back_office              stock_roll_door -> office_back_door  5.8 -> 7.6 m
+  1.233  landmark_hall_a02                      archive_office           suite_door -> A  3.6 -> 4.4 m
+  1.229  strip_club_a01                         cash_office              secure_door -> A  4.3 -> 5.3 m
+  1.202  fuel_stop_heist                        back_hall                sales_to_back_hall -> hall_to_office  3.7 -> 4.4 m
+  1.202  gas_station_a02                        back_hall                sales_to_back_hall -> hall_to_office  3.7 -> 4.4 m
+  1.196  final_stand                            trophy_room              door -> door  6.4 -> 7.6 m
+  1.184  construction_site_a01                  site_office              secure_door -> office_door  5.1 -> 6.0 m
+  1.182  market_hall_a01                        deposit_cage             secure_door -> A  5.2 -> 6.1 m
+  1.177  airport_terminal_a01                   customs_office           secure_door -> A  6.1 -> 7.2 m
+  1.154  funeral_home_a02                       records_office           door -> A  4.3 -> 5.0 m
+  1.151  landmark_hall_a03                      curator_band             door -> door  12.6 -> 14.5 m
+  1.151  country_club_a02                       trophy_room              door -> trophy_door  8.2 -> 9.4 m
+  1.142  pawn_shop_a02                          lockup                   lockup_door -> A  3.5 -> 4.0 m
+  1.138  mansion_a02                            master_suite             door -> A  5.4 -> 6.1 m
+  1.119  gas_station_a01                        back_office              sales_to_office -> stock_to_office  5.9 -> 6.6 m
+  1.118  strip_club_a01                         main_floor               door -> secure_door  22.1 -> 24.7 m
+  1.109  train_yard_a01                         dispatch_office          secure_door -> secure_door  4.8 -> 5.4 m
+  1.109  final_stand                            west_office              door -> door  7.0 -> 7.8 m
+  1.108  pharmacy_a01                           rx_vault                 secure_door -> rx_cage  4.9 -> 5.4 m
+  1.108  twin_a01                               front_right_0            door -> front_door_right  4.9 -> 5.4 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.100  self_storage_a01                       mid_aisle                door -> side_exit  7.6 -> 8.4 m
+  1.098  foundry_heist_vertical                 south_machine            lobby_to_machine -> machine_to_central  7.2 -> 7.9 m
+  1.095  foundry_heist_vertical                 south_machine            machine_to_loading -> front_rollup  6.2 -> 6.8 m
+  1.088  primos_pizza                           kitchen                  kitchen_pass -> kitchen_stairs  3.3 -> 3.6 m
+  1.086  strip_club_a02                         back_rooms               door -> crew_door  7.7 -> 8.4 m
+  1.081  train_yard_a03                         signal_control           door -> suite_door  8.0 -> 8.6 m
+  1.067  gas_station_a02                        stockroom                sales_to_stockroom -> rear_staff_door  8.7 -> 9.3 m
+  1.063  bank_tower_a01                         teller_band              door -> dock_n  10.2 -> 10.8 m
+  1.061  museum_a02                             north_wing               door -> art_dock  9.6 -> 10.2 m
+  1.058  arena_a01                              back_of_house            door -> dock_n  15.1 -> 16.0 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 5 (first 25, by the furnished bottleneck)
+  self_storage_a01                       vault_unit               unit_gate -> A  width 2.99 -> 0.97 m
+  gas_station_a01                        back_office              sales_to_office -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              stock_to_office -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              stock_roll_door -> office_back_door  width 1.40 -> 0.99 m
+  gas_station_a01                        back_office              office_back_door -> A  width 1.40 -> 0.99 m
+
+two abreast -> single file: 146 (first 25, by the furnished bottleneck)
+  self_storage_a01                       vault_unit               unit_gate -> A  width 2.99 -> 0.97 m
+  strip_club_a01                         vip_wing                 door -> office_door  width 2.99 -> 1.15 m
+  strip_club_a01                         vip_wing                 office_door -> stage_door  width 2.99 -> 1.15 m
+  marina_a03                             sales_floor              door -> secure_door  width 2.80 -> 1.27 m
+  marina_a03                             sales_floor              secure_door -> chandlery_entry  width 2.80 -> 1.27 m
+  marina_a03                             sales_floor              secure_door -> gear_dock  width 2.80 -> 1.27 m
+  parking_garage_a02                     attendant_booth          booth_e -> booth_n  width 2.54 -> 1.30 m
+  bank_branch_a02                        teller_staff_0           staff_door_0a -> staff_door_0b  width 3.19 -> 1.30 m
+  bank_job                               teller_staff_0           staff_door_0a -> staff_door_0b  width 3.19 -> 1.30 m
+  stop_n_go                              sales_floor              door -> door  width 2.26 -> 1.36 m
+  stop_n_go                              sales_floor              door -> main_entry  width 2.40 -> 1.36 m
+  strip_club_a03                         champagne_wing           door -> mezz_office_door  width 2.99 -> 1.39 m
+  final_stand                            trophy_room              door -> door  width 2.80 -> 1.42 m
+  gas_station_a02                        food_service             sales_to_food -> cooler_door_1  width 2.40 -> 1.43 m
+  strip_club_a01                         main_floor               door -> secure_door  width 3.20 -> 1.45 m
+  strip_club_a01                         main_floor               door -> front_door  width 3.20 -> 1.45 m
+  convenience_store_a01                  sales_floor              door -> secure_door  width 2.37 -> 1.48 m
+  convenience_store_a01                  sales_floor              door -> main_entry  width 2.37 -> 1.48 m
+  pawn_shop_a01                          safe_room                secure_door -> secure_door  width 3.05 -> 1.50 m
+  pawn_shop_a01                          safe_room                secure_door -> alley_door  width 3.05 -> 1.50 m
+  pawn_shop_a01                          safe_room                secure_door -> rear_door  width 3.05 -> 1.50 m
+  pawn_shop_a01                          safe_room                secure_door -> A  width 3.05 -> 1.50 m
+  pawn_shop_a01                          safe_room                rear_door -> alley_door  width 3.05 -> 1.50 m
+  pawn_shop_a01                          safe_room                alley_door -> A  width 3.05 -> 1.50 m
+  clinic_a02                             records_vault            door -> A  width 3.20 -> 1.53 m
+

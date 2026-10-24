@@ -27,6 +27,18 @@ guidance).
 - **A footpath is not an approach.** A pedestrian spur or a door path gets no
   stop sign; a parking-lot exit onto a public street may.
 
+## Bus stops
+
+The walker, walking cold run 9386 (2026-10-23), of a BUS STOP flag at the back of the sidewalk beside a building's
+door: "bus stop sign is for cars/buses so there is no parking ther...so it sohuld be closer to the road".
+
+- **The flag stands at the curb,** its plate's near edge 2 ft (0.61 m) from the curb face. Source: PennDOT LTAP
+  Tech Sheet 181 -- on an urban street with a curb, a sign's minimum lateral offset is 2 ft from the curb face to its
+  edge (1 ft where space is limited); the 6 ft above is the MUTCD's figure where there is no curb. Lot 0.127.0
+  (`site_furniture.CURB_SIGN_OFFSET`).
+- **No parking where the bus pulls in.** The stop's length is kept clear of parked cars. NOT YET BUILT: Lot's parking
+  bays do not know where the stop stands (`docs/findings/walk_2026-10-23_9386/`, finding 10).
+
 ## Crosswalks
 
 Source of truth (the walker, 2026-09-13): NACTO, *Urban Street Design Guide*,

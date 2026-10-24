@@ -1,0 +1,149 @@
+........................................................................ [  3%]
+................................................................ss...... [  7%]
+........s..........................................................s.... [ 11%]
+..............................s.................s.....s................. [ 15%]
+................................................s....................... [ 19%]
+..............................s.........s..............s...s............ [ 23%]
+.................................ss..................................... [ 27%]
+.......................ss................s.........s.................... [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+...............................................................s........ [ 43%]
+........................................................................ [ 47%]
+s...............................F....................................... [ 51%]
+..................................................................s..... [ 55%]
+........................................................................ [ 59%]
+........................................................................ [ 63%]
+.....................F.................................................. [ 67%]
+........................................................................ [ 71%]
+..............F......................................................... [ 75%]
+........................................................................ [ 79%]
+......................................................F................. [ 83%]
+...............s........................................................ [ 87%]
+..........ss....s..s........................F.....sss................... [ 90%]
+.............................s.........s......F......................... [ 94%]
+........................................................................ [ 98%]
+....................                                                     [100%]
+================================== FAILURES ===================================
+__________________________ test_no_new_stair_failure __________________________
+
+    def test_no_new_stair_failure():
+        live = _live()
+        if live is None:
+            pytest.skip("deli_counter/build is absent; nothing to compare against")
+        added = sorted(_failed(live) - set(STAIR_FAILURES))
+>       assert not added, (
+            "these shells newly fail the stair gate: %s" % ", ".join(added))
+E       AssertionError: these shells newly fail the stair gate: foundry_heist_vertical
+E       assert not ['foundry_heist_vertical']
+
+tests\test_navgate_population.py:132: AssertionError
+_______________ test_the_library_s_seeded_rooms_stand_in_lines ________________
+
+    def test_the_library_s_seeded_rooms_stand_in_lines():
+        """Every library room storing a seeded piece stands it on a lattice -- a lone one on the room's line, two or more
+        in a line or rows -- but the one named in KEPT; and the library is a fixed point of the migration."""
+        lined, kept = set(), set()
+        for p in sorted(glob.glob(os.path.join(HERE, "specs", "*.json"))):
+            name = os.path.basename(p)[:-5]
+            if name.startswith("lf_"):
+                continue
+            d = json.load(open(p, encoding="utf-8"))
+            if not d.get("rooms"):
+                continue
+            for room, pieces in migrate_seed_lines.rooms_seeded(migrate_seed_corridor._view(d)):
+                (lined if _in_a_lattice(pieces) else kept).add((name, room["id"]))
+            once = copy.deepcopy(d)
+            moved, _kept = migrate_seed_lines.migrate(once)
+            assert not moved and once == d, name
+        assert kept == KEPT, sorted(kept ^ KEPT)
+>       assert len(lined) == LINED, sorted(lined)
+E       AssertionError: [('bank_branch_a02', 'manager_office'), ('bank_branch_a02', 'security_room'), ('bank_branch_a03', 'manager_office'), ('bank_job', 'manager_office'), ('bank_job', 'security_room'), ('brewery_a01', 'catwalk_south'), ...]
+E       assert 37 == 35
+E        +  where 37 = len({('bank_branch_a02', 'manager_office'), ('bank_branch_a02', 'security_room'), ('bank_branch_a03', 'manager_office'), ('bank_job', 'manager_office'), ('bank_job', 'security_room'), ('brewery_a01', 'catwalk_south'), ...})
+
+tests\test_seed_lines.py:148: AssertionError
+____________ test_generated_furniture_gives_way_to_a_stair_reseat _____________
+
+    def test_generated_furniture_gives_way_to_a_stair_reseat():
+        """0.131.0: the second `_finish_stairs` pass judged every seat against
+        furniture placed round the old seats, and with the new furnishing
+        recipes the `bank` stairs-first preset left `core_4_basement_service`
+        cutting the basement partition (L21) after a 10.8 s search. Generated
+        pieces now give way and are evicted from the seat that is kept."""
+        import layout_lint
+        spec = presets.make("bank", name="t_cf_give_way", stairs_first=True)
+        assert layout_lint.stair_wall_findings(spec) == []
+        import stair_pitch
+>       assert not [f for f in stair_pitch._rect_intrusions(spec)
+                    if "_r" in f.split(" ")[1]], stair_pitch._rect_intrusions(spec)
+E       AssertionError: {'INTRUDES chair_set_rad8edd5a_1_2 core_1_secondary_egress 0'}
+E       assert not ['INTRUDES chair_set_rad8edd5a_1_2 core_1_secondary_egress 0']
+
+tests\test_stair_core.py:187: AssertionError
+________ test_every_building_that_sells_has_one_atm_and_no_other_does _________
+
+    def test_every_building_that_sells_has_one_atm_and_no_other_does():
+        per = collections.Counter()
+        for d in _library():
+            building = level_design.club_building_id(d)
+            sells = any(level_design._room_kind(r, building) == "shop_floor" and _tokens(r) & SELLING
+                        and max(0.0, r["bounds"][2] - r["bounds"][0]) * max(0.0, r["bounds"][3] - r["bounds"][1])
+                        >= level_design._FURNISH_MIN_AREA
+                        for r in d["rooms"])
+            n = len(_atms(d))
+            per[n] += 1
+            if sells:
+>               assert n == 1, (d["name"], n)
+E               AssertionError: ('deli_a03', 0)
+E               assert 0 == 1
+
+tests\test_store_atms.py:59: AssertionError
+_____ test_a_queued_lobby_keeps_what_a_lobby_is_known_by[bank_job-kinds0] _____
+
+name = 'bank_job', kinds = ('payphone', 'atm', 'sofa')
+
+    @pytest.mark.parametrize("name, kinds", [("bank_job", ("payphone", "atm", "sofa")),
+                                             ("bank_branch_a03", ("atm",)), ("credit_union_a01", ("atm",))])
+    def test_a_queued_lobby_keeps_what_a_lobby_is_known_by(name, kinds):
+        spec = _spec(name)
+        stems = [v["name"].split("_r")[0] for v in spec["volumes"]]
+>       assert all(k in stems for k in kinds), (name, kinds, sorted(set(stems)))
+E       AssertionError: ('bank_job', ('payphone', 'atm', 'sofa'), ['atm', 'cabinet_file', 'cabinet_locker', 'cabinet_manager_office_1', 'cabinet_manager_office_3', 'cartons', ...])
+E       assert False
+E        +  where False = all(<generator object test_a_queued_lobby_keeps_what_a_lobby_is_known_by.<locals>.<genexpr> at 0x0000014A55B3AEA0>)
+
+tests\test_ticket_queue.py:492: AssertionError
+__________________ test_the_delis_open_edge_carries_nothing ___________________
+
+    def test_the_delis_open_edge_carries_nothing():
+        """deli_a01's customer floor meets its deli counter room across open floor
+        at y -3.0: its ATM and two lottery boards stood there, in front of the
+        case's service front."""
+        s = json.load(open(os.path.join(HERE, "specs", "deli_a01.json"), encoding="utf-8"))
+        room = next(r for r in s["rooms"] if r["id"] == "customer_floor")
+        tag = L._room_tag(room)
+        on_edge = [v["name"] for v in s["volumes"] if tag in v["name"]
+                   and v["y"] + v["size_y"] / 2.0 > room["bounds"][3] - 0.5]
+>       assert on_edge == [], on_edge
+E       AssertionError: ['poster_wall_store_r7070a315_11']
+E       assert ['poster_wall...r7070a315_11'] == []
+E         
+E         Left contains one more item: 'poster_wall_store_r7070a315_11'
+E         Use -v to get more diff
+
+tests\test_wall_backing.py:143: AssertionError
+============================== warnings summary ===============================
+tests/test_state_collision.py::test_an_unreadable_module_yields_nothing_rather_than_raising
+  C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pygltflib\__init__.py:1140: UserWarning: pygltflib does not support version strictly smaller than v2 or strictly larger than v2 of the binary gltf format, this file is version 1752394029, it may not import correctly. Please open an issue at https://gitlab.com/dodgyville/pygltflib/issues
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_navgate_population.py::test_no_new_stair_failure - Assertio...
+FAILED tests/test_seed_lines.py::test_the_library_s_seeded_rooms_stand_in_lines
+FAILED tests/test_stair_core.py::test_generated_furniture_gives_way_to_a_stair_reseat
+FAILED tests/test_store_atms.py::test_every_building_that_sells_has_one_atm_and_no_other_does
+FAILED tests/test_ticket_queue.py::test_a_queued_lobby_keeps_what_a_lobby_is_known_by[bank_job-kinds0]
+FAILED tests/test_wall_backing.py::test_the_delis_open_edge_carries_nothing
+6 failed, 1783 passed, 31 skipped, 1 warning in 389.55s (0:06:29)
