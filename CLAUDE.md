@@ -38,6 +38,14 @@ A run that is measured, grounded, well-reasoned and does not reduce
 interventions-per-level is a good piece of work on the wrong problem. Say so
 rather than counting it.
 
+## The no-AI authoring loop -- read its record first
+
+The current direction (the walker, 2026-10-26): routine level creation works from a Godot authoring panel with no
+terminal, JSON editing or AI. **At the start of every session read `docs/AUTHORING_LOOP.md`** -- the milestone,
+the evidence, the blockers, the decisions and the exact next action -- and verify the source it names before
+continuing. The plan it follows is in `docs/reference/authoring/`; roadmap items 310-318 carry the work. Every
+exposed control must change generation or say it only records intent.
+
 ## Every frame is spent on somebody else's machine (hard rule)
 
 This game is multiplayer and online. A look that costs a few milliseconds here

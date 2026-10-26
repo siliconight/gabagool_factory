@@ -988,8 +988,17 @@ work of adopting this.
 | 307 | **OPEN** | Life in the sky: random birds and commercial airplanes | 2026-10-25 -- PROTOTYPED on a scratch copy, not shipped (`docs/findings/sky_life_307/`): a |
 | 308 | **NARROWED** | A chapel, a courtroom and a gallery are furnished like a cafeteria | 2026-10-26 -- BUILT: Zoo 1.130.0 (2621efa) a `pew` species, 0 coincident pairs; Deli Count |
 | 309 | **OPEN** | No brief can anchor a civic building | 2026-10-26 -- found by cold run 9394 (0 interventions, stopped at the shell leg); MEASURED |
+| 310 | **CLOSED** | The panel can ask the factory for something and get a structured answe | 2026-10-26 -- Level Factory 0.243.0 (e698a7e): protocol v1 and `service-run`; `tests/servi |
+| 311 | **NARROWED** | Graphical setup check | 2026-10-26 -- Level Factory 0.243.0 (e698a7e): the authoring project and dock; gdcheck cle |
+| 312 | **OPEN** | Every first-release control is truthful | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 313 | **OPEN** | A level is a saved design | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 314 | **OPEN** | Generate and choose a layout from the panel | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 315 | **OPEN** | Walk the chosen layout | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 316 | **OPEN** | Change a supported setting and see it | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 317 | **OPEN** | Export a snapshot | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 318 | **OPEN** | Milestone 1 acceptance: the whole loop, unassisted | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 
-**309 items: 40 open, 153 closed, 3 retracted, 97 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**318 items: 47 open, 154 closed, 3 retracted, 98 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20752,3 +20761,39 @@ package stops carrying an asset nothing references, which `export_closure` could
 *STATUS: OPEN 2026-10-26 -- found by cold run 9394 (0 interventions, stopped at the shell leg); MEASURED (`docs/findings/civic_anchor_309/`): of the library's 97 families (161 shells) a brief can anchor 37 (55 shells); 60 (106 shells) it cannot, 25 of them real building types with no generator. The cure is not chosen.*
 
 **309. No brief can anchor a civic building.** A brief's anchor is GENERATED from a Deli Counter preset (Level Factory's `adapters/deli_counter._preset_for`, 24 presets: delis, banks, gas stations, clubs, a hospital, a police station...). The library's funeral homes, courthouses, museums and landmark halls -- and the chapels, courtrooms, assembly halls and galleries Deli Counter 0.270.0 furnishes in them (roadmap 308) -- exist only as authored specs. Cold run 9394's `funeral_row_001` (archetype `funeral_home`) was refused at the shell leg with "brief archetype 'funeral_home' matches no DC preset", correctly: the adapter refuses rather than build a wrong-but-plausible building, which its docstring records a lot demo doing. So a whole family of the library can reach a level only by a lot happening to draw one beside some other anchor. Two shapes, not chosen: Deli Counter PRESETS for the civic buildings, generated with the authored specs as their reference (the general one, and what "the pipeline makes levels" asks for); or a brief whose archetype names an authored LIBRARY family anchored without generation (`building_library.anchor_families` already matches a themed lot's anchor by family name), cheaper and limited to what was authored. Measured before choosing: how many of the library's families have no preset. Owners: Deli Counter (presets) or Level Factory (the adapter and the lot draw). Found alongside, and fixed the same night: `tools/cold_drive/cold_drive.sh`'s shell leg hid the refusal -- its filter dropped the error line, its loop printed `basename`'s usage, and it reported the loop's exit 0 for the CLI's 5 (`docs/cold_runs/cold_9394/NOTES.md`).
+
+*STATUS: CLOSED 2026-10-26 -- Level Factory 0.243.0 (e698a7e): protocol v1 and `service-run`; `tests/service/test_worker.py` 13 cases, each refused request an error result with its reason, no half-written result, UTF-8 through files; a headless Godot client ran real operations 6/6.*
+
+**310. The panel can ask the factory for something and get a structured answer.** The no-AI authoring plan (`docs/reference/authoring/Gabagool_Factory_02_No_AI_Level_Authoring_Plan.md`, section 5B) puts a Godot panel in front of the existing Python factory. Protocol v1: a run directory holding `request.json` (schema `gabagool.service.request.v1`: operation, arguments, design revision); the worker appends `events.jsonl` (`gabagool.service.event.v1`: stage, status, message, progress where measurable) and writes `result.json` (`gabagool.service.result.v1`) atomically, last, in UTF-8. Operations live in `level_factory/packages/service/operations.py` and return plain data; the CLI command `service-run <run dir>` runs one. ACCEPTANCE: an unknown operation, a malformed request and a missing request each produce an error result with a reason, never an empty success; a result never appears half-written; nothing is read from stdout; tests cover each. Owner: Level Factory.
+
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.243.0 (e698a7e): the authoring project and dock; gdcheck clean, loads in the 4.7 editor headless with no errors, the dock checks the setup through the installed launcher and lists 16 checks in plain language (headless test 6/6), and it named a real blocker here (the launcher's Blender Python lacks the tools' packages) with its fix. LEFT: a person seeing it in a windowed editor; Browse surviving a reopen; Find Blender/Godot through the dock.*
+
+**311. Graphical setup check.** A designer opens the authoring project (`level_factory/apps/godot/`), points the Factory panel at the factory folder with a folder picker, presses Check setup, and sees each check -- Blender, Godot, Python, each tool -- in plain language with its fix, without a terminal. Operation `discover_installation` wraps the existing doctor. ACCEPTANCE: the panel's scripts pass `tools/gdcheck.py` and load in Godot 4.7; the panel launches the worker without blocking the editor and renders a real result; a missing Blender or Godot shows as a named problem with a fix rather than a traceback; the chosen factory folder survives closing and reopening the project. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**312. Every first-release control is truthful.** A capability catalog built from `MissionBrief`, the resolvers (`_preset_for`, the time-of-day presets, themes) and `UNBUILT_BRIEF_FIELDS`: for each field a label, type, options or range, default, consumer, and support state (supported / conditional / intent only / unavailable). The panel's form is drawn from it. ACCEPTANCE: a test fails when a field the catalog calls supported has no consumer, or a resolver gains an option the catalog lacks; each supported control has a propagation test showing it changes what the pipeline plans or builds; intent-only fields say so on screen. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**313. A level is a saved design.** Creating a level from the Restaurant Row template writes a versioned design document in the authoring project (stable id, revision number, the supported choices, the notes as intent), not a hand-edited brief. Opening the project restores it. The factory workspace for the design lives beside it and is not imported by Godot. ACCEPTANCE: create, save, close, reopen restores every choice; an older design version migrates or is refused with a reason; unknown fields are reported, not dropped; the brief the pipeline receives is derived from the design and recorded with the build. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**314. Generate and choose a layout from the panel.** Generate runs the existing plan and graybox candidates asynchronously, reporting progress events; the panel shows each candidate with its top-down image, buildings, and a status of valid / needs attention / failed / not checked, and says what the ranking weighed. Choosing one records the selection without a false human sign-off. An all-out result is shown as unsuccessful, never as a recommendation. ACCEPTANCE: three Restaurant Row candidates generated and one chosen without a terminal; images and metrics come from the same build (missing images say missing); cancel stops the owned processes and the panel says what survived. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**315. Walk the chosen layout.** Walk Level builds the presentation for the chosen candidate and opens the first-person preview, labelled with the design revision and candidate it shows. The preview no longer rewrites an accepted export (`cmd_walk` re-exports today). ACCEPTANCE: walking twice reuses the build; walking after a change shows the new revision; an accepted export is byte-identical before and after a walk. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**316. Change a supported setting and see it.** Changing time of day (the first supported control) creates a new design revision, rebuilds only what it affects (the lighting), and the next walk shows it. ACCEPTANCE: the rebuild touches the lighting stages and not the shell; the walk's revision label moves; undo returns the previous choice. Owner: Level Factory, Lux.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**317. Export a snapshot.** Export asks for a destination and shows a checklist -- package complete, portability tested, lights baked or not, findings left -- and writes an immutable snapshot of the selected revision that later previews cannot overwrite. ACCEPTANCE: the snapshot opens in a clean Godot project without the authoring tools; its manifest names the design revision and candidate; a second export of a changed design is a second snapshot. Owner: Level Factory.
+
+*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+
+**318. Milestone 1 acceptance: the whole loop, unassisted.** From a clean authoring project on this machine: configure, create Restaurant Row, generate, choose, walk, change time of day, save, reopen, export -- with no terminal, JSON edit or AI, the steps and any intervention recorded in `docs/AUTHORING_LOOP.md`. Then the plan's pilot gate: two people unfamiliar with the repository each complete it. Owner: the factory.
