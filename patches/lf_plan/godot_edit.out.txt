@@ -1,0 +1,11 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+PASS the name reads back
+PASS choices read back by value: { "time_of_day": "evening", "candidate_count": 3, "roof_props": true }
+PASS intent reads back as the factory takes it: { "objective_hypotheses": ["reach_office", "crack_safe"], "notes": "after closing" }
+PASS changed values read back changed: { "time_of_day": "midnight", "candidate_count": 5, "roof_props": false }
+PASS a lighting change says to walk: Saved revision 4. Walk the level to see it (rebuilds the lighting).
+PASS and Undo is offered
+PASS a layout change says to generate again
+PASS and an undone save offers no second undo
+DONE failures=0

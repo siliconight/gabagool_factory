@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-7 shipped (Level Factory 0.243.0-0.249.0): every step of the loop exists and has run for real through the worker. The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
+**Status: increments 1-9 shipped (Level Factory 0.243.0-0.251.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -83,7 +83,9 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 5 | Walk the chosen layout from the panel, labelled with the revision and layout it shows | shipped, LF 0.247.0 (6942d67) | Suite 2,683 / 0 failed. `tests/service/test_walking.py` (fail on 0.246.0). Godot `test_level_walk.gd` 6/6. REAL: `levels/panel_trial`'s chosen layout walked through the worker in 8 min 42 s (system Python) -- art, lighting, gameplay, an export with a light bake (141 models, 65.5 s), the preview built and its self-check passed, named "Panel Trial, revision 1, layout seed 9205". `patches/lf_walk/` |
 | 6 | Change a supported setting (time of day) on the Level tab and see it in the next walk | shipped, LF 0.248.0 (14fc3c8) | Suite 2,688 / 0 failed. `tests/service/test_revise.py` (fail on 0.247.0). Godot `test_level_edit.gd` 8/8, all six Godot tests pass. REAL: `levels/panel_trial` evening -> midnight saved as revision 2 (`rebuilds: lighting`) and walked through the worker in 7 min 20 s, named revision 2, self-check passed; re-ran `lux_apply`, `lot_assemble` x3, `themed_site_assemble`, `presentation_compose`; the shells, kit, dressing, walk tests and Laser Tag cache hits. `patches/lf_revise/` |
 | 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | shipped, LF 0.249.0 (7054c70) | Suite 2,695 / 0 failed. `tests/service/test_exporting.py` (fail on 0.248.0). Godot `test_level_export.gd` 5/5; all seven Godot tests pass. REAL: the trial design's walked revision 2 exported through the worker in 85 s, every checklist line ok -- 2,786 files none missing, portability PASS (engine check passed), 2,750 lightmapped, gl_compatibility, 0 major (`patches/lf_export/trial_snapshot_manifest.json`; the 166 MB copy deleted after). |
-| 8 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
+| 8 | Each layout's top-down plan beside its row, drawn from that layout's own build (314) | shipped, LF 0.250.0 (c88cd62) | Suite 2,684 / 0 failed. `tests/service/test_plan_image.py` (fails on 0.249.0); Godot `test_level_plan.gd` 5/5, all eight pass. REAL: `launcher_trial`'s three layouts drawn and rendered through Godot 4.7's SVG loader, each different, the objective at the pixel its footprint predicts. FOUND: Godot's SVG loader draws no `<text>`, so the key is panel text. `patches/lf_plan/` (with `launcher_loop.out.txt`: choose 1 s, walk 555 s, export 98 s through `factory.cmd`) |
+| 9 | Reopen a level and see where it stands: layouts and plans, the chosen one, the last walk and export, each saying if the level changed since (318's "save and reopen") | shipped, LF 0.251.0 (dd39851) | Suite 2,690 / 0 failed. `tests/service/test_standing.py` (fails on 0.250.0); Godot `test_level_reopen.gd` 9/9, all nine pass. FIXED: opening a level after another left the other's layouts, walk and export on the tab. REAL: both trial levels read back (three layouts, chosen 9205, walk and export current; a deleted snapshot reported). `patches/lf_standing/` |
+| 10 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
 
 ## Blockers and open questions
 
@@ -118,8 +120,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 1. **318 by a person:** open `level_factory/apps/godot` in Godot 4.7, Gabagool Factory dock -> Setup -> Level tab:
    New level, Generate layouts, Use this layout, Walk level, change Time of day, Save changes, Walk level, reopen the
    project, Export.... Record each step and any intervention in this file.
-2. Meanwhile, independent work: 314's top-down layout images from `site.site.drawn.json`; the site re-assembling
-   for every layout on a lighting change; the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.249.0).
+2. Meanwhile, independent work: the site re-assembling for every layout on a lighting change (316); written schemas
+   for the eleven record types the loop reads and writes (none has a schema file; the walker mentioned a schema sheet,
+   2026-10-26, not yet seen); the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.251.0). Levels generated
+   before 0.250.0 show no plans until generated again.
 
 Increment 7, as planned (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
 the existing `export` and `portability-test` legs and copy the workspace's export into a NEW folder the designer

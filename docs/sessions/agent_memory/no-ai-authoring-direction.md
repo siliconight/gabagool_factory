@@ -29,4 +29,8 @@ terminal, JSON editing or AI.
 - Decide routine things myself; bring the walker decisions that change UX, scope, architecture or compatibility.
 - Godot is the primary authoring surface; PySide6 desktop stays a diagnostic surface (PySide6 not installed here).
 
+- 2026-10-26: the walker mentioned a "schema sheet" they wrote for the loop's records; not found on disk
+  (only the three guides + an unfiled `Gabagool_Factory_Godot_Level_Builder_TDD.md` in Downloads). Ask for it before
+  writing schemas for the eleven record types.
+
 Related: [[keep-it-rolling]], [[open-work-2026-10-09]], [[game-is-a-series-of-shooting-galleries]].
