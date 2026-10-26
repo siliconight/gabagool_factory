@@ -42,7 +42,9 @@ Point `--godot` at your own Godot. Then:
   Blender's Python lacks -- Pillow, pygltflib and jsonschema -- and the nine
   they need, every one at the version the factory was certified with
   (`.venv/constraints.txt` holds them). It is the only step that touches the
-  network, and it changes nothing in Blender.
+  network, and it changes nothing in Blender. Each comes from PyPI under its
+  own licence -- all MIT, MIT-CMU or BSD; `docs/THIRD_PARTY.md` lists them.
+  The factory itself is MIT (`LICENSE`).
 - **Setup ends with the doctor.** `worst: PASS` or `worst: WARN` means you are
   ready. Any `FAIL` line says what is missing and how to fix it.
 - **Why `.\factory` and not `factory`:** it is the launcher in this folder,

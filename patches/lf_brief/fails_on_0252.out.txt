@@ -1,0 +1,6 @@
+test_brief_fields.py on Level Factory 0.252.0: tests 5 failures 4 errors 0
+  test_players_is_the_crew_lot_and_laser_tag_read -- failure: KeyError: 'crew_size'
+  test_changing_players_rebuilds_the_layouts -- failure: packages.service.design.DesignError: crew_size is not a choice control of restaurant_row
+  test_the_standards_brief_is_intent_kept_out_of_the_pipeline -- failure: KeyError: 'fantasy'
+  test_the_brief_is_saved_and_reopened -- failure: packages.service.worker.RequestError: crew_size is not a choice control of restaurant_row
+  test_a_design_saved_before_players_builds_as_it_did -- pass

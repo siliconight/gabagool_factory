@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-10 shipped (Level Factory 0.243.0-0.252.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
+**Status: increments 1-11 shipped (Level Factory 0.243.0-0.253.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -94,7 +94,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 8 | Each layout's top-down plan beside its row, drawn from that layout's own build (314) | shipped, LF 0.250.0 (c88cd62) | Suite 2,684 / 0 failed. `tests/service/test_plan_image.py` (fails on 0.249.0); Godot `test_level_plan.gd` 5/5, all eight pass. REAL: `launcher_trial`'s three layouts drawn and rendered through Godot 4.7's SVG loader, each different, the objective at the pixel its footprint predicts. FOUND: Godot's SVG loader draws no `<text>`, so the key is panel text. `patches/lf_plan/` (with `launcher_loop.out.txt`: choose 1 s, walk 555 s, export 98 s through `factory.cmd`) |
 | 9 | Reopen a level and see where it stands: layouts and plans, the chosen one, the last walk and export, each saying if the level changed since (318's "save and reopen") | shipped, LF 0.251.0 (dd39851) | Suite 2,690 / 0 failed. `tests/service/test_standing.py` (fails on 0.250.0); Godot `test_level_reopen.gd` 9/9, all nine pass. FIXED: opening a level after another left the other's layouts, walk and export on the tab. REAL: both trial levels read back (three layouts, chosen 9205, walk and export current; a deleted snapshot reported). `patches/lf_standing/` |
 | 10 | Every record the loop reads or writes has a data schema, checked by its reader and writer (the walker's request) | shipped, LF 0.252.0 (1f6d495) | Suite 2,713 / 0 failed; all nine Godot tests pass. `tests/service/test_schemas.py` (fails on 0.251.0): 8 JSON Schema files in `level_factory/schemas/authoring/`, real records from the trial levels kept as fixtures, each broken one field at a time and failing under both the built-in check and `jsonschema` 4.26.0, which agree on every case; passes without `jsonschema`. MEASURED: every loop record on disk (2 designs, 2 build records, 3 walk records, 2 export records, 2 manifests, 14 requests, 14 results, 845 events) passes both. REAL: `launcher_trial` regenerated through `factory.cmd` on 0.252.0 in 42 s, its build record, 43 events and result valid, plans drawn; reopened clean. `patches/lf_schemas/` |
-| 11 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
+| 11 | The Level Standard's designer brief on the form: Players as a real control, Fantasy / Scale / Density / Tone / Playstyle as intent | shipped, LF 0.253.0 (c49588c) | Suite 2,719 / 0 failed; all nine Godot tests pass, the real factory's form showing 20 controls. `tests/service/test_brief_fields.py` (4 of 5 fail on 0.252.0; the fifth guards a design saved before Players). Players is `crew_size`, read by Lot's crew spawns and Laser Tag's crew, so it rebuilds the layouts; the five intent fields change nothing built and stay out of the pipeline's brief. `patches/lf_brief/` |
+| 12 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
 
 ## Blockers and open questions
 
@@ -129,7 +130,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 1. **318 by a person:** open `level_factory/apps/godot` in Godot 4.7, Gabagool Factory dock -> Setup -> Level tab:
    New level, Generate layouts, Use this layout, Walk level, change Time of day, Save changes, Walk level, reopen the
    project, Export.... Record each step and any intervention in this file.
-2. Meanwhile, independent work: the site re-assembling for every layout on a lighting change (316); written schemas
+2. Meanwhile, independent work: jobs re-running with every recorded input unchanged (`docs/findings/rerun_receipts/`;
+   this RETRACTS increment 6's "a lighting change re-assembles every layout" -- revision 1's walk, which changed
+   nothing, re-ran them too). Level Factory 0.254.0 makes the receipt record the whole digest, then attribute;
+   the licence guards owed by `docs/THIRD_PARTY.md` (setup shows the list; a pin is held to its licence); written schemas
    for the eleven record types the loop reads and writes (none has a schema file; the walker mentioned a schema sheet,
    2026-10-26: it was the design standard, now decision 5) -- DONE in 0.252.0; the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.251.0). Levels generated
    before 0.250.0 show no plans until generated again.
