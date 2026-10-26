@@ -994,11 +994,11 @@ work of adopting this.
 | 313 | **NARROWED** | A level is a saved design | 2026-10-26 -- Level Factory 0.245.0 (07a315f): `gabagool.design.v1` saved by the factory a |
 | 314 | **NARROWED** | Generate and choose a layout from the panel | 2026-10-26 -- Level Factory 0.246.0 (5110786): `generate_layouts` and `choose_layout`, the |
 | 315 | **NARROWED** | Walk the chosen layout | 2026-10-26 -- Level Factory 0.247.0 (6942d67): `walk_level` and Walk level on the Level ta |
-| 316 | **OPEN** | Change a supported setting and see it | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 316 | **NARROWED** | Change a supported setting and see it | 2026-10-26 -- Level Factory 0.248.0 (14fc3c8): `update_design`, the walk building the curr |
 | 317 | **OPEN** | Export a snapshot | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 318 | **OPEN** | Milestone 1 acceptance: the whole loop, unassisted | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 
-**318 items: 43 open, 154 closed, 3 retracted, 102 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**318 items: 42 open, 154 closed, 3 retracted, 103 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20786,7 +20786,7 @@ package stops carrying an asset nothing references, which `export_closure` could
 
 **315. Walk the chosen layout.** Walk Level builds the presentation for the chosen candidate and opens the first-person preview, labelled with the design revision and candidate it shows. The preview no longer rewrites an accepted export (`cmd_walk` re-exports today). ACCEPTANCE: walking twice reuses the build; walking after a change shows the new revision; an accepted export is byte-identical before and after a walk. Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.248.0 (14fc3c8): `update_design`, the walk building the current revision, an editable form with Save and Undo. REAL: the trial design's time of day changed to midnight (revision 2) and walked again, named revision 2; the shell stages were cache hits, the lighting and the site re-ran. LEFT: the site re-assembles for every layout, not just the chosen one; a person doing it in a windowed editor.*
 
 **316. Change a supported setting and see it.** Changing time of day (the first supported control) creates a new design revision, rebuilds only what it affects (the lighting), and the next walk shows it. ACCEPTANCE: the rebuild touches the lighting stages and not the shell; the walk's revision label moves; undo returns the previous choice. Owner: Level Factory, Lux.
 

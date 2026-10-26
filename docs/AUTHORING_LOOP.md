@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-5 shipped (Level Factory 0.243.0-0.247.0); increment 6 (change time of day and see it) next.**
+**Status: increments 1-6 shipped (Level Factory 0.243.0-0.248.0); increment 7 (export a snapshot) next.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -81,7 +81,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent; save and reopen it | shipped, LF 0.245.0 (07a315f) | Suite 2,668 / 0 failed. `tests/service/test_design.py` (fail on 0.244.0): options equal their owners', each time a distinct Lux preset, rain's substitution, streets and layout count reaching the pipeline, the first-level brief reproduced at the template's defaults, create-save-reopen, unknown fields kept. Godot `test_level_panel.gd` 9/9 through the installed launcher. `patches/lf_design/` |
 | 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | shipped, LF 0.246.0 (5110786) | Suite 2,676 / 0 failed. `tests/service/test_layouts.py` (fail on 0.245.0). Godot `test_level_layouts.gd` 11/11. REAL: design `levels/panel_trial` generated through the worker in 1 min 40 s (system Python), three valid layouts (9003 PASS 90, 9104 PASS_WITH_TUNING 89, 9205 PASS 100, recommended), 95 progress events; seed 9205 chosen through the installed worker, gate recorded `by: panel`, "a choice, not a review". `patches/lf_layouts/` |
 | 5 | Walk the chosen layout from the panel, labelled with the revision and layout it shows | shipped, LF 0.247.0 (6942d67) | Suite 2,683 / 0 failed. `tests/service/test_walking.py` (fail on 0.246.0). Godot `test_level_walk.gd` 6/6. REAL: `levels/panel_trial`'s chosen layout walked through the worker in 8 min 42 s (system Python) -- art, lighting, gameplay, an export with a light bake (141 models, 65.5 s), the preview built and its self-check passed, named "Panel Trial, revision 1, layout seed 9205". `patches/lf_walk/` |
-| 6 | Change a supported setting (time of day) on the Level tab and see it in the next walk | next | -- |
+| 6 | Change a supported setting (time of day) on the Level tab and see it in the next walk | shipped, LF 0.248.0 (14fc3c8) | Suite 2,688 / 0 failed. `tests/service/test_revise.py` (fail on 0.247.0). Godot `test_level_edit.gd` 8/8, all six Godot tests pass. REAL: `levels/panel_trial` evening -> midnight saved as revision 2 (`rebuilds: lighting`) and walked through the worker in 7 min 20 s, named revision 2, self-check passed; re-ran `lux_apply`, `lot_assemble` x3, `themed_site_assemble`, `presentation_compose`; the shells, kit, dressing, walk tests and Laser Tag cache hits. `patches/lf_revise/` |
+| 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | next | -- |
 
 ## Blockers and open questions
 
@@ -94,6 +95,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
   cold runs use today.
 - **Through the launcher, generation would run the tools under Blender's Python**, which lacks their packages: the
   real build above ran under the system Python. Same decision as the environment above.
+- **Found in increment 6:** a time-of-day change re-assembles the site (`lot_assemble`) for EVERY layout, not just
+  the chosen one -- Lot's site lights follow the time of day -- so "rebuilds: lighting" understates it and the
+  re-walk does three layouts' site work for one. Owner: Level Factory's planner (art legs could plan the chosen
+  candidate's site only).
 - **Unverified in increment 5:** the preview opened by the panel in a windowed editor and walked by a person (the
   preview exists at `levels/panel_trial/workspace/.level_factory/preview/panel_trial_001_walk`).
 - **Unverified in increment 4:** a person pressing Generate in a windowed editor; Stop against a real build (the
@@ -104,7 +109,13 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 
 ## Next action
 
-Increment 6 (roadmap 316): `update_design` (the expected revision guards against overwriting a newer save;
+Increment 7 (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
+the existing `export` and `portability-test` legs and copy the workspace's export into a NEW folder the designer
+picks (refuse an existing non-empty one), with a manifest naming design revision and layout, and a checklist
+(package complete, portability, light bake from `light_bake.json`, findings left). Read `cmd_export`,
+`cmd_portability_test` and `packages/exporting/export.py`'s manifest first. Then 318: the whole loop by a person.
+
+Increment 6, as planned (roadmap 316): `update_design` (the expected revision guards against overwriting a newer save;
 returns what the change rebuilds), `walk_level` re-importing the current revision's brief before the art leg and
 refusing when a changed control rebuilds the layout, and editable controls with Save and Undo on the Level tab.
 Working notes: `patches/lf_revise/src/revise_notes.md`. Proof wanted: `levels/panel_trial` evening -> midnight,
