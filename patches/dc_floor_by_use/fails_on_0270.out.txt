@@ -1,0 +1,13 @@
+test_floor_by_use.py on Deli Counter Deli Counter 0.270.0: tests 5 failures 3 errors 0
+  test_the_supermarkets_sales_floor_is_tile -- failure: AssertionError: assert 'carpet' == 'tile'
+  
+  #x1B[0m#x1B[91m- tile#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+  #x1B[92m+ carpet#x1B[39;49;00m#x1
+  test_stores_sell_on_tile_and_work_on_concrete -- failure: AssertionError: customer_floor
+assert 'carpet' == 'tile'
+  
+  #x1B[0m#x1B[91m- tile#x1B[39;49;00m#x1B[90m#x1B[39;49;00m
+  #x1B[92m+ carpet#x
+  test_a_lobby_a_banking_hall_and_a_parlour_keep_their_carpet -- pass
+  test_only_a_carpet_is_reconsidered_and_a_rooms_own_floor_wins -- pass
+  test_no_selling_or_working_floor_in_the_library_is_carpeted -- failure: AttributeError: module 'floors' has no attribute 'floor_by_use'
