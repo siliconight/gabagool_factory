@@ -990,15 +990,15 @@ work of adopting this.
 | 309 | **OPEN** | No brief can anchor a civic building | 2026-10-26 -- found by cold run 9394 (0 interventions, stopped at the shell leg); MEASURED |
 | 310 | **CLOSED** | The panel can ask the factory for something and get a structured answe | 2026-10-26 -- Level Factory 0.243.0 (e698a7e): protocol v1 and `service-run`; `tests/servi |
 | 311 | **NARROWED** | Graphical setup check | 2026-10-26 -- Level Factory 0.243.0 (e698a7e): the authoring project and dock; gdcheck cle |
-| 312 | **OPEN** | Every first-release control is truthful | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
-| 313 | **OPEN** | A level is a saved design | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 312 | **NARROWED** | Every first-release control is truthful | 2026-10-26 -- Level Factory 0.245.0 (07a315f): the catalog for Restaurant Row's first-rele |
+| 313 | **NARROWED** | A level is a saved design | 2026-10-26 -- Level Factory 0.245.0 (07a315f): `gabagool.design.v1` saved by the factory a |
 | 314 | **OPEN** | Generate and choose a layout from the panel | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 315 | **OPEN** | Walk the chosen layout | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 316 | **OPEN** | Change a supported setting and see it | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 317 | **OPEN** | Export a snapshot | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 318 | **OPEN** | Milestone 1 acceptance: the whole loop, unassisted | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 
-**318 items: 47 open, 154 closed, 3 retracted, 98 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**318 items: 45 open, 154 closed, 3 retracted, 100 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20770,11 +20770,11 @@ package stops carrying an asset nothing references, which `export_closure` could
 
 **311. Graphical setup check.** A designer opens the authoring project (`level_factory/apps/godot/`), points the Factory panel at the factory folder with a folder picker, presses Check setup, and sees each check -- Blender, Godot, Python, each tool -- in plain language with its fix, without a terminal. Operation `discover_installation` wraps the existing doctor. ACCEPTANCE: the panel's scripts pass `tools/gdcheck.py` and load in Godot 4.7; the panel launches the worker without blocking the editor and renders a real result; a missing Blender or Godot shows as a named problem with a fix rather than a traceback; the chosen factory folder survives closing and reopening the project. Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.245.0 (07a315f): the catalog for Restaurant Row's first-release controls (`design.capabilities`), options read off their owners, the six unbuilt fields and notes labelled intent, and propagation tests for time, weather, streets and layout count (`tests/service/test_design.py`). LEFT: propagation proofs for surroundings and roof clutter in a build; theme, building type and count not yet offered.*
 
 **312. Every first-release control is truthful.** A capability catalog built from `MissionBrief`, the resolvers (`_preset_for`, the time-of-day presets, themes) and `UNBUILT_BRIEF_FIELDS`: for each field a label, type, options or range, default, consumer, and support state (supported / conditional / intent only / unavailable). The panel's form is drawn from it. ACCEPTANCE: a test fails when a field the catalog calls supported has no consumer, or a resolver gains an option the catalog lacks; each supported control has a propagation test showing it changes what the pipeline plans or builds; intent-only fields say so on screen. Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.245.0 (07a315f): `gabagool.design.v1` saved by the factory at `<factory>/levels/<slug>/design.json`; create, save, reopen keep every choice; unknown fields kept and reported; another schema refused with a reason; the brief derived from it (the Restaurant Row defaults reproduce the first-level brief). The panel's Level tab creates, opens and shows it (Godot test 9/9). LEFT: the brief recorded with each build (increment 4); the design's workspace beside it.*
 
 **313. A level is a saved design.** Creating a level from the Restaurant Row template writes a versioned design document in the authoring project (stable id, revision number, the supported choices, the notes as intent), not a hand-edited brief. Opening the project restores it. The factory workspace for the design lives beside it and is not imported by Godot. ACCEPTANCE: create, save, close, reopen restores every choice; an older design version migrates or is refused with a reason; unknown fields are reported, not dropped; the brief the pipeline receives is derived from the design and recorded with the build. Owner: Level Factory.
 

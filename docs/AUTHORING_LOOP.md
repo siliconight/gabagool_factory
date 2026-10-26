@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-2 shipped (Level Factory 0.243.0, 0.244.0); increment 3 (a new level from the Restaurant Row template) next.**
+**Status: increments 1-3 shipped (Level Factory 0.243.0-0.245.0); increment 4 (generate and choose a layout from the panel) next.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -55,6 +55,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 
 ## Decisions (routine, made here; change any by editing this list)
 
+0. **A level is a design saved by the factory at `<factory>/levels/<slug>/design.json`** (`levels/` is user content,
+   ignored by the root repo), its factory workspace beside it in `workspace/`; outside the Godot project and the tool
+   repos. The panel never writes a design itself.
+
 1. **Protocol v1 is files in a run directory**: `request.json` in, `events.jsonl` (append-only progress) and
    `result.json` (written atomically, last) out, all UTF-8. Every file is versioned (`gabagool.service.*.v1`);
    unknown operations and malformed requests produce an error result, never an empty success. The panel never
@@ -74,7 +78,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 |---|---|---|---|
 | 1 | Open the authoring project, point the panel at the factory, and see whether Blender, Godot and the tools are ready, with each problem's fix | shipped, LF 0.243.0 (e698a7e) | Suite 2,650 / 0 failed. `tests/service/test_worker.py` 13 cases (fail on 0.242.0). Headless Godot: `apps/godot/tests/test_service_client.gd` 6/6, the client running real operations; `test_factory_dock.gd` 6/6, the dock through the installed `factory.cmd`. Editor load headless: no errors. `patches/lf_service_panel/` |
 | 2 | Prepare the tools' Python from the panel when it is missing what they need | shipped, LF 0.244.0 (b504d35); live download NOT run | Suite 2,655 / 0 failed. `tests/service/test_prepare_environment.py` 4 cases with a fake `make_venv` (fail on 0.243.0); dock test 8/8, the button shown only when the tools' Python blocks. `patches/lf_prepare_env/` |
-| 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent | next | -- |
+| 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent; save and reopen it | shipped, LF 0.245.0 (07a315f) | Suite 2,668 / 0 failed. `tests/service/test_design.py` (fail on 0.244.0): options equal their owners', each time a distinct Lux preset, rain's substitution, streets and layout count reaching the pipeline, the first-level brief reproduced at the template's defaults, create-save-reopen, unknown fields kept. Godot `test_level_panel.gd` 9/9 through the installed launcher. `patches/lf_design/` |
+| 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | next | -- |
 
 ## Blockers and open questions
 
@@ -91,7 +96,13 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 
 ## Next action
 
-Increment 3 (roadmap 312 and 313): a capability catalog for the brief's fields (`MissionBrief`,
+Increment 4 (roadmap 314): an operation `generate_layouts {path}` that derives the brief from the design, makes
+the design's workspace (`init_workspace` with discovered tools), imports the batch, plans and runs the graybox
+candidates with progress events and a stop, and returns each candidate's status and evidence; the Level tab's
+Generate and Choose. Read `apps/cli/commands/__init__.py` `cmd_make` and `cmd_batch_create`, `packages/jobs/runner.py`
+and `scheduler.py` (cancellation) and `packages/pipeline/pick.py` first.
+
+Increment 3, as planned (roadmap 312 and 313): a capability catalog for the brief's fields (`MissionBrief`,
 `UNBUILT_BRIEF_FIELDS`, the time-of-day and theme resolvers) and a `create_design` operation writing a versioned design
 from `docs/first_level/briefs/restaurant_row_001.json`; the dock's New level section draws its form from the catalog.
 Read `level_factory/packages/core/models.py` (`MissionBrief`) and `apps/cli/commands/__init__.py` (`_brief_model`,
