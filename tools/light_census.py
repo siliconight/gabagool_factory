@@ -24,6 +24,7 @@ that way once and a stage that could not run kept saying `succeeded`.
 """
 import argparse
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -41,12 +42,25 @@ TONEMAP = {0: "LINEAR", 1: "REINHARD", 2: "FILMIC", 3: "ACES", 4: "AGX"}
 
 
 def default_scene(project_dir):
-    """The single *_walk.tscn, the way lux_inject.py picks one."""
+    """The project's own run/main_scene, else the single *_walk.tscn.
+
+    The main scene comes FIRST: the *_walk.tscn rule picks `player_walk.tscn` -- the player rig, no level -- in a
+    Level Factory walk preview, whose level is `walk.tscn`. `mesh_light_census` measured an honest, useless zero
+    that way on 2026-08-23, and on 2026-10-26 `light_check` passed 29 frames of Godot's clear colour (the
+    factory's docs/findings/walk_2026-10-26_panel/, L4). The scene the project runs is the scene a person walks.
+    """
+    pg = os.path.join(project_dir, "project.godot")
+    if os.path.isfile(pg):
+        with open(pg, encoding="utf-8", errors="replace") as f:
+            m = re.search(r'run/main_scene="res://([^"]+)"', f.read())
+        if m and os.path.isfile(os.path.join(project_dir, m.group(1))):
+            return m.group(1)
     walks = sorted(f for f in os.listdir(project_dir)
                    if f.endswith("_walk.tscn"))
     if len(walks) != 1:
         raise ProbeFailed(
-            "expected exactly one *_walk.tscn in " + project_dir + ", found " +
+            "no run/main_scene in project.godot, and expected exactly one "
+            "*_walk.tscn in " + project_dir + ", found " +
             str(len(walks)) + ": " + str(walks) + ". Pass --scene.")
     return walks[0]
 

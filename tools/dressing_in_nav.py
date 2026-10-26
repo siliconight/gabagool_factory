@@ -70,15 +70,7 @@ MARK_BEGIN = "<<<DRESSING_NAV_JSON"
 MARK_END = "DRESSING_NAV_JSON>>>"
 
 
-def default_scene(project_dir):
-    """The single *_walk.tscn, the way light_census picks one."""
-    walks = sorted(f for f in os.listdir(project_dir)
-                   if f.endswith("_walk.tscn"))
-    if len(walks) != 1:
-        raise ProbeFailed(
-            "expected exactly one *_walk.tscn in " + project_dir + ", found "
-            + str(len(walks)) + ": " + str(walks) + ". Pass --scene.")
-    return walks[0]
+from light_census import default_scene  # noqa: E402,F401  -- the run/main_scene first (2026-10-26)
 
 
 def probe(project_dir, scene=None, godot=None, settle=5, agent_radius=0.0,

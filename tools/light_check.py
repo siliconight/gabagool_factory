@@ -363,6 +363,11 @@ def through_rim(shot, rim):
 def judge(region, kind, shot, day, street_median):
     """(verdict, rule) for one station's frame."""
     p50, near, mean = shot["p50"], shot["near_clipped_pct"], shot["mean"]
+    # NOTHING RENDERED (2026-10-26): one flat value from p05 to p95 is not a lit room or a dark one. Twenty-nine
+    # frames of Godot's clear colour (luma 76) passed every rule below when the probe shot the player rig's scene
+    # instead of the level (docs/findings/walk_2026-10-26_panel/, L4).
+    if shot.get("p05") is not None and shot.get("p95") is not None and shot["p05"] == shot["p95"]:
+        return "FAIL", "NO FRAME: one flat value, p05 = p95 = %d -- nothing rendered (the wrong scene?)" % shot["p95"]
     if region == "opening":
         # through its rim (`through_rim`), not the frame: the frame is mostly the floor round the opening
         th = shot.get("through")
