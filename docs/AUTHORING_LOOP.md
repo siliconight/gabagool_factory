@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-6 shipped (Level Factory 0.243.0-0.248.0); increment 7 (export a snapshot) next.**
+**Status: increments 1-7 shipped (Level Factory 0.243.0-0.249.0): every step of the loop exists and has run for real through the worker. Milestone acceptance (318) needs (a) the walker's yes to prepare the launcher's Python and (b) a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -82,7 +82,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | shipped, LF 0.246.0 (5110786) | Suite 2,676 / 0 failed. `tests/service/test_layouts.py` (fail on 0.245.0). Godot `test_level_layouts.gd` 11/11. REAL: design `levels/panel_trial` generated through the worker in 1 min 40 s (system Python), three valid layouts (9003 PASS 90, 9104 PASS_WITH_TUNING 89, 9205 PASS 100, recommended), 95 progress events; seed 9205 chosen through the installed worker, gate recorded `by: panel`, "a choice, not a review". `patches/lf_layouts/` |
 | 5 | Walk the chosen layout from the panel, labelled with the revision and layout it shows | shipped, LF 0.247.0 (6942d67) | Suite 2,683 / 0 failed. `tests/service/test_walking.py` (fail on 0.246.0). Godot `test_level_walk.gd` 6/6. REAL: `levels/panel_trial`'s chosen layout walked through the worker in 8 min 42 s (system Python) -- art, lighting, gameplay, an export with a light bake (141 models, 65.5 s), the preview built and its self-check passed, named "Panel Trial, revision 1, layout seed 9205". `patches/lf_walk/` |
 | 6 | Change a supported setting (time of day) on the Level tab and see it in the next walk | shipped, LF 0.248.0 (14fc3c8) | Suite 2,688 / 0 failed. `tests/service/test_revise.py` (fail on 0.247.0). Godot `test_level_edit.gd` 8/8, all six Godot tests pass. REAL: `levels/panel_trial` evening -> midnight saved as revision 2 (`rebuilds: lighting`) and walked through the worker in 7 min 20 s, named revision 2, self-check passed; re-ran `lux_apply`, `lot_assemble` x3, `themed_site_assemble`, `presentation_compose`; the shells, kit, dressing, walk tests and Laser Tag cache hits. `patches/lf_revise/` |
-| 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | next | -- |
+| 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | shipped, LF 0.249.0 (7054c70) | Suite 2,695 / 0 failed. `tests/service/test_exporting.py` (fail on 0.248.0). Godot `test_level_export.gd` 5/5; all seven Godot tests pass. REAL: the trial design's walked revision 2 exported through the worker in 85 s, every checklist line ok -- 2,786 files none missing, portability PASS (engine check passed), 2,750 lightmapped, gl_compatibility, 0 major (`patches/lf_export/trial_snapshot_manifest.json`; the 166 MB copy deleted after). |
+| 8 | The whole loop by a person in a windowed editor, unassisted (318) | waiting | needs (a) and (b) above |
 
 ## Blockers and open questions
 
@@ -109,7 +110,16 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 
 ## Next action
 
-Increment 7 (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
+1. **The walker's decision:** may `prepare_environment` run on this machine (downloads Pillow, pygltflib,
+   jsonschema into `<factory>/.venv`; the launcher and new workspaces then use it)? Without it the panel's
+   Generate and Walk through `factory.cmd` run the tools under Blender's Python and fail.
+2. **318 by a person:** open `level_factory/apps/godot` in Godot 4.7, Gabagool Factory dock -> Setup -> Level tab:
+   New level, Generate layouts, Use this layout, Walk level, change Time of day, Save changes, Walk level, reopen the
+   project, Export.... Record each step and any intervention in this file.
+3. Meanwhile, independent work: 314's top-down layout images from `site.site.drawn.json`; the site re-assembling
+   for every layout on a lighting change; the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.249.0).
+
+Increment 7, as planned (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
 the existing `export` and `portability-test` legs and copy the workspace's export into a NEW folder the designer
 picks (refuse an existing non-empty one), with a manifest naming design revision and layout, and a checklist
 (package complete, portability, light bake from `light_bake.json`, findings left). Read `cmd_export`,
