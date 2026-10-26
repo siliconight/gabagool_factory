@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increment 1 shipped (Level Factory 0.243.0); increment 2 (prepare the tools' Python from the panel) next.**
+**Status: increments 1-2 shipped (Level Factory 0.243.0, 0.244.0); increment 3 (a new level from the Restaurant Row template) next.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -73,21 +73,26 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | # | User capability | State | Evidence |
 |---|---|---|---|
 | 1 | Open the authoring project, point the panel at the factory, and see whether Blender, Godot and the tools are ready, with each problem's fix | shipped, LF 0.243.0 (e698a7e) | Suite 2,650 / 0 failed. `tests/service/test_worker.py` 13 cases (fail on 0.242.0). Headless Godot: `apps/godot/tests/test_service_client.gd` 6/6, the client running real operations; `test_factory_dock.gd` 6/6, the dock through the installed `factory.cmd`. Editor load headless: no errors. `patches/lf_service_panel/` |
-| 2 | Prepare the tools' Python from the panel when it is missing what they need | next | -- |
+| 2 | Prepare the tools' Python from the panel when it is missing what they need | shipped, LF 0.244.0 (b504d35); live download NOT run | Suite 2,655 / 0 failed. `tests/service/test_prepare_environment.py` 4 cases with a fake `make_venv` (fail on 0.243.0); dock test 8/8, the button shown only when the tools' Python blocks. `patches/lf_prepare_env/` |
+| 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent | next | -- |
 
 ## Blockers and open questions
 
 - **Found by increment 1, on this machine: the launcher runs the factory on Blender's own Python** (`BLENDER` set, no
   `.venv`), which cannot import `PIL`, `pygltflib`, `jsonschema`. The panel reports it correctly ("Python the tools
   run under: problem"), but its fix is `factory setup --venv`, a terminal step that downloads packages once. A new
-  user stops here. Increment 2 puts it behind a button. Running it for real downloads pinned packages: needs the
-  walker's yes on this machine.
+  user stops here. Increment 2 (0.244.0) puts it behind a button. **Pressing it for real is waiting on the walker's
+  yes**: it downloads Pillow, pygltflib and jsonschema into `<factory>/.venv` and records that Python in
+  `factory.local.json`, so workspaces made afterwards run the tools under it rather than the system Python 3.14 the
+  cold runs use today.
 - **Unverified in increment 1:** the panel seen in a windowed editor by a person; Browse's choice surviving a
   reopen (editor settings); Find Blender / Find Godot through the panel (`configure_installation` is tested in
   Python, not through the dock).
 
 ## Next action
 
-Increment 2: an operation `prepare_environment` wrapping `cmd_setup --venv`'s steps
-(`packages/tools/interpreter.make_venv`, `discovery.write_local`) with progress events, and a Prepare button on the
-dock shown when `tools_python` is the problem. Read `level_factory/packages/tools/interpreter.py` first.
+Increment 3 (roadmap 312 and 313): a capability catalog for the brief's fields (`MissionBrief`,
+`UNBUILT_BRIEF_FIELDS`, the time-of-day and theme resolvers) and a `create_design` operation writing a versioned design
+from `docs/first_level/briefs/restaurant_row_001.json`; the dock's New level section draws its form from the catalog.
+Read `level_factory/packages/core/models.py` (`MissionBrief`) and `apps/cli/commands/__init__.py` (`_brief_model`,
+the time-of-day resolver) first.
