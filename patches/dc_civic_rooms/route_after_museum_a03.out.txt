@@ -1,0 +1,40 @@
+# route_cost.py over Deli Counter 0.269.0's library (museum_a03), 4 s
+rooms measured (>= 9 m2, >= 2 endpoints): 4 in 1 specs; endpoint pairs: 9
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 9 pairs joined in both: median 1.000, p90 1.042, p99 1.057, max 1.058; > 1.10 (the guide's warning): 0 pairs in 0 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 9 pairs joined in both: median 1.000, p90 1.000, p99 1.000, max 1.000; > 1.10: 0 pairs in 0 rooms; dressing narrows 0 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 0
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 0
+bottleneck width, AUTHORED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 3; >= 1.90 6
+bottleneck width, FURNISHED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 3; >= 1.90 6
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.058  museum_a03                             artifact_wing            staff_entry -> A  12.8 -> 13.6 m
+  1.037  museum_a03                             artifact_wing            secure_door -> A  14.1 -> 14.6 m
+  1.025  museum_a03                             artifact_wing            secure_door -> side_entry  16.4 -> 16.8 m
+  1.000  museum_a03                             atrium                   secure_door -> atrium_entry  7.6 -> 7.6 m
+  1.000  museum_a03                             artifact_wing            secure_door -> staff_entry  25.6 -> 25.6 m
+  1.000  museum_a03                             artifact_wing            staff_entry -> side_entry  17.5 -> 17.5 m
+  1.000  museum_a03                             artifact_wing            side_entry -> A  7.2 -> 7.2 m
+  1.000  museum_a03                             upper_south              door -> door  24.0 -> 24.0 m
+  1.000  museum_a03                             upper_north              door -> door  24.0 -> 24.0 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.000  museum_a03                             atrium                   secure_door -> atrium_entry  7.6 -> 7.6 m
+  1.000  museum_a03                             artifact_wing            secure_door -> staff_entry  25.6 -> 25.6 m
+  1.000  museum_a03                             artifact_wing            secure_door -> side_entry  16.8 -> 16.8 m
+  1.000  museum_a03                             artifact_wing            secure_door -> A  14.6 -> 14.6 m
+  1.000  museum_a03                             artifact_wing            staff_entry -> side_entry  17.5 -> 17.5 m
+  1.000  museum_a03                             artifact_wing            staff_entry -> A  13.6 -> 13.6 m
+  1.000  museum_a03                             artifact_wing            side_entry -> A  7.2 -> 7.2 m
+  1.000  museum_a03                             upper_south              door -> door  24.0 -> 24.0 m
+  1.000  museum_a03                             upper_north              door -> door  24.0 -> 24.0 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 0 (first 25, by the furnished bottleneck)
+
+two abreast -> single file: 0 (first 25, by the furnished bottleneck)
+

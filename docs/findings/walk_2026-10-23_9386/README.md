@@ -18,7 +18,7 @@ as it is measured. Screenshots are the walker's, kept beside this (`NN_*.webp`).
 | 10 | "bus stop sign is for cars/buses so there is no parking ther...so it sohuld be closer to the road" | pos 19.8, 1.7, -2.6; look nothing within 60 m | SHIPPED Lot 0.127.0, proven 9387; no parking at the stop, Lot 0.131.0, proven 9392 (6 cars, 12 meters, 14 bay ticks in the zones -> 0) |
 | 11 | "traffic lights done change?" | pos 7.9, 1.7, 16.7; the intersection's signal heads | SHIPPED Level Factory 0.238.0; proven, cold run 9388 |
 | 12 | "where are the traffic lights for this side of the road?" | approaching the same junction from the other side (near gs_empty_rowhome_h) | SHIPPED Lot 0.128.0, Zoo 1.121.0; proven, cold run 9387 |
-| 13 | "many of the rowhome doors dont have doorknobs?" | pos 15.6, 1.6, 24.4; bldg blocker_15 gs_empty_rowhome_j | SHIPPED Zoo 1.124.0, proven 9391; its hardware in the railing's iron, Zoo 1.127.0: the colour proven 9392, the merge NOT (the knob world-projected in its `doorway_` module, the railing not); Level Factory 0.242.0 keeps the hardware's UVs, unproven |
+| 13 | "many of the rowhome doors dont have doorknobs?" | pos 15.6, 1.6, 24.4; bldg blocker_15 gs_empty_rowhome_j | SHIPPED Zoo 1.124.0, proven 9391; its hardware in the railing's iron, Zoo 1.127.0: the colour proven 9392, the merge NOT (the knob world-projected in its `doorway_` module, the railing not); Level Factory 0.242.0 keeps the hardware's UVs, proven 9393 (26 Empties -1 mesh each, -449 draws) |
 
 ## 1. Two signs on one shop front
 

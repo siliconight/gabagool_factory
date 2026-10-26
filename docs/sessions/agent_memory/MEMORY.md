@@ -76,7 +76,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: cold 9392 proved stair rails + bus zones
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 9393 proved knob merge; Zoo 1.130.0 pew; DC 0.270.0 civic rooms shipping
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray on a round coordinate hits seams; shift it mm
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies

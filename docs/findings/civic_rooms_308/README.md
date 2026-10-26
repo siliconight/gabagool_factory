@@ -14,7 +14,7 @@ chairs, vending, dining tables (`level_design.py`, the `("hall", ("gallery", "ga
 - **Zoo species that serve**: `bench` (a pew, until a pew species), `chair`, `desk`, `counter`, `display_case`, `table`.
   Missing: a pew, a lectern, a plinth.
 
-## The design, not built
+## The design (as first written; what was built is below)
 
 - **A front.** The wall opposite the room's main door (its widest doorway; a room with doors on two walls takes the
   wall facing the one off the building's entrance), so a chapel's altar and a court's bench stand where a person
@@ -34,3 +34,20 @@ chairs, vending, dining tables (`level_design.py`, the `("hall", ("gallery", "ga
   (`rooms-not-crowded-not-barren`), and the route census (`route_cost.py`), since a pew row is a wall a fight runs
   between. A refurnish of the library's rooms of these kinds, and the fixed-point-of-furnish tests, as every recipe
   change has needed (Deli Counter 0.267.0's three refuted drafts).
+
+## What was built (2026-10-25)
+
+Zoo 1.130.0 (2621efa, `patches/patch_zoo_pew.py`): the `pew` species; previews in `patches/zoo_pew/`. Deli Counter
+0.270.0 (`patches/patch_dc_civic_rooms.py`): the four kinds, `room_front`, `facing_slots`, the four recipes, the `pew`
+piece, and the library's 15 such rooms in 12 specs refurnished. The design above changed in four places, each on a
+measurement:
+
+- **Doors in the front wall.** The front is the end whose own wall has less doorway, not only the end away from the
+  doors' mean. landmark_hall_a02 has three doors in each long wall.
+- **Authored rows decide the axis.** funeral_home_a01's chapel has two authored 8 m pews across its long axis.
+- **Rows are capped** (chapel and assembly 12, courtroom 6). Every pew is a mesh; courthouse_a02's first trial
+  stood 60.
+- **A wide block is sections.** Several pews with an aisle between them, not one.
+
+`patches/dc_civic_rooms/room_plan.py` draws a room top-down. The sheet of five rooms is
+`patches/dc_civic_rooms/plans_sheet.webp`.

@@ -48,8 +48,11 @@ python -m level_factory -C "$WS" doctor > "$WS/doctor.txt" 2>&1 || { tail -5 "$W
 ! grep -q "NOT_CONFIGURED" "$WS/doctor.txt" || { grep "NOT_CONFIGURED" "$WS/doctor.txt"; die "a tool is not configured (run level-factory setup)"; }
 step batch; python -m level_factory -C "$WS" batch create docs/cold_runs/cold_$N/batch.json 2>&1 | tail -1
 step plan; python -m level_factory -C "$WS" plan $M >/dev/null 2>&1 || die plan
-step shell; lf shell -C "$WS" run $M 2>&1 | grep -E "candidates:|blockers open" | tee /tmp/cold_leg.txt; for s_ in "$WS"/.level_factory/jobs/$M.lot_assemble.candidate.seed_*; do echo "  $(basename $s_): $(ls $s_/*/out/buildings/*.glb 2>/dev/null | xargs -n1 basename | tr "
-" " ")"; done; echo "  exit ${PIPESTATUS[0]} (non-zero at an approval gate is the pipeline waiting)"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "shell leg"
+# THE CLI'S OWN EXIT AND ITS ERROR LINE (cold run 9394): the filter kept only "candidates:" and "blockers open", so
+# a refused brief printed nothing; the loop below found no candidate and printed basename's usage; and
+# ${PIPESTATUS[0]}, read after the loop, was the loop's 0 while the CLI had exited 5.
+step shell; lf shell -C "$WS" run $M 2>&1 | grep -E "candidates:|blockers open|internal error|[Ee]rror:" | tee /tmp/cold_leg.txt; rc_=${PIPESTATUS[0]}; for s_ in "$WS"/.level_factory/jobs/$M.lot_assemble.candidate.seed_*; do [ -e "$s_" ] || continue; echo "  $(basename $s_): $(ls $s_/*/out/buildings/*.glb 2>/dev/null | xargs -n1 basename | tr "
+" " ")"; done; echo "  exit $rc_ (non-zero at an approval gate is the pipeline waiting)"; grep -q "blockers open: 0" /tmp/cold_leg.txt || die "shell leg"
 if [ "$SEED" = "auto" ]; then
   SEED=$(python tools/cold_drive/pick_candidate.py "$WS" "$M") || die "no candidate could be picked"
   echo "  picked seed_$SEED on the walktest and Laser Tag's route findings"

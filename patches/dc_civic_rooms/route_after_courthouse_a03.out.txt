@@ -1,0 +1,45 @@
+# route_cost.py over Deli Counter 0.269.0's library (courthouse_a03), 4 s
+rooms measured (>= 9 m2, >= 2 endpoints): 3 in 1 specs; endpoint pairs: 13
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 13 pairs joined in both: median 1.000, p90 1.027, p99 1.057, max 1.061; > 1.10 (the guide's warning): 0 pairs in 0 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 13 pairs joined in both: median 1.000, p90 1.006, p99 1.012, max 1.013; > 1.10: 0 pairs in 0 rooms; dressing narrows 0 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 0
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 0
+bottleneck width, AUTHORED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 13
+bottleneck width, FURNISHED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 13
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.061  courthouse_a03                         main_courtroom           door -> chambers_door  23.2 -> 24.6 m
+  1.031  courthouse_a03                         public_hall              door -> transport_entry  11.3 -> 11.7 m
+  1.013  courthouse_a03                         public_hall              door -> secure_door  26.4 -> 26.7 m
+  1.007  courthouse_a03                         judges_chambers          chambers_door -> staff_entry  8.3 -> 8.3 m
+  1.000  courthouse_a03                         public_hall              door -> main_entry  22.2 -> 22.2 m
+  1.000  courthouse_a03                         public_hall              secure_door -> main_entry  22.2 -> 22.2 m
+  1.000  courthouse_a03                         public_hall              secure_door -> transport_entry  37.7 -> 37.7 m
+  1.000  courthouse_a03                         public_hall              main_entry -> transport_entry  25.0 -> 25.0 m
+  1.000  courthouse_a03                         judges_chambers          secure_door -> chambers_door  8.2 -> 8.2 m
+  1.000  courthouse_a03                         judges_chambers          secure_door -> staff_entry  12.7 -> 12.7 m
+  1.000  courthouse_a03                         judges_chambers          secure_door -> A  7.0 -> 7.0 m
+  1.000  courthouse_a03                         judges_chambers          chambers_door -> A  6.3 -> 6.3 m
+  1.000  courthouse_a03                         judges_chambers          staff_entry -> A  7.1 -> 7.1 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.013  courthouse_a03                         public_hall              door -> secure_door  26.4 -> 26.7 m
+  1.007  courthouse_a03                         judges_chambers          chambers_door -> staff_entry  8.3 -> 8.3 m
+  1.000  courthouse_a03                         public_hall              door -> main_entry  22.2 -> 22.2 m
+  1.000  courthouse_a03                         public_hall              door -> transport_entry  11.7 -> 11.7 m
+  1.000  courthouse_a03                         public_hall              secure_door -> main_entry  22.2 -> 22.2 m
+  1.000  courthouse_a03                         public_hall              secure_door -> transport_entry  37.7 -> 37.7 m
+  1.000  courthouse_a03                         public_hall              main_entry -> transport_entry  25.0 -> 25.0 m
+  1.000  courthouse_a03                         main_courtroom           door -> chambers_door  24.6 -> 24.6 m
+  1.000  courthouse_a03                         judges_chambers          secure_door -> chambers_door  8.2 -> 8.2 m
+  1.000  courthouse_a03                         judges_chambers          secure_door -> staff_entry  12.7 -> 12.7 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 0 (first 25, by the furnished bottleneck)
+
+two abreast -> single file: 0 (first 25, by the furnished bottleneck)
+

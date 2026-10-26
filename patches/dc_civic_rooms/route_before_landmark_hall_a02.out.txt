@@ -1,0 +1,54 @@
+# route_cost.py over Deli Counter 0.269.0's library (landmark_hall_a02), 5 s
+rooms measured (>= 9 m2, >= 2 endpoints): 5 in 1 specs; endpoint pairs: 30
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 30 pairs joined in both: median 1.000, p90 1.018, p99 1.175, max 1.233; > 1.10 (the guide's warning): 1 pairs in 1 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 30 pairs joined in both: median 1.000, p90 1.000, p99 1.030, max 1.035; > 1.10: 0 pairs in 0 rooms; dressing narrows 0 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 0
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 2
+bottleneck width, AUTHORED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 30
+bottleneck width, FURNISHED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 2; >= 1.90 28
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.233  landmark_hall_a02                      archive_office           suite_door -> A  3.6 -> 4.4 m
+  1.035  landmark_hall_a02                      assembly_hall            door -> door  11.9 -> 12.3 m
+  1.024  landmark_hall_a02                      assembly_hall            entry_w -> entry_e  17.0 -> 17.4 m
+  1.017  landmark_hall_a02                      assembly_hall            door -> door  23.8 -> 24.2 m
+  1.004  landmark_hall_a02                      assembly_hall            door -> entry_w  27.2 -> 27.3 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> door  11.9 -> 11.9 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_w  17.6 -> 17.6 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  27.3 -> 27.3 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_w  19.7 -> 19.7 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  19.7 -> 19.7 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  17.6 -> 17.6 m
+  1.000  landmark_hall_a02                      curator_band             door -> door  11.9 -> 11.9 m
+  1.000  landmark_hall_a02                      curator_band             door -> door  23.8 -> 23.8 m
+  1.000  landmark_hall_a02                      curator_band             door -> service_entry  28.8 -> 28.8 m
+  1.000  landmark_hall_a02                      curator_band             door -> dock_n  20.0 -> 20.0 m
+  1.000  landmark_hall_a02                      curator_band             door -> crew_n  7.2 -> 7.2 m
+  1.000  landmark_hall_a02                      curator_band             door -> door  11.9 -> 11.9 m
+  1.000  landmark_hall_a02                      curator_band             door -> service_entry  16.9 -> 16.9 m
+  1.000  landmark_hall_a02                      curator_band             door -> dock_n  9.3 -> 9.3 m
+  1.000  landmark_hall_a02                      curator_band             door -> crew_n  14.9 -> 14.9 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.035  landmark_hall_a02                      assembly_hall            door -> door  11.9 -> 12.3 m
+  1.017  landmark_hall_a02                      assembly_hall            door -> door  23.8 -> 24.2 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> door  11.9 -> 11.9 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_w  17.6 -> 17.6 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  27.3 -> 27.3 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_w  19.7 -> 19.7 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  19.7 -> 19.7 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_w  27.3 -> 27.3 m
+  1.000  landmark_hall_a02                      assembly_hall            door -> entry_e  17.6 -> 17.6 m
+  1.000  landmark_hall_a02                      assembly_hall            entry_w -> entry_e  17.4 -> 17.4 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 0 (first 25, by the furnished bottleneck)
+
+two abreast -> single file: 2 (first 25, by the furnished bottleneck)
+  landmark_hall_a02                      archive_office           door -> A  width 3.20 -> 1.57 m
+  landmark_hall_a02                      archive_office           suite_door -> A  width 3.21 -> 1.57 m
+

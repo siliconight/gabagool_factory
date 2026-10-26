@@ -1,0 +1,42 @@
+# route_cost.py over Deli Counter 0.269.0's library (museum_a02), 5 s
+rooms measured (>= 9 m2, >= 2 endpoints): 3 in 1 specs; endpoint pairs: 10
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 10 pairs joined in both: median 1.000, p90 1.022, p99 1.057, max 1.061; > 1.10 (the guide's warning): 0 pairs in 0 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 10 pairs joined in both: median 1.000, p90 1.017, p99 1.057, max 1.061; > 1.10: 0 pairs in 0 rooms; dressing narrows 0 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 0
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 0
+bottleneck width, AUTHORED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 10
+bottleneck width, FURNISHED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 10
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.061  museum_a02                             north_wing               door -> art_dock  9.6 -> 10.2 m
+  1.017  museum_a02                             north_wing               art_dock -> staff_entry  24.2 -> 24.6 m
+  1.013  museum_a02                             galleries                door -> door  26.4 -> 26.7 m
+  1.000  museum_a02                             galleries                door -> main_entry  26.3 -> 26.3 m
+  1.000  museum_a02                             galleries                door -> main_entry  30.0 -> 30.0 m
+  1.000  museum_a02                             north_wing               door -> door  26.4 -> 26.4 m
+  1.000  museum_a02                             north_wing               door -> art_dock  27.8 -> 27.8 m
+  1.000  museum_a02                             north_wing               door -> staff_entry  8.7 -> 8.7 m
+  1.000  museum_a02                             north_wing               door -> staff_entry  30.0 -> 30.0 m
+  1.000  museum_a02                             art_storage              art_vault_gate -> A  14.8 -> 14.8 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.061  museum_a02                             north_wing               door -> art_dock  9.6 -> 10.2 m
+  1.013  museum_a02                             galleries                door -> door  26.4 -> 26.7 m
+  1.000  museum_a02                             galleries                door -> main_entry  26.3 -> 26.3 m
+  1.000  museum_a02                             galleries                door -> main_entry  30.0 -> 30.0 m
+  1.000  museum_a02                             north_wing               door -> door  26.4 -> 26.4 m
+  1.000  museum_a02                             north_wing               door -> art_dock  27.8 -> 27.8 m
+  1.000  museum_a02                             north_wing               door -> staff_entry  8.7 -> 8.7 m
+  1.000  museum_a02                             north_wing               door -> staff_entry  30.0 -> 30.0 m
+  1.000  museum_a02                             north_wing               art_dock -> staff_entry  24.6 -> 24.6 m
+  1.000  museum_a02                             art_storage              art_vault_gate -> A  14.8 -> 14.8 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 0 (first 25, by the furnished bottleneck)
+
+two abreast -> single file: 0 (first 25, by the furnished bottleneck)
+

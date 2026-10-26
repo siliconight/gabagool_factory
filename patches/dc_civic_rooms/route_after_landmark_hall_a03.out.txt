@@ -1,0 +1,53 @@
+# route_cost.py over Deli Counter 0.269.0's library (landmark_hall_a03), 4 s
+rooms measured (>= 9 m2, >= 2 endpoints): 3 in 1 specs; endpoint pairs: 26
+body radius 0.35 m; the bake's door floor 1.00 m (clearance 0.50); two abreast by the guide's formula 1.90 m (clearance 0.950); grid 0.10 m
+path length FURNISHED / AUTHORED, over the 26 pairs joined in both: median 1.000, p90 1.059, p99 1.132, max 1.151; > 1.10 (the guide's warning): 1 pairs in 1 rooms
+path length FURNISHED / FUNCTIONAL -- dressing over the functional build, the guide's own B -> C -- over the 26 pairs joined in both: median 1.000, p90 1.000, p99 1.016, max 1.018; > 1.10: 0 pairs in 0 rooms; dressing narrows 0 pairs from two abreast to single file and closes 0 to a body
+pairs no body path joins in either arm (a door that cannot be reached for walls or stairs alone): 0
+pairs furnishing closes to the body (bottleneck >= 0.35 authored, < 0.35 furnished): 0
+pairs furnishing closes to the bake (>= 0.50 authored, < 0.50 furnished): 0
+pairs furnishing narrows from two abreast to single file (>= 0.950 authored, < 0.950 furnished): 1
+bottleneck width, AUTHORED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 0; >= 1.90 26
+bottleneck width, FURNISHED: < 0.70 (no body) 0; < 1.00 (under the bake's floor) 0; < 1.90 (single file) 1; >= 1.90 25
+
+the 20 longest detours (FURNISHED / AUTHORED):
+  1.151  landmark_hall_a03                      curator_band             door -> door  12.6 -> 14.5 m
+  1.076  landmark_hall_a03                      curator_band             door -> door  25.2 -> 27.1 m
+  1.074  landmark_hall_a03                      curator_band             door -> service_entry  17.9 -> 19.2 m
+  1.044  landmark_hall_a03                      curator_band             door -> service_entry  30.5 -> 31.8 m
+  1.038  landmark_hall_a03                      conservation_vault       vault_gate -> A  10.8 -> 11.2 m
+  1.018  landmark_hall_a03                      curator_band             dock_n -> crew_n  18.0 -> 18.3 m
+  1.005  landmark_hall_a03                      exhibit_hall             entry_w -> entry_e  18.0 -> 18.1 m
+  1.003  landmark_hall_a03                      exhibit_hall             door -> entry_e  27.8 -> 27.9 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  12.6 -> 12.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  25.2 -> 25.2 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  16.4 -> 16.4 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  12.6 -> 12.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  18.6 -> 18.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_e  18.6 -> 18.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  27.8 -> 27.8 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_e  16.4 -> 16.4 m
+  1.000  landmark_hall_a03                      curator_band             door -> door  12.6 -> 12.6 m
+  1.000  landmark_hall_a03                      curator_band             door -> dock_n  20.7 -> 20.7 m
+  1.000  landmark_hall_a03                      curator_band             door -> crew_n  6.5 -> 6.5 m
+  1.000  landmark_hall_a03                      curator_band             door -> dock_n  8.7 -> 8.7 m
+
+the 10 longest dressing detours (FURNISHED / FUNCTIONAL):
+  1.018  landmark_hall_a03                      curator_band             door -> service_entry  18.9 -> 19.2 m
+  1.011  landmark_hall_a03                      curator_band             door -> service_entry  31.4 -> 31.8 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  12.6 -> 12.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  25.2 -> 25.2 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  16.4 -> 16.4 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_e  27.9 -> 27.9 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> door  12.6 -> 12.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  18.6 -> 18.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_e  18.6 -> 18.6 m
+  1.000  landmark_hall_a03                      exhibit_hall             door -> entry_w  27.8 -> 27.8 m
+
+closed to the body: 0 (first 25, by the furnished bottleneck)
+
+closed to the bake: 0 (first 25, by the furnished bottleneck)
+
+two abreast -> single file: 1 (first 25, by the furnished bottleneck)
+  landmark_hall_a03                      conservation_vault       vault_gate -> A  width 3.21 -> 1.59 m
+
