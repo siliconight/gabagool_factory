@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-7 shipped (Level Factory 0.243.0-0.249.0): every step of the loop exists and has run for real through the worker. Milestone acceptance (318) needs (a) the walker's yes to prepare the launcher's Python and (b) a person running the loop in a windowed editor.**
+**Status: increments 1-7 shipped (Level Factory 0.243.0-0.249.0): every step of the loop exists and has run for real through the worker. The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -77,17 +77,22 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | # | User capability | State | Evidence |
 |---|---|---|---|
 | 1 | Open the authoring project, point the panel at the factory, and see whether Blender, Godot and the tools are ready, with each problem's fix | shipped, LF 0.243.0 (e698a7e) | Suite 2,650 / 0 failed. `tests/service/test_worker.py` 13 cases (fail on 0.242.0). Headless Godot: `apps/godot/tests/test_service_client.gd` 6/6, the client running real operations; `test_factory_dock.gd` 6/6, the dock through the installed `factory.cmd`. Editor load headless: no errors. `patches/lf_service_panel/` |
-| 2 | Prepare the tools' Python from the panel when it is missing what they need | shipped, LF 0.244.0 (b504d35); live download NOT run | Suite 2,655 / 0 failed. `tests/service/test_prepare_environment.py` 4 cases with a fake `make_venv` (fail on 0.243.0); dock test 8/8, the button shown only when the tools' Python blocks. `patches/lf_prepare_env/` |
+| 2 | Prepare the tools' Python from the panel when it is missing what they need | shipped, LF 0.244.0 (b504d35); RUN for real 2026-10-26 | Suite 2,655 / 0 failed. `tests/service/test_prepare_environment.py` 4 cases with a fake `make_venv` (fail on 0.243.0); dock test 8/8, the button shown only when the tools' Python blocks. `patches/lf_prepare_env/` |
 | 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent; save and reopen it | shipped, LF 0.245.0 (07a315f) | Suite 2,668 / 0 failed. `tests/service/test_design.py` (fail on 0.244.0): options equal their owners', each time a distinct Lux preset, rain's substitution, streets and layout count reaching the pipeline, the first-level brief reproduced at the template's defaults, create-save-reopen, unknown fields kept. Godot `test_level_panel.gd` 9/9 through the installed launcher. `patches/lf_design/` |
 | 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | shipped, LF 0.246.0 (5110786) | Suite 2,676 / 0 failed. `tests/service/test_layouts.py` (fail on 0.245.0). Godot `test_level_layouts.gd` 11/11. REAL: design `levels/panel_trial` generated through the worker in 1 min 40 s (system Python), three valid layouts (9003 PASS 90, 9104 PASS_WITH_TUNING 89, 9205 PASS 100, recommended), 95 progress events; seed 9205 chosen through the installed worker, gate recorded `by: panel`, "a choice, not a review". `patches/lf_layouts/` |
 | 5 | Walk the chosen layout from the panel, labelled with the revision and layout it shows | shipped, LF 0.247.0 (6942d67) | Suite 2,683 / 0 failed. `tests/service/test_walking.py` (fail on 0.246.0). Godot `test_level_walk.gd` 6/6. REAL: `levels/panel_trial`'s chosen layout walked through the worker in 8 min 42 s (system Python) -- art, lighting, gameplay, an export with a light bake (141 models, 65.5 s), the preview built and its self-check passed, named "Panel Trial, revision 1, layout seed 9205". `patches/lf_walk/` |
 | 6 | Change a supported setting (time of day) on the Level tab and see it in the next walk | shipped, LF 0.248.0 (14fc3c8) | Suite 2,688 / 0 failed. `tests/service/test_revise.py` (fail on 0.247.0). Godot `test_level_edit.gd` 8/8, all six Godot tests pass. REAL: `levels/panel_trial` evening -> midnight saved as revision 2 (`rebuilds: lighting`) and walked through the worker in 7 min 20 s, named revision 2, self-check passed; re-ran `lux_apply`, `lot_assemble` x3, `themed_site_assemble`, `presentation_compose`; the shells, kit, dressing, walk tests and Laser Tag cache hits. `patches/lf_revise/` |
 | 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | shipped, LF 0.249.0 (7054c70) | Suite 2,695 / 0 failed. `tests/service/test_exporting.py` (fail on 0.248.0). Godot `test_level_export.gd` 5/5; all seven Godot tests pass. REAL: the trial design's walked revision 2 exported through the worker in 85 s, every checklist line ok -- 2,786 files none missing, portability PASS (engine check passed), 2,750 lightmapped, gl_compatibility, 0 major (`patches/lf_export/trial_snapshot_manifest.json`; the 166 MB copy deleted after). |
-| 8 | The whole loop by a person in a windowed editor, unassisted (318) | waiting | needs (a) and (b) above |
+| 8 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
 
 ## Blockers and open questions
 
-- **Found by increment 1, on this machine: the launcher runs the factory on Blender's own Python** (`BLENDER` set, no
+- **RESOLVED 2026-10-26:** `prepare_environment` run through `factory.cmd` with the walker's yes (12 s, pip cache):
+  `<factory>/.venv` (Python 3.13.9 from Blender's, Pillow 12.3.0, pygltflib, jsonschema 4.26.0) recorded as
+  `python_executable`; setup now `ready`, nothing blocking. Proven by a level created and generated entirely through
+  `factory.cmd` (`levels/launcher_trial`, 1 min 51 s, three valid layouts). Workspaces made from now on run the tools
+  under it, the cold runs' included.
+- **Was: on this machine the launcher ran the factory on Blender's own Python** (`BLENDER` set, no
   `.venv`), which cannot import `PIL`, `pygltflib`, `jsonschema`. The panel reports it correctly ("Python the tools
   run under: problem"), but its fix is `factory setup --venv`, a terminal step that downloads packages once. A new
   user stops here. Increment 2 (0.244.0) puts it behind a button. **Pressing it for real is waiting on the walker's
@@ -110,13 +115,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 
 ## Next action
 
-1. **The walker's decision:** may `prepare_environment` run on this machine (downloads Pillow, pygltflib,
-   jsonschema into `<factory>/.venv`; the launcher and new workspaces then use it)? Without it the panel's
-   Generate and Walk through `factory.cmd` run the tools under Blender's Python and fail.
-2. **318 by a person:** open `level_factory/apps/godot` in Godot 4.7, Gabagool Factory dock -> Setup -> Level tab:
+1. **318 by a person:** open `level_factory/apps/godot` in Godot 4.7, Gabagool Factory dock -> Setup -> Level tab:
    New level, Generate layouts, Use this layout, Walk level, change Time of day, Save changes, Walk level, reopen the
    project, Export.... Record each step and any intervention in this file.
-3. Meanwhile, independent work: 314's top-down layout images from `site.site.drawn.json`; the site re-assembling
+2. Meanwhile, independent work: 314's top-down layout images from `site.site.drawn.json`; the site re-assembling
    for every layout on a lighting change; the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.249.0).
 
 Increment 7, as planned (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
