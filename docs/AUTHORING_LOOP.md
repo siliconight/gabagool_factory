@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-9 shipped (Level Factory 0.243.0-0.251.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
+**Status: increments 1-10 shipped (Level Factory 0.243.0-0.252.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -71,6 +71,14 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
    at a time, as each is needed.
 4. **The Godot side lives at `level_factory/apps/godot/`**: `addons/gabagool_factory/` (the plugin) and a
    ready-to-open authoring project that uses it.
+5. **Every record the loop reads or writes has a data schema** (Level Factory 0.252.0, the walker's request
+   2026-10-26): JSON Schema draft 2020-12 files in `level_factory/schemas/authoring/`, one per record, named by the
+   record's own `schema` field. They are checked by `packages/service/schemas.py`, which needs no `jsonschema`
+   package (Blender's Python has none) and refuses a schema keyword it does not implement. A new field means editing
+   the schema in the same change; a breaking change means a new `.v2` id, never a quiet edit of `.v1`. The walker's
+   *Level Factory Design Standard* (the gold-standard proposal, kept as `docs/reference/LEVEL_FACTORY_STANDARD_v0.docx`
+   and operationalised in `docs/LEVEL_STANDARD.md`) is a DESIGN schema, not a data one. Its Score and Route records
+   become data schemas when the factory has something that fills them.
 
 ## Increments
 
@@ -85,7 +93,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 7 | Export the walked level as a snapshot to a folder the designer chooses, with a checklist | shipped, LF 0.249.0 (7054c70) | Suite 2,695 / 0 failed. `tests/service/test_exporting.py` (fail on 0.248.0). Godot `test_level_export.gd` 5/5; all seven Godot tests pass. REAL: the trial design's walked revision 2 exported through the worker in 85 s, every checklist line ok -- 2,786 files none missing, portability PASS (engine check passed), 2,750 lightmapped, gl_compatibility, 0 major (`patches/lf_export/trial_snapshot_manifest.json`; the 166 MB copy deleted after). |
 | 8 | Each layout's top-down plan beside its row, drawn from that layout's own build (314) | shipped, LF 0.250.0 (c88cd62) | Suite 2,684 / 0 failed. `tests/service/test_plan_image.py` (fails on 0.249.0); Godot `test_level_plan.gd` 5/5, all eight pass. REAL: `launcher_trial`'s three layouts drawn and rendered through Godot 4.7's SVG loader, each different, the objective at the pixel its footprint predicts. FOUND: Godot's SVG loader draws no `<text>`, so the key is panel text. `patches/lf_plan/` (with `launcher_loop.out.txt`: choose 1 s, walk 555 s, export 98 s through `factory.cmd`) |
 | 9 | Reopen a level and see where it stands: layouts and plans, the chosen one, the last walk and export, each saying if the level changed since (318's "save and reopen") | shipped, LF 0.251.0 (dd39851) | Suite 2,690 / 0 failed. `tests/service/test_standing.py` (fails on 0.250.0); Godot `test_level_reopen.gd` 9/9, all nine pass. FIXED: opening a level after another left the other's layouts, walk and export on the tab. REAL: both trial levels read back (three layouts, chosen 9205, walk and export current; a deleted snapshot reported). `patches/lf_standing/` |
-| 10 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
+| 10 | Every record the loop reads or writes has a data schema, checked by its reader and writer (the walker's request) | shipped, LF 0.252.0 (1f6d495) | Suite 2,713 / 0 failed; all nine Godot tests pass. `tests/service/test_schemas.py` (fails on 0.251.0): 8 JSON Schema files in `level_factory/schemas/authoring/`, real records from the trial levels kept as fixtures, each broken one field at a time and failing under both the built-in check and `jsonschema` 4.26.0, which agree on every case; passes without `jsonschema`. MEASURED: every loop record on disk (2 designs, 2 build records, 3 walk records, 2 export records, 2 manifests, 14 requests, 14 results, 845 events) passes both. REAL: `launcher_trial` regenerated through `factory.cmd` on 0.252.0 in 42 s, its build record, 43 events and result valid, plans drawn; reopened clean. `patches/lf_schemas/` |
+| 11 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
 
 ## Blockers and open questions
 
@@ -122,7 +131,7 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
    project, Export.... Record each step and any intervention in this file.
 2. Meanwhile, independent work: the site re-assembling for every layout on a lighting change (316); written schemas
    for the eleven record types the loop reads and writes (none has a schema file; the walker mentioned a schema sheet,
-   2026-10-26, not yet seen); the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.251.0). Levels generated
+   2026-10-26: it was the design standard, now decision 5) -- DONE in 0.252.0; the parked 309 bridge (clone `_scratch/lf_anchor`, re-base on 0.251.0). Levels generated
    before 0.250.0 show no plans until generated again.
 
 Increment 7, as planned (roadmap 317): `export_level {path, destination}` -- after a walk of the current revision, run
