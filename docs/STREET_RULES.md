@@ -36,8 +36,17 @@ door: "bus stop sign is for cars/buses so there is no parking ther...so it sohul
   Tech Sheet 181 -- on an urban street with a curb, a sign's minimum lateral offset is 2 ft from the curb face to its
   edge (1 ft where space is limited); the 6 ft above is the MUTCD's figure where there is no curb. Lot 0.127.0
   (`site_furniture.CURB_SIGN_OFFSET`).
-- **No parking where the bus pulls in.** The stop's length is kept clear of parked cars. NOT YET BUILT: Lot's parking
-  bays do not know where the stop stands (`docs/findings/walk_2026-10-23_9386/`, finding 10).
+- **No parking where the bus pulls in: 120 ft (36.6 m) at a midblock stop.** Source: NACTO, *Urban Bikeway Design
+  Guide*, "Curbside Transit Stops" -- minimum stop lengths for a 40 ft bus, 100 ft near-side, 120 ft midblock, 90 ft
+  far-side, counting the bus and its merge in and out of traffic
+  (https://nacto.org/publication/urban-bikeway-design-guide/designing-bikeways-for-all-ages-and-abilities/transit-stops/curbside-transit-stops/);
+  its *Transit Street Design Guide* gives pull-out stops 90 ft near-side and 100 ft far-side, and asks for the zone's
+  edge to be marked with NO PARKING BUS STOP signs (MUTCD R7-107)
+  (https://nacto.org/publication/transit-street-design-guide/stations-stops/stop-design-factors/platform-length/).
+  Lot stands its stop at the middle of a kerb's longest free stretch, so it is midblock: 120 ft, the bus's front door
+  at the flag. A stop at least 10 ft from a crosswalk (NACTO) -- Lot's `CUT_CLEARANCE` already holds the stop off a
+  cut. Lot 0.131.0 (`site_furniture.BUS_ZONE_M`): the zone is centred on the shelter, and no bay it overlaps holds a
+  car, a meter or paint (`docs/findings/walk_2026-10-23_9386/`, finding 10).
 
 ## Crosswalks
 

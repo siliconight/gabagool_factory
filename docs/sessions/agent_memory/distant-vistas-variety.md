@@ -28,3 +28,5 @@ on somebody else's machine ([[performance-beats-graphics]]).
   milliseconds ships cheap with its expensive version written down.
 - Owners: Zoo species (silhouette kits), Lot (placement / recipe), Level Factory (MultiMesh, panorama bake), Lux
   (sky, lights at distance).
+
+**2026-10-25, the sky too:** "random birds and commercial airplanes in the sky to add some live to the sky" -- filed as roadmap 307. Same rule: a flock is ONE mesh with the wing beat in the vertex shader, an airliner one far mesh on a slow track (contrail by day, nav and strobe lights by night); seeded per level; priced before shipping. They live in the sky above ~7 degrees, which street level does see.

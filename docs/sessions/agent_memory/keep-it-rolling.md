@@ -1,6 +1,6 @@
 ---
 name: keep-it-rolling
-description: "Walker 2026-10-05: keep working through the queue -- at the end of each block of work give the summary, then pick up the next suggested chunk without waiting for a yes"
+description: "Walker 2026-10-05..2026-10-24: never stop for a background job; keep working through the queue -- at the end of each block of work give the summary, then pick up the next suggested chunk without waiting for a yes"
 metadata:
   node_type: memory
   type: feedback
@@ -68,3 +68,7 @@ for the walker's eye on the frames"; the walker: "why did you stop?".
 - Make the call, put it behind ONE named dial (a constant, a profile flag, a family list), and write in the code, the changelog and the roadmap status that it is a call made on that date and meant to be changed, with how to change it.
 - Prefer the option that moves nothing graded or shipped when the options are otherwise equal (244: crosswalks kept as built; 177: z-fight WARN now, block at zero).
 - Still ask for anything irreversible or outward-facing beyond the established practice (root and tool-repo pushes of finished, tested commits have been routine since 2026-10-12).
+
+**2026-10-24, again:** "im good at finding the things to give backback on during walks...there is so much that i've given you that you haven't done yet that there really shouldn't be a reason you stop" -- "other than my claude plan limits".
+- The walker's queue of walk feedback is deep; a background job (a price, a cold run, a suite) is never a reason to end a turn. Start the next queued item while it runs -- reading, designing, editing a clone -- and pick results up when they land.
+- The only limit beyond the hard rules is the plan's usage limit ([[never-pay-more-than-the-subscription]]).

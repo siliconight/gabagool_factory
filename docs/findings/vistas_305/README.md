@@ -40,3 +40,35 @@ comes in a day render and a night render (lit windows, a tower beacon, runway an
 - Whether the sky's radiance update (the reflection of the sky) re-renders when the strip blends with time of day,
   and what that costs on the Compatibility renderer.
 - How the strip meets the mid band and the fog: `fog_sky_affect` is Lux's dial for it.
+
+## Measured on a prototype, 2026-10-24 (cold run 9389's walk copy, copied to `_scratch/`)
+
+**REFUTED -- "A Lux preset names SkyMint as its sky provider" above, as a statement about levels.** One preset does
+(`delco_night`, and `ps1_storm_night`); a level runs the one its `lux.applied.tscn` names, and restaurant_row_001 runs
+`blue_hour`, which names none -- read at run time, its WorldEnvironment draws a `ProceduralSkyMaterial` that LuxRoot
+authors (`lux_root.gd`, `_spawn_sky_provider` returns early without a provider). The shader route above was built
+(`proto_apply.py`) and drew NOTHING in that level, 15 to 23 pixels of 1.44 M changed from 30 m up: correct code on a
+sky that was not on screen. A far band that lives in SkyMint's shader reaches two presets.
+
+**A HORIZON RING draws under any sky** (`proto_ring.py`): one open cylinder 1,500 m out, faces drawn both sides, the
+strip as its texture, unshaded, alpha-cut, no fog, no shadow, outside the bake -- one mesh, one surface, one draw.
+From 30 m up facing west it puts the test skyline on the horizon (`ring_vs_shipped_9389.webp`, right column; the test
+strip `strip_proto.py`, previews `strip_proto_*.webp`). Godot's default far plane, 4,000 m, holds it.
+
+**What a player at street level sees of it: almost nothing, and that is a constraint, not a defect.** Four views
+from the street at (7.9, 1.7, 16.7), one a heading, changed by 47 to 523 pixels of 1.44 M: the near backdrop --
+rowhomes 8 to 11 m tall out to about 92 m, warehouses -- fills everything below about 7 degrees, and a far scene that
+is real sits at 1 to 8 degrees. So a landmark must be PLACED ON A SIGHTLINE -- down the level's longest street, over
+an open lot, from a roof or an upper floor -- or be tall enough to clear the roofs (a tower, a skyline), and the
+vista recipe has to know which.
+
+**Two more things the frames show:**
+- The night test strip reads black against a blue-hour sky. A strip is rendered per level, in that level's sky and
+  fog colours (each level has one time of day), so it carries its own haze; a fixed palette cannot.
+- From any elevated view the world below the horizon beyond the backdrop's ground is BLACK -- a band under the
+  horizon in every `up_*` frame, shipped as well as prototype. The ring's lower rows could close it (a strip whose
+  bottom is ground haze), which is a reason for the ring of its own.
+
+**Open:** the ring's price on the target renderer (one draw and its fill, measured against controls once cold run
+9391 has ended, since a run in flight loads the machine); the strip rendered from Zoo silhouettes in the level's
+colours; the sightline rule.

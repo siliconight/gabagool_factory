@@ -48,7 +48,7 @@
 - [Land-use guide informs Lot](land-use-guide-informs-lot.md) — steps 2+4 shipped; step 3 + verges/vacant lots next.
 - [Fence marks the playable edge](fence-marks-the-playable-edge.md) — phase one SHIPPED (Zoo 1.77/1.78, Lot 0.97.x); perimeter after backdrops.
 - [Never pay more than the subscription](never-pay-more-than-the-subscription.md) — Claude Max, fixed fee only: no billed features (ultrareview), no extra usage, ever; billing settings are the walker's.
-- [Keep it rolling](keep-it-rolling.md) — walker: work continuously; summarise each block; queue taste calls; never stop to wait for the walker's eye; honour a pause.
+- [Keep it rolling](keep-it-rolling.md) — walker: work continuously; never stop for a background job or the walker's eye; only plan limits; honour a pause.
 - [Perf copies fill the disk](perf-copies-fill-the-disk.md) — each price leaves a ~250 MB copy; delete it once its JSON exists.
 - [Detail lives in generator logic](detail-lives-in-generator-logic.md) — gas, convenience, deli done; open: 196 wall pieces, 197 rear-door jam.
 - [Breadth sweep: ten missions](breadth-sweep-ten-missions.md) — 2026-10-06: 10/10 after LF 0.144.1-0.144.3; all views < 16.7 ms p95.
@@ -78,7 +78,7 @@
 - [Window displays + payphones filed](window-displays-and-payphones-filed.md) — 209 not started; 210 payphone redrawn, lit, indoor units.
 - [Perf census is bake-blind](perf-census-is-bake-blind.md) — FIXED LF 0.159.0: cite PAIRED for the 8-light cap.
 - [Roadmap body lines parse as items](roadmap-body-lines-parse-as-items.md) — never start a body line with **<digits>. ; --check can't catch it.
-- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: walk-9386 findings 8, 10, 12 shipped + proven (cold 9387); next 11 cycle, 5 price, 4 rod
+- [Open work 2026-10-09](open-work-2026-10-09.md) — START HERE: 2026-10-25 walk-9386 block 2 (cold 9391 proven); DC 0.268/0.269 shipping; next cold 9392
 - [Dry-run a patch's guards, not its anchors](dry-run-a-patch-guards-not-anchors.md) — replay main() in memory, final asserts included; DC 0.233.0's first apply was refused by its own guard.
 - [Probes off round coordinates](probes-off-round-coordinates.md) — a ray/capsule on a round coordinate hits seams; LF 0.219.0 shifts its lattice 3.1/2.3 mm.
 - [Walk test with the crew's body](walktest-crew-body-measurement.md) — 208 NARROWED: 18/18 both bodies; never re-walk via walktest.py main().
@@ -144,4 +144,5 @@
 - [Buildings wanted 2026-10-23](buildings-wanted-2026-10-23.md) — restrooms/toilets, a laundromat, a better bank; queued for the roadmap
 - [Double stair is a compact U](double-stair-is-compact-u.md) — walker's pick for finding 6: walls enclose the well, rail between flights; refs in walk_2026-10-23_9386/stair_refs
 - [Baked look without bands](baked-look-without-bands.md) — walker: keep the bake, remove wall-joint bands; prove cause, try cures one at a time, price each
-- [Distant vistas, variety](distant-vistas-variety.md) — walker: trains, ocean+marina, forest, malls, airports far off; varied, good-looking, highly performant; far band never built
+- [Distant vistas, variety](distant-vistas-variety.md) — walker: trains, ocean+marina, forest, malls, airports far off; varied, good-looking, highly performant; far band never built; birds + airliners in the sky (307)
+- [Open ground with intention](open-ground-with-intention.md) — walker: open areas fine only on purpose for gameplay; every open area a named use with a reason, the rest filled; in doubt, the lived-in/real docs decide

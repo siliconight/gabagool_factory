@@ -6,19 +6,19 @@ as it is measured. Screenshots are the walker's, kept beside this (`NN_*.webp`).
 
 | # | the walker | where (overlay) | state |
 |---|---|---|---|
-| 1 | "still doensn't look irght to have 2 signs on top of each other like this and not centered... in real life this would be 1 sign" | pos -7.1, 1.6, 17.6; bldg b1 pharmacy_a01 | filed, not investigated |
-| 2 | "textures have visible seams and it doesn't look as continous as it could be" (lines marked on the frame) | pos -8.0, 1.6, -0.1; pharmacy_a01, GreyboxBase; look ext_col_0_N_open0_BREACHPANEL 10.49 m | filed, not investigated |
-| 3 | "drop safe looks like a brown box, needs more retopology or multiple texture/colors to see it better imo" | pos 9.4, 1.6, -4.6; bldg b1 pharmacy_a01; look DropSafe 2.75 m | filed, not investigated |
-| 4 | "non collision rod on the stair case that shouldn't be there" | pos 54.6, 2.2, 1.6; bldg office, GreyboxBase; look slab_col_2 13.07 m | filed, not investigated |
-| 5 | "screens should have the same effect as the tvs in the strip club that give them that little movement/\"shimmer\" to show \"life\"" | pos 47.0, 8.8, -7.3; bldg b2 office; a cubicle's monitor | filed, not investigated |
-| 6 | "something about the doulbe stairs still needs some work to not look so odd...mainly the walling/railing doesn't loook natural yet" | pos 55.7, 5.2, -6.0; bldg office, GreyboxBase; look stair_guard_rail_4_col 8.37 m | filed, not investigated |
-| 7 | "this empty space goes against the doc i sent you about the value of urban land and how it would be filled in with things...careful how we solve this one....but it should be not the norm to have these wide empty spaces without talking about it" | pos 70.7, 1.7, 15.8 (cover_155) and 99.4, 1.6, -21.0 (Site) | filed, not investigated |
-| 8 | "garbage cans are usually up against walls inside buildings" | pos -51.6, 1.6, -2.6; deli_a03, GreyboxBase; look litter_bin_r2f2d413e_11 3.26 m | filed, not investigated |
-| 9 | "good collision, but not sure what this large boring wood block is...." | pos -35.0, 1.6, -10.1; bldg b0 deli_a03; look Prop 2.55 m | named: `loading_pallet_stack` |
-| 10 | "bus stop sign is for cars/buses so there is no parking ther...so it sohuld be closer to the road" | pos 19.8, 1.7, -2.6; look nothing within 60 m | filed, not investigated |
-| 11 | "traffic lights done change?" | pos 7.9, 1.7, 16.7; the intersection's signal heads | filed, not investigated |
-| 12 | "where are the traffic lights for this side of the road?" | approaching the same junction from the other side (near gs_empty_rowhome_h) | filed, not investigated |
-| 13 | "many of the rowhome doors dont have doorknobs?" | pos 15.6, 1.6, 24.4; bldg blocker_15 gs_empty_rowhome_j | filed, not investigated |
+| 1 | "still doensn't look irght to have 2 signs on top of each other like this and not centered... in real life this would be 1 sign" | pos -7.1, 1.6, 17.6; bldg b1 pharmacy_a01 | SHIPPED Zoo 1.123.0, Lot 0.129.0, Level Factory 0.241.0; proven, cold run 9391 |
+| 2 | "textures have visible seams and it doesn't look as continous as it could be" (lines marked on the frame) | pos -8.0, 1.6, -0.1; pharmacy_a01, GreyboxBase; look ext_col_0_N_open0_BREACHPANEL 10.49 m | cause measured (an interactive opening's own lightmap rect, 8 of 10 marks); casings Zoo 1.126.0, proven 9391; 2 marks over the bookshelf open |
+| 3 | "drop safe looks like a brown box, needs more retopology or multiple texture/colors to see it better imo" | pos 9.4, 1.6, -4.6; bldg b1 pharmacy_a01; look DropSafe 2.75 m | SHIPPED Zoo 1.125.0, Deli Counter 0.267.0; proven, cold run 9391 |
+| 4 | "non collision rod on the stair case that shouldn't be there" | pos 54.6, 2.2, 1.6; bldg office, GreyboxBase; look slab_col_2 13.07 m | SHIPPED Zoo 1.122.0; proven, cold run 9389 |
+| 5 | "screens should have the same effect as the tvs in the strip club that give them that little movement/\"shimmer\" to show \"life\"" | pos 47.0, 8.8, -7.3; bldg b2 office; a cubicle's monitor | SHIPPED Level Factory 0.239.0; proven, cold run 9388 |
+| 6 | "something about the doulbe stairs still needs some work to not look so odd...mainly the walling/railing doesn't loook natural yet" | pos 55.7, 5.2, -6.0; bldg office, GreyboxBase; look stair_guard_rail_4_col 8.37 m | the walker picked the compact U; step 1, rails as balustrades (Zoo 1.128.0, Deli Counter 0.268.0), in progress; step 2, the seam wall, open |
+| 7 | "this empty space goes against the doc i sent you about the value of urban land and how it would be filled in with things...careful how we solve this one....but it should be not the norm to have these wide empty spaces without talking about it" | pos 70.7, 1.7, 15.8 (cover_155) and 99.4, 1.6, -21.0 (Site) | open |
+| 8 | "garbage cans are usually up against walls inside buildings" | pos -51.6, 1.6, -2.6; deli_a03, GreyboxBase; look litter_bin_r2f2d413e_11 3.26 m | SHIPPED Deli Counter 0.266.0; proven, cold run 9387 |
+| 9 | "good collision, but not sure what this large boring wood block is...." | pos -35.0, 1.6, -10.1; bldg b0 deli_a03; look Prop 2.55 m | SHIPPED Deli Counter 0.267.0; proven, cold run 9391 |
+| 10 | "bus stop sign is for cars/buses so there is no parking ther...so it sohuld be closer to the road" | pos 19.8, 1.7, -2.6; look nothing within 60 m | SHIPPED Lot 0.127.0, proven 9387; no parking at the stop, Lot 0.131.0, unproven |
+| 11 | "traffic lights done change?" | pos 7.9, 1.7, 16.7; the intersection's signal heads | SHIPPED Level Factory 0.238.0; proven, cold run 9388 |
+| 12 | "where are the traffic lights for this side of the road?" | approaching the same junction from the other side (near gs_empty_rowhome_h) | SHIPPED Lot 0.128.0, Zoo 1.121.0; proven, cold run 9387 |
+| 13 | "many of the rowhome doors dont have doorknobs?" | pos 15.6, 1.6, 24.4; bldg blocker_15 gs_empty_rowhome_j | SHIPPED Zoo 1.124.0, proven 9391; its hardware in the railing's iron, Zoo 1.127.0, for the draws, unproven |
 
 ## 1. Two signs on one shop front
 
@@ -156,6 +156,13 @@ glass. What is left, each a change to what a player sees:
   against the merged wall's 0.18 m, two very different bakes meeting. It cannot remove the step on its own -- at
   x 0.30 the two disagree by 0.075 where the wall's own slope across 0.2 m is about 0.02 -- but it may narrow it.
 
+**THE MOTTLE, 2026-10-25: the plaster's own, not the bake's** (`docs/findings/bake_quality/`, "The wall's blotches";
+roadmap 224). Square on the wall, soft dark patches a metre or two across. Re-baked with twice the texels and with the
+denoiser off, the wall reads blotchier, not smoother (index 0.293 -> 0.338 and 0.329); with the bake switched off under
+the inspection light the same patches stand in the same places. They are Pixelcoat's concrete skin -- its grime and
+stains, world-projected, so continuous across every joint -- and at that contrast read as patches. Queued for the
+walker: the skin's stain scale or contrast is a look call.
+
 ## 3. The drop safe reads as a brown box
 
 `03_drop_safe.webp`: pharmacy_a01's `DropSafe`, a wood-brown cube with a faint dial, under its spot -- the same
@@ -277,6 +284,36 @@ are fought, so any fill is measured on fight space (the gunfight-first rule, `ga
 as well as on the remainder, and a large open space that stays should be a named, deliberate use (a lot, a yard, a
 park), never the leftover.
 
+**MEASURED 2026-10-24, cold run 9391's site** (`landuse/remainder_map.py`, which keeps the census's own grid --
+`tools/landuse_census.measure`, shares checked equal to the census row; maps `landuse/remainder_9391*.webp`, red the
+remainder). **First, the instrument was wrong:** the census paints `buildings` only, and a street's Empties are the
+spec's `blockers` -- 26 rowhomes along the south street here -- so their footprints read as remainder. Counted as built
+land: buildings 12.5 % -> 23.1 %, remainder 58.4 % -> 47.7 % (`remainder_9391_with_blockers.out.txt`). Every land-use
+figure since 2026-10-03 overstates the remainder on a level with an Empty row; the fix is Lot's (`site_landuse`).
+**What is left, 9,160 m2 in two pieces:** one of 7,910 m2 that reaches the plate's edge -- the strip north of the north
+road across the plate's width (no facing row there), the ground east and north of the office the walker's two frames
+look over, and the verges at the plate's west and east ends -- and one of 1,252 m2 inside the block, behind deli_a03
+and the pharmacy, between them and the north road (the back of the block).
+
+**The walker, 2026-10-24: "my caution is around its ok for levels to have open areas but it should be with intention and to support gameplay not just because we forgot to put something there".** So the rule the options are judged by: every open area a NAMED use with a gameplay reason the site records, and drawn as that use; ground with no reason is filled.
+
+**Options, to be talked through as the walker asked, none built:** (a) a facing row of Empties along the north road,
+as the urban type already stands on its far side (roadmap 241) -- streets read as streets, and the remainder falls
+most; (b) the back of the block as yards and an alley -- fenced back yards, a service lane, the dumpsters' pads --
+where a heist approach can still come in; (c) the east ground as one NAMED open use -- a parking lot, a vacant lot
+behind a fence with rubble and weeds, or a pocket park -- kept open because a fight wants it, and drawn as that use;
+(d) the plate-end verges as grass and sidewalk to the fence. Every one is measured twice: the remainder, and the
+fight space (`game-is-a-series-of-shooting-galleries`) -- Laser Tag's sightlines and cover on the same seed before and
+after.
+
+**A PROPOSAL, DRAWN, nothing placed (roadmap 306 step 1; `landuse/classify_remainder.py`, `roles_9391.webp`,
+`roles_9391.out.txt`).** Each remainder cell takes the first role whose test holds: fight space within 12 m of the
+mission's legs or the encounter's 23 markers and cover; rear yards and alley behind a building or Empty, within 25 m of
+its back face; street frontage with no row; verge within 8 m of the plate's edge; open. Of 9,143 m2: fight 864 (9 %),
+rear 2,164 (24 %), frontage 3,575 (39 %), verge 1,244 (14 %), open 1,297 (14 %) -- the open being mostly the ground
+east and north of the office the walker's frames look over. A first draft read the markers in a shape they do not have
+and called 94 m2 fight space; kept in the script's comment.
+
 ## 8. A garbage can mid-floor
 
 `08_litter_bin_mid_floor.webp`: deli_a03's `litter_bin_r2f2d413e_11` -- furnish's (its `_r<crc>_` name) -- stands
@@ -308,6 +345,11 @@ curbed-street offset; `docs/STREET_RULES.md`, "Bus stops"). On Lot's probe stree
 centre line to 5.76 m, the curb at 5.0. **Open, the second half of the walker's reason:** parking bays still run past
 the stop -- `site_streets.bays(road)` is computed from the road alone by five modules while the stop is placed later
 against what already stands, so keeping the stop's length free of parked cars is its own change.
+
+**Fixed in Lot 0.131.0** (`patches/patch_lot_bus_zone.py`): a stop's zone, 120 ft centred on its shelter (NACTO's
+midblock length for a 40 ft bus, `docs/STREET_RULES.md`), holds no bay -- no car, no meter, no paint. On cold run
+9391's themed site assembled both ways: 3 stops, 6 cars, 12 meters and 14 bay ticks in the zones -> none
+(`patches/lot_bus_zone/zone_check.out.txt`).
 
 ## 11. The traffic lights never change
 

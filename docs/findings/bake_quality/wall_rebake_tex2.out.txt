@@ -1,0 +1,28 @@
+[export] light bake: 154 model(s) and 0 primitive mesh(es) lightmapped, 9 kept dynamic, 1 spawned set dynamic; 207 steady rig(s) baked, 30 failing and 0 cycling left live; 215 room fill(s); 3029 users, 150.0 s in the editor
+{
+ "ok": true,
+ "reason": null,
+ "editor_s": 150.0,
+ "room_fills": 215,
+ "lightmap": {
+  "exr_bytes": 170282328,
+  "layer_w": 2048,
+  "layer_h": 2048,
+  "layers": 15,
+  "imported_bytes": null,
+  "unread": [
+   "the imported texture array predates bake.exr: the source's, not this bake's"
+  ]
+ },
+ "rebake": {
+  "spawned": [
+   "cover/prop_cruiser_delco_1997_01_w220_d554_h158.glb"
+  ],
+  "preset_was": "runtime/lux/presets/blue_hour.tres",
+  "fills": true,
+  "texel_scale": {
+   "set": 2.0,
+   "was": null
+  }
+ }
+}

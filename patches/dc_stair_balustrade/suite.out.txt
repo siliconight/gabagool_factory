@@ -1,0 +1,52 @@
+........................................................................ [  3%]
+.................................................................ss..... [  7%]
+.........s..........................................................s... [ 11%]
+...............................s.................s.....s................ [ 15%]
+.................................................s...................... [ 19%]
+...............................s.........s..............s...s........... [ 23%]
+..................................ss.................................... [ 27%]
+........................ss................s.........s................... [ 31%]
+........................................................................ [ 35%]
+........................................................................ [ 39%]
+................................................................s....... [ 43%]
+........................................................................ [ 47%]
+.s...................................................................... [ 51%]
+........................................................................ [ 55%]
+.s...................................................................... [ 59%]
+....F................................................................... [ 62%]
+........................................................................ [ 66%]
+........................................................................ [ 70%]
+........................................................................ [ 74%]
+........................................................................ [ 78%]
+........................................................................ [ 82%]
+........................s............................................... [ 86%]
+...................ss....s..s..............................sss.......... [ 90%]
+......................................s.........s....................... [ 94%]
+........................................................................ [ 98%]
+.............................                                            [100%]
+================================== FAILURES ===================================
+____________ test_a_ramps_rails_are_steel_where_the_palette_has_it ____________
+
+    def test_a_ramps_rails_are_steel_where_the_palette_has_it():
+        """A garage's guardrail is painted steel, not a stair's wood: the rails carry `material`, and the builder takes a
+        piece's own material before its wood-where-the-palette-has-it default."""
+        for stem, spec, i, rp in _cut_ramps():
+            mats = {m.id for m in spec.materials}
+            want = "metal_painted" if "metal_painted" in mats else ("metal" if "metal" in mats else None)
+            for g in stairwell.stair_guards(spec):
+                if g["stair"] == "ramp_%d" % i:
+                    assert g.get("material") == want, (stem, i, g.get("material"))
+        src = open(os.path.join(HERE, "deli_counter.py"), encoding="utf-8").read()
+>       assert 'mat = g.get("material") or ("wood" if "wood" in have else None)' in src
+E       assert 'mat = g.get("material") or ("wood" if "wood" in have else None)' in '"""\ndeli_counter.py  --  Deli Counter level kit (core library)\n====================================================...deli_counter] exported {path}")\n\n\n# backwards-compat alias\ndef export_glb(path: str):\n    export(path, "glb")\n\n'
+
+tests\test_ramp_cut.py:125: AssertionError
+============================== warnings summary ===============================
+tests/test_state_collision.py::test_an_unreadable_module_yields_nothing_rather_than_raising
+  C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\site-packages\pygltflib\__init__.py:1140: UserWarning: pygltflib does not support version strictly smaller than v2 or strictly larger than v2 of the binary gltf format, this file is version 1752394029, it may not import correctly. Please open an issue at https://gitlab.com/dodgyville/pygltflib/issues
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ===========================
+FAILED tests/test_ramp_cut.py::test_a_ramps_rails_are_steel_where_the_palette_has_it
+1 failed, 1797 passed, 31 skipped, 1 warning in 419.72s (0:06:59)
