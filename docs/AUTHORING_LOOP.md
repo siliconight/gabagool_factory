@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-13 shipped (Level Factory 0.243.0-0.255.0): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
+**Status: increments 1-16 shipped (Level Factory 0.243.0-0.257.0); the walker has run steps 1-5 in the editor (`docs/findings/walk_2026-10-26_panel/`): every step of the loop exists and has run for real through the worker AND through the launcher the panel uses (`factory.cmd`, `levels/launcher_trial`: generate, choose, walk, export, every checklist line ok). The launcher's Python is prepared (the walker's yes, 2026-10-26). Milestone acceptance (318) needs a person running the loop in a windowed editor.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -97,7 +97,10 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 11 | The Level Standard's designer brief on the form: Players as a real control, Fantasy / Scale / Density / Tone / Playstyle as intent | shipped, LF 0.253.0 (c49588c) | Suite 2,719 / 0 failed; all nine Godot tests pass, the real factory's form showing 20 controls. `tests/service/test_brief_fields.py` (4 of 5 fail on 0.252.0; the fifth guards a design saved before Players). Players is `crew_size`, read by Lot's crew spawns and Laser Tag's crew, so it rebuilds the layouts; the five intent fields change nothing built and stay out of the pipeline's brief. `patches/lf_brief/` |
 | 12 | A job's receipt records everything its cache digest hashes, so a re-run can be attributed | shipped, LF 0.254.0 (507450f) | Suite 2,725 / 0 failed. `tests/unit/test_receipt_names_every_digest_input.py` through the real scheduler (fails on 0.253.0). MEASURED with it: an unchanged rebuild runs 0 of 90 jobs; a time-of-day change runs 1, `lux_apply` (`docs/findings/rerun_receipts/`). `patches/lf_receipt/` |
 | 13 | Setup says what it downloads, licences included, before downloading, and holds every pin to its licence (the walker: MIT everywhere, download at setup) | shipped, LF 0.255.0 (b6a0b76) | Suite 2,734 / 0 failed; all ten Godot tests pass. `tests/unit/test_setup_licences.py` (all 8 fail on 0.254.0). REAL: `discover_installation` through `factory.cmd` returns the twelve packages and licences; this machine's `.venv` holds every recorded version and licence. `docs/THIRD_PARTY.md`, `patches/lf_licences/` |
-| 14 | The whole loop by a person in a windowed editor, unassisted (318) | waiting on the walker | -- |
+| 14 | The walker's first windowed run (318), 2026-10-26: Setup, New level, Generate, Use this layout, Walk; the walk then explored by hand | DONE IN PART: steps 1-5 by the walker in the editor; the walk handed over an unplayable preview | `docs/findings/walk_2026-10-26_panel/`: 7 panel defects (P1-P7) and 7 level findings (L1-L7). Interventions on the way: the walker ran Godot's import by hand to make the preview playable (L1). |
+| 15 | The panel defects from that run: progress against a fixed plan, whole numbers, Setup tooltips, walk stages and a moving bar, re-attaching after a restart, Open the last walk | shipped, LF 0.256.0 (05352ca) | Suite 2,736 / 0 failed; all twelve Godot tests pass. `patches/lf_panel_polish/` |
+| 16 | A walk whose preview did not finish importing fails, at the light bake's 1,800 s bound; project.godot in the editor's format | shipped, LF 0.257.0 (5369126) | Suite 2,743 / 0 failed; all twelve Godot tests pass. `patches/lf_import_gate/` |
+| 17 | The rest of 318: change Time of day, Save, Walk, reopen, Export -- by the walker, on 0.257.0 | waiting on the walker | -- |
 
 ## Blockers and open questions
 

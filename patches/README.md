@@ -154,7 +154,7 @@
 - `lf_handoff_join/` -- 4 file(s); [0.215.1] - HANDOFF.md's layers paragraph stands on its own
 - `lf_hardware_uvs/` -- 9 file(s); Dry-run patches/patch_lf_hardware_uvs.py on a fresh clone of Level Factory, twice, and compare it to the proven clone.
 - `lf_heights_by_cause/` -- 6 file(s); [0.204.0] - Heights by cause: the urban wall stands its lowest blocks across from the action and rises away from it
-- `lf_import_gate/` -- 11 file(s); Dry-run patches/patch_lf_import_gate.py on a fresh clone of Level Factory, twice, and compare it to the proven clone.
+- `lf_import_gate/` -- 24 file(s); Dry-run patches/patch_lf_import_gate.py on a fresh clone of Level Factory, twice, and compare it to the proven clone.
 - `lf_import_once/` -- 2 file(s); [0.186.0] - The export's first import pass imports the models as they ship, so nothing imports them again
 - `lf_import_pass_verified/` -- 2 file(s); [0.163.1] - The import pass checks its own work
 - `lf_keep_import_cache/` -- 4 file(s); [0.188.0] - The export keeps its import cache beside the package, for the walk copy
