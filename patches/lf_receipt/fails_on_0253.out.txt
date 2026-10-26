@@ -1,0 +1,7 @@
+test_receipt_names_every_digest_input.py on Level Factory 0.253.0: tests 1 failures 0 errors 1
+  tests.unit.test_receipt_names_every_digest_input error: collection failure
+With receipts.py present and the 0.253.0 scheduler (only the scheduler change withheld):
+  test_the_digest_can_be_recomputed_from_the_receipt_alone -- failure: KeyError: 'fingerprint'
+  test_a_cache_hit_keeps_one_receipt_and_says_nothing_moved -- pass
+  test_a_re_run_keeps_the_previous_receipt_and_names_what_moved -- failure: TypeError: 'NoneType' object is not subscriptable
+  test_receipts_written_before_they_were_whole_cannot_answer -- pass

@@ -46,10 +46,12 @@ only for Patina.
 ## Decided by the walker, 2026-10-26
 
 - **Bootstrap: download at setup.** Releases keep carrying no third-party package. A user's own setup fetches the
-  pinned packages above from PyPI, once, and needs the network for that one step. Two guards follow, both owed in
-  Level Factory:
-  - setup shows the user this list, licences included, before it downloads;
-  - a pin is held to the licence recorded for it, so a bump that changes a licence fails rather than ships.
+  pinned packages above from PyPI, once, and needs the network for that one step. Two guards follow, both shipped
+  in Level Factory 0.255.0 (b6a0b76):
+  - setup shows the user this list, licences included, before it downloads: `setup --venv` prints it, and the
+    Setup tab shows it beside Prepare environment;
+  - a pin is held to the licence recorded for it (`interpreter.LICENSES`): `make_venv` refuses an environment whose
+    package is another version or declares another licence. Checked on this machine's `.venv`: none differ.
 - **Every factory repo is MIT.** Lot, Pixelcoat and Zoo already were. Level Factory (was "Proprietary", in LICENSE
   and `pyproject.toml`), Patina (was a placeholder), Deli Counter, Laser Tag, Lux, Dispatch, Pipeline and the factory
   root (none) carry MIT from 2026-10-26: `Copyright (c) 2026 Siliconight / GabagoolStudios`.

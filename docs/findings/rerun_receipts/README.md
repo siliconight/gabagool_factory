@@ -41,7 +41,29 @@ built the cached output was gone. A re-run with identical recorded inputs was un
 Level Factory 0.254.0 writes the whole fingerprint into the receipt and keeps the previous receipt when the digest
 moves; `packages/jobs/receipts.differences(job_dir)` names what moved.
 
-## Not yet known (each is a hypothesis, not a finding)
+## Measured on Level Factory 0.254.0 (`probe_attribute.py`, output in `probe_attribute.out.txt`)
+
+All three runs went through `factory.cmd`, on the `.venv` interpreter.
+
+| Run | Jobs that ran | What the receipts say |
+|---|---|---|
+| art build, nothing changed | 43 of 90 | "no previous receipt": the receipts before were written by 0.253.0, without the whole fingerprint, so they cannot answer. Every job that ran belongs to a tool repo that had just been committed to (the MIT LICENSE commits, 2026-10-26: deli_counter `deli_generate`, patina `patina_*`, lasertag `laser_tag_evaluate`, lux `lux_*`, dispatch `dispatch_handoff`, and `presentation_compose` downstream). None of Lot's jobs ran; Lot was not committed to. Consistent with `repository_commit` moving; not proven by a receipt pair. |
+| art build again, nothing changed | **0 of 90** | the cache holds on one interpreter |
+| time of day changed (midnight -> evening, `update_design` through the worker), then `walk_level` | **1 of 90: `lux_apply`** | `/input_hashes/inputs_digest` and `/normalized_arguments` moved, and nothing else did |
+
+**So a lighting change rebuilds the lighting and nothing else.** That is what roadmap 316 asks of the time-of-day
+control, and increment 6's "a lighting change re-assembles every layout" is retracted (above). Nothing here needs a
+fix to the pipeline's cache.
+
+## Not attributable, and why
+
+The panel_trial walks of 06:48 and 07:10 re-ran `lot_assemble` while `deli_generate` cache-hit, on one interpreter.
+Their receipts were overwritten before 0.254.0 kept a previous one, so what moved cannot now be read. Level Factory
+was being patched between those runs (0.246.0 to 0.248.0 in that hour), and Level Factory writes the site spec and
+the Lot adapter's command line, so its own changes are a candidate. That is not a finding. From 0.254.0 a re-run
+like that leaves `fingerprint.previous.json` beside the job, and `receipts.differences` names what moved.
+
+## Hypotheses recorded before the measurement (kept, superseded by the table above)
 
 - The probe changed interpreter (3.14 -> 3.13): the executable versions are in the digest, so that may account for
   the probe's 81 re-runs. Unproven until a receipt pair says so.

@@ -1,0 +1,9 @@
+test_setup_licences.py on Level Factory 0.254.0: tests 8 failures 8 errors 0
+  test_every_download_has_a_recorded_licence_and_is_said_first failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'LICENSES'
+  test_an_environment_as_recorded_is_accepted failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'LICENSES'
+  test_a_package_not_as_recorded_refuses_the_environment[override0-wrapt 2.5.1 declares licence 'BSD-3-Clause', not the recorded] failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'LICENSES'
+  test_a_package_not_as_recorded_refuses_the_environment[override1-pillow is 12.4.0, not the pinned 12.3.0] failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'LICENSES'
+  test_a_package_not_as_recorded_refuses_the_environment[override2-pygltflib is not installed] failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'LICENSES'
+  test_an_interpreter_that_does_not_answer_is_a_problem_not_a_pass failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'licence_problems'
+  test_the_question_reads_real_metadata failure: AttributeError: module 'packages.tools.interpreter' has no attribute '_ASK_LICENCES'
+  test_the_factorys_own_environment_is_as_recorded failure: AttributeError: module 'packages.tools.interpreter' has no attribute 'licence_problems'

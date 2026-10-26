@@ -1,4 +1,5 @@
 - [No-AI authoring direction](no-ai-authoring-direction.md) — START HERE FIRST: docs/AUTHORING_LOOP.md; Godot panel + services; Restaurant Row loop
+- [MIT everywhere, download at setup](licences-mit-and-download-at-setup.md) — walker 2026-10-26; new deps need LICENSES + THIRD_PARTY.md
 - [Git TLS is intercepted by AVG](git-tls-intercepted-by-avg.md) — fixed with http.sslBackend=schannel
 - [Gameplay layer lives outside Level Factory](gameplay-layer-lives-outside-level-factory.md) — spawns are provisional; level quality keys off geometry
 - [The game is a series of shooting galleries](game-is-a-series-of-shooting-galleries.md) — free navigation + fun gunfights FIRST, then lived-in look
