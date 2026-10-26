@@ -993,12 +993,12 @@ work of adopting this.
 | 312 | **NARROWED** | Every first-release control is truthful | 2026-10-26 -- Level Factory 0.245.0 (07a315f): the catalog for Restaurant Row's first-rele |
 | 313 | **NARROWED** | A level is a saved design | 2026-10-26 -- Level Factory 0.245.0 (07a315f): `gabagool.design.v1` saved by the factory a |
 | 314 | **NARROWED** | Generate and choose a layout from the panel | 2026-10-26 -- Level Factory 0.246.0 (5110786): `generate_layouts` and `choose_layout`, the |
-| 315 | **OPEN** | Walk the chosen layout | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 315 | **NARROWED** | Walk the chosen layout | 2026-10-26 -- Level Factory 0.247.0 (6942d67): `walk_level` and Walk level on the Level ta |
 | 316 | **OPEN** | Change a supported setting and see it | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 317 | **OPEN** | Export a snapshot | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 318 | **OPEN** | Milestone 1 acceptance: the whole loop, unassisted | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 
-**318 items: 44 open, 154 closed, 3 retracted, 101 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**318 items: 43 open, 154 closed, 3 retracted, 102 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20782,7 +20782,7 @@ package stops carrying an asset nothing references, which `export_closure` could
 
 **314. Generate and choose a layout from the panel.** Generate runs the existing plan and graybox candidates asynchronously, reporting progress events; the panel shows each candidate with its top-down image, buildings, and a status of valid / needs attention / failed / not checked, and says what the ranking weighed. Choosing one records the selection without a false human sign-off. An all-out result is shown as unsuccessful, never as a recommendation. ACCEPTANCE: three Restaurant Row candidates generated and one chosen without a terminal; images and metrics come from the same build (missing images say missing); cancel stops the owned processes and the panel says what survived. Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.247.0 (6942d67): `walk_level` and Walk level on the Level tab; a real walk of the trial design's chosen layout (8 min 42 s, light bake, preview self-check passed) named by revision and layout, recorded beside the design. The workspace's walk export is never the accepted export (317 copies a snapshot out). LEFT: a person opening it from the panel in a windowed editor; walking twice reusing the build; the label moving after a change (316).*
 
 **315. Walk the chosen layout.** Walk Level builds the presentation for the chosen candidate and opens the first-person preview, labelled with the design revision and candidate it shows. The preview no longer rewrites an accepted export (`cmd_walk` re-exports today). ACCEPTANCE: walking twice reuses the build; walking after a change shows the new revision; an accepted export is byte-identical before and after a walk. Owner: Level Factory.
 
