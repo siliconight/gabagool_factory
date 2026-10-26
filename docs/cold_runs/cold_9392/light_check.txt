@@ -1,0 +1,44 @@
+light check: C:\Projects\gabagool_studios\gabagool_factory\_runs\walk_export_restaurant_row_001
+own preset runtime/lux/presets/blue_hour.tres; 23 rooms; dens of sin: none; no room list (not judged): none
+openings: 6 station(s)
+
+SLOT own: blue_hour (as shipped), not day; the street's median 22.7
+  FAIL 3  PASS 33  REPORT 1
+  station                                        region   kind     mean  p50  near%         rule
+  deli_a03__apartment_hideout                    interior MOODY    21.4   20   0.07  PASS   p50 20 at or over 5
+  deli_a03__basement_corridor                    interior MOODY    44.5   37   0.11  PASS   p50 37 at or over 5
+  deli_a03__basement_vault                       interior MOODY     6.1    3   0.11  FAIL   p50 3 under the MOODY floor 5
+  deli_a03__cold_storage                         interior MOODY    14.8   10   0.00  PASS   p50 10 at or over 5
+  deli_a03__customer_floor                       interior ROW      53.6   42   0.39  PASS   p50 42 at or over 10
+  deli_a03__deli_counter                         interior MOODY    43.6   36   0.07  PASS   p50 36 at or over 5
+  deli_a03__kitchen                              interior ROW     106.6  103   0.31  PASS   p50 103 at or over 10
+  deli_a03__manager_office                       interior ROW      66.9   62   0.46  PASS   p50 62 at or over 10
+  deli_a03__market_aisles                        interior ROW      85.7   72   0.11  PASS   p50 72 at or over 10
+  deli_a03__server_room                          interior ROW      68.4   63   0.27  PASS   p50 63 at or over 10
+  deli_a03__stairwell                            interior ROW      83.6   81   0.36  PASS   p50 81 at or over 10
+  deli_a03__stockroom_loading                    interior ROW      51.3   41   0.31  PASS   p50 41 at or over 10
+  deli_a03__upper_hall                           interior ROW      93.9   90   0.46  PASS   p50 90 at or over 10
+  deli_a03__utility_room                         interior MOODY    35.7   28   0.10  PASS   p50 28 at or over 5
+  objective                                      interior MOODY    10.7    8   0.00  PASS   p50 8 at or over 5
+  office__exec_anteroom                          interior ROW      84.3   78   0.35  PASS   p50 78 at or over 10
+  office__exec_lobby                             interior ROW      54.9   56   0.20  PASS   p50 56 at or over 10
+  office__exec_suite                             interior MOODY    15.9   12   0.01  PASS   p50 12 at or over 5
+  office__floor_1                                interior ROW      38.8   41   0.07  PASS   p50 41 at or over 10
+  office__ground_bullpen                         interior ROW      33.2   33   0.15  PASS   p50 33 at or over 10
+  office__lobby                                  interior ROW      18.3    9   0.19  FAIL   p50 9 under the ROW floor 10
+  pharmacy_a01__retail_floor                     interior ROW      18.6    2   0.08  FAIL   p50 2 under the ROW floor 10
+  pharmacy_a01__rx_counter                       interior ROW     121.1  124   0.27  PASS   p50 124 at or over 10
+  pharmacy_a01__rx_vault                         interior MOODY    22.1   20   0.01  PASS   p50 20 at or over 5
+  deli_a03__open_hole_2                          opening  hole     24.5    9   0.00  PASS   through its rim p95 158 at or over 20
+  deli_a03__open_ladder_3                        opening  ladder    2.8    0   0.00  PASS   through its rim p95 129 at or over 20
+  deli_a03__open_ladder_4                        opening  ladder   51.8   44   0.00  PASS   through its rim p95 161 at or over 20
+  deli_a03__open_stair_0                         opening  stair    38.3   30   0.00  PASS   through its rim p95 36 at or over 20
+  deli_a03__open_stair_1                         opening  stair    98.2  109   0.00  PASS   through its rim p95 163 at or over 20
+  office__open_stair_0                           opening  stair    46.7   52   0.00  PASS   through its rim p95 59 at or over 20
+  extraction                                     street   -        17.7    2   0.02  PASS   p50 2, near-clip 0.0%
+  spawn                                          street   -        27.7    3   0.01  PASS   p50 3, near-clip 0.0%
+  elev_E                                         facade   -        36.6   28   1.34  PASS   p95 99
+  elev_N                                         facade   -        62.7   59   0.67  PASS   p95 104
+  elev_S                                         facade   -        48.7   40   0.21  PASS   p95 103
+  elev_W                                         facade   -        51.2   35   0.01  PASS   p95 101
+  overview                                       context  -        71.3   64   0.00  REPORT context

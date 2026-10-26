@@ -1,0 +1,67 @@
+$ C:/Godot/4.7/Godot_v4.7-stable_win64_console.exe --path C:\Projects\gabagool_studios\gabagool_factory\_runs\perf_inner\price307_ctrl --script res://perf_stations.gd -- --out res://perf_stations.json
+[perf] removed a walk player so its camera stops winning
+[perf] longest sightline: 154.7 m from attacker_spawn_10 at yaw 270  (5 ray(s) left the map)
+[perf] geometry: 3102 MeshInstance3D, 30 MultiMeshInstance3D, 23574 nodes
+[perf] warmed 14 station(s); worst frame while warming 31.7 ms
+[perf] 14 station(s) x 4 heading(s) x 2 pass(es), 60 frames each after 30 warmup
+  attacker_spawn_4       worst yaw  90  p95   9.59 ms  draws  1597  prim   4801284  gpu  3.39  rcpu  6.86
+  camera_socket_0        worst yaw  90  p95   8.77 ms  draws  1622  prim   3177618  gpu  3.03  rcpu  7.89
+  defender_spawn_8       worst yaw  90  p95   9.35 ms  draws  1725  prim   4232938  gpu  3.50  rcpu  8.15
+  extraction_15          worst yaw 270  p95   9.99 ms  draws  1862  prim   4317190  gpu  3.58  rcpu  8.55
+  objective_2            worst yaw 270  p95   4.15 ms  draws   671  prim   2363438  gpu  1.71  rcpu  3.36
+  patrol_point_12        worst yaw 270  p95   3.39 ms  draws   543  prim   2331692  gpu  1.55  rcpu  2.60
+  player_start_19        worst yaw  90  p95   7.54 ms  draws  1374  prim   3124908  gpu  2.04  rcpu  6.35
+  attacker_spawn_5       worst yaw  90  p95  10.40 ms  draws  2004  prim   4888924  gpu  4.54  rcpu  9.14
+  camera_socket_1        worst yaw 270  p95   5.05 ms  draws   899  prim   1828042  gpu  1.26  rcpu  4.07
+  defender_spawn_17      worst yaw 270  p95   7.08 ms  draws  1297  prim   4160408  gpu  2.33  rcpu  5.79
+  extraction_16          worst yaw 270  p95   9.69 ms  draws  1073  prim   3004244  gpu  2.22  rcpu  4.88
+  objective_3            worst yaw 270  p95   4.20 ms  draws   725  prim   2895992  gpu  1.78  rcpu  3.25
+  highest_vantage        worst yaw  90  p95  10.89 ms  draws  1725  prim   4232922  gpu  3.42  rcpu  8.11
+  longest_sightline      worst yaw 270  p95   9.05 ms  draws  1724  prim   3800490  gpu  3.25  rcpu  7.76
+[perf] lights per object: cap 8; by reach 208 of 3102 mesh(es) over it, worst 237 (LuxHorizonGlow); paired 7 over it, worst 237 (LuxHorizonGlow)
+[perf] wrote C:/Projects/gabagool_studios/gabagool_factory/_runs/perf_inner/price307_ctrl/perf_stations.json
+
+  station                     yaw   p95 ms    worst   gpu ms    rcpu   draws primitives
+  highest_vantage              90    10.89    12.55     3.42    8.11    1725    4232922  
+  attacker_spawn_5             90    10.40    10.54     4.54    9.14    2004    4888924  DRAWS
+  extraction_15               270     9.99    10.38     3.58    8.55    1862    4317190  
+  extraction_16               270     9.69    13.36     2.22    4.88    1073    3004244  
+  attacker_spawn_4             90     9.59    11.23     3.39    6.86    1597    4801284  
+  defender_spawn_8             90     9.35     9.57     3.50    8.15    1725    4232938  
+  longest_sightline           270     9.05     9.39     3.25    7.76    1724    3800490  
+  camera_socket_0              90     8.77     9.05     3.03    7.89    1622    3177618  
+  player_start_19              90     7.54     8.02     2.04    6.35    1374    3124908  
+  defender_spawn_17           270     7.08     7.68     2.33    5.79    1297    4160408  
+  camera_socket_1             270     5.05     5.29     1.26    4.07     899    1828042  
+  objective_3                 270     4.20     4.28     1.78    3.25     725    2895992  
+  objective_2                 270     4.15     4.60     1.71    3.36     671    2363438  
+  patrol_point_12             270     3.39     3.82     1.55    2.60     543    2331692  
+
+  passes: 2 per heading, the lower p95 kept; 18 of 53 heading(s) differed by more than 1.0 ms p95 (largest 8.25 ms); 1 drew a different count
+  memory after the warm-up: textures 77.6 MiB, buffers 77.5 MiB, video 155.2 MiB
+
+  lights per object, by reach: cap 8, 208 of 3102 mesh(es) over it, worst 237 (LuxHorizonGlow); 10534 light-mesh pair(s)
+    237 lights  /root/_walk/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     99 lights  /root/_walk/Mission/Bake/Site/b0/MergedR_35
+     77 lights  /root/_walk/Mission/Bake/Site/site_marks_090_090_088_c500_499
+     70 lights  /root/_walk/Mission/Bake/Site/b2/MergedR_184
+     67 lights  /root/_walk/Mission/Bake/Site/site_marks_090_090_088_c499_499
+    (list cut at the probe's limit; `over_cap` is the full count)
+  lights per object, paired: 7 of 3102 mesh(es) over the cap, worst 237 (LuxHorizonGlow); 1932 light-mesh pair(s); 3029 lightmap user(s), 207 of 237 light(s) baked
+    237 lights  (237 by reach)  /root/_walk/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     46 lights  (46 by reach)  /root/_walk/Mission/Bake/Site/site_wires_c497_499
+     11 lights  (67 by reach)  /root/_walk/Mission/Bake/Site/site_marks_090_090_088_c499_499
+     11 lights  (63 by reach)  /root/_walk/Mission/Bake/Site/site_marks_090_090_088_c499_500
+     11 lights  (77 by reach)  /root/_walk/Mission/Bake/Site/site_marks_090_090_088_c500_499
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\docs\findings\sky_life_307\price_ctrl.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: highest_vantage at yaw 90 -- 10.89 ms p95, 1725 draws
+
+PERF_STATION_OVER_BUDGET: 1 of 14 station(s)
+  attacker_spawn_5         DRAWS (10.40 ms p95, 2004 draws)
