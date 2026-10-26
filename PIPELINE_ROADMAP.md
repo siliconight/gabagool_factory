@@ -992,13 +992,13 @@ work of adopting this.
 | 311 | **NARROWED** | Graphical setup check | 2026-10-26 -- Level Factory 0.243.0 (e698a7e): the authoring project and dock; gdcheck cle |
 | 312 | **NARROWED** | Every first-release control is truthful | 2026-10-26 -- Level Factory 0.245.0 (07a315f): the catalog for Restaurant Row's first-rele |
 | 313 | **NARROWED** | A level is a saved design | 2026-10-26 -- Level Factory 0.245.0 (07a315f): `gabagool.design.v1` saved by the factory a |
-| 314 | **OPEN** | Generate and choose a layout from the panel | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
+| 314 | **NARROWED** | Generate and choose a layout from the panel | 2026-10-26 -- Level Factory 0.246.0 (5110786): `generate_layouts` and `choose_layout`, the |
 | 315 | **OPEN** | Walk the chosen layout | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 316 | **OPEN** | Change a supported setting and see it | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 317 | **OPEN** | Export a snapshot | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 | 318 | **OPEN** | Milestone 1 acceptance: the whole loop, unassisted | 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not star |
 
-**318 items: 45 open, 154 closed, 3 retracted, 100 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
+**318 items: 44 open, 154 closed, 3 retracted, 101 narrowed, 7 superseded, 9 analysis.** 0 rest on a sentence rather than a status line -- run `roadmap_status.py --unclassified` for the list.
 
 A status is the block directly above the item, wrapped or not: `*STATUS: CLOSED 2026-08-12 -- what proves it*`. Vocabulary: `OPEN`, `CLOSED`, `RETRACTED`, `NARROWED`, `SUPERSEDED`, `ANALYSIS`.
 
@@ -20778,7 +20778,7 @@ package stops carrying an asset nothing references, which `export_closure` could
 
 **313. A level is a saved design.** Creating a level from the Restaurant Row template writes a versioned design document in the authoring project (stable id, revision number, the supported choices, the notes as intent), not a hand-edited brief. Opening the project restores it. The factory workspace for the design lives beside it and is not imported by Godot. ACCEPTANCE: create, save, close, reopen restores every choice; an older design version migrates or is refused with a reason; unknown fields are reported, not dropped; the brief the pipeline receives is derived from the design and recorded with the build. Owner: Level Factory.
 
-*STATUS: OPEN 2026-10-26 -- milestone 1 of the no-AI authoring loop (`docs/AUTHORING_LOOP.md`), not started.*
+*STATUS: NARROWED 2026-10-26 -- Level Factory 0.246.0 (5110786): `generate_layouts` and `choose_layout`, the Level tab's layouts with state, why and an honest recommendation, Stop through the run's cancel file. A real Restaurant Row design generated through the worker (three valid layouts, 1 min 40 s) and its layout chosen, the gate recorded as a choice, not a review. LEFT: each layout's top-down image from the same build; a person running it in a windowed editor; Stop against a real build.*
 
 **314. Generate and choose a layout from the panel.** Generate runs the existing plan and graybox candidates asynchronously, reporting progress events; the panel shows each candidate with its top-down image, buildings, and a status of valid / needs attention / failed / not checked, and says what the ranking weighed. Choosing one records the selection without a false human sign-off. An all-out result is shown as unsuccessful, never as a recommendation. ACCEPTANCE: three Restaurant Row candidates generated and one chosen without a terminal; images and metrics come from the same build (missing images say missing); cancel stops the owned processes and the panel says what survived. Owner: Level Factory.
 

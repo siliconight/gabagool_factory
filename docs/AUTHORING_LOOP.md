@@ -12,7 +12,7 @@ A new user configures the tools, creates a level, generates and selects a candid
 setting, saves and reopens the project, and exports. They do this from a Godot authoring project with the Factory
 panel, with no terminal, no JSON editing and no AI.
 
-**Status: increments 1-3 shipped (Level Factory 0.243.0-0.245.0); increment 4 (generate and choose a layout from the panel) next.**
+**Status: increments 1-4 shipped (Level Factory 0.243.0-0.246.0); increment 5 (walk the chosen layout) next.**
 
 ## Assessment against the plan (2026-10-26)
 
@@ -79,7 +79,8 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
 | 1 | Open the authoring project, point the panel at the factory, and see whether Blender, Godot and the tools are ready, with each problem's fix | shipped, LF 0.243.0 (e698a7e) | Suite 2,650 / 0 failed. `tests/service/test_worker.py` 13 cases (fail on 0.242.0). Headless Godot: `apps/godot/tests/test_service_client.gd` 6/6, the client running real operations; `test_factory_dock.gd` 6/6, the dock through the installed `factory.cmd`. Editor load headless: no errors. `patches/lf_service_panel/` |
 | 2 | Prepare the tools' Python from the panel when it is missing what they need | shipped, LF 0.244.0 (b504d35); live download NOT run | Suite 2,655 / 0 failed. `tests/service/test_prepare_environment.py` 4 cases with a fake `make_venv` (fail on 0.243.0); dock test 8/8, the button shown only when the tools' Python blocks. `patches/lf_prepare_env/` |
 | 3 | Start a new level from the Restaurant Row template and see which choices drive generation and which only record intent; save and reopen it | shipped, LF 0.245.0 (07a315f) | Suite 2,668 / 0 failed. `tests/service/test_design.py` (fail on 0.244.0): options equal their owners', each time a distinct Lux preset, rain's substitution, streets and layout count reaching the pipeline, the first-level brief reproduced at the template's defaults, create-save-reopen, unknown fields kept. Godot `test_level_panel.gd` 9/9 through the installed launcher. `patches/lf_design/` |
-| 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | next | -- |
+| 4 | Generate layouts for the level and choose one, from the panel, with progress and a way to stop | shipped, LF 0.246.0 (5110786) | Suite 2,676 / 0 failed. `tests/service/test_layouts.py` (fail on 0.245.0). Godot `test_level_layouts.gd` 11/11. REAL: design `levels/panel_trial` generated through the worker in 1 min 40 s (system Python), three valid layouts (9003 PASS 90, 9104 PASS_WITH_TUNING 89, 9205 PASS 100, recommended), 95 progress events; seed 9205 chosen through the installed worker, gate recorded `by: panel`, "a choice, not a review". `patches/lf_layouts/` |
+| 5 | Walk the chosen layout from the panel, labelled with the revision and layout it shows | next | -- |
 
 ## Blockers and open questions
 
@@ -90,13 +91,23 @@ tools are ahead (Level Factory 0.242.0, Deli Counter 0.270.0, Zoo 1.130.0, Lot 0
   yes**: it downloads Pillow, pygltflib and jsonschema into `<factory>/.venv` and records that Python in
   `factory.local.json`, so workspaces made afterwards run the tools under it rather than the system Python 3.14 the
   cold runs use today.
+- **Through the launcher, generation would run the tools under Blender's Python**, which lacks their packages: the
+  real build above ran under the system Python. Same decision as the environment above.
+- **Unverified in increment 4:** a person pressing Generate in a windowed editor; Stop against a real build (the
+  cancel path is tested with a fake leg and the client's cancel file, not a killed Blender).
 - **Unverified in increment 1:** the panel seen in a windowed editor by a person; Browse's choice surviving a
   reopen (editor settings); Find Blender / Find Godot through the panel (`configure_installation` is tested in
   Python, not through the dock).
 
 ## Next action
 
-Increment 4 (roadmap 314): an operation `generate_layouts {path}` that derives the brief from the design, makes
+Increment 5 (roadmap 315): an operation `walk_level {path}` -- record the brief and shell-lock gates as the
+panel's automatic steps (labelled so, not a review), run the art and gameplay legs for the chosen layout, then build
+the walk preview and launch it, the result naming the design revision and layout. Read `cmd_walk`,
+`packages/preview/walk_preview.py` and `cmd_export` first; a preview must never overwrite an accepted export (317's
+snapshot goes to its own folder).
+
+Increment 4, as planned (roadmap 314): an operation `generate_layouts {path}` that derives the brief from the design, makes
 the design's workspace (`init_workspace` with discovered tools), imports the batch, plans and runs the graybox
 candidates with progress events and a stop, and returns each candidate's status and evidence; the Level tab's
 Generate and Choose. Read `apps/cli/commands/__init__.py` `cmd_make` and `cmd_batch_create`, `packages/jobs/runner.py`
