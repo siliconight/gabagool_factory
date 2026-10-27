@@ -22,7 +22,8 @@ LF = FACTORY / "deli_counter"
 SCRATCH = pathlib.Path(r"C:\Users\Brannen\AppData\Local\Temp\claude\C--Projects-gabagool-studios-gabagool-factory"
                        r"\27f14f8b-7ce5-44c0-a704-178a824035d7\scratchpad")
 CLONE = FACTORY / "_scratch" / "dc_supermarket"
-EDITED = ["level_design.py", "prop_species.py", "tests/test_furnish.py"]
+EDITED = ["level_design.py", "prop_species.py", "tests/test_furnish.py", "tests/test_card_shop.py",
+          "tests/test_store_atms.py"]
 REPLACED = sorted(subprocess.run(["git", "-C", str(CLONE), "diff", "--name-only", "--", "specs"], capture_output=True,
                                  text=True, check=True).stdout.split())
 NEW_FILES = ["migrations/migrate_supermarket_cooler.py", "tests/test_supermarket_dress.py"]
