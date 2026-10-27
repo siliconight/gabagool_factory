@@ -40,6 +40,30 @@ All probes ran on the walker's walk copy; the station is (3.5, 1.6, 13.0) lookin
 - **Lightmap resolution.** Texel scale 2 changes nothing.
 - **A metal finish.** `material_probe.out.txt`: metallic 0.000.
 
+## The bake, read further (2026-10-27)
+
+- **It is a lightmap user.** `lightmap_users_probe.gd` (`lightmap_users.out.txt`): `MergedR_150` is user 1,769 of the
+  LightmapGI's 2,807, gi_mode static.
+- **Its end face's UV2 is its own.** `uv2_overlap_probe.gd` (`uv2_overlap.out.txt`):
+  - the face's chart is about 13 x 9 texels of the mesh's 270 x 266;
+  - no other triangle of the mesh overlaps it.
+
+  So the bake computed that face dark; it did not borrow a hidden face's texels.
+- **It receives the room's fill and almost no lamp.** Re-baked with `bake_room_fill` 0.1, four times Blue Hour's
+  0.025:
+  - the frame's mean doubled, 39.8 -> 79.0 (p50 104);
+  - the block rose only 9 -> 25.
+
+  The fill reaches it and the lamps barely do.
+- **The lead, not measured.** The lamps are downward cones whose RANGE is drop + 0.75 m (Lux's
+  `lux_light_loader.gd`, written against realtime per-object light claims). Under this store's 4.1 m ceiling that
+  floors a pool about 2.6 m across, and the face looks toward the storefront. The only row on its side (Godot
+  z 12.8) is about 4.0 m from it, against a 4.85 m range, in the attenuation's tail.
+
+  Every steady fluorescent here is BAKED, so the range the realtime rule protects is not what the bake needs. A
+  bake-only range, or a broader emitter, would light vertical faces the way a ceiling of troffers does. That is a
+  Lux change to every interior, to be priced, and the walker's to see.
+
 ## Open
 
 Two different absences give the same black, and neither is measured:
@@ -49,5 +73,5 @@ Two different absences give the same black, and neither is measured:
 - **Baked**: the lightmapper should see every static lamp. That the end face bakes black needs its UV2 chart and its
   texels read off `bake.exr`, which no probe here does yet.
 
-Whatever the cause, it is downstream of Zoo, which builds the faces right, and of the material. The next probe reads
-the face's lightmap texels.
+Whatever the cause, it is downstream of Zoo, which builds the faces right, and of the material. Superseded by the
+section above: the bake reached the face with its fill and not its lamps.
