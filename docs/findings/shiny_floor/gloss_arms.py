@@ -1,7 +1,10 @@
 """Does a polished floor read as the comps' shiny floor, before any generator is changed? Copies of the walked preview,
 one change each through an autoload, shot at the walker's supermarket station.
 
-    python docs/findings/shiny_floor/gloss_arms.py
+    python docs/findings/shiny_floor/gloss_arms.py [<walk copy> <tag>]
+
+With no arguments it shoots the walker's walk copy and writes `gloss_arms.out.json`; given a walk copy and a tag it
+shoots that one and writes `gloss_arms_<tag>.out.json`.
 
 The walker, 2026-10-26: "shiny floor, bright lights, isles, glowing freezer section, stacked high"
 (docs/reference/GROCERY_STORE_COMPS.md: pale VCT polished until it mirrors each fluorescent run as a streak).
@@ -27,7 +30,10 @@ import sys
 HERE = pathlib.Path(__file__).resolve().parent
 F = HERE.parents[2]
 SRC = F / "levels" / "restaurant_row" / "workspace" / ".level_factory" / "preview" / "restaurant_row_001_walk"
-WORK = F / "_scratch" / "shiny_floor"
+TAG = ""
+if len(sys.argv) == 3:
+    SRC, TAG = pathlib.Path(sys.argv[1]), "_" + sys.argv[2]
+WORK = F / "_scratch" / ("shiny_floor" + TAG)
 STATIONS = ["walker_sales:24.4,1.6,-6.8,0.0,1.2,-6.8", "sales_low:20.0,1.0,-12.0,0.0,0.2,-12.0"]
 ARMS = {"noop": "", "box": "box", "rough12": "rough", "rough12_box": "rough box"}
 
@@ -84,4 +90,4 @@ for arm, what in ARMS.items():
     results[arm] = shoot(dest, WORK / ("shots_" + arm))
     print(arm, results[arm], flush=True)
     shutil.rmtree(dest, ignore_errors=True)
-(HERE / "gloss_arms.out.json").write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")
+(HERE / ("gloss_arms%s.out.json" % TAG)).write_text(json.dumps(results, indent=1) + "\n", encoding="utf-8")

@@ -1,0 +1,1688 @@
+nav-gate: using C:\Godot\4.7\Godot_v4.7-stable_win64.exe (DC_GODOT (explicit, unprobed))
+
+== 07_police_station.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 775
+  stair 07_police_station_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== airport_terminal_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 446
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== airport_terminal_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 825
+  stair at02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair at02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== airport_terminal_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 750
+  stair at03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== apartment_walkup_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 613
+  stair aw01_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair aw01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.5m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.45m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== apartment_walkup_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 419
+  stair aw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.7m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.74m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== apartment_walkup_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 376
+  stair aw03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== arena_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 925
+  stair ar01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ar01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== arena_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 509
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== arena_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 795
+  stair ar03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== auto_shop_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 379
+  stair gs_auto_shop_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== auto_shop_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 425
+  stair night_auto_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.5m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.48m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== bank.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 270
+  stair bank_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== bank_branch_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 744
+  stair a02_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair a02_stair_e: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== bank_branch_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1063
+  stair a03_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_svc: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 3/3
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== bank_branch_a04.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1039
+  stair a03_stair_bw: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_be: ok (path lower<->upper (undirected polygon graph))
+  stair a03_stair_main: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 3/3
+  markers: 2/2 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 1.58m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== bank_job.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 745
+  stair bank_job_stair_0: ok (path lower<->upper (undirected polygon graph))
+  stair bank_job_stair_1: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== bank_tower_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 611
+  stair bt01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair bt01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== bank_tower_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 606
+  stair bt02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== bank_tower_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 412
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== brewery_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 671
+  stair br01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.7m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.67m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== brewery_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 547
+  stair br02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair br02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== brewery_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 451
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.61m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== card_shop_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 483
+  stair card_shop_a01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 5/5 reachable from spawn
+  markers (interior): 5/5 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 5 interior marker(s) reachable from spawn
+
+== casino_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 456
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== casino_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 797
+  stair ca02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ca02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== casino_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 772
+  stair ca03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== cbp_town_finale_midbalanced_schemafixed.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4447
+  stair cbp_town_finale_midbalanced_stair_0: ok (path lower<->upper (undirected polygon graph))
+  stair cbp_town_finale_midbalanced_stair_1: ok (path lower<->upper (undirected polygon graph))
+  stair cbp_town_finale_midbalanced_stair_2: ok (path lower<->upper (undirected polygon graph))
+  stair cbp_town_finale_midbalanced_stair_3: ok (path lower<->upper (undirected polygon graph))
+  entrances: 10 of 10 snapped; stairs an entrance reaches: 4/4
+  markers: 2/6 reachable from spawn
+    unreachable: extraction_CENTER_FIELD_TRUCK (snap 0.3m)
+    unreachable: patrol_point_ROUTE_CLUB_SECURITY (snap 1.6m)
+    unreachable: patrol_point_ROUTE_CASH_ROOM (snap 1.9m)
+    unreachable: patrol_point_ROUTE_FIELD_RING (snap 0.9m)
+  markers (interior): 2/6 reachable -- what this bake can actually judge
+    interior unreachable: extraction_CENTER_FIELD_TRUCK (snap 0.3m)
+    interior unreachable: patrol_point_ROUTE_CLUB_SECURITY (snap 1.6m)
+    interior unreachable: patrol_point_ROUTE_CASH_ROOM (snap 1.9m)
+    interior unreachable: patrol_point_ROUTE_FIELD_RING (snap 0.8m)
+  navigable: NO -- 4 of 6 interior marker(s) unreachable from spawn: extraction_CENTER_FIELD_TRUCK (snap 0.3m), patrol_point_ROUTE_CLUB_SECURITY (snap 1.6m), patrol_point_ROUTE_CASH_ROOM (snap 1.9m), patrol_point_ROUTE_FIELD_RING (snap 0.8m)
+
+== clinic_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 216
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== clinic_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 457
+  stair cl02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== construction_site_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 633
+  stair cs01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.7m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.66m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== construction_site_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 541
+  stair cs02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair cs02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== construction_site_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 654
+  stair cs03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== convenience_store_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 267
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== corner_deli_heist_01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1354
+  stair main_stack: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 5/9 reachable from spawn
+    unreachable: extraction_VAN (snap 3.7m)
+    unreachable: objective_SAFE (snap 3.0m)
+    unreachable: objective_SERVER (snap 1.4m)
+    unreachable: loot_VAULT_CASH (snap 3.1m)
+  markers (interior): 5/8 reachable -- what this bake can actually judge
+    interior unreachable: objective_SAFE (snap 3.0m)
+    interior unreachable: objective_SERVER (snap 1.4m)
+    interior unreachable: loot_VAULT_CASH (snap 3.1m)
+    deferred to site scope: extraction_VAN (snap 3.68m, outside the footprint)
+    interior, reached at only some grid origins: objective_REGISTER (2/8 grid origins)
+  navigable: NO -- 3 of 8 interior marker(s) unreachable from spawn: objective_SAFE (snap 3.0m), objective_SERVER (snap 1.4m), loot_VAULT_CASH (snap 3.1m); 1 deferred to site scope (extraction_VAN)
+
+== country_club_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 722
+  stair cc01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair cc01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.9m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_DRIVE (snap 2.9m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_DRIVE)
+
+== country_club_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 627
+  stair cc02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_DRIVE (snap 2.58m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_DRIVE)
+
+== courthouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1176
+  stair ch01_stair_b1: ok (path lower<->upper (undirected polygon graph))
+  stair ch01_stair_b2: ok (path lower<->upper (undirected polygon graph))
+  stair ch01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 3/3
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PLAZA (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PLAZA)
+
+== courthouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 616
+  stair ch02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.5m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PLAZA (snap 2.46m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PLAZA)
+
+== courthouse_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 474
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PLAZA (snap 2.58m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PLAZA)
+
+== cr_deli.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1381
+  stair cr_deli_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 5/9 reachable from spawn
+    unreachable: extraction_VAN (snap 3.7m)
+    unreachable: objective_SERVER (snap 1.4m)
+    unreachable: objective_SAFE (snap 3.0m)
+    unreachable: loot_VAULT_CASH (snap 3.1m)
+  markers (interior): 5/8 reachable -- what this bake can actually judge
+    interior unreachable: objective_SERVER (snap 1.4m)
+    interior unreachable: objective_SAFE (snap 3.0m)
+    interior unreachable: loot_VAULT_CASH (snap 3.1m)
+    deferred to site scope: extraction_VAN (snap 3.68m, outside the footprint)
+    interior, reached at only some grid origins: objective_REGISTER (2/8 grid origins)
+  navigable: NO -- 3 of 8 interior marker(s) unreachable from spawn: objective_SERVER (snap 1.4m), objective_SAFE (snap 3.0m), loot_VAULT_CASH (snap 3.1m); 1 deferred to site scope (extraction_VAN)
+
+== cr_garage.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 615
+  stair cr_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 1/1
+  markers: 3/3 reachable from spawn
+  markers (interior): 3/3 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 3 interior marker(s) reachable from spawn
+
+== cr_gas.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 570
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 0/0
+  markers: 1/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+  markers (interior): 0/3 reachable -- what this bake can actually judge
+    interior unreachable: objective_REGISTER (snap 1.0m)
+    interior unreachable: objective_SAFE (snap 0.9m)
+    interior unreachable: loot_SAFECASH (snap 0.9m)
+    deferred to site scope: extraction_FORECOURT (snap 1.29m, outside the footprint)
+  navigable: NO -- 3 of 3 interior marker(s) unreachable from spawn: objective_REGISTER (snap 1.0m), objective_SAFE (snap 0.9m), loot_SAFECASH (snap 0.9m); 1 deferred to site scope (extraction_FORECOURT)
+
+== cr_pawn.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 332
+  stair cr_pawn_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== credit_union_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 510
+  stair cu01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair cu01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.64m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== credit_union_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 435
+  stair cu02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== credit_union_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 430
+  stair cu03_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair cu03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.1m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_ALLEY (snap 2.07m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_ALLEY)
+
+== deli_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1327
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_STREET (snap 2.8m)
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.85m, outside the footprint)
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== deli_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1396
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 2/2
+  markers: 2/3 reachable from spawn
+    unreachable: objective_A (snap 0.5m)
+  markers (interior): 1/2 reachable -- what this bake can actually judge
+    interior unreachable: objective_A (snap 0.5m)
+    deferred to site scope: extraction_ALLEY (snap 1.97m, outside the footprint)
+  navigable: NO -- 1 of 2 interior marker(s) unreachable from spawn: objective_A (snap 0.5m); 1 deferred to site scope (extraction_ALLEY)
+
+== deli_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1340
+  stair deli_stair_down: ok (path lower<->upper (undirected polygon graph))
+  stair deli_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 2/2
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.59m, outside the footprint)
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== depot_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 394
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.39m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== depot_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 565
+  stair dp02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair dp02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== final_stand.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1430
+  stair final_stand_stair_0: ok (path lower<->upper (undirected polygon graph))
+  stair final_stand_stair_1: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== foundry_heist_vertical.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1694
+  stair foundry_heist_vertical_stair_0: ok (path lower<->upper (undirected polygon graph))
+    grid: traverses at 1 of 8 voxel-grid origins
+  stair foundry_heist_vertical_stair_1: ok (path lower<->upper (undirected polygon graph))
+    grid: traverses at 3 of 8 voxel-grid origins
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 2/2
+  markers: 3/4 reachable from spawn
+    unreachable: extraction_VAN (snap 7.4m)
+  markers (interior): 3/3 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_VAN (snap 7.35m, outside the footprint)
+  navigable: NO -- a stair traverses at only some voxel-grid origins, so whether a level can climb it depends on where the shell lands; 1 deferred to site scope (extraction_VAN)
+
+== freight_terminal_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 434
+  entrances: 7 of 7 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== freight_terminal_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 597
+  stair ft02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== freight_terminal_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 577
+  stair ft03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ft03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 2/2
+  markers: 2/2 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 1.61m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== fuel_stop_heist.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 550
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 0/0
+  markers: 7/10 reachable from spawn
+    unreachable: objective_SAFE (snap 1.2m)
+    unreachable: loot_COOLER_GOODS (snap 1.1m)
+    unreachable: loot_SAFE_CASH (snap 1.2m)
+  markers (interior): 6/9 reachable -- what this bake can actually judge
+    interior unreachable: objective_SAFE (snap 1.1m)
+    interior unreachable: loot_COOLER_GOODS (snap 1.1m)
+    interior unreachable: loot_SAFE_CASH (snap 1.2m)
+    deferred to site scope: extraction_GETAWAY (snap 0.2m, outside the footprint)
+    interior, reached at only some grid origins: objective_REGISTER (4/8 grid origins)
+  navigable: NO -- 3 of 9 interior marker(s) unreachable from spawn: objective_SAFE (snap 1.1m), loot_COOLER_GOODS (snap 1.1m), loot_SAFE_CASH (snap 1.2m); 1 deferred to site scope (extraction_GETAWAY)
+
+== funeral_home_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 492
+  stair fh01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair fh01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== funeral_home_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 468
+  stair fh02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== funeral_home_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 440
+  stair fh03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair fh03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.7m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.7m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== gas_station.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 570
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 0/0
+  markers: 1/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+  markers (interior): 0/3 reachable -- what this bake can actually judge
+    interior unreachable: objective_REGISTER (snap 1.0m)
+    interior unreachable: objective_SAFE (snap 0.9m)
+    interior unreachable: loot_SAFECASH (snap 0.9m)
+    deferred to site scope: extraction_FORECOURT (snap 1.29m, outside the footprint)
+  navigable: NO -- 3 of 3 interior marker(s) unreachable from spawn: objective_REGISTER (snap 1.0m), objective_SAFE (snap 0.9m), loot_SAFECASH (snap 0.9m); 1 deferred to site scope (extraction_FORECOURT)
+
+== gas_station_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 574
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: objective_A (snap 0.3m)
+  markers (interior): 0/1 reachable -- what this bake can actually judge
+    interior unreachable: objective_A (snap 0.3m)
+    deferred to site scope: extraction_PUMPS (snap 0.3m, outside the footprint)
+  navigable: NO -- 1 of 1 interior marker(s) unreachable from spawn: objective_A (snap 0.3m); 1 deferred to site scope (extraction_PUMPS)
+
+== gas_station_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 607
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 2/2 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PUMPS (snap 0.2m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PUMPS)
+
+== gas_street.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 570
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 0/0
+  markers: 1/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+  markers (interior): 0/3 reachable -- what this bake can actually judge
+    interior unreachable: objective_REGISTER (snap 1.0m)
+    interior unreachable: objective_SAFE (snap 0.9m)
+    interior unreachable: loot_SAFECASH (snap 0.9m)
+    deferred to site scope: extraction_FORECOURT (snap 1.29m, outside the footprint)
+  navigable: NO -- 3 of 3 interior marker(s) unreachable from spawn: objective_REGISTER (snap 1.0m), objective_SAFE (snap 0.9m), loot_SAFECASH (snap 0.9m); 1 deferred to site scope (extraction_FORECOURT)
+
+== gs_auto_shop.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 413
+  stair gs_auto_shop_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_corner_station.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 446
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 0/0
+  markers: 1/4 reachable from spawn
+    unreachable: objective_REGISTER (snap 1.0m)
+    unreachable: objective_SAFE (snap 0.9m)
+    unreachable: loot_SAFECASH (snap 0.9m)
+  markers (interior): 0/3 reachable -- what this bake can actually judge
+    interior unreachable: objective_REGISTER (snap 1.0m)
+    interior unreachable: objective_SAFE (snap 0.9m)
+    interior unreachable: loot_SAFECASH (snap 0.9m)
+    deferred to site scope: extraction_FORECOURT (snap 1.29m, outside the footprint)
+  navigable: NO -- 3 of 3 interior marker(s) unreachable from spawn: objective_REGISTER (snap 1.0m), objective_SAFE (snap 0.9m), loot_SAFECASH (snap 0.9m); 1 deferred to site scope (extraction_FORECOURT)
+
+== gs_cornershop_a.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_cornershop_b.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_cornershop_c.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_cornershop_d.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_a.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_b.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_c.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_d.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_e.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_f.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_g.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_h.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_i.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_j.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_k.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_empty_rowhome_l.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 4
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_facade_rowhome.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_facade_storefront.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_a.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 8
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_b.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 10
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_c.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_d.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_e.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_f.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 2
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_g.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 10
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_h.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 8
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== gs_midrise_i.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 6
+  entrances: 0 of 0 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== harbor_score.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 514
+  stair harbor_score_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== landmark_hall_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 294
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== landmark_hall_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 548
+  stair lh02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== landmark_hall_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 585
+  stair lh03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair lh03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== large_warehouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 453
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.5m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.51m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== large_warehouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 696
+  stair lw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.45m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== large_warehouse_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1359
+  stair lw03_stair_bw: ok (path lower<->upper (undirected polygon graph))
+  stair lw03_stair_bn: ok (path lower<->upper (undirected polygon graph))
+  stair lw03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 3/3
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.64m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== mansion_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 696
+  stair mn01_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair mn01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.8m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_DRIVE (snap 2.77m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_DRIVE)
+
+== mansion_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 424
+  stair mn02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_DRIVE (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_DRIVE)
+
+== mansion_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 698
+  stair mn03_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair mn03_stair_dn2: ok (path lower<->upper (undirected polygon graph))
+  stair mn03_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 3/3
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_DRIVE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_DRIVE (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_DRIVE)
+
+== marina_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 456
+  stair ma01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ma01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER (snap 2.4m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PIER (snap 2.36m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PIER)
+
+== marina_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 560
+  stair ma02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER_END (snap 2.4m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PIER_END (snap 2.38m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PIER_END)
+
+== marina_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 348
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PIER (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PIER (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PIER)
+
+== market_hall_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 501
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== market_hall_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 689
+  stair mh02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair mh02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== market_hall_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 725
+  stair mh03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== museum_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 627
+  stair mu01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair mu01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STEPS (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STEPS (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STEPS)
+
+== museum_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 605
+  stair mu02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair mu02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STEPS (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STEPS (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STEPS)
+
+== museum_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 593
+  stair mu03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_PLAZA (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_PLAZA (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_PLAZA)
+
+== night_auto.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 434
+  stair night_auto_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== night_deli.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1404
+  stair night_deli_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 5/9 reachable from spawn
+    unreachable: extraction_VAN (snap 3.7m)
+    unreachable: objective_SERVER (snap 1.4m)
+    unreachable: objective_SAFE (snap 3.0m)
+    unreachable: loot_VAULT_CASH (snap 3.1m)
+  markers (interior): 5/8 reachable -- what this bake can actually judge
+    interior unreachable: objective_SERVER (snap 1.4m)
+    interior unreachable: objective_SAFE (snap 3.0m)
+    interior unreachable: loot_VAULT_CASH (snap 3.1m)
+    deferred to site scope: extraction_VAN (snap 3.68m, outside the footprint)
+    interior, reached at only some grid origins: objective_REGISTER (2/8 grid origins)
+  navigable: NO -- 3 of 8 interior marker(s) unreachable from spawn: objective_SERVER (snap 1.4m), objective_SAFE (snap 3.0m), loot_VAULT_CASH (snap 3.1m); 1 deferred to site scope (extraction_VAN)
+
+== night_pawn.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 333
+  stair night_pawn_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== office.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 827
+  stair office_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== office_stepped.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 640
+  stair office_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== parking_garage.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 615
+  stair parking_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 6 of 6 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== parking_garage_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 637
+  stair parking_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 3.1m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 3.06m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== parking_garage_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 831
+  stair parking_garage_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.5m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.52m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== pawn_shop_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 318
+  stair pw01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 3.3m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 3.34m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== pawn_shop_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 300
+  stair pw02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== pharmacy_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 227
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.59m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== pharmacy_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 453
+  stair ph02_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair ph02_stair_e: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== primos_pizza.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 592
+  stair primos_pizza_stair_0: ok (path lower<->upper (undirected polygon graph))
+    grid: traverses at 6 of 8 voxel-grid origins
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/1
+    no entrance reaches stair primos_pizza_stair_0
+  markers: 5/8 reachable from spawn
+    unreachable: objective_COUNT_SAFE (snap 0.7m)
+    unreachable: loot_STASH (snap 0.6m)
+    unreachable: patrol_point_PAT_CLUB (snap 0.7m)
+  markers (interior): 5/8 reachable -- what this bake can actually judge
+    interior unreachable: objective_COUNT_SAFE (snap 0.7m)
+    interior unreachable: loot_STASH (snap 0.6m)
+    interior unreachable: patrol_point_PAT_CLUB (snap 0.7m)
+  navigable: NO -- a stair traverses at only some voxel-grid origins, so whether a level can climb it depends on where the shell lands
+
+== pvp_station_ref.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 775
+  stair 07_police_station_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 2/2 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 1.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== rail_station_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 596
+  stair rs01_stair_w: ok (path lower<->upper (undirected polygon graph))
+  stair rs01_stair_e: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== rail_station_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 500
+  stair rs02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair rs02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.9m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.85m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== rail_station_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 555
+  stair rs03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.63m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== rowhouse_raid.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 587
+  stair rowhouse_raid_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== self_storage_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 410
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_GATE (snap 2.62m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_GATE)
+
+== self_storage_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 487
+  stair ss02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_GATE (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_GATE)
+
+== self_storage_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 483
+  stair ss03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ss03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_GATE (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_GATE (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_GATE)
+
+== setback_demo.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 457
+  stair wa02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== stadium_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 960
+  stair st01_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair st01_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== stadium_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 564
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== stadium_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 846
+  stair st03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair st03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== stadium_a04.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 1017
+  stair st04_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== stop_n_go.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 286
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== strip_club_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 546
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.6m)
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_ALLEY (snap 2.63m, outside the footprint)
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_ALLEY)
+
+== strip_club_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 613
+  stair sc02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair sc02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 2/3 reachable from spawn
+    unreachable: extraction_ALLEY_END (snap 2.7m)
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_ALLEY_END (snap 2.67m, outside the footprint)
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_ALLEY_END)
+
+== strip_club_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 898
+  stair sc03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 7/8 reachable from spawn
+    unreachable: extraction_ALLEY (snap 2.6m)
+  markers (interior): 7/7 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_ALLEY (snap 2.6m, outside the footprint)
+  navigable: yes -- stairs traverse and all 7 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_ALLEY)
+
+== strip_retail_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 585
+  stair sr01_stair_dn: ok (path lower<->upper (undirected polygon graph))
+  stair sr01_stair_up: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: objective_A (snap 0.2m)
+  markers (interior): 0/1 reachable -- what this bake can actually judge
+    interior unreachable: objective_A (snap 0.2m)
+    deferred to site scope: extraction_STREET (snap 1.84m, outside the footprint)
+  navigable: NO -- 1 of 1 interior marker(s) unreachable from spawn: objective_A (snap 0.2m); 1 deferred to site scope (extraction_STREET)
+
+== strip_retail_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 173
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_STREET (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_STREET (snap 2.59m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_STREET)
+
+== supermarket_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 460
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 3.1m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 3.06m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== supermarket_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 691
+  stair sm02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.59m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== supermarket_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 700
+  stair sm03_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair sm03_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_LOT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_LOT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_LOT)
+
+== survival_demo.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 333
+  stair survival_demo_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 1 of 1 snapped; stairs an entrance reaches: 1/1
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== train_yard_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 404
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== train_yard_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 704
+  stair ty02_stair_n: ok (path lower<->upper (undirected polygon graph))
+  stair ty02_stair_s: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 2/2
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.56m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== train_yard_a03.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 730
+  stair ty03_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_EXIT (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_EXIT (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_EXIT)
+
+== twin_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 377
+  stair twin_a01_stair_0: ok (path lower<->upper (undirected polygon graph))
+  stair twin_a01_stair_1: ok (path lower<->upper (undirected polygon graph))
+  entrances: 4 of 4 snapped; stairs an entrance reaches: 2/2
+  markers: 1/1 reachable from spawn
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn
+
+== video_store_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 136
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 0/0
+  markers: 2/2 reachable from spawn
+  markers (interior): 2/2 reachable -- what this bake can actually judge
+  navigable: yes -- stairs traverse and all 2 interior marker(s) reachable from spawn
+
+== warehouse.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 144
+  entrances: 5 of 5 snapped; stairs an entrance reaches: 0/0
+  markers: 0 checked -- reachability UNJUDGED
+  markers (interior): 0/0 reachable -- what this bake can actually judge
+  navigable: UNJUDGED -- UNJUDGED: no marker was checked at all (no spawn marker, or nothing of a checked type) -- nothing asked whether this shell connects
+
+== warehouse_a01.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 347
+  entrances: 3 of 3 snapped; stairs an entrance reaches: 0/0
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.4m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.37m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+== warehouse_a02.glb ==
+  bake: radius 0.40 cell 0.10 climb 0.15 slope 55
+  navmesh polys: 627
+  stair wa02_stair_0: ok (path lower<->upper (undirected polygon graph))
+  entrances: 2 of 2 snapped; stairs an entrance reaches: 1/1
+  markers: 1/2 reachable from spawn
+    unreachable: extraction_YARD (snap 2.6m)
+  markers (interior): 1/1 reachable -- what this bake can actually judge
+    deferred to site scope: extraction_YARD (snap 2.57m, outside the footprint)
+  navigable: yes -- stairs traverse and all 1 interior marker(s) reachable from spawn; 1 deferred to site scope (extraction_YARD)
+
+nav-gate: 157 shell(s) passed

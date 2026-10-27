@@ -44,3 +44,30 @@ re-run on that build before anything about the floor ships.
 
 Also seen in the frames, not measured: the tile reads as a strong 1 m checker of four shades. The comps' VCT is one
 pale colour with faint joints.
+
+## Re-run on the 40-lamp build (`gloss_arms_lamps40.out.txt`, `frames/01_floor_40_lamps_shipped_vs_polished.png`)
+
+The same arms, on the pricing arm's walk copy (`_scratch/price_sm/ws_subject`: Deli Counter 0.274.0's lamps and
+0.275.0's dressing):
+
+| arm | walker_sales mean / p50 |
+|---|---|
+| shipped | 77.4 / 74 |
+| noop | 77.4 / 74 |
+| box projection on | 77.5 / 74 |
+| VCT roughness 0.12 | 78.1 / 75 |
+| both | 78.1 / 75 |
+
+- The frame's statistics move by under one level again.
+- The picture is different: under 40 lamps, the polished floor carries a specular streak from each fixture and a
+  soft reflection of the store's far end down the aisle, and the shipped floor carries neither (the frame's floor
+  half, shipped above, polished below).
+- The streaks are short, and dimmer than the comps'. The probe still captures one view from the room's centre at
+  load.
+
+What shipping it would take:
+- Pixelcoat's `vct_floor_beige` roughness base 0.35 -> about 0.12. That profile is the `tile` of card_shop,
+  delco_1997, industrial_flats and rockay_retail, so every VCT floor in those themes would turn polished.
+- Optionally Lux's room probe with box projection, which these frames do not tell apart from without it.
+
+The cost is a texture value, not a draw. To be priced with the harness before it ships.

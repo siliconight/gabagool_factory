@@ -78,3 +78,18 @@ All five are high-key interiors. Nothing in them is in shadow, and the whole loo
 | aisle signs               | none; Zoo `aisle_sign` exists (card shop)                                                              | Deli Counter routes, Zoo paints grocery words         |
 | glowing freezer section   | none; Zoo `cooler_run` exists (convenience store, emissive, 3 draws a run)                              | Deli Counter places it                                |
 | stacked high              | gondola product panels; wall run is the furnish's generic `shelf_run`, plus filing cabinets and vending | Deli Counter furnish; Zoo stock                       |
+
+## The walker's link, 2026-10-26: guide.pinterest.com/design/old-supermarkets/
+
+18 photographs, read from their alt text only: the fetch returns the page's words, not its images. These points
+confirm the comps above:
+- even linear fluorescent runs;
+- polished tile;
+- dense vertical stacking;
+- long refrigerated walls anchoring aisles.
+
+These add to them:
+- **A produce section.** Baskets and tables of fruit and vegetables under a category sign.
+- **Category and promo signage.** Ceiling banners and hanging boards; some neon over produce and drinks.
+- **Exposed ceiling pipes or beams** in some stores, in place of a dropped tile grid.
+- **Checkered black-and-white floors** in the smaller and older shops. The supermarkets' floors are pale.
