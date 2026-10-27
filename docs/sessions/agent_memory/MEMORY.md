@@ -148,3 +148,5 @@
 - [Open ground with intention](open-ground-with-intention.md) — open areas only on purpose for gameplay; else filled
 - [Grocery store comps](grocery-store-comps.md) — shiny floor, strip lights, freezer glow, stacked high; docs/reference/GROCERY_STORE_COMPS.md
 - [DC arm needs lot_library](dc-arm-needs-lot-library.md) — repoint the brief's lot_library too, then check jobs read succeeded
+- [Prop ideas 2026-10-27](prop-ideas-2026-10-27.md) — ashtrays, breaker boxes, coatracks, fridges, sinks, desk lamps, ceiling fans; none built yet
+- [Score locations: bank first](bank-interior-next.md) — bank next, then jewelry, music gear; 8 more approved (check-cashing, armored depot...)

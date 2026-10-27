@@ -1,0 +1,15 @@
+........................................................................ [ 72%]
+............................                                             [100%]Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+============================== warnings summary ===============================
+tests/test_grocery_gondola.py::test_bpy_a_grocery_gondola_passes_in_two_submissions_on_its_own_image
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:227: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_grocery_gondola.py::test_bpy_a_grocery_gondola_passes_in_two_submissions_on_its_own_image
+tests/test_snack_gondola.py::test_bpy_the_gondola_passes_and_fits[dims0]
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:580: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+100 passed, 3 warnings in 46.59s

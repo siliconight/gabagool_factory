@@ -1,0 +1,10 @@
+Godot Engine v4.7.stable.official.5b4e0cb0f - https://godotengine.org
+
+bake reach selftest
+SCRIPT ERROR: Invalid call. Nonexistent function 'fluorescent_bake_range' in base 'GDScript'.
+   at: _main (res://tools/bake_reach_selftest.gd:74)
+   GDScript backtrace (most recent call first):
+       [0] _main (res://tools/bake_reach_selftest.gd:74)
+       [1] _initialize (res://tools/bake_reach_selftest.gd:29)
+exit 1
+exit: killed after the script error above left Godot waiting (no quit); the selftest cannot run on 0.79.0, which has no fluorescent_bake_range

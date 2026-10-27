@@ -1,0 +1,22 @@
+  ok   no drop, none: 0.0000
+ERROR: Condition "!is_inside_tree()" is true. Returning: Transform3D()
+   at: get_global_transform (scene/3d/node_3d.cpp:649)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://addons/lux/runtime/lux_fixture_spawner.gd:114)
+       [1] _main (res://tools/bake_reach_selftest.gd:89)
+       [2] _initialize (res://tools/bake_reach_selftest.gd:29)
+ERROR: Condition "!is_inside_tree()" is true. Returning: Transform3D()
+   at: get_global_transform (scene/3d/node_3d.cpp:649)
+   GDScript backtrace (most recent call first):
+       [0] spawn (res://addons/lux/runtime/lux_fixture_spawner.gd:114)
+       [1] _main (res://tools/bake_reach_selftest.gd:89)
+       [2] _initialize (res://tools/bake_reach_selftest.gd:29)
+  ok   the spawner made both rigs: 2
+  ok   a marker's lux_bake_reach reaches the rig; one without has none: [0.0, 7.61]
+  ok   the live range is the rule it always was, with or without: [4.85, 4.85]
+  ok   a realtime rig is not lent anything: 0
+  ok   a static rig with a bake range is lent it; one without is not: 1
+  ok   while baking: [4.85, 7.61]
+  ok   every lamp given back: 1
+  ok   after the bake, the live ranges: [4.85, 4.85]
+bake reach selftest: PASS

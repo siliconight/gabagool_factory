@@ -1,0 +1,50 @@
+...............FF......                                                  [100%]
+================================== FAILURES ===================================
+_ test_the_bake_lends_the_rows_their_bake_range_and_gives_it_back_before_it_saves _
+
+    def test_the_bake_lends_the_rows_their_bake_range_and_gives_it_back_before_it_saves():
+        """THE ROWS' BAKE RANGE (0.261.0). Lux >= 0.80.0 lets a static lamp bake
+        further than it claims live (`stretch_bake_ranges`, `restore_bake_ranges`):
+        lent before Bake is pressed, given back before the save, counted in the
+        result. Read off the plugin's source, as the floor is."""
+        src = LB.PLUGIN_SCRIPT.read_text(encoding="utf-8")
+        lend = src.find("_lend_bake_ranges(EditorInterface.get_edited_scene_root())")
+        press = src.find("b.pressed.emit()")
+        back = src.find("\t\t\t_give_back_bake_ranges()\n")
+        save = src.find("EditorInterface.save_scene()")
+>       assert '"stretch_bake_ranges"' in src and '"restore_bake_ranges"' in src
+E       assert ('"stretch_bake_ranges"' in '@tool\nextends EditorPlugin\n## Level Factory\'s light bake (0.131.0, `packages/exporting/light_bake.py`),\n## from r...t,\n\t\t\t\t"data_path": d.resource_path, "textures": tex,\n\t\t\t\t"quality": _lm.quality, "bounces": _lm.bounces})\n')
+
+tests\unit\test_light_bake.py:280: AssertionError
+_________________ test_a_bake_reports_the_lamps_lent_a_range __________________
+
+tmp_path = WindowsPath('C:/Users/Brannen/AppData/Local/Temp/pytest-of-Brannen/pytest-4092/test_a_bake_reports_the_lamps_0')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x00000127362E79B0>
+
+    def test_a_bake_reports_the_lamps_lent_a_range(tmp_path, monkeypatch):
+        """What the plugin counted reaches `light_bake.json` and the export log; a
+        Lux with no such call (-1) says nothing about it."""
+        for lent, line in ((50, "50 lamp(s) lent a bake range"), (-1, None)):
+            pkg = _package(tmp_path / str(lent))
+            monkeypatch.setattr(LB, "_import", lambda d, g: True)
+    
+            def fake_editor(cmd, timeout, log_path=None, lent=lent):
+                work = Path(cmd[cmd.index("--path") + 1])
+                (work / LB.RESULT).write_text(json.dumps({"ok": True, "users": 12, "room_fills": 30,
+                                                          "bake_ranges_lent": lent}), encoding="utf-8")
+                (work / "bake.tscn").write_text("[gd_scene format=3]\n", encoding="utf-8")
+                for f in ("bake.lmbake", "bake.exr", "bake.exr.import"):
+                    (work / f).write_text("x", encoding="utf-8")
+                return 0, 3.0
+            monkeypatch.setattr(LB, "_run", fake_editor)
+            said = []
+            r = LB.bake(pkg, "godot.exe", log=said.append)
+>           assert r["ok"] is True and r["bake_ranges_lent"] == lent, r
+                                       ^^^^^^^^^^^^^^^^^^^^^
+E           KeyError: 'bake_ranges_lent'
+
+tests\unit\test_light_bake.py:304: KeyError
+=========================== short test summary info ===========================
+FAILED tests/unit/test_light_bake.py::test_the_bake_lends_the_rows_their_bake_range_and_gives_it_back_before_it_saves
+FAILED tests/unit/test_light_bake.py::test_a_bake_reports_the_lamps_lent_a_range
+exit=1
