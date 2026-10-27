@@ -146,3 +146,5 @@
 - [Baked look without bands](baked-look-without-bands.md) — walker: keep the bake, remove wall-joint bands
 - [Distant vistas, variety](distant-vistas-variety.md) — trains, marina, forest, malls, airports; performant
 - [Open ground with intention](open-ground-with-intention.md) — open areas only on purpose for gameplay; else filled
+- [Grocery store comps](grocery-store-comps.md) — shiny floor, strip lights, freezer glow, stacked high; docs/reference/GROCERY_STORE_COMPS.md
+- [DC arm needs lot_library](dc-arm-needs-lot-library.md) — repoint the brief's lot_library too, then check jobs read succeeded

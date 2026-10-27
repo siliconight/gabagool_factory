@@ -13,3 +13,5 @@ Before writing a NEW file under `patches/` or `docs/findings/`, look for the nam
 **Why:** on 2026-10-13 I wrote `patches/patch_roadmap_234_floaters.py` over the 2026-10-11 patch that had filed item 234, the committed record of that change. Only `git status` showing ` M` caught it, and it was restored with `git checkout`.
 
 **How to apply:** read the Write result -- "updated" on a file meant to be new is the alarm. Give new patches a distinguishing word (`_floater_helper`) and check the folder before writing. Related: [[gate-commits-on-the-patch]].
+
+Second instance, 2026-10-26: made `patches/dc_ramp_cut/` for Deli Counter 0.273.0 without `ls` -- it was 0.241.0's record; gen/suite/dry_run_first overwritten, caught only by the generator's "name taken" on the patch file, restored from git, work moved to `dc_ramp_headroom/`. **How to apply:** `ls patches | grep <stem>` before naming ANY patch folder, not just the patch file.
