@@ -77,6 +77,36 @@ tubes. And what they show is still missing:
 
 Steps 2 to 4 follow.
 
+## Steps 2 and 3 shipped: Zoo 1.135.0 (7c8489c) and Deli Counter 0.281.0 (cc301ed1), the lobby's furniture and the carts
+
+- **Zoo 1.135.0** draws `check_desk` (a standing-height island, a dark top, brass slip pockets, comp 1's date block)
+  and `cash_cart` (a steel cage cart on casters, its load the variant).
+- **Deli Counter 0.281.0** furnishes a bank's public room as `bank_lobby`: the check desk its anchor, waiting chairs,
+  an ATM, a queue, and none of the general lobby's vending, cigarettes, payphone or sofa. A bank's vault is
+  `bank_vault`, with a cash cart beside its count table.
+
+The same level on both (`workspaces/bank-look-0281-ws`, `after_0281.sh`; `frames/05_*`, `frames/06_*`): the check
+desk stands mid-floor before the teller line, the vending and cigarettes are gone, and carts stand in the vaults. Light
+moved only where a piece now stands (lobby_entry 101.1 -> 101.8, vault_west 49.0 -> 51.9).
+
+**Priced** against the 0.280.0 package (`price_0281.py`, `compare.py perf_0281_`, `compare_0281.out.txt`), 53
+headings:
+
+- **Draws:** median +0, from -27 to +5. The lobby's dropped pieces outweigh the desk and the carts.
+- **p95:** median +0.011 ms, inside the controls' own floor of 0.850.
+
+**0.280.0'S OUTLIER DID NOT REPRODUCE.** `attacker_spawn_2` yaw 270 read 8.77 ms on the 0.280.0 package in the first
+session. The same package reads 7.21 and 7.16 there in this one: session drift (roadmap 271), not the change.
+
+**Two first applies stopped in their gates**, both before any commit, and are kept here:
+
+- **Zoo's:** the species were unreachable by prompt (underscored keywords; the spaced names added).
+- **Deli Counter's:** five tests pinned the old bank lobby, and only the furnish tests had been run on the clone.
+- The first build of 0.281.0 also put a cash cart in every `vault`-kind room, 44 specs including a deli's back safe.
+  `bank_vault` scopes it to banks.
+
+Left: the cart reads brown, the theme's `metal` skin; and every wall is raw concrete -- step 4.
+
 ## The plan, each step priced and shown
 
 1. **Light and floor** (Deli Counter): a bank's public rooms take a selling room's lamp density and the bake-only

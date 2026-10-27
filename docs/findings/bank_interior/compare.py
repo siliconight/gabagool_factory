@@ -7,12 +7,15 @@ writes nothing; refuses a report it does not recognise.
 import json
 import pathlib
 import statistics as st
+import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
+#: the reports to read: `perf_` for 0.280.0's price, `perf_0281_` for 0.281.0's (`python compare.py perf_0281_`)
+PREFIX = sys.argv[1] if len(sys.argv) > 1 else "perf_"
 
 
 def load(tag):
-    d = json.loads((HERE / ("perf_%s.json" % tag)).read_text(encoding="utf-8"))
+    d = json.loads((HERE / (PREFIX + "%s.json" % tag)).read_text(encoding="utf-8"))
     assert d.get("schema") == "level_factory.perf_stations.v1" and d.get("complete") is True, (tag, d.get("schema"))
     out = {}
     for row in d["rows"]:

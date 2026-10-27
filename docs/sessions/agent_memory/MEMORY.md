@@ -150,3 +150,5 @@
 - [DC arm needs lot_library](dc-arm-needs-lot-library.md) — repoint the brief's lot_library too, then check jobs read succeeded
 - [Prop ideas 2026-10-27](prop-ideas-2026-10-27.md) — ashtrays, breaker boxes, coatracks, fridges, sinks, desk lamps, ceiling fans; none built yet
 - [Score locations: bank first](bank-interior-next.md) — bank next, then jewelry, music gear; 8 more approved (check-cashing, armored depot...)
+- [Full suite on the clone first](full-suite-on-the-clone-first.md) — before gen --write; nearby tests miss library-wide pins
+- [Release 1.42.0 plan](release-1-42-0-plan.md) — after bank step 2; GitHub now, forge by --backfill later
