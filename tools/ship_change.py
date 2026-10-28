@@ -339,6 +339,13 @@ def cmd_apply(args):
     print((r.stdout + r.stderr).strip())
     if r.returncode != 0:
         raise Failed("the patch refused")
+    # DELI COUNTER REBUILDS ITS LIBRARY: a patch carries no `build/`, and the repo tracks part of it, so the applied
+    # specs are built here and the build travels in the commit (the old per-change apply scripts did the same)
+    if args.repo == "deli_counter":
+        b = subprocess.run([sys.executable, "build.py", "--all"], cwd=str(repo), capture_output=True, text=True)
+        print("build.py --all: exit %d" % b.returncode)
+        if b.returncode != 0:
+            raise Failed("the build failed on the applied repo; nothing committed")
     # THE INDEX FIRST (2026-10-28): what factory_index writes inside the repo travels in this commit, or the repo's
     # newest code commit outruns its VERSION and verify-manifest reads it STALE
     subprocess.run([sys.executable, str(FACTORY / "tools" / "factory_index.py"), "--write"], capture_output=True,

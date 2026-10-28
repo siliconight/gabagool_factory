@@ -81,6 +81,38 @@ level name refused by a guard (14 s into the first real build).
   by side. A walk, a price or a level build has the machine to itself -- the
   rule from the bank's walk that timed out under load.
 
+**BATCH THE LOOKS (the walker's yes, 2026-10-28).** A level build to shoot and
+price a visual change -- make, walk, frames, three price arms -- is 30-40 minutes
+and runs alone; on 2026-10-28 three bank steps took three of them. Ship related
+visual changes to their tool repos one by one, then build, shoot and price the
+level ONCE for the batch. The price's draws and frame time are per station, so
+a batch that prices badly is split by building its halves, not guessed at.
+Two guards keep it from costing the product:
+- **No release or package while a batch is unpriced.** CLAUDE.md's rule is
+  "price a look before shipping it"; the tool repos may run ahead of the price,
+  a release may not, because a release is what reaches a player's machine.
+- **Each change still gets its cheap look before it ships to its repo** -- a Zoo
+  specimen render, an in-memory measure of what a Deli Counter rule places. The
+  wooden money rack was caught in a level frame and fixed before the rows were
+  built on it; batched without a per-change look, the rows would have been built
+  on wood. Only the 30-40 minute level build is batched.
+A batch prices what a player gets -- several looks each under the noise floor
+can sum past it, which per-change prices never see.
+
+**A PRICE ENDS IN A VERDICT AND ITS ACTION (the walker, 2026-10-28: "clear
+actions should be taken from the pricing that becomes standardized").**
+`python tools/price_verdict.py --dir <finding> --prefix <perf_x_>` reads the
+three arms and prints PASS, WATCH or FAIL with the one action each prescribes:
+PASS releases; WATCH releases and names the headings whose frames get looked
+at; FAIL blocks the release and splits the batch until one change owns the
+cost, which is then made cheaper or reverted. Its thresholds are chosen and
+written in its docstring; every rule was shown to fire on a synthetic subject
+before it was trusted. It names headings and numbers, never a cause.
+`python tools/price_batch.py --control <ws> --subject <ws> --mission <id> --out
+<finding> --prefix <perf_x_>` runs the three arms and ends in that verdict. It
+imports the control once (import was 60% of a price, timed on 2026-10-28), and
+a floor past 1.0 ms is itself a WATCH: a wide floor would let a real cost pass.
+
 `tools/ship_change.py` carries these steps -- clone, smoke, generate, dry run,
 prove on the old version, apply, commit, push, and the release checks (a tool's
 HEAD at its tag, nothing stale, `factory_index` written before the commit).

@@ -17,3 +17,5 @@ Asked what slowed the roadmap most, I measured: each change re-proved itself 2-3
 
 **Why:** wall clock was the bottleneck, not thinking; the walker wants the roadmap moving.
 **How to apply:** default to the tool for every tool-repo change; keep `prove-old` (a test that cannot fail proves nothing). Related: [[release-reground-and-index-first]], [[full-suite-on-the-clone-first]], [[keep-it-rolling]].
+
+5. **Batch the looks** (walker's yes, same day): ship related visual changes one by one, then ONE level build + shoot + price for the batch (each is 30-40 min and runs alone). Split a batch only if it prices badly. GUARDS (product-safety, my check the walker asked for): no release/package while a batch is unpriced; each change still gets its cheap look (Zoo specimen render / in-memory measure) before it ships to its repo.
