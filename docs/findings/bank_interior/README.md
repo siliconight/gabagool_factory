@@ -107,6 +107,117 @@ session. The same package reads 7.21 and 7.16 there in this one: session drift (
 
 Left: the cart reads brown, the theme's `metal` skin; and every wall is raw concrete -- step 4.
 
+## Step 4 shipped: Zoo 1.136.0 (06ab3b8) and Deli Counter 0.282.0 (ab4e4279), the walls, the cameras, the plants and the clock
+
+The walker, shown 0.281.0's lobby: "fix it before we rush to the release", then "were there cctv cameras in the 90s?"
+and "cameras first" (the reference's researched section: the Bank Protection Act of 1968, time-lapse VCRs).
+
+- **Zoo 1.136.0** draws `planter` (a square commercial pot, the variant the plant) and `wall_clock`.
+- **Deli Counter 0.282.0** plasters a bank's concrete walls inside above grade (below grade the money rooms stay
+  concrete), hangs `security_camera` in the lobby and every vault, and stands the lobby's plants and clock.
+
+The same level on both (`workspaces/bank-look-0282-ws`, `_scratch/bank_0282_after.sh`; `frames/07_*`, `frames/08_*`):
+the lobby and the offices read as painted plaster where every earlier frame showed raw concrete, and cameras hang on
+the lobby's and the vault's walls. The level frames' mean luminance barely moved: lobby_entry 101.8 -> 101.9,
+vault_west 51.9 -> 51.9; manager_office reads 82.5 and vault 72.5.
+
+**The plants and the clock are in the level and in no frame.** The package's merged `assets/lot.glb` carries
+`potted_plant_rcce455f7_3`, `_5` and `wall_clock_rcce455f7_14`, and the job built
+`prop_planter_..._w50_d50_h120_n2_mwood`, `prop_planter_..._w70_d70_h180_mwood` and `prop_wall_clock_..._w36_d6_h36`.
+They stand at the lobby's east and west ends (plan x 14.5 and -14.6) and the clock on its east wall, and no station
+looks there. The next shoot adds one that does.
+
+**Priced** against the 0.281.0 package (`price_0282.py`, `compare.py perf_0282_`, `compare_0282.out.txt`), 53 headings:
+
+- **Draws:** median +0, from +0 to +30; 26 headings gained some (cameras, plants, the clock).
+- **p95:** median +0.055 ms. Three headings are past the controls' own floor of 0.258, by at most 0.08 ms:
+  extraction_11 yaw 270 +0.342 (+9 draws), extraction_12 yaw 90 +0.311 (+30), objective_5 yaw 270 +0.266 (+6).
+- 0.280.0's `attacker_spawn_2` yaw 270 reads 6.88 against the controls' 6.75 and 6.84.
+
+**A first reader of these reports found 0 headings**: it guessed the schema (`stations` / `results`) where the file
+writes `rows`. `compare.py`'s own loader asserts the shape and was the one used.
+
+## Step 5 shipped: Zoo 1.137.0 (48e8da9) and Deli Counter 0.283.0 (f1d1bfa9), the offers and the name over the line
+
+The walker's list: the rate board and posters, then the bank's name over the line and a number on every window.
+
+- **Zoo 1.137.0** paints `poster_wall` form `bank` and `teller_line` form `bank`.
+  - The posters are twelve offers and the rate board; the bank family is a fifth family on the club's poster system
+    (its run, layout, stocks and readability tests).
+  - The teller line carries a nameboard, its sixteen variants the door sign's name and colours.
+- **Deli Counter 0.283.0** hangs `poster_wall_bank` in every bank lobby (two or three runs, 5 cm height steps) and
+  dresses every library teller line form `bank` in `bank_teller_variant`: bank_branch_a02 11, a03 5, a04 2, bank_job
+  14, credit_union_a01 8, bank 2.
+
+The same level on both (`workspaces/bank-look-0283-ws`, `_scratch/bank_0283_after.sh`; `frames/09_*`, `frames/10_*`).
+Two stations were added because frames 07 and 08 showed none of the lobby's side walls: `lobby_east` and `lobby_west`.
+- The teller line reads YOUSE CREDIT CO-OP across its nameboard from the door (lobby_entry); at that distance the
+  window numbers are small.
+- lobby_east shows two offer runs on the east wall, the plant and the clock beside them; lobby_west shows a run by the
+  ATM and the other plant. The sheets are 0.46 x 0.62 m in a 30 m lobby and read small from mid-floor.
+
+**Priced** against the 0.282.0 package (`price_0283.py`, `compare.py perf_0283_`, `compare_0283.out.txt`), 53 headings:
+
+- **Draws:** median +0, largest +3.
+- **p95:** median +0.001 ms, largest +0.388, the controls' own floor 0.386.
+
+**Two first builds stopped in their gates**, both before any commit:
+- Zoo's poster family failed its own tests four ways: a copy line on the denylist, a figure panel too pale to step
+  off its paper, a rate board whose ground ignored the stock, and an unknown stock not refused. Fixing them found the
+  board losing every rate at the shipped 118 px while those tests passed; a test now holds every line.
+- Deli Counter's first build hung every bank run at one height, and `test_poster_walls` refused it on the clone's
+  full suite (the placement guide's tell).
+
+## Step 6 shipped: the outside -- Zoo 1.138.0 (bbc02c7), Lot 0.132.0-0.134.0, Level Factory 0.262.0 (fbec345)
+
+The walker's list ended outside: the drive-up, the night drop, the time-and-temperature sign; then "do the drive-up lane
+next".
+
+- **Zoo 1.138.0** draws all four pieces, each with one name and one colour a bank:
+  - `price_pylon` form `bank`: the gas pylon's frame, the bank's name, the time over the temperature in amber lamps,
+    MEMBER FDIC;
+  - `night_drop`;
+  - `drive_up_tube`;
+  - `drive_up_canopy`, its fascia the bank's colour.
+- **Lot** places them:
+  - 0.132.0 (b71d895): the sign at the bank's frontage by the gas pylon's planner, its stations reaching past the
+    building's ends; `site_driveup`, the served lane, island and passing lane against a side wall, the island on the
+    driver's left, the lane stopping short of the wall's first door;
+  - 0.133.0 (430c074): `site_night_drop`, hung beside the storefront door;
+  - 0.134.0 (141656f): the pieces' material rows.
+- **Level Factory 0.262.0** deals a bank's band the name Zoo's other faces give it.
+
+**The first build** (`workspaces/bank-look-out-ws`, `_scratch/bank_out_after.sh`; `frames/11_*`, `frames/12_*`) found
+two defects by looking:
+
+- The drive-up stood as two green greybox boxes. Zoo built both modules and they passed, but Lot asked for
+  `metal_painted` where neither species has it, so Zoo built `_mmetal_painted` stems and Lot's resolver, asking the
+  untagged names, said `LOT_COVER_MODULE_MISSING ... the box stays`. Fixed by Lot 0.134.0.
+- The band said MATTRESS MONEY TRUST over a sign and a line saying YOUSE CREDIT CO-OP. Level Factory's deal keyed its
+  own hash; Deli Counter, Lot and Zoo key `storefront_names`' crc32. Fixed by Level Factory 0.262.0.
+
+**The second build** (`workspaces/bank-look-out2-ws`, `_scratch/bank_out2_after.sh`; `frames/13_*`, `frames/14_*`):
+- The canopy and the station are their modules, the band, the sign and the line one bank. The night drop hung
+  (`LOT_NIGHT_DROP: b0 on its S facade at +1.60 m from its door`), too small to read in `bank_front`.
+- **Reads wrong, not yet fixed:**
+  - the canopy's fascia reads near black rather than the variant's navy;
+  - the station's cabinet reads brown, the theme's `metal` skin (the cash cart's complaint);
+  - the lanes are the lot's own asphalt with no marking, so the drive-up reads as a canopy in a parking lot rather
+    than a lane.
+
+**Priced:**
+- The first build against 0.283.0's package (`price_out.py`, `compare_out.out.txt`): draws median +0, largest +3;
+  p95 median -0.012 ms against the controls' 0.758.
+- The second against the first (`price_out2.py`, `compare_out2.out.txt`): draws median +0, largest +2; p95 median
+  +0.002 ms against the controls' 0.342.
+
+**Gates that stopped a first build, before any commit:**
+- Zoo 1.138.0's census count read 441 where 148 species make 444: the canopy came after the count.
+- Lot's `site_driveup` first refused both ends of the bank, each crossing its side door's landing. The finding now
+  names the refusing test for each end, and a lane stops short of the landing instead.
+- The bank's sign found no station: all thirteen of the gas pylon's +/-12 m stations met the bank's footprint, grown
+  0.5 m.
+
 ## The plan, each step priced and shown
 
 1. **Light and floor** (Deli Counter): a bank's public rooms take a selling room's lamp density and the bake-only

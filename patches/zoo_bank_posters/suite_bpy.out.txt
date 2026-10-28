@@ -1,0 +1,38 @@
+........................................................................ [ 21%]
+........................................................................ [ 42%]
+........................................................................ [ 63%]
+........................................................................ [ 84%]
+....................................................x                    [100%]Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+============================== warnings summary ===============================
+tests/test_poster_wall.py::test_bpy_a_run_is_one_object_one_material_and_fits[club]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:466: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_poster_wall.py::test_bpy_a_run_is_one_object_one_material_and_fits[bar]
+tests/test_poster_wall.py::test_bpy_a_run_is_one_object_one_material_and_fits[alley]
+tests/test_poster_wall.py::test_bpy_a_run_is_one_object_one_material_and_fits[store]
+tests/test_poster_wall.py::test_bpy_a_run_is_one_object_one_material_and_fits[bank]
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:580: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_see_through_glass.py: 2 warnings
+tests/test_coincident_faces.py: 370 warnings
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:227: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_see_through_glass.py::test_bpy_window_pane_blends
+tests/test_see_through_glass.py::test_bpy_facade_window_pane_stays_opaque
+tests/test_see_through_glass.py::test_bpy_broken_window_has_no_pane_and_blended_remnants
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:733: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_coincident_faces.py: 24 warnings
+  C:\Projects\gabagool_studios\gabagool_factory\zoo\zoo_keeper\bpylayer\materials.py:355: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+340 passed, 1 xfailed, 407 warnings in 205.16s (0:03:25)

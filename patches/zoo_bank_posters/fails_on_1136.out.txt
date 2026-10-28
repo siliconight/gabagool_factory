@@ -1,0 +1,92 @@
+
+=================================== ERRORS ====================================
+_______________ ERROR collecting tests/test_teller_line_bank.py _______________
+ImportError while importing test module 'C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_1136_base\tests\test_teller_line_bank.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+C:\Users\Brannen\AppData\Local\Python\pythoncore-3.14-64\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_teller_line_bank.py:14: in <module>
+    from zoo_keeper.core import teller_line_forms as TF
+E   ImportError: cannot import name 'teller_line_forms' from 'zoo_keeper.core' (C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_1136_base\zoo_keeper\core\__init__.py)
+=========================== short test summary info ===========================
+ERROR tests/test_teller_line_bank.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+69 deselected, 1 error in 0.65s
+FFF                                                                      [100%]
+================================== FAILURES ===================================
+____________ test_the_rate_board_sets_every_product_and_rate[None] ____________
+
+stock = None
+
+    @pytest.mark.parametrize("stock", (None, "loud", "plain"))
+    def test_the_rate_board_sets_every_product_and_rate(stock):
+        """1.137.0: the bank's rate board at the size it ships. `fit_text` sets
+        nothing for a line too wide for its column, and the three tests above
+        passed a board that had lost every rate."""
+>       w, h = _size("bank")
+               ^^^^^^^^^^^^^
+
+tests\test_poster_wall.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = 'bank'
+
+    def _size(family):
+>       wm, hm = PA.SIZES_M[family]
+                 ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'bank'
+
+tests\test_poster_wall.py:45: KeyError
+____________ test_the_rate_board_sets_every_product_and_rate[loud] ____________
+
+stock = 'loud'
+
+    @pytest.mark.parametrize("stock", (None, "loud", "plain"))
+    def test_the_rate_board_sets_every_product_and_rate(stock):
+        """1.137.0: the bank's rate board at the size it ships. `fit_text` sets
+        nothing for a line too wide for its column, and the three tests above
+        passed a board that had lost every rate."""
+>       w, h = _size("bank")
+               ^^^^^^^^^^^^^
+
+tests\test_poster_wall.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = 'bank'
+
+    def _size(family):
+>       wm, hm = PA.SIZES_M[family]
+                 ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'bank'
+
+tests\test_poster_wall.py:45: KeyError
+___________ test_the_rate_board_sets_every_product_and_rate[plain] ____________
+
+stock = 'plain'
+
+    @pytest.mark.parametrize("stock", (None, "loud", "plain"))
+    def test_the_rate_board_sets_every_product_and_rate(stock):
+        """1.137.0: the bank's rate board at the size it ships. `fit_text` sets
+        nothing for a line too wide for its column, and the three tests above
+        passed a board that had lost every rate."""
+>       w, h = _size("bank")
+               ^^^^^^^^^^^^^
+
+tests\test_poster_wall.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+family = 'bank'
+
+    def _size(family):
+>       wm, hm = PA.SIZES_M[family]
+                 ^^^^^^^^^^^^^^^^^^
+E       KeyError: 'bank'
+
+tests\test_poster_wall.py:45: KeyError
+=========================== short test summary info ===========================
+FAILED tests/test_poster_wall.py::test_the_rate_board_sets_every_product_and_rate[None]
+FAILED tests/test_poster_wall.py::test_the_rate_board_sets_every_product_and_rate[loud]
+FAILED tests/test_poster_wall.py::test_the_rate_board_sets_every_product_and_rate[plain]
+3 failed, 69 deselected in 0.33s

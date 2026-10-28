@@ -1,0 +1,33 @@
+........................................................................ [ 42%]
+........................................................................ [ 84%]
+..........................x                                              [100%]Blender 5.1.1 (hash b70da489d7f4 built 2026-04-14 01:37:22)
+
+============================== warnings summary ===============================
+tests/test_night_drop.py: 1 warning
+tests/test_drive_up_tube.py: 1 warning
+tests/test_drive_up_canopy.py: 1 warning
+tests/test_price_pylon.py: 1 warning
+tests/test_coincident_faces.py: 370 warnings
+  C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_outside\zoo_keeper\bpylayer\materials.py:227: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_night_drop.py::test_bpy_a_night_drop_is_its_slot_its_door_and_pull_toward_the_street[dims0]
+tests/test_night_drop.py::test_bpy_a_night_drop_is_its_slot_its_door_and_pull_toward_the_street[dims1]
+tests/test_night_drop.py::test_bpy_a_night_drop_is_its_slot_its_door_and_pull_toward_the_street[dims2]
+  C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_outside\zoo_keeper\bpylayer\materials.py:580: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_price_pylon.py::test_bpy_the_pylon_passes_and_fits[dims0]
+tests/test_price_pylon.py::test_bpy_the_same_file_every_build
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+tests/test_coincident_faces.py::test_bpy_the_residue_is_exactly_the_count_the_table_says[cubicle_bank]
+  C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_outside\zoo_keeper\bpylayer\materials.py:466: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+tests/test_coincident_faces.py: 24 warnings
+  C:\Projects\gabagool_studios\gabagool_factory\_scratch\zoo_outside\zoo_keeper\bpylayer\materials.py:355: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+    mat.use_nodes = True
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+170 passed, 1 xfailed, 406 warnings in 30.61s
