@@ -1,0 +1,21 @@
+{
+  "verdict": "WATCH",
+  "action": "Release, then look at the frames at the headings named above and record what moved there.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 83.0,
+  "p95_median_delta_ms": 0.034,
+  "p95_largest_delta_ms": 0.571,
+  "floor_draws": 0,
+  "floor_ms": 0.794,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [],
+  "watch": [
+    "defender_spawn_13 yaw 90.0 draws +35 (357 against 322)",
+    "objective_5 yaw 180.0 draws +83 (586 against 503)",
+    "objective_5 yaw 270.0 draws +73 (656 against 583)"
+  ]
+}

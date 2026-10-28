@@ -44,7 +44,10 @@ def main(argv=None):
     ap.add_argument("--prefix", required=True)
     ap.add_argument("--godot", default=GODOT)
     args = ap.parse_args(argv)
-    out = pathlib.Path(args.out)
+    # ABSOLUTE: the harness runs in level_factory/, so a relative --out wrote nowhere and the first price this tool
+    # ran lost all three reports
+    out = pathlib.Path(args.out).resolve()
+    out.mkdir(parents=True, exist_ok=True)
     work = FACTORY / "_scratch" / ("price_" + args.prefix.strip("_")) / "perf"
     pkg = "LF_%s.portable-godot" % args.mission
 
@@ -74,6 +77,9 @@ def main(argv=None):
                             str(dst), "--json", str(out / ("%s%s.json" % (args.prefix, tag)))],
                            capture_output=True, text=True, timeout=3600, cwd=str(FACTORY / "level_factory"))
         print("%s: harness %.0f s (exit %d)" % (tag, time.monotonic() - t0, r.returncode), flush=True)
+        if not (out / ("%s%s.json" % (args.prefix, tag))).is_file():
+            print(r.stdout[-600:] + r.stderr[-600:], flush=True)
+            raise SystemExit("the harness wrote no report for %s" % tag)
         if r.returncode not in (0, 1):
             print(r.stderr[-800:], flush=True)
             raise SystemExit("the harness failed on %s" % tag)

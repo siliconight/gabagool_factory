@@ -313,6 +313,36 @@ Federal Reserve bricks. Against them:
 - the money is racked in rows or stacked loose, not set against one wall;
 - a deposit vault is boxes on every wall, not one 2 m panel.
 
+## Step 10 shipped: the vault rows and the deposit vault -- Zoo 1.143.0, Deli Counter 0.287.0-0.288.0; Level Factory 0.264.0's stairs
+
+**The rows** (Zoo 1.143.0 524511a: the rack blue painted steel, open-backed, its bricks pale; Deli Counter 0.287.0
+4356639b: `shelf_cash_row`, 1.4 m islands laid in rows; 0.287.1 302e83fa, a designer's level name not held to the IP
+guard): `workspaces/bank-rows-ws`, frames 22-23. Priced with `price_rows.py`, phases timed (copy 2-4 s, import 66-67
+s, harness 44-45 s an arm): **PASS** -- draws median +0, p95 +0.003 ms against the controls' 0.416.
+
+**The deposit vault** (Deli Counter 0.288.0 cb14b5d8: `deposit_vault_ids`, `line_deposit_vaults`, `bank_deposit`):
+`workspaces/bank-deposit-ws`, the first batch built once for its changes. Priced with `tools/price_batch.py` (the
+control imported once; 291 s): **WATCH** -- draws median +0, p95 +0.034 ms against a floor of 0.794 ms (inside the
+0.416-0.971 of the separately imported prices, so the shared import held); the flagged headings were `objective_5`
+yaw 180 and 270, +83 and +73 draws (586 against 503), and `defender_spawn_13` yaw 90, +35. Per the verdict's action,
+recorded: `objective_5` stands in vault_west; its four-way frames (`_scratch/deposit_watch_shots/`) look across the
+money rows to the inner vault; the spec's pieces there went DOWN (racks 10 -> 7, carts 4 -> 2, the inner vault no
+longer a money room), so the added draws are attributed BY ELIMINATION to the 5 lining units -- interactive modules
+the merge keeps whole. Not split-measured. Under budget by a wide margin (2,000).
+- The first run of `price_batch.py` lost all three reports: a relative `--out` written from the harness's
+  `level_factory/` working directory. Fixed (absolute, and an arm with no report stops the price); re-run.
+- The verdict tool's first draft said a wide floor risked only "a lenient WATCH"; backwards -- a wide floor can PASS a
+  real cost. Corrected, and a floor past 1.0 ms is now itself a WATCH.
+
+**The stairs** (Level Factory 0.264.0 b760c76; the walker: "the stairs are only yellow as the default if they
+haven't been given a texture/skin"). Every merged building since Level Factory 0.223.0 shipped its stairs in Deli
+Counter's fallback `gb_stair` yellow: the module cleanup removed every `floor_` file, which the runtime stair skin
+reads. Measured on bank_block_001 seed 9082 rebuilt (`workspaces/stair-check-0264-ws`), at the stations whose frames
+showed the yellow, by a pixel count first held to those frames -- a first count read 0.06% on a frame with a yellow
+staircase in plain view, its colour band wrong, and was refitted from the stair's sampled colour (254, 227, 154)
+before anything was concluded: vault 0.57% -> 0.07%, lobby 0.98% -> 0.01%. A first check on the Bank Block template's
+level proved nothing: none of its three enterable buildings has a staircase in its base.
+
 ## The plan, each step priced and shown
 
 1. **Light and floor** (Deli Counter): a bank's public rooms take a selling room's lamp density and the bake-only

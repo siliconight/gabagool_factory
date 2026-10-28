@@ -1,0 +1,13 @@
+control: copy 2 s, import 67 s (exit 0)
+control_a: harness 50 s (exit 0)
+subject: copy 2 s, import 68 s (exit 0)
+subject: harness 50 s (exit 0)
+control_b: harness 49 s (exit 0)
+price: 291 s
+WATCH over 53 headings
+  draws: median +0.0, largest +83.0 (the controls' floor 0)
+  p95:   median +0.034 ms, largest +0.571 ms (the controls' floor 0.794 ms)
+  WATCH defender_spawn_13 yaw 90.0 draws +35 (357 against 322)
+  WATCH objective_5 yaw 180.0 draws +83 (586 against 503)
+  WATCH objective_5 yaw 270.0 draws +73 (656 against 583)
+ACTION: Release, then look at the frames at the headings named above and record what moved there.
