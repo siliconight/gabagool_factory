@@ -3,6 +3,31 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.42.1] - 2026-10-28
+
+Six tools move:
+- deli_counter: 0.286.1 -> 0.286.2
+- dispatch: 0.5.3 -> 0.5.4
+- laser_tag: 0.32.0 -> 0.32.1
+- level_factory: 0.262.0 -> 0.262.2
+- patina: 0.32.0 -> 0.32.1
+- pipeline: 0.6.0 -> 0.6.1
+
+- **The doctor reads this set as certified.** 1.42.0 was certified with
+  Level Factory's grounded table still at 1.41.0's versions, so setup
+  warned that five tools had drifted and asked for re-certification. Its
+  record said promoting the manifest would clear that; it did not. Level
+  Factory 0.262.1 re-grounds all eight rows.
+- **Every tool carries its MIT licence.** Dispatch, Laser Tag, Patina and
+  Pipeline each committed theirs after the tag 1.42.0 named, so 1.42.0
+  shipped without them; these releases carry them, and change nothing else.
+
+Certified by install test 14: the set's package, unzipped into a fresh
+folder, made a level with START_HERE.md's commands, the PyPI download
+included. setup exited 0 with every doctor row PASS, 0 `drift vs certified` lines and 0 WARN rows (install test 13 read 5 and 6) and no sitecustomize error; make exited 0 in 8.5 minutes and built seed_9205 at PASS 100 (seed 9003 PASS 90, seed 9104 PASS_WITH_TUNING 89, as tests 13 and 14 graded them): the buildings' merge 890 slots with 4 kept whole, the closure ok over 84 resources; walk exited 0 in 5.1 minutes, the walk bot climbing both of deli_a01's ladders, to 6.6 and 3.3 m, the shot bot passing all five stations, and after it the package still carried its bake and the backdrop's ground (2,824 files, bake.exr, light_bake.json ok). Install test 14 had passed the same way on a set whose Deli Counter verify-manifest --strict then read STALE; this is the set with it released. No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.42.0] - 2026-10-28
 
 Six tools move:
