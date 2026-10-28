@@ -153,3 +153,5 @@
 - [Full suite on the clone first](full-suite-on-the-clone-first.md) — before gen --write; nearby tests miss library-wide pins
 - [Release 1.42.x](release-1-42-0-plan.md) — 1.42.0 published 10-28; 1.42.1 corrects its drift lines + licences
 - [Release: reground and index first](release-reground-and-index-first.md) — reground LF GROUNDED + factory_index before the install test
+- [Eight level templates](eight-level-templates.md) — walker wants ~8 diverse panel templates; Delco Ave second; each proven by make+walk
+- [Ship tool, suite once](ship-change-tool-and-suite-once.md) — walker 10-28: smoke first, suite once on clone, tools/ship_change.py, light jobs overlap

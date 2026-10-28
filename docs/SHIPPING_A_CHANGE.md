@@ -60,6 +60,31 @@ code that reads it, and make an unrecognised shape FAIL rather than pass.
 `docs/COMMANDS.md` has the per-repo command and the trap in level_factory's
 (its conftest suppresses the pass/fail line). Quote the real number.
 
+**SMOKE FIRST, SUITE ONCE (the walker's yes, 2026-10-28).** Measured that day,
+a change spent most of its wall clock re-proving itself: Zoo's suite on the
+clone (8 min) and again on the real repo (7.7 min); Deli Counter's build, nav
+gate and suite on the clone, again on the real repo, and a third time in its
+commit hook (6.9 min). And the defects that cost most were found at the end of
+the chain -- a money rack built in wood (the level's frames), a designer's
+level name refused by a guard (14 s into the first real build).
+
+- **Smoke the change in a clone before any long suite**: make the smallest level
+  that exercises it (`tools/ship_change.py smoke`). A defect a build can show
+  costs seconds there and a suite cycle anywhere later.
+- **Run the full suite ONCE, on the clone.** The patch's dry run proves the
+  applied repo byte-identical to that clone, so a real-repo suite re-proves
+  nothing; run one after the apply only when the apply wrote something the clone
+  did not (build output, a migration run against the real specs). A repo's own
+  commit hook is NOT skipped: it is the repo's gate, and `--no-verify` stays
+  forbidden.
+- **Light jobs may overlap; heavy ones may not.** Two unit suites can run side
+  by side. A walk, a price or a level build has the machine to itself -- the
+  rule from the bank's walk that timed out under load.
+
+`tools/ship_change.py` carries these steps -- clone, smoke, generate, dry run,
+prove on the old version, apply, commit, push, and the release checks (a tool's
+HEAD at its tag, nothing stale, `factory_index` written before the commit).
+
 ## 6. Version and changelog
 
 - Bump `VERSION`. Patch for a fix, minor for a capability.
