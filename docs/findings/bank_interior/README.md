@@ -218,6 +218,58 @@ two defects by looking:
 - The bank's sign found no station: all thirteen of the gas pylon's +/-12 m stations met the bank's footprint, grown
   0.5 m.
 
+## Step 7 shipped: the three fixed -- Zoo 1.139.0 (d2c9112), Lot 0.135.0 (4a39612), Deli Counter 0.284.0 (925054d8)
+
+The walker: "fix those three, then cut the release", then "do some more research, make it look better". The
+canopy, station and clearance bar on painted steel, the night drop and cash cart on bare (Zoo 1.139.0); the lane's
+clearance bar, bollards, yellow island and arrows (Lot 0.135.0); every placed piece asking Zoo for a kind its species
+is made of, about 2,800 library slots that asked for rust or wood (Deli Counter 0.284.0).
+
+**The build** (`workspaces/bank-look-final-ws`, `_scratch/bank_final_after.sh`; `frames/15_*`, `frames/16_*`):
+- The drive-up reads as a lane: the clearance bar and its CLEARANCE 9 FT plate across the entry, the island yellow,
+  an arrow each lane, DRIVE-UP on the canopy's board. The band, the sign and the line one bank.
+- The lobby is 0.283.0's: plaster floor to ceiling, the glass front a wall of dark bars, the deposit wall a grid. The
+  walker then asked "do the interiors look really good?" -- no -- and "hold the release, do the interior pass first";
+  that pass is Zoo 1.140.0 and Deli Counter 0.285.0, below.
+
+**The first walk failed, and the cause is not proven.** Level Factory's buildings' merge timed out at its 1,800 s
+limit (`_scratch/bank_final_walk.log`) while clone builds, Blender and a 10-minute Zoo suite ran on the same machine.
+Re-run with the machine to itself the whole walk, the merge included, took 4 min 21 s (`bank_final_walk2.log`).
+Contention fits; a 7x slowdown is more than contention has shown here before, and nothing else was measured. The rule
+it breaks is the price's: nothing heavy runs beside a level build either.
+
+**Priced** (`price_final.py`, `compare_final.out.txt`), against 0.283.0's second outside build: draws median +1,
+largest +16; p95 median +0.009 ms, largest +0.265, against the controls' own 0.609.
+
+## Step 8 shipped: the interior pass -- Deli Counter 0.285.0 (93f0d394), Zoo 1.140.0 (cf9797b), Zoo 1.141.0 (5134b5c)
+
+The walker: "do the interiors look really good?" (no: plaster floor to ceiling, the front a wall of dark bars, the
+deposit wall a bare grid), "hold the release, do the interior pass first", and, mid-pass, "they had these pens attached
+with a little chain at banks" and "also longer chain".
+- Deli Counter 0.285.0: a bank's public room panelled below a chair rail (`_dados`; wood_panel sheet 6 mm proud, a
+  rail 9 mm proud, its top 0.9 m); a bank's `glass` front before its public room a storefront (`bank_front`); a vault
+  door's and a deposit wall's slot on its own steel where it took its wall's concrete (`FIXTURE_OPENINGS`).
+- Zoo 1.140.0: the deposit wall as comp 12 -- numbered steel doors with brass locks, large boxes low, a few drawn, the
+  doors nearly flush, bare steel, and its 884 coincident pairs gone.
+- Zoo 1.141.0: a pen on a slack ball chain each side of the check desk.
+
+**What the frames found while it was built** (Zoo previews in the clones, not filed): the first lock layout put the
+locks on the doors' left as a person faces them (+x is the viewer's left from +y); the first frame stood 9 cm proud and
+read as pigeonholes; crossing bars' chamfers drew a dark dot at each crossing; a 1 mm rail setback left 7 coincident
+pairs inside the census's 2 mm. All fixed before shipping.
+
+**The build** (`workspaces/bank-interior-ws`, `_scratch/bank_interior_chain.sh`; `frames/17_*`, `frames/18_*`):
+- The lobby's wood band runs round its west, east and north walls; the front is glass onto the street, mullions and
+  all, and from outside the lobby glows through it at night.
+- The deposit wall reads as boxes with its drawn cells; under the level's light its steel reads darker than comp 12's.
+- The pens are too small to read at these stations.
+
+**Priced** (`price_interior.py`, `compare_interior.out.txt`), against step 7's build: draws median +0, largest +13;
+p95 median -0.004 ms, largest +0.432, against the controls' own 0.491.
+
+**Reads wrong, not yet fixed:** the lobby is still sparse for its 390 m2 (officers' desks on the floor are the next
+Deli Counter step); the deposit wall's steel is dark; the storefront's mullions read as dark stripes from inside.
+
 ## The plan, each step priced and shown
 
 1. **Light and floor** (Deli Counter): a bank's public rooms take a selling room's lamp density and the bake-only

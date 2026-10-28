@@ -151,4 +151,4 @@
 - [Prop ideas 2026-10-27](prop-ideas-2026-10-27.md) — ashtrays, breaker boxes, coatracks, fridges, sinks, desk lamps, ceiling fans; none built yet
 - [Score locations: bank first](bank-interior-next.md) — bank next, then jewelry, music gear; 8 more approved (check-cashing, armored depot...)
 - [Full suite on the clone first](full-suite-on-the-clone-first.md) — before gen --write; nearby tests miss library-wide pins
-- [Release 1.42.0 plan](release-1-42-0-plan.md) — AFTER the bank is finished (walker: fix it first); GitHub now, forge later
+- [Release 1.42.0 plan](release-1-42-0-plan.md) — HELD for the bank interior pass (walker 10-27 eve); manifest patch drafted

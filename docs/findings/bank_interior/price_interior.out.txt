@@ -1,0 +1,83 @@
+control_a import 0
+control_a perf 0
+, video 127.1 MiB
+
+  lights per object, by reach: cap 8, 161 of 2266 mesh(es) over it, worst 138 (LuxHorizonGlow); 6350 light-mesh pair(s)
+    138 lights  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     66 lights  /root/Mission/Bake/Site/site_marks_090_090_088_c499_499
+     51 lights  /root/Mission/Bake/Site/b0/MergedR_54
+     49 lights  /root/Mission/Bake/Site/b0/MergedR_52
+     47 lights  /root/Mission/Bake/Site/b0/MergedR_30
+  lights per object, paired: 5 of 2266 mesh(es) over the cap, worst 116 (LuxHorizonGlow); 748 light-mesh pair(s); 2203 lightmap user(s), 122 of 138 light(s) baked
+    116 lights  (138 by reach)  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     13 lights  (13 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_7a8087
+     13 lights  (13 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_b2b8bd
+     11 lights  (11 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_7a8087
+     11 lights  (11 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_b2b8bd
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\docs\findings\bank_interior\perf_interior_control_a.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: attacker_spawn_2 at yaw 270 -- 6.48 ms p95, 1248 draws
+
+every station inside budget
+
+subject import 0
+subject perf 0
+281 mesh(es) over it, worst 142 (LuxHorizonGlow); 7943 light-mesh pair(s)
+    142 lights  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     70 lights  /root/Mission/Bake/Site/site_marks_090_090_088_c499_499
+     55 lights  /root/Mission/Bake/Site/b0/MergedR_57
+     53 lights  /root/Mission/Bake/Site/b0/MergedR_55
+     51 lights  /root/Mission/Bake/Site/b0/MergedR_33
+    (list cut at the probe's limit; `over_cap` is the full count)
+  lights per object, paired: 15 of 2281 mesh(es) over the cap, worst 120 (LuxHorizonGlow); 866 light-mesh pair(s); 2216 lightmap user(s), 126 of 142 light(s) baked
+    120 lights  (142 by reach)  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     15 lights  (15 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_7a8087
+     15 lights  (15 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_b2b8bd
+     14 lights  (14 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_7a8087
+     14 lights  (14 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_b2b8bd
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\docs\findings\bank_interior\perf_interior_subject.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: attacker_spawn_2 at yaw 270 -- 6.51 ms p95, 1254 draws
+
+every station inside budget
+
+control_b import 0
+control_b perf 0
+, video 127.1 MiB
+
+  lights per object, by reach: cap 8, 161 of 2266 mesh(es) over it, worst 138 (LuxHorizonGlow); 6350 light-mesh pair(s)
+    138 lights  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     66 lights  /root/Mission/Bake/Site/site_marks_090_090_088_c499_499
+     51 lights  /root/Mission/Bake/Site/b0/MergedR_54
+     49 lights  /root/Mission/Bake/Site/b0/MergedR_52
+     47 lights  /root/Mission/Bake/Site/b0/MergedR_30
+  lights per object, paired: 5 of 2266 mesh(es) over the cap, worst 116 (LuxHorizonGlow); 748 light-mesh pair(s); 2203 lightmap user(s), 122 of 138 light(s) baked
+    116 lights  (138 by reach)  /root/Mission/Bake/Site/LuxRoot/LuxHorizonGlow
+     13 lights  (13 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_7a8087
+     13 lights  (13 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_breached/VaultDoor_metal_painted_delco_1997_b2b8bd
+     11 lights  (11 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_7a8087
+     11 lights  (11 by reach)  /root/Mission/Bake/Site/b0/int_-1_6_open0_open/VaultDoor_metal_painted_delco_1997_b2b8bd
+  (merging and instancing buy draw calls with lighting fidelity; a change that
+   improves the draw column can darken interiors, so the two are reported together)
+
+  report -> C:\Projects\gabagool_studios\gabagool_factory\docs\findings\bank_interior\perf_interior_control_b.json
+  budget: 2000 draws, 11.0 ms p95 (provisional -- docs/DRAW_CALL_BUDGET.md)
+  gpu/rcpu come from a SEPARATE short pass with the render
+  timers on, and are not comparable with p95 ms, which is
+  measured with them off -- the timers cost real frame time.
+  worst station: attacker_spawn_2 at yaw 270 -- 6.56 ms p95, 1248 draws
+
+every station inside budget
+

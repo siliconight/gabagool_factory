@@ -14,3 +14,5 @@ None of the seven was a Zoo species that day (141 species; `exhaust_fan` is a wa
 
 **Why:** levels need more lived-in dressing; the walker treats this as an open-ended stream.
 **How to apply:** each becomes a Zoo species + a DC piece/route (the gap protocol); ceiling fans and desk lamps touch Lux (a lamp is a light; a fan can turn as a moving part, [[moving-parts-shipped]]). Price draws per [[performance-beats-graphics]]. File on the roadmap; add more as they come. Related: [[lived-in-touches]], [[rooms-not-crowded-not-barren]], [[asset-wishlist-filed]].
+
+Walker, later 2026-10-27 (two photos): banks had pens on a ball chain to a base pad on the counter. Planned as Zoo 1.141.0 on `check_desk` (and teller windows), pen/chain/pad as vertex tint in the body material, after Zoo 1.140.0 (deposit boxes). Same day: signs look designer-placed, not real -- roadmap 322, filed not started ("good enough for now").
