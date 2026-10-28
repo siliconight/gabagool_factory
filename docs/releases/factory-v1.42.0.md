@@ -1,5 +1,10 @@
 # Gabagool Factory 1.42.0
 
+> **Superseded by [1.42.1](https://github.com/siliconight/gabagool_factory/releases/tag/factory-v1.42.1); use that
+> one.** This set's `setup` warns that five tools have drifted and asks for re-certification -- it was certified
+> with Level Factory's grounded versions still at 1.41.0's -- and Dispatch, Laser Tag, Patina and Pipeline ship
+> without their MIT licences. 1.42.1 corrects both and changes nothing in a level.
+
 The standalone package: every tool it takes to make a level, with the
 building library, in one zip. Unzip it anywhere, install Blender 4.2+ and
 Godot 4.7, and follow `START_HERE.md` inside it: `.\factory setup --venv`,
