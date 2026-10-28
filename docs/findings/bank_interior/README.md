@@ -270,6 +270,49 @@ p95 median -0.004 ms, largest +0.432, against the controls' own 0.491.
 **Reads wrong, not yet fixed:** the lobby is still sparse for its 390 m2 (officers' desks on the floor are the next
 Deli Counter step); the deposit wall's steel is dark; the storefront's mullions read as dark stripes from inside.
 
+## Step 9 shipped: the desks, the two fixed, the money -- Zoo 1.142.0 (9143115), Deli Counter 0.286.0 (d26f4e35) and 0.286.1 (19dd14f3)
+
+The walker: "add the lobby desks and fix those two first", then "we need to make the cash! in the vault room!".
+
+**Why the two read dark, found before fixing** (the build's own GLBs, `_scratch/bank_interior_*`'s workspace):
+- The deposit wall and the cash cart carry the same material, `M_Skin_metal_bare_delco_1997`, metallic 0.9. The wall
+  is a building piece, lightmapped (`light_baking=2` in its import); the cart is a prop. The cart read light grey in
+  the same vault. This is the vault door's finding of roadmap item 46 again -- bare steel mirroring the dark room --
+  and it took the same fix: painted steel. NOT MEASURED: which of the lightmap's diffuse and the probe's reflection
+  carries the difference; the fix is chosen on the precedent, not on that measurement.
+- The storefront's frame builds in its wall's material (`_arch.py`'s `structure`), and the bank's wall is `glass`,
+  which `dna.OPAQUE_FOR` makes `glass_facade`: the doorway GLB held only the storefront glass and
+  `M_Skin_glass_facade_delco_1997`. The mullions were the curtain-wall texture, never aluminium.
+
+**Shipped:**
+- Zoo 1.142.0: shelving's `vault` stock -- strapped bricks banded by denomination, deposit bags, one material in the
+  vertex colour, 0 coincident pairs; a glass wall's storefront frames in aluminium (`metal_painted`); the deposit
+  wall painted steel.
+- Deli Counter 0.286.0: officers' desks on a bank lobby's floor; `shelf_cash` racks, the safe and a cash cart
+  anchored in a bank vault. 13 desks, 42 racks, carts 17 -> 21; only the seven banks' slots moved.
+- Deli Counter 0.286.1: the racks steel. **Found by looking, frame 20:** `shelf_cash` had no `_PROP_MATERIALS` row,
+  took the `wood` default, and the money stood in timber bookcases where the banded bricks read as book spines. The
+  walker: "we wouldn't have cash inside a wooden bookcase, that looks very wrong".
+
+**The build** (`workspaces/bank-money-ws`, `_scratch/bank_money_chain.sh`; `frames/19_*`, `frames/20_*`, composed by
+`sheet.py`): the lobby's desks with their CRTs; the storefront's mullions light; the deposit wall light steel with
+its brass locks; the racks in wood (above).
+
+**Priced** (`price_money.py`, `compare_money.out.txt`), against step 8's build: draws median +0, largest +11,
+smallest -17; p95 median -0.031 ms, largest +0.743, against the controls' own 0.971. Every station inside budget.
+
+**0.286.1's build** (`workspaces/bank-rack-ws`, `_scratch/bank_rack_chain.sh`; `frames/21_*`): the racks steel,
+nothing else in the frames moved (vault 131.7 -> 131.6, vault_west 107.9 -> 107.9 under the inspection light). The
+racks read near black and still bookcase-shaped. **Priced** (`price_rack.py`, `compare_rack.out.txt`), against
+0.286.0's build: draws median +0, largest +7; p95 median -0.016 ms, largest +0.555, against the controls' own 0.711.
+
+**Reads wrong, not yet fixed -- the walker: "that vault room needs some love"**, with four photographs: a gold vault's
+painted steel racks in rows; a room walled floor to ceiling in deposit boxes; white wall-hung shelving; a stack of
+Federal Reserve bricks. Against them:
+- the bricks' sides are pale paper-grey under clear wrap, the straps blue -- 1.142.0's notes are a dark green;
+- the money is racked in rows or stacked loose, not set against one wall;
+- a deposit vault is boxes on every wall, not one 2 m panel.
+
 ## The plan, each step priced and shown
 
 1. **Light and floor** (Deli Counter): a bank's public rooms take a selling room's lamp density and the bake-only

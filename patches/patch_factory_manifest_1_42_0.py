@@ -6,7 +6,8 @@ in `factory.manifest.json` to the checkout's VERSION and adds the factory CHANGE
 1.41.0, that each VERSION parses, and that the tools that moved are exactly the six the story names; writes nothing
 on a miss. The repos are tagged afterwards, at the commits this certifies. The walker, 2026-10-27: "we are also
 probably due for a new release/package?", then "fix it before we rush to the release", then "fix those three, then
-cut the release".
+cut the release", then "hold the release, do the interior pass first", and on 2026-10-28, "lets get to shipping that
+release".
 
     python patches/patch_factory_manifest_1_42_0.py [--result-pending]
 """
@@ -35,9 +36,11 @@ STORY = (
     "(deli_counter 0.271.0-0.279.0; zoo 1.131.0-1.134.0; pixelcoat 0.63.0), and a baked row's range "
     "lent to the bake (lux 0.80.0, level_factory 0.261.0). THE BANK, INSIDE AND OUT (roadmap 321, the "
     "walker's twelve comps and the researched 1990s branch): lit and tiled, its lobby furnished with a check "
-    "desk, a queue, plants, a clock, CCTV cameras and its printed offers and rate board, its walls "
-    "plastered, its vault's cash carts, its teller line naming it over numbered windows (deli_counter "
-    "0.280.0-0.283.0; zoo 1.135.0-1.137.0); outside, its time-and-temperature sign, its night "
+    "desk and its chained pens, officers' desks, a queue, plants, a clock, CCTV cameras and its printed "
+    "offers and rate board, its walls plastered over dark wood panelling, a glass storefront to the street "
+    "framed in aluminium, its teller line naming it over numbered windows; its vault's steel money racks, "
+    "cash carts and a wall of numbered deposit boxes with brass locks (deli_counter 0.280.0-0.286.1; zoo "
+    "1.135.0-1.142.0); outside, its time-and-temperature sign, its night "
     "depository, a drive-up lane with a pneumatic tube station under a canopy, a clearance bar, bollards "
     "and painted lanes, and one name on its band, door, line, sign and canopy (zoo 1.138.0, 1.139.0; lot "
     "0.132.0-0.135.0; level_factory 0.262.0). EVERY PIECE ON WHAT IT IS MADE OF (deli_counter 0.284.0, "
@@ -51,7 +54,7 @@ STORY = (
 )
 
 ENTRY = (
-    "## [factory-v1.42.0] - 2026-10-27\n"
+    "## [factory-v1.42.0] - 2026-10-28\n"
     "\n"
     "Six tools move:\n"
     "{table}\n"
@@ -62,10 +65,11 @@ ENTRY = (
     "- **The supermarket** (roadmaps 274-279, 319): numbered aisles whose\n"
     "  shelves sell what their markers say, produce, a cooler wall, tile, a\n"
     "  store's light, and a bake that reaches the next lamp along.\n"
-    "- **The bank, inside and out** (roadmap 321): lit, tiled and plastered; a\n"
-    "  check desk, a queue, plants, a clock, cameras, its printed offers and rate\n"
-    "  board; cash carts in the vault; a teller line naming it over numbered\n"
-    "  windows; outside, a time-and-temperature sign, a night depository and a\n"
+    "- **The bank, inside and out** (roadmap 321): lit and tiled, plastered over\n"
+    "  wood panelling, a glass storefront; a check desk with chained pens,\n"
+    "  officers' desks, a queue, plants, a clock, cameras, its printed offers and\n"
+    "  rate board; a teller line naming it over numbered windows; a vault of\n"
+    "  steel money racks, cash carts and deposit boxes; outside, a time-and-temperature sign, a night depository and a\n"
     "  drive-up lane with its tube station, canopy, clearance bar and painted\n"
     "  lanes; one name on every face of it.\n"
     "- **Every piece on what it is made of**: about 2,800 library slots asked\n"

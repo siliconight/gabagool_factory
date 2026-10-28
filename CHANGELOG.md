@@ -3,6 +3,41 @@
 Versions of the CERTIFIED SET. Individual tool detail lives in each tool's
 own CHANGELOG.
 
+## [factory-v1.42.0] - 2026-10-28
+
+Six tools move:
+- deli_counter: 0.241.0 -> 0.286.1
+- level_factory: 0.227.0 -> 0.262.0
+- lot: 0.126.0 -> 0.135.0
+- lux: 0.79.0 -> 0.80.0
+- pixelcoat: 0.62.0 -> 0.63.0
+- zoo: 1.117.0 -> 1.142.0
+
+- **A level without a terminal** (roadmaps 310-318): the Factory panel in
+  Godot generates a level's layouts, plans them top-down, walks the chosen
+  one, changes its settings and exports it -- no terminal, no JSON, no AI.
+- **The supermarket** (roadmaps 274-279, 319): numbered aisles whose
+  shelves sell what their markers say, produce, a cooler wall, tile, a
+  store's light, and a bake that reaches the next lamp along.
+- **The bank, inside and out** (roadmap 321): lit and tiled, plastered over
+  wood panelling, a glass storefront; a check desk with chained pens,
+  officers' desks, a queue, plants, a clock, cameras, its printed offers and
+  rate board; a teller line naming it over numbered windows; a vault of
+  steel money racks, cash carts and deposit boxes; outside, a time-and-temperature sign, a night depository and a
+  drive-up lane with its tube station, canopy, clearance bar and painted
+  lanes; one name on every face of it.
+- **Every piece on what it is made of**: about 2,800 library slots asked
+  for a material their species does not offer, many of them street rust.
+- **Also:** civic rooms furnished as themselves; the scout model and the
+  exploded axonometric of every building; stairs solid underneath and
+  stair holes railed; queues and crowd barriers; no parking at a bus stop.
+
+Certified by install test 13: the set's package, unzipped into a fresh
+folder, made a level with START_HERE.md's commands, the PyPI download
+included. setup exited 0 with no sitecustomize error and 5 `drift vs certified` lines, each a tool that moved against 1.41.0's certified versions (deli_counter, lot, pixelcoat, zoo, lux; level_factory runs the doctor), which this promotion clears; make exited 0 in 8.5 minutes and built seed_9205 at PASS 100, the pick tests 10 to 12 made (seed 9003 PASS 90; seed 9104 PASS_WITH_TUNING 89, where test 12 graded it PASS 90): the buildings' merge 890 slots with 4 kept whole -- deli_a01's ladders and each building's markers --, 131 models and 96 primitive meshes lightmapped, the closure ok over 84 resources; walk exited 0 in 5.2 minutes, the walk bot climbing both of deli_a01's ladders, to 6.6 and 3.3 m, the shot bot passing all five stations, and after it the package still carried its bake and the backdrop's ground (2,824 files, bake.exr, light_bake.json ok). No deviation from the page.
+
+Not certified: Linux.
+
 ## [factory-v1.41.0] - 2026-10-20
 
 Seven tools move:
