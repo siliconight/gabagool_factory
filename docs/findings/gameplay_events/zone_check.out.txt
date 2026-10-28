@@ -1,0 +1,12 @@
+off make=0
+on make=0
+anchors  0.265.1 off/on: 32 38   0.266.0 off/on: 32 38
+off ids == 0.265.1 off ids: True  on ids == 0.265.1 on ids: True
+off records differing from 0.265.1 off: []
+on records differing from 0.265.1 on: ['bank_block_001/lot:getaway_van_extraction_0']
+   bank_block_001/lot:getaway_van_extraction_0 {'event': (None, {'event': 'zone.extraction', 'fires': 'on_enter', 'radius': 1.75, 'repeat': 'edge'})}
+events on: ['alarm.atm_tampered', 'alarm.atm_tampered', 'alarm.safe_opened', 'alarm.safe_opened', 'score.cash_moved', 'score.cash_moved', 'zone.extraction']
+zone: bank_block_001/lot:getaway_van_extraction_0 extraction {"event": "zone.extraction", "fires": "on_enter", "radius": 1.75, "repeat": "edge"} tags ['extraction']
+lot gameplay files: 15
+site extraction markers: [{'type': 'extraction', 'at': [7.85, -21.95], 'source': 'getaway_van', 'getaway': 'step_van', 'zone_radius': 1.75}]
+  van slot edge from the zone centre: 1.250 m  (zone_radius 1.75)
