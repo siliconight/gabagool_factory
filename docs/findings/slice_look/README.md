@@ -109,6 +109,28 @@ level's light, 57-84 under the studio light.
 - **No gutter under a parapet** (Patina 0.34.0 + Zoo 1.147.0, `_scratch/zoo-scupper`): a scupper, conductor head
   and downspout instead, on buildings that are not Empties.
 
+## 2026-10-29 -- slice 6: what stands outside a shop's door -- SHIPPED
+
+Lot 0.137.0 (5e93b6d, `patches/patch_lot_frontage.py`), the first set dressing placed by cause rather than by
+spacing: against a shop's street face beside its way in, a soda machine, a stack of milk crates and a news box,
+stepped clear of the door's approach point, the paths and everything standing. On the slice: the gas station's shop
+and the card shop (b0, b2); the bank and the rail yard keep clear fronts. **Verdict: reads better**
+(`crops_s5_s6_inspect.png`): the card shop's door now has the blue machine and the red crates and box beside it --
+the first saturated accents at street level, and a reason for them. **Price** (`perf_s6_*`, slice 5 the control):
+**draws median +0, largest +24 (control floor 0); p95 median -0.008 ms, largest +0.776 ms (floor 0.830 ms)** -- six
+props, explained; `camera_socket_0` yaw 270 newly near budget at 1,804 draws. **Retracted, kept:** the first slice-6
+build placed nothing -- the draft read a building's `id`, which is the site's `b0` -- and its unit tests passed
+because they named buildings by archetype; the tests now hold Lot's own record shape.
+
+## 2026-10-29 -- slice 5: a sidewalk's debris at its kerb and its building line -- SHIPPED
+
+Patina 0.37.0 (f5975c4, `patches/patch_patina_sidewalk_edges.py`). Slice 4's sidewalks were the densest dressing on
+the level, 1,500 pieces on 3,315 m2 laid evenly across the walking surface. Now thinned by distance to the strip's
+nearer long edge: 1,500 -> 469, within 0.4 m of an edge 18 % -> 39 %, the middle band 322 -> 48. **Verdict: reads
+better, modestly** (`crops_s4_s5_inspect.png`): the walking surface is clear and what is left sits where it would.
+**Price** (`perf_s5_*`, slice 4 the control): **draws median +0, largest +0** (control floor 87); p95 median -0.370
+ms against a control disagreement of 2.151 ms -- a weak frame-time read, and the draws say free.
+
 ## 2026-10-29 -- slice 4: a band at the roof line, and the bands round their corners -- SHIPPED
 
 Patina 0.36.0 (3a8ccb7, `patches/patch_patina_roof_line.py`). With the parapet flush on its wall, a facade ran from

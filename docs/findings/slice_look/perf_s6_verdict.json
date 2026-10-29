@@ -1,0 +1,21 @@
+{
+  "verdict": "WATCH",
+  "action": "Release, then look at the frames at the headings named above and record what moved there.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 24.0,
+  "p95_median_delta_ms": -0.008,
+  "p95_largest_delta_ms": 0.776,
+  "floor_draws": 0,
+  "floor_ms": 0.83,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [],
+  "watch": [
+    "camera_socket_0 yaw 270.0 near budget: 1804 draws, 9.84 ms p95",
+    "extraction_11 yaw 90.0 near budget: 2335 draws, 11.56 ms p95",
+    "longest_sightline yaw 90.0 near budget: 2393 draws, 12.19 ms p95"
+  ]
+}
