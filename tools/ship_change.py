@@ -340,6 +340,18 @@ def cmd_patch(args):
     dest.write_text(body, encoding="utf-8", newline="\n")
     print("wrote %s (%d chars)" % (dest, len(body)))
     dry_run(args.repo, clone, dest, mod + new)
+    # THE PATCH IS PROVEN ONLY HERE (2026-10-29), and `apply` asks for this stamp. Patina 0.33.1 was applied from a
+    # patch whose first dry run had refused (a version.py the clone held with CRLF): the command line piped `patch`
+    # through `tail`, the pipe took tail's exit, and `&&` ran `apply` anyway. A rule in a memory did not stop it.
+    _proven(dest).write_text(sha(dest.read_text(encoding="utf-8")) + "\n", encoding="utf-8", newline="\n")
+    print("proven: %s" % _proven(dest).name)
+
+
+def _proven(patch):
+    """The stamp `patch` writes for a patch whose two dry runs both held (scratch, never committed)."""
+    d = SCRATCH / "ship_proven"
+    d.mkdir(parents=True, exist_ok=True)
+    return d / (patch.stem + ".proven")
 
 
 def dry_run(repo_name, clone, patch, names):
@@ -425,6 +437,9 @@ def cmd_apply(args):
     message = pathlib.Path(args.message).read_text(encoding="utf-8").strip()
     if ATTRIBUTION.search(message):
         raise Failed("the commit message carries attribution")
+    stamp = _proven(patch)
+    if not stamp.exists() or stamp.read_text(encoding="utf-8").strip() != sha(patch.read_text(encoding="utf-8")):
+        raise Failed("%s has no proof that its dry runs held: run `ship_change.py patch` to the end first" % patch.name)
     if git(repo, "status", "--porcelain").strip():
         raise Failed("%s has uncommitted changes" % args.repo)
     r = subprocess.run([sys.executable, str(patch)], capture_output=True, text=True)
