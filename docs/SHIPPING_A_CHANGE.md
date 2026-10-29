@@ -117,6 +117,19 @@ a floor past 1.0 ms is itself a WATCH: a wide floor would let a real cost pass.
 prove on the old version, apply, commit, push, and the release checks (a tool's
 HEAD at its tag, nothing stale, `factory_index` written before the commit).
 
+**A repo whose commit hook runs more than its suite is gated on the clone.**
+Deli Counter's hook runs `check.py`: spec validation, the content audit,
+`layout_lint`, the stair sweep, build freshness, the nav gate and the catalog.
+The first apply of Deli Counter 0.290.0 passed the clone's suite and nav gate
+and was then refused at commit by `layout_lint`'s L22 -- a new vault door's
+leaf swung across a stair -- one rebuild and one hook run late.
+`ship_change.py gate <repo> <clone>` runs that gate on the clone (for Deli
+Counter: rebuild, refresh the catalog, `check.py`), names the failing steps,
+and stamps the clone with a hash of its exact changes; `patch` refuses a gated
+repo's clone whose stamp does not match. `check.py`'s children print to the
+console, not to a captured pipe, so on a failure `gate` re-runs the cheap steps
+one at a time to say which.
+
 ## 6. Version and changelog
 
 - Bump `VERSION`. Patch for a fix, minor for a capability.

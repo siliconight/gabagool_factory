@@ -52,5 +52,21 @@ says so and nobody reads it: `layout_lint.py specs/bank_tower_a03.json` prints `
 matching 'vault|safe' (signature program)` as a WARN. The towers predate the score program (Phase 4's hand-authored
 venue configs). The gap is in the library's content, not in the hooks.
 
-**Left:** zone events beyond the getaway (a vault, a score room); vault doors for the four banks entered through an
-ordinary `vault_gate` (next: Deli Counter 0.290.0); `bank_tower_a03`'s missing teller line.
+**Vault doors and drill zones.** Deli Counter 0.290.0 (659179cc, `migrations/migrate_bank_vault_doors.py`) turns
+the `vault_gate` door into a vault door in bank_branch_a04, bank_tower_a01 and credit_union_a03; credit_union_a01
+keeps its door, because the leaf would swing across its stair `cu01_stair_w` (layout_lint L22) -- which this repo's
+own commit gate caught on the first apply, after the clone's suite and nav gate had passed (now `ship_change.py
+gate`). The walker then asked for the drill: "opening the safe should be a gameplay event where you have to stand in
+an area for a certain amount of time close to the 'drill' and then the door opens", and "no drill time from the
+factory ... These will be networked events programmed somwhere else...we just want the seams/hooks in place on some
+level so we can invoke them visually on peoples clients if needed later (muiltiplayer game)". Dispatch 0.8.0
+(100ff86): `fires` may list `["on_enter", "on_exit"]`, and `target` names the interactive an event acts on. Deli
+Counter 0.291.0 (c10c4f5f): every vault door and deposit wall writes a `drill` marker, `score_alarms.drill_zone` --
+centre half the slot's depth plus the contract's body radius out along its facing, radius half the opening's width
+plus that radius (1.0 m at a vault door) -- naming the interactive it opens. Checked on the built library before
+shipping: both vault doors' zones in bank_branch_a02 and bank_job stand in the room the door is entered from
+(vault_west, vault_room_east); every deposit wall's inside the vault. Level Factory 0.267.0 (1079e61) stages them as
+triggers behind the switch. NOT YET MEASURED in a package.
+
+**Left:** a package made with events on, read for its drill zones; floor safes, which have no openable states and so
+nothing for a drill to open; a score room's zone; `bank_tower_a03`'s missing teller line.

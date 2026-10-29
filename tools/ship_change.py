@@ -4,6 +4,9 @@
         a scratch clone of <repo> at _scratch/<name>, to edit in place
     python tools/ship_change.py smoke <batch.json> --ws <workspace> [--lf <level_factory clone>]
         make the smallest level that exercises the change and print what failed, before any long suite
+    python tools/ship_change.py gate <repo> <clone>
+        run the repo's own commit-hook gate on the clone (Deli Counter: rebuild, catalog, check.py) and stamp it;
+        `patch` refuses a Deli Counter clone whose stamp does not match its changes
     python tools/ship_change.py patch <repo> <clone> <name> --doc <file> [--whole-over N]
         write patches/patch_<name>.py from the clone's diff against <repo>'s HEAD, then dry-run it twice:
         the first run must reproduce the clone byte for byte, the second must refuse
@@ -141,6 +144,59 @@ def cmd_clone(args):
             raise Failed("the clone's build failed: %s" % (r.stdout + r.stderr).strip()[-400:])
 
 
+# ---- gate -----------------------------------------------------------------------------------------------------
+
+#: A repo whose commit hook runs a gate the suite does not: (its command, the cheap steps to re-run one at a time when
+#: it fails, because its children's output does not reach a captured pipe). Deli Counter's hook runs check.py, and the
+#: first apply of 0.290.0 was refused there by layout_lint's L22 after the clone's suite and nav gate had both passed.
+GATES = {"deli_counter": (["check.py"], [["validate.py", "--all"], ["audit_specs.py"], ["layout_lint.py", "--all"],
+                                          ["stair_regression.py", "--quick"], ["build_freshness.py"],
+                                          ["catalog.py", "--check"]])}
+STAMP = ".ship_gate"
+
+
+def _changes_sha(clone):
+    """One sha over the clone's changed and new files' LF text: the stamp is good only for exactly these changes."""
+    mod, new = changed_files(clone)
+    h = hashlib.sha256()
+    for name in sorted(mod + new):
+        if name == STAMP:
+            continue
+        h.update(name.encode() + b"\0" + lf_text((clone / name).read_bytes(), name).encode("utf-8") + b"\0")
+    return h.hexdigest()[:16]
+
+
+def cmd_gate(args):
+    clone = pathlib.Path(args.clone)
+    if args.repo not in GATES:
+        print("%s has no gate beyond its suite: nothing to run" % args.repo)
+        return 0
+    gate, steps = GATES[args.repo]
+    if args.repo == "deli_counter":
+        # the hook refreshes the catalog first, and catalog.py writes CRLF where the repo keeps LF
+        for cmd in (["build.py", "--all"], ["catalog.py"]):
+            r = subprocess.run([sys.executable] + cmd, cwd=str(clone), capture_output=True, text=True)
+            print("%s: exit %d" % (" ".join(cmd), r.returncode))
+            if r.returncode != 0:
+                raise Failed("%s failed: %s" % (" ".join(cmd), (r.stdout + r.stderr).strip()[-400:]))
+        cat = clone / "specs" / "CATALOG.md"
+        cat.write_bytes(cat.read_bytes().replace(b"\r\n", b"\n"))
+    r = subprocess.run([sys.executable] + gate, cwd=str(clone), capture_output=True, text=True)
+    print("%s: exit %d" % (" ".join(gate), r.returncode))
+    if r.returncode != 0:
+        for cmd in steps:
+            s = subprocess.run([sys.executable] + cmd, cwd=str(clone), capture_output=True, text=True)
+            if s.returncode != 0:
+                tail = [l for l in (s.stdout + s.stderr).splitlines() if "FAIL" in l or "stale" in l.lower()]
+                print("  %s: exit %d" % (" ".join(cmd), s.returncode))
+                for line in (tail or (s.stdout + s.stderr).splitlines())[-8:]:
+                    print("    " + line[:240])
+        raise Failed("the gate failed on the clone; the steps above that failed are listed (the unit suites and the "
+                     "nav gate are not re-run one at a time)")
+    (clone / STAMP).write_text(_changes_sha(clone) + "\n", encoding="utf-8")
+    print("stamped %s" % (clone / STAMP))
+
+
 # ---- smoke ----------------------------------------------------------------------------------------------------
 
 def cmd_smoke(args):
@@ -247,7 +303,14 @@ def cmd_patch(args):
         raise Failed("the clone was made from %s, not %s's HEAD: re-clone it" % (git(clone, "log", "-1", "--format=%h").strip(), args.repo))
     if git(repo, "status", "--porcelain").strip():
         raise Failed("%s has uncommitted changes" % args.repo)
+    if args.repo in GATES:
+        stamp = clone / STAMP
+        have = stamp.read_text(encoding="utf-8").strip() if stamp.exists() else None
+        if have != _changes_sha(clone):
+            raise Failed("%s's commit hook runs a gate the suite does not: run `ship_change.py gate %s %s` on these "
+                         "exact changes first" % (args.repo, args.repo, args.clone))
     mod, new = changed_files(clone)
+    mod, new = [f for f in mod if f != STAMP], [f for f in new if f != STAMP]
     if not mod and not new:
         raise Failed("the clone changed nothing")
     pins, edits, whole, new_files = {}, {}, {}, {}
@@ -373,6 +436,7 @@ def main(argv=None):
     sub = ap.add_subparsers(dest="cmd", required=True)
     p = sub.add_parser("clone"); p.add_argument("repo"); p.add_argument("name")
     p = sub.add_parser("smoke"); p.add_argument("batch"); p.add_argument("--ws", required=True); p.add_argument("--lf")
+    p = sub.add_parser("gate"); p.add_argument("repo"); p.add_argument("clone")
     p = sub.add_parser("patch"); p.add_argument("repo"); p.add_argument("clone"); p.add_argument("name")
     p.add_argument("--doc", required=True); p.add_argument("--whole-over", type=int, default=12)
     p = sub.add_parser("prove-old"); p.add_argument("repo"); p.add_argument("clone"); p.add_argument("name")
@@ -382,7 +446,7 @@ def main(argv=None):
     p.add_argument("--message", required=True); p.add_argument("--suite", action="store_true")
     args = ap.parse_args(argv)
     try:
-        return {"clone": cmd_clone, "smoke": cmd_smoke, "patch": cmd_patch, "prove-old": cmd_prove_old,
+        return {"clone": cmd_clone, "smoke": cmd_smoke, "gate": cmd_gate, "patch": cmd_patch, "prove-old": cmd_prove_old,
                 "apply": cmd_apply}[args.cmd](args) or 0
     except Failed as e:
         print("FAILED: %s" % e)
