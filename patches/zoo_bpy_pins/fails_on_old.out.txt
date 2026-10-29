@@ -1,0 +1,18 @@
+A test-only change: the tests it corrects are what failed. On Zoo 1.146.0 (3048912), in Blender 5.1.1:
+FAILED tests/test_club_bpy.py::test_bpy_what_shipped_before_is_what_main_built (5 of 5)
+FAILED tests/test_interior_bpy.py::test_bpy_host_without_stock_is_what_main_built (7 of 7)
+FAILED tests/test_shut_door.py::test_bpy_a_facade_doorway_is_shut_and_an_enterable_one_is_not
+FAILED tests/test_front_doors.py::test_bpy_a_navy_door_s_leaf_is_painted_metal
+(the same 14 fail on 1.144.0 and 1.145.0: patches/zoo_coping/suite_bpy_failures.txt)
+
+The corrected tests on 1.146.0 plus the change, with test_door_hardware.py:
+96 passed
+
+The corrected club pins still see a shape: run on 0.89.0 (ebcbe85), whose TV stands 0.90.0 rebuilt:
+FAILED tests/test_club_bpy_new.py::test_bpy_what_shipped_before_is_what_main_built[crt_tv-(0.55, 0.5, 0.42)]
+FAILED tests/test_club_bpy_new.py::test_bpy_what_shipped_before_is_what_main_built[crt_tv-(0.9, 0.62, 0.7)]
+2 failed, 3 passed
+
+Order-free digests measured equal at 0.90.0 (82d23b1), 1.102.0 (53adeae~1), 1.103.0 (53adeae) and 1.146.0 for all
+12 pinned keys; the ordered digest equals each old pin through 1.102.0 and differs from 1.103.0 on
+(_scratch/zoo_digest_probe.py, run in each checkout).

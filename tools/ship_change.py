@@ -12,6 +12,9 @@
         the first run must reproduce the clone byte for byte, the second must refuse
     python tools/ship_change.py prove-old <repo> <clone> <name> --tests <t> [<t> ...] [--blender]
         run the clone's new or changed tests against <repo>'s HEAD; at least one must fail
+    python tools/ship_change.py bpy <clone> <name>
+        run EVERY test file in the clone that asks for bpy, under Blender, into patches/<name>/suite_bpy_clone.out.txt;
+        exit 1 on any failure. Zoo's half of its suite: `pytest` outside Blender skips all of them
     python tools/ship_change.py apply <repo> <name> --message <file> [--suite]
         run the patch on the real repo, fold in what `factory_index.py --write` changes inside it, commit, check
         the message carries no attribution, push
@@ -388,6 +391,32 @@ def cmd_prove_old(args):
     print("wrote %s" % out)
 
 
+# ---- bpy --------------------------------------------------------------------------------------------------------
+
+def cmd_bpy(args):
+    """EVERY BLENDER TEST, NOT A CHOSEN FEW (2026-10-29). Outside Blender `pytest` skips each test that asks for bpy,
+    so a Zoo change's suite line says nothing about them, and each change used to run a set it picked. Zoo 1.145.0
+    picked one that missed `test_inner_face`, which its window frame broke; run whole for 1.146.0 the set also held
+    fourteen failures that dated from before 1.144.0 and that no change had run (patches/zoo_bpy_pins/)."""
+    clone = pathlib.Path(args.clone)
+    files = sorted(str(p.relative_to(clone)).replace("\\", "/") for p in (clone / "tests").glob("test_*.py")
+                   if 'importorskip("bpy")' in p.read_text(encoding="utf-8", errors="replace"))
+    if not files:
+        raise Failed("no test in %s asks for bpy" % clone)
+    expr = ("import sys,pytest;sys.path.insert(0,'.');sys.exit(pytest.main(['-q','-p','no:cacheprovider',%s]))"
+            % ",".join(repr(f) for f in files))
+    r = subprocess.run([args.blender_exe, "-b", "--factory-startup", "--python-expr", expr], capture_output=True,
+                       text=True, cwd=str(clone), env=dict(os.environ, PYTHONDONTWRITEBYTECODE="1"))
+    out = PATCHES / args.name / "suite_bpy_clone.out.txt"
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(r.stdout + r.stderr, encoding="utf-8", newline="\n")
+    lines = [l for l in (r.stdout + r.stderr).splitlines() if re.match(r"^(FAILED|ERROR)|.*\d+ (passed|failed)", l)]
+    print("%d files; %s" % (len(files), "\n".join(lines[-20:])))
+    print("wrote %s" % out)
+    if r.returncode != 0 or any(l.startswith(("FAILED", "ERROR")) for l in lines):
+        raise Failed("the Blender set did not pass")
+
+
 # ---- apply ----------------------------------------------------------------------------------------------------
 
 def cmd_apply(args):
@@ -442,12 +471,14 @@ def main(argv=None):
     p = sub.add_parser("prove-old"); p.add_argument("repo"); p.add_argument("clone"); p.add_argument("name")
     p.add_argument("--tests", nargs="+", required=True); p.add_argument("--blender", action="store_true")
     p.add_argument("--blender-exe", default=r"C:\blender\blender.exe")
+    p = sub.add_parser("bpy"); p.add_argument("clone"); p.add_argument("name")
+    p.add_argument("--blender-exe", default=r"C:\blender\blender.exe")
     p = sub.add_parser("apply"); p.add_argument("repo"); p.add_argument("name")
     p.add_argument("--message", required=True); p.add_argument("--suite", action="store_true")
     args = ap.parse_args(argv)
     try:
         return {"clone": cmd_clone, "smoke": cmd_smoke, "gate": cmd_gate, "patch": cmd_patch, "prove-old": cmd_prove_old,
-                "apply": cmd_apply}[args.cmd](args) or 0
+                "bpy": cmd_bpy, "apply": cmd_apply}[args.cmd](args) or 0
     except Failed as e:
         print("FAILED: %s" % e)
         return 1

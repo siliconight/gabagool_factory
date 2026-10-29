@@ -60,6 +60,14 @@ code that reads it, and make an unrecognised shape FAIL rather than pass.
 `docs/COMMANDS.md` has the per-repo command and the trap in level_factory's
 (its conftest suppresses the pass/fail line). Quote the real number.
 
+**Zoo's suite is two halves, and the second is every Blender test.** Outside
+Blender `pytest` skips each test that asks for bpy -- 546 of them at 1.146.0 --
+so its summary says nothing about them. Run `tools/ship_change.py bpy <clone>
+<name>` (about 13 minutes): it runs every such file, not a chosen few. A chosen
+few let 1.145.0 break `test_inner_face` unseen, and fourteen failures sat in
+the set from before 1.144.0 because no change ran it whole
+(`patches/zoo_bpy_pins/`).
+
 **SMOKE FIRST, SUITE ONCE (the walker's yes, 2026-10-28).** Measured that day,
 a change spent most of its wall clock re-proving itself: Zoo's suite on the
 clone (8 min) and again on the real repo (7.7 min); Deli Counter's build, nav
