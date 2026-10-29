@@ -25,6 +25,7 @@ Each copy is deleted once measured (a package is about 250 MB).
 from __future__ import annotations
 
 import argparse
+import json
 import pathlib
 import shutil
 import subprocess
@@ -85,6 +86,17 @@ def main(argv=None):
             raise SystemExit("the harness failed on %s" % tag)
 
     start = time.monotonic()
+    # ONE BAKE STATE ON BOTH SIDES (2026-10-29). Level Factory ships a package unbaked when its light bake fails and
+    # says so only in light_bake.json; make still exits 0. The vertical slice's 3b build failed its bake on a full
+    # disk, and this tool priced it against a baked control as +1,521 draws median and FAIL -- the bake's cost charged
+    # to the change (docs/findings/slice_look/, perf_s3b_nobake_*). Refuse rather than measure that.
+    def baked(ws):
+        f = package(ws) / "light_bake.json"
+        return json.loads(f.read_text(encoding="utf-8")).get("ok") if f.exists() else None
+    bc, bs = baked(args.control), baked(args.subject)
+    if bc != bs:
+        raise SystemExit("REFUSED: the control's light bake is %r and the subject's %r (light_bake.json 'ok'); "
+                         "a price across bake states measures the bake, not the change" % (bc, bs))
     control = prepare("control", package(args.control))
     harness("control_a", control)
     subject = prepare("subject", package(args.subject))
