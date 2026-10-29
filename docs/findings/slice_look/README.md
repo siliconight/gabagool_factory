@@ -2,6 +2,147 @@
 
 Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas station, a bank and the library's draw).
 
+## AT A GLANCE (for the walker, kept current)
+
+**Shipped to the slice, each built, shot and priced; every one free or near it in draw calls:**
+
+| Step | What changed on the street | Tools |
+|---|---|---|
+| 1 | A gas station and one bank on the avenue | Level Factory 0.268.0 |
+| 2 | Parapets stand on their walls, flush with the facade | Deli Counter 0.292.0 |
+| 3 | Duplicate trim stacked on 76 of 158 buildings removed | Patina 0.33.1 |
+| 4 | Debris gathers at walls and kerbs; open asphalt mostly clean (4,547 -> 811 pieces) | Patina 0.34.0 |
+| 5 | No gutter under a parapet: a scupper and a conductor head instead | Patina 0.34.0, Zoo 1.147.0 |
+| 6 | A cream stone band at every floor line | Patina 0.35.0, Zoo 1.148.0 |
+| 7 | A cornice band under the parapet; every band wraps the corners | Patina 0.36.0 |
+| 8 | Sidewalk debris at the kerb and the building line, the middle clear | Patina 0.37.0 |
+| 9 | A soda machine, crates and a news box beside each shop's door | Lot 0.137.0 |
+| 10 | The gas station's canopy built: brand fascia and stripe, light soffit, columns on yellow guards | Zoo 1.149.0, Deli Counter 0.293.0 |
+| 11 | Quoins: dressed stone blocks up the bank's corners | Patina 0.38.0 |
+
+**In flight:** the avenue's utility cuts -- a patch of newer asphalt, its joints sealed, where each building's
+services were trenched in from the main -- Lot 0.138.0, slice 9.
+
+**Waiting on you** (section FOR THE WALKER below): the street trees, the evening's darkness, rowhome gutters under
+parapets, the train yard on Delco Ave.
+
+**Open and not yet solved:** the slice is over the 2,000-draw budget at two headings in every build (2,312-2,393,
+from the rail yard looking back down the avenue); a draw-attribution probe disagrees with the harness about that view
+(3,540 objects against 2,320) and is not yet trusted.
+
+## FOR THE WALKER -- decisions this work found and did not take alone
+
+1. **The street trees.** In seven of nine street frames a tree stands in the foreground as a silhouette of flat
+   plates on a bare trunk -- the most "computer made" shape on the avenue. It is that way on purpose: Zoo's
+   `street_tree` was kept low-poly retro on your call of 2026-09-13 ("the mario64 trees looked nice in their own retro
+   way"), before the realism direction. Options: (a) keep it; (b) its existing alpha-card crown (`params.crown =
+   "cards"`, judged not ready on cold run 9032), finished and priced -- card foliage is how the 360-era target does
+   trees, at the cost of alpha overdraw; (c) a redraw of the volume crown with many more, smaller, smoothed leaf
+   masses. Each would be shot on the slice and priced before it ships.
+2. **The evening.** At the brief's `evening` the facades and the ground are close to black (street frames 22-40 of
+   255 mean brightness in the level's light, 57-84 under the studio light). The sky, the lit windows, the gas canopy
+   and the signs read; nothing else does. Keep the mood and lift the fill, change the slice's time of day, or leave
+   it.
+3. **Rowhome gutters under their parapets.** Patina 0.34.0 drains a commercial roof through its parapet; the Empties
+   keep the gutters you asked for on 2026-10-04. Should a rowhome with a parapet drain through it too?
+4. **A train yard on Delco Ave.** The seeded draw's fourth building. Pick another candidate, or give the avenue a
+   fabric list (Level Factory's `D01_delco_avenue`)?
+
+## 2026-10-29 -- slice 8: quoins up the bank's corners -- SHIPPED
+
+After slice 4 the bank read base, middle and top, and its corners were plain stucco between the bands: the stone
+stopped where two walls met. Patina 0.38.0 (af5f19e, `patches/patch_patina_quoins.py`) stands dressed blocks up each
+outside corner of a civic building that is not an Empty -- a bank, a credit union, a courthouse, a library, a post
+office -- alternately long (0.62 m) and short (0.36 m) on each face, 0.32 m courses with a 3 cm joint, wrapped by the
+bands' corner rule, a course left out where it would meet a band, a pair dropped whole where either half meets an
+opening or a downspout; Zoo builds them as it builds the string courses, in the same stone trim. On the slice:
+bank_branch_a02 136 blocks over 17 courses, the card shop (not civic) none. **Verdict: reads better**
+(`crops_s7_s8_inspect.png`): the bank's corners read as laid stone under the studio light, and at evening still as a
+toothed edge against the sky. **Price** (`perf_s8_*`, slice 7 the control): **draws median +0, largest +2 (floor 0)**
+-- the blocks merge into each side's string-course mesh. **The frame time is not evidence**: Deli Counter 0.293.0's
+commit hook was rebuilding the whole library during the price, the controls read 1.501 ms apart, and the p95 median
++0.077 ms lies inside that. Slice 7, the control, was cleared for slice 9's disk before a quiet re-price could run;
+the draw count, which machine load does not move, is the number this ships on.
+
+## 2026-10-29 -- slice 7: the gas station's canopy and columns, built -- SHIPPED
+
+The forecourt's landmark had no species: Deli Counter's specs author it as `canopy_roof` on six `canopy_col`, and the
+box row of `prop_species` held both to greybox -- a grey slab on grey posts. Zoo 1.149.0 (d8a0935,
+`patches/patch_zoo_fuel_canopy.py`) mints and shapes `fuel_canopy` -- a fascia in the store's colour with a stripe in
+its rule colour (the FLAPPAHS pylon's colourway, so canopy and sign are one brand), a light soffit on the plane the
+canopy lights hang from, a roof cap -- and `canopy_column`, a steel shaft on a safety-yellow guard; one material each,
+0 coincident pairs at every genome corner. Deli Counter 0.293.0 (`patches/patch_dc_canopy_species.py`) routes the
+volumes to them. **Verdict: reads better** (`crops_s6_s7_inspect.png`): a branded canopy where a grey slab stood, the
+column guards the forecourt's first yellow. The fascia's green is the brand's dark field colour; at evening it reads
+dark -- the pylon's palette, not a new choice. **Price** (`perf_s7_*`, slice 6 the control): **draws median +0,
+largest +21 (floor 0)** -- the deck and its six columns now their own modules; **p95 median -0.010 ms**, and
+extraction_11 yaw 90, already over the draw budget, +0.764 ms against a 0.480 ms floor.
+
+## 2026-10-29 -- slice 6: what stands outside a shop's door -- SHIPPED
+
+Lot 0.137.0 (5e93b6d, `patches/patch_lot_frontage.py`), the first set dressing placed by cause rather than by
+spacing: against a shop's street face beside its way in, a soda machine, a stack of milk crates and a news box,
+stepped clear of the door's approach point, the paths and everything standing. On the slice: the gas station's shop
+and the card shop (b0, b2); the bank and the rail yard keep clear fronts. **Verdict: reads better**
+(`crops_s5_s6_inspect.png`): the card shop's door now has the blue machine and the red crates and box beside it --
+the first saturated accents at street level, and a reason for them. **Price** (`perf_s6_*`, slice 5 the control):
+**draws median +0, largest +24 (control floor 0); p95 median -0.008 ms, largest +0.776 ms (floor 0.830 ms)** -- six
+props, explained; `camera_socket_0` yaw 270 newly near budget at 1,804 draws. **Retracted, kept:** the first slice-6
+build placed nothing -- the draft read a building's `id`, which is the site's `b0` -- and its unit tests passed
+because they named buildings by archetype; the tests now hold Lot's own record shape.
+
+## 2026-10-29 -- slice 5: a sidewalk's debris at its kerb and its building line -- SHIPPED
+
+Patina 0.37.0 (f5975c4, `patches/patch_patina_sidewalk_edges.py`). Slice 4's sidewalks were the densest dressing on
+the level, 1,500 pieces on 3,315 m2 laid evenly across the walking surface. Now thinned by distance to the strip's
+nearer long edge: 1,500 -> 469, within 0.4 m of an edge 18 % -> 39 %, the middle band 322 -> 48. **Verdict: reads
+better, modestly** (`crops_s4_s5_inspect.png`): the walking surface is clear and what is left sits where it would.
+**Price** (`perf_s5_*`, slice 4 the control): **draws median +0, largest +0** (control floor 87); p95 median -0.370
+ms against a control disagreement of 2.151 ms -- a weak frame-time read, and the draws say free.
+
+## 2026-10-29 -- slice 4: a band at the roof line, and the bands round their corners -- SHIPPED
+
+Patina 0.36.0 (3a8ccb7, `patches/patch_patina_roof_line.py`). With the parapet flush on its wall, a facade ran from
+the ground to the coping with nothing marking the roof; a band at the parapet's foot over the roof slab's depth now
+does. Writing it found that 0.35.0's bands stopped a wall short of every outside corner (Deli Counter's N and S wall
+runs stop at the side walls' inner faces); they now wrap the corner by the coping's rule. **Verdict: reads better**
+(`crops_s3b_s4_inspect.png`): the bank and the card shop read base, middle and top. **Price** (`perf_s4_*`, slice 3b
+the control): **draws median +0, largest +11 (control floor 21); p95 median +0.031 ms, largest +0.315 ms** -- the
+controls disagreed by 1.013 ms, so the frame-time read is weak, and the draws say free.
+
+## 2026-10-29 -- slice 3b: the string course, joined and in stone -- SHIPPED
+
+Patina 0.35.0 (b279773, `patches/patch_patina_string_courses.py`) joins each floor line's surviving bands into runs;
+Zoo 1.148.0 (248f864, `patches/patch_zoo_string_course.py`) builds them in the stone trim. `workspaces/slice-3b-ws`,
+rebuilt after the failed bake below. **Verdict: reads better** (`crops_s2_s3b_inspect.png`, `sheet_s2_s3b_inspect.png`):
+the bank's flank groove is a continuous cream band at its floor line; the card shop has a stone band between its
+brick and its storefront, the way a commercial front is built. **Price** (`perf_s3b_*`, slice 2 the control):
+**WATCH over 53 headings -- draws median +3, largest +10.5 (control floor 21); p95 median +0.014 ms, largest +0.186
+ms (floor 0.552 ms)** -- the stone is a second material on sides that had only concrete; the WATCH is the two
+headings over budget in every build of the slice.
+
+## 2026-10-29 -- a failed light bake priced as the change's cost (RETRACTED price, guard added)
+
+Slice 3b's first build ran while the disk filled: its light bake failed (`light_bake.json` `ok: false`, no
+`bake.exr`), Level Factory shipped the package unbaked as it is written to (`exporting/export.py`, "ships the package
+unbaked, saying which in light_bake.json"), and `make` exited 0. Priced against slice 2, it read **FAIL: draws median
++1,521, largest +3,588; 30 headings over budget** (`perf_s3b_nobake_*`) -- the cost of unbaked light, not of the
+string course. Kept, renamed, and not evidence about the change. `tools/price_batch.py` now refuses a control and a
+subject whose bake states differ. Still open, and Level Factory's: a failed bake is a `problem` row in the panel
+(`service/exporting.py`) and nothing else; a package that costs ~1,500 draws more in every view probably should not
+leave `make` with exit 0.
+
+## 2026-10-29 -- the disk filled; what was removed to continue
+
+Slice 3b's shoot stopped on a full disk (0 MB free on C:). With the walker away, only scratch this session created and
+no longer needs was removed: the clones of tool changes already shipped (`_scratch/zoo-coping`, `zoo-scupper`,
+`zoo-window-frame`, `zoo-strings-try`, `patina-coping`, `patina-planes`, `patina-scupper`, `patina-strings-try`,
+`patina-strings-try2`, `dc-parapet-flush`, `lf-slice-cluster`), the price tool's and the probe's package copies
+(`_scratch/price_perf_{coping,flush,frame,linear,linear2,s2,s2b,s3}`, `_scratch/probe_slice2`), and the build
+workspaces whose findings are committed (`workspaces/{frame,coping,flush,flush2}-9082-ws`, `workspaces/slice-3-ws`,
+the rejected first string-course build). 5.9 GB free after. Nothing outside this session's own scratch was touched;
+`_scratch/price_perf_deposit` was left because its origin is not this session's.
+
 ## 2026-10-29 -- slice 3: a string course at every floor line -- FIRST ATTEMPT NOT SHIPPED
 
 Under the studio light the bank's flank showed a dark groove at its floor line: Deli Counter stops a storey's walls
@@ -98,100 +239,6 @@ level's light, 57-84 under the studio light.
 6. **A train yard on Delco Ave.** The seeded draw's fourth building; plausible as "random", odd beside a bank.
    **Left for the walker** (a candidate pick, or a fabric list for D01).
 
-## Fixes in flight, to be proven on slice 2
-
-- **Debris gathers at edges** (Patina 0.34.0, `_scratch/patina-scupper`): on open ground (`ground` in a
-  `play_space`) a candidate survives with probability max(0.06, exp(-d / 2.5 m)), d the distance to the nearest
-  building, wall base or kerb; weeds and rubble only within 2 m of one; `very_high` zones (Lot's perimeter) and
-  gameplay paths untouched. Re-planned on slice 1's own inputs: open ground 4,547 -> 811 pieces (11.1 -> 2.0 per
-  100 m2), plate-wide R 0.72 -> 0.51; within 2 m of an edge 605 -> 413, beyond 10 m 1,585 -> 92.
-  Tests: tests/test_debris_edges.py; suite 408 passed, 11 skipped.
-- **No gutter under a parapet** (Patina 0.34.0 + Zoo 1.147.0, `_scratch/zoo-scupper`): a scupper, conductor head
-  and downspout instead, on buildings that are not Empties.
-
-## 2026-10-29 -- slice 6: what stands outside a shop's door -- SHIPPED
-
-Lot 0.137.0 (5e93b6d, `patches/patch_lot_frontage.py`), the first set dressing placed by cause rather than by
-spacing: against a shop's street face beside its way in, a soda machine, a stack of milk crates and a news box,
-stepped clear of the door's approach point, the paths and everything standing. On the slice: the gas station's shop
-and the card shop (b0, b2); the bank and the rail yard keep clear fronts. **Verdict: reads better**
-(`crops_s5_s6_inspect.png`): the card shop's door now has the blue machine and the red crates and box beside it --
-the first saturated accents at street level, and a reason for them. **Price** (`perf_s6_*`, slice 5 the control):
-**draws median +0, largest +24 (control floor 0); p95 median -0.008 ms, largest +0.776 ms (floor 0.830 ms)** -- six
-props, explained; `camera_socket_0` yaw 270 newly near budget at 1,804 draws. **Retracted, kept:** the first slice-6
-build placed nothing -- the draft read a building's `id`, which is the site's `b0` -- and its unit tests passed
-because they named buildings by archetype; the tests now hold Lot's own record shape.
-
-## 2026-10-29 -- slice 5: a sidewalk's debris at its kerb and its building line -- SHIPPED
-
-Patina 0.37.0 (f5975c4, `patches/patch_patina_sidewalk_edges.py`). Slice 4's sidewalks were the densest dressing on
-the level, 1,500 pieces on 3,315 m2 laid evenly across the walking surface. Now thinned by distance to the strip's
-nearer long edge: 1,500 -> 469, within 0.4 m of an edge 18 % -> 39 %, the middle band 322 -> 48. **Verdict: reads
-better, modestly** (`crops_s4_s5_inspect.png`): the walking surface is clear and what is left sits where it would.
-**Price** (`perf_s5_*`, slice 4 the control): **draws median +0, largest +0** (control floor 87); p95 median -0.370
-ms against a control disagreement of 2.151 ms -- a weak frame-time read, and the draws say free.
-
-## 2026-10-29 -- slice 4: a band at the roof line, and the bands round their corners -- SHIPPED
-
-Patina 0.36.0 (3a8ccb7, `patches/patch_patina_roof_line.py`). With the parapet flush on its wall, a facade ran from
-the ground to the coping with nothing marking the roof; a band at the parapet's foot over the roof slab's depth now
-does. Writing it found that 0.35.0's bands stopped a wall short of every outside corner (Deli Counter's N and S wall
-runs stop at the side walls' inner faces); they now wrap the corner by the coping's rule. **Verdict: reads better**
-(`crops_s3b_s4_inspect.png`): the bank and the card shop read base, middle and top. **Price** (`perf_s4_*`, slice 3b
-the control): **draws median +0, largest +11 (control floor 21); p95 median +0.031 ms, largest +0.315 ms** -- the
-controls disagreed by 1.013 ms, so the frame-time read is weak, and the draws say free.
-
-## 2026-10-29 -- slice 3b: the string course, joined and in stone -- SHIPPED
-
-Patina 0.35.0 (b279773, `patches/patch_patina_string_courses.py`) joins each floor line's surviving bands into runs;
-Zoo 1.148.0 (248f864, `patches/patch_zoo_string_course.py`) builds them in the stone trim. `workspaces/slice-3b-ws`,
-rebuilt after the failed bake below. **Verdict: reads better** (`crops_s2_s3b_inspect.png`, `sheet_s2_s3b_inspect.png`):
-the bank's flank groove is a continuous cream band at its floor line; the card shop has a stone band between its
-brick and its storefront, the way a commercial front is built. **Price** (`perf_s3b_*`, slice 2 the control):
-**WATCH over 53 headings -- draws median +3, largest +10.5 (control floor 21); p95 median +0.014 ms, largest +0.186
-ms (floor 0.552 ms)** -- the stone is a second material on sides that had only concrete; the WATCH is the two
-headings over budget in every build of the slice.
-
-## 2026-10-29 -- a failed light bake priced as the change's cost (RETRACTED price, guard added)
-
-Slice 3b's first build ran while the disk filled: its light bake failed (`light_bake.json` `ok: false`, no
-`bake.exr`), Level Factory shipped the package unbaked as it is written to (`exporting/export.py`, "ships the package
-unbaked, saying which in light_bake.json"), and `make` exited 0. Priced against slice 2, it read **FAIL: draws median
-+1,521, largest +3,588; 30 headings over budget** (`perf_s3b_nobake_*`) -- the cost of unbaked light, not of the
-string course. Kept, renamed, and not evidence about the change. `tools/price_batch.py` now refuses a control and a
-subject whose bake states differ. Still open, and Level Factory's: a failed bake is a `problem` row in the panel
-(`service/exporting.py`) and nothing else; a package that costs ~1,500 draws more in every view probably should not
-leave `make` with exit 0.
-
-## 2026-10-29 -- the disk filled; what was removed to continue
-
-Slice 3b's shoot stopped on a full disk (0 MB free on C:). With the walker away, only scratch this session created and
-no longer needs was removed: the clones of tool changes already shipped (`_scratch/zoo-coping`, `zoo-scupper`,
-`zoo-window-frame`, `zoo-strings-try`, `patina-coping`, `patina-planes`, `patina-scupper`, `patina-strings-try`,
-`patina-strings-try2`, `dc-parapet-flush`, `lf-slice-cluster`), the price tool's and the probe's package copies
-(`_scratch/price_perf_{coping,flush,frame,linear,linear2,s2,s2b,s3}`, `_scratch/probe_slice2`), and the build
-workspaces whose findings are committed (`workspaces/{frame,coping,flush,flush2}-9082-ws`, `workspaces/slice-3-ws`,
-the rejected first string-course build). 5.9 GB free after. Nothing outside this session's own scratch was touched;
-`_scratch/price_perf_deposit` was left because its origin is not this session's.
-
-## FOR THE WALKER -- decisions this work found and did not take alone
-
-1. **The street trees.** In seven of nine street frames a tree stands in the foreground as a silhouette of flat
-   plates on a bare trunk -- the most "computer made" shape on the avenue. It is that way on purpose: Zoo's
-   `street_tree` was kept low-poly retro on your call of 2026-09-13 ("the mario64 trees looked nice in their own retro
-   way"), before the realism direction. Options: (a) keep it; (b) its existing alpha-card crown (`params.crown =
-   "cards"`, judged not ready on cold run 9032), finished and priced -- card foliage is how the 360-era target does
-   trees, at the cost of alpha overdraw; (c) a redraw of the volume crown with many more, smaller, smoothed leaf
-   masses. Each would be shot on the slice and priced before it ships.
-2. **The evening.** At the brief's `evening` the facades and the ground are close to black (street frames 22-40 of
-   255 mean brightness in the level's light, 57-84 under the studio light). The sky, the lit windows, the gas canopy
-   and the signs read; nothing else does. Keep the mood and lift the fill, change the slice's time of day, or leave
-   it.
-3. **Rowhome gutters under their parapets.** Patina 0.34.0 drains a commercial roof through its parapet; the Empties
-   keep the gutters you asked for on 2026-10-04. Should a rowhome with a parapet drain through it too?
-4. **A train yard on Delco Ave.** The seeded draw's fourth building. Pick another candidate, or give the avenue a
-   fabric list (Level Factory's `D01_delco_avenue`)?
-
 ## 2026-10-29 -- what the walker's comps show that our levels do not
 
 The walker sent three comps of 2000s-era shooter levels (a desert city street from above, a ruined downtown
@@ -234,7 +281,18 @@ dressing (7), the hero piece -- the bank's portico and the gas station's canopy 
 (1, 10), the overhead layer (8). Light (4) and colour (5) touch the walker's taste and are proposed, not changed
 alone.
 
-## Fixes in flight
+## (history) Fixes that were in flight before slice 2 -- since shipped
+
+- **Debris gathers at edges** (Patina 0.34.0, `_scratch/patina-scupper`): on open ground (`ground` in a
+  `play_space`) a candidate survives with probability max(0.06, exp(-d / 2.5 m)), d the distance to the nearest
+  building, wall base or kerb; weeds and rubble only within 2 m of one; `very_high` zones (Lot's perimeter) and
+  gameplay paths untouched. Re-planned on slice 1's own inputs: open ground 4,547 -> 811 pieces (11.1 -> 2.0 per
+  100 m2), plate-wide R 0.72 -> 0.51; within 2 m of an edge 605 -> 413, beyond 10 m 1,585 -> 92.
+  Tests: tests/test_debris_edges.py; suite 408 passed, 11 skipped.
+- **No gutter under a parapet** (Patina 0.34.0 + Zoo 1.147.0, `_scratch/zoo-scupper`): a scupper, conductor head
+  and downspout instead, on buildings that are not Empties.
+
+## (history) The first fixes in flight -- since shipped
 
 - **No gutter under a parapet** (Patina 0.34.0 + Zoo 1.147.0, clones `_scratch/patina-scupper`,
   `_scratch/zoo-scupper`): a non-Empty building's roof drains through a scupper in its parapet into a conductor head
