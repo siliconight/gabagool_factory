@@ -1,0 +1,29 @@
+{
+  "schema": "level_factory.mission_brief.v0.1",
+  "mission_id": "delco_ave_slice_001",
+  "display_name": "Delco Ave",
+  "archetype": "gas_station",
+  "building_count": 4,
+  "site_shape": "strip",
+  "road_grammar": "avenue",
+  "cluster": "D01_delco_avenue",
+  "route_shape": "linear_push",
+  "objective_hypotheses": [
+    "enter_store",
+    "reach_back_room",
+    "crack_safe",
+    "extract"
+  ],
+  "extraction_relationship": "street_getaway",
+  "verticality": "low",
+  "landmark": "neon_sign",
+  "time_of_day": "evening",
+  "weather": "clear",
+  "theme": "delco_1997",
+  "candidate_count": 3,
+  "target_minutes": [
+    20,
+    30
+  ],
+  "notes": "The game's vertical slice (the walker, 2026-10-29): 'Delco Ave. Gas Station + Bank + some random buildings', at the visual target of docs/findings/realism_trial/ -- made by the tools, with nothing patched by hand. The Delco Ave panel template's avenue, anchored on a gas station, with Level Factory's D01_delco_avenue cluster (>= 0.268.0) putting one branch bank beside it and the library's seeded draw for the rest."
+}
