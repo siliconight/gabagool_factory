@@ -19,9 +19,10 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 9 | A soda machine, crates and a news box beside each shop's door | Lot 0.137.0 |
 | 10 | The gas station's canopy built: brand fascia and stripe, light soffit, columns on yellow guards | Zoo 1.149.0, Deli Counter 0.293.0 |
 | 11 | Quoins: dressed stone blocks up the bank's corners | Patina 0.38.0 |
+| 12 | Utility-cut patches of newer asphalt across the avenue, two a building | Lot 0.138.0 |
 
-**In flight:** the avenue's utility cuts -- a patch of newer asphalt, its joints sealed, where each building's
-services were trenched in from the main -- Lot 0.138.0, slice 9.
+**In flight:** nothing. Next: pilasters dividing the bank's long blank flank into bays (Patina). The price
+harness now reads a heading's steady draw count, not a stray frame (Level Factory 0.269.0).
 
 **Waiting on you** (section FOR THE WALKER below): the street trees, the evening's darkness, rowhome gutters under
 parapets, the train yard on Delco Ave.
@@ -47,6 +48,27 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    keep the gutters you asked for on 2026-10-04. Should a rowhome with a parapet drain through it too?
 4. **A train yard on Delco Ave.** The seeded draw's fourth building. Pick another candidate, or give the avenue a
    fabric list (Level Factory's `D01_delco_avenue`)?
+
+## 2026-10-29 -- slices 9 and 9b: where the street was dug up -- SHIPPED (9b)
+
+The avenue is the largest surface in every street frame and was one even field of the road pack. Lot 0.138.0
+(7b2e08e, `patches/patch_lot_utility_cuts.py`) cuts a patch of newer asphalt where each building's services were
+trenched in: from past the main under the centre line to the kerb on the building's side, 36 in along the road (a
+24 in trench and its T-cut), two for a wide frontage (water and sewer), across the lines along the road, clear of
+every other marking, the drains and the junctions -- 8 on the slice. **Slice 9, retracted, kept**
+(`crops_s8_s9_patches_retracted.png`): a 0.62 tint with a 4 in band of black sealant round each patch; the body
+could not be told from the road at the street's stations, and the sealant, under a pixel tall at 20 m and more,
+broke into dashed black lines -- read as skid marks or a fault. **Slice 9b**: no sealant line, a 0.42 tint (a fresh
+cap is near black against weathered grey). **Verdict: reads correctly, modestly** -- solid dark strips across the
+near lanes, one cutting the centre line's dash as a real repair does; no station sees one close. **Price**
+(`perf_s9b_*`, slice 8 the control): **draws median +0, largest +4**; p95 median -0.011 ms.
+
+**The controls' draw floor** read 87 on slice 9 and 21 on 9b, against about 0 before. Investigated in
+`docs/findings/price_draw_flicker/`: the harness reported each heading's draws as its window's maximum, and at two
+headings the scene now and then submits one frame higher than it holds. Level Factory 0.269.0 (3c1baaf) reports the
+p95 and keeps the maximum as `draws_max`; three runs over one package agree at all 53 headings. The prices above
+were read with the maximum; every pass disagreement on record sat at the same two headings, so their medians are
+unaffected, and a "largest" delta could carry one stray frame -- not re-priced.
 
 ## 2026-10-29 -- slice 8: quoins up the bank's corners -- SHIPPED
 
