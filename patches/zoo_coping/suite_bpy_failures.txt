@@ -1,0 +1,3 @@
+The 15 failures in suite_bpy_clone.out.txt, each run again on zoo's HEAD (1.145.0, 9218c79): all 15 fail there too.
+test_inner_face [window] passes on 1.144.0 (7841864) and fails on 1.145.0: the window frame; fixed by this change's test_inner_face.py (18 passed with test_window_frame and test_coping).
+The other 14 fail on 1.144.0 as well (test_club_bpy 5, test_interior_bpy 7, test_shut_door 1, test_front_doors 1): not this change's.
