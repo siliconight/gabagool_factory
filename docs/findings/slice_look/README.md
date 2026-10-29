@@ -85,7 +85,10 @@ level's light, 57-84 under the studio light.
    beside them to show what is there.
 3. **Blank walls.** The bank's flank and the card shop's back are 20-30 m planes with one or two openings. Owner:
    Zoo / Deli Counter (facade layering). Next after the debris.
-4. **Texture scale.** The gas station's stone reads at about twice real size. Owner: Pixelcoat. To measure.
+4. **Texture scale -- RETRACTED, measured from source.** "The gas station's stone reads at about twice real size"
+   was a read of one frame, not a measurement. Pixelcoat's `fieldstone_delco` is 2.5 m a tile at 6 aggregate cells,
+   about 0.42 m a stone, and Zoo maps it by `meters_per_tile` (`bpylayer/materials.py`); a fieldstone wall's stones
+   run about 0.15-0.45 m. Not a defect.
 5. **The white gutter line under the parapet.** FIX IN FLIGHT (below).
 7. **The street trees read as generated -- seen from the corrected stations.** In seven of nine street frames a
    tree stands in the foreground or mid-ground as a silhouette of flat plates on a bare trunk. Of everything on the
@@ -105,6 +108,16 @@ level's light, 57-84 under the studio light.
   Tests: tests/test_debris_edges.py; suite 408 passed, 11 skipped.
 - **No gutter under a parapet** (Patina 0.34.0 + Zoo 1.147.0, `_scratch/zoo-scupper`): a scupper, conductor head
   and downspout instead, on buildings that are not Empties.
+
+## 2026-10-29 -- slice 4: a band at the roof line, and the bands round their corners -- SHIPPED
+
+Patina 0.36.0 (3a8ccb7, `patches/patch_patina_roof_line.py`). With the parapet flush on its wall, a facade ran from
+the ground to the coping with nothing marking the roof; a band at the parapet's foot over the roof slab's depth now
+does. Writing it found that 0.35.0's bands stopped a wall short of every outside corner (Deli Counter's N and S wall
+runs stop at the side walls' inner faces); they now wrap the corner by the coping's rule. **Verdict: reads better**
+(`crops_s3b_s4_inspect.png`): the bank and the card shop read base, middle and top. **Price** (`perf_s4_*`, slice 3b
+the control): **draws median +0, largest +11 (control floor 21); p95 median +0.031 ms, largest +0.315 ms** -- the
+controls disagreed by 1.013 ms, so the frame-time read is weak, and the draws say free.
 
 ## 2026-10-29 -- slice 3b: the string course, joined and in stone -- SHIPPED
 
