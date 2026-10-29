@@ -2,6 +2,28 @@
 
 Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas station, a bank and the library's draw).
 
+## 2026-10-29 -- slice 2: debris where it gathers, a roof that drains through its parapet -- SHIPPED
+
+`workspaces/slice-2-ws`: slice 1's batch and seed with Patina and Zoo pointed at the changes' clones (the same lot,
+the same candidate). Shipped as Patina 0.34.0 (67470dd, `patches/patch_patina_scupper_debris.py`) and Zoo 1.147.0
+(7abde5e, `patches/patch_zoo_scupper.py`).
+
+- **Debris** (`scatter_probe.py` on slice 2's manifest): open ground 4,547 -> 811 pieces, 11.1 -> 2.0 per 100 m2;
+  plate-wide Clark-Evans R 0.72 -> 0.51; sidewalks and wall bases unchanged. Within 2 m of an edge 605 -> 413,
+  beyond 10 m 1,585 -> 92. **Verdict: reads better** in the street frames -- the road and the lots are no longer
+  sprinkled, and what is left sits at kerbs and walls -- though at street distance a single frame shows it less than
+  the numbers do.
+- **Scupper**: the bank's gutters 64 -> 0, 10 headed downspouts; the white line 1.4 m below the bank's top is gone and
+  a conductor head shows at the parapet (`sheet_s1_s2_inspect.png`, bank_front). **Verdict: reads better**, small.
+- **Price** (`perf_s2b_*`, A / subject / A, slice 1 the control): **WATCH over 53 headings -- draws median +0,
+  largest +1 (control floor 21); p95 median +0.034 ms, largest +0.640 ms (floor 0.977 ms).** The change is free;
+  the WATCH is two headings that stand near and over budget in BOTH arms at identical counts: extraction_11 yaw 90
+  (2,312 draws, 10.77 ms p95) and longest_sightline yaw 90 (2,370 draws, 10.89 ms). The first price (`perf_s2_*`)
+  is kept: its controls disagreed by 60 draws and 2.48 ms and it said so; this one was taken on a quiet machine.
+- **New gap from the price: the slice itself is over the 2,000-draw budget at two headings.** Pre-existing in
+  slice 1. Owner to find (the long sightline down the avenue is the obvious suspect: every building, the far-side
+  terrace and the backdrop in one view). Ranked with the looks; a slice that does not hold its frame is not done.
+
 ## 2026-10-29 -- slice 1, the first build, judged
 
 **What was built.** `workspaces/slice-1-ws`, Level Factory 0.268.0's `D01_delco_avenue` from its clone, Deli Counter
