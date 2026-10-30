@@ -1,0 +1,33 @@
+{
+  "verdict": "FAIL",
+  "action": "Do not release. Split the batch and price the halves until one change owns the cost; make it cheaper (merge by material, MultiMesh, fewer materials) or revert it.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 0.0,
+  "p95_median_delta_ms": 0.401,
+  "p95_largest_delta_ms": 4.787,
+  "floor_draws": 0,
+  "floor_ms": 6.688,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [
+    "attacker_spawn_9 yaw 270.0 over budget: 1696 draws, 12.60 ms p95",
+    "camera_socket_0 yaw 270.0 over budget: 1822 draws, 13.40 ms p95",
+    "camera_socket_1 yaw 90.0 over budget: 1554 draws, 11.21 ms p95",
+    "crew_spawn_7 yaw 90.0 over budget: 1540 draws, 11.29 ms p95",
+    "player_start_27 yaw 270.0 over budget: 1753 draws, 14.22 ms p95"
+  ],
+  "watch": [
+    "the controls disagree by up to 6.688 ms, past 1.0: the frame-time verdict is weak; re-price",
+    "attacker_spawn_9 yaw 270.0 near budget: 1696 draws, 12.60 ms p95",
+    "camera_socket_0 yaw 270.0 near budget: 1822 draws, 13.40 ms p95",
+    "camera_socket_1 yaw 90.0 near budget: 1554 draws, 11.21 ms p95",
+    "crew_spawn_7 yaw 90.0 near budget: 1540 draws, 11.29 ms p95",
+    "defender_spawn_21 yaw 90.0 near budget: 1242 draws, 10.11 ms p95",
+    "extraction_11 yaw 90.0 near budget: 2349 draws, 14.74 ms p95",
+    "longest_sightline yaw 90.0 near budget: 2409 draws, 12.36 ms p95",
+    "player_start_27 yaw 270.0 near budget: 1753 draws, 14.22 ms p95"
+  ]
+}

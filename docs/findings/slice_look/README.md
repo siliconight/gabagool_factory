@@ -23,10 +23,12 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 13 | Quoins lifted above a standing body's height (nothing proud where a body walks) | Patina 0.38.1 |
 | 14 | Stone pilasters on a civic building's long walls, solid, at the bays its windows imply | Zoo 1.150.0, Deli Counter 0.294.0 |
 | 15 | The evening's fill: the sky in the bake lifted, street frames about 45 % brighter, still dusk | Lux 0.81.0 |
+| 16 | Street trees with a crown of leaf cards on a leaf cutout, every species | Pixelcoat 0.65.0, Zoo 1.151.0 |
+| 17 | A civic building's pilasters merged with their side (5 fewer meshes on the bank) | Level Factory 0.270.0 |
+| 18 | Leaf cards lit as part of their crown: no black cards (+0.4-0.9 ms at two tree-facing views) | Zoo 1.152.0 |
 
-**In flight (the walker, 2026-10-30: "try the card-based trees and lift the evening fill"):** the evening's fill
--- Blue Hour's sky in the bake lifted (Lux), slice 12; leaf-card street trees on a leaf cutout -- Pixelcoat and Zoo,
-slice 13. **Pilasters, why that shape:** the bank's long blank flank divided
+**Next:** weathering with a cause -- stains under sills and copings, grime at wall bases; denser maple and oak crowns;
+what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
 fall at ..., -0.85, 1.15, 3.15 and the upper storey's at ..., -0.70, 1.30, 3.30; the only seams both share are at
@@ -36,8 +38,8 @@ at the chosen line, a hand proud of the wall WITH a collider -- a Zoo species an
 column's pattern. The price harness reads a
 heading's steady draw count, not a stray frame (Level Factory 0.269.0).
 
-**Waiting on you** (section FOR THE WALKER below): the street trees, the evening's darkness, rowhome gutters under
-parapets, the train yard on Delco Ave, and whether downspouts may stand proud at body height.
+**Waiting on you** (section FOR THE WALKER below): rowhome gutters under parapets, the train yard on Delco Ave, and
+whether downspouts may stand proud at body height. (The trees and the evening: decided 2026-10-30, shipped above.)
 
 **Open and not yet solved:** the slice is over the 2,000-draw budget at two headings in every build (2,312-2,393,
 from the rail yard looking back down the avenue); a draw-attribution probe disagrees with the harness about that view
@@ -66,6 +68,63 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slices 15 and 16: a leaf card lit as part of its crown -- SHIPPED (16)
+
+Slice 13b's leaf cards were each one double-sided face lit by its own normal; seen from behind Godot flips it away
+from the light, and a few cards read near black. Zoo 1.152.0 (e1d29c3, `patches/patch_zoo_leafnormals.py`) gives each
+card its own back face 3 mm behind, culls back faces, and sets the crown's normals itself. **Slice 15, retracted,
+kept:** normals straight out from the crown's centre left the half of every crown facing away from the key light on
+a dynamic object's ambient (the trees stay out of the bake: their sway rides the second UV set), and it read as large
+black masses -- worse than the specks. Ruled out on the way: the light bake, which keeps any model with its own
+second UV set dynamic. **Slice 16:** normals mostly up, leaning 0.35 out -- **reads better**
+(`crops_s14_s16_leaf_normals.png`): every crown evenly lit, no black card, fuller for its backs; flatter in its
+light and shade than a crown could be. **Price** (`perf_s16_*`, slice 14 the control; the first quiet price of the
+day, controls 0.742 ms apart): **draws +0, p95 median -0.026 ms**; two views facing trees cost more --
+camera_socket_0 yaw 270 10.93 -> 11.30 ms, now over the 11 ms budget, and extraction_12 yaw 90 8.2-8.5 -> 9.1 ms.
+**The trade-off, for the walker:** shipped for the look (black patches on every tree) at that cost; 1.151.0's crown
+is the cheaper one and is one step back. Tree triangle budgets now derive from the crown (`tree_forms`), matching
+every species' built count exactly.
+
+## 2026-10-30 -- slice 14: a civic building's pilasters merge with their side -- SHIPPED
+
+Slice 11 priced the pilasters at draws median +2, largest +34, and the reading was that each pier drew alone: Level
+Factory's building merge put anything outside the `ext_`, `int_`, `parapet_` and `roof` names in the room it stands
+in, and a pier on the outside of a wall stands in none. Level Factory 0.270.0 (eff8f1a,
+`patches/patch_lf_pilaster_merge.py`) puts `pilaster_<side>_*` in its side's unit. **Measured:** the bank's merged
+scene 238 -> 233 merged meshes with no pier left alone (slice 13b against 14); draws against slice 13b median +0,
+largest +2, as much as -6 (highest_vantage yaw 90, 1,664 -> 1,658). **The reading was only partly right, kept:**
+at extraction_12 yaw 90 the pilasters cost +34 (slice 10 1,457, slice 11 1,491) and the merge gives back 2 (1,489).
+That view's cost is not per-pier submission; light passes or shadow casters are candidates and none is measured --
+open. **An interrupted walk, kept:** stopping the chain by its script's name missed the walk's python child; a second
+walk of the same workspace collided with it, deleted part of the package, and the surviving walk's light bake raised a
+"missing dependencies" dialog on the walker's screen. A walk re-exports the whole package (`cmd_walk` calls
+`cmd_export`), so a package read after an interrupted walk is an interrupted export: the "merge did not run" reading
+made from it (0 MergedR in a 119 KB scene) was wrong. The package was deleted and re-walked alone.
+
+## 2026-10-30 -- slices 13 and 13b: street trees with a crown of leaf cards -- SHIPPED (13b)
+
+The walker, 2026-10-30: "try the card-based trees", and on 13b's frames: "trees are looking better, keep going". The
+street trees were the most "computer made" shape on the avenue: a grown trunk and branches carrying faceted masses
+that read as flat green plates. Zoo's card crown (0.69.2) had been judged not ready on cold run 9032, and the reason
+was its pack: Pixelcoat's foliage cutout was a Worley field at 7 cells a tile -- a dozen plate-sized discs on a 4 m
+card. Pixelcoat 0.65.0 (9d9b9c7, `patches/patch_pc_leaf_cutout.py`) cuts it from leaves instead: seeded sprays inside
+the card's ellipse, small rotated leaves round each, each its own shade. Zoo 1.151.0 (`patches/patch_zoo_leafcards.py`)
+keeps the grown skeleton and hangs a clump of four leaf cards at every tip -- three upright crossed at 60 degrees, one
+near flat, each framing one tile of the pack -- as every tree species' default. **Slice 13, retracted, kept:** the
+first build set `street_tree`'s default alone and the trees did not change: Lot plants `honey_locust`, `red_maple`,
+`pin_oak`, `london_plane` and `callery_pear`, each its own genome, and the test that passed had asked the one name
+nobody plants. **Verdict (13b): reads much better** (`crops_s12_s13b_trees.png`): trees with sky through their sprays
+where plates stood, branching visible, and an airy silhouette at evening. Two flaws: a few cards seen from behind
+render near black (their own back face's lighting -- point the cards' normals out of the crown), and the crowns are
+sparse for a maple or an oak. The crowns' coincident faces went with the masses: 128 pairs across the six species.
+**Price** (`perf_s13b_*` and `perf_s13b_quiet_*`, slice 12 the control): **draws +0 exactly, both runs** -- the cards
+replace the masses inside the same meshes. **The cut-out leaves' frame cost is not settled:** the first price ran
+beside Pixelcoat's suite (controls 6.7 ms apart), the second on a machine in use at the desktop (3.8 ms apart);
+median +0.22 ms, largest +1.37 ms, both inside the floor. camera_socket_1 yaw 90, printed FAIL at 11.39 ms, read 11.16
+in slice 12 before any tree moved. A price on an idle machine is owed. Pixelcoat's leaf shade ships at 0.10, half the
+0.20 the slice was judged at, to stay inside its Controlled Contrast baseline (`tests/test_art_standard.py`): the
+leaves' shapes are unchanged, only the tone between neighbours softer.
 
 ## 2026-10-30 -- slice 12: the evening's fill -- SHIPPED
 
