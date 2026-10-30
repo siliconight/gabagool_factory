@@ -20,12 +20,21 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 10 | The gas station's canopy built: brand fascia and stripe, light soffit, columns on yellow guards | Zoo 1.149.0, Deli Counter 0.293.0 |
 | 11 | Quoins: dressed stone blocks up the bank's corners | Patina 0.38.0 |
 | 12 | Utility-cut patches of newer asphalt across the avenue, two a building | Lot 0.138.0 |
+| 13 | Quoins lifted above a standing body's height (nothing proud where a body walks) | Patina 0.38.1 |
 
-**In flight:** nothing. Next: pilasters dividing the bank's long blank flank into bays (Patina). The price
-harness now reads a heading's steady draw count, not a stray frame (Level Factory 0.269.0).
+**In flight:** stone pilasters on a civic building's long walls, solid and collided -- Zoo 1.150.0
+(`wall_pilaster`), Deli Counter 0.294.0 (`pilasters.py`), slice 11. **Why that shape:** the bank's long blank flank divided
+into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
+seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
+fall at ..., -0.85, 1.15, 3.15 and the upper storey's at ..., -0.70, 1.30, 3.30; the only seams both share are at
+-8.85 and -6.85, and the bay line the openings imply is 0. A pier would jog at the floor line. (A Zoo clone was
+written to the carved design and dropped unshipped.) The shape that fits: a pilaster as its own solid, full height
+at the chosen line, a hand proud of the wall WITH a collider -- a Zoo species and a Deli Counter volume, the canopy
+column's pattern. The price harness reads a
+heading's steady draw count, not a stray frame (Level Factory 0.269.0).
 
 **Waiting on you** (section FOR THE WALKER below): the street trees, the evening's darkness, rowhome gutters under
-parapets, the train yard on Delco Ave.
+parapets, the train yard on Delco Ave, and whether downspouts may stand proud at body height.
 
 **Open and not yet solved:** the slice is over the 2,000-draw budget at two headings in every build (2,312-2,393,
 from the rail yard looking back down the avenue); a draw-attribution probe disagrees with the harness about that view
@@ -48,6 +57,27 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    keep the gutters you asked for on 2026-10-04. Should a rowhome with a parapet drain through it too?
 4. **A train yard on Delco Ave.** The seeded draw's fourth building. Pick another candidate, or give the avenue a
    fabric list (Level Factory's `D01_delco_avenue`)?
+5. **Proud trim at body height.** The standing rule is no dressing in walkable space: a wall's collider ends at its
+   face, so anything proud of the face within a body's height is geometry a body walks into. Panel fields and
+   pilasters were withdrawn for it. Patina 0.38.0's quoins broke it from the ground and 0.38.1 lifts them above the
+   lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
+   since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
+   say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slice 10: no quoin within a standing body's height -- SHIPPED
+
+A rule check on slice 8's own change. A quoin stands 6 cm proud of the wall with no collider, and a wall's collider
+ends at its face, so every block within a body's height was geometry a body walks into -- the rule panel fields and
+pilasters were withdrawn for (Level Factory's Patina adapter; Zoo's `arch.relief_parts`). Patina 0.38.0 laid them
+from the ground. Patina 0.38.1 (2861623, `patches/patch_patina_quoin_body.py`) starts the quoined body just above
+the lowest band clear of a standing body -- `BODY_CLEAR_M` 1.85, Deli Counter's agent contract's 1.8 m player and a
+hand -- a quoined upper body over a plain base storey; a civic building with no band that high gets none. **Verdict:
+reads as intended** (`crops_s9b_s10_quoins.png`): stone quoins on the upper storey from the first string course
+up, the ground storey plain. **Price** (`perf_s10_*`, slice 9b the control): **draws median +0, largest +0, the
+controls' floor 0** -- the first price since the harness read the window's p95, and its draw floor is exact. The
+verdict printed FAIL on frame time, and that is the machine: Zoo's two suites ran beside the price, the controls read
+10.3 ms apart, and the heading named, attacker_spawn_10 yaw 270, draws 853 against a 2,000 budget. A quiet re-price
+is owed. Downspouts stand in the same place the same way and have since Patina 0.25.0: FOR THE WALKER, item 5.
 
 ## 2026-10-29 -- slices 9 and 9b: where the street was dug up -- SHIPPED (9b)
 
