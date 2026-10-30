@@ -27,8 +27,10 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 17 | A civic building's pilasters merged with their side (5 fewer meshes on the bank) | Level Factory 0.270.0 |
 | 18 | Leaf cards lit as part of their crown: no black cards (+0.4-0.9 ms at two tree-facing views) | Zoo 1.152.0 |
 | 19 | Stains where water runs: a soft dark streak under every window's sill, no edge at any light (+5 draws median, +35 at the long views) | Patina 0.39.0, Zoo 1.153.0, Level Factory 0.271.0 |
+| 20 | Grime at every wall's base: darkest at the ground, a wandering top, ending at doors and corners (draws +0) | Patina 0.40.0, Zoo 1.154.0 |
+| 21 | A draw distance from each part's own size: the long views -36 to -100 draws, nothing visible lost | Level Factory 0.272.0 |
 
-**Next:** more weathering with a cause -- stains under copings and scuppers, grime at wall bases; denser maple and oak crowns;
+**Next:** stains under copings and scuppers; the draw distance on the meshes the export merges (`MergedN_*`, `MergedR_*`, see `docs/findings/size_cull/`); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -69,6 +71,41 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slice 19: a draw distance from each part's own size -- SHIPPED
+
+The walker, the same evening: 60 FPS is the floor, and the level is not the whole frame -- "so smart LOD, culling
+techniques now will go a long way" -- and the draw budget gets its own pass later. No mesh in a package had a draw
+distance. Measured first (`docs/findings/size_cull/`, a headless probe at the harness's own views): at the worst views
+479-563 surfaces in the frustum spanned under 3 px at 1080p, mostly small parts of props. Level Factory 0.272.0
+(045468a) gives each part of an object's GLB the distance at which it spans 3 px through the game's camera, about
+235 x its radius -- a meter's window at about 35 m, its body at about 140 m -- and keeps lit parts at any distance.
+**Price** (`perf_s19_*`, slice 18b the control, nothing else different; quiet, the controls 0.93 ms apart): no
+heading gains a draw, the long views lose 36-100, the close ones nothing; **longest_sightline yaw 90 2,443 -> 2,343
+draws and p95 11.31 -> 10.92 ms**, under the 11 ms line for the first time on the slice. No visible change in the
+frames but the trees' leaves. The probe's 502 against the 100 saved is not attributed piece by piece: occlusion, the
+export's merged meshes (not covered yet) and the lit parts kept sit in it.
+
+## 2026-10-30 -- slices 18 to 20: grime at every wall's base -- SHIPPED (20)
+
+A real wall darkens from the ground up -- rain splashes back, damp rises -- and the slice's walls met the sidewalk
+clean. Patina 0.40.0 (cbd88d6) orders a `stain_base` along each span of a ground storey's side, between its corners
+and the openings and glass that come into the band, one order a span so no module seam shows; Zoo 1.154.0 (5040487)
+lays it as a grid darkest at the ground, fading to a wandering top; it is a stain to Level Factory, drawn in the
+building's one stain mesh. 228 orders, about 114 distinct; the bank's street front is a storefront and gets none.
+`crops_s17e_s20_grime.png`: a near wall before and after, the inspection light left, the evening right.
+
+- **Slice 18, RETRACTED: every band faced into its building.** `stain_grid`'s rows run down the wall and
+  `grime_grid`'s up, so the same quad order wound the other way, and the overlay's back-face culling drew none of it:
+  the flank's foot read exactly 0.0 changed, and the GLB's normals pointed -x on the bank's +x face. Its price stands
+  for the cost -- a culled face is still submitted: **draws median +0, largest +2** (`perf_s18_*`), since the grime
+  rides each building's existing stain mesh.
+- **Slice 18b: faced out, and faint.** `GRIME_DARK` 0.6 with a 1.6-power fade: a 4 % darkening a few pixels tall at
+  the bank's foot from the street. Its walk also hung once in its import (1,800 s, 72 imports unwritten) while a
+  probe ran a second Godot beside it; alone it passed. Recorded as a rule: no Godot beside an import.
+- **Slice 20: `GRIME_DARK` 0.35, a linear fade, a band 0.5-0.85 m.** About -11 at the bank's foot under the
+  inspection light; up close a soft dark footing ending at the doorway; at evening it grounds the building like a
+  contact shadow. No price: the dials are vertex data and cannot move a draw.
 
 ## 2026-10-30 -- slices 17 to 17e: a stain where water runs -- SHIPPED (17e)
 
