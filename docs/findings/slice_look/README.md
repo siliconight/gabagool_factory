@@ -26,8 +26,9 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 16 | Street trees with a crown of leaf cards on a leaf cutout, every species | Pixelcoat 0.65.0, Zoo 1.151.0 |
 | 17 | A civic building's pilasters merged with their side (5 fewer meshes on the bank) | Level Factory 0.270.0 |
 | 18 | Leaf cards lit as part of their crown: no black cards (+0.4-0.9 ms at two tree-facing views) | Zoo 1.152.0 |
+| 19 | Stains where water runs: a soft dark streak under every window's sill, no edge at any light (+5 draws median, +35 at the long views) | Patina 0.39.0, Zoo 1.153.0, Level Factory 0.271.0 |
 
-**Next:** weathering with a cause -- stains under sills and copings, grime at wall bases; denser maple and oak crowns;
+**Next:** more weathering with a cause -- stains under copings and scuppers, grime at wall bases; denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -68,6 +69,45 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slices 17 to 17e: a stain where water runs -- SHIPPED (17e)
+
+The walls were one even field; a real facade darkens below whatever sheds water onto it. Patina 0.39.0 orders a
+`stain_streak` below every exterior window with a sill, two or more under a wide one, naming the wall's kind; Zoo
+1.153.0 lays it as a 6 x 6 grid 2 mm off the wall, its darkening in its vertex colour, darkest at the sill and 1.0 at
+its foot and both sides; Level Factory 0.271.0 draws it. 258 orders on the slice, about 129 distinct, 17 on the bank.
+It took five builds, and each failure is kept (`crops_s16_s17b_s17c_stain.png`: slice 16, 17b, 17c at one window,
+the inspection light above, the evening below):
+
+- **Slice 17: no stain at all.** The dressing's keep-out filter dropped every one -- all 16 on the bank -- for
+  hanging inside its own window's margin, as sills and lintels do. `stain_streak` joined `openings.EXEMPT`; a test
+  runs the stains through the filter.
+- **Slice 17b, RETRACTED: drawn opaque in the wall's own texture** -- an outline. The dressing is its own GLB, baked
+  at its import's 20 cm texel, the wall at its merge's, and two lightmaps of one surface do not agree at a chart
+  border. Measured at the bank's upper window: the streak's foot, where its shade is 1.0, read 8.5 % darker than the
+  wall under the inspection light and 15-20 % at evening, with a one-pixel step at its foot and sides. Ruled out on
+  the way: the vertex colour, which the GLB carries exactly as designed (76 of 196 vertices at 1.0, the foot and both
+  sides of each streak).
+- **Slice 17c, RETRACTED: a multiply overlay** (unshaded, `BLEND_MODE_MUL`, white times the shade, out of the bake).
+  Right under the inspection light -- the streak faded to exactly 0. Near black at evening: a flat -32 on a wall of
+  about 35. Compatibility tonemaps each material's output as it writes it (the evening's ACES, white 6.0), so what
+  multiplied the wall was the curve, not the shade. Its price, too: one stain mesh a side, draws median +6, largest
+  +50 (`perf_s17c_*`).
+- **Slice 17d: black, alpha-blended at `1 - shade`**, a GLB's stains merged into one mesh. Black is the one colour no
+  curve moves, and the blend leaves the wall times the shade at whatever light it has. No edge in either light (the
+  foot within +-1 of slice 16 at evening). Faint: Zoo's `STAIN_DARK` of 0.72 had been chosen unseen, and the sill
+  row kept 0.80 of the wall under the inspection light and read as nothing at evening.
+- **Slice 17e: `STAIN_DARK` 0.5.** The sill row keeps 0.64 of the wall under the inspection light and 0.18 at
+  evening; reads as runoff under each sill, gone by the band below, and at street distance as a quiet detail under
+  the bank's upper window, not a pattern. No price: the dial is vertex colour data and cannot move a draw.
+
+**Price** (`perf_s17d_*`, slice 16 the control): **draws median +5, largest +35** -- one draw a stained building in
+view, on the long views already over the 2,000 budget (longest_sightline yaw 90, 2,408 -> 2,443); WATCH. Frame time
+weak, the controls 1.25 ms apart. **The trade-off, for the walker:** shipped for the look at that cost, the pilasters'
+size (+34). Stains batched by block, as Lot batches its surface dressing, would cost a handful of draws for the whole
+avenue, but that merges across buildings, which the merge rule forbids for culling; it is a level-wide pass, not
+built. **Walkable space:** a stain is 2 mm proud with no collider, and on the ground storey within a body's height
+-- thinner than anything a capsule could catch on, but proud, so it belongs to the question in FOR THE WALKER item 5.
 
 ## 2026-10-30 -- slices 15 and 16: a leaf card lit as part of its crown -- SHIPPED (16)
 

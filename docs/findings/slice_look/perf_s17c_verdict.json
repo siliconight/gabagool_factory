@@ -1,0 +1,27 @@
+{
+  "verdict": "FAIL",
+  "action": "Do not release. Split the batch and price the halves until one change owns the cost; make it cheaper (merge by material, MultiMesh, fewer materials) or revert it.",
+  "headings": 53,
+  "draws_median_delta": 6.0,
+  "draws_largest_delta": 50.0,
+  "p95_median_delta_ms": -0.053,
+  "p95_largest_delta_ms": 0.931,
+  "floor_draws": 0,
+  "floor_ms": 1.61,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [
+    "attacker_spawn_9 yaw 270.0 over budget: 1721 draws, 11.07 ms p95"
+  ],
+  "watch": [
+    "the controls disagree by up to 1.610 ms, past 1.0: the frame-time verdict is weak; re-price",
+    "attacker_spawn_9 yaw 270.0 near budget: 1721 draws, 11.07 ms p95",
+    "camera_socket_0 yaw 270.0 near budget: 1843 draws, 12.00 ms p95",
+    "camera_socket_1 yaw 90.0 near budget: 1562 draws, 10.10 ms p95",
+    "extraction_11 yaw 90.0 near budget: 2393 draws, 12.62 ms p95",
+    "longest_sightline yaw 90.0 near budget: 2458 draws, 12.80 ms p95",
+    "player_start_27 yaw 270.0 near budget: 1778 draws, 10.79 ms p95"
+  ]
+}
