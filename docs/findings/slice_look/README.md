@@ -21,9 +21,12 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 11 | Quoins: dressed stone blocks up the bank's corners | Patina 0.38.0 |
 | 12 | Utility-cut patches of newer asphalt across the avenue, two a building | Lot 0.138.0 |
 | 13 | Quoins lifted above a standing body's height (nothing proud where a body walks) | Patina 0.38.1 |
+| 14 | Stone pilasters on a civic building's long walls, solid, at the bays its windows imply | Zoo 1.150.0, Deli Counter 0.294.0 |
+| 15 | The evening's fill: the sky in the bake lifted, street frames about 45 % brighter, still dusk | Lux 0.81.0 |
 
-**In flight:** stone pilasters on a civic building's long walls, solid and collided -- Zoo 1.150.0
-(`wall_pilaster`), Deli Counter 0.294.0 (`pilasters.py`), slice 11. **Why that shape:** the bank's long blank flank divided
+**In flight (the walker, 2026-10-30: "try the card-based trees and lift the evening fill"):** the evening's fill
+-- Blue Hour's sky in the bake lifted (Lux), slice 12; leaf-card street trees on a leaf cutout -- Pixelcoat and Zoo,
+slice 13. **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
 fall at ..., -0.85, 1.15, 3.15 and the upper storey's at ..., -0.70, 1.30, 3.30; the only seams both share are at
@@ -63,6 +66,40 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slice 12: the evening's fill -- SHIPPED
+
+The walker, 2026-10-30: "lift the evening fill". At the brief's `evening` (Level Factory maps it to Lux's Blue Hour)
+every facade and the ground were close to black. `ambient_energy` was not the lever: a baked surface takes its fill
+from the sky in the bake (Level Factory 0.164.0), and Blue Hour's sky gave it little -- `sky_energy` 0.7 over a
+`ground_color` of (0.10, 0.11, 0.16). Lux 0.81.0 (3603c2d, `patches/patch_lux_evening_fill.py`) lifts them to 1.5
+and (0.20, 0.19, 0.22); sun, exposure, fixtures and sky colours unchanged. **Measured** (mean of the frame, 0-255, in
+the level's light; the chain prints it): ave_east 30.7 -> 45.5, ave_west 23.1 -> 35.8, the bank oblique 33.9 ->
+49.9, the gas front 40.0 -> 60.4, the sidewalk 25.5 -> 39.1; the interior objective 40.4 -> 40.8. **Verdict: reads
+better** (`crops_s11_s12_evening_fill.png`): the road's paint, the cars, kerbs and sidewalks and the bank's bands,
+quoins and pilasters read; still dusk -- the lit windows, the canopy and the pylon are still the brightest things.
+The facades are still on the dark side: room for one more step. **Price** (`perf_s12_*`, slice 11 the control):
+**draws +0 exactly (floor 0)** -- the fill lives in the lightmap. The printed FAIL is frame time read while Deli
+Counter 0.294.0's commit hook ran (controls 1.88 ms apart; camera_socket_1 yaw 90, 11.16 ms at 1,554 draws).
+
+## 2026-10-30 -- slice 11: stone pilasters on a civic building's long walls -- SHIPPING
+
+The bank's east flank was 22 m of blank stucco between its corners. Zoo 1.150.0 (034dc9a,
+`patches/patch_zoo_wall_pilaster.py`) adds `wall_pilaster` -- a plinth, a shaft set back from it, a cap, in the stone
+trim, one collider over the slot -- and Deli Counter 0.294.0 (`patches/patch_dc_pilasters.py`, `pilasters.py`) stands
+it on every civic building that is not an Empty: bay lines laid between anchors (the wall's ends and each pooled
+opening's centre), one pier midway between two openings, no bay longer than 6.5 m, none within 1.2 m of a corner or
+0.4 m of an opening; 0.6 m wide, 8 cm proud, grade to the top storey's wall top. 17 civic buildings carry them; the
+slice's bank, eight, one midway along the east flank. Solid where a body walks, so the walkable-space rule holds: the
+slice walked clean. **Why this shape, kept:** a proud Patina pilaster was withdrawn for having no collider, and a pier
+carved into the wall modules cannot follow a bay line -- the storeys share almost no module seams (above). **Verdict:
+reads correctly, modestly** (`crops_s10_s11_pilasters.png`): a vertical rhythm on the flank and the front, nothing
+reads as a grid; at street distance a 0.6 m pier 8 cm proud in a stone near the stucco's value is faint -- a wider,
+deeper, more contrasting pier would read more, and costs another gate and slice. **Price** (`perf_s11_*`, slice 10
+the control): **draws median +2, largest +34 (floor 0)** -- each pier is its own module, so a view that sees the
+bank's eight pays for eight; extraction_12 yaw 90 1,457 -> 1,491, longest_sightline (already over) +12. **Open:**
+merge a building's pilasters by material, as its covers are, which would make them free. p95 median +0.052 ms, inside
+a 1.165 ms floor.
 
 ## 2026-10-30 -- slice 10: no quoin within a standing body's height -- SHIPPED
 
