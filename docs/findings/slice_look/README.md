@@ -36,6 +36,7 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 26 | Delco's asphalt at a weathered road's albedo (0.035 -> 0.095 linear); cracks read in the pools | Pixelcoat 0.66.0 |
 | 27 | Stains under conductor heads and copings; the bank's string courses, quoins and scuppers back | Patina 0.41.0 |
 | 28 | The road paint worn: dirt-grey, chipped along its length | Pixelcoat 0.67.0 |
+| 29 | The sidewalk flecked with gum and patched with grime | Pixelcoat 0.68.0 |
 
 **Next:** the slice's avenue has no side street, so no corner, crosswalk or stop sign -- a Delco avenue meets one every 60-100 m (the walker's brief); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided

@@ -91,3 +91,11 @@ reproduced the shipped map byte for byte. Arms on slice 24's walk copy, each map
   as "you may cross".
 - **80 %, the field at 8 cells, dirt-grey -- SHIPPED** (`paint_ctl_ragged.png`): the lines stay lines, chipped and
   dirty along their length.
+
+## The sidewalk, flecked with gum (Pixelcoat 0.68.0)
+
+A 1999 Philly sidewalk is flecked with flattened gum and patched with grime; the slice's slabs were clean. A control
+mint at the shipped 256 px reproduced the shipped map byte for byte. `sidewalk_delco` gains two `wear` layers --
+broad soft grime and hard near-black gum flecks at 64 cells on the 2.5 m tile -- and re-baked on slice 24's walk copy
+(`sidewalk_ctl_gum.png`, control left; the sidewalk east view's near slabs above, the card shop's lit sidewalk below):
+the flecks read across the near slabs, quiet under the wall pack, and no 2.5 m repeat shows.
