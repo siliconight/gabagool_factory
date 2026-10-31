@@ -34,8 +34,9 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 24 | The bank's empty upper storey composed on equal 3 m bays, painted as offices after hours | Deli Counter 0.295.0 |
 | 25 | A painted window occludes, as the wall it is sealed into | Level Factory 0.274.0 |
 | 26 | Delco's asphalt at a weathered road's albedo (0.035 -> 0.095 linear); cracks read in the pools | Pixelcoat 0.66.0 |
+| 27 | Stains under conductor heads and copings; the bank's string courses, quoins and scuppers back | Patina 0.41.0 |
 
-**Next:** a fresh slice built on everything shipped (slice 23); stains under copings and scuppers; denser maple and oak crowns;
+**Next:** worn road markings (crisp new paint on a 1999 avenue); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -76,6 +77,24 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-31 -- slices 23 and 24: everything shipped together, and the regression it showed -- SHIPPED (24)
+
+**Slice 23**, every repo at its shipped version (Level Factory 0.274.0, Deli Counter 0.295.1, Lux 0.82.0, Pixelcoat
+0.66.0, Patina 0.40.0), priced against slice 22: draws +0 at every heading -- the asphalt is a map. The frames: warm
+sodium on cracked asphalt, the bank's offices lit, the rowhome brick raked orange.
+
+**And a regression it carried, found by a probe, not a frame.** Writing the roof runoff stains, Patina's
+`scupper_sides` returned nothing for the live bank: five Patina families -- gutters, scuppers, string courses, quoins,
+copings -- told an Empty by "any slot glazed `facade`", and Deli Counter 0.295.0's painted upper storey made the bank
+one to all five. Slice 22's bank had lost its string courses, quoins and scuppers and taken a gutter under its
+parapet, and the frames of slice 22 did not show it to the eye that judged them.
+
+**Slice 24, Patina 0.41.0** (f919213): `is_empty` -- an Empty paints every window, the bank keeps clear glass at the
+street -- and `runoff_orders`, a streak under every conductor head and drips under every exposed coping. String-course
+orders across the avenue 22 -> 166, conductor heads 44 -> 64, stain orders 362 -> 754. `crops_s23_s24_patina.png`:
+slice 23 left, 24 right -- the bank's floor-line course, roof band and corner quoins back; drips under the card
+shop's coping, quiet on purpose. **Price** (`perf_s24_*`, slice 23 the control): draws median +0, largest +7.
 
 ## 2026-10-30 -- slice 22: sodium pools, and the bank's upper storey -- SHIPPED (22c)
 
