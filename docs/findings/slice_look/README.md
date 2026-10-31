@@ -29,8 +29,9 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 19 | Stains where water runs: a soft dark streak under every window's sill, no edge at any light (+5 draws median, +35 at the long views) | Patina 0.39.0, Zoo 1.153.0, Level Factory 0.271.0 |
 | 20 | Grime at every wall's base: darkest at the ground, a wandering top, ending at doors and corners (draws +0) | Patina 0.40.0, Zoo 1.154.0 |
 | 21 | A draw distance from each part's own size: the long views -36 to -100 draws, nothing visible lost | Level Factory 0.272.0 |
+| 22 | The draw distance on the merged meshes; a solid object keeps its silhouette: the long views -31 to -53 draws | Level Factory 0.273.0 |
 
-**Next:** stains under copings and scuppers; the draw distance on the meshes the export merges (`MergedN_*`, `MergedR_*`, see `docs/findings/size_cull/`); denser maple and oak crowns;
+**Next:** the avenue's ground at evening -- the sodium pools; stains under copings and scuppers; denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -71,6 +72,19 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slice 21: the draw distance on the merged meshes, and cover keeps its silhouette -- SHIPPED
+
+Level Factory 0.273.0 (471e9c8): the meshes the export merges get slice 19's rule (873 of 873 building meshes, 160
+of 184 Empty meshes, 24 kept lit; lit faces and panes keep every distance), and, from the walker's draw-distance
+handoff (`docs/reference/Godot_Draw_Distance_and_Multiplayer_Relevance_Handoff.md`, REQ-001), an object with a
+collider keeps its largest part at every distance -- 236 of them. **Price** (`perf_s21_*`, `perf_s21b_*`, slice 20
+the control): no heading gains a draw, the long views lose 31-53 (longest_sightline yaw 90 2,343 -> 2,312,
+camera_socket_0 yaw 270 1,797 -> 1,744), the same in both prices. **Frame time not measured**: the controls disagreed
+by 1.0 and then 4.8 ms. The size probe (`docs/findings/size_cull/`, v2): drawn under 3 px at the worst view 353 ->
+184, the kept silhouettes 20 of them. Frames: unchanged but the gas front's re-bake grain and the trees' sway. The
+walker, the same evening: "focus less on the draw distance stuff" -- so the culling stops here; the residue is in
+the size-cull README.
 
 ## 2026-10-30 -- slice 19: a draw distance from each part's own size -- SHIPPED
 

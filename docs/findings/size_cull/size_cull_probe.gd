@@ -13,6 +13,10 @@ extends SceneTree
 ## SUPERSET of what the renderer submits, and its surface counts are a stand-in for draws, not a draw count. It
 ## prints what it measured; what that means for the price belongs in the README beside it.
 ##
+## v2 (slice 21): also what is STILL DRAWN under 3 px -- an instance with no range, or nearer than its range's end
+## -- by name, so a range that was kept on purpose (a lit part, a solid object's silhouette) can be told from one
+## that never was set.
+##
 ## Headless on purpose: nothing here needs a frame drawn. A watchdog ends it whatever happens.
 
 const WATCHDOG_SEC := 300.0
@@ -24,7 +28,7 @@ const THRESHOLDS := [2.0, 3.0, 4.0]
 const TOP_NAMES := 12
 
 var _out_path: String = "user://size_cull.json"
-var _report: Dictionary = {"schema": "size_cull_probe.v1", "complete": false, "headings": []}
+var _report: Dictionary = {"schema": "size_cull_probe.v2", "complete": false, "headings": []}
 
 
 func _initialize() -> void:
@@ -169,6 +173,8 @@ func _run() -> void:
 			var under_i: Array = [0, 0, 0]
 			var under_s: Array = [0, 0, 0]
 			var by_name: Dictionary = {}
+			var drawn_s: int = 0
+			var drawn_by_name: Dictionary = {}
 			for it in items:
 				var c: Vector3 = it["c"]
 				var rad: float = it["r"]
@@ -193,15 +199,26 @@ func _run() -> void:
 				if px < float(THRESHOLDS[1]):
 					var nm: String = it["name"]
 					by_name[nm] = int(by_name.get(nm, 0)) + int(it["s"])
+					var end: float = float(it["range"])
+					if end <= 0.0 or d < end:
+						drawn_s += int(it["s"])
+						drawn_by_name[nm] = int(drawn_by_name.get(nm, 0)) + int(it["s"])
 			var top: Array = []
 			for nm in by_name.keys():
 				top.append([int(by_name[nm]), String(nm)])
 			top.sort()
 			top.reverse()
 			top = top.slice(0, TOP_NAMES)
+			var drawn_top: Array = []
+			for nm in drawn_by_name.keys():
+				drawn_top.append([int(drawn_by_name[nm]), String(nm)])
+			drawn_top.sort()
+			drawn_top.reverse()
+			drawn_top = drawn_top.slice(0, TOP_NAMES * 2)
 			var rec: Dictionary = {"station": r.get("station", "?"), "yaw": yaw, "visible_instances": vis_i,
 				"visible_surfaces": vis_s, "thresholds_px": THRESHOLDS, "under_instances": under_i,
-				"under_surfaces": under_s, "top_under_3px_by_surfaces": top}
+				"under_surfaces": under_s, "top_under_3px_by_surfaces": top, "drawn_under_3px_surfaces": drawn_s,
+				"top_drawn_under_3px_by_surfaces": drawn_top}
 			(_report["headings"] as Array).append(rec)
 			print("[size_cull] %s yaw %.0f: %d inst / %d surf in frustum; under 2/3/4 px: %d/%d/%d surf"
 				% [String(r.get("station", "?")), yaw, vis_i, vis_s, int(under_s[0]), int(under_s[1]), int(under_s[2])])

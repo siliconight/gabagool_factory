@@ -60,3 +60,11 @@ covered by an import pass), and the lit parts kept on purpose.
 see it, which is why the price, not this table, decides what the change saved. **Next:** the same rule on the meshes
 `merge_buildings.gd` and `merge_empties.gd` make at export -- `MergedN_*` and `MergedR_*` were the probe's second and
 third largest names -- priced the same way.
+
+**The merged meshes, and the silhouettes (slice 21, Level Factory 0.273.0).** The probe, v2, also counts what is
+STILL DRAWN under 3 px -- no range, or nearer than its range's end -- by name (`size_cull.s20.json`,
+`size_cull.s21.json`, both at slice 21's price headings). At the worst view, 353 -> 184: every `MergedN_*` and
+`MergedR_*` gone from the list, and `ParkingMeter_Body` arrived at 20 -- the silhouettes 0.273.0 keeps on purpose
+(a meter has a collider). The price: the long views -31 to -53 draws, none gained. **What is left under 3 px and
+drawn**, recorded and not pursued (the walker: "focus less on the draw distance stuff"): lit lenses, kept by design;
+the backdrop trees' four cards each; a ladder's rungs, one mesh a rung (`ladder0_rung_0_*`, 16 a ladder).
