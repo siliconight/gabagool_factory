@@ -35,8 +35,9 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 25 | A painted window occludes, as the wall it is sealed into | Level Factory 0.274.0 |
 | 26 | Delco's asphalt at a weathered road's albedo (0.035 -> 0.095 linear); cracks read in the pools | Pixelcoat 0.66.0 |
 | 27 | Stains under conductor heads and copings; the bank's string courses, quoins and scuppers back | Patina 0.41.0 |
+| 28 | The road paint worn: dirt-grey, chipped along its length | Pixelcoat 0.67.0 |
 
-**Next:** worn road markings (crisp new paint on a 1999 avenue); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
+**Next:** wheel-path wear on the crosswalk and stop bars (Lot); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams

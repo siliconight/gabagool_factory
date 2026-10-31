@@ -79,3 +79,15 @@ Arms on slice 22's walk copy, the map swapped in (`arm.py --skin`), re-baked: av
 -> 72.1 (p50 41 -> 78), road_down 45.0 -> 46.4, card_front 48.7 -> 50.7. `asphalt_ctl_aged.png`: control left,
 weathered right -- the cracks and aggregate read inside each sodium pool and the forecourt apron catches the orange.
 A map cannot move a draw.
+
+## The road paint, worn (Pixelcoat 0.67.0)
+
+The avenue's lines read crisp and new: `road_paint_delco` kept 90 % coverage at an off-white of 0.87. A control mint
+reproduced the shipped map byte for byte. Arms on slice 24's walk copy, each map swapped in and re-baked
+(frame means move under 1 of 255: the lines are a small share of a frame; the frames decide):
+
+- **70 % coverage, the wear field at 4 cells, dirt-grey -- REFUSED** (`paint_ctl_worn70_refused.png`, control left):
+  whole two-metre stretches gone, and the edge lines read as random dashes -- a broken lane line, which a driver reads
+  as "you may cross".
+- **80 %, the field at 8 cells, dirt-grey -- SHIPPED** (`paint_ctl_ragged.png`): the lines stay lines, chipped and
+  dirty along their length.
