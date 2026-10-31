@@ -37,8 +37,12 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 27 | Stains under conductor heads and copings; the bank's string courses, quoins and scuppers back | Patina 0.41.0 |
 | 28 | The road paint worn: dirt-grey, chipped along its length | Pixelcoat 0.67.0 |
 | 29 | The sidewalk flecked with gum and patched with grime | Pixelcoat 0.68.0 |
+| 30 | Side streets: two cross the avenue a block apart, each a four-way junction with crosswalks, a signal and its corners | Level Factory 0.275.0 |
+| 31 | The card shop's street face upstairs on 3 m bays, six clear windows over its apartment (in the library; not in the current pick) | Deli Counter 0.296.0 |
+| 32 | Crosswalk and stop bars worn through where the wheels run (134 bars; draws +0) | Lot 0.139.0 |
+| 33 | Utility cuts of every age: most weathered back to the road, a few fresh (draws +0) | Lot 0.140.0 |
 
-**Next:** the slice's avenue has no side street, so no corner, crosswalk or stop sign -- a Delco avenue meets one every 60-100 m (the walker's brief); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
+**Next:** rounded kerb corners at the junctions (every corner is square; the walker's Philly comps show a rounded concrete kerb); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -49,8 +53,9 @@ at the chosen line, a hand proud of the wall WITH a collider -- a Zoo species an
 column's pattern. The price harness reads a
 heading's steady draw count, not a stray frame (Level Factory 0.269.0).
 
-**Waiting on you** (section FOR THE WALKER below): rowhome gutters under parapets, the train yard on Delco Ave, and
-whether downspouts may stand proud at body height. (The trees and the evening: decided 2026-10-30, shipped above.)
+**Waiting on you** (section FOR THE WALKER below): the slice's pick moved when the side streets went in (item 6);
+rowhome gutters under parapets, the train yard -- now an airport terminal -- on Delco Ave, and whether downspouts may
+stand proud at body height. (Side streets and the card shop's windows: decided 2026-10-31, shipped above.) (The trees and the evening: decided 2026-10-30, shipped above.)
 
 **Open and not yet solved:** the slice is over the 2,000-draw budget at two headings in every build (2,312-2,393,
 from the rail yard looking back down the avenue); a draw-attribution probe disagrees with the harness about that view
@@ -79,6 +84,58 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+6. **The slice's pick moved when the side streets went in.** The level the pipeline chooses is now seed 9205 -- the
+   gas station, `bank_branch_a03`, `airport_terminal_a03` and `self_storage_a03` -- not 9104 (the gas station,
+   `bank_branch_a02`, the card shop and the train yard). Seed 9104 graded 100 before and 85 after: Laser Tag's crew
+   now dies in 8 s on it. Why, as measured (slice 26 below): the six enemy hooks it plays against are provisional,
+   spread along the crew's route knowing building footprints but not streets, and two now stand in the new side
+   street's carriageway with the parked cars kept clear of them -- while Lot's cover plan and the map's exposure
+   both say the street is no more open than the parking lot it replaced. So the card shop's new windows and the bank
+   a02's composed upper storey are in the library and not in the slice. Keep 9205; or teach the provisional hooks to
+   keep out of a carriageway (a Lot change, Laser Tag stays bounded) and let the pick settle again; or name the
+   avenue's fabric in its cluster, which would also answer item 4 and the airport terminal now standing on the
+   avenue.
+
+## 2026-10-31 -- slices 26 to 28: side streets, the card shop's rhythm, the bars worn, the cuts aged -- SHIPPED (28)
+
+The walker, 2026-10-31: "yes add side streets" and "yes to window rhythm".
+
+**Slice 26: side streets** (Level Factory 0.275.0's `side_streets` grammar; the slice brief asks for it). On every
+candidate two streets cross the avenue in the row's gaps that hold a 20 m band, each an X: 9104 at x -46.6 and 50.5
+(96.8 m apart), 9205 at -56.6 and 67.5. From the gas station's corner the junction reads as one -- worn continental
+bars, a signal mast, a kerb corner with its bin, cars parked down the side street (`gas_oblique`). Built with no
+price: the Deli Counter clone was rebuilding the library beside it.
+
+**What it moved: the pick.** 9104 graded 100 in slice 24 and 85 here (`LT_MAP_NO_REACTION_TIME`: crew survival 36.0 ->
+8.2 s, player deaths 8 -> 36); 9205 went 90 -> 90 (deaths 6 -> 35) and won. Attributed, in this order:
+* the crew's spawn, the route and all six enemy hooks are byte-identical between the two builds' `level.tscn`;
+* the map is not more exposed: Laser Tag's own sample reads 47 % overexposed in slice 24 and 37 % here, cover 53 ->
+  55 %; Lot's cover plan reports `still_open: 0`, `route_open: 0` in both;
+* what changed under the hooks: the gap between the gas station and the bank was a parking lot (a box truck at
+  (-54.2, 1.3), a car at (-56.4, -18.5)); it is now the side street's carriageway, with enemies 2 and 3 standing in
+  it. Of its 20 bays, L8, R7 and R8 drew a car and were refused for `site_cover.MARKER_CLEARANCE` round those hooks,
+  so they stand in open road;
+* not measured: where the crew dies -- every `PlayerKilled` event's position is (0, 0, 0) in the report.
+So the hooks, which are provisional (spread along the route by `site_spawns.place_enemies`, knowing footprints and
+not carriageways), met new geometry. Not acted on: the gameplay layer is provisional and Laser Tag work is bounded.
+Put to the walker (item 6). No seed is pinned.
+
+**Slice 27** (Deli Counter 0.296.0, Lot 0.139.0 from its clone; against slice 26): the card shop's street face
+upstairs is six 1.4 m windows on 3.0 m bays, clear glass, its apartment refurnished round them -- in the library, not
+in the pick. The wheel wear, parked since slice 25, has its junctions: 134 bars carry gaps, and from the corner the
+bars break in two bands a lane, as a crossing traffic uses does. Draws median +0, largest +0 over 53 headings; p95
+median -0.04 ms (controls 2.37 ms apart: weak).
+
+**Slice 28: the cuts aged** (Lot 0.140.0 from its clone; against slice 27). In the pools every utility cut read as a
+near-black bar across the lane, a painted shadow: one tint, 0.42 of the road, for every cut. Now a seeded age each,
+fresh 0.42 to old 0.84, in the vertex colour on the one material. **A wrong turn, kept:** the first look at slice 28
+read the near bar unchanged and took it for a lighting fault, and a face-winding check was run against the paint's
+meshes (both wound up; refuted). Reading the meshes settled it: the near bar is the patch that drew age 0.03, the one
+behind it drew 0.98 and has gone back into the road (`crops_s27_s28_patch_age.png`). Draws median +0, largest +0.5
+(controls' floor 1).
+
+**Seen and next:** every junction corner is square, two sidewalk slabs meeting at a right angle, where the walker's
+Philly comps show a rounded concrete kerb; an airport terminal's blank shed on the avenue (the draw's choice).
 
 ## 2026-10-31 -- slice 25: wheel-path wear on the bars -- PARKED
 

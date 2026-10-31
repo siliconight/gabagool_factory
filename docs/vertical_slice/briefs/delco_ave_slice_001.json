@@ -5,7 +5,7 @@
   "archetype": "gas_station",
   "building_count": 4,
   "site_shape": "strip",
-  "road_grammar": "avenue",
+  "road_grammar": "side_streets",
   "cluster": "D01_delco_avenue",
   "route_shape": "linear_push",
   "objective_hypotheses": [
@@ -25,5 +25,5 @@
     20,
     30
   ],
-  "notes": "The game's vertical slice (the walker, 2026-10-29): 'Delco Ave. Gas Station + Bank + some random buildings', at the visual target of docs/findings/realism_trial/ -- made by the tools, with nothing patched by hand. The Delco Ave panel template's avenue, anchored on a gas station, with Level Factory's D01_delco_avenue cluster (>= 0.268.0) putting one branch bank beside it and the library's seeded draw for the rest."
+  "notes": "The game's vertical slice (the walker, 2026-10-29): 'Delco Ave. Gas Station + Bank + some random buildings', at the visual target of docs/findings/realism_trial/ -- made by the tools, with nothing patched by hand. The Delco Ave panel template's avenue, anchored on a gas station, with Level Factory's D01_delco_avenue cluster (>= 0.268.0) putting one branch bank beside it and the library's seeded draw for the rest. Side streets cross the avenue a block apart (the walker, 2026-10-31: 'yes add side streets'; Level Factory >= 0.275.0's side_streets grammar)."
 }

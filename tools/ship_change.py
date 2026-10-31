@@ -322,7 +322,17 @@ def cmd_patch(args):
         want = lf_text((clone / name).read_bytes(), "the clone's " + name)
         pins[name] = sha(old)
         h = hunks(old, want)
-        if apply_hunks(old, h, name) != want:
+        # each anchor is unique in the OLD file, but the patch applies them in turn: an earlier hunk's new text can
+        # repeat a later anchor (Deli Counter 0.296.0's `compose_front` repeated a line of `compose_unreached`'s
+        # loop), and then the file is carried whole rather than refused
+        try:
+            sequential = apply_hunks(old, h, name) == want
+        except Failed:
+            sequential = False
+            print("  %s: an anchor repeats once the hunks before it apply" % name)
+        if sequential is False and len(h) <= args.whole_over:
+            h = [None] * (args.whole_over + 1)
+        elif not sequential:
             raise Failed("%s: the hunks do not reproduce the clone's file" % name)
         if len(h) > args.whole_over:
             whole[name] = want
