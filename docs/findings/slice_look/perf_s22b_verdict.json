@@ -1,0 +1,35 @@
+{
+  "verdict": "FAIL",
+  "action": "Do not release. Split the batch and price the halves until one change owns the cost; make it cheaper (merge by material, MultiMesh, fewer materials) or revert it.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 965.0,
+  "p95_median_delta_ms": 0.064,
+  "p95_largest_delta_ms": 5.473,
+  "floor_draws": 0,
+  "floor_ms": 0.622,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [
+    "camera_socket_0 yaw 270.0 over budget: 2212 draws, 13.56 ms p95"
+  ],
+  "watch": [
+    "camera_socket_0 yaw 270.0 draws +468 (2212 against 1744)",
+    "camera_socket_0 yaw 270.0 p95 +2.834 ms, past the floor 0.622",
+    "camera_socket_0 yaw 270.0 near budget: 2212 draws, 13.56 ms p95",
+    "camera_socket_1 yaw 0.0 draws +45 (306 against 261)",
+    "camera_socket_1 yaw 90.0 draws +258 (1761 against 1503)",
+    "camera_socket_1 yaw 90.0 p95 +1.223 ms, past the floor 0.622",
+    "camera_socket_1 yaw 90.0 near budget: 1761 draws, 10.69 ms p95",
+    "camera_socket_1 yaw 180.0 draws +260 (592 against 332)",
+    "camera_socket_1 yaw 180.0 p95 +1.911 ms, past the floor 0.622",
+    "camera_socket_1 yaw 270.0 draws +965 (1224 against 259)",
+    "camera_socket_1 yaw 270.0 p95 +5.473 ms, past the floor 0.622",
+    "extraction_11 yaw 90.0 p95 +0.640 ms, past the floor 0.622",
+    "extraction_11 yaw 90.0 near budget: 2279 draws, 12.37 ms p95",
+    "longest_sightline yaw 90.0 near budget: 2320 draws, 12.60 ms p95",
+    "player_start_27 yaw 270.0 near budget: 1691 draws, 10.11 ms p95"
+  ]
+}

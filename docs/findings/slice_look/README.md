@@ -30,8 +30,11 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 20 | Grime at every wall's base: darkest at the ground, a wandering top, ending at doors and corners (draws +0) | Patina 0.40.0, Zoo 1.154.0 |
 | 21 | A draw distance from each part's own size: the long views -36 to -100 draws, nothing visible lost | Level Factory 0.272.0 |
 | 22 | The draw distance on the merged meshes; a solid object keeps its silhouette: the long views -31 to -53 draws | Level Factory 0.273.0 |
+| 23 | Sodium pools: a cobra head's throw baked, 2.5 x the pool; the avenue's road and the rowhome brick lit warm at dusk (draws +0 median) | Lux 0.82.0 |
+| 24 | The bank's empty upper storey composed on equal 3 m bays, painted as offices after hours | Deli Counter 0.295.0 |
+| 25 | A painted window occludes, as the wall it is sealed into | Level Factory 0.274.0 |
 
-**Next:** the avenue's ground at evening -- the sodium pools; stains under copings and scuppers; denser maple and oak crowns;
+**Next:** the asphalt's albedo (0.035 linear, darker than new asphalt; aged is 0.10-0.20 -- an arm is ready); the sodium pools at midnight; stains under copings and scuppers; denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -72,6 +75,37 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-30 -- slice 22: sodium pools, and the bank's upper storey -- SHIPPED (22c)
+
+The walker: "focus less on the draw distance stuff and keep getting us closer to that amazing vertical slice look".
+Judged from slice 21's frames, the two largest things wrong: the avenue's ground at Blue Hour read as a black band
+across every street view, its sodium lamps lighting nothing the eye could find; and the bank's upper storey stood two
+windows on each 30 m and 22 m face, a warehouse's rhythm, glazed clear onto an empty box. `crops_s21_s22_bank.png`:
+slice 21 left, 22 right; the bank oblique in the level's light, the same under the inspection light, the sidewalk.
+
+- **Lux 0.82.0, the sodium pools** (`docs/findings/sodium_pools/`, five re-baked arms): the pool x 2.5, and a cobra
+  head's 70 degree throw with a bake range to its edge, lent to the lightmap only. Pools on the road and the rowhome
+  brick beside each pole raked orange against the blue.
+- **Deli Counter 0.295.0, a storey nobody reaches is a facade**: an upper storey with no room and no stair -- one in
+  the library, the bank's -- composed on equal 3.0 m bays (10 a long face, 7 a short one) and painted as offices
+  after hours, 15 of 34 lit; its windows derive no light. Across the library the multi-storey buildings carry a
+  median 20 m of upper wall a window; the rest have rooms behind their windows and are not touched.
+- **Slice 22, RETRACTED: the live 70 degree cone.** Built first as the lamp's live cone, the price failed: draws
+  median +315, largest +1,691 (`perf_s22_*`), objects doubling where the cone reached -- a static lamp's live light
+  still reaches every object in its cone and Compatibility draws each one again for it. Slice 22b lent the cone to
+  the bake alone: median +0 (`perf_s22b_*`).
+- **Slice 22b, and Level Factory 0.274.0: a painted window occludes.** 22b still drew +965 at the camera socket on
+  the bank's upper storey (259 -> 1,224): `bake_occluders.gd` held every `window_` porous, and a painted pane is a
+  sealed one. Every Empty's painted windows had been porous too. Slice 22c: occluders 1,918 -> 2,177, porous modules
+  388 -> 129, that view 1,224 -> 624.
+
+**Price** (`perf_s22c_*`, slice 21 the control; the controls 1.29 ms apart, a weak frame-time verdict): the median
+heading +0 draws and -0.08 ms p95; the worst street view, longest_sightline yaw 90, 2,312 -> 2,320. **Not
+attributed:** the two camera sockets set on building faces at upper-storey height, +134 to +365 -- the size probe at
+those headings counts the same objects in the frustum (+-16), so what moved there is culling, not submissions added.
+One unproven reading: the bank's upper walls are now 17 modules a face where they were 3, and each occluder box is
+shrunk 2 cm a side, so the cracks between them multiply, widest seen from a camera on the wall itself.
 
 ## 2026-10-30 -- slice 21: the draw distance on the merged meshes, and cover keeps its silhouette -- SHIPPED
 
