@@ -37,7 +37,7 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 27 | Stains under conductor heads and copings; the bank's string courses, quoins and scuppers back | Patina 0.41.0 |
 | 28 | The road paint worn: dirt-grey, chipped along its length | Pixelcoat 0.67.0 |
 
-**Next:** wheel-path wear on the crosswalk and stop bars (Lot); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
+**Next:** the slice's avenue has no side street, so no corner, crosswalk or stop sign -- a Delco avenue meets one every 60-100 m (the walker's brief); the card shop's upper storey (two windows, rooms behind them: the walker's call -- the facade planner's step 4); denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -78,6 +78,16 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    lowest band clear of a 1.8 m body. But downspouts (7 cm proud, gutter to the ground, no collision) have shipped
    since Patina 0.25.0 down every face with an opening -- the same shape at the same height. Exempt small trim (and
    say how small), give downspouts a collider, or stop them above body height?
+
+## 2026-10-31 -- slice 25: wheel-path wear on the bars -- PARKED
+
+Lot, unversioned (`patches/patch_lot_wheelwear.py`, proven against a fresh clone, not applied): two wheel paths a
+driving lane, and a seeded 70 % of the crossings worn through a crosswalk or stop bar, each bar still one marking
+with its `gaps`, painted as its pieces. **Built on slice 25 and seen nowhere**: the slice's avenue has no crossing,
+so its markings carry no crosswalk or stop bar at all (edge lines, centre dashes, bay ticks and lines only) -- draws
++0, frames unchanged. Parked to ship with the first level that has a junction, after its frames. **What it showed
+instead:** the slice is one straight 240 m avenue with no side street -- no corner, crosswalk or stop sign, where a
+Delco avenue meets one every 60-100 m. That is the brief's, and put to the walker.
 
 ## 2026-10-31 -- slices 23 and 24: everything shipped together, and the regression it showed -- SHIPPED (24)
 
