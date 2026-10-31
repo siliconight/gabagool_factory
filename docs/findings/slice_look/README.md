@@ -33,8 +33,9 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 23 | Sodium pools: a cobra head's throw baked, 2.5 x the pool; the avenue's road and the rowhome brick lit warm at dusk (draws +0 median) | Lux 0.82.0 |
 | 24 | The bank's empty upper storey composed on equal 3 m bays, painted as offices after hours | Deli Counter 0.295.0 |
 | 25 | A painted window occludes, as the wall it is sealed into | Level Factory 0.274.0 |
+| 26 | Delco's asphalt at a weathered road's albedo (0.035 -> 0.095 linear); cracks read in the pools | Pixelcoat 0.66.0 |
 
-**Next:** the asphalt's albedo (0.035 linear, darker than new asphalt; aged is 0.10-0.20 -- an arm is ready); the sodium pools at midnight; stains under copings and scuppers; denser maple and oak crowns;
+**Next:** a fresh slice built on everything shipped (slice 23); stains under copings and scuppers; denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams

@@ -52,3 +52,30 @@ preset's fixture scale from its `sky_energy`, and 0.81.0 lifted Blue Hour's to 1
 fixtures -- so the test failed on Blue Hour, and 0.81.0's record says it was not run. 0.82.0 has the test judge Blue
 Hour's fixtures against the sky they were tuned under (0.7), with the reason in the test. `streetlight_shadow_selftest`
 opens a window by design and fails headless; run as its header says, it passes on 0.82.0.
+
+## Midnight: is x 2.5 too hot? (`night.py`)
+
+`STREETLIGHT_LEVEL` was judged at midnight and every preset that lights its lamps takes it. Slices 21 (Lux 0.81.0) and
+22 (0.82.0) re-baked under `delco_night` and shot (frame mean, median, share of pixels with a channel >= 250):
+
+| Station | slice 21 | slice 22 |
+|---|---|---|
+| ave_east | 4.5, 1, 0.003 | 8.7, 1, 0.003 |
+| sidewalk_east | 2.7, 0, 0.001 | 3.3, 0, 0.001 |
+| bank_oblique | 3.0, 0, 0.000 | 4.3, 0, 0.002 |
+| road_down | 3.3, 0, 0.001 | 4.3, 1, 0.001 |
+
+No clipping gained: the pools add light and blow nothing out. **Seen, not pursued:** at midnight the slice is near
+black either way (means 3-9 of 255). The slice is set at evening, so midnight is not its slot; a level that ships at
+midnight would need its own look.
+
+## The asphalt's albedo (Pixelcoat 0.66.0)
+
+Under the inspection light the road read mid-grey; in the level's light at dusk, black. `asphalt_delco`'s albedo map
+measured 0.035 linear -- darker than fresh asphalt (0.05-0.10), a third of a weathered road (0.10-0.20) -- minted at
+0.30.0 and never retuned for brightness; nothing records the walker choosing a dark road. A control mint at the
+shipped settings reproduced the shipped map exactly (0.0348); base colours #52514d / #5a5955 / #4a4945 mint 0.095.
+Arms on slice 22's walk copy, the map swapped in (`arm.py --skin`), re-baked: ave_east 48.9 -> 57.0, gas_front 61.6
+-> 72.1 (p50 41 -> 78), road_down 45.0 -> 46.4, card_front 48.7 -> 50.7. `asphalt_ctl_aged.png`: control left,
+weathered right -- the cracks and aggregate read inside each sodium pool and the forecourt apron catches the orange.
+A map cannot move a draw.
