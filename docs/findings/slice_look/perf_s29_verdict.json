@@ -1,0 +1,37 @@
+{
+  "verdict": "WATCH",
+  "action": "Release, then look at the frames at the headings named above and record what moved there.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 101.0,
+  "p95_median_delta_ms": -0.041,
+  "p95_largest_delta_ms": 0.76,
+  "floor_draws": 0,
+  "floor_ms": 0.706,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [],
+  "watch": [
+    "attacker_spawn_10 yaw 90.0 near budget: 3009 draws, 14.76 ms p95",
+    "attacker_spawn_8 yaw 0.0 draws +85 (862 against 777)",
+    "attacker_spawn_8 yaw 270.0 near budget: 2414 draws, 13.21 ms p95",
+    "attacker_spawn_9 yaw 270.0 draws +77 (1368 against 1291)",
+    "camera_socket_0 yaw 90.0 draws +56 (331 against 275)",
+    "camera_socket_0 yaw 270.0 near budget: 3226 draws, 17.13 ms p95",
+    "camera_socket_1 yaw 90.0 draws +91 (1874 against 1783)",
+    "camera_socket_1 yaw 90.0 near budget: 1874 draws, 10.94 ms p95",
+    "defender_spawn_22 yaw 90.0 draws +101 (713 against 612)",
+    "extraction_11 yaw 90.0 near budget: 2068 draws, 10.90 ms p95",
+    "extraction_11 yaw 270.0 draws +71 (1203 against 1132)",
+    "extraction_14 yaw 90.0 near budget: 2902 draws, 14.63 ms p95",
+    "highest_vantage yaw 90.0 draws +74 (1199 against 1125)",
+    "highest_vantage yaw 270.0 near budget: 2169 draws, 11.75 ms p95",
+    "longest_sightline yaw 90.0 p95 +0.760 ms, past the floor 0.706",
+    "longest_sightline yaw 90.0 near budget: 3009 draws, 15.63 ms p95",
+    "objective_5 yaw 90.0 draws +98 (690 against 592)",
+    "player_start_25 yaw 0.0 draws +85 (933 against 848)",
+    "player_start_25 yaw 270.0 near budget: 2295 draws, 12.81 ms p95"
+  ]
+}

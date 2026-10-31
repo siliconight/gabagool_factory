@@ -41,8 +41,15 @@ Judged by `RUBRIC.md`. The slice is `docs/vertical_slice/` (Delco Ave: a gas sta
 | 31 | The card shop's street face upstairs on 3 m bays, six clear windows over its apartment (in the library; not in the current pick) | Deli Counter 0.296.0 |
 | 32 | Crosswalk and stop bars worn through where the wheels run (134 bars; draws +0) | Lot 0.139.0 |
 | 33 | Utility cuts of every age: most weathered back to the road, a few fresh (draws +0) | Lot 0.140.0 |
+| 34 | Street trees pruned clear of the walk: no leaf under 8 ft (draws +0 median, up to +101 at cheap views) | Zoo 1.155.0 |
+| 35 | Seven CC0 sign faces vendored, with provenance (Ray Larabie's public-domain set) | Pixelcoat 0.69.0 |
+| 36 | Every shop in its own face by trade (12 voices where there was one); neon as a tube; panels weathered | Pixelcoat 0.70.0 |
+| 37 | A shop sign hangs on its fascia, or on its roof edge where there is none, sized to the building | Lot 0.141.0 |
 
-**Next:** rounded kerb corners at the junctions (every corner is square; the walker's Philly comps show a rounded concrete kerb); denser maple and oak crowns;
+**Next (the walker's signage, 2026-10-31, `docs/reference/STORE_SIGNAGE_COMPS.md`):** window beer neon bent in a
+script (Zoo 1.156.0, in test); then a beer distributor and the dive bar (The Wooder Hole), their windows and back bars
+full of beer neon; then Zoo's 3D channel letters and neon from the sign pack. After: rounded kerb corners at the
+junctions; denser maple and oak crowns;
 what the pilasters cost at extraction_12 (+32 draws, not per-pier submission). **Pilasters, why that shape:** the bank's long blank flank divided
 into bays. **Carving them into the wall modules does not work, kept:** a carved pier can stand only on a module
 seam, and Deli Counter tiles each storey round its own openings -- on the bank's east side the ground storey's seams
@@ -95,6 +102,32 @@ from the rail yard looking back down the avenue); a draw-attribution probe disag
    keep out of a carriageway (a Lot change, Laser Tag stays bounded) and let the pick settle again; or name the
    avenue's fabric in its cluster, which would also answer item 4 and the airport terminal now standing on the
    avenue.
+
+## 2026-10-31 -- slices 29 and 30: trees pruned clear of the walk; every shop in its own face, on its fascia -- SHIPPED (30)
+
+**Slice 29: the crown raised** (Zoo 1.155.0; against slice 28). Measured on the built trees: leaf cards down to
+0.53 m over the grate on the pin oak, 0.91 m on the London plane, 1.16 m on the red maple -- a body walked through
+cards at eye height, the `sidewalk_east` camera stood inside a crown of near-black blocks, and every sightline down a
+sidewalk was screened by leaves. Every species now lifts its skeleton before its cards are placed so each card clears
+8 ft (`tree_forms.CROWN_CLEAR_M`), the crown's top and its limbs' order kept; a young tree too short to clear is lifted
+only as far as its crown keeps its shape (`LIFT_K_MIN`: without it the generic tree at its smallest corner went 6 ->
+187 coincident face pairs). The camera under the crown now sees the street. **Price, said:** draws median +0; up to
++101 at headings of 331-1,874 draws, +43 at the 3,009-draw `longest_sightline`, two near-budget views -6 and -9; p95
+median -0.04 ms, largest +0.76 ms. **Not attributed, the leading reading:** crowns that sat under a one-storey roof
+line now stand over it, so the occluders hide fewer trees from across the block.
+
+**Slice 30: the signs** (Pixelcoat 0.69.0 and 0.70.0, Lot 0.141.0; against slice 29). The walker: "store signage
+still looks...wrong ... placement, size of font, neon, better/more varied CC0 fonts", and "different kinds of stores
+should have different fonts/signage". Every business was Blue Highway Condensed in one colour on one panel, hung at
+3.6 m whatever the building (on the self-storage, mostly in the air over its roof) and stopped at 9 m. Now: seven CC0
+faces (Ray Larabie's public-domain set, by Debian's mirror -- the designer's own download refuses a non-browser
+client, and dressing a script up as a browser to get past that was not done), each business its face by trade, its
+letters two thirds of the band, scripts in title case, neon as a tube round each letter, painted panels weathered and
+seamed; and the band on the fascia between the shop front's heads and the windows above, or on the roof edge where
+there is no fascia, sized to the building. BEER WORLD stands on its roof edge in stovepipe capitals, 13.2 m wide;
+PIKE SAVINGS on the bank's fascia in a serif. **Price:** draws median +0, largest +2; p95 median -0.09 ms (controls
+4.2 ms apart: weak). **Considered and not vendored:** the Hershey single-stroke fonts, the right shape for neon tube
+but public domain with conditions, not CC0 -- so Zoo 1.156.0 FINDS a face's strokes instead.
 
 ## 2026-10-31 -- slices 26 to 28: side streets, the card shop's rhythm, the bars worn, the cuts aged -- SHIPPED (28)
 

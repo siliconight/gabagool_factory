@@ -1,0 +1,30 @@
+{
+  "verdict": "WATCH",
+  "action": "Release, then look at the frames at the headings named above and record what moved there.",
+  "headings": 53,
+  "draws_median_delta": 0.0,
+  "draws_largest_delta": 2.0,
+  "p95_median_delta_ms": -0.093,
+  "p95_largest_delta_ms": 1.879,
+  "floor_draws": 0,
+  "floor_ms": 4.244,
+  "budgets": {
+    "draws": 2000,
+    "ms_p95": 11.0
+  },
+  "fail": [],
+  "watch": [
+    "the controls disagree by up to 4.244 ms, past 1.0: the frame-time verdict is weak; re-price",
+    "attacker_spawn_10 yaw 90.0 near budget: 3008 draws, 16.49 ms p95",
+    "attacker_spawn_8 yaw 90.0 near budget: 1529 draws, 9.91 ms p95",
+    "attacker_spawn_8 yaw 270.0 near budget: 2413 draws, 14.41 ms p95",
+    "camera_socket_0 yaw 270.0 near budget: 3226 draws, 18.18 ms p95",
+    "camera_socket_1 yaw 90.0 near budget: 1872 draws, 12.37 ms p95",
+    "extraction_11 yaw 90.0 near budget: 2068 draws, 11.92 ms p95",
+    "extraction_14 yaw 90.0 near budget: 2902 draws, 14.92 ms p95",
+    "highest_vantage yaw 270.0 near budget: 2169 draws, 13.88 ms p95",
+    "longest_sightline yaw 90.0 near budget: 3008 draws, 16.80 ms p95",
+    "player_start_25 yaw 90.0 near budget: 1552 draws, 10.16 ms p95",
+    "player_start_25 yaw 270.0 near budget: 2295 draws, 13.60 ms p95"
+  ]
+}

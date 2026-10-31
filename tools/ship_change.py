@@ -39,6 +39,7 @@ Prints what it did and stops; exit 1 on any failure.
 from __future__ import annotations
 
 import argparse
+import base64
 import difflib
 import hashlib
 import os
@@ -231,6 +232,7 @@ def cmd_smoke(args):
 # ---- patch ----------------------------------------------------------------------------------------------------
 
 BODY = '''%(doc)s
+import base64
 import hashlib
 import pathlib
 import sys
@@ -241,6 +243,8 @@ PINS = %(pins)r
 EDITS = %(edits)r
 WHOLE = %(whole)r
 NEW_FILES = %(new)r
+#: binary files (a font, a texture): base64, each pinned by its sha256
+BINARY_FILES = %(binary)r
 
 
 def _sha(text):
@@ -273,15 +277,23 @@ def main():
     for name, text in WHOLE.items():
         _old, crlf = _read(name)
         out[name] = text.replace("\\n", "\\r\\n") if crlf else text
-    for name in NEW_FILES:
+    for name in list(NEW_FILES) + list(BINARY_FILES):
         if (REPO / name).exists():
             raise SystemExit("REFUSED: %%s/%%s exists already; nothing written" %% (REPO.name, name))
+    blobs = {}
+    for name, (digest, b64) in BINARY_FILES.items():
+        blobs[name] = base64.b64decode(b64)
+        if hashlib.sha256(blobs[name]).hexdigest() != digest:
+            raise SystemExit("REFUSED: %%s/%%s does not decode to its sha256; nothing written" %% (REPO.name, name))
     for name, text in out.items():
         (REPO / name).write_bytes(text.encode("utf-8"))
     for name, text in NEW_FILES.items():
         (REPO / name).parent.mkdir(parents=True, exist_ok=True)
         (REPO / name).write_bytes(text.encode("utf-8"))
-    print("%%s: %%d files edited, %%d written" %% (REPO.name, len(out), len(NEW_FILES)))
+    for name, raw in blobs.items():
+        (REPO / name).parent.mkdir(parents=True, exist_ok=True)
+        (REPO / name).write_bytes(raw)
+    print("%%s: %%d files edited, %%d written" %% (REPO.name, len(out), len(NEW_FILES) + len(blobs)))
     return 0
 
 
@@ -292,8 +304,10 @@ if __name__ == "__main__":
 
 def changed_files(clone):
     """(modified tracked files, new untracked files) in ``clone``, ``build/`` excluded."""
-    mod = [f for f in git(clone, "diff", "--name-only", "HEAD").split() if not f.startswith("build/")]
-    new = [f for f in git(clone, "ls-files", "--others", "--exclude-standard").split() if not f.startswith("build/")]
+    # by LINE: a file name may hold a space ("Deftone Stylus.otf", Pixelcoat 0.69.0)
+    mod = [f for f in git(clone, "diff", "--name-only", "HEAD").splitlines() if f and not f.startswith("build/")]
+    new = [f for f in git(clone, "ls-files", "--others", "--exclude-standard").splitlines()
+           if f and not f.startswith("build/")]
     return mod, new
 
 
@@ -339,13 +353,27 @@ def cmd_patch(args):
         else:
             edits[name] = h
         print("  %s: %s" % (name, "carried whole" if name in whole else "%d hunk(s)" % len(h)))
+    binary = {}
     for name in new:
-        new_files[name] = lf_text((clone / name).read_bytes(), "the clone's " + name)
+        raw = (clone / name).read_bytes()
+        # A BINARY FILE (2026-10-31, Pixelcoat 0.69.0's fonts) is carried as base64 pinned by its sha256: no text
+        # reading of it is meaningful, and a byte that changed in transit must refuse, not land
+        try:
+            raw.decode("utf-8")
+            textual = b"\0" not in raw
+        except UnicodeDecodeError:
+            textual = False         # a licence file in Windows-1252, as the font archive's is: kept byte for byte
+        if not textual:
+            binary[name] = (hashlib.sha256(raw).hexdigest(), base64.b64encode(raw).decode("ascii"))
+            print("  %s: new, binary (%d bytes)" % (name, len(raw)))
+            continue
+        new_files[name] = lf_text(raw, "the clone's " + name)
         print("  %s: new" % name)
     doc = pathlib.Path(args.doc).read_text(encoding="utf-8").rstrip("\n")
     if not doc.startswith('"""') or not doc.endswith('"""'):
         raise Failed("--doc must be a docstring, opening and closing with triple quotes")
-    body = BODY % {"doc": doc, "repo": args.repo, "pins": pins, "edits": edits, "whole": whole, "new": new_files}
+    body = BODY % {"doc": doc, "repo": args.repo, "pins": pins, "edits": edits, "whole": whole, "new": new_files,
+                   "binary": binary}
     compile(body, str(dest), "exec")
     dest.write_text(body, encoding="utf-8", newline="\n")
     print("wrote %s (%d chars)" % (dest, len(body)))
